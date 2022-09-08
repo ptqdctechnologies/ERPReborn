@@ -4,10 +4,7 @@
 @include('Partials.sidebar')
 @include('getFunction.getProject')
 @include('getFunction.getSite')
-@include('Inventory.DeliveryOrderRequest.Functions.PopUp.PopUpDorRevision')
-@include('getFunction.getWarehouse')
-@include('getFunction.getWarehouse2')
-@include('getFunction.getWarehouse3')
+@include('Inventory.DeliveryOrder.Functions.PopUp.PopUpDoRevision')
 
 
 <div class="content-wrapper" style="position:relative;bottom:12px;">
@@ -15,13 +12,14 @@
         <div class="container-fluid">
             <div class="row mb-1" style="background-color:#4B586A;">
                 <div class="col-sm-6" style="height:30px;">
-                    <label style="font-size:15px;position:relative;top:7px;color:white;">Delivery Order Request Revision</label>
+                    <label style="font-size:15px;position:relative;top:7px;color:white;">Delivery Order</label>
                 </div>
             </div>
-            @include('Inventory.DeliveryOrderRequest.Functions.Menu.MenuDeliveryOrderRequest')
+            @include('Inventory.DeliveryOrder.Functions.Menu.MenuDeliveryOrder')
+            @if($var == 0)
             <div class="card" style="position:relative;bottom:10px;">
                 <div class="tab-content p-3" id="nav-tabContent">
-                    @include('Inventory.DeliveryOrderRequest.Functions.Header.HeaderDor')
+                    @include('Inventory.DeliveryOrder.Functions.Header.HeaderDo')
                     <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="product-desc-tab">
                         <div class="row">
                             <div class="col-12">
@@ -36,7 +34,7 @@
                                             </button>
                                         </div>
                                     </div>
-                                    @include('Inventory.DeliveryOrderRequest.Functions.Table.tablePrDetail')
+                                    @include('Inventory.DeliveryOrder.Functions.Table.tablePrDetail')
                                 </div>
                             </div>
                         </div>
@@ -48,7 +46,7 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <label class="card-title">
-                                            Detail Delivery Order Request
+                                            Detail Delivery Order
                                         </label>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -234,7 +232,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <label class="card-title">
-                                        Delivery Order Request Cart
+                                        Delivery Order Cart
                                     </label>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -271,9 +269,10 @@
                     </div>
                 </div>
             </div>
+            @endif
         </div>
     </section>
 </div>
 @include('Partials.footer')
-@include('Inventory.DeliveryOrderRequest.Functions.Footer.FooterDor')
+@include('Inventory.DeliveryOrder.Functions.Footer.FooterDo')
 @endsection

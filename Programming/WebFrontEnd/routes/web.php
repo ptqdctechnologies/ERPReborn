@@ -191,6 +191,12 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('RevisionDeliveryOrderRequest', 'Inventory\DeliveryOrderRequestController@RevisionDeliveryOrderRequest')->name('DeliveryOrderRequest.RevisionDeliveryOrderRequest');
     Route::resource('DeliveryOrderRequest', 'Inventory\DeliveryOrderRequestController');
 
+    // DO
+    Route::post('StoreValidateDeliveryOrder', 'Inventory\DeliveryOrderController@StoreValidateDeliveryOrder')->name('DeliveryOrder.StoreValidateDeliveryOrder');
+    Route::post('StoreValidateDeliveryOrder2', 'Inventory\DeliveryOrderController@StoreValidateDeliveryOrder2')->name('DeliveryOrder.StoreValidateDeliveryOrder2');
+    Route::post('RevisionDeliveryOrder', 'Inventory\DeliveryOrderController@RevisionDeliveryOrder')->name('DeliveryOrder.RevisionDeliveryOrder');
+    Route::resource('DeliveryOrder', 'Inventory\DeliveryOrderController');
+
     //iSupp
     Route::post('StoreValidateiSupp', 'Inventory\iSuppController@StoreValidateiSupp')->name('iSupp.StoreValidateiSupp');
     Route::post('StoreValidateiSupp2', 'Inventory\iSuppController@StoreValidateiSupp2')->name('iSupp.StoreValidateiSupp2');

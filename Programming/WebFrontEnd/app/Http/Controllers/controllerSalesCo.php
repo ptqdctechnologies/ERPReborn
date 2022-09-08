@@ -18,7 +18,7 @@ class controllerSalesCo extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'dataPickList.project.getProject',
@@ -27,6 +27,12 @@ class controllerSalesCo extends Controller
                 'parameter' => []
             ]
         );
+
+        $compact = [
+            'dataProject' => $varDataProject['data']['data'],
+        ];
+        return view('Advance.Advance.Transactions.CreateAdvanceRequest', $compact);
+
         
         return view('Sales.CO.Transactions.index', ['data' => $varData['data']['data']]);
     }

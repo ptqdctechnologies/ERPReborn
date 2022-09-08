@@ -93,22 +93,21 @@
                     </div>
                   </div>
                   <div class="card-body table-responsive p-0" id="detailASF">
-                    <table class="table text-nowrap table-sm" style="text-align: center;width:130%;">
+                    <table class="table text-nowrap table-sm" style="text-align: center;width:100%;">
                       <thead>
                         <tr>
                           <th rowspan="2" style="padding-bottom:17px;border:2px solid #e9ecef;width:14%;"> ARF Number</th>
-                          <th rowspan="2" style="padding-bottom:17px;border:2px solid #e9ecef;"> ARF Date</th>
-                          <th colspan="6" style="border:2px solid #e9ecef;">Expense Claim</th>
-                          <th colspan="6" style="border:2px solid #e9ecef;">Amount due To Company</th>
+                          <th colspan="5" style="border:2px solid #e9ecef;">Expense Claim</th>
+                          <th colspan="5" style="border:2px solid #e9ecef;">Amount due To Company</th>
                           <th rowspan="2" colspan="2" style="padding-bottom:17px;border:2px solid #e9ecef;"> Balance</th>
                         </tr>
                         <tr>
                           <th colspan="2" style="border:2px solid #e9ecef;"> Qty</th>
-                          <th colspan="2" style="border:2px solid #e9ecef;"> Price</th>
+                          <th style="border:2px solid #e9ecef;"> Price</th>
                           <th colspan="2" style="border:2px solid #e9ecef;"> Total</th>
 
                           <th colspan="2" style="border:2px solid #e9ecef;"> Qty</th>
-                          <th colspan="2" style="border:2px solid #e9ecef;"> Price</th>
+                          <th style="border:2px solid #e9ecef;"> Price</th>
                           <th colspan="2" style="border:2px solid #e9ecef;"> Total</th>
                         </tr>
                       </thead>
@@ -116,11 +115,6 @@
                         <td style="border:1px solid #e9ecef;">
                           <div class="input-group">
                             &nbsp;<input readonly name="var_arf_number" id="arf_number" style="border-radius:0;" type="text" class="form-control">
-                          </div>
-                        </td>
-                        <td style="border:1px solid #e9ecef;width:8%;">
-                          <div class="input-group">
-                            <input readonly name="var_arf_date" id="arf_date" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
 
@@ -145,11 +139,11 @@
                             <input id="put_price_expense" style="border-radius:0;" type="hidden" class="form-control">
                           </div>
                         </td>
-                        <td style="border:1px solid #e9ecef;width:4%;">
+                        <!-- <td style="border:1px solid #e9ecef;width:4%;">
                           <div class="input-group">
                             <input readonly id="price_expense2" style="border-radius:0;" type="text" class="form-control">
                           </div>
-                        </td>
+                        </td> -->
                         <td style="border:1px solid #e9ecef;">
                           <div class="input-group">
                             <input readonly id="total_expense" style="border-radius:0;" type="text" class="form-control">
@@ -177,11 +171,11 @@
                             <input id="put_price_amount" style="border-radius:0;" type="hidden" class="form-control">
                           </div>
                         </td>
-                        <td style="border:1px solid #e9ecef;width:4%;">
+                        <!-- <td style="border:1px solid #e9ecef;width:4%;">
                           <div class="input-group">
                             <input readonly id="price_amount2" style="border-radius:0;" type="text" class="form-control">
                           </div>
-                        </td>
+                        </td> -->
                         <td style="border:1px solid #e9ecef;">
                           <div class="input-group">
                             <input readonly id="total_amount" style="border-radius:0;" type="text" class="form-control">

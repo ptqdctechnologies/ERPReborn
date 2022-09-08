@@ -170,7 +170,7 @@
                           <input id="statusEditPr" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
                           <input id="ValidateQuantity" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                           <input id="ValidatePrice" style="border-radius:0;" type="hidden" class="form-control" readonly="">
-                            <input id="ValidateRemark" style="border-radius:0;" type="hidden" class="form-control">
+                          <input id="ValidateRemark" style="border-radius:0;" type="hidden" class="form-control">
                         </tbody>
                       </table>
                       <br>
@@ -204,18 +204,18 @@
                     </div>
 
                     <div class="card-body table-responsive p-0" id="detailPurchaseRequisitionList">
-                      <table class="table table-head-fixed text-nowrap table-sm TablePurchaseRequisition" style="text-align: center;">
+                      <table class="table table-head-fixed text-nowrap table-sm TablePurchaseRequisition">
                         <thead>
                           <tr>
-                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">&nbsp;Action</th>
-                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">Product Id</th>
-                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">Product Name</th>
-                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">Qty</th>
-                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">Uom</th>
-                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">Price</th>
-                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">Total</th>
-                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">Currency</th>
-                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">Remark</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Action</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Product Id</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Product Name</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Qty</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Uom</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Price</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Total</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Currency</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Remark</th>
                           </tr>
                         </thead>
                         <tbody>

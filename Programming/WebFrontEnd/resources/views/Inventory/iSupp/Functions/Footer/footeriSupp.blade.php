@@ -124,7 +124,7 @@
 
                         $("#productiSuppDetail").val($this.data("id1"));
                         $("#productiSuppDetail2").val($this.data("id2"));
-                        $("#balanceiSupp").val($this.data("id5").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                        $("#balanceiSupp").val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                         $("#qtyiSuppChange").val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                         $("#qtyiSupp").val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                         $("#UomiSupp").val($this.data("id7"));
@@ -214,7 +214,7 @@
                                 $("#qtyiSuppChange").val($this.data("id3"));
                                 $("#qtyiSuppEdit").val($this.data("id3"));
                                 $("#UomiSupp").val($this.data("id4"));
-                                $("#balanceiSupp").val($this.data("id5"));
+                                $("#balanceiSupp").val($this.data("id3"));
                                 $("#remarkiSuppDetail").val($this.data("id6"));
                                 $("#remarkiSuppDetail2").val($this.data("id6"));
                                 $("#statusEditiSupp").val("Yes");

@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 
-class DeliveryOrderRequestController extends Controller
+class DeliveryOrderController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +17,7 @@ class DeliveryOrderRequestController extends Controller
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionDeliveryOrderRequest");
+        $request->session()->forget("SessionDeliveryOrder");
 
         $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -54,43 +55,43 @@ class DeliveryOrderRequestController extends Controller
             'var' => $var,
         ];
         
-        return view('Inventory.DeliveryOrderRequest.Transactions.CreateDeliveryOrderRequest', $compact);
+        return view('Inventory.DeliveryOrder.Transactions.CreateDeliveryOrder', $compact);
 
     }
 
-    public function StoreValidateDeliveryOrderRequest(Request $request)
+    public function StoreValidateDeliveryOrder(Request $request)
     {
         $tamp = 0; $status = 200;
         $val = $request->input('productIdDorDetail');
-        $data = $request->session()->get("SessionDeliveryOrderRequest");
-        if($request->session()->has("SessionDeliveryOrderRequest")){
+        $data = $request->session()->get("SessionDeliveryOrder");
+        if($request->session()->has("SessionDeliveryOrder")){
             for($i = 0; $i < count($data); $i++){
                 if($data[$i] == $val){
                     $tamp = 1;
                 }
             }
             if($tamp == 0){
-                $request->session()->push("SessionDeliveryOrderRequest", $val);
+                $request->session()->push("SessionDeliveryOrder", $val);
             }
             else{
                 $status = 500;
             }
         }
         else{
-            $request->session()->push("SessionDeliveryOrderRequest", $val);
+            $request->session()->push("SessionDeliveryOrder", $val);
         }
 
         return response()->json($status);
     }
 
-    public function StoreValidateDeliveryOrderRequest2(Request $request)
+    public function StoreValidateDeliveryOrder2(Request $request)
     {
-        $messages = $request->session()->get("SessionDeliveryOrderRequest");
+        $messages = $request->session()->get("SessionDeliveryOrder");
         $val = $request->input('productIdDorDetail');
         if (($key = array_search($val, $messages)) !== false) {
             unset($messages[$key]);
             $newClass = array_values($messages);
-            $request->session()->put("SessionDeliveryOrderRequest", $newClass);
+            $request->session()->put("SessionDeliveryOrder", $newClass);
         }
     }
 
@@ -141,10 +142,10 @@ class DeliveryOrderRequestController extends Controller
         return response()->json($dataAll2);
     }
 
-    public function RevisionDeliveryOrderRequest(Request $request)
+    public function RevisionDeliveryOrder(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionDeliveryOrderRequest");
+        $request->session()->forget("SessionDeliveryOrder");
 
         $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -177,7 +178,7 @@ class DeliveryOrderRequestController extends Controller
             'dataAdvanceRequest' => $varDataAdvanceRequest['data']
         ];
         
-        return view('Inventory.DeliveryOrderRequest.Transactions.RevisionDeliveryOrderRequest', $compact);
+        return view('Inventory.DeliveryOrder.Transactions.RevisionDeliveryOrder', $compact);
     }
 
     public function show($id)
