@@ -5,15 +5,18 @@ declare(strict_types=1);
 namespace League\Flysystem\PhpseclibV3;
 
 use League\Flysystem\AdapterTestUtilities\ToxiproxyManagement;
-use phpseclib3\Exception\NoSupportedAlgorithmsException;
 use phpseclib3\Net\SFTP;
 use PHPUnit\Framework\TestCase;
+use Throwable;
 
 use function base64_decode;
 use function class_exists;
 use function explode;
+use function getenv;
 use function hash;
 use function implode;
+use function is_a;
+use function sleep;
 use function str_split;
 
 /**
@@ -46,7 +49,7 @@ class SftpConnectionProviderTest extends TestCase
                 'password' => 'pass',
                 'port' => 2222,
                 'timeout' => 10,
-                'connectivityChecker' => new FixatedConnectivityChecker(5)
+                'connectivityChecker' => new FixatedConnectivityChecker(5),
             ]
         );
 
@@ -64,7 +67,7 @@ class SftpConnectionProviderTest extends TestCase
             'password' => 'pass',
             'port' => 2222,
             'timeout' => 10,
-            'connectivityChecker' => new FixatedConnectivityChecker(4)
+            'connectivityChecker' => new FixatedConnectivityChecker(4),
         ]);
         $connection = $provider->provideConnection();
         $sameConnection = $provider->provideConnection();
@@ -78,17 +81,18 @@ class SftpConnectionProviderTest extends TestCase
      */
     public function authenticating_with_a_private_key(): void
     {
-        $provider = SftpConnectionProvider::fromArray(
-            [
-                'host' => 'localhost',
-                'username' => 'bar',
-                'privateKey' => __DIR__ . '/../../test_files/sftp/id_rsa',
-                'passphrase' => 'secret',
-                'port' => 2222,
-            ]
-        );
+        $provider = SftpConnectionProvider::fromArray([
+            'host' => 'localhost',
+            'username' => 'bar',
+            'privateKey' => __DIR__ . '/../../test_files/sftp/id_rsa',
+            'passphrase' => 'secret',
+            'port' => 2222,
+        ]);
 
-        $connection = $provider->provideConnection();
+        $connection = null;
+        $this->runWithRetries(function () use (&$connection, $provider) {
+            $connection = $provider->provideConnection();
+        });
         $this->assertInstanceOf(SFTP::class, $connection);
     }
 
@@ -108,7 +112,7 @@ class SftpConnectionProviderTest extends TestCase
 
         $this->expectException(UnableToLoadPrivateKey::class);
 
-        $provider->provideConnection();
+        $this->runWithRetries(fn () => $provider->provideConnection(), UnableToLoadPrivateKey::class);
     }
 
     /**
@@ -116,6 +120,10 @@ class SftpConnectionProviderTest extends TestCase
      */
     public function authenticating_with_an_ssh_agent(): void
     {
+        if (getenv('COMPOSER_OPTS') === false) {
+            $this->markTestSkipped('Test is not run locally');
+        }
+
         $provider = SftpConnectionProvider::fromArray(
             [
                 'host' => 'localhost',
@@ -125,7 +133,10 @@ class SftpConnectionProviderTest extends TestCase
             ]
         );
 
-        $connection = $provider->provideConnection();
+        $connection = null;
+        $this->runWithRetries(function () use ($provider, &$connection) {
+            $connection = $provider->provideConnection();
+        });
         $this->assertInstanceOf(SFTP::class, $connection);
     }
 
@@ -164,7 +175,10 @@ class SftpConnectionProviderTest extends TestCase
             ]
         );
 
-        $connection = $provider->provideConnection();
+        $connection = null;
+        $this->runWithRetries(function () use ($provider, &$connection) {
+            $connection = $provider->provideConnection();
+        });
         $this->assertInstanceOf(SFTP::class, $connection);
     }
 
@@ -184,7 +198,7 @@ class SftpConnectionProviderTest extends TestCase
         );
 
         $this->expectExceptionObject(UnableToAuthenticate::withPrivateKey());
-        $provider->provideConnection();
+        $this->runWithRetries(fn () => $provider->provideConnection(), UnableToAuthenticate::class);
     }
 
     /**
@@ -205,8 +219,11 @@ class SftpConnectionProviderTest extends TestCase
             ]
         );
 
-        $anotherConnection = $provider->provideConnection();
-        $this->assertInstanceOf(SFTP::class, $anotherConnection);
+        $connection = null;
+        $this->runWithRetries(function () use ($provider, &$connection) {
+            $connection = $provider->provideConnection();
+        });
+        $this->assertInstanceOf(SFTP::class, $connection);
     }
 
     /**
@@ -225,7 +242,7 @@ class SftpConnectionProviderTest extends TestCase
                 'hostFingerprint' => 'invalid:fingerprint',
             ]
         );
-        $provider->provideConnection();
+        $this->runWithRetries(fn () => $provider->provideConnection(), UnableToEstablishAuthenticityOfHost::class);
     }
 
     /**
@@ -234,6 +251,7 @@ class SftpConnectionProviderTest extends TestCase
     public function providing_an_invalid_password(): void
     {
         $this->expectException(UnableToAuthenticate::class);
+
         $provider = SftpConnectionProvider::fromArray(
             [
                 'host' => 'localhost',
@@ -242,7 +260,8 @@ class SftpConnectionProviderTest extends TestCase
                 'port' => 2222,
             ]
         );
-        $provider->provideConnection();
+
+        $this->runWithRetries(fn () => $provider->provideConnection(), UnableToAuthenticate::class);
     }
 
     /**
@@ -294,7 +313,7 @@ class SftpConnectionProviderTest extends TestCase
     /**
      * @test
      */
-    public function authenticate_with_supported_preferred_kex_algorithm_succedes(): void
+    public function authenticate_with_supported_preferred_kex_algorithm_succeeds(): void
     {
         $provider = SftpConnectionProvider::fromArray(
             [
@@ -307,7 +326,8 @@ class SftpConnectionProviderTest extends TestCase
                 ],
             ]
         );
-        $this->assertInstanceOf(SFTP::class, $provider->provideConnection());
+
+        $this->runWithRetries(fn () => $this->assertInstanceOf(SFTP::class, $provider->provideConnection()));
 
         $provider = SftpConnectionProvider::fromArray(
             [
@@ -320,8 +340,8 @@ class SftpConnectionProviderTest extends TestCase
                 ],
             ]
         );
-        $provider->provideConnection();
-        $this->assertInstanceOf(SFTP::class, $provider->provideConnection());
+
+        $this->runWithRetries(fn () => $this->assertInstanceOf(SFTP::class, $provider->provideConnection()));
     }
 
     /**
@@ -342,6 +362,7 @@ class SftpConnectionProviderTest extends TestCase
         );
 
         $this->expectException(UnableToConnectToSftpHost::class);
+
         $provider->provideConnection();
     }
 
@@ -351,5 +372,28 @@ class SftpConnectionProviderTest extends TestCase
         $algo = $content[0] === 'ssh-rsa' ? 'md5' : 'sha512';
 
         return implode(':', str_split(hash($algo, base64_decode($content[1])), 2));
+    }
+
+    /**
+     * @param class-string<Throwable>|null $expected
+     *
+     * @throws Throwable
+     */
+    public function runWithRetries(callable $scenario, string $expected = null): void
+    {
+        $tries = 0;
+        start:
+
+        try {
+            $scenario();
+        } catch (Throwable $exception) {
+            if (($expected === null || is_a($exception, $expected) === false) && $tries < 10) {
+                $tries++;
+                sleep($tries);
+                goto start;
+            }
+
+            throw $exception;
+        }
     }
 }

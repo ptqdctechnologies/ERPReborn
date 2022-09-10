@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.3.0 - 09-09-2022
+
+### Added
+
+- StaticInMemoryAdapterRegistry contributed by @kbond
+- ReadonlyFilesystemAdapter contributed by @kbond
+- PathPrefixedAdapter contributed by @shyim
+
+### Fixed
+
+- WebDAV prefix is now encoded and the dir is not required to be pre-created ([#1533](https://github.com/thephpleague/flysystem/pull/1533))
+
 ## 3.2.1 - 2022-08-14
 
 ### Fixed
