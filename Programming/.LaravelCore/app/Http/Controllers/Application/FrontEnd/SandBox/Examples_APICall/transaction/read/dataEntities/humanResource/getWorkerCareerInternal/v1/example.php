@@ -3,26 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataEntities\finance        |
-|                 \getPaymentDetail\v1                                                                                             |
-| ▪ API Key     : transaction.read.dataEntities.finance.getPaymentDetail                                                           |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataEntities\humanResource  |
+|                 \getWorkerCareerInternal\v1                                                                                      |
+| ▪ API Key     : transaction.read.dataEntities.humanResource.getWorkerCareerInternal                                              |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataEntities\finance\getPaymentDetail\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataEntities\humanResource\getWorkerCareerInternal\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataEntities.finance.getPaymentDetail.v1_throughAPIGateway         |
-        |                     ► http://172.28.0.4/transaction.read.dataEntities.finance.getPaymentDetail.v1_throughAPIGateway      |
+        | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
+        |                     transaction.read.dataEntities.humanResource.getWorkerCareerInternal.v1_throughAPIGateway             |
+        |                     ► http://172.28.0.4/                                                                                 |
+        |                       transaction.read.dataEntities.humanResource.getWorkerCareerInternal.v1_throughAPIGateway           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-21                                                                                           |
-        | ▪ Creation Date   : 2022-07-21                                                                                           |
+        | ▪ Last Update     : 2022-09-07                                                                                           |
+        | ▪ Creation Date   : 2022-09-07                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
@@ -35,11 +37,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'transaction.read.dataEntities.finance.getPaymentDetail', 
+                'transaction.read.dataEntities.humanResource.getWorkerCareerInternal', 
                 'latest', 
                 [
                 'parameter' => [
-                    'recordIDSet' => '{193000000000001, 193000000000002}'
+                    'recordIDSet' => '{164000000000439, 164000000000497}'
                     ]
                 ]
                 );
@@ -49,13 +51,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataEntities.finance.getPaymentDetail.v1_throughAPIGatewayJQuery   |
-        |                     ► http://172.28.0.4/transaction.read.dataEntities.finance.getPaymentDetail.                          |
-        |                       v1_throughAPIGatewayJQuery                                                                         |
+        | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
+        |                     transaction.read.dataEntities.humanResource.getWorkerCareerInternal.v1_throughAPIGatewayJQuery       |
+        |                     ► http://172.28.0.4/                                                                                 |
+        |                       transaction.read.dataEntities.humanResource.getWorkerCareerInternal.v1_throughAPIGatewayJQuery     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-21                                                                                           |
-        | ▪ Creation Date   : 2022-07-21                                                                                           |
+        | ▪ Last Update     : 2022-09-07                                                                                           |
+        | ▪ Creation Date   : 2022-09-07                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGatewayJQuery($varAPIWebToken)
@@ -65,12 +68,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
             //---Core---
-            echo '<input type="text" id="dataInput_RecordIDSet" value="{193000000000001, 193000000000002}">';
+            echo '<input type="text" id="dataInput_RecordIDSet" value="{164000000000439, 164000000000497}">';
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
-                'transaction.read.dataEntities.finance.getPaymentDetail', 
+                'transaction.read.dataEntities.humanResource.getWorkerCareerInternal', 
                 'latest', 
                 '{'.
                     '"parameter" : '.
