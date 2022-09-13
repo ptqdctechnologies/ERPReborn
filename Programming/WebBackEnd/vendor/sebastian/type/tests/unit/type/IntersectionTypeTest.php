@@ -27,7 +27,7 @@ use SebastianBergmann\Type\TestFixture\ClassImplementingAnInterfaceAndAnotherInt
 final class IntersectionTypeTest extends TestCase
 {
     /**
-     * @psalm-var AnInterface&AnotherInterface
+     * @psalm-var IntersectionType
      */
     private $type;
 
@@ -37,6 +37,16 @@ final class IntersectionTypeTest extends TestCase
             Type::fromName(AnInterface::class, false),
             Type::fromName(AnotherInterface::class, false)
         );
+    }
+
+    public function testTypesCanBeQueried(): void
+    {
+        $a = Type::fromName(AnInterface::class, false);
+        $b = Type::fromName(AnotherInterface::class, false);
+
+        $type = new IntersectionType($a, $b);
+
+        $this->assertSame([$a, $b], $type->types());
     }
 
     public function testCanBeQueriedForType(): void

@@ -5,7 +5,7 @@
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataEntities\master         |
 |                 \getDataCompression\v1                                                                                           |
-| ▪ API Key     : transaction.read.dataEntities.finance.getDataCompression                                                         |
+| ▪ API Key     : transaction.read.dataEntities.master.getDataCompression                                                          |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
