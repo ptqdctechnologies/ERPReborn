@@ -3,26 +3,26 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataEntities\master         |
-|                 \getDataCompression\v1                                                                                           |
-| ▪ API Key     : transaction.read.dataEntities.master.getDataCompression                                                          |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataEntities\master\getBank |
+|                 \v1                                                                                                              |
+| ▪ API Key     : transaction.read.dataEntities.master.getBank                                                                     |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataEntities\master\getDataCompression\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataEntities\master\getBank\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataEntities.master.getDataCompression.v1_throughAPIGateway        |
-        |                     ► http://172.28.0.4/transaction.read.dataEntities.master.getDataCompression.v1_throughAPIGateway     |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataEntities.master.getBank.v1_throughAPIGateway                   |
+        |                     ► http://172.28.0.4/transaction.read.dataEntities.master.getBank.v1_throughAPIGateway                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-07                                                                                           |
-        | ▪ Creation Date   : 2022-09-07                                                                                           |
+        | ▪ Last Update     : 2022-09-13                                                                                           |
+        | ▪ Creation Date   : 2022-09-13                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
@@ -35,11 +35,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'transaction.read.dataEntities.master.getDataCompression', 
+                'transaction.read.dataEntities.master.getBank', 
                 'latest', 
                 [
                 'parameter' => [
-                    'recordIDSet' => '{93000000000001, 93000000000002}'
+                    'recordIDSet' => '{166000000000001, 166000000000002}'
                     ]
                 ]
                 );
@@ -49,13 +49,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataEntities.master.getDataCompression.v1_throughAPIGatewayJQuery  |
-        |                     ► http://172.28.0.4/                                                                                 |
-        |                       transaction.read.dataEntities.master.getDataCompression.v1_throughAPIGatewayJQuery                 |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataEntities.master.getBank.v1_throughAPIGatewayJQuery             |
+        |                     ► http://172.28.0.4/transaction.read.dataEntities.master.getBank.v1_throughAPIGatewayJQuery          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-07                                                                                           |
-        | ▪ Creation Date   : 2022-09-07                                                                                           |
+        | ▪ Last Update     : 2022-09-13                                                                                           |
+        | ▪ Creation Date   : 2022-09-13                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGatewayJQuery($varAPIWebToken)
@@ -65,12 +64,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
             //---Core---
-            echo '<input type="text" id="dataInput_RecordIDSet" value="{93000000000001, 93000000000002}">';
+            echo '<input type="text" id="dataInput_RecordIDSet" value="{166000000000001, 166000000000002}">';
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
-                'transaction.read.dataEntities.master.getDataCompression', 
+                'transaction.read.dataEntities.master.getBank', 
                 'latest', 
                 '{'.
                     '"parameter" : '.

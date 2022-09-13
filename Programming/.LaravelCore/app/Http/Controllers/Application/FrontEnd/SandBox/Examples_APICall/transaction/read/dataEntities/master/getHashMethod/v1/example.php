@@ -5,7 +5,7 @@
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataEntities\master         |
 |                 \getHashMethod\v1                                                                                                |
-| ▪ API Key     : transaction.read.dataEntities.finance.getMIME                                                                    |
+| ▪ API Key     : transaction.read.dataEntities.master.getMIME                                                                    |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
