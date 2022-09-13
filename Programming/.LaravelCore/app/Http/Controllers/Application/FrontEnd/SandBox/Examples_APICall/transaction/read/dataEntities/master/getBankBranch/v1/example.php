@@ -3,8 +3,8 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataEntities\master\        |
-|                 getBankBranch\v1                                                                                                 |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataEntities\master         |
+|                 \getBankBranch\v1                                                                                                |
 | ▪ API Key     : transaction.read.dataEntities.master.getBankBranch                                                               |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
