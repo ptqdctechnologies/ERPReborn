@@ -7495,6 +7495,7 @@ return array(
     'SebastianBergmann\\Type\\NeverType' => $vendorDir . '/sebastian/type/src/type/NeverType.php',
     'SebastianBergmann\\Type\\NullType' => $vendorDir . '/sebastian/type/src/type/NullType.php',
     'SebastianBergmann\\Type\\ObjectType' => $vendorDir . '/sebastian/type/src/type/ObjectType.php',
+    'SebastianBergmann\\Type\\Parameter' => $vendorDir . '/sebastian/type/src/Parameter.php',
     'SebastianBergmann\\Type\\ReflectionMapper' => $vendorDir . '/sebastian/type/src/ReflectionMapper.php',
     'SebastianBergmann\\Type\\RuntimeException' => $vendorDir . '/sebastian/type/src/exception/RuntimeException.php',
     'SebastianBergmann\\Type\\SimpleType' => $vendorDir . '/sebastian/type/src/type/SimpleType.php',

@@ -8079,6 +8079,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'SebastianBergmann\\Type\\NeverType' => __DIR__ . '/..' . '/sebastian/type/src/type/NeverType.php',
         'SebastianBergmann\\Type\\NullType' => __DIR__ . '/..' . '/sebastian/type/src/type/NullType.php',
         'SebastianBergmann\\Type\\ObjectType' => __DIR__ . '/..' . '/sebastian/type/src/type/ObjectType.php',
+        'SebastianBergmann\\Type\\Parameter' => __DIR__ . '/..' . '/sebastian/type/src/Parameter.php',
         'SebastianBergmann\\Type\\ReflectionMapper' => __DIR__ . '/..' . '/sebastian/type/src/ReflectionMapper.php',
         'SebastianBergmann\\Type\\RuntimeException' => __DIR__ . '/..' . '/sebastian/type/src/exception/RuntimeException.php',
         'SebastianBergmann\\Type\\SimpleType' => __DIR__ . '/..' . '/sebastian/type/src/type/SimpleType.php',

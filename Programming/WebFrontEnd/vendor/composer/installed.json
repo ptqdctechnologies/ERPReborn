@@ -2415,21 +2415,21 @@
         },
         {
             "name": "nette/utils",
-            "version": "v3.2.7",
-            "version_normalized": "3.2.7.0",
+            "version": "v3.2.8",
+            "version_normalized": "3.2.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/utils.git",
-                "reference": "0af4e3de4df9f1543534beab255ccf459e7a2c99"
+                "reference": "02a54c4c872b99e4ec05c4aec54b5a06eb0f6368"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/utils/zipball/0af4e3de4df9f1543534beab255ccf459e7a2c99",
-                "reference": "0af4e3de4df9f1543534beab255ccf459e7a2c99",
+                "url": "https://api.github.com/repos/nette/utils/zipball/02a54c4c872b99e4ec05c4aec54b5a06eb0f6368",
+                "reference": "02a54c4c872b99e4ec05c4aec54b5a06eb0f6368",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.2 <8.2"
+                "php": ">=7.2 <8.3"
             },
             "conflict": {
                 "nette/di": "<3.0.6"
@@ -2448,14 +2448,14 @@
                 "ext-tokenizer": "to use Nette\\Utils\\Reflection::getUseStatements()",
                 "ext-xml": "to use Strings::length() etc. when mbstring is not available"
             },
-            "time": "2022-01-24T11:29:14+00:00",
+            "time": "2022-09-12T23:36:20+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
                     "dev-master": "3.2-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "classmap": [
                     "src/"
@@ -2497,7 +2497,7 @@
             ],
             "support": {
                 "issues": "https://github.com/nette/utils/issues",
-                "source": "https://github.com/nette/utils/tree/v3.2.7"
+                "source": "https://github.com/nette/utils/tree/v3.2.8"
             },
             "install-path": "../nette/utils"
         },
@@ -7393,17 +7393,17 @@
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
-            "version": "2.2.4",
-            "version_normalized": "2.2.4.0",
+            "version": "2.2.5",
+            "version_normalized": "2.2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tijsverkoyen/CssToInlineStyles.git",
-                "reference": "da444caae6aca7a19c0c140f68c6182e337d5b1c"
+                "reference": "4348a3a06651827a27d989ad1d13efec6bb49b19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tijsverkoyen/CssToInlineStyles/zipball/da444caae6aca7a19c0c140f68c6182e337d5b1c",
-                "reference": "da444caae6aca7a19c0c140f68c6182e337d5b1c",
+                "url": "https://api.github.com/repos/tijsverkoyen/CssToInlineStyles/zipball/4348a3a06651827a27d989ad1d13efec6bb49b19",
+                "reference": "4348a3a06651827a27d989ad1d13efec6bb49b19",
                 "shasum": ""
             },
             "require": {
@@ -7415,14 +7415,14 @@
             "require-dev": {
                 "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.0 || ^7.5 || ^8.5.21 || ^9.5.10"
             },
-            "time": "2021-12-08T09:12:39+00:00",
+            "time": "2022-09-12T13:28:28+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
                     "dev-master": "2.2.x-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "TijsVerkoyen\\CssToInlineStyles\\": "src"
@@ -7443,7 +7443,7 @@
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
             "support": {
                 "issues": "https://github.com/tijsverkoyen/CssToInlineStyles/issues",
-                "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/2.2.4"
+                "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/2.2.5"
             },
             "install-path": "../tijsverkoyen/css-to-inline-styles"
         },
