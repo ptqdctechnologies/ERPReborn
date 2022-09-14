@@ -4,20 +4,20 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\master                     |
-|                \getCitizenMaritalStatus\v1                                                                                       |
+|                \getCitizenIdentityCard\v1                                                                                        |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\master\getCitizenMaritalStatus\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\master\getCitizenIdentityCard\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getCitizenMaritalStatus                                                                                      |
-    | ▪ Description : Menangani API transaction.read.dataEntities.master.getCitizenMaritalStatus Version 1                         |
+    | ▪ Class Name  : getCitizenIdentityCard                                                                                       |
+    | ▪ Description : Menangani API transaction.read.dataEntities.master.getCitizenIdentityCard Version 1                          |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getCitizenMaritalStatus extends \App\Http\Controllers\Controller
+    class getCitizenIdentityCard extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -59,11 +59,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Citizen Marital Status Data Entities (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Citizen Identity Card Data Entities (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\TblCitizenMaritalStatus())->getDataEntities(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\TblCitizenIdentityCard())->getDataEntities(
                             $varUserSession, 
                             
                             $varData['parameter']['recordIDSet'],
