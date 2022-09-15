@@ -4,20 +4,20 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\supplyChain                |
-|                \getPurchasePurchaseOrder\v1                                                                                      |
+|                \getPurchaseOrder\v1                                                                                              |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\supplyChain\getPurchasePurchaseOrder\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\supplyChain\getPurchaseOrder\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getPurchasePurchaseOrder                                                                                     |
-    | ▪ Description : Menangani API transaction.read.dataEntities.supplyChain.getPurchasePurchaseOrder Version 1                   |
+    | ▪ Class Name  : getPurchaseOrder                                                                                             |
+    | ▪ Description : Menangani API transaction.read.dataEntities.supplyChain.getPurchaseOrder Version 1                           |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getPurchasePurchaseOrder extends \App\Http\Controllers\Controller
+    class getPurchaseOrder extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

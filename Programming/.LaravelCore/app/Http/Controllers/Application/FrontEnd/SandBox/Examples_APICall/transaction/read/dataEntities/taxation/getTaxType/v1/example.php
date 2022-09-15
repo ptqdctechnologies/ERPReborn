@@ -3,24 +3,22 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataEntities\supplyChain    |
-|                 \getPurchasePurchaseOrder\v1                                                                                     |
-| ▪ API Key     : transaction.read.dataEntities.supplyChain.getPurchasePurchaseOrder                                               |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataEntities\taxation       |
+|                 \getTaxType\v1                                                                                                   |
+| ▪ API Key     : transaction.read.dataEntities.taxation.getTaxType                                                                |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataEntities\supplyChain\getPurchasePurchaseOrder\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataEntities\taxation\getTaxType\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
-        |                     transaction.read.dataEntities.supplyChain.getPurchasePurchaseOrder.v1_throughAPIGateway              |
-        |                     ► http://172.28.0.4/                                                                                 |
-        |                       transaction.read.dataEntities.supplyChain.getPurchasePurchaseOrder.v1_throughAPIGateway            |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataEntities.taxation.getTaxType.v1_throughAPIGateway              |
+        |                     ► http://172.28.0.4/transaction.read.dataEntities.taxation.getTaxType.v1_throughAPIGateway           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-09-15                                                                                           |
@@ -37,11 +35,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'transaction.read.dataEntities.supplyChain.getPurchasePurchaseOrder', 
+                'transaction.read.dataEntities.taxation.getTaxType', 
                 'latest', 
                 [
                 'parameter' => [
-                    'recordIDSet' => '{85000000000001, 85000000000002}'
+                    'recordIDSet' => '{182000000000001, 182000000000002}'
                     ]
                 ]
                 );
@@ -51,10 +49,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
-        |                     transaction.read.dataEntities.supplyChain.getPurchasePurchaseOrder.v1_throughAPIGatewayJQuery        |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataEntities.taxation.getTaxType.v1_throughAPIGatewayJQuery        |
         |                     ► http://172.28.0.4/                                                                                 |
-        |                       transaction.read.dataEntities.supplyChain.getPurchasePurchaseOrder.v1_throughAPIGatewayJQuery      |
+        |                       transaction.read.dataEntities.taxation.getTaxType.v1_throughAPIGatewayJQuery                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-09-15                                                                                           |
@@ -68,12 +65,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
             //---Core---
-            echo '<input type="text" id="dataInput_RecordIDSet" value="{85000000000001, 85000000000002}">';
+            echo '<input type="text" id="dataInput_RecordIDSet" value="{182000000000001, 182000000000002}">';
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
-                'transaction.read.dataEntities.supplyChain.getPurchasePurchaseOrder', 
+                'transaction.read.dataEntities.taxation.getTaxType', 
                 'latest', 
                 '{'.
                     '"parameter" : '.
