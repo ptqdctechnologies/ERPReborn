@@ -891,9 +891,9 @@
             'dev_requirement' => false,
         ),
         'ramsey/uuid' => array(
-            'pretty_version' => '4.4.0',
-            'version' => '4.4.0.0',
-            'reference' => '373f7bacfcf3de038778ff27dcce5672ddbf4c8a',
+            'pretty_version' => '4.5.0',
+            'version' => '4.5.0.0',
+            'reference' => 'ef842484ba57f163c6d465ab744bfecb872a11d4',
             'type' => 'library',
             'install_path' => __DIR__ . '/../ramsey/uuid',
             'aliases' => array(),
@@ -902,7 +902,7 @@
         'rhumsaa/uuid' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => '4.4.0',
+                0 => '4.5.0',
             ),
         ),
         'sebastian/cli-parser' => array(

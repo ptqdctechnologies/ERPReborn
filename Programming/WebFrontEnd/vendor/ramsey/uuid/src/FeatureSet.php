@@ -23,6 +23,7 @@ use Ramsey\Uuid\Converter\Number\GenericNumberConverter;
 use Ramsey\Uuid\Converter\NumberConverterInterface;
 use Ramsey\Uuid\Converter\Time\GenericTimeConverter;
 use Ramsey\Uuid\Converter\Time\PhpTimeConverter;
+use Ramsey\Uuid\Converter\Time\UnixTimeConverter;
 use Ramsey\Uuid\Converter\TimeConverterInterface;
 use Ramsey\Uuid\Generator\DceSecurityGenerator;
 use Ramsey\Uuid\Generator\DceSecurityGeneratorInterface;
@@ -35,6 +36,7 @@ use Ramsey\Uuid\Generator\RandomGeneratorFactory;
 use Ramsey\Uuid\Generator\RandomGeneratorInterface;
 use Ramsey\Uuid\Generator\TimeGeneratorFactory;
 use Ramsey\Uuid\Generator\TimeGeneratorInterface;
+use Ramsey\Uuid\Generator\UnixTimeGenerator;
 use Ramsey\Uuid\Guid\GuidBuilder;
 use Ramsey\Uuid\Math\BrickMathCalculator;
 use Ramsey\Uuid\Math\CalculatorInterface;
@@ -127,7 +129,7 @@ class FeatureSet
     private $timeGenerator;
 
     /**
-     * @var TimeProviderInterface
+     * @var TimeProviderInterface|null
      */
     private $timeProvider;
 
@@ -140,6 +142,8 @@ class FeatureSet
      * @var CalculatorInterface
      */
     private $calculator;
+
+    private TimeGeneratorInterface $unixTimeGenerator;
 
     /**
      * @param bool $useGuids True build UUIDs using the GuidStringCodec
@@ -164,15 +168,18 @@ class FeatureSet
         $this->ignoreSystemNode = $ignoreSystemNode;
         $this->enablePecl = $enablePecl;
 
+        $this->randomGenerator = $this->buildRandomGenerator();
         $this->setCalculator(new BrickMathCalculator());
         $this->builder = $this->buildUuidBuilder($useGuids);
         $this->codec = $this->buildCodec($useGuids);
         $this->nodeProvider = $this->buildNodeProvider();
         $this->nameGenerator = $this->buildNameGenerator();
-        $this->randomGenerator = $this->buildRandomGenerator();
         $this->setTimeProvider(new SystemTimeProvider());
         $this->setDceSecurityProvider(new SystemDceSecurityProvider());
         $this->validator = new GenericValidator();
+
+        assert($this->timeProvider !== null);
+        $this->unixTimeGenerator = $this->buildUnixTimeGenerator($this->timeProvider);
     }
 
     /**
@@ -256,6 +263,14 @@ class FeatureSet
     }
 
     /**
+     * Returns the Unix Epoch time generator configured for this environment
+     */
+    public function getUnixTimeGenerator(): TimeGeneratorInterface
+    {
+        return $this->unixTimeGenerator;
+    }
+
+    /**
      * Returns the validator configured for this environment
      */
     public function getValidator(): ValidatorInterface
@@ -292,7 +307,10 @@ class FeatureSet
     public function setNodeProvider(NodeProviderInterface $nodeProvider): void
     {
         $this->nodeProvider = $nodeProvider;
-        $this->timeGenerator = $this->buildTimeGenerator($this->timeProvider);
+
+        if (isset($this->timeProvider)) {
+            $this->timeGenerator = $this->buildTimeGenerator($this->timeProvider);
+        }
     }
 
     /**
@@ -391,6 +409,21 @@ class FeatureSet
             $this->timeConverter,
             $timeProvider
         ))->getGenerator();
+    }
+
+    /**
+     * Returns a Unix Epoch time generator configured for this environment
+     *
+     * @param TimeProviderInterface $timeProvider The time provider to use with
+     *     the time generator
+     */
+    private function buildUnixTimeGenerator(TimeProviderInterface $timeProvider): TimeGeneratorInterface
+    {
+        return new UnixTimeGenerator(
+            new UnixTimeConverter(new BrickMathCalculator()),
+            $timeProvider,
+            $this->randomGenerator,
+        );
     }
 
     /**

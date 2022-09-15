@@ -40,6 +40,7 @@ use const STR_PAD_LEFT;
  */
 final class Fields implements FieldsInterface
 {
+    use MaxTrait;
     use NilTrait;
     use SerializableFieldsTrait;
     use VariantTrait;
@@ -88,7 +89,13 @@ final class Fields implements FieldsInterface
 
     public function getClockSeq(): Hexadecimal
     {
-        $clockSeq = hexdec(bin2hex(substr($this->bytes, 8, 2))) & 0x3fff;
+        if ($this->isMax()) {
+            $clockSeq = 0xffff;
+        } elseif ($this->isNil()) {
+            $clockSeq = 0x0000;
+        } else {
+            $clockSeq = hexdec(bin2hex(substr($this->bytes, 8, 2))) & 0x3fff;
+        }
 
         return new Hexadecimal(str_pad(dechex($clockSeq), 4, '0', STR_PAD_LEFT));
     }
@@ -150,12 +157,23 @@ final class Fields implements FieldsInterface
                 );
 
                 break;
-            case Uuid::UUID_TYPE_PEABODY:
+            case Uuid::UUID_TYPE_REORDERED_TIME:
                 $timestamp = sprintf(
                     '%08s%04s%03x',
                     $this->getTimeLow()->toString(),
                     $this->getTimeMid()->toString(),
                     hexdec($this->getTimeHiAndVersion()->toString()) & 0x0fff
+                );
+
+                break;
+            case Uuid::UUID_TYPE_UNIX_TIME:
+                // The Unix timestamp in version 7 UUIDs is a 48-bit number,
+                // but for consistency, we will return a 60-bit number, padded
+                // to the left with zeros.
+                $timestamp = sprintf(
+                    '%011s%04s',
+                    $this->getTimeLow()->toString(),
+                    $this->getTimeMid()->toString(),
                 );
 
                 break;
@@ -173,7 +191,7 @@ final class Fields implements FieldsInterface
 
     public function getVersion(): ?int
     {
-        if ($this->isNil()) {
+        if ($this->isNil() || $this->isMax()) {
             return null;
         }
 
@@ -185,7 +203,7 @@ final class Fields implements FieldsInterface
 
     private function isCorrectVariant(): bool
     {
-        if ($this->isNil()) {
+        if ($this->isNil() || $this->isMax()) {
             return true;
         }
 

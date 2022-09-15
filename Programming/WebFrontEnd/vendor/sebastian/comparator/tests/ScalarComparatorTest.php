@@ -46,6 +46,7 @@ final class ScalarComparatorTest extends TestCase
             ['1', true],
             [1, true],
             [0, false],
+            ['0', false],
             [0.1, '0.1']
         ];
     }
@@ -75,8 +76,10 @@ final class ScalarComparatorTest extends TestCase
             ['10', 10],
             ['', false],
             ['1', true],
+            ['true', true],
             [1, true],
             [0, false],
+            ['0', false],
             [0.1, '0.1'],
             [false, null],
             [false, false],
@@ -103,6 +106,7 @@ final class ScalarComparatorTest extends TestCase
             ['Foobar', 0, $otherException],
             ['10', 25, $otherException],
             ['1', false, $otherException],
+            ['false', false, $otherException],
             ['', true, $otherException],
             [false, true, $otherException],
             [true, false, $otherException],
