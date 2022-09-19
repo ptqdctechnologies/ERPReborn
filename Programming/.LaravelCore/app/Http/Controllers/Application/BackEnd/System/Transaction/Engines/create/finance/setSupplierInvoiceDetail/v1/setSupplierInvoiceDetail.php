@@ -69,14 +69,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                             \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
 
-                            $varData['entities']['advance_RefID'],
-                            $varData['entities']['combinedBudgetSectionDetail_RefID'],
+                            $varData['entities']['supplierInvoice_RefID'],
+                            $varData['entities']['purchaseOrderDetail_RefID'],
                             $varData['entities']['product_RefID'],
                             $varData['entities']['quantity'],
                             $varData['entities']['quantityUnit_RefID'],
-                            $varData['entities']['productUnitPriceCurrency_RefID'],
-                            $varData['entities']['productUnitPriceCurrencyValue'],
-                            $varData['entities']['productUnitPriceCurrencyExchangeRate'],
+                            $varData['entities']['priceCurrency_RefID'],
+                            $varData['entities']['priceCurrencyValue'],
+                            $varData['entities']['priceCurrencyExchangeRate'],
                             $varData['entities']['remarks']
                             ))))
                             {

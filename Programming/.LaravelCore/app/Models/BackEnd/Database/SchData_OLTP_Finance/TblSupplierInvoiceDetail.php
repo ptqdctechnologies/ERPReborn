@@ -57,6 +57,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varSupplierInvoice_RefID ► Combined Budget Section Detail Reference ID                                   |
         |      ▪ (int)    varPurchaseOrderDetail_RefID ► Product Reference ID                                                      |
+        |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
         |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
         |      ▪ (int)    varPriceCurrency_RefID ► Price Currency Reference ID                                                     |
@@ -70,7 +71,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varSupplierInvoice_RefID = null, int $varPurchaseOrderDetail_RefID = null, float $varQuantity = null, int $varQuantity_RefID = null, int $varPriceCurrency_RefID = null, int $varPriceCurrencyValue = null, float $varPriceCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varSupplierInvoice_RefID = null, int $varPurchaseOrderDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantity_RefID = null, int $varPriceCurrency_RefID = null, int $varPriceCurrencyValue = null, float $varPriceCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -87,6 +88,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         
                         [$varSupplierInvoice_RefID, 'bigint'],
                         [$varPurchaseOrderDetail_RefID, 'bigint'],
+                        [$varProduct_RefID, 'bigint'],
                         [$varQuantity, 'numeric'],
                         [$varQuantity_RefID, 'bigint'],
                         [$varPriceCurrency_RefID, 'bigint'],
@@ -119,6 +121,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varSupplierInvoice_RefID ► Combined Budget Section Detail Reference ID                                   |
         |      ▪ (int)    varPurchaseOrderDetail_RefID ► Product Reference ID                                                      |
+        |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
         |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
         |      ▪ (int)    varPriceCurrency_RefID ► Price Currency Reference ID                                                     |
@@ -132,7 +135,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varSupplierInvoice_RefID = null, int $varPurchaseOrderDetail_RefID = null, float $varQuantity = null, int $varQuantity_RefID = null, int $varPriceCurrency_RefID = null, int $varPriceCurrencyValue = null, float $varPriceCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varSupplierInvoice_RefID = null, int $varPurchaseOrderDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantity_RefID = null, int $varPriceCurrency_RefID = null, int $varPriceCurrencyValue = null, float $varPriceCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -149,6 +152,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         
                         [$varSupplierInvoice_RefID, 'bigint'],
                         [$varPurchaseOrderDetail_RefID, 'bigint'],
+                        [$varProduct_RefID, 'bigint'],
                         [$varQuantity, 'numeric'],
                         [$varQuantity_RefID, 'bigint'],
                         [$varPriceCurrency_RefID, 'bigint'],
