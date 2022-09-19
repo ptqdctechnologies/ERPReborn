@@ -1,6 +1,30 @@
 # Changelog
 
-## 3.3.0 - 09-09-2022
+## 3.5.1 - 2022-09-18
+
+### Fixed
+
+- [WebDAV] Strip directory prefix in `createDirectory` to prevent double prefixing in `directoryExists`.
+
+## 3.5.0 - 2022-09-17
+
+### Added
+
+- [AWS S3] Allow specifying visibility on move and copy
+
+## 3.4.0 - 2022-09-15
+
+### Added
+
+- Added FTP configuration option useRawListOptions (null|false|true).
+- UnableToListContents exception was added to uniformly represent content listing exceptions.
+
+### Fixed
+
+- [FTP] Don't use raw list options for FileZilla FTP servers ([#1553](https://github.com/thephpleague/flysystem/pull/1553))
+- [WebDAV] Correct path formatting for move and copy operations ([#1552](https://github.com/thephpleague/flysystem/pull/1552))
+
+## 3.3.0 - 2022-09-09
 
 ### Added
 
@@ -204,6 +228,12 @@
 * FilesystemReader::fileExists to check for file existence
 * FilesystemAdapter::directoryExists to check for directory existence
 * FilesystemAdapter::fileExists to check for file existence
+
+## 2.5.0 - 2022-09-17
+
+### Added
+
+- [AWS S3] Allow specifying visibility on move and copy
 
 ## 2.4.5 - 2022-04-25
 

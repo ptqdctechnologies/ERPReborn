@@ -121,7 +121,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
-        |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► File Attachments Reference ID                                                 |
+        |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► File Attachments Reference ID                                          |
         |      ▪ (int)    varRequesterPerson_RefID ► Requester Person Reference ID                                                 |
         |      ▪ (int)    varBeneficiaryPerson_RefID ► Beneficiary Person Reference ID                                             |
         |      ▪ (int)    varBeneficiaryBankAccount_RefID ► Beneficiary Bank Account Reference ID                                  |

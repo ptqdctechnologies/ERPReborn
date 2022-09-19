@@ -46,6 +46,8 @@ class DatabaseEloquentModelTest extends TestCase
 {
     use InteractsWithTime;
 
+    protected $encrypter;
+
     protected function tearDown(): void
     {
         parent::tearDown();
@@ -1289,10 +1291,14 @@ class DatabaseEloquentModelTest extends TestCase
         $model = new EloquentModelStub;
         $model->guard(['name', 'age']);
         $model->fill(['Foo' => 'bar']);
+
+        Model::preventSilentlyDiscardingAttributes(false);
     }
 
     public function testFillableOverridesGuarded()
     {
+        Model::preventSilentlyDiscardingAttributes(false);
+
         $model = new EloquentModelStub;
         $model->guard([]);
         $model->fillable(['age', 'foo']);
