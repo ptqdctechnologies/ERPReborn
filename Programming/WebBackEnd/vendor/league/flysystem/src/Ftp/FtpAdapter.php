@@ -72,6 +72,8 @@ class FtpAdapter implements FilesystemAdapter
      */
     private $isPureFtpdServer;
 
+    private ?bool $useRawListOptions = null;
+
     /**
      * @var null|string
      */
@@ -96,6 +98,7 @@ class FtpAdapter implements FilesystemAdapter
         $this->connectivityChecker = $connectivityChecker ?: new NoopCommandConnectivityChecker();
         $this->visibilityConverter = $visibilityConverter ?: new PortableVisibilityConverter();
         $this->mimeTypeDetector = $mimeTypeDetector ?: new FinfoMimeTypeDetector();
+        $this->useRawListOptions = $connectionOptions->useRawListOptions();
     }
 
     /**
@@ -142,6 +145,19 @@ class FtpAdapter implements FilesystemAdapter
         $response = ftp_raw($this->connection, 'HELP');
 
         return $this->isPureFtpdServer = stripos(implode(' ', $response), 'Pure-FTPd') !== false;
+    }
+
+    private function isServerSupportingListOptions(): bool
+    {
+        if ($this->useRawListOptions !== null) {
+            return $this->useRawListOptions;
+        }
+
+        $response = ftp_raw($this->connection, 'SYST');
+        $syst = implode(' ', $response);
+
+        return $this->useRawListOptions = stripos($syst, 'FileZilla') === false
+            && stripos($syst, 'L8') === false;
     }
 
     public function fileExists(string $path): bool
@@ -542,7 +558,11 @@ class FtpAdapter implements FilesystemAdapter
             $path = $this->escapePath($path);
         }
 
-        return ftp_rawlist($connection, $options . ' ' . $path, stripos($options, 'R') !== false) ?: [];
+        if (! $this->isServerSupportingListOptions()) {
+            $options = '';
+        }
+
+        return ftp_rawlist($connection, ($options ? $options . ' ' : '') . $path, stripos($options, 'R') !== false) ?: [];
     }
 
     public function move(string $source, string $destination, Config $config): void

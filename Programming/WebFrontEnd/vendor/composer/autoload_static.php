@@ -2893,6 +2893,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'League\\Flysystem\\UnableToCreateDirectory' => __DIR__ . '/..' . '/league/flysystem/src/UnableToCreateDirectory.php',
         'League\\Flysystem\\UnableToDeleteDirectory' => __DIR__ . '/..' . '/league/flysystem/src/UnableToDeleteDirectory.php',
         'League\\Flysystem\\UnableToDeleteFile' => __DIR__ . '/..' . '/league/flysystem/src/UnableToDeleteFile.php',
+        'League\\Flysystem\\UnableToListContents' => __DIR__ . '/..' . '/league/flysystem/src/UnableToListContents.php',
         'League\\Flysystem\\UnableToMountFilesystem' => __DIR__ . '/..' . '/league/flysystem/src/UnableToMountFilesystem.php',
         'League\\Flysystem\\UnableToMoveFile' => __DIR__ . '/..' . '/league/flysystem/src/UnableToMoveFile.php',
         'League\\Flysystem\\UnableToReadFile' => __DIR__ . '/..' . '/league/flysystem/src/UnableToReadFile.php',

@@ -428,9 +428,9 @@
             'dev_requirement' => false,
         ),
         'league/flysystem' => array(
-            'pretty_version' => '3.3.0',
-            'version' => '3.3.0.0',
-            'reference' => 'd8295793b3e2f91aa39e1feb2d5bfce772891ae2',
+            'pretty_version' => '3.5.1',
+            'version' => '3.5.1.0',
+            'reference' => 'f14993c6e394450ac4649da35264df0544d0234e',
             'type' => 'library',
             'install_path' => __DIR__ . '/../league/flysystem',
             'aliases' => array(),
@@ -756,9 +756,9 @@
             'dev_requirement' => false,
         ),
         'ramsey/uuid' => array(
-            'pretty_version' => '4.5.0',
-            'version' => '4.5.0.0',
-            'reference' => 'ef842484ba57f163c6d465ab744bfecb872a11d4',
+            'pretty_version' => '4.5.1',
+            'version' => '4.5.1.0',
+            'reference' => 'a161a26d917604dc6d3aa25100fddf2556e9f35d',
             'type' => 'library',
             'install_path' => __DIR__ . '/../ramsey/uuid',
             'aliases' => array(),
@@ -767,7 +767,7 @@
         'rhumsaa/uuid' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => '4.5.0',
+                0 => '4.5.1',
             ),
         ),
         'sebastian/code-unit-reverse-lookup' => array(
@@ -906,9 +906,9 @@
             'dev_requirement' => false,
         ),
         'spatie/laravel-ignition' => array(
-            'pretty_version' => '1.4.1',
-            'version' => '1.4.1.0',
-            'reference' => '29deea5d9cf921590184be6956e657c4f4566440',
+            'pretty_version' => '1.5.0',
+            'version' => '1.5.0.0',
+            'reference' => '192962f4d84526f6868c512530c00633e3165749',
             'type' => 'library',
             'install_path' => __DIR__ . '/../spatie/laravel-ignition',
             'aliases' => array(),
