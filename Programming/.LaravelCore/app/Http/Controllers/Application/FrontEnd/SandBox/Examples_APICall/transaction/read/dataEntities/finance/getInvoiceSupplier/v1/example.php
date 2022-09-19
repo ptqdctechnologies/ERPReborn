@@ -3,25 +3,26 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\update\finance\setPettyCash\v1   |
-| ▪ API Key     : transaction.update.finance.setPettyCash                                                                          |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataEntities\finance        |
+|                 \getInvoiceSupplier\v1                                                                                           |
+| ▪ API Key     : transaction.read.dataEntities.finance.getInvoiceSupplier                                                         |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\update\finance\setPettyCash\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataEntities\finance\getInvoiceSupplier\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.update.finance.setPettyCash.v1_throughAPIGateway                        |
-        |                     ► http://172.28.0.4/transaction.update.finance.setPettyCash.v1_throughAPIGateway                     |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataEntities.finance.getInvoiceSupplier.v1_throughAPIGateway       |
+        |                     ► http://172.28.0.4/transaction.read.dataEntities.finance.getInvoiceSupplier.v1_throughAPIGateway    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-21                                                                                           |
-        | ▪ Creation Date   : 2022-07-21                                                                                           |
+        | ▪ Last Update     : 2022-09-19                                                                                           |
+        | ▪ Creation Date   : 2022-09-19                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
@@ -34,11 +35,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'transaction.update.finance.setPettyCash', 
+                'transaction.read.dataEntities.finance.getInvoiceSupplier', 
                 'latest', 
                 [
-                'entities' => [
-                    "name" => 'New Petty Cash'
+                'parameter' => [
+                    'recordIDSet' => '{207000000000001, 207000000000001}'
                     ]
                 ]
                 );
@@ -48,12 +49,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.update.finance.setPettyCash.v1_throughAPIGatewayJQuery                  |
-        |                     ► http://172.28.0.4/transaction.update.finance.setPettyCash.v1_throughAPIGatewayJQuery               |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataEntities.finance.getInvoiceSupplier.v1_throughAPIGatewayJQuery |
+        |                     ► http://172.28.0.4/                                                                                 |
+        |                       transaction.read.dataEntities.finance.getInvoiceSupplier.v1_throughAPIGatewayJQuery                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-21                                                                                           |
-        | ▪ Creation Date   : 2022-07-21                                                                                           |
+        | ▪ Last Update     : 2022-09-19                                                                                           |
+        | ▪ Creation Date   : 2022-09-19                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGatewayJQuery($varAPIWebToken)
@@ -63,18 +65,17 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
             //---Core---
+            echo '<input type="text" id="dataInput_RecordIDSet" value="{207000000000001, 207000000000001}">';
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_RecordID" value=166000000000001>';
-            echo '<input type="text" id="dataInput_Name" value="Petty Cash">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
-                'transaction.update.finance.setPettyCash', 
+                'transaction.read.dataEntities.finance.getInvoiceSupplier', 
                 'latest', 
                 '{'.
-                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
-                    '"entities" : {'.
-                        '"name" : document.getElementById("dataInput_Name").value'.
+                    '"parameter" : '.
+                        '{'.
+                        '"recordIDSet" : document.getElementById("dataInput_RecordIDSet").value'.
                         '}'.
                 '}'
                 ); 
