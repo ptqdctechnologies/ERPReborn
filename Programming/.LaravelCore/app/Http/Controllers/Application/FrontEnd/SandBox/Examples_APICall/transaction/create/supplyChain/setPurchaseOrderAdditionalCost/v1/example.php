@@ -75,13 +75,27 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 }
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_RecordID" value=190000000000001>';
-            echo '<input type="text" id="dataInput_PurchaseOrder_RefID" value=85000000000001>';
-            echo '<input type="text" id="dataInput_TransactionAdditionalCostType_RefID" value=190000000000001>';
-            echo '<input type="text" id="dataInput_PriceCurrency_RefID" value=62000000000001>';
-            echo '<input type="text" id="dataInput_PriceCurrencyValue" value=250>';
-            echo '<input type="text" id="dataInput_PriceCurrencyExchangeRate" value=15000>';
-            echo '<input type="text" id="dataInput_Remarks" value="My Remarks">';
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Purchase Order Additional Cost Main Data</p></td></tr>';
+            echo        '<tr><td>PurchaseOrder_RefID</td><td>';
+            echo            '<input type="text" id="dataInput_PurchaseOrder_RefID" value=85000000000001>';
+            echo        '</td></tr>';
+            echo        '<tr><td>TransactionAdditionalCostType_RefID</td><td>';
+            echo            '<input type="text" id="dataInput_TransactionAdditionalCostType_RefID" value=190000000000001>';
+            echo        '</td></tr>';
+            echo        '<tr><td>PriceCurrency_RefID</td><td>';
+            echo            '<input type="text" id="dataInput_PriceCurrency_RefID" value=62000000000001>';
+            echo        '</td></tr>';
+            echo        '<tr><td>PriceCurrencyValue</td><td>';
+            echo            '<input type="text" id="dataInput_PriceCurrencyValue" value=250>';
+            echo        '</td></tr>';
+            echo        '<tr><td>PriceCurrencyExchangeRate</td><td>';
+            echo            '<input type="text" id="dataInput_PriceCurrencyExchangeRate" value=15000>';
+            echo        '</td></tr>';
+            echo        '<tr><td>Remarks</td><td>';
+            echo            '<input type="text" id="dataInput_Remarks" value="My Remarks">';
+            echo        '</td></tr>';
+            echo '</table><br>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
