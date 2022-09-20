@@ -45,6 +45,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     'sort' => null,
                     'filter' => null,
                     'paging' => null
+                    /*
+                    'pick' => '*',
+                    'sort' => '"OrderSequence" ASC',
+                    'filter' => '"CombinedBudgetSection_RefID" = 143000000000029',
+                    'paging' => null
+                    */
                     ]
                 ]
                 );
