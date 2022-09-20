@@ -4,7 +4,7 @@
 
 
 ```diff
-It's not just ordinary ERP
+It's not just an ordinary ERP
 ```
 
 **ERP Reborn** merupakan proyek sistem Enterprise Resource Planning yang digunakan oleh PT QDC Technologies (diinisiasi sejak tahun 2020)
@@ -12,8 +12,10 @@ It's not just ordinary ERP
 ```diff
 Main Features :
 1. Multiple Users
-1. Multiple Companies & Branches
-2. Multiple Base Currencies & Transaction Currencies
+2. Multiple Companies, Regions, & Branches
+3. Multiple Base Currencies & Transaction Currencies
+4. Multiple Underlying Document References
+5. Convert File Attachments To Thumbnails Automatically
 ```
 
 <h3>Langkah-Langkah Instalasi dan Cloning Repository</h3>
@@ -39,7 +41,7 @@ Main Features :
       **Image** | **Tag**
       :--- | :---
       postgres | latest
-      php | 8.1.8-apache
+      php | 8.1.9-apache
       redis | latest
       nowsci/samba-domain | latest
       minio/minio | latest
@@ -50,8 +52,8 @@ Main Features :
       **Customized Image** | **Source Image**
       :--- | :---
       erp-reborn-postgresql | postgres:latest
-      erp-reborn-phpapache-backend | php:8.1.8-apache
-      erp-reborn-phpapache-frontend | php:8.1.8-apache
+      erp-reborn-phpapache-backend | php:8.1.9-apache
+      erp-reborn-phpapache-frontend | php:8.1.9-apache
       erp-reborn-samba | nowsci/samba-domain:latest
       erp-reborn-minio | minio/minio:latest
       erp-reborn-devtools-pgadmin4 | dpage/pgadmin4:latest
