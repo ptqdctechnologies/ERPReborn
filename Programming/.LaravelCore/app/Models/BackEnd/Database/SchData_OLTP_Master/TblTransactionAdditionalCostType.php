@@ -3,20 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : Laravel Models                                                                                                    |
-| ▪ Name Space : \App\Models\Database\SchData_OLTP_SupplyChain                                                                     |
+| ▪ Name Space : \App\Models\Database\SchData_OLTP_Master                                                                          |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Models\Database\SchData_OLTP_SupplyChain
+namespace App\Models\Database\SchData_OLTP_Master
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblPurchaseOrderAdditionalCostType                                                                           |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-SupplyChain ► TblPurchaseOrderAdditionalCostType                    |
+    | ▪ Class Name  : TblTransactionAdditionalCostType                                                                             |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblTransactionAdditionalCostType                           |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblPurchaseOrderAdditionalCostType extends \App\Models\Database\DefaultClassPrototype
+    class TblTransactionAdditionalCostType extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
