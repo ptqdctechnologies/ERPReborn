@@ -3,26 +3,26 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\update\supplyChain               |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\supplyChain               |
 |                 \setPurchaseOrder\v1                                                                                             |
-| ▪ API Key     : transaction.update.supplyChain.setPurchaseOrder                                                                  |
+| ▪ API Key     : transaction.create.supplyChain.setPurchaseOrder                                                                  |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\update\supplyChain\setPurchaseOrder\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\supplyChain\setPurchaseOrder\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.update.supplyChain.setPurchaseOrder.v1_throughAPIGateway                |
-        |                     ► http://172.28.0.4/transaction.update.supplyChain.setPurchaseOrder.v1_throughAPIGateway             |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.create.supplyChain.setPurchaseOrder.v1_throughAPIGateway                |
+        |                     ► http://172.28.0.4/transaction.create.supplyChain.setPurchaseOrder.v1_throughAPIGateway             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-27                                                                                           |
-        | ▪ Creation Date   : 2022-07-27                                                                                           |
+        | ▪ Last Update     : 2022-09-21                                                                                           |
+        | ▪ Creation Date   : 2022-09-21                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
@@ -35,10 +35,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'transaction.update.supplyChain.setPurchaseOrder', 
+                'transaction.create.supplyChain.setPurchaseOrder', 
                 'latest', 
                 [
-                'recordID' => 85000000000001,
                 'entities' => [
                     "documentDateTimeTZ" => '2022-03-04',
                     "requesterWorkerJobsPosition_RefID" => 164000000000497,
@@ -51,7 +50,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         "itemList" => [
                             "items" => [
                                     [
-                                    "recordID" => 86000000000001,
                                     "entities" => [
                                         "purchaseRequisitionDetail_RefID" => 84000000000001,
                                         "quantity" => 10,
@@ -62,11 +60,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "productUnitPriceDiscountCurrency_RefID" => 62000000000001,
                                         "productUnitPriceDiscountCurrencyeValue" => 0,
                                         "productUnitPriceDiscountCurrencyExchangeRate" => 1,
-                                        "remarks" => 'Catatan Pertama Update'
+                                        "remarks" => 'Catatan Pertama'
                                         ]                                    
                                     ],
                                     [
-                                    "recordID" => null,
                                     "entities" => [
                                         "purchaseRequisitionDetail_RefID" => 84000000000002,
                                         "quantity" => 10,
@@ -77,31 +74,43 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "productUnitPriceDiscountCurrency_RefID" => 62000000000001,
                                         "productUnitPriceDiscountCurrencyeValue" => 0,
                                         "productUnitPriceDiscountCurrencyExchangeRate" => 1,
-                                        "remarks" => 'Catatan Kedua Update'
+                                        "remarks" => 'Catatan Kedua'
                                         ]                                    
+                                    ],
+                                    [
+                                    "entities" => [
+                                        "purchaseRequisitionDetail_RefID" => 84000000000002,
+                                        "quantity" => 10,
+                                        "quantityUnit_RefID" => 73000000000001,
+                                        "productUnitPriceCurrency_RefID" => 62000000000002,
+                                        "productUnitPriceCurrencyeValue" => 30,
+                                        "productUnitPriceCurrencyExchangeRate" => 1,
+                                        "productUnitPriceDiscountCurrency_RefID" => 62000000000001,
+                                        "productUnitPriceDiscountCurrencyeValue" => 10000,
+                                        "productUnitPriceDiscountCurrencyExchangeRate" => 1,
+                                        "remarks" => 'Catatan Kedua Tambahan'
+                                        ]
                                     ],
                                 ]
                             ],
                         "taxes" => [
                             "items" => [
                                     [
-                                    "recordID" => 185000000000001,
                                     "entities" => [
                                         "taxType_RefID" => 182000000000001,
                                         "tariffCurrency_RefID" => 62000000000001,
                                         "tariffCurrencyValue" => 30000,
                                         "tariffCurrencyExchangeRate" => 1,
-                                        "remarks" => 'Catatan 1 Update'                                
+                                        "remarks" => 'Catatan 1'                                
                                         ]
                                     ],
                                     [
-                                    "recordID" => 185000000000002,
                                     "entities" => [
                                         "taxType_RefID" => 182000000000002,
                                         "tariffCurrency_RefID" => 62000000000001,
                                         "tariffCurrencyValue" => 30000,
                                         "tariffCurrencyExchangeRate" => 1,
-                                        "remarks" => 'Catatan 2 Update'
+                                        "remarks" => 'Catatan 2'
                                         ]
                                     ]                            
                                 ]
@@ -109,13 +118,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         "additionalCost" => [
                             "items" => [
                                     [
-                                    "recordID" => 191000000000001,
                                     "entities" => [
                                         "purchaseOrderAdditionalCostType_RefID" => 190000000000002,
                                         "priceCurrency_RefID" => 62000000000001,
                                         "priceCurrencyValue" => 30000,
                                         "priceCurrencyExchangeRate" => 1,
-                                        "remarks" => 'Catatan Additional Cost Update'
+                                        "remarks" => 'Catatan Additional Cost'
                                         ]
                                     ]
                                 ]
@@ -123,7 +131,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         "paymentTerm" => [
                             "items" => [
                                     [
-                                    "recordID" => 187000000000001,
                                     "entities" => [
                                         "paymentTerm_RefID" => 174000000000001,
                                         "dueDays" => 30,
@@ -134,9 +141,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "discountPercentageRate" => 2.00,
                                         "remarks" => 'Down Payment'
                                         ]
-                                    ]                            
+                                    ]
                                 ]
-                            ]
+                            ]                        
                         ]
                     ]
                 ]
@@ -147,12 +154,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.update.supplyChain.setPurchaseOrder.v1_throughAPIGatewayJQuery          |
-        |                     ► http://172.28.0.4/transaction.update.supplyChain.setPurchaseOrder.v1_throughAPIGatewayJQuery       |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.create.supplyChain.setPurchaseOrder.v1_throughAPIGatewayJQuery          |
+        |                     ► http://172.28.0.4/                                                                                 |
+        |                       transaction.create.supplyChain.setPurchaseOrder.v1_throughAPIGatewayJQuery                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-27                                                                                           |
-        | ▪ Creation Date   : 2022-07-27                                                                                           |
+        | ▪ Last Update     : 2022-09-20                                                                                           |
+        | ▪ Creation Date   : 2022-09-20                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGatewayJQuery($varAPIWebToken)
@@ -163,30 +171,40 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 }
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_RecordID" value=85000000000001>';
-            echo '<input type="text" id="dataInput_DocumentDateTimeTZ" value="2022-03-04">';
-            echo '<input type="text" id="dataInput_RequesterWorkerJobsPosition_RefID" value=164000000000497>';
-            echo '<input type="text" id="dataInput_Supplier_RefID" value=126000000000001>';
-            echo '<input type="text" id="dataInput_DeliveryDateTimeTZ" value="2022-03-08">';
-            echo '<input type="text" id="dataInput_DeliveryDestination_RefID" value=173000000000001>';
-            echo '<input type="text" id="dataInput_SupplierInvoiceBillingPurpose_RefID" value=189000000000001>';
-            echo '<input type="text" id="dataInput_PaymentTerm" value="My Payment Term">';
-            echo '<input type="text" id="dataInput_Remarks" value="My Remarks">';
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Purchase Order Additional Cost Main Data</p></td></tr>';
+            echo        '<tr><td>PurchaseOrder_RefID</td><td>';
+            echo            '<input type="text" id="dataInput_PurchaseOrder_RefID" value=85000000000001>';
+            echo        '</td></tr>';
+            echo        '<tr><td>TransactionAdditionalCostType_RefID</td><td>';
+            echo            '<input type="text" id="dataInput_TransactionAdditionalCostType_RefID" value=190000000000001>';
+            echo        '</td></tr>';
+            echo        '<tr><td>PriceCurrency_RefID</td><td>';
+            echo            '<input type="text" id="dataInput_PriceCurrency_RefID" value=62000000000001>';
+            echo        '</td></tr>';
+            echo        '<tr><td>PriceCurrencyValue</td><td>';
+            echo            '<input type="text" id="dataInput_PriceCurrencyValue" value=250>';
+            echo        '</td></tr>';
+            echo        '<tr><td>PriceCurrencyExchangeRate</td><td>';
+            echo            '<input type="text" id="dataInput_PriceCurrencyExchangeRate" value=15000>';
+            echo        '</td></tr>';
+            echo        '<tr><td>Remarks</td><td>';
+            echo            '<input type="text" id="dataInput_Remarks" value="My Remarks">';
+            echo        '</td></tr>';
+            echo '</table><br>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
-                'transaction.update.supplyChain.setPurchaseOrder', 
+                'transaction.create.supplyChain.setPurchaseOrder', 
                 'latest', 
                 '{'.
                     '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
                     '"entities" : {'.
-                        '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
-                        '"requesterWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_RequesterWorkerJobsPosition_RefID").value), '.
-                        '"supplier_RefID" : parseInt(document.getElementById("dataInput_Supplier_RefID").value), '.
-                        '"deliveryDateTimeTZ" : document.getElementById("dataInput_DeliveryDateTimeTZ").value, '.
-                        '"deliveryDestination_RefID" : parseInt(document.getElementById("dataInput_DeliveryDestination_RefID").value), '.
-                        '"supplierInvoiceBillingPurpose_RefID" : parseInt(document.getElementById("dataInput_SupplierInvoiceBillingPurpose_RefID").value), '.
-                        '"paymentTerm" : document.getElementById("dataInput_PaymentTerm").value, '.
+                        '"purchaseOrder_RefID" : parseInt(document.getElementById("dataInput_PurchaseOrder_RefID").value), '.
+                        '"transactionAdditionalCostType_RefID" : parseInt(document.getElementById("dataInput_TransactionAdditionalCostType_RefID").value), '.
+                        '"priceCurrency_RefID" : parseInt(document.getElementById("dataInput_PriceCurrency_RefID").value), '.
+                        '"priceCurrencyValue" : parseFloat(document.getElementById("dataInput_PriceCurrencyValue").value), '.
+                        '"priceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_PriceCurrencyExchangeRate").value), '.
                         '"remarks" : document.getElementById("dataInput_Remarks").value'.
                         '}'.
                 '}'
