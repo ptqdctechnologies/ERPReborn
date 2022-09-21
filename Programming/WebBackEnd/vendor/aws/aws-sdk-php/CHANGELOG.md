@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 3.235.12 - 2022-09-20
+
+* `Aws\EC2` - This release adds support for blocked paths to Amazon VPC Reachability Analyzer.
+
 ## 3.235.11 - 2022-09-19
 
 * `Aws\CloudTrail` - This release includes support for importing existing trails into CloudTrail Lake.
