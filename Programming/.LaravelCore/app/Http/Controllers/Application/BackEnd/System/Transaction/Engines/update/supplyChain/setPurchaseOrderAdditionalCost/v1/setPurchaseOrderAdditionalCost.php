@@ -72,11 +72,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                             \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
                                 
                             $varData['entities']['purchaseOrder_RefID'],
-                            $varData['entities']['purchaseOrderAdditionalCostType_RefID'],
+                            $varData['entities']['transactionAdditionalCostType_RefID'],
                             $varData['entities']['priceCurrency_RefID'],
                             $varData['entities']['priceCurrencyValue'],
                             $varData['entities']['priceCurrencyExchangeRate'],
-                            $varData['entities']['priceBaseCurrencyValue'],
                             $varData['entities']['remarks']
                             ))))
                             {

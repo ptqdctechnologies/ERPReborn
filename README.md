@@ -16,6 +16,7 @@ Main Features :
 3. Multiple Base Currencies & Transaction Currencies
 4. Multiple Underlying Document References
 5. Convert File Attachments To Thumbnails Automatically
+6. SQL Injection Threat Prevention For Some Implemented APIs
 ```
 
 <h3>Langkah-Langkah Instalasi dan Cloning Repository</h3>
