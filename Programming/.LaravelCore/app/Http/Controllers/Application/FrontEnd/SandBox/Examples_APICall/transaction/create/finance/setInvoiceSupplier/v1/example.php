@@ -50,6 +50,28 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     "receivedDateTimeTZ" => '2022-09-15',
                     "remarks" => 'My Remarks',
                     "additionalData" => [
+                        "taxes" => [
+                            "items" => [
+                                    [
+                                    "entities" => [
+                                        "taxType_RefID" => 182000000000001,
+                                        "tariffCurrency_RefID" => 62000000000001,
+                                        "tariffCurrencyValue" => 30000,
+                                        "tariffCurrencyExchangeRate" => 1,
+                                        "remarks" => 'Catatan 1'                                
+                                        ]
+                                    ],
+                                    [
+                                    "entities" => [
+                                        "taxType_RefID" => 182000000000002,
+                                        "tariffCurrency_RefID" => 62000000000001,
+                                        "tariffCurrencyValue" => 30000,
+                                        "tariffCurrencyExchangeRate" => 1,
+                                        "remarks" => 'Catatan 2'
+                                        ]
+                                    ]                            
+                                ]
+                            ],
                         "itemList" => [
                             "items" => [
                                     [
@@ -62,6 +84,19 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "priceCurrencyValue" => 30000.00,
                                         "priceCurrencyExchangeRate" => 1,
                                         "remarks" => 'My Remarks'
+                                        ]
+                                    ]
+                                ]
+                            ],
+                        "additionalCost" => [
+                            "items" => [
+                                    [
+                                    "entities" => [
+                                        "transactionAdditionalCostType_RefID" => 190000000000002,
+                                        "priceCurrency_RefID" => 62000000000001,
+                                        "priceCurrencyValue" => 30000,
+                                        "priceCurrencyExchangeRate" => 1,
+                                        "remarks" => 'Catatan Additional Cost'
                                         ]
                                     ]
                                 ]

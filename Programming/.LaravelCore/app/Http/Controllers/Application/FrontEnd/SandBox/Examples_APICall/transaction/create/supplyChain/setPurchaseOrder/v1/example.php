@@ -119,7 +119,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             "items" => [
                                     [
                                     "entities" => [
-                                        "purchaseOrderAdditionalCostType_RefID" => 190000000000002,
+                                        "transactionAdditionalCostType_RefID" => 190000000000002,
                                         "priceCurrency_RefID" => 62000000000001,
                                         "priceCurrencyValue" => 30000,
                                         "priceCurrencyExchangeRate" => 1,
