@@ -3,26 +3,25 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\configuration\system\dataIndex               |
-|                 \reindexAllData\v1                                                                                               |
-| ▪ API Key     : configuration.system.dataIndex.reindexAllData                                                                    |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dataPickList\master\getTransactionAdditionalCostType\v1             |
+| ▪ API Key     : dataPickList.master.getTransactionAdditionalCostType                                                                                    |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\configuration\system\dataIndex\reindexAllData\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dataPickList\master\getTransactionAdditionalCostType\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/configuration.system.dataIndex.reindexAllData.v1_throughAPIGateway                  |
-        |                     ► http://172.28.0.4/configuration.system.dataIndex.reindexAllData.v1_throughAPIGateway               |
+        | ▪ Call URL        : http(s)://<HOST>/dataPickList.master.getTransactionAdditionalCostType.v1_throughAPIGateway           |
+        |                     ► http://172.28.0.4/dataPickList.master.getTransactionAdditionalCostType.v1_throughAPIGateway        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-21                                                                                           |
-        | ▪ Creation Date   : 2022-09-21                                                                                           |
+        | ▪ Last Update     : 2022-07-22                                                                                           |
+        | ▪ Creation Date   : 2022-07-22                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
@@ -35,10 +34,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\con
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'configuration.system.dataIndex.reindexAllData', 
-                'latest', 
+                'dataPickList.master.getTransactionAdditionalCostType', 
+                'latest',
                 [
-                'parameter' => null
+                'parameter' => [
+                    ]
                 ]
                 );
             var_dump($varData);
@@ -47,12 +47,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\con
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/configuration.system.dataIndex.reindexAllData.v1_throughAPIGatewayJQuery            |
-        |                     ► http://172.28.0.4/configuration.system.dataIndex.reindexAllData.v1_throughAPIGatewayJQuery         |
+        | ▪ Call URL        : http(s)://<HOST>/dataPickList.master.getTransactionAdditionalCostType.v1_throughAPIGatewayJQuery     |
+        |                     ► http://172.28.0.4/dataPickList.master.getTransactionAdditionalCostType.v1_throughAPIGatewayJQuery  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-21                                                                                           |
-        | ▪ Creation Date   : 2022-09-21                                                                                           |
+        | ▪ Last Update     : 2022-07-22                                                                                           |
+        | ▪ Creation Date   : 2022-07-22                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGatewayJQuery($varAPIWebToken)
@@ -66,12 +66,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\con
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
-                'configuration.system.dataIndex.reindexAllData', 
+                'dataPickList.master.getTransactionAdditionalCostType', 
                 'latest', 
                 '{'.
                     '"parameter" : null'.
                 '}'
-                );
+                );            
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);
             }
