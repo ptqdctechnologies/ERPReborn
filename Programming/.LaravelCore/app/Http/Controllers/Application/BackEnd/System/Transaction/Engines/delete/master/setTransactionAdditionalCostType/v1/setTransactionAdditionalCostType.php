@@ -3,18 +3,18 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\supplyChain                           |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\master                                |
 |                \setTransactionAdditionalCostType\v1                                                                              |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\supplyChain\setTransactionAdditionalCostType\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\master\setTransactionAdditionalCostType\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : setTransactionAdditionalCostType                                                                             |
-    | ▪ Description : Menangani API transaction.delete.supplyChain.setTransactionAdditionalCostType Version 1                      |
+    | ▪ Description : Menangani API transaction.delete.master.setTransactionAdditionalCostType Version 1                           |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class setTransactionAdditionalCostType extends \App\Http\Controllers\Controller

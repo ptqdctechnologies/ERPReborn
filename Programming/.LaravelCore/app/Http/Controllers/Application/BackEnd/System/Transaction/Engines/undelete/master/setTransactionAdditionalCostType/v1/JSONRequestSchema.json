@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.undelete.supplyChain.setTransactionAdditionalCostType (version 1)",
+"description": "JSON Request Schema of transaction.undelete.master.setTransactionAdditionalCostType (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.undelete.supplyChain.setTransactionAdditionalCostType" ]
+                        "enum": [ "transaction.undelete.master.setTransactionAdditionalCostType" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],

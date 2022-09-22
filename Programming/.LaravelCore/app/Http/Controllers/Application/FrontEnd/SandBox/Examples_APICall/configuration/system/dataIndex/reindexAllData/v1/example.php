@@ -11,7 +11,7 @@
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\configuration\system\dataIndex\resetAllTransaction\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\configuration\system\dataIndex\reindexAllData\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
@@ -47,8 +47,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\con
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/configuration.system.dataReset.reindexAllData.v1_throughAPIGatewayJQuery            |
-        |                     ► http://172.28.0.4/configuration.system.dataReset.reindexAllData.v1_throughAPIGatewayJQuery         |
+        | ▪ Call URL        : http(s)://<HOST>/configuration.system.dataIndex.reindexAllData.v1_throughAPIGatewayJQuery            |
+        |                     ► http://172.28.0.4/configuration.system.dataIndex.reindexAllData.v1_throughAPIGatewayJQuery         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-09-21                                                                                           |
