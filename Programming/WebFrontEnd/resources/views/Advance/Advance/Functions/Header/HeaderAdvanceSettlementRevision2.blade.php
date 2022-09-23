@@ -8,7 +8,7 @@
                             <td><label>Requester</label></td>
                             <td>
                                 <div class="input-group">
-                                    <input id="requester" style="border-radius:0;" name="var_requester" type="text" class="form-control" readonly>
+                                    <input id="requester_id" style="border-radius:0;" name="requester_id" type="text" class="form-control" readonly>
                                 </div>
                             </td>
                         </tr>

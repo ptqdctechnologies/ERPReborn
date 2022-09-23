@@ -7,17 +7,17 @@
             <td style="padding-top: 5px;"><label>Budget Code</label></td>
             <td>
               <div class="input-group" style="width: 70%;">
-                <input id="projectcode" style="border-radius:0;" name="var_project_code" class="form-control" readonly>
+                <input id="budget_code" style="border-radius:0;" name="budget__code" class="form-control" readonly>
                 <div class="input-group-append">
                   <span style="border-radius:0;" class="input-group-text form-control">
-                    <a id="projectcode2" data-toggle="modal" data-target="#myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                    <a id="budget_code2" data-toggle="modal" data-target="#myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                   </span>
                 </div>
               </div>
             </td>
             <td>
               <div class="input-group" style="width: 153%;position:relative;right:38%;">
-                <input id="projectname" style="border-radius:0;" class="form-control" name="var_project_code2" readonly>
+                <input id="budget_name" style="border-radius:0;" class="form-control" name="budget_name" readonly>
               </div>
             </td>
           </tr>

@@ -4,8 +4,7 @@
 @include('Partials.sidebar')
 @include('getFunction.getSite')
 @include('getFunction.getProduk')
-@include('Advance.Advance.Functions.PopUp.popUpArfRevision')
-@include('Advance.Advance.Functions.PopUp.popUpSearchArfRevision')
+@include('Advance.Advance.Functions.PopUp.PopUpAdvanceRevision')
 @include('getFunction.getProject')
 @include('Advance.Advance.Functions.PopUp.popUpRequesterArfRevision')
 @include('getFunction.getWorker')
@@ -41,7 +40,7 @@
                       </button>
                     </div>
                   </div>
-                  @include('Advance.Advance.Functions.Header.headerArfRevision')
+                  @include('Advance.Advance.Functions.Header.HeaderAdvanceRevision')
                 </div>
               </div>
             </div>

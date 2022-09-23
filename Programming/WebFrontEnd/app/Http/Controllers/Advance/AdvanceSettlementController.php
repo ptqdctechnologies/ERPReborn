@@ -22,37 +22,6 @@ class AdvanceSettlementController extends Controller
                 'parameter' => []
             ]
         );
-        $varDataWorker = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.humanResource.getWorker',
-            'latest',
-            [
-                'parameter' => null,
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
-        $varData4 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.master.getCurrency',
-            'latest',
-            [
-                'parameter' => null,
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
-
         $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
@@ -68,7 +37,6 @@ class AdvanceSettlementController extends Controller
                 ]
             ]
         );
-        // dd($varDataAdvanceRequest);
 
         $var = 0;
         if (!empty($_GET['var'])) {
@@ -77,8 +45,6 @@ class AdvanceSettlementController extends Controller
 
         $compact = [
             'dataProject' => $varDataProject['data']['data'],
-            'dataWorker' => $varDataWorker['data'],
-            'data4' => $varData4['data'],
             'dataAdvanceRequest' => $varDataAdvanceRequest['data'],
             'var' => $var,
         ];
@@ -122,26 +88,79 @@ class AdvanceSettlementController extends Controller
 
     public function StoreValidateAdvanceSettlementRequester(Request $request)
     {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
         $tamp = 0;
         $status = 200;
-        $val = $request->input('RequesterId');
+        $varDataAdvanceList['data'] = [];
+        $requester_id = $request->input('requester_id');
+        $requester_id2 = $request->input('requester_id2');
+        $advance_RefID = $request->input('advance_RefID');
+
         $data = $request->session()->get("SessionAdvanceSetllementRequester");
         if ($request->session()->has("SessionAdvanceSetllementRequester")) {
             for ($i = 0; $i < count($data); $i++) {
-                if ($data[$i] == $val) {
+                if ($data[$i] == $advance_RefID) {
                     $tamp = 1;
                 }
             }
             if ($tamp == 0) {
-                $request->session()->push("SessionAdvanceSetllementRequester", $val);
+                if($requester_id != $requester_id2 && $requester_id2 != ""){
+                    $status = 500;
+                }else{
+
+                    $varDataAdvanceList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken, 
+                    'transaction.read.dataList.finance.getAdvanceDetail', 
+                    'latest', 
+                    [
+                    'parameter' => [
+                        'advance_RefID' => (int) $advance_RefID,
+                        ],
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                        ]
+                    ]
+                    );
+                    
+                    $request->session()->push("SessionAdvanceSetllementRequester", $advance_RefID);
+                }
             } else {
-                $status = 500;
+                $status = 501;
             }
         } else {
-            $request->session()->push("SessionAdvanceSetllementRequester", $val);
+
+            $varDataAdvanceList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.read.dataList.finance.getAdvanceDetail', 
+            'latest', 
+            [
+            'parameter' => [
+                'advance_RefID' => (int) $advance_RefID,
+                ],
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+            );
+            
+            $request->session()->push("SessionAdvanceSetllementRequester", $advance_RefID);
         }
 
-        return response()->json($status);
+        $compact = [
+            'status' => $status,
+            'requester_id' => $requester_id,
+            'DataAdvanceList' => $varDataAdvanceList['data'],
+        ];
+
+        return response()->json($compact);
     }
 
     public function RevisionAdvanceSettlementIndex(Request $request)

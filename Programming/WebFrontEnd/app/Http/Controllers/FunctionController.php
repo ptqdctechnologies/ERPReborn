@@ -34,6 +34,33 @@ class FunctionController extends Controller
         return response()->json($varData['data']['data']);
     }
 
+
+    public function getAdvanceByBudgetID(Request $request)
+    {
+        $budget_code = $request->input('budget_code');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varAPIWebToken, 
+        'transaction.read.dataList.finance.getAdvance', 
+        'latest', 
+        [
+        'parameter' => null,
+        'SQLStatement' => [
+            'pick' => null,
+            'sort' => null,
+            'filter' => '"CombinedBudget_RefID" = '.$budget_code.'',
+            'paging' => null
+            ]
+        ]
+        );
+
+        $compact = [
+            'DataAdvanceRequest' => $varDataAdvanceRequest['data'],
+        ];
+        return response()->json($compact);
+    }
+
     public function getSite(Request $request)
     {
         $sitecode = $request->input('sitecode');
