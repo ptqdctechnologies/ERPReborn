@@ -5,7 +5,7 @@
         $("#ManagerNameId").prop("disabled", true);
         $("#CurrencyId").prop("disabled", true);
         $("#FinanceId").prop("disabled", true);
-        // $("#advance_number2").prop("disabled", true);
+        $("#advance_number2").prop("disabled", true);
 
         $("#detailASF").hide();
         $("#tableShowHideArfDetail").hide();
@@ -499,5 +499,140 @@
             $("#amountCompanyCart").show();
             $("#amountdueto").show();
         });
+    });
+</script>
+
+<script>
+    $(function() {
+        $('.klikProject').on('click', function(e) {
+            e.preventDefault(); // in chase you change to a link or 
+            
+            let $this = $(this);
+            let code = $this.data("id");
+            let name = $this.data("name");
+            $("#budget_code").val(code);
+            $("#budget_name").val(name);
+            $("#advance_number2").prop("disabled", false);
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: 'GET',
+                url: '{!! route("getAdvanceByBudgetID") !!}?budget_code=' + $('#budget_code').val(),
+                success: function(data) {
+
+                    var no = 1; t = $('#tableSearchArfinAsf').DataTable();
+                    $.each(data.DataAdvanceRequest, function(key, val) {
+                        t.row.add([
+                            '<tbody><tr><td>' + no++ + '</td>',
+                            '<td><span data-dismiss="modal" class="klikSearchArfinAsf" data-id1="' + val.sys_ID + '" data-id2="' + val.documentNumber + '" data-id3="' + val.requesterWorkerJobsPosition_RefID + '">' + val.documentNumber + '</span></td>',
+                            '<td><span data-dismiss="modal" class="klikSearchArfinAsf" data-id1="' + val.sys_ID + '" data-id2="' + val.documentNumber + '" data-id3="' + val.requesterWorkerJobsPosition_RefID + '">' + val.combinedBudget_RefID + '</span></td>',
+                            '<td><span data-dismiss="modal" class="klikSearchArfinAsf" data-id1="' + val.sys_ID + '" data-id2="' + val.documentNumber + '" data-id3="' + val.requesterWorkerJobsPosition_RefID + '">' + val.combinedBudgetName + '</span></td>',
+                            '<td><span data-dismiss="modal" class="klikSearchArfinAsf" data-id1="' + val.sys_ID + '" data-id2="' + val.documentNumber + '" data-id3="' + val.requesterWorkerJobsPosition_RefID + '">' + val.combinedBudgetSection_RefID + '</span></td>',
+                            '<td><span data-dismiss="modal" class="klikSearchArfinAsf" data-id1="' + val.sys_ID + '" data-id2="' + val.documentNumber + '" data-id3="' + val.requesterWorkerJobsPosition_RefID + '">' + val.combinedBudgetSectionName + '</span></td>',
+                        ]).draw();
+
+                    });
+
+                    $(".klikSearchArfinAsf").on('click', function(e) {
+                        e.preventDefault();
+                        var $this = $(this);
+                        var advance_RefID = $this.data("id1");
+                        var advance_number = $this.data("id2");
+                        var requester_RefID = $this.data("id3");
+                        $("#advance_number").val($this.data("id2"));
+                        $("#tableShowHideArfDetail").show();
+                        $("#budget_code2").prop("disabled", true);
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+
+                        $.ajax({
+                            type: "POST",
+                            url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlementRequester") !!}?requester_id=' + requester_RefID + '&requester_id2=' + $('#requester_id').val() + '&advance_RefID=' + advance_RefID,
+                            success: function(data) {
+                                if (data.status == "200") {
+
+                                    $("#requester_id").val(data.requester_id);
+                                    $("#requester_name").val(data.requester_id);
+
+                                    $.each(data.DataAdvanceList, function(key, value) {
+                                        var html =
+                                            '<tr>' +
+                                            '<td style="border:1px solid #e9ecef;width:5%;">' +
+                                            '&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs AddToDetailSettlement" data-dismiss="modal" data-id1="' + advance_number + '" data-id2="' + value.quantity + '" data-id3="' + value.productUnitPriceCurrencyValue + '" data-id4="' + value.priceBaseCurrencyValue + '" data-id5="' + value.priceCurrencyISOCode + '" data-id6="' + value.quantityUnitName + '" data-id7="' + value.product_RefID + '" data-id8="' + value.productName + '" data-id9="' + value.remarks + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="18" alt="" title="Add"></button> ' +
+                                            '</td>' +
+                                            '<td style="border:1px solid #e9ecef;">' +
+                                            '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"><div class="progress-bar bg-red" style="width:50%;"></div><small><center>50 %</center></small></div>' +
+                                            '</td>' +
+                                            '<td style="border:1px solid #e9ecef;">' + advance_number + '</td>' +
+                                            '<td style="border:1px solid #e9ecef;">' + value.product_RefID + '</td>' +
+                                            '<td style="border:1px solid #e9ecef;">' + value.productName + '</td>' +
+                                            '<td style="border:1px solid #e9ecef;">' + value.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                                            '<td style="border:1px solid #e9ecef;">' + 'N/A' + '</td>' +
+                                            '<td style="border:1px solid #e9ecef;">' + value.quantityUnitName + '</td>' +
+                                            '<td style="border:1px solid #e9ecef;">' + value.productUnitPriceCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                                            '<td style="border:1px solid #e9ecef;">' + value.priceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                                            '<td style="border:1px solid #e9ecef;">' + value.priceCurrencyISOCode + '</td>' +
+                                            '<td style="border:1px solid #e9ecef;">' + value.remarks + '</td>' +
+                                            '</tr>';
+
+                                        $('table.tableArfDetail tbody').append(html);
+                                    });
+
+                                    $("body").on("click", ".AddToDetailSettlement", function() {
+                                        $("#tableShowHideArfDetail").find("input,button,textarea,select").attr("disabled", true);
+                                        $("#detailASF").show();
+
+                                        var $this = $(this);
+                                        $("#arf_number").val($this.data("id1"));
+                                        $("#arf_date").val("23-02-2021");
+                                        $("#qty_expense").val($this.data("id2").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                                        $("#put_qty_expense").val($this.data("id2"));
+                                        $("#TotalQty").val($this.data("id2"));
+                                        $("#qty_expense2").val($this.data("id6"));
+                                        $("#price_expense").val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                                        $("#put_price_expense").val($this.data("id3"));
+                                        $("#price_expense2").val($this.data("id5"));
+                                        $("#total_expense").val($this.data("id4").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                                        $("#total_expense2").val($this.data("id5"));
+                                        $("#qty_amount").val("0.00");
+                                        $("#qty_amount2").val($this.data("id6"));
+                                        $("#price_amount").val("0.00");
+                                        $("#price_amount2").val($this.data("id5"));
+                                        $("#total_amount").val("0.00");
+                                        $("#total_amount2").val($this.data("id5"));
+
+                                        $("#total_arf").val($this.data("id4"));
+                                        $("#total_arf2").val($this.data("id5"));
+                                        $("#total_asf").val("500000");
+                                        $("#total_asf2").val($this.data("id5"));
+                                        $("#balance").val($this.data("id4").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                                        $("#balance2").val($this.data("id5"));
+
+                                        $("#productIdHide").val($this.data("id7"));
+                                        $("#nameMaterialHide").val($this.data("id8"));
+                                        $("#descriptionHide").val($this.data("id9"));
+
+                                    });
+                                }else if (data.status == "501") {
+                                    Swal.fire("Cancelled", "You have chosen this number !", "error");
+                                } else {
+                                    Swal.fire("Cancelled", "Please use same requester !", "error");
+                                }
+                            },
+                        });
+
+                    });
+                }
+            });
+        });
+
     });
 </script>

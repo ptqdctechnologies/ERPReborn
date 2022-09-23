@@ -87,7 +87,7 @@
 
             $.ajax({
                 type: "POST",
-                url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlementRequester") !!}?RequesterId=' + $("#requester").val(),
+                url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlementRequester") !!}?requester_id=' + $("#requester_id").val() + '&advance_RefID=' + advance_RefID,
                 success: function(data) {
                     if (data == "200") {
                         $.ajax({

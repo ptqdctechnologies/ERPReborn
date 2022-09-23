@@ -4,9 +4,8 @@
 @include('Partials.sidebar')
 @include('getFunction.getProject')
 @include('getFunction.getSite')
-@include('Advance.Advance.Functions.PopUp.searchArf')
-@include('Advance.Advance.Functions.PopUp.popUpAsfRevision')
-@include('Advance.Advance.Functions.PopUp.popUpSearchAsfRevision')
+@include('Advance.Advance.Functions.PopUp.SearchAdvance')
+@include('Advance.Advance.Functions.PopUp.PopUpAdvanceSettlementRevision')
 
 <div class="content-wrapper" style="position:relative;bottom:12px;">
   <section class="content">
@@ -36,7 +35,7 @@
                       </button>
                     </div>
                   </div>
-                  @include('Advance.Advance.Functions.Header.headerAsf2')
+                  @include('Advance.Advance.Functions.Header.HeaderAdvanceSettlement')
                 </div>
               </div>
             </div>
@@ -55,7 +54,7 @@
                         </button>
                       </div>
                     </div>
-                    @include('Advance.Advance.Functions.Header.headerAsf')
+                    @include('Advance.Advance.Functions.Header.HeaderAdvanceSettlement2')
                   </div>
                 </div>
               </div>

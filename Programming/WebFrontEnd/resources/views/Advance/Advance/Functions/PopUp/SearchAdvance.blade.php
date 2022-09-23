@@ -1,32 +1,28 @@
-<div id="myProject" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="mySearchArf" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Choose Budget</h4>
+                <label class="card-title">Choose Advance Request</label>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
+
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="tableGetProject">
+                                <table class="table table-head-fixed text-nowrap" id="tableSearchArfinAsf">
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>Trano</th>
                                             <th>Budget Code</th>
                                             <th>Budget Name</th>
+                                            <th>Sub Budget Code</th>
+                                            <th>Sub Budget Names</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php $no = 1 @endphp
-                                        @foreach($dataProject as $dataProjects)
-                                        <tr>
-                                            <td>{{ $no++ }}</td>
-                                            <td data-dismiss="modal" class="klikProject" data-id="{{$dataProjects['sys_ID']}}" data-name="{{$dataProjects['sys_Text']}}">{{$dataProjects['sys_ID']}}</td>
-                                            <td>{{$dataProjects['sys_Text']}}</td>
-                                        </tr>
-                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

@@ -114,6 +114,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     //Function
     Route::get('getProject', 'FunctionController@getProject')->name('getProject');
+    Route::get('getAdvanceByBudgetID', 'FunctionController@getAdvanceByBudgetID')->name('getAdvanceByBudgetID');
     Route::get('getSite', 'FunctionController@getSite')->name('getSite');
     Route::get('getWorker', 'FunctionController@getWorker')->name('getWorker');
 
