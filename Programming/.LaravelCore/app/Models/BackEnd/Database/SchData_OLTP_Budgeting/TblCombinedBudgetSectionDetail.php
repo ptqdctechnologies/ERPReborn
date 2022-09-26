@@ -12,19 +12,19 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblCombinedBudget                                                                                            |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Budgeting ► TblCombinedBudget                                       |
+    | ▪ Class Name  : TblCombinedBudgetSectionDetail                                                                               |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Budgeting ► TblCombinedBudgetSectionDetail                          |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblCombinedBudget extends \App\Models\Database\DefaultClassPrototype
+    class TblCombinedBudgetSectionDetail extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-01-10                                                                                           |
         | ▪ Last Update     : 2022-01-10                                                                                           |
+        | ▪ Creation Date   : 2022-01-10                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -57,7 +57,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         public function setDataSynchronize($varUserSession,
             int $varCombinedBudgetSection_RefID = null
             )
-            {
+            {/*
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
@@ -69,7 +69,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                     )
                 );
             $varReturn = [];
-            return $varReturn;
+            return $varReturn;*/
             }
         }
     }
