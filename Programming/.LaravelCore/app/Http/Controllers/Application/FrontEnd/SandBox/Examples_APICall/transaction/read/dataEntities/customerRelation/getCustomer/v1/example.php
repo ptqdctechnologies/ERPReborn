@@ -3,26 +3,26 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dataPickList\humanResource                   |
-|                 \getWorkerJobsPositionCurrent\v1                                                                                 |
-| ▪ API Key     : dataPickList.humanResource.getWorkerJobsPositionCurrent                                                          |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataEntities                |
+|                 \customerRelation\getCustomer\v1                                                                                 |
+| ▪ API Key     : transaction.read.dataEntities.customerRelation.getCustomer                                                       |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dataPickList\humanResource\getWorkerJobsPositionCurrent\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataEntities\customerRelation\getCustomer\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/dataPickList.humanResource.getWorkerJobsPositionCurrent.v1_throughAPIGateway        |
-        |                     ► http://172.28.0.4/dataPickList.humanResource.getWorkerJobsPositionCurrent.v1_throughAPIGateway     |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataEntities.customerRelation.getCustomer.v1_throughAPIGateway     |
+        |                     ► http://172.28.0.4/transaction.read.dataEntities.customerRelation.getCustomer.v1_throughAPIGateway  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-22                                                                                           |
-        | ▪ Creation Date   : 2022-07-22                                                                                           |
+        | ▪ Last Update     : 2022-09-26                                                                                           |
+        | ▪ Creation Date   : 2022-09-26                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
@@ -35,11 +35,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'dataPickList.humanResource.getWorkerJobsPositionCurrent', 
-                'latest',
+                'transaction.read.dataEntities.customerRelation.getCustomer', 
+                'latest', 
                 [
                 'parameter' => [
-                    'worker_RefID' => null
+                    'recordIDSet' => '{125000000000001, 125000000000002}'
                     ]
                 ]
                 );
@@ -49,13 +49,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/dataPickList.humanResource.getWorkerJobsPositionCurrent.v1_throughAPIGatewayJQuery  |
+        | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
+        |                     transaction.read.dataEntities.customerRelation.getCustomer.v1_throughAPIGatewayJQuery                |
         |                     ► http://172.28.0.4/                                                                                 |
-        |                       dataPickList.humanResource.getWorkerJobsPositionCurrent.v1_throughAPIGatewayJQuery                 |
+        |                       transaction.read.dataEntities.customerRelation.getCustomer.v1_throughAPIGatewayJQuery              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-22                                                                                           |
-        | ▪ Creation Date   : 2022-07-22                                                                                           |
+        | ▪ Last Update     : 2022-09-26                                                                                           |
+        | ▪ Creation Date   : 2022-09-26                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGatewayJQuery($varAPIWebToken)
@@ -65,20 +66,20 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
             //---Core---
+            echo '<input type="text" id="dataInput_RecordIDSet" value="{125000000000001, 125000000000002}">';
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<br>Worker RefID ► '.
-                '<input type="text" id="dataInput_Worker_RefID" value=32000000000439>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
-                'dataPickList.humanResource.getWorkerJobsPositionCurrent', 
+                'transaction.read.dataEntities.customerRelation.getCustomer', 
                 'latest', 
                 '{'.
-                    '"parameter" : {'.
-                         '"worker_RefID" : parseInt(document.getElementById("dataInput_Worker_RefID").value) '.
+                    '"parameter" : '.
+                        '{'.
+                        '"recordIDSet" : document.getElementById("dataInput_RecordIDSet").value'.
                         '}'.
                 '}'
-                );            
+                ); 
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);
             }
