@@ -11,22 +11,11 @@
   <link rel="shortcut icon" href="{{ asset('AdminLTE-master/dist/img/favicon.ico') }}">
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/fontawesome-free/css/all.min.css') }}">
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/jqvmap/jqvmap.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/daterangepicker/daterangepicker.css') }}">
-  <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/summernote/summernote-bs4.min.css') }}"> -->
   <!-- DataTables -->
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/adminlte.min.css') }}">
-
-  <!-- Select2 -->
-  <!-- <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/select2/css/select2.min.css') }}"> -->
-  <!-- Bootstrap4 Duallistbox -->
-  <!-- <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}"> -->
   <!-- sweetalert -->
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/adminltesweatalert.min.css') }}">
   <!-- Loading css -->
@@ -35,9 +24,6 @@
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/fullcalendar/customfullcalender.css') }}">
 
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <!-- <script>
@@ -95,49 +81,12 @@
   <!-- jQuery -->
   <script src="{{ asset('AdminLTE-master/plugins/jquery/jquery.min.js') }}"></script>
   <script src="{{ asset('AdminLTE-master/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-
-  <!-- <script src="{{ asset('AdminLTE-master/plugins/jquery-ui/jquery-ui.min.js') }}"></script> -->
-  <!-- Select2 -->
-  <!-- <script src="{{ asset('AdminLTE-master/plugins/select2/js/select2.full.min.js') }}"></script> -->
-  <!-- Bootstrap4 Duallistbox -->
-  <!-- <script src="{{ asset('AdminLTE-master/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script> -->
-  <!-- Input Mask -->
   <script src="{{ asset('AdminLTE-master/plugins/moment/moment.min.js') }}"></script>
-  <!-- <script src="{{ asset('AdminLTE-master/plugins/inputmask/jquery.inputmask.min.js') }}"></script> -->
-  <!-- date-range-picker -->
-  <!-- <script src="{{ asset('AdminLTE-master/plugins/daterangepicker/daterangepicker.js') }}"></script> -->
-  <!-- Bootstrap 4 -->
-
   <!-- DataTables -->
   <script src="{{ asset('AdminLTE-master/plugins/datatables/jquery.dataTables.min.js')}}"></script>
   <script src="{{ asset('AdminLTE-master/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
   <script src="{{ asset('AdminLTE-master/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
   <script src="{{ asset('AdminLTE-master/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
-  <!-- <script src="{{ asset('AdminLTE-master/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
-  <script src="{{ asset('AdminLTE-master/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
-  <script src="{{ asset('AdminLTE-master/plugins/jszip/jszip.min.js')}}"></script>
-  <script src="{{ asset('AdminLTE-master/plugins/pdfmake/pdfmake.min.js')}}"></script>
-  <script src="{{ asset('AdminLTE-master/plugins/pdfmake/vfs_fonts.js')}}"></script>
-  <script src="{{ asset('AdminLTE-master/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
-  <script src="{{ asset('AdminLTE-master/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
-  <script src="{{ asset('AdminLTE-master/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script> -->
-
-  <!-- jquery-validation -->
-  <!-- <script src="{{ asset('AdminLTE-master/plugins/jqvmap/jquery.vmap.min.js') }}"></script>
-  <script src="{{ asset('AdminLTE-master/plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
-
-  <script src="{{ asset('AdminLTE-master/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
-  <script src="{{ asset('AdminLTE-master/plugins/jquery-validation/additional-methods.min.js') }}"></script>
-
-  <script src="{{ asset('AdminLTE-master/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
-
-  <script src="{{ asset('AdminLTE-master/plugins/chart.js/Chart.min.js') }}"></script>
-  <script src="{{ asset('AdminLTE-master/plugins/sparklines/sparkline.js') }}"></script>
-  <script src="{{ asset('AdminLTE-master/plugins/jquery-knob/jquery.knob.min.js') }}"></script>
-  <script src="{{ asset('AdminLTE-master/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
-  <script src="{{ asset('AdminLTE-master/plugins/summernote/summernote-bs4.min.js') }}"></script>
-  <script src="{{ asset('AdminLTE-master/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-  <script src="{{ asset('AdminLTE-master/dist/js/pages/dashboard.js') }}"></script>-->
   <script src="{{ asset('AdminLTE-master/plugins/fullcalendar/customfullcalender.js') }}"></script>
 
   <script src="{{ asset('AdminLTE-master/dist/js/adminlte.js') }}"></script>
@@ -165,11 +114,11 @@
         "responsive": true,
         "autoWidth": false,
       });
-      $("#tableGetProject").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
+      // $("#tableGetProject").DataTable({
+      //   "responsive": true,
+      //   "autoWidth": true,
+      //   "paginate": true,
+      // });
       $("#tableBudgetExpense").DataTable({
         "responsive": true,
         "autoWidth": false,
@@ -221,11 +170,11 @@
         "autoWidth": false,
         "paginate": false,
       });
-      $("#tableGetSite").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
+      // $("#tableGetSite").DataTable({
+      //   "responsive": true,
+      //   "autoWidth": false,
+      //   "paginate": false,
+      // });
       $("#tableGetPr").DataTable({
         "responsive": true,
         "autoWidth": false,
@@ -261,11 +210,11 @@
         "autoWidth": false,
         "paginate": false,
       });
-      $("#tableSearchArfRevision").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
+      // $("#tableSearchArfRevision").DataTable({
+      //   "responsive": true,
+      //   "autoWidth": false,
+      //   "paginate": false,
+      // });
       $("#tableSearchAsfRevision").DataTable({
         "responsive": true,
         "autoWidth": false,
@@ -293,11 +242,11 @@
         "paginate": false,
       });
 
-      $("#tableGetWorker").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
+      // $("#tableGetWorker").DataTable({
+      //   "responsive": true,
+      //   "autoWidth": false,
+      //   "paginate": false,
+      // });
 
       $("#tableSearchBsf").DataTable({
         "responsive": true,

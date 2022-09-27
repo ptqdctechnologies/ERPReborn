@@ -529,11 +529,11 @@
                     $.each(data.DataAdvanceRequest, function(key, val) {
                         t.row.add([
                             '<tbody><tr><td>' + no++ + '</td>',
-                            '<td><span data-dismiss="modal" class="klikSearchArfinAsf" data-id1="' + val.sys_ID + '" data-id2="' + val.documentNumber + '" data-id3="' + val.requesterWorkerJobsPosition_RefID + '">' + val.documentNumber + '</span></td>',
-                            '<td><span data-dismiss="modal" class="klikSearchArfinAsf" data-id1="' + val.sys_ID + '" data-id2="' + val.documentNumber + '" data-id3="' + val.requesterWorkerJobsPosition_RefID + '">' + val.combinedBudget_RefID + '</span></td>',
-                            '<td><span data-dismiss="modal" class="klikSearchArfinAsf" data-id1="' + val.sys_ID + '" data-id2="' + val.documentNumber + '" data-id3="' + val.requesterWorkerJobsPosition_RefID + '">' + val.combinedBudgetName + '</span></td>',
-                            '<td><span data-dismiss="modal" class="klikSearchArfinAsf" data-id1="' + val.sys_ID + '" data-id2="' + val.documentNumber + '" data-id3="' + val.requesterWorkerJobsPosition_RefID + '">' + val.combinedBudgetSection_RefID + '</span></td>',
-                            '<td><span data-dismiss="modal" class="klikSearchArfinAsf" data-id1="' + val.sys_ID + '" data-id2="' + val.documentNumber + '" data-id3="' + val.requesterWorkerJobsPosition_RefID + '">' + val.combinedBudgetSectionName + '</span></td>',
+                            '<td><span data-dismiss="modal" class="klikSearchArfinAsf" data-id1="' + val.sys_ID + '" data-id2="' + val.documentNumber + '" data-id3="' + val.requesterWorkerJobsPosition_RefID + '" data-id4="' + val.requesterWorkerName + '">' + val.documentNumber + '</span></td>',
+                            '<td><span data-dismiss="modal" class="klikSearchArfinAsf" data-id1="' + val.sys_ID + '" data-id2="' + val.documentNumber + '" data-id3="' + val.requesterWorkerJobsPosition_RefID + '" data-id4="' + val.requesterWorkerName + '">' + val.combinedBudget_RefID + '</span></td>',
+                            '<td><span data-dismiss="modal" class="klikSearchArfinAsf" data-id1="' + val.sys_ID + '" data-id2="' + val.documentNumber + '" data-id3="' + val.requesterWorkerJobsPosition_RefID + '" data-id4="' + val.requesterWorkerName + '">' + val.combinedBudgetName + '</span></td>',
+                            '<td><span data-dismiss="modal" class="klikSearchArfinAsf" data-id1="' + val.sys_ID + '" data-id2="' + val.documentNumber + '" data-id3="' + val.requesterWorkerJobsPosition_RefID + '" data-id4="' + val.requesterWorkerName + '">' + val.combinedBudgetSection_RefID + '</span></td>',
+                            '<td><span data-dismiss="modal" class="klikSearchArfinAsf" data-id1="' + val.sys_ID + '" data-id2="' + val.documentNumber + '" data-id3="' + val.requesterWorkerJobsPosition_RefID + '" data-id4="' + val.requesterWorkerName + '">' + val.combinedBudgetSectionName + '</span></td>',
                         ]).draw();
 
                     });
@@ -544,6 +544,7 @@
                         var advance_RefID = $this.data("id1");
                         var advance_number = $this.data("id2");
                         var requester_RefID = $this.data("id3");
+                        var requester_name = $this.data("id4");
                         $("#advance_number").val($this.data("id2"));
                         $("#tableShowHideArfDetail").show();
                         $("#budget_code2").prop("disabled", true);
@@ -555,12 +556,12 @@
 
                         $.ajax({
                             type: "POST",
-                            url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlementRequester") !!}?requester_id=' + requester_RefID + '&requester_id2=' + $('#requester_id').val() + '&advance_RefID=' + advance_RefID,
+                            url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlementRequester") !!}?requester_id=' + requester_RefID + '&requester_name=' + requester_name + '&requester_id2=' + $('#requester_id').val() + '&advance_RefID=' + advance_RefID,
                             success: function(data) {
                                 if (data.status == "200") {
 
                                     $("#requester_id").val(data.requester_id);
-                                    $("#requester_name").val(data.requester_id);
+                                    $("#requester_name").val(data.requester_name);
 
                                     $.each(data.DataAdvanceList, function(key, value) {
                                         var html =

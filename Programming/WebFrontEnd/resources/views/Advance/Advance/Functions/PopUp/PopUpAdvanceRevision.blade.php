@@ -15,7 +15,7 @@
                                             <td>
                                                 <div class="input-group">
                                                     <input id="searchArfNumberRevisionId" style="border-radius:0;" name="searchArfNumberRevisionId" type="hidden" class="form-control">
-                                                    <input id="siteCodeRevAsfBefore" style="border-radius:0;" name="siteCodeRevArfBefore" class="form-control" type="hidden">
+                                                    <input id="siteCodeRevArfBefore" style="border-radius:0;" name="siteCodeRevArfBefore" class="form-control" type="hidden">
                                                     <input required="" id="searchArfNumberRevisions" style="border-radius:0;" name="searchArfNumberRevisions" type="text" class="form-control" required readonly>
                                                     <div class="input-group-append">
                                                         <span style="border-radius:0;" class="input-group-text form-control">
@@ -69,28 +69,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
-                                        @php $no = 1 @endphp
-                                        @foreach($dataAdvanceRequest as $dataAdvanceRequests)
-                                        <tr>
-                                            <td>{{ $no++ }}</td>
-                                            <td>
-                                                <p data-dismiss="modal" class="ClickPopUpAdvanceRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['documentNumber']}}</p>
-                                            </td>
-                                            <td>
-                                                <p data-dismiss="modal" class="ClickPopUpAdvanceRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['combinedBudget_RefID']}}</p>
-                                            </td>
-                                            <td>
-                                                <p data-dismiss="modal" class="ClickPopUpAdvanceRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['combinedBudgetName']}}</p>
-                                            </td>
-                                            <td>
-                                                <p data-dismiss="modal" class="ClickPopUpAdvanceRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}</p>
-                                            </td>
-                                            <td>
-                                                <p data-dismiss="modal" class="ClickPopUpAdvanceRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['combinedBudgetSectionName']}}</p>
-                                            </td>
-                                        </tr>
-                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -103,15 +81,8 @@
 </div>
 
 <script>
-    $(function() {
-        $(".ClickPopUpAdvanceRevision").on('click', function(e) {
-            e.preventDefault();
-            var $this = $(this);
-            var id = $this.data("id1");
-            var code = $this.data("id2");
-            var sitecode = $this.data("id3");
-            $("#searchArfNumberRevisionId").val(id);
-            $("#searchArfNumberRevisions").val(code);
-        });
-    });
+    function klikPopUpAdvanceRevision(id, code) {
+        $("#searchArfNumberRevisionId").val(id);
+        $("#searchArfNumberRevisions").val(code);
+    }
 </script>

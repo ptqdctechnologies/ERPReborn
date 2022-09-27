@@ -116,6 +116,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getProject', 'FunctionController@getProject')->name('getProject');
     Route::get('getAdvanceByBudgetID', 'FunctionController@getAdvanceByBudgetID')->name('getAdvanceByBudgetID');
     Route::get('getSite', 'FunctionController@getSite')->name('getSite');
+    Route::get('getBudget', 'FunctionController@getBudget')->name('getBudget');
     Route::get('getWorker', 'FunctionController@getWorker')->name('getWorker');
 
 
@@ -132,6 +133,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('StoreValidateAdvance', 'Advance\AdvanceRequestController@StoreValidateAdvance')->name('AdvanceRequest.StoreValidateAdvance');
     Route::post('StoreValidateAdvance2', 'Advance\AdvanceRequestController@StoreValidateAdvance2')->name('AdvanceRequest.StoreValidateAdvance2');
     Route::post('AdvanceListCartRevision', 'Advance\AdvanceRequestController@AdvanceListCartRevision')->name('AdvanceRequest.AdvanceListCartRevision');
+    Route::get('AdvanceListData', 'Advance\AdvanceRequestController@AdvanceListData')->name('AdvanceRequest.AdvanceListData');
     Route::post('RevisionAdvance', 'Advance\AdvanceRequestController@RevisionAdvanceIndex')->name('AdvanceRequest.RevisionAdvance');
     Route::resource('AdvanceRequest', 'Advance\AdvanceRequestController');
 
