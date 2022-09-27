@@ -67,6 +67,53 @@ namespace App\Models\Database\SchData_OLTP_Master
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataEntities_Entity                                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-09-26                                                                                           |
+        | ▪ Creation Date   : 2022-09-26                                                                                           |
+        | ▪ Description     : Get Data Entities                                                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysID ► System Record ID                                                                              |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataEntities_Entity($varUserSession, 
+            string $varIDSet)
+            {
+            try {
+                $varFunctionName='SchData-OLTP-Master.Func_GetDataEntities_Entity';
+                $varTemp = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        $varFunctionName,
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varIDSet, 'bigint[]']
+                        ]
+                        )
+                    );
+
+                for ($i=0; $i!=count($varTemp['Data']); $i++)
+                    {
+                    $varReturn[$i] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession, 
+                        $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]);
+                    }
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getData_CentralBankCurrencyExchangtMiddleRateByCurrencyISOCode                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -2109,5 +2156,60 @@ namespace App\Models\Database\SchData_OLTP_Master
                 return [];
                 }
             }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getBusinessDocumentByRecordID                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-09-27                                                                                           |
+        | ▪ Creation Date   : 2022-09-27                                                                                           |
+        | ▪ Description     : Get Business Document Entity By Reord ID                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varRecordID ► Record ID                                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (int)    varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getBusinessDocumentByRecordID($varUserSession, int $varRecordID)
+            {
+            try {
+                $varData = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-Master.Func_General_GetBusinessDocumentEntityByRecordID',
+                        [
+                            [$varRecordID, 'bigint']
+                        ]
+                        )
+                    );
+                $varReturn = [
+                    'fullDocumentNumber' => 
+                        $varData['Data'][0]['DocumentTypeName'].
+                        ' No : '.
+                        $varData['Data'][0]['DocumentNumber'].
+                        ' (Version : '.
+                        $varData['Data'][0]['Version'].
+                        ')',
+                    'businessDocumentType_RefID' => $varData['Data'][0]['BusinessDocumentType_RefID'],
+                    'businessDocument_RefID' => $varData['Data'][0]['BusinessDocument_RefID'],
+                    'businessDocumentVersion_RefID' => $varData['Data'][0]['BusinessDocumentVersion_RefID'],
+                    'documentTypeName' => $varData['Data'][0]['DocumentTypeName'],
+                    'documentNumber' => $varData['Data'][0]['DocumentNumber'],
+                    'version' => $varData['Data'][0]['Version'],
+                    'documentDateTimeTZ' => $varData['Data'][0]['DocumentDateTimeTZ']
+                    ];
+                return $varReturn;
+                } 
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
         }
     }
