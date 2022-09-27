@@ -10,6 +10,7 @@
  */
 namespace PHPUnit\Framework\MockObject;
 
+use function sprintf;
 use PHPUnit\Framework\Constraint\IsEqual;
 use PHPUnit\Framework\MockObject\Builder\InvocationMocker;
 use PHPUnit\Framework\MockObject\Stub\ReturnSelf;
@@ -22,6 +23,7 @@ use stdClass;
 
 /**
  * @covers \PHPUnit\Framework\MockObject\Builder\InvocationMocker
+ *
  * @small
  */
 final class InvocationMockerTest extends TestCase

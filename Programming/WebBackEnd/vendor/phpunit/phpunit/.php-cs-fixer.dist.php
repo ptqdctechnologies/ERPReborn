@@ -14,6 +14,7 @@ $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__ . '/tests/_files')
     ->in(__DIR__ . '/tests/end-to-end')
     ->in(__DIR__ . '/tests/unit')
+    ->notName('InterfaceWithMethodReturningDisjunctiveNormalFormType.php')
     ->notName('*.phpt');
 
 $config = new PhpCsFixer\Config;
@@ -121,7 +122,11 @@ $config->setFinder($finder)
         'multiline_whitespace_before_semicolons' => true,
         'native_constant_invocation' => false,
         'native_function_casing' => false,
-        'native_function_invocation' => false,
+        'native_function_invocation' => [
+            'include' => [
+                '@internal',
+            ],
+        ],
         'native_function_type_declaration_casing' => true,
         'new_with_braces' => [
             'named_class' => false,
@@ -156,14 +161,14 @@ $config->setFinder($finder)
         'no_superfluous_phpdoc_tags' => [
             'allow_mixed' => true,
         ],
-        'no_trailing_comma_in_list_call' => true,
-        'no_trailing_comma_in_singleline_array' => true,
+        'no_trailing_comma_in_singleline' => true,
         'no_trailing_whitespace' => true,
         'no_trailing_whitespace_in_comment' => true,
         'no_trailing_whitespace_in_string' => true,
         'no_unneeded_control_parentheses' => true,
         'no_unneeded_curly_braces' => true,
         'no_unneeded_final_method' => true,
+        'no_unneeded_import_alias' => true,
         'no_unreachable_default_argument_value' => true,
         'no_unset_cast' => true,
         'no_unset_on_property' => true,

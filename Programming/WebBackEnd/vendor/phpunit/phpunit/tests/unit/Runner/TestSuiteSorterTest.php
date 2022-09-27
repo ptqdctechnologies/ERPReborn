@@ -10,6 +10,7 @@
 namespace PHPUnit\Runner;
 
 use function mt_srand;
+use function sprintf;
 use MultiDependencyTest;
 use NotReorderableTest;
 use PHPUnit\Framework\TestCase;
@@ -21,7 +22,9 @@ use PHPUnit\TestFixture\TestWithDifferentSizes;
 
 /**
  * @testdox Reordering test execution
+ *
  * @group test-reorder
+ *
  * @small
  */
 final class TestSuiteSorterTest extends TestCase
@@ -65,6 +68,7 @@ final class TestSuiteSorterTest extends TestCase
 
     /**
      * @testdox Empty TestSuite not affected (order=$order, resolve=$resolveDependencies, defects=$orderDefects)
+     *
      * @dataProvider suiteSorterOptionPermutationsProvider
      */
     public function testShouldNotAffectEmptyTestSuite(int $order, bool $resolveDependencies, int $orderDefects): void

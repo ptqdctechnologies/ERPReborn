@@ -23,8 +23,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                       transaction.read.dataEntities.production.getMaterialProductAssembly.v1_throughAPIGateway           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-23                                                                                           |
-        | ▪ Creation Date   : 2022-09-23                                                                                           |
+        | ▪ Last Update     : 2022-09-27                                                                                           |
+        | ▪ Creation Date   : 2022-09-27                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
@@ -57,8 +57,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                       transaction.read.dataEntities.production.getMaterialProductAssembly.v1_throughAPIGatewayJQuery     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-23                                                                                           |
-        | ▪ Creation Date   : 2022-09-23                                                                                           |
+        | ▪ Last Update     : 2022-09-27                                                                                           |
+        | ▪ Creation Date   : 2022-09-27                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGatewayJQuery($varAPIWebToken)

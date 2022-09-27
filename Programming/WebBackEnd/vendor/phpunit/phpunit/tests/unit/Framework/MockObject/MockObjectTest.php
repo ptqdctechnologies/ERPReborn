@@ -13,6 +13,7 @@ use function class_uses;
 use function func_get_args;
 use function get_class;
 use function get_parent_class;
+use function sprintf;
 use Exception;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
@@ -32,6 +33,7 @@ use PHPUnit\TestFixture\InterfaceWithStaticMethod;
 use PHPUnit\TestFixture\MethodCallback;
 use PHPUnit\TestFixture\MethodCallbackByReference;
 use PHPUnit\TestFixture\MockObject\AbstractMockTestClass;
+use PHPUnit\TestFixture\MockObject\InterfaceWithMethodReturningDisjunctiveNormalFormType;
 use PHPUnit\TestFixture\MockObject\InterfaceWithMethodReturningFalse;
 use PHPUnit\TestFixture\MockObject\InterfaceWithMethodReturningIntersection;
 use PHPUnit\TestFixture\MockObject\InterfaceWithMethodReturningNull;
@@ -508,6 +510,7 @@ final class MockObjectTest extends TestCase
 
     /**
      * @testdox getMock() for Traversable $_dataName
+     *
      * @dataProvider traversableProvider
      */
     public function testGetMockForTraversable($type): void
@@ -992,7 +995,9 @@ EOF
 
     /**
      * @see      https://github.com/sebastianbergmann/phpunit/issues/2573
+     *
      * @ticket   2573
+     *
      * @requires extension soap
      */
     public function testCreateMockOfWsdlFileWithSpecialChars(): void
@@ -1004,6 +1009,7 @@ EOF
 
     /**
      * @see    https://github.com/sebastianbergmann/phpunit-mock-objects/issues/156
+     *
      * @ticket 156
      */
     public function testInterfaceWithStaticMethodCanBeStubbed(): void
@@ -1025,7 +1031,9 @@ EOF
 
     /**
      * @see    https://github.com/sebastianbergmann/phpunit-mock-objects/issues/171
+     *
      * @ticket 171
+     *
      * @requires PHP < 8.1
      */
     public function testStubForClassThatImplementsSerializableCanBeCreatedWithoutInvokingTheConstructor(): void
@@ -1325,6 +1333,18 @@ EOF
         $i->method('returnsTrue')->willReturn(true);
 
         $this->assertTrue($i->returnsTrue());
+    }
+
+    /**
+     * @requires PHP 8.2
+     */
+    public function testMethodThatReturnsDisjunctiveNormalFormTypeCanBeStubbed(): void
+    {
+        $i = $this->createStub(InterfaceWithMethodReturningDisjunctiveNormalFormType::class);
+
+        $i->method('returnsDisjunctiveNormalFormType')->willReturn(true);
+
+        $this->assertTrue($i->returnsDisjunctiveNormalFormType());
     }
 
     private function resetMockObjects(): void

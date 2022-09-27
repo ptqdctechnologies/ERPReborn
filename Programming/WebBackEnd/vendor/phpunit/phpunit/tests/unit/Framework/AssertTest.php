@@ -297,6 +297,7 @@ final class AssertTest extends TestCase
 
     /**
      * @testdox assertNotEquals($a, $b) with delta $delta, canoicalize $canonicalize, ignoreCase $ignoreCase
+     *
      * @dataProvider equalProvider
      *
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
@@ -311,6 +312,7 @@ final class AssertTest extends TestCase
 
     /**
      * @testdox assertNotSame($a, $b) fails
+     *
      * @dataProvider sameProvider
      *
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
@@ -323,6 +325,7 @@ final class AssertTest extends TestCase
 
     /**
      * @testdox assertNotSame($a, $b)
+     *
      * @dataProvider notSameProvider
      *
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
@@ -337,6 +340,7 @@ final class AssertTest extends TestCase
 
     /**
      * @testdox assertSame($a, $b) fails
+     *
      * @dataProvider notSameProvider
      *
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
@@ -349,6 +353,7 @@ final class AssertTest extends TestCase
 
     /**
      * @testdox assertSame($a, $b)
+     *
      * @dataProvider sameProvider
      *
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
@@ -1728,6 +1733,7 @@ XML;
 
     /**
      * @testdox Assert JSON string equals equals JSON string raised $_dataName
+     *
      * @dataProvider validInvalidJsonDataprovider
      *
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
@@ -2435,9 +2441,15 @@ XML;
             // integers
             [0, 0],
             // floats
+            [1.0, 1.0],
             [2.3, 2.3],
-            [1 / 3, 1 - 2 / 3],
+            [1 / 3, 1 / 3],
+            [1 - 2 / 3, 1 - 2 / 3],
+            [5.5E+123, 5.5E+123],
+            [5.5E-123, 5.5E-123],
             [log(0), log(0)],
+            [INF, INF],
+            [-INF, -INF],
             // arrays
             [[], []],
             [[0 => 1], [0 => 1]],
@@ -2491,6 +2503,12 @@ XML;
             [[[2.3]], [[4.2]], 0.5],
             [new Struct(2.3), new Struct(4.2), 0.5],
             [[new Struct(2.3)], [new Struct(4.2)], 0.5],
+            [1 / 3, 1 - 2 / 3],
+            [1 / 3, '0.33333333333333337'],
+            [1 - 2 / 3, '3333333333333333'],
+            [5.5E+123, 5.6E+123],
+            [5.5E-123, 5.6E-123],
+            [5.5E+123, 5.5E-123],
             // NAN
             [NAN, NAN],
             // arrays
@@ -2665,8 +2683,12 @@ XML;
             ['0', 0],
             [2.3, '2.3'],
             ['2.3', 2.3],
-            [(string) (1 / 3), 1 - 2 / 3],
-            [1 / 3, (string) (1 - 2 / 3)],
+            [1, 1.0],
+            [1.0, '1'],
+            [1 / 3, '0.3333333333333333'],
+            [1 - 2 / 3, '0.33333333333333337'],
+            [5.5E+123, '5.5E+123'],
+            [5.5E-123, '5.5E-123'],
             ['string representation', new ClassWithToString],
             [new ClassWithToString, 'string representation'],
         ];
