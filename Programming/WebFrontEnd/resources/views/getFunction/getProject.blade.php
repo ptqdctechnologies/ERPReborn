@@ -19,14 +19,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php $no = 1 @endphp
-                                        @foreach($dataProject as $dataProjects)
-                                        <tr>
-                                            <td>{{ $no++ }}</td>
-                                            <td data-dismiss="modal" class="klikProject" data-id="{{$dataProjects['sys_ID']}}" data-name="{{$dataProjects['sys_Text']}}">{{$dataProjects['sys_ID']}}</td>
-                                            <td>{{$dataProjects['sys_Text']}}</td>
-                                        </tr>
-                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -37,3 +29,35 @@
         </div>
     </div>
 </div>
+
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $(function() {
+        $('.myProject').on('click', function(e) {
+            e.preventDefault();
+            
+            $.ajax({
+                type: 'GET',
+                url: '{!! route("getProject") !!}',
+                success: function(data) {
+                    var no = 1; t = $('#tableGetProject').DataTable();
+                    t.clear();
+                    $.each(data, function(key, val) {
+                        t.row.add([
+                            '<tbody><tr><td>' + no++ + '</td>',
+                            '<td><span data-dismiss="modal" onclick="klikProject(\'' + val.sys_ID + '\', \'' + val.sys_Text + '\');">' + val.sys_ID + '</span></td>',
+                            '<td style="border:1px solid #e9ecef;">' + val.sys_Text + '</td></tr></tbody>'
+                        ]).draw();
+
+                    });
+                }
+            });
+        });
+
+    });
+</script>

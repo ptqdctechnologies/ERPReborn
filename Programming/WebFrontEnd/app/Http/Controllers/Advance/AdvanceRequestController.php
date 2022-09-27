@@ -10,52 +10,49 @@ class AdvanceRequestController extends Controller
 {
     public function index(Request $request)
     {
-
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        // $x = $request->session()->get('SessionAdvanceSetllementRequester');
-        // dd($varAPIWebToken);
         $request->session()->forget("SessionAdvance");       
         
-        $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'dataPickList.project.getProject',
-            'latest',
-            [
-                'parameter' => []
-            ]
-        );
+        // $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varAPIWebToken,
+        //     'dataPickList.project.getProject',
+        //     'latest',
+        //     [
+        //         'parameter' => []
+        //     ]
+        // );
 
-        $varDataWorker = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.humanResource.getWorker', 
-            'latest', 
-            [
-            'parameter' => null,
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
-                ]
-            ]
-            );
-        $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.finance.getAdvance', 
-            'latest', 
-            [
-            'parameter' => null,
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
-                ]
-            ]
-            );
+        // $varDataWorker = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varAPIWebToken, 
+        //     'transaction.read.dataList.humanResource.getWorker', 
+        //     'latest', 
+        //     [
+        //     'parameter' => null,
+        //     'SQLStatement' => [
+        //         'pick' => null,
+        //         'sort' => null,
+        //         'filter' => null,
+        //         'paging' => null
+        //         ]
+        //     ]
+        //     );
+        // $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varAPIWebToken, 
+        //     'transaction.read.dataList.finance.getAdvance', 
+        //     'latest', 
+        //     [
+        //     'parameter' => null,
+        //     'SQLStatement' => [
+        //         'pick' => null,
+        //         'sort' => null,
+        //         'filter' => null,
+        //         'paging' => null
+        //         ]
+        //     ]
+        //     );
         
             // dd($varDataAdvanceRequest);
         $var = 0;
@@ -64,9 +61,9 @@ class AdvanceRequestController extends Controller
         }
         
         $compact = [
-            'dataProject' => $varDataProject['data']['data'],
-            'dataWorker' => $varDataWorker['data'],
-            'dataAdvanceRequest' => $varDataAdvanceRequest['data'],
+            // 'dataProject' => $varDataProject['data']['data'],
+            // 'dataWorker' => $varDataWorker['data'],
+            // 'dataAdvanceRequest' => $varDataAdvanceRequest['data'],
             'var' => $var,
             'varAPIWebToken' => $varAPIWebToken
         ];
@@ -106,7 +103,7 @@ class AdvanceRequestController extends Controller
             'entities' => [
                 "documentDateTimeTZ" => $input['var_date'],
                 "log_FileUpload_Pointer_RefID" => 91000000000001,
-                "requesterWorkerJobsPosition_RefID" => (int)$input['var_request_name_id'],
+                "requesterWorkerJobsPosition_RefID" => (int)$input['request_name_id'],
                 "beneficiaryWorkerJobsPosition_RefID" => 25000000000439,
                 "beneficiaryBankAccount_RefID" => 167000000000001,
                 "internalNotes" => 'My Internal Notes',
@@ -119,6 +116,8 @@ class AdvanceRequestController extends Controller
                 ]
             ]                    
             );
+
+        dd($varData);
 
         $compact = [
             "advnumber"=> "ADV-testing-00111",
@@ -165,36 +164,9 @@ class AdvanceRequestController extends Controller
         }
     }
 
-    public function RevisionAdvanceIndex(Request $request)
+    public function AdvanceListData(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionAdvance");
-        $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'dataPickList.project.getProject',
-            'latest',
-            [
-                'parameter' => []
-            ]
-        );
-
-        $varDataWorker = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.humanResource.getWorker', 
-            'latest', 
-            [
-            'parameter' => null,
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
-                ]
-            ]
-            );
-
         $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
@@ -210,27 +182,29 @@ class AdvanceRequestController extends Controller
                 ]
             ]
             );
+            
+        return response()->json($varDataAdvanceRequest['data']);
+    }
+
+    public function RevisionAdvanceIndex(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $request->session()->forget("SessionAdvance");
 
         $varDataAdvanceRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'report.form.documentForm.finance.getAdvance', 
-            'latest',
-            [
-            'parameter' => [
-                'recordID' => (int) $request->searchArfNumberRevisionId,
-                ]
+        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varAPIWebToken, 
+        'report.form.documentForm.finance.getAdvance', 
+        'latest',
+        [
+        'parameter' => [
+            'recordID' => (int) $request->searchArfNumberRevisionId,
             ]
-            );
-        // dd($varDataAdvanceRevision);
-        // dd($varDataAdvanceRevision['data'][0]['document']['content']['involvedPersons']['requester']);
+        ]
+        );
         $compact = [
-            'dataProject' => $varDataProject['data']['data'],
-            'dataWorker' => $varDataWorker['data'],
             'dataAdvanceRevisions' => $varDataAdvanceRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
-            'dataAdvanceRequest' => $varDataAdvanceRequest['data'],
             'dataRequester' => $varDataAdvanceRevision['data'][0]['document']['content']['involvedPersons']['requester'],
-            'dataJobPosition' => $varDataAdvanceRevision['data'],
             'var_recordID' => $request->searchArfNumberRevisionId,
         ];
 
@@ -271,7 +245,7 @@ class AdvanceRequestController extends Controller
                 'entities' => [
                     "documentDateTimeTZ" => '2022-03-07',
                     "log_FileUpload_Pointer_RefID" => 91000000000001,
-                    "requesterWorkerJobsPosition_RefID" => (int)$input['var_request_name_id'],
+                    "requesterWorkerJobsPosition_RefID" => (int)$input['request_name_id'],
                     "beneficiaryWorkerJobsPosition_RefID" => 25000000000439,
                     "beneficiaryBankAccount_RefID" => 167000000000001,
                     "internalNotes" => 'My Internal Notes',

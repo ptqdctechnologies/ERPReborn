@@ -1,21 +1,12 @@
 <!--  SHOW HIDE AVAILABEL -->
 <script type="text/javascript">
     $(document).ready(function() {
-        // $("#detailArfList").hide();
-        // $("#detailTransAvail").hide();
         $("#projectcode2").prop("disabled", true);
         $("#sitecode2").prop("disabled", true);
         $("#request_name2").prop("disabled", true);
         $("#addFromDetailtoCart").prop("disabled", true);
         $("#showContentBOQ3").hide();
-        // $("#tableShowHideBOQ3").hide();
-
-        $("#iconProductId2").hide();
-        $("#iconQty2").hide();
-        $("#iconUnitPrice2").hide();
-        $("#iconRemark2").hide();
         $("#product_id2").prop("disabled", true);
-
         $("#submitArf").prop("disabled", true);
     });
 </script>
@@ -222,13 +213,6 @@
                         $("#totalBalance").val("");
                         $("#totalPayment").val("");
 
-                        $("#iconProductId").hide();
-                        $("#iconQty").hide();
-                        $("#iconRemark").hide();
-                        $("#iconProductId2").hide();
-                        $("#iconQty2").hide();
-                        $("#iconRemark2").hide();
-
                         $("#saveArfList").prop("disabled", false);
                         $("#submitArf").prop("disabled", false);
 
@@ -343,13 +327,6 @@
             $("#totalQtyRequest").val("");
             $("#totalBalance").val("");
 
-            $("#iconProductId").hide();
-            $("#iconQty").hide();
-            $("#iconRemark").hide();
-            $("#iconProductId2").hide();
-            $("#iconQty2").hide();
-            $("#iconRemark2").hide();
-
             $("#saveArfList").prop("disabled", false);
             $("#submitArf").prop("disabled", false);
 
@@ -366,24 +343,26 @@
 
     $.ajax({
         type: 'GET',
-        url: '{!! route("getSite") !!}?sitecode=' + siteCodeRevArfAfter,
+        url: '{!! route("getBudget") !!}?sitecode=' + siteCodeRevArfAfter,
 
         success: function(data) {
             var no = 1;
             $.each(data, function(key, value2) {
+                var applied = Math.round(value2.quantityRemain / value2.quantity * 100);
+                console.log(applied);
                 var html = '<tr>' +
                     '<td style="border:1px solid #e9ecef;width:5%;">' +
                     '&nbsp;&nbsp;<button type="reset" class="btn btn-sm float-right klikBudgetAdvanceRevision" data-id1="' + value2.product_RefID + '" data-id2="' + value2.quantity + '" data-id3="' + value2.unitPriceBaseCurrencyValue + '" data-id4="' + value2.sys_ID + '" data-id5="' + value2.productName + '" data-id6="' + value2.quantityUnitName + '" data-id7="' + value2.priceBaseCurrencyISOCode + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="15" alt="" title="Add to Detail"></button>' +
                     '</td>' +
                     '<td style="border:1px solid #e9ecef;">' +
-                    '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"><div class="progress-bar bg-red" style="width:50%;"></div><small><center>50 %</center></small></div>' +
+                    '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"> @if('+ applied +' >= '+0+' && '+ applied +' <= '+40+')<div class="progress-bar bg-red" style="width:'+ applied +'%;"></div> @elseif('+ applied +' >= '+41+' && '+ applied +' <= '+89+')<div class="progress-bar bg-blue" style="width:'+ applied +'%;"></div> @elseif('+ applied + ' >= '+ 90 +' && ' + applied + ' <= '+ 100 +')<div class="progress-bar bg-green" style="width:'+ applied +'%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>'+ applied +' %</center></small>' +
                     '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + '<span id="getWorkId">' + value2.combinedBudgetSubSectionLevel1_RefID + '</span>' + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + '<span id="getWorkName">' + value2.combinedBudgetSubSectionLevel2Name + '</span>' + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + '<span id="getProductId">' + value2.product_RefID + '</span>' + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + '<span id="getProductName">' + value2.productName + '</span>' + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + '<span id="getQty">' + 'N/A' + '</span>' + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + '<span id="getQty2">' + value2.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + '<span id="getQty">' + value2.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + '<span id="getQty2">' + value2.quantityRemain.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + '<span id="getPrice">' + value2.unitPriceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + '<span id="totalArf">' + value2.priceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + '<span id="getUom">' + value2.quantityUnitName + '</span>' + '</td>' +

@@ -2,8 +2,10 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
+@include('Advance.BussinesTrip.Functions.PopUp.PopUpBusinessTripRevision')
 @include('getFunction.getProject')
 @include('getFunction.getSite')
+@include('getFunction.getWorker')
 
 <div class="content-wrapper" style="position:relative;bottom:12px;">
   <section class="content">
@@ -33,7 +35,7 @@
                       </button>
                     </div>
                   </div>
-                  @include('Advance.BussinesTrip.Functions.Header.headerBrf')
+                  @include('Advance.BussinesTrip.Functions.Header.HeaderBusinessTrip')
                 </div>
               </div>
             </div>
@@ -67,10 +69,11 @@
                                 <td><label>Requester</label></td>
                                 <td>
                                   <div class="input-group">
+                                    <input name="request_id" id="request_id" style="border-radius:0;" type="hidden" class="form-control" readonly>
                                     <input name="request_name" id="request_name" style="border-radius:0;" type="text" class="form-control" readonly>
                                     <div class="input-group-append">
                                       <span style="border-radius:0;" class="input-group-text form-control">
-                                        <a href="#"><i id="request_name2" data-toggle="modal" data-target="#myRequester" class="fas fa-gift" style="color:grey;"></i></a>
+                                        <a href="#"><i id="request_name2" data-toggle="modal" data-target="#myWorker" class="fas fa-gift" style="color:grey;"></i></a>
                                       </span>
                                     </div>
                                   </div>
@@ -207,7 +210,7 @@
                       </button>
                     </div>
                   </div>
-                  @include('getFunction.getBudgetArf')
+                  @include('getFunction.BOQ3')
                 </div>
               </div>
             </div>
@@ -497,17 +500,17 @@
                                 <div id="iconOther" style="color: red;margin-left:5px;"></div>
                               </td>
                             </tr>
-
                           </table>
+                          <div style="padding-right:10px;padding-top:10px;">
+                            <a class="btn btn-default btn-sm float-right CancelDetailBrf" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
+                              <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel to Add Advance List Cart"> Cancel
+                            </a>
+                            <a class="btn btn-default btn-sm float-right" onclick="addFromDetailtoCartJs();" id="AddToBrfListCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                              <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
+                            </a>
+                          </div>
+                          <br><br><br>
                         </div>
-                        <button type="reset" class="btn btn-danger btn-sm float-right">
-                          <i class="fa fa-times" aria-hidden="true"></i>
-                          Reset
-                        </button>
-                        <!-- <a class="btn btn-success btn-sm float-right" href="javascript:validateFormAsfPaymentSequence()"><i class="fas fa-plus" aria-hidden="true">Add</i></a> -->
-                        <a class="btn btn-outline btn-success btn-sm float-right" id="AddToBrfListCart" style="margin-right: 5px;">
-                          <i class="fa fa-plus" aria-hidden="true" title="Add to Advance List" style="color: white;">Add</i>
-                        </a>
                       </div>
                     </div>
                   </div>
@@ -562,9 +565,13 @@
                   </div>
 
                 </div>
-                <button type="submit" class="btn btn-outline btn-success btn-sm float-right" id="saveBrfList" style="margin-right: 5px;">
-                  <i class="fas fa-save" aria-hidden="true" title="Submit to Advance">Submit</i>
+                <a onclick="CancelBusinessTrip();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                  <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Business Trip List Cart"> Cancel
+                </a>
+                <button class="btn btn-default btn-sm float-right" type="submit" id="saveBrfList" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                  <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Business Trip"> Submit
                 </button>
+
               </div>
             </div>
             
@@ -577,5 +584,5 @@
 </div>
 
 @include('Partials.footer')
-@include('Advance.BussinesTrip.Functions.Footer.footerBrf')
+@include('Advance.BussinesTrip.Functions.Footer.FooterBusinessTrip')
 @endsection

@@ -16,17 +16,10 @@
                                             <th>No</th>
                                             <th>ID</th>
                                             <th>Name</th>
+                                            <th>Position</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php $no = 1 @endphp
-                                        @foreach($dataWorker as $dataWorkers)
-                                        <tr>
-                                            <td>{{ $no++ }}</td>
-                                            <td data-dismiss="modal" class="klikWorker" data-id="{{$dataWorkers['sys_ID']}}" data-name="{{$dataWorkers['name']}}">{{$dataWorkers['sys_ID']}}</td>
-                                            <td>{{$dataWorkers['name']}}</td>
-                                        </tr>
-                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -37,19 +30,11 @@
         </div>
     </div>
 </div>
-<!--|----------------------------------------------------------------------------------|
-    |                            End Function My Project Code                          |
-    ----------------------------------------------------------------------------------|-->
 
 <script>
-    $('document').ready(function() {
-        $(".klikWorker").on('click', function(e) {
-            e.preventDefault(); // in chase you change to a link or button
-            var $this = $(this);
-            var id = $this.data("id");
-            var name = $this.data("name");
-            $("#popUpWorkerId").val(name);
-            
+    $(function() {
+        $('.myWorker').on('click', function(e) {
+            e.preventDefault();
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -58,28 +43,31 @@
 
             $.ajax({
                 type: 'GET',
-                url: '{!! route("getWorker") !!}?workerid=' + id,
+                url: '{!! route("getWorker") !!}',
                 success: function(data) {
-
-                    $(".popUpPositionWorker").empty();
-
-                    var option = "<option value='" + '' + "'>" + 'Select Job Position' + "</option>";
-                    $(".popUpPositionWorker").append(option);
-
-                    $.each(data, function(key, value) {
-
-                        var option = "<option value='" + value.sys_ID + "'>" + value.sys_Text + "</option>";
-                        $(".popUpPositionWorker").append(option);
+                    var no = 1;
+                    var t = $('#tableGetWorker').DataTable();
+                    t.clear();
+                    $.each(data, function(key, val) {
+                        t.row.add([
+                            '<tbody><tr><td>' + no++ + '</td>',
+                            '<td><span data-dismiss="modal" onclick="klikWorker(\'' + val.sys_ID + '\', \'' + val.personName + '\', \'' + val.organizationalJobPositionName + '\');">' + val.sys_ID + '</span></td>',
+                            '<td style="border:1px solid #e9ecef;">' + val.personName + '</td>',
+                            '<td style="border:1px solid #e9ecef;">' + val.organizationalJobPositionName + '</td></tr></tbody>',
+                        ]).draw();
                     });
                 }
             });
-            
         });
-    });
-    
 
-    function FunctionJobPositioinAdvance(valueRequestId) {
-        $("#request_name").val($("#popUpWorkerId").val())
-        $("#request_name_id").val(valueRequestId)
+    });
+</script>
+
+<script>
+    function klikWorker(id, name, position) {
+        $("#request_name_id").val(id);
+        $("#request_name").val(name);
+        $("#request_position").val(position);
+        
     }
 </script>

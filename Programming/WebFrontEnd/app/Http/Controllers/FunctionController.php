@@ -14,24 +14,18 @@ class FunctionController extends Controller
 
     public function getProject(Request $request)
     {
-        $projectcode = $request->input('projectcode');
-
         $varAPIWebToken = $request->session()->get('SessionLogin');
-
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'dataPickList.project.getProjectSectionItem', 
+            $varAPIWebToken,
+            'dataPickList.project.getProject',
             'latest',
             [
-            'parameter' => [
-                'project_RefID' => (int)$projectcode
-                ]
+                'parameter' => null
             ]
         );
         
-        // dd($varData);
-        return response()->json($varData['data']['data']);
+        return response()->json($varDataProject['data']['data']);
     }
 
 
@@ -63,10 +57,28 @@ class FunctionController extends Controller
 
     public function getSite(Request $request)
     {
-        $sitecode = $request->input('sitecode');
-
         $varAPIWebToken = $request->session()->get('SessionLogin');
+        $projectcode = $request->input('projectcode');
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'dataPickList.project.getProjectSectionItem', 
+            'latest',
+            [
+            'parameter' => [
+                'project_RefID' => (int)$projectcode
+                ]
+            ]
+        );
+        // dd($varData);
 
+        return response()->json($varData['data']['data']);
+    }
+
+    public function getBudget(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $sitecode = $request->input('sitecode');
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
@@ -92,24 +104,27 @@ class FunctionController extends Controller
 
     public function getWorker(Request $request)
     {
-        $worker = $request->input('workerid');
-        
         $varAPIWebToken = $request->session()->get('SessionLogin');
-
-        $varDataJobPosition = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        $varDataWorker = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
-            'dataPickList.humanResource.getWorkerJobsPositionCurrent', 
-            'latest',
+            'transaction.read.dataList.humanResource.getWorkerJobsPositionCurrent', 
+            'latest', 
             [
             'parameter' => [
-                'worker_RefID' => (int) $worker
+                'worker_RefID' => null
+                ],
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
                 ]
             ]
             );
-        
+            // dd($varDataWorker);
             
-        return response()->json($varDataJobPosition['data']['data']);
+        return response()->json($varDataWorker['data']['data']);
     }
 
 

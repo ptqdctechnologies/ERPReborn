@@ -93,6 +93,7 @@ class AdvanceSettlementController extends Controller
         $status = 200;
         $varDataAdvanceList['data'] = [];
         $requester_id = $request->input('requester_id');
+        $requester_name = $request->input('requester_name');
         $requester_id2 = $request->input('requester_id2');
         $advance_RefID = $request->input('advance_RefID');
 
@@ -157,6 +158,7 @@ class AdvanceSettlementController extends Controller
         $compact = [
             'status' => $status,
             'requester_id' => $requester_id,
+            'requester_name' => $requester_name,
             'DataAdvanceList' => $varDataAdvanceList['data'],
         ];
 
