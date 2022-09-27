@@ -18,6 +18,15 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             $varAPIWebToken = 'xxx';
 
                 $varData = 
+                    (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentByRecordID(
+                        $varUserSession, 
+                        14485000000000002
+                        );
+                dd($varData);
+
+            
+/*            
+                $varData = 
                     (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->getList_LogFileUploadObjectByExistantion(
                         $varUserSession, 
                         11000000000004,
@@ -26,7 +35,8 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
                         94000000000107
                         );
                 dd($varData);
-
+*/
+                
 /*
 //            $x = is_file('TestPDF.pdf');
             $filename = 'TestPDF.pdf';

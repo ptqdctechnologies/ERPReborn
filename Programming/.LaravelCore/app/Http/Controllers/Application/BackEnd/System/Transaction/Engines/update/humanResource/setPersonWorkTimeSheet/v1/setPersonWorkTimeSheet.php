@@ -43,8 +43,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Create Date     : 2022-01-14                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Create date     : 2022-09-27                                                                                           |
         | ▪ Last Update     : 2022-01-28                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -62,7 +62,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Update Person Work Time Sheet Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try{
+                    try {
                         if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate($varUserSession, (new \App\Models\Database\SchData_OLTP_HumanResource\TblPersonWorkTimeSheet())->setDataUpdate(
                             $varUserSession,
                             $varData['recordID'],
@@ -80,6 +80,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                             {
                             throw new \Exception();
                             }
+                        //---> Set Business Document Data Into varDataSend
+                        $varDataSend['businessDocument'] = 
+                            (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentByRecordID(
+                                $varUserSession, 
+                                $varDataSend['recordID']
+                                );
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {

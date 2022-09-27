@@ -42,8 +42,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000002                                                                                       |
-        | ▪ Last Update     : 2022-05-25                                                                                           |
+        | ▪ Version         : 1.0000.0000003                                                                                       |
+        | ▪ Last Update     : 2022-09-27                                                                                           |
         | ▪ Creation Date   : 2022-03-02                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -83,6 +83,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                             {
                             throw new \Exception();
                             }
+                        //---> Set Business Document Data Into varDataSend
+                        $varDataSend['businessDocument'] = 
+                            (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentByRecordID(
+                                $varUserSession, 
+                                $varDataSend['recordID']
+                                );
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
