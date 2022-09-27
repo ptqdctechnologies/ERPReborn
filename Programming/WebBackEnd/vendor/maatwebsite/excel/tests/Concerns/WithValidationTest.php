@@ -88,6 +88,66 @@ class WithValidationTest extends TestCase
     /**
      * @test
      */
+    public function can_validate_simple_to_array()
+    {
+        $import = new class implements WithValidation
+        {
+            use Importable;
+
+            public function rules(): array
+            {
+                return ['phone' => 'required'];
+            }
+        };
+
+        try {
+            $import->toArray('import-users-with-headings.xlsx');
+        } catch (ValidationException $e) {
+            $this->validateFailure($e, 1, 'phone', [
+                'The phone field is required.',
+            ]);
+
+            $this->assertEquals([
+                [
+                    'There was an error on row 1. The phone field is required.',
+                ],
+            ], $e->errors());
+        }
+    }
+
+    /**
+     * @test
+     */
+    public function can_validate_simple_to_collection()
+    {
+        $import = new class implements WithValidation
+        {
+            use Importable;
+
+            public function rules(): array
+            {
+                return ['phone' => 'required'];
+            }
+        };
+
+        try {
+            $import->toCollection('import-users-with-headings.xlsx');
+        } catch (ValidationException $e) {
+            $this->validateFailure($e, 1, 'phone', [
+                'The phone field is required.',
+            ]);
+
+            $this->assertEquals([
+                [
+                    'There was an error on row 1. The phone field is required.',
+                ],
+            ], $e->errors());
+        }
+    }
+
+    /**
+     * @test
+     */
     public function can_validate_rows_with_closure_validation_rules()
     {
         $import = new class implements ToModel, WithValidation
@@ -248,6 +308,50 @@ class WithValidationTest extends TestCase
         } catch (ValidationException $e) {
             $this->validateFailure($e, 1, 'conditional_required_column', [
                 'The conditional_required_column field is required when 1.1 is patrick@maatwebsite.nl.',
+            ]);
+        }
+
+        $this->assertInstanceOf(ValidationException::class, $e ?? null);
+    }
+
+    /**
+     * @test
+     */
+    public function can_validate_rows_with_unless_conditionality()
+    {
+        $import = new class implements ToModel, WithValidation
+        {
+            use Importable;
+
+            /**
+             * @param  array  $row
+             * @return Model|null
+             */
+            public function model(array $row)
+            {
+                return new User([
+                    'name'     => $row[0],
+                    'email'    => $row[1],
+                    'password' => 'secret',
+                ]);
+            }
+
+            /**
+             * @return array
+             */
+            public function rules(): array
+            {
+                return [
+                    'conditional_required_unless_column' => 'required_unless:1,patrick@maatwebsite.nl',
+                ];
+            }
+        };
+
+        try {
+            $import->import('import-users.xlsx');
+        } catch (ValidationException $e) {
+            $this->validateFailure($e, 2, 'conditional_required_unless_column', [
+                'The conditional_required_unless_column field is required unless 2.1 is in patrick@maatwebsite.nl.',
             ]);
         }
 
