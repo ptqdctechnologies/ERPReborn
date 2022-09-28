@@ -38,9 +38,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 'transaction.update.finance.setInvoiceSupplierDetail', 
                 'latest', 
                 [
-                'recordID' => 208000000000001,
+                'recordID' => 209000000000001,
                 'entities' => [
-                    "invoiceSupplier_RefID" => 207000000000001,
+                    "invoiceSupplier_RefID" => 208000000000001,
                     "purchaseOrderDetail_RefID" => 86000000000001,
                     "product_RefID" => 88000000000689,
                     "quantity" => 10.00,
@@ -76,8 +76,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<table border="1" style="border-collapse: collapse;">';
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Invoice Supplier Main Data</p></td></tr>';
-            echo    '<tr><td>RecordID</td><td><input type="text" id="dataInput_RecordID" value=208000000000001></td></tr>';
-            echo    '<tr><td>InvoiceSupplier_RefID</td><td><input type="text" id="dataInput_InvoiceSupplier_RefID" value=207000000000001></td></tr>';
+            echo    '<tr><td>RecordID</td><td><input type="text" id="dataInput_RecordID" value=209000000000001></td></tr>';
+            echo    '<tr><td>InvoiceSupplier_RefID</td><td><input type="text" id="dataInput_InvoiceSupplier_RefID" value=208000000000001></td></tr>';
             echo    '<tr><td>PurchaseOrderDetail_RefID</td><td><input type="text" id="dataInput_PurchaseOrderDetail_RefID" value=86000000000001></td></tr>';
             echo    '<tr><td>Product_RefID</td><td><input type="text" id="dataInput_Product_RefID" value=88000000000689></td></tr>';
             echo    '<tr><td>Quantity</td><td><input type="text" id="dataInput_Quantity" value=10></td></tr>';

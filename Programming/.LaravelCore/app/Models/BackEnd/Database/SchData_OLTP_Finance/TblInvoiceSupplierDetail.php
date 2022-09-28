@@ -55,8 +55,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varInvoiceSupplier_RefID ► Combined Budget Section Detail Reference ID                                   |
-        |      ▪ (int)    varPurchaseOrderDetail_RefID ► Product Reference ID                                                      |
+        |      ▪ (int)    varInvoiceSupplier_RefID ► Invoice Supplier Reference ID                                                 |
+        |      ▪ (int)    varPurchaseOrderDetail_RefID ► Purchase Order Detail Reference ID                                        |
         |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
         |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
@@ -119,8 +119,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varInvoiceSupplier_RefID ► Combined Budget Section Detail Reference ID                                   |
-        |      ▪ (int)    varPurchaseOrderDetail_RefID ► Product Reference ID                                                      |
+        |      ▪ (int)    varInvoiceSupplier_RefID ► Invoice Supplier Reference ID                                                 |
+        |      ▪ (int)    varPurchaseOrderDetail_RefID ► Purchase Order Detail Reference ID                                        |
         |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
         |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
