@@ -61,7 +61,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Update Proforma Invoice Supplier Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try{
+                    try {
                         if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\TblProformaInvoiceSupplier())->setDataUpdate(
                             $varUserSession,
                             $varData['recordID'],
@@ -82,10 +82,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                             $varData['entities']['remarks'],
 
                             (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'additionalData', $varData['entities']) ? $varData['entities']['additionalData'] : [])
-                            ))))
+                            ))))                            
                             {
                             throw new \Exception();
                             }
+
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {

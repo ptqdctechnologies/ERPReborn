@@ -4,21 +4,23 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\finance                   |
-|                 \setProformaInvoiceSupplier\v1                                                                                   |
-| ▪ API Key     : transaction.create.finance.setProformaInvoiceSupplier                                                            |
+|                 \setProformaInvoiceSupplierAdditionalCost\v1                                                                     |
+| ▪ API Key     : transaction.create.finance.setProformaInvoiceSupplierAdditionalCost                                              |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\finance\setProformaInvoiceSupplier\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\finance\setProformaInvoiceSupplierAdditionalCost\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.create.finance.setProformaInvoiceSupplier.v1_throughAPIGateway          |
-        |                     ► http://172.28.0.4/transaction.create.finance.setProformaInvoiceSupplier.v1_throughAPIGateway       |
+        | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
+        |                     transaction.create.finance.setProformaInvoiceSupplierAdditionalCost.v1_throughAPIGateway             |
+        |                     ► http://172.28.0.4/                                                                                 |
+        |                       transaction.create.finance.setProformaInvoiceSupplierAdditionalCost.v1_throughAPIGateway           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-09-28                                                                                           |
@@ -35,73 +37,16 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'transaction.create.finance.setProformaInvoiceSupplier', 
+                'transaction.create.finance.setInvoiceSupplierAdditionalCost', 
                 'latest', 
                 [
                 'entities' => [
-                    "log_FileUpload_Pointer_RefID" => null,
-                    "supplier_RefID" => 126000000000001,
-                    "documentNumber" => '0025/PRF-INV/VDR-ABC/IX/2022',
-                    "documentDateTimeTZ" => '2022-09-13',
-                    "salesOrderNumber" => '0031/SO/VDR-ABC/IX/2022',
-                    "paymentDueDateTimeTZ" => '2022-09-23',
-                    "preferredPaymentMethod_RefID" => 175000000000001,
-                    "preferredBankAccount_RefID" => 167000000000001,
-                    "receivedDateTimeTZ" => '2022-09-15',
-                    "remarks" => 'My Remarks',
-                    "additionalData" => [
-                        "taxes" => [
-                            "items" => [
-                                    [
-                                    "entities" => [
-                                        "taxType_RefID" => 182000000000001,
-                                        "tariffCurrency_RefID" => 62000000000001,
-                                        "tariffCurrencyValue" => 30000,
-                                        "tariffCurrencyExchangeRate" => 1,
-                                        "remarks" => 'Catatan 1'                                
-                                        ]
-                                    ],
-                                    [
-                                    "entities" => [
-                                        "taxType_RefID" => 182000000000002,
-                                        "tariffCurrency_RefID" => 62000000000001,
-                                        "tariffCurrencyValue" => 30000,
-                                        "tariffCurrencyExchangeRate" => 1,
-                                        "remarks" => 'Catatan 2'
-                                        ]
-                                    ]                            
-                                ]
-                            ],
-                        "itemList" => [
-                            "items" => [
-                                    [
-                                    "entities" => [
-                                        "purchaseOrderDetail_RefID" => 86000000000001,
-                                        "product_RefID" => 88000000000689,
-                                        "quantity" => 10.00,
-                                        "quantityUnit_RefID" => 73000000000001,
-                                        "priceCurrency_RefID" => 62000000000001,
-                                        "priceCurrencyValue" => 30000.00,
-                                        "priceCurrencyExchangeRate" => 1,
-                                        "remarks" => 'My Remarks'
-                                        ]
-                                    ]
-                                ]
-                            ],
-                        "additionalCost" => [
-                            "items" => [
-                                    [
-                                    "entities" => [
-                                        "transactionAdditionalCostType_RefID" => 190000000000002,
-                                        "priceCurrency_RefID" => 62000000000001,
-                                        "priceCurrencyValue" => 30000,
-                                        "priceCurrencyExchangeRate" => 1,
-                                        "remarks" => 'Catatan Additional Cost'
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ]
+                    "proformaInvoiceSupplier_RefID" => 208000000000001,
+                    "transactionAdditionalCostType_RefID" => 190000000000001,
+                    "priceCurrency_RefID" => 62000000000001,
+                    "priceCurrencyValue" => 250,
+                    "priceCurrencyExchangeRate" => 15000,
+                    "remarks" => 'My Remarks'
                     ]
                 ]
                 );
@@ -111,8 +56,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.create.finance.setProformaInvoiceSupplier.v1_throughAPIGatewayJQuery    |
-        |                     ► http://172.28.0.4/transaction.create.finance.setProformaInvoiceSupplier.v1_throughAPIGatewayJQuery |
+        | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
+        |                     transaction.create.finance.setProformaInvoiceSupplierAdditionalCost.v1_throughAPIGatewayJQuery       |
+        |                     ► http://172.28.0.4/                                                                                 |
+        |                       transaction.create.finance.setProformaInvoiceSupplierAdditionalCost.v1_throughAPIGatewayJQuery     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-09-28                                                                                           |
@@ -125,10 +72,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             if (!$varAPIWebToken) {
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
-            //---Core---
+/*            //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<table border="1" style="border-collapse: collapse;">';
-            echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Proforma Invoice Supplier Main Data</p></td></tr>';
+            echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Advance Main Data</p></td></tr>';
             echo        '<tr><td>Log_FileUpload_Pointer_RefID</td><td><input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value=""></td></tr>';
             echo        '<tr><td>Supplier_RefID</td><td><input type="text" id="dataInput_Supplier_RefID" value=126000000000001></td></tr>';
             echo        '<tr><td>DocumentNumber</td><td><input type="text" id="dataInput_DocumentNumber" value="0025/INV/VDR-ABC/IX/2022"></td></tr>';
@@ -161,7 +108,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
-                'transaction.create.finance.setProformaInvoiceSupplier', 
+                'transaction.create.finance.setInvoiceSupplierAdditionalCost', 
                 'latest', 
                 '{'.
                     '"entities" : {'.
@@ -211,7 +158,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 '}'
                 ); 
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
-            dd($varJQueryFunction);
+            dd($varJQueryFunction);*/
             }
         }
     }

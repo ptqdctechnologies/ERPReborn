@@ -38,7 +38,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 'transaction.update.finance.setInvoiceSupplier', 
                 'latest', 
                 [
-                'recordID' => 207000000000001,
+                'recordID' => 208000000000001,
                 'entities' => [
                     "log_FileUpload_Pointer_RefID" => null,
                     "supplier_RefID" => 126000000000001,
@@ -95,7 +95,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<table border="1" style="border-collapse: collapse;">';
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Invoice Supplier Main Data</p></td></tr>';
-            echo        '<tr><td>RecordID</td><td><input type="text" id="dataInput_RecordID" value=207000000000001></td></tr>';
+            echo        '<tr><td>RecordID</td><td><input type="text" id="dataInput_RecordID" value=208000000000001></td></tr>';
             echo        '<tr><td>Log_FileUpload_Pointer_RefID</td><td><input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value=""></td></tr>';
             echo        '<tr><td>Supplier_RefID</td><td><input type="text" id="dataInput_Supplier_RefID" value=126000000000001></td></tr>';
             echo        '<tr><td>DocumentNumber</td><td><input type="text" id="dataInput_DocumentNumber" value="0025/INV/VDR-ABC/IX/2022"></td></tr>';
