@@ -1,0 +1,186 @@
+{
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of transaction.create.finance.setProformaInvoiceSupplier (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            "API": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "enum": [ "transaction.create.finance.setProformaInvoiceSupplier" ]
+                        },
+                    "version": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1
+                        }
+                    },
+                "required": [ "key", "version" ]
+                }
+            },
+        "required": [ "API" ]
+        },
+    "data": {
+        "type": "object",
+        "properties": {
+            "entities" : {
+                "type": "object",
+                "properties": {
+                    "log_FileUpload_Pointer_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807 
+                        },
+                    "supplier_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807 
+                        },
+                    "documentNumber": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 64
+                        },
+                    "documentDateTimeTZ": {
+                        "type": [ "string", "null" ],
+                        "format": "string",
+                        "pattern": "^((([0-9]{1,4})((-){1})(0[1-9]|1[0-2])((-){1})(0[1-9]|1[0-9]|2[0-9]|3[0-1]))(([ ]{1,})(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]))(([.]{1}[0-9]{1,6}){0,1})((([ ]{0,})([+|-]{1})(([0-9]|0[0-9]|1[0-5]){1})){0,1})){0,1})$",
+                        "minLength": 10,
+                        "maxLength": 30
+                        },
+                    "salesOrderNumber": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 256
+                        },
+                    "paymentDueDateTimeTZ": {
+                        "type": [ "string", "null" ],
+                        "format": "string",
+                        "pattern": "^((([0-9]{1,4})((-){1})(0[1-9]|1[0-2])((-){1})(0[1-9]|1[0-9]|2[0-9]|3[0-1]))(([ ]{1,})(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]))(([.]{1}[0-9]{1,6}){0,1})((([ ]{0,})([+|-]{1})(([0-9]|0[0-9]|1[0-5]){1})){0,1})){0,1})$",
+                        "minLength": 10,
+                        "maxLength": 30
+                        },
+                    "preferredPaymentMethod_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807 
+                        },
+                    "preferredBankAccount_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807 
+                        },
+                    "receivedDateTimeTZ": {
+                        "type": [ "string", "null" ],
+                        "format": "string",
+                        "pattern": "^((([0-9]{1,4})((-){1})(0[1-9]|1[0-2])((-){1})(0[1-9]|1[0-9]|2[0-9]|3[0-1]))(([ ]{1,})(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]))(([.]{1}[0-9]{1,6}){0,1})((([ ]{0,})([+|-]{1})(([0-9]|0[0-9]|1[0-5]){1})){0,1})){0,1})$",
+                        "minLength": 10,
+                        "maxLength": 30
+                        },
+                    "remarks": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 512
+                        },
+                    "additionalData": {
+                        "anyOf": [
+                                {"type": "null"},
+                                {
+                                "type": "object",
+                                "properties": {
+                                    "itemList": {                                    
+                                        "type": "object",
+                                        "properties": {
+                                            "items": {
+                                                "type": [ "array", "null" ],
+                                                "items": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "entities": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "purchaseOrderDetail_RefID": {
+                                                                    "type": [ "integer", "null" ],
+                                                                    "minimum": 1,
+                                                                    "maximum": 9223372036854775807
+                                                                    },
+                                                                "product_RefID": {
+                                                                    "type": [ "integer", "null" ],
+                                                                    "minimum": 1,
+                                                                    "maximum": 9223372036854775807
+                                                                    },
+                                                                "quantity": {
+                                                                    "type": [ "number", "null" ],
+                                                                    "minimum": 0
+                                                                    },
+                                                                "quantityUnit_RefID": {
+                                                                    "type": [ "integer", "null" ],
+                                                                    "minimum": 1,
+                                                                    "maximum": 9223372036854775807
+                                                                    },
+                                                                "priceCurrency_RefID": {
+                                                                    "type": [ "integer", "null" ],
+                                                                    "minimum": 1,
+                                                                    "maximum": 9223372036854775807
+                                                                    },
+                                                                "priceCurrencyValue": {
+                                                                    "type": [ "number", "null" ],
+                                                                    "minimum": 0
+                                                                    },
+                                                                "priceCurrencyExchangeRate": {
+                                                                    "type": [ "number", "null" ],
+                                                                    "minimum": 0
+                                                                    },
+                                                                "remarks": {
+                                                                    "type": [ "string", "null" ],
+                                                                    "minLength": 1,
+                                                                    "maxLength": 512
+                                                                    }
+                                                                },
+                                                            "required": [
+                                                                "purchaseOrderDetail_RefID", 
+                                                                "product_RefID", 
+                                                                "quantity", 
+                                                                "quantityUnit_RefID", 
+                                                                "priceCurrency_RefID", 
+                                                                "priceCurrencyValue", 
+                                                                "priceCurrencyExchangeRate", 
+                                                                "remarks" 
+                                                                ]
+                                                             }
+                                                        },
+                                                    "required": [ "entities" ]
+                                                    }
+                                                }
+                                            },
+                                        "required": [ "items" ]
+                                        }
+                                    },
+                                "required": [ "itemList" ]
+                                }
+                            ]
+                        }
+                    },
+                "required": [ 
+                    "log_FileUpload_Pointer_RefID", 
+                    "supplier_RefID",
+                    "documentNumber",
+                    "documentDateTimeTZ",
+                    "salesOrderNumber",
+                    "paymentDueDateTimeTZ",
+                    "preferredPaymentMethod_RefID",
+                    "preferredBankAccount_RefID",
+                    "receivedDateTimeTZ",
+                    "remarks" 
+                    ]
+                }
+            },
+        "required": [ "entities" ]
+        }
+    },
+"required": [ "metadata", "data" ]
+}

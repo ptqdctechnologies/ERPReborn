@@ -3,28 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\finance\setInvoiceSupplierDetail\v1   |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\finance\setProformaInvoiceSupplier\v1 |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\finance\setInvoiceSupplierDetail\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\finance\setProformaInvoiceSupplier\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setInvoiceSupplierDetail                                                                                     |
-    | ▪ Description : Menangani API transaction.create.finance.setInvoiceSupplierDetail Version 1                                  |
+    | ▪ Class Name  : setProformaInvoiceSupplier                                                                                   |
+    | ▪ Description : Menangani API transaction.create.finance.setProformaInvoiceSupplier Version 1                                |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setInvoiceSupplierDetail extends \App\Http\Controllers\Controller
+    class setProformaInvoiceSupplier extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-16                                                                                           |
-        | ▪ Creation Date   : 2022-09-16                                                                                           |
+        | ▪ Last Update     : 2022-09-28                                                                                           |
+        | ▪ Creation Date   : 2022-09-28                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,9 +42,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-16                                                                                           |
-        | ▪ Creation Date   : 2022-09-16                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2022-09-28                                                                                           |
+        | ▪ Creation Date   : 2022-09-28                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -58,26 +58,29 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Supplier Invoice Detail Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Supplier Proforma Invoice Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\TblInvoiceSupplierDetail())->setDataInsert(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\TblProformaInvoiceSupplier())->setDataInsert(
                             $varUserSession, 
                             null, 
                             null,
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                             \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
 
-                            $varData['entities']['invoiceSupplier_RefID'],
-                            $varData['entities']['purchaseOrderDetail_RefID'],
-                            $varData['entities']['product_RefID'],
-                            $varData['entities']['quantity'],
-                            $varData['entities']['quantityUnit_RefID'],
-                            $varData['entities']['priceCurrency_RefID'],
-                            $varData['entities']['priceCurrencyValue'],
-                            $varData['entities']['priceCurrencyExchangeRate'],
-                            $varData['entities']['remarks']
+                            $varData['entities']['log_FileUpload_Pointer_RefID'],
+                            $varData['entities']['supplier_RefID'],
+                            $varData['entities']['documentNumber'],
+                            $varData['entities']['documentDateTimeTZ'],
+                            $varData['entities']['salesOrderNumber'],
+                            $varData['entities']['paymentDueDateTimeTZ'],
+                            $varData['entities']['preferredPaymentMethod_RefID'],
+                            $varData['entities']['preferredBankAccount_RefID'],
+                            $varData['entities']['receivedDateTimeTZ'],
+                            $varData['entities']['remarks'],
+                            
+                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'additionalData', $varData['entities']) ? ((!is_null($varData['entities']['additionalData'])) ? $varData['entities']['additionalData'] : []) : [])
                             ))))
                             {
                             throw new \Exception();
