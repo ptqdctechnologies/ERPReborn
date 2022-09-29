@@ -274,5 +274,5 @@
     </section>
 </div>
 @include('Partials.footer')
-@include('Inventory.DeliveryOrder.Functions.Footer.FooterDo')
+@include('Inventory.DeliveryOrder.Functions.Footer.FooterDeliveryOrder')
 @endsection

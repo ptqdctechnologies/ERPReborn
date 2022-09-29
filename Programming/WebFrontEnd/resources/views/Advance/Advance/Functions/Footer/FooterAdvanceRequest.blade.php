@@ -62,7 +62,7 @@
                 $("#statusEditArf").val("No");
             }
             $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", false);
-            $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", false);
+            // $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", false);
             $("#putProductId").css("border", "1px solid #ced4da");
 
             $("#putProductId").val("");
@@ -203,7 +203,7 @@
                         $("#submitArf").prop("disabled", false);
 
                         $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", false);
-                        $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", false);
+                        // $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", false);
                         $("#detailArfList").show();
 
                         $("#qtyCek").attr('required', false);
@@ -285,7 +285,6 @@
         $("#projectcode").val(code);
         $("#projectname").val(name);
         $("#sitecode2").prop("disabled", false);
-        $("#advance_number2").prop("disabled", false);
 
         $.ajaxSetup({
             headers: {
@@ -339,12 +338,17 @@
             success: function(data) {
                 var no = 1;
                 $.each(data, function(key, val2) {
+                    let applied = Math.round(val2.quantityRemain / val2.quantity * 100);
+                    var status = "";
+                    if(applied == 100){
+                        var status = "disabled";
+                    }
                     var html = '<tr>' +
                         '<td style="border:1px solid #e9ecef;width:5%;">' +
-                        '&nbsp;&nbsp;<button type="reset" class="btn btn-sm klikBudgetDetail" data-id1="' + val2.product_RefID + '" data-id2="' + val2.quantity + '" data-id3="' + val2.unitPriceBaseCurrencyValue + '" data-id4="' + val2.sys_ID + '" data-id5="' + val2.productName + '" data-id6="' + val2.quantityUnitName + '" data-id7="' + val2.priceBaseCurrencyISOCode + '" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="15" alt="" title="Add to Detail"></button>' +
+                        '&nbsp;&nbsp;<button type="reset" '+ status +' class="btn btn-sm klikBudgetDetail" data-id1="' + val2.product_RefID + '" data-id2="' + val2.quantity + '" data-id3="' + val2.unitPriceBaseCurrencyValue + '" data-id4="' + val2.sys_ID + '" data-id5="' + val2.productName + '" data-id6="' + val2.quantityUnitName + '" data-id7="' + val2.priceBaseCurrencyISOCode + '" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="15" alt="" title="Add to Detail"></button>' +
                         '</td>' +
                         '<td style="border:1px solid #e9ecef;">' +
-                        '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"><div class="progress-bar bg-red" style="width:50%;"></div><small><center>50 %</center></small></div>' +
+                        '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"> @if('+ applied +' >= '+0+' && '+ applied +' <= '+40+')<div class="progress-bar bg-red" style="width:'+ applied +'%;"></div> @elseif('+ applied +' >= '+41+' && '+ applied +' <= '+89+')<div class="progress-bar bg-blue" style="width:'+ applied +'%;"></div> @elseif('+ applied + ' >= '+ 90 +' && ' + applied + ' <= '+ 100 +')<div class="progress-bar bg-green" style="width:'+ applied +'%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>'+ applied +' %</center></small>' +
                         '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span id="getWorkId">' + val2.combinedBudgetSubSectionLevel1_RefID + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span id="getWorkName">' + val2.combinedBudgetSubSectionLevel2Name + '</span>' + '</td>' +
@@ -399,7 +403,7 @@
 
 
                     $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", true);
-                    $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", true);
+                    // $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", true);
                     $(".available").show();
                     $("#detailTransAvail").show();
                     $("#putProductId2").prop("disabled", true);

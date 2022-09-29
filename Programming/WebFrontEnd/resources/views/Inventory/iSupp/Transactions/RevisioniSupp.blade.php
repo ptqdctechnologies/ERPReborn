@@ -15,12 +15,11 @@
                 </div>
             </div>
             @include('Inventory.iSupp.Functions.Menu.MenuiSupp')
-            @if($var == 0)
             <div class="card" style="position:relative;bottom:10px;">
                 <form method="post" enctype="multipart/form-data" action="{{ route('iSupp.store') }}" id="formSubmitiSupp">
                     @csrf
                     <div class="tab-content p-3" id="nav-tabContent">
-                        @include('Inventory.iSupp.Functions.Header.headeriSupp')
+                        @include('Inventory.iSupp.Functions.Header.HeaderiSuppRevision')
 
                         <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
                             <div class="row">
@@ -193,7 +192,6 @@
                     </div>
                 </form>
             </div>
-            @endif
         </div>
     </section>
 </div>

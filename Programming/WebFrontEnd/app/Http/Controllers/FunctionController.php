@@ -31,7 +31,7 @@ class FunctionController extends Controller
 
     public function getAdvanceByBudgetID(Request $request)
     {
-        $budget_code = $request->input('budget_code');
+        $projectcode = $request->input('projectcode');
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -43,7 +43,7 @@ class FunctionController extends Controller
         'SQLStatement' => [
             'pick' => null,
             'sort' => null,
-            'filter' => '"CombinedBudget_RefID" = '.$budget_code.'',
+            'filter' => '"CombinedBudget_RefID" = '.$projectcode.'',
             'paging' => null
             ]
         ]

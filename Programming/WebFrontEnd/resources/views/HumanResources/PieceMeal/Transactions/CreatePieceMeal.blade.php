@@ -5,7 +5,6 @@
 @include('getFunction.getSite')
 @include('getFunction.getProduk')
 @include('HumanResources.PieceMeal.Functions.PopUp.PopUpPieceMealRevision')
-@include('HumanResources.PieceMeal.Functions.PopUp.SearchPieceMeal')
 @include('getFunction.getProject')
 
 <div class="content-wrapper" style="position:relative;bottom:12px;">

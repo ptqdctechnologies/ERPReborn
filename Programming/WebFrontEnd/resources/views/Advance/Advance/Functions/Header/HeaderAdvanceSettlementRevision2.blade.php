@@ -8,7 +8,8 @@
                             <td><label>Requester</label></td>
                             <td>
                                 <div class="input-group">
-                                    <input id="requester_id" style="border-radius:0;" name="requester_id" type="text" class="form-control" readonly>
+                                    <input name="request_name" id="request_name" style="border-radius:0;" type="text" class="form-control" readonly value="{{ $dataRequester['name'] }}" required>
+                                    <input name="request_name_id" id="request_name_id" style="border-radius:0;" type="hidden" class="form-control" value="{{ $dataRequester['workerJobsPosition_RefID'] }}" readonly required>
                                 </div>
                             </td>
                         </tr>
@@ -51,10 +52,5 @@
                                 </div>
                             </td>
                         </tr>
-                        <!-- <tr>
-                            <div class="box">
-                                <img src="https://media.geeksforgeeks.org/wp-content/uploads/20190912174307/qwe1.png" alt="your image" width="50" class="ZoomImage" />
-                            </div>
-                        </tr> -->
                     </table>
                 </div>

@@ -7,17 +7,17 @@
             <td style="padding-top: 5px;"><label>Budget Code</label></td>
             <td>
               <div class="input-group" style="width: 70%;">
-                <input id="budget_code" style="border-radius:0;" name="budget__code" class="form-control" readonly>
+                <input id="projectcode" style="border-radius:0;" name="projectcode" class="form-control" readonly value="{{$dataAdvanceRevisions['entities']['combinedBudget_RefID']}}">
                 <div class="input-group-append">
                   <span style="border-radius:0;" class="input-group-text form-control">
-                    <a id="budget_code2" data-toggle="modal" data-target="#myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                    <a id="projectcode2" data-toggle="modal" data-target="#myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                   </span>
                 </div>
               </div>
             </td>
             <td>
               <div class="input-group" style="width: 153%;position:relative;right:38%;">
-                <input id="budget_name" style="border-radius:0;" class="form-control" name="budget_name" readonly>
+              <input id="projectname" style="border-radius:0;" class="form-control" name="projectname" readonly value="{{$dataAdvanceRevisions['entities']['combinedBudgetName']}}">
               </div>
             </td>
           </tr>
@@ -31,7 +31,7 @@
             <td style="padding-top: 5px;"><label>Advance Number</label></td>
             <td>
               <div class="input-group" style="width: 108%;">
-                <input id="advance_number" style="border-radius:0;" name="var_advance_number" class="form-control" readonly>
+                <input id="advance_number" style="border-radius:0;" name="var_advance_number" class="form-control" readonly value="{{ $dataAdvancenumber }}">
                 <div class="input-group-append">
                   <span style="border-radius:0;" class="input-group-text form-control">
                     <a id="advance_number2" data-toggle="modal" data-target="#mySearchArf"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>

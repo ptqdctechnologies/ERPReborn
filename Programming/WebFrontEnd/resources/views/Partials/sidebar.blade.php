@@ -1,41 +1,3 @@
-<!-- FUNCTION -->
-@include('getFunction.getDeliverTo')
-@include('getFunction.getDelivery')
-@include('getFunction.getPoTrano')
-@include('getFunction.getReceive')
-@include('getFunction.getSupplier')
-@include('getFunction.getUom')
-
-<!-- INVENTORY -->
-@include('Inventory.MaterialReturn.Functions.PopUp.searchMret')
-@include('Inventory.MaterialReturn.Transactions.popupRevisionMret')
-
-<!-- LOGISTIC -->
-@include('Logistic.Functions.searchMaterialReceive')
-
-<!-- MASTER -->
-@include('Master.supplier.Transactions.popupRevisionSupplier')
-@include('Master.UOM.Transactions.popupRevisionUom')
-
-<!-- BUDGET -->
-@include('Budget.BudgetExpense.Transactions.popupBudget')
-@include('Budget.BudgetExpense.Functions.PopUp.searchBudget')
-
-@include('Budget.BudgetExpenseLine.Transactions.popupBudgetExpense')
-@include('Budget.BudgetExpenseLine.Functions.PopUp.searchBudget')
-@include('Budget.BudgetExpenseLine.Functions.PopUp.searchBudgetExpense')
-
-@include('Budget.BudgetExpenseLineCeiling.Transactions.popupBudgetExpenseLine')
-@include('Budget.BudgetExpenseLineCeiling.Functions.PopUp.searchBudget')
-@include('Budget.BudgetExpenseLineCeiling.Functions.PopUp.searchBudgetExpense')
-@include('Budget.BudgetExpenseLineCeiling.Functions.PopUp.searchBudgetExpenseLine')
-
-@include('Budget.BudgetExpenseLineCeilingObjects.Transactions.popupBudgetExpenseLineCeiling')
-@include('Budget.BudgetExpenseLineCeilingObjects.Functions.PopUp.searchBudget')
-@include('Budget.BudgetExpenseLineCeilingObjects.Functions.PopUp.searchBudgetExpense')
-@include('Budget.BudgetExpenseLineCeilingObjects.Functions.PopUp.searchBudgetExpenseLine')
-@include('Budget.BudgetExpenseLineCeilingObjects.Functions.PopUp.searchBudgetExpenseLineCeiling')
-
 <br>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="{{ route('home.projectDashboard') }}" class="brand-link">
@@ -612,13 +574,13 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('BusinessTripRequest.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="{{ route('BusinessTripRequest.index') }}?var=1"" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Create Business Trip Request</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('BusinessTripSettlement.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="{{ route('BusinessTripSettlement.index') }}?var=1"" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Create Business Trip Settlement</label>
                                             </a>

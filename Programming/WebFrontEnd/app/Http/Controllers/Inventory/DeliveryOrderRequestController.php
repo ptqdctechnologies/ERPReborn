@@ -141,6 +141,28 @@ class DeliveryOrderRequestController extends Controller
         return response()->json($dataAll2);
     }
 
+    public function DeliveryOrderRequestListData(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.read.dataList.finance.getAdvance', 
+            'latest', 
+            [
+            'parameter' => null,
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+            );
+            
+        return response()->json($varDataAdvanceRequest['data']);
+    }
+    
     public function RevisionDeliveryOrderRequest(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');

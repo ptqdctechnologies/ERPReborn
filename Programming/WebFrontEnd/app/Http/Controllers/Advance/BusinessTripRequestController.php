@@ -15,32 +15,21 @@ class BusinessTripRequestController extends Controller
      */
     public function index(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $var = 0;
+        if(!empty($_GET['var'])){
+           $var =  $_GET['var'];
+        }
+        
+        $compact = [
+            'var' => $var,
+        ];
+    
+        return view('Advance.BussinesTrip.Transactions.CreateBusinessTrip', $compact);
+    }
 
-        $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'dataPickList.project.getProject',
-            'latest',
-            [
-                'parameter' => []
-            ]
-        );
-        $varDataWorker = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.humanResource.getWorker', 
-            'latest', 
-            [
-            'parameter' => null,
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
-                ]
-            ]
-            );
+    public function BusinessTripListData(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
         $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
@@ -57,69 +46,29 @@ class BusinessTripRequestController extends Controller
             ]
             );
             
-        $var = 0;
-        if(!empty($_GET['var'])){
-           $var =  $_GET['var'];
-        }
-        
-        $compact = [
-            'dataProject' => $varDataProject['data']['data'],
-            'dataWorker' => $varDataWorker['data'],
-            'dataAdvanceRequest' => $varDataAdvanceRequest['data'],
-            'var' => $var,
-        ];
-        
-        return view('Advance.BussinesTrip.Transactions.CreateBusinessTrip', $compact);
+        return response()->json($varDataAdvanceRequest['data']);
     }
-
+    
     public function RevisionBusinessTripRequestIndex(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
+        $request->session()->forget("SessionAdvance");
 
-        $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'dataPickList.project.getProject',
-            'latest',
-            [
-                'parameter' => []
+        $varDataAdvanceRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varAPIWebToken, 
+        'report.form.documentForm.finance.getAdvance', 
+        'latest',
+        [
+        'parameter' => [
+            'recordID' => (int) $request->searchBrfNumberRevisionId,
             ]
+        ]
         );
-        $varDataWorker = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.humanResource.getWorker', 
-            'latest', 
-            [
-            'parameter' => null,
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
-                ]
-            ]
-            );
-        $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.finance.getAdvance', 
-            'latest', 
-            [
-            'parameter' => null,
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
-                ]
-            ]
-            );
-        
         $compact = [
-            'dataProject' => $varDataProject['data']['data'],
-            'dataWorker' => $varDataWorker['data'],
-            'dataAdvanceRequest' => $varDataAdvanceRequest['data'],
+            'dataAdvanceRevisions' => $varDataAdvanceRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
+            'dataRequester' => $varDataAdvanceRevision['data'][0]['document']['content']['involvedPersons']['requester'],
+            'var_recordID' => $request->searchBrfNumberRevisionId,
         ];
         return view('Advance.BussinesTrip.Transactions.RevisionBusinessTrip', $compact);
     }

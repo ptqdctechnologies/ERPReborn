@@ -142,18 +142,21 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('StoreValidateAdvanceSettlement2', 'Advance\AdvanceSettlementController@StoreValidateAdvanceSettlement2')->name('AdvanceSettlement.StoreValidateAdvanceSettlement2');
     Route::post('StoreValidateAdvanceSettlementRequester', 'Advance\AdvanceSettlementController@StoreValidateAdvanceSettlementRequester')->name('AdvanceSettlement.StoreValidateAdvanceSettlementRequester');
     Route::post('RevisionAdvanceSettlement', 'Advance\AdvanceSettlementController@RevisionAdvanceSettlementIndex')->name('AdvanceSettlement.RevisionAdvanceSettlement');
+    Route::get('AdvanceSettlementListData', 'Advance\AdvanceSettlementController@AdvanceSettlementListData')->name('AdvanceSettlement.AdvanceSettlementListData');
     Route::resource('AdvanceSettlement', 'Advance\AdvanceSettlementController');
 
     // BSF
     Route::post('StoreValidateBusinessTripSettlement', 'Advance\BusinessTripSettlementController@StoreValidateBusinessTripSettlement')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlement');
     Route::post('StoreValidateBusinessTripSettlement2', 'Advance\BusinessTripSettlementController@StoreValidateBusinessTripSettlement2')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlement2');
     Route::post('RevisionBusinessTripSettlement', 'Advance\BusinessTripSettlementController@RevisionBusinessTripSettlementIndex')->name('BusinessTripSettlement.RevisionBusinessTripSettlement');
+    Route::get('BusinessTripSettlementListData', 'Advance\BusinessTripSettlementController@BusinessTripSettlementListData')->name('BusinessTripSettlement.BusinessTripSettlementListData');
     Route::resource('BusinessTripSettlement', 'Advance\BusinessTripSettlementController');
 
     // BRF
     Route::post('StoreValidateBusinessTripRequest', 'Advance\BusinessTripRequestController@StoreValidateBusinessTripRequest')->name('BusinessTripRequest.StoreValidateBusinessTripRequest');
     Route::post('StoreValidateBusinessTripRequest2', 'Advance\BusinessTripRequestController@StoreValidateBusinessTripRequest2')->name('BusinessTripRequest.StoreValidateBusinessTripRequest2');
     Route::post('RevisionBusinessTripRequest', 'Advance\BusinessTripRequestController@RevisionBusinessTripRequestIndex')->name('BusinessTripRequest.RevisionBusinessTripRequest');
+    Route::get('BusinessTripListData', 'Advance\BusinessTripRequestController@BusinessTripListData')->name('BusinessTripRequest.BusinessTripListData');
     Route::resource('BusinessTripRequest', 'Advance\BusinessTripRequestController');
 
     // REM
@@ -166,6 +169,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('StoreValidatePurchaseRequisition', 'Purchase\PurchaseRequisitionController@StoreValidatePurchaseRequisition')->name('PurchaseRequisition.StoreValidatePurchaseRequisition');
     Route::post('StoreValidatePurchaseRequisition2', 'Purchase\PurchaseRequisitionController@StoreValidatePurchaseRequisition2')->name('PurchaseRequisition.StoreValidatePurchaseRequisition2');
     Route::post('RevisionPrIndex', 'Purchase\PurchaseRequisitionController@RevisionPrIndex')->name('PurchaseRequisition.RevisionPrIndex');
+    Route::get('PurchaseRequisitionListData', 'Purchase\PurchaseRequisitionController@PurchaseRequisitionListData')->name('PurchaseRequisition.PurchaseRequisitionListData');
     Route::post('ProcReqListCartRevision', 'Purchase\PurchaseRequisitionController@ProcReqListCartRevision')->name('PurchaseRequisition.ProcReqListCartRevision');
     Route::resource('PurchaseRequisition', 'Purchase\PurchaseRequisitionController');
 
@@ -180,6 +184,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('StoreValidatePieceMeal', 'HumanResource\PieceMealController@StoreValidatePieceMeal')->name('PieceMeal.StoreValidatePieceMeal');
     Route::post('StoreValidatePieceMeal2', 'HumanResource\PieceMealController@StoreValidatePieceMeal2')->name('PieceMeal.StoreValidatePieceMeal2');
     Route::post('RevisionPieceMeal', 'HumanResource\PieceMealController@RevisionPieceMeal')->name('PieceMeal.RevisionPieceMeal');
+    Route::get('PieceMealListData', 'HumanResource\PieceMealController@PieceMealListData')->name('PieceMeal.PieceMealListData');
     Route::resource('PieceMeal', 'HumanResource\PieceMealController');
 
     //Timesheet
@@ -192,23 +197,28 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('StoreValidateDeliveryOrderRequest', 'Inventory\DeliveryOrderRequestController@StoreValidateDeliveryOrderRequest')->name('DeliveryOrderRequest.StoreValidateDeliveryOrderRequest');
     Route::post('StoreValidateDeliveryOrderRequest2', 'Inventory\DeliveryOrderRequestController@StoreValidateDeliveryOrderRequest2')->name('DeliveryOrderRequest.StoreValidateDeliveryOrderRequest2');
     Route::post('RevisionDeliveryOrderRequest', 'Inventory\DeliveryOrderRequestController@RevisionDeliveryOrderRequest')->name('DeliveryOrderRequest.RevisionDeliveryOrderRequest');
+    Route::get('DeliveryOrderRequestListData', 'Inventory\DeliveryOrderRequestController@DeliveryOrderRequestListData')->name('DeliveryOrderRequest.DeliveryOrderRequestListData');
     Route::resource('DeliveryOrderRequest', 'Inventory\DeliveryOrderRequestController');
 
     // DO
     Route::post('StoreValidateDeliveryOrder', 'Inventory\DeliveryOrderController@StoreValidateDeliveryOrder')->name('DeliveryOrder.StoreValidateDeliveryOrder');
     Route::post('StoreValidateDeliveryOrder2', 'Inventory\DeliveryOrderController@StoreValidateDeliveryOrder2')->name('DeliveryOrder.StoreValidateDeliveryOrder2');
     Route::post('RevisionDeliveryOrder', 'Inventory\DeliveryOrderController@RevisionDeliveryOrder')->name('DeliveryOrder.RevisionDeliveryOrder');
+    Route::get('DeliveryOrderListData', 'Inventory\DeliveryOrderController@DeliveryOrderListData')->name('DeliveryOrder.DeliveryOrderListData');
     Route::resource('DeliveryOrder', 'Inventory\DeliveryOrderController');
 
     //iSupp
     Route::post('StoreValidateiSupp', 'Inventory\iSuppController@StoreValidateiSupp')->name('iSupp.StoreValidateiSupp');
     Route::post('StoreValidateiSupp2', 'Inventory\iSuppController@StoreValidateiSupp2')->name('iSupp.StoreValidateiSupp2');
+    Route::post('RevisioniSupp', 'Inventory\iSuppController@RevisioniSupp')->name('iSupp.RevisioniSupp');
+    Route::get('ISuppListData', 'Inventory\iSuppController@ISuppListData')->name('iSupp.ISuppListData');
     Route::resource('iSupp', 'Inventory\iSuppController');
 
     // MRET
     Route::post('StoreValidateiMaterialReturn', 'Inventory\MaterialReturnController@StoreValidateiMaterialReturn')->name('MaterialReturn.StoreValidateiMaterialReturn');
     Route::post('StoreValidateiMaterialReturn2', 'Inventory\MaterialReturnController@StoreValidateiMaterialReturn2')->name('MaterialReturn.StoreValidateiMaterialReturn2');
-    Route::post('revisionMRETIndex', 'Inventory\MaterialReturnController@revisionMret')->name('MRET.revisionMRET');
+    Route::post('RevisionMaterialReturn', 'Inventory\MaterialReturnController@RevisionMaterialReturn')->name('MaterialReturn.RevisionMaterialReturn');
+    Route::get('MaterialReturnListData', 'Inventory\MaterialReturnController@MaterialReturnListData')->name('MaterialReturn.MaterialReturnListData');
     Route::resource('MaterialReturn', 'Inventory\MaterialReturnController');
 
 

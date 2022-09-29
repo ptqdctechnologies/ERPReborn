@@ -12,7 +12,7 @@
     <div class="container-fluid">
       <div class="row mb-1" style="background-color:#4B586A;">
         <div class="col-sm-6" style="height:30px;">
-          <label style="font-size:15px;position:relative;top:7px;color:white;">Bussiness Trip Request Form Revision</label>
+          <label style="font-size:15px;position:relative;top:7px;color:white;">Bussiness Trip Request Revision</label>
         </div>
       </div>
       @include('Advance.BussinesTrip.Functions.Menu.MenuBusinessTripRequest')
@@ -26,7 +26,7 @@
                 <div class="card">
                   <div class="card-header">
                     <label class="card-title">
-                      Bussiness Trip Request Form Revision
+                      Bussiness Trip Request Revision
                     </label>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -34,7 +34,7 @@
                       </button>
                     </div>
                   </div>
-                  @include('Advance.BussinesTrip.Functions.Header.HeaderBusinessTrip')
+                  @include('Advance.BussinesTrip.Functions.Header.HeaderBusinessTripRevision')
                 </div>
               </div>
             </div>
@@ -582,5 +582,5 @@
 </div>
 
 @include('Partials.footer')
-@include('Advance.BussinesTrip.Functions.Footer.FooterBusinessTrip')
+@include('Advance.BussinesTrip.Functions.Footer.FooterBusinessTripRevision')
 @endsection

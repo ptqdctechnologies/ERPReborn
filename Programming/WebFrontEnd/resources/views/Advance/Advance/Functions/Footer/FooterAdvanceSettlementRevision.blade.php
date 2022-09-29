@@ -5,7 +5,8 @@
         $("#ManagerNameId").prop("disabled", true);
         $("#CurrencyId").prop("disabled", true);
         $("#FinanceId").prop("disabled", true);
-        // $("#advance_number2").prop("disabled", true);
+        $("#projectcode2").prop("disabled", true);
+        $("#advance_number2").prop("disabled", true);
 
         $("#detailASF").hide();
         $("#tableShowHideArfDetail").hide();

@@ -21,7 +21,7 @@
             @include('Inventory.DeliveryOrderRequest.Functions.Menu.MenuDeliveryOrderRequest')
             <div class="card" style="position:relative;bottom:10px;">
                 <div class="tab-content p-3" id="nav-tabContent">
-                    @include('Inventory.DeliveryOrderRequest.Functions.Header.HeaderDor')
+                    @include('Inventory.DeliveryOrderRequest.Functions.Header.HeaderDorRevision')
                     <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="product-desc-tab">
                         <div class="row">
                             <div class="col-12">
@@ -275,5 +275,5 @@
     </section>
 </div>
 @include('Partials.footer')
-@include('Inventory.DeliveryOrderRequest.Functions.Footer.FooterDor')
+@include('Inventory.DeliveryOrderRequest.Functions.Footer.FooterDorRevision')
 @endsection

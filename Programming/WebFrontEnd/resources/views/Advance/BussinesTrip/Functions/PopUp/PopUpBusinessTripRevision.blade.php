@@ -5,9 +5,9 @@
                 <div class="modal-body">
                     <span style="font-size: 15px;position:relative;left:25%;font-weight:bold;">BUSINESS TRIP REVISION</span><br><br><br>
                     <form action="{{ route('BusinessTripRequest.RevisionBusinessTripRequest') }}" method="post">
-                    @csrf
+                        @csrf
                         <div class="card" style="margin-left: 8%;">
-                            <div class="card-body"> 
+                            <div class="card-body">
                                 <div class="form-group">
                                     <table>
                                         <tr>
@@ -25,7 +25,7 @@
                                                 </div>
                                             </td>
 
-                                            
+
                                         </tr>
                                     </table>
                                 </div>
@@ -57,7 +57,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="tableSearchArfRevision">
+                                <table class="table table-head-fixed text-nowrap" id="TableSearchBusinessTrip">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -70,27 +70,6 @@
                                     </thead>
                                     <tbody>
 
-                                        @php $no = 1 @endphp
-                                        @foreach($dataAdvanceRequest as $dataAdvanceRequests)
-                                        <tr>
-                                            <td>{{ $no++ }}</td>
-                                            <td>
-                                                <p data-dismiss="modal" class="ClickPopUpAdvanceRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['documentNumber']}}</p>
-                                            </td>
-                                            <td>
-                                                <p data-dismiss="modal" class="ClickPopUpAdvanceRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['combinedBudget_RefID']}}</p>
-                                            </td>
-                                            <td>
-                                                <p data-dismiss="modal" class="ClickPopUpAdvanceRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['combinedBudgetName']}}</p>
-                                            </td>
-                                            <td>
-                                                <p data-dismiss="modal" class="ClickPopUpAdvanceRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}</p>
-                                            </td>
-                                            <td>
-                                                <p data-dismiss="modal" class="ClickPopUpAdvanceRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['combinedBudgetSectionName']}}</p>
-                                            </td>
-                                        </tr>
-                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -103,15 +82,8 @@
 </div>
 
 <script>
-    $(function() {
-        $(".ClickPopUpAdvanceRevision").on('click', function(e) {
-            e.preventDefault();
-            var $this = $(this);
-            var id = $this.data("id1");
-            var code = $this.data("id2");
-            var sitecode = $this.data("id3");
-            $("#searchBrfNumberRevisionId").val(id);
-            $("#searchBrfNumberRevisions").val(code);
-        });
-    });
+    function klikPopUpBusinessTripRevision(id, code) {
+        $("#searchBrfNumberRevisionId").val(id);
+        $("#searchBrfNumberRevisions").val(code);
+    }
 </script>
