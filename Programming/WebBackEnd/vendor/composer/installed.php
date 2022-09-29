@@ -500,9 +500,9 @@
             'dev_requirement' => false,
         ),
         'maatwebsite/excel' => array(
-            'pretty_version' => '3.1.41',
-            'version' => '3.1.41.0',
-            'reference' => 'f7a1c3159fab8b4069a67c30e71810b358a2797e',
+            'pretty_version' => '3.1.42',
+            'version' => '3.1.42.0',
+            'reference' => 'b3938c9a4cf70d01173612fe35e64f31ca830132',
             'type' => 'library',
             'install_path' => __DIR__ . '/../maatwebsite/excel',
             'aliases' => array(),
