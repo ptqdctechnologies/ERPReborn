@@ -12,53 +12,17 @@ class PurchaseRequisitionController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionPurchaseRequisition");
-
-        $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'dataPickList.project.getProject',
-            'latest',
-            [
-                'parameter' => []
-            ]
-        );
-
-        $varDataPurchaseRequisition = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.supplyChain.getPurchaseRequisition',
-            'latest',
-            [
-                'parameter' => null,
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
-        // dd($varDataPurchaseRequisition);
-
         $var = 0;
         if (!empty($_GET['var'])) {
             $var =  $_GET['var'];
         }
 
         $compact = [
-            'dataProject' => $varDataProject['data']['data'],
-            'dataPurchaseRequisition' => $varDataPurchaseRequisition['data'],
             'var' => $var,
         ];
         return view('Purchase.PurchaseRequisition.Transactions.CreatePurchaseRequisition', $compact);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $input = $request->all();
@@ -144,21 +108,9 @@ class PurchaseRequisitionController extends Controller
         }
     }
 
-    public function RevisionPrIndex(Request $request)
+    public function PurchaseRequisitionListData(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionPurchaseRequisition");
-
-        $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'dataPickList.project.getProject',
-            'latest',
-            [
-                'parameter' => []
-            ]
-        );
-
         $varDataPurchaseRequisition = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
@@ -174,6 +126,16 @@ class PurchaseRequisitionController extends Controller
                 ]
             ]
         );
+        // dd($varDataPurchaseRequisition);
+            
+        return response()->json($varDataPurchaseRequisition['data']);
+    }
+
+    public function RevisionPrIndex(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $request->session()->forget("SessionPurchaseRequisition");
+
         $varDataProcReqRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
@@ -186,11 +148,8 @@ class PurchaseRequisitionController extends Controller
             ]
         );
         // dd($varDataProcReqRevision);
-
-
+        
         $compact = [
-            'dataProject' => $varDataProject['data']['data'],
-            'dataPurchaseRequisition' => $varDataPurchaseRequisition['data'],
             'dataProcReqRevision' => $varDataProcReqRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
             'var_recordID' => $request->searchPrNumberRevisionId,
         ];

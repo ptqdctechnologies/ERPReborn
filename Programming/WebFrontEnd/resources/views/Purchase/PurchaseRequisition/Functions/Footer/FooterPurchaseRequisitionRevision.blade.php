@@ -1,8 +1,5 @@
-<!--  SHOW HIDE AVAILABEL -->
 <script type="text/javascript">
     $(document).ready(function() {
-        // $("#detailPurchaseRequisitionList").hide();
-        // $("#detailTransAvail").hide();
         $("#projectcode2").prop("disabled", true);
         $("#sitecode2").prop("disabled", true);
         $("#addFromDetailtoCart").prop("disabled", true);
@@ -23,7 +20,7 @@
     $(document).ready(function() {
         $(".detailTransaction").click(function() {
             $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", false);
-            $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", false);
+            // $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", false);
         });
     });
 </script>
@@ -80,7 +77,7 @@
                 $("#statusEditProcReqRevision").val("No");
             }
             $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", false);
-            $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", false);
+            // $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", false);
             $("#putProductId").css("border", "1px solid #ced4da");
 
             $("#putProductId").val("");
@@ -241,7 +238,7 @@
                         $("#submitPR").prop("disabled", false);
 
                         $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", false);
-                        $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", false);
+                        // $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", false);
                         $("#detailPurchaseRequisitionList").show();
 
                         $("#qtyCek").attr('required', false);
@@ -364,7 +361,7 @@
             $("#iconQty2").hide();
             $("#iconRemark2").hide();
             $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", false);
-            $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", false);
+            // $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", false);
 
         },
     });
@@ -375,17 +372,22 @@
 
     $.ajax({
         type: 'GET',
-        url: '{!! route("getSite") !!}?sitecode=' + siteCodePrRevAfter,
+        url: '{!! route("getBudget") !!}?sitecode=' + siteCodePrRevAfter,
 
         success: function(data) {
             var no = 1;
             $.each(data, function(key, value2) {
+                let applied = Math.round(value2.quantityRemain / value2.quantity * 100);
+                var status = "";
+                if(applied == 100){
+                    var status = "disabled";
+                }
                 var html = '<tr>' +
                     '<td style="border:1px solid #e9ecef;width:5%;">' +
-                    '&nbsp;&nbsp;<button type="reset" class="btn btn-sm float-right klikBudgetProcReqRevision" data-id1="' + value2.product_RefID + '" data-id2="' + value2.quantity + '" data-id3="' + value2.unitPriceBaseCurrencyValue + '" data-id4="' + value2.sys_ID + '" data-id5="' + value2.productName + '" data-id6="' + value2.quantityUnitName + '" data-id7="' + value2.priceBaseCurrencyISOCode + '" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="15" alt="" title="Add to Detail"></button>' +
+                    '&nbsp;&nbsp;<button type="reset" '+ status +' class="btn btn-sm float-right klikBudgetProcReqRevision" data-id1="' + value2.product_RefID + '" data-id2="' + value2.quantity + '" data-id3="' + value2.unitPriceBaseCurrencyValue + '" data-id4="' + value2.sys_ID + '" data-id5="' + value2.productName + '" data-id6="' + value2.quantityUnitName + '" data-id7="' + value2.priceBaseCurrencyISOCode + '" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="15" alt="" title="Add to Detail"></button>' +
                     '</td>' +
                     '<td style="border:1px solid #e9ecef;">' +
-                    '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"><div class="progress-bar bg-red" style="width:50%;"></div><small><center>50 %</center></small></div>' +
+                    '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"> @if('+ applied +' >= '+0+' && '+ applied +' <= '+40+')<div class="progress-bar bg-red" style="width:'+ applied +'%;"></div> @elseif('+ applied +' >= '+41+' && '+ applied +' <= '+89+')<div class="progress-bar bg-blue" style="width:'+ applied +'%;"></div> @elseif('+ applied + ' >= '+ 90 +' && ' + applied + ' <= '+ 100 +')<div class="progress-bar bg-green" style="width:'+ applied +'%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>'+ applied +' %</center></small>' +
                     '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + '<span>' + value2.combinedBudgetSubSectionLevel1_RefID + '</span>' + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + '<span>' + value2.combinedBudgetSubSectionLevel2Name + '</span>' + '</td>' +
@@ -443,7 +445,7 @@
 
 
                 $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", true);
-                $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", true);
+                // $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", true);
                 $("#addFromDetailtoCart").prop("disabled", true);
                 $(".available").show();
                 $("#detailTransAvail").show();

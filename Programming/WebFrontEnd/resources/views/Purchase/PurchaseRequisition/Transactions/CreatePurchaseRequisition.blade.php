@@ -4,8 +4,7 @@
 @include('Partials.sidebar')
 @include('getFunction.getSite')
 @include('getFunction.getProduk')
-@include('Purchase.PurchaseRequisition.Functions.PopUp.popUpPrRevision')
-@include('Purchase.PurchaseRequisition.Functions.PopUp.SearchProcReq')
+@include('Purchase.PurchaseRequisition.Functions.PopUp.PopUpPrRevision')
 @include('getFunction.getProject')
 
 <div class="content-wrapper" style="position:relative;bottom:12px;">

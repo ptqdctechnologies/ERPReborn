@@ -10,44 +10,12 @@ class PieceMealController extends Controller
 {
     public function index(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionPieceMeal");
-
-        $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'dataPickList.project.getProject',
-            'latest',
-            [
-                'parameter' => []
-            ]
-        );
-
-        $varDataPieceMeal = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.supplyChain.getPurchaseRequisition',
-            'latest',
-            [
-                'parameter' => null,
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
-        // dd($varDataPieceMeal);
-
         $var = 0;
         if (!empty($_GET['var'])) {
             $var =  $_GET['var'];
         }
-
         $compact = [
-            'dataProject' => $varDataProject['data']['data'],
-            'dataPieceMeal' => $varDataPieceMeal['data'],
             'var' => $var,
         ];
         
@@ -55,16 +23,6 @@ class PieceMealController extends Controller
 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $input = $request->all();
-    }
 
     public function StoreValidatePieceMeal(Request $request)
     {
@@ -99,6 +57,28 @@ class PieceMealController extends Controller
             $newClass = array_values($messages);
             $request->session()->put("SessionPieceMeal", $newClass);
         }
+    }
+
+    public function PieceMealListData(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.read.dataList.finance.getAdvance', 
+            'latest', 
+            [
+            'parameter' => null,
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+            );
+            
+        return response()->json($varDataAdvanceRequest['data']);
     }
 
     public function RevisionPieceMeal(Request $request)

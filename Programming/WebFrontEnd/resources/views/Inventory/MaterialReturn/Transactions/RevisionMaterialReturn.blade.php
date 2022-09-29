@@ -13,11 +13,10 @@
         <div class="container-fluid">
             <div class="row mb-1" style="background-color:#4B586A;">
                 <div class="col-sm-6" style="height:30px;">
-                    <label style="font-size:15px;position:relative;top:7px;color:white;">Add New Material Return</label>
+                    <label style="font-size:15px;position:relative;top:7px;color:white;">Material Return Revision</label>
                 </div>
             </div>
             @include('Inventory.MaterialReturn.Functions.Menu.MenuMaterialReturn')
-            @if($var == 0)
             <div class="card" style="position:relative;bottom:10px;">
                 <form method="post" enctype="multipart/form-data" action="{{ route('iSupp.store') }}" id="formSubmitMatRet">
                     @csrf
@@ -29,7 +28,7 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <label class="card-title">
-                                            Material Return Detail
+                                                Delivery Order Detail
                                             </label>
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -172,10 +171,9 @@
                     </div>
                 </form>
             </div>
-            @endif
         </div>
     </section>
 </div>
 @include('Partials.footer')
-@include('Inventory.MaterialReturn.Functions.Footer.FooterMaterialReturn')
+@include('Inventory.MaterialReturn.Functions.Footer.FooterMaterialReturnRevision')
 @endsection

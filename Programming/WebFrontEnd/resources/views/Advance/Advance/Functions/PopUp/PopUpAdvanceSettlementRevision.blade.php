@@ -1,13 +1,13 @@
-<div id="popUpAdvanceSettlementRevision" class="modal fade" role="dialog" aria-hidden="true" style="margin-top: 180px;margin-left:6px;">
+<div id="myPopUpAdvanceSettlementRevision" class="modal fade" role="dialog" aria-hidden="true" style="margin-top: 180px;margin-left:6px;">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content" style="width:90%;">
             <div class="modal-header">
                 <div class="modal-body">
                     <span style="font-size: 15px;position:relative;left:18%;font-weight:bold;">ADVANCE SETTLEMENT REVISION</span><br><br><br>
                     <form action="{{ route('AdvanceSettlement.RevisionAdvanceSettlement') }}" method="post">
-                    @csrf
+                        @csrf
                         <div class="card" style="margin-left: 8%;">
-                            <div class="card-body"> 
+                            <div class="card-body">
                                 <div class="form-group">
                                     <table>
                                         <tr>
@@ -25,7 +25,7 @@
                                                 </div>
                                             </td>
 
-                                            
+
                                         </tr>
                                     </table>
                                 </div>
@@ -57,7 +57,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="tableSearchArfRevision">
+                                <table class="table table-head-fixed text-nowrap" id="TableSearchAsfRevision">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -70,27 +70,6 @@
                                     </thead>
                                     <tbody>
 
-                                        @php $no = 1 @endphp
-                                        @foreach($dataAdvanceRequest as $dataAdvanceRequests)
-                                            <tr>
-                                                <td>{{ $no++ }}</td>
-                                                <td>
-                                                    <p data-dismiss="modal" class="klikSearchAsfRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['documentNumber']}}</p>
-                                                </td>
-                                                <td>
-                                                    <p data-dismiss="modal" class="klikSearchAsfRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['combinedBudget_RefID']}}</p>
-                                                </td>
-                                                <td>
-                                                    <p data-dismiss="modal" class="klikSearchAsfRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['combinedBudgetName']}}</p>
-                                                </td>
-                                                <td>
-                                                    <p data-dismiss="modal" class="klikSearchAsfRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}</p>
-                                                </td>
-                                                <td>
-                                                    <p data-dismiss="modal" class="klikSearchAsfRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['combinedBudgetSectionName']}}</p>
-                                                </td>
-                                            </tr>
-                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -103,16 +82,8 @@
 </div>
 
 <script>
-    $(function() {
-        $(".klikSearchAsfRevision").on('click', function(e) {
-            e.preventDefault();
-            var $this = $(this);
-            var id = $this.data("id1");
-            var code = $this.data("id2");
-            var sitecode = $this.data("id3");
-            $("#searchAsfNumberRevisionId").val(id);
-            $("#searchAsfNumberRevisions").val(code);
-            
-        });
-    });
+    function klikPopUpAdvanceSettlementRevision(id, code) {
+        $("#searchAsfNumberRevisionId").val(id);
+        $("#searchAsfNumberRevisions").val(code);
+    }
 </script>

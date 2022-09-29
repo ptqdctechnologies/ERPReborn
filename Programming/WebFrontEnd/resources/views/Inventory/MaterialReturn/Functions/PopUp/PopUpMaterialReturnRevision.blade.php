@@ -1,10 +1,10 @@
-<div id="myPopUpPieceMealRevision" class="modal fade" role="dialog" aria-hidden="true" style="margin-top: 180px;margin-left:6px;">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
-        <div class="modal-content" style="width:90%;">
+<div id="myPopUpMaterialReturnRevision" class="modal fade" role="dialog" style="margin-top: 250px;margin-left:8px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
             <div class="modal-header">
                 <div class="modal-body">
-                    <span style="font-size: 15px;position:relative;left:32%;font-weight:bold;">PIECE MEAL REVISION</span><br><br><br>
-                    <form action="{{ route('PieceMeal.RevisionPieceMeal') }}" method="post">
+                    <span style="font-size: 15px;position:relative;left:30%;font-weight:bold;">MATERIAL RETURN REVISION</span><br><br><br>
+                    <form action="{{ route('MaterialReturn.RevisionMaterialReturn') }}" method="post">
                         @csrf
                         <div class="card" style="margin-left: 8%;">
                             <div class="card-body">
@@ -14,12 +14,11 @@
                                             <td><label>Revision Number&nbsp;</label></td>
                                             <td>
                                                 <div class="input-group">
-                                                    <input id="searchPrNumberRevisionId" style="border-radius:0;" name="searchPrNumberRevisionId" type="hidden" class="form-control">
-                                                    <input id="siteCodeRevArfBefore" style="border-radius:0;" name="siteCodeRevArfBefore" class="form-control" type="hidden">
-                                                    <input required="" id="searchPrNumberRevisions" style="border-radius:0;" name="searchPrNumberRevisions" type="text" class="form-control" required readonly>
+                                                    <input id="searchMaterialReturnNumberRevisionId" style="border-radius:0;" name="searchMaterialReturnNumberRevisionId" type="hidden" class="form-control">
+                                                    <input required="" id="searchMaterialReturnNumberRevisions" style="border-radius:0;" name="searchMaterialReturnNumberRevisions" type="text" class="form-control" required readonly>
                                                     <div class="input-group-append">
                                                         <span style="border-radius:0;" class="input-group-text form-control">
-                                                            <a data-toggle="modal" data-target="#PopUpTablePieceMealRevision"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                            <a data-toggle="modal" data-target="#PopUpTableMaterialReturnRevision"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -45,11 +44,11 @@
     </div>
 </div>
 
-<div id="PopUpTablePieceMealRevision" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="PopUpTableMaterialReturnRevision" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <label class="card-title">Choose Piece Meal</label>
+                <label class="card-title">Choose Material Return</label>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
@@ -57,7 +56,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="TableSearchPieceMeal">
+                                <table class="table table-head-fixed text-nowrap" id="TableSearchMaterialReturn">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -81,11 +80,9 @@
     </div>
 </div>
 
-
-
 <script>
-    function klikPopUpPeaceMealRevision(id, code) {
-        $("#searchPrNumberRevisionId").val(id);
-        $("#searchPrNumberRevisions").val(code);
+    function klikPopUpMaterialReturnRevision(id, code) {
+        $("#searchMaterialReturnNumberRevisionId").val(id);
+        $("#searchMaterialReturnNumberRevisions").val(code);
     }
 </script>

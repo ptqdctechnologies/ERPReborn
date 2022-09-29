@@ -15,7 +15,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="modal" data-target="#popUpAdvanceRevision" style="color:white;padding-bottom:10px;">
+                                    <a class="nav-link myPopUpBusinessTripSettlementRevision" data-toggle="modal" data-target="#myPopUpBusinessTripSettlementRevision" style="color:white;padding-bottom:10px;">
                                         <i class="far fa-file nav-icon-sm"> Revision Bussines Trip Settlement</i>
                                     </a>
                                 </li>
@@ -27,3 +27,38 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $(function() {
+        $('.myPopUpBusinessTripSettlementRevision').on('click', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'GET',
+                url: '{!! route("BusinessTripSettlement.BusinessTripSettlementListData") !!}',
+                success: function(data) {
+                    var no = 1; t = $('#TableSearchBusinessTripSettlement').DataTable();
+                    t.clear();
+                    $.each(data, function(key, val) {
+                        t.row.add([
+                            '<tbody><tr><td>' + no++ + '</td>',
+                            '<td><span data-dismiss="modal" onclick="klikPopUpBusinessTripSettlementRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.documentNumber + '</span></td>',
+                            '<td><span data-dismiss="modal" onclick="klikPopUpBusinessTripSettlementRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudget_RefID + '</span></td>',
+                            '<td><span data-dismiss="modal" onclick="klikPopUpBusinessTripSettlementRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudgetName + '</span></td>',
+                            '<td><span data-dismiss="modal" onclick="klikPopUpBusinessTripSettlementRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudgetSection_RefID + '</span></td>',
+                            '<td><span data-dismiss="modal" onclick="klikPopUpBusinessTripSettlementRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudgetSectionName + '</td></tr></tbody>'
+                        ]).draw();
+
+                    });
+                }
+            });
+        });
+
+    });
+</script>

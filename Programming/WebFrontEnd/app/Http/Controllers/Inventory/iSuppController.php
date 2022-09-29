@@ -30,7 +30,7 @@ class iSuppController extends Controller
             'dataProject' => $varDataProject['data']['data'],
             'var' => $var,
         ];
-        return view('Inventory.iSupp.Transactions.createISupp', $compact);
+        return view('Inventory.iSupp.Transactions.CreateiSupp', $compact);
     }
 
     public function StoreValidateiSupp(Request $request)
@@ -121,85 +121,34 @@ class iSuppController extends Controller
         return response()->json($compact);
     }
 
-    public function revisionDorIndex(Request $request)
+    public function ISuppListData(Request $request)
     {
-        if ($request->searchDorNumberRevision == 'Q000181') {
-            $project = "Project Code 1";
-            $projectDetail = "Project Detail 1";
-            $site = "Site Code 1";
-            $siteDetail = "Site Detail 1";
-            $beneficary = "Beneficary ";
-            $bank = "Bank Name 1";
-            $accountName = "Account Name 1";
-            $accountNumber = "Account Number 1";
-            $internal = "Internal Notes 1";
-            $requester = "Requester 1";
-            $workId = "Work Id 1";
-            $workIdDetail = "Work Id Detail 1";
-            $productId = "Product Id 1";
-            $productIdDetail = "Product Detail 1";
-            $qty = "2";
-            $qtyDetail = "IDR";
-            $unitPrice = "500";
-            $unitPriceDetail = "Rp";
-            $total = "1000";
-            $remark = "Remark";
-            $totalBoq = "200000";
-            $requestTotal = "200000";
-            $balance = "200000";
-        } else if ($request->searchDorNumberRevision == 'Q000182') {
-            $project = "Project Code 2";
-            $projectDetail = "Project Detail 2";
-            $site = "Site Code 2";
-            $siteDetail = "Site Detail 2";
-            $beneficary = "Beneficary ";
-            $bank = "Bank Name 2";
-            $accountName = "Account Name 2";
-            $accountNumber = "Account Number 2";
-            $internal = "Internal Notes 2";
-            $requester = "Requester 2";
-            $workId = "Work Id 2";
-            $workIdDetail = "Work Id Detail 2";
-            $productId = "Product Id 2";
-            $productIdDetail = "Product Detail 2";
-            $qty = "2";
-            $qtyDetail = "IDR";
-            $unitPrice = "500";
-            $unitPriceDetail = "Rp";
-            $total = "1000";
-            $remark = "Remark";
-            $totalBoq = "200000";
-            $requestTotal = "200000";
-            $balance = "200000";
-        } else if ($request->searchDorNumberRevision == 'Q000183') {
-            $project = "Project Code 3";
-            $projectDetail = "Project Detail 3";
-            $site = "Site Code 3";
-            $siteDetail = "Site Detail 3";
-            $beneficary = "Beneficary ";
-            $bank = "Bank Name 3";
-            $accountName = "Account Name 3";
-            $accountNumber = "Account Number 3";
-            $internal = "Internal Notes 3";
-            $requester = "Requester 3";
-            $workId = "Work Id 3";
-            $workIdDetail = "Work Id Detail 3";
-            $productId = "Product Id 3";
-            $productIdDetail = "Product Detail 3";
-            $qty = "2";
-            $qtyDetail = "IDR";
-            $unitPrice = "500";
-            $unitPriceDetail = "Rp";
-            $total = "1000";
-            $remark = "Remark";
-            $totalBoq = "200000";
-            $requestTotal = "200000";
-            $balance = "200000";
-        }
-
         $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.read.dataList.finance.getAdvance', 
+            'latest', 
+            [
+            'parameter' => null,
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+            );
+            
+        return response()->json($varDataAdvanceRequest['data']);
+    }
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+    public function RevisioniSupp(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $request->session()->forget("SessionDeliveryOrder");
+
+        $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'dataPickList.project.getProject',
@@ -209,9 +158,27 @@ class iSuppController extends Controller
             ]
         );
 
-        $data = $varData['data'];
+        $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.read.dataList.finance.getAdvance', 
+            'latest', 
+            [
+            'parameter' => null,
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+            );
 
-
-        return view('Inventory.DeliveryOrderRequest.Transactions.createDor', compact('project', 'projectDetail', 'site', 'siteDetail', 'beneficary', 'bank', 'accountNumber', 'accountName', 'internal', 'requester', 'workId', 'productId', 'workIdDetail', 'productIdDetail', 'qty', 'qtyDetail', 'unitPrice', 'unitPriceDetail', 'total', 'remark', 'totalBoq', 'requestTotal', 'balance', 'data'));
+        $compact = [
+            'dataProject' => $varDataProject['data']['data'],
+            'dataAdvanceRequest' => $varDataAdvanceRequest['data']
+        ];
+        
+        return view('Inventory.iSupp.Transactions.RevisioniSupp', $compact);
     }
 }

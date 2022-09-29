@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-header">
                 <label class="card-title">
-                    Add New Delivery Order
+                    Delivery Order Revision
                 </label>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">

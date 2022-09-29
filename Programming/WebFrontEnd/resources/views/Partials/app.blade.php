@@ -114,11 +114,6 @@
         "responsive": true,
         "autoWidth": false,
       });
-      // $("#tableGetProject").DataTable({
-      //   "responsive": true,
-      //   "autoWidth": true,
-      //   "paginate": true,
-      // });
       $("#tableBudgetExpense").DataTable({
         "responsive": true,
         "autoWidth": false,
@@ -170,11 +165,6 @@
         "autoWidth": false,
         "paginate": false,
       });
-      // $("#tableGetSite").DataTable({
-      //   "responsive": true,
-      //   "autoWidth": false,
-      //   "paginate": false,
-      // });
       $("#tableGetPr").DataTable({
         "responsive": true,
         "autoWidth": false,
@@ -200,21 +190,11 @@
         "autoWidth": false,
         "paginate": false,
       });
-      $("#TableSearchProcReq").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
       $("#tableSearchArfinAsf").DataTable({
         "responsive": true,
         "autoWidth": false,
         "paginate": false,
       });
-      // $("#tableSearchArfRevision").DataTable({
-      //   "responsive": true,
-      //   "autoWidth": false,
-      //   "paginate": false,
-      // });
       $("#tableSearchAsfRevision").DataTable({
         "responsive": true,
         "autoWidth": false,
@@ -241,12 +221,6 @@
         "autoWidth": false,
         "paginate": false,
       });
-
-      // $("#tableGetWorker").DataTable({
-      //   "responsive": true,
-      //   "autoWidth": false,
-      //   "paginate": false,
-      // });
 
       $("#tableSearchBsf").DataTable({
         "responsive": true,

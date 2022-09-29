@@ -11,59 +11,12 @@ class AdvanceRequestController extends Controller
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionAdvance");       
-        
-        // $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        //     $varAPIWebToken,
-        //     'dataPickList.project.getProject',
-        //     'latest',
-        //     [
-        //         'parameter' => []
-        //     ]
-        // );
-
-        // $varDataWorker = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        //     $varAPIWebToken, 
-        //     'transaction.read.dataList.humanResource.getWorker', 
-        //     'latest', 
-        //     [
-        //     'parameter' => null,
-        //     'SQLStatement' => [
-        //         'pick' => null,
-        //         'sort' => null,
-        //         'filter' => null,
-        //         'paging' => null
-        //         ]
-        //     ]
-        //     );
-        // $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        //     $varAPIWebToken, 
-        //     'transaction.read.dataList.finance.getAdvance', 
-        //     'latest', 
-        //     [
-        //     'parameter' => null,
-        //     'SQLStatement' => [
-        //         'pick' => null,
-        //         'sort' => null,
-        //         'filter' => null,
-        //         'paging' => null
-        //         ]
-        //     ]
-        //     );
-        
-            // dd($varDataAdvanceRequest);
+        $request->session()->forget("SessionAdvance");
         $var = 0;
         if(!empty($_GET['var'])){
            $var =  $_GET['var'];
         }
-        
         $compact = [
-            // 'dataProject' => $varDataProject['data']['data'],
-            // 'dataWorker' => $varDataWorker['data'],
-            // 'dataAdvanceRequest' => $varDataAdvanceRequest['data'],
             'var' => $var,
             'varAPIWebToken' => $varAPIWebToken
         ];
@@ -117,10 +70,8 @@ class AdvanceRequestController extends Controller
             ]                    
             );
 
-        dd($varData);
-
         $compact = [
-            "advnumber"=> "ADV-testing-00111",
+            "advnumber"=> $varData['data']['businessDocument']['documentNumber'],
         ];
 
         return response()->json($compact); 
