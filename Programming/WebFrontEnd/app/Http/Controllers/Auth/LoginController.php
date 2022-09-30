@@ -12,7 +12,7 @@ class LoginController extends Controller
         return view('Authentication.login');
     }
 
-    public function loginStore(Request $request)
+    public function getBranchLogin(Request $request)
     {
         $username = $request->input('username');
         $password = $request->input('password');
@@ -31,7 +31,7 @@ class LoginController extends Controller
     }
 
 
-    public function loginStores(Request $request)
+    public function getRoleLogin(Request $request)
     {
 
         $username = $request->input('username');
@@ -49,7 +49,7 @@ class LoginController extends Controller
         }
     }
 
-    public function login(Request $request)
+    public function loginStore(Request $request)
     {
         $username = $request->input('username');
         $password = $request->input('password');
@@ -75,19 +75,6 @@ class LoginController extends Controller
         );
 
         if ($varData['metadata']['HTTPStatusCode'] == '200') {
-
-            // $data = $request->session()->get('SessionLogin');
-
-            // if($data != NULL){
-            //     // unset($data['0']);
-            //     // $newClass = array_values($data);
-            //     // $request->session()->put('SessionLogin', $newClass);
-            //     // $request->session()->push('SessionLogin', $varAPIWebToken);
-            //     $request->session()->put('SessionLogin', $varAPIWebToken);
-            // }
-            // else{
-            //     $request->session()->put('SessionLogin', $varAPIWebToken);
-            // }
             $request->session()->put('SessionLogin', $varAPIWebToken);
             return redirect('/projectDashboard');
         }

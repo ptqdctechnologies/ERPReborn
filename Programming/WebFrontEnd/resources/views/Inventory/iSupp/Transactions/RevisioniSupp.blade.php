@@ -4,6 +4,7 @@
 @include('Partials.sidebar')
 @include('Inventory.iSupp.Functions.PopUp.searchPoNumber')
 @include('Inventory.iSupp.Functions.PopUp.searchDoNumber')
+@include('Inventory.iSupp.Functions.PopUp.PopUpiSuppRevision')
 @include('getFunction.getWarehouse')
 
 <div class="content-wrapper" style="position:relative;bottom:12px;">
