@@ -85,33 +85,6 @@ class PieceMealController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
-        $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'dataPickList.project.getProject',
-            'latest',
-            [
-                'parameter' => []
-            ]
-        );
-        // dd($varData);
-
-        $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.humanResource.getWorker', 
-            'latest', 
-            [
-            'parameter' => null,
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
-                ]
-            ]
-        );
-
         $varDataPieceMeal = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
@@ -129,8 +102,6 @@ class PieceMealController extends Controller
         );
 
         $compact = [
-            'dataProject' => $varDataProject['data']['data'],
-            'data2' => $varData2['data'],
             'dataPieceMeal' => $varDataPieceMeal['data']
         ];
 

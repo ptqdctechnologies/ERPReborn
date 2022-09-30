@@ -10,45 +10,13 @@ class MaterialReturnController extends Controller
 {
     public function index(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-
         $request->session()->forget("SessionMaterialReturn");
-
-        $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'dataPickList.project.getProject',
-            'latest',
-            [
-                'parameter' => []
-            ]
-        );
-        // dd($varData);
-
-        $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.humanResource.getWorker', 
-            'latest', 
-            [
-            'parameter' => null,
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
-                ]
-            ]
-        );
-
         $var = 0;
         if (!empty($_GET['var'])) {
             $var =  $_GET['var'];
         }
 
         $compact = [
-            'dataProject' => $varDataProject['data']['data'],
-            'data2' => $varData2['data'],
             'var' => $var,
         ];
 
@@ -118,17 +86,7 @@ class MaterialReturnController extends Controller
     public function RevisionMaterialReturn(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionDeliveryOrder");
-
-        $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'dataPickList.project.getProject',
-            'latest',
-            [
-                'parameter' => []
-            ]
-        );
+        $request->session()->forget("SessionMaterialReturn");
 
         $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -147,7 +105,6 @@ class MaterialReturnController extends Controller
             );
 
         $compact = [
-            'dataProject' => $varDataProject['data']['data'],
             'dataAdvanceRequest' => $varDataAdvanceRequest['data']
         ];
         

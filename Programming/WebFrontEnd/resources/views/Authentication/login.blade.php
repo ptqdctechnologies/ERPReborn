@@ -181,7 +181,7 @@
         <!-- /.login-logo -->
         <div id="cek1">
             <div class="card-body login-card-body" id="dis1">
-                <form action="{{ route('login') }}" method="post" name="formLogin">
+                <form action="{{ route('loginStore') }}" method="post" name="formLogin">
                     @csrf
                     <div class="input-group mb-4">
                         <input type="text" class="form-control username" placeholder="Username" name="username" id="dis2" required="" autocomplete="off" autofocus>
@@ -227,7 +227,6 @@
 
                             <button class="btn btn-primary btn-block btn-sm submitx" type="submit" style="color: white;">Login</button>
                             <a class="btn btn-primary btn-block btn-sm submits" style="color: white;">Login</a>
-                            <!-- <a class="btn btn-primary btn-block btn-sm submitx" href="javascript:validateFormLogin()" style="color: white;">Login</a> -->
                         </div>
                         <!-- /.col -->
                     </div>
@@ -283,7 +282,7 @@
 
                 $.ajax({
                     type: 'GET',
-                    url: '{!! route("loginStore") !!}?username=' + $('.username').val() + '&password=' + $('.password').val(),
+                    url: '{!! route("getBranchLogin") !!}?username=' + $('.username').val() + '&password=' + $('.password').val(),
                     success: function(data) {
                         console.log(data);
                         var len = 0;
@@ -346,7 +345,7 @@
                 if (id != "") {
                     $.ajax({
                         type: 'GET',
-                        url: '{!! route("loginStores") !!}?username=' + $('.username').val() + '&password=' + $('.password').val() + '&branch_name=' + $('.branch_name').val(),
+                        url: '{!! route("getRoleLogin") !!}?username=' + $('.username').val() + '&password=' + $('.password').val() + '&branch_name=' + $('.branch_name').val(),
                         success: function(data) {
                             console.log(data);
                             var len = 0;
@@ -376,36 +375,6 @@
             });
         });
     </script>
-    <!-- <script>
-        function validateFormLogin() {
-            var branch_name = document.forms["formLogin"]["branch_name"].value;
-            var user_role = document.forms["formLogin"]["user_role"].value;
-            if (branch_name == "") {
-                Swal.fire("Error !", "Branch name tidak boleh kosong !", "error");
-            } else if (user_role == "") {
-                Swal.fire("Error !", "User role tidak boleh kosong !", "error");
-            } else {
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $(document).ready(function() {
-                    $.ajax({
-                        type: 'GET',
-                        url: '{!! route("loginStorex") !!}?username=' + $('.username').val() + '&password=' + $('.password').val(),
-                        success: function(data) {
-                            if (data == '401') {
-                                window.location.href = "/";
-                            } else {
-                                window.location.href = "projectDashboard";
-                            }
-                        },
-                    });
-                });
-            }
-        }
-    </script> -->
 </body>
 
 </html>

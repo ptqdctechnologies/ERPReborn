@@ -425,7 +425,7 @@
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>Create Advance Request</label>
+                                                <label>Advance Request</label>
                                             </a>
                                         </li>
                                     </ul>
@@ -576,13 +576,13 @@
                                         <li class="nav-item">
                                             <a href="{{ route('BusinessTripRequest.index') }}?var=1"" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>Create Business Trip Request</label>
+                                                <label>Business Trip Request</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="{{ route('BusinessTripSettlement.index') }}?var=1"" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>Create Business Trip Settlement</label>
+                                                <label>Business Trip Settlement</label>
                                             </a>
                                         </li>
                                     </ul>
@@ -649,7 +649,7 @@
                                         <li class="nav-item">
                                             <a href="{{ route('ReimbursableExpenditure.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>Create Reimbursement</label>
+                                                <label>Reimbursement</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
@@ -661,7 +661,7 @@
                                         <li class="nav-item">
                                             <a href="{{ route('BusinessTripSettlement.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>Create Debit Note</label>
+                                                <label>Debit Note</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
@@ -885,7 +885,7 @@
                                         <li class="nav-item">
                                             <a href="#" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>Create Modification Budget</label>
+                                                <label>Modification Budget</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
@@ -999,7 +999,7 @@
                                         <li class="nav-item">
                                             <a href="{{ route('PieceMeal.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>Create Salary</label>
+                                                <label>Salary</label>
                                             </a>
                                         </li>
                                     </ul>
@@ -1049,7 +1049,7 @@
                                         <li class="nav-item">
                                             <a href="{{ route('Timesheet.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>Create Timesheet</label>
+                                                <label>Timesheet</label>
                                             </a>
                                         </li>
                                     </ul>
@@ -1108,7 +1108,7 @@
                                         <li class="nav-item">
                                             <a href="{{ route('PieceMeal.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>Create PR Reallocation</label>
+                                                <label>PR Reallocation</label>
                                             </a>
                                         </li>
                                     </ul>
@@ -1158,7 +1158,7 @@
                                         <li class="nav-item">
                                             <a href="{{ route('DeliveryOrderRequest.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>Create Delivery Order Request</label>
+                                                <label>Delivery Order Request</label>
                                             </a>
                                         </li>
                                     </ul>
@@ -1214,7 +1214,7 @@
                                         <li class="nav-item">
                                             <a href="{{ route('DeliveryOrder.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>Create Delivery Order</label>
+                                                <label>Delivery Order</label>
                                             </a>
                                         </li>
                                     </ul>
@@ -1250,7 +1250,7 @@
                                         <li class="nav-item">
                                             <a href="{{ route('iSupp.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>Create Material Receive</label>
+                                                <label>Material Receive</label>
                                             </a>
                                         </li>
                                     </ul>
@@ -1286,7 +1286,7 @@
                                         <li class="nav-item">
                                             <a href="{{ route('MaterialReturn.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>Create Material Return</label>
+                                                <label>Material Return</label>
                                             </a>
                                         </li>
                                     </ul>
@@ -1400,7 +1400,7 @@
                                         <li class="nav-item">
                                             <a href="{{ route('PurchaseOrder.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>Create Purchase Order</label>
+                                                <label>Purchase Order</label>
                                             </a>
                                         </li>
                                     </ul>
@@ -1456,7 +1456,7 @@
                                         <li class="nav-item">
                                             <a href="{{ route('PurchaseRequisition.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>Create Account Payable</label>
+                                                <label>Account Payable</label>
                                             </a>
                                         </li>
                                     </ul>
@@ -1506,7 +1506,7 @@
                                         <li class="nav-item">
                                             <a href="{{ route('PurchaseRequisition.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>Create PPN Reimbursement</label>
+                                                <label>PPN Reimbursement</label>
                                             </a>
                                         </li>
                                     </ul>
@@ -1566,7 +1566,7 @@
                                         <li class="nav-item">
                                             <a href="{{ route('CO.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>Create Customer Order</label>
+                                                <label>Customer Order</label>
                                             </a>
                                         </li>
                                     </ul>
@@ -1616,7 +1616,7 @@
                                         <li class="nav-item">
                                             <a href="{{ route('CO.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>Create Invoice</label>
+                                                <label>Invoice</label>
                                             </a>
                                         </li>
                                     </ul>

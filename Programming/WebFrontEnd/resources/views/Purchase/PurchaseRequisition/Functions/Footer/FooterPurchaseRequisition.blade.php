@@ -309,101 +309,6 @@
     });
 </script>
 
-<script>
-    $(function() {
-        $("#FormSubmitProcReq").on("submit", function(e) { //id of form 
-            e.preventDefault();
-
-            var action = $(this).attr("action"); //get submit action from form
-            var method = $(this).attr("method"); // get submit method
-            var form_data = new FormData($(this)[0]); // convert form into formdata 
-            var form = $(this);
-
-
-            const swalWithBootstrapButtons = Swal.mixin({
-                confirmButtonClass: 'btn btn-success btn-sm',
-                cancelButtonClass: 'btn btn-danger btn-sm',
-                buttonsStyling: true,
-            })
-
-            swalWithBootstrapButtons.fire({
-
-                title: 'Are you sure?',
-                text: "Save this data?",
-                type: 'question',
-
-                showCancelButton: true,
-                confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
-                cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
-                confirmButtonColor: '#e9ecef',
-                cancelButtonColor: '#e9ecef',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.value) {
-
-                    $("#loading").show();
-                    $(".loader").show();
-
-                    $.ajax({
-                        url: action,
-                        dataType: 'json', // what to expect back from the server
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        data: form_data,
-                        type: method,
-                        success: function(response) {
-
-                            $("#loading").hide();
-                            $(".loader").hide();
-
-                            swalWithBootstrapButtons.fire({
-
-                                title: 'Successful !',
-                                type: 'success',
-                                html: 'Data has been saved. Your transaction number iss ' + '<span style="color:red;">' + response.advnumber + '</span>',
-                                showCloseButton: false,
-                                showCancelButton: false,
-                                focusConfirm: false,
-                                confirmButtonText: '<span style="color:black;"> Ok </span>',
-                                confirmButtonColor: '#4B586A',
-                                confirmButtonColor: '#e9ecef',
-                                reverseButtons: true
-                            }).then((result) => {
-                                if (result.value) {
-                                    $("#loading").show();
-                                    $(".loader").show();
-                                    window.location.href = '/PurchaseRequisition?var=1';
-                                }
-                            })
-                        },
-
-                        error: function(response) { // handle the error
-                            Swal.fire("Cancelled", "Data Cancel Inputed", "error");
-                        },
-
-                    })
-
-
-                } else if (
-                    result.dismiss === Swal.DismissReason.cancel
-                ) {
-                    swalWithBootstrapButtons.fire({
-
-                        title: 'Cancelled',
-                        text: "Process Canceled",
-                        type: 'error',
-                        confirmButtonColor: '#e9ecef',
-                        confirmButtonText: '<span style="color:black;"> Ok </span>',
-
-                    })
-                }
-            })
-        });
-
-    });
-</script>
-
 <script type="text/javascript">
     function CancelPurchaseRequisition() {
         $("#loading").show();
@@ -466,7 +371,7 @@
             success: function(data) {
                 var no = 1;
                 $.each(data, function(key, val2) {
-                    let applied = Math.round(val2.quantityRemain / val2.quantity * 100);
+                    let applied = Math.round(val2.quantityRemainRatio * 100);
                     var status = "";
                     if(applied == 100){
                         var status = "disabled";
@@ -476,7 +381,7 @@
                         '&nbsp;&nbsp;<button type="reset" '+ status +' class="btn btn-sm klikBudgetDetail" data-id1="' + val2.product_RefID + '" data-id2="' + val2.quantity + '" data-id3="' + val2.unitPriceBaseCurrencyValue + '" data-id4="' + val2.sys_ID + '" data-id5="' + val2.productName + '" data-id6="' + val2.quantityUnitName + '" data-id7="' + val2.priceBaseCurrencyISOCode + '" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="15" alt="" title="Add to Detail"></button>' +
                         '</td>' +
                         '<td style="border:1px solid #e9ecef;">' +
-                        '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"><div class="progress-bar bg-red" style="width:50%;"></div><small><center>50 %</center></small></div>' +
+                        '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"> @if('+ applied +' >= '+0+' && '+ applied +' <= '+40+')<div class="progress-bar bg-red" style="width:'+ applied +'%;"></div> @elseif('+ applied +' >= '+41+' && '+ applied +' <= '+89+')<div class="progress-bar bg-blue" style="width:'+ applied +'%;"></div> @elseif('+ applied + ' >= '+ 90 +' && ' + applied + ' <= '+ 100 +')<div class="progress-bar bg-green" style="width:'+ applied +'%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>'+ applied +' %</center></small>' +
                         '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span id="getWorkId">' + val2.combinedBudgetSubSectionLevel1_RefID + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span id="getWorkName">' + val2.combinedBudgetSubSectionLevel2Name + '</span>' + '</td>' +
@@ -538,4 +443,99 @@
             }
         });
     }
+</script>
+
+<script>
+    $(function() {
+        $("#FormSubmitProcReq").on("submit", function(e) { //id of form 
+            e.preventDefault();
+
+            var action = $(this).attr("action"); //get submit action from form
+            var method = $(this).attr("method"); // get submit method
+            var form_data = new FormData($(this)[0]); // convert form into formdata 
+            var form = $(this);
+
+
+            const swalWithBootstrapButtons = Swal.mixin({
+                confirmButtonClass: 'btn btn-success btn-sm',
+                cancelButtonClass: 'btn btn-danger btn-sm',
+                buttonsStyling: true,
+            })
+
+            swalWithBootstrapButtons.fire({
+
+                title: 'Are you sure?',
+                text: "Save this data?",
+                type: 'question',
+
+                showCancelButton: true,
+                confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
+                cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
+                confirmButtonColor: '#e9ecef',
+                cancelButtonColor: '#e9ecef',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
+
+                    $("#loading").show();
+                    $(".loader").show();
+
+                    $.ajax({
+                        url: action,
+                        dataType: 'json', // what to expect back from the server
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data: form_data,
+                        type: method,
+                        success: function(response) {
+
+                            $("#loading").hide();
+                            $(".loader").hide();
+
+                            swalWithBootstrapButtons.fire({
+
+                                title: 'Successful !',
+                                type: 'success',
+                                html: 'Data has been saved. Your transaction number iss ' + '<span style="color:red;">' + response.ProcReqNumber + '</span>',
+                                showCloseButton: false,
+                                showCancelButton: false,
+                                focusConfirm: false,
+                                confirmButtonText: '<span style="color:black;"> Ok </span>',
+                                confirmButtonColor: '#4B586A',
+                                confirmButtonColor: '#e9ecef',
+                                reverseButtons: true
+                            }).then((result) => {
+                                if (result.value) {
+                                    $("#loading").show();
+                                    $(".loader").show();
+                                    window.location.href = '/PurchaseRequisition?var=1';
+                                }
+                            })
+                        },
+
+                        error: function(response) { // handle the error
+                            Swal.fire("Cancelled", "Data Cancel Inputed", "error");
+                        },
+
+                    })
+
+
+                } else if (
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire({
+
+                        title: 'Cancelled',
+                        text: "Process Canceled",
+                        type: 'error',
+                        confirmButtonColor: '#e9ecef',
+                        confirmButtonText: '<span style="color:black;"> Ok </span>',
+
+                    })
+                }
+            })
+        });
+
+    });
 </script>

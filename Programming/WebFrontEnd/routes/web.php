@@ -30,10 +30,9 @@ $varAPIWebToken =
 
 // LOGIN
 Route::get('/', 'Auth\LoginController@index')->name('login');
-Route::post('login', 'Auth\LoginController@login')->name('login');
-Route::get('loginStore', 'Auth\LoginController@loginStore')->name('loginStore');
-Route::get('loginStorex', 'Auth\LoginController@loginStorex')->name('loginStorex');
-Route::get('loginStores', 'Auth\LoginController@loginStores')->name('loginStores');
+Route::post('loginStore', 'Auth\LoginController@loginStore')->name('loginStore');
+Route::get('getBranchLogin', 'Auth\LoginController@getBranchLogin')->name('getBranchLogin');
+Route::get('getRoleLogin', 'Auth\LoginController@getRoleLogin')->name('getRoleLogin');
 
 
 Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], function () {

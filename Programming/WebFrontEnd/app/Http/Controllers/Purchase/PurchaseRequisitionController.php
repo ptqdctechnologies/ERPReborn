@@ -10,7 +10,6 @@ class PurchaseRequisitionController extends Controller
 {
     public function index(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionPurchaseRequisition");
         $var = 0;
         if (!empty($_GET['var'])) {
@@ -26,7 +25,6 @@ class PurchaseRequisitionController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        // dd($input);
         $count_product = count($input['var_product_id']);
 
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -67,7 +65,7 @@ class PurchaseRequisitionController extends Controller
         );
 
         $compact = [
-            "advnumber" => "ADV-testing-00111",
+            "ProcReqNumber"=> $varData['data']['businessDocument']['documentNumber'],
         ];
 
         return response()->json($compact);
@@ -239,54 +237,5 @@ class PurchaseRequisitionController extends Controller
             $request->session()->push("SessionPurchaseRequisition", (string) $varDatas['product_RefID']);
         }
         return response()->json($varData['data']);
-    }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-    }
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

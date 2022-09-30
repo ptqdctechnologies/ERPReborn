@@ -338,7 +338,8 @@
             success: function(data) {
                 var no = 1;
                 $.each(data, function(key, val2) {
-                    let applied = Math.round(val2.quantityRemain / val2.quantity * 100);
+                    let applied = Math.round(val2.quantityRemainRatio * 100);
+                    console.log(applied);
                     var status = "";
                     if(applied == 100){
                         var status = "disabled";
