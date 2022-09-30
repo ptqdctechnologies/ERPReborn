@@ -65,7 +65,7 @@ class PurchaseRequisitionController extends Controller
         );
 
         $compact = [
-            "advnumber" => "ADV-testing-00111",
+            "ProcReqNumber"=> $varData['data']['businessDocument']['documentNumber'],
         ];
 
         return response()->json($compact);

@@ -30,38 +30,6 @@
     new zht_JSCore();
   </script> -->
   <script src="{{ asset('js/zht-js/core.js') }}"></script>
-
-  <style>
-    body {
-      font-family: "Work Sans", sans-serif;
-
-      background: rgb(230, 230, 230);
-    }
-
-    .time {
-      margin: 100px auto;
-      background: rgb(12, 12, 12);
-      color: #fff;
-      border: 7px solid rgb(255, 252, 252);
-      box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-      padding: 8px;
-      text-align: center;
-      width: 500px;
-    }
-
-    .hms {
-      font-size: 68pt;
-      font-weight: 200;
-    }
-
-    .ampm {
-      font-size: 22pt;
-    }
-
-    .date {
-      font-size: 15pt;
-    }
-  </style>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -99,181 +67,9 @@
   </script>
 
   <script>
-    $(function() {
+    // TIME FUNCTION
 
-      $("#table1").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
-      $("#table2").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-      });
-      $("#table3").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-      });
-      $("#tableBudgetExpense").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
-      $("#tableBudgetExpenseLine").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
-      $("#tableBudgetExpenseLine2").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
-      $("#tableBudgetExpenseLineCeiling").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
-      $("#tableBudgetExpense2").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
-      $("#tableBudgetExpense3").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
-      $("#tableBudget").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
-
-      $("#tableBudget2").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
-      $("#tableBudget3").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
-      $("#tableBudget4").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
-      $("#tableGetPr").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
-      $("#tableGetWarehouse").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
-      $("#tableGetWarehouse2").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
-      $("#tableGetWarehouse3").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
-      $("#tableGetRequester").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
-      $("#tableSearchArfinAsf").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
-      $("#tableSearchAsfRevision").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
-      $("#tableSearchBrf").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
-      $("#tableGetCustomer").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
-      $("#tableGetCurrency").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
-
-      $("#tableGetProduct").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
-
-      $("#tableSearchBsf").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
-      $("#TableRegisterCo").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
-      $("#TableSearchCo").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
-      $("#TableBOQCO").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
-
-      $("#tableBudgetDetail").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
-
-      $("#tablePoNumber").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
-      $("#tableDoNumber").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "paginate": false,
-      });
-
-      $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
-      });
-    });
-  </script>
-  <script>
     setInterval(customClock, 500);
-
     function customClock() {
       var time = new Date();
       var date = time.getDate();
@@ -296,7 +92,7 @@
 
 
   <script>
-    // Jquery Dependency
+    // CURRENCY FUNCTION
 
     $("input[data-type='currency']").on({
       keyup: function() {
@@ -307,84 +103,43 @@
       }
     });
 
-
     function formatNumber(n) {
-      // format number 1000000 to 1,234,567
       return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     }
 
-
     function formatCurrency(input, blur) {
-      // appends $ to value, validates decimal side
-      // and puts cursor back in right position.
-
-      // get input value
       var input_val = input.val();
 
-      // don't validate empty input
       if (input_val === "") {
         return;
       }
-
-      // original length
       var original_len = input_val.length;
 
-      // initial caret position 
       var caret_pos = input.prop("selectionStart");
-
-      // check for decimal
       if (input_val.indexOf(".") >= 0) {
-
-        // get position of first decimal
-        // this prevents multiple decimals from
-        // being entered
         var decimal_pos = input_val.indexOf(".");
-
-        // split number by decimal point
         var left_side = input_val.substring(0, decimal_pos);
         var right_side = input_val.substring(decimal_pos);
-
-        // add commas to left side of number
         left_side = formatNumber(left_side);
-
-        // validate right side
         right_side = formatNumber(right_side);
-
-        // On blur make sure 2 numbers after decimal
         if (blur === "blur") {
           right_side += "00";
         }
-
-        // Limit decimal to only 2 digits
         right_side = right_side.substring(0, 2);
-
-        // join number by .
         input_val = left_side + "." + right_side;
-
       } else {
-        // no decimal entered
-        // add commas to number
-        // remove all non-digits
         input_val = formatNumber(input_val);
         input_val = input_val;
-
-        // final formatting
         if (blur === "blur") {
           input_val += ".00";
         }
       }
-
-      // send updated string to input
       input.val(input_val);
-
-      // put caret back in the right position
       var updated_len = input_val.length;
       caret_pos = updated_len - original_len + caret_pos;
       input[0].setSelectionRange(caret_pos, caret_pos);
     }
   </script>
-
-
 </body>
 
 </html>

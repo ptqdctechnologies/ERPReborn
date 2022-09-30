@@ -309,101 +309,6 @@
     });
 </script>
 
-<script>
-    $(function() {
-        $("#FormSubmitProcReq").on("submit", function(e) { //id of form 
-            e.preventDefault();
-
-            var action = $(this).attr("action"); //get submit action from form
-            var method = $(this).attr("method"); // get submit method
-            var form_data = new FormData($(this)[0]); // convert form into formdata 
-            var form = $(this);
-
-
-            const swalWithBootstrapButtons = Swal.mixin({
-                confirmButtonClass: 'btn btn-success btn-sm',
-                cancelButtonClass: 'btn btn-danger btn-sm',
-                buttonsStyling: true,
-            })
-
-            swalWithBootstrapButtons.fire({
-
-                title: 'Are you sure?',
-                text: "Save this data?",
-                type: 'question',
-
-                showCancelButton: true,
-                confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
-                cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
-                confirmButtonColor: '#e9ecef',
-                cancelButtonColor: '#e9ecef',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.value) {
-
-                    $("#loading").show();
-                    $(".loader").show();
-
-                    $.ajax({
-                        url: action,
-                        dataType: 'json', // what to expect back from the server
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        data: form_data,
-                        type: method,
-                        success: function(response) {
-
-                            $("#loading").hide();
-                            $(".loader").hide();
-
-                            swalWithBootstrapButtons.fire({
-
-                                title: 'Successful !',
-                                type: 'success',
-                                html: 'Data has been saved. Your transaction number iss ' + '<span style="color:red;">' + response.advnumber + '</span>',
-                                showCloseButton: false,
-                                showCancelButton: false,
-                                focusConfirm: false,
-                                confirmButtonText: '<span style="color:black;"> Ok </span>',
-                                confirmButtonColor: '#4B586A',
-                                confirmButtonColor: '#e9ecef',
-                                reverseButtons: true
-                            }).then((result) => {
-                                if (result.value) {
-                                    $("#loading").show();
-                                    $(".loader").show();
-                                    window.location.href = '/PurchaseRequisition?var=1';
-                                }
-                            })
-                        },
-
-                        error: function(response) { // handle the error
-                            Swal.fire("Cancelled", "Data Cancel Inputed", "error");
-                        },
-
-                    })
-
-
-                } else if (
-                    result.dismiss === Swal.DismissReason.cancel
-                ) {
-                    swalWithBootstrapButtons.fire({
-
-                        title: 'Cancelled',
-                        text: "Process Canceled",
-                        type: 'error',
-                        confirmButtonColor: '#e9ecef',
-                        confirmButtonText: '<span style="color:black;"> Ok </span>',
-
-                    })
-                }
-            })
-        });
-
-    });
-</script>
-
 <script type="text/javascript">
     function CancelPurchaseRequisition() {
         $("#loading").show();
@@ -538,4 +443,99 @@
             }
         });
     }
+</script>
+
+<script>
+    $(function() {
+        $("#FormSubmitProcReq").on("submit", function(e) { //id of form 
+            e.preventDefault();
+
+            var action = $(this).attr("action"); //get submit action from form
+            var method = $(this).attr("method"); // get submit method
+            var form_data = new FormData($(this)[0]); // convert form into formdata 
+            var form = $(this);
+
+
+            const swalWithBootstrapButtons = Swal.mixin({
+                confirmButtonClass: 'btn btn-success btn-sm',
+                cancelButtonClass: 'btn btn-danger btn-sm',
+                buttonsStyling: true,
+            })
+
+            swalWithBootstrapButtons.fire({
+
+                title: 'Are you sure?',
+                text: "Save this data?",
+                type: 'question',
+
+                showCancelButton: true,
+                confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
+                cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
+                confirmButtonColor: '#e9ecef',
+                cancelButtonColor: '#e9ecef',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
+
+                    $("#loading").show();
+                    $(".loader").show();
+
+                    $.ajax({
+                        url: action,
+                        dataType: 'json', // what to expect back from the server
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data: form_data,
+                        type: method,
+                        success: function(response) {
+
+                            $("#loading").hide();
+                            $(".loader").hide();
+
+                            swalWithBootstrapButtons.fire({
+
+                                title: 'Successful !',
+                                type: 'success',
+                                html: 'Data has been saved. Your transaction number iss ' + '<span style="color:red;">' + response.ProcReqNumber + '</span>',
+                                showCloseButton: false,
+                                showCancelButton: false,
+                                focusConfirm: false,
+                                confirmButtonText: '<span style="color:black;"> Ok </span>',
+                                confirmButtonColor: '#4B586A',
+                                confirmButtonColor: '#e9ecef',
+                                reverseButtons: true
+                            }).then((result) => {
+                                if (result.value) {
+                                    $("#loading").show();
+                                    $(".loader").show();
+                                    window.location.href = '/PurchaseRequisition?var=1';
+                                }
+                            })
+                        },
+
+                        error: function(response) { // handle the error
+                            Swal.fire("Cancelled", "Data Cancel Inputed", "error");
+                        },
+
+                    })
+
+
+                } else if (
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire({
+
+                        title: 'Cancelled',
+                        text: "Process Canceled",
+                        type: 'error',
+                        confirmButtonColor: '#e9ecef',
+                        confirmButtonText: '<span style="color:black;"> Ok </span>',
+
+                    })
+                }
+            })
+        });
+
+    });
 </script>

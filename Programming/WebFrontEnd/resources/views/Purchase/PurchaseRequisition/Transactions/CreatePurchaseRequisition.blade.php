@@ -7,7 +7,7 @@
 @include('Purchase.PurchaseRequisition.Functions.PopUp.PopUpPrRevision')
 @include('getFunction.getProject')
 
-<div class="content-wrapper" style="position:relative;bottom:12px;">
+<div class="content-wrapper" style="position:relative;bottom:25px;">
   <section class="content">
     <div class="container-fluid">
       <div class="row mb-1" style="background-color:#4B586A;">
