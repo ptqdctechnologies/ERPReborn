@@ -12,19 +12,19 @@ namespace App\Models\Database\SchData_OLTP_Finance
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblPaymentDetail                                                                                             |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Finance ► TblPaymentDetail                                          |
+    | ▪ Class Name  : TblPaymentFunding                                                                                            |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Finance ► TblPaymentFunding                                         |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblPaymentDetail extends \App\Models\Database\DefaultClassPrototype
+    class TblPaymentFunding extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-09-30                                                                                           |
-        | ▪ Creation Date   : 2022-07-13                                                                                           |
+        | ▪ Creation Date   : 2022-09-30                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,9 +43,9 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-09-30                                                                                           |
-        | ▪ Creation Date   : 2022-07-13                                                                                           |
+        | ▪ Creation Date   : 2022-09-30                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -107,9 +107,9 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-09-30                                                                                           |
-        | ▪ Creation Date   : 2022-07-13                                                                                           |
+        | ▪ Creation Date   : 2022-09-30                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
