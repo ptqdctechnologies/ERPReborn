@@ -20,7 +20,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataEntities_PaymentDocument                                                                      |
+        | ▪ Method Name     : getDataEntities_Underlying                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-07-15                                                                                           |
@@ -34,11 +34,58 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataEntities_PaymentDocument($varUserSession, 
+        public function getDataEntities_Underlying($varUserSession, 
             string $varIDSet)
             {
             try {
-                $varFunctionName='SchData-OLTP-Finance.Func_GetDataEntities_PaymentDocument';
+                $varFunctionName='SchData-OLTP-Finance.Func_GetDataEntities_Underlying';
+                $varTemp = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        $varFunctionName,
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varIDSet, 'bigint[]']
+                            ]
+                        )
+                    ); 
+
+                for ($i=0; $i!=count($varTemp['Data']); $i++)
+                    {
+                    $varReturn[$i] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession, 
+                        $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]);
+                    }
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataEntities_UnderlyingDetail                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-09-30                                                                                           |
+        | ▪ Creation Date   : 2022-09-30                                                                                           |
+        | ▪ Description     : Get Data Entities - Payment Document                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysID ► System Record ID                                                                              |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataEntities_UnderlyingDetail($varUserSession, 
+            string $varIDSet)
+            {
+            try {
+                $varFunctionName='SchData-OLTP-Finance.Func_GetDataEntities_UnderlyingDetail';
                 $varTemp = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(

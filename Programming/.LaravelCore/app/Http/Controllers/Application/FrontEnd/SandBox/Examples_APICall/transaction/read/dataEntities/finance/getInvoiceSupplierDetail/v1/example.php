@@ -4,8 +4,8 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataEntities\finance        |
-|                 \getInvoiceSupplierDetail\v1                                                                                           |
-| ▪ API Key     : transaction.read.dataEntities.finance.getInvoiceSupplierDetail                                                         |
+|                 \getInvoiceSupplierDetail\v1                                                                                     |
+| ▪ API Key     : transaction.read.dataEntities.finance.getInvoiceSupplierDetail                                                   |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
@@ -17,8 +17,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataEntities.finance.getInvoiceSupplierDetail.v1_throughAPIGateway       |
-        |                     ► http://172.28.0.4/transaction.read.dataEntities.finance.getInvoiceSupplierDetail.v1_throughAPIGateway    |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataEntities.finance.getInvoiceSupplierDetail.v1_throughAPIGateway |
+        |                     ► http://172.28.0.4/                                                                                 |
+        |                       transaction.read.dataEntities.finance.getInvoiceSupplierDetail.v1_throughAPIGateway                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-09-19                                                                                           |
@@ -49,9 +50,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataEntities.finance.getInvoiceSupplierDetail.v1_throughAPIGatewayJQuery |
+        | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
+        |                     transaction.read.dataEntities.finance.getInvoiceSupplierDetail.v1_throughAPIGatewayJQuery            |
         |                     ► http://172.28.0.4/                                                                                 |
-        |                       transaction.read.dataEntities.finance.getInvoiceSupplierDetail.v1_throughAPIGatewayJQuery                |
+        |                       transaction.read.dataEntities.finance.getInvoiceSupplierDetail.v1_throughAPIGatewayJQuery          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-09-19                                                                                           |
