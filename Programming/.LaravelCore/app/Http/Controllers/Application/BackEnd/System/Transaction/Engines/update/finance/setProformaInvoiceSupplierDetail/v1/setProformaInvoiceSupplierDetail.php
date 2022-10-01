@@ -3,20 +3,21 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setInvoiceSupplierDetail\v1   |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance                               |
+|                \setProformaInvoiceSupplierDetail\v1                                                                              |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setInvoiceSupplierDetail\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setProformaInvoiceSupplierDetail\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setInvoiceSupplierDetail                                                                                     |
-    | ▪ Description : Menangani API transaction.update.finance.setInvoiceSupplierDetail Version 1                                  |
+    | ▪ Class Name  : setProformaInvoiceSupplierDetail                                                                             |
+    | ▪ Description : Menangani API transaction.update.finance.setProformaInvoiceSupplierDetail Version 1                          |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setInvoiceSupplierDetail extends \App\Http\Controllers\Controller
+    class setProformaInvoiceSupplierDetail extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
