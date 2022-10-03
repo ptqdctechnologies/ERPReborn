@@ -126,40 +126,40 @@ series.columns.template.adapters.add("stroke", function(stroke, target) {
 // Set data
 var data = [{
   month: "Januari",
-  value: 100
-}, {
-  month: "Februari",
-  value: 200
-}, {
-  month: "Maret",
-  value: 201
-}, {
-  month: "April",
-  value: 300
-}, {
-  month: "Mei",
-  value: 400
-}, {
-  month: "Juni",
-  value: 600
-}, {
-  month: "Juli",
-  value: 800
-}, {
-  month: "Agustus",
   value: 1000
 }, {
+  month: "Februari",
+  value: 900
+}, {
+  month: "Maret",
+  value: 800
+}, {
+  month: "April",
+  value: 700
+}, {
+  month: "Mei",
+  value: 600
+}, {
+  month: "Juni",
+  value: 500
+}, {
+  month: "Juli",
+  value: 500
+}, {
+  month: "Agustus",
+  value: 600
+}, {
   month: "September",
-  value: 1020
+  value: 700
 }, {
   month: "Oktober",
-  value: 1021
+  value: 800
 }, {
   month: "November",
-  value: 2000
+  value: 900
 }, {
   month: "Desember",
-  value: 3000
+  value: 1000
 }];
 
 xAxis.data.setAll(data);

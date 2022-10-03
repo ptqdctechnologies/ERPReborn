@@ -1,15 +1,11 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $("#addAsfListCart").prop("disabled", true);
-        $("#saveAsfList").prop("disabled", true);
-        $("#ManagerNameId").prop("disabled", true);
-        $("#CurrencyId").prop("disabled", true);
-        $("#FinanceId").prop("disabled", true);
+        $("#SaveAsfList").prop("disabled", true);
         $("#projectcode2").prop("disabled", true);
         $("#advance_number2").prop("disabled", true);
-
         $("#detailASF").hide();
-        $("#tableShowHideArfDetail").hide();
+        // $("#tableShowHideArfDetail").hide();
         $("#amountCompanyCart").hide();
         $("#expenseCompanyCart").hide();
     });
@@ -137,14 +133,7 @@
 </script>
 
 <script type="text/javascript">
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
     function addFromDetailtoCartJs() {
-
         var VarArfNumber = $("#arf_number").val();
         $("#arf_number").css("border", "1px solid #ced4da");
 
@@ -153,12 +142,19 @@
             $("#arf_number").attr('required', true);
             $("#arf_number").css("border", "1px solid red");
         } else {
-            var balance = $('#balance').val();
+            var balance = parseFloat($('#balance').val().replace(/,/g, ''));
             var productIdHide = $('#productIdHide').val();
-            var total_expense = $('#total_expense').val();
-            var total_amount = $('#total_amount').val();
+            var total_expense = parseFloat($('#total_expense').val().replace(/,/g, ''));
+            var total_amount = parseFloat($('#total_amount').val().replace(/,/g, ''));
             var totalExpenseAmount = +total_expense + +total_amount;
             if (totalExpenseAmount <= balance) {
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
                 $.ajax({
                     type: "POST",
                     url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlement") !!}?putProductId=' + $("#productIdHide").val(),
@@ -244,7 +240,7 @@
 
                             $("#statusEditAsf").val("No");
                             $("#expenseCompanyCart").show();
-                            $("#saveAsfList").prop("disabled", false);
+                            $("#SaveAsfList").prop("disabled", false);
 
 
                             $("body").on("click", ".remove_amount", function() {
@@ -446,6 +442,290 @@
     }
 </script>
 
+
+<script type="text/javascript">
+    //GET ASF LIST 
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    var var_recordID = $("#var_recordID").val();
+
+    $.ajax({
+        type: "GET",
+        url: '{!! route("AdvanceSettlement.AdvanceSettlementListCartRevision") !!}?var_recordID=' + var_recordID,
+        success: function(data) {
+            $.each(data, function(key, value) {
+                var html = '<tr>' +
+                    '<td style="border:1px solid #e9ecef;width:7%;">' +
+                    '&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs edit_amount" data-dismiss="modal" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+                    '<input type="hidden" name="var_trano[]" value="' + value.product_RefID + '">' +
+                    '<input type="hidden" name="var_product_id[]" value="' + value.product_RefID + '">' +
+                    '<input type="hidden" name="var_product_name[]" value="' + value.productName + '">' +
+                    '<input type="hidden" name="var_uom[]" value="' + value.quantityUnitName + '">' +
+                    '<input type="hidden" name="var_price_amount[]" value="' + value.productUnitPriceCurrencyValue + '">' +
+                    '<input type="hidden" name="var_qty_amount[]" value="' + value.quantity + '">' +
+                    '<input type="hidden" name="var_total_amount[]" value="' + value.priceBaseCurrencyValue + '">' +
+                    '<input type="hidden" name="var_description[]" id="var_description[]" value="' + value.remarks + '">' +
+                    '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + value.product_RefID + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + value.product_RefID + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + value.productName + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + value.quantityUnitName + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + value.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + value.productUnitPriceCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + value.priceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + value.remarks + '</td>' +
+                    '</tr>';
+
+                $('table.tableAmountDueto tbody').append(html);
+
+                var html2 = '<tr>' +
+                    '<td style="border:1px solid #e9ecef;width:7%;">' +
+                    '&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs edit_expense" data-dismiss="modal" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+                    '<input type="hidden" id="var_tranox" name="var_trano[]" value="' + value.product_RefID + '">' +
+                    '<input type="hidden" name="var_product_id[]" value="' + value.product_RefID + '">' +
+                    '<input type="hidden" name="var_product_name[]" value="' + value.productName + '">' +
+                    '<input type="hidden" name="var_uom[]" value="' + value.quantityUnitName + '">' +
+                    '<input type="hidden" name="var_price_expense[]" value="' + value.productUnitPriceCurrencyValue + '">' +
+                    '<input type="hidden" name="var_qty_expense[]" value="' + value.quantity + '">' +
+                    '<input type="hidden" name="var_total_expense[]" value="' + value.priceBaseCurrencyValue + '">' +
+                    '<input type="hidden" name="var_description[]" value="' + value.remarks + '">' +
+                    '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + value.product_RefID + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + value.product_RefID + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + value.productName + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + value.quantityUnitName + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + value.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + value.productUnitPriceCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + value.priceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + value.remarks + '</td>' +
+                    '</tr>';
+
+                $('table.tableExpenseClaim tbody').append(html2);
+            });
+
+            $("#statusEditAsf").val("No");
+            $("#expenseCompanyCart").show();
+            $("#SaveAsfList").prop("disabled", false);
+
+
+            $("body").on("click", ".remove_amount", function() {
+                $(this).closest("tr").remove();
+
+                var ProductId = $(this).data("id1");
+                $.ajax({
+                    type: "POST",
+                    url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlement2") !!}?putProductId=' + ProductId,
+                });
+            });
+
+            $("body").on("click", ".edit_amount", function() {
+                var $this = $(this);
+
+                var ProductId = $(this).data("id1");
+                $.ajax({
+                    type: "POST",
+                    url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlement2") !!}?putProductId=' + ProductId,
+                });
+
+                $("#productIdHide").val($this.data("id1"));
+                $("#nameMaterialHide").val($this.data("id22"));
+                $("#descriptionHide").val($this.data("id23"));
+                $("#arf_number").val($this.data("id21"));
+                $("#arf_date").val($this.data("id2"));
+                $('#total_arf').val($this.data("id3"));
+                $("#total_arf2").val($this.data("id4"));
+                $("#total_asf").val($this.data("id5"));
+                $("#total_asf2").val($this.data("id6"));
+                $("#balance").val($this.data("id7").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                $("#balance2").val($this.data("id8"));
+                $("#qty_expense").val($this.data("id9"));
+                $("#qty_expense2").val($this.data("id10"));
+                $("#price_expense").val($this.data("id11"));
+                $("#price_expense2").val($this.data("id12"));
+                $("#total_expense").val($this.data("id13"));
+                $("#total_expense2").val($this.data("id14"));
+                $("#qty_amount").val($this.data("id15"));
+                $("#qty_amount2").val($this.data("id16"));
+                $("#price_amount").val($this.data("id17"));
+                $("#price_amount2").val($this.data("id18"));
+                $("#total_amount").val($this.data("id19"));
+                $("#total_amount2").val($this.data("id20"));
+                $("#statusEditAsf").val("Yes");
+
+                $("#ValidateQuantityExpense").val($this.data("id9"));
+                $("#ValidatePriceExpense").val($this.data("id11"));
+                $("#ValidateQuantityAmount").val($this.data("id15"));
+                $("#ValidatePriceAmount").val($this.data("id17"));
+
+
+                $(this).closest("tr").remove();
+            });
+
+            $("body").on("click", ".remove_expense", function() {
+                $(this).closest("tr").remove();
+
+                var ProductId = $(this).data("id1");
+                $.ajax({
+                    type: "POST",
+                    url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlement2") !!}?putProductId=' + ProductId,
+                });
+
+            });
+
+            $("body").on("click", ".edit_expense", function() {
+                var $this = $(this);
+
+                var ProductId = $(this).data("id1");
+                $.ajax({
+                    type: "POST",
+                    url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlement2") !!}?putProductId=' + ProductId,
+                });
+
+                $("#productIdHide").val($this.data("id1"));
+                $("#nameMaterialHide").val($this.data("id22"));
+                $("#descriptionHide").val($this.data("id23"));
+                $("#arf_number").val($this.data("id21"));
+                $("#arf_date").val($this.data("id2"));
+                $('#total_arf').val($this.data("id3"));
+                $("#total_arf2").val($this.data("id4"));
+                $("#total_asf").val($this.data("id5"));
+                $("#total_asf2").val($this.data("id6"));
+                $("#balance").val($this.data("id7").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                $("#balance2").val($this.data("id8"));
+                $("#qty_expense").val($this.data("id9"));
+                $("#qty_expense2").val($this.data("id10"));
+                $("#price_expense").val($this.data("id11"));
+                $("#price_expense2").val($this.data("id12"));
+                $("#total_expense").val($this.data("id13"));
+                $("#total_expense2").val($this.data("id14"));
+                $("#qty_amount").val($this.data("id15"));
+                $("#qty_amount2").val($this.data("id16"));
+                $("#price_amount").val($this.data("id17"));
+                $("#price_amount2").val($this.data("id18"));
+                $("#total_amount").val($this.data("id19"));
+                $("#total_amount2").val($this.data("id20"));
+                $("#statusEditAsf").val("Yes");
+
+                $("#ValidateQuantityExpense").val($this.data("id9"));
+                $("#ValidatePriceExpense").val($this.data("id11"));
+                $("#ValidateQuantityAmount").val($this.data("id15"));
+                $("#ValidatePriceAmount").val($this.data("id17"));
+
+                $(this).closest("tr").remove();
+            });
+
+            $("#arf_number").val("");
+            $("#arf_date").val("");
+            $("#total_arf").val("");
+            $("#total_arf2").val("");
+            $("#priceCek").val("");
+            $("#total_asf").val("");
+            $("#total_asf2").val("");
+            $("#balance").val("");
+            $("#balance2").val("");
+            $("#qty_expense").val("");
+            $("#qty_expense2").val("");
+            $("#price_expense").val("");
+            $("#price_expense2").val("");
+            $("#total_expense").val("");
+            $("#total_expense2").val("");
+            $("#qty_amount").val("");
+            $("#qty_amount2").val("");
+            $("#price_amount").val("");
+            $("#price_amount2").val("");
+            $("#total_amount").val("");
+            $("#total_amount2").val("");
+
+            $("#qty_expense").prop("disabled", false);
+            $("#price_expense").prop("disabled", false);
+            $("#qty_amount").prop("disabled", false);
+            $("#price_amount").prop("disabled", false);
+            $("#tableShowHideArfDetail").find("input,button,textarea,select").attr("disabled", false);
+
+            $("#qty_expense").css("border", "1px solid #ced4da");
+            $("#price_expense").css("border", "1px solid #ced4da");
+            $("#qty_amount").css("border", "1px solid #ced4da");
+            $("#price_amount").css("border", "1px solid #ced4da");
+        }
+    });
+
+    //GET ARF DATA
+
+    var var_recordID = $("#var_recordID").val();
+    var advance_number = $("#advance_number").val();
+
+    $.ajax({
+        type: 'GET',
+        url: '{!! route("AdvanceSettlement.AdvanceSettlementListDataById") !!}?var_recordID=' + var_recordID,
+
+        success: function(data) {
+            $.each(data, function(key, value) {
+                var html =
+                    '<tr>' +
+                    '<td style="border:1px solid #e9ecef;width:5%;">' +
+                    '&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs AddToDetailSettlement" data-dismiss="modal" data-id1="' + advance_number + '" data-id2="' + value.quantity + '" data-id3="' + value.productUnitPriceCurrencyValue + '" data-id4="' + value.priceBaseCurrencyValue + '" data-id5="' + value.priceCurrencyISOCode + '" data-id6="' + value.quantityUnitName + '" data-id7="' + value.product_RefID + '" data-id8="' + value.productName + '" data-id9="' + value.remarks + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="18" alt="" title="Add"></button> ' +
+                    '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' +
+                    '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"><div class="progress-bar bg-red" style="width:50%;"></div><small><center>50 %</center></small></div>' +
+                    '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + advance_number + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + value.product_RefID + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + value.productName + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + value.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + 'N/A' + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + value.quantityUnitName + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + value.productUnitPriceCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + value.priceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + value.priceCurrencyISOCode + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + value.remarks + '</td>' +
+                    '</tr>';
+
+                $('table.tableArfDetail tbody').append(html);
+            });
+
+            $("body").on("click", ".AddToDetailSettlement", function() {
+                $("#tableShowHideArfDetail").find("input,button,textarea,select").attr("disabled", true);
+                $("#detailASF").show();
+
+                var $this = $(this);
+                $("#arf_number").val($this.data("id1"));
+                $("#arf_date").val("23-02-2021");
+                $("#qty_expense").val($this.data("id2").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                $("#put_qty_expense").val($this.data("id2"));
+                $("#TotalQty").val($this.data("id2"));
+                $("#qty_expense2").val($this.data("id6"));
+                $("#price_expense").val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                $("#put_price_expense").val($this.data("id3"));
+                $("#price_expense2").val($this.data("id5"));
+                $("#total_expense").val($this.data("id4").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                $("#total_expense2").val($this.data("id5"));
+                $("#qty_amount").val("0.00");
+                $("#qty_amount2").val($this.data("id6"));
+                $("#price_amount").val("0.00");
+                $("#price_amount2").val($this.data("id5"));
+                $("#total_amount").val("0.00");
+                $("#total_amount2").val($this.data("id5"));
+
+                $("#total_arf").val($this.data("id4"));
+                $("#total_arf2").val($this.data("id5"));
+                $("#total_asf").val("500000");
+                $("#total_asf2").val($this.data("id5"));
+                $("#balance").val($this.data("id4").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                $("#balance2").val($this.data("id5"));
+
+                $("#productIdHide").val($this.data("id7"));
+                $("#nameMaterialHide").val($this.data("id8"));
+                $("#descriptionHide").val($this.data("id9"));
+
+            });
+        }
+    });
+</script>
 <script>
     $('document').ready(function() {
         $('#qty_expense').keyup(function() {
@@ -527,6 +807,99 @@
     });
 </script>
 
+
+<script>
+    $(function() {
+        $("#FormStoreAdvanceSettlementRevision").on("submit", function(e) {
+            e.preventDefault();
+            var valRemark = $("#remark").val();
+            $("#remark").css("border", "1px solid #ced4da");
+            if (valRemark === "") {
+                $("#remark").focus();
+                $("#remark").attr('required', true);
+                $("#remark").css("border", "1px solid red");
+            } else {
+                var action = $(this).attr("action");
+                var method = $(this).attr("method");
+                var form_data = new FormData($(this)[0]);
+                var form = $(this);
+
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    confirmButtonClass: 'btn btn-success btn-sm',
+                    cancelButtonClass: 'btn btn-danger btn-sm',
+                    buttonsStyling: true,
+                })
+
+                swalWithBootstrapButtons.fire({
+
+                    title: 'Are you sure?',
+                    text: "Save this data?",
+                    type: 'question',
+
+                    showCancelButton: true,
+                    confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
+                    cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
+                    confirmButtonColor: '#e9ecef',
+                    cancelButtonColor: '#e9ecef',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+
+                        $("#loading").show();
+                        $(".loader").show();
+
+                        $.ajax({
+                            url: action,
+                            dataType: 'json', // what to expect back from the server
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            data: form_data,
+                            type: method,
+                            success: function(response) {
+                                if (response.status) {
+
+                                    $("#loading").hide();
+                                    $(".loader").hide();
+
+                                    swalWithBootstrapButtons.fire(
+                                        'Succesful ',
+                                        'Data has been updated',
+                                        'success'
+                                    )
+
+                                    window.location.href = '/AdvanceRequest?var=1';
+                                }
+                            },
+
+                            error: function(response) { // handle the error
+                                Swal.fire("Cancelled", "Data Cancel Inputed", "error");
+                            },
+
+                        })
+
+
+                    } else if (
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                        swalWithBootstrapButtons.fire({
+
+                            title: 'Cancelled',
+                            text: "Process Canceled",
+                            type: 'error',
+                            confirmButtonColor: '#e9ecef',
+                            confirmButtonText: '<span style="color:black;"> Ok </span>',
+
+                        })
+                    }
+                })
+            }
+        });
+
+    });
+</script>
+
 <script>
     $(function() {
         $(".idExpense").on('click', function(e) {
@@ -543,4 +916,12 @@
             $("#amountdueto").show();
         });
     });
+</script>
+
+<script type="text/javascript">
+    function CancelAdvanceSettlement() {
+        $("#loading").show();
+        $(".loader").show();
+        location.reload();
+    }
 </script>

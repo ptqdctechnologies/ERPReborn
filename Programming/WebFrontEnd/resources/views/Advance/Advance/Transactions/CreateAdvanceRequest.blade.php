@@ -256,12 +256,12 @@
         </form>
       </div>
       @else
-      <img src="{{ asset('AdminLTE-master/dist/img/qdc.png') }}" style="display: block;margin-left: auto;margin-right: auto;margin-left: auto;margin-right: auto;margin-top:30%; width: 20%;" alt="">
+      <img src="{{ asset('AdminLTE-master/dist/img/qdc.png') }}" style="display: block;margin-left: auto;margin-right: auto;margin-left: auto;margin-right: auto;margin-top:20%; width: 20%;" alt="">
       @endif
     </div>
   </section>
 </div>
-@include('Partials.footer')
+@include('Partials.footer'  )
 
 @include('Advance.Advance.Functions.Footer.FooterAdvanceRequest')
 @endsection

@@ -18,7 +18,7 @@
       @include('Advance.Advance.Functions.Menu.MenuAdvanceSettlement')
       @if($var == 0)
       <div class="card" style="position:relative;bottom:10px;">
-        <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceSettlement.store') }}" name="formArf1">
+        <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceSettlement.store') }}" id="FormStoreAdvanceSettlement">
           @csrf
           <div class="tab-content p-3" id="nav-tabContent">
             <div class="row">
@@ -134,7 +134,7 @@
                         </td>
                         <td style="border:1px solid #e9ecef;">
                           <div class="input-group">
-                            <input id="price_expense"  style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                            <input id="price_expense" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                             <input id="put_price_expense" style="border-radius:0;" type="hidden" class="form-control">
                           </div>
                         </td>
@@ -220,7 +220,6 @@
               </div>
             </div>
           </div>
-          <!-- </form> -->
 
           <nav class="w-100">
             <div class="nav nav-tabs" id="product-tab" role="tablist">
@@ -308,13 +307,11 @@
               </div>
             </div>
           </div>
-
-
-          <button type="reset" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
+          <a onclick="CancelAdvanceSettlement();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
             <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
-          </button>
-          <button class="btn btn-default btn-sm float-right" type="submit" id="saveAsfList" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-            <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
+          </a>
+          <button class="btn btn-default btn-sm float-right" type="submit" id="SaveAsfList" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+            <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit"> Submit
           </button>
       </div>
       </form>
