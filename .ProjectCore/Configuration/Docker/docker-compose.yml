@@ -409,11 +409,21 @@ services:
       - '25432:5432'
       - '30080:80'
     environment:
+      OPENPROJECT_HTTPS: 'false'
+      RAILS_CACHE_STORE: 'memcache'
+      OPENPROJECT_CACHE__MEMCACHE__SERVER: "cache:11211"
+      OPENPROJECT_RAILS__RELATIVE__URL__ROOT: "${OPENPROJECT_RAILS__RELATIVE__URL__ROOT:-}"
       SECRET_KEY_BASE: 'secret'
-      DATABASE_URL: 'postgresql://SysEngine:748159263@192.168.1.24:5432/dbERPReborn-Documentation-OpenProject'
+      HOST__NAME: 'openproject.erpreborn.qdc.co.id'
+      RAILS_MIN_THREADS: 4
+      RAILS_MAX_THREADS: 16
+      DATABASE_URL: 'postgresql://SysEngine:748159263@192.168.0.24:5432/dbERPReborn-Documentation-OpenProject'
+#      DATABASE_URL: "${192.168.0.24:-postgres://SysEngine:748159263@db/openproject?pool=20&encoding=unicode&reconnect=true}"
+#      DATABASE_URL: 'postgresql://SysEngine:748159263@192.168.1.24:5432/dbERPReborn-Documentation-OpenProject'
+#      DATABASE_URL: "${DATABASE_URL:-postgres://SysEngine:748159263@db/openproject?pool=20&encoding=unicode&reconnect=true}"
     networks:
       app-network:
-        ipv4_address: '172.28.0.101'
+        ipv4_address: '172.28.0.102'
     volumes:
       - './.ProjectCore/PermanentStorage/OpenProject/var/lib/openproject/pgdata/:/var/openproject/pgdata'
       - './.ProjectCore/PermanentStorage/OpenProject/var/lib/openproject/assets/:/var/openproject/assets'

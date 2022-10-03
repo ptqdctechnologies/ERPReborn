@@ -71,7 +71,7 @@ Main Features :
       grafana | 172.28.0.8 | grafana
       minio-node1<br />minio-node2<br />minio-node3<br />minio-node4 | 172.28.0.9<br />172.28.0.7.10<br />172.28.0.7.11<br />172.28.0.7.12 | erp-reborn-minio
       pgadmin4 | 172.28.0.100 | erp-reborn-devtools-pgadmin4
-      openproject | 172.28.0.101 | erp-reborn-devtools-openproject
+      openproject | 172.28.0.102 | erp-reborn-devtools-openproject
 
 5. Setelah seluruh container terbentuk maka akan berjalan service didalam docker berupa :
    **Service** | **Local Host & Port** | **Container** | **NAT From**
@@ -84,7 +84,7 @@ Main Features :
    minio | http://localhost:19000<br />http://localhost:29000<br />http://localhost:39000<br />http://localhost:49000 | minio-node1<br />minio-node2<br />minio-node3<br />minio-node4 | http://172.28.0.9:9000<br />http://172.28.0.10:9000<br />http://172.28.0.11:9000<br />http://172.28.0.12:9000
    grafana | http://localhost:13000 | grafana | http://172.28.0.8:3000
    pgadmin4 | http://localhost:15050 | pgadmin4 | http://172.28.0.100:5050
-   openproject | http://localhost:30080 | openproject | http://172.28.0.101:80
+   openproject | http://localhost:30080 | openproject | http://172.28.0.102:80
 
 6. Untuk mematikan docker-composer tekan **[Ctrl+C]**
 
