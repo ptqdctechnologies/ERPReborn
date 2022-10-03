@@ -24,6 +24,58 @@ class AdvanceSettlementController extends Controller
         return view('Advance.Advance.Transactions.CreateAdvanceSettlement', $compact);
     }
 
+    public function store(Request $request)
+    {
+        $input = $request->all();
+        $count_product = count($input['var_product_id']);
+
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        // $advanceDetail = [];
+        // for($n =0; $n < $count_product; $n++){
+        //     $advanceDetail[$n] = [
+        //     'entities' => [
+        //             "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
+        //             "product_RefID" => (int) $input['var_product_id'][$n],
+        //             "quantity" => (float) $input['var_quantity'][$n],
+        //             "quantityUnit_RefID" => 73000000000001,
+        //             "productUnitPriceCurrency_RefID" => 62000000000001,
+        //             "productUnitPriceCurrencyValue" => (float) $input['var_price'][$n],
+        //             "productUnitPriceCurrencyExchangeRate" => 1,
+        //             "remarks" => 'test jumat'
+        //         ]
+        //     ];
+        // }
+
+        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varAPIWebToken, 
+        //     'transaction.create.finance.setAdvance', 
+        //     'latest', 
+        //     [
+        //     'entities' => [
+        //         "documentDateTimeTZ" => $input['var_date'],
+        //         "log_FileUpload_Pointer_RefID" => 91000000000001,
+        //         "requesterWorkerJobsPosition_RefID" => (int)$input['request_name_id'],
+        //         "beneficiaryWorkerJobsPosition_RefID" => 25000000000439,
+        //         "beneficiaryBankAccount_RefID" => 167000000000001,
+        //         "internalNotes" => 'My Internal Notes',
+        //         "remarks" => $input['var_remark'],
+        //         "additionalData" => [
+        //             "itemList" => [
+        //                 "items" => $advanceDetail
+        //                 ]
+        //             ]
+        //         ]
+        //     ]                    
+        //     );
+
+        $compact = [
+            "advnumber" => 'ASF-0000001',
+        ];
+
+        return response()->json($compact);
+    }
     public function StoreValidateAdvanceSettlement(Request $request)
     {
         $tamp = 0;
@@ -77,28 +129,28 @@ class AdvanceSettlementController extends Controller
                 }
             }
             if ($tamp == 0) {
-                if($requester_id != $requester_id2 && $requester_id2 != ""){
+                if ($requester_id != $requester_id2 && $requester_id2 != "") {
                     $status = 500;
-                }else{
+                } else {
 
                     $varDataAdvanceList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'transaction.read.dataList.finance.getAdvanceDetail', 
-                    'latest', 
-                    [
-                    'parameter' => [
-                        'advance_RefID' => (int) $advance_RefID,
-                        ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken,
+                        'transaction.read.dataList.finance.getAdvanceDetail',
+                        'latest',
+                        [
+                            'parameter' => [
+                                'advance_RefID' => (int) $advance_RefID,
+                            ],
+                            'SQLStatement' => [
+                                'pick' => null,
+                                'sort' => null,
+                                'filter' => null,
+                                'paging' => null
+                            ]
                         ]
-                    ]
                     );
-                    
+
                     $request->session()->push("SessionAdvanceSetllementRequester", $advance_RefID);
                 }
             } else {
@@ -107,23 +159,23 @@ class AdvanceSettlementController extends Controller
         } else {
 
             $varDataAdvanceList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.finance.getAdvanceDetail', 
-            'latest', 
-            [
-            'parameter' => [
-                'advance_RefID' => (int) $advance_RefID,
-                ],
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.finance.getAdvanceDetail',
+                'latest',
+                [
+                    'parameter' => [
+                        'advance_RefID' => (int) $advance_RefID,
+                    ],
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
                 ]
-            ]
             );
-            
+
             $request->session()->push("SessionAdvanceSetllementRequester", $advance_RefID);
         }
 
@@ -142,42 +194,90 @@ class AdvanceSettlementController extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $varDataAdvanceSettlement = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.finance.getAdvance', 
-            'latest', 
+            $varAPIWebToken,
+            'transaction.read.dataList.finance.getAdvance',
+            'latest',
             [
-            'parameter' => null,
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
                 ]
             ]
-            );
-            
+        );
+
         return response()->json($varDataAdvanceSettlement['data']);
+    }
+
+    public function AdvanceSettlementListDataById(Request $request)
+    {
+        $advance_RefID = $request->input('var_recordID');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varDataAdvanceList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.finance.getAdvanceDetail',
+            'latest',
+            [
+                'parameter' => [
+                    'advance_RefID' => (int) $advance_RefID,
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ]
+        );
+
+        return response()->json($varDataAdvanceList['data']);
+    }
+
+    public function AdvanceSettlementListCartRevision(Request $request)
+    {
+        $var_recordID = $request->input('var_recordID');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varDataAdvanceList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.finance.getAdvanceDetail',
+            'latest',
+            [
+                'parameter' => [
+                    'advance_RefID' => (int) $var_recordID,
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ]
+        );
+        return response()->json($varDataAdvanceList['data']);
     }
 
 
     public function RevisionAdvanceSettlementIndex(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionAdvance");
+        $request->session()->forget("SessionAdvanceSetllement");
         $request->session()->forget("SessionAdvanceSetllementRequester");
 
         $varDataAdvanceSettlementRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken, 
-        'report.form.documentForm.finance.getAdvance', 
-        'latest',
-        [
-        'parameter' => [
-            'recordID' => (int) $request->searchAsfNumberRevisionId,
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'report.form.documentForm.finance.getAdvance',
+            'latest',
+            [
+                'parameter' => [
+                    'recordID' => (int) $request->searchAsfNumberRevisionId,
+                ]
             ]
-        ]
         );
-        // dd($varDataAdvanceSettlementRevision);
         $compact = [
             'dataAdvanceRevisions' => $varDataAdvanceSettlementRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
             'dataRequester' => $varDataAdvanceSettlementRevision['data'][0]['document']['content']['involvedPersons']['requester'],
@@ -186,5 +286,58 @@ class AdvanceSettlementController extends Controller
         ];
 
         return view('Advance.Advance.Transactions.RevisionAdvanceSettlement', $compact);
+    }
+    public function update(Request $request, $id)
+    {
+        $input = $request->all();
+        $count_product = count($input['var_product_id']);
+        // $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        // $advanceDetail = [];
+        // if ($count_product > 0 && isset($count_product)) {
+        //     for($n =0; $n < $count_product; $n++){
+        //         $advanceDetail[$n] = [
+        //             'recordID' => ((!$input['var_recordIDDetail'][$n]) ? null : (int) $input['var_recordIDDetail'][$n]),
+        //             'entities' => [
+        //                 "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
+        //                 "product_RefID" => (int) $input['var_product_id'][$n],
+        //                 "quantity" => (float) $input['var_quantity'][$n],
+        //                 "quantityUnit_RefID" => 73000000000001,
+        //                 "productUnitPriceCurrency_RefID" => 62000000000001,
+        //                 "productUnitPriceCurrencyValue" => (float) $input['var_price'][$n],
+        //                 "productUnitPriceCurrencyExchangeRate" => 1,
+        //                 "remarks" => 'Catatan'
+        //             ]
+        //         ];
+        //     }
+        // }
+        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varAPIWebToken, 
+        //     'transaction.update.finance.setAdvance', 
+        //     'latest', 
+        //     [
+        //         'recordID' => (int)$input['var_recordID'],
+        //         'entities' => [
+        //             "documentDateTimeTZ" => '2022-03-07',
+        //             "log_FileUpload_Pointer_RefID" => 91000000000001,
+        //             "requesterWorkerJobsPosition_RefID" => (int)$input['request_name_id'],
+        //             "beneficiaryWorkerJobsPosition_RefID" => 25000000000439,
+        //             "beneficiaryBankAccount_RefID" => 167000000000001,
+        //             "internalNotes" => 'My Internal Notes',
+        //             "remarks" => $input['var_remark'],
+        //             "additionalData" => [
+        //                 "itemList" => [
+        //                     "items" => $advanceDetail
+        //                     ]
+        //                 ]
+        //             ]
+        //         ]                   
+        // );
+        $compact = [
+            "status" => true,
+        ];
+
+        return response()->json($compact);
     }
 }

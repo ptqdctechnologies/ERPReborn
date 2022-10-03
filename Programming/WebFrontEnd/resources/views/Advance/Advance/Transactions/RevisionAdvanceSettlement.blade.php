@@ -16,8 +16,10 @@
         </div>
       </div>
       @include('Advance.Advance.Functions.Menu.MenuAdvanceSettlement')
+      <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
       <div class="card" style="position:relative;bottom:10px;">
-        <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceSettlement.store') }}" name="formArf1">
+        <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceSettlement.update', $var_recordID) }}" id="FormStoreAdvanceSettlementRevision">
+          @method('PUT')
           @csrf
           <div class="tab-content p-3" id="nav-tabContent">
             <div class="row">
@@ -308,13 +310,11 @@
               </div>
             </div>
           </div>
-
-
-          <button type="reset" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
-            <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
-          </button>
-          <button class="btn btn-default btn-sm float-right" type="submit" id="saveAsfList" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-            <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
+          <a onclick="CancelAdvanceSettlement();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
+            <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel"> Cancel
+          </a>
+          <button class="btn btn-default btn-sm float-right" type="submit" id="SaveAsfList" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+            <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit"> Submit
           </button>
       </div>
       </form>

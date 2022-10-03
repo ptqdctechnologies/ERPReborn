@@ -22,7 +22,6 @@
         <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceRequest.update', $var_recordID) }}" id="formUpdateArf">
           @csrf
           @method('PUT')
-
           <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
           <input id="siteCodeRevArfAfter" style="border-radius:0;" name="siteCodeRevArfAfter" class="form-control" type="hidden" value="{{$dataAdvanceRevisions['entities']['combinedBudgetSection_RefID']}}">
           <div class="tab-content p-3" id="nav-tabContent">

@@ -33,7 +33,7 @@
             </div>
 
             <div class="col-md-4">
-                <div class="card-body table-responsive p-0">
+            <div class="card-body table-responsive p-0">
                     <table>
                         <tr>
                             <td><label>File</label></td>
@@ -51,6 +51,7 @@
                                     <button style="background-color:#e9ecef;border:1px solid #ced4da;" class="btn btn-sm add_field_button" type="button"><img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="15" alt=""> Add</button>
                                 </div>
                             </td>
+                        </tr>
                         </tr>
                     </table>
                 </div>

@@ -1,12 +1,8 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $("#addAsfListCart").prop("disabled", true);
-        $("#saveAsfList").prop("disabled", true);
-        $("#ManagerNameId").prop("disabled", true);
-        $("#CurrencyId").prop("disabled", true);
-        $("#FinanceId").prop("disabled", true);
+        $("#SaveAsfList").prop("disabled", true);
         $("#advance_number2").prop("disabled", true);
-
         $("#detailASF").hide();
         $("#tableShowHideArfDetail").hide();
         $("#amountCompanyCart").hide();
@@ -250,7 +246,7 @@
 
                             $("#statusEditAsf").val("No");
                             $("#expenseCompanyCart").show();
-                            $("#saveAsfList").prop("disabled", false);
+                            $("#SaveAsfList").prop("disabled", false);
 
 
                             $("body").on("click", ".remove_amount", function() {
@@ -485,24 +481,6 @@
 </script>
 
 <script>
-    $(function() {
-        $(".idExpense").on('click', function(e) {
-            $("#amountdueto").hide();
-            $("#expense").show();
-            $("#expenseCompanyCart").show();
-        });
-    });
-
-    $(function() {
-        $(".idAmount").on('click', function(e) {
-            $("#expense").hide();
-            $("#amountCompanyCart").show();
-            $("#amountdueto").show();
-        });
-    });
-</script>
-
-<script>
     function klikProject(code, name) {
         $("#projectcode").val(code);
         $("#projectname").val(name);
@@ -562,6 +540,7 @@
                     $("#requester_name").val(data.requester_name);
 
                     $.each(data.DataAdvanceList, function(key, value) {
+                        console.log(value);
                         var html =
                             '<tr>' +
                             '<td style="border:1px solid #e9ecef;width:5%;">' +
@@ -627,5 +606,135 @@
                 }
             },
         });
+    }
+</script>
+
+<script>
+    $(function() {
+        $("#FormStoreAdvanceSettlement").on("submit", function(e) { 
+            e.preventDefault();
+            var valRemark = $("#remark").val();
+            $("#remark").css("border", "1px solid #ced4da");
+            if (valRemark === "") {
+                $("#remark").focus();
+                $("#remark").attr('required', true);
+                $("#remark").css("border", "1px solid red");
+            } else {
+                var action = $(this).attr("action"); 
+                var method = $(this).attr("method"); 
+                var form_data = new FormData($(this)[0]); 
+                var form = $(this);
+
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    confirmButtonClass: 'btn btn-success btn-sm',
+                    cancelButtonClass: 'btn btn-danger btn-sm',
+                    buttonsStyling: true,
+                })
+
+                swalWithBootstrapButtons.fire({
+
+                    title: 'Are you sure?',
+                    text: "Save this data?",
+                    type: 'question',
+
+                    showCancelButton: true,
+                    confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
+                    cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
+                    confirmButtonColor: '#e9ecef',
+                    cancelButtonColor: '#e9ecef',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+
+                        $("#loading").show();
+                        $(".loader").show();
+
+                        $.ajax({
+                            url: action,
+                            dataType: 'json',
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            data: form_data,
+                            type: method,
+                            success: function(response) {
+
+                                $("#loading").hide();
+                                $(".loader").hide();
+
+                                swalWithBootstrapButtons.fire({
+
+                                    title: 'Successful !',
+                                    type: 'success',
+                                    html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + response.advnumber + '</span>',
+                                    showCloseButton: false,
+                                    showCancelButton: false,
+                                    focusConfirm: false,
+                                    confirmButtonText: '<span style="color:black;"> Ok </span>',
+                                    confirmButtonColor: '#4B586A',
+                                    confirmButtonColor: '#e9ecef',
+                                    reverseButtons: true
+                                }).then((result) => {
+                                    if (result.value) {
+                                        $("#loading").show();
+                                        $(".loader").show();
+
+                                        window.location.href = '/AdvanceSettlement?var=1';
+                                    }
+                                })
+                            },
+
+                            error: function(response){
+                                Swal.fire("Cancelled", "Data Cancel Inputed", "error");
+                            },
+
+                        })
+
+
+                    } else if (
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                        swalWithBootstrapButtons.fire({
+
+                            title: 'Cancelled',
+                            text: "Process Canceled",
+                            type: 'error',
+                            confirmButtonColor: '#e9ecef',
+                            confirmButtonText: '<span style="color:black;"> Ok </span>',
+
+                        })
+                    }
+                })
+            }
+        });
+
+    });
+</script>
+
+
+<script>
+    $(function() {
+        $(".idExpense").on('click', function(e) {
+            $("#amountdueto").hide();
+            $("#expense").show();
+            $("#expenseCompanyCart").show();
+        });
+    });
+
+    $(function() {
+        $(".idAmount").on('click', function(e) {
+            $("#expense").hide();
+            $("#amountCompanyCart").show();
+            $("#amountdueto").show();
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    function CancelAdvanceSettlement() {
+        $("#loading").show();
+        $(".loader").show();
+        location.reload();
     }
 </script>
