@@ -18,9 +18,8 @@ class PieceMealController extends Controller
         $compact = [
             'var' => $var,
         ];
-        
-        return view('HumanResources.PieceMeal.Transactions.CreatePieceMeal', $compact);
 
+        return view('HumanResources.PieceMeal.Transactions.CreatePieceMeal', $compact);
     }
 
 
@@ -59,33 +58,62 @@ class PieceMealController extends Controller
         }
     }
 
+    public function store(Request $request)
+    {
+        // $input = $request->all();
+        // $count_product = count($input['var_product_id']);
+
+        // $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        // $advanceDetail = [];
+        // for($n =0; $n < $count_product; $n++){
+        //     $advanceDetail[$n] = [
+        //     'entities' => [
+        //             "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
+        //             "product_RefID" => (int) $input['var_product_id'][$n],
+        //             "quantity" => (float) $input['var_quantity'][$n],
+        //             "quantityUnit_RefID" => 73000000000001,
+        //             "productUnitPriceCurrency_RefID" => 62000000000001,
+        //             "productUnitPriceCurrencyValue" => (float) $input['var_price'][$n],
+        //             "productUnitPriceCurrencyExchangeRate" => 1,
+        //             "remarks" => 'test jumat'
+        //         ]
+        //     ];
+        // }
+
+        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varAPIWebToken, 
+        //     'transaction.create.finance.setAdvance', 
+        //     'latest', 
+        //     [
+        //     'entities' => [
+        //         "documentDateTimeTZ" => $input['var_date'],
+        //         "log_FileUpload_Pointer_RefID" => 91000000000001,
+        //         "requesterWorkerJobsPosition_RefID" => (int)$input['request_name_id'],
+        //         "beneficiaryWorkerJobsPosition_RefID" => 25000000000439,
+        //         "beneficiaryBankAccount_RefID" => 167000000000001,
+        //         "internalNotes" => 'My Internal Notes',
+        //         "remarks" => $input['var_remark'],
+        //         "additionalData" => [
+        //             "itemList" => [
+        //                 "items" => $advanceDetail
+        //                 ]
+        //             ]
+        //         ]
+        //     ]                    
+        //     );
+
+        $compact = [
+            "pmnumber" => 'PM-00000001',
+        ];
+
+        return response()->json($compact);
+    }
     public function PieceMealListData(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.finance.getAdvance', 
-            'latest', 
-            [
-            'parameter' => null,
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
-                ]
-            ]
-            );
-            
-        return response()->json($varDataAdvanceRequest['data']);
-    }
-
-    public function RevisionPieceMeal(Request $request)
-    {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-
-        $varDataPieceMeal = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        $varDataPurchaseRequisition = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.read.dataList.supplyChain.getPurchaseRequisition',
@@ -101,65 +129,115 @@ class PieceMealController extends Controller
             ]
         );
 
-        $compact = [
-            'dataPieceMeal' => $varDataPieceMeal['data']
-        ];
+        return response()->json($varDataPurchaseRequisition['data']);
+    }
 
+    public function RevisionPieceMeal(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $request->session()->forget("SessionPieceMeal");
+
+        $varDataProcReqRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'report.form.documentForm.supplyChain.getPurchaseRequisition',
+            'latest',
+            [
+                'parameter' => [
+                    'recordID' => (int) $request->searchPmNumberRevisionId
+                ]
+            ]
+        );
+        // dd($varDataProcReqRevision);
+
+        $compact = [
+            'dataProcReqRevision' => $varDataProcReqRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
+            'var_recordID' => $request->searchPmNumberRevisionId,
+        ];
         return view('HumanResources.PieceMeal.Transactions.RevisionPieceMeal', $compact);
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+
+    public function PieceMealListCartRevision(Request $request)
     {
-        
-    }
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $var_recordID = $request->input('var_recordID');
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail',
+            'latest',
+            [
+                'parameter' => [
+                    'purchaseRequisition_RefID' => (int) $var_recordID
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ]
+        );
+        // dd($varData);
+        foreach ($varData['data'] as $varDatas) {
+            $request->session()->push("SessionPieceMeal", (string) $varDatas['product_RefID']);
+        }
+        return response()->json($varData['data']);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
-    }
+        // $input = $request->all();
+        // $count_product = count($input['var_product_id']);
+        // $varAPIWebToken = $request->session()->get('SessionLogin');
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+        // $advanceDetail = [];
+        // if ($count_product > 0 && isset($count_product)) {
+        //     for($n =0; $n < $count_product; $n++){
+        //         $advanceDetail[$n] = [
+        //             'recordID' => ((!$input['var_recordIDDetail'][$n]) ? null : (int) $input['var_recordIDDetail'][$n]),
+        //             'entities' => [
+        //                 "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
+        //                 "product_RefID" => (int) $input['var_product_id'][$n],
+        //                 "quantity" => (float) $input['var_quantity'][$n],
+        //                 "quantityUnit_RefID" => 73000000000001,
+        //                 "productUnitPriceCurrency_RefID" => 62000000000001,
+        //                 "productUnitPriceCurrencyValue" => (float) $input['var_price'][$n],
+        //                 "productUnitPriceCurrencyExchangeRate" => 1,
+        //                 "remarks" => 'Catatan'
+        //             ]
+        //         ];
+        //     }
+        // }
+        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varAPIWebToken, 
+        //     'transaction.update.finance.setAdvance', 
+        //     'latest', 
+        //     [
+        //         'recordID' => (int)$input['var_recordID'],
+        //         'entities' => [
+        //             "documentDateTimeTZ" => '2022-03-07',
+        //             "log_FileUpload_Pointer_RefID" => 91000000000001,
+        //             "requesterWorkerJobsPosition_RefID" => (int)$input['request_name_id'],
+        //             "beneficiaryWorkerJobsPosition_RefID" => 25000000000439,
+        //             "beneficiaryBankAccount_RefID" => 167000000000001,
+        //             "internalNotes" => 'My Internal Notes',
+        //             "remarks" => $input['var_remark'],
+        //             "additionalData" => [
+        //                 "itemList" => [
+        //                     "items" => $advanceDetail
+        //                     ]
+        //                 ]
+        //             ]
+        //         ]                   
+        // );
+        $compact = [
+            "status"=>true,
+        ];
 
-    
+        return response()->json($compact); 
+    }
 }

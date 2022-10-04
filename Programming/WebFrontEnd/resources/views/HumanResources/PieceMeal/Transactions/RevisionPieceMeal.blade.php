@@ -17,15 +17,18 @@
       </div>
       @include('HumanResources.PieceMeal.Functions.Menu.MenuPieceMeal')
       <div class="card" style="position:relative;bottom:10px;">
-        <form method="post" enctype="multipart/form-data" action="{{ route('PieceMeal.store') }}" id="FormSubmitPieceMeal">
+        <form method="post" enctype="multipart/form-data" action="{{ route('PieceMeal.update', $var_recordID) }}" id="FormSubmitPieceMeal">
           @csrf
+          @method('PUT')
+          <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
+
           <div class="tab-content p-3" id="nav-tabContent">
             <div class="row">
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">
                     <label class="card-title">
-                      Revision Piece Meal
+                      Progress Piece Meal Revision
                     </label>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -33,7 +36,7 @@
                       </button>
                     </div>
                   </div>
-                  @include('HumanResources.PieceMeal.Functions.Header.headerPPM')
+                  @include('HumanResources.PieceMeal.Functions.Header.HeaderPieceMealRevision')
                 </div>
               </div>
             </div>
@@ -112,7 +115,7 @@
                       </div>
                     </div>
 
-                    <div class="card-body" id="detailTransAvail">
+                    <div class="card-body table-responsive p-0" id="detailTransAvail">
                       <div class="row">
                         <table class="table table-head-fixed text-nowrap">
                           <thead>
@@ -151,7 +154,7 @@
                               <input id="putUom" style="border-radius:0;width:40px;" type="text" class="form-control" readonly="">
                             </td>
                             <td>
-                              <input id="priceCek" style="border-radius:0;width:100px;" type="text" class="form-control ChangePrice" value="0" autocomplete="off">
+                              <input id="priceCek" style="border-radius:0;width:100px;" type="text" class="form-control ChangePrice" autocomplete="off" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                               <input id="putPrice" style="border-radius:0;" type="hidden" class="form-control">
                             </td>
                             <td>
@@ -166,6 +169,11 @@
                             <td>
                               <input id="totalBalance" style="border-radius:0;" type="text" class="form-control" readonly="">
                             </td>
+                            <input id="statusEditPieceMeal" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
+                            <input id="ValidateQuantity" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                            <input id="ValidatePrice" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                            <input id="ValidateRemark" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+
                           </tbody>
                         </table>
                       </div>
@@ -200,7 +208,7 @@
                     </div>
 
                     <div class="card-body table-responsive p-0" id="detailPieceMealList">
-                      <table class="table table-head-fixed text-nowrap tablePieceMeal">
+                      <table class="table table-head-fixed text-nowrap TablePieceMeal">
                         <thead>
                           <tr>
                             <th>&nbsp;Action</th>
@@ -223,7 +231,7 @@
                   <a onclick="CancelPieceMeal();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
                     <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Piece Meal Cart"> Cancel
                   </a>
-                  <button class="btn btn-default btn-sm float-right" type="submit" id="submitPR" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                  <button class="btn btn-default btn-sm float-right" type="submit" id="SubmitPieceMeal" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                     <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Piece Meal"> Submit
                   </button>
                 </div>
@@ -236,5 +244,5 @@
 </div>
 @include('Partials.footer')
 
-@include('HumanResources.PieceMeal.Functions.Footer.FooterPieceMeal')
+@include('HumanResources.PieceMeal.Functions.Footer.FooterPieceMealRevision')
 @endsection

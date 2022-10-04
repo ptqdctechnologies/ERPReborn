@@ -186,6 +186,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('StoreValidatePieceMeal2', 'HumanResource\PieceMealController@StoreValidatePieceMeal2')->name('PieceMeal.StoreValidatePieceMeal2');
     Route::post('RevisionPieceMeal', 'HumanResource\PieceMealController@RevisionPieceMeal')->name('PieceMeal.RevisionPieceMeal');
     Route::get('PieceMealListData', 'HumanResource\PieceMealController@PieceMealListData')->name('PieceMeal.PieceMealListData');
+    Route::post('PieceMealListCartRevision', 'HumanResource\PieceMealController@PieceMealListCartRevision')->name('PieceMeal.PieceMealListCartRevision');
     Route::resource('PieceMeal', 'HumanResource\PieceMealController');
 
     //Timesheet

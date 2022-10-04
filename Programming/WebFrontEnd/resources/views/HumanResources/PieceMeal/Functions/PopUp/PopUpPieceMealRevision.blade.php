@@ -14,9 +14,8 @@
                                             <td><label>Revision Number&nbsp;</label></td>
                                             <td>
                                                 <div class="input-group">
-                                                    <input id="searchPrNumberRevisionId" style="border-radius:0;" name="searchPrNumberRevisionId" type="hidden" class="form-control">
-                                                    <input id="siteCodeRevArfBefore" style="border-radius:0;" name="siteCodeRevArfBefore" class="form-control" type="hidden">
-                                                    <input required="" id="searchPrNumberRevisions" style="border-radius:0;" name="searchPrNumberRevisions" type="text" class="form-control" required readonly>
+                                                    <input id="searchPmNumberRevisionId" style="border-radius:0;" name="searchPmNumberRevisionId" type="hidden" class="form-control">
+                                                    <input required="" id="searchPmNumberRevisions" style="border-radius:0;" name="searchPmNumberRevisions" type="text" class="form-control" required readonly>
                                                     <div class="input-group-append">
                                                         <span style="border-radius:0;" class="input-group-text form-control">
                                                             <a data-toggle="modal" data-target="#PopUpTablePieceMealRevision"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
@@ -85,7 +84,7 @@
 
 <script>
     function klikPopUpPeaceMealRevision(id, code) {
-        $("#searchPrNumberRevisionId").val(id);
-        $("#searchPrNumberRevisions").val(code);
+        $("#searchPmNumberRevisionId").val(id);
+        $("#searchPmNumberRevisions").val(code);
     }
 </script>
