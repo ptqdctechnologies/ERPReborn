@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.update.finance.setAdvance (version 1)",
+"description": "JSON Request Schema of transaction.create.finance.setBankAccountMutation (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.update.finance.setAdvance" ]
+                        "enum": [ "transaction.create.finance.setBankAccountMutation" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -27,45 +27,18 @@
     "data": {
         "type": "object",
         "properties": {
-            "recordID" : {
-                "type": "integer",
-                "minimum": 1,
-                "maximum": 9223372036854775807
-                },
             "entities" : {
                 "type": "object",
                 "properties": {
-                    "documentDateTimeTZ": {
-                        "type": [ "string", "null" ],
-                        "format": "string",
-                        "pattern": "^((([0-9]{1,4})((-){1})(0[1-9]|1[0-2])((-){1})(0[1-9]|1[0-9]|2[0-9]|3[0-1]))(([ ]{1,})(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]))(([.]{1}[0-9]{1,6}){0,1})((([ ]{0,})([+|-]{1})(([0-9]|0[0-9]|1[0-5]){1})){0,1})){0,1})$",
-                        "minLength": 10,
-                        "maxLength": 30
+                    "bankAccount_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807 
                         },
                     "log_FileUpload_Pointer_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807 
-                        },
-                    "requesterWorkerJobsPosition_RefID": {
-                        "type": [ "integer", "null" ],
-                        "minimum": 1,
-                        "maximum": 9223372036854775807 
-                        },
-                    "beneficiaryWorkerJobsPosition_RefID": {
-                        "type": [ "integer", "null" ],
-                        "minimum": 1,
-                        "maximum": 9223372036854775807 
-                        },
-                    "beneficiaryBankAccount_RefID": {
-                        "type": [ "integer", "null" ],
-                        "minimum": 1,
-                        "maximum": 9223372036854775807 
-                        },
-                    "internalNotes": {
-                        "type": [ "string", "null" ],
-                        "minLength": 1,
-                        "maxLength": 256
                         },
                     "remarks": {
                         "type": [ "string", "null" ],
@@ -82,60 +55,55 @@
                                         "type": "object",
                                         "properties": {
                                             "items": {
-                                                "type": "array",
+                                                "type": [ "array", "null" ],
                                                 "items": {
                                                     "type": "object",
                                                     "properties": {
-                                                        "recordID" : {
-                                                            "type": [ "integer", "null" ],
-                                                            "minimum": 1,
-                                                            "maximum": 9223372036854775807
-                                                            },
                                                         "entities": {
                                                             "type": "object",
                                                             "properties": {
-                                                                "combinedBudgetSectionDetail_RefID": {
+                                                                "mutationDateTimeTZ": {
+                                                                    "type": [ "string", "null" ],
+                                                                    "format": "string",
+                                                                    "pattern": "^((([0-9]{1,4})((-){1})(0[1-9]|1[0-2])((-){1})(0[1-9]|1[0-9]|2[0-9]|3[0-1]))(([ ]{1,})(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]))(([.]{1}[0-9]{1,6}){0,1})((([ ]{0,})([+|-]{1})(([0-9]|0[0-9]|1[0-5]){1})){0,1})){0,1})$",
+                                                                    "minLength": 10,
+                                                                    "maxLength": 30
+                                                                    },
+                                                                "accountingEntryRecordType_RefID": {
                                                                     "type": [ "integer", "null" ],
                                                                     "minimum": 1,
                                                                     "maximum": 9223372036854775807
                                                                     },
-                                                                "product_RefID": {
+                                                                "amountCurrency_RefID": {
                                                                     "type": [ "integer", "null" ],
                                                                     "minimum": 1,
                                                                     "maximum": 9223372036854775807
                                                                     },
-                                                                "quantity": {
+                                                                "amountCurrencyValue": {
                                                                     "type": [ "number", "null" ],
                                                                     "minimum": 0
                                                                     },
-                                                                "quantityUnit_RefID": {
-                                                                    "type": [ "integer", "null" ],
-                                                                    "minimum": 1,
-                                                                    "maximum": 9223372036854775807
-                                                                    },
-                                                                "productUnitPriceCurrency_RefID": {
-                                                                    "type": [ "integer", "null" ],
-                                                                    "minimum": 1,
-                                                                    "maximum": 9223372036854775807
-                                                                    },
-                                                                "productUnitPriceCurrencyExchangeRate": {
+                                                                "amountCurrencyExchangeRate": {
                                                                     "type": [ "number", "null" ],
                                                                     "minimum": 0
                                                                     },
-                                                                "productUnitPriceCurrencyValue": {
-                                                                    "type": [ "number", "null" ],
-                                                                    "minimum": 0
-                                                                    },
-                                                                "remarks": {
+                                                                "description": {
                                                                     "type": [ "string", "null" ],
                                                                     "minLength": 1,
                                                                     "maxLength": 512
                                                                     }
                                                                 },
-                                                            "required": [ "combinedBudgetSectionDetail_RefID", "product_RefID", "quantity", "quantityUnit_RefID", "productUnitPriceCurrency_RefID", "productUnitPriceCurrencyExchangeRate", "productUnitPriceCurrencyValue", "remarks" ]
+                                                            "required": [ 
+                                                                "mutationDateTimeTZ", 
+                                                                "accountingEntryRecordType_RefID", 
+                                                                "amountCurrency_RefID",
+                                                                "amountCurrencyValue", 
+                                                                "amountCurrencyExchangeRate", 
+                                                                "description" 
+                                                                ]
                                                              }
                                                         },
-                                                    "required": [ "recordID", "entities" ]
+                                                    "required": [ "entities" ]
                                                     }
                                                 }
                                             },
@@ -147,10 +115,14 @@
                             ]
                         }
                     },
-                "required": [ "documentDateTimeTZ", "log_FileUpload_Pointer_RefID", "requesterWorkerJobsPosition_RefID", "beneficiaryWorkerJobsPosition_RefID", "beneficiaryBankAccount_RefID", "internalNotes", "remarks" ]    
+                "required": [ 
+                    "bankAccount_RefID", 
+                    "log_FileUpload_Pointer_RefID", 
+                    "remarks"
+                    ]
                 }
             },
-        "required": [ "recordID", "entities" ]
+        "required": [ "entities" ]
         }
     },
 "required": [ "metadata", "data" ]
