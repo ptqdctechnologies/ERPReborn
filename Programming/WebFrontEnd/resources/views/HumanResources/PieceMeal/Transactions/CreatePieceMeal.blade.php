@@ -34,7 +34,7 @@
                       </button>
                     </div>
                   </div>
-                  @include('HumanResources.PieceMeal.Functions.Header.headerPPM')
+                  @include('HumanResources.PieceMeal.Functions.Header.HeaderPieceMeal')
                 </div>
               </div>
             </div>
@@ -229,7 +229,7 @@
                   <a onclick="CancelPieceMeal();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
                     <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Piece Meal Cart"> Cancel
                   </a>
-                  <button class="btn btn-default btn-sm float-right" type="submit" id="submitPR" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                  <button class="btn btn-default btn-sm float-right" type="submit" id="SubmitPieceMeal" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                     <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Piece Meal"> Submit
                   </button>
                 </div>
