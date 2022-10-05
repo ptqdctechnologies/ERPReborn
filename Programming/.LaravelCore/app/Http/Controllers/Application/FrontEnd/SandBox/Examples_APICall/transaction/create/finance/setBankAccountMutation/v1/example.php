@@ -38,7 +38,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 'latest', 
                 [
                 'entities' => [
-                    "bankAccount_RefID" => '167000000000004',
+                    "bankAccount_RefID" => 167000000000004,
                     "log_FileUpload_Pointer_RefID" => null,
                     "remarks" => 'My Remarks',
                     "additionalData" => [
@@ -47,7 +47,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     [
                                     "entities" => [
                                         "mutationDateTimeTZ" => '2022-10-04',
-                                        "accountingEntryRecordType_RefID" => 88000000000002,
+                                        "accountingEntryRecordType_RefID" => 214000000000002,
                                         "amountCurrency_RefID" => 62000000000001,
                                         "amountCurrencyValue" => 30000,
                                         "amountCurrencyExchangeRate" => 1,
@@ -57,7 +57,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     [
                                     "entities" => [
                                         "mutationDateTimeTZ" => '2022-10-04',
-                                        "accountingEntryRecordType_RefID" => 88000000000002,
+                                        "accountingEntryRecordType_RefID" => 214000000000002,
                                         "amountCurrency_RefID" => 62000000000001,
                                         "amountCurrencyValue" => 40000,
                                         "amountCurrencyExchangeRate" => 1,
