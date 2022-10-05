@@ -131,7 +131,23 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
             /*
             ..... Call all functions will be loaded .....
             */
-            
+
+            //---> Execute only ROLE_MAINTENANCE_AGENT is TRUE (config\Application\BackEnd\environment.txt)
+            if(strcmp(strtoupper(\App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'ROLE_MAINTENANCE_AGENT')), 'TRUE') == 0)
+                {
+                //---> API Call : Person Access Device Log
+                $varFilePath = '/zhtConf/log/lastSession/scheduledTask/'.$this->varSheduleIdentity.'/jobs/instruction.server.internal.database.system.tableRevacuumAndReanalyze';
+                shell_exec("touch ".$varFilePath);
+                $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken, 
+                    'instruction.server.internal.database.system.tableRevacuumAndReanalyze', 
+                    'latest', 
+                    [
+                    ]
+                    );                
+                }
+
             return $varReturn;
             }
         }
