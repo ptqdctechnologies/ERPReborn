@@ -154,6 +154,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionConnect(array $args = [])
  * @method \Aws\ConnectCampaignService\ConnectCampaignServiceClient createConnectCampaignService(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionConnectCampaignService(array $args = [])
+ * @method \Aws\ConnectCases\ConnectCasesClient createConnectCases(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionConnectCases(array $args = [])
  * @method \Aws\ConnectContactLens\ConnectContactLensClient createConnectContactLens(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionConnectContactLens(array $args = [])
  * @method \Aws\ConnectParticipant\ConnectParticipantClient createConnectParticipant(array $args = [])
@@ -639,7 +641,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.237.2';
+    const VERSION = '3.238.0';
 
     /** @var array Arguments for creating clients */
     private $args;

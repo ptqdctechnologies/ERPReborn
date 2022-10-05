@@ -3,20 +3,21 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setAdvanceDetail\v1           |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setBankAccountMutationDetail  |
+|                \v1                                                                                                               |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setAdvanceDetail\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setBankAccountMutationDetail\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setAdvanceDetail                                                                                             |
-    | ▪ Description : Menangani API transaction.update.finance.setAdvanceDetail Version 1                                          |
+    | ▪ Class Name  : setBankAccountMutationDetail                                                                                 |
+    | ▪ Description : Menangani API transaction.update.finance.setBankAccountMutationDetail Version 1                              |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setAdvanceDetail extends \App\Http\Controllers\Controller
+    class setBankAccountMutationDetail extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
