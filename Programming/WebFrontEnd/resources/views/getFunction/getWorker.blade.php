@@ -59,7 +59,6 @@
                 }
             });
         });
-
     });
 </script>
 
@@ -67,7 +66,6 @@
     function klikWorker(id, name, position) {
         $("#request_name_id").val(id);
         $("#request_name").val(name);
-        $("#request_position").val(position);
-        
+        $("#request_position").val(position);  
     }
 </script>

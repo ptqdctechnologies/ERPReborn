@@ -48,11 +48,6 @@
                 var price_amount = $("#ValidatePriceAmount").val();
                 var total_amount = parseFloat(qty_amount.replace(/,/g, '') * price_amount.replace(/,/g, ''));
                 var total_expense = parseFloat(qty_expense.replace(/,/g, '') * price_expense.replace(/,/g, ''));
-
-                console.log(qty_expense);
-                console.log(price_expense);
-
-
                 if (total_amount != "") {
                     var html = '<tr>' +
                         '<td style="border:1px solid #e9ecef;width:7%;">' +
@@ -145,7 +140,7 @@
 
     function addFromDetailtoCartJs() {
 
-        var VarArfNumber = $("#arf_number").val();
+        var VarArfNumber = $("#arf _number").val();
         $("#arf_number").css("border", "1px solid #ced4da");
 
         if (VarArfNumber === "") {
@@ -188,8 +183,6 @@
                             var total_amount = $('#total_amount').val();
                             var total_amount2 = $('#total_amount2').val();
                             var description = $("#descriptionHide").val();
-
-                            console.log(product_name);
 
                             // if (total_amount != "") {
                             var html = '<tr>' +
@@ -540,7 +533,6 @@
                     $("#requester_name").val(data.requester_name);
 
                     $.each(data.DataAdvanceList, function(key, value) {
-                        console.log(value);
                         var html =
                             '<tr>' +
                             '<td style="border:1px solid #e9ecef;width:5%;">' +
