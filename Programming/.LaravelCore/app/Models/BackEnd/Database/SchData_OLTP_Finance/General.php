@@ -25,7 +25,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-07-15                                                                                           |
         | ▪ Creation Date   : 2022-07-15                                                                                           |
-        | ▪ Description     : Get Data Entities - Payment Document                                                                 |
+        | ▪ Description     : Get Data Entities - Underlying - Payment Detail                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
@@ -72,7 +72,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-09-30                                                                                           |
         | ▪ Creation Date   : 2022-09-30                                                                                           |
-        | ▪ Description     : Get Data Entities - Payment Document                                                                 |
+        | ▪ Description     : Get Data Entities - Underlying - Payment InstructionDetail                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
