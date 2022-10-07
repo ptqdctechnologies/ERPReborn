@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 3.238.2 - 2022-10-06
+
+* `Aws\ResilienceHub` - Documentation change for AWS Resilience Hub. Doc-only update to fix Documentation layout
+
 ## 3.238.1 - 2022-10-05
 
 * `Aws\Glue` - This SDK release adds support to sync glue jobs with source control provider. Additionally, a new parameter called SourceControlDetails will be added to Job model.

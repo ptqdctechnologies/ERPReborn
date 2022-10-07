@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.read.dataEntities.finance.getUnderlying (version 1)",
+"description": "JSON Request Schema of transaction.read.dataEntities.finance.getUnderlyingPaymentDetail (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.read.dataEntities.finance.getUnderlying" ]
+                        "enum": [ "transaction.read.dataEntities.finance.getUnderlyingPaymentDetail" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],

@@ -3,21 +3,21 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\finance                    |
-|                \getUnderlyingDetail\v1                                                                                           |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\finance\                   |
+|                \getUnderlyingPaymentDetail\v1                                                                                    |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\finance\getUnderlyingDetail\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\finance\getUnderlyingPaymentDetail\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getUnderlyingDetail                                                                                          |
-    | ▪ Description : Menangani API transaction.read.dataEntities.finance.getUnderlyingDetail Version 1                            |
+    | ▪ Class Name  : getUnderlyingPaymentDetail                                                                                   |
+    | ▪ Description : Menangani API transaction.read.dataEntities.finance.getUnderlyingPaymentDetail Version 1                     |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getUnderlyingDetail extends \App\Http\Controllers\Controller
+    class getUnderlyingPaymentDetail extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -59,11 +59,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Underlying Detail Data Entities (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Underlying Payment Detail Data Entities (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\General())->getDataEntities_UnderlyingDetail(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\General())->getDataEntities_Underlying_PaymentDetail(
                             $varUserSession, 
                             
                             $varData['parameter']['recordIDSet'],

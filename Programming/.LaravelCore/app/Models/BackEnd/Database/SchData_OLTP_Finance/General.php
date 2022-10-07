@@ -20,7 +20,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataEntities_Underlying                                                                           |
+        | ▪ Method Name     : getDataEntities_Underlying_PaymentDetail                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-07-15                                                                                           |
@@ -34,11 +34,11 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataEntities_Underlying($varUserSession, 
+        public function getDataEntities_Underlying_PaymentDetail($varUserSession, 
             string $varIDSet)
             {
             try {
-                $varFunctionName='SchData-OLTP-Finance.Func_GetDataEntities_Underlying';
+                $varFunctionName='SchData-OLTP-Finance.Func_GetDataEntities_Underlying_PaymentDetail';
                 $varTemp = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
@@ -67,7 +67,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataEntities_UnderlyingDetail                                                                     |
+        | ▪ Method Name     : getDataEntities_Underlying_PaymentInstructionDetail                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-09-30                                                                                           |
@@ -81,11 +81,11 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataEntities_UnderlyingDetail($varUserSession, 
+        public function getDataEntities_Underlying_PaymentInstructionDetail($varUserSession, 
             string $varIDSet)
             {
             try {
-                $varFunctionName='SchData-OLTP-Finance.Func_GetDataEntities_UnderlyingDetail';
+                $varFunctionName='SchData-OLTP-Finance.Func_GetDataEntities_Underlying_PaymentInstructionDetail';
                 $varTemp = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
