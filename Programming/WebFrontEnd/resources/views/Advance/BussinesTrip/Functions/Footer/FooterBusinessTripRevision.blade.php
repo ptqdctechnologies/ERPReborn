@@ -573,6 +573,13 @@
                             confirmButtonColor: '#e9ecef',
                             confirmButtonText: '<span style="color:black;"> Ok </span>',
 
+                        }).then((result) => {
+                          if (result.value) {
+                            $("#loading").show();
+                            $(".loader").show();
+
+                            window.location.href = '/BusinessTripRequest?var=1';
+                          }
                         })
                     }
                 })

@@ -267,8 +267,8 @@
                             </td>
                             <td>
                               <div class="icheck-primary d-inline">
-                                <input type="radio" id="transportApplicableVehicle" name="TransportType" value="QDC Vehicle">
-                                <label for="transportApplicableVehicle">QDC Vehicle
+                                <input type="radio" id="transportApplicableVehicle" name="TransportType" value="Company Vehicle">
+                                <label for="transportApplicableVehicle">Company Vehicle
                                 </label>
                               </div>
                             </td>
@@ -383,7 +383,7 @@
                               <td><label><strong> Budget Detail</strong></label></td>
                             </tr>
                             <tr class="budgetDetail">
-                              <td><label>Budget Name</label></td>
+                              <td><label>Product ID</label></td>
                               <td>
                                 <div class="input-group">
                                   <input name="budget_name" id="budget_name" style="border-radius:0;" type="text" class="form-control">

@@ -92,7 +92,7 @@
 
             $.ajax({
                 type: 'GET',
-                url: '{!! route("getSite") !!}?sitecode=' + $('.projectCodeiSupp').val() + '&var=' + 1,
+            url: '{!! route("getBudget") !!}?sitecode=' + $('.projectCodeiSupp').val(),
                 success: function(data) {
                     var no = 1;
                     $.each(data, function(key, val2) {
@@ -100,19 +100,17 @@
                             '<td style="border:1px solid #e9ecef;width:7%;">' +
                             '&nbsp;&nbsp;<button type="reset" class="btn btn-sm klikPoDetail" data-id1="' + val2.product_RefID + '" data-id2="' + val2.productName + '" data-id3="' + val2.quantity + '" data-id4="' + val2.unitPriceBaseCurrencyValue + '" data-id5="' + val2.priceBaseCurrencyValue + '" data-id6="' + val2.combinedBudgetSubSectionLevel1_RefID + '" data-id7="' + val2.quantityUnitName + '" title="Submit"  style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="15" alt="" title="Add to Detail"></button>' +
                             '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' +
+                            '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"><div class="progress-bar bg-red" style="width:50%;"></div><small><center>50 %</center></small></div>' +
+                            '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + '<span id="getWorkId">' + val2.combinedBudgetSubSectionLevel1_RefID + '</span>' + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + '<span id="getWorkName">' + val2.combinedBudgetSubSectionLevel2Name + '</span>' + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + '<span id="getProductId">' + val2.product_RefID + '</span>' + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + '<span id="getProductName">' + val2.productName + '</span>' + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + '<span id="getQty">' + 'N/A' + '</span>' + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + '<span id="getQty2">' + val2.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + '<span id="getPrice">' + val2.unitPriceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + '<span id="totalArf">' + val2.priceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + '<span id="getUom">' + val2.quantityUnitName + '</span>' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + '<span id="getCurrency">' + val2.priceBaseCurrencyISOCode + '</span>' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' +
-                            '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"><div class="progress-bar bg-red" style="width:50%;"></div><small><center>50 %</center></small></div>' +
-                            '</td>' +
+                            
                             '</tr>';
                         $('table.tablePoDetailiSupp tbody').append(html);
                     });
@@ -363,6 +361,13 @@
                             confirmButtonColor: '#e9ecef',
                             confirmButtonText: '<span style="color:black;"> Ok </span>',
 
+                        }).then((result) => {
+                            if (result.value) {
+                                $("#loading").show();
+                                $(".loader").show();
+
+                                window.location.href = '/iSupp?var=1';
+                            }
                         })
                     }
                 })
