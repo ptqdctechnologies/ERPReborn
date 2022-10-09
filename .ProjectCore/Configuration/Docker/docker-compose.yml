@@ -121,7 +121,7 @@ services:
   #---> Services : Redis
   redis:
     container_name: 'redis'
-    image: 'redis:latest'
+    image: 'erp-reborn-redis'
     restart: 'unless-stopped'
     ports:
       - '16379:6379'

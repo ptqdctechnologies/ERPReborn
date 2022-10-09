@@ -70,10 +70,20 @@
                     "remarks": {
                         "type": [ "string", "null" ],
                         "minLength": 1,
-                        "maxLength": 512
+                        "maxLength": 256
                         }
                     },
-                "required": [ "advance_RefID", "combinedBudgetSectionDetail_RefID", "product_RefID", "quantity", "quantityUnit_RefID", "productUnitPriceCurrency_RefID", "productUnitPriceCurrencyValue", "productUnitPriceCurrencyExchangeRate", "remarks" ]
+                "required": [ 
+                    "advance_RefID", 
+                    "combinedBudgetSectionDetail_RefID", 
+                    "product_RefID", 
+                    "quantity", 
+                    "quantityUnit_RefID", 
+                    "productUnitPriceCurrency_RefID", 
+                    "productUnitPriceCurrencyValue", 
+                    "productUnitPriceCurrencyExchangeRate", 
+                    "remarks" 
+                    ]
                 }
             },
         "required": [ "entities" ]

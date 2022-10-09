@@ -24,6 +24,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-09-14                                                                                           |
+        | ▪ Creation Date   : 2020-09-14                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,28 +44,31 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-14                                                                                           |
+        | ▪ Last Update     : 2022-10-07                                                                                           |
+        | ▪ Creation Date   : 2020-09-14                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (bool)   varSignDataAuthentication ► Sign Data Authentication                                                     |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varPersonBusinessTripSequence_RefID ► Person Business Trip Sequence Reference ID                         |
         |      ▪ (int)    varBusinessTripCostComponent_RefID ► Business Trip Cost Component Reference ID                           |
-        |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
-        |      ▪ (float)  varCurrencyExchangeRate ► Currency Exchange Rate                                                         |
-        |      ▪ (float)  varCurrencyValue ► Currency Value                                                                        |
+        |      ▪ (int)    varAmountCurrency_RefID ► Amount Currency Reference ID                                                   |
+        |      ▪ (float)  varAmountCurrencyValue ► Amount Currency Value                                                           |
+        |      ▪ (float)  varAmountCurrencyExchangeRate ► Amount Currency Exchange Rate                                            |
+        |      ▪ (string) varRemarks ► Remarks                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
             $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            bool $varSignDataAuthentication = null, int $varPersonBusinessTripSequence_RefID = null, int $varBusinessTripCostComponent_RefID = null, int $varCurrency_RefID = null, float $varCurrencyExchangeRate = null, float $varCurrencyValue = null)
+            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
+            int $varPersonBusinessTripSequence_RefID = null, int $varBusinessTripCostComponent_RefID = null, int $varAmountCurrency_RefID = null, float $varAmountCurrencyValue = null, float $varAmountCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -76,13 +80,15 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [null, 'bigint'],
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
-                        [$varSignDataAuthentication, 'boolean'],
+                        [$varSysBranch_RefID, 'bigint'],
+                        [$varSysBaseCurrency_RefID, 'bigint'],
+                        
                         [$varPersonBusinessTripSequence_RefID, 'bigint'],
                         [$varBusinessTripCostComponent_RefID, 'bigint'],
-                        [$varCurrency_RefID, 'bigint'],
-                        [$varCurrencyExchangeRate, 'numeric'],
-                        [$varCurrencyValue, 'numeric']
+                        [$varAmountCurrency_RefID, 'bigint'],
+                        [$varAmountCurrencyValue, 'numeric'],
+                        [$varAmountCurrencyExchangeRate, 'numeric'],
+                        [$varRemarks, 'varchar']
                     ]
                     )
                 );
@@ -95,29 +101,31 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-14                                                                                           |
+        | ▪ Last Update     : 2022-10-07                                                                                           |
+        | ▪ Creation Date   : 2020-09-14                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysID ► System Record ID                                                                              |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (bool)   varSignDataAuthentication ► Sign Data Authentication                                                     |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varPersonBusinessTripSequence_RefID ► Person Business Trip Sequence Reference ID                         |
         |      ▪ (int)    varBusinessTripCostComponent_RefID ► Business Trip Cost Component Reference ID                           |
-        |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
-        |      ▪ (float)  varCurrencyExchangeRate ► Currency Exchange Rate                                                         |
-        |      ▪ (float)  varCurrencyValue ► Currency Value                                                                        |
+        |      ▪ (int)    varAmountCurrency_RefID ► Amount Currency Reference ID                                                   |
+        |      ▪ (float)  varAmountCurrencyValue ► Amount Currency Value                                                           |
+        |      ▪ (float)  varAmountCurrencyExchangeRate ► Amount Currency Exchange Rate                                            |
+        |      ▪ (string) varRemarks ► Remarks                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
             $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            bool $varSignDataAuthentication = null, int $varPersonBusinessTripSequence_RefID = null, int $varBusinessTripCostComponent_RefID = null, int $varCurrency_RefID = null, float $varCurrencyExchangeRate = null, float $varCurrencyValue = null)
+            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
+            int $varPersonBusinessTripSequence_RefID = null, int $varBusinessTripCostComponent_RefID = null, int $varAmountCurrency_RefID = null, float $varAmountCurrencyValue = null, float $varAmountCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -129,13 +137,15 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [$varSysID, 'bigint'],
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],                        
-                        [$varSignDataAuthentication, 'boolean'],
+                        [$varSysBranch_RefID, 'bigint'],
+                        [$varSysBaseCurrency_RefID, 'bigint'],
+                        
                         [$varPersonBusinessTripSequence_RefID, 'bigint'],
                         [$varBusinessTripCostComponent_RefID, 'bigint'],
-                        [$varCurrency_RefID, 'bigint'],
-                        [$varCurrencyExchangeRate, 'numeric'],
-                        [$varCurrencyValue, 'numeric']
+                        [$varAmountCurrency_RefID, 'bigint'],
+                        [$varAmountCurrencyValue, 'numeric'],
+                        [$varAmountCurrencyExchangeRate, 'numeric'],
+                        [$varRemarks, 'varchar']
                     ],
                     )
                 );

@@ -15,3 +15,4 @@
 clear;
 
 sudo docker pull redis;
+sudo docker build --file ./.ProjectCore/Configuration/Docker/Redis/Dockerfile -t erp-reborn-redis .;
