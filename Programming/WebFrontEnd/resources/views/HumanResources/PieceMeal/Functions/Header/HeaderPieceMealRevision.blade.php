@@ -10,7 +10,7 @@
                 <input id="projectcode" style="border-radius:0;" name="projectcode" class="form-control" readonly value="{{$dataProcReqRevision['entities']['combinedBudget_RefID']}}">
                 <div class="input-group-append">
                   <span style="border-radius:0;" class="input-group-text form-control">
-                    <a href="#" id="projectcode2" data-toggle="modal" data-target="#myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                    <a href="#" id="projectcode2" data-toggle="modal"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                   </span>
                 </div>
               </div>
@@ -35,7 +35,7 @@
                 <input name="var_combinedBudget" id="combinedBudget" style="border-radius:0;" type="hidden" class="form-control" readonly>
                 <div class="input-group-append">
                   <span style="border-radius:0;" class="input-group-text form-control">
-                    <a href="#" id="sitecode2" data-toggle="modal" data-target="#mySiteCode"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                    <a href="#" id="sitecode2" data-toggle="modal"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                   </span>
                 </div>
               </div>

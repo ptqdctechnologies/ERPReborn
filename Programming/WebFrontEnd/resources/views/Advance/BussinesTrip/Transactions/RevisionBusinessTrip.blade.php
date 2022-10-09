@@ -17,8 +17,10 @@
       </div>
       @include('Advance.BussinesTrip.Functions.Menu.MenuBusinessTripRequest')
       <div class="card" style="position:relative;bottom:10px;">
-        <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceRequest.store') }}" id="formSubmitArf">
+        <form method="post" enctype="multipart/form-data" action="{{ route('BusinessTripRequest.update', $var_recordID) }}" id="FormSubmitBusinessTrip">
           @csrf
+          @method('PUT')
+          <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
           <div class="tab-content p-3" id="nav-tabContent">
             <div class="row">
               @csrf
@@ -68,11 +70,11 @@
                                 <td><label>Requester</label></td>
                                 <td>
                                   <div class="input-group">
-                                    <input name="request_id" id="request_id" style="border-radius:0;" type="hidden" class="form-control" readonly>
-                                    <input name="request_name" id="request_name" style="border-radius:0;" type="text" class="form-control" readonly>
+                                    <input name="request_name" id="request_name" style="border-radius:0;" type="text" class="form-control" readonly value="{{ $dataRequester['name'] }}" required>
+                                    <input name="request_name_id" id="request_name_id" style="border-radius:0;" type="hidden" class="form-control" value="{{ $dataRequester['workerJobsPosition_RefID'] }}" readonly required>
                                     <div class="input-group-append">
                                       <span style="border-radius:0;" class="input-group-text form-control">
-                                        <a href="#"><i id="request_name2" data-toggle="modal" data-target="#myWorker" class="fas fa-gift" style="color:grey;"></i></a>
+                                        <a id="request_name2" data-toggle="modal" data-target="#myWorker"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                       </span>
                                     </div>
                                   </div>
@@ -265,8 +267,8 @@
                             </td>
                             <td>
                               <div class="icheck-primary d-inline">
-                                <input type="radio" id="transportApplicableVehicle" name="TransportType" value="QDC Vehicle">
-                                <label for="transportApplicableVehicle">QDC Vehicle
+                                <input type="radio" id="transportApplicableVehicle" name="TransportType" value="Company Vehicle">
+                                <label for="transportApplicableVehicle">Company Vehicle
                                 </label>
                               </div>
                             </td>
@@ -381,7 +383,7 @@
                               <td><label><strong> Budget Detail</strong></label></td>
                             </tr>
                             <tr class="budgetDetail">
-                              <td><label>Budget Name</label></td>
+                              <td><label>Product ID</label></td>
                               <td>
                                 <div class="input-group">
                                   <input name="budget_name" id="budget_name" style="border-radius:0;" type="text" class="form-control">
@@ -528,31 +530,36 @@
                       </button>
                     </div>
                   </div>
-                  <div class="card-body table-responsive p-0 brfhide6">
+                  <div class="card-body table-responsive p-0 brfhide6" style="height: 180px;">
                     <table class="table table-head-fixed text-nowrap table-striped tableBrf">
                       <thead>
                         <tr>
-                          <th>Action</th>
-                          <th>Allowance</th>
-                          <th>Transport</th>
-                          <th>Airport Tax</th>
-                          <th>Accomodation</th>
-                          <th>Others</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;width:7%;">Action</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;width:20%;">Allowance</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;width:20%;">Transport</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;width:20%;">Airport Tax</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;width:20%;">Accomodation</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;width:13%;">Others</th>
                         </tr>
                       </thead>
                       <tbody>
 
                       </tbody>
-                      <tfoot>
+                    </table>
+                  </div>
+
+                  <div class="card-body table-responsive p-0 brfhide6">
+                    <table class="table table-head-fixed text-nowrap table-striped tableBrf">
+                      <thead>
                         <tr>
-                          <th></th>
-                          <th id="valAllowance"></th>
-                          <th id="valTransport"></th>
-                          <th id="valAirportTax"></th>
-                          <th id="valAccomodation"></th>
-                          <th id="valOthers"></th>
+                          <td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;width:7%;"></td>
+                          <td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;width:20%;" id="valAllowance"></td>
+                          <td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;width:20%;" id="valTransport"></td>
+                          <td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;width:20%;" id="valAirportTax"></td>
+                          <td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;width:20%;" id="valAccomodation"></td>
+                          <td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;width:13%;" id="valOthers"></td>
                         </tr>
-                      </tfoot>
+                      </thead>
                     </table>
                     <table class="table table-head-fixed text-nowrap table-striped">
                       <tfoot>
@@ -573,7 +580,7 @@
 
               </div>
             </div>
-            
+
           </div>
         </form>
       </div>

@@ -355,12 +355,12 @@
                     let applied = Math.round(val2.quantityRemainRatio * 100);
                     console.log(applied);
                     var status = "";
-                    if(applied == 100){
-                        var status = "disabled";
-                    }
+                    // if(applied == 100){
+                    //     var status = "disabled";
+                    // }
                     var html = '<tr>' +
                         '<td style="border:1px solid #e9ecef;width:5%;">' +
-                        '&nbsp;&nbsp;<button type="reset" '+ status +' class="btn btn-sm klikBudgetDetail" data-id1="' + val2.product_RefID + '" data-id2="' + val2.quantity + '" data-id3="' + val2.unitPriceBaseCurrencyValue + '" data-id4="' + val2.sys_ID + '" data-id5="' + val2.productName + '" data-id6="' + val2.quantityUnitName + '" data-id7="' + val2.priceBaseCurrencyISOCode + '" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="15" alt="" title="Add to Detail"></button>' +
+                        '&nbsp;&nbsp;<button type="reset" '+ status +' class="btn btn-sm klikBudgetDetail" data-id1="' + val2.product_RefID + '" data-id2="' + val2.quantityRemain + '" data-id3="' + val2.unitPriceBaseCurrencyValue + '" data-id4="' + val2.sys_ID + '" data-id5="' + val2.productName + '" data-id6="' + val2.quantityUnitName + '" data-id7="' + val2.priceBaseCurrencyISOCode + '" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="15" alt="" title="Add to Detail"></button>' +
                         '</td>' +
                         '<td style="border:1px solid #e9ecef;">' +
                         '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"> @if('+ applied +' >= '+0+' && '+ applied +' <= '+40+')<div class="progress-bar bg-red" style="width:'+ applied +'%;"></div> @elseif('+ applied +' >= '+41+' && '+ applied +' <= '+89+')<div class="progress-bar bg-blue" style="width:'+ applied +'%;"></div> @elseif('+ applied + ' >= '+ 90 +' && ' + applied + ' <= '+ 100 +')<div class="progress-bar bg-green" style="width:'+ applied +'%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>'+ applied +' %</center></small>' +
@@ -410,7 +410,6 @@
                     $("#priceCek").val(parseFloat(price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                     $("#putPrice").val(price);
                     $("#putCurrency").val(currency);
-                    $("#totalArfDetails").val(parseFloat(qty * price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                     $("#totalPieceMealDetails").val(parseFloat(qty * price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                     $("#totalBalance").val(parseFloat(qty * price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                     $("#combinedBudget").val(combinedBudget);
@@ -494,7 +493,8 @@
                                 if (result.value) {
                                     $("#loading").show();
                                     $(".loader").show();
-                                    location.reload();
+
+                                    window.location.href = '/PieceMeal?var=1';
                                 }
                             })
                         },
@@ -517,6 +517,13 @@
                         confirmButtonColor: '#e9ecef',
                         confirmButtonText: '<span style="color:black;"> Ok </span>',
 
+                    }).then((result) => {
+                        if (result.value) {
+                            $("#loading").show();
+                            $(".loader").show();
+
+                            window.location.href = '/PieceMeal?var=1';
+                        }
                     })
                 }
             })

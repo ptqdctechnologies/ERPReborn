@@ -16,8 +16,8 @@
     });
 </script>
 <script>
-    $(function() {
-        $(".klikSearchArf").on('click', function(e) {
+$(function() {
+        $(".klikSearchArf").on('click', function    (e) {
             e.preventDefault(); // in chase you change to a link or button
             var $this = $(this);
             $("#advance_number").val($this.data("id1"));

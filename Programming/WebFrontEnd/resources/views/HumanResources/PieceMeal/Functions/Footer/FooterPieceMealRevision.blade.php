@@ -267,7 +267,7 @@
             });
 
             $("body").on("click", ".EditPieceMealCart", function() {
-                alert("D");
+                
                 var $this = $(this);
                 $.ajaxSetup({
                     headers: {
@@ -280,6 +280,8 @@
                     url: '{!! route("PurchaseRequisition.StoreValidatePurchaseRequisition2") !!}?putProductId=' + $this.data("id1"),
                 });
 
+                
+                $("#detailTransAvail").show();
                 $("#putProductId").val($this.data("id1"));
                 $("#putProductName").val($this.data("id2"));
                 $('#qtyCek').val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
@@ -515,25 +517,19 @@
                         data: form_data,
                         type: method,
                         success: function(response) {
+                            if (response.status) {
 
-                            $("#loading").hide();
-                            $(".loader").hide();
+                                $("#loading").hide();
+                                $(".loader").hide();
 
-                            swalWithBootstrapButtons.fire({
+                                swalWithBootstrapButtons.fire(
+                                    'Succesful ',
+                                    'Data has been updated',
+                                    'success'
+                                )
 
-                                title: 'Successful !',
-                                type: 'success',
-                                html: 'Data has been saved updated',
-                                showCloseButton: false,
-                                showCancelButton: false,
-                                focusConfirm: false,
-                                confirmButtonText: '<span style="color:black;"> Ok </span>',
-                                confirmButtonColor: '#4B586A',
-                                confirmButtonColor: '#e9ecef',
-                                reverseButtons: true
-                            });
-
-                            window.location.href = '/PurchaseRequisition?var=1';
+                                window.location.href = '/PieceMeal?var=1';
+                            }
                         },
 
                         error: function(response) { // handle the error
@@ -554,6 +550,13 @@
                         confirmButtonColor: '#e9ecef',
                         confirmButtonText: '<span style="color:black;"> Ok </span>',
 
+                    }).then((result) => {
+                        if (result.value) {
+                            $("#loading").show();
+                            $(".loader").show();
+
+                            window.location.href = '/PieceMeal?var=1';
+                        }
                     })
                 }
             })
