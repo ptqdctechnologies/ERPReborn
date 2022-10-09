@@ -1,0 +1,1 @@
+./../.ProjectCore/BashScript/Script.Docker.BuildImage.Redis.sh

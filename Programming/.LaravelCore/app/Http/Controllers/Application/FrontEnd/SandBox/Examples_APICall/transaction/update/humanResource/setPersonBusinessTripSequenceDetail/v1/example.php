@@ -43,7 +43,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 'recordID' => 80000000000001,
                 'entities' => [
                     "personBusinessTripSequence_RefID" => 76000000000001,
-                    "businessTripCostComponent_RefID" => 169000000000001,
+                    "businessTripCostComponent_RefID" => 81000000000001,
                     "amountCurrency_RefID" => 62000000000001,
                     "amountCurrencyValue" => 30000,
                     "amountCurrencyExchangeRate" => 1,
