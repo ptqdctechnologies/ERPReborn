@@ -137,7 +137,15 @@
                             ]
                         }
                     },
-                "required": [ "documentDateTimeTZ", "log_FileUpload_Pointer_RefID", "requesterWorkerJobsPosition_RefID", "beneficiaryWorkerJobsPosition_RefID", "beneficiaryBankAccount_RefID", "internalNotes", "remarks" ]    
+                "required": [ 
+                    "documentDateTimeTZ", 
+                    "log_FileUpload_Pointer_RefID", 
+                    "requesterWorkerJobsPosition_RefID", 
+                    "beneficiaryWorkerJobsPosition_RefID", 
+                    "beneficiaryBankAccount_RefID", 
+                    "internalNotes", 
+                    "remarks" 
+                    ]    
                 }
             },
         "required": [ "entities" ]
