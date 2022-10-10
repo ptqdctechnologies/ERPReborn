@@ -24,6 +24,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-09-14                                                                                           |
+        | ▪ Creation Date   : 2020-09-14                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -53,7 +54,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
-        |        ----------------------------------------                                                                          |        |      ▪ (bool)   varSignDataAuthentication ► Sign Data Authentication                                                     |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varPersonBusinessTrip_RefID ► Person Business Trip Reference ID                                          |
         |      ▪ (int)    varSequence ► Business Trip Sequence                                                                     |
         |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Person Reference ID                                     |
@@ -116,7 +117,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
-        |        ----------------------------------------                                                                          |        |      ▪ (bool)   varSignDataAuthentication ► Sign Data Authentication                                                     |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varPersonBusinessTrip_RefID ► Person Business Trip Reference ID                                          |
         |      ▪ (int)    varSequence ► Business Trip Sequence                                                                     |
         |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Person Reference ID                                     |
