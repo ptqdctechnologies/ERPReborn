@@ -43,28 +43,34 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-14                                                                                           |
+        | ▪ Last Update     : 2022-10-10                                                                                           |
+        | ▪ Creation Date   : 2020-09-14                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (bool)   varSignDataAuthentication ► Sign Data Authentication                                                     |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
+        |        ----------------------------------------                                                                          |        |      ▪ (bool)   varSignDataAuthentication ► Sign Data Authentication                                                     |
         |      ▪ (int)    varPersonBusinessTrip_RefID ► Person Business Trip Reference ID                                          |
         |      ▪ (int)    varSequence ► Business Trip Sequence                                                                     |
-        |      ▪ (int)    varRequesterPerson_RefID ► Requester Person Reference ID                                                 |
+        |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Person Reference ID                                     |
         |      ▪ (string) varStartDateTimeTZ ► Start DateTimeTZ                                                                    |
         |      ▪ (string) varFinishDateTimeTZ ► Finish DateTimeTZ                                                                  |
+        |      ▪ (string) varRemarks ► Remarks                                                                                     |
+        |        ----------------------------------------                                                                          |
+        |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
             $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            bool $varSignDataAuthentication = null, int $varPersonBusinessTrip_RefID = null, int $varSequence = null, int $varRequesterPerson_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null)
+            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
+            int $varPersonBusinessTrip_RefID = null, int $varSequence = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, string $varRemarks = null,
+            array $varAdditionalData = [])
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -76,13 +82,17 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [null, 'bigint'],
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
-                        [$varSignDataAuthentication, 'boolean'],
+                        [$varSysBranch_RefID, 'bigint'],
+                        [$varSysBaseCurrency_RefID, 'bigint'],
+                        
                         [$varPersonBusinessTrip_RefID, 'bigint'],
                         [$varSequence, 'smallint'],
-                        [$varRequesterPerson_RefID, 'bigint'],
+                        [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
                         [$varStartDateTimeTZ, 'timestamptz'],
-                        [$varFinishDateTimeTZ, 'timestamptz']
+                        [$varFinishDateTimeTZ, 'timestamptz'],
+                        [$varRemarks, 'varchar'],
+
+                        [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
                     ]
                     )
                 );
@@ -95,7 +105,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-14                                                                                           |
+        | ▪ Last Update     : 2022-10-10                                                                                           |
+        | ▪ Creation Date   : 2020-09-14                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -103,21 +114,26 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (bool)   varSignDataAuthentication ► Sign Data Authentication                                                     |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
+        |        ----------------------------------------                                                                          |        |      ▪ (bool)   varSignDataAuthentication ► Sign Data Authentication                                                     |
         |      ▪ (int)    varPersonBusinessTrip_RefID ► Person Business Trip Reference ID                                          |
         |      ▪ (int)    varSequence ► Business Trip Sequence                                                                     |
-        |      ▪ (int)    varRequesterPerson_RefID ► Requester Person Reference ID                                                 |
+        |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Person Reference ID                                     |
         |      ▪ (string) varStartDateTimeTZ ► Start DateTimeTZ                                                                    |
         |      ▪ (string) varFinishDateTimeTZ ► Finish DateTimeTZ                                                                  |
+        |      ▪ (string) varRemarks ► Remarks                                                                                     |
+        |        ----------------------------------------                                                                          |
+        |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
             $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            bool $varSignDataAuthentication = null, int $varPersonBusinessTrip_RefID = null, int $varSequence = null, int $varRequesterPerson_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null)
+            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
+            int $varPersonBusinessTrip_RefID = null, int $varSequence = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, string $varRemarks = null,
+            array $varAdditionalData = [])
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -129,14 +145,18 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [$varSysID, 'bigint'],
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],                        
-                        [$varSignDataAuthentication, 'boolean'],
+                        [$varSysBranch_RefID, 'bigint'],
+                        [$varSysBaseCurrency_RefID, 'bigint'],
+
                         [$varPersonBusinessTrip_RefID, 'bigint'],
                         [$varSequence, 'smallint'],
-                        [$varRequesterPerson_RefID, 'bigint'],
+                        [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
                         [$varStartDateTimeTZ, 'timestamptz'],
-                        [$varFinishDateTimeTZ, 'timestamptz']
-                    ],
+                        [$varFinishDateTimeTZ, 'timestamptz'],
+                        [$varRemarks, 'varchar'],
+
+                        [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
+                    ]
                     )
                 );
             return $varReturn['Data'][0];
