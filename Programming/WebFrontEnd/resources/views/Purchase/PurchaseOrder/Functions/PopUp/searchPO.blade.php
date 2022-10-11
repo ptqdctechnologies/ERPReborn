@@ -11,7 +11,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="tableSearchArfinAsf">
+                                <table class="table table-head-fixed text-nowrap" id="TablesearchPRinPO">
                                     <thead>
                                         <tr>
                                             <th>No</th>

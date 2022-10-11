@@ -140,6 +140,7 @@
                       <tbody>
                         <td style="border:1px solid #e9ecef;">
                           <div class="input-group">
+                            &nbsp;<input id="putWorkId" type="hidden" style="border-radius:0;" class="form-control" readonly>
                             &nbsp;<input id="putProductId" style="border-radius:0;" class="form-control" readonly>
                             <div class="input-group-append">
                               <span style="border-radius:0;" class="input-group-text form-control">
@@ -207,8 +208,8 @@
                     </div>
                   </div>
 
-                  <div class="card-body table-responsive p-0" style="height: 180px;" id="detailArfList">
-                    <table class="table table-head-fixed table-sm text-nowrap TableAdvance">
+                  <div class="card-body table-responsive p-0 detailArfList" style="height: 180px;">
+                    <table class="table table-head-fixed table-sm text-nowrap TableAdvance" id="TableAdvance">
                       <thead>
                         <tr>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Action</th>
@@ -226,8 +227,18 @@
                       </tbody>
                     </table>
                   </div>
+                  <div class="card-body table-responsive p-0 detailArfList">
+                    <table class="table table-head-fixed table-sm text-nowrap">
+                      <tfoot>
+                        <tr>
+                          <th style="color:brown;float:right;">Total Advance : <span id="TotalAdvance"></span></th>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+
                 </div>
-                <div class="card-body">
+                <!-- <div class="card-body">
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
@@ -242,26 +253,62 @@
                       </div>
                     </div>
                   </div>
-                </div>
-
-                <a onclick="CancelAdvance();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                </div> -->
+                <!-- <a onclick="CancelAdvance();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
                   <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
                 </a>
                 <button class="btn btn-default btn-sm float-right" type="submit" id="submitArf" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                   <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
-                </button>
+                </button> -->
+              </div>
+            </div>
+            <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <label class="card-title">
+                        Remark
+                      </label>
+                      <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                          <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="card-body Remark">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <table>
+                              <tr>
+                                <td>
+                                  <textarea name="var_remark" id="putRemark" rows="2" cols="1000" class="form-control"></textarea>
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <a onclick="CancelAdvance();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                    <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
+                  </a>
+                  <button class="btn btn-default btn-sm float-right" type="submit" id="submitArf" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                    <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </form>
       </div>
-      @else
-      <img src="{{ asset('AdminLTE-master/dist/img/qdc.png') }}" style="display: block;margin-left: auto;margin-right: auto;margin-left: auto;margin-right: auto;margin-top:20%; width: 20%;" alt="">
       @endif
     </div>
   </section>
 </div>
-@include('Partials.footer'  )
+@include('Partials.footer')
 
 @include('Advance.Advance.Functions.Footer.FooterAdvanceRequest')
 @endsection

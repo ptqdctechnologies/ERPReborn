@@ -10,6 +10,8 @@ class PieceMealController extends Controller
 {
     public function index(Request $request)
     {
+        $messages = $request->session()->get("SessionAdvance");
+        dd($messages);
         $request->session()->forget("SessionPieceMeal");
         $var = 0;
         if (!empty($_GET['var'])) {
@@ -51,10 +53,12 @@ class PieceMealController extends Controller
     {
         $messages = $request->session()->get("SessionPieceMeal");
         $val = $request->input('putProductId');
-        if (($key = array_search($val, $messages)) !== false) {
-            unset($messages[$key]);
-            $newClass = array_values($messages);
-            $request->session()->put("SessionPieceMeal", $newClass);
+        if ($request->session()->has("SessionPieceMeal")) {
+            if (($key = array_search($val, $messages)) !== false) {
+                unset($messages[$key]);
+                $newClass = array_values($messages);
+                $request->session()->put("SessionPieceMeal", $newClass);
+            }
         }
     }
 
@@ -180,7 +184,6 @@ class PieceMealController extends Controller
                 ]
             ]
         );
-        // dd($varData);
         foreach ($varData['data'] as $varDatas) {
             $request->session()->push("SessionPieceMeal", (string) $varDatas['product_RefID']);
         }
@@ -235,9 +238,9 @@ class PieceMealController extends Controller
         //         ]                   
         // );
         $compact = [
-            "status"=>true,
+            "status" => true,
         ];
 
-        return response()->json($compact); 
+        return response()->json($compact);
     }
 }

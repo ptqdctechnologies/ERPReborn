@@ -36,6 +36,7 @@
             let totalBalance = $("#totalBalance").val();
             let putPrice = $('#putPrice').val();
             let statusEditPieceMeal = $("#statusEditPieceMeal").val();
+
             if (statusEditPieceMeal == "Yes") {
 
                 qtyCek = $('#ValidateQuantity').val();
@@ -188,10 +189,10 @@
                             $("#putRemark").val($this.data("id8"));
                             $("#totalBalance").val($this.data("id9"));
 
-                            $("#statusEditPieceMeal").val("Yes");
                             $("#ValidateQuantity").val($this.data("id3"));
                             $("#ValidateRemark").val($this.data("id8"));
                             $("#ValidatePrice").val($this.data("id5"));
+                            $("#statusEditPieceMeal").val("Yes");
 
                             $(this).closest("tr").remove();
 
@@ -353,7 +354,6 @@
                 var no = 1;
                 $.each(data, function(key, val2) {
                     let applied = Math.round(val2.quantityRemainRatio * 100);
-                    console.log(applied);
                     var status = "";
                     // if(applied == 100){
                     //     var status = "disabled";
@@ -420,8 +420,7 @@
                     $(".available").show();
                     $("#detailTransAvail").show();
                     $("#putProductId2").prop("disabled", true);
-                    $("#statusEditArf").val("No");
-                    $("#statusEditArfRevision").val("No");
+                    $("#statusEditPieceMeal").val("No");
                 });
             }
         });

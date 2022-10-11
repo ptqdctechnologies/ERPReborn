@@ -207,7 +207,7 @@
                       </div>
                     </div>
 
-                    <div class="card-body table-responsive p-0" id="detailPieceMealList">
+                    <div class="card-body table-responsive p-0" style="height: 180px;" id="detailPieceMealList">
                       <table class="table table-head-fixed text-nowrap TablePieceMeal">
                         <thead>
                           <tr>

@@ -12,13 +12,15 @@
         <div class="container-fluid">
             <div class="row mb-1" style="background-color:#4B586A;">
                 <div class="col-sm-6" style="height:30px;">
-                    <label style="font-size:15px;position:relative;top:7px;color:white;">i-Supp</label>
+                    <label style="font-size:15px;position:relative;top:7px;color:white;">i-Supp Revision</label>
                 </div>
             </div>
             @include('Inventory.iSupp.Functions.Menu.MenuiSupp')
             <div class="card" style="position:relative;bottom:10px;">
-                <form method="post" enctype="multipart/form-data" action="{{ route('iSupp.store') }}" id="formSubmitiSupp">
-                    @csrf
+            <form method="post" enctype="multipart/form-data" action="{{ route('iSupp.update', $var_recordID) }}" id="FormUpdateiSupp">
+                @csrf
+                @method('PUT')
+                <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
                     <div class="tab-content p-3" id="nav-tabContent">
                         @include('Inventory.iSupp.Functions.Header.HeaderiSuppRevision')
 
@@ -197,5 +199,5 @@
     </section>
 </div>
 @include('Partials.footer')
-@include('Inventory.iSupp.Functions.Footer.footeriSupp')
+@include('Inventory.iSupp.Functions.Footer.FooteriSuppRevision')
 @endsection

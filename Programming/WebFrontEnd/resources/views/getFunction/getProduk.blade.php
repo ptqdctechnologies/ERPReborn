@@ -17,7 +17,6 @@
                                             <th>Product Code</th>
                                             <th>Product Name</th>
                                             <th>UOM</th>
-                                            <th>Piece Meal</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -27,14 +26,13 @@
                                             <td>{{ $no++ }}</td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikProduct" data-id="Product Code {{ $i }}" data-id2="PCS" data-id3="IDR" data-name="Product Name {{ $i }}">Product Code {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikProduct" data-id1="Product Code {{ $i }}" data-id2="Product Name {{ $i }}" data-id3="PCS">Product Code {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
                                                 <p>Product Name {{$i}}</p>
                                             </td>
                                             <td>Pcs</td>
-                                            <td>N</td>
                                         </tr>
                                         @endfor
                                     </tbody>
@@ -53,22 +51,14 @@
         $(".klikProduct").on('click', function(e) {
             e.preventDefault(); // in chase you change to a link or button
             var $this = $(this);
-            var code = $this.data("id");
-            var name = $this.data("name");
-            var uom = $this.data("id2");
-            var valuta = $this.data("id3");
-
-            //REM
-            $("#productIdRem").val(code);
-            $("#productNameRem").val(name);
-            $("#qtyNameRem").val(uom);
-            $("#unitPriceNameRem").val(valuta);
-
+            var code = $this.data("id1");
+            var name = $this.data("id2");
+            var uom = $this.data("id3");
 
             $("#putProductId").val(code);
             $("#putProductName").val(name);
+            $("#putUom").val(uom);
 
-            //ARF
         });
     });
 </script>

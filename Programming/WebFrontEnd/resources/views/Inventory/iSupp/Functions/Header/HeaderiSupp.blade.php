@@ -186,9 +186,9 @@
                 <a onclick="CanceliSupp();" class="btn btn-default btn-sm float-right CancelDor" style="background-color:#e9ecef;border:1px solid #ced4da;">
                     <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel"> Cancel
                 </a>
-                <button class="btn btn-default btn-sm float-right" id="addToPoDetail" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                <a class="btn btn-default btn-sm float-right" id="addToPoDetail" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                     <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add"> Add
-                </button>
+                </a>
 
             </div>
         </div>

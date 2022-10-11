@@ -5,11 +5,11 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <table>
-                        <tr>
+                        <!-- <tr>
                             <td><label>Budget Code</label></td>
                             <td>
                                 <div class="input-group">
-                                    <input id="projectCode" style="border-radius:0;" name="var_currency" type="text" class="form-control" readonly>
+                                    <input id="projectcode3" style="border-radius:0;" name="projectcode3" type="text" class="form-control" readonly>
                                     <div class="input-group-append">
                                         <span style="border-radius:0;" class="input-group-text form-control">
                                             <a href="#"><i id="ProjectId" data-toggle="modal" class="fas fa-gift" style="color:grey;" readonly></i></a>
@@ -17,53 +17,50 @@
                                     </div>
                                 </div>
                             </td>
-                        </tr>
+                        </tr> -->
                         <tr>
                             <td><label>Supplier Code</label></td>
-                            <td>
+                            <td style="border:1px solid #e9ecef;">
                                 <div class="input-group">
-                                    <input id="supplierCode" style="border-radius:0;" name="var_currency" type="text" class="form-control">
-                                    <div class="input-group-append">
-                                        <span style="border-radius:0;" class="input-group-text form-control">
-                                            <a href="#"><i id="supplierId" data-toggle="modal" data-target="#mySupplier" class="fas fa-gift" style="color:grey;"></i></a>
-                                        </span>
-                                    </div>
+                                <input id="putSupplierId" style="border-radius:0;" class="form-control" readonly>
+                                <div class="input-group-append">
+                                    <span style="border-radius:0;" class="input-group-text form-control">
+                                    <a href="#"><i id="product_id2" data-toggle="modal" data-target="#mySupplier" class="fas fa-gift" style="color:grey;"></i></a>
+                                    </span>
+                                </div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td><label>Supplier Name</label></td>
-                            <td>
+                            <td style="border:1px solid #e9ecef;">
+                                <input id="putSupplierName" style="border-radius:0;" type="text" class="form-control" readonly="">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>Deliver To</label></td>
+                            <td style="border:1px solid #e9ecef;">
                                 <div class="input-group">
-                                    <input id="supplierName" style="border-radius:0;" type="text" class="form-control" readonly>
+                                <input id="putDeliverId" style="border-radius:0;" class="form-control" readonly>
+                                <div class="input-group-append">
+                                    <span style="border-radius:0;" class="input-group-text form-control">
+                                    <a href="#"><i id="product_id2" data-toggle="modal" data-target="#myDeliverTo" class="fas fa-gift" style="color:grey;"></i></a>
+                                    </span>
+                                </div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td><label>Currency</label></td>
+                            <td><label>Delivery Date Estimate</label></td>
                             <td>
                                 <div class="input-group">
-                                    <input id="currencyCode" style="border-radius:0;" type="text" class="form-control" readonly>
-                                    <div class="input-group-append">
-                                        <span style="border-radius:0;" class="input-group-text form-control" readonly>
-                                            <a href="#"><i data-toggle="modal" data-target="#myCurrency" class="fas fa-gift" style="color:grey;"></i></a>
-                                        </span>
-                                    </div>
+                                <input id="dateCommance" name="dateCommance" style="border-radius:0;" type="date" class="form-control">
                                 </div>
                             </td>
                         </tr>
-                        <tr>
-                            <td><label>Exchange Rate</label></td>
-                            <td>
-                                <div class="input-group">
-                                    <input id="exchange" style="border-radius:0;" type="text" class="form-control">
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
                         <tr>
                             <td><label>COD</label></td>
-                            <td>
+                            <td style="border:1px solid #e9ecef;">
                                 <input type="radio" id="yes" name="fav_language" value="HTML">
                                 <label for="html">Yes</label>
                                 <input type="radio" id="no" name="fav_language" value="HTML" checked="checked">
@@ -77,43 +74,8 @@
                 <div class="form-group">
                     <table>
                         <tr>
-                            <td><label>Deliver To</label></td>
-                            <td>
-                                <div class="input-group">
-                                    <input id="deliverto" style="border-radius:0;" type="text" class="form-control">
-                                    <div class="input-group-append">
-                                        <span style="border-radius:0;" class="input-group-text form-control">
-                                            <a href="#"><i data-toggle="modal" data-target="#myDelieverTo" class="fas fa-gift" style="color:grey;"></i></a>
-                                        </span>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label>Delivery Date Estimate</label></td>
-                            <td>
-                                <div class="input-group">
-                                    <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                        <!-- <input class="form-control datetimepicker-input" data-target="#reservationdate" value="{{ date('m/d/Y H:i A', strtotime('3 month ago')) }}" /> -->
-                                        <input class="form-control datetimepicker-input" data-target="#reservationdate">
-                                        <div class="input-group-append" style="border-radius:0;" data-target="#reservationdate" data-toggle="datetimepicker">
-                                            <div class="input-group-text" style="height:17pt;"><i class="fa fa-calendar"></i></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label>Invoice To</label></td>
-                            <td>
-                                <div class="input-group">
-                                    <input id="invoice" style="border-radius:0;" type="text" class="form-control" readonly>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
                             <td><label>Payment Term</label></td>
-                            <td>
+                            <td style="border:1px solid #e9ecef;">
                                 <div class="input-group">
                                     <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
                                 </div>
@@ -121,7 +83,7 @@
                         </tr>
                         <tr>
                             <td><label>TOP</label></td>
-                            <td>
+                            <td style="border:1px solid #e9ecef;">
                                 <div class="input-group">
                                     <input id="top" style="border-radius:0;" type="number" class="form-control"><label>Days</label>
                                 </div>
@@ -129,7 +91,7 @@
                         </tr>
                         <tr>
                             <td><label>Remark PO</label></td>
-                            <td>
+                            <td style="border:1px solid #e9ecef;">
                                 <div class="input-group">
                                     <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
                                 </div>
@@ -137,7 +99,7 @@
                         </tr>
                         <tr>
                             <td><label>Internal Note</label></td>
-                            <td>
+                            <td style="border:1px solid #e9ecef;">
                                 <div class="input-group">
                                     <textarea name="" id="" cols="30" rows="2" class="form-control"></textarea>
                                 </div>

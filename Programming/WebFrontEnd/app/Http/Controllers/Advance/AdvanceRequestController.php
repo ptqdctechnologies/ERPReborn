@@ -80,16 +80,18 @@ class AdvanceRequestController extends Controller
     public function StoreValidateAdvance(Request $request)
     {
         $tamp = 0; $status = 200;
-        $val = $request->input('putProductId');
+        $val = $request->input('putWorkId');
+        $val2 = $request->input('putProductId');
         $data = $request->session()->get("SessionAdvance");
         if($request->session()->has("SessionAdvance")){
             for($i = 0; $i < count($data); $i++){
-                if($data[$i] == $val){
+                if($data[$i] == $val && $data[$i+1] == $val2){
                     $tamp = 1;
                 }
             }
             if($tamp == 0){
                 $request->session()->push("SessionAdvance", $val);
+                $request->session()->push("SessionAdvance", $val2);
             }
             else{
                 $status = 500;
@@ -97,6 +99,7 @@ class AdvanceRequestController extends Controller
         }
         else{
             $request->session()->push("SessionAdvance", $val);
+            $request->session()->push("SessionAdvance", $val2);
         }
 
         return response()->json($status);
@@ -104,13 +107,17 @@ class AdvanceRequestController extends Controller
 
     public function StoreValidateAdvance2(Request $request)
     {
-        $messages = $request->session()->get("SessionAdvance");
-        $val = $request->input('putProductId');
+        $val = $request->input('putWorkId');
+        $val2 = $request->input('putProductId');
+        $data = $request->session()->get("SessionAdvance");
         if($request->session()->has("SessionAdvance")){
-            if (($key = array_search($val, $messages)) !== false) {
-                unset($messages[$key]);
-                $newClass = array_values($messages);
-                $request->session()->put("SessionAdvance", $newClass);
+            for($i = 0; $i < count($data); $i++){
+                if($data[$i] == $val && $data[$i+1] == $val2){
+                    unset($data[$i]);
+                    unset($data[$i+1]);
+                    $newClass = array_values($data);
+                    $request->session()->put("SessionAdvance", $newClass);
+                }
             }
         }
     }
@@ -241,7 +248,7 @@ class AdvanceRequestController extends Controller
         // dd($varData);
 
         foreach($varData['data'] as $varDatas){
-            $request->session()->push("SessionAdvance", (string) $varDatas['product_RefID']);
+            $request->session()->push("SessionAdvance", (string)$varDatas['product_RefID']);
         }
         return response()->json($varData['data']);
     }

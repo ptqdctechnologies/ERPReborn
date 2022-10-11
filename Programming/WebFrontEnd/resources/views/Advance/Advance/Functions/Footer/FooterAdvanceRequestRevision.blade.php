@@ -348,9 +348,14 @@
         success: function(data) {
             var no = 1;
             $.each(data, function(key, value2) {
-                let applied = Math.round(value2.quantityRemainRatio * 100);
+                if(value2.quantityAbsorption == "0.00" && value2.quantity == "0.00"){
+                    var applied = 0;
+                }
+                else{
+                    var applied = Math.round(parseFloat(value2.quantityAbsorption) / parseFloat(value2.quantity) * 100);
+                }
                 var status = "";
-                if(applied == 100){
+                if(applied >= 100){
                     var status = "disabled";
                 }
                 var html = '<tr>' +

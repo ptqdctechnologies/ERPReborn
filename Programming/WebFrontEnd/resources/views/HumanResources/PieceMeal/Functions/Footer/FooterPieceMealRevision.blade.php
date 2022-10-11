@@ -277,7 +277,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: '{!! route("PurchaseRequisition.StoreValidatePurchaseRequisition2") !!}?putProductId=' + $this.data("id1"),
+                    url: '{!! route("PieceMeal.StoreValidatePieceMeal2") !!}?putProductId=' + $this.data("id1"),
                 });
 
                 
@@ -299,7 +299,7 @@
                 $("#ValidateQuantity").val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                 $("#ValidatePrice").val($this.data("id5").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                 $("#ValidateRemark").val($this.data("id7"));
-                $("#statusEditProcReqRevision").val("Yes");
+                $("#statusEditPieceMeal").val("Yes");
 
 
                 $(this).closest("tr").remove();

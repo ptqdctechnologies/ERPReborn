@@ -2,7 +2,7 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
-@include('Advance.BussinesTrip.Functions.PopUp.PopUpBusinessTripRevision')
+@include('Advance.BusinessTrip.Functions.PopUp.PopUpBusinessTripRevision')
 @include('getFunction.getProject')
 @include('getFunction.getSite')
 @include('getFunction.getWorker')
@@ -12,15 +12,14 @@
     <div class="container-fluid">
       <div class="row mb-1" style="background-color:#4B586A;">
         <div class="col-sm-6" style="height:30px;">
-          <label style="font-size:15px;position:relative;top:7px;color:white;">Bussiness Trip Request Revision</label>
+          <label style="font-size:15px;position:relative;top:7px;color:white;">Business Request Form </label>
         </div>
       </div>
-      @include('Advance.BussinesTrip.Functions.Menu.MenuBusinessTripRequest')
+      @include('Advance.BusinessTrip.Functions.Menu.MenuBusinessTripRequest')
+      @if($var == 0)
       <div class="card" style="position:relative;bottom:10px;">
-        <form method="post" enctype="multipart/form-data" action="{{ route('BusinessTripRequest.update', $var_recordID) }}" id="FormSubmitBusinessTrip">
+        <form method="post" enctype="multipart/form-data" action="{{ route('BusinessTripRequest.store') }}" id="FormSubmitBusinessTrip">
           @csrf
-          @method('PUT')
-          <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
           <div class="tab-content p-3" id="nav-tabContent">
             <div class="row">
               @csrf
@@ -28,7 +27,7 @@
                 <div class="card">
                   <div class="card-header">
                     <label class="card-title">
-                      Bussiness Trip Request Revision
+                      Add New Business Request Form
                     </label>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -36,7 +35,7 @@
                       </button>
                     </div>
                   </div>
-                  @include('Advance.BussinesTrip.Functions.Header.HeaderBusinessTripRevision')
+                  @include('Advance.BusinessTrip.Functions.Header.HeaderBusinessTrip')
                 </div>
               </div>
             </div>
@@ -70,11 +69,12 @@
                                 <td><label>Requester</label></td>
                                 <td>
                                   <div class="input-group">
-                                    <input name="request_name" id="request_name" style="border-radius:0;" type="text" class="form-control" readonly value="{{ $dataRequester['name'] }}" required>
-                                    <input name="request_name_id" id="request_name_id" style="border-radius:0;" type="hidden" class="form-control" value="{{ $dataRequester['workerJobsPosition_RefID'] }}" readonly required>
+                                    <input name="request_name" id="request_name" style="border-radius:0;" type="text" class="form-control">
+                                    <input name="request_name_id" id="request_name_id" style="border-radius:0;" type="hidden" class="form-control" readonly>
+                                    <input name="var_combinedBudget" id="combinedBudget" style="border-radius:0;" type="hidden" class="form-control" readonly>
                                     <div class="input-group-append">
                                       <span style="border-radius:0;" class="input-group-text form-control">
-                                        <a id="request_name2" data-toggle="modal" data-target="#myWorker"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                        <a href="#" id="request_name2" data-toggle="modal" data-target="#myWorker" class="myWorker"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                       </span>
                                     </div>
                                   </div>
@@ -420,7 +420,6 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <table>
-                            <br>
                             <tr>
                               <td><label><strong> Payment Sequence</strong></label></td>
                             </tr>
@@ -584,10 +583,11 @@
           </div>
         </form>
       </div>
+      @endif
     </div>
   </section>
 </div>
 
 @include('Partials.footer')
-@include('Advance.BussinesTrip.Functions.Footer.FooterBusinessTripRevision')
+@include('Advance.BusinessTrip.Functions.Footer.FooterBusinessTrip')
 @endsection

@@ -10,13 +10,13 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-left" style="padding: 10px;font-size:14px;background-color:#4B586A;margin-top:8px;">
                                 <li class="nav-item">
-                                    <a href="{{ route('BusinessTripRequest.index') }}" class="nav-link" style="color:white;padding-bottom:10px;">
-                                        <i class="far fa-file nav-icon-sm"> Create Bussines Trip Request</i>
+                                    <a href="{{ route('BusinessTripSettlement.index') }}" class="nav-link" style="color:white;padding-bottom:10px;">
+                                        <i class="far fa-file nav-icon-sm"> Create Business Trip Settlement</i>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link myPopUpBusinessTripRevision" data-toggle="modal" data-target="#myPopUpBusinessTripRevision" style="color:white;padding-bottom:10px;">
-                                        <i class="far fa-file nav-icon-sm"> Revision Bussines Trip Request</i>
+                                    <a class="nav-link myPopUpBusinessTripSettlementRevision" data-toggle="modal" data-target="#myPopUpBusinessTripSettlementRevision" style="color:white;padding-bottom:10px;">
+                                        <i class="far fa-file nav-icon-sm"> Revision Business Trip Settlement</i>
                                     </a>
                                 </li>
                             </ul>
@@ -28,6 +28,7 @@
     </div>
 </div>
 
+
 <script>
     $.ajaxSetup({
         headers: {
@@ -36,22 +37,22 @@
     });
 
     $(function() {
-        $('.myPopUpBusinessTripRevision').on('click', function(e) {
+        $('.myPopUpBusinessTripSettlementRevision').on('click', function(e) {
             e.preventDefault();
             $.ajax({
                 type: 'GET',
-                url: '{!! route("BusinessTripRequest.BusinessTripListData") !!}',
+                url: '{!! route("BusinessTripSettlement.BusinessTripSettlementListData") !!}',
                 success: function(data) {
-                    var no = 1; t = $('#TableSearchBusinessTrip').DataTable();
+                    var no = 1; t = $('#TableSearchBusinessTripSettlement').DataTable();
                     t.clear();
                     $.each(data, function(key, val) {
                         t.row.add([
                             '<tbody><tr><td>' + no++ + '</td>',
-                            '<td><span data-dismiss="modal" onclick="klikPopUpBusinessTripRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.documentNumber + '</span></td>',
-                            '<td><span data-dismiss="modal" onclick="klikPopUpBusinessTripRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudget_RefID + '</span></td>',
-                            '<td><span data-dismiss="modal" onclick="klikPopUpBusinessTripRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudgetName + '</span></td>',
-                            '<td><span data-dismiss="modal" onclick="klikPopUpBusinessTripRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudgetSection_RefID + '</span></td>',
-                            '<td><span data-dismiss="modal" onclick="klikPopUpBusinessTripRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudgetSectionName + '</td></tr></tbody>'
+                            '<td><span data-dismiss="modal" onclick="klikPopUpBusinessTripSettlementRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.documentNumber + '</span></td>',
+                            '<td><span data-dismiss="modal" onclick="klikPopUpBusinessTripSettlementRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudget_RefID + '</span></td>',
+                            '<td><span data-dismiss="modal" onclick="klikPopUpBusinessTripSettlementRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudgetName + '</span></td>',
+                            '<td><span data-dismiss="modal" onclick="klikPopUpBusinessTripSettlementRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudgetSection_RefID + '</span></td>',
+                            '<td><span data-dismiss="modal" onclick="klikPopUpBusinessTripSettlementRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudgetSectionName + '</td></tr></tbody>'
                         ]).draw();
 
                     });
