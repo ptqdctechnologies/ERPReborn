@@ -164,7 +164,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="card-body table-responsive p-0" id="iSuppCart">
+                                    <div class="card-body table-responsive p-0" style="height: 180px;" id="iSuppCart">
                                         <table class="table table-head-fixed text-nowrap table-striped tableiSuppCart">
                                             <thead>
                                                 <tr>
@@ -199,5 +199,5 @@
     </section>
 </div>
 @include('Partials.footer')
-@include('Inventory.iSupp.Functions.Footer.footeriSupp')
+@include('Inventory.iSupp.Functions.Footer.FooteriSupp')
 @endsection

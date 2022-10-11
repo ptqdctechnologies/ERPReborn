@@ -96,55 +96,55 @@
                         <li class="nav-item">
                             <a href="{{ route('BusinessDocument.index') }}" class="nav-link">
                                 <i class="nav-icon-sm fas fa-file" style="color:#e9ecef;"></i>
-                                <label>Bussines Document</label>
+                                <label>Business Document</label>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('Periode.index') }}" class="nav-link">
                                 <i class="nav-icon-sm fas fa-file" style="color:#e9ecef;"></i>
-                                <label>Bussines Document Authorization Current Stage</label>
+                                <label>Business Document Authorization Current Stage</label>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('Periode.index') }}" class="nav-link">
                                 <i class="nav-icon-sm fas fa-file" style="color:#e9ecef;"></i>
-                                <label>Bussines Document Authorization Current History</label>
+                                <label>Business Document Authorization Current History</label>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('Periode.index') }}" class="nav-link">
                                 <i class="nav-icon-sm fas fa-file" style="color:#e9ecef;"></i>
-                                <label>Bussines Document Numbering</label>
+                                <label>Business Document Numbering</label>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('Periode.index') }}" class="nav-link">
                                 <i class="nav-icon-sm fas fa-file" style="color:#e9ecef;"></i>
-                                <label>Bussines Document Numbering Format</label>
+                                <label>Business Document Numbering Format</label>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('Periode.index') }}" class="nav-link">
                                 <i class="nav-icon-sm fas fa-file" style="color:#e9ecef;"></i>
-                                <label>Bussines Document Tmp</label>
+                                <label>Business Document Tmp</label>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('BusinessDocumentType.index') }}" class="nav-link">
                                 <i class="nav-icon-sm fas fa-file" style="color:#e9ecef;"></i>
-                                <label>Bussines Document Type</label>
+                                <label>Business Document Type</label>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('BusinessDocumentVersion.index') }}" class="nav-link">
                                 <i class="nav-icon-sm fas fa-file" style="color:#e9ecef;"></i>
-                                <label>Bussines Document Version</label>
+                                <label>Business Document Version</label>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('Periode.index') }}" class="nav-link">
                                 <i class="nav-icon-sm fas fa-file" style="color:#e9ecef;"></i>
-                                <label>Bussines Document Version Tmp</label>
+                                <label>Business Document Version Tmp</label>
                             </a>
                         </li>
                         <li class="nav-item">

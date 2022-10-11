@@ -9,6 +9,8 @@ class AdvanceSettlementController extends Controller
 {
     public function index(Request $request)
     {
+        $data = $request->session()->get("SessionAdvance");
+        dd($data);
         $request->session()->forget("SessionAdvanceSetllement");
         $request->session()->forget("SessionAdvanceSetllementRequester");
 

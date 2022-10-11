@@ -114,6 +114,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     //Function
     Route::get('getProject', 'FunctionController@getProject')->name('getProject');
     Route::get('getAdvanceByBudgetID', 'FunctionController@getAdvanceByBudgetID')->name('getAdvanceByBudgetID');
+    Route::get('getPurchaseRequisitionByBudgetID', 'FunctionController@getPurchaseRequisitionByBudgetID')->name('getPurchaseRequisitionByBudgetID');
     Route::get('getSite', 'FunctionController@getSite')->name('getSite');
     Route::get('getBudget', 'FunctionController@getBudget')->name('getBudget');
     Route::get('getWorker', 'FunctionController@getWorker')->name('getWorker');
@@ -177,6 +178,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // PO
     Route::post('StoreValidatePurchaseOrder', 'Purchase\PurchaseOrderController@StoreValidatePurchaseOrder')->name('PurchaseOrder.StoreValidatePurchaseOrder');
     Route::post('StoreValidatePurchaseOrder2', 'Purchase\PurchaseOrderController@StoreValidatePurchaseOrder2')->name('PurchaseOrder.StoreValidatePurchaseOrder2');
+    Route::post('StoreValidatePurchaseOrderPrNumber', 'Purchase\PurchaseOrderController@StoreValidatePurchaseOrderPrNumber')->name('PurchaseOrder.StoreValidatePurchaseOrderPrNumber');
     Route::post('RevisionPurchaseOrder', 'Purchase\PurchaseOrderController@RevisionPurchaseOrder')->name('PurchaseOrder.RevisionPurchaseOrder');
     Route::post('addListCartPurchaseOrder', 'Purchase\PurchaseOrderController@addListCartPurchaseOrder')->name('PurchaseOrder.addListCartPurchaseOrder');
     Route::resource('PurchaseOrder', 'Purchase\PurchaseOrderController');
@@ -212,6 +214,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     //iSupp
     Route::post('StoreValidateiSupp', 'Inventory\iSuppController@StoreValidateiSupp')->name('iSupp.StoreValidateiSupp');
     Route::post('StoreValidateiSupp2', 'Inventory\iSuppController@StoreValidateiSupp2')->name('iSupp.StoreValidateiSupp2');
+    Route::post('IsuppListCartRevision', 'Inventory\iSuppController@IsuppListCartRevision')->name('iSupp.IsuppListCartRevision');
     Route::post('RevisioniSupp', 'Inventory\iSuppController@RevisioniSupp')->name('iSupp.RevisioniSupp');
     Route::get('ISuppListData', 'Inventory\iSuppController@ISuppListData')->name('iSupp.ISuppListData');
     Route::resource('iSupp', 'Inventory\iSuppController');

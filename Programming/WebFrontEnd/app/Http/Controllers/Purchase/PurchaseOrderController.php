@@ -14,100 +14,127 @@ class PurchaseOrderController extends Controller
      */
     public function index(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionAsf");
-
-        $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'dataPickList.project.getProject',
-            'latest',
-            [
-                'parameter' => []
-            ]
-        );
-        $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.humanResource.getWorker', 
-            'latest', 
-            [
-            'parameter' => null,
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
-                ]
-            ]
-        );
-        $varData4 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.master.getCurrency', 
-            'latest', 
-            [
-            'parameter' => null,
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
-                ]
-            ]
-            );
-
-        $varData5 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.finance.getAdvance', 
-            'latest', 
-            [
-            'parameter' => null,
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
-                ]
-            ]
-            );
-        // dd($varData5);
+        
+        $request->session()->forget("SessionPurchaseOrderPrNumber");
+        $request->session()->forget("SessionPurchaseOrder");
         $var = 0;
         if (!empty($_GET['var'])) {
             $var =  $_GET['var'];
         }
         $compact = [
-            'dataProject' => $varDataProject['data']['data'],
-            'data2' => $varData2['data'],
-            'data4' => $varData4['data'],
-            'data5' => $varData5['data'],
             'var' => $var,
         ];
 
         return view('Purchase.PurchaseOrder.Transactions.CreatePurchaseOrder', $compact);
     }
 
-    public function StoreValidatePO(Request $request)
+    public function StoreValidatePurchaseOrderPrNumber(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $tamp = 0;
+        $status = 200;
+        $varDataPurchaseRequisitionList['data'] = [];
+        $var_RefID = $request->input('var_RefID');
+
+
+        $varDataPurchaseRequisitionList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail',
+            'latest',
+            [
+                'parameter' => [
+                    'purchaseRequisition_RefID' => (int) $var_RefID
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ]
+        );
+        // dd($varDataPurchaseRequisitionList);
+
+        $data = $request->session()->get("SessionPurchaseOrderPrNumber");
+        if ($request->session()->has("SessionPurchaseOrderPrNumber")) {
+            for ($i = 0; $i < count($data); $i++) {
+                if ($data[$i] == $var_RefID) {
+                    $tamp = 1;
+                }
+            }
+            if ($tamp == 0) {
+                $varDataPurchaseRequisitionList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken,
+                    'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail',
+                    'latest',
+                    [
+                        'parameter' => [
+                            'purchaseRequisition_RefID' => (int) $var_RefID
+                        ],
+                        'SQLStatement' => [
+                            'pick' => null,
+                            'sort' => null,
+                            'filter' => null,
+                            'paging' => null
+                        ]
+                    ]
+                );
+                $request->session()->push("SessionPurchaseOrderPrNumber", $var_RefID);
+            } else {
+                $status = 501;
+            }
+        } else {
+            $varDataPurchaseRequisitionList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail',
+                'latest',
+                [
+                    'parameter' => [
+                        'purchaseRequisition_RefID' => (int) $var_RefID
+                    ],
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ]
+            );
+
+            $request->session()->push("SessionPurchaseOrderPrNumber", $var_RefID);
+        }
+
+        $compact = [
+            'status' => $status,
+            'DataPurchaseRequisitionList' => $varDataPurchaseRequisitionList['data'],
+        ];
+
+        return response()->json($compact);
+    }
+
+    public function StoreValidatePurchaseOrder(Request $request)
     {
         $tamp = 0; $status = 200;
-        $val = $request->input('putProductName');
-        $data = $request->session()->get("SessionAsf");
-        if($request->session()->has("SessionAsf")){
+        $val = $request->input('putProductId');
+        $data = $request->session()->get("SessionPurchaseOrder");
+        if($request->session()->has("SessionPurchaseOrder")){
             for($i = 0; $i < count($data); $i++){
                 if($data[$i] == $val){
                     $tamp = 1;
                 }
             }
             if($tamp == 0){
-                $request->session()->push("SessionAsf", $val);
+                $request->session()->push("SessionPurchaseOrder", $val);
             }
             else{
                 $status = 500;
             }
         }
         else{
-            $request->session()->push("SessionAsf", $val);
+            $request->session()->push("SessionPurchaseOrder", $val);
         }
 
         return response()->json($status);

@@ -66,48 +66,84 @@ class iSuppController extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.finance.getAdvance', 
-            'latest', 
+            $varAPIWebToken,
+            'transaction.read.dataList.finance.getAdvance',
+            'latest',
             [
-            'parameter' => null,
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
                 ]
             ]
-            );
-            
+        );
+
         return response()->json($varDataAdvanceRequest['data']);
     }
 
     public function RevisioniSupp(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionDeliveryOrder");
-        
-        $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        $request->session()->forget("SessioniSupp");
+
+        $varDataAdvanceRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.finance.getAdvance', 
-            'latest', 
+            $varAPIWebToken,
+            'report.form.documentForm.finance.getAdvance',
+            'latest',
             [
-            'parameter' => null,
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
+                'parameter' => [
+                    'recordID' => (int) $request->searchiSuppNumberRevisionId,
                 ]
             ]
-            );
-
+        );
+        // dd($varDataAdvanceRevision['data'][0]['document']['content']['itemList']['ungrouped'][0]);
         $compact = [
-            'dataAdvanceRequest' => $varDataAdvanceRequest['data']
+            'dataAdvanceRevisions' => $varDataAdvanceRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
+            'dataRequester' => $varDataAdvanceRevision['data'][0]['document']['content']['involvedPersons']['requester'],
+            'var_recordID' => $request->searchiSuppNumberRevisionId,
         ];
-        
+
         return view('Inventory.iSupp.Transactions.RevisioniSupp', $compact);
+    }
+    public function update(Request $request, $id)
+    {
+        $compact = [
+            "status"=>true,
+        ];
+
+        return response()->json($compact);
+    }
+
+    public function IsuppListCartRevision(Request $request)
+    {
+
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $var_recordID = $request->input('var_recordID');
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varAPIWebToken, 
+        'transaction.read.dataList.finance.getAdvanceDetail', 
+        'latest', 
+        [
+        'parameter' => [
+            'advance_RefID' => (int) $var_recordID,
+            ],
+        'SQLStatement' => [
+            'pick' => null,
+            'sort' => null,
+            'filter' => null,
+            'paging' => null
+            ]
+        ]
+        );
+        // dd($varData);
+        foreach($varData['data'] as $varDatas){
+            $request->session()->push("SessioniSupp", (string)$varDatas['product_RefID']);
+        }
+        return response()->json($varData['data']);
     }
 }

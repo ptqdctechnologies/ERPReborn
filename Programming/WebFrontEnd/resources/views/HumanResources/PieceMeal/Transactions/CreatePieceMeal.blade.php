@@ -114,68 +114,66 @@
                     </div>
 
                     <div class="card-body table-responsive p-0" id="detailTransAvail">
-                      <div class="row">
-                        <table class="table table-head-fixed text-nowrap">
-                          <thead>
-                            <tr>
-                              <th>Product Id</th>
-                              <th>Product Name</th>
-                              <th>Qty</th>
-                              <th>Uom</th>
-                              <th>Unit Price</th>
-                              <th>Currency</th>
-                              <th>Total</th>
-                              <th>Remark</th>
-                              <th>Balance</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <td>
-                              <div class="input-group">
-                                <input id="putProductId" style="border-radius:0;width:100px;" class="form-control" readonly>
-                                <div class="input-group-append">
-                                  <span style="border-radius:0;" class="input-group-text form-control">
-                                    <a href="#"><i id="product_id2" data-toggle="modal" data-target="#myProductArf" class="fas fa-gift" style="color:grey;"></i></a>
-                                  </span>
-                                </div>
+                      <table class="table table-head-fixed text-nowrap table-sm" style="text-align: center;">
+                        <thead>
+                          <tr>
+                            <th>Product Id</th>
+                            <th>Product Name</th>
+                            <th>Qty</th>
+                            <th>Uom</th>
+                            <th>Unit Price</th>
+                            <th>Currency</th>
+                            <th>Total</th>
+                            <th>Remark</th>
+                            <th>Balance</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <td>
+                            <div class="input-group">
+                              <input id="putProductId" style="border-radius:0;width:100px;" class="form-control" readonly>
+                              <div class="input-group-append">
+                                <span style="border-radius:0;" class="input-group-text form-control">
+                                  <a href="#"><i id="product_id2" data-toggle="modal" data-target="#myProductArf" class="fas fa-gift" style="color:grey;"></i></a>
+                                </span>
                               </div>
-                            </td>
-                            <td>
-                              <input id="putProductName" style="border-radius:0;" type="text" class="form-control" readonly="">
-                            </td>
-                            <td>
-                              <input id="qtyCek" style="border-radius:0;width:100px;" type="number" class="form-control ChangeQty quantity" autocomplete="off" value="0">
-                              <span id="putQtybyId"></span>
-                              <input id="putQty" style="border-radius:0;" type="hidden" class="form-control">
-                            </td>
-                            <td>
-                              <input id="putUom" style="border-radius:0;width:40px;" type="text" class="form-control" readonly="">
-                            </td>
-                            <td>
-                              <input id="priceCek" style="border-radius:0;width:100px;" type="text" class="form-control ChangePrice" autocomplete="off" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
-                              <input id="putPrice" style="border-radius:0;" type="hidden" class="form-control">
-                            </td>
-                            <td>
-                              <input id="putCurrency" style="border-radius:0;width:40px;" type="text" class="form-control" readonly="">
-                            </td>
-                            <td>
-                              <input id="totalPieceMealDetails" style="border-radius:0;" type="text" class="form-control" readonly="">
-                            </td>
-                            <td>
-                              <textarea id="putRemark" rows="1" cols="30" class="form-control"></textarea>
-                            </td>
-                            <td>
-                              <input id="totalBalance" style="border-radius:0;" type="text" class="form-control" readonly="">
-                            </td>
-                            <input id="statusEditPieceMeal" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
-                            <input id="ValidateQuantity" style="border-radius:0;" type="hidden" class="form-control" readonly="">
-                            <input id="ValidatePrice" style="border-radius:0;" type="hidden" class="form-control" readonly="">
-                            <input id="ValidateRemark" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                            </div>
+                          </td>
+                          <td>
+                            <input id="putProductName" style="border-radius:0;" type="text" class="form-control" readonly="">
+                          </td>
+                          <td>
+                            <input id="qtyCek" style="border-radius:0;width:100px;" type="number" class="form-control ChangeQty quantity" autocomplete="off" value="0">
+                            <span id="putQtybyId"></span>
+                            <input id="putQty" style="border-radius:0;" type="hidden" class="form-control">
+                          </td>
+                          <td>
+                            <input id="putUom" style="border-radius:0;width:40px;" type="text" class="form-control" readonly="">
+                          </td>
+                          <td>
+                            <input id="priceCek" style="border-radius:0;width:100px;" type="text" class="form-control ChangePrice" autocomplete="off" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                            <input id="putPrice" style="border-radius:0;" type="hidden" class="form-control">
+                          </td>
+                          <td>
+                            <input id="putCurrency" style="border-radius:0;width:40px;" type="text" class="form-control" readonly="">
+                          </td>
+                          <td>
+                            <input id="totalPieceMealDetails" style="border-radius:0;" type="text" class="form-control" readonly="">
+                          </td>
+                          <td>
+                            <textarea id="putRemark" rows="1" cols="30" class="form-control"></textarea>
+                          </td>
+                          <td>
+                            <input id="totalBalance" style="border-radius:0;" type="text" class="form-control" readonly="">
+                          </td>
+                          <input id="statusEditPieceMeal" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
+                          <input id="ValidateQuantity" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                          <input id="ValidatePrice" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                          <input id="ValidateRemark" style="border-radius:0;" type="hidden" class="form-control" readonly="">
 
-                          </tbody>
-                        </table>
-                      </div>
-                      <div style="padding-right:10px;">
+                        </tbody>
+                      </table>
+                      <div style="padding-right:10px;padding-top:7px;">
                         <a class="btn btn-default btn-sm float-right CancelDetailPieceMeal" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
                           <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel to Add Piece Meal List Cart"> Cancel
                         </a>
@@ -184,7 +182,6 @@
                         </a>
                       </div>
                       <br><br><br>
-
                     </div>
                   </div>
 
@@ -205,7 +202,7 @@
                       </div>
                     </div>
 
-                    <div class="card-body table-responsive p-0" id="detailPieceMealList">
+                    <div class="card-body table-responsive p-0" style="height: 180px;" id="detailPieceMealList">
                       <table class="table table-head-fixed text-nowrap tablePieceMeal">
                         <thead>
                           <tr>

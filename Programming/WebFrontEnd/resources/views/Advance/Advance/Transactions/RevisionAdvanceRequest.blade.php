@@ -139,6 +139,7 @@
                       <tbody>
                         <td style="border:1px solid #e9ecef;">
                           <div class="input-group">
+                            &nbsp;<input id="putWorkId" type="hidden" style="border-radius:0;" class="form-control" readonly>
                             &nbsp;<input id="putProductId" style="border-radius:0;" name="putProductId" class="form-control" readonly>
                             <div class="input-group-append">
                               <span style="border-radius:0;" class="input-group-text form-control">

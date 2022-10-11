@@ -1,16 +1,13 @@
-<!--  SHOW HIDE AVAILABEL -->
 <script type="text/javascript">
     $(document).ready(function() {
-        $(".headeriSupp1").hide();
+        // $(".headeriSupp1").hide();
         $(".headeriSupp2").hide();
         $("#detailPR").hide();
         $("#FileReceipt").hide();
         $("#DetailiSupp").hide();
-        $("#iSuppCart").hide();
-        $("#tableShowHideSupp").hide();
+        // $("#iSuppCart").hide();
+        // $("#tableShowHideSupp").hide();
         $("#headerPrNumber2").prop("disabled", true);
-        $("#SubmitiSupp").prop("disabled", true);
-        $("#addToPoDetail").prop("disabled", true);
     });
 </script>
 
@@ -76,65 +73,6 @@
     });
 </script>
 
-<script>
-    $(function() {
-
-        $('#addToPoDetail').on('click', function(e) {
-            e.preventDefault(); // in chase you change to a link or button
-            $("#tableShowHideSupp").show();
-            $("#FileReceipt").show();
-            $("#addToPoDetail").prop("disabled", true);
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $.ajax({
-                type: 'GET',
-            url: '{!! route("getBudget") !!}?sitecode=' + $('.projectCodeiSupp').val(),
-                success: function(data) {
-                    var no = 1;
-                    $.each(data, function(key, val2) {
-                        var html = '<tr>' +
-                            '<td style="border:1px solid #e9ecef;width:7%;">' +
-                            '&nbsp;&nbsp;<button type="reset" class="btn btn-sm klikPoDetail" data-id1="' + val2.product_RefID + '" data-id2="' + val2.productName + '" data-id3="' + val2.quantity + '" data-id4="' + val2.unitPriceBaseCurrencyValue + '" data-id5="' + val2.priceBaseCurrencyValue + '" data-id6="' + val2.combinedBudgetSubSectionLevel1_RefID + '" data-id7="' + val2.quantityUnitName + '" title="Submit"  style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="15" alt="" title="Add to Detail"></button>' +
-                            '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' +
-                            '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"><div class="progress-bar bg-red" style="width:50%;"></div><small><center>50 %</center></small></div>' +
-                            '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + '<span id="getWorkId">' + val2.combinedBudgetSubSectionLevel1_RefID + '</span>' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + '<span id="getWorkName">' + val2.combinedBudgetSubSectionLevel2Name + '</span>' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + '<span id="getProductId">' + val2.product_RefID + '</span>' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + '<span id="getProductName">' + val2.productName + '</span>' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + '<span id="getQty">' + 'N/A' + '</span>' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + '<span id="getQty2">' + val2.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + '<span id="getUom">' + val2.quantityUnitName + '</span>' + '</td>' +
-                            
-                            '</tr>';
-                        $('table.tablePoDetailiSupp tbody').append(html);
-                    });
-
-                    $('.klikPoDetail').on('click', function(e) {
-                        e.preventDefault();
-                        var $this = $(this);
-                        $("#DetailiSupp").show();
-
-                        $("#productiSuppDetail").val($this.data("id1"));
-                        $("#productiSuppDetail2").val($this.data("id2"));
-                        $("#balanceiSupp").val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-                        $("#qtyiSuppChange").val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-                        $("#qtyiSupp").val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-                        $("#UomiSupp").val($this.data("id7"));
-                        $("#workIdiSuppDetail").val($this.data("id6"));
-                        $("#tableShowHideSupp").find("input,button,textarea,select").attr("disabled", true);
-                    });
-                }
-            });
-        });
-    });
-</script>
-
 <script type="text/javascript">
     $.ajaxSetup({
         headers: {
@@ -159,6 +97,12 @@
                 Swal.fire("Error !", "Remark Cannot Empty", "error");
             } else {
 
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                
                 $.ajax({
                     type: "POST",
                     url: '{!! route("iSupp.StoreValidateiSupp") !!}?productiSuppDetail=' + $('#productiSuppDetail').val(),
@@ -212,7 +156,7 @@
                                 $("#qtyiSuppChange").val($this.data("id3"));
                                 $("#qtyiSuppEdit").val($this.data("id3"));
                                 $("#UomiSupp").val($this.data("id4"));
-                                $("#balanceiSupp").val($this.data("id3"));
+                                $("#balanceiSupp").val($this.data("id5"));
                                 $("#remarkiSuppDetail").val($this.data("id6"));
                                 $("#remarkiSuppDetail2").val($this.data("id6"));
                                 $("#statusEditiSupp").val("Yes");
@@ -240,11 +184,136 @@
     });
 </script>
 
+<script type="text/javascript">
+    //GET ISUPP LIST 
 
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    var var_recordID = $("#var_recordID").val();
+
+    $.ajax({
+        type: "POST",
+        url: '{!! route("iSupp.IsuppListCartRevision") !!}?var_recordID=' + var_recordID,
+        success: function(data) {
+            $.each(data, function(key, value) {
+                var html = '<tr>' +
+                    '<td style="border:1px solid #e9ecef;width:7%;">' +
+                    '&nbsp;&nbsp;<button type="button" class="btn btn-xs RemoveIsuppCart" data-id1="' + value.product_RefID + '"  style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+                    '&nbsp;<button type="button" class="btn btn-xs EditiSupp" data-dismiss="modal" data-id1="' + value.product_RefID + '" data-id2="' + value.productName + '" data-id3="' + value.quantity + '" data-id4="' + value.quantityUnitName + '" data-id5="' + value.combinedBudget_Quantity + '" data-id6="' + value.remarks + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+                    '<input type="hidden" name="var_product_id[]" value="' + value.product_RefID + '">' +
+                    '<input type="hidden" name="var_product_name[]" value="' + value.productName + '">' +
+                    '<input type="hidden" name="var_quantity[]" value="' + value.quantity + '">' +
+                    '<input type="hidden" name="var_quantityUnitName[]" value="' + value.quantityUnitName + '">' +
+                    '<input type="hidden" name="var_remarks[]" value="' + value.remarks + '">' +
+                    '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + '<span id="getWorkId">' + value.product_RefID + '</span>' + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + '<span id="getProductId">' + value.product_RefID + '</span>' + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + '<span id="getProductName">' + value.productName + '</span>' + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + '<span id="getQty">' + value.quantity + '</span>' + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + '<span id="getUom">' + value.quantityUnitName + '</span>' + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + '<span id="getUom">' + value.remarks + '</span>' + '</td>' +
+                    '</tr>';
+                $('table.tableiSuppCart tbody').append(html);
+            });
+
+            $("body").on("click", ".RemoveIsuppCart", function() {
+                $(this).closest("tr").remove();
+                var ProductId = $(this).data("id1");
+                $.ajax({
+                    type: "POST",
+                    url: '{!! route("iSupp.StoreValidateiSupp2") !!}?productiSuppDetail=' + ProductId,
+                });
+            });
+
+            $("body").on("click", ".EditiSupp", function() {
+                var $this = $(this);
+
+                $.ajax({
+                    type: "POST",
+                    url: '{!! route("iSupp.StoreValidateiSupp2") !!}?productiSuppDetail=' + $this.data("id1"),
+                });
+
+                $("#productiSuppDetail").val($this.data("id1"));
+                $("#productiSuppDetail2").val($this.data("id2"));
+                $("#qtyiSuppChange").val($this.data("id3"));
+                $("#qtyiSuppEdit").val($this.data("id3"));
+                $("#UomiSupp").val($this.data("id4"));
+                $("#balanceiSupp").val($this.data("id5"));
+                $("#remarkiSuppDetail").val($this.data("id6"));
+                $("#remarkiSuppDetail2").val($this.data("id6"));
+                $("#statusEditiSupp").val("Yes");
+
+                $(this).closest("tr").remove();
+            });
+
+            $("#qtyiSuppChange").val("");
+            $("#UomiSupp").val("");
+            $("#productiSuppDetail").val("");
+            $("#productiSuppDetail2").val("");
+            $("#remarkiSuppDetail").val("");
+            $("#balanceiSupp").val("");
+
+            $("#tableShowHideSupp").find("input,button,textarea,select").attr("disabled", false);
+            $("#SubmitiSupp").prop("disabled", false);
+        },
+    });
+
+    //GET BUDGET
+
+    $.ajax({
+        type: 'GET',
+        url: '{!! route("getBudget") !!}?sitecode=' + $('#sitecode').val(),
+        success: function(data) {
+            var no = 1;
+            $.each(data, function(key, val2) {
+                let applied = Math.round(val2.quantityRemainRatio * 100);
+                console.log(applied);
+                var status = "";
+                if(applied == 100){
+                    var status = "disabled";
+                }
+                var html = '<tr>' +
+                    '<td style="border:1px solid #e9ecef;width:7%;">' +
+                    '&nbsp;&nbsp;<button type="reset" class="btn btn-sm klikPoDetail" data-id1="' + val2.product_RefID + '" data-id2="' + val2.productName + '" data-id3="' + val2.quantityRemain + '" data-id4="' + val2.unitPriceBaseCurrencyValue + '" data-id5="' + val2.priceBaseCurrencyValue + '" data-id6="' + val2.combinedBudgetSubSectionLevel1_RefID + '" data-id7="' + val2.quantityUnitName + '" title="Submit"  style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="15" alt="" title="Add to Detail"></button>' +
+                    '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' +
+                    '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"> @if('+ applied +' >= '+0+' && '+ applied +' <= '+40+')<div class="progress-bar bg-red" style="width:'+ applied +'%;"></div> @elseif('+ applied +' >= '+41+' && '+ applied +' <= '+89+')<div class="progress-bar bg-blue" style="width:'+ applied +'%;"></div> @elseif('+ applied + ' >= '+ 90 +' && ' + applied + ' <= '+ 100 +')<div class="progress-bar bg-green" style="width:'+ applied +'%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>'+ applied +' %</center></small>' +
+                    '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + '<span id="getWorkId">' + val2.combinedBudgetSubSectionLevel1_RefID + '</span>' + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + '<span id="getWorkName">' + val2.combinedBudgetSubSectionLevel2Name + '</span>' + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + '<span id="getProductId">' + val2.product_RefID + '</span>' + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + '<span id="getProductName">' + val2.productName + '</span>' + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + '<span id="getQty">' + val2.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + '<span id="getQty2">' + val2.quantityRemain.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + '<span id="getUom">' + val2.quantityUnitName + '</span>' + '</td>' +
+                    '</tr>';
+                $('table.tablePoDetailiSupp tbody').append(html);
+            });
+
+            $('.klikPoDetail').on('click', function(e) {
+                e.preventDefault();
+                var $this = $(this);
+                $("#DetailiSupp").show();
+                $("#productiSuppDetail").val($this.data("id1"));
+                $("#productiSuppDetail2").val($this.data("id2"));
+                $("#balanceiSupp").val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                $("#qtyiSuppChange").val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                $("#qtyiSupp").val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                $("#UomiSupp").val($this.data("id7"));
+                $("#workIdiSuppDetail").val($this.data("id6"));
+                $("#tableShowHideSupp").find("input,button,textarea,select").attr("disabled", true);
+            });
+        }
+    });
+</script>
 
 <script>
     $(function() {
-        $("#formSubmitiSupp").on("submit", function(e) { //id of form 
+        $("#FormUpdateiSupp").on("submit", function(e) { //id of form 
             e.preventDefault();
 
             var po_number = $("#po_number").val();
@@ -293,7 +362,7 @@
                 swalWithBootstrapButtons.fire({
 
                     title: 'Are you sure?',
-                    text: "Save this data?",
+                    text: "Save this data?zz",
                     type: 'question',
 
                     showCancelButton: true,
@@ -381,7 +450,7 @@
     $('document').ready(function() {
         $('.ChangeQty').keyup(function() {
             var qtyReq = $(this).val();
-            var putQty = $('#qtyiSupp').val();
+            var putQty = $('#balanceiSupp').val();
             if (parseFloat(qtyReq) == '') {
                 $("#qtyiSuppChange").css("border", "1px solid red");
             } else if (parseFloat(qtyReq) > parseFloat(putQty)) {
