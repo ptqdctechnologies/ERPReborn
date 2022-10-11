@@ -67,8 +67,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
             string $varDocumentDateTimeTZ = null, 
             array $varAdditionalData = [])
             {
-            $varReturn = //\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                //$varUserSession, 
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                     $varUserSession,
                     parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
@@ -84,10 +84,10 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
 
                         [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
                     ]
-                    //)
+                    )
                 );
-            dd($varReturn);
-            //return $varReturn['Data'][0];
+
+            return $varReturn['Data'][0];
             }
 
 
