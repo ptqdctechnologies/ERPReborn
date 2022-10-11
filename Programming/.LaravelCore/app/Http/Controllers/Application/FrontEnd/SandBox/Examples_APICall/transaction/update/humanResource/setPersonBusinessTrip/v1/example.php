@@ -3,26 +3,26 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\humanResource             |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\update\humanResource             |
 |                 \setPersonBusinessTrip\v1                                                                                        |
-| ▪ API Key     : transaction.create.humanResource.setPersonBusinessTrip                                                           |
+| ▪ API Key     : transaction.update.humanResource.setPersonBusinessTrip                                                           |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\humanResource\setPersonBusinessTrip\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\update\humanResource\setPersonBusinessTrip\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.create.humanResource.setPersonBusinessTrip.v1_throughAPIGateway         |
-        |                     ► http://172.28.0.4/transaction.create.humanResource.setPersonBusinessTrip.v1_throughAPIGateway      |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.update.humanResource.setPersonBusinessTrip.v1_throughAPIGateway         |
+        |                     ► http://172.28.0.4/transaction.update.humanResource.setPersonBusinessTrip.v1_throughAPIGateway      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-10-10                                                                                           |
-        | ▪ Creation Date   : 2022-10-10                                                                                           |
+        | ▪ Last Update     : 2022-10-11                                                                                           |
+        | ▪ Creation Date   : 2022-10-11                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
@@ -35,15 +35,17 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'transaction.create.humanResource.setPersonBusinessTrip', 
+                'transaction.update.humanResource.setPersonBusinessTrip', 
                 'latest', 
                 [
+                'recordID' => 78000000000001,
                 'entities' => [
                     'documentDateTimeTZ' => '2022-10-10',
                     'additionalData' => [
                         'itemList' => [
                             'items' => [
                                     [
+                                    'recordID' => 79000000000001,
                                     'entities' => [
                                         'sequence' => 1,
                                         'requesterWorkerJobsPosition_RefID' => 164000000000497,
@@ -53,8 +55,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         'additionalData' => [
                                            'itemList' => [
                                                'items' => [
-                                                       [
-                                                       'entities' => [
+                                                        [
+                                                        'recordID' => 80000000000001,
+                                                        'entities' => [
                                                            'businessTripCostComponent_RefID' => 81000000000001,
                                                            'amountCurrency_RefID' => 62000000000001,
                                                            'amountCurrencyValue' => 30000,
@@ -63,6 +66,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                            ]                                   
                                                        ],
                                                        [
+                                                        'recordID' => 80000000000002,
                                                        'entities' => [
                                                            'businessTripCostComponent_RefID' => 81000000000002,
                                                            'amountCurrency_RefID' => 62000000000001,
@@ -88,13 +92,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.create.humanResource.setPersonBusinessTrip.v1_throughAPIGatewayJQuery   |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.update.humanResource.setPersonBusinessTrip.v1_throughAPIGatewayJQuery   |
         |                     ► http://172.28.0.4/                                                                                 |
-        |                       transaction.create.humanResource.setPersonBusinessTrip.v1_throughAPIGatewayJQuery                  |
+        |                       transaction.update.humanResource.setPersonBusinessTrip.v1_throughAPIGatewayJQuery                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-10-10                                                                                           |
-        | ▪ Creation Date   : 2022-10-10                                                                                           |
+        | ▪ Last Update     : 2022-10-11                                                                                           |
+        | ▪ Creation Date   : 2022-10-11                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGatewayJQuery($varAPIWebToken)
@@ -107,38 +111,36 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<table border="1" style="border-collapse: collapse;">';
-            echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Advance Detail Main Data</p></td></tr>';
-            echo       '<tr><td>Advance_RefID</td><td><input type="text" id="dataInput_Advance_RefID" value=76000000000001></td></tr>';
-            echo       '<tr><td>CombinedBudgetSectionDetail_RefID</td><td><input type="text" id="dataInput_CombinedBudgetSectionDetail_RefID" value=169000000000001></td></tr>';
-            echo       '<tr><td>Product_RefID</td><td><input type="text" id="dataInput_Product_RefID" value=88000000000002></td></tr>';
-            echo       '<tr><td>Quantity</td><td><input type="text" id="dataInput_Quantity" value=10></td></tr>';
-            echo       '<tr><td>QuantityUnit_RefID</td><td><input type="text" id="dataInput_QuantityUnit_RefID" value=73000000000001></td></tr>';
-            echo       '<tr><td>ProductUnitPriceCurrency_RefID</td><td><input type="text" id="dataInput_ProductUnitPriceCurrency_RefID" value=62000000000001></td></tr>';
-            echo       '<tr><td>ProductUnitPriceCurrencyValue</td><td><input type="text" id="dataInput_ProductUnitPriceCurrencyValue" value=30000></td></tr>';
-            echo       '<tr><td>ProductUnitPriceCurrencyExchangeRate</td><td><input type="text" id="dataInput_ProductUnitPriceCurrencyExchangeRate" value=1></td></tr>';
-            echo       '<tr><td>Remarks</td><td><input type="text" id="dataInput_Remarks" value="Catatan"></td></tr>';
+            echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Person Work Time Sheet Main Data</p></td></tr>';
+            echo        '<tr><td>RecordID</td><td><input type="text" id="dataInput_RecordID" value=48000000000001></td></tr>';
+            echo        '<tr><td>DocumentDateTimeTZ</td><td><input type="text" id="dataInput_DocumentDateTimeTZ" value="2026-01-01 00:00:00 +07"></td></tr>';
+            echo        '<tr><td>Person_RefID</td><td><input type="text" id="dataInput_Person_RefID" value=25000000000439></td></tr>';
+            echo        '<tr><td>RequesterWorkerJobsPosition_RefID</td><td><input type="text" id="dataInput_StartDateTimeTZ" value="2026-01-01 00:00:00 +07"></td></tr>';
+            echo        '<tr><td>StartDateTimeTZ</td><td><input type="text" id="dataInput_FinishDateTimeTZ" value="2026-01-14 00:00:00 +07"></td></tr>';
+            echo        '<tr><td>FinishDateTimeTZ</td><td><input type="text" id="dataInput_Project_RefID" value=46000000000009></td></tr>';
+            echo        '<tr><td>ColorText</td><td><input type="text" id="dataInput_ColorText" value="#000000"></td></tr>';
+            echo        '<tr><td>ColorBackground</td><td><input type="text" id="dataInput_ColorBackground" value="#ababab"></td></tr>';
             echo '</table><br>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
-                'transaction.create.humanResource.setPersonBusinessTrip', 
+                'transaction.update.humanResource.setPersonBusinessTrip', 
                 'latest', 
                 '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
                     '"entities" : {'.
-                        '"advance_RefID" : parseInt(document.getElementById("dataInput_Advance_RefID").value), '.
-                        '"combinedBudgetSectionDetail_RefID" : parseInt(document.getElementById("dataInput_CombinedBudgetSectionDetail_RefID").value), '.
-                        '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID").value), '.
-                        '"quantity" : parseFloat(document.getElementById("dataInput_Quantity").value), '.
-                        '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID").value), '.
-                        '"productUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceCurrency_RefID").value), '.
-                        '"productUnitPriceCurrencyValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyValue").value), '.
-                        '"productUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyExchangeRate").value), '.
-                        '"remarks" : document.getElementById("dataInput_Remarks").value'.
+                        '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
+                        '"person_RefID" : parseInt(document.getElementById("dataInput_Person_RefID").value), '.
+                        '"startDateTimeTZ" : document.getElementById("dataInput_StartDateTimeTZ").value, '.
+                        '"finishDateTimeTZ" : document.getElementById("dataInput_FinishDateTimeTZ").value, '.
+                        '"project_RefID" : parseInt(document.getElementById("dataInput_Project_RefID").value), '.
+                        '"colorText" : document.getElementById("dataInput_ColorText").value, '.
+                        '"colorBackground" : document.getElementById("dataInput_ColorBackground").value'.
                         '}'.
                 '}'
                 ); 
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
-            dd($varJQueryFunction);            
+            dd($varJQueryFunction);
             */
             }
         }

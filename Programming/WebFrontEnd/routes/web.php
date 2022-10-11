@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[START]---
 $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 $varAPIWebToken = 
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NjUzODA4OTV9.ZDY3ZDdmMWNjZWI0MzBkN2Y3ZDMxMzFjNTM1YWFjNGM2YThiMjRjMThiYzNhOTNhNzliZDhiODE3YmZmOWZkYg'
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NjU0NTIxODN9.NGMwYjQ0NTFlZmI1ZDJkMDk2NjRkMzMxZGE4NGI0NzcwNDQ5YjdkYWViZjViODk5NWFkNjZhZWVmNDdhZjZkZA'
     .'';
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
