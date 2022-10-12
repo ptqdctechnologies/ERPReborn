@@ -15,86 +15,94 @@
 </script>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $(".CancelDetailArf").click(function() {
+    // $(document).ready(function() {
+    //     $(".CancelDetailArf").click(function() {
 
-            let product_id = $("#putProductId").val();
-            let putProductName = $("#putProductName").val();
-            let qtyCek = $('#qtyCek').val().replace(/^\s+|\s+$/g, '');
-            let putUom = $("#putUom").val();
-            let priceCek = $("#priceCek").val().replace(/^\s+|\s+$/g, '');
-            let putCurrency = $("#putCurrency").val();
-            let totalArfDetails = $("#totalArfDetails").val().replace(/^\s+|\s+$/g, '');
-            let putRemark = $("#putRemark").val();
-            let totalBalance = $("#totalBalance").val();
-            let putPrice = $('#putPrice').val();
-            let combinedBudget = $("#combinedBudget").val();
-            let statusProduct = $("#statusProduct").val();
-            let statusEditArf = $("#statusEditArf").val();
+        
+    function CancelDetailArf() {
+        var work_id = $("#putWorkId").val();
+        var product_id = $("#putProductId").val();
+        var putProductName = $("#putProductName").val();
+        var qtyCek = $('#qtyCek').val().replace(/^\s+|\s+$/g, '');
+        var putUom = $("#putUom").val();
+        var priceCek = $("#priceCek").val().replace(/^\s+|\s+$/g, '');
+        var putCurrency = $("#putCurrency").val();
+        var totalArfDetails = $("#totalArfDetails").val().replace(/^\s+|\s+$/g, '');
+        var putRemark = $("#putRemark").val();
+        var totalBalance = $("#totalBalance").val();
+        var putPrice = $('#putPrice').val();
+        var combinedBudget = $("#combinedBudget").val();
+        var statusProduct = $("#statusProduct").val();
+        var statusEditArf = $("#statusEditArf").val();
 
-            if (statusEditArf == "Yes") {
+        if (statusEditArf == "Yes") {
 
-                qtyCek = $('#ValidateQuantity').val();
-                priceCek = $('#ValidatePrice').val();
-                totalArfDetails = parseFloat(qtyCek.replace(/,/g, '') * priceCek.replace(/,/g, ''));
+            qtyCek = $('#ValidateQuantity').val();
+            priceCek = $('#ValidatePrice').val();
+            totalArfDetails = parseFloat(qtyCek.replace(/,/g, '') * priceCek.replace(/,/g, ''));
 
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            
+            $.ajax({
+                type: "POST",
+                url: '{!! route("AdvanceRequest.StoreValidateAdvance") !!}?putProductId=' + $('#putProductId').val() + '&putWorkId=' + $('#putWorkId').val(),
+                success: function(data) {
+
+                    if (data == "200") {
+
+                        let html = '<tr>' +
+                            '<td style="border:1px solid #e9ecef;width:7%;">' +
+                            '&nbsp;&nbsp;<button type="button" class="btn btn-xs" onclick="RemoveAdvance(\'' + work_id + '\', \'' + product_id + '\', \'' + totalArfDetails + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+                            '&nbsp;<button type="button" class="btn btn-xs" onclick="EditAdvance(this)" data-dismiss="modal" data-id0="' + work_id + '" data-id1="' + product_id + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + putUom + '" data-id5="' + priceCek + '" data-id6="' + putCurrency + '" data-id7="' + totalArfDetails.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '" data-id8="' + putRemark + '" data-id9="' + totalBalance + '"  style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+                            '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
+                            '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
+                            '<input type="hidden" name="var_quantity[]" value="' + qtyCek + '">' +
+                            '<input type="hidden" name="var_uom[]" value="' + putUom + '">' +
+                            '<input type="hidden" name="var_price[]" value="' + priceCek + '">' +
+                            '<input type="hidden" name="var_currency[]" value="' + putCurrency + '">' +
+                            '<input type="hidden" name="var_combinedBudget[]" value="' + combinedBudget + '">' +
+                            '<input type="hidden" name="var_statusProduct[]" value="kamu' + statusProduct + '">' +
+                            '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + product_id + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + putProductName + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + qtyCek + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + putUom + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + priceCek + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + totalArfDetails.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + putCurrency + '</td>' +
+                            '</tr>';
+                        $('table.TableAdvance tbody').append(html);
+
+                        // var totalArfDetails = parseFloat(totalArfDetails.replace(/,/g, ''));
+                        var TotalAdvance = parseFloat($("#TotalAdvance").html().replace(/,/g, ''));
+                        $("#TotalAdvance").html(parseFloat(+TotalAdvance + totalArfDetails).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+                    }else {
+                        Swal.fire("Error !", "Please use edit to update this item !", "error");
                     }
-                });
-                
-                $.ajax({
-                    type: "POST",
-                    url: '{!! route("AdvanceRequest.StoreValidateAdvance") !!}?putProductId=' + $('#putProductId').val() + '&putWorkId=' + $('#putWorkId').val(),
-                    success: function(data) {
+                },
+            });
+            $("#statusEditArf").val("No");
+        }
 
-                        if (data == "200") {
+        $(".klikBudgetDetail2").prop("disabled", false);
 
-                            let html = '<tr>' +
-                                '<td style="border:1px solid #e9ecef;width:7%;">' +
-                                '&nbsp;&nbsp;<button type="button" class="btn btn-xs RemoveAdvance" data-id1="' + product_id + '"  style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
-                                '&nbsp;<button type="button" class="btn btn-xs EditAdvance" data-dismiss="modal" data-id1="' + product_id + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + putUom + '" data-id5="' + priceCek + '" data-id6="' + putCurrency + '" data-id7="' + totalArfDetails.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '" data-id8="' + putRemark + '" data-id9="' + totalBalance + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
-                                '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
-                                '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
-                                '<input type="hidden" name="var_quantity[]" value="' + qtyCek + '">' +
-                                '<input type="hidden" name="var_uom[]" value="' + putUom + '">' +
-                                '<input type="hidden" name="var_price[]" value="' + priceCek + '">' +
-                                '<input type="hidden" name="var_currency[]" value="' + putCurrency + '">' +
-                                '<input type="hidden" name="var_combinedBudget[]" value="' + combinedBudget + '">' +
-                                '<input type="hidden" name="var_statusProduct[]" value="kamu' + statusProduct + '">' +
-                                '</td>' +
-                                '<td style="border:1px solid #e9ecef;">' + product_id + '</td>' +
-                                '<td style="border:1px solid #e9ecef;">' + putProductName + '</td>' +
-                                '<td style="border:1px solid #e9ecef;">' + qtyCek + '</td>' +
-                                '<td style="border:1px solid #e9ecef;">' + putUom + '</td>' +
-                                '<td style="border:1px solid #e9ecef;">' + priceCek + '</td>' +
-                                '<td style="border:1px solid #e9ecef;">' + totalArfDetails.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
-                                '<td style="border:1px solid #e9ecef;">' + putCurrency + '</td>' +
-                                '</tr>';
-                            $('table.TableAdvance tbody').append(html);
-
-                        }else {
-                            Swal.fire("Error !", "Please use edit to update this item !", "error");
-                        }
-                    },
-                });
-                $("#statusEditArf").val("No");
-            }
-            $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", false);
-            // $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", false);
-            $("#putProductId").css("border", "1px solid #ced4da");
-
-            $("#putProductId").val("");
-            $("#putProductName").val("");
-            $("#qtyCek").val("");
-            $("#putUom").val("");
-            $("#priceCek").val("");
-            $("#putCurrency").val("");
-            $("#totalBalance").val("");
-            $("#totalArfDetails").val("");
-        });
-    });
+        $("#putProductId").css("border", "1px solid #ced4da");
+        $("#putProductId").val("");
+        $("#putProductName").val("");
+        $("#qtyCek").val("");
+        $("#putUom").val("");
+        $("#priceCek").val("");
+        $("#putCurrency").val("");
+        $("#totalBalance").val("");
+        $("#totalArfDetails").val("");
+    }
+//     });
+// });
 </script>
 
 <script type="text/javascript">
@@ -158,7 +166,7 @@
                         var html = '<tr>' +
                             '<td style="border:1px solid #e9ecef;width:7%;">' +
                             '&nbsp;&nbsp;<button type="button" class="btn btn-xs" onclick="RemoveAdvance(\'' + work_id + '\', \'' + product_id + '\', \'' + totalArfDetails + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
-                            '&nbsp;<button type="button" class="btn btn-xs EditAdvance" data-dismiss="modal" data-id0="' + work_id + '" data-id1="' + product_id + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + putUom + '" data-id5="' + priceCek + '" data-id6="' + putCurrency + '" data-id7="' + totalArfDetails + '" data-id8="' + putRemark + '" data-id9="' + totalBalance + '"  style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+                            '&nbsp;<button type="button" class="btn btn-xs" onclick="EditAdvance(this)" data-dismiss="modal" data-id0="' + work_id + '" data-id1="' + product_id + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + putUom + '" data-id5="' + priceCek + '" data-id6="' + putCurrency + '" data-id7="' + totalArfDetails + '" data-id8="' + putRemark + '" data-id9="' + totalBalance + '"  style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
                             '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
                             '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
                             '<input type="hidden" name="var_quantity[]" value="' + parseFloat(qtyCek.replace(/,/g, '')) + '">' +
@@ -179,57 +187,6 @@
                             '</tr>';
                         $('table.TableAdvance tbody').append(html);
                         $("#statusEditArf").val("No");
-                        
-                        $("body").on("click", ".RemoveAdvance", function() {
-                            // $(this).closest("tr").remove();
-                            dd($(this).closest("tr"));
-                            // var workId = $(this).data("id0");
-                            // var ProductId = $(this).data("id1");
-        
-                            // $.ajax({
-                            //     type: "POST",
-                            //     url: '{!! route("AdvanceRequest.StoreValidateAdvance2") !!}?putProductId=' + ProductId + '&putWorkId=' + workId,
-                            // });
-
-
-                            // var totalArfDetails = parseFloat($(this).data("id2").replace(/,/g, ''));
-                            // var TotalAdvance = parseFloat($("#TotalAdvance").html().replace(/,/g, ''));
-                            // console.log(totalArfDetails);
-                            // console.log(TotalAdvance);
-                            // $("#TotalAdvance").html(parseFloat(TotalAdvance - totalArfDetails).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-                            
-                            
-                        });
-                        $("body").on("click", ".EditAdvance", function() {
-                            var $this = $(this);
-
-                            $.ajax({
-                                type: "POST",
-                                url: '{!! route("AdvanceRequest.StoreValidateAdvance2") !!}?putProductId=' + $this.data("id1") + '&putWorkId=' + $this.data("id0"),
-                            });
-
-                            $("#putWorkId").val($this.data("id0"));
-                            $("#putProductId").val($this.data("id1"));
-                            $("#putProductName").val($this.data("id2"));
-                            $("#qtyCek").val($this.data("id3"));
-                            $("#ValidateQuantity").val($this.data("id3"));
-                            $("#putUom").val($this.data("id4"));
-                            $("#priceCek").val($this.data("id5"));
-                            $("#ValidatePrice").val($this.data("id5"));
-                            $("#putCurrency").val($this.data("id6"));
-                            $("#putRemark").val($this.data("id8"));
-                            $("#totalArfDetails").val($this.data("id7"));
-                            $("#totalBalance").val($this.data("id9"));
-                            $("#statusEditArf").val("Yes");
-
-                            $(this).closest("tr").remove();
-
-                            if ($this.data("id10") == "Yes") {
-                                $("#product_id2").prop("disabled", false);
-                            } else {
-                                $("#product_id2").prop("disabled", true);
-                            }
-                        });
 
                         $("#putProductId").val("");
                         $("#putProductName").val("");
@@ -244,8 +201,8 @@
                         $("#saveArfList").prop("disabled", false);
                         $("#submitArf").prop("disabled", false);
 
-                        $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", false);
-                        // $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", false);
+
+                        $(".klikBudgetDetail2").prop("disabled", false);
                         $(".detailArfList").show();
 
                         $("#qtyCek").attr('required', false);
@@ -258,6 +215,10 @@
             });
         }
     }
+    
+</script>
+
+<script>
 
     function RemoveAdvance(workId, ProductId, totalArfDetails, tr) {
         var i = tr.parentNode.parentNode.rowIndex;
@@ -272,9 +233,49 @@
         var TotalAdvance = parseFloat($("#TotalAdvance").html().replace(/,/g, ''));
         $("#TotalAdvance").html(parseFloat(TotalAdvance - totalArfDetails).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
     }
-    
+
 </script>
 
+<script>
+    function EditAdvance(t) {
+        var i = t.parentNode.parentNode.rowIndex;
+        document.getElementById("TableAdvance").deleteRow(i);
+
+        var $this = $(t);
+        console.log($this.data("id1"));
+
+        $.ajax({
+            type: "POST",
+            url: '{!! route("AdvanceRequest.StoreValidateAdvance2") !!}?putProductId=' + $this.data("id1") + '&putWorkId=' + $this.data("id0"),
+        });
+
+        $("#putWorkId").val($this.data("id0"));
+        $("#putProductId").val($this.data("id1"));
+        $("#putProductName").val($this.data("id2"));
+        $("#qtyCek").val($this.data("id3"));
+        $("#ValidateQuantity").val($this.data("id3"));
+        $("#putUom").val($this.data("id4"));
+        $("#priceCek").val($this.data("id5"));
+        $("#ValidatePrice").val($this.data("id5"));
+        $("#putCurrency").val($this.data("id6"));
+        $("#putRemark").val($this.data("id8"));
+        $("#totalArfDetails").val($this.data("id7"));
+        $("#totalBalance").val($this.data("id9"));
+        $("#statusEditArf").val("Yes");
+
+        var totalArfDetails = parseFloat($("#totalArfDetails").val().replace(/,/g, ''));
+        var TotalAdvance = parseFloat($("#TotalAdvance").html().replace(/,/g, ''));
+        $("#TotalAdvance").html(parseFloat(TotalAdvance - totalArfDetails).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+        if ($this.data("id10") == "Yes") {
+            $("#product_id2").prop("disabled", false);
+        } else {
+            $("#product_id2").prop("disabled", true);
+        }
+
+        $(".klikBudgetDetail2").prop("disabled", true);
+    }
+</script>
 
 <script>
     $('document').ready(function() {
@@ -408,7 +409,7 @@
                     }
                     var html = '<tr>' +
                         '<td style="border:1px solid #e9ecef;width:5%;">' +
-                        '&nbsp;&nbsp;<button type="reset" '+ status +' class="btn btn-sm klikBudgetDetail" data-id0="' + val2.combinedBudgetSubSectionLevel1_RefID + '" data-id1="' + val2.product_RefID + '" data-id2="' + val2.quantityRemain + '" data-id3="' + val2.unitPriceBaseCurrencyValue + '" data-id4="' + val2.sys_ID + '" data-id5="' + val2.productName + '" data-id6="' + val2.quantityUnitName + '" data-id7="' + val2.priceBaseCurrencyISOCode + '" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="15" alt="" title="Add to Detail"></button>' +
+                        '&nbsp;&nbsp;<button type="reset" '+ status +' class="btn btn-sm klikBudgetDetail klikBudgetDetail2' + status + '" data-id0="' + val2.combinedBudgetSubSectionLevel1_RefID + '" data-id1="' + val2.product_RefID + '" data-id2="' + val2.quantityRemain + '" data-id3="' + val2.unitPriceBaseCurrencyValue + '" data-id4="' + val2.sys_ID + '" data-id5="' + val2.productName + '" data-id6="' + val2.quantityUnitName + '" data-id7="' + val2.priceBaseCurrencyISOCode + '" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="15" alt="" title="Add to Detail"></button>' +
                         '</td>' +
                         '<td style="border:1px solid #e9ecef;">' +
                         '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"> @if('+ applied +' >= '+0+' && '+ applied +' <= '+40+')<div class="progress-bar bg-red" style="width:'+ applied +'%;"></div> @elseif('+ applied +' >= '+41+' && '+ applied +' <= '+89+')<div class="progress-bar bg-blue" style="width:'+ applied +'%;"></div> @elseif('+ applied + ' >= '+ 90 +' && ' + applied + ' <= '+ 100 +')<div class="progress-bar bg-green" style="width:'+ applied +'%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>'+ applied +' %</center></small>' +
@@ -466,9 +467,7 @@
                     $("#totalBalance").val(parseFloat(qty * price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                     $("#combinedBudget").val(combinedBudget);
 
-
-                    $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", true);
-                    // $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", true);
+                    $(".klikBudgetDetail2").prop("disabled", true);
                     $(".available").show();
                     $("#detailTransAvail").show();
                     $("#putProductId2").prop("disabled", true);
