@@ -181,10 +181,10 @@
                       </tbody>
                     </table>
                     <div style="padding-right:10px;padding-top:10px;">
-                      <a class="btn btn-default btn-sm float-right CancelDetailArf" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
+                      <a class="btn btn-default btn-sm float-right" onclick="CancelDetailArf()" id="CancelDetailArf" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
                         <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel to Add Advance List Cart"> Cancel
                       </a>
-                      <a class="btn btn-default btn-sm float-right" onclick="addFromDetailtoCartJs();" id="addFromDetailtoCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                      <a class="btn btn-default btn-sm float-right" onclick="addFromDetailtoCartJs()" id="addFromDetailtoCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                         <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
                       </a>
                     </div>
@@ -292,7 +292,7 @@
                       </div>
                     </div>
                   </div>
-                  <a onclick="CancelAdvance();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                  <a onclick="CancelAdvance()" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
                     <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
                   </a>
                   <button class="btn btn-default btn-sm float-right" type="submit" id="submitArf" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
