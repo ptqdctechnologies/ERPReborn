@@ -38,12 +38,42 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
             parent::__construct(__CLASS__);
             }
 
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setDataInitialize                                                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-10-12                                                                                           |
+        | ▪ Creation Date   : 2022-10-12                                                                                           |
+        | ▪ Description     : Data Initialize                                                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function setDataInitialize($varUserSession)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    'SchSysConfig-Initialize.Func_'.parent::getSchemaName($varUserSession).'_'.parent::getTableName($varUserSession),
+                    []
+                    )
+                );
+            return $varReturn['Data'][0];
+            }
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2021-02-23                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Creation Date   : 2022-10-12                                                                                           |
         | ▪ Last Update     : 2021-02-23                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -51,7 +81,9 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varEntity_RefID ► Entity Reference ID                                                                    |
         |      ▪ (string) varCode ► Entity Code                                                                                    |
         | ▪ Output Variable :                                                                                                      |
@@ -60,7 +92,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         */
         public function setDataInsert(
             $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
+            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
             int $varEntity_RefID = null, string $varCode = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -73,7 +105,8 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
                         [null, 'bigint'],
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
+                        [$varSysBranch_RefID, 'bigint'],
+                        [$varSysBaseCurrency_RefID, 'bigint'],
 
                         [$varEntity_RefID, 'bigint'],
                         [$varCode, 'varchar']
@@ -88,8 +121,8 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2021-02-23                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Creation Date   : 2022-10-12                                                                                           |
         | ▪ Last Update     : 2021-02-23                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -98,7 +131,9 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varEntity_RefID ► Entity Reference ID                                                                    |
         |      ▪ (string) varCode ► Entity Code                                                                                    |
         | ▪ Output Variable :                                                                                                      |
@@ -107,7 +142,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         */
         public function setDataUpdate(
             $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
+            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
             int $varEntity_RefID = null, string $varCode = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -120,7 +155,8 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
                         [$varSysID, 'bigint'],
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
+                        [$varSysBranch_RefID, 'bigint'],
+                        [$varSysBaseCurrency_RefID, 'bigint'],
 
                         [$varEntity_RefID, 'bigint'],
                         [$varCode, 'varchar']

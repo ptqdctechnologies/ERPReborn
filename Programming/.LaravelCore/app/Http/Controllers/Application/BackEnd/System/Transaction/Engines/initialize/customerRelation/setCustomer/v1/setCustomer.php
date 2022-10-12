@@ -3,17 +3,17 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\customerRelation\setCustomer\v1       |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\initialize\customerRelation\setCustomer\v1   |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\customerRelation\setCustomer\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\initialize\customerRelation\setCustomer\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : setCustomer                                                                                                  |
-    | ▪ Description : Menangani API transaction.create.customerRelation.setCustomer Version 1                                      |
+    | ▪ Description : Menangani API transaction.initialize.customerRelation.setCustomer Version 1                                  |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class setCustomer extends \App\Http\Controllers\Controller
@@ -23,8 +23,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-02-23                                                                                           |
-        | ▪ Creation Date   : 2021-02-23                                                                                           |
+        | ▪ Last Update     : 2022-10-21                                                                                           |
+        | ▪ Creation Date   : 2022-10-21                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,9 +42,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2022-10-12                                                                                           |
-        | ▪ Creation Date   : 2021-02-23                                                                                           |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-10-21                                                                                           |
+        | ▪ Creation Date   : 2022-10-21                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -58,19 +58,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Customer Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Initialize Customer Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_CustomerRelation\TblCustomer())->setDataInsert(
-                            $varUserSession, 
-                            null, 
-                            null,
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
-
-                            $varData['entities']['entity_RefID'],
-                            $varData['entities']['code']
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataInitialize($varUserSession, (new \App\Models\Database\SchData_OLTP_CustomerRelation\TblCustomer())->setDataInitialize(
+                            $varUserSession
                             ))))
                             {
                             throw new \Exception();
@@ -96,3 +89,5 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
             }
         }
     }
+
+?>

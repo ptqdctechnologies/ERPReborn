@@ -666,56 +666,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ API Key     : transaction.create.customerRelation.setCustomer                                                          |
-        | ▪ API Version : 1                                                                                                        |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function APIGateway_setDataCreateCustomer()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
-            //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.create.customerRelation.setCustomer', 
-                'latest', 
-                [
-                'entities' => [
-                    'entity_RefID' => 124000000000002,
-                    'code' => 'IMD'
-                    ]
-                ]
-                );
-            var_dump($varData);
-            }
-        public function APIGatewayJQuery_setDataCreateCustomer()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
-            //---Core---
-            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_Entity_RefID" value=124000000000002>';
-            echo '<input type="text" id="dataInput_Code" value="IMD">';
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'transaction.create.customerRelation.setCustomer', 
-                'latest', 
-                '{'.
-                    '"entities" : {'.
-                        '"entity_RefID" : parseInt(document.getElementById("dataInput_Entity_RefID").value), '.
-                        '"code" : document.getElementById("dataInput_Code").value'.
-                        '}'.
-                '}'
-                ); 
-            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
-            dd($varJQueryFunction);
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ API Key     : transaction.create.customerRelation.setSalesContract                                                     |
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -10066,46 +10016,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
                 'transaction.initialize.supplyChain.setPurchaseOrderAdditionalCostType', 
-                'latest', 
-                '{'.
-                '}'
-                );            
-            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
-            dd($varJQueryFunction);
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ API Key     : transaction.initialize.supplyChain.setSupplier                                                           |
-        | ▪ API Version : 1                                                                                                        |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function APIGateway_setDataInitializeSupplier()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
-            //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.initialize.supplyChain.setSupplier', 
-                'latest', 
-                [
-                ]
-                );
-            var_dump($varData);
-            }
-        public function APIGatewayJQuery_setDataInitializeSupplier()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
-            //---Core---
-            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'transaction.initialize.supplyChain.setSupplier', 
                 'latest', 
                 '{'.
                 '}'
@@ -20209,59 +20119,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     '"entities" : {'.
                         '"budgetExpense_RefID" : parseInt(document.getElementById("dataInput_BudgetExpense_RefID").value), '.                    
                         '"name" : document.getElementById("dataInput_Name").value, '.
-                        '"code" : document.getElementById("dataInput_Code").value'.
-                        '}'.
-                '}'
-                ); 
-            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
-            dd($varJQueryFunction);
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ API Key     : transaction.update.customerRelation.setCustomer                                                          |
-        | ▪ API Version : 1                                                                                                        |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function APIGateway_setDataUpdateCustomer()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
-            //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.update.customerRelation.setCustomer', 
-                'latest', 
-                [
-                'recordID' => 125000000000001,
-                'entities' => [
-                    'entity_RefID' => 124000000000002,
-                    'code' => 'IMD'
-                    ]
-                ]
-                );
-            var_dump($varData);
-            }
-        public function APIGatewayJQuery_setDataUpdateCustomer()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
-            //---Core---
-            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_RecordID" value=125000000000001>';
-            echo '<input type="text" id="dataInput_Entity_RefID" value=124000000000002>';
-            echo '<input type="text" id="dataInput_Code" value="IMD">';
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'transaction.update.customerRelation.setCustomer', 
-                'latest', 
-                '{'.
-                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
-                    '"entities" : {'.
-                        '"entity_RefID" : parseInt(document.getElementById("dataInput_Entity_RefID").value), '.
                         '"code" : document.getElementById("dataInput_Code").value'.
                         '}'.
                 '}'
