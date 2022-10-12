@@ -3,28 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\supplyChain\getWarehouse\v1                 |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\customerRelation\getCustomer\v1             |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\supplyChain\getWarehouse\v1
+namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\customerRelation\getCustomer\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getWarehouse                                                                                                 |
-    | ▪ Description : Menangani API dataPickList.supplyChain.getWarehouse Version 1                                                |
+    | ▪ Class Name  : getCustomer                                                                                                  |
+    | ▪ Description : Menangani API dataPickList.customerRelation.getCustomer Version 1                                            |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getWarehouse extends \App\Http\Controllers\Controller
+    class getCustomer extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-03-02                                                                                           |
-        | ▪ Creation Date   : 2022-03-02                                                                                           |
+        | ▪ Last Update     : 2022-10-12                                                                                           |
+        | ▪ Creation Date   : 2022-10-12                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,8 +43,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\s
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-03-02                                                                                           |
-        | ▪ Creation Date   : 2022-03-02                                                                                           |
+        | ▪ Last Update     : 2022-10-12                                                                                           |
+        | ▪ Creation Date   : 2022-10-12                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -58,11 +58,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\s
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Data Pick List Warehouse (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Data Pick List Customer (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_SupplyChain\General())->getDataPickList_Warehouse(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_CustomerRelation\General())->getDataPickList_Customer(
                             $varUserSession, 
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID']
                             ))))

@@ -62,6 +62,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
                 }
             }
 
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataList_SalesOrder                                                                               |
@@ -99,6 +100,44 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
                         ]
                         )
                     );                
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_Customer                                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-10-12                                                                                           |
+        | ▪ Creation Date   : 2022-10-12                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Customer                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_Customer(
+            $varUserSession, int $varSysBranch_RefID)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-CustomerRelation.Func_GetDataPickList_Customer',
+                        [
+                            [$varSysBranch_RefID, 'bigint' ]
+                        ]
+                        )
+                    );
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
