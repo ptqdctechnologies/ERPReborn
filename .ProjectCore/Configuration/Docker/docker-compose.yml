@@ -415,18 +415,18 @@ services:
 #      OPENPROJECT_RAILS__RELATIVE__URL__ROOT: "${OPENPROJECT_RAILS__RELATIVE__URL__ROOT:-}"
       SECRET_KEY_BASE: 'secret'
 #      HOST__NAME: 'openproject.erpreborn.qdc.co.id'
-      HOST__NAME: '172.28.0.102'
+      HOST__NAME: '172.28.0.101'
       RAILS_MIN_THREADS: 8
       RAILS_MAX_THREADS: 32
 #dikali 8
-      RUBY_THREAD_VM_STACK_SIZE: 8388608
-      RUBY_FIBER_MACHINE_STACK_SIZE: 4194304
+#      RUBY_THREAD_VM_STACK_SIZE: 8388608
+#      RUBY_FIBER_MACHINE_STACK_SIZE: 4194304
         #      RUBY_THREAD_MACHINE_STACK_SIZE: 8388608
         #      RUBY_FIBER_VM_STACK_SIZE: 1048576
         #      RUBY_FIBER_MACHINE_STACK_SIZE: 1048576
-      DATABASE_URL: 'postgresql://SysEngine:748159263@192.168.0.24:5432/dbERPReborn-Documentation-OpenProject'
+#      DATABASE_URL: 'postgresql://SysEngine:748159263@192.168.0.24:5432/dbERPReborn-Documentation-OpenProject'
 #      DATABASE_URL: "${192.168.0.24:-postgres://SysEngine:748159263@db/openproject?pool=20&encoding=unicode&reconnect=true}"
-#      DATABASE_URL: 'postgresql://SysEngine:748159263@192.168.1.24:5432/dbERPReborn-Documentation-OpenProject'
+      DATABASE_URL: 'postgresql://SysEngine:748159263@192.168.1.24:5432/dbERPReborn-Documentation-OpenProject'
 #      DATABASE_URL: "${DATABASE_URL:-postgres://SysEngine:748159263@db/openproject?pool=20&encoding=unicode&reconnect=true}"
     networks:
       app-network:
