@@ -312,6 +312,10 @@ class ComponentTagCompiler
             return $guess;
         }
 
+        if (Str::startsWith($component, 'mail::')) {
+            return $component;
+        }
+
         throw new InvalidArgumentException(
             "Unable to locate a class or view for component [{$component}]."
         );
@@ -567,10 +571,10 @@ class ComponentTagCompiler
      */
     protected function parseShortAttributeSyntax(string $value)
     {
-        $pattern = "/\:\\\$(\w+)/x";
+        $pattern = "/\s\:\\\$(\w+)/x";
 
         return preg_replace_callback($pattern, function (array $matches) {
-            return ":{$matches[1]}=\"\${$matches[1]}\"";
+            return " :{$matches[1]}=\"\${$matches[1]}\"";
         }, $value);
     }
 
