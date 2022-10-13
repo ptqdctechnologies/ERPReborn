@@ -12,6 +12,7 @@
 namespace Symfony\Component\HttpFoundation\Tests;
 
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\Stream;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -384,6 +385,40 @@ class BinaryFileResponseTest extends ResponseTestCase
         $response->prepare($request);
 
         $this->assertSame(BinaryFileResponse::HTTP_NOT_MODIFIED, $response->getStatusCode());
+        $this->assertFalse($response->headers->has('Content-Type'));
+    }
+
+    public function testContentTypeIsCorrectlyDetected()
+    {
+        $file = new File(__DIR__.'/File/Fixtures/test.gif');
+
+        try {
+            $file->getMimeType();
+        } catch (\LogicException $e) {
+            $this->markTestSkipped('Guessing the mime type is not possible');
+        }
+
+        $response = new BinaryFileResponse($file);
+
+        $request = Request::create('/');
+        $response->prepare($request);
+
+        $this->assertSame(200, $response->getStatusCode());
+        $this->assertSame('image/gif', $response->headers->get('Content-Type'));
+    }
+
+    public function testContentTypeIsNotGuessedWhenTheFileWasNotModified()
+    {
+        $response = new BinaryFileResponse(__DIR__.'/File/Fixtures/test.gif');
+        $response->setAutoLastModified();
+
+        $request = Request::create('/');
+        $request->headers->set('If-Modified-Since', $response->getLastModified()->format('D, d M Y H:i:s').' GMT');
+        $isNotModified = $response->isNotModified($request);
+        $this->assertTrue($isNotModified);
+        $response->prepare($request);
+
+        $this->assertSame(304, $response->getStatusCode());
         $this->assertFalse($response->headers->has('Content-Type'));
     }
 
