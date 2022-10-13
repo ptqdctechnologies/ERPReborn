@@ -77,7 +77,6 @@
                             '</tr>';
                         $('table.TableAdvance tbody').append(html);
 
-                        // var totalArfDetails = parseFloat(totalArfDetails.replace(/,/g, ''));
                         var TotalAdvance = parseFloat($("#TotalAdvance").html().replace(/,/g, ''));
                         $("#TotalAdvance").html(parseFloat(+TotalAdvance + totalArfDetails).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
@@ -462,8 +461,6 @@
                     $("#putPrice").val(price);
                     $("#putCurrency").val(currency);
                     $("#totalArfDetails").val(parseFloat(qty * price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-                    $("#totalPieceMealDetails").val(parseFloat(qty * price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-                    $("#totalProcReqDetails").val(parseFloat(qty * price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                     $("#totalBalance").val(parseFloat(qty * price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                     $("#combinedBudget").val(combinedBudget);
 

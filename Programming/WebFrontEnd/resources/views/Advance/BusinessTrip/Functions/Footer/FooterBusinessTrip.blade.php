@@ -3,13 +3,15 @@
     $("#brfhide1").hide();
     $("#brfhide3").hide();
     $("#brfhide4").hide();
-    // $("#brfhide5").hide();
+    $(".FormTransportDetails").hide();
     $(".brfhide6").hide();
     $(".budgetDetail").hide();
     $("#tableShowHideBOQ3").hide();
     $("#sitecode2").prop("disabled", true);
     $("#request_name2").prop("disabled", true);
     $("#saveBrfList").prop("disabled", true);
+    $("#dateEnd").prop("disabled", true);
+    $("#dateArrival").prop("disabled", true);
   });
 </script>
 
@@ -293,6 +295,57 @@
 </script>
 
 
+<script type="text/javascript">
+
+    function AddFormTransportDetails() {  
+      $(".FormTransportDetails").show();
+    }
+
+    function CancelFormTransportDetails() {  
+      $(".FormTransportDetails").hide();
+      $("#transportType").val("");
+      $("#transportBooking").val("");
+      $("#dateDepart").val("");
+      $("#dateArrival").val("");
+      $("#qoutedFare").val("");
+    }
+
+    function UpdateFormTransportDetails() {  
+      $(".FormTransportDetails").hide();
+
+      var transportType = $("#transportType").val();
+      var transportBooking = $("#transportBooking").val();
+      var dateDepart = $("#dateDepart").val();
+      var dateArrival = $("#dateArrival").val();
+      var qoutedFare = $("#qoutedFare").val();
+
+      var html = '<tr>' +
+          '<td style="border:1px solid #e9ecef;width:10px;">' +
+          '&nbsp;<button type="button" class="btn btn-xs" onclick="RemoveAdvance(this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+          '<input type="hidden" name="transportType[]" value="' + transportType + '">' +
+          '<input type="hidden" name="transportBooking[]" value="' + transportBooking + '">' +
+          '<input type="hidden" name="dateDepart[]" value="' + dateDepart + '">' +
+          '<input type="hidden" name="dateArrival[]" value="' + dateArrival + '">' +
+          '<input type="hidden" name="qoutedFare[]" value="' + qoutedFare + '">' +
+          '</td>' +
+          '<td style="border:1px solid #e9ecef;">' + transportType + '</td>' +
+          '<td style="border:1px solid #e9ecef;">' + transportBooking + '</td>' +
+          '<td style="border:1px solid #e9ecef;">' + dateDepart + '</td>' +
+          '<td style="border:1px solid #e9ecef;">' + dateArrival + '</td>' +
+          '<td style="border:1px solid #e9ecef;">' + qoutedFare + '</td>' +
+          '</tr>';
+
+        $('table.TableTransportDetails tbody').append(html);
+        
+      $("#transportType").val("");
+      $("#transportBooking").val("");
+      $("#dateDepart").val("");
+      $("#dateArrival").val("");
+      $("#qoutedFare").val("");
+    }
+
+</script>
+
 <script>
   $(function() {
     $("#FormSubmitBusinessTrip").on("submit", function(e) { //id of form 
@@ -409,3 +462,27 @@
 
   });
 </script>
+
+<script>
+  var date = new Date();
+  var today = new Date(date.setMonth(date.getMonth() - 3));
+  document.getElementById('dateCommance').setAttribute('min', today.toISOString().split('T')[0]);
+  document.getElementById('dateDepart').setAttribute('min', today.toISOString().split('T')[0]);
+</script>
+
+<script>
+  $(document).ready(function() {
+    $('#dateCommance').change(function() {
+      $("#dateEnd").prop("disabled", false);
+      var dateCommance = new Date($("#dateCommance").val());
+      document.getElementById('dateEnd').setAttribute('min', dateCommance.toISOString().split('T')[0]);
+    });
+
+    $('#dateDepart').change(function() {
+      $("#dateArrival").prop("disabled", false);
+      var dateDepart = new Date($("#dateDepart").val());
+      document.getElementById('dateArrival').setAttribute('min', dateDepart.toISOString().split('T')[0]);
+    });
+  });
+</script>
+

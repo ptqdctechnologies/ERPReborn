@@ -178,14 +178,69 @@
                       </div>
                     </div>
                     <div class="card-body table-responsive p-0" id="brfhide2">
-                      <table id="table1" class="table table-head-fixed text-nowrap table-striped">
+                      <table class="table table-head-fixed text-nowrap table-striped table-sm TableTransportDetails">
+                        <label>
+                          <a class="btn btn-default btn-sm float-right" onclick="AddFormTransportDetails();" style="position:relative;top:5px;left:5px;">
+                            <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add">
+                          </a>
+                        </label>
                         <thead>
                           <tr>
-                            <th>Transport Type</th>
-                            <th>Transport Booking</th>
-                            <th>Time Of Depart</th>
-                            <th>Time Of Arrival</th>
-                            <th>Quoted Fare(IDR)</th>
+                            <th style="width:10px;"></th>
+                            <th style="border:1px solid #e9ecef;text-align: center;">Transport Type</th>
+                            <th style="border:1px solid #e9ecef;text-align: center;">Transport Booking</th>
+                            <th style="border:1px solid #e9ecef;text-align: center;">Time Of Depart</th>
+                            <th style="border:1px solid #e9ecef;text-align: center;">Time Of Arrival</th>
+                            <th style="border:1px solid #e9ecef;text-align: center;">Quoted Fare (IDR)</th>
+                          </tr>
+                          <tr class="FormTransportDetails">
+                            <td></td>
+                            <td style="border:1px solid #e9ecef;">
+                              <div class="input-group">
+                                <select class="form-control select2bs4" id="transportType" style="width: 100%; border-radius:0;">
+                                  <option selected="selected"></option>
+                                  <option value="Bus">Bus</option>
+                                  <option value="Rail">Rail</option>
+                                  <option value="Air">Air</option>
+                                  <option value="Sea">Sea</option>
+                                  <option value="Company Vehicle">Company Vehicle</option>
+                                  <option value="Train">Train</option>
+                                </select>
+                              </div>
+                            </td>
+                            <td style="border:1px solid #e9ecef;">
+                              <div class="input-group">
+                                <input id="transportBooking" name="transportBooking" style="border-radius:0;" type="text" class="form-control">
+                              </div>
+                            </td>
+                            <td style="border:1px solid #e9ecef;">
+                              <div class="input-group">
+                                <input id="dateDepart" name="dateDepart" style="border-radius:0;" type="date" class="form-control">
+                              </div>
+                            </td>
+                            <td style="border:1px solid #e9ecef;">
+                              <div class="input-group">
+                                <input id="dateArrival" name="dateArrival" style="border-radius:0;" type="date" class="form-control">
+                              </div>
+                            </td>
+                            <td style="border:1px solid #e9ecef;">
+                              <div class="input-group">
+                                <input id="qoutedFare" name="contactPhone" style="border-radius:0;" type="text" class="form-control">
+                              </div>
+                            </td>
+                          </tr>
+                          <tr class="FormTransportDetails">
+                            <td colspan="3"></td>
+                            <td style="border:1px solid #e9ecef;position:relative;left:30px;">
+                              <div class="input-group">
+                                <a class="btn btn-default btn-sm float-right" onclick="UpdateFormTransportDetails();" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                                  <img src="{{ asset('AdminLTE-master/dist/img/edit.png') }}" width="13" alt="" title="Add to Advance List"> Update
+                                </a>
+                                <a class="btn btn-default btn-sm float-right" onclick="CancelFormTransportDetails();" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
+                                  <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel to Add Advance List Cart"> Cancel
+                                </a>
+                              </div>
+                            </td>
                           </tr>
                         </thead>
                         <tbody>
@@ -533,12 +588,12 @@
                     <table class="table table-head-fixed text-nowrap table-striped tableBrf">
                       <thead>
                         <tr>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;width:7%;">Action</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;width:20%;">Allowance</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;width:20%;">Transport</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;width:20%;">Airport Tax</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;width:20%;">Accomodation</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;width:13%;">Others</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;width:7%;">Action</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;width:20%;">Allowance</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;width:20%;">Transport</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;width:20%;">Airport Tax</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;width:20%;">Accomodation</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;width:13%;">Others</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -551,12 +606,12 @@
                     <table class="table table-head-fixed text-nowrap table-striped tableBrf">
                       <thead>
                         <tr>
-                          <td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;width:7%;"></td>
-                          <td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;width:20%;" id="valAllowance"></td>
-                          <td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;width:20%;" id="valTransport"></td>
-                          <td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;width:20%;" id="valAirportTax"></td>
-                          <td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;width:20%;" id="valAccomodation"></td>
-                          <td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;width:13%;" id="valOthers"></td>
+                          <td style="border:1px solid #e9ecef;width:7%;"></td>
+                          <td style="border:1px solid #e9ecef;width:20%;" id="valAllowance"></td>
+                          <td style="border:1px solid #e9ecef;width:20%;" id="valTransport"></td>
+                          <td style="border:1px solid #e9ecef;width:20%;" id="valAirportTax"></td>
+                          <td style="border:1px solid #e9ecef;width:20%;" id="valAccomodation"></td>
+                          <td style="border:1px solid #e9ecef;width:13%;" id="valOthers"></td>
                         </tr>
                       </thead>
                     </table>
