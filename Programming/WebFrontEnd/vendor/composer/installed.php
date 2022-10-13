@@ -428,9 +428,9 @@
             'dev_requirement' => false,
         ),
         'league/flysystem' => array(
-            'pretty_version' => '3.5.2',
-            'version' => '3.5.2.0',
-            'reference' => 'c73c4eb31f2e883b3897ab5591aa2dbc48112433',
+            'pretty_version' => '3.6.0',
+            'version' => '3.6.0.0',
+            'reference' => '8eded334b9894dc90ebdcb7be81e3a1c9413f709',
             'type' => 'library',
             'install_path' => __DIR__ . '/../league/flysystem',
             'aliases' => array(),
