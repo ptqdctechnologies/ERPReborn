@@ -4,25 +4,27 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataList\master             |
-|                 \getCitizenIdentity\v1                                                                                           |
-| ▪ API Key     : transaction.read.dataList.master.getCitizenIdentity                                                              |
+|                 \getCountryAdministrativeAreaLevel1\v1                                                                           |
+| ▪ API Key     : transaction.read.dataList.master.getCountryAdministrativeAreaLevel1                                              |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataList\master\getCitizenIdentity\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataList\master\getCountryAdministrativeAreaLevel1\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataList.master.getCitizenIdentity.v1_throughAPIGateway            |
-        |                     ► http://172.28.0.4/transaction.read.dataList.master.getCitizenIdentity.v1_throughAPIGateway         |
+        | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
+        |                     transaction.read.dataList.master.getCountryAdministrativeAreaLevel1.v1_throughAPIGateway             |
+        |                     ► http://172.28.0.4/                                                                                 |
+        |                       transaction.read.dataList.master.getCountryAdministrativeAreaLevel1.v1_throughAPIGateway           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-10-13                                                                                           |
-        | ▪ Creation Date   : 2022-10-13                                                                                           |
+        | ▪ Last Update     : 2022-10-11                                                                                           |
+        | ▪ Creation Date   : 2022-10-11                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
@@ -35,10 +37,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'transaction.read.dataList.master.getCitizenIdentity', 
+                'transaction.read.dataList.master.getCountryAdministrativeAreaLevel1', 
                 'latest', 
                 [
-                'parameter' => null,
+                'parameter' => [
+                    'country_RefID' => 20000000000078
+                    ],
                 'SQLStatement' => [
                     'pick' => null,
                     'sort' => null,
@@ -53,12 +57,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataList.master.getCitizenIdentity.v1_throughAPIGatewayJQuery      |
-        |                     ► http://172.28.0.4/transaction.read.dataList.master.getCitizenIdentity.v1_throughAPIGatewayJQuery   |
+        | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
+        |                     transaction.read.dataList.master.getCountryAdministrativeAreaLevel1.v1_throughAPIGatewayJQuery       |
+        |                     ► http://172.28.0.4/                                                                                 |
+        |                       transaction.read.dataList.master.getCountryAdministrativeAreaLevel1.v1_throughAPIGatewayJQuery     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-10-13                                                                                           |
-        | ▪ Creation Date   : 2022-10-13                                                                                           |
+        | ▪ Last Update     : 2022-10-11                                                                                           |
+        | ▪ Creation Date   : 2022-10-11                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGatewayJQuery($varAPIWebToken)
@@ -71,6 +77,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<table border="1" style="border-collapse: collapse;">';
             echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Parameter</p></td></tr>';
+            echo '<tr><td>Country&nbsp;RefID</td><td><input type="text" id="dataInput_Country_RefID" value=20000000000078></td></tr>';
             echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
             echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
             echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
@@ -80,10 +87,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
-                'transaction.read.dataList.master.getCitizenIdentity', 
+                'transaction.read.dataList.master.getCountryAdministrativeAreaLevel1', 
                 'latest', 
                 '{'.
-                    '"parameter" : null, '.
+                    '"parameter" : {'.
+                        '"country_RefID" : parseInt(document.getElementById("dataInput_Country_RefID").value), '.
+                        '}, '.
                     '"SQLStatement" : {'.
                         '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
                         '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.

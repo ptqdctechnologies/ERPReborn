@@ -21,8 +21,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.read.dataList.master.getBusinessDocumentVersion.v1_throughAPIGateway |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-13                                                                                           |
-        | ▪ Creation Date   : 2022-09-13                                                                                           |
+        | ▪ Last Update     : 2022-10-13                                                                                           |
+        | ▪ Creation Date   : 2022-10-13                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
@@ -61,8 +61,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                       transaction.read.dataList.master.getBusinessDocumentVersion.v1_throughAPIGatewayJQuery             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-13                                                                                           |
-        | ▪ Creation Date   : 2022-09-13                                                                                           |
+        | ▪ Last Update     : 2022-10-13                                                                                           |
+        | ▪ Creation Date   : 2022-10-13                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGatewayJQuery($varAPIWebToken)
