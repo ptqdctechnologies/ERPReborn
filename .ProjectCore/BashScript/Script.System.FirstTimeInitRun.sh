@@ -18,13 +18,13 @@ clear;
 ./BashScript/Script.Docker.Reinitializing.LaravelFolderOwnership.sh;
 ./BashScript/Script.Laravel.ComposerUpdate.sh;
 
-./BashScript/Script.Docker.BuildPermanentStorage.Grafana.sh;
+./BashScript/Script.Docker.BuildPermanentStorage.PostgreSQL.sh;
 ./BashScript/Script.Docker.BuildPermanentStorage.LocalStorage.sh;
 ./BashScript/Script.Docker.BuildPermanentStorage.MinIO.sh;
-./BashScript/Script.Docker.BuildPermanentStorage.PostgreSQL.sh;
 ./BashScript/Script.Docker.BuildPermanentStorage.PHPApacheBackEnd.sh;
 ./BashScript/Script.Docker.BuildPermanentStorage.Samba.sh;
 ./BashScript/Script.Docker.BuildPermanentStorage.OpenProject.sh;
+./BashScript/Script.Docker.BuildPermanentStorage.Grafana.sh;
 
 ./BashScript/Script.Docker.BuildTemporaryStorage.PostgreSQL.sh;
 ./BashScript/Script.Docker.BuildTemporaryStorage.OpenProject.sh;
@@ -37,6 +37,7 @@ clear;
 ./BashScript/Script.Docker.BuildImage.Samba.sh;
 ./BashScript/Script.Docker.BuildImage.PHPApacheBackEnd.sh;
 ./BashScript/Script.Docker.BuildImage.PHPApacheFrontEnd.sh;
+./BashScript/Script.Docker.BuildImage.Grafana.sh;
 ./BashScript/Script.Docker.BuildImage.PGAdmin4.sh;
 ./BashScript/Script.Docker.BuildImage.OpenProject.sh;
 
