@@ -124,7 +124,9 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
         |      ▪ (int)    varAdvance_RefID ► Advance Reference ID                                                                  |
+        |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -173,6 +175,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -214,6 +217,55 @@ namespace App\Models\Database\SchData_OLTP_Finance
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_InvoiceSupplierBillingPurpose                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2022-04-21                                                                                           |
+        | ▪ Creation Date   : 2022-04-14                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Tujuan Penagihan Invoice Pemasok                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_InvoiceSupplierBillingPurpose(
+            $varUserSession, int $varSysBranch_RefID, 
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-Finance.Func_GetDataList_InvoiceSupplierBillingPurpose',
+                        [
+                            [null, 'bigint'],
+                            [$varSysBranch_RefID, 'bigint' ],
+                            [$varPickStatement, 'varchar'],
+                            [$varSortStatement, 'varchar'],
+                            [$varFilterStatement, 'varchar'],
+                            [$varPagingStatement, 'varchar']
+                        ]
+                        )
+                    );                
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataPickList_Advance                                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -237,6 +289,44 @@ namespace App\Models\Database\SchData_OLTP_Finance
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
                         'SchData-OLTP-Finance.Func_GetDataPickList_Advance',
+                        [
+                            [$varSysBranch_RefID, 'bigint' ]
+                        ]
+                        )
+                    );
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_InvoiceSupplierBillingPurpose                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-04-14                                                                                           |
+        | ▪ Creation Date   : 2022-04-14                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Tujuan Penagihan Invoice Pemasok                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_InvoiceSupplierBillingPurpose(
+            $varUserSession, int $varSysBranch_RefID)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-SupplyChain.Func_GetDataPickList_InvoiceSupplierBillingPurpose',
                         [
                             [$varSysBranch_RefID, 'bigint' ]
                         ]
