@@ -8,15 +8,15 @@
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Models\Database\SchData_OLTP_SupplyChain
+namespace App\Models\Database\SchData_OLTP_Finance
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblSupplierInvoiceBillingPurpose                                                                             |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-SupplyChain ► TblSupplierInvoiceBillingPurpose                      |
+    | ▪ Class Name  : TblInvoiceSupplierBillingPurpose                                                                             |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Finance ► TblInvoiceSupplierBillingPurpose                          |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblSupplierInvoiceBillingPurpose extends \App\Models\Database\DefaultClassPrototype
+    class TblInvoiceSupplierBillingPurpose extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

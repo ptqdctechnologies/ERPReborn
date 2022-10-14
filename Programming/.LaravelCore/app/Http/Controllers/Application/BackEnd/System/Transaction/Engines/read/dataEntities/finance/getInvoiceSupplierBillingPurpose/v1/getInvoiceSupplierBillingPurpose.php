@@ -3,21 +3,21 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\supplyChain                |
-|                \getSupplierInvoiceBillingPurpose\v1                                                                              |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\finance                    |
+|                \getInvoiceSupplierBillingPurpose\v1                                                                              |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\supplyChain\getSupplierInvoiceBillingPurpose\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\finance\getInvoiceSupplierBillingPurpose\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getSupplierInvoiceBillingPurpose                                                                             |
-    | ▪ Description : Menangani API transaction.read.dataEntities.supplyChain.getSupplierInvoiceBillingPurpose Version 1           |
+    | ▪ Class Name  : getInvoiceSupplierBillingPurpose                                                                             |
+    | ▪ Description : Menangani API transaction.read.dataEntities.finance.getInvoiceSupplierBillingPurpose Version 1               |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getSupplierInvoiceBillingPurpose extends \App\Http\Controllers\Controller
+    class getInvoiceSupplierBillingPurpose extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -63,7 +63,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_SupplyChain\TblSupplierInvoiceBillingPurpose())->getDataEntities(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\TblInvoiceSupplierBillingPurpose())->getDataEntities(
                             $varUserSession, 
                             
                             $varData['parameter']['recordIDSet'],

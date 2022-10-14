@@ -3,21 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\supplyChain                                 |
-|                \getSupplierInvoiceBillingPurpose\v1                                                                              |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\finance\getInvoiceSupplierBillingPurpose\v1 |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\supplyChain\getSupplierInvoiceBillingPurpose\v1
+namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\finance\getInvoiceSupplierBillingPurpose\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getSupplierInvoiceBillingPurpose                                                                             |
-    | ▪ Description : Menangani API dataPickList.supplyChain.getSupplierInvoiceBillingPurpose Version 1                            |
+    | ▪ Class Name  : getInvoiceSupplierBillingPurpose                                                                             |
+    | ▪ Description : Menangani API dataPickList.finance.getInvoiceSupplierBillingPurpose Version 1                                |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getSupplierInvoiceBillingPurpose extends \App\Http\Controllers\Controller
+    class getInvoiceSupplierBillingPurpose extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -63,7 +62,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\s
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_SupplyChain\General())->getDataPickList_SupplierInvoiceBillingPurpose(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\General())->getDataPickList_InvoiceSupplierBillingPurpose(
                             $varUserSession, 
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID']
                             ))))

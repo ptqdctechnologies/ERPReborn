@@ -326,7 +326,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        'SchData-OLTP-SupplyChain.Func_GetDataPickList_InvoiceSupplierBillingPurpose',
+                        'SchData-OLTP-Finance.Func_GetDataPickList_InvoiceSupplierBillingPurpose',
                         [
                             [$varSysBranch_RefID, 'bigint' ]
                         ]

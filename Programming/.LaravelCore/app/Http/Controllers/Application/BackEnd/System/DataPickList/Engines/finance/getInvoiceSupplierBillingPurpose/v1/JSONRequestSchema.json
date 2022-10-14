@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.read.dataEntities.supplyChain.getSupplierInvoiceBillingPurpose (version 1)",
+"description": "JSON Request Schema of dataPickList.finance.getInvoiceSupplierBillingPurpose (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.read.dataEntities.supplyChain.getSupplierInvoiceBillingPurpose" ]
+                        "enum": [ "dataPickList.finance.getInvoiceSupplierBillingPurpose" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -28,17 +28,8 @@
         "type": "object",
         "properties": {
             "parameter": {
-                "type": "object",
-                "properties": {
-                    "recordIDSet": {
-                        "type": [ "string" ],
-                        "format": "string",
-                        "pattern": "^([{]\\s*([0-9]{0,})((\\s*[,]\\s*[0-9]{1,}){0,})\\s*[}])$",
-                        "minLength": 2
-                        }
-                    },
-                "required": [ "recordIDSet" ]
-                }
+                "additionalProperties": false
+                }    
             },
         "required": [ "parameter" ]
         }
