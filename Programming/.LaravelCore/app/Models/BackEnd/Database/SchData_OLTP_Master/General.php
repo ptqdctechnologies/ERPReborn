@@ -257,14 +257,16 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataList_BankAccount                                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-11-26                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2022-10-14                                                                                           |
         | ▪ Creation Date   : 2021-11-26                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Akun Bank                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varBank_RefID ► Bank Reference ID                                                                        |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -276,6 +278,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         */
         public function getDataList_BankAccount(
             $varUserSession, int $varBranchID, 
+            int $varBank_RefID = null, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -286,6 +289,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                         'SchData-OLTP-Master.Func_GetDataList_BankAccount',
                         [
                             [$varBranchID, 'bigint' ],
+                            
+                            [$varBank_RefID, 'bigint' ],
                             
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
@@ -327,7 +332,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         */
         public function getDataList_BankBranch(
             $varUserSession, int $varBranchID, 
-            int $varBank_RefID = null,
+            int $varBank_RefID = null, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -1776,12 +1781,15 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varBank_RefID ► Bank Reference ID                                                                        |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_BankAccount(
-            $varUserSession, int $varBranchID)
+            $varUserSession, int $varBranchID, 
+            int $varBank_RefID = null)
             {
             try {
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1790,7 +1798,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                         $varUserSession,
                         'SchData-OLTP-Master.Func_GetDataPickList_BankAccount',
                         [
-                            [$varBranchID, 'bigint' ]
+                            [$varBranchID, 'bigint' ],
+                            [$varBank_RefID, 'bigint' ]
                         ]
                         )
                     );
@@ -1814,12 +1823,15 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varBank_RefID ► Bank Reference ID                                                                        |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_BankBranch(
-            $varUserSession, int $varBranchID)
+            $varUserSession, int $varBranchID, 
+            int $varBank_RefID = null)
             {
             try {
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1828,7 +1840,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                         $varUserSession,
                         'SchData-OLTP-Master.Func_GetDataPickList_BankBranch',
                         [
-                            [$varBranchID, 'bigint' ]
+                            [$varBranchID, 'bigint' ],
+                            [$varBank_RefID, 'bigint' ]
                         ]
                         )
                     );

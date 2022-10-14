@@ -38,6 +38,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
                 'latest',
                 [
                 'parameter' => [
+                    'bank_RefID' => 166000000000001
                     ]
                 ]
                 );
