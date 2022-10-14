@@ -144,7 +144,7 @@
                             &nbsp;<input id="putProductId" style="border-radius:0;" class="form-control" readonly>
                             <div class="input-group-append">
                               <span style="border-radius:0;" class="input-group-text form-control">
-                                <a href="#" id="product_id2" data-toggle="modal" data-target="#myProductArf"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                <a href="#" id="product_id2" data-toggle="modal" data-target="#myProduct"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                               </span>
                             </div>
                           </div>
