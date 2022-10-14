@@ -143,7 +143,7 @@
                             &nbsp;<input id="putProductId" style="border-radius:0;" name="putProductId" class="form-control" readonly>
                             <div class="input-group-append">
                               <span style="border-radius:0;" class="input-group-text form-control">
-                                <a id="product_id2" data-toggle="modal" data-target="#myProductArf"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                <a id="product_id2" data-toggle="modal" data-target="#myProduct"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                               </span>
                             </div>
                           </div>
@@ -185,7 +185,7 @@
                       </tbody>
                     </table><br>
                     <div style="padding-right:10px;">
-                      <a class="btn btn-default btn-sm float-right" id="CancelDetailArfRevision" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                      <a class="btn btn-default btn-sm float-right" onclick="CancelDetailArfRevision()" id="CancelDetailArfRevision" style="background-color:#e9ecef;border:1px solid #ced4da;">
                         <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel to Add Advance List Cart"> Cancel
                       </a>
                       <a class="btn btn-default btn-sm float-right" onclick="addFromDetailtoCartJs();" id="addFromDetailtoCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
@@ -212,7 +212,7 @@
                   </div>
 
                   <div class="card-body table-responsive p-0" style="height: 180px;" id="detailArfList">
-                    <table class="table table-head-fixed table-sm text-nowrap TableAdvance">
+                    <table class="table table-head-fixed table-sm text-nowrap TableAdvance" id="TableAdvance">
                       <thead>
                         <tr>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Action</th>

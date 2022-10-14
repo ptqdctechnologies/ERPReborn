@@ -47,17 +47,15 @@
   var varTotalBrf = 0;
   var y = 0;
 
-  $('#AddToBrfListCart').click(function(ev) {
-    ev.preventDefault();
-    ev.stopPropagation();
-    var varBudgetRequest = $('#budgetRequest').val();
+  function addFromDetailtoCartJs() {
+    var varBudgetRequest = $('#budgetRequest').val().replace(/,/g, '');
     var varSequenceReq = $('#sequenceRequest').val();
     var varSequence = $('#sequence').val();
-    var varAllowance = $('#allowance').val();
-    var varTransport = $('#transport').val();
-    var varAirport_tax = $('#airport_tax').val();
-    var varAccomodation = $('#accomodation').val();
-    var varOther = $('#other').val();
+    var varAllowance = $('#allowance').val().replace(/,/g, '');
+    var varTransport = $('#transport').val().replace(/,/g, '');
+    var varAirport_tax = $('#airport_tax').val().replace(/,/g, '');
+    var varAccomodation = $('#accomodation').val().replace(/,/g, '');
+    var varOther = $('#other').val().replace(/,/g, '');
     if (varSequence > varSequenceReq) {
       Swal.fire("Error !", "Total Sequence more than Sequence Request", "error");
     } else {
@@ -157,7 +155,7 @@
     $('#airport_tax').val("");
     $("#accomodation").val("");
     $("#other ").val("");
-  });
+  }
 </script>
 
 <script type="text/javascript">
@@ -223,18 +221,22 @@
       success: function(data) {
         var no = 1;
         $.each(data, function(key, val2) {
-          let applied = Math.round(val2.quantityRemainRatio * 100);
-          console.log(applied);
+          if(val2.quantityAbsorption == "0.00" && val2.quantity == "0.00"){
+              var applied = 0;
+          }
+          else{
+              var applied = Math.round(parseFloat(val2.quantityAbsorption) / parseFloat(val2.quantity) * 100);
+          }
           var status = "";
-          if (applied == 100) {
-            var status = "disabled";
+          if(applied >= 100){
+              var status = "disabled";
           }
           var html = '<tr>' +
             '<td style="border:1px solid #e9ecef;width:5%;">' +
-            '&nbsp;&nbsp;<button type="reset" ' + status + ' class="btn btn-sm klikBudgetDetail" data-id1="' + val2.product_RefID + '" data-id2="' + val2.quantityRemain + '" data-id3="' + val2.unitPriceBaseCurrencyValue + '" data-id4="' + val2.sys_ID + '" data-id5="' + val2.productName + '" data-id6="' + val2.quantityUnitName + '" data-id7="' + val2.priceBaseCurrencyISOCode + '" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="15" alt="" title="Add to Detail"></button>' +
+            '&nbsp;&nbsp;<button type="reset" ' + status + ' class="btn btn-sm klikBudgetDetail klikBudgetDetail2' + status + '" data-id1="' + val2.product_RefID + '" data-id2="' + val2.quantityRemain + '" data-id3="' + val2.unitPriceBaseCurrencyValue + '" data-id4="' + val2.sys_ID + '" data-id5="' + val2.productName + '" data-id6="' + val2.quantityUnitName + '" data-id7="' + val2.priceBaseCurrencyISOCode + '" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="15" alt="" title="Add to Detail"></button>' +
             '</td>' +
             '<td style="border:1px solid #e9ecef;">' +
-            '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"> @if(' + applied + ' >= ' + 0 + ' && ' + applied + ' <= ' + 40 + ')<div class="progress-bar bg-red" style="width:' + applied + '%;"></div> @elseif(' + applied + ' >= ' + 41 + ' && ' + applied + ' <= ' + 89 + ')<div class="progress-bar bg-blue" style="width:' + applied + '%;"></div> @elseif(' + applied + ' >= ' + 90 + ' && ' + applied + ' <= ' + 100 + ')<div class="progress-bar bg-green" style="width:' + applied + '%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>' + applied + ' %</center></small>' +
+            '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"> @if('+ applied +' >= '+0+' && '+ applied +' <= '+40+')<div class="progress-bar bg-red" style="width:'+ applied +'%;"></div> @elseif('+ applied +' >= '+41+' && '+ applied +' <= '+89+')<div class="progress-bar bg-blue" style="width:'+ applied +'%;"></div> @elseif('+ applied + ' >= '+ 90 +' && ' + applied + ' <= '+ 100 +')<div class="progress-bar bg-green" style="width:'+ applied +'%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>'+ applied +' %</center></small>' +
             '</td>' +
             '<td style="border:1px solid #e9ecef;">' + '<span id="getWorkId">' + val2.combinedBudgetSubSectionLevel1_RefID + '</span>' + '</td>' +
             '<td style="border:1px solid #e9ecef;">' + '<span id="getWorkName">' + val2.combinedBudgetSubSectionLevel2Name + '</span>' + '</td>' +
@@ -287,6 +289,7 @@
           $("#totalBalance").val(parseFloat(qty * price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
           $("#combinedBudget").val(combinedBudget);
           $("#brfhide1").show();
+          $(".klikBudgetDetail2").prop("disabled", true);
         });
       }
     });
@@ -310,8 +313,7 @@
       $("#qoutedFare").val("");
     }
 
-    function UpdateFormTransportDetails() {  
-      $(".FormTransportDetails").hide();
+    function UpdateFormTransportDetails() {
 
       var transportType = $("#transportType").val();
       var transportBooking = $("#transportBooking").val();
@@ -319,31 +321,68 @@
       var dateArrival = $("#dateArrival").val();
       var qoutedFare = $("#qoutedFare").val();
 
-      var html = '<tr>' +
-          '<td style="border:1px solid #e9ecef;width:10px;">' +
-          '&nbsp;<button type="button" class="btn btn-xs" onclick="RemoveAdvance(this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
-          '<input type="hidden" name="transportType[]" value="' + transportType + '">' +
-          '<input type="hidden" name="transportBooking[]" value="' + transportBooking + '">' +
-          '<input type="hidden" name="dateDepart[]" value="' + dateDepart + '">' +
-          '<input type="hidden" name="dateArrival[]" value="' + dateArrival + '">' +
-          '<input type="hidden" name="qoutedFare[]" value="' + qoutedFare + '">' +
-          '</td>' +
-          '<td style="border:1px solid #e9ecef;">' + transportType + '</td>' +
-          '<td style="border:1px solid #e9ecef;">' + transportBooking + '</td>' +
-          '<td style="border:1px solid #e9ecef;">' + dateDepart + '</td>' +
-          '<td style="border:1px solid #e9ecef;">' + dateArrival + '</td>' +
-          '<td style="border:1px solid #e9ecef;">' + qoutedFare + '</td>' +
-          '</tr>';
+      if (transportType === "") {
+          $("#transportType").focus();
+          $("#transportType").attr('required', true);
+          $("#transportType").css("border", "1px solid red");
+      }else if (transportBooking === "") {
+          $("#transportBooking").focus();
+          $("#transportBooking").attr('required', true);
+          $("#transportBooking").css("border", "1px solid red");
+          $("#transportType").css("border", "1px solid #ced4da");
+      }else if (dateDepart === "") {
+          $("#dateDepart").focus();
+          $("#dateDepart").attr('required', true);
+          $("#dateDepart").css("border", "1px solid red");
+          $("#transportBooking").css("border", "1px solid #ced4da");
+      }else if (dateArrival === "") {
+          $("#dateArrival").focus();
+          $("#dateArrival").attr('required', true);
+          $("#dateArrival").css("border", "1px solid red");
+          $("#dateDepart").css("border", "1px solid #ced4da");
+      }else if (qoutedFare === "") {
+          $("#qoutedFare").focus();
+          $("#qoutedFare").attr('required', true);
+          $("#qoutedFare").css("border", "1px solid red");
+          $("#dateArrival").css("border", "1px solid #ced4da");
+      }
+      else {
+        $("#transportType").css("border", "1px solid #ced4da");
+        $("#transportBooking").css("border", "1px solid #ced4da");
+        $("#dateDepart").css("border", "1px solid #ced4da");
+        $("#dateArrival").css("border", "1px solid #ced4da");
+        $("#qoutedFare").css("border", "1px solid #ced4da");
+        $(".FormTransportDetails").hide();
+        var html = '<tr>' +
+            '<td style="border:1px solid #e9ecef;width:10px;">' +
+            '&nbsp;<button type="button" class="btn btn-xs" onclick="RemoveTransportDetails(this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+            '<input type="hidden" name="transportType[]" value="' + transportType + '">' +
+            '<input type="hidden" name="transportBooking[]" value="' + transportBooking + '">' +
+            '<input type="hidden" name="dateDepart[]" value="' + dateDepart + '">' +
+            '<input type="hidden" name="dateArrival[]" value="' + dateArrival + '">' +
+            '<input type="hidden" name="qoutedFare[]" value="' + qoutedFare + '">' +
+            '</td>' +
+            '<td style="border:1px solid #e9ecef;">' + transportType + '</td>' +
+            '<td style="border:1px solid #e9ecef;">' + transportBooking + '</td>' +
+            '<td style="border:1px solid #e9ecef;">' + dateDepart + '</td>' +
+            '<td style="border:1px solid #e9ecef;">' + dateArrival + '</td>' +
+            '<td style="border:1px solid #e9ecef;">' + qoutedFare + '</td>' +
+            '</tr>';
 
-        $('table.TableTransportDetails tbody').append(html);
-        
-      $("#transportType").val("");
-      $("#transportBooking").val("");
-      $("#dateDepart").val("");
-      $("#dateArrival").val("");
-      $("#qoutedFare").val("");
+          $('table.TableTransportDetails tbody').append(html);
+          
+        $("#transportType").val("");
+        $("#transportBooking").val("");
+        $("#dateDepart").val("");
+        $("#dateArrival").val("");
+        $("#qoutedFare").val("");
+      }
     }
 
+    function RemoveTransportDetails(tr) {
+        var i = tr.parentNode.parentNode.rowIndex;
+        document.getElementById("TableTransportDetails").deleteRow(i);
+    }
 </script>
 
 <script>
