@@ -69,6 +69,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                             $varUserSession, 
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
                             $varData['parameter']['countryAdministrativeAreaLevel1_RefID'], 
+                            
                             $varData['SQLStatement']['pick'], 
                             $varData['SQLStatement']['sort'], 
                             $varData['SQLStatement']['filter'], 

@@ -1,7 +1,7 @@
 #----------------------------------------------------------------------------------------------------
 # ▪ Nama               : Script.Docker.BuildImage.Grafana.sh
 # ▪ Versi              : 1.00.0000
-# ▪ Tanggal            : 2020-09-25
+# ▪ Tanggal            : 2022-10-14
 # ▪ Input              : -
 # ▪ Output             : -
 # ▪ Deskripsi          : Script ini digunakan untuk menarik Image Grafana didalam Docker
@@ -15,3 +15,4 @@
 clear;
 
 sudo docker pull grafana/grafana;
+sudo docker build --file ./.ProjectCore/Configuration/Docker/Grafana/Dockerfile -t erp-reborn-grafana .;

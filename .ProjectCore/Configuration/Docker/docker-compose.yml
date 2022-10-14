@@ -205,7 +205,7 @@ services:
   #---> Services : Grafana
   grafana:
     container_name: 'grafana'
-    image: 'grafana/grafana:latest'
+    image: 'erp-reborn-grafana:latest'
     depends_on:
       - 'db-postgresql'
       - 'minio-node01'

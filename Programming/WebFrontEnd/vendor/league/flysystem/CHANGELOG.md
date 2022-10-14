@@ -1,5 +1,23 @@
 # Changelog
 
+## 3.6.0 - 2022-10-13
+
+### Added
+
+- [Filesystem] Added public url method
+- [AWS S3] Added public url method
+- [Async S3] Added public url method
+- [GCS] Added public url method
+- [WebDAV] Added public url method
+- [ReadOnly] Added public url method
+- [PathPrefixing] Added public url method
+
+## 3.5.3 - 2022-09-23
+
+### Fixed
+
+- [SFTP] Account for missing "type" field in metadata result.
+
 ## 3.5.2 - 2022-09-23
 
 ### Fixed

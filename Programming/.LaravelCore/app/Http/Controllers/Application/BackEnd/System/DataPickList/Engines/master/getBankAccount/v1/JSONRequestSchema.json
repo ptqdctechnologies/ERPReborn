@@ -28,8 +28,20 @@
         "type": "object",
         "properties": {
             "parameter": {
-                "additionalProperties": false
-                }    
+                "anyOf": [
+                        {"type": "null"},
+                        {
+                        "type": "object",
+                        "properties": {
+                            "bank_RefID": {
+                                "type": [ "integer", "null" ],
+                                "minimum": 1,
+                                "maximum": 9223372036854775807
+                                }
+                            },
+                        "required": [ "bank_RefID" ]
+                        }
+                    ]                }    
             },
         "required": [ "parameter" ]
         }
