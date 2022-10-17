@@ -317,7 +317,7 @@ final class DotenvTest extends TestCase
         self::assertSame('secret!@#', \getenv('SPVAR8'));
     }
 
-    public function testMutlilineLoading()
+    public function testMultilineLoading()
     {
         $dotenv = Dotenv::createUnsafeMutable(self::$folder, 'multiline.env');
         $dotenv->load();
@@ -333,6 +333,14 @@ final class DotenvTest extends TestCase
     {
         $dotenv = Dotenv::createImmutable(self::$folder, 'empty.env');
         self::assertSame(['EMPTY_VAR' => null], $dotenv->load());
+    }
+
+    public function testUnicodeVarNames()
+    {
+        $dotenv = Dotenv::createImmutable(self::$folder, 'unicodevarnames.env');
+        $dotenv->load();
+        self::assertSame('Skybert', $_SERVER['AlbertÅberg']);
+        self::assertSame('2022-04-01T00:00', $_SERVER['ДатаЗакрытияРасчетногоПериода']);
     }
 
     public function testDirectConstructor()
