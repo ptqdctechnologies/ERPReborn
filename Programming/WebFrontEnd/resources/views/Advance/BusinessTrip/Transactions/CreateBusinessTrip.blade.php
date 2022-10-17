@@ -445,7 +445,7 @@
                                   <input name="putProductId" id="putProductId" style="border-radius:0;" type="text" class="form-control" readonly>
                                   <div class="input-group-append">
                                     <span style="border-radius:0;" class="input-group-text form-control">
-                                      <a href="#"><i data-toggle="modal" data-target="#myProduct" class="fas fa-gift" style="color:grey;"></i></a>
+                                      <a href="#"><i data-toggle="modal" id="putProductId2" data-target="#myProduct" class="fas fa-gift" style="color:grey;"></i></a>
                                     </span>
                                   </div>
                                 </div>
@@ -469,6 +469,7 @@
                               <td>
                                 <div class="input-group">
                                   <input id="budgetRequest" name="budgetRequest" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                                  <input id="totalBalance" name="totalBalance" style="border-radius:0;" type="hidden" class="form-control">
                                 </div>
                               </td>
                             </tr>
@@ -488,7 +489,7 @@
                               <td><label>Sequence</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="sequence" style="border-radius:0;border:none;background-color:white;font-weight:bold;" value="1" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" readonly>
+                                  <input id="sequence" style="border-radius:0;border:none;background-color:white;font-weight:bold;" value="1" type="text" class="form-control" readonly>
                                 </div>
                               </td>
                             </tr>
@@ -496,22 +497,16 @@
                               <td><label>Allowance</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="allowance" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                                  <input id="allowance" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" value="0.00">
                                 </div>
-                              </td>
-                              <td>
-                                <div id="iconAllowance" style="color: red;margin-left:5px;"></div>
                               </td>
                             </tr>
                             <tr>
                               <td><label>Transport</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="transport" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                                  <input id="transport" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" value="0.00">
                                 </div>
-                              </td>
-                              <td>
-                                <div id="iconTransport" style="color: red;margin-left:5px;"></div>
                               </td>
                             </tr>
                           </table>
@@ -525,22 +520,16 @@
                               <td><label>Airport Tax</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="airport_tax" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                                  <input id="airport_tax" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" value="0.00">
                                 </div>
-                              </td>
-                              <td>
-                                <div id="iconAirportTax" style="color: red;margin-left:5px;"></div>
                               </td>
                             </tr>
                             <tr>
                               <td><label>Accomodation</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="accomodation" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                                  <input id="accomodation" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" value="0.00">
                                 </div>
-                              </td>
-                              <td>
-                                <div id="iconAccomodation" style="color: red;margin-left:5px;"></div>
                               </td>
                             </tr>
                           </table>
@@ -554,16 +543,21 @@
                               <td><label>Other</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="other" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                                  <input id="other" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" value="0.00">
                                 </div>
-                              </td>
-                              <td>
-                                <div id="iconOther" style="color: red;margin-left:5px;"></div>
                               </td>
                             </tr>
                           </table>
+
+                        <input id="statusEditBrf" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
+                        <input id="ValidateAllowance" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                        <input id="ValidateTransport" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                        <input id="ValidateAirportTax" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                        <input id="ValidateAccomodation" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                        <input id="ValidateOther" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+
                           <div style="padding-right:10px;padding-top:10px;">
-                            <a class="btn btn-default btn-sm float-right CancelDetailBrf" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
+                            <a class="btn btn-default btn-sm float-right" onclick="CancelDetailBrf();" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
                               <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel to Add Advance List Cart"> Cancel
                             </a>
                             <a class="btn btn-default btn-sm float-right" onclick="addFromDetailtoCartJs();" id="AddToBrfListCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
@@ -591,7 +585,7 @@
                     </div>
                   </div>
                   <div class="card-body table-responsive p-0 brfhide6" style="height: 180px;">
-                    <table class="table table-head-fixed text-nowrap table-striped tableBrf">
+                    <table class="table table-head-fixed text-nowrap table-striped tableBrf" id="tableBrf">
                       <thead>
                         <tr>
                           <th style="border:1px solid #e9ecef;text-align: center;width:7%;">Action</th>
