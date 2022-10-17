@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 3.238.5 - 2022-10-14
+
+* `Aws\MediaConvert` - MediaConvert now supports specifying the minimum percentage of the HRD buffer available at the end of each encoded video segment.
+
 ## 3.238.4 - 2022-10-13
 
 * `Aws\AmplifyUIBuilder` - We are releasing the ability for fields to be configured as arrays.

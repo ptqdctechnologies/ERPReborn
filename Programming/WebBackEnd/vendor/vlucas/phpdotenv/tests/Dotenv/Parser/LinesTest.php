@@ -45,34 +45,9 @@ final class LinesTest extends TestCase
             'TEST_NS=\'test\\ntest\'',
             'TEST_EQD="https://vision.googleapis.com/v1/images:annotate?key="',
             'TEST_EQS=\'https://vision.googleapis.com/v1/images:annotate?key=\'',
+            "BASE64_ENCODED_MULTILINE=\"qS1zCzMVVUJWQShokv6YVYi+ruKSC/bHV7GmEiyVkLaBWJHNVHCHsgTksEBsy8wJ\nuwycAvR07ZyOJJed4XTRMKnKp1/v+6UATpWzkIjZXytK+pD+XlZimUHTx3uiDcmU\njhQX1wWSxHDqrSWxeIJiTD+BuUyId8FzmXQ3TcBydJ474tmOU2F492ubk3LAiZ18\nmhiRGoshXAOSbS/P3+RZi4bDeNE/No4=\"",
         ];
 
         self::assertSame($expected, Lines::process($result->success()->get()));
-    }
-
-    public function testProcessClosingSlash()
-    {
-        $lines = [
-            'SPVAR5="test some escaped characters like a quote \" or maybe a backslash \\" # not escaped',
-        ];
-
-        $expected = [
-            'SPVAR5="test some escaped characters like a quote \" or maybe a backslash \\" # not escaped',
-        ];
-
-        self::assertSame($expected, $lines);
-    }
-
-    public function testProcessBadQuotes()
-    {
-        $lines = [
-            "TEST=\"erert\nTEST='erert\n",
-        ];
-
-        $expected = [
-            "TEST=\"erert\nTEST='erert\n",
-        ];
-
-        self::assertSame($expected, $lines);
     }
 }
