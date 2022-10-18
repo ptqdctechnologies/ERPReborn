@@ -469,6 +469,7 @@
                               <td>
                                 <div class="input-group">
                                   <input id="budgetRequest" name="budgetRequest" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                                  <input id="budgetRequest2" name="budgetRequest2" style="border-radius:0;" type="hidden" class="form-control">
                                   <input id="totalBalance" name="totalBalance" style="border-radius:0;" type="hidden" class="form-control">
                                 </div>
                               </td>
@@ -497,7 +498,7 @@
                               <td><label>Allowance</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="allowance" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" value="0.00">
+                                  <input id="allowance" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                                 </div>
                               </td>
                             </tr>
@@ -505,7 +506,7 @@
                               <td><label>Transport</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="transport" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" value="0.00">
+                                  <input id="transport" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                                 </div>
                               </td>
                             </tr>
@@ -520,7 +521,7 @@
                               <td><label>Airport Tax</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="airport_tax" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" value="0.00">
+                                  <input id="airport_tax" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                                 </div>
                               </td>
                             </tr>
@@ -528,7 +529,7 @@
                               <td><label>Accomodation</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="accomodation" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" value="0.00">
+                                  <input id="accomodation" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                                 </div>
                               </td>
                             </tr>
@@ -543,7 +544,7 @@
                               <td><label>Other</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="other" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" value="0.00">
+                                  <input id="other" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                                 </div>
                               </td>
                             </tr>
@@ -606,7 +607,7 @@
                     <table class="table table-head-fixed text-nowrap table-striped tableBrf">
                       <thead>
                         <tr>
-                          <td style="border:1px solid #e9ecef;width:7%;"></td>
+                          <th style="border:1px solid #e9ecef;width:7%;">Sub Total</th>
                           <td style="border:1px solid #e9ecef;width:20%;" id="valAllowance"></td>
                           <td style="border:1px solid #e9ecef;width:20%;" id="valTransport"></td>
                           <td style="border:1px solid #e9ecef;width:20%;" id="valAirportTax"></td>

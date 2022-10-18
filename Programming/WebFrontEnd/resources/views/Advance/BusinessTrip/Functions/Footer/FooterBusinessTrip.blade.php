@@ -199,11 +199,6 @@
 
 <script>
   var varTotal = 0;
-  var valAllowance = 0;
-  var valTransport = 0;
-  var valAirportTax = 0;
-  var valAccomodation = 0;
-  var valOthers = 0;
   var varTotalBrf = 0;
   var y = 0;
 
@@ -216,7 +211,6 @@
     var varAirport_tax = $('#airport_tax').val().replace(/,/g, '');
     var varAccomodation = $('#accomodation').val().replace(/,/g, '');
     var varOther = $('#other').val().replace(/,/g, '');
-    
     
     var putProductId = $('#putProductId').val();
 
@@ -235,6 +229,10 @@
     } else {
 
       if (varSequence == varSequenceReq) {
+        // $('#putProductId').val("");
+        // $('#putProductName').val("");
+        // $('#sequenceRequest').val("");
+        $('#budgetRequest').val("");
         $("#saveBrfList").prop("disabled", false);
       }
 
@@ -249,8 +247,12 @@
       $("#sequence").val(varLoop);
 
       var varTotal = +allowance + +transport + +airport_tax + +accomodation + +other;
+      
+      if($("#totalBrf").html() == ""){ $("#totalBrf").html('0'); }
+      var totalsBrf = parseFloat($("#totalBrf").html().replace(/,/g, ''));
+      var totalsBrf2 = parseFloat(+totalsBrf + +varTotal);
 
-      if (parseFloat(varTotal) > parseFloat(varBudgetRequest)) {
+      if (parseFloat(totalsBrf2) > parseFloat(varBudgetRequest)) {
 
         Swal.fire("Error !", "Total Budget more than Budget Request", "error");
         var varLoop = $("#sequence").val() - 1;
@@ -306,13 +308,14 @@
         $("#statusEditBrf").val('No');
         $(".brfhide6").show();
         $(".klikBudgetDetail2").prop("disabled", false);
+        $("#putProductId").css("border", "1px solid #ced4da");
       }
     }
-    $("#allowance").val("0.00");
-    $("#transport").val("0.00");
-    $('#airport_tax').val("0.00");
-    $("#accomodation").val("0.00");
-    $("#other ").val("0.00");
+    $("#allowance").val("");
+    $("#transport").val("");
+    $('#airport_tax').val("");
+    $("#accomodation").val("");
+    $("#other ").val("");
   }
 </script>
 
@@ -357,6 +360,9 @@
       var i = tr.parentNode.parentNode.rowIndex;
         document.getElementById("tableBrf").deleteRow(i);
         
+        var budgetRequest2 = $('#budgetRequest2').val();
+        $('#budgetRequest').val(parseFloat(budgetRequest2).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
         var varSequence = $('#sequence').val();
         $("#sequence").val(varSequence - 1);
 
@@ -569,11 +575,11 @@
 
         $("#putProductId").val("");
         $("#putProductName").val("");
-        $("#allowance").val("0.00");
-        $("#transport").val("0.00");
-        $("#airport_tax").val("0.00");
-        $("#accomodation").val("0.00");
-        $("#other").val("0.00");
+        $("#allowance").val("");
+        $("#transport").val("");
+        $("#airport_tax").val("");
+        $("#accomodation").val("");
+        $("#other").val("");
         // $("#totalBalance").val("");
     }
 </script>
@@ -593,6 +599,7 @@
                 $("#budgetRequest").val(0);
                 $("#budgetRequest").css("border", "1px solid red");
             }  else {
+                $('#budgetRequest2').val(budgetRequest);
                 $("#budgetRequest").css("border", "1px solid #ced4da");
             }
         });
@@ -603,20 +610,65 @@
   $(function() {
     $("#FormSubmitBusinessTrip").on("submit", function(e) { //id of form 
       e.preventDefault();
-      var valRequestName = $("#request_name").val();
-      var valRemark = $("#putRemark").val();
-      $("#request_name").css("border", "1px solid #ced4da");
-      $("#putRemark").css("border", "1px solid #ced4da");
+      var request_name = $("#request_name").val();
+      var jobTitle = $("#jobTitle").val();
+      var department = $("#department").val();
+      var reasonTravel = $("#reasonTravel").val();
+      var dateCommance = $("#dateCommance").val();
+      var dateEnd = $("#dateEnd").val();
+      var headStationLocation = $("#headStationLocation").val();
+      var bussinesLocation = $("#bussinesLocation").val();
+      var contactPhone = $("#contactPhone").val();
 
-      if (valRequestName === "") {
+      $("#request_name").css("border", "1px solid #ced4da");
+      $("#jobTitle").css("border", "1px solid #ced4da");
+      $("#department").css("border", "1px solid #ced4da");
+      $("#reasonTravel").css("border", "1px solid #ced4da");
+      $("#dateCommance").css("border", "1px solid #ced4da");
+      $("#dateEnd").css("border", "1px solid #ced4da");
+      $("#headStationLocation").css("border", "1px solid #ced4da");
+      $("#bussinesLocation").css("border", "1px solid #ced4da");
+      $("#contactPhone").css("border", "1px solid #ced4da");
+
+      if (request_name === "") {
         $("#request_name").focus();
         $("#request_name").attr('required', true);
         $("#request_name").css("border", "1px solid red");
-      } else if (valRemark === "") {
-        $("#putRemark").focus();
-        $("#putRemark").attr('required', true);
-        $("#putRemark").css("border", "1px solid red");
-      } else {
+      }  else if (jobTitle === "") {
+        $("#jobTitle").focus();
+        $("#jobTitle").attr('required', true);
+        $("#jobTitle").css("border", "1px solid red");
+      } else if (department === "") {
+        $("#department").focus();
+        $("#department").attr('required', true);
+        $("#department").css("border", "1px solid red");
+      } else if (reasonTravel === "") {
+        $("#reasonTravel").focus();
+        $("#reasonTravel").attr('required', true);
+        $("#reasonTravel").css("border", "1px solid red");
+      }  else if (dateCommance === "") {
+        $("#dateCommance").focus();
+        $("#dateCommance").attr('required', true);
+        $("#dateCommance").css("border", "1px solid red");
+      }  else if (dateEnd === "") {
+        $("#dateEnd").focus();
+        $("#dateEnd").attr('required', true);
+        $("#dateEnd").css("border", "1px solid red");
+      }  else if (headStationLocation === "") {
+        $("#headStationLocation").focus();
+        $("#headStationLocation").attr('required', true);
+        $("#headStationLocation").css("border", "1px solid red");
+      }  else if (bussinesLocation === "") {
+        $("#bussinesLocation").focus();
+        $("#bussinesLocation").attr('required', true);
+        $("#bussinesLocation").css("border", "1px solid red");
+      }  else if (contactPhone === "") {
+        $("#contactPhone").focus();
+        $("#contactPhone").attr('required', true);
+        $("#contactPhone").css("border", "1px solid red");
+      } 
+      else {
+
         var action = $(this).attr("action"); //get submit action from form
         var method = $(this).attr("method"); // get submit method
         var form_data = new FormData($(this)[0]); // convert form into formdata 
