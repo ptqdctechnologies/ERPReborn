@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace League\Flysystem\AzureBlobStorage;
 
+use League\Flysystem\ChecksumProvider;
 use League\Flysystem\Config;
 use League\Flysystem\DirectoryAttributes;
 use League\Flysystem\FileAttributes;
@@ -15,6 +16,7 @@ use League\Flysystem\UnableToCopyFile;
 use League\Flysystem\UnableToDeleteDirectory;
 use League\Flysystem\UnableToDeleteFile;
 use League\Flysystem\UnableToMoveFile;
+use League\Flysystem\UnableToProvideChecksum;
 use League\Flysystem\UnableToReadFile;
 use League\Flysystem\UnableToRetrieveMetadata;
 use League\Flysystem\UnableToSetVisibility;
@@ -29,10 +31,11 @@ use MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 use MicrosoftAzure\Storage\Common\Models\ContinuationToken;
 use Throwable;
-
+use function base64_decode;
+use function bin2hex;
 use function stream_get_contents;
 
-class AzureBlobStorageAdapter implements FilesystemAdapter, PublicUrlGenerator
+class AzureBlobStorageAdapter implements FilesystemAdapter, PublicUrlGenerator, ChecksumProvider
 {
     /** @var string[] */
     private const META_OPTIONS = [
@@ -333,7 +336,8 @@ class AzureBlobStorageAdapter implements FilesystemAdapter, PublicUrlGenerator
             $properties->getContentLength(),
             null,
             $properties->getLastModified()->getTimestamp(),
-            $properties->getContentType()
+            $properties->getContentType(),
+            ['md5_checksum' => $properties->getContentMD5()]
         );
     }
 
@@ -342,5 +346,27 @@ class AzureBlobStorageAdapter implements FilesystemAdapter, PublicUrlGenerator
         $location = $this->prefixer->prefixPath($path);
 
         return $this->client->getBlobUrl($this->container, $location);
+    }
+
+    public function checksum(string $path, Config $config): string
+    {
+        $algo = $config->get('checksum_algo', 'md5');
+
+        if ($algo !== 'md5') {
+            throw new UnableToProvideChecksum('Only md5 is supported', $path);
+        }
+
+        try {
+            $metadata = $this->fetchMetadata($this->prefixer->prefixPath($path));
+            $checksum = $metadata->extraMetadata()['md5_checksum'] ?? '__not_specified';
+        } catch (Throwable $exception) {
+            throw new UnableToProvideChecksum($exception->getMessage(), $path, $exception);
+        }
+
+        if ($checksum === '__not_specified') {
+            throw new UnableToProvideChecksum('No checksum provided in metadata', $path);
+        }
+
+        return bin2hex(base64_decode($checksum));
     }
 }

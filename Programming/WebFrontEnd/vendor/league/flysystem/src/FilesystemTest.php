@@ -415,8 +415,6 @@ class FilesystemTest extends TestCase
         $filesystem->publicUrl('path.txt');
     }
 
-
-
     /**
      * @test
      */
@@ -430,5 +428,77 @@ class FilesystemTest extends TestCase
         $url = $filesystem->publicUrl('path.txt');
 
         self::assertEquals('https://example.org/public/path.txt', $url);
+    }
+
+    /**
+     * @test
+     */
+    public function get_checksum_for_adapter_that_supports(): void
+    {
+        $this->filesystem->write('path.txt', 'foobar');
+
+        $this->assertSame('3858f62230ac3c915f300c664312c63f', $this->filesystem->checksum('path.txt'));
+    }
+
+    /**
+     * @test
+     */
+    public function get_checksum_for_adapter_that_does_not_support(): void
+    {
+        $filesystem = new Filesystem(new InMemoryFilesystemAdapter());
+
+        $filesystem->write('path.txt', 'foobar');
+
+        $this->assertSame('3858f62230ac3c915f300c664312c63f', $filesystem->checksum('path.txt'));
+    }
+
+    /**
+     * @test
+     */
+    public function get_sha256_checksum_for_adapter_that_does_not_support(): void
+    {
+        $filesystem = new Filesystem(new InMemoryFilesystemAdapter(), ['checksum_algo' => 'sha256']);
+
+        $filesystem->write('path.txt', 'foobar');
+
+        $this->assertSame('c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2', $filesystem->checksum('path.txt'));
+    }
+
+    /**
+     * @test
+     */
+    public function get_sha256_checksum_for_adapter_that_does_not_support_while_crc32c_is_the_default(): void
+    {
+        $filesystem = new Filesystem(new InMemoryFilesystemAdapter(), ['checksum_algo' => 'crc32c']);
+
+        $filesystem->write('path.txt', 'foobar');
+        $checksum = $filesystem->checksum('path.txt', ['checksum_algo' => 'sha256']);
+
+        $this->assertSame('c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2', $checksum);
+    }
+
+    /**
+     * @test
+     */
+    public function unable_to_get_checksum_for_for_file_that_does_not_exist(): void
+    {
+        $filesystem = new Filesystem(new InMemoryFilesystemAdapter());
+
+        $this->expectException(UnableToProvideChecksum::class);
+
+        $filesystem->checksum('path.txt');
+    }
+
+    /**
+     * @test
+     */
+    public function unable_to_get_checksum_directory(): void
+    {
+        $filesystem = new Filesystem(new InMemoryFilesystemAdapter());
+        $filesystem->createDirectory('foo');
+
+        $this->expectException(UnableToProvideChecksum::class);
+
+        $filesystem->checksum('foo');
     }
 }

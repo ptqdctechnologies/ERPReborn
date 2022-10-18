@@ -11,6 +11,8 @@ use Throwable;
 
 class Filesystem implements FilesystemOperator
 {
+    use CalculateChecksumFromStream;
+
     private FilesystemAdapter $adapter;
     private Config $config;
     private PathNormalizer $pathNormalizer;
@@ -161,6 +163,17 @@ class Filesystem implements FilesystemOperator
         $config = $this->config->extend($config);
 
         return $this->publicUrlGenerator->publicUrl($path, $config);
+    }
+
+    public function checksum(string $path, array $config = []): string
+    {
+        $config = $this->config->extend($config);
+
+        if ($this->adapter instanceof ChecksumProvider) {
+            return $this->adapter->checksum($path, $config);
+        }
+
+        return $this->calculateChecksumFromStream($path, $config);
     }
 
     private function resolvePublicUrlGenerator(): ?PublicUrlGenerator
