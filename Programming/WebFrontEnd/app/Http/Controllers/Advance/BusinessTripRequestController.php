@@ -25,7 +25,8 @@ class BusinessTripRequestController extends Controller
     }
     public function store(Request $request)
     {
-        // $input = $request->all();
+        $input = $request->all();
+        dd($input);
         // $count_product = count($input['var_product_id']);
 
         // $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -69,11 +70,11 @@ class BusinessTripRequestController extends Controller
         //     ]                    
         //     );
 
-        $compact = [
-            "brfnumber"=> 'BRF-000111',
-        ];
+        // $compact = [
+        //     "brfnumber"=> 'BRF-000111',
+        // ];
 
-        return response()->json($compact); 
+        // return response()->json($compact); 
     }
     public function BusinessTripListData(Request $request)
     {
