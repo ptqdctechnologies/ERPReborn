@@ -10,6 +10,8 @@ use IteratorAggregate;
 use League\Flysystem\AwsS3V3\AwsS3V3Adapter;
 use League\Flysystem\InMemory\InMemoryFilesystemAdapter;
 use League\Flysystem\Local\LocalFilesystemAdapter;
+use League\Flysystem\UrlGeneration\PublicUrlGenerator;
+use LogicException;
 use PHPUnit\Framework\TestCase;
 
 use function iterator_to_array;
@@ -374,10 +376,13 @@ class FilesystemTest extends TestCase
     public function listing_exceptions_are_uniformely_represented(): void
     {
         $filesystem = new Filesystem(
-            new AwsS3V3Adapter(
-                new S3Client(['region' => 'us-east-1', 'version' => 'latest']),
-                'invalid-bucket'
-            )
+            new class () extends InMemoryFilesystemAdapter {
+                public function listContents(string $path, bool $deep): iterable
+                {
+                    yield from parent::listContents($path, $deep);
+                    throw new LogicException('Oh no.');
+                }
+            }
         );
         $items = $filesystem->listContents('', true);
 
@@ -392,10 +397,12 @@ class FilesystemTest extends TestCase
     public function failing_to_create_a_public_url(): void
     {
         $filesystem = new Filesystem(
-            new AwsS3V3Adapter(
-                new S3Client(['region' => 'us-east-1', 'version' => 'latest']),
-                'invalid-bucket'
-            )
+            new class () extends InMemoryFilesystemAdapter implements PublicUrlGenerator {
+                public function publicUrl(string $path, Config $config): string
+                {
+                    throw new UnableToGeneratePublicUrl('No reason', $path);
+                }
+            }
         );
 
         $this->expectException(UnableToGeneratePublicUrl::class);
@@ -433,6 +440,48 @@ class FilesystemTest extends TestCase
     /**
      * @test
      */
+    public function public_url_array_uses_multi_prefixer(): void
+    {
+        $filesystem = new Filesystem(
+            new InMemoryFilesystemAdapter(),
+            ['public_url' => ['https://cdn1', 'https://cdn2']],
+        );
+
+        $url1 = $filesystem->publicUrl('first-path1.txt');
+        $url2 = $filesystem->publicUrl('path2.txt');
+        $url3 = $filesystem->publicUrl('first-path1.txt'); // deterministic
+        $url4 = $filesystem->publicUrl('/some/path-here.txt');
+        $url5 = $filesystem->publicUrl('some/path-here.txt'); // deterministic even with leading "/"
+
+        self::assertEquals('https://cdn1/first-path1.txt', $url1);
+        self::assertEquals('https://cdn2/path2.txt', $url2);
+        self::assertEquals('https://cdn1/first-path1.txt', $url3);
+        self::assertEquals('https://cdn2/some/path-here.txt', $url4);
+        self::assertEquals('https://cdn2/some/path-here.txt', $url5);
+    }
+
+    /**
+     * @test
+     */
+    public function custom_public_url_generator(): void
+    {
+        $filesystem = new Filesystem(
+            new InMemoryFilesystemAdapter(),
+            [],
+            publicUrlGenerator: new class() implements PublicUrlGenerator {
+                public function publicUrl(string $path, Config $config): string
+                {
+                    return 'custom/' . $path;
+                }
+            },
+        );
+
+        self::assertSame('custom/file.txt', $filesystem->publicUrl('file.txt'));
+    }
+
+    /**
+     * @test
+     */
     public function get_checksum_for_adapter_that_supports(): void
     {
         $this->filesystem->write('path.txt', 'foobar');
@@ -446,6 +495,24 @@ class FilesystemTest extends TestCase
     public function get_checksum_for_adapter_that_does_not_support(): void
     {
         $filesystem = new Filesystem(new InMemoryFilesystemAdapter());
+
+        $filesystem->write('path.txt', 'foobar');
+
+        $this->assertSame('3858f62230ac3c915f300c664312c63f', $filesystem->checksum('path.txt'));
+    }
+
+    /**
+     * @test
+     */
+    public function get_checksum_for_adapter_that_does_not_support_specific_algo(): void
+    {
+        $adapter = new class() extends InMemoryFilesystemAdapter implements ChecksumProvider {
+            public function checksum(string $path, Config $config): string
+            {
+                throw new ChecksumAlgoIsNotSupported();
+            }
+        };
+        $filesystem = new Filesystem($adapter);
 
         $filesystem->write('path.txt', 'foobar');
 
