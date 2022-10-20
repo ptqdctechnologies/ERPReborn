@@ -1,10 +1,36 @@
 # Changelog
 
+## 3.9.0 - 2022-10-18
+
+### Added
+
+- [Filesystem] Added ability to inject custom public URL generator into a filesystem.
+- [MountManager] added `checksum` and `publicUrl` methods
+- [ZipArchive] Do not prefix directories when creating/reading an archive
+- [ShardedPrefixPublicUrlGenerator] added url generator strategy that distributes over a list of prefixes
+
+## 3.8.0 - 2022-10-18
+
+### Added
+
+- [ChecksumAlgoIsNotSupported] Exception to indicate a checksum is not supported by the checksum provider, filesystem will fall back to ad-hoc generation.
+
+## 3.7.0 - 2022-10-17
+
+### Added
+
+- [Filesystem] added `checksum` method
+- [AWS S3] added `checksum` method
+- [Async S3] added `checksum` method
+- [Google Cloud Storage] added `checksum` method
+- [Azure Blob Storage] added `checksum` method
+
 ## 3.6.0 - 2022-10-13
 
 ### Added
 
 - [Filesystem] Added public url method
+- [Azure Blob Storage] Added public url method
 - [AWS S3] Added public url method
 - [Async S3] Added public url method
 - [GCS] Added public url method

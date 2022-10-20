@@ -10,6 +10,7 @@ use Aws\S3\S3ClientInterface;
 use Exception;
 use Generator;
 use League\Flysystem\AdapterTestUtilities\FilesystemAdapterTestCase;
+use League\Flysystem\ChecksumAlgoIsNotSupported;
 use League\Flysystem\Config;
 use League\Flysystem\FileAttributes;
 use League\Flysystem\FilesystemAdapter;
@@ -18,6 +19,7 @@ use League\Flysystem\StorageAttributes;
 use League\Flysystem\UnableToCheckFileExistence;
 use League\Flysystem\UnableToDeleteFile;
 use League\Flysystem\UnableToMoveFile;
+use League\Flysystem\UnableToProvideChecksum;
 use League\Flysystem\UnableToRetrieveMetadata;
 use League\Flysystem\UnableToWriteFile;
 use League\Flysystem\Visibility;
@@ -374,6 +376,19 @@ class AwsS3V3AdapterTest extends FilesystemAdapterTestCase
             $this->assertEquals(Visibility::PRIVATE, $adapter->visibility('destination.txt')->visibility());
             $this->assertEquals('contents to be copied', $adapter->read('destination.txt'));
         });
+    }
+
+    /**
+     * @test
+     */
+    public function specifying_a_custom_checksum_algo_is_not_supported(): void
+    {
+        /** @var AwsS3V3Adapter $adapter */
+        $adapter = $this->adapter();
+
+        $this->expectException(ChecksumAlgoIsNotSupported::class);
+
+        $adapter->checksum('something', new Config(['checksum_algo' => 'md5']));
     }
 
     /**

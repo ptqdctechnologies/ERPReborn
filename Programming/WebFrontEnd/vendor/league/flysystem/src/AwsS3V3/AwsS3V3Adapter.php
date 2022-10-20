@@ -7,6 +7,8 @@ namespace League\Flysystem\AwsS3V3;
 use Aws\Api\DateTimeResult;
 use Aws\S3\S3ClientInterface;
 use Generator;
+use League\Flysystem\ChecksumAlgoIsNotSupported;
+use League\Flysystem\ChecksumProvider;
 use League\Flysystem\Config;
 use League\Flysystem\DirectoryAttributes;
 use League\Flysystem\FileAttributes;
@@ -21,6 +23,7 @@ use League\Flysystem\UnableToDeleteDirectory;
 use League\Flysystem\UnableToDeleteFile;
 use League\Flysystem\UnableToGeneratePublicUrl;
 use League\Flysystem\UnableToMoveFile;
+use League\Flysystem\UnableToProvideChecksum;
 use League\Flysystem\UnableToReadFile;
 use League\Flysystem\UnableToRetrieveMetadata;
 use League\Flysystem\UnableToSetVisibility;
@@ -31,10 +34,9 @@ use League\MimeTypeDetection\FinfoMimeTypeDetector;
 use League\MimeTypeDetection\MimeTypeDetector;
 use Psr\Http\Message\StreamInterface;
 use Throwable;
-
 use function trim;
 
-class AwsS3V3Adapter implements FilesystemAdapter, PublicUrlGenerator
+class AwsS3V3Adapter implements FilesystemAdapter, PublicUrlGenerator, ChecksumProvider
 {
     /**
      * @var string[]
@@ -513,5 +515,26 @@ class AwsS3V3Adapter implements FilesystemAdapter, PublicUrlGenerator
         } catch (Throwable $exception) {
             throw UnableToGeneratePublicUrl::dueToError($path, $exception);
         }
+    }
+
+    public function checksum(string $path, Config $config): string
+    {
+        $algo = $config->get('checksum_algo', 'etag');
+
+        if ($algo !== 'etag') {
+            throw new ChecksumAlgoIsNotSupported();
+        }
+
+        try {
+            $metadata = $this->fetchFileMetadata($path, 'checksum')->extraMetadata();
+        } catch (UnableToRetrieveMetadata $exception) {
+            throw new UnableToProvideChecksum($exception->reason(), $path, $exception);
+        }
+
+        if ( ! isset($metadata['ETag'])) {
+            throw new UnableToProvideChecksum('ETag header not available.', $path);
+        }
+
+        return trim($metadata['ETag'], '"');
     }
 }

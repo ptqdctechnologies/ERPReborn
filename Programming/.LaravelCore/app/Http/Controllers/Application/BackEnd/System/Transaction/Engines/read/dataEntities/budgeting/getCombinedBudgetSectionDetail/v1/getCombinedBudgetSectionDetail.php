@@ -3,7 +3,8 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\budgeting\getCombinedBudgetSectionDetail\v1     |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\budgeting                  |
+|                \getCombinedBudgetSectionDetail\v1                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
@@ -12,8 +13,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getCombinedBudgetSectionDetail                                                                                                    |
-    | ▪ Description : Menangani API transaction.read.dataEntities.budgeting.getCombinedBudgetSectionDetail Version 1                                    |
+    | ▪ Class Name  : getCombinedBudgetSectionDetail                                                                               |
+    | ▪ Description : Menangani API transaction.read.dataEntities.budgeting.getCombinedBudgetSectionDetail Version 1               |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class getCombinedBudgetSectionDetail extends \App\Http\Controllers\Controller
