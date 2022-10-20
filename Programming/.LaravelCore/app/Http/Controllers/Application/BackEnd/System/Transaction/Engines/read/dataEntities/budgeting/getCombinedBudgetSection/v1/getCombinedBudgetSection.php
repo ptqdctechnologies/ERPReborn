@@ -4,28 +4,28 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\budgeting                  |
-|                \getCombinedBudgetSectionDetail\v1                                                                                |
+|                \getCombinedBudgetSection\v1                                                                                      |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\budgeting\getCombinedBudgetSectionDetail\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\budgeting\getCombinedBudgetSection\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getCombinedBudgetSectionDetail                                                                               |
-    | ▪ Description : Menangani API transaction.read.dataEntities.budgeting.getCombinedBudgetSectionDetail Version 1               |
+    | ▪ Class Name  : getCombinedBudgetSection                                                                                     |
+    | ▪ Description : Menangani API transaction.read.dataEntities.budgeting.getCombinedBudgetSection Version 1                     |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getCombinedBudgetSectionDetail extends \App\Http\Controllers\Controller
+    class getCombinedBudgetSection extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-26                                                                                           |
-        | ▪ Creation Date   : 2022-09-26                                                                                           |
+        | ▪ Last Update     : 2022-10-19                                                                                           |
+        | ▪ Creation Date   : 2022-10-19                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-26                                                                                           |
-        | ▪ Creation Date   : 2022-09-26                                                                                           |
+        | ▪ Last Update     : 2022-10-19                                                                                           |
+        | ▪ Creation Date   : 2022-10-19                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -59,15 +59,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Combined Budget Section Detail Data Entities (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Combined Budget Section Data Entities (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Budgeting\TblCombinedBudgetSectionDetail())->getDataEntities(
+                    try {
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataEntities_CombinedBudgetSection(
                             $varUserSession, 
                             
-                            $varData['parameter']['recordIDSet'],
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID']
+                            $varData['parameter']['recordIDSet']
                             ))))
                             {
                             throw new \Exception();
