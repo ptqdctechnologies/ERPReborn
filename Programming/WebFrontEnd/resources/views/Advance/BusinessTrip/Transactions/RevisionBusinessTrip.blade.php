@@ -28,7 +28,7 @@
                 <div class="card">
                   <div class="card-header">
                     <label class="card-title">
-                      Business Trip Request Revision
+                      Business Request Form Revision
                     </label>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -72,9 +72,10 @@
                                   <div class="input-group">
                                     <input name="request_name" id="request_name" style="border-radius:0;" type="text" class="form-control" readonly value="{{ $dataRequester['name'] }}" required>
                                     <input name="request_name_id" id="request_name_id" style="border-radius:0;" type="hidden" class="form-control" value="{{ $dataRequester['workerJobsPosition_RefID'] }}" readonly required>
+                                    <input name="var_combinedBudget" id="combinedBudget" style="border-radius:0;" type="hidden" class="form-control" readonly>
                                     <div class="input-group-append">
                                       <span style="border-radius:0;" class="input-group-text form-control">
-                                        <a id="request_name2" data-toggle="modal" data-target="#myWorker"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                        <a href="#" id="request_name2" data-toggle="modal" data-target="#myWorker" class="myWorker"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                       </span>
                                     </div>
                                   </div>
@@ -100,14 +101,14 @@
                                 <td><label>Department</label></td>
                                 <td>
                                   <div class="input-group">
-                                    <input id="department" name="department" style="border-radius:0;" type="text" class="form-control">
+                                    <input id="department" name="department" style="border-radius:0;" type="text" class="form-control" value="{{ $dataRequester['name'] }}">
                                   </div>
                                 </td>
                               </tr>
                               <tr>
                                 <td><label>Reason To Travel</label></td>
                                 <td>
-                                  <textarea id="reasonTravel" name="reasonTravel" style="border-radius:0;" cols="30" rows="3" class="form-control"></textarea>
+                                  <textarea id="reasonTravel" name="reasonTravel" style="border-radius:0;" cols="30" rows="3" class="form-control">{{ $dataRequester['name'] }}</textarea>
                                 </td>
                               </tr>
                               <tr>
@@ -136,21 +137,21 @@
                               <td><label>Head Station Location</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="headStationLocation" name="headStationLocation" style="border-radius:0;" type="text" class="form-control">
+                                  <input id="headStationLocation" name="headStationLocation" style="border-radius:0;" type="text" class="form-control" value="{{ $dataRequester['name'] }}">
                                 </div>
                               </td>
                             </tr>
                             <tr>
                               <td><label>Business Trip Location</label></td>
                               <td>
-                                <textarea id="bussinesLocation" name="bussinesLocation" style="border-radius:0;" cols="30" rows="3" class="form-control"></textarea>
+                                <textarea id="bussinesLocation" name="bussinesLocation" style="border-radius:0;" cols="30" rows="3" class="form-control">{{ $dataRequester['name'] }}</textarea>
                               </td>
                             </tr>
                             <tr>
                               <td><label>Contact Phone</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="contactPhone" name="contactPhone" style="border-radius:0;" type="text" class="form-control">
+                                  <input id="contactPhone" name="contactPhone" style="border-radius:0;" type="text" class="form-control" value="{{ $dataRequester['name'] }}">
                                 </div>
                               </td>
                             </tr>
@@ -177,15 +178,70 @@
                         </button>
                       </div>
                     </div>
-                    <div class="card-body table-responsive p-0" id="brfhide2">
-                      <table id="table1" class="table table-head-fixed text-nowrap table-striped">
+                    <div class="card-body table-responsive p-0" id="brfhide2" style="height:200px;">
+                      <table class="table table-head-fixed text-nowrap table-striped table-sm TableTransportDetails" id="TableTransportDetails">
+                        <label>
+                          <a class="btn btn-default btn-sm float-right" onclick="AddFormTransportDetails();" style="position:relative;top:5px;left:5px;">
+                            <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add">
+                          </a>
+                        </label>
                         <thead>
                           <tr>
-                            <th>Transport Type</th>
-                            <th>Transport Booking</th>
-                            <th>Time Of Depart</th>
-                            <th>Time Of Arrival</th>
-                            <th>Quoted Fare(IDR)</th>
+                            <th style="width:10px;"></th>
+                            <th style="border:1px solid #e9ecef;text-align: center;">Transport Type</th>
+                            <th style="border:1px solid #e9ecef;text-align: center;">Transport Booking</th>
+                            <th style="border:1px solid #e9ecef;text-align: center;">Time Of Depart</th>
+                            <th style="border:1px solid #e9ecef;text-align: center;">Time Of Arrival</th>
+                            <th style="border:1px solid #e9ecef;text-align: center;">Quoted Fare (IDR)</th>
+                          </tr>
+                          <tr class="FormTransportDetails">
+                            <td></td>
+                            <td style="border:1px solid #e9ecef;">
+                              <div class="input-group">
+                                <select class="form-control select2bs4" id="transportType" style="width: 100%; border-radius:0;">
+                                  <option selected="selected"></option>
+                                  <option value="Bus">Bus</option>
+                                  <option value="Rail">Rail</option>
+                                  <option value="Air">Air</option>
+                                  <option value="Sea">Sea</option>
+                                  <option value="Company Vehicle">Company Vehicle</option>
+                                  <option value="Train">Train</option>
+                                </select>
+                              </div>
+                            </td>
+                            <td style="border:1px solid #e9ecef;">
+                              <div class="input-group">
+                                <input id="transportBooking" name="transportBooking" style="border-radius:0;" type="text" class="form-control">
+                              </div>
+                            </td>
+                            <td style="border:1px solid #e9ecef;">
+                              <div class="input-group">
+                                <input id="dateDepart" name="dateDepart" style="border-radius:0;" type="date" class="form-control">
+                              </div>
+                            </td>
+                            <td style="border:1px solid #e9ecef;">
+                              <div class="input-group">
+                                <input id="dateArrival" name="dateArrival" style="border-radius:0;" type="date" class="form-control">
+                              </div>
+                            </td>
+                            <td style="border:1px solid #e9ecef;">
+                              <div class="input-group">
+                                <input id="qoutedFare" name="contactPhone" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                              </div>
+                            </td>
+                          </tr>
+                          <tr class="FormTransportDetails">
+                            <td colspan="3"></td>
+                            <td style="border:1px solid #e9ecef;position:relative;left:30px;">
+                              <div class="input-group">
+                                <a class="btn btn-default btn-sm float-right" onclick="UpdateFormTransportDetails();" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                                  <img src="{{ asset('AdminLTE-master/dist/img/edit.png') }}" width="13" alt="" title="Add to Advance List"> Update
+                                </a>
+                                <a class="btn btn-default btn-sm float-right" onclick="CancelFormTransportDetails();" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
+                                  <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel to Add Advance List Cart"> Cancel
+                                </a>
+                              </div>
+                            </td>
                           </tr>
                         </thead>
                         <tbody>
@@ -386,12 +442,17 @@
                               <td><label>Product ID</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input name="budget_name" id="budget_name" style="border-radius:0;" type="text" class="form-control">
+                                  <input name="putProductId" id="putProductId" style="border-radius:0;" type="text" class="form-control" readonly>
                                   <div class="input-group-append">
                                     <span style="border-radius:0;" class="input-group-text form-control">
-                                      <a href="#"><i data-toggle="modal" data-target="#myRequesterNameArf" class="fas fa-gift" style="color:grey;"></i></a>
+                                      <a href="#"><i data-toggle="modal" id="putProductId2" data-target="#myProduct" class="fas fa-gift" style="color:grey;"></i></a>
                                     </span>
                                   </div>
+                                </div>
+                              </td>
+                              <td>
+                                <div class="input-group">
+                                  <input id="putProductName" style="border-radius:0;" class="form-control" name="putProductName" readonly>
                                 </div>
                               </td>
                             </tr>
@@ -407,7 +468,9 @@
                               <td><label>Budget Request for BT</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="budgetRequest" name="budgetRequest" style="border-radius:0;" type="number" class="form-control">
+                                  <input id="budgetRequest" name="budgetRequest" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                                  <input id="budgetRequest2" name="budgetRequest2" style="border-radius:0;" type="hidden" class="form-control">
+                                  <input id="totalBalance" name="totalBalance" style="border-radius:0;" type="hidden" class="form-control">
                                 </div>
                               </td>
                             </tr>
@@ -420,7 +483,6 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <table>
-                            <br>
                             <tr>
                               <td><label><strong> Payment Sequence</strong></label></td>
                             </tr>
@@ -428,7 +490,7 @@
                               <td><label>Sequence</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="sequence" style="border-radius:0;border:none;background-color:white;font-weight:bold;" value="1" type="number" class="form-control" readonly>
+                                  <input id="sequence" style="border-radius:0;border:none;background-color:white;font-weight:bold;" value="1" type="text" class="form-control" readonly>
                                 </div>
                               </td>
                             </tr>
@@ -436,22 +498,16 @@
                               <td><label>Allowance</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="allowance" style="border-radius:0;" type="number" class="form-control">
+                                  <input id="allowance" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                                 </div>
-                              </td>
-                              <td>
-                                <div id="iconAllowance" style="color: red;margin-left:5px;"></div>
                               </td>
                             </tr>
                             <tr>
                               <td><label>Transport</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="transport" style="border-radius:0;" type="number" class="form-control">
+                                  <input id="transport" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                                 </div>
-                              </td>
-                              <td>
-                                <div id="iconTransport" style="color: red;margin-left:5px;"></div>
                               </td>
                             </tr>
                           </table>
@@ -465,22 +521,16 @@
                               <td><label>Airport Tax</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="airport_tax" style="border-radius:0;" type="number" class="form-control">
+                                  <input id="airport_tax" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                                 </div>
-                              </td>
-                              <td>
-                                <div id="iconAirportTax" style="color: red;margin-left:5px;"></div>
                               </td>
                             </tr>
                             <tr>
                               <td><label>Accomodation</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="accomodation" style="border-radius:0;" type="number" class="form-control">
+                                  <input id="accomodation" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                                 </div>
-                              </td>
-                              <td>
-                                <div id="iconAccomodation" style="color: red;margin-left:5px;"></div>
                               </td>
                             </tr>
                           </table>
@@ -494,16 +544,21 @@
                               <td><label>Other</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="other" style="border-radius:0;" type="number" class="form-control">
+                                  <input id="other" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                                 </div>
-                              </td>
-                              <td>
-                                <div id="iconOther" style="color: red;margin-left:5px;"></div>
                               </td>
                             </tr>
                           </table>
+
+                        <input id="statusEditBrf" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
+                        <input id="ValidateAllowance" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                        <input id="ValidateTransport" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                        <input id="ValidateAirportTax" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                        <input id="ValidateAccomodation" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                        <input id="ValidateOther" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+
                           <div style="padding-right:10px;padding-top:10px;">
-                            <a class="btn btn-default btn-sm float-right CancelDetailBrf" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
+                            <a class="btn btn-default btn-sm float-right" onclick="CancelDetailBrf();" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
                               <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel to Add Advance List Cart"> Cancel
                             </a>
                             <a class="btn btn-default btn-sm float-right" onclick="addFromDetailtoCartJs();" id="AddToBrfListCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
@@ -531,15 +586,15 @@
                     </div>
                   </div>
                   <div class="card-body table-responsive p-0 brfhide6" style="height: 180px;">
-                    <table class="table table-head-fixed text-nowrap table-striped tableBrf">
+                    <table class="table table-head-fixed text-nowrap table-striped tableBrf" id="tableBrf">
                       <thead>
                         <tr>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;width:7%;">Action</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;width:20%;">Allowance</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;width:20%;">Transport</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;width:20%;">Airport Tax</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;width:20%;">Accomodation</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;width:13%;">Others</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;width:7%;">Action</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;width:20%;">Allowance</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;width:20%;">Transport</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;width:20%;">Airport Tax</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;width:20%;">Accomodation</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;width:13%;">Others</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -552,12 +607,12 @@
                     <table class="table table-head-fixed text-nowrap table-striped tableBrf">
                       <thead>
                         <tr>
-                          <td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;width:7%;"></td>
-                          <td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;width:20%;" id="valAllowance"></td>
-                          <td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;width:20%;" id="valTransport"></td>
-                          <td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;width:20%;" id="valAirportTax"></td>
-                          <td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;width:20%;" id="valAccomodation"></td>
-                          <td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;width:13%;" id="valOthers"></td>
+                          <th style="border:1px solid #e9ecef;width:7%;text-align: center;">Sub Total</th>
+                          <td style="border:1px solid #e9ecef;width:20%;" id="valAllowance"></td>
+                          <td style="border:1px solid #e9ecef;width:20%;" id="valTransport"></td>
+                          <td style="border:1px solid #e9ecef;width:20%;" id="valAirportTax"></td>
+                          <td style="border:1px solid #e9ecef;width:20%;" id="valAccomodation"></td>
+                          <td style="border:1px solid #e9ecef;width:13%;" id="valOthers"></td>
                         </tr>
                       </thead>
                     </table>
