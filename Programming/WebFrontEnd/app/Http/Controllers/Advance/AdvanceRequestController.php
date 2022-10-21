@@ -248,7 +248,7 @@ class AdvanceRequestController extends Controller
         // dd($varData);
 
         foreach($varData['data'] as $varDatas){
-            $request->session()->push("SessionAdvance", (string)$varDatas['combinedBudget_SubSectionLevel2_RefID']);
+            $request->session()->push("SessionAdvance", (string)$varDatas['combinedBudget_SubSectionLevel1_RefID']);
             $request->session()->push("SessionAdvance", (string)$varDatas['product_RefID']);
         }
         return response()->json($varData['data']);
