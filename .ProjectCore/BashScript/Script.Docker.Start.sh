@@ -32,6 +32,7 @@ sudo systemctl restart docker;
 printf "\n▪ ▪ ▪ Pruning Docker's Unused Objects ▪ ▪ ▪\n";
 sudo docker network prune --force;
 sudo docker container prune --force;
+sudo ./BashScript/Script.Docker.RemoveDangledImages.sh;
 
 #---> Execute WatchDog Script
 printf "\n▪ ▪ ▪ Initializing System Watchdog Script ▪ ▪ ▪\n";
