@@ -19,7 +19,7 @@ class BusinessTripSettlementController extends Controller
             'var' => $var,
         ];
         
-        return view('Advance.BussinesTrip.Transactions.CreateBusinessTripSettlement', $compact);
+        return view('Advance.BusinessTrip.Transactions.CreateBusinessTripSettlement', $compact);
     }
 
     public function BusinessTripSettlementListData(Request $request)
@@ -65,6 +65,6 @@ class BusinessTripSettlementController extends Controller
             'var_recordID' => $request->searchBsfNumberRevisionId,
         ];
 
-        return view('Advance.BussinesTrip.Transactions.RevisionBusinessTripSettlement', $compact);
+        return view('Advance.BusinessTrip.Transactions.RevisionBusinessTripSettlement', $compact);
     }
 }

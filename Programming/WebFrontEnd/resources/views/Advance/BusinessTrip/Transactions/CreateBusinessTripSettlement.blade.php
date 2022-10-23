@@ -2,7 +2,7 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
-@include('Advance.BussinesTrip.Functions.PopUp.PopUpBusinessTripSettlementRevision')
+@include('Advance.BusinessTrip.Functions.PopUp.PopUpBusinessTripSettlementRevision')
 
 <div class="content-wrapper" style="position:relative;bottom:12px;">
   <section class="content">
@@ -12,7 +12,7 @@
           <label style="font-size:15px;position:relative;top:7px;color:white;">Bussiness Trip Settlement </label>
         </div>
       </div>
-      @include('Advance.BussinesTrip.Functions.Menu.MenuBusinessTripSettlement')
+      @include('Advance.BusinessTrip.Functions.Menu.MenuBusinessTripSettlement')
       @if($var == 0)
       <div class="card" style="position:relative;bottom:10px;">
         <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceRequest.store') }}" id="formSubmitArf">
@@ -31,7 +31,7 @@
                       </button>
                     </div>
                   </div>
-                  @include('Advance.BussinesTrip.Functions.Header.HeaderBusinessTripSettlement')
+                  @include('Advance.BusinessTrip.Functions.Header.HeaderBusinessTripSettlement')
                 </div>
               </div>
             </div>
@@ -49,7 +49,7 @@
                       </button>
                     </div>
                   </div>
-                  @include('Advance.BussinesTrip.Functions.Table.TableBrfDetail')
+                  @include('Advance.BusinessTrip.Functions.Table.TableBrfDetail')
                 </div>
               </div>
             </div>
@@ -430,5 +430,5 @@
   </section>
 </div>
 @include('Partials.footer')
-@include('Advance.BussinesTrip.Functions.Footer.FooterBusinessTripSettlement')
+@include('Advance.BusinessTrip.Functions.Footer.FooterBusinessTripSettlement')
 @endsection
