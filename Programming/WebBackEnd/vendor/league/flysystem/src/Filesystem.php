@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace League\Flysystem;
 
+use DateTimeInterface;
 use Generator;
 use League\Flysystem\UrlGeneration\ShardedPrefixPublicUrlGenerator;
 use League\Flysystem\UrlGeneration\PrefixPublicUrlGenerator;
 use League\Flysystem\UrlGeneration\PublicUrlGenerator;
+use League\Flysystem\UrlGeneration\TemporaryUrlGenerator;
 use Throwable;
 
 use function is_array;
@@ -20,17 +22,20 @@ class Filesystem implements FilesystemOperator
     private Config $config;
     private PathNormalizer $pathNormalizer;
     private ?PublicUrlGenerator $publicUrlGenerator;
+    private ?TemporaryUrlGenerator $temporaryUrlGenerator;
 
     public function __construct(
         FilesystemAdapter $adapter,
         array $config = [],
         PathNormalizer $pathNormalizer = null,
         PublicUrlGenerator $publicUrlGenerator = null,
+        TemporaryUrlGenerator $temporaryUrlGenerator = null,
     ) {
         $this->adapter = $adapter;
         $this->config = new Config($config);
         $this->pathNormalizer = $pathNormalizer ?: new WhitespacePathNormalizer();
         $this->publicUrlGenerator = $publicUrlGenerator;
+        $this->temporaryUrlGenerator = $temporaryUrlGenerator;
     }
 
     public function fileExists(string $location): bool
@@ -168,6 +173,17 @@ class Filesystem implements FilesystemOperator
         $config = $this->config->extend($config);
 
         return $this->publicUrlGenerator->publicUrl($path, $config);
+    }
+
+    public function temporaryUrl(string $path, DateTimeInterface $expiresAt, array $config = []): string
+    {
+        $generator = $this->temporaryUrlGenerator ?: $this->adapter;
+
+        if ($generator instanceof TemporaryUrlGenerator) {
+            return $this->temporaryUrlGenerator->temporaryUrl($path, $expiresAt, $this->config->extend($config));
+        }
+
+        throw UnableToGenerateTemporaryUrl::noGeneratorConfigured($path);
     }
 
     public function checksum(string $path, array $config = []): string
