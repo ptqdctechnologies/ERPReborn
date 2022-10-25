@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.240.0",
+            "version": "3.240.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "95186e6a40670196cc2f9f752a38b863aa45a890"
+                "reference": "34c6bf82f337cadf31475c88ca70e8302afc624b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/95186e6a40670196cc2f9f752a38b863aa45a890",
-                "reference": "95186e6a40670196cc2f9f752a38b863aa45a890",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/34c6bf82f337cadf31475c88ca70e8302afc624b",
+                "reference": "34c6bf82f337cadf31475c88ca70e8302afc624b",
                 "shasum": ""
             },
             "require": {
@@ -146,9 +146,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.240.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.240.1"
             },
-            "time": "2022-10-21T20:17:33+00:00"
+            "time": "2022-10-24T19:03:23+00:00"
         },
         {
             "name": "brick/math",
@@ -4478,16 +4478,16 @@
         },
         {
             "name": "swaggest/json-diff",
-            "version": "v3.10.0",
+            "version": "v3.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swaggest/json-diff.git",
-                "reference": "807bf7d6d0e8c970ebddd521877ceca25ec54135"
+                "reference": "b9da3c576ee891319234cad958eb74d58c3f4d52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swaggest/json-diff/zipball/807bf7d6d0e8c970ebddd521877ceca25ec54135",
-                "reference": "807bf7d6d0e8c970ebddd521877ceca25ec54135",
+                "url": "https://api.github.com/repos/swaggest/json-diff/zipball/b9da3c576ee891319234cad958eb74d58c3f4d52",
+                "reference": "b9da3c576ee891319234cad958eb74d58c3f4d52",
                 "shasum": ""
             },
             "require": {
@@ -4515,9 +4515,9 @@
             "description": "JSON diff/rearrange/patch/pointer library for PHP",
             "support": {
                 "issues": "https://github.com/swaggest/json-diff/issues",
-                "source": "https://github.com/swaggest/json-diff/tree/v3.10.0"
+                "source": "https://github.com/swaggest/json-diff/tree/v3.10.1"
             },
-            "time": "2022-10-21T11:19:15+00:00"
+            "time": "2022-10-24T19:14:28+00:00"
         },
         {
             "name": "swaggest/json-schema",
