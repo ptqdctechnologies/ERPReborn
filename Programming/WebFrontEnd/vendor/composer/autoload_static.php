@@ -2252,6 +2252,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'Illuminate\\Http\\File' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/File.php',
         'Illuminate\\Http\\FileHelpers' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/FileHelpers.php',
         'Illuminate\\Http\\JsonResponse' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/JsonResponse.php',
+        'Illuminate\\Http\\Middleware\\AddLinkHeadersForPreloadedAssets' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Middleware/AddLinkHeadersForPreloadedAssets.php',
         'Illuminate\\Http\\Middleware\\CheckResponseForModifications' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Middleware/CheckResponseForModifications.php',
         'Illuminate\\Http\\Middleware\\FrameGuard' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Middleware/FrameGuard.php',
         'Illuminate\\Http\\Middleware\\HandleCors' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php',
