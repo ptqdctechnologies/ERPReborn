@@ -3,7 +3,7 @@
         <div class="modal-content" style="width:90%;">
             <div class="modal-header">
                 <div class="modal-body">
-                    <span style="font-size: 15px;position:relative;left:25%;font-weight:bold;">BUSINESS TRIP REVISION</span><br><br><br>
+                    <span style="font-size: 15px;position:relative;left:15%;font-weight:bold;">BUSINESS TRIP REQUEST REVISION</span><br><br><br>
                     <form action="{{ route('BusinessTripRequest.RevisionBusinessTripRequest') }}" method="post">
                         @csrf
                         <div class="card" style="margin-left: 8%;">

@@ -9,7 +9,7 @@ class AdvanceSettlementController extends Controller
 {
     public function index(Request $request)
     {
-        $data = $request->session()->get("SessionAdvance");
+        $data = $request->session()->get("SessionBusinessTripSettllementRequester");
         dd($data);
         $request->session()->forget("SessionAdvanceSetllement");
         $request->session()->forget("SessionAdvanceSetllementRequester");
@@ -188,6 +188,32 @@ class AdvanceSettlementController extends Controller
             'DataAdvanceList' => $varDataAdvanceList['data'],
         ];
 
+        return response()->json($compact);
+    }
+
+    public function AdvanceByBudgetID(Request $request)
+    {
+        $projectcode = $request->input('projectcode');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varAPIWebToken, 
+        'transaction.read.dataList.finance.getAdvance', 
+        'latest', 
+        [
+        'parameter' => null,
+        'SQLStatement' => [
+            'pick' => null,
+            'sort' => null,
+            'filter' => '"CombinedBudget_RefID" = '.$projectcode.'',
+            'paging' => null
+            ]
+        ]
+        );
+        
+        $compact = [
+            'DataAdvanceRequest' => $varDataAdvanceRequest['data'],
+        ];
         return response()->json($compact);
     }
 

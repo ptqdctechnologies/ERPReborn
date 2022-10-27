@@ -108,11 +108,13 @@ class AdvanceRequestController extends Controller
     public function StoreValidateAdvance2(Request $request)
     {
         $val = $request->input('putWorkId');
-        $val2 = $request->input('putProductId');die;
+        $val2 = $request->input('putProductId');
         $data = $request->session()->get("SessionAdvance");
         if($request->session()->has("SessionAdvance")){
             for($i = 0; $i < count($data); $i++){
                 if($data[$i] == $val && $data[$i+1] == $val2){
+                    // echo $data[$i];
+                    // echo $data[$i+1];die;
                     unset($data[$i]);
                     unset($data[$i+1]);
                     $newClass = array_values($data);

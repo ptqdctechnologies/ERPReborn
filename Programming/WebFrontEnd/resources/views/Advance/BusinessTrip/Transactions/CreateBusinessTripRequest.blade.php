@@ -2,7 +2,7 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
-@include('Advance.BusinessTrip.Functions.PopUp.PopUpBusinessTripRevision')
+@include('Advance.BusinessTrip.Functions.PopUp.PopUpBusinessTripRequestRevision')
 @include('getFunction.getProject')
 @include('getFunction.getSite')
 @include('getFunction.getWorker')
@@ -36,7 +36,7 @@
                       </button>
                     </div>
                   </div>
-                  @include('Advance.BusinessTrip.Functions.Header.HeaderBusinessTrip')
+                  @include('Advance.BusinessTrip.Functions.Header.HeaderBusinessTripRequest')
                 </div>
               </div>
             </div>
@@ -645,5 +645,5 @@
 </div>
 
 @include('Partials.footer')
-@include('Advance.BusinessTrip.Functions.Footer.FooterBusinessTrip')
+@include('Advance.BusinessTrip.Functions.Footer.FooterBusinessTripRequest')
 @endsection

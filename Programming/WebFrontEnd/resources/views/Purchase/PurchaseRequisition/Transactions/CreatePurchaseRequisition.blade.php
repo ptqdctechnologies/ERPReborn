@@ -130,6 +130,7 @@
                         <tbody>
                           <td style="border:1px solid #e9ecef;">
                             <div class="input-group">
+                              &nbsp;<input id="putWorkId" type="hidden" style="border-radius:0;" class="form-control" readonly>
                               &nbsp;<input id="putProductId" style="border-radius:0;" class="form-control" readonly>
                               <div class="input-group-append">
                                 <span style="border-radius:0;" class="input-group-text form-control">
@@ -202,8 +203,8 @@
                       </div>
                     </div>
 
-                    <div class="card-body table-responsive p-0" id="detailPurchaseRequisitionList">
-                      <table class="table table-head-fixed text-nowrap table-sm TablePurchaseRequisition">
+                    <div class="card-body table-responsive p-0 detailPurchaseRequisitionList" style="height: 180px;">
+                      <table class="table table-head-fixed text-nowrap table-sm TablePurchaseRequisition" id="TablePurchaseRequisition">
                         <thead>
                           <tr>
                             <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Action</th>
@@ -220,6 +221,15 @@
                         <tbody>
 
                         </tbody>
+                      </table>
+                    </div>
+                    <div class="card-body table-responsive p-0 detailPurchaseRequisitionList">
+                      <table class="table table-head-fixed table-sm text-nowrap">
+                        <tfoot>
+                          <tr>
+                            <th style="color:brown;float:right;">Total Purchase Requistion : <span id="TotalPurchaseRequisition"></span></th>
+                          </tr>
+                        </tfoot>
                       </table>
                     </div>
                   </div>

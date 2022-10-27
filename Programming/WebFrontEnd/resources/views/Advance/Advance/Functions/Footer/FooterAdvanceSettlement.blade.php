@@ -487,7 +487,7 @@
 
         $.ajax({
             type: 'GET',
-            url: '{!! route("getAdvanceByBudgetID") !!}?projectcode=' + $('#projectcode').val(),
+            url: '{!! route("AdvanceSettlement.AdvanceByBudgetID") !!}?projectcode=' + $('#projectcode').val(),
             success: function(data) {
 
                 var no = 1;

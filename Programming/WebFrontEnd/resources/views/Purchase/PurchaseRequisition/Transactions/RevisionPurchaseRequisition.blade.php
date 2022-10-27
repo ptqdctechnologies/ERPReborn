@@ -136,6 +136,7 @@
                         <tbody>
                           <td style="border:1px solid #e9ecef;">
                             <div class="input-group">
+                              &nbsp;<input id="putWorkId" type="hidden" style="border-radius:0;" class="form-control" readonly>
                               &nbsp;<input id="putProductId" style="border-radius:0;" class="form-control" readonly>
                               <div class="input-group-append">
                                 <span style="border-radius:0;" class="input-group-text form-control">
@@ -213,24 +214,33 @@
                       </div>
                     </div>
 
-                    <div class="card-body table-responsive p-0" id="detailPurchaseRequisitionList">
-                      <table class="table table-head-fixed text-nowrap TablePurchaseRequisition">
+                    <div class="card-body table-responsive p-0 detailPurchaseRequisitionList" style="height: 180px;">
+                      <table class="table table-head-fixed text-nowrap table-sm TablePurchaseRequisition" id="TablePurchaseRequisition">
                         <thead>
                           <tr>
-                            <th>&nbsp;Action</th>
-                            <th>Product Id</th>
-                            <th>Product Name</th>
-                            <th>Qty</th>
-                            <th>Uom</th>
-                            <th>Price</th>
-                            <th>Total</th>
-                            <th>Currency</th>
-                            <th>Remark</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Action</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Product Id</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Product Name</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Qty</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Uom</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Price</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Total</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Currency</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Remark</th>
                           </tr>
                         </thead>
                         <tbody>
 
                         </tbody>
+                      </table>
+                    </div>
+                    <div class="card-body table-responsive p-0 detailPurchaseRequisitionList">
+                      <table class="table table-head-fixed table-sm text-nowrap">
+                        <tfoot>
+                          <tr>
+                            <th style="color:brown;float:right;">Total Purchase Requistion : <span id="TotalPurchaseRequisition"></span></th>
+                          </tr>
+                        </tfoot>
                       </table>
                     </div>
                   </div>

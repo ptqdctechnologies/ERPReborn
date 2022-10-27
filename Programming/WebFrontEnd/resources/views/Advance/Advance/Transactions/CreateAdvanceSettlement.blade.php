@@ -22,7 +22,6 @@
           @csrf
           <div class="tab-content p-3" id="nav-tabContent">
             <div class="row">
-              @csrf
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">

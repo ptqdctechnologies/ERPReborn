@@ -113,7 +113,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     //Function
     Route::get('getProject', 'FunctionController@getProject')->name('getProject');
-    Route::get('getAdvanceByBudgetID', 'FunctionController@getAdvanceByBudgetID')->name('getAdvanceByBudgetID');
     Route::get('getPurchaseRequisitionByBudgetID', 'FunctionController@getPurchaseRequisitionByBudgetID')->name('getPurchaseRequisitionByBudgetID');
     Route::get('getSite', 'FunctionController@getSite')->name('getSite');
     Route::get('getBudget', 'FunctionController@getBudget')->name('getBudget');
@@ -143,6 +142,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('StoreValidateAdvanceSettlementRequester', 'Advance\AdvanceSettlementController@StoreValidateAdvanceSettlementRequester')->name('AdvanceSettlement.StoreValidateAdvanceSettlementRequester');
     Route::post('RevisionAdvanceSettlement', 'Advance\AdvanceSettlementController@RevisionAdvanceSettlementIndex')->name('AdvanceSettlement.RevisionAdvanceSettlement');
     Route::get('AdvanceSettlementListData', 'Advance\AdvanceSettlementController@AdvanceSettlementListData')->name('AdvanceSettlement.AdvanceSettlementListData');
+    Route::get('AdvanceByBudgetID', 'Advance\AdvanceSettlementController@AdvanceByBudgetID')->name('AdvanceSettlement.AdvanceByBudgetID');
     Route::get('AdvanceSettlementListDataById', 'Advance\AdvanceSettlementController@AdvanceSettlementListDataById')->name('AdvanceSettlement.AdvanceSettlementListDataById');
     Route::get('AdvanceSettlementListCartRevision', 'Advance\AdvanceSettlementController@AdvanceSettlementListCartRevision')->name('AdvanceSettlement.AdvanceSettlementListCartRevision');
     Route::resource('AdvanceSettlement', 'Advance\AdvanceSettlementController');
@@ -150,8 +150,11 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // BSF
     Route::post('StoreValidateBusinessTripSettlement', 'Advance\BusinessTripSettlementController@StoreValidateBusinessTripSettlement')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlement');
     Route::post('StoreValidateBusinessTripSettlement2', 'Advance\BusinessTripSettlementController@StoreValidateBusinessTripSettlement2')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlement2');
+    Route::post('StoreValidateBusinessTripSettlementRequester', 'Advance\BusinessTripSettlementController@StoreValidateBusinessTripSettlementRequester')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlementRequester');
     Route::post('RevisionBusinessTripSettlement', 'Advance\BusinessTripSettlementController@RevisionBusinessTripSettlementIndex')->name('BusinessTripSettlement.RevisionBusinessTripSettlement');
     Route::get('BusinessTripSettlementListData', 'Advance\BusinessTripSettlementController@BusinessTripSettlementListData')->name('BusinessTripSettlement.BusinessTripSettlementListData');
+    Route::get('BusinessTripRequestByBudgetID', 'Advance\BusinessTripSettlementController@BusinessTripRequestByBudgetID')->name('BusinessTripSettlement.BusinessTripRequestByBudgetID');
+    Route::get('BusinessTripSettlementListDataById', 'Advance\BusinessTripSettlementController@BusinessTripSettlementListDataById')->name('BusinessTripSettlement.BusinessTripSettlementListDataById');
     Route::resource('BusinessTripSettlement', 'Advance\BusinessTripSettlementController');
 
     // BRF

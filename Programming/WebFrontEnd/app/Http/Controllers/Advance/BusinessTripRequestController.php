@@ -21,7 +21,7 @@ class BusinessTripRequestController extends Controller
             'varAPIWebToken' => $varAPIWebToken
         ];
     
-        return view('Advance.BusinessTrip.Transactions.CreateBusinessTrip', $compact);
+        return view('Advance.BusinessTrip.Transactions.CreateBusinessTripRequest', $compact);
     }
     public function store(Request $request)
     {
@@ -118,6 +118,6 @@ class BusinessTripRequestController extends Controller
             'dataRequester' => $varDataAdvanceRevision['data'][0]['document']['content']['involvedPersons']['requester'],
             'var_recordID' => $request->searchBrfNumberRevisionId,
         ];
-        return view('Advance.BusinessTrip.Transactions.RevisionBusinessTrip', $compact);
+        return view('Advance.BusinessTrip.Transactions.RevisionBusinessTripRequest', $compact);
     }
 }

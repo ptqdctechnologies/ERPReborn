@@ -235,7 +235,6 @@
         document.getElementById("TableAdvance").deleteRow(i);
 
         var $this = $(t);
-        console.log($this.data("id1"));
 
         $.ajax({
             type: "POST",
