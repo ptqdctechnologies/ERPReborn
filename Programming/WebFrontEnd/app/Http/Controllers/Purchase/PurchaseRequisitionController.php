@@ -73,23 +73,27 @@ class PurchaseRequisitionController extends Controller
 
     public function StoreValidatePurchaseRequisition(Request $request)
     {
-        $tamp = 0;
-        $status = 200;
-        $val = $request->input('putProductId');
+        $tamp = 0; $status = 200;
+        $val = $request->input('putWorkId');
+        $val2 = $request->input('putProductId');
         $data = $request->session()->get("SessionPurchaseRequisition");
-        if ($request->session()->has("SessionPurchaseRequisition")) {
-            for ($i = 0; $i < count($data); $i++) {
-                if ($data[$i] == $val) {
+        if($request->session()->has("SessionPurchaseRequisition")){
+            for($i = 0; $i < count($data); $i++){
+                if($data[$i] == $val && $data[$i+1] == $val2){
                     $tamp = 1;
                 }
             }
-            if ($tamp == 0) {
+            if($tamp == 0){
                 $request->session()->push("SessionPurchaseRequisition", $val);
-            } else {
+                $request->session()->push("SessionPurchaseRequisition", $val2);
+            }
+            else{
                 $status = 500;
             }
-        } else {
+        }
+        else{
             $request->session()->push("SessionPurchaseRequisition", $val);
+            $request->session()->push("SessionPurchaseRequisition", $val2);
         }
 
         return response()->json($status);
@@ -97,12 +101,18 @@ class PurchaseRequisitionController extends Controller
 
     public function StoreValidatePurchaseRequisition2(Request $request)
     {
-        $messages = $request->session()->get("SessionPurchaseRequisition");
-        $val = $request->input('putProductId');
-        if (($key = array_search($val, $messages)) !== false) {
-            unset($messages[$key]);
-            $newClass = array_values($messages);
-            $request->session()->put("SessionPurchaseRequisition", $newClass);
+        $val = $request->input('putWorkId');
+        $val2 = $request->input('putProductId');
+        $data = $request->session()->get("SessionPurchaseRequisition");
+        if($request->session()->has("SessionPurchaseRequisition")){
+            for($i = 0; $i < count($data); $i++){
+                if($data[$i] == $val && $data[$i+1] == $val2){
+                    unset($data[$i]);
+                    unset($data[$i+1]);
+                    $newClass = array_values($data);
+                    $request->session()->put("SessionPurchaseRequisition", $newClass);
+                }
+            }
         }
     }
 
@@ -234,7 +244,8 @@ class PurchaseRequisitionController extends Controller
         );
         // dd($varData);
         foreach ($varData['data'] as $varDatas) {
-            $request->session()->push("SessionPurchaseRequisition", (string) $varDatas['product_RefID']);
+            $request->session()->push("SessionPurchaseRequisition", (string)$varDatas['combinedBudgetSectionDetail_SubSectionLevel1_RefID']);
+            $request->session()->push("SessionPurchaseRequisition", (string)$varDatas['product_RefID']);
         }
         return response()->json($varData['data']);
     }

@@ -27,12 +27,11 @@
         var recordIDDetail = $("#recordIDDetail").val();
         var statusProduct = $("#statusProduct").val();
         var statusEditArfRevision = $("#statusEditArfRevision").val();
-        console.log(statusEditArfRevision);
         if (statusEditArfRevision == "Yes") {
 
             var qtyCek = $('#putQty').val().replace(/^\s+|\s+$/g, '');
             var priceCek = $("#putPrice").val().replace(/^\s+|\s+$/g, '');
-            var totalArfDetails = parseFloat(qtyCek * priceCek).toFixed(2);
+            var totalArfDetails = parseFloat(qtyCek.replace(/,/g, '') * priceCek.replace(/,/g, ''));
 
             $.ajaxSetup({
                 headers: {
@@ -47,7 +46,7 @@
                     if (data == "200") {
                         var html = '<tr>' +
                             '<td style="border:1px solid #e9ecef;width:5%;">' +
-                            '&nbsp;<button type="button" class="btn btn-xs" onclick="EditAdvance(this)" data-dismiss="modal" data-id0="' + work_id + '" data-id1="' + product_id + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + putUom + '" data-id5="' + priceCek + '" data-id6="' + putCurrency + '" data-id7="' + totalArfDetails.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '" data-id8="' + putRemark + '" data-id9="' + totalBalance + '"  style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+                            '&nbsp;&nbsp;<button type="button" class="btn btn-xs" onclick="EditAdvance(this)" data-dismiss="modal" data-id0="' + work_id + '" data-id1="' + product_id + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + putUom + '" data-id5="' + priceCek + '" data-id6="' + putCurrency + '" data-id7="' + totalArfDetails.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '" data-id8="' + putRemark + '" data-id9="' + totalBalance + '"  style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
                             '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
                             '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
                             '<input type="hidden" name="var_quantity[]" value="' + qtyCek + '">' +
@@ -128,7 +127,7 @@
                 }
             });
             
-            $.ajax({
+            $.ajax({data-id0="' + value.combinedBudgetSectionDetail_SubSectionLevel1_RefID + '"
                 type: "POST",
                 url: '{!! route("AdvanceRequest.StoreValidateAdvance") !!}?putProductId=' + $('#putProductId').val() + '&putWorkId=' + $('#putWorkId').val(),
                 success: function(data) {
@@ -164,10 +163,10 @@
                             '&nbsp;&nbsp;<button type="button" class="btn btn-xs" onclick="EditAdvance(this)" data-dismiss="modal" data-id0="' + work_id + '" data-id1="' + product_id + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + putUom + '" data-id5="' + priceCek + '" data-id6="' + putCurrency + '" data-id7="' + totalArfDetails + '" data-id8="' + putRemark + '" data-id9="' + totalBalance + '"  style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
                             '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
                             '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
-                            '<input type="hidden" name="var_quantity[]" value="' + qtyCek + '">' +
+                            '<input type="hidden" name="var_quantity[]" value="' + parseFloat(qtyCek.replace(/,/g, '')) + '">' +
                             '<input type="hidden" name="var_uom[]" value="' + putUom + '">' +
-                            '<input type="hidden" name="var_price[]" value="' + priceCek + '">' +
-                            '<input type="hidden" name="var_totalPrice[]" value="' + (priceCek * qtyCek) + '">' +
+                            '<input type="hidden" name="var_price[]" value="' + parseFloat(priceCek.replace(/,/g, '')) + '">' +
+                            '<input type="hidden" name="var_totalPrice[]" value="' + parseFloat(totalArfDetails.replace(/,/g, '')) + '">' +
                             '<input type="hidden" name="var_currency[]" value="' + putCurrency + '">' +
                             '<input type="hidden" name="var_combinedBudget[]" value="' + combinedBudget + '">' +
                             '<input type="hidden" name="var_recordIDDetail[]" value="' + recordIDDetail + '">' +
@@ -382,7 +381,6 @@
 <script>
     function EditAdvance(t) {
         var i = t.parentNode.parentNode.rowIndex;
-        console.log(i);
         document.getElementById("TableAdvance").deleteRow(i);
 
         var $this = $(t);
@@ -401,15 +399,15 @@
         $("#putWorkId").val($this.data("id0"));
         $("#putProductId").val($this.data("id1"));
         $("#putProductName").val($this.data("id2"));
-        $("#qtyCek").val($this.data("id3"));
+        $("#qtyCek").val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         $("#ValidateQuantity").val($this.data("id3"));
         $("#putUom").val($this.data("id4"));
-        $("#priceCek").val($this.data("id5"));
-        $("#ValidatePrice").val($this.data("id5"));
+        $("#priceCek").val($this.data("id5").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        $("#ValidatePrice").val($this.data("id5").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         $("#putCurrency").val($this.data("id6"));
         $("#putRemark").val($this.data("id8"));
-        $("#totalArfDetails").val($this.data("id7"));
-        $("#totalBalance").val($this.data("id9"));
+        $("#totalArfDetails").val($this.data("id7").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        $("#totalBalance").val($this.data("id9").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         $("#statusEditArfRevision").val("Yes");
 
         var totalArfDetails = parseFloat($("#totalArfDetails").val().replace(/,/g, ''));
@@ -427,7 +425,6 @@
 
     function EditAdvanListCart(t) {
         var i = t.parentNode.parentNode.rowIndex;
-        console.log(i);
         document.getElementById("TableAdvance").deleteRow(i);
 
         var $this = $(t);
@@ -442,23 +439,29 @@
             url: '{!! route("AdvanceRequest.StoreValidateAdvance2") !!}?putProductId=' + $this.data("id1") + '&putWorkId=' + $this.data("id0"),
         });
 
+        $("#putWorkId").val($this.data("id0"));
         $("#putProductId").val($this.data("id1"));
         $("#putProductName").val($this.data("id2"));
-        $('#qtyCek').val($this.data("id3"));
+        $('#qtyCek').val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         $('#putQty').val($this.data("id3"));
         $("#putUom").val($this.data("id4"));
-        $("#priceCek").val($this.data("id5"));
+        $("#priceCek").val($this.data("id5").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         $("#putPrice").val($this.data("id5"));
         $("#putCurrency").val($this.data("id6"));
         $("#putRemark").val($this.data("id7"));
-        $("#totalArfDetails").val($this.data("id8"));
+        $("#totalArfDetails").val($this.data("id8").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         $("#totalPayment").val("0");
         $("#combinedBudget").val($this.data("id10"));
         $("#recordIDDetail").val($this.data("id11"));
-        $("#ValidateQuantity").val($this.data("id12"));
-        $("#ValidatePrice").val($this.data("id13"));
-        $("#totalBalance").val($this.data("id14"));
+        $("#ValidateQuantity").val($this.data("id12").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        $("#ValidatePrice").val($this.data("id13").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        $("#totalBalance").val($this.data("id14").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         $("#statusEditArfRevision").val("Yes");
+
+        var totalArfDetails = parseFloat($("#totalArfDetails").val().replace(/,/g, ''));
+        var TotalAdvance = parseFloat($("#TotalAdvance").html().replace(/,/g, ''));
+        $("#TotalAdvance").html(parseFloat(TotalAdvance - totalArfDetails).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
 
         $(this).closest("tr").remove();
 

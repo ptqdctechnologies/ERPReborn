@@ -10,7 +10,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="tableSearchBrf">
+                                <table class="table table-head-fixed text-nowrap" id="TableSearchBrfInBsf">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -23,18 +23,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php $no=1; @endphp
-                                        @for($i = 1; $i < 20; $i++)
-                                        <tr>
-                                            <td>{{ $no++ }}</td>
-                                            <td data-dismiss="modal" class="klikSearchBrf" data-id="brf_no {{ $i }}">BRF No {{$i}}</td>
-                                            <td data-dismiss="modal" class="klikSearchBrf" data-id="brfp_no {{ $i }}">BRFP No {{$i}}</td>
-                                            <td data-dismiss="modal" class="klikSearchBrf" data-id="project_id {{ $i }}">Project ID {{$i}}</td>
-                                            <td data-dismiss="modal" class="klikSearchBrf" data-id="project_name {{ $i }}">Project Name {{$i}}</td>
-                                            <td data-dismiss="modal" class="klikSearchBrf" data-id="site_code {{ $i }}" data-name="site_name {{ $i }}">Site Code {{$i}}</td>
-                                            <td >Site Name {{$i}}</td>
-                                        </tr>
-                                        @endfor
                                     </tbody>
                                 </table>
                             </div>
@@ -45,78 +33,45 @@
         </div>
     </div>
 </div>
-<!--|----------------------------------------------------------------------------------|
-    |                            End Function My Project Code                          |
-    |----------------------------------------------------------------------------------|-->
-<script>
-    function searchBrfNumber() {
-        // Declare variables
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("brf_number");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("tableSearchBrf");
-        tr = table.getElementsByTagName("tr");
 
-        // Loop through all table rows, and hide those who don't match the search query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[1];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
+
+<!-- <script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
-    }
+    });
 
-    function searchBrfProjectCode() {
-        // Declare variables
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("project_code_brf");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("tableSearchBrf");
-        tr = table.getElementsByTagName("tr");
+    $(function() {
+        $('.mySearchBrf').on('click', function(e) {
+            e.preventDefault();
+            
+            $.ajax({
+                type: 'GET',
+                url: '{!! route("BusinessTripSettlement.BusinessTripSettlementListData") !!}',
+                success: function(data) {
+                    var no = 1; t = $('#TableSearchBrfInBsf').DataTable();
+                    t.clear();
+                    $.each(data, function(key, val) {
+                        t.row.add([
+                            '<tbody><tr><td>' + no++ + '</td>',
+                            '<td><span data-dismiss="modal" onclick="KlikSearchBusinessTripRequest(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.documentNumber + '</span></td>',
+                            '<td><span data-dismiss="modal" onclick="KlikSearchBusinessTripRequest(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.documentNumber + '</span></td>',
+                            '<td><span data-dismiss="modal" onclick="KlikSearchBusinessTripRequest(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudget_RefID + '</span></td>',
+                            '<td><span data-dismiss="modal" onclick="KlikSearchBusinessTripRequest(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudgetName + '</span></td>',
+                            '<td><span data-dismiss="modal" onclick="KlikSearchBusinessTripRequest(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudgetSection_RefID + '</span></td>',
+                            '<td><span data-dismiss="modal" onclick="KlikSearchBusinessTripRequest(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudgetSectionName + '</td></tr></tbody>'
+                        ]).draw();
 
-        // Loop through all table rows, and hide those who don't match the search query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[3];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
+                    });
                 }
-            }
-        }
-    }
+            });
+        });
 
-    function searchBrfSiteCode() {
-        // Declare variables
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("site_code_brf");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("tableSearchBrf");
-        tr = table.getElementsByTagName("tr");
+    });
+</script> -->
 
-        // Loop through all table rows, and hide those who don't match the search query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[5];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
-</script>
-
-<script>
+<!-- <script>
     $(function() {
         $(".klikSearchBrf").on('click', function(e) {
             e.preventDefault(); // in chase you change to a link or button
@@ -217,4 +172,4 @@
 
         });
     });
-</script>
+</script> -->
