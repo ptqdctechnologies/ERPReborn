@@ -116,9 +116,10 @@
                           </div>
                         </td>
 
-                        <input readonly name="" id="productIdHide" style="border-radius:0;" type="hidden" class="form-control">
-                        <input readonly name="" id="nameMaterialHide" style="border-radius:0;" type="hidden" class="form-control">
-                        <input readonly name="" id="descriptionHide" style="border-radius:0;" type="hidden" class="form-control">
+                        <input id="putWorkId" type="hidden" style="border-radius:0;" class="form-control" readonly>
+                        <input id="putProductId" style="border-radius:0;" type="hidden" class="form-control">
+                        <input id="putProductName" style="border-radius:0;" type="hidden" class="form-control">
+                        <input id="putDescription" style="border-radius:0;" type="hidden" class="form-control">
 
                         <td style="border:1px solid #e9ecef;width:5%;">
                           <div class="input-group">
@@ -242,8 +243,8 @@
                     </div>
                   </div>
 
-                  <div class="card-body table-responsive p-0" style="height: 180px;" id="expenseCompanyCart">
-                    <table class="table text-nowrap table-striped tableExpenseClaim">
+                  <div class="card-body table-responsive p-0 expenseCompanyCart" style="height: 180px;" id="expenseCompanyCart">
+                    <table class="table text-nowrap table-striped TableExpenseClaim" id="TableExpenseClaim">
                       <thead>
                         <tr>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Action</th>
@@ -260,6 +261,15 @@
                       <tbody>
 
                       </tbody>
+                    </table>
+                  </div>
+                  <div class="card-body table-responsive p-0 expenseCompanyCart">
+                    <table class="table table-head-fixed table-sm text-nowrap">
+                      <tfoot>
+                        <tr>
+                          <th style="color:brown;float:right;">Total Expense Claim : <span id="TotalExpense"></span></th>
+                        </tr>
+                      </tfoot>
                     </table>
                   </div>
                 </div>
@@ -282,8 +292,8 @@
                     </div>
                   </div>
 
-                  <div class="card-body table-responsive p-0" style="height: 180px;" id="amountCompanyCart">
-                    <table class="table text-nowrap table-striped tableAmountDueto">
+                  <div class="card-body table-responsive p-0 amountCompanyCart" style="height: 180px;" id="amountCompanyCart">
+                    <table class="table text-nowrap table-striped TableAmountDueto" id="TableAmountDueto">
                       <thead>
                         <tr>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Action</th>
@@ -300,6 +310,15 @@
                       <tbody>
 
                       </tbody>
+                    </table>
+                  </div>
+                  <div class="card-body table-responsive p-0 amountCompanyCart">
+                    <table class="table table-head-fixed table-sm text-nowrap">
+                      <tfoot>
+                        <tr>
+                          <th style="color:brown;float:right;">Total Amount Due to Company : <span id="TotalAmount"></span></th>
+                        </tr>
+                      </tfoot>
                     </table>
                   </div>
                 </div>

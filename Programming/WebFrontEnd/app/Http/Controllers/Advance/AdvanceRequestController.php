@@ -10,6 +10,8 @@ class AdvanceRequestController extends Controller
 {
     public function index(Request $request)
     {
+        // $data = $request->session()->get("SessionBusinessTripSettllement");
+        // dd($data);
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionAdvance");
         $var = 0;
@@ -113,8 +115,6 @@ class AdvanceRequestController extends Controller
         if($request->session()->has("SessionAdvance")){
             for($i = 0; $i < count($data); $i++){
                 if($data[$i] == $val && $data[$i+1] == $val2){
-                    // echo $data[$i];
-                    // echo $data[$i+1];die;
                     unset($data[$i]);
                     unset($data[$i+1]);
                     $newClass = array_values($data);
