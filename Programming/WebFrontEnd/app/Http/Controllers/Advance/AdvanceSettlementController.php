@@ -9,8 +9,8 @@ class AdvanceSettlementController extends Controller
 {
     public function index(Request $request)
     {
-        $data = $request->session()->get("SessionBusinessTripSettllementRequester");
-        dd($data);
+        // $data = $request->session()->get("SessionBusinessTripSettllementRequester");
+        // dd($data);
         $request->session()->forget("SessionAdvanceSetllement");
         $request->session()->forget("SessionAdvanceSetllementRequester");
 
@@ -80,35 +80,45 @@ class AdvanceSettlementController extends Controller
     }
     public function StoreValidateAdvanceSettlement(Request $request)
     {
-        $tamp = 0;
-        $status = 200;
-        $val = $request->input('putProductId');
+        $tamp = 0; $status = 200;
+        $val = $request->input('putWorkId');
+        $val2 = $request->input('putProductId');
         $data = $request->session()->get("SessionAdvanceSetllement");
-        if ($request->session()->has("SessionAdvanceSetllement")) {
-            for ($i = 0; $i < count($data); $i++) {
-                if ($data[$i] == $val) {
+        if($request->session()->has("SessionAdvanceSetllement")){
+            for($i = 0; $i < count($data); $i++){
+                if($data[$i] == $val && $data[$i+1] == $val2){
                     $tamp = 1;
                 }
             }
-            if ($tamp == 0) {
+            if($tamp == 0){
                 $request->session()->push("SessionAdvanceSetllement", $val);
-            } else {
+                $request->session()->push("SessionAdvanceSetllement", $val2);
+            }
+            else{
                 $status = 500;
             }
-        } else {
+        }
+        else{
             $request->session()->push("SessionAdvanceSetllement", $val);
+            $request->session()->push("SessionAdvanceSetllement", $val2);
         }
 
         return response()->json($status);
     }
     public function StoreValidateAdvanceSettlement2(Request $request)
     {
-        $messages = $request->session()->get("SessionAdvanceSetllement");
-        $val = $request->input('putProductId');
-        if (($key = array_search($val, $messages)) !== false) {
-            unset($messages[$key]);
-            $newClass = array_values($messages);
-            $request->session()->put("SessionAdvanceSetllement", $newClass);
+        $val = $request->input('putWorkId');
+        $val2 = $request->input('putProductId');
+        $data = $request->session()->get("SessionAdvanceSetllement");
+        if($request->session()->has("SessionAdvanceSetllement")){
+            for($i = 0; $i < count($data); $i++){
+                if($data[$i] == $val && $data[$i+1] == $val2){
+                    unset($data[$i]);
+                    unset($data[$i+1]);
+                    $newClass = array_values($data);
+                    $request->session()->put("SessionAdvanceSetllement", $newClass);
+                }
+            }
         }
     }
 
@@ -180,7 +190,6 @@ class AdvanceSettlementController extends Controller
 
             $request->session()->push("SessionAdvanceSetllementRequester", $advance_RefID);
         }
-
         $compact = [
             'status' => $status,
             'requester_id' => $requester_id,
