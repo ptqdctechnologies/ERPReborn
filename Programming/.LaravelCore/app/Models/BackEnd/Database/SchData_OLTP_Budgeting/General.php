@@ -730,6 +730,52 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_CombinedBudgetSubSectionLevel1                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2022-10-31                                                                                           |
+        | ▪ Last Update     : 2022-10-31                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Sub Seksi Anggaran Gabungan Level 1                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varCombinedBudgetSection_RefID ► Combined Budget Section Reference ID                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_CombinedBudgetSubSectionLevel1($varUserSession, int $varBranchID,
+            int $varCombinedBudgetSection_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-Budgeting.Func_GetDataList_CombinedBudgetSubSectionLevel1',
+                        [
+                            [$varBranchID, 'bigint'],
+                            [$varCombinedBudgetSection_RefID, 'bigint'],
+                            
+                            [$varPickStatement, 'varchar'],
+                            [$varSortStatement, 'varchar'],
+                            [$varFilterStatement, 'varchar'],
+                            [$varPagingStatement, 'varchar']
+                        ]
+                        )
+                    );
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataPickList_Budget                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -1001,6 +1047,46 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_CombinedBudgetSection                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2021-10-11                                                                                           |
+        | ▪ Last Update     : 2021-10-11                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Section Anggaran Gabungan                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varCombinedBudget_RefID ► Combined Budget Reference ID                                                   |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_CombinedBudgetSection($varUserSession, int $varBranchID,
+            int $varCombinedBudget_RefID)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-Budgeting.Func_GetDataPickList_CombinedBudgetSection',
+                        [
+                            [$varBranchID, 'bigint' ],
+                            [$varCombinedBudget_RefID, 'bigint' ]
+                        ]
+                        )
+                    );
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataPickList_CombinedBudgetSectionDetail                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -1041,33 +1127,33 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataPickList_CombinedBudgetSection                                                                |
+        | ▪ Method Name     : getDataPickList_CombinedBudgetSubSectionLevel1                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2021-10-11                                                                                           |
-        | ▪ Last Update     : 2021-10-11                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Pilihan Data Section Anggaran Gabungan                                            |
+        | ▪ Creation Date   : 2022-10-31                                                                                           |
+        | ▪ Last Update     : 2022-10-31                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Sub Section Anggaran Gabungan Level 1                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
-        |      ▪ (int)    varCombinedBudgetOwner_RefID ► Combined Budget Owner Reference ID                                        |
+        |      ▪ (int)    varCombinedBudgetSection_RefID ► Combined Budget Section Reference ID                                    |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataPickList_CombinedBudgetSection($varUserSession, int $varBranchID,
-            int $varCombinedBudgetOwner_RefID)
+        public function getDataPickList_CombinedBudgetSubSectionLevel1($varUserSession, int $varBranchID,
+            int $varCombinedBudgetSection_RefID)
             {
             try {
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetDataPickList_CombinedBudgetSection',
+                        'SchData-OLTP-Budgeting.Func_GetDataPickList_CombinedBudgetSubSectionLevel1',
                         [
                             [$varBranchID, 'bigint' ],
-                            [$varCombinedBudgetOwner_RefID, 'bigint' ]
+                            [$varCombinedBudgetSection_RefID, 'bigint' ]
                         ]
                         )
                     );
