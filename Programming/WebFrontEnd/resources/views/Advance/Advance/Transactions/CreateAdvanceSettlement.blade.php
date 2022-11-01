@@ -112,7 +112,7 @@
                       <tbody>
                         <td style="border:1px solid #e9ecef;">
                           <div class="input-group">
-                            &nbsp;<input readonly name="var_arf_number" id="arf_number" style="border-radius:0;" type="text" class="form-control">
+                            &nbsp;<input readonly name="advance_number_detail" id="advance_number_detail" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
 

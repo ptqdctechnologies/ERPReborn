@@ -269,7 +269,7 @@ class AdvanceSettlementController extends Controller
                 ]
             ]
         );
-
+        // dd($varDataAdvanceList);
         return response()->json($varDataAdvanceList['data']);
     }
 
@@ -294,6 +294,7 @@ class AdvanceSettlementController extends Controller
                 ]
             ]
         );
+        // dd($varDataAdvanceList);
         return response()->json($varDataAdvanceList['data']);
     }
 

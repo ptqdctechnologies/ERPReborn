@@ -127,7 +127,7 @@
                 }
             });
             
-            $.ajax({data-id0="' + value.combinedBudgetSectionDetail_SubSectionLevel1_RefID + '"
+            $.ajax({
                 type: "POST",
                 url: '{!! route("AdvanceRequest.StoreValidateAdvance") !!}?putProductId=' + $('#putProductId').val() + '&putWorkId=' + $('#putWorkId').val(),
                 success: function(data) {
