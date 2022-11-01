@@ -67,6 +67,11 @@ COPY ./.ProjectCore/Configuration/Docker/PostgreSQL/System/root/.my.cnf /root/.m
 COPY ./.ProjectCore/Configuration/Docker/PostgreSQL/System/etc/mysql/mariadb.cnf /etc/mysql/mariadb.cnf
 
 
+#COPY ./.ProjectCore/Configuration/Docker/PostgreSQL/System/var/lib/postgresql/data/postgresql.conf /var/lib/postgresql/data/postgresql.conf
+
+
+#COPY ./.ProjectCore/Configuration/Docker/PostgreSQL/System/var/lib/postgresql/data/pg_hba.conf /var/lib/postgresql/data/pg_hba.conf
+
 #ENTRYPOINT ["Script.ServiceRestart.sh"]
 #EXPOSE 3306
 
