@@ -92,40 +92,35 @@
                     </div>
                   </div>
                   <div class="card-body table-responsive p-0" id="detailASF">
-                    <table class="table text-nowrap table-sm" style="text-align: center;width:130%;">
+                    <table class="table text-nowrap table-sm" style="text-align: center;width:100%;">
                       <thead>
                         <tr>
                           <th rowspan="2" style="padding-bottom:17px;border:2px solid #e9ecef;width:14%;"> ARF Number</th>
-                          <th rowspan="2" style="padding-bottom:17px;border:2px solid #e9ecef;"> ARF Date</th>
-                          <th colspan="6" style="border:2px solid #e9ecef;">Expense Claim</th>
-                          <th colspan="6" style="border:2px solid #e9ecef;">Amount due To Company</th>
+                          <th colspan="5" style="border:2px solid #e9ecef;">Expense Claim</th>
+                          <th colspan="5" style="border:2px solid #e9ecef;">Amount due To Company</th>
                           <th rowspan="2" colspan="2" style="padding-bottom:17px;border:2px solid #e9ecef;"> Balance</th>
                         </tr>
                         <tr>
                           <th colspan="2" style="border:2px solid #e9ecef;"> Qty</th>
-                          <th colspan="2" style="border:2px solid #e9ecef;"> Price</th>
+                          <th style="border:2px solid #e9ecef;"> Price</th>
                           <th colspan="2" style="border:2px solid #e9ecef;"> Total</th>
 
                           <th colspan="2" style="border:2px solid #e9ecef;"> Qty</th>
-                          <th colspan="2" style="border:2px solid #e9ecef;"> Price</th>
+                          <th style="border:2px solid #e9ecef;"> Price</th>
                           <th colspan="2" style="border:2px solid #e9ecef;"> Total</th>
                         </tr>
                       </thead>
                       <tbody>
                         <td style="border:1px solid #e9ecef;">
                           <div class="input-group">
-                            &nbsp;<input readonly name="var_arf_number" id="arf_number" style="border-radius:0;" type="text" class="form-control">
-                          </div>
-                        </td>
-                        <td style="border:1px solid #e9ecef;width:8%;">
-                          <div class="input-group">
-                            <input readonly name="var_arf_date" id="arf_date" style="border-radius:0;" type="text" class="form-control">
+                            &nbsp;<input readonly name="advance_number_detail" id="advance_number_detail" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
 
-                        <input readonly name="" id="productIdHide" style="border-radius:0;" type="hidden" class="form-control">
-                        <input readonly name="" id="nameMaterialHide" style="border-radius:0;" type="hidden" class="form-control">
-                        <input readonly name="" id="descriptionHide" style="border-radius:0;" type="hidden" class="form-control">
+                        <input id="putWorkId" type="hidden" style="border-radius:0;" class="form-control" readonly>
+                        <input id="putProductId" style="border-radius:0;" type="hidden" class="form-control">
+                        <input id="putProductName" style="border-radius:0;" type="hidden" class="form-control">
+                        <input id="putDescription" style="border-radius:0;" type="hidden" class="form-control">
 
                         <td style="border:1px solid #e9ecef;width:5%;">
                           <div class="input-group">
@@ -144,11 +139,11 @@
                             <input id="put_price_expense" style="border-radius:0;" type="hidden" class="form-control">
                           </div>
                         </td>
-                        <td style="border:1px solid #e9ecef;width:4%;">
+                        <!-- <td style="border:1px solid #e9ecef;width:4%;">
                           <div class="input-group">
                             <input readonly id="price_expense2" style="border-radius:0;" type="text" class="form-control">
                           </div>
-                        </td>
+                        </td> -->
                         <td style="border:1px solid #e9ecef;">
                           <div class="input-group">
                             <input readonly id="total_expense" style="border-radius:0;" type="text" class="form-control">
@@ -176,11 +171,11 @@
                             <input id="put_price_amount" style="border-radius:0;" type="hidden" class="form-control">
                           </div>
                         </td>
-                        <td style="border:1px solid #e9ecef;width:4%;">
+                        <!-- <td style="border:1px solid #e9ecef;width:4%;">
                           <div class="input-group">
                             <input readonly id="price_amount2" style="border-radius:0;" type="text" class="form-control">
                           </div>
-                        </td>
+                        </td> -->
                         <td style="border:1px solid #e9ecef;">
                           <div class="input-group">
                             <input readonly id="total_amount" style="border-radius:0;" type="text" class="form-control">
@@ -204,6 +199,10 @@
                         </td>
                         <input id="statusEditAsf" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
                         <input id="TotalQty" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                        <input id="ValidateQuantityAmount" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                        <input id="ValidatePriceAmount" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                        <input id="ValidateQuantityExpense" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                        <input id="ValidatePriceExpense" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                   </div>
 
                   </tbody>
@@ -246,8 +245,8 @@
                     </div>
                   </div>
 
-                  <div class="card-body table-responsive p-0" style="height: 180px;" id="expenseCompanyCart">
-                    <table class="table text-nowrap table-striped tableExpenseClaim">
+                  <div class="card-body table-responsive p-0 expenseCompanyCart" style="height: 180px;" id="expenseCompanyCart">
+                    <table class="table text-nowrap table-striped TableExpenseClaim" id="TableExpenseClaim">
                       <thead>
                         <tr>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Action</th>
@@ -264,6 +263,15 @@
                       <tbody>
 
                       </tbody>
+                    </table>
+                  </div>
+                  <div class="card-body table-responsive p-0 expenseCompanyCart">
+                    <table class="table table-head-fixed table-sm text-nowrap">
+                      <tfoot>
+                        <tr>
+                          <th style="color:brown;float:right;">Total Expense Claim : <span id="TotalExpense"></span></th>
+                        </tr>
+                      </tfoot>
                     </table>
                   </div>
                 </div>
@@ -286,8 +294,8 @@
                     </div>
                   </div>
 
-                  <div class="card-body table-responsive p-0" style="height: 180px;" id="amountCompanyCart">
-                    <table class="table text-nowrap table-striped tableAmountDueto">
+                  <div class="card-body table-responsive p-0 amountCompanyCart" style="height: 180px;" id="amountCompanyCart">
+                    <table class="table text-nowrap table-striped TableAmountDueto" id="TableAmountDueto">
                       <thead>
                         <tr>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Action</th>
@@ -304,6 +312,15 @@
                       <tbody>
 
                       </tbody>
+                    </table>
+                  </div>
+                  <div class="card-body table-responsive p-0 amountCompanyCart">
+                    <table class="table table-head-fixed table-sm text-nowrap">
+                      <tfoot>
+                        <tr>
+                          <th style="color:brown;float:right;">Total Amount Due to Company : <span id="TotalAmount"></span></th>
+                        </tr>
+                      </tfoot>
                     </table>
                   </div>
                 </div>

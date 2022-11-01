@@ -147,27 +147,6 @@ class BusinessTripSettlementController extends Controller
         return response()->json($compact);
     }
 
-    public function BusinessTripSettlementListData(Request $request)
-    {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.finance.getAdvance', 
-            'latest', 
-            [
-            'parameter' => null,
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
-                ]
-            ]
-            );
-            
-        return response()->json($varDataAdvanceRequest['data']);
-    }
     public function BusinessTripRequestByBudgetID(Request $request)
     {
         $projectcode = $request->input('projectcode');
@@ -193,6 +172,79 @@ class BusinessTripSettlementController extends Controller
         ];
         return response()->json($compact);
     }
+
+    public function BusinessTripSettlementListData(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.read.dataList.finance.getAdvance', 
+            'latest', 
+            [
+            'parameter' => null,
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+            );
+            
+        return response()->json($varDataAdvanceRequest['data']);
+    }
+
+    public function BusinessTripSettlementListDataById(Request $request)
+    {
+        $advance_RefID = $request->input('var_recordID');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varDataAdvanceList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.finance.getAdvanceDetail',
+            'latest',
+            [
+                'parameter' => [
+                    'advance_RefID' => (int) $advance_RefID,
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ]
+        );
+
+        // dd($varDataAdvanceList);
+
+        return response()->json($varDataAdvanceList['data']);
+    }
+
+    public function BusinessTripSettlementListCartRevision(Request $request)
+    {
+        $var_recordID = $request->input('var_recordID');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varDataAdvanceList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.finance.getAdvanceDetail',
+            'latest',
+            [
+                'parameter' => [
+                    'advance_RefID' => (int) $var_recordID,
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ]
+        );
+        return response()->json($varDataAdvanceList['data']);
+    }
     
     public function RevisionBusinessTripSettlementIndex(Request $request)
     {
@@ -200,20 +252,22 @@ class BusinessTripSettlementController extends Controller
         $request->session()->forget("SessionBusinessTripSettllement");
         $request->session()->forget("SessionBusinessTripSettllementRequester");
 
-        $varDataAdvanceRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken, 
-        'report.form.documentForm.finance.getAdvance', 
-        'latest',
-        [
-        'parameter' => [
-            'recordID' => (int) $request->searchBsfNumberRevisionId,
+        $varDataAdvanceSettlementRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'report.form.documentForm.finance.getAdvance',
+            'latest',
+            [
+                'parameter' => [
+                    'recordID' => (int) $request->searchBsfNumberRevisionId,
+                ]
             ]
-        ]
         );
+        // dd($varDataAdvanceSettlementRevision);
         $compact = [
-            'dataAdvanceRevisions' => $varDataAdvanceRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
-            'dataRequester' => $varDataAdvanceRevision['data'][0]['document']['content']['involvedPersons']['requester'],
+            'dataAdvanceRevisions' => $varDataAdvanceSettlementRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
+            'dataRequester' => $varDataAdvanceSettlementRevision['data'][0]['document']['content']['involvedPersons']['requester'],
+            'dataAdvancenumber' => $varDataAdvanceSettlementRevision['data'][0]['document']['header']['number'],
             'var_recordID' => $request->searchBsfNumberRevisionId,
         ];
 
