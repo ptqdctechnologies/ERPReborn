@@ -7,9 +7,15 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('Authentication.login');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        if($varAPIWebToken){
+            return view('Layouts.dashboard');
+        }
+        else{
+            return view('Authentication.login');
+        }
     }
 
     public function getBranchLogin(Request $request)

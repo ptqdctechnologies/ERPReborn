@@ -478,6 +478,7 @@
     function RemoveExpense(workId, ProductId, total_expense, tr) {
         var i = tr.parentNode.parentNode.rowIndex;
         document.getElementById("TableExpenseClaim").deleteRow(i);
+        document.getElementById("TableAmountDueto").deleteRow(i);
         
         $.ajax({
             type: "POST",
@@ -495,6 +496,7 @@
 
     function RemoveAmount(workId, ProductId, total_amount, tr) {
         var i = tr.parentNode.parentNode.rowIndex;
+        document.getElementById("TableExpenseClaim").deleteRow(i);
         document.getElementById("TableAmountDueto").deleteRow(i);
         
         $.ajax({
@@ -513,6 +515,7 @@
     function EditExpense(t) {
         var i = t.parentNode.parentNode.rowIndex;
         document.getElementById("TableExpenseClaim").deleteRow(i);
+        document.getElementById("TableAmountDueto").deleteRow(i);
 
         var $this = $(t);
 
@@ -565,6 +568,7 @@
 <script>
     function EditAmount(t) {
         var i = t.parentNode.parentNode.rowIndex;
+        document.getElementById("TableExpenseClaim").deleteRow(i);
         document.getElementById("TableAmountDueto").deleteRow(i);
 
         var $this = $(t);

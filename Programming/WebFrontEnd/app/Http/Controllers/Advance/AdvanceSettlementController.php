@@ -9,7 +9,7 @@ class AdvanceSettlementController extends Controller
 {
     public function index(Request $request)
     {
-        // $data = $request->session()->get("SessionBusinessTripSettllementRequester");
+        // $data = $request->session()->get("SessionAdvance");
         // dd($data);
         $request->session()->forget("SessionAdvanceSetllement");
         $request->session()->forget("SessionAdvanceSetllementRequester");
@@ -277,7 +277,7 @@ class AdvanceSettlementController extends Controller
     {
         $var_recordID = $request->input('var_recordID');
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varDataAdvanceList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.read.dataList.finance.getAdvanceDetail',
@@ -294,8 +294,12 @@ class AdvanceSettlementController extends Controller
                 ]
             ]
         );
-        // dd($varDataAdvanceList);
-        return response()->json($varDataAdvanceList['data']);
+        // dd($varData);
+        foreach($varData['data'] as $varDatas){
+            $request->session()->push("SessionAdvanceSetllement", (string)$varDatas['combinedBudget_SubSectionLevel1_RefID']);
+            $request->session()->push("SessionAdvanceSetllement", (string)$varDatas['product_RefID']);
+        }
+        return response()->json($varData['data']);
     }
 
 

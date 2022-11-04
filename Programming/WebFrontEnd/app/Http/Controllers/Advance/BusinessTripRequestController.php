@@ -11,6 +11,7 @@ class BusinessTripRequestController extends Controller
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
+        $request->session()->forget("SessionBusinessTripRequest");
         $var = 0;
         if(!empty($_GET['var'])){
            $var =  $_GET['var'];
@@ -27,55 +28,53 @@ class BusinessTripRequestController extends Controller
     {
         $input = $request->all();
         dd($input);
-        // $count_product = count($input['var_product_id']);
-
-        // $varAPIWebToken = $request->session()->get('SessionLogin');
-        
-        // $advanceDetail = [];
-        // for($n =0; $n < $count_product; $n++){
-        //     $advanceDetail[$n] = [
-        //     'entities' => [
-        //             "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
-        //             "product_RefID" => (int) $input['var_product_id'][$n],
-        //             "quantity" => (float) $input['var_quantity'][$n],
-        //             "quantityUnit_RefID" => 73000000000001,
-        //             "productUnitPriceCurrency_RefID" => 62000000000001,
-        //             "productUnitPriceCurrencyValue" => (float) $input['var_price'][$n],
-        //             "productUnitPriceCurrencyExchangeRate" => 1,
-        //             "remarks" => 'test jumat'
-        //         ]
-        //     ];
-        // }
-
-        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        //     $varAPIWebToken, 
-        //     'transaction.create.finance.setAdvance', 
-        //     'latest', 
-        //     [
-        //     'entities' => [
-        //         "documentDateTimeTZ" => $input['var_date'],
-        //         "log_FileUpload_Pointer_RefID" => 91000000000001,
-        //         "requesterWorkerJobsPosition_RefID" => (int)$input['request_name_id'],
-        //         "beneficiaryWorkerJobsPosition_RefID" => 25000000000439,
-        //         "beneficiaryBankAccount_RefID" => 167000000000001,
-        //         "internalNotes" => 'My Internal Notes',
-        //         "remarks" => $input['var_remark'],
-        //         "additionalData" => [
-        //             "itemList" => [
-        //                 "items" => $advanceDetail
-        //                 ]
-        //             ]
-        //         ]
-        //     ]                    
-        //     );
-
-        // $compact = [
-        //     "brfnumber"=> 'BRF-000111',
-        // ];
-
-        // return response()->json($compact); 
     }
+
+    // public function StoreValidateBusinessTripRequest(Request $request)
+    // {
+    //     $tamp = 0; $status = 200;
+    //     $val = $request->input('putWorkId');
+    //     $val2 = $request->input('putProductId');
+    //     $data = $request->session()->get("SessionBusinessTripRequest");
+    //     if($request->session()->has("SessionBusinessTripRequest")){
+    //         for($i = 0; $i < count($data); $i++){
+    //             if($data[$i] == $val && $data[$i+1] == $val2){
+    //                 $tamp = 1;
+    //             }
+    //         }
+    //         if($tamp == 0){
+    //             $request->session()->push("SessionBusinessTripRequest", $val);
+    //             $request->session()->push("SessionBusinessTripRequest", $val2);
+    //         }
+    //         else{
+    //             $status = 500;
+    //         }
+    //     }
+    //     else{
+    //         $request->session()->push("SessionBusinessTripRequest", $val);
+    //         $request->session()->push("SessionBusinessTripRequest", $val2);
+    //     }
+
+    //     return response()->json($status);
+    // }
+
+    // public function StoreValidateBusinessTripRequest2(Request $request)
+    // {
+    //     $val = $request->input('putWorkId');
+    //     $val2 = $request->input('putProductId');
+    //     $data = $request->session()->get("SessionBusinessTripRequest");
+    //     if($request->session()->has("SessionBusinessTripRequest")){
+    //         for($i = 0; $i < count($data); $i++){
+    //             if($data[$i] == $val && $data[$i+1] == $val2){
+    //                 unset($data[$i]);
+    //                 unset($data[$i+1]);
+    //                 $newClass = array_values($data);
+    //                 $request->session()->put("SessionBusinessTripRequest", $newClass);
+    //             }
+    //         }
+    //     }
+    // }
+
     public function BusinessTripListData(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');

@@ -167,7 +167,7 @@
                             $("#qty_amount").css("border", "1px solid #ced4da");
                             $("#price_amount").css("border", "1px solid #ced4da");
 
-                            $(".AddToDetailSettlement2").prop("disabled", true);
+                            $(".AddToDetailSettlement2").prop("disabled", false);
 
                         } else {
                             Swal.fire("Cancelled", "Please use edit to update this item !", "error");
@@ -368,6 +368,7 @@
                 $("#balance").val($this.data("id4").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                 $("#balance2").val($this.data("id5"));
 
+                $("#putWorkId").val($this.data("id0"));
                 $("#putProductId").val($this.data("id7"));
                 $("#putProductName").val($this.data("id8"));
                 $("#putDescription").val($this.data("id9"));
@@ -516,6 +517,8 @@
             $("#total_amount").val("");
             $("#total_amount2").val("");
 
+
+            $(".AddToDetailSettlement2").prop("disabled", false);
             $("#putProductId").css("border", "1px solid #ced4da");
         });
     });
@@ -525,6 +528,7 @@
     function EditExpense(t) {
         var i = t.parentNode.parentNode.rowIndex;
         document.getElementById("TableExpenseClaim").deleteRow(i);
+        document.getElementById("TableAmountDueto").deleteRow(i);
 
         var $this = $(t);
 
@@ -576,6 +580,7 @@
     function EditExpenseListCart(t) {
         var i = t.parentNode.parentNode.rowIndex;
         document.getElementById("TableExpenseClaim").deleteRow(i);
+        document.getElementById("TableAmountDueto").deleteRow(i);
 
         var $this = $(t);
         console.log($this.data("id2"));
@@ -629,6 +634,7 @@
 <script>
     function EditAmount(t) {
         var i = t.parentNode.parentNode.rowIndex;
+        document.getElementById("TableExpenseClaim").deleteRow(i);
         document.getElementById("TableAmountDueto").deleteRow(i);
 
         var $this = $(t);
@@ -680,6 +686,7 @@
 
     function EditAmountListCart(t) {
         var i = t.parentNode.parentNode.rowIndex;
+        document.getElementById("TableExpenseClaim").deleteRow(i);
         document.getElementById("TableAmountDueto").deleteRow(i);
 
         var $this = $(t);

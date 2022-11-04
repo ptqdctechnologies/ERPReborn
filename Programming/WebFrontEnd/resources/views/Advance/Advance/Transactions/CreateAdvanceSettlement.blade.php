@@ -202,6 +202,7 @@
                         <input id="ValidatePriceAmount" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                         <input id="ValidateQuantityExpense" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                         <input id="ValidatePriceExpense" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                        <!-- <input id="ValidateTableId" style="border-radius:0;" type="hidden" class="form-control" readonly=""> -->
                   </div>
 
                   </tbody>
@@ -255,7 +256,6 @@
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Price</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Total</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Description</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -304,7 +304,6 @@
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Price</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Total</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Description</th>
                         </tr>
                       </thead>
                       <tbody>

@@ -226,7 +226,7 @@ class BusinessTripSettlementController extends Controller
     {
         $var_recordID = $request->input('var_recordID');
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varDataAdvanceList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.read.dataList.finance.getAdvanceDetail',
@@ -243,7 +243,12 @@ class BusinessTripSettlementController extends Controller
                 ]
             ]
         );
-        return response()->json($varDataAdvanceList['data']);
+        // dd($varData);
+        foreach($varData['data'] as $varDatas){
+            $request->session()->push("SessionBusinessTripSettllement", (string)$varDatas['combinedBudget_SubSectionLevel1_RefID']);
+            $request->session()->push("SessionBusinessTripSettllement", (string)$varDatas['product_RefID']);
+        }
+        return response()->json($varData['data']);
     }
     
     public function RevisionBusinessTripSettlementIndex(Request $request)
