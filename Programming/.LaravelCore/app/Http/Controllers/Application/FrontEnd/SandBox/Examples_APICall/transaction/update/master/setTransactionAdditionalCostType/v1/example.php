@@ -3,9 +3,9 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\update\master               |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\update\master                    |
 |                 \setTransactionAdditionalCostType\v1                                                                             |
-| ▪ API Key     : transaction.update.master.setTransactionAdditionalCostType                                                  |
+| ▪ API Key     : transaction.update.master.setTransactionAdditionalCostType                                                       |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
