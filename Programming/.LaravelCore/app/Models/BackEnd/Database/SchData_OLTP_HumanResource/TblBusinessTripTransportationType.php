@@ -5,26 +5,26 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_HumanResource                                                                   |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_HumanResource
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblBusinessTripCostComponent                                                                                 |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-HumanResource ► TblBusinessTripCostComponent                        |
+    | ▪ Class Name  : TblBusinessTripTransportationType                                                                            |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-HumanResource ► TblBusinessTripTransportationType                   |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblBusinessTripCostComponent extends \App\Models\Database\DefaultClassPrototype
+    class TblBusinessTripTransportationType extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-09                                                                                           |
-        | ▪ Creation Date   : 2020-09-09                                                                                           |
+        | ▪ Creation Date   : 2022-11-04                                                                                           |
+        | ▪ Last Update     : 2022-11-04                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -74,7 +74,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
         | ▪ Last Update     : 2022-11-04                                                                                           |
-        | ▪ Creation Date   : 2020-09-09                                                                                           |
+        | ▪ Creation Date   : 2022-11-04                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -84,7 +84,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (string) varName ► Business Trip Component Name                                                                   |
+        |      ▪ (string) varName ► Business Trip Transportation Type Name                                                         |
+        |      ▪ (int)    varVehicleType_RefID ► Vehicle Type Reference ID                                                         |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -92,7 +93,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varName = null)
+            string $varName = null, int $varVehicleType_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -107,7 +108,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [$varSysBranch_RefID, 'bigint'],
                         [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [$varName, 'varchar']
+                        [$varName, 'varchar'],
+                        [$varVehicleType_RefID, 'bigint']
                     ]
                     )
                 );
@@ -121,7 +123,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
         | ▪ Last Update     : 2022-11-04                                                                                           |
-        | ▪ Creation Date   : 2020-09-09                                                                                           |
+        | ▪ Creation Date   : 2022-11-04                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -132,7 +134,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (string) varName ► Business Trip Component Name                                                                   |
+        |      ▪ (string) varName ► Business Trip Transportation Type Name                                                         |
+        |      ▪ (int)    varVehicleType_RefID ► Vehicle Type Reference ID                                                         |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -140,7 +143,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varName = null)
+            string $varName = null, int $varVehicleType_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -155,7 +158,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [$varSysBranch_RefID, 'bigint'],
                         [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [$varName, 'varchar']
+                        [$varName, 'varchar'],
+                        [$varVehicleType_RefID, 'bigint']
                     ],
                     )
                 );

@@ -3,21 +3,21 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\initialize\humanResource                     |
-|                \setBusinessTripCostComponent\v1                                                                                  |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\humanResource                               |
+|                \getBusinessTripTransportationType\v1                                                                             |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\initialize\humanResource\setBusinessTripCostComponent\v1
+namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\humanResource\getBusinessTripTransportationType\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setBusinessTripCostComponent                                                                                 |
-    | ▪ Description : Menangani API transaction.initialize.humanResource.setBusinessTripCostComponent Version 1                    |
+    | ▪ Class Name  : getVehicleType                                                                                               |
+    | ▪ Description : Menangani API dataPickList.humanResource.getBusinessTripTransportationType Version 1                         |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setBusinessTripCostComponent extends \App\Http\Controllers\Controller
+    class getBusinessTripTransportationType extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -59,12 +59,13 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\in
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Initialize Business Trip Cost Component Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Data Pick List Business Trip Cost Component (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataInitialize($varUserSession, (new \App\Models\Database\SchData_OLTP_HumanResource\TblBusinessTripCostComponent())->setDataInitialize(
-                            $varUserSession
+                    try {
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_HumanResource\General())->getDataPickList_BusinessTripTransportationType(
+                            $varUserSession, 
+                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID']
                             ))))
                             {
                             throw new \Exception();
@@ -90,5 +91,3 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\in
             }
         }
     }
-
-?>
