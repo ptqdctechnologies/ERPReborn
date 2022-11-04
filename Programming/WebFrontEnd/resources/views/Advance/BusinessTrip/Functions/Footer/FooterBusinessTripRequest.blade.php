@@ -21,49 +21,6 @@
 
 
 <script>
-  var date = new Date();
-  var today = new Date(date.setMonth(date.getMonth() - 3));
-  document.getElementById('dateCommance').setAttribute('min', today.toISOString().split('T')[0]);
-  document.getElementById('dateDepart').setAttribute('min', today.toISOString().split('T')[0]);
-</script>
-
-<script>
-  $(document).ready(function() {
-    $('#dateCommance').change(function() {
-      $("#dateEnd").prop("disabled", false);
-      var dateCommance = new Date($("#dateCommance").val());
-      document.getElementById('dateEnd').setAttribute('min', dateCommance.toISOString().split('T')[0]);
-    });
-
-    $('#dateDepart').change(function() {
-      $("#dateArrival").prop("disabled", false);
-      var dateDepart = new Date($("#dateDepart").val());
-      document.getElementById('dateArrival').setAttribute('min', dateDepart.toISOString().split('T')[0]);
-    });
-  });
-</script>
-
-
-<script>
-  $(document).ready(function() {
-    $('#longTerm').click(function() {
-      $("#sequenceRequest").val('0');
-      $("#sequenceRequest").prop("disabled", false);
-    });
-
-    $('#shortTerm').click(function() {
-      $("#sequenceRequest").val('1');
-      $("#sequenceRequest").prop("disabled", true);
-    });
-
-    $('#dayTripTravel').click(function() {
-      $("#sequenceRequest").val('1');
-      $("#sequenceRequest").prop("disabled", true);
-    });
-  });
-</script>
-
-<script>
   function klikProject(code, name) {
     $("#projectcode").val(code);
     $("#projectname").val(name);
@@ -132,7 +89,7 @@
           }
           var html = '<tr>' +
             '<td style="border:1px solid #e9ecef;width:5%;">' +
-            '&nbsp;&nbsp;<button type="reset" ' + status + ' class="btn btn-sm klikBudgetDetail klikBudgetDetail2' + status + '" data-id1="' + val2.product_RefID + '" data-id2="' + val2.quantityRemain + '" data-id3="' + val2.unitPriceBaseCurrencyValue + '" data-id4="' + val2.sys_ID + '" data-id5="' + val2.productName + '" data-id6="' + val2.quantityUnitName + '" data-id7="' + val2.priceBaseCurrencyISOCode + '" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="15" alt="" title="Add to Detail"></button>' +
+            '&nbsp;&nbsp;<button type="reset" ' + status + ' class="btn btn-sm klikBudgetDetail klikBudgetDetail2' + status + '" data-id0="' + val2.combinedBudgetSubSectionLevel1_RefID + '" data-id1="' + val2.product_RefID + '" data-id2="' + val2.quantityRemain + '" data-id3="' + val2.unitPriceBaseCurrencyValue + '" data-id4="' + val2.sys_ID + '" data-id5="' + val2.productName + '" data-id6="' + val2.quantityUnitName + '" data-id7="' + val2.priceBaseCurrencyISOCode + '" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="15" alt="" title="Add to Detail"></button>' +
             '</td>' +
             '<td style="border:1px solid #e9ecef;">' +
             '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"> @if('+ applied +' >= '+0+' && '+ applied +' <= '+40+')<div class="progress-bar bg-red" style="width:'+ applied +'%;"></div> @elseif('+ applied +' >= '+41+' && '+ applied +' <= '+89+')<div class="progress-bar bg-blue" style="width:'+ applied +'%;"></div> @elseif('+ applied + ' >= '+ 90 +' && ' + applied + ' <= '+ 100 +')<div class="progress-bar bg-green" style="width:'+ applied +'%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>'+ applied +' %</center></small>' +
@@ -155,9 +112,10 @@
         $('.klikBudgetDetail').on('click', function(e) {
           e.preventDefault();
           var $this = $(this);
-          var price = $this.data("id3");
+          var workId = $this.data("id0");
           var productId = $this.data("id1");
           var qty = $this.data("id2");
+          var price = $this.data("id3");
           var combinedBudget = $this.data("id4");
           var productName = $this.data("id5");
           var uom = $this.data("id6");
@@ -175,7 +133,8 @@
             $("#statusProduct").val("No");
           }
           
-          $("#putProductId").val(putProductId);
+          $("#putWorkId").val(workId);
+          $("#putProductId").val(productId);
           $("#putProductName").val(putProductName);
           $("#qtyCek").val(qty);
           $("#putQty").val(qty);
@@ -186,9 +145,11 @@
           $("#totalBalance").val(parseFloat(qty * price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
           $("#combinedBudget").val(combinedBudget);
           $("#brfhide1").show();
-          $(".klikBudgetDetail2").prop("disabled", true);
           $("#sequenceRequest").val('1');
           $("#statusEditBrf").val('No');
+
+          $(".klikBudgetDetail2").prop("disabled", true);
+          // $(".ActionButton").prop("disabled", true);
         });
       }
     });
@@ -196,8 +157,14 @@
   }
 </script>
 
-
 <script>
+
+  $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+  });
+  
   var varTotal = 0;
   var varTotalBrf = 0;
   var y = 0;
@@ -206,13 +173,9 @@
     var varBudgetRequest = $('#budgetRequest').val().replace(/,/g, '');
     var varSequenceReq = $('#sequenceRequest').val();
     var varSequence = $('#sequence').val();
-    var varAllowance = $('#allowance').val().replace(/,/g, '');
-    var varTransport = $('#transport').val().replace(/,/g, '');
-    var varAirport_tax = $('#airport_tax').val().replace(/,/g, '');
-    var varAccomodation = $('#accomodation').val().replace(/,/g, '');
-    var varOther = $('#other').val().replace(/,/g, '');
-    
     var putProductId = $('#putProductId').val();
+    var putProductId = $('#putProductId').val();
+    var putProductName = $('#putProductName').val();
 
     if(putProductId === ""){
       $("#putProductId").focus();
@@ -227,21 +190,18 @@
     else if (varSequence > varSequenceReq) {
       Swal.fire("Error !", "Total Sequence more than Sequence Request", "error");
     } else {
-
-      if (varSequence == varSequenceReq) {
-        // $('#putProductId').val("");
-        // $('#putProductName').val("");
-        // $('#sequenceRequest').val("");
-        $('#budgetRequest').val("");
-        $("#saveBrfList").prop("disabled", false);
-      }
-
-      var sequence = $('#sequence').val().replace(/,/g, '');
+      
+      var sequence = $('#sequence').val();
       var allowance = $('#allowance').val().replace(/,/g, '');
+      if(allowance == ""){ allowance = "0.00"; }
       var transport = $('#transport').val().replace(/,/g, '');
+      if(transport == ""){ transport = "0.00"; }
       var airport_tax = $('#airport_tax').val().replace(/,/g, '');
+      if(airport_tax == ""){ airport_tax = "0.00"; }
       var accomodation = $('#accomodation').val().replace(/,/g, '');
+      if(accomodation == ""){ accomodation = "0.00"; }
       var other = $('#other').val().replace(/,/g, '');
+      if(other == ""){ other = "0.00"; }
 
       var varLoop = +varSequence + 1;
       $("#sequence").val(varLoop);
@@ -257,10 +217,152 @@
         Swal.fire("Error !", "Total Budget more than Budget Request", "error");
         var varLoop = $("#sequence").val() - 1;
         $("#sequence").val(varLoop);
-
       } else {
+        
+        // $.ajax({
+        //   type: "POST",
+        //   url: '{!! route("BusinessTripRequest.StoreValidateBusinessTripRequest") !!}?putProductId=' + $('#putProductId').val() + '&putWorkId=' + $('#putWorkId').val(),
+        //   success: function(data) {
+        //     if (data == "200") {
 
-        $("#totalSequence").html(varSequenceReq);
+              $("#valSequence").html(sequence);
+              
+              if($("#valAllowance").html() == ""){ $("#valAllowance").html('0'); }
+              var valAllowance = parseFloat($("#valAllowance").html().replace(/,/g, ''));
+              $("#valAllowance").html(parseFloat(+valAllowance + +allowance).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+              
+              if($("#valTransport").html() == ""){ $("#valTransport").html('0'); }
+              var valTransport = parseFloat($("#valTransport").html().replace(/,/g, ''));
+              $("#valTransport").html(parseFloat(+valTransport + +transport).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+              if($("#valAirportTax").html() == ""){ $("#valAirportTax").html('0'); }
+              var valAirportTax = parseFloat($("#valAirportTax").html().replace(/,/g, ''));
+              $("#valAirportTax").html(parseFloat(+valAirportTax + +airport_tax).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+              if($("#valAccomodation").html() == ""){ $("#valAccomodation").html('0'); }
+              var valAccomodation = parseFloat($("#valAccomodation").html().replace(/,/g, ''));
+              $("#valAccomodation").html(parseFloat(+valAccomodation + +accomodation).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+              if($("#valOthers").html() == ""){ $("#valOthers").html('0'); }
+              var valOthers = parseFloat($("#valOthers").html().replace(/,/g, ''));
+              $("#valOthers").html(parseFloat(+valOthers + +other).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+              if($("#totalBrf").html() == ""){ $("#totalBrf").html('0'); }
+              var totalBrf = parseFloat($("#totalBrf").html().replace(/,/g, ''));
+              $("#totalBrf").html(parseFloat(+totalBrf + +varTotal).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+              if($("#totalSequence").html() == ""){ $("#totalSequence").html('0'); }
+              var totalSequence = $("#totalSequence").html();
+              $("#totalSequence").html(+totalSequence + +1);
+
+              var html = '<tr>' +
+                '<td style="border:1px solid #e9ecef;width:7%;">' +
+                '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveBusinessTrip(this);"  data-id1="' + allowance + '" data-id2="' + transport + '" data-id3="' + airport_tax + '" data-id4="' + accomodation + '" data-id5="' + other + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+                '&nbsp;<button type="button" class="btn btn-xs ActionButton " onclick="EditBusinessTrip(this);" data-dismiss="modal" data-id1="' + allowance + '" data-id2="' + transport + '" data-id3="' + airport_tax + '" data-id4="' + accomodation + '" data-id5="' + other + '" data-id6="' + putProductId + '" data-id7="' + putProductName + '" data-id8="' + sequence + '" data-id9="' + varSequenceReq + '" data-id10="' + varBudgetRequest + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+                '<input type="hidden" name="sequence[]" value="' + sequence + '">' +
+                '<input type="hidden" name="allowance[]" value="' + allowance + '">' +
+                '<input type="hidden" name="transport[]" value="' + transport + '">' +
+                '<input type="hidden" name="airport_tax[]" value="' + airport_tax + '">' +
+                '<input type="hidden" name="accomodation[]" value="' + accomodation + '">' +
+                '<input type="hidden" name="other[]" value="' + other + '">' +
+                '</td>' +
+                '<td style="border:1px solid #e9ecef;width:10%;">' + putProductId + '</td>' +
+                '<td style="border:1px solid #e9ecef;width:10%;">' + putProductName + '</td>' +
+                '<td style="border:1px solid #e9ecef;width:10%;">' + sequence + '</td>' +
+                '<td style="border:1px solid #e9ecef;width:13%;">' + allowance + '</td>' +
+                '<td style="border:1px solid #e9ecef;width:13%;">' + transport + '</td>' +
+                '<td style="border:1px solid #e9ecef;width:13%;">' + airport_tax + '</td>' +
+                '<td style="border:1px solid #e9ecef;width:13%;">' + accomodation + '</td>' +
+                '<td style="border:1px solid #e9ecef;width:13%;">' + other + '</td>' +
+                '</tr>';
+
+              $('table.tableBrf tbody').append(html);
+              $("#statusEditBrf").val('No');
+              $(".brfhide6").show();
+              $("#putProductId").css("border", "1px solid #ced4da");
+              $(".klikBudgetDetail2").prop("disabled", false);
+              $(".ActionButton").prop("disabled", false);
+
+              if (varSequence == varSequenceReq) {
+                $('#putProductId').val("");
+                $('#putProductName').val("");
+                $('#sequenceRequest').val("");
+                $('#budgetRequest').val("");
+                $('#sequence').val("1");
+                $('#budgetRequest').val("");
+                $("#saveBrfList").prop("disabled", false);
+              }
+              
+        //     } else {
+        //       Swal.fire("Error !", "Please use edit to update this item !", "error");
+        //     }
+        //   },
+        // });
+      }
+    }
+    $("#allowance").val("");
+    $("#transport").val("");
+    $('#airport_tax').val("");
+    $("#accomodation").val("");
+    $("#other ").val("");
+  }
+</script>
+
+
+<script type="text/javascript">
+    function CancelDetailBrf() {
+        $(".klikBudgetDetail2").prop("disabled", false);
+        $("#putProductId2").prop("disabled", true);
+
+        var sequence = $('#sequence').val();
+        var allowance = $('#allowance').val().replace(/^\s+|\s+$/g, '');
+        var transport = $('#transport').val().replace(/^\s+|\s+$/g, '');
+        var airport_tax = $('#airport_tax').val().replace(/^\s+|\s+$/g, '');
+        var accomodation = $('#accomodation').val().replace(/^\s+|\s+$/g, '');
+        var other = $('#other').val().replace(/^\s+|\s+$/g, '');
+        var putProductId = $('#putProductId').val().replace(/^\s+|\s+$/g, '');
+        var putProductName = $('#putProductName').val().replace(/^\s+|\s+$/g, '');
+        var sequence = $('#sequence').val().replace(/^\s+|\s+$/g, '');
+        var varSequenceReq = $('#sequenceRequest').val().replace(/^\s+|\s+$/g, '');
+        var varBudgetRequest = $('#budgetRequest').val().replace(/^\s+|\s+$/g, '');
+        
+        var statusEditBrf = $("#statusEditBrf").val();
+
+        if (statusEditBrf == "Yes") {
+
+          var varSequence = $('#sequence').val();
+          $("#sequence").val(+varSequence + +1);
+
+          var allowance = $('#ValidateAllowance').val().replace(/^\s+|\s+$/g, '');
+          var transport = $('#ValidateTransport').val().replace(/^\s+|\s+$/g, '');
+          var airport_tax = $('#ValidateAirportTax').val().replace(/^\s+|\s+$/g, '');
+          var accomodation = $('#ValidateAccomodation').val().replace(/^\s+|\s+$/g, '');
+          var other = $('#ValidateOther').val().replace(/^\s+|\s+$/g, '');
+          
+          var html = '<tr>' +
+          '<td style="border:1px solid #e9ecef;width:7%;">' +
+          '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveBusinessTrip(this);"  data-id1="' + allowance + '" data-id2="' + transport + '" data-id3="' + airport_tax + '" data-id4="' + accomodation + '" data-id5="' + other + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+          '&nbsp;<button type="button" class="btn btn-xs ActionButton " onclick="EditBusinessTrip(this);" data-dismiss="modal" data-id1="' + allowance + '" data-id2="' + transport + '" data-id3="' + airport_tax + '" data-id4="' + accomodation + '" data-id5="' + other + '" data-id6="' + putProductId + '" data-id7="' + putProductName + '" data-id8="' + sequence + '" data-id9="' + varSequenceReq + '" data-id10="' + varBudgetRequest + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+          '<input type="hidden" name="sequence[]" value="' + sequence + '">' +
+          '<input type="hidden" name="allowance[]" value="' + allowance + '">' +
+          '<input type="hidden" name="transport[]" value="' + transport + '">' +
+          '<input type="hidden" name="airport_tax[]" value="' + airport_tax + '">' +
+          '<input type="hidden" name="accomodation[]" value="' + accomodation + '">' +
+          '<input type="hidden" name="other[]" value="' + other + '">' +
+          '</td>' +
+          '<td style="border:1px solid #e9ecef;width:10%;">' + allowance + '</td>' +
+          '<td style="border:1px solid #e9ecef;width:10%;">' + transport + '</td>' +
+          '<td style="border:1px solid #e9ecef;width:10%;">' + airport_tax + '</td>' +
+          '<td style="border:1px solid #e9ecef;width:13%;">' + allowance + '</td>' +
+          '<td style="border:1px solid #e9ecef;width:13%;">' + transport + '</td>' +
+          '<td style="border:1px solid #e9ecef;width:13%;">' + airport_tax + '</td>' +
+          '<td style="border:1px solid #e9ecef;width:13%;">' + accomodation + '</td>' +
+          '<td style="border:1px solid #e9ecef;width:13%;">' + other + '</td>' +
+          '</tr>';
+
+          $('table.tableBrf tbody').append(html);
+          $("#statusEditBrf").val('No');
+        }
         
         if($("#valAllowance").html() == ""){ $("#valAllowance").html('0'); }
         var valAllowance = parseFloat($("#valAllowance").html().replace(/,/g, ''));
@@ -284,50 +386,30 @@
 
         if($("#totalBrf").html() == ""){ $("#totalBrf").html('0'); }
         var totalBrf = parseFloat($("#totalBrf").html().replace(/,/g, ''));
+        var varTotal = +allowance + +transport + +airport_tax + +accomodation + +other;
         $("#totalBrf").html(parseFloat(+totalBrf + +varTotal).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
-        var html = '<tr>' +
-          '<td style="border:1px solid #e9ecef;width:7%;">' +
-          '&nbsp;&nbsp;<button type="button" class="btn btn-xs" onclick="RemoveBusinessTrip(this);"  data-id1="' + allowance + '" data-id2="' + transport + '" data-id3="' + airport_tax + '" data-id4="' + accomodation + '" data-id5="' + other + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
-          '&nbsp;<button type="button" class="btn btn-xs " onclick="EditBusinessTrip(this);" data-dismiss="modal" data-id1="' + allowance + '" data-id2="' + transport + '" data-id3="' + airport_tax + '" data-id4="' + accomodation + '" data-id5="' + other + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
-          '<input type="hidden" name="sequence[]" value="' + sequence + '">' +
-          '<input type="hidden" name="allowance[]" value="' + allowance + '">' +
-          '<input type="hidden" name="transport[]" value="' + transport + '">' +
-          '<input type="hidden" name="airport_tax[]" value="' + airport_tax + '">' +
-          '<input type="hidden" name="accomodation[]" value="' + accomodation + '">' +
-          '<input type="hidden" name="other[]" value="' + other + '">' +
-          '</td>' +
-          '<td style="border:1px solid #e9ecef;width:20%;">' + allowance + '</td>' +
-          '<td style="border:1px solid #e9ecef;width:20%;">' + transport + '</td>' +
-          '<td style="border:1px solid #e9ecef;width:20%;">' + airport_tax + '</td>' +
-          '<td style="border:1px solid #e9ecef;width:20%;">' + accomodation + '</td>' +
-          '<td style="border:1px solid #e9ecef;width:13%;">' + other + '</td>' +
-          '</tr>';
-
-        $('table.tableBrf tbody').append(html);
-        $("#statusEditBrf").val('No');
-        $(".brfhide6").show();
-        $(".klikBudgetDetail2").prop("disabled", false);
-        $("#putProductId").css("border", "1px solid #ced4da");
-      }
+        $("#putProductId").val("");
+        $("#putProductName").val("");
+        $("#allowance").val("");
+        $("#transport").val("");
+        $("#airport_tax").val("");
+        $("#accomodation").val("");
+        $("#other").val("");
+        $("#totalBalance").val("");
+        $("#budgetRequest").val("");
+        $("#sequence").val("");
+        $("#sequenceRequest").val("");
+        $(".ActionButton").prop("disabled", false);
     }
-    $("#allowance").val("");
-    $("#transport").val("");
-    $('#airport_tax').val("");
-    $("#accomodation").val("");
-    $("#other ").val("");
-  }
 </script>
+
 
 <script>
 
     function RemoveBusinessTrip(tr) {
         var i = tr.parentNode.parentNode.rowIndex;
         document.getElementById("tableBrf").deleteRow(i);
-
-        var varSequence = $('#sequence').val();
-        $("#sequence").val(varSequence - 1);
-
 
         var $this = $(tr);
         allowance = $this.data("id1");
@@ -354,17 +436,14 @@
         varTotalBrf = +allowance + +transport + +airportTax + +accomodation + +others;
         var totalBrf = parseFloat($("#totalBrf").html().replace(/,/g, ''));
         $("#totalBrf").html(parseFloat(totalBrf - varTotalBrf).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+        var totalSequence = $("#totalSequence").html();
+        $("#totalSequence").html(totalSequence - 1);
     }
 
     function EditBusinessTrip(tr) {
       var i = tr.parentNode.parentNode.rowIndex;
         document.getElementById("tableBrf").deleteRow(i);
-        
-        var budgetRequest2 = $('#budgetRequest2').val();
-        $('#budgetRequest').val(parseFloat(budgetRequest2).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-
-        var varSequence = $('#sequence').val();
-        $("#sequence").val(varSequence - 1);
 
         var $this = $(tr);
         $("#allowance").val($this.data("id1"));
@@ -372,6 +451,12 @@
         $("#airport_tax").val($this.data("id3"));
         $("#accomodation").val($this.data("id4"));
         $("#other").val($this.data("id5"));
+
+        $("#putProductId").val($this.data("id6"));
+        $("#putProductName").val($this.data("id7"));
+        $("#sequence").val($this.data("id8"));
+        $("#sequenceRequest").val($this.data("id9"));
+        $("#budgetRequest").val($this.data("id10"));
 
         allowance = $this.data("id1");
         transport = $this.data("id2");
@@ -404,8 +489,12 @@
         var totalBrf = parseFloat($("#totalBrf").html().replace(/,/g, ''));
         $("#totalBrf").html(parseFloat(totalBrf - varTotalBrf).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
+        var totalSequence = $("#totalSequence").html();
+        $("#totalSequence").html(totalSequence - 1);
+
         $("#statusEditBrf").val('Yes');
         $(".klikBudgetDetail2").prop("disabled", true);
+        $(".ActionButton").prop("disabled", true);
     } 
 </script>
 
@@ -501,89 +590,6 @@
     }
 </script>
 
-<script type="text/javascript">
-    function CancelDetailBrf() {
-        $(".klikBudgetDetail2").prop("disabled", false);
-        $("#putProductId2").prop("disabled", true);
-
-        var sequence = $('#sequence').val().replace(/^\s+|\s+$/g, '');
-        var allowance = $('#allowance').val().replace(/^\s+|\s+$/g, '');
-        var transport = $('#transport').val().replace(/^\s+|\s+$/g, '');
-        var airport_tax = $('#airport_tax').val().replace(/^\s+|\s+$/g, '');
-        var accomodation = $('#accomodation').val().replace(/^\s+|\s+$/g, '');
-        var other = $('#other').val().replace(/^\s+|\s+$/g, '');
-        
-        var statusEditBrf = $("#statusEditBrf").val();
-
-        if (statusEditBrf == "Yes") {
-
-          var varSequence = $('#sequence').val();
-          $("#sequence").val(+varSequence + +1);
-
-          var allowance = $('#ValidateAllowance').val().replace(/^\s+|\s+$/g, '');
-          var transport = $('#ValidateTransport').val().replace(/^\s+|\s+$/g, '');
-          var airport_tax = $('#ValidateAirportTax').val().replace(/^\s+|\s+$/g, '');
-          var accomodation = $('#ValidateAccomodation').val().replace(/^\s+|\s+$/g, '');
-          var other = $('#ValidateOther').val().replace(/^\s+|\s+$/g, '');
-          
-          var html = '<tr>' +
-          '<td style="border:1px solid #e9ecef;width:7%;">' +
-          '&nbsp;&nbsp;<button type="button" class="btn btn-xs" onclick="RemoveBusinessTrip(this);"  data-id1="' + allowance + '" data-id2="' + transport + '" data-id3="' + airport_tax + '" data-id4="' + accomodation + '" data-id5="' + other + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
-          '&nbsp;<button type="button" class="btn btn-xs " onclick="EditBusinessTrip(this);" data-dismiss="modal" data-id1="' + allowance + '" data-id2="' + transport + '" data-id3="' + airport_tax + '" data-id4="' + accomodation + '" data-id5="' + other + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
-          '<input type="hidden" name="sequence[]" value="' + sequence + '">' +
-          '<input type="hidden" name="allowance[]" value="' + allowance + '">' +
-          '<input type="hidden" name="transport[]" value="' + transport + '">' +
-          '<input type="hidden" name="airport_tax[]" value="' + airport_tax + '">' +
-          '<input type="hidden" name="accomodation[]" value="' + accomodation + '">' +
-          '<input type="hidden" name="other[]" value="' + other + '">' +
-          '</td>' +
-          '<td style="border:1px solid #e9ecef;width:20%;">' + allowance + '</td>' +
-          '<td style="border:1px solid #e9ecef;width:20%;">' + transport + '</td>' +
-          '<td style="border:1px solid #e9ecef;width:20%;">' + airport_tax + '</td>' +
-          '<td style="border:1px solid #e9ecef;width:20%;">' + accomodation + '</td>' +
-          '<td style="border:1px solid #e9ecef;width:13%;">' + other + '</td>' +
-          '</tr>';
-
-          $('table.tableBrf tbody').append(html);
-          $("#statusEditBrf").val('No');
-        }
-        
-        if($("#valAllowance").html() == ""){ $("#valAllowance").html('0'); }
-        var valAllowance = parseFloat($("#valAllowance").html().replace(/,/g, ''));
-        $("#valAllowance").html(parseFloat(+valAllowance + +allowance).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-        
-        if($("#valTransport").html() == ""){ $("#valTransport").html('0'); }
-        var valTransport = parseFloat($("#valTransport").html().replace(/,/g, ''));
-        $("#valTransport").html(parseFloat(+valTransport + +transport).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-
-        if($("#valAirportTax").html() == ""){ $("#valAirportTax").html('0'); }
-        var valAirportTax = parseFloat($("#valAirportTax").html().replace(/,/g, ''));
-        $("#valAirportTax").html(parseFloat(+valAirportTax + +airport_tax).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-
-        if($("#valAccomodation").html() == ""){ $("#valAccomodation").html('0'); }
-        var valAccomodation = parseFloat($("#valAccomodation").html().replace(/,/g, ''));
-        $("#valAccomodation").html(parseFloat(+valAccomodation + +accomodation).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-
-        if($("#valOthers").html() == ""){ $("#valOthers").html('0'); }
-        var valOthers = parseFloat($("#valOthers").html().replace(/,/g, ''));
-        $("#valOthers").html(parseFloat(+valOthers + +other).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-
-        if($("#totalBrf").html() == ""){ $("#totalBrf").html('0'); }
-        var totalBrf = parseFloat($("#totalBrf").html().replace(/,/g, ''));
-        var varTotal = +allowance + +transport + +airport_tax + +accomodation + +other;
-        $("#totalBrf").html(parseFloat(+totalBrf + +varTotal).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-
-        $("#putProductId").val("");
-        $("#putProductName").val("");
-        $("#allowance").val("");
-        $("#transport").val("");
-        $("#airport_tax").val("");
-        $("#accomodation").val("");
-        $("#other").val("");
-        // $("#totalBalance").val("");
-    }
-</script>
-
 
 <script>
     $('document').ready(function() {
@@ -604,6 +610,74 @@
             }
         });
     });
+</script>
+
+
+<script type="text/javascript">
+  function CancelBusinessTrip() {
+    $("#loading").show();
+    $(".loader").show();
+    window.location.href = '/BusinessTripRequest?var=1';
+  }
+</script>
+
+<script>
+  var date = new Date();
+  var today = new Date(date.setMonth(date.getMonth() - 3));
+  document.getElementById('dateCommance').setAttribute('min', today.toISOString().split('T')[0]);
+  document.getElementById('dateDepart').setAttribute('min', today.toISOString().split('T')[0]);
+</script>
+
+<script>
+  $(document).ready(function() {
+    $('#dateCommance').change(function() {
+      $("#dateEnd").prop("disabled", false);
+      var dateCommance = new Date($("#dateCommance").val());
+      document.getElementById('dateEnd').setAttribute('min', dateCommance.toISOString().split('T')[0]);
+    });
+
+    $('#dateDepart').change(function() {
+      $("#dateArrival").prop("disabled", false);
+      var dateDepart = new Date($("#dateDepart").val());
+      document.getElementById('dateArrival').setAttribute('min', dateDepart.toISOString().split('T')[0]);
+    });
+  });
+</script>
+
+
+<script>
+  $(document).ready(function() {
+    $('#longTerm').click(function() {
+      $("#sequenceRequest").prop("disabled", false);
+      $("#sequenceRequest").val('0');
+      $("#lupsum").prop("disabled", true);
+      radiobtn = document.getElementById("nonLupsum");
+      radiobtn.checked = true;
+    });
+
+    $('#shortTerm').click(function() {
+      $("#sequenceRequest").val('1');
+      $("#sequenceRequest").prop("disabled", true);
+      $("#lupsum").prop("disabled", false);
+    });
+
+    $('#dayTripTravel').click(function() {
+      $("#sequenceRequest").val('1');
+      $("#sequenceRequest").prop("disabled", true);
+      $("#lupsum").prop("disabled", false);
+    });
+
+    // $('#nonLupsum').click(function() {
+    //   $("#sequenceRequest").prop("disabled", false);
+    //   $("#sequenceRequest").val('0');
+    // });
+
+    // $('#lupsum').click(function() {
+    //   $("#sequenceRequest").val('1');
+    //   $("#sequenceRequest").prop("disabled", true);
+    //   $("#lupsum").prop("disabled", false);
+    // });
+  });
 </script>
 
 <script>
@@ -766,12 +840,4 @@
     });
 
   });
-</script>
-
-<script type="text/javascript">
-  function CancelBusinessTrip() {
-    $("#loading").show();
-    $(".loader").show();
-    window.location.href = '/BusinessTripRequest?var=1';
-  }
 </script>

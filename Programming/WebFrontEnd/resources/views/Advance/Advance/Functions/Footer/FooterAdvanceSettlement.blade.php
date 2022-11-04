@@ -126,6 +126,7 @@
                         $("#putDescription").val($this.data("id9"));
 
                         $(".AddToDetailSettlement2").prop("disabled", true);
+                        $(".ActionButton").prop("disabled", true);
 
                     });
                 } else if (data.status == "501") {
@@ -148,7 +149,7 @@
     });
 
     function addFromDetailtoCartJs() {
-
+        
         var VarArfNumber = $("#advance_number_detail").val();
         $("#advance_number_detail").css("border", "1px solid #ced4da");
 
@@ -200,8 +201,8 @@
 
                             var html = '<tr>' +
                                 '<td style="border:1px solid #e9ecef;width:7%;">' +
-                                '&nbsp;&nbsp;<button type="button" class="btn btn-xs" onclick="RemoveAmount(\'' + work_id + '\', \'' + product_id + '\', \'' + total_expense + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
-                                '&nbsp;<button type="button" class="btn btn-xs" onclick="EditAmount(this)" data-dismiss="modal" data-id0="' + work_id + '" data-id1="' + product_id + '" data-id2="' + arf_date + '" data-id3="' + balance + '" data-id4="' + balance2 + '" data-id5="' + qty_expense + '" data-id6="' + qty_expense2 + '" data-id7="' + price_expense + '" data-id8="' + price_expense2 + '" data-id9="' + total_expense + '" data-id110="' + total_expense2 + '" data-id11="' + qty_amount + '" data-id12="' + qty_amount2 + '" data-id13="' + price_amount + '" data-id14="' + price_amount2 + '" data-id15="' + total_amount + '" data-id16="' + total_amount2 + '" data-id17="' + trano + '" data-id18="' + product_name + '" data-id19="' + description + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+                                '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveAmount(\'' + work_id + '\', \'' + product_id + '\', \'' + total_expense + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+                                '&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="EditAmount(this)" data-dismiss="modal" data-id0="' + work_id + '" data-id1="' + product_id + '" data-id2="' + arf_date + '" data-id3="' + balance + '" data-id4="' + balance2 + '" data-id5="' + qty_expense + '" data-id6="' + qty_expense2 + '" data-id7="' + price_expense + '" data-id8="' + price_expense2 + '" data-id9="' + total_expense + '" data-id110="' + total_expense2 + '" data-id11="' + qty_amount + '" data-id12="' + qty_amount2 + '" data-id13="' + price_amount + '" data-id14="' + price_amount2 + '" data-id15="' + total_amount + '" data-id16="' + total_amount2 + '" data-id17="' + trano + '" data-id18="' + product_name + '" data-id19="' + description + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
                                 '<input type="hidden" name="var_trano[]" value="' + trano + '">' +
                                 '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
                                 '<input type="hidden" name="var_product_name[]" value="' + product_name + '">' +
@@ -218,7 +219,6 @@
                                 '<td style="border:1px solid #e9ecef;">' + qty_amount + '</td>' +
                                 '<td style="border:1px solid #e9ecef;">' + price_amount + '</td>' +
                                 '<td style="border:1px solid #e9ecef;">' + total_amount + '</td>' +
-                                '<td style="border:1px solid #e9ecef;">' + description + '</td>' +
                                 '</tr>';
 
                             $('table.TableAmountDueto tbody').append(html);
@@ -233,8 +233,8 @@
 
                             var html2 = '<tr>' +
                                 '<td style="border:1px solid #e9ecef;width:7%;">' +
-                                '&nbsp;&nbsp;<button type="button" class="btn btn-xs" onclick="RemoveExpense(\'' + work_id + '\', \'' + product_id + '\', \'' + total_expense + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
-                                '&nbsp;<button type="button" class="btn btn-xs" onclick="EditExpense(this)" data-dismiss="modal" data-id0="' + work_id + '" data-id1="' + product_id + '" data-id2="' + arf_date + '" data-id3="' + balance + '" data-id4="' + balance2 + '" data-id5="' + qty_expense + '" data-id6="' + qty_expense2 + '" data-id7="' + price_expense + '" data-id8="' + price_expense2 + '" data-id9="' + total_expense + '" data-id110="' + total_expense2 + '" data-id11="' + qty_amount + '" data-id12="' + qty_amount2 + '" data-id13="' + price_amount + '" data-id14="' + price_amount2 + '" data-id15="' + total_amount + '" data-id16="' + total_amount2 + '" data-id17="' + trano + '" data-id18="' + product_name + '" data-id19="' + description + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+                                '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveExpense(\'' + work_id + '\', \'' + product_id + '\', \'' + total_expense + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+                                '&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="EditExpense(this)" data-dismiss="modal" data-id0="' + work_id + '" data-id1="' + product_id + '" data-id2="' + arf_date + '" data-id3="' + balance + '" data-id4="' + balance2 + '" data-id5="' + qty_expense + '" data-id6="' + qty_expense2 + '" data-id7="' + price_expense + '" data-id8="' + price_expense2 + '" data-id9="' + total_expense + '" data-id110="' + total_expense2 + '" data-id11="' + qty_amount + '" data-id12="' + qty_amount2 + '" data-id13="' + price_amount + '" data-id14="' + price_amount2 + '" data-id15="' + total_amount + '" data-id16="' + total_amount2 + '" data-id17="' + trano + '" data-id18="' + product_name + '" data-id19="' + description + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
                                 '<input type="hidden" id="var_tranox" name="var_trano[]" value="' + trano + '">' +
                                 '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
                                 '<input type="hidden" name="var_product_name[]" value="' + product_name + '">' +
@@ -251,7 +251,6 @@
                                 '<td style="border:1px solid #e9ecef;">' + qty_expense + '</td>' +
                                 '<td style="border:1px solid #e9ecef;">' + price_expense + '</td>' +
                                 '<td style="border:1px solid #e9ecef;">' + total_expense + '</td>' +
-                                '<td style="border:1px solid #e9ecef;">' + description + '</td>' +
                                 '</tr>';
 
                             $('table.TableExpenseClaim tbody').append(html2);
@@ -290,6 +289,7 @@
                             $("#price_amount").css("border", "1px solid #ced4da");
 
                             $(".AddToDetailSettlement2").prop("disabled", false);
+                            $(".ActionButton").prop("disabled", false);
 
                         } else {
                             Swal.fire("Cancelled", "Please use edit to update this item !", "error");
@@ -306,7 +306,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $(".CancelDetailAsf").click(function() {
-
+            
             var work_id = $("#putWorkId").val();
             var product_id = $("#putProductId").val();
             var product_name = $("#putProductName").val();
@@ -336,6 +336,9 @@
                 var price_expense = $("#ValidatePriceExpense").val();
                 var qty_amount = $("#ValidateQuantityAmount").val();
                 var price_amount = $("#ValidatePriceAmount").val();
+                console.log(qty_amount);
+                console.log(price_amount);
+
                 var total_amount = parseFloat(qty_amount.replace(/,/g, '') * price_amount.replace(/,/g, ''));
                 var total_expense = parseFloat(qty_expense.replace(/,/g, '') * price_expense.replace(/,/g, ''));
 
@@ -351,12 +354,11 @@
                     success: function(data) {
 
                         if (data == "200") {
-                            
-                            if (total_amount != "") {
+                            // if (total_amount != "") {
                                 var html = '<tr>' +
                                     '<td style="border:1px solid #e9ecef;width:7%;">' +
-                                    '&nbsp;&nbsp;<button type="button" class="btn btn-xs" onclick="RemoveAmount(\'' + work_id + '\', \'' + product_id + '\', \'' + total_amount + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
-                                    '&nbsp;<button type="button" class="btn btn-xs" onclick="EditAmount(this)" data-dismiss="modal" data-id0="' + work_id + '" data-id1="' + product_id + '" data-id2="' + arf_date + '" data-id3="' + balance + '" data-id4="' + balance2 + '" data-id5="' + qty_expense + '" data-id6="' + qty_expense2 + '" data-id7="' + price_expense + '" data-id8="' + price_expense2 + '" data-id9="' + total_expense + '" data-id110="' + total_expense2 + '" data-id11="' + qty_amount + '" data-id12="' + qty_amount2 + '" data-id13="' + price_amount + '" data-id14="' + price_amount2 + '" data-id15="' + total_amount + '" data-id16="' + total_amount2 + '" data-id17="' + trano + '" data-id18="' + product_name + '" data-id19="' + description + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+                                    '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveAmount(\'' + work_id + '\', \'' + product_id + '\', \'' + total_amount + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+                                    '&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="EditAmount(this)" data-dismiss="modal" data-id0="' + work_id + '" data-id1="' + product_id + '" data-id2="' + arf_date + '" data-id3="' + balance + '" data-id4="' + balance2 + '" data-id5="' + qty_expense + '" data-id6="' + qty_expense2 + '" data-id7="' + price_expense + '" data-id8="' + price_expense2 + '" data-id9="' + total_expense + '" data-id110="' + total_expense2 + '" data-id11="' + qty_amount + '" data-id12="' + qty_amount2 + '" data-id13="' + price_amount + '" data-id14="' + price_amount2 + '" data-id15="' + total_amount + '" data-id16="' + total_amount2 + '" data-id17="' + trano + '" data-id18="' + product_name + '" data-id19="' + description + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
                                     '<input type="hidden" id="var_tranox" name="var_trano[]" value="' + trano + '">' +
                                     '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
                                     '<input type="hidden" name="var_product_name[]" value="' + product_name + '">' +
@@ -373,7 +375,6 @@
                                     '<td style="border:1px solid #e9ecef;">' + qty_amount + '</td>' +
                                     '<td style="border:1px solid #e9ecef;">' + price_amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
                                     '<td style="border:1px solid #e9ecef;">' + total_amount.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
-                                    '<td style="border:1px solid #e9ecef;">' + description + '</td>' +
                                     '</tr>';
 
                                 $('table.TableAmountDueto tbody').append(html);
@@ -381,12 +382,13 @@
                                 var TotalAmount = parseFloat($("#TotalAmount").html().replace(/,/g, ''));
                                 $("#TotalAmount").html(parseFloat(+TotalAmount + total_amount).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
-                            }
-                            if (total_expense !== "") {
+                            // }
+                            // if (total_expense !== "") {
+
                                 var html2 = '<tr>' +
                                     '<td style="border:1px solid #e9ecef;width:7%;">' +
-                                    '&nbsp;&nbsp;<button type="button" class="btn btn-xs" onclick="RemoveExpense(\'' + work_id + '\', \'' + product_id + '\', \'' + total_expense + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
-                                    '&nbsp;<button type="button" class="btn btn-xs" onclick="EditExpense(this)" data-dismiss="modal" data-id0="' + work_id + '" data-id1="' + product_id + '" data-id2="' + arf_date + '" data-id3="' + balance + '" data-id4="' + balance2 + '" data-id5="' + qty_expense + '" data-id6="' + qty_expense2 + '" data-id7="' + price_expense + '" data-id8="' + price_expense2 + '" data-id9="' + total_expense + '" data-id110="' + total_expense2 + '" data-id11="' + qty_amount + '" data-id12="' + qty_amount2 + '" data-id13="' + price_amount + '" data-id14="' + price_amount2 + '" data-id15="' + total_amount + '" data-id16="' + total_amount2 + '" data-id17="' + trano + '" data-id18="' + product_name + '" data-id19="' + description + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+                                    '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveExpense(\'' + work_id + '\', \'' + product_id + '\', \'' + total_expense + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+                                    '&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="EditExpense(this)" data-dismiss="modal" data-id0="' + work_id + '" data-id1="' + product_id + '" data-id2="' + arf_date + '" data-id3="' + balance + '" data-id4="' + balance2 + '" data-id5="' + qty_expense + '" data-id6="' + qty_expense2 + '" data-id7="' + price_expense + '" data-id8="' + price_expense2 + '" data-id9="' + total_expense + '" data-id110="' + total_expense2 + '" data-id11="' + qty_amount + '" data-id12="' + qty_amount2 + '" data-id13="' + price_amount + '" data-id14="' + price_amount2 + '" data-id15="' + total_amount + '" data-id16="' + total_amount2 + '" data-id17="' + trano + '" data-id18="' + product_name + '" data-id19="' + description + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
                                     '<input type="hidden" id="var_tranox" name="var_trano[]" value="' + trano + '">' +
                                     '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
                                     '<input type="hidden" name="var_product_name[]" value="' + product_name + '">' +
@@ -403,14 +405,13 @@
                                     '<td style="border:1px solid #e9ecef;">' + qty_expense + '</td>' +
                                     '<td style="border:1px solid #e9ecef;">' + price_expense.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
                                     '<td style="border:1px solid #e9ecef;">' + total_expense.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
-                                    '<td style="border:1px solid #e9ecef;">' + description + '</td>' +
                                     '</tr>';
 
                                 $('table.TableExpenseClaim tbody').append(html2);
 
                                 var TotalExpense = parseFloat($("#TotalExpense").html().replace(/,/g, ''));
                                 $("#TotalExpense").html(parseFloat(+TotalExpense + total_expense).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-                            }
+                            // }
                         }
                         else {
                             Swal.fire("Error !", "Please use edit to update this item !", "error");
@@ -437,6 +438,8 @@
             $("#total_amount2").val("");
 
             $("#putProductId").css("border", "1px solid #ced4da");
+            $(".ActionButton").prop("disabled", false);
+            $(".AddToDetailSettlement2").prop("disabled", false);
         });
     });
 </script>
@@ -447,6 +450,7 @@
     function RemoveExpense(workId, ProductId, total_expense, tr) {
         var i = tr.parentNode.parentNode.rowIndex;
         document.getElementById("TableExpenseClaim").deleteRow(i);
+        document.getElementById("TableAmountDueto").deleteRow(i);
         
         $.ajax({
             type: "POST",
@@ -464,6 +468,7 @@
 
     function RemoveAmount(workId, ProductId, total_amount, tr) {
         var i = tr.parentNode.parentNode.rowIndex;
+        document.getElementById("TableExpenseClaim").deleteRow(i);
         document.getElementById("TableAmountDueto").deleteRow(i);
         
         $.ajax({
@@ -482,14 +487,13 @@
     function EditExpense(t) {
         var i = t.parentNode.parentNode.rowIndex;
         document.getElementById("TableExpenseClaim").deleteRow(i);
+        document.getElementById("TableAmountDueto").deleteRow(i);
 
         var $this = $(t);
-
         $.ajax({
             type: "POST",
             url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlement2") !!}?putProductId=' + $this.data("id1") + '&putWorkId=' + $this.data("id0"),
         });
-
         $("#putWorkId").val($this.data("id0"));
         $("#putProductId").val($this.data("id1"));
         $("#putProductName").val($this.data("id18"));
@@ -509,15 +513,18 @@
         $("#price_amount").val($this.data("id13"));
         $("#price_amount2").val($this.data("id14"));
         $("#total_amount").val($this.data("id15"));
-        $("#total_amount2").val($this.data("id16"));
+        $("#total_amount2").val($this.data("id10"));
         $("#statusEditAsf").val("Yes");
 
         $("#ValidateQuantityExpense").val($this.data("id5"));
         $("#ValidatePriceExpense").val($this.data("id7"));
-        $("#ValidateQuantityAmount").val($this.data("id14"));
+        $("#ValidateQuantityAmount").val($this.data("id11"));
         $("#ValidatePriceAmount").val($this.data("id13"));
+        // $("#ValidateTableId").val(i);
+        
 
         $(".AddToDetailSettlement2").prop("disabled", true);
+        $(".ActionButton").prop("disabled", true);
 
         var total_expense = parseFloat($("#total_expense").val().replace(/,/g, ''));
         var TotalExpense = parseFloat($("#TotalExpense").html().replace(/,/g, ''));
@@ -530,6 +537,7 @@
 <script>
     function EditAmount(t) {
         var i = t.parentNode.parentNode.rowIndex;
+        document.getElementById("TableExpenseClaim").deleteRow(i);
         document.getElementById("TableAmountDueto").deleteRow(i);
 
         var $this = $(t);
@@ -563,7 +571,7 @@
 
         $("#ValidateQuantityExpense").val($this.data("id5"));
         $("#ValidatePriceExpense").val($this.data("id7"));
-        $("#ValidateQuantityAmount").val($this.data("id14"));
+        $("#ValidateQuantityAmount").val($this.data("id11"));
         $("#ValidatePriceAmount").val($this.data("id13"));
 
         $(".AddToDetailSettlement2").prop("disabled", true);

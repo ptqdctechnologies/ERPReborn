@@ -47,7 +47,7 @@
               </div>
             </nav>
 
-            <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
+            <!-- <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
               <div class="row">
                 <div class="col-12">
                   <div class="card">
@@ -162,9 +162,9 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
 
-            <div class="tab-pane fade" id="product-comments" role="tabpanel" aria-labelledby="product-comments-tab">
+            <!-- <div class="tab-pane fade" id="product-comments" role="tabpanel" aria-labelledby="product-comments-tab">
               <div class="row">
                 <div class="col-12">
                   <div class="card">
@@ -252,7 +252,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
 
             <div class="row">
               <div class="col-12">
@@ -442,6 +442,7 @@
                               <td><label>Product ID</label></td>
                               <td>
                                 <div class="input-group">
+                                  <input id="putWorkId" type="hidden" style="border-radius:0;" class="form-control" readonly>
                                   <input name="putProductId" id="putProductId" style="border-radius:0;" type="text" class="form-control" readonly>
                                   <div class="input-group-append">
                                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -590,10 +591,13 @@
                       <thead>
                         <tr>
                           <th style="border:1px solid #e9ecef;text-align: center;width:7%;">Action</th>
-                          <th style="border:1px solid #e9ecef;text-align: center;width:20%;">Allowance</th>
-                          <th style="border:1px solid #e9ecef;text-align: center;width:20%;">Transport</th>
-                          <th style="border:1px solid #e9ecef;text-align: center;width:20%;">Airport Tax</th>
-                          <th style="border:1px solid #e9ecef;text-align: center;width:20%;">Accomodation</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;width:10%;">Product ID</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;width:10%;">Product Name</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;width:10%;">Sequence</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;width:13%;">Allowance</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;width:13%;">Transport</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;width:13%;">Airport Tax</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;width:13%;">Accomodation</th>
                           <th style="border:1px solid #e9ecef;text-align: center;width:13%;">Others</th>
                         </tr>
                       </thead>
@@ -607,11 +611,14 @@
                     <table class="table table-head-fixed text-nowrap table-striped tableBrf">
                       <thead>
                         <tr>
-                          <th style="border:1px solid #e9ecef;width:7%;">Sub Total</th>
-                          <td style="border:1px solid #e9ecef;width:20%;" id="valAllowance"></td>
-                          <td style="border:1px solid #e9ecef;width:20%;" id="valTransport"></td>
-                          <td style="border:1px solid #e9ecef;width:20%;" id="valAirportTax"></td>
-                          <td style="border:1px solid #e9ecef;width:20%;" id="valAccomodation"></td>
+                          <th style="border:1px solid #e9ecef;width:7%;"">Sub Total</th>
+                          <td style="border:1px solid #e9ecef;width:10%;"></td>
+                          <td style="border:1px solid #e9ecef;width:10%;"></td>
+                          <td style="border:1px solid #e9ecef;width:10%;" id="valSequence"></td>
+                          <td style="border:1px solid #e9ecef;width:13%;" id="valAllowance"></td>
+                          <td style="border:1px solid #e9ecef;width:13%;" id="valTransport"></td>
+                          <td style="border:1px solid #e9ecef;width:13%;" id="valAirportTax"></td>
+                          <td style="border:1px solid #e9ecef;width:13%;" id="valAccomodation"></td>
                           <td style="border:1px solid #e9ecef;width:13%;" id="valOthers"></td>
                         </tr>
                       </thead>

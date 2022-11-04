@@ -103,11 +103,17 @@
       }
 
       var sequence = $('#sequence').val().replace(/,/g, '');
+      if(sequence == ""){ sequence = "0.00"; }
       var allowance = $('#allowance').val().replace(/,/g, '');
+      if(allowance == ""){ allowance = "0.00"; }
       var transport = $('#transport').val().replace(/,/g, '');
+      if(transport == ""){ transport = "0.00"; }
       var airport_tax = $('#airport_tax').val().replace(/,/g, '');
+      if(airport_tax == ""){ airport_tax = "0.00"; }
       var accomodation = $('#accomodation').val().replace(/,/g, '');
+      if(accomodation == ""){ accomodation = "0.00"; }
       var other = $('#other').val().replace(/,/g, '');
+      if(other == ""){ other = "0.00"; }
 
       var varLoop = +varSequence + 1;
       $("#sequence").val(varLoop);

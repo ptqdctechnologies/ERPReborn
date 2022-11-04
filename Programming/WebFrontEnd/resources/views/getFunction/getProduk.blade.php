@@ -58,6 +58,7 @@
             $("#putProductId").val(code);
             $("#putProductName").val(name);
             $("#putUom").val(uom);
+            $("#statusProduct").val("Yes");
 
         });
     });
