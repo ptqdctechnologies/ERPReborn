@@ -128,6 +128,7 @@ namespace App\Models\Database
                     ]
                     )
                 );
+                ;
             for ($i=0; $i!=count($varTemp['Data']); $i++)
                 {
                 $varReturn[$i] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(

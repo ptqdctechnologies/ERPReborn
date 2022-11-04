@@ -8,16 +8,15 @@
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Models\Database\SchData_OLTP_Master
+namespace App\Models\Database\SchData_OLTP_HumanResource
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblBusinessTripAccommodationArrangementsTypeVehicleType                                                      |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-HumanResource                                                       |
-    |                 ► TblBusinessTripAccommodationArrangementsTypeVehicleType                                                    |
+    | ▪ Class Name  : TblBusinessTripAccommodationArrangementsType                                                                 |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-HumanResource ► TblBusinessTripAccommodationArrangementsType        |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblBusinessTripAccommodationArrangementsTypeVehicleType extends \App\Models\Database\DefaultClassPrototype
+    class TblBusinessTripAccommodationArrangementsType extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
