@@ -47,7 +47,7 @@
                                             <td>{{ $no++ }}</td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSupplier" data-id="Supplier Code {{ $i }}" data-name="Supplier Name {{ $i }}">Supplier Code {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSupplier" data-id="Supplier Code {{ $i }}" data-id2="PCS" data-id3="IDR" data-name="Supplier Name {{ $i }}">Supplier Code {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
@@ -113,14 +113,27 @@
         }
     }
 </script>
-
 <script>
     $(function() {
         $(".klikSupplier").on('click', function(e) {
             e.preventDefault(); // in chase you change to a link or button
             var $this = $(this);
             var code = $this.data("id");
-            $("#suppliercode").val(code);
+            var name = $this.data("name");
+            var uom = $this.data("id2");
+            var valuta = $this.data("id3");
+
+            //REM
+            $("#productIdRem").val(code);
+            $("#productNameRem").val(name);
+            $("#qtyNameRem").val(uom);
+            $("#unitPriceNameRem").val(valuta);
+
+
+            $("#putSupplierId").val(code);
+            $("#putSupplierName").val(name);
+
+            //ARF
         });
     });
 </script>

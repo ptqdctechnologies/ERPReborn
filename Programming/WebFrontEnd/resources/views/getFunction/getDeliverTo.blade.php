@@ -1,114 +1,66 @@
-<div id="myDelieverTo" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="myDeliverTo" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <label class="card-title">Choose Address</label>
+                <h4 class="modal-title">Choose Warehouse</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form>
-                    <table>
-                        <tr>
-                            <td><label>Select Address</label></td>
-                            <td>
-                                <div class="input-group">
-                                    <select class="form-control select2bs4" style="width: 200%; border-radius:0;">
-                                        <option selected="selected">Alabama</option>
-                                        <option>Alaska</option>
-                                        <option>California</option>
-                                        <option>Delaware</option>
-                                        <option>Tennessee</option>
-                                        <option>Texas</option>
-                                        <option>Washington</option>
-                                    </select>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label>Detail</label></td>
-                            <td>
-                                <div class="input-group">
-                                    <textarea class="form-control" cols="5" rows="5" style="width: 300px;"></textarea>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                    <br>
-                    <button type="reset" class="btn btn-outline-danger btn-sm float-right" title="Cancel">
-                        <i class="fa fa-times" aria-hidden="true">Cancel</i>
-                    </button>
-                    <button type="submit" class="btn btn-outline-success btn-sm float-right" title="Submit" style="margin-right:5px;" id="product-comments-tab" data-toggle="tab" href="#product-comments" role="tab" aria-controls="product-comments" aria-selected="false">
-                        <i class="fas fa-plus" aria-hidden="true">Submit</i>
-                    </button>
-                </form>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body table-responsive p-0" style="height: 400px;">
+                                <table class="table table-head-fixed text-nowrap table-striped" id="tableGetWarehouse">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Warehouse Code</th>
+                                            <th>Warehouse Name</th>
+                                            <th>Address</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 <script>
-    function searchBrfTrano() {
-        // Declare variables
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("trano_number");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("ppnTable");
-        tr = table.getElementsByTagName("tr");
-
-        // Loop through all table rows, and hide those who don't match the search query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[1];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
-    }
+    });
 
-    function searchPPNProjectCode() {
-        // Declare variables
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("project_code_ppn");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("ppnTable");
-        tr = table.getElementsByTagName("tr");
+    $(function() {
+        $('.myDeliverTo').on('click', function(e) {
+            e.preventDefault();
+            
+            $.ajax({
+                type: 'GET',
+                url: '{!! route("getDeliverTo") !!}',
+                success: function(data) {
+                    var no = 1; 
+                    t = $('#tableGetWarehouse').DataTable();
+                    t.clear();
+                    console.log(data);
+                    $.each(data, function(key, val) {
+                        t.row.add([
+                            '<tbody><tr><td>' + no++ + '</td>',
+                            '<td><span data-dismiss="modal" onclick="klikwarehouse(\'' + val.sys_ID + '\', \'' + val.sys_Text + '\');">' + val.sys_ID + '</span></td>',
+                            '<td style="border:1px solid #e9ecef;">' + val.sys_Text + '</td></tr></tbody>'
+                        ]).draw();
 
-        // Loop through all table rows, and hide those who don't match the search query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[2];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
+                    });
                 }
-            }
-        }
-    }
+            });
+        });
 
-    function searchPPNSiteCode() {
-        // Declare variables
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("site_code_ppn");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("ppnTable");
-        tr = table.getElementsByTagName("tr");
-
-        // Loop through all table rows, and hide those who don't match the search query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[3];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
+    });
 </script>

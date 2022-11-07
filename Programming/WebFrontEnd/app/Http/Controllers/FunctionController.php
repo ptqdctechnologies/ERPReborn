@@ -125,4 +125,34 @@ class FunctionController extends Controller
             
         return response()->json($varDataWorker['data']['data']);
     }
+    public function getSupplier(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varDataSupplier = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'dataPickList.supplyChain.getSupplier',
+            'latest',
+            [
+                'parameter' => null
+            ]
+        );
+        // var_dump($varDataSupplier);
+        return response()->json($varDataSupplier['data']);
+    }
+    public function getDeliverTo(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varDatagetDeliverTo = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'dataPickList.supplyChain.getWarehouse', 
+            'latest',
+            [
+                'parameter' => null
+            ]
+        );
+        // dd($varDatagetDeliverTo);
+        return response()->json($varDatagetDeliverTo['data']);
+    }
 }
