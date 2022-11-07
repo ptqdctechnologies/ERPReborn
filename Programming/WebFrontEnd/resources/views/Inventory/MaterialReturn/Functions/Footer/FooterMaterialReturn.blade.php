@@ -1,13 +1,59 @@
-<!--  SHOW HIDE AVAILABEL -->
 <script type="text/javascript">
   $(document).ready(function() {
     $("#addToDoDetail").prop("disabled", true);
     $("#SubmitMaterialReturn").prop("disabled", true);
-    $("#MaterialReturnList").hide();
+    $(".MaterialReturnList").hide();
     $("#DetailMaterialReturn").hide();
     $("#tableShowHideMaterialReturn").hide();
+    $("#sitecode2").prop("disabled", true);
 
   });
+</script>
+
+
+<script>
+    function klikProject(code, name) {
+        $("#projectcode").val(code);
+        $("#projectname").val(name);
+        $("#sitecode2").prop("disabled", false);
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getSite") !!}?projectcode=' + $('#projectcode').val(),
+            success: function(data) {
+
+                var no = 1;
+
+                var t = $('#tableGetSite').DataTable();
+                t.clear();
+                $.each(data, function(key, val) {
+                    t.row.add([
+                        '<tbody><tr><td>' + no++ + '</td>',
+                        '<td><span data-dismiss="modal" onclick="klikSite(\'' + val.sys_ID + '\', \'' + val.sys_Text + '\');">' + val.sys_ID + '</span></td>',
+                        '<td style="border:1px solid #e9ecef;">' + val.sys_Text + '</td></tr></tbody>'
+                    ]).draw();
+                });
+            }
+        });
+    }
+    
+</script>
+
+
+<script>
+    function klikSite(code, name) {
+        $("#sitecode").val(code);
+        $("#sitename").val(name);
+        $("#projectcode2").prop("disabled", true);
+        $("#sitecode2").prop("disabled", true);
+        $("#addToDoDetail").prop("disabled", false);
+    }
 </script>
 
 <script>
@@ -41,13 +87,13 @@
 
       $.ajax({
         type: 'GET',
-        url: '{!! route("getSite") !!}?sitecode=' + $('#sitecode').val(),
+        url: '{!! route("getBudget") !!}?sitecode=' + $('#sitecode').val(),
         success: function(data) {
           var no = 1;
           $.each(data, function(key, val2) {
             var html = '<tr>' +
               '<td style="border:1px solid #e9ecef;width:5%;">' +
-              '&nbsp;&nbsp;<button type="reset" class="btn btn-sm klikDoDetail" data-id1="' + val2.product_RefID + '" data-id2="' + val2.quantity + '" data-id3="' + val2.unitPriceBaseCurrencyValue + '" data-id4="' + val2.sys_ID + '" data-id5="' + val2.productName + '" data-id6="' + val2.quantityUnitName + '" data-id7="' + val2.combinedBudgetSubSectionLevel1_RefID + '" data-id8="' + val2.priceBaseCurrencyISOCode + '" data-id9="' + val2.combinedBudgetSubSectionLevel1_RefID + '"  data-id10="' + val2.combinedBudgetSubSectionLevel2Name + '" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="15" alt="" title="Add to Detail"></button>' +
+              '&nbsp;&nbsp;<button type="reset" class="btn btn-sm klikDoDetail klikDoDetail2" data-id1="' + val2.product_RefID + '" data-id2="' + val2.quantity + '" data-id3="' + val2.unitPriceBaseCurrencyValue + '" data-id4="' + val2.sys_ID + '" data-id5="' + val2.productName + '" data-id6="' + val2.quantityUnitName + '" data-id7="' + val2.combinedBudgetSubSectionLevel1_RefID + '" data-id8="' + val2.priceBaseCurrencyISOCode + '" data-id9="' + val2.combinedBudgetSubSectionLevel1_RefID + '"  data-id10="' + val2.combinedBudgetSubSectionLevel2Name + '" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="15" alt="" title="Add to Detail"></button>' +
               '</td>' +
               '<td style="border:1px solid #e9ecef;">' + '<span id="getWorkId">' + val2.combinedBudgetSubSectionLevel1_RefID + '</span>' + '</td>' +
               '<td style="border:1px solid #e9ecef;">' + '<span id="getWorkName">' + val2.combinedBudgetSubSectionLevel2Name + '</span>' + '</td>' +
@@ -74,9 +120,13 @@
             $("#QuantityHide").val($this.data("id2"));
             $("#Uom").val($this.data("id6"));
             $("#Price").val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+            $("#totalMret").val(parseFloat($this.data("id2") * $this.data("id3")));
             $("#Currency").val($this.data("id8"));
             $("#WorkId").val($this.data("id9"));
             $("#WorkName").val($this.data("id10"));
+              
+            $(".klikDoDetail2").prop("disabled", true);
+            $(".ActionButton").prop("disabled", true);
 
             $("#tableShowHideMaterialReturn").find("input,button,textarea,select").attr("disabled", true);
           });
@@ -85,65 +135,6 @@
     });
   });
 </script>
-
-
-<script type="text/javascript">
-  $(document).ready(function() {
-    $(".CancelDetailMatret").click(function() {
-
-      var ProductId = $("#ProductId").val();
-      var ProductName = $("#ProductName").val();
-      var Quantity = $('#Quantity').val().replace(/^\s+|\s+$/g, '');
-      var Uom = $("#Uom").val();
-      var Price = $("#Price").val().replace(/^\s+|\s+$/g, '');
-      var Currency = $("#Currency").val();
-      var WorkId = $("#WorkId").val();
-      var WorkName = $("#WorkName").val();
-      var Remark = $("#Remark").val();
-      var statusEditMatRet = $("#statusEditMatRet").val();
-
-      if (statusEditMatRet == "Yes") {
-        var Quantity = $('#QuantityHide2').val();
-        var Remark = $('#Remark2').val();
-
-        var html = '<tr>' +
-          '<td style="border:1px solid #e9ecef;width:7%;">' +
-          '&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs RemoveDetailMatRet" data-id1="' + ProductId + '"  style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
-          '&nbsp;<button type="button" class="btn btn-xs EditMatRet" data-dismiss="modal" data-id1="' + ProductId + '" data-id2="' + ProductName + '" data-id3="' + Quantity + '" data-id4="' + Uom + '" data-id5="' + Price + '" data-id6="' + Currency + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
-          '<input type="hidden" name="var_ProductId[]" value="' + ProductId + '">' +
-          '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + ProductName + '">' +
-          '<input type="hidden" name="var_quantity[]" value="' + Quantity + '">' +
-          '<input type="hidden" name="var_uom[]" value="' + Uom + '">' +  
-          '<input type="hidden" name="var_price[]" value="' + Price + '">' +
-          '<input type="hidden" name="var_totalPrice[]" value="' + (Price * Quantity) + '">' +
-          '<input type="hidden" name="var_currency[]" value="' + Currency + '">' +
-          '</td>' +
-          '<td style="border:1px solid #e9ecef;">' + WorkId + '</td>' +
-          '<td style="border:1px solid #e9ecef;">' + WorkName + '</td>' +
-          '<td style="border:1px solid #e9ecef;">' + ProductId + '</td>' +
-          '<td style="border:1px solid #e9ecef;">' + ProductName + '</td>' +
-          '<td style="border:1px solid #e9ecef;">' + Quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
-          '<td style="border:1px solid #e9ecef;">' + Uom + '</td>' +
-          '<td style="border:1px solid #e9ecef;">' + Price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
-          '<td style="border:1px solid #e9ecef;">' + Currency + '</td>' +
-          '<td style="border:1px solid #e9ecef;">' + Remark + '</td>' +
-          '</tr>';
-        $('table.TableMaterialReturn tbody').append(html);
-        $("#statusEditMatRet").val("No");
-      }
-      $("#tableShowHideMaterialReturn").find("input,button,textarea,select").attr("disabled", false);
-      $("#ProductId").val("");
-      $("#ProductName").val("");
-      $("#Quantity").val("");
-      $("#Uom").val("");
-      $("#Price").val("");
-      $("#Currency").val("");
-      $("#Remark").val("");
-    });
-  });
-</script>
-
-
 
 <script type="text/javascript">
   $.ajaxSetup({
@@ -175,7 +166,7 @@
           success: function(data) {
 
             if (data == "200") {
-              $("#MaterialReturnList").show();
+              $(".MaterialReturnList").show();
 
               var ProductId = $("#ProductId").val();
               var ProductName = $("#ProductName").val();
@@ -186,11 +177,19 @@
               var WorkId = $("#WorkId").val();
               var WorkName = $("#WorkName").val();
               var Remark = $("#Remark").val();
+              var totalMret = $("#totalMret").val().replace(/^\s+|\s+$/g, '');
+
+              if($("#TotalMaterialReturn").html() == ""){
+                  $("#TotalMaterialReturn").html('0');
+              }
+              var TotalMaterialReturn = parseFloat($("#totalMret").val().replace(/,/g, ''));
+              var TotalMaterialReturn2 = parseFloat($("#TotalMaterialReturn").html().replace(/,/g, ''));
+              $("#TotalMaterialReturn").html(parseFloat(+TotalMaterialReturn2 + TotalMaterialReturn).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
               var html = '<tr>' +
                 '<td style="border:1px solid #e9ecef;width:7%;">' +
-                '&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs RemoveDetailMatRet" data-id1="' + ProductId + '"  style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
-                '&nbsp;<button type="button" class="btn btn-xs EditMatRet" data-dismiss="modal" data-id1="' + ProductId + '" data-id2="' + ProductName + '" data-id3="' + Quantity + '" data-id4="' + Uom + '" data-id5="' + Price + '" data-id6="' + Currency + '" data-id7="' + Remark + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+                '&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveDetailMatRet(\'' + ProductId + '\', \'' + totalMret + '\', this);" " style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+                '&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="EditMatRet(this)" data-dismiss="modal" data-id1="' + ProductId + '" data-id2="' + ProductName + '" data-id3="' + Quantity + '" data-id4="' + Uom + '" data-id5="' + Price + '" data-id6="' + Currency + '" data-id7="' + Remark + '" data-id8="' + totalMret + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
                 '<input type="hidden" name="var_ProductId[]" value="' + ProductId + '">' +
                 '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + ProductName + '">' +
                 '<input type="hidden" name="var_quantity[]" value="' + Quantity + '">' +
@@ -200,48 +199,17 @@
                 '<input type="hidden" name="var_currency[]" value="' + Currency + '">' +
                 '</td>' +
                 '<td style="border:1px solid #e9ecef;">' + WorkId + '</td>' +
-                '<td style="border:1px solid #e9ecef;">' + WorkName + '</td>' +
                 '<td style="border:1px solid #e9ecef;">' + ProductId + '</td>' +
                 '<td style="border:1px solid #e9ecef;">' + ProductName + '</td>' +
                 '<td style="border:1px solid #e9ecef;">' + Quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
                 '<td style="border:1px solid #e9ecef;">' + Uom + '</td>' +
                 '<td style="border:1px solid #e9ecef;">' + Price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                '<td style="border:1px solid #e9ecef;">' + totalMret.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
                 '<td style="border:1px solid #e9ecef;">' + Currency + '</td>' +
                 '<td style="border:1px solid #e9ecef;">' + Remark + '</td>' +
                 '</tr>';
               $('table.TableMaterialReturn tbody').append(html);
               $("#statusEditMatRet").val("No");
-
-              $("body").on("click", ".RemoveDetailMatRet", function() {
-                $(this).closest("tr").remove();
-                var ProductId = $(this).data("id1");
-                $.ajax({
-                  type: "POST",
-                  url: '{!! route("MaterialReturn.StoreValidateiMaterialReturn2") !!}?ProductId=' + ProductId,
-                });
-              });
-
-              $("body").on("click", ".EditMatRet", function() {
-                var $this = $(this);
-
-                $.ajax({
-                  type: "POST",
-                  url: '{!! route("MaterialReturn.StoreValidateiMaterialReturn2") !!}?ProductId=' + $this.data("id1"),
-                });
-
-                $("#ProductId").val($this.data("id1"));
-                $("#ProductName").val($this.data("id2"));
-                $("#Quantity").val($this.data("id3"));
-                $("#QuantityHide2").val($this.data("id3"));
-                $("#Uom").val($this.data("id4"));
-                $("#Price").val($this.data("id5"));
-                $("#Currency").val($this.data("id6"));
-                $("#Remark").val($this.data("id7"));
-                $("#Remark2").val($this.data("id7"));
-                $("#statusEditMatRet").val("Yes");
-
-                $(this).closest("tr").remove();
-              });
 
               $("#ProductId").val("");
               $("#ProductName").val("");
@@ -253,6 +221,8 @@
 
               $("#tableShowHideMaterialReturn").find("input,button,textarea,select").attr("disabled", false);
               $("#SubmitMaterialReturn").prop("disabled", false);
+              $(".klikDoDetail2").prop("disabled", false);
+              $(".ActionButton").prop("disabled", false);
 
             } else {
               Swal.fire("Error !", "Please use edit to update this item !", "error");
@@ -263,6 +233,123 @@
     });
   });
 </script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $(".CancelDetailMatret").click(function() {
+
+      var ProductId = $("#ProductId").val();
+      var ProductName = $("#ProductName").val();
+      var Quantity = $('#Quantity').val().replace(/^\s+|\s+$/g, '');
+      var Uom = $("#Uom").val();
+      var Price = $("#Price").val().replace(/^\s+|\s+$/g, '');
+      var totalMret = $("#totalMret").val().replace(/^\s+|\s+$/g, '');
+      var Currency = $("#Currency").val();
+      var WorkId = $("#WorkId").val();
+      var WorkName = $("#WorkName").val();
+      var Remark = $("#Remark").val();
+      var statusEditMatRet = $("#statusEditMatRet").val();
+
+      if (statusEditMatRet == "Yes") {
+        var Quantity = $('#QuantityHide2').val();
+        var Price = $("#Price").val();
+        var Remark = $('#Remark2').val();
+        var totalMret = parseFloat(Quantity.replace(/,/g, '') * Price.replace(/,/g, ''));
+        
+        var html = '<tr>' +
+          '<td style="border:1px solid #e9ecef;width:7%;">' +
+          '&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveDetailMatRet(\'' + ProductId + '\', \'' + totalMret + '\', this);" " style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+          '&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="EditMatRet(this)" data-dismiss="modal" data-id1="' + ProductId + '" data-id2="' + ProductName + '" data-id3="' + Quantity + '" data-id4="' + Uom + '" data-id5="' + Price + '" data-id6="' + Currency + '" data-id7="' + Remark + '" data-id8="' + totalMret + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+          '<input type="hidden" name="var_ProductId[]" value="' + ProductId + '">' +
+          '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + ProductName + '">' +
+          '<input type="hidden" name="var_quantity[]" value="' + Quantity + '">' +
+          '<input type="hidden" name="var_uom[]" value="' + Uom + '">' +  
+          '<input type="hidden" name="var_price[]" value="' + Price + '">' +
+          '<input type="hidden" name="var_totalPrice[]" value="' + (Price * Quantity) + '">' +
+          '<input type="hidden" name="var_currency[]" value="' + Currency + '">' +
+          '</td>' +
+          '<td style="border:1px solid #e9ecef;">' + WorkId + '</td>' +
+          '<td style="border:1px solid #e9ecef;">' + ProductId + '</td>' +
+          '<td style="border:1px solid #e9ecef;">' + ProductName + '</td>' +
+          '<td style="border:1px solid #e9ecef;">' + Quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+          '<td style="border:1px solid #e9ecef;">' + Uom + '</td>' +
+          '<td style="border:1px solid #e9ecef;">' + Price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+          '<td style="border:1px solid #e9ecef;">' + totalMret.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+          '<td style="border:1px solid #e9ecef;">' + Currency + '</td>' +
+          '<td style="border:1px solid #e9ecef;">' + Remark + '</td>' +
+          '</tr>';
+        $('table.TableMaterialReturn tbody').append(html);
+        $("#statusEditMatRet").val("No");
+
+        var TotalMaterialReturn = parseFloat($("#TotalMaterialReturn").html().replace(/,/g, ''));
+        $("#TotalMaterialReturn").html(parseFloat(+TotalMaterialReturn + totalMret).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+      }
+      $(".klikDoDetail2").prop("disabled", false);
+      $(".ActionButton").prop("disabled", false);
+
+      $("#tableShowHideMaterialReturn").find("input,button,textarea,select").attr("disabled", false);
+      $("#ProductId").val("");
+      $("#ProductName").val("");
+      $("#Quantity").val("");
+      $("#Uom").val("");
+      $("#Price").val("");
+      $("#Currency").val("");
+      $("#Remark").val("");
+    });
+  });
+</script>
+
+<script>
+
+    function RemoveDetailMatRet(ProductId, totalMret, tr) {
+        var i = tr.parentNode.parentNode.rowIndex;
+        document.getElementById("TableMaterialReturn").deleteRow(i);
+        
+        $.ajax({
+          type: "POST",
+          url: '{!! route("MaterialReturn.StoreValidateiMaterialReturn2") !!}?ProductId=' + ProductId,
+        });
+
+        var totalMret = parseFloat(totalMret.replace(/,/g, ''));
+        var TotalMaterialReturn = parseFloat($("#TotalMaterialReturn").html().replace(/,/g, ''));
+        $("#TotalMaterialReturn").html(parseFloat(TotalMaterialReturn - totalMret).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+    }
+
+</script>
+
+<script>
+    function EditMatRet(t) {
+        var i = t.parentNode.parentNode.rowIndex;
+        document.getElementById("TableMaterialReturn").deleteRow(i);
+
+        var $this = $(t);
+        $.ajax({
+          type: "POST",
+          url: '{!! route("MaterialReturn.StoreValidateiMaterialReturn2") !!}?ProductId=' + $this.data("id1"),
+        });
+
+        $("#ProductId").val($this.data("id1"));
+        $("#ProductName").val($this.data("id2"));
+        $("#Quantity").val($this.data("id3"));
+        $("#QuantityHide2").val($this.data("id3"));
+        $("#Uom").val($this.data("id4"));
+        $("#Price").val($this.data("id5"));
+        $("#Currency").val($this.data("id6"));
+        $("#Remark").val($this.data("id7"));
+        $("#Remark2").val($this.data("id7"));
+        $("#totalMret").val($this.data("id8"));
+        $("#statusEditMatRet").val("Yes");
+        
+        var totalMret = parseFloat($("#totalMret").val().replace(/,/g, ''));
+        var TotalMaterialReturn = parseFloat($("#TotalMaterialReturn").html().replace(/,/g, ''));
+        $("#TotalMaterialReturn").html(parseFloat(TotalMaterialReturn - totalMret).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        
+        $(".klikDoDetail2").prop("disabled", true);
+        $(".ActionButton").prop("disabled", true);
+    }
+</script>
+
 
 <script>
   $(function() {
@@ -441,5 +528,10 @@
     $("#DoNumberMret").val("");
     $("#delivery").val("");
     $("#receive").val("");
+    $("#projectname").val("");
+    $("#sitename").val("");
+
+    $("#projectcode2").prop("disabled", false);
+    $("#sitecode2").prop("disabled", false);
   }
 </script>

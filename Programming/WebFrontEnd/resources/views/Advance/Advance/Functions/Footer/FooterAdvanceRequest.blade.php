@@ -145,6 +145,7 @@
                     $("#combinedBudget").val(combinedBudget);
 
                     $(".klikBudgetDetail2").prop("disabled", true);
+                    $(".ActionButton").prop("disabled", true);
                     $(".available").show();
                     $("#detailTransAvail").show();
                     $("#statusEditArf").val("No");
