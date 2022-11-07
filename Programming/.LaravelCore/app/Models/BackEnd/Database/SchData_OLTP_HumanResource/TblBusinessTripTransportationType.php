@@ -60,7 +60,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                 $varUserSession, 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                     $varUserSession,
-                    'SchSysConfig-Initialize.Func_'.parent::getSchemaName($varUserSession).'_'.parent::getTableName($varUserSession),
+                    'SchSysConfig-Initialize.Func_Init_0220',
                     []
                     )
                 );

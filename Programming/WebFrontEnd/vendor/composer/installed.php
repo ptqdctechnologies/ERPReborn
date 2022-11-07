@@ -729,9 +729,9 @@
             ),
         ),
         'psy/psysh' => array(
-            'pretty_version' => 'v0.11.8',
-            'version' => '0.11.8.0',
-            'reference' => 'f455acf3645262ae389b10e9beba0c358aa6994e',
+            'pretty_version' => 'v0.11.9',
+            'version' => '0.11.9.0',
+            'reference' => '1acec99d6684a54ff92f8b548a4e41b566963778',
             'type' => 'library',
             'install_path' => __DIR__ . '/../psy/psysh',
             'aliases' => array(),
@@ -756,9 +756,9 @@
             'dev_requirement' => false,
         ),
         'ramsey/uuid' => array(
-            'pretty_version' => '4.5.1',
-            'version' => '4.5.1.0',
-            'reference' => 'a161a26d917604dc6d3aa25100fddf2556e9f35d',
+            'pretty_version' => '4.6.0',
+            'version' => '4.6.0.0',
+            'reference' => 'ad63bc700e7d021039e30ce464eba384c4a1d40f',
             'type' => 'library',
             'install_path' => __DIR__ . '/../ramsey/uuid',
             'aliases' => array(),
@@ -767,7 +767,7 @@
         'rhumsaa/uuid' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => '4.5.1',
+                0 => '4.6.0',
             ),
         ),
         'sebastian/code-unit-reverse-lookup' => array(
