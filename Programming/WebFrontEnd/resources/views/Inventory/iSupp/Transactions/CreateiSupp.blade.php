@@ -164,8 +164,8 @@
                                         </div>
                                     </div>
 
-                                    <div class="card-body table-responsive p-0" style="height: 180px;" id="iSuppCart">
-                                        <table class="table table-head-fixed text-nowrap table-striped tableiSuppCart">
+                                    <div class="card-body table-responsive p-0 iSuppCart" style="height: 180px;">
+                                        <table class="table table-head-fixed text-nowrap table-striped tableiSuppCart" id="tableiSuppCart">
                                             <thead>
                                                 <tr>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Action</th>
@@ -180,6 +180,15 @@
                                             <tbody>
 
                                             </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="card-body table-responsive p-0 iSuppCart">
+                                        <table class="table table-head-fixed table-sm text-nowrap">
+                                        <tfoot>
+                                            <tr>
+                                            <th style="color:brown;float:right;">Total i-Supp : <span id="TotalISupp"></span></th>
+                                            </tr>
+                                        </tfoot>
                                         </table>
                                     </div>
                                 </div>

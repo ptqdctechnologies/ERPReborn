@@ -1,4 +1,3 @@
-<!--  SHOW HIDE AVAILABEL -->
 <script type="text/javascript">
     $(document).ready(function() {
         $(".headerDor1").hide();
@@ -10,7 +9,43 @@
         $("#detailDorList").hide();
         $("#tableShowHideDor").hide();
         $("#headerPrNumber2").prop("disabled", true);
+        $("#pr_number2").prop("disabled", true);
     });
+</script>
+
+<script>
+    function klikProject(code, name) {
+        $("#projectcode").val(code);
+        $("#projectname").val(name);
+        $("#pr_number2").prop("disabled", false);
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("AdvanceSettlement.AdvanceByBudgetID") !!}?projectcode=' + $('#projectcode').val(),
+            success: function(data) {
+
+                var no = 1;
+                t = $('#tableSearchArfinAsf').DataTable();
+                $.each(data.DataAdvanceRequest, function(key, val) {
+                    t.row.add([
+                        '<tbody><tr><td>' + no++ + '</td>',
+                        '<td><span data-dismiss="modal" onclick="klikAdvanceNumberInAsf(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.documentNumber + '</span></td>',
+                        '<td><span data-dismiss="modal" onclick="klikAdvanceNumberInAsf(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudget_RefID + '</span></td>',
+                        '<td><span data-dismiss="modal" onclick="klikAdvanceNumberInAsf(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudgetName + '</span></td>',
+                        '<td><span data-dismiss="modal" onclick="klikAdvanceNumberInAsf(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudgetSection_RefID + '</span></td>',
+                        '<td><span data-dismiss="modal" onclick="klikAdvanceNumberInAsf(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudgetSectionName + '</span></td>',
+                    ]).draw();
+
+                });
+            }
+        });
+    }
 </script>
 
 <script type="text/javascript">

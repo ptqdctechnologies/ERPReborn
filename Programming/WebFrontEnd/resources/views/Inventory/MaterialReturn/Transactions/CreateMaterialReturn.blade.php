@@ -104,10 +104,11 @@
                                                     <input id="Remark" style="border-radius:0;" type="text" class="form-control">
                                                     <input id="Remark2" style="border-radius:0;" type="hidden" class="form-control">
                                                 </td>
-
+                                
                                                 <input id="WorkId" style="border-radius:0;" type="hidden" class="form-control">
                                                 <input id="WorkName" style="border-radius:0;" type="hidden" class="form-control">
                                                 <input id="statusEditMatRet" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                                                <input id="totalMret" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                                             </tbody>
                                         </table>
                                         <div style="padding-right:10px;padding-top:10px;">
@@ -138,18 +139,18 @@
                                         </div>
                                     </div>
 
-                                    <div class="card-body table-responsive p-0" id="MaterialReturnList">
-                                        <table class="table text-nowrap TableMaterialReturn table-sm">
+                                    <div class="card-body table-responsive p-0 MaterialReturnList" style="height: 180px;">
+                                        <table class="table text-nowrap table-sm TableMaterialReturn" id="TableMaterialReturn">
                                             <thead>
                                                 <tr>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Action</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Work Id</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Work Name</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Product Id</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Product Name</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Qty</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Uom</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Price</th>
+                                                    <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Total</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Currency</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Description</th>
                                                 </tr>
@@ -157,6 +158,15 @@
                                             <tbody>
 
                                             </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="card-body table-responsive p-0 MaterialReturnList">
+                                        <table class="table table-head-fixed table-sm text-nowrap">
+                                        <tfoot>
+                                            <tr>
+                                            <th style="color:brown;float:right;">Total Material Return : <span id="TotalMaterialReturn"></span></th>
+                                            </tr>
+                                        </tfoot>
                                         </table>
                                     </div>
                                 </div>

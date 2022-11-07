@@ -201,7 +201,7 @@
 
                             var html = '<tr>' +
                                 '<td style="border:1px solid #e9ecef;width:7%;">' +
-                                '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveAmount(\'' + work_id + '\', \'' + product_id + '\', \'' + total_expense + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+                                '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveAmount(\'' + work_id + '\', \'' + product_id + '\', \'' + total_amount + '\', \'' + total_expense + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
                                 '&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="EditAmount(this)" data-dismiss="modal" data-id0="' + work_id + '" data-id1="' + product_id + '" data-id2="' + arf_date + '" data-id3="' + balance + '" data-id4="' + balance2 + '" data-id5="' + qty_expense + '" data-id6="' + qty_expense2 + '" data-id7="' + price_expense + '" data-id8="' + price_expense2 + '" data-id9="' + total_expense + '" data-id110="' + total_expense2 + '" data-id11="' + qty_amount + '" data-id12="' + qty_amount2 + '" data-id13="' + price_amount + '" data-id14="' + price_amount2 + '" data-id15="' + total_amount + '" data-id16="' + total_amount2 + '" data-id17="' + trano + '" data-id18="' + product_name + '" data-id19="' + description + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
                                 '<input type="hidden" name="var_trano[]" value="' + trano + '">' +
                                 '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
@@ -233,7 +233,7 @@
 
                             var html2 = '<tr>' +
                                 '<td style="border:1px solid #e9ecef;width:7%;">' +
-                                '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveExpense(\'' + work_id + '\', \'' + product_id + '\', \'' + total_expense + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+                                '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveExpense(\'' + work_id + '\', \'' + product_id + '\', \'' + total_amount + '\', \'' + total_expense + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
                                 '&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="EditExpense(this)" data-dismiss="modal" data-id0="' + work_id + '" data-id1="' + product_id + '" data-id2="' + arf_date + '" data-id3="' + balance + '" data-id4="' + balance2 + '" data-id5="' + qty_expense + '" data-id6="' + qty_expense2 + '" data-id7="' + price_expense + '" data-id8="' + price_expense2 + '" data-id9="' + total_expense + '" data-id110="' + total_expense2 + '" data-id11="' + qty_amount + '" data-id12="' + qty_amount2 + '" data-id13="' + price_amount + '" data-id14="' + price_amount2 + '" data-id15="' + total_amount + '" data-id16="' + total_amount2 + '" data-id17="' + trano + '" data-id18="' + product_name + '" data-id19="' + description + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
                                 '<input type="hidden" id="var_tranox" name="var_trano[]" value="' + trano + '">' +
                                 '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
@@ -357,7 +357,7 @@
                             // if (total_amount != "") {
                                 var html = '<tr>' +
                                     '<td style="border:1px solid #e9ecef;width:7%;">' +
-                                    '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveAmount(\'' + work_id + '\', \'' + product_id + '\', \'' + total_amount + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+                                    '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveAmount(\'' + work_id + '\', \'' + product_id + '\', \'' + total_amount + '\', \'' + total_expense + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
                                     '&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="EditAmount(this)" data-dismiss="modal" data-id0="' + work_id + '" data-id1="' + product_id + '" data-id2="' + arf_date + '" data-id3="' + balance + '" data-id4="' + balance2 + '" data-id5="' + qty_expense + '" data-id6="' + qty_expense2 + '" data-id7="' + price_expense + '" data-id8="' + price_expense2 + '" data-id9="' + total_expense + '" data-id110="' + total_expense2 + '" data-id11="' + qty_amount + '" data-id12="' + qty_amount2 + '" data-id13="' + price_amount + '" data-id14="' + price_amount2 + '" data-id15="' + total_amount + '" data-id16="' + total_amount2 + '" data-id17="' + trano + '" data-id18="' + product_name + '" data-id19="' + description + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
                                     '<input type="hidden" id="var_tranox" name="var_trano[]" value="' + trano + '">' +
                                     '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
@@ -387,7 +387,7 @@
 
                                 var html2 = '<tr>' +
                                     '<td style="border:1px solid #e9ecef;width:7%;">' +
-                                    '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveExpense(\'' + work_id + '\', \'' + product_id + '\', \'' + total_expense + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+                                    '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveExpense(\'' + work_id + '\', \'' + product_id + '\', \'' + total_amount + '\', \'' + total_expense + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
                                     '&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="EditExpense(this)" data-dismiss="modal" data-id0="' + work_id + '" data-id1="' + product_id + '" data-id2="' + arf_date + '" data-id3="' + balance + '" data-id4="' + balance2 + '" data-id5="' + qty_expense + '" data-id6="' + qty_expense2 + '" data-id7="' + price_expense + '" data-id8="' + price_expense2 + '" data-id9="' + total_expense + '" data-id110="' + total_expense2 + '" data-id11="' + qty_amount + '" data-id12="' + qty_amount2 + '" data-id13="' + price_amount + '" data-id14="' + price_amount2 + '" data-id15="' + total_amount + '" data-id16="' + total_amount2 + '" data-id17="' + trano + '" data-id18="' + product_name + '" data-id19="' + description + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
                                     '<input type="hidden" id="var_tranox" name="var_trano[]" value="' + trano + '">' +
                                     '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
@@ -447,7 +447,7 @@
 
 <script>
 
-    function RemoveExpense(workId, ProductId, total_expense, tr) {
+    function RemoveExpense(workId, ProductId, total_amount, total_expense, tr) {
         var i = tr.parentNode.parentNode.rowIndex;
         document.getElementById("TableExpenseClaim").deleteRow(i);
         document.getElementById("TableAmountDueto").deleteRow(i);
@@ -460,13 +460,17 @@
         var total_expense = parseFloat(total_expense.replace(/,/g, ''));
         var TotalExpense = parseFloat($("#TotalExpense").html().replace(/,/g, ''));
         $("#TotalExpense").html(parseFloat(TotalExpense - total_expense).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        
+        var total_amount = parseFloat(total_amount.replace(/,/g, ''));
+        var TotalAmount = parseFloat($("#TotalAmount").html().replace(/,/g, ''));
+        $("#TotalAmount").html(parseFloat(TotalAmount - total_amount).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
     }
 
 </script>
 
 <script>
 
-    function RemoveAmount(workId, ProductId, total_amount, tr) {
+    function RemoveAmount(workId, ProductId, total_amount, total_expense, tr) {
         var i = tr.parentNode.parentNode.rowIndex;
         document.getElementById("TableExpenseClaim").deleteRow(i);
         document.getElementById("TableAmountDueto").deleteRow(i);
@@ -475,6 +479,9 @@
             type: "POST",
             url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlement2") !!}?putProductId=' + ProductId + '&putWorkId=' + workId,
         });
+        var total_expense = parseFloat(total_expense.replace(/,/g, ''));
+        var TotalExpense = parseFloat($("#TotalExpense").html().replace(/,/g, ''));
+        $("#TotalExpense").html(parseFloat(TotalExpense - total_expense).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         
         var total_amount = parseFloat(total_amount.replace(/,/g, ''));
         var TotalAmount = parseFloat($("#TotalAmount").html().replace(/,/g, ''));
@@ -530,6 +537,10 @@
         var TotalExpense = parseFloat($("#TotalExpense").html().replace(/,/g, ''));
         $("#TotalExpense").html(parseFloat(TotalExpense - total_expense).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
+        var total_amount = parseFloat($("#total_amount").val().replace(/,/g, ''));
+        var TotalAmount = parseFloat($("#TotalAmount").html().replace(/,/g, ''));
+        $("#TotalAmount").html(parseFloat(TotalAmount - total_amount).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
     }
 </script>
 
@@ -575,6 +586,10 @@
         $("#ValidatePriceAmount").val($this.data("id13"));
 
         $(".AddToDetailSettlement2").prop("disabled", true);
+
+        var total_expense = parseFloat($("#total_expense").val().replace(/,/g, ''));
+        var TotalExpense = parseFloat($("#TotalExpense").html().replace(/,/g, ''));
+        $("#TotalExpense").html(parseFloat(TotalExpense - total_expense).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
         var total_amount = parseFloat($("#total_amount").val().replace(/,/g, ''));
         var TotalAmount = parseFloat($("#TotalAmount").html().replace(/,/g, ''));

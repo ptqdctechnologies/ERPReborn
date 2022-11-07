@@ -492,6 +492,7 @@
                               <td>
                                 <div class="input-group">
                                   <input id="sequence" style="border-radius:0;border:none;background-color:white;font-weight:bold;" value="1" type="text" class="form-control" readonly>
+                                  <input id="putSequence" style="border-radius:0;border:none;background-color:white;font-weight:bold;" type="hidden" class="form-control" readonly>
                                 </div>
                               </td>
                             </tr>
@@ -592,7 +593,7 @@
                         <tr>
                           <th style="border:1px solid #e9ecef;text-align: center;width:7%;">Action</th>
                           <th style="border:1px solid #e9ecef;text-align: center;width:10%;">Product ID</th>
-                          <th style="border:1px solid #e9ecef;text-align: center;width:10%;">Product Name</th>
+                          <!-- <th style="border:1px solid #e9ecef;text-align: center;width:10%;">Product Name</th> -->
                           <th style="border:1px solid #e9ecef;text-align: center;width:10%;">Sequence</th>
                           <th style="border:1px solid #e9ecef;text-align: center;width:13%;">Allowance</th>
                           <th style="border:1px solid #e9ecef;text-align: center;width:13%;">Transport</th>
@@ -612,7 +613,7 @@
                       <thead>
                         <tr>
                           <th style="border:1px solid #e9ecef;width:7%;"">Sub Total</th>
-                          <td style="border:1px solid #e9ecef;width:10%;"></td>
+                          <!-- <td style="border:1px solid #e9ecef;width:10%;"></td> -->
                           <td style="border:1px solid #e9ecef;width:10%;"></td>
                           <td style="border:1px solid #e9ecef;width:10%;" id="valSequence"></td>
                           <td style="border:1px solid #e9ecef;width:13%;" id="valAllowance"></td>
