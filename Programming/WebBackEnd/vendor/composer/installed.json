@@ -55,17 +55,17 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.240.10",
-            "version_normalized": "3.240.10.0",
+            "version": "3.240.11",
+            "version_normalized": "3.240.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "84b8229fc25cf787876047b6a73b202209853e79"
+                "reference": "4ab7d004ca11298bf400f3291f144d820fb97cd6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/84b8229fc25cf787876047b6a73b202209853e79",
-                "reference": "84b8229fc25cf787876047b6a73b202209853e79",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/4ab7d004ca11298bf400f3291f144d820fb97cd6",
+                "reference": "4ab7d004ca11298bf400f3291f144d820fb97cd6",
                 "shasum": ""
             },
             "require": {
@@ -105,7 +105,7 @@
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
                 "ext-sockets": "To use client-side monitoring"
             },
-            "time": "2022-11-04T19:25:00+00:00",
+            "time": "2022-11-07T19:23:11+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -146,7 +146,7 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.240.10"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.240.11"
             },
             "install-path": "../aws/aws-sdk-php"
         },
@@ -6484,17 +6484,17 @@
         },
         {
             "name": "swaggest/json-diff",
-            "version": "v3.10.1",
-            "version_normalized": "3.10.1.0",
+            "version": "v3.10.3",
+            "version_normalized": "3.10.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swaggest/json-diff.git",
-                "reference": "b9da3c576ee891319234cad958eb74d58c3f4d52"
+                "reference": "02df617f4a0ed053849cc0d5a9f030c3d12f3e98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swaggest/json-diff/zipball/b9da3c576ee891319234cad958eb74d58c3f4d52",
-                "reference": "b9da3c576ee891319234cad958eb74d58c3f4d52",
+                "url": "https://api.github.com/repos/swaggest/json-diff/zipball/02df617f4a0ed053849cc0d5a9f030c3d12f3e98",
+                "reference": "02df617f4a0ed053849cc0d5a9f030c3d12f3e98",
                 "shasum": ""
             },
             "require": {
@@ -6503,7 +6503,7 @@
             "require-dev": {
                 "phperf/phpunit": "4.8.37"
             },
-            "time": "2022-10-24T19:14:28+00:00",
+            "time": "2022-11-08T09:05:42+00:00",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -6524,7 +6524,7 @@
             "description": "JSON diff/rearrange/patch/pointer library for PHP",
             "support": {
                 "issues": "https://github.com/swaggest/json-diff/issues",
-                "source": "https://github.com/swaggest/json-diff/tree/v3.10.1"
+                "source": "https://github.com/swaggest/json-diff/tree/v3.10.3"
             },
             "install-path": "../swaggest/json-diff"
         },
