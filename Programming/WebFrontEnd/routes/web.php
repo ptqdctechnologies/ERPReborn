@@ -23,6 +23,9 @@ $varAPIWebToken =
     $varAPIWebToken
     );
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[ END ]---
+Route::get('zhtTestAdminLTE', function () {
+    return view('zhtTestAdminLTE');
+    })->middleware('web');
 
 //Programming/WebBackEnd/app/Http/Controllers/Application/BackEnd/System/FileHandling/Engines/upload/combined/general/deleteFile/v1/
 
