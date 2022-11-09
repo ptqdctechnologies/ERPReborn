@@ -20,9 +20,9 @@
             'dev_requirement' => false,
         ),
         'aws/aws-sdk-php' => array(
-            'pretty_version' => '3.240.10',
-            'version' => '3.240.10.0',
-            'reference' => '84b8229fc25cf787876047b6a73b202209853e79',
+            'pretty_version' => '3.241.0',
+            'version' => '3.241.0.0',
+            'reference' => '9a08ac83249a2e6d07c624802cbf961f7269a691',
             'type' => 'library',
             'install_path' => __DIR__ . '/../aws/aws-sdk-php',
             'aliases' => array(),
@@ -205,193 +205,193 @@
         'illuminate/auth' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/broadcasting' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/bus' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/cache' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/collections' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/conditionable' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/config' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/console' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/container' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/contracts' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/cookie' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/database' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/encryption' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/events' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/filesystem' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/hashing' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/http' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/log' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/macroable' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/mail' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/notifications' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/pagination' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/pipeline' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/queue' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/redis' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/routing' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/session' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/support' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/testing' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/translation' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/validation' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'illuminate/view' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v9.38.0',
+                0 => 'v9.39.0',
             ),
         ),
         'intervention/httpauth' => array(
@@ -410,9 +410,9 @@
             ),
         ),
         'laravel/framework' => array(
-            'pretty_version' => 'v9.38.0',
-            'version' => '9.38.0.0',
-            'reference' => 'abf198e443e06696af3f356b44de67c0fa516107',
+            'pretty_version' => 'v9.39.0',
+            'version' => '9.39.0.0',
+            'reference' => '67e674709e1e7db14f304a871481f310822d68c5',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laravel/framework',
             'aliases' => array(),
@@ -1086,9 +1086,9 @@
             'dev_requirement' => false,
         ),
         'swaggest/json-diff' => array(
-            'pretty_version' => 'v3.10.1',
-            'version' => '3.10.1.0',
-            'reference' => 'b9da3c576ee891319234cad958eb74d58c3f4d52',
+            'pretty_version' => 'v3.10.3',
+            'version' => '3.10.3.0',
+            'reference' => '02df617f4a0ed053849cc0d5a9f030c3d12f3e98',
             'type' => 'library',
             'install_path' => __DIR__ . '/../swaggest/json-diff',
             'aliases' => array(),

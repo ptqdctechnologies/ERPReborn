@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[START]---
 $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 $varAPIWebToken = 
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Njc3ODk0MDh9.YWEyNWJjZGJmMDcyODkwNjc1MWRmZjIzNmRkYTE2YzliN2M0ZDNmOTYxMmU1YWM5MWVhNjM5ZDAyZWI0ZWVhYQ'
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Njc5NjAwMzR9.OTcwZDNlNjg4ZDhmYTRjOGNlMmNiNTQ5OWMyNGVjNmIxMjBlNTQ1NDVhZTJmNDQ4M2Q5ZDY3NDI1N2E0N2FmZA'
     .'';
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
@@ -23,6 +23,9 @@ $varAPIWebToken =
     $varAPIWebToken
     );
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[ END ]---
+Route::get('zhtTestAdminLTE', function () {
+    return view('zhtTestAdminLTE');
+    })->middleware('web');
 
 //Programming/WebBackEnd/app/Http/Controllers/Application/BackEnd/System/FileHandling/Engines/upload/combined/general/deleteFile/v1/
 
