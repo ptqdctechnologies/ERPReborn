@@ -12,19 +12,19 @@ namespace App\Models\Database\SchData_OLTP_Master
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblVehicleType                                                                                               |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblVehicleType                                             |
+    | ▪ Class Name  : TblPersonContactNumber                                                                                       |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblPersonContactNumber                                     |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblVehicleType extends \App\Models\Database\DefaultClassPrototype
+    class TblPersonContactNumber extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-11-03                                                                                           |
-        | ▪ Last Update     : 2022-11-03                                                                                           |
+        | ▪ Last Update     : 2022-11-09                                                                                           |
+        | ▪ Creation Date   : 2022-11-09                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Method Name     : setDataInitialize                                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-11-03                                                                                           |
-        | ▪ Last Update     : 2022-11-03                                                                                           |
+        | ▪ Last Update     : 2022-11-09                                                                                           |
+        | ▪ Creation Date   : 2022-11-09                                                                                           |
         | ▪ Description     : Data Initialize                                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -60,7 +60,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                 $varUserSession, 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                     $varUserSession,
-                    'SchSysConfig-Initialize.Func_'.parent::getSchemaName($varUserSession).'_'.parent::getTableName($varUserSession),
+                    'SchSysConfig-Initialize.Func_Init_0224',
                     []
                     )
                 );
@@ -73,8 +73,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-11-03                                                                                           |
-        | ▪ Last Update     : 2022-11-03                                                                                           |
+        | ▪ Last Update     : 2022-11-09                                                                                           |
+        | ▪ Creation Date   : 2022-11-09                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -84,7 +84,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (string) varName ► Name                                                                                           |
+        |      ▪ (int)    varPerson_RefID ► Person Reference ID                                                                    |
+        |      ▪ (int)    varContactNumberType_RefID ► Contact Number Type Reference ID                                            |
+        |      ▪ (string) varContactNumber ► Contact Number                                                                        |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -92,7 +94,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varName = null)
+            int $varPerson_RefID = null, int $varContactNumberType_RefID = null, string $varContactNumber = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -107,7 +109,9 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [$varSysBranch_RefID, 'bigint'],
                         [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [$varName, 'varchar']
+                        [$varPerson_RefID, 'bigint'],
+                        [$varContactNumberType_RefID, 'bigint'],
+                        [$varContactNumber, 'varchar']
                     ]
                     )
                 );
@@ -120,8 +124,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-11-03                                                                                           |
-        | ▪ Last Update     : 2022-11-03                                                                                           |
+        | ▪ Last Update     : 2022-11-09                                                                                           |
+        | ▪ Creation Date   : 2022-11-09                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -132,7 +136,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (string) varName ► Name                                                                                           |
+        |      ▪ (int)    varPerson_RefID ► Person Reference ID                                                                    |
+        |      ▪ (int)    varContactNumberType_RefID ► Contact Number Type Reference ID                                            |
+        |      ▪ (string) varContactNumber ► Contact Number                                                                        |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -140,7 +146,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varName = null)
+            int $varPerson_RefID = null, int $varContactNumberType_RefID = null, string $varContactNumber = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -155,7 +161,9 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [$varSysBranch_RefID, 'bigint'],
                         [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [$varName, 'varchar']
+                        [$varPerson_RefID, 'bigint'],
+                        [$varContactNumberType_RefID, 'bigint'],
+                        [$varContactNumber, 'varchar']
                     ],
                     )
                 );
