@@ -163,7 +163,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('StoreValidateBusinessTripRequest', 'Advance\BusinessTripRequestController@StoreValidateBusinessTripRequest')->name('BusinessTripRequest.StoreValidateBusinessTripRequest');
     Route::post('StoreValidateBusinessTripRequest2', 'Advance\BusinessTripRequestController@StoreValidateBusinessTripRequest2')->name('BusinessTripRequest.StoreValidateBusinessTripRequest2');
     Route::post('RevisionBusinessTripRequest', 'Advance\BusinessTripRequestController@RevisionBusinessTripRequestIndex')->name('BusinessTripRequest.RevisionBusinessTripRequest');
-    Route::get('BusinessTripListData', 'Advance\BusinessTripRequestController@BusinessTripListData')->name('BusinessTripRequest.BusinessTripListData');
+    Route::get('BusinessTripRequestListData', 'Advance\BusinessTripRequestController@BusinessTripRequestListData')->name('BusinessTripRequest.BusinessTripRequestListData');
+    Route::post('BusinessTripRequestListCartRevision', 'Advance\BusinessTripRequestController@BusinessTripRequestListCartRevision')->name('BusinessTripRequest.BusinessTripRequestListCartRevision');
     Route::resource('BusinessTripRequest', 'Advance\BusinessTripRequestController');
 
     // REM

@@ -3,15 +3,16 @@
 @include('Partials.navbar')
 @include('Partials.sidebar')
 @include('getFunction.getProject')
-@include('Advance.BusinessTrip.Functions.PopUp.PopUpBusinessTripSettlementRevision')
+@include('getFunction.getSite')
 @include('Advance.BusinessTrip.Functions.PopUp.SearchBrf')
+@include('Advance.BusinessTrip.Functions.PopUp.PopUpBusinessTripSettlementRevision')
 
 <div class="content-wrapper" style="position:relative;bottom:12px;">
   <section class="content">
     <div class="container-fluid">
       <div class="row mb-1" style="background-color:#4B586A;">
         <div class="col-sm-6" style="height:30px;">
-          <label style="font-size:15px;position:relative;top:7px;color:white;">Bussiness Trip Settlement Revision</label>
+          <label style="font-size:15px;position:relative;top:7px;color:white;">Business Trip Settlement Revision</label>
         </div>
       </div>
       @include('Advance.BusinessTrip.Functions.Menu.MenuBusinessTripSettlement')
@@ -64,7 +65,7 @@
                 <div class="card">
                   <div class="card-header">
                     <label class="card-title">
-                      BRF Detail
+                      Business Trip Request Detail
                     </label>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -76,7 +77,6 @@
                 </div>
               </div>
             </div>
-
             <div class="row">
               <div class="col-12">
                 <div class="card">
@@ -90,7 +90,7 @@
                       </button>
                     </div>
                   </div>
-                  <div class="card-body table-responsive p-0" id="detailBSF">
+                  <div class="card-body table-responsive p-0 DetailBsf">
                     <table class="table text-nowrap table-sm" style="text-align: center;width:100%;">
                       <thead>
                         <tr>
@@ -112,7 +112,7 @@
                       <tbody>
                         <td style="border:1px solid #e9ecef;">
                           <div class="input-group">
-                            &nbsp;<input readonly name="brf_number_detail" id="brf_number_detail" style="border-radius:0;" type="text" class="form-control">
+                            &nbsp;<input readonly id="brf_number_detail" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
 
@@ -138,6 +138,11 @@
                             <input id="put_price_expense" style="border-radius:0;" type="hidden" class="form-control">
                           </div>
                         </td>
+                        <!-- <td style="border:1px solid #e9ecef;width:4%;">
+                          <div class="input-group">
+                            <input readonly id="price_expense2" style="border-radius:0;" type="text" class="form-control">
+                          </div>
+                        </td> -->
                         <td style="border:1px solid #e9ecef;">
                           <div class="input-group">
                             <input readonly id="total_expense" style="border-radius:0;" type="text" class="form-control">
@@ -165,6 +170,11 @@
                             <input id="put_price_amount" style="border-radius:0;" type="hidden" class="form-control">
                           </div>
                         </td>
+                        <!-- <td style="border:1px solid #e9ecef;width:4%;">
+                          <div class="input-group">
+                            <input readonly id="price_amount2" style="border-radius:0;" type="text" class="form-control">
+                          </div>
+                        </td> -->
                         <td style="border:1px solid #e9ecef;">
                           <div class="input-group">
                             <input readonly id="total_amount" style="border-radius:0;" type="text" class="form-control">
@@ -186,7 +196,7 @@
                             <input readonly name="balance2" id="balance2" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
-                        <input id="statusEditBsf" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
+                        <input id="statusEditBsfRevision" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
                         <input id="TotalQty" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                         <input id="ValidateQuantityAmount" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                         <input id="ValidatePriceAmount" style="border-radius:0;" type="hidden" class="form-control" readonly="">
@@ -201,7 +211,7 @@
                     <a class="btn btn-default btn-sm float-right CancelDetailBsf" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
                       <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel to Add Advance List Cart"> Cancel
                     </a>
-                    <a class="btn btn-default btn-sm float-right" onclick="addFromDetailtoCartJs();" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                    <a class="btn btn-default btn-sm float-right" onclick="addFromDetailtoCartJs();" id="addFromDetailtoCartJs" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                       <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
                     </a>
                   </div>
@@ -214,7 +224,7 @@
           <nav class="w-100">
             <div class="nav nav-tabs" id="product-tab" role="tablist">
               <a class="nav-item nav-link active idExpense" id="product-comments-tab" data-toggle="tab" href="#expense" role="tab" aria-controls="product-comments" aria-selected="true"><span style="font-weight:bold;padding:10px;color:#212529;">Expense Claim Cart</span></a>&nbsp;&nbsp;&nbsp;
-              <a class="nav-item nav-link idAmount" id="product-desc-tab" data-toggle="tab" href="#amountdueto" role="tab" aria-controls="product-desc" aria-selected="false"><span style="font-weight:bold;padding:10px;color:#212529;">Amount Due to Company Cart</span></a>
+              <a class="nav-item nav-link idAmount" id="product- desc-tab" data-toggle="tab" href="#amountdueto" role="tab" aria-controls="product-desc" aria-selected="false"><span style="font-weight:bold;padding:10px;color:#212529;">Amount Due to Company Cart</span></a>
             </div><br>
           </nav>
 
@@ -245,7 +255,7 @@
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Price</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Total</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Description</th>
+                          <!-- <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Description</th> -->
                         </tr>
                       </thead>
                       <tbody>
@@ -294,7 +304,7 @@
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Price</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Total</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Description</th>
+                          <!-- <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Description</th> -->
                         </tr>
                       </thead>
                       <tbody>
@@ -315,13 +325,12 @@
               </div>
             </div>
           </div>
-          <a onclick="CancelBusinessTrip();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
-            <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Business Trip List Cart"> Cancel
+          <a onclick="CancelBusinessTripSettlement();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
+            <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
           </a>
-          <button class="btn btn-default btn-sm float-right" type="submit" id="saveBrfList" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-            <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Business Trip"> Submit
+          <button class="btn btn-default btn-sm float-right" type="submit" id="SaveBsfList" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+            <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit"> Submit
           </button>
-          <br><br>
       </div>
       </form>
     </div>

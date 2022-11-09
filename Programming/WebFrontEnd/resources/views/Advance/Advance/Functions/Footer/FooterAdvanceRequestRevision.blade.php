@@ -115,6 +115,9 @@
                         $("#saveArfList").prop("disabled", false);
                         $("#submitArf").prop("disabled", false);
 
+                        $("#putProductId").css("background-color", "#e9ecef");
+                        $("#putProductName").css("background-color", "#e9ecef");
+                        
                         $(".klikBudgetAdvanceRevision2").prop("disabled", false);
                         $(".ActionButton").prop("disabled", false);
                         $("#detailArfList").show();
@@ -418,6 +421,7 @@
         $("#putCurrency").val($this.data("id6"));
         $("#putRemark").val($this.data("id8"));
         $("#totalArfDetails").val($this.data("id7").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        $("#totalPayment").val("0");
         $("#totalBalance").val($this.data("id9").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         $("#statusEditArfRevision").val("Yes");
 

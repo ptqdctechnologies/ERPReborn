@@ -40,7 +40,7 @@
             e.preventDefault();
             $.ajax({
                 type: 'GET',
-                url: '{!! route("BusinessTripRequest.BusinessTripListData") !!}',
+                url: '{!! route("BusinessTripRequest.BusinessTripRequestListData") !!}',
                 success: function(data) {
                     var no = 1; t = $('#TableSearchBusinessTrip').DataTable();
                     t.clear();

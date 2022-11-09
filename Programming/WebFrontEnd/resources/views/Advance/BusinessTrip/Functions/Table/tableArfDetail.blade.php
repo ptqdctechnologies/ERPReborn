@@ -10,7 +10,7 @@
                 <th>Unit</th>
                 <th>Unit Price</th>
                 <th>Qty</th>
-                <th>Total Price</th>
+                <th>Total Budget</th>
                 <th>Currency</th>
                 <th>Descirption</th>
                 <th>Available</th>

@@ -114,7 +114,7 @@
                         $("#total_expense2").val($this.data("id5"));
                         $("#qty_amount").val("0.00");
                         $("#qty_amount2").val($this.data("id6"));
-                        $("#price_amount").val("0.00");
+                        $("#price_amount").val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                         $("#price_amount2").val($this.data("id5"));
                         $("#total_amount").val("0.00");
                         $("#total_amount2").val($this.data("id5"));
@@ -586,6 +586,7 @@
         $("#ValidatePriceAmount").val($this.data("id13"));
 
         $(".AddToDetailSettlement2").prop("disabled", true);
+        $(".ActionButton").prop("disabled", true);
 
         var total_expense = parseFloat($("#total_expense").val().replace(/,/g, ''));
         var TotalExpense = parseFloat($("#TotalExpense").html().replace(/,/g, ''));
