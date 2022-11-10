@@ -3,15 +3,13 @@
         <thead>
             <tr>
                 <th>Action</th>
+                <th>Availabel</th>
                 <th>Trano</th>
-                <th>Project</th>
-                <th>Site</th>
                 <th>Product Id</th>
                 <th>Product Name</th>
                 <th>Qty</th>
                 <th>PR Price</th>
                 <th>Average</th>
-                <th>Availabel</th>
             </tr>
         </thead>
         <tbody>

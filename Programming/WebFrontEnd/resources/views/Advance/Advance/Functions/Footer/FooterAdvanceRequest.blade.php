@@ -272,7 +272,6 @@
     
 </script>
 
-
 <script type="text/javascript">
     function CancelDetailArf() {
         var work_id = $("#putWorkId").val();
