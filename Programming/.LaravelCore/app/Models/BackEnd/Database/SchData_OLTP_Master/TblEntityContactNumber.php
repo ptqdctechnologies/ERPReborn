@@ -12,11 +12,11 @@ namespace App\Models\Database\SchData_OLTP_Master
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblPersonContactNumber                                                                                       |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblPersonContactNumber                                     |
+    | ▪ Class Name  : TblEntityContactNumber                                                                                       |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblEntityContactNumber                                     |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblPersonContactNumber extends \App\Models\Database\DefaultClassPrototype
+    class TblEntityContactNumber extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -84,7 +84,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varPerson_RefID ► Person Reference ID                                                                    |
+        |      ▪ (int)    varEntity_RefID ► Entity Reference ID                                                                    |
         |      ▪ (int)    varContactNumberType_RefID ► Contact Number Type Reference ID                                            |
         |      ▪ (string) varContactNumber ► Contact Number                                                                        |
         | ▪ Output Variable :                                                                                                      |
@@ -94,7 +94,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varPerson_RefID = null, int $varContactNumberType_RefID = null, string $varContactNumber = null)
+            int $varEntity_RefID = null, int $varContactNumberType_RefID = null, string $varContactNumber = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -109,7 +109,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [$varSysBranch_RefID, 'bigint'],
                         [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [$varPerson_RefID, 'bigint'],
+                        [$varEntity_RefID, 'bigint'],
                         [$varContactNumberType_RefID, 'bigint'],
                         [$varContactNumber, 'varchar']
                     ]
@@ -136,7 +136,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varPerson_RefID ► Person Reference ID                                                                    |
+        |      ▪ (int)    varEntity_RefID ► Entity Reference ID                                                                    |
         |      ▪ (int)    varContactNumberType_RefID ► Contact Number Type Reference ID                                            |
         |      ▪ (string) varContactNumber ► Contact Number                                                                        |
         | ▪ Output Variable :                                                                                                      |
@@ -146,7 +146,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varPerson_RefID = null, int $varContactNumberType_RefID = null, string $varContactNumber = null)
+            int $varEntity_RefID = null, int $varContactNumberType_RefID = null, string $varContactNumber = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -161,7 +161,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [$varSysBranch_RefID, 'bigint'],
                         [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [$varPerson_RefID, 'bigint'],
+                        [$varEntity_RefID, 'bigint'],
                         [$varContactNumberType_RefID, 'bigint'],
                         [$varContactNumber, 'varchar']
                     ],
