@@ -139,8 +139,6 @@
     }
 </script>
 
-
-
 <script type="text/javascript">
     $.ajaxSetup({
         headers: {

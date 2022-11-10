@@ -14,7 +14,7 @@ class AdvanceRequestController extends Controller
         dd($data);
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionAdvance");
-        $var = 0;
+        $var = 0;SessionDeliveryOrderRequest
         if(!empty($_GET['var'])){
            $var =  $_GET['var'];
         }

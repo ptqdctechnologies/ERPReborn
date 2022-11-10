@@ -213,6 +213,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('StoreValidateDeliveryOrderRequest2', 'Inventory\DeliveryOrderRequestController@StoreValidateDeliveryOrderRequest2')->name('DeliveryOrderRequest.StoreValidateDeliveryOrderRequest2');
     Route::post('RevisionDeliveryOrderRequest', 'Inventory\DeliveryOrderRequestController@RevisionDeliveryOrderRequest')->name('DeliveryOrderRequest.RevisionDeliveryOrderRequest');
     Route::get('DeliveryOrderRequestListData', 'Inventory\DeliveryOrderRequestController@DeliveryOrderRequestListData')->name('DeliveryOrderRequest.DeliveryOrderRequestListData');
+    Route::get('DeliveryOrderRequestByBudgetID', 'Inventory\DeliveryOrderRequestController@DeliveryOrderRequestByBudgetID')->name('DeliveryOrderRequest.DeliveryOrderRequestByBudgetID');
+    Route::post('DeliveryOrderRequestByPrID', 'Inventory\DeliveryOrderRequestController@DeliveryOrderRequestByPrID')->name('DeliveryOrderRequest.DeliveryOrderRequestByPrID');
     Route::resource('DeliveryOrderRequest', 'Inventory\DeliveryOrderRequestController');
 
     // DO

@@ -6,7 +6,7 @@
         $(".headerDor4").hide();
         $("#detailPR").hide();
         $("#detailDor").hide();
-        $("#detailDorList").hide();
+        $(".detailDorList").hide();
         $("#tableShowHideDor").hide();
         $("#headerPrNumber2").prop("disabled", true);
         $("#pr_number2").prop("disabled", true);
@@ -27,19 +27,19 @@
 
         $.ajax({
             type: 'GET',
-            url: '{!! route("AdvanceSettlement.AdvanceByBudgetID") !!}?projectcode=' + $('#projectcode').val(),
+            url: '{!! route("DeliveryOrderRequest.DeliveryOrderRequestByBudgetID") !!}?projectcode=' + $('#projectcode').val(),
             success: function(data) {
 
                 var no = 1;
-                t = $('#tableSearchArfinAsf').DataTable();
+                t = $('#tableSearchPrInDor').DataTable();
                 $.each(data.DataAdvanceRequest, function(key, val) {
                     t.row.add([
                         '<tbody><tr><td>' + no++ + '</td>',
-                        '<td><span data-dismiss="modal" onclick="klikAdvanceNumberInAsf(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.documentNumber + '</span></td>',
-                        '<td><span data-dismiss="modal" onclick="klikAdvanceNumberInAsf(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudget_RefID + '</span></td>',
-                        '<td><span data-dismiss="modal" onclick="klikAdvanceNumberInAsf(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudgetName + '</span></td>',
-                        '<td><span data-dismiss="modal" onclick="klikAdvanceNumberInAsf(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudgetSection_RefID + '</span></td>',
-                        '<td><span data-dismiss="modal" onclick="klikAdvanceNumberInAsf(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudgetSectionName + '</span></td>',
+                        '<td><span data-dismiss="modal" onclick="klikPrNumberInDor(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.documentNumber + '</span></td>',
+                        '<td><span data-dismiss="modal" onclick="klikPrNumberInDor(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudget_RefID + '</span></td>',
+                        '<td><span data-dismiss="modal" onclick="klikPrNumberInDor(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudgetName + '</span></td>',
+                        '<td><span data-dismiss="modal" onclick="klikPrNumberInDor(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudgetSection_RefID + '</span></td>',
+                        '<td><span data-dismiss="modal" onclick="klikPrNumberInDor(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudgetSectionName + '</span></td>',
                     ]).draw();
 
                 });
@@ -47,6 +47,267 @@
         });
     }
 </script>
+
+
+<script>
+    function klikPrNumberInDor(id, docNum, reqId, reqName) {
+        var pr_RefID = id;
+        var pr_number = docNum;
+        var requester_RefID = reqId;
+        var requester_name = reqName;
+        $("#pr_number").val(docNum);
+        $("#tableShowHideDor").show();
+        $("#projectcode2").prop("disabled", true);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: "POST",
+            url: '{!! route("DeliveryOrderRequest.DeliveryOrderRequestByPrID") !!}?pr_RefID=' + pr_RefID,
+            success: function(data) {
+                $.each(data.varData, function(key, value) {
+                    var html =
+                        '<tr>' +
+                        '<td style="border:1px solid #e9ecef;width:5%;">' +
+                        '&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs AddToDetail AddToDetail2" data-dismiss="modal" data-id0="' + value.combinedBudget_SubSectionLevel1_RefID + '" data-id1="' + pr_number + '" data-id2="' + value.product_RefID + '" data-id3="' + value.productName + '" data-id4="' + value.quantity + '" data-id5="' + value.productUnitPriceCurrencyValue + '" data-id6="' + value.priceBaseCurrencyValue + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="18" alt="" title="Add"></button> ' +
+                        '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' +
+                        '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"><div class="progress-bar bg-red" style="width:50%;"></div><small><center>50 %</center></small></div>' +
+                        '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + pr_number + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + value.product_RefID + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + value.productName + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + value.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + value.productUnitPriceCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + value.priceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                        '</tr>';
+
+                    $('table.tablePrDetailDor tbody').append(html);
+                });
+
+                $("body").on("click", ".AddToDetail", function() {
+                    $("#detailDor").show();
+
+                    var $this = $(this);
+                    $("#putWorkId").val($this.data("id0"));
+                    $("#pr_number_detail").val($this.data("id1"));
+                    $("#putProductId").val($this.data("id2"));
+                    $("#putProductName").val($this.data("id3"));
+                    $("#qtyCek").val($this.data("id4").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                    $("#putQty").val($this.data("id4"));
+                    $("#priceCek").val($this.data("id5").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                    $("#putPrice").val($this.data("id5"));
+                    $("#average").val($this.data("id6").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                    $("#totalBalance").val($this.data("id4").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+                    $(".AddToDetail2").prop("disabled", true);
+                    $(".ActionButton").prop("disabled", true);
+
+                });
+            },
+        });
+    }
+</script>
+
+<script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    function addFromDetailtoCartJs() {
+        var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
+        var valQty = $("#qtyCek").val();
+        var valPrice = $("#priceCek").val();
+
+        $("#qtyCek").css("border", "1px solid #ced4da");
+        $("#priceCek").css("border", "1px solid #ced4da");
+
+        if (valQty === "") {
+            $("#qtyCek").focus();
+            $("#qtyCek").attr('required', true);
+            $("#qtyCek").css("border", "1px solid red");
+        } else if (valPrice === "") {
+            $("#priceCek").focus();
+            $("#priceCek").attr('required', true);
+            $("#priceCek").css("border", "1px solid red");
+        } else {
+            $.ajax({
+                type: "POST",
+                url: '{!! route("DeliveryOrderRequest.StoreValidateDeliveryOrderRequest") !!}?putProductId=' + $('#putProductId').val() + '&putWorkId=' + $('#putWorkId').val(),
+                success: function(data) {
+
+                    if (data == "200") {
+
+                        $("#product_id2").prop("disabled", true);
+                        var trano = $("#pr_number_detail").val();
+                        var work_id = $("#putWorkId").val();
+                        var putProductId = $("#putProductId").val();
+                        var putProductName = $("#putProductName").val();
+                        var qtyCek = $('#qtyCek').val().replace(/^\s+|\s+$/g, '');
+                        var priceCek = $("#priceCek").val().replace(/^\s+|\s+$/g, '');
+                        var average = $("#average").val().replace(/^\s+|\s+$/g, '');
+                        var totalBalance = $("#totalBalance").val();
+                        var putPrice = $('#putPrice').val();
+
+                        //TOTAL ADVANCE
+                        if($("#TotalDeliveryOrderRequest").html() == ""){
+                            $("#TotalDeliveryOrderRequest").html('0');
+                        }
+                        var TotalDeliveryOrderRequest = parseFloat($("#average").val().replace(/,/g, ''));
+                        var TotalDeliveryOrderRequest2 = parseFloat($("#TotalDeliveryOrderRequest").html().replace(/,/g, ''));
+                        $("#TotalDeliveryOrderRequest").html(parseFloat(+TotalDeliveryOrderRequest2 + TotalDeliveryOrderRequest).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+                        var html = '<tr>' +
+                            '<td style="border:1px solid #e9ecef;width:7%;">' +
+                            '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveAdvance(\'' + work_id + '\', \'' + putProductId + '\', \'' + average + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+                            '&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="EditAdvance(this)" data-dismiss="modal" data-id0="' + work_id + '" data-id1="' + putProductId + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + priceCek + '" data-id5="' + average + '" data-id6="' + totalBalance + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+                            '<input type="hidden" name="var_putProductId[]" value="' + putProductId + '">' +
+                            '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
+                            '<input type="hidden" name="var_quantity[]" value="' + parseFloat(qtyCek.replace(/,/g, '')) + '">' +
+                            '<input type="hidden" name="var_price[]" value="' + parseFloat(priceCek.replace(/,/g, '')) + '">' +
+                            '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + trano + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + work_id + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + putProductId + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + putProductName + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + qtyCek + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + priceCek + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + average + '</td>' +
+                            '</tr>';
+
+                        $('table.TableDorCart tbody').append(html);
+                        $("#statusEditDor").val("No");
+
+
+                        $("#pr_number_detail").val("");
+                        $("#putWorkId").val("");
+                        $("#putProductId").val("");
+                        $("#putProductName").val("");
+                        $("#qtyCek").val("");
+                        $("#priceCek").val("");
+                        $("#average").val("");
+                        $("#totalBalance").val("");
+
+                        $(".AddToDetail2").prop("disabled", false);
+                        $(".ActionButton").prop("disabled", false);
+                        $(".detailDorList").show();
+
+                    } else {
+                        Swal.fire("Error !", "Please use edit to update this item !", "error");
+                    }
+                },
+            });
+        }
+    }
+    
+</script>
+
+<script type="text/javascript">
+    function CancelDetailDor() {
+        var trano = $('#advance_number_detail').val();
+        var work_id = $("#putWorkId").val();
+        var putProductId = $("#putProductId").val();
+        var putProductName = $("#putProductName").val();
+        var qtyCek = $('#qtyCek').val().replace(/^\s+|\s+$/g, '');
+        var priceCek = $("#priceCek").val().replace(/^\s+|\s+$/g, '');
+        var average = $("#average").val().replace(/^\s+|\s+$/g, '');
+        var totalBalance = $("#totalBalance").val();
+        var putPrice = $('#putPrice').val();
+        var statusEditDor = $("#statusEditDor").val();
+
+        if (statusEditDor == "Yes") {
+
+            qtyCek = $('#ValidateQuantity').val();
+            priceCek = $('#ValidatePrice').val();
+            average = parseFloat(qtyCek.replace(/,/g, '') * priceCek.replace(/,/g, ''));
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRFcac-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            
+            $.ajax({
+                type: "POST",
+                url: '{!! route("DeliveryOrderRequest.StoreValidateDeliveryOrderRequest") !!}?putProductId=' + $('#putProductId').val() + '&putWorkId=' + $('#putWorkId').val(),
+                success: function(data) {
+
+                    if (data == "200") {
+
+                        let html = '<tr>' +
+                            '<td style="border:1px solid #e9ecef;width:7%;">' +
+                            '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveDor(\'' + work_id + '\', \'' + putProductId + '\', \'' + average + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+                            '&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="EditDor(this)" data-dismiss="modal" data-id0="' + work_id + '" data-id1="' + putProductId + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + priceCek + '" data-id5="' + average.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '" data-id6="' + totalBalance + '" data-id7="' + trano + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+                            '<input type="hidden" name="var_putProductId[]" value="' + putProductId + '">' +
+                            '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
+                            '<input type="hidden" name="var_quantity[]" value="' + qtyCek + '">' +
+                            '<input type="hidden" name="var_price[]" value="' + priceCek + '">' +
+                            '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + trano + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + work_id + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + putProductId + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + putProductName + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + qtyCek + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + priceCek + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + average + '</td>' +
+                            '</tr>';
+                        $('table.TableDorCart tbody').append(html);
+
+                        var TotalDeliveryOrderRequest = parseFloat($("#TotalDeliveryOrderRequest").html().replace(/,/g, ''));
+                        $("#TotalDeliveryOrderRequest").html(parseFloat(+TotalDeliveryOrderRequest + average).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+                    }else {
+                        Swal.fire("Error !", "Please use edit to update this item !", "error");
+                    }
+                },
+            });
+            $("#statusEditDor").val("No");
+        }
+
+        $(".AddToDetail2").prop("disabled", false);
+        $(".ActionButton").prop("disabled", false);
+
+        $("#putProductId").css("border", "1px solid #ced4da");
+        $("#putProductId").val("");
+        $("#putProductName").val("");
+        $("#qtyCek").val("");
+        $("#putUom").val("");
+        $("#priceCek").val("");
+        $("#putCurrency").val("");
+        $("#totalBalance").val("");
+        $("#average").val("");
+    }
+</script>
+
+<script>
+    $('document').ready(function() {
+        $('.ChangeQty').keyup(function() {
+            var qtyReq = $(this).val().replace(/[^a-zA-Z0-9 ]/g, "");
+            if (qtyReq == 0 || qtyReq == '') {
+                qtyReq = 0;
+            }
+            var qtyDorHide = $('#qtyDorHide').val();
+            
+            if (qtyReq == '') {
+                $("#addFromDetailDortoCart").prop("disabled", true);
+
+            } else if (qtyReq > qtyDorHide) {
+                Swal.fire("Error !", "Your Qty Request is Over", "error");
+                $("#qtyDorDetail").val(qtyDorHide);
+                $("#addFromDetailDortoCart").prop("disabled", true);
+            } else {
+                $("#addFromDetailDortoCart").prop("disabled", false);
+            }
+
+        });
+    });
+</script>
+
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -111,170 +372,6 @@
               $("#headerAddressSiteName3").val("Bekasi cyber park, RT.001/RW.009, Kayuringin Jaya, Kec. Bekasi Bar., Kota Bks, Jawa Barat 17415");
           }
       });
-    });
-</script>
-<!--  END SHOW HIDE AVAILABEL -->
-<script type="text/javascript">
-   $(document).ready(function () {
-
-    var x = 0;
-    
-    $('#addFromDetailDortoCart').click(function(ev){
-        ev.preventDefault();
-        ev.stopPropagation();
-        
-        $("#detailDorList").show();
-        var val = $("#prNumberDorDetail").val();
-        if(val != ""){
-            $.ajax({
-                type: "POST",
-                url: '{!! route("DeliveryOrderRequest.StoreValidateDeliveryOrderRequest") !!}?productIdDorDetail=' + $('#productIdDorDetail2').val(),
-                success: function(data) {
-
-                    if(data == "200"){
-
-                        var prNumberDorDetail = $("#prNumberDorDetail").val();
-                        var projectDorDetail = $("#projectDorDetail").val();
-                        var projectDorDetail2 = $('#projectDorDetail2').val();
-                        var siteDorDetail = $("#siteDorDetail").val();
-                        var siteDorDetail2 = $("#siteDorDetail2").val();
-                        var workIdDorDetail = $("#workIdDorDetail").val();
-                        var workIdDorDetail2 = $('#workIdDorDetail2').val();
-                        var priceDorDetail = $("#priceDorDetail").val();
-                        var averageDorDetail = $("#averageDorDetail").val();
-                        var qtyDorDetail = $("#qtyDorDetail").val();
-                        var qtyDorDetail2 = $('#qtyDorDetail2').val();
-                        var productIdDorDetail = $("#productIdDorDetail").val();
-                        var productIdDorDetail2 = $("#productIdDorDetail2").val();
-                        var prQty = $("#prQty").val();
-                        var inDorQty = $("#inDorQty").val();
-                        var balanceQty = $("#balanceQty").val();
-
-                        var html = '<tr>'+
-                                    '<td>'+
-                                        '<button type="button" class="btn btn-danger btn-xs remove" data-id1="'+productIdDorDetail2+'"><i class="fa fa-trash"></i></button> '+
-                                        '<button type="button" class="btn btn-warning btn-xs edit" data-dismiss="modal" data-id1="'+prNumberDorDetail+'" data-id2="'+projectDorDetail+'" data-id3="'+projectDorDetail2+'" data-id4="'+siteDorDetail+'" data-id5="'+siteDorDetail2+'" data-id6="'+workIdDorDetail+'" data-id7="'+workIdDorDetail2+'" data-id8="'+priceDorDetail+'" data-id9="'+averageDorDetail+'" data-id10="'+qtyDorDetail+'" data-id11="'+qtyDorDetail2+'" data-id12="'+productIdDorDetail+'" data-id13="'+productIdDorDetail2+'" data-id14="'+prQty+'" data-id15="'+inDorQty+'" data-id16="'+balanceQty+'"><i class="fa fa-edit" style="color:white;"></i></button> '+
-                                    '</td>'+
-                                    '<td>'+prNumberDorDetail+'</td>'+
-                                    '<td>'+projectDorDetail+'</td>'+
-                                    '<td>'+siteDorDetail+'</td>'+
-                                    '<td>'+productIdDorDetail+'</td>'+
-                                    '<td>'+productIdDorDetail2+'</td>'+
-                                '</tr>';
-                        $('table.tableDorCart tbody').append(html);
-
-                        $("body").on("click", ".remove", function () {
-                            $(this).closest("tr").remove();
-                            var ProductId = $(this).data("id1");
-                            $.ajax({
-                                type: "POST",
-                                url: '{!! route("DeliveryOrderRequest.StoreValidateDeliveryOrderRequest2") !!}?productIdDorDetail=' + ProductId,
-                            });
-                        });
-                        $("body").on("click", ".edit", function () {
-                            var $this = $(this);
-                            var id1 = $this.data("id1");
-                            var id2 = $this.data("id2");
-                            var id3 = $this.data("id3");
-                            var id4 = $this.data("id4");
-                            var id5 = $this.data("id5");
-                            var id6 = $this.data("id6");
-                            var id7 = $this.data("id7");
-                            var id8 = $this.data("id8");
-                            var id9 = $this.data("id9");
-                            var id10 = $this.data("id10");
-                            var id11 = $this.data("id11");
-                            var id12 = $this.data("id12");
-                            var id13 = $this.data("id13");
-                            var id14 = $this.data("id14");
-                            var id15 = $this.data("id15");
-                            var id16 = $this.data("id16");
-
-                            $.ajax({
-                                type: "POST",
-                                url: '{!! route("DeliveryOrderRequest.StoreValidateDeliveryOrderRequest2") !!}?productIdDorDetail=' + id13,
-                            });
-
-                            $("#prNumberDorDetail").val(id1);
-                            $("#projectDorDetail").val(id2);
-                            $("#projectDorDetail2").val(id3);
-                            $("#siteDorDetail").val(id4);
-                            $("#siteDorDetail2").val(id5);
-                            $("#workIdDorDetail").val(id6);
-                            $("#workIdDorDetail2").val(id7);
-                            $("#priceDorDetail").val(id8);
-                            $("#averageDorDetail").val(id9);
-                            $("#qtyDorDetail").val(id10);
-                            $("#qtyDorDetail2").val(id11);
-                            $("#productIdDorDetail").val(id12);
-                            $("#productIdDorDetail2").val(id13);
-                            $("#prQty").val(id14);
-                            $("#inDorQty").val(id15);
-                            $("#balanceQty").val(id16);
-
-                            $(this).closest("tr").remove();
-
-                            if(id10 == "Unspecified Product"){
-                                $("#product_id2").prop("disabled", false);
-                            }
-                            else{
-                                $("#product_id2").prop("disabled", true);
-                            }
-                        });
-
-                        $("#prNumberDorDetail").val("");
-                        $("#projectDorDetail").val("");
-                        $("#projectDorDetail2").val("");
-                        $("#siteDorDetail").val("");
-                        $("#siteDorDetail2").val("");
-                        $("#workIdDorDetail").val("");
-                        $("#workIdDorDetail2").val("");
-                        $("#priceDorDetail").val("");
-                        $("#averageDorDetail").val("");
-                        $("#qtyDorDetail").val("");
-                        $("#qtyDorDetail2").val("");
-                        $("#productIdDorDetail").val("");
-                        $("#productIdDorDetail2").val("");
-                        $("#prQty").val("");
-                        $("#inDorQty").val("");
-                        $("#balanceQty").val("");
-
-                        $("#tableShowHideDor").find("input,button,textarea,select").attr("disabled", false);
-                    }
-                    else{
-                        Swal.fire("Cancelled", "Please use edit to update this item !", "error");
-                    }
-                },
-            });   
-        }
-        else{
-            Swal.fire("Cancelled", "Data Cannot Empty", "error");
-        }
-    });
-});
-</script>
-
-<script>
-    $('document').ready(function() {
-        $('.ChangeQty').keyup(function() {
-            var qtyReq = $(this).val().replace(/[^a-zA-Z0-9 ]/g, "");
-            if (qtyReq == 0 || qtyReq == '') {
-                qtyReq = 0;
-            }
-            var qtyDorHide = $('#qtyDorHide').val();
-            
-            if (qtyReq == '') {
-                $("#addFromDetailDortoCart").prop("disabled", true);
-
-            } else if (qtyReq > qtyDorHide) {
-                Swal.fire("Error !", "Your Qty Request is Over", "error");
-                $("#qtyDorDetail").val(qtyDorHide);
-                $("#addFromDetailDortoCart").prop("disabled", true);
-            } else {
-                $("#addFromDetailDortoCart").prop("disabled", false);
-            }
-
-        });
     });
 </script>
 
