@@ -114,6 +114,53 @@ namespace App\Models\Database\SchData_OLTP_Master
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataEntities_EntityContactNumber                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-11-11                                                                                           |
+        | ▪ Creation Date   : 2022-11-11                                                                                           |
+        | ▪ Description     : Get Data Nomor Kontak Entitas                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysID ► System Record ID                                                                              |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataEntities_EntityContactNumber($varUserSession, 
+            string $varIDSet)
+            {
+            try {
+                $varFunctionName='SchData-OLTP-Master.Func_GetDataEntities_EntityContactNumber';
+                $varTemp = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        $varFunctionName,
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varIDSet, 'bigint[]']
+                        ]
+                        )
+                    );
+
+                for ($i=0; $i!=count($varTemp['Data']); $i++)
+                    {
+                    $varReturn[$i] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession, 
+                        $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]);
+                    }
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getData_CentralBankCurrencyExchangtMiddleRateByCurrencyISOCode                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
