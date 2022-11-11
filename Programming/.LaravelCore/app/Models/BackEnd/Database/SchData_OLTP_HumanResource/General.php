@@ -1106,6 +1106,102 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataResume_WorkerCareerInternalContactNumber                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-11-11                                                                                           |
+        | ▪ Creation Date   : 2022-11-11                                                                                           |
+        | ▪ Description     : Mendapatkan Resume Nomor Kontak Pekerja                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varWorkerCareerInternal_RefID ► Worker Career Internal Reference ID                                      |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataResume_WorkerCareerInternalContactNumber(
+            $varUserSession, int $varBranchID, 
+            int $varWorkerCareerInternal_RefID = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-HumanResource.Func_GetDataResume_WorkerCareerInternalContactNumber',
+                        [
+                            [$varBranchID, 'bigint' ],
+
+                            [$varWorkerCareerInternal_RefID, 'bigint' ]
+                        ]
+                        )
+                    );
+
+                return 
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession, 
+                        $varReturn['Data'][0]['Func_GetDataResume_WorkerCareerInternalContactNumber']
+                        );
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataResume_WorkerContactNumber                                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-11-11                                                                                           |
+        | ▪ Creation Date   : 2022-11-11                                                                                           |
+        | ▪ Description     : Mendapatkan Resume Nomor Kontak Pekerja                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varWorker_RefID ► Worker Reference ID                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataResume_WorkerContactNumber(
+            $varUserSession, int $varBranchID, 
+            int $varWorker_RefID = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-HumanResource.Func_GetDataResume_WorkerContactNumber',
+                        [
+                            [$varBranchID, 'bigint' ],
+
+                            [$varWorker_RefID, 'bigint' ]
+                        ]
+                        )
+                    );
+
+                return 
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession, 
+                        $varReturn['Data'][0]['Func_GetDataResume_WorkerContactNumber']
+                        );
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataReportFormResume_PersonWorkTimeSheet                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |

@@ -3,28 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\initialize\master\setPersonContactNumber\v1  |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataResume\humanResource                |
+|                \getWorkerContactNumber\v1                                                                                        |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\initialize\master\setPersonContactNumber\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataResume\humanResource\getWorkerContactNumber\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setPersonContactNumber                                                                                       |
-    | ▪ Description : Menangani API transaction.initialize.master.setPersonContactNumber Version 1                                 |
+    | ▪ Class Name  : getWorkerContactNumber                                                                                       |
+    | ▪ Description : Menangani API transaction.read.dataResume.humanResource.getWorkerContactNumber Version 1                     |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setPersonContactNumber extends \App\Http\Controllers\Controller
+    class getWorkerContactNumber extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-11-09                                                                                           |
-        | ▪ Creation Date   : 2022-11-09                                                                                           |
+        | ▪ Last Update     : 2022-11-11                                                                                           |
+        | ▪ Creation Date   : 2022-11-11                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\in
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-11-09                                                                                           |
-        | ▪ Creation Date   : 2022-11-09                                                                                           |
+        | ▪ Last Update     : 2022-11-11                                                                                           |
+        | ▪ Creation Date   : 2022-11-11                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -58,12 +59,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\in
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Initialize Person Contact Number Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Worker Contact Number Data Resume (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataInitialize($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\TblPersonContactNumber())->setDataInitialize(
-                            $varUserSession
+                    try {
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_HumanResource\General())->getDataResume_WorkerContactNumber(
+                            $varUserSession, 
+                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
+
+                            $varData['parameter']['worker_RefID']
                             ))))
                             {
                             throw new \Exception();
