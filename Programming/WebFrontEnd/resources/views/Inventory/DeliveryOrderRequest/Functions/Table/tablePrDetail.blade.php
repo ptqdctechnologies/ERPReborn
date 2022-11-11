@@ -9,7 +9,7 @@
                 <th>Product Name</th>
                 <th>Qty</th>
                 <th>PR Price</th>
-                <th>Average</th>
+                <th>Average Price</th>
             </tr>
         </thead>
         <tbody>

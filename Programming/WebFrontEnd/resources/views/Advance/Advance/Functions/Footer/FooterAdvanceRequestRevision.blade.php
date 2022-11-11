@@ -306,7 +306,6 @@
     });
 </script>
 
-
 <script type="text/javascript">
     function CancelDetailArfRevision() {
         var work_id = $("#putWorkId").val();
