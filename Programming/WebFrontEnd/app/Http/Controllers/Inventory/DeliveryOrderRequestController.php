@@ -54,12 +54,18 @@ class DeliveryOrderRequestController extends Controller
 
     public function StoreValidateDeliveryOrderRequest2(Request $request)
     {
-        $messages = $request->session()->get("SessionDeliveryOrderRequest");
-        $val = $request->input('productIdDorDetail');
-        if (($key = array_search($val, $messages)) !== false) {
-            unset($messages[$key]);
-            $newClass = array_values($messages);
-            $request->session()->put("SessionDeliveryOrderRequest", $newClass);
+        $val = $request->input('putWorkId');
+        $val2 = $request->input('putProductId');
+        $data = $request->session()->get("SessionDeliveryOrderRequest");
+        if($request->session()->has("SessionDeliveryOrderRequest")){
+            for($i = 0; $i < count($data); $i++){
+                if($data[$i] == $val && $data[$i+1] == $val2){
+                    unset($data[$i]);
+                    unset($data[$i+1]);
+                    $newClass = array_values($data);
+                    $request->session()->put("SessionDeliveryOrderRequest", $newClass);
+                }
+            }
         }
     }
 
@@ -165,30 +171,29 @@ class DeliveryOrderRequestController extends Controller
         return response()->json($compact);
     }
 
-    public function RevisionDeliveryOrderRequest(Request $request)
+    public function RevisionDeliveryOrderRequestIndex(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionDeliveryOrderRequest");
 
-        $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.finance.getAdvance', 
-            'latest', 
-            [
-            'parameter' => null,
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
-                ]
+        $varDataAdvanceRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varAPIWebToken, 
+        'report.form.documentForm.finance.getAdvance', 
+        'latest',
+        [
+        'parameter' => [
+            'recordID' => (int) $request->searcDorNumberRevisionId,
             ]
-            );
-
+        ]
+        );
         $compact = [
-            'dataAdvanceRequest' => $varDataAdvanceRequest['data']
+            'dataAdvanceRevisions' => $varDataAdvanceRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
+            'dataRequester' => $varDataAdvanceRevision['data'][0]['document']['content']['involvedPersons']['requester'],
+            'dataAdvancenumber' => $varDataAdvanceRevision['data'][0]['document']['header']['number'],
+            'var_recordID' => $request->searcDorNumberRevisionId,
         ];
+
         
         return view('Inventory.DeliveryOrderRequest.Transactions.RevisionDeliveryOrderRequest', $compact);
     }

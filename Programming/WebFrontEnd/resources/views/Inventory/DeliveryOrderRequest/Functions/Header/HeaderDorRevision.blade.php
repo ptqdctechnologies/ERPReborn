@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-header">
                 <label class="card-title">
-                    Delivery Order Request Revision
+                    Add New Delivery Order Request
                 </label>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -13,41 +13,41 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <div class="form-group">
                             <table>
                                 <tr>
                                     <td><label>Budget Code</label></td>
                                     <td>
                                         <div class="input-group" style="width: 70%;">
-                                            <input id="projectcode" style="border-radius:0;" name="var_budget_code" class="form-control" readonly>
+                                            <input id="projectcode" style="border-radius:0;" name="var_budget_code" class="form-control" readonly value="{{$dataAdvanceRevisions['entities']['combinedBudget_RefID']}}">
                                             <div class="input-group-append">
                                                 <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a href="#"><i id="projectcode2" data-toggle="modal" data-target="#myProject" class="fas fa-gift" style="color:grey;"></i></a>
-                                                </span>
+                                                <a href="#" id="projectcode2" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                            </span>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="input-group" style="width: 153%;position:relative;right:38%;">
-                                            <input id="projectname" style="border-radius:0;" class="form-control" name="var_budget_code2" readonly>
+                                            <input id="projectname" style="border-radius:0;" class="form-control" name="var_budget_code2" readonly  value="{{$dataAdvanceRevisions['entities']['combinedBudgetName']}}">
                                         </div>
                                     </td>
                                 </tr>
                             </table>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <table>
                                 <tr>
                                     <td><label>PR Number</label></td>
                                     <td>
                                         <div class="input-group" style="width: 70%;">
-                                            <input id="sitecode" style="border-radius:0;" name="var_sub_budget_code" class="form-control" readonly>
+                                            <input id="pr_number" style="border-radius:0;" name="var_sub_budget_code" class="form-control" readonly value="{{ $dataAdvancenumber }}">
                                             <div class="input-group-append">
                                                 <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a href="#"><i id="sitecode2" data-toggle="modal" data-target="#mySiteCode" class="fas fa-gift" style="color:grey;"></i></a>
+                                                    <a href="#" id="pr_number2" data-toggle="modal" data-target="#mySearchPurchaseRequistion"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                                 </span>
                                             </div>
                                         </div>
@@ -74,7 +74,7 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <div class="form-group">
                             <table>
                                 <tr>
@@ -104,7 +104,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <table>
                                 <tr>
@@ -120,7 +120,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4 headerDor1">
+                    <div class="col-md-6 headerDor1">
                         <div class="form-group">
                             <table>
                                 <tr>
@@ -160,14 +160,14 @@
                             <table>
                                 <tr>
                                     <div>
-                                        <img src="/AdminLTE-master/dist/img/right-arrow.png" width="50px;" style="position:relative;left:30px;"><br><br>
+                                        <img src="/AdminLTE-master/dist/img/right-arrow.png" width="50px;" style="position:relative;right:15px;"><br><br>
                                     </div>
                                 </tr>
                             </table>
                         </div>
                     </div>
 
-                    <div class="col-md-6 headerDor1">
+                    <div class="col-md-4 headerDor1">
                         <div class="form-group">
                             <table>
                                 <tr>
@@ -201,7 +201,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4 headerDor2">
+                    <div class="col-md-6 headerDor2">
                         <div class="form-group">
                             <table>
                                 <tr>
@@ -241,14 +241,14 @@
                             <table>
                                 <tr>
                                     <div>
-                                        <img src="/AdminLTE-master/dist/img/right-arrow.png" width="50px;" style="position:relative;left:30px;"><br><br>
+                                        <img src="/AdminLTE-master/dist/img/right-arrow.png" width="50px;" style="position:relative;right:15px;"><br><br>
                                     </div>
                                 </tr>
                             </table>
                         </div>
                     </div>
 
-                    <div class="col-md-6 headerDor2">
+                    <div class="col-md-4 headerDor2">
                         <div class="form-group">
                             <table>
                                 <tr>
@@ -278,7 +278,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4 headerDor3">
+                    <div class="col-md-6 headerDor3">
                         <div class="form-group">
                             <table>
                                 <tr>
@@ -318,14 +318,14 @@
                             <table>
                                 <tr>
                                     <div>
-                                        <img src="/AdminLTE-master/dist/img/right-arrow.png" width="50px;" style="position:relative;left:30px;"><br><br>
+                                        <img src="/AdminLTE-master/dist/img/right-arrow.png" width="50px;" style="position:relative;right:15px;"><br><br>
                                     </div>
                                 </tr>
                             </table>
                         </div>
                     </div>
 
-                    <div class="col-md-6 headerDor3">
+                    <div class="col-md-4 headerDor3">
                         <div class="form-group">
                             <table>
                                 <tr>
@@ -358,7 +358,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="col-md-4 headerDor4">
+                    <div class="col-md-6 headerDor4">
                         <div class="form-group">
                             <table>
                                 <tr>
@@ -397,14 +397,14 @@
                             <table>
                                 <tr>
                                     <div>
-                                        <img src="/AdminLTE-master/dist/img/right-arrow.png" width="50px;" style="position:relative;left:30px;"><br><br>
+                                        <img src="/AdminLTE-master/dist/img/right-arrow.png" width="50px;" style="position:relative;right:15px;"><br><br>
                                     </div>
                                 </tr>
                             </table>
                         </div>
                     </div>
 
-                    <div class="col-md-6 headerDor4">
+                    <div class="col-md-4 headerDor4">
                         <div class="form-group">
                             <table>
                                 <tr>

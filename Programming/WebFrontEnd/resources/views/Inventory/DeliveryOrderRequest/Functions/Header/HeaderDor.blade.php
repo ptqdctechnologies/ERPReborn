@@ -13,7 +13,7 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <div class="form-group">
                             <table>
                                 <tr>
@@ -37,7 +37,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <table>
                                 <tr>
@@ -74,7 +74,7 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <div class="form-group">
                             <table>
                                 <tr>
@@ -104,7 +104,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <table>
                                 <tr>
@@ -120,7 +120,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4 headerDor1">
+                    <div class="col-md-6 headerDor1">
                         <div class="form-group">
                             <table>
                                 <tr>
@@ -160,14 +160,14 @@
                             <table>
                                 <tr>
                                     <div>
-                                        <img src="/AdminLTE-master/dist/img/right-arrow.png" width="50px;" style="position:relative;left:30px;"><br><br>
+                                        <img src="/AdminLTE-master/dist/img/right-arrow.png" width="50px;" style="position:relative;right:15px;"><br><br>
                                     </div>
                                 </tr>
                             </table>
                         </div>
                     </div>
 
-                    <div class="col-md-6 headerDor1">
+                    <div class="col-md-4 headerDor1">
                         <div class="form-group">
                             <table>
                                 <tr>
@@ -201,7 +201,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4 headerDor2">
+                    <div class="col-md-6 headerDor2">
                         <div class="form-group">
                             <table>
                                 <tr>
@@ -241,14 +241,14 @@
                             <table>
                                 <tr>
                                     <div>
-                                        <img src="/AdminLTE-master/dist/img/right-arrow.png" width="50px;" style="position:relative;left:30px;"><br><br>
+                                        <img src="/AdminLTE-master/dist/img/right-arrow.png" width="50px;" style="position:relative;right:15px;"><br><br>
                                     </div>
                                 </tr>
                             </table>
                         </div>
                     </div>
 
-                    <div class="col-md-6 headerDor2">
+                    <div class="col-md-4 headerDor2">
                         <div class="form-group">
                             <table>
                                 <tr>
@@ -278,7 +278,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4 headerDor3">
+                    <div class="col-md-6 headerDor3">
                         <div class="form-group">
                             <table>
                                 <tr>
@@ -318,14 +318,14 @@
                             <table>
                                 <tr>
                                     <div>
-                                        <img src="/AdminLTE-master/dist/img/right-arrow.png" width="50px;" style="position:relative;left:30px;"><br><br>
+                                        <img src="/AdminLTE-master/dist/img/right-arrow.png" width="50px;" style="position:relative;right:15px;"><br><br>
                                     </div>
                                 </tr>
                             </table>
                         </div>
                     </div>
 
-                    <div class="col-md-6 headerDor3">
+                    <div class="col-md-4 headerDor3">
                         <div class="form-group">
                             <table>
                                 <tr>
@@ -358,7 +358,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="col-md-4 headerDor4">
+                    <div class="col-md-6 headerDor4">
                         <div class="form-group">
                             <table>
                                 <tr>
@@ -397,14 +397,14 @@
                             <table>
                                 <tr>
                                     <div>
-                                        <img src="/AdminLTE-master/dist/img/right-arrow.png" width="50px;" style="position:relative;left:30px;"><br><br>
+                                        <img src="/AdminLTE-master/dist/img/right-arrow.png" width="50px;" style="position:relative;right:15px;"><br><br>
                                     </div>
                                 </tr>
                             </table>
                         </div>
                     </div>
 
-                    <div class="col-md-6 headerDor4">
+                    <div class="col-md-4 headerDor4">
                         <div class="form-group">
                             <table>
                                 <tr>

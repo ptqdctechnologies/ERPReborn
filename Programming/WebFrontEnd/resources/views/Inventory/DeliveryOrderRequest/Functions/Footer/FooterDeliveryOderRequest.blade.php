@@ -122,19 +122,19 @@
     function addFromDetailtoCartJs() {
         var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
         var valQty = $("#qtyCek").val();
-        var valPrice = $("#priceCek").val();
+        var valPrNumber = $("#pr_number_detail").val();
 
         $("#qtyCek").css("border", "1px solid #ced4da");
-        $("#priceCek").css("border", "1px solid #ced4da");
+        $("#pr_number_detail").css("border", "1px solid #ced4da");
 
         if (valQty === "") {
             $("#qtyCek").focus();
             $("#qtyCek").attr('required', true);
             $("#qtyCek").css("border", "1px solid red");
-        } else if (valPrice === "") {
-            $("#priceCek").focus();
-            $("#priceCek").attr('required', true);
-            $("#priceCek").css("border", "1px solid red");
+        } else if (valPrNumber === "") {
+            $("#pr_number_detail").focus();
+            $("#pr_number_detail").attr('required', true);
+            $("#pr_number_detail").css("border", "1px solid red");
         } else {
             $.ajax({
                 type: "POST",
@@ -153,6 +153,7 @@
                         var average = $("#average").val().replace(/^\s+|\s+$/g, '');
                         var totalBalance = $("#totalBalance").val();
                         var putPrice = $('#putPrice').val();
+                        var putQty = $('#putQty').val();
 
                         //TOTAL ADVANCE
                         if($("#TotalDeliveryOrderRequest").html() == ""){
@@ -164,8 +165,8 @@
 
                         var html = '<tr>' +
                             '<td style="border:1px solid #e9ecef;width:7%;">' +
-                            '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveAdvance(\'' + work_id + '\', \'' + putProductId + '\', \'' + average + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
-                            '&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="EditAdvance(this)" data-dismiss="modal" data-id0="' + work_id + '" data-id1="' + putProductId + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + priceCek + '" data-id5="' + average + '" data-id6="' + totalBalance + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+                            '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveDeliveryOrderRequest(\'' + work_id + '\', \'' + putProductId + '\', \'' + average + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+                            '&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="EditDeliveryOrderRequest(this)" data-dismiss="modal" data-id0="' + work_id + '" data-id1="' + putProductId + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + priceCek + '" data-id5="' + average + '" data-id6="' + totalBalance + '" data-id7="' + trano + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
                             '<input type="hidden" name="var_putProductId[]" value="' + putProductId + '">' +
                             '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
                             '<input type="hidden" name="var_quantity[]" value="' + parseFloat(qtyCek.replace(/,/g, '')) + '">' +
@@ -209,7 +210,7 @@
 
 <script type="text/javascript">
     function CancelDetailDor() {
-        var trano = $('#advance_number_detail').val();
+        var trano = $('#pr_number_detail').val();
         var work_id = $("#putWorkId").val();
         var putProductId = $("#putProductId").val();
         var putProductName = $("#putProductName").val();
@@ -223,7 +224,6 @@
         if (statusEditDor == "Yes") {
 
             qtyCek = $('#ValidateQuantity').val();
-            priceCek = $('#ValidatePrice').val();
             average = parseFloat(qtyCek.replace(/,/g, '') * priceCek.replace(/,/g, ''));
 
             $.ajaxSetup({
@@ -254,7 +254,7 @@
                             '<td style="border:1px solid #e9ecef;">' + putProductName + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + qtyCek + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + priceCek + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + average + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + average.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
                             '</tr>';
                         $('table.TableDorCart tbody').append(html);
 
@@ -272,35 +272,92 @@
         $(".AddToDetail2").prop("disabled", false);
         $(".ActionButton").prop("disabled", false);
 
+        
         $("#putProductId").css("border", "1px solid #ced4da");
         $("#putProductId").val("");
+        $("#pr_number_detail").val("");
+        $("#putWorkId").val("");
         $("#putProductName").val("");
         $("#qtyCek").val("");
-        $("#putUom").val("");
         $("#priceCek").val("");
-        $("#putCurrency").val("");
         $("#totalBalance").val("");
         $("#average").val("");
+    }
+</script>
+
+
+<script>
+
+    function RemoveDeliveryOrderRequest(workId, ProductId, average, tr) {
+        var i = tr.parentNode.parentNode.rowIndex;
+        document.getElementById("TableDorCart").deleteRow(i);
+        
+        $.ajax({
+            type: "POST",
+            url: '{!! route("DeliveryOrderRequest.StoreValidateDeliveryOrderRequest2") !!}?putProductId=' + ProductId + '&putWorkId=' + workId,
+        });
+
+        var average = parseFloat(average.replace(/,/g, ''));
+        var TotalDeliveryOrderRequest = parseFloat($("#TotalDeliveryOrderRequest").html().replace(/,/g, ''));
+        $("#TotalDeliveryOrderRequest").html(parseFloat(TotalDeliveryOrderRequest - average).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+    }
+
+</script>
+
+<script>
+    function EditDeliveryOrderRequest(t) {
+        var i = t.parentNode.parentNode.rowIndex;
+        document.getElementById("TableDorCart").deleteRow(i);
+
+        var $this = $(t);
+
+        $.ajax({
+            type: "POST",
+            url: '{!! route("DeliveryOrderRequest.StoreValidateDeliveryOrderRequest2") !!}?putProductId=' + $this.data("id1") + '&putWorkId=' + $this.data("id0"),
+        });
+
+        $("#putWorkId").val($this.data("id0"));
+        $("#putProductId").val($this.data("id1"));
+        $("#putProductName").val($this.data("id2"));
+        $("#qtyCek").val($this.data("id3"));
+        $("#priceCek").val($this.data("id4"));
+        $("#average").val($this.data("id5"));
+        $("#totalBalance").val($this.data("id6"));
+        $("#pr_number_detail").val($this.data("id7"));
+        $("#statusEditDor").val("Yes");
+
+        $("#ValidateQuantity").val($this.data("id3"));
+
+        var average = parseFloat($("#average").val().replace(/,/g, ''));
+        var TotalDeliveryOrderRequest = parseFloat($("#TotalDeliveryOrderRequest").html().replace(/,/g, ''));
+        $("#TotalDeliveryOrderRequest").html(parseFloat(TotalDeliveryOrderRequest - average).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+        $(".AddToDetail2").prop("disabled", true);
+        $(".ActionButton").prop("disabled", true);
     }
 </script>
 
 <script>
     $('document').ready(function() {
         $('.ChangeQty').keyup(function() {
-            var qtyReq = $(this).val().replace(/[^a-zA-Z0-9 ]/g, "");
-            if (qtyReq == 0 || qtyReq == '') {
-                qtyReq = 0;
-            }
-            var qtyDorHide = $('#qtyDorHide').val();
             
-            if (qtyReq == '') {
+            var qtyCek = parseFloat($(this).val().replace(/,/g, ''));
+            var putQty = $('#putQty').val();
+            var putPrice = parseFloat($('#putPrice').val().replace(/,/g, ''));
+            var total = qtyCek * putPrice;            
+            console.log(putQty);
+            if (qtyCek == '') {
                 $("#addFromDetailDortoCart").prop("disabled", true);
-
-            } else if (qtyReq > qtyDorHide) {
+                $("#average").val(0);
+            } else if (qtyCek > parseFloat(putQty)) {
                 Swal.fire("Error !", "Your Qty Request is Over", "error");
-                $("#qtyDorDetail").val(qtyDorHide);
+                $("#qtyCek").val(0);
+                $("#average").val(0);
+                $("#qtyCek").css("border", "1px solid red");
                 $("#addFromDetailDortoCart").prop("disabled", true);
             } else {
+                $("#qtyCek").css("border", "1px solid #ced4da");
+                $('#average').val(parseFloat(total).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                 $("#addFromDetailDortoCart").prop("disabled", false);
             }
 
