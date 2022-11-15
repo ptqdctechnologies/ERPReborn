@@ -74,10 +74,11 @@
             var $this = $(this);
             var code = $this.data("id");
             $("#po_number").val(code);
-            $(".projectCodeiSupp").val("143000000000029");
-            $("#projectCodeiSupp2").val("Pengadaan jasa elektrifikasi PI 402 (Kluster KMJ 11, KMJ9, dan KMJ 24) di PT PGE area Kamojang");
-            $("#supplierCodeiSupp").val("VDR2279");
-            $("#supplierCodeiSupp2").val("Infra Media Dinamika");
+            $("#sitecode").val("143000000000300");
+            $(".projectcode").val("143000000000300");
+            $("#projectcode2").val("Pengadaan jasa elektrifikasi PI 402 (Kluster KMJ 11, KMJ9, dan KMJ 24) di PT PGE area Kamojang");
+            $("#supplier_code").val("VDR2279");
+            $("#supplier_code2").val("Infra Media Dinamika");
             $("#netActiSupp").val("");
             $("#addToPoDetail").prop("disabled", false);
         });

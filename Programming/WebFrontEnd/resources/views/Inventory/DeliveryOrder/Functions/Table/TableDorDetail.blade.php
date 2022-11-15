@@ -1,17 +1,15 @@
-<div class="card-body table-responsive p-0" style="height: 180px;" id="tableShowHideDor">
-    <table class="table table-head-fixed text-nowrap table-striped tablePrDetailDor">
+<div class="card-body table-responsive p-0" style="height: 180px;" id="tableShowHideDo">
+    <table class="table table-head-fixed text-nowrap table-striped TableDorDetail">
         <thead>
             <tr>
                 <th>Action</th>
+                <th>Availabel</th>
                 <th>Trano</th>
-                <th>Project</th>
-                <th>Site</th>
                 <th>Product Id</th>
                 <th>Product Name</th>
                 <th>Qty</th>
                 <th>PR Price</th>
-                <th>Average</th>
-                <th>Availabel</th>
+                <th>Average Price</th>
             </tr>
         </thead>
         <tbody>

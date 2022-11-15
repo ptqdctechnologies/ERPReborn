@@ -74,14 +74,14 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-8">
+                <div class="col-md-8">
                         <div class="form-group">
                             <table>
                                 <tr>
                                     <td><label>Receiver Name</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="headerReceiverName" style="border-radius:0;" name="headerReceiverName" class="form-control">
+                                            <input id="receiver_name" style="border-radius:0;" name="receiver_name" class="form-control" value="{{$dataAdvanceRevisions['entities']['combinedBudget_RefID']}}">
 
                                         </div>
                                     </td>
@@ -90,7 +90,7 @@
                                     <td><label>Deliver Type</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <select class="form-control deliverType" style="border-radius:0;" name="headerOriginBudget" id="headerOriginBudget">
+                                            <select class="form-control deliverType" style="border-radius:0;" name="deliver_type" id="deliver_type">
                                                 <option selected="selected">Select Type</option>
                                                 <option value="Warehouse to Site">Warehouse to Site</option>
                                                 <option value="Warehouse to Warehouse">Warehouse to Warehouse</option>
@@ -111,7 +111,7 @@
                                     <td><label>Receiver Number</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="headerReceiverNumber" style="border-radius:0;" name="headerReceiverNumber" class="form-control">
+                                            <input id="receiver_number" style="border-radius:0;" name="receiver_number" class="form-control" value="{{$dataAdvanceRevisions['entities']['combinedBudget_RefID']}}">
 
                                         </div>
                                     </td>
@@ -119,6 +119,7 @@
                             </table>
                         </div>
                     </div>
+
 
                     <div class="col-md-6 headerDor1">
                         <div class="form-group">

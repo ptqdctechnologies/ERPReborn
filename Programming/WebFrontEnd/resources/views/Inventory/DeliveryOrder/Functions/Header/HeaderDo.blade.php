@@ -95,7 +95,7 @@
                                 </tr>
                             </table>
                             <div style="padding-right:10px;padding-top:10px;">
-                                
+
                                 <a class="btn btn-default btn-sm float-right cancelDetailArf" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
                                     <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel"> Cancel
                                 </a>
@@ -112,5 +112,4 @@
             </div>
         </div>
     </div>
-</div>
 </div>

@@ -84,7 +84,7 @@
             var $this = $(this);
             var code = $this.data("id");
             var name = $this.data("name");
-            $("#headerWarehouse1").val(code);
+            $("#warehouse1").val(code);
             $("#headerAddresWarehouse1").val(name);
         });
     });
