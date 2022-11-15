@@ -23,7 +23,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                       transaction.create.humanResource.setPersonBusinessTripSequenceDetail.v1_throughAPIGateway          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-19                                                                                           |
+        | ▪ Last Update     : 2022-11-15                                                                                           |
         | ▪ Creation Date   : 2022-09-19                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -42,7 +42,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 [
                 'entities' => [
                     "personBusinessTripSequence_RefID" => 76000000000001,
-                    "businessTripCostComponent_RefID" => 81000000000001,
+                    "businessTripCostComponentEntity_RefID" => 81000000000001,
                     "amountCurrency_RefID" => 62000000000001,
                     "amountCurrencyValue" => 30000,
                     "amountCurrencyExchangeRate" => 1,
