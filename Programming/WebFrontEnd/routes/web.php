@@ -15,20 +15,23 @@ use Illuminate\Support\Facades\Route;
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[START]---
 $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 $varAPIWebToken = 
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NjgxMzYwMzF9.NGY1OTY2NjFjMjM2NzI4YTk5Njg4NjAwZWE0YTJjNGQ2ZTYzNDllM2I2MWY5NzFhZDlmNjEzYWQzZDYyYTQxNQ'
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Njg0ODE1MzR9.ZDkyNmMyOWVhYTU2ZmE3MzQzNGE1NWQyN2M5ZjY3MThjZTlkZGNhMDY4YWI2NDFiYjlkMmJjMjc0MTYzNTcxNA'
     .'';
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
     $varAPIWebToken
     );
+
+\App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_UIComponent(
+    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+    $varAPIWebToken
+    );
+
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[ END ]---
 Route::get('zhtTestAdminLTE', function () {
     return view('zhtTestAdminLTE');
     })->middleware('web');
-
-//Programming/WebBackEnd/app/Http/Controllers/Application/BackEnd/System/FileHandling/Engines/upload/combined/general/deleteFile/v1/
-
 
 
 // LOGIN

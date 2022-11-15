@@ -1,5 +1,37 @@
 # CHANGELOG
 
+## 3.243.1 - 2022-11-14
+
+* `Aws\CustomerProfiles` - This release enhances the SearchProfiles API by providing functionality to search for profiles using multiple keys and logical operators.
+* `Aws\LakeFormation` - This release adds a new parameter "Parameters" in the DataLakeSettings.
+* `Aws\ManagedBlockchain` - Updating the API docs data type: NetworkEthereumAttributes, and the operations DeleteNode, and CreateNode to also include the supported Goerli network.
+* `Aws\Proton` - Add support for CodeBuild Provisioning
+* `Aws\RDS` - This release adds support for restoring an RDS Multi-AZ DB cluster snapshot to a Single-AZ deployment or a Multi-AZ DB instance deployment.
+* `Aws\Sts` - Fixes a bug where incorrect regional endpoint settings are derived.
+* `Aws\WorkDocs` - Added 2 new document related operations, DeleteDocumentVersion and RestoreDocumentVersions.
+* `Aws\XRay` - This release enhances GetServiceGraph API to support new type of edge to represent links between SQS and Lambda in event-driven applications.
+
+## 3.243.0 - 2022-11-14
+
+* `Aws\CustomerProfiles` - This release enhances the SearchProfiles API by providing functionality to search for profiles using multiple keys and logical operators.
+* `Aws\EndpointV2` - Adds new endpoint provider for the AWS SDKs Endpoints 2.0 initiative.
+* `Aws\LakeFormation` - This release adds a new parameter "Parameters" in the DataLakeSettings.
+* `Aws\ManagedBlockchain` - Updating the API docs data type: NetworkEthereumAttributes, and the operations DeleteNode, and CreateNode to also include the supported Goerli network.
+* `Aws\Proton` - Add support for CodeBuild Provisioning
+* `Aws\RDS` - This release adds support for restoring an RDS Multi-AZ DB cluster snapshot to a Single-AZ deployment or a Multi-AZ DB instance deployment.
+* `Aws\WorkDocs` - Added 2 new document related operations, DeleteDocumentVersion and RestoreDocumentVersions.
+* `Aws\XRay` - This release enhances GetServiceGraph API to support new type of edge to represent links between SQS and Lambda in event-driven applications.
+
+## 3.242.1 - 2022-11-11
+
+* `Aws\Glue` - Added links related to enabling job bookmarks.
+* `Aws\IoT` - This release add new api listRelatedResourcesForAuditFinding and new member type IssuerCertificates for Iot device device defender Audit.
+* `Aws\LicenseManager` - AWS License Manager now supports onboarded Management Accounts or Delegated Admins to view granted licenses aggregated from all accounts in the organization.
+* `Aws\MarketplaceCatalog` - Added three new APIs to support tagging and tag-based authorization: TagResource, UntagResource, and ListTagsForResource. Added optional parameters to the StartChangeSet API to support tagging a resource while making a request to create it.
+* `Aws\Rekognition` - Adding support for ImageProperties feature to detect dominant colors and image brightness, sharpness, and contrast, inclusion and exclusion filters for labels and label categories, new fields to the API response, "aliases" and "categories"
+* `Aws\SSMIncidents` - RelatedItems now have an ID field which can be used for referencing them else where. Introducing event references in TimelineEvent API and increasing maximum length of "eventData" to 12K characters.
+* `Aws\SecurityHub` - Documentation updates for Security Hub
+
 ## 3.242.0 - 2022-11-10
 
 * `Aws\AutoScaling` - This release adds a new price capacity optimized allocation strategy for Spot Instances to help customers optimize provisioning of Spot Instances via EC2 Auto Scaling, EC2 Fleet, and Spot Fleet. It allocates Spot Instances based on both spare capacity availability and Spot Instance price.
