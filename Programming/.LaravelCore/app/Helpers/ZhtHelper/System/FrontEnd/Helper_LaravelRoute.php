@@ -31,12 +31,10 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
         |                                                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varRoute ► Route                                                                                         |
-        |      ▪ (string) varHTTPMethod ► HTTP Method                                                                              |
-        |      ▪ (string) varTarget ► Target (Controller atau View)                                                                |
-        |      ▪ (string) varMiddleware ► Middleware                                                                               |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (string) varAPIWebToken ► APIWebToken                                                                             |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (boolean) varReturn                                                                                               |
+        |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function setDynamicRoute_Examples_APICall($varUserSession, $varAPIWebToken)
@@ -50,7 +48,6 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                     )
                 );
 
-
             for($i=0, $iMax=count($varArrayExampleAPIKey); $i!=$iMax; $i++)
                 {
                 $varClass = '\App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall'.str_replace('/', '\\', $varArrayExampleAPIKey[$i]).'\example';
@@ -63,13 +60,6 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                     {
                     $varArrayFunctionEntities = \App\Helpers\ZhtHelper\General\Helper_PHPObject::getAllFunctionEntitiesFromPHPFile($varUserSession, $varFilePath);
 
-                    /*
-                    echo "\n";
-                    var_dump($varClass);
-                    var_dump($varFilePath);
-                    var_dump($varArrayFunctionEntities);
-                    */
-
                     for($j=0, $jMax=count($varArrayFunctionEntities); $j!=$jMax; $j++)
                         {
                         Route::get(
@@ -77,6 +67,71 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                             $varClass.'@'.$varArrayFunctionEntities[$j]['Name']
                             )->defaults('APIWebToken', $varAPIWebToken);
                         }                    
+                    }
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setDynamicRoute_Examples_UIComponent                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2022-11-15                                                                                           |
+        | ▪ Creation Date   : 2022-11-15                                                                                           |
+        | ▪ Description     : Menetapkan dynamic routing laravel untuk Examples UIComponent                                        |
+        |                                                                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (string) varAPIWebToken ► APIWebToken                                                                             |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function setDynamicRoute_Examples_UIComponent($varUserSession, $varAPIWebToken)
+            {
+            $varView = '';
+            $varArrayExampleAPIKey = \App\Helpers\ZhtHelper\General\Helper_File::getDeepestSubFoldersInFolder(
+                $varUserSession,
+                \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchDirectoryPath(
+                    $varUserSession, 
+                    getcwd(), 
+                    '/resources/views/SandBox/Examples_UIComponent'
+                    )
+                );
+            //dd($varArrayExampleAPIKey);
+            for($i=0, $iMax=count($varArrayExampleAPIKey); $i!=$iMax; $i++)
+                {
+                $varView = 'SandBox/Examples_UIComponent'.$varArrayExampleAPIKey[$i].'/example';
+                $varFilePath = \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchFilePath(
+                    $varUserSession, 
+                    getcwd(), 
+                    '/resources/views/SandBox/Examples_UIComponent'.$varArrayExampleAPIKey[$i].'/example.blade.php'
+                    );
+                if(is_file($varFilePath))
+                    {
+                    $varArrayViewName = explode(
+                        '/', 
+                        str_replace('SandBox/Examples_UIComponent/', '', $varView)
+                        );
+                    array_pop($varArrayViewName);
+                    $varArrayViewName = 'UIComponent.'.implode('.', $varArrayViewName);
+
+                    /*
+                    var_dump($varArrayViewName);
+                    echo "<br>";
+                    var_dump($varView);
+                    echo "<br>";
+                    */
+                    
+                    Route::get(
+                        $varArrayViewName, 
+                        function ($varView) {
+                            return view($varView);
+                            }
+                        )->defaults('varView', $varView);
+//->middleware('web');   //
                     }
                 }
             }
