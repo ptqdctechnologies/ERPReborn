@@ -23,19 +23,21 @@ class DeliveryOrderController extends Controller
         return view('Inventory.DeliveryOrder.Transactions.CreateDeliveryOrder', $compact);
     }
 
-    public function StoreValidateDeliveryOrder(Request $request)
+    public function StoreValidateDeliveryOrderRequest(Request $request)
     {
         $tamp = 0; $status = 200;
-        $val = $request->input('productIdDorDetail');
+        $val = $request->input('putWorkId');
+        $val2 = $request->input('putProductId');
         $data = $request->session()->get("SessionDeliveryOrder");
         if($request->session()->has("SessionDeliveryOrder")){
             for($i = 0; $i < count($data); $i++){
-                if($data[$i] == $val){
+                if($data[$i] == $val && $data[$i+1] == $val2){
                     $tamp = 1;
                 }
             }
             if($tamp == 0){
                 $request->session()->push("SessionDeliveryOrder", $val);
+                $request->session()->push("SessionDeliveryOrder", $val2);
             }
             else{
                 $status = 500;
@@ -43,19 +45,26 @@ class DeliveryOrderController extends Controller
         }
         else{
             $request->session()->push("SessionDeliveryOrder", $val);
+            $request->session()->push("SessionDeliveryOrder", $val2);
         }
 
         return response()->json($status);
     }
 
-    public function StoreValidateDeliveryOrder2(Request $request)
+    public function StoreValidateDeliveryOrderRequest2(Request $request)
     {
-        $messages = $request->session()->get("SessionDeliveryOrder");
-        $val = $request->input('productIdDorDetail');
-        if (($key = array_search($val, $messages)) !== false) {
-            unset($messages[$key]);
-            $newClass = array_values($messages);
-            $request->session()->put("SessionDeliveryOrder", $newClass);
+        $val = $request->input('putWorkId');
+        $val2 = $request->input('putProductId');
+        $data = $request->session()->get("SessionDeliveryOrder");
+        if($request->session()->has("SessionDeliveryOrder")){
+            for($i = 0; $i < count($data); $i++){
+                if($data[$i] == $val && $data[$i+1] == $val2){
+                    unset($data[$i]);
+                    unset($data[$i+1]);
+                    $newClass = array_values($data);
+                    $request->session()->put("SessionDeliveryOrder", $newClass);
+                }
+            }
         }
     }
 

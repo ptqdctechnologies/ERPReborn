@@ -2,8 +2,8 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
-@include('Inventory.iSupp.Functions.PopUp.searchPoNumber')
-@include('Inventory.iSupp.Functions.PopUp.searchDoNumber')
+<!-- @include('Inventory.iSupp.Functions.PopUp.searchPoNumber')
+@include('Inventory.iSupp.Functions.PopUp.searchDoNumber') -->
 @include('Inventory.iSupp.Functions.PopUp.PopUpiSuppRevision')
 @include('getFunction.getWarehouse')
 
@@ -17,10 +17,10 @@
             </div>
             @include('Inventory.iSupp.Functions.Menu.MenuiSupp')
             <div class="card" style="position:relative;bottom:10px;">
-            <form method="post" enctype="multipart/form-data" action="{{ route('iSupp.update', $var_recordID) }}" id="FormUpdateiSupp">
-                @csrf
-                @method('PUT')
-                <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
+                <form method="post" enctype="multipart/form-data" action="{{ route('iSupp.update', $var_recordID) }}" id="FormSubmitiSupp">
+                    @csrf
+                    @method('PUT')
+                    <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
                     <div class="tab-content p-3" id="nav-tabContent">
                         @include('Inventory.iSupp.Functions.Header.HeaderiSuppRevision')
 
@@ -103,6 +103,7 @@
                                         <table class="table table-head-fixed text-nowrap table-sm" style="text-align: center;">
                                             <thead>
                                                 <tr>
+                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:10%;border:1px solid #e9ecef;">Work Id</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;width:10%;border:1px solid #e9ecef;">Product Id</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;width:20%;border:1px solid #e9ecef;">Product Name</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;width:8%;border:1px solid #e9ecef;">Qty</th>
@@ -113,38 +114,41 @@
                                             </thead>
                                             <tbody>
                                                 <td style="border:1px solid #e9ecef;">
-                                                    <input id="productiSuppDetail" style="border-radius:0;" type="text" class="form-control" readonly="">
+                                                    <input id="putWorkId" style="border-radius:0;" type="text" class="form-control" readonly="">
                                                 </td>
                                                 <td style="border:1px solid #e9ecef;">
-                                                    <input id="productiSuppDetail2" style="border-radius:0;" type="text" class="form-control" readonly="">
+                                                    <input id="putProductId" style="border-radius:0;" type="text" class="form-control" readonly="">
                                                 </td>
                                                 <td style="border:1px solid #e9ecef;">
-                                                    <input id="qtyiSuppChange" style="border-radius:0;" type="text" class="form-control ChangeQty">
-                                                    <input id="qtyiSupp" style="border-radius:0;" type="hidden" class="form-control">
-                                                    <input id="qtyiSuppEdit" style="border-radius:0;" type="hidden" class="form-control">
+                                                    <input id="putProductName" style="border-radius:0;" type="text" class="form-control" readonly="">
                                                 </td>
                                                 <td style="border:1px solid #e9ecef;">
-                                                    <input id="UomiSupp" style="border-radius:0;" type="text" class="form-control" readonly>
+                                                    <input id="qtyCek" style="border-radius:0;" type="text" class="form-control ChangeQty" autocomplete="off" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                                                    <input id="putQty" style="border-radius:0;" type="hidden" class="form-control">
                                                 </td>
                                                 <td style="border:1px solid #e9ecef;">
-                                                    <input id="balanceiSupp" style="border-radius:0;" type="text" class="form-control" readonly="">
+                                                    <input id="putUom" style="border-radius:0;" type="text" class="form-control" readonly>
                                                 </td>
                                                 <td style="border:1px solid #e9ecef;">
-                                                    <input id="remarkiSuppDetail" style="border-radius:0;" type="text" class="form-control">
-                                                    <input id="remarkiSuppDetail2" style="border-radius:0;" type="hidden" class="form-control">
+                                                    <input id="totalBalance" style="border-radius:0;" type="text" class="form-control" readonly="">
+                                                </td>
+                                                <td style="border:1px solid #e9ecef;">
+                                                    <input id="remark" style="border-radius:0;" type="text" class="form-control">
+                                                    <input id="remark2" style="border-radius:0;" type="hidden" class="form-control">
                                                 </td>
 
-                                                <input id="workIdiSuppDetail" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                                                 <input id="statusEditiSupp" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                                             </tbody>
                                         </table>
                                         <br>
-                                        <a class="btn btn-default btn-sm float-right CancelDetailiSupp" style="background-color:#e9ecef;border:1px solid #ced4da;">
-                                            <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel to Add iSupp List Cart"> Cancel
-                                        </a>
-                                        <a class="btn btn-default btn-sm float-right" id="addFromDetailiSupptoCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                                            <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to iSupp List"> Add
-                                        </a>
+                                        <div style="padding-right:10px;padding-top:10px;">
+                                            <a class="btn btn-default btn-sm float-right" onclick="CancelDetailIsupp()" id="CancelDetailDor" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
+                                                <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel to Add Advance List Cart"> Cancel
+                                            </a>
+                                            <a class="btn btn-default btn-sm float-right" onclick="addFromDetailtoCartJs()" id="addFromDetailtoCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                                                <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
+                                            </a>
+                                        </div>
                                         <br><br><br>
                                     </div>
                                 </div>
@@ -165,8 +169,8 @@
                                         </div>
                                     </div>
 
-                                    <div class="card-body table-responsive p-0" id="iSuppCart">
-                                        <table class="table table-head-fixed text-nowrap table-striped tableiSuppCart">
+                                    <div class="card-body table-responsive p-0 iSuppCart" style="height: 180px;">
+                                        <table class="table table-head-fixed text-nowrap table-striped TableiSuppCart" id="TableiSuppCart">
                                             <thead>
                                                 <tr>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Action</th>
@@ -175,12 +179,20 @@
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Product Name</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Qty</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">UOM</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Remark</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
 
                                             </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="card-body table-responsive p-0 iSuppCart">
+                                        <table class="table table-head-fixed table-sm text-nowrap">
+                                            <tfoot>
+                                                <tr>
+                                                    <th style="color:brown;float:right;">Total i-Supp : <span id="TotalISupp"></span></th>
+                                                </tr>
+                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>

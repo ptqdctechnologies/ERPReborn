@@ -24,23 +24,27 @@ class iSuppController extends Controller
 
     public function StoreValidateiSupp(Request $request)
     {
-        $tamp = 0;
-        $status = 200;
-        $val = $request->input('productiSuppDetail');
+        $tamp = 0; $status = 200;
+        $val = $request->input('putWorkId');
+        $val2 = $request->input('putProductId');
         $data = $request->session()->get("SessioniSupp");
-        if ($request->session()->has("SessioniSupp")) {
-            for ($i = 0; $i < count($data); $i++) {
-                if ($data[$i] == $val) {
+        if($request->session()->has("SessioniSupp")){
+            for($i = 0; $i < count($data); $i++){
+                if($data[$i] == $val && $data[$i+1] == $val2){
                     $tamp = 1;
                 }
             }
-            if ($tamp == 0) {
+            if($tamp == 0){
                 $request->session()->push("SessioniSupp", $val);
-            } else {
+                $request->session()->push("SessioniSupp", $val2);
+            }
+            else{
                 $status = 500;
             }
-        } else {
+        }
+        else{
             $request->session()->push("SessioniSupp", $val);
+            $request->session()->push("SessioniSupp", $val2);
         }
 
         return response()->json($status);
@@ -48,12 +52,18 @@ class iSuppController extends Controller
 
     public function StoreValidateiSupp2(Request $request)
     {
-        $messages = $request->session()->get("SessioniSupp");
-        $val = $request->input('productiSuppDetail');
-        if (($key = array_search($val, $messages)) !== false) {
-            unset($messages[$key]);
-            $newClass = array_values($messages);
-            $request->session()->put("SessioniSupp", $newClass);
+        $val = $request->input('putWorkId');
+        $val2 = $request->input('putProductId');
+        $data = $request->session()->get("SessioniSupp");
+        if($request->session()->has("SessioniSupp")){
+            for($i = 0; $i < count($data); $i++){
+                if($data[$i] == $val && $data[$i+1] == $val2){
+                    unset($data[$i]);
+                    unset($data[$i+1]);
+                    $newClass = array_values($data);
+                    $request->session()->put("SessioniSupp", $newClass);
+                }
+            }
         }
     }
 
@@ -83,7 +93,33 @@ class iSuppController extends Controller
         return response()->json($varDataAdvanceRequest['data']);
     }
 
-    public function RevisioniSupp(Request $request)
+    public function IsuppListDataByID(Request $request)
+    {
+        $advance_RefID = $request->input('var_recordID');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varDataAdvanceList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.finance.getAdvanceDetail',
+            'latest',
+            [
+                'parameter' => [
+                    'advance_RefID' => (int) $advance_RefID,
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ]
+        );
+        // dd($varDataAdvanceList);
+        return response()->json($varDataAdvanceList['data']);
+    }
+
+    
+    public function RevisioniSuppIndex(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessioniSupp");
@@ -142,6 +178,7 @@ class iSuppController extends Controller
         );
         // dd($varData);
         foreach($varData['data'] as $varDatas){
+            $request->session()->push("SessioniSupp", (string)$varDatas['combinedBudget_SubSectionLevel1_RefID']);
             $request->session()->push("SessioniSupp", (string)$varDatas['product_RefID']);
         }
         return response()->json($varData['data']);

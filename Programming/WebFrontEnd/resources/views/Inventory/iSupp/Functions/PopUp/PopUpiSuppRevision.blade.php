@@ -4,7 +4,7 @@
             <div class="modal-header">
                 <div class="modal-body">
                     <span style="font-size: 15px;position:relative;left:35%;font-weight:bold;">I-SUPP REVISION</span><br><br><br>
-                    <form action="{{ route('iSupp.RevisioniSupp') }}" method="post">
+                    <form action="{{ route('iSupp.RevisioniSuppIndex') }}" method="post">
                         @csrf
                         <div class="card" style="margin-left: 8%;">
                             <div class="card-body">
