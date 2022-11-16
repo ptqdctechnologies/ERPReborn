@@ -137,6 +137,8 @@
                                                 </td>
 
                                                 <input id="statusEditiSupp" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                                                <input id="ValidateQuantity" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                        
                                             </tbody>
                                         </table>
                                         <br>

@@ -182,8 +182,7 @@
         var remark = $('#remark').val();
         var statusEditiSupp = $("#statusEditiSupp").val();
         if (statusEditiSupp == "Yes") {
-
-            var qtyCek = $('#putQty').val();
+            var qtyCek = $('#ValidateQuantity').val();
             var remark = $('#remark2').val();
             $.ajaxSetup({
                 headers: {
@@ -269,7 +268,7 @@
         $("#putProductId").val($this.data("id1"));
         $("#putProductName").val($this.data("id2"));
         $("#qtyCek").val($this.data("id3"));
-        $("#putQty").val($this.data("id3"));
+        $("#ValidateQuantity").val($this.data("id3"));
         $("#putUom").val($this.data("id4"));
         $("#totalBalance").val($this.data("id5"));
         $("#remark").val($this.data("id6"));
