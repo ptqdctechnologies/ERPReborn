@@ -46,7 +46,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
     // Dashboard
-    Route::get('projectDashboard', 'homeController@projectDashboard')->name('home.projectDashboard');
+    Route::get('dashboard', 'homeController@dashboard')->name('home.dashboard');
     Route::get('checkDocument', 'homeController@checkDocument')->name('home.checkDocument');
     Route::get('myDocument', 'homeController@myDocument')->name('home.myDocument');
     Route::get('submittedDocument', 'homeController@submittedDocument')->name('home.submittedDocument');
@@ -241,8 +241,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // MRET
     Route::post('StoreValidateiMaterialReturn', 'Inventory\MaterialReturnController@StoreValidateiMaterialReturn')->name('MaterialReturn.StoreValidateiMaterialReturn');
     Route::post('StoreValidateiMaterialReturn2', 'Inventory\MaterialReturnController@StoreValidateiMaterialReturn2')->name('MaterialReturn.StoreValidateiMaterialReturn2');
-    Route::post('RevisionMaterialReturn', 'Inventory\MaterialReturnController@RevisionMaterialReturn')->name('MaterialReturn.RevisionMaterialReturn');
+    Route::post('RevisionMaterialReturnIndex', 'Inventory\MaterialReturnController@RevisionMaterialReturnIndex')->name('MaterialReturn.RevisionMaterialReturnIndex');
     Route::get('MaterialReturnListData', 'Inventory\MaterialReturnController@MaterialReturnListData')->name('MaterialReturn.MaterialReturnListData');
+    Route::post('MaterialReturnListCartRevision', 'Inventory\MaterialReturnController@MaterialReturnListCartRevision')->name('MaterialReturn.MaterialReturnListCartRevision');
     Route::resource('MaterialReturn', 'Inventory\MaterialReturnController');
 
 

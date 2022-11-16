@@ -81,8 +81,6 @@
 
             $("#saveArfList").prop("disabled", false);
             $("#submitArf").prop("disabled", false);
-
-            $(".klikBudgetAdvanceRevision2").prop("disabled", false);
             $("#detailArfList").show();
 
         },

@@ -9,7 +9,7 @@ class homeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function projectDashboard(Request $request)
+    public function dashboard(Request $request)
     {
         return view('Layouts.dashboard');
     }

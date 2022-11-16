@@ -71,6 +71,9 @@
                 $("#remark").val($this.data("id5"));
                 $("#tableShowHideSupp").find("input,button,textarea,select").attr("disabled", true);
 
+                $("#ValidateQuantity").val($this.data("id3"));
+
+
                 $(".klikPoDetail2").prop("disabled", true);
                 $(".ActionButton").prop("disabled", true);
 
@@ -306,6 +309,7 @@
         $("#putProductName").val($this.data("id2"));
         $("#qtyCek").val($this.data("id3"));
         $("#putQty").val($this.data("id3"));
+        $("#ValidateQuantity").val($this.data("id3"));
         $("#putUom").val($this.data("id4"));
         $("#totalBalance").val($this.data("id5"));
         $("#remark").val($this.data("id6"));

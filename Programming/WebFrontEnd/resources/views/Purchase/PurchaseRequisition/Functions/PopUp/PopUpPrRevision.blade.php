@@ -11,7 +11,7 @@
                                 <div class="form-group">
                                     <table>
                                         <tr>
-                                            <td style="padding-top: 20px;"><label>Purchase Requisition &nbsp;&nbsp;&nbsp;&nbsp;</label></td>
+                                            <td style="padding-top: 20px;"><label>Revision Number &nbsp;&nbsp;&nbsp;&nbsp;</label></td>
                                             <td>
                                                 <div class="input-group">
                                                     <input id="searchPrNumberRevisionId" style="border-radius:0;" name="searchPrNumberRevisionId" type="hidden" class="form-control">

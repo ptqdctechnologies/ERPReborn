@@ -4,7 +4,7 @@
             <div class="modal-header">
                 <div class="modal-body">
                     <span style="font-size: 15px;position:relative;left:30%;font-weight:bold;">MATERIAL RETURN REVISION</span><br><br><br>
-                    <form action="{{ route('MaterialReturn.RevisionMaterialReturn') }}" method="post">
+                    <form action="{{ route('MaterialReturn.RevisionMaterialReturnIndex') }}" method="post">
                         @csrf
                         <div class="card" style="margin-left: 8%;">
                             <div class="card-body">

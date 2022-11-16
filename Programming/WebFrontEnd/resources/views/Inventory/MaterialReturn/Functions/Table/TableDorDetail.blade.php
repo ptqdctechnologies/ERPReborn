@@ -1,5 +1,5 @@
 <div class="card-body table-responsive p-0" style="height: 180px;" id="tableShowHideMaterialReturn">
-    <table class="table table-head-fixed text-nowrap table-striped tableDetailDoMret">
+    <table class="table table-head-fixed text-nowrap table-striped TableDorDetail">
         <thead>
             <tr>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Action</th>

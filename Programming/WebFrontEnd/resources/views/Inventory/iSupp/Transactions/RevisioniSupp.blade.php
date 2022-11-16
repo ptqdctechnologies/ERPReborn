@@ -136,7 +136,7 @@
                                                     <input id="remark" style="border-radius:0;" type="text" class="form-control">
                                                     <input id="remark2" style="border-radius:0;" type="hidden" class="form-control">
                                                 </td>
-
+                                                <input id="ValidateQuantity" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                                                 <input id="statusEditiSupp" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                                             </tbody>
                                         </table>
