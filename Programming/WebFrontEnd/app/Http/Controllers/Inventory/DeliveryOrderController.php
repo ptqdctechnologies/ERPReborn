@@ -23,7 +23,7 @@ class DeliveryOrderController extends Controller
         return view('Inventory.DeliveryOrder.Transactions.CreateDeliveryOrder', $compact);
     }
 
-    public function StoreValidateDeliveryOrderRequest(Request $request)
+    public function StoreValidateDeliveryOrder(Request $request)
     {
         $tamp = 0; $status = 200;
         $val = $request->input('putWorkId');
@@ -51,7 +51,7 @@ class DeliveryOrderController extends Controller
         return response()->json($status);
     }
 
-    public function StoreValidateDeliveryOrderRequest2(Request $request)
+    public function StoreValidateDeliveryOrder2(Request $request)
     {
         $val = $request->input('putWorkId');
         $val2 = $request->input('putProductId');
@@ -93,6 +93,53 @@ class DeliveryOrderController extends Controller
             );
             
         return response()->json($varDataAdvanceRequest['data']);
+    }
+
+    public function DeliveryOrderListDataDor(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varDataAdvanceSettlement = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.finance.getAdvance',
+            'latest',
+            [
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ]
+        );
+
+        return response()->json($varDataAdvanceSettlement['data']);
+    }
+
+    public function DeliveryOrderByDorID(Request $request)
+    {
+        $advance_RefID = $request->input('var_recordID');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varDataAdvanceList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.finance.getAdvanceDetail',
+            'latest',
+            [
+                'parameter' => [
+                    'advance_RefID' => (int) $advance_RefID,
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ]
+        );
+        // dd($varDataAdvanceList);
+        return response()->json($varDataAdvanceList['data']);
     }
 
     public function RevisionDeliveryOrder(Request $request)
