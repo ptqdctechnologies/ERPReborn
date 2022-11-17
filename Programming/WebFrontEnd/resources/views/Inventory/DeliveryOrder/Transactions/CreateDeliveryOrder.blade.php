@@ -4,7 +4,9 @@
 @include('Partials.sidebar')
 @include('getFunction.getProject')
 @include('getFunction.getSite')
+@include('getFunction.getTransporter')
 @include('Inventory.DeliveryOrder.Functions.PopUp.PopUpDoRevision')
+@include('Inventory.DeliveryOrder.Functions.PopUp.SearchDor')
 
 
 <div class="content-wrapper" style="position:relative;bottom:12px;">
@@ -18,7 +20,7 @@
             @include('Inventory.DeliveryOrder.Functions.Menu.MenuDeliveryOrder')
             @if($var == 0)
             <div class="card" style="position:relative;bottom:10px;">
-                <form method="post" enctype="multipart/form-data" action="{{ route('DeliveryOrderRequest.store') }}" id="FormSubmitDor">
+                <form method="post" enctype="multipart/form-data" action="{{ route('DeliveryOrder.store') }}" id="FormSubmitDor">
                     @csrf
                     <div class="tab-content p-3" id="nav-tabContent">
                         @include('Inventory.DeliveryOrder.Functions.Header.HeaderDo')
@@ -28,7 +30,7 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <label class="card-title">
-                                                DOR Detail
+                                                Delivery Order Request Detail
                                             </label>
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -55,55 +57,73 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <div class="card-body table-responsive p-0" id="detailDor">
+                                    <div class="card-body table-responsive p-0" id="detailDo">
                                         <table class="table table-head-fixed text-nowrap table-sm" style="text-align: center;">
                                             <thead>
                                                 <tr>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:15%;border:1px solid #e9ecef;">PR Number</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:15%;border:1px solid #e9ecef;">Work Id</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:15%;border:1px solid #e9ecef;">Product Id</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:20%;border:1px solid #e9ecef;">Product Name</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:5%;border:1px solid #e9ecef;">Qty</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:10%;border:1px solid #e9ecef;">Unit Price</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:15%;border:1px solid #e9ecef;">Average Price</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:15%;border:1px solid #e9ecef;">Balance Qty</th>
+                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:12%;border:1px solid #e9ecef;">DOR Number</th>
+                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:12%;border:1px solid #e9ecef;">Work Id</th>
+                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:12%;border:1px solid #e9ecef;">Work Name</th>
+                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:12%;border:1px solid #e9ecef;">Product Id</th>
+                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:12%;border:1px solid #e9ecef;">Product Name</th>
+                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:12%;border:1px solid #e9ecef;">Delivery Type</th>
+                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:4%;border:1px solid #e9ecef;">Qty Request</th>
+                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:4%;border:1px solid #e9ecef;">Uom</th>
+                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:18%;border:1px solid #e9ecef;">Note</th>
+                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:12%;border:1px solid #e9ecef;">With Journal</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <td style="border:1px solid #e9ecef;">
-                                                    <input id="pr_number_detail" style="border-radius:0;" type="text" class="form-control" readonly="">
+                                                    <input id="dor_number_detail" style="border-radius:0;" type="text" class="form-control" readonly="">
                                                 </td>
                                                 <td style="border:1px solid #e9ecef;">
                                                     <input id="putWorkId" style="border-radius:0;" type="text" class="form-control" readonly="">
                                                 </td>
                                                 <td style="border:1px solid #e9ecef;">
+                                                    <input id="putWorkName" style="border-radius:0;" type="text" class="form-control" readonly="">
+                                                </td>
+                                                <td style="border:1px solid #e9ecef;">
                                                     <input id="putProductId" style="border-radius:0;" type="text" class="form-control" readonly="">
                                                 </td>
                                                 <td style="border:1px solid #e9ecef;">
-                                                    <input id="putProductName" style="border-radius:0;" type="text" class="form-control" readonly="">
+                                                    <input id="putProductName" style="border-radius:0;" type="text" class="form-control" readonly>
+                                                </td>
+                                                <td style="border:1px solid #e9ecef;">
+                                                    <input id="delivery_type" style="border-radius:0;" type="text" class="form-control" readonly="">
                                                 </td>
                                                 <td style="border:1px solid #e9ecef;">
                                                     <input id="qtyCek" style="border-radius:0;" type="text" class="form-control ChangeQty quantity" autocomplete="off" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                                                     <input id="putQty" style="border-radius:0;" type="hidden" class="form-control">
                                                 </td>
                                                 <td style="border:1px solid #e9ecef;">
-                                                    <input id="priceCek" style="border-radius:0;" type="text" class="form-control ChangePrice" autocomplete="off" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" readonly>
-                                                    <input id="putPrice" style="border-radius:0;" type="hidden" class="form-control">
+                                                    <input id="putUom" style="border-radius:0;" type="text" class="form-control" readonly>
                                                 </td>
                                                 <td style="border:1px solid #e9ecef;">
-                                                    <input id="average" style="border-radius:0;" type="text" class="form-control" readonly="">
+                                                    <input id="note" style="border-radius:0;" type="text" class="form-control">
                                                 </td>
                                                 <td style="border:1px solid #e9ecef;">
-                                                    <input id="totalBalance" style="border-radius:0;" type="text" class="form-control" readonly="">
+                                                    <div class="icheck-primary d-inline">
+                                                        <input type="radio" id="no" name="journal" value="No" checked>
+                                                        <label for="no">No
+                                                        </label>
+                                                    </div>
+                                                    <div class="icheck-primary d-inline">
+                                                        <input type="radio" id="yes" name="journal" value="Yes">
+                                                        <label for="yes">Yes
+                                                        </label>
+                                                    </div>
                                                 </td>
                                                 <!-- Untuk Validasi -->
-                                                <input id="statusEditDor" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
+                                                <input id="putCurrency" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                                                <input id="statusEditDo" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
                                                 <input id="ValidateQuantity" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                                                <input id="ValidateNote" style="border-radius:0;" type="hidden" class="form-control" readonly="">
 
                                             </tbody>
                                         </table>
                                         <div style="padding-right:10px;padding-top:10px;">
-                                            <a class="btn btn-default btn-sm float-right" onclick="CancelDetailDor()" id="CancelDetailDor" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
+                                            <a class="btn btn-default btn-sm float-right" onclick="CancelDetailDo()" id="CancelDetailDo" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
                                                 <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel to Add Advance List Cart"> Cancel
                                             </a>
                                             <a class="btn btn-default btn-sm float-right" onclick="addFromDetailtoCartJs()" id="addFromDetailtoCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
@@ -130,18 +150,18 @@
                                         </div>
                                     </div>
 
-                                    <div class="card-body table-responsive p-0 detailDorList" style="height: 180px;">
+                                    <div class="card-body table-responsive p-0 detailDoList" style="height: 180px;">
                                         <table class="table table-head-fixed text-nowrap TableDorCart" id="TableDorCart">
                                             <thead>
                                                 <tr>
                                                     <th>Action</th>
                                                     <th>Trano</th>
                                                     <th>Work Id</th>
+                                                    <th>Work Name</th>
                                                     <th>Product Id</th>
                                                     <th>Product Name</th>
                                                     <th>Qty</th>
-                                                    <th>PR Price</th>
-                                                    <th>Average Price</th>
+                                                    <th>Valuta</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -149,11 +169,11 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="card-body table-responsive p-0 detailDorList">
+                                    <div class="card-body table-responsive p-0 detailDoList">
                                         <table class="table table-head-fixed table-sm text-nowrap">
                                             <tfoot>
                                                 <tr>
-                                                    <th style="color:brown;float:right;">Total Delivery Order Request : <span id="TotalDeliveryOrderRequest"></span></th>
+                                                    <th style="color:brown;float:right;">Total Delivery Order : <span id="TotalDeliveryOrder"></span></th>
                                                 </tr>
                                             </tfoot>
                                         </table>

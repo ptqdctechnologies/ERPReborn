@@ -7,9 +7,8 @@
                 <th>Trano</th>
                 <th>Product Id</th>
                 <th>Product Name</th>
+                <th>Valuta</th>
                 <th>Qty</th>
-                <th>PR Price</th>
-                <th>Average Price</th>
             </tr>
         </thead>
         <tbody>

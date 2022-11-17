@@ -10,7 +10,7 @@ class AdvanceRequestController extends Controller
 {
     public function index(Request $request)
     {
-        $data = $request->session()->get("SessionMaterialReturn");
+        $data = $request->session()->get("SessionDeliveryOrder");
         dd($data);
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionAdvance");
