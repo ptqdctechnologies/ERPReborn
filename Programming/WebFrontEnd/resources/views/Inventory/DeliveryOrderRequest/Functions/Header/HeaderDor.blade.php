@@ -292,10 +292,10 @@
                                     <td><label>Supplier</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="headerSupplier" style="border-radius:0;margin-left:48px;" name="headerSupplier" class="form-control">
+                                            <input id="suppliercode" style="border-radius:0;margin-left:48px;" name="suppliercode" class="form-control">
                                             <div class="input-group-append">
                                                 <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a href="#"><i id="headerSupplier" data-toggle="modal" data-target="#myProject" class="fas fa-gift" style="color:grey;"></i></a>
+                                                    <a href="#"><i id="suppliercode2" data-toggle="modal" data-target="#mySupplier" class="fas fa-gift" style="color:grey;"></i></a>
                                                 </span>
                                             </div>
                                         </div>
@@ -305,7 +305,7 @@
                                     <td><label>Addres</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <textarea class="form-control" name="headerAddress5" id="headerAddress5" cols="20" rows="5" style="border-radius:0;margin-left:48px;"></textarea>
+                                            <textarea class="form-control" name="supplierAddress" id="supplierAddress" cols="20" rows="5" style="border-radius:0;margin-left:48px;"></textarea>
                                         </div>
                                     </td>
                                 </tr>

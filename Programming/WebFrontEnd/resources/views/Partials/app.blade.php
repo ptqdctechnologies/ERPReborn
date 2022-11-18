@@ -90,6 +90,17 @@
     }
   </script>
 
+  <script>
+    $(document).ready( function () {
+      $('#tableGetWarehouse').DataTable();
+      $('#tableGetWarehouse2').DataTable();
+      $('#tableGetWarehouse3').DataTable();
+      $('#tableGetSupplier').DataTable();
+      $('#tableDoNumber').DataTable();
+      $('#tableGetReceive').DataTable();
+      $('#tableGetDelivery').DataTable();
+  } );
+  </script>
 
   <script>
     // CURRENCY FUNCTION
