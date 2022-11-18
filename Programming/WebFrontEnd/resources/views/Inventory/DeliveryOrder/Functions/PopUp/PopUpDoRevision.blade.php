@@ -4,7 +4,7 @@
             <div class="modal-header">
                 <div class="modal-body">
                     <span style="font-size: 15px;position:relative;left:25%;font-weight:bold;">DELIVERY ORDER REVISION</span><br><br><br>
-                    <form action="{{ route('DeliveryOrder.RevisionDeliveryOrder') }}" }}" method="post">
+                    <form action="{{ route('DeliveryOrder.RevisionDeliveryOrderIndex') }}" }}" method="post">
                     @csrf
                         <div class="card" style="margin-left: 8%;">
                             <div class="card-body"> 
@@ -14,7 +14,7 @@
                                             <td><label>Revision Number&nbsp;</label></td>
                                             <td>
                                                 <div class="input-group">
-                                                    <input id="searcDorNumberRevisionId" style="border-radius:0;" name="searcDorNumberRevisionId" type="hidden" class="form-control">
+                                                    <input id="searcDoNumberRevisionId" style="border-radius:0;" name="searcDoNumberRevisionId" type="hidden" class="form-control">
                                                     <input id="siteCodeRevAsfBefore" style="border-radius:0;" name="siteCodeRevArfBefore" class="form-control" type="hidden">
                                                     <input required="" id="searchDorNumberRevisions" style="border-radius:0;" name="searchDorNumberRevisions" type="text" class="form-control" required readonly>
                                                     <div class="input-group-append">
@@ -83,7 +83,7 @@
 
 <script>
     function klikPopUpDoRevision(id, code) {
-        $("#searcDorNumberRevisionId").val(id);
+        $("#searcDoNumberRevisionId").val(id);
         $("#searchDorNumberRevisions").val(code);
     }
 </script>

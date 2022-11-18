@@ -40,6 +40,12 @@
                                         </div>
                                     </td>
                                 </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <table>
                                 <tr>
                                     <td><label>Trans. Phone</label></td>
                                     <td>
@@ -48,12 +54,6 @@
                                         </div>
                                     </td>
                                 </tr>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <table>
                                 <tr class="budgetDetail">
                                     <td><label>Trans. Fax</label></td>
                                     <td>

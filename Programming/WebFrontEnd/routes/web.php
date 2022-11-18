@@ -216,9 +216,10 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // DO
     Route::post('StoreValidateDeliveryOrder', 'Inventory\DeliveryOrderController@StoreValidateDeliveryOrder')->name('DeliveryOrder.StoreValidateDeliveryOrder');
     Route::post('StoreValidateDeliveryOrder2', 'Inventory\DeliveryOrderController@StoreValidateDeliveryOrder2')->name('DeliveryOrder.StoreValidateDeliveryOrder2');
-    Route::post('RevisionDeliveryOrder', 'Inventory\DeliveryOrderController@RevisionDeliveryOrder')->name('DeliveryOrder.RevisionDeliveryOrder');
+    Route::post('RevisionDeliveryOrderIndex', 'Inventory\DeliveryOrderController@RevisionDeliveryOrderIndex')->name('DeliveryOrder.RevisionDeliveryOrderIndex');
     Route::get('DeliveryOrderListData', 'Inventory\DeliveryOrderController@DeliveryOrderListData')->name('DeliveryOrder.DeliveryOrderListData');
     Route::get('DeliveryOrderListDataDor', 'Inventory\DeliveryOrderController@DeliveryOrderListDataDor')->name('DeliveryOrder.DeliveryOrderListDataDor');
+    Route::post('DeliveryOrderListCartRevision', 'Inventory\DeliveryOrderController@DeliveryOrderListCartRevision')->name('DeliveryOrder.DeliveryOrderListCartRevision');
     Route::get('DeliveryOrderByDorID', 'Inventory\DeliveryOrderController@DeliveryOrderByDorID')->name('DeliveryOrder.DeliveryOrderByDorID');
     Route::resource('DeliveryOrder', 'Inventory\DeliveryOrderController');
 

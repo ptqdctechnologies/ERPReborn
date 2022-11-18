@@ -20,7 +20,7 @@
             @include('Inventory.DeliveryOrder.Functions.Menu.MenuDeliveryOrder')
             @if($var == 0)
             <div class="card" style="position:relative;bottom:10px;">
-                <form method="post" enctype="multipart/form-data" action="{{ route('DeliveryOrder.store') }}" id="FormSubmitDor">
+                <form method="post" enctype="multipart/form-data" action="{{ route('DeliveryOrder.store') }}" id="FormSubmitDo">
                     @csrf
                     <div class="tab-content p-3" id="nav-tabContent">
                         @include('Inventory.DeliveryOrder.Functions.Header.HeaderDo')
@@ -162,6 +162,7 @@
                                                     <th>Product Name</th>
                                                     <th>Qty</th>
                                                     <th>Valuta</th>
+                                                    <th>Note</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -179,7 +180,7 @@
                                         </table>
                                     </div>
                                 </div>
-                                <a onclick="CancelDor();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                                <a onclick="CancelDo();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
                                     <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
                                 </a>
                                 <button class="btn btn-default btn-sm float-right" type="submit" id="SubmitDor" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
