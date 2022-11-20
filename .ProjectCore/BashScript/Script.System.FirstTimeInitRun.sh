@@ -16,7 +16,7 @@
 clear;
 
 ./BashScript/Script.Docker.Reinitializing.LaravelFolderOwnership.sh;
-./BashScript/Script.Laravel.ComposerUpdate.sh;
+#./BashScript/Script.Laravel.ComposerUpdate.sh;
 
 ./BashScript/Script.Docker.BuildPermanentStorage.PostgreSQL.sh;
 ./BashScript/Script.Docker.BuildPermanentStorage.LocalStorage.sh;

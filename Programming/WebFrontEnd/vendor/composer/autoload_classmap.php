@@ -2118,6 +2118,7 @@ return array(
     'Illuminate\\Support\\ItemNotFoundException' => $vendorDir . '/laravel/framework/src/Illuminate/Collections/ItemNotFoundException.php',
     'Illuminate\\Support\\Js' => $vendorDir . '/laravel/framework/src/Illuminate/Support/Js.php',
     'Illuminate\\Support\\LazyCollection' => $vendorDir . '/laravel/framework/src/Illuminate/Collections/LazyCollection.php',
+    'Illuminate\\Support\\Lottery' => $vendorDir . '/laravel/framework/src/Illuminate/Support/Lottery.php',
     'Illuminate\\Support\\Manager' => $vendorDir . '/laravel/framework/src/Illuminate/Support/Manager.php',
     'Illuminate\\Support\\MessageBag' => $vendorDir . '/laravel/framework/src/Illuminate/Support/MessageBag.php',
     'Illuminate\\Support\\MultipleInstanceManager' => $vendorDir . '/laravel/framework/src/Illuminate/Support/MultipleInstanceManager.php',
