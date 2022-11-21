@@ -244,6 +244,13 @@ abstract class RestSerializer
             $relative = substr($relative, 1);
         }
 
+        //Accounts for leading / in relative path
+        if ($this->api->isModifiedModel()
+            && strpos($relative, '//') === 0
+        ) {
+            return new Uri($this->endpoint . $relative);
+        }
+
         // Expand path place holders using Amazon's slightly different URI
         // template syntax.
         return UriResolver::resolve($this->endpoint, new Uri($relative));
@@ -275,7 +282,7 @@ abstract class RestSerializer
     private function appendQuery($query, $endpoint)
     {
         $append = Psr7\Query::build($query);
-        return $endpoint .= strpos($endpoint, '?') ? "&{$append}" : "?$append";
+        return $endpoint .= strpos($endpoint, '?') !== false ? "&{$append}" : "?{$append}";
     }
 
     private function getVarDefinitions($command, $args)

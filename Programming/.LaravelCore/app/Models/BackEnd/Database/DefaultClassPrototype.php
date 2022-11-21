@@ -101,22 +101,32 @@ namespace App\Models\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataEntities                                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-06-13                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2022-11-21                                                                                           |
         | ▪ Creation Date   : 2022-06-13                                                                                           |
         | ▪ Description     : Get Data Entities                                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysID ► System Record ID                                                                              |
+        |      ▪ (string) varIDSet ► ID Set                                                                                        |
+        |      ▪ (int)    varBranchID ► ID Branch (Optional)                                                                       |
+        |      ▪ (string) varFunctionOverideName ► Function Overide Name (Optional)                                                |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataEntities($varUserSession, 
-            string $varIDSet)
+            string $varIDSet, 
+            int $varBranchID = null, string $varFunctionOverideName = null)
             {
-            $varFunctionName=('Func_GetDataEntities_'.str_replace('_Tbl', '', '_'.self::getTableName($varUserSession)));
+            if ($varFunctionOverideName)
+                {
+                $varFunctionName = $varFunctionOverideName;
+                }
+            else
+                {
+                $varFunctionName=('Func_GetDataEntities_'.str_replace('_Tbl', '', '_'.self::getTableName($varUserSession)));
+                }
             $varTemp = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
@@ -128,7 +138,7 @@ namespace App\Models\Database
                     ]
                     )
                 );
-                ;
+
             for ($i=0; $i!=count($varTemp['Data']); $i++)
                 {
                 $varReturn[$i] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(

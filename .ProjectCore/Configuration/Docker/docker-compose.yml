@@ -16,6 +16,7 @@ services:
       app-network:
         ipv4_address: '172.28.0.2'
     volumes:
+      - './.ProjectCore/PermanentStorage/PostgreSQL/root/.bash_history:/root/.bash_history'
       #- 'volume-mysql:/var/lib/mysql'
       - './.ProjectCore/PermanentStorage/PostgreSQL/var/lib/mysql/:/var/lib/mysql'
       - './.ProjectCore/Temp/MySQL/:/var/lib/mysql/temp'
@@ -72,6 +73,7 @@ services:
       app-network:
         ipv4_address: '172.28.0.3'
     volumes:
+      - './.ProjectCore/PermanentStorage/PHPApacheBackEnd/root/.bash_history:/root/.bash_history'
       #- './:/var/www/html'
       - './Programming/.LaravelCore:/var/www/html/.LaravelCore'
       - './Programming/WebBackEnd:/var/www/html/WebBackEnd'
