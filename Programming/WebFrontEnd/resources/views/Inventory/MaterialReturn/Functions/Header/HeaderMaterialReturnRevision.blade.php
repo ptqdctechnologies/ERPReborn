@@ -104,11 +104,11 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td>
+                                    <!-- <td>
                                         <div class="input-group">
                                             <input id="delivery2" style="border-radius:0;" class="form-control" name="projectname" readonly>
                                         </div>
-                                    </td>
+                                    </td> -->
                                 </tr>
                                 <tr>
                                     <td><label>Receive By</label></td>
@@ -122,11 +122,11 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td>
+                                    <!-- <td>
                                         <div class="input-group">
                                             <input id="receive2" style="border-radius:0;" class="form-control" name="projectname" readonly>
                                         </div>
-                                    </td>
+                                    </td> -->
                                 </tr>
                             </table>
                         </div>

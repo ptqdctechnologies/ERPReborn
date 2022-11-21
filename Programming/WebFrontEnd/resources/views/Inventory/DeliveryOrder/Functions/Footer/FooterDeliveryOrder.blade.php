@@ -188,6 +188,7 @@
                             '<td style="border:1px solid #e9ecef;">' + putProductName + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + qtyCek.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + putCurrency + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + note + '</td>' +
                             '</tr>';
                         $('table.TableDorCart tbody').append(html);
                         $("#statusEditDo").val("No");
@@ -264,6 +265,7 @@
                             '<td style="border:1px solid #e9ecef;">' + putProductName + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + qtyCek.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + putCurrency + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + note + '</td>' +
                             '</tr>';
                         $('table.TableDorCart tbody').append(html);
 
@@ -369,9 +371,129 @@
 </script>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $(".CancelDor").click(function() {
-            $("#tableShowHideDo").find("input,button,textarea,select").attr("disabled", false);
+    function CancelDo() {
+        $("#loading").show();
+        $(".loader").show();
+        window.location.href = '/DeliveryOrder?var=1';
+    }
+</script>
+
+
+
+<script>
+    $(function() {
+        $("#FormSubmitDo").on("submit", function(e) { //id of form 
+            e.preventDefault();
+
+            // var valRequestName = $("#request_name").val();
+            // var valRemark = $("#putRemark").val();
+            // $("#request_name").css("border", "1px solid #ced4da");
+            // $("#putRemark").css("border", "1px solid #ced4da");
+
+            // if (valRequestName === "") {
+            //     $("#request_name").focus();
+            //     $("#request_name").attr('required', true);
+            //     $("#request_name").css("border", "1px solid red");
+            // } else if (valRemark === "") {
+            //     $("#putRemark").focus();
+            //     $("#putRemark").attr('required', true);
+            //     $("#putRemark").css("border", "1px solid red");
+            // } else {
+                var action = $(this).attr("action"); //get submit action from form
+                var method = $(this).attr("method"); // get submit method
+                var form_data = new FormData($(this)[0]); // convert form into formdata 
+                var form = $(this);
+
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    confirmButtonClass: 'btn btn-success btn-sm',
+                    cancelButtonClass: 'btn btn-danger btn-sm',
+                    buttonsStyling: true,
+                })
+
+                swalWithBootstrapButtons.fire({
+
+                    title: 'Are you sure?',
+                    text: "Save this data?",
+                    type: 'question',
+
+                    showCancelButton: true,
+                    confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
+                    cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
+                    confirmButtonColor: '#e9ecef',
+                    cancelButtonColor: '#e9ecef',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+
+                        $("#loading").show();
+                        $(".loader").show();
+
+                        $.ajax({
+                            url: action,
+                            dataType: 'json', // what to expect back from the server
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            data: form_data,
+                            type: method,
+                            success: function(response) {
+
+                                $("#loading").hide();
+                                $(".loader").hide();
+
+                                swalWithBootstrapButtons.fire({
+
+                                    title: 'Successful !',
+                                    type: 'success',
+                                    html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + response.advnumber + '</span>',
+                                    showCloseButton: false,
+                                    showCancelButton: false,
+                                    focusConfirm: false,
+                                    confirmButtonText: '<span style="color:black;"> Ok </span>',
+                                    confirmButtonColor: '#4B586A',
+                                    confirmButtonColor: '#e9ecef',
+                                    reverseButtons: true
+                                }).then((result) => {
+                                    if (result.value) {
+                                        $("#loading").show();
+                                        $(".loader").show();
+
+                                        window.location.href = '/DeliveryOrder?var=1';
+                                    }
+                                })
+                            },
+
+                            error: function(response) { // handle the error
+                                Swal.fire("Cancelled", "Data Cancel Inputed", "error");
+                            },
+
+                        })
+
+
+                    } else if (
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                        swalWithBootstrapButtons.fire({
+
+                            title: 'Cancelled',
+                            text: "Process Canceled",
+                            type: 'error',
+                            confirmButtonColor: '#e9ecef',
+                            confirmButtonText: '<span style="color:black;"> Ok </span>',
+
+                        }).then((result) => {
+                            if (result.value) {
+                                $("#loading").show();
+                                $(".loader").show();
+
+                                window.location.href = '/DeliveryOrder?var=1';
+                            }
+                        })
+                    }
+                })
+            // }
         });
+
     });
 </script>

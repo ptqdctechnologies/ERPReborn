@@ -11,7 +11,10 @@
 @include('getFunction.getWarehouse3')
 
 <div class="content-wrapper" style="position:relative;bottom:12px;">
-    <section class="content">
+    <section class="content">@csrf
+                    @method('PUT')
+                    <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
+                    
         <div class="container-fluid">
             <div class="row mb-1" style="background-color:#4B586A;">
                 <div class="col-sm-6" style="height:30px;">
