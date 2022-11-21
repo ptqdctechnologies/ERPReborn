@@ -76,7 +76,6 @@
         </div>
     </div>
 </div>
-
 <script>
     $(function() {
         $(".klikSearchSupplier").on('click', function(e) {

@@ -29,6 +29,13 @@ Route::get('/', function () {
 //---[ Main System ]---(START)---
 //---[ Main System ]---( END )---
 
+Route::get('zhtTestAdminLTE', function () {
+    return view('zhtTestAdminLTE');
+    })->middleware('web');
+
+Route::get('zhtTestAdminLTE2', function () {
+    return view('zhtTestAdminLTE2');
+    })->middleware('web');
 
 
 

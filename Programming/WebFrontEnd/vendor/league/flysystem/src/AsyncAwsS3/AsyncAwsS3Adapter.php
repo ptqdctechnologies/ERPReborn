@@ -12,7 +12,11 @@ use AsyncAws\S3\ValueObject\AwsObject;
 use AsyncAws\S3\ValueObject\CommonPrefix;
 use AsyncAws\S3\ValueObject\ObjectIdentifier;
 use AsyncAws\SimpleS3\SimpleS3Client;
+use DateTimeImmutable;
+use DateTimeInterface;
 use Generator;
+use League\Flysystem\ChecksumAlgoIsNotSupported;
+use League\Flysystem\ChecksumProvider;
 use League\Flysystem\Config;
 use League\Flysystem\DirectoryAttributes;
 use League\Flysystem\FileAttributes;
@@ -24,19 +28,21 @@ use League\Flysystem\UnableToCheckFileExistence;
 use League\Flysystem\UnableToCopyFile;
 use League\Flysystem\UnableToDeleteFile;
 use League\Flysystem\UnableToGeneratePublicUrl;
+use League\Flysystem\UnableToGenerateTemporaryUrl;
 use League\Flysystem\UnableToMoveFile;
+use League\Flysystem\UnableToProvideChecksum;
 use League\Flysystem\UnableToReadFile;
 use League\Flysystem\UnableToRetrieveMetadata;
 use League\Flysystem\UnableToSetVisibility;
 use League\Flysystem\UrlGeneration\PublicUrlGenerator;
+use League\Flysystem\UrlGeneration\TemporaryUrlGenerator;
 use League\Flysystem\Visibility;
 use League\MimeTypeDetection\FinfoMimeTypeDetector;
 use League\MimeTypeDetection\MimeTypeDetector;
 use Throwable;
-
 use function trim;
 
-class AsyncAwsS3Adapter implements FilesystemAdapter, PublicUrlGenerator
+class AsyncAwsS3Adapter implements FilesystemAdapter, PublicUrlGenerator, ChecksumProvider, TemporaryUrlGenerator
 {
     /**
      * @var string[]
@@ -78,30 +84,9 @@ class AsyncAwsS3Adapter implements FilesystemAdapter, PublicUrlGenerator
         'VersionId',
     ];
 
-    /**
-     * @var S3Client
-     */
-    private $client;
-
-    /**
-     * @var PathPrefixer
-     */
-    private $prefixer;
-
-    /**
-     * @var string
-     */
-    private $bucket;
-
-    /**
-     * @var VisibilityConverter
-     */
-    private $visibility;
-
-    /**
-     * @var MimeTypeDetector
-     */
-    private $mimeTypeDetector;
+    private PathPrefixer $prefixer;
+    private VisibilityConverter $visibility;
+    private MimeTypeDetector $mimeTypeDetector;
 
     /**
      * @var array|string[]
@@ -117,17 +102,15 @@ class AsyncAwsS3Adapter implements FilesystemAdapter, PublicUrlGenerator
      * @param S3Client|SimpleS3Client $client Uploading of files larger than 5GB is only supported with SimpleS3Client
      */
     public function __construct(
-        S3Client $client,
-        string $bucket,
+        private S3Client $client,
+        private string $bucket,
         string $prefix = '',
         VisibilityConverter $visibility = null,
         MimeTypeDetector $mimeTypeDetector = null,
         array $forwardedOptions = self::AVAILABLE_OPTIONS,
         array $metadataFields = self::EXTRA_METADATA_FIELDS,
     ) {
-        $this->client = $client;
         $this->prefixer = new PathPrefixer($prefix);
-        $this->bucket = $bucket;
         $this->visibility = $visibility ?: new PortableVisibilityConverter();
         $this->mimeTypeDetector = $mimeTypeDetector ?: new FinfoMimeTypeDetector();
         $this->forwardedOptions = $forwardedOptions;
@@ -505,6 +488,38 @@ class AsyncAwsS3Adapter implements FilesystemAdapter, PublicUrlGenerator
             return $this->client->getUrl($this->bucket, $this->prefixer->prefixPath($path));
         } catch (Throwable $exception) {
             throw UnableToGeneratePublicUrl::dueToError($path, $exception);
+        }
+    }
+
+    public function checksum(string $path, Config $config): string
+    {
+        $algo = $config->get('checksum_algo', 'etag');
+
+        if ($algo !== 'etag') {
+            throw new ChecksumAlgoIsNotSupported();
+        }
+
+        try {
+            $metadata = $this->fetchFileMetadata($path, 'checksum')->extraMetadata();
+        } catch (UnableToRetrieveMetadata $exception) {
+            throw new UnableToProvideChecksum($exception->reason(), $path, $exception);
+        }
+
+        if ( ! isset($metadata['ETag'])) {
+            throw new UnableToProvideChecksum('ETag header not available.', $path);
+        }
+
+        return trim($metadata['ETag'], '"');
+    }
+
+    public function temporaryUrl(string $path, DateTimeInterface $expiresAt, Config $config): string
+    {
+        $location = $this->prefixer->prefixPath($path);
+
+        try {
+            return $this->client->getPresignedUrl($this->bucket, $location, DateTimeImmutable::createFromInterface($expiresAt));
+        } catch (Throwable $exception) {
+            throw UnableToGenerateTemporaryUrl::dueToError($path, $exception);
         }
     }
 }

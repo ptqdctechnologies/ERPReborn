@@ -15,17 +15,23 @@ use Illuminate\Support\Facades\Route;
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[START]---
 $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 $varAPIWebToken = 
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NjU5NzM2NDN9.ZDEyOTk3NGI3M2I4YzZmZmRkZTU5OGZjNWRkM2UxMmQzOTVlOWY3OTQwMDJiNTU2Y2NkMDhmMDhiYTA5Njc5MA'
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Njg0ODE1MzR9.ZDkyNmMyOWVhYTU2ZmE3MzQzNGE1NWQyN2M5ZjY3MThjZTlkZGNhMDY4YWI2NDFiYjlkMmJjMjc0MTYzNTcxNA'
     .'';
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
     $varAPIWebToken
     );
+
+\App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_UIComponent(
+    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+    $varAPIWebToken
+    );
+
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[ END ]---
-
-//Programming/WebBackEnd/app/Http/Controllers/Application/BackEnd/System/FileHandling/Engines/upload/combined/general/deleteFile/v1/
-
+Route::get('zhtTestAdminLTE', function () {
+    return view('zhtTestAdminLTE');
+    })->middleware('web');
 
 
 // LOGIN
@@ -117,7 +123,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getSite', 'FunctionController@getSite')->name('getSite');
     Route::get('getBudget', 'FunctionController@getBudget')->name('getBudget');
     Route::get('getWorker', 'FunctionController@getWorker')->name('getWorker');
-
+    Route::get('getSupplier', 'FunctionController@getSupplier')->name('getSupplier');
+    Route::get('getDeliverTo', 'FunctionController@getDeliverTo')->name('getDeliverTo');
 
 
 
@@ -184,6 +191,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('StoreValidatePurchaseOrder', 'Purchase\PurchaseOrderController@StoreValidatePurchaseOrder')->name('PurchaseOrder.StoreValidatePurchaseOrder');
     Route::post('StoreValidatePurchaseOrder2', 'Purchase\PurchaseOrderController@StoreValidatePurchaseOrder2')->name('PurchaseOrder.StoreValidatePurchaseOrder2');
     Route::post('StoreValidatePurchaseOrderPrNumber', 'Purchase\PurchaseOrderController@StoreValidatePurchaseOrderPrNumber')->name('PurchaseOrder.StoreValidatePurchaseOrderPrNumber');
+    Route::post('RevisionPurchaseOrder', 'Purchase\PurchaseOrderController@RevisionPurchaseOderIndex')->name('PurchaseOrder.RevisionPurchaseOrder');
+    Route::get('PurchaseOrderListData', 'Purchase\PurchaseOrderController@PurchaseOrderListData')->name('PurchaseOrder.PurchaseOrderListData');
     Route::post('RevisionPurchaseOrder', 'Purchase\PurchaseOrderController@RevisionPurchaseOrder')->name('PurchaseOrder.RevisionPurchaseOrder');
     Route::post('addListCartPurchaseOrder', 'Purchase\PurchaseOrderController@addListCartPurchaseOrder')->name('PurchaseOrder.addListCartPurchaseOrder');
     Route::resource('PurchaseOrder', 'Purchase\PurchaseOrderController');

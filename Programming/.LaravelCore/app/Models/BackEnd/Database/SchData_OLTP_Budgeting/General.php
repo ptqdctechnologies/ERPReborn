@@ -20,6 +20,241 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataEntities_BudgetOwner                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-10-19                                                                                           |
+        | ▪ Creation Date   : 2022-10-19                                                                                           |
+        | ▪ Description     : Get Data Entities - Budget Owner                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysID ► System Record ID                                                                              |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataEntities_BudgetOwner($varUserSession, 
+            string $varIDSet)
+            {
+            try {
+                $varFunctionName='SchData-OLTP-Budgeting.Func_GetDataEntities_BudgetExpenseOwner';
+                $varTemp = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        $varFunctionName,
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varIDSet, 'bigint[]']
+                            ]
+                        )
+                    ); 
+
+                for ($i=0; $i!=count($varTemp['Data']); $i++)
+                    {
+                    $varReturn[$i] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession, 
+                        $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]);
+                    }
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataEntities_CombinedBudget                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-10-19                                                                                           |
+        | ▪ Creation Date   : 2022-10-19                                                                                           |
+        | ▪ Description     : Get Data Entities - Combined Budget                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysID ► System Record ID                                                                              |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataEntities_CombinedBudget($varUserSession, 
+            string $varIDSet)
+            {
+            try {
+                $varFunctionName='SchData-OLTP-Budgeting.Func_GetDataEntities_CombinedBudget';
+                $varTemp = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        $varFunctionName,
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varIDSet, 'bigint[]']
+                            ]
+                        )
+                    ); 
+
+                for ($i=0; $i!=count($varTemp['Data']); $i++)
+                    {
+                    $varReturn[$i] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession, 
+                        $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]);
+                    }
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataEntities_CombinedBudgetSection                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-10-19                                                                                           |
+        | ▪ Creation Date   : 2022-10-19                                                                                           |
+        | ▪ Description     : Get Data Entities - Combined Budget Section                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysID ► System Record ID                                                                              |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataEntities_CombinedBudgetSection($varUserSession, 
+            string $varIDSet)
+            {
+            try {
+                $varFunctionName='SchData-OLTP-Budgeting.Func_GetDataEntities_CombinedBudgetSection';
+                $varTemp = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        $varFunctionName,
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varIDSet, 'bigint[]']
+                            ]
+                        )
+                    ); 
+
+                for ($i=0; $i!=count($varTemp['Data']); $i++)
+                    {
+                    $varReturn[$i] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession, 
+                        $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]);
+                    }
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataEntities_CombinedBudgetSubSectionLevel1                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-10-20                                                                                           |
+        | ▪ Creation Date   : 2022-10-20                                                                                           |
+        | ▪ Description     : Get Data Entities - Combined Budget Sub Section Level 1                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysID ► System Record ID                                                                              |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataEntities_CombinedBudgetSubSectionLevel1($varUserSession, 
+            string $varIDSet)
+            {
+            try {
+                $varFunctionName='SchData-OLTP-Budgeting.Func_GetDataEntities_CombinedBudgetSubSectionLevel1';
+                $varTemp = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        $varFunctionName,
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varIDSet, 'bigint[]']
+                            ]
+                        )
+                    ); 
+
+                for ($i=0; $i!=count($varTemp['Data']); $i++)
+                    {
+                    $varReturn[$i] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession, 
+                        $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]);
+                    }
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataEntities_CombinedBudgetSubSectionLevel2                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-10-20                                                                                           |
+        | ▪ Creation Date   : 2022-10-20                                                                                           |
+        | ▪ Description     : Get Data Entities - Combined Budget Sub Section Level 2                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysID ► System Record ID                                                                              |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataEntities_CombinedBudgetSubSectionLevel2($varUserSession, 
+            string $varIDSet)
+            {
+            try {
+                $varFunctionName='SchData-OLTP-Budgeting.Func_GetDataEntities_CombinedBudgetSubSectionLevel2';
+                $varTemp = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        $varFunctionName,
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varIDSet, 'bigint[]']
+                            ]
+                        )
+                    ); 
+
+                for ($i=0; $i!=count($varTemp['Data']); $i++)
+                    {
+                    $varReturn[$i] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession, 
+                        $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]);
+                    }
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataList_Budget                                                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -30,6 +265,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -76,7 +312,9 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
         |      ▪ (int)    varBudget_RefID ► Budget Reference ID                                                                    |
+        |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -125,7 +363,9 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
         |      ▪ (int)    varBudgetExpenseLine_RefID ► Budget Expense Line Reference ID                                            |
+        |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -174,7 +414,9 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
         |      ▪ (int)    varBudgetExpenseLineCeiling_RefID ► Budget Expense Line Ceiling Reference ID                             |
+        |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -223,6 +465,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -269,7 +512,9 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
         |      ▪ (int)    varBudgetSection_RefID ► Budget Section Reference ID                                                     |
+        |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -318,8 +563,10 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
         |      ▪ (string) varDateTimeTZ ► DateTimeTZ                                                                               |
         |      ▪ (string) varBackwardInterval ► Backward Interval                                                                  |
+        |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -369,6 +616,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -415,6 +663,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
         |      ▪ (int)    varCombinedBudgetOwner_RefID ► Combined Budget Owner ID                                                  |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -433,6 +682,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         [
                             [$varBranchID, 'bigint'],
                             [$varCombinedBudget_RefID, 'bigint'],
+
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
                             [$varFilterStatement, 'varchar'],
@@ -460,6 +710,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
         |      ▪ (int)    varCombinedBudgetOwner_RefID ► Combined Budget Owner ID                                                  |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -478,6 +729,55 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         [
                             [$varBranchID, 'bigint'],
                             [$varCombinedBudgetSection_RefID, 'bigint'],
+
+                            [$varPickStatement, 'varchar'],
+                            [$varSortStatement, 'varchar'],
+                            [$varFilterStatement, 'varchar'],
+                            [$varPagingStatement, 'varchar']
+                        ]
+                        )
+                    );
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_CombinedBudgetSubSectionLevel1                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2022-10-31                                                                                           |
+        | ▪ Last Update     : 2022-10-31                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Sub Seksi Anggaran Gabungan Level 1                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varCombinedBudgetSection_RefID ► Combined Budget Section Reference ID                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_CombinedBudgetSubSectionLevel1($varUserSession, int $varBranchID,
+            int $varCombinedBudgetSection_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-Budgeting.Func_GetDataList_CombinedBudgetSubSectionLevel1',
+                        [
+                            [$varBranchID, 'bigint'],
+
+                            [$varCombinedBudgetSection_RefID, 'bigint'],
+                            
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
                             [$varFilterStatement, 'varchar'],
@@ -542,6 +842,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
         |      ▪ (int)    varBudget_RefID ► Budget Reference ID                                                                    |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -558,6 +859,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         'SchData-OLTP-Budgeting.Func_GetDataPickList_BudgetExpense',
                         [
                             [$varBranchID, 'bigint' ],
+
                             [$varBudget_RefID, 'bigint' ]
                         ]
                         )
@@ -619,6 +921,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
         |      ▪ (int)    varBudgetExpense_RefID ► Budget Expense Reference ID                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -635,6 +938,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         'SchData-OLTP-Budgeting.Func_GetDataPickList_BudgetExpenseLine',
                         [
                             [$varBranchID, 'bigint' ],
+
                             [$varBudgetExpense_RefID, 'bigint' ]
                         ]
                         )
@@ -659,6 +963,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
         |      ▪ (int)    varBudgetExpenseLine_RefID ► Budget Expense Line Reference ID                                            |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -675,6 +980,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         'SchData-OLTP-Budgeting.Func_GetDataPickList_BudgetExpenseLineCeiling',
                         [
                             [$varBranchID, 'bigint' ],
+
                             [$varBudgetExpenseLine_RefID, 'bigint' ]
                         ]
                         )
@@ -699,6 +1005,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
         |      ▪ (int)    varBudgetExpenseLineCeiling_RefID ► Budget Expense Line Ceiling Reference ID                             |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -715,6 +1022,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         'SchData-OLTP-Budgeting.Func_GetDataPickList_BudgetExpenseLineCeilingObjects',
                         [
                             [$varBranchID, 'bigint' ],
+
                             [$varBudgetExpenseLineCeiling_RefID, 'bigint' ]
                         ]
                         )
@@ -766,6 +1074,48 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_CombinedBudgetSection                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2021-10-11                                                                                           |
+        | ▪ Last Update     : 2021-10-11                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Section Anggaran Gabungan                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varCombinedBudget_RefID ► Combined Budget Reference ID                                                   |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_CombinedBudgetSection($varUserSession, int $varBranchID,
+            int $varCombinedBudget_RefID)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-Budgeting.Func_GetDataPickList_CombinedBudgetSection',
+                        [
+                            [$varBranchID, 'bigint' ],
+
+                            [$varCombinedBudget_RefID, 'bigint' ]
+                        ]
+                        )
+                    );
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataPickList_CombinedBudgetSectionDetail                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -776,6 +1126,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
         |      ▪ (int)    varCombinedBudgetSection_RefID ► Combined Budget Section Reference ID                                    |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -792,6 +1143,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         'SchData-OLTP-Budgeting.Func_GetDataPickList_CombinedBudgetSectionDetail',
                         [
                             [$varBranchID, 'bigint' ],
+
                             [$varCombinedBudgetSection_RefID, 'bigint' ]
                         ]
                         )
@@ -806,33 +1158,35 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataPickList_CombinedBudgetSection                                                                |
+        | ▪ Method Name     : getDataPickList_CombinedBudgetSubSectionLevel1                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2021-10-11                                                                                           |
-        | ▪ Last Update     : 2021-10-11                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Pilihan Data Section Anggaran Gabungan                                            |
+        | ▪ Creation Date   : 2022-10-31                                                                                           |
+        | ▪ Last Update     : 2022-10-31                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Sub Section Anggaran Gabungan Level 1                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
-        |      ▪ (int)    varCombinedBudgetOwner_RefID ► Combined Budget Owner Reference ID                                        |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varCombinedBudgetSection_RefID ► Combined Budget Section Reference ID                                    |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataPickList_CombinedBudgetSection($varUserSession, int $varBranchID,
-            int $varCombinedBudgetOwner_RefID)
+        public function getDataPickList_CombinedBudgetSubSectionLevel1($varUserSession, int $varBranchID,
+            int $varCombinedBudgetSection_RefID)
             {
             try {
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetDataPickList_CombinedBudgetSection',
+                        'SchData-OLTP-Budgeting.Func_GetDataPickList_CombinedBudgetSubSectionLevel1',
                         [
                             [$varBranchID, 'bigint' ],
-                            [$varCombinedBudgetOwner_RefID, 'bigint' ]
+
+                            [$varCombinedBudgetSection_RefID, 'bigint' ]
                         ]
                         )
                     );
@@ -856,6 +1210,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
         |      ▪ (int)    varCombinedBudgetSection_RefID ► Combined Budget Section ID                                              |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -873,6 +1228,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         'SchData-OLTP-Budgeting.Func_GetRptFormRsm_CombinedBudgetSectionSegmentedDetail',
                         [
                             [$varBranchID, 'bigint'],
+
                             [$varCombinedBudgetSection_RefID, 'bigint']
                         ]
                         )
@@ -897,6 +1253,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
         |      ▪ (int)    varCombinedBudgetSection_RefID ► Combined Budget Section ID                                              |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -914,6 +1271,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         'SchData-OLTP-Budgeting.Func_GetRptFormRsm_CombinedBudgetSectionUnsegmentedDetail',
                         [
                             [$varBranchID, 'bigint'],
+
                             [$varCombinedBudgetSection_RefID, 'bigint']
                         ]
                         )

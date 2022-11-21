@@ -1741,6 +1741,23 @@ class RoutingRouteTest extends TestCase
         $this->assertSame('taylor', $router->dispatch(Request::create('foo/taylor', 'GET'))->getContent());
     }
 
+    public function testImplicitBindingsWhereScopedBindingsArePrevented()
+    {
+        $router = $this->getRouter();
+
+        $router->get('foo/{test_team}/{user:id}', [
+            'middleware' => SubstituteBindings::class,
+            'uses' => function (RoutingTestTeamWithoutUserModel $testTeam, RoutingTestUserModel $user) {
+                $this->assertInstanceOf(RoutingTestTeamWithoutUserModel::class, $testTeam);
+                $this->assertInstanceOf(RoutingTestUserModel::class, $user);
+
+                return $testTeam->value.'|'.$user->value;
+            },
+        ])->withoutScopedBindings();
+
+        $this->assertSame('1|4', $router->dispatch(Request::create('foo/1/4', 'GET'))->getContent());
+    }
+
     public function testParentChildImplicitBindings()
     {
         $router = $this->getRouter();
@@ -1943,14 +1960,17 @@ class RoutingRouteTest extends TestCase
         $request = Request::create('count', 'GET');
 
         $response = $router->dispatch($request);
-        $this->assertSame(1, (int) $response->getContent());
+        $this->assertSame(1, $response->original['invokedCount']);
+        $this->assertSame(1, $response->original['middlewareInvokedCount']);
 
         $response = $router->dispatch($request);
-        $this->assertSame(2, (int) $response->getContent());
+        $this->assertSame(2, $response->original['invokedCount']);
+        $this->assertSame(2, $response->original['middlewareInvokedCount']);
 
         $request->route()->flushController();
         $response = $router->dispatch($request);
-        $this->assertSame(1, (int) $response->getContent());
+        $this->assertSame(1, $response->original['invokedCount']);
+        $this->assertSame(1, $response->original['middlewareInvokedCount']);
     }
 
     public function testRouteRedirect()
@@ -2505,15 +2525,29 @@ class ActionStub
     }
 }
 
-class ActionCountStub
+class ActionCountStub extends Controller
 {
-    protected $count = 0;
+    protected $middlewareInvokedCount = 0;
+
+    protected $invokedCount = 0;
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->middlewareInvokedCount++;
+
+            return $next($request);
+        });
+    }
 
     public function __invoke()
     {
-        $this->count++;
+        $this->invokedCount++;
 
-        return $this->count;
+        return [
+            'invokedCount' => $this->invokedCount,
+            'middlewareInvokedCount' => $this->middlewareInvokedCount,
+        ];
     }
 }
 

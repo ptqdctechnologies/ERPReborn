@@ -43,8 +43,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2022-10-07                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2022-11-15                                                                                           |
         | ▪ Creation Date   : 2022-01-14                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -72,7 +72,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                             \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
 
                             $varData['entities']['personBusinessTripSequence_RefID'],
-                            $varData['entities']['businessTripCostComponent_RefID'],
+                            $varData['entities']['businessTripCostComponentEntity_RefID'],
                             $varData['entities']['amountCurrency_RefID'],
                             $varData['entities']['amountCurrencyValue'],
                             $varData['entities']['amountCurrencyExchangeRate'],

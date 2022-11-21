@@ -96,8 +96,10 @@ class Builder implements BuilderContract
         'count',
         'dd',
         'doesntExist',
+        'doesntExistOr',
         'dump',
         'exists',
+        'existsOr',
         'explain',
         'getBindings',
         'getConnection',
@@ -110,6 +112,7 @@ class Builder implements BuilderContract
         'max',
         'min',
         'raw',
+        'rawValue',
         'sum',
         'toSql',
     ];

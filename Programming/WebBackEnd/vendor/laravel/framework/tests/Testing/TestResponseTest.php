@@ -211,6 +211,29 @@ class TestResponseTest extends TestCase
         $response->assertViewMissing('foo.baz');
     }
 
+    public function testAssertContent()
+    {
+        $response = $this->makeMockResponse([
+            'render' => 'expected response data',
+        ]);
+
+        $response->assertContent('expected response data');
+
+        try {
+            $response->assertContent('expected');
+            $this->fail('xxxx');
+        } catch (AssertionFailedError $e) {
+            $this->assertSame('Failed asserting that two strings are identical.', $e->getMessage());
+        }
+
+        try {
+            $response->assertContent('expected response data with extra');
+            $this->fail('xxxx');
+        } catch (AssertionFailedError $e) {
+            $this->assertSame('Failed asserting that two strings are identical.', $e->getMessage());
+        }
+    }
+
     public function testAssertSee()
     {
         $response = $this->makeMockResponse([
@@ -555,6 +578,18 @@ class TestResponseTest extends TestCase
 
         $response = TestResponse::fromBaseResponse($baseResponse);
         $response->assertUnprocessable();
+    }
+
+    public function testAssertServerError()
+    {
+        $statusCode = 500;
+
+        $baseResponse = tap(new Response, function ($response) use ($statusCode) {
+            $response->setStatusCode($statusCode);
+        });
+
+        $response = TestResponse::fromBaseResponse($baseResponse);
+        $response->assertServerError();
     }
 
     public function testAssertNoContentAsserts204StatusCodeByDefault()
@@ -1803,8 +1838,6 @@ class TestResponseTest extends TestCase
 
     public function testAssertSessionHasNoErrors()
     {
-        $this->expectException(AssertionFailedError::class);
-
         app()->instance('session.store', $store = new Store('test-session', new ArraySessionHandler(1)));
 
         $store->put('errors', $errorBag = new ViewErrorBag);
@@ -1815,9 +1848,20 @@ class TestResponseTest extends TestCase
             ],
         ]));
 
+        $errorBag->put('some-other-bag', new MessageBag([
+            'bar' => [
+                'bar is required',
+            ],
+        ]));
+
         $response = TestResponse::fromBaseResponse(new Response());
 
-        $response->assertSessionHasNoErrors();
+        try {
+            $response->assertSessionHasNoErrors();
+        } catch (AssertionFailedError $e) {
+            $this->assertStringContainsString('foo is required', $e->getMessage());
+            $this->assertStringContainsString('bar is required', $e->getMessage());
+        }
     }
 
     public function testAssertSessionHas()

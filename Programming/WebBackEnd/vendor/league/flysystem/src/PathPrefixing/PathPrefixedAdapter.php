@@ -2,7 +2,10 @@
 
 namespace League\Flysystem\PathPrefixing;
 
+use DateTimeInterface;
 use Generator;
+use League\Flysystem\CalculateChecksumFromStream;
+use League\Flysystem\ChecksumProvider;
 use League\Flysystem\Config;
 use League\Flysystem\FileAttributes;
 use League\Flysystem\FilesystemAdapter;
@@ -14,26 +17,28 @@ use League\Flysystem\UnableToCreateDirectory;
 use League\Flysystem\UnableToDeleteDirectory;
 use League\Flysystem\UnableToDeleteFile;
 use League\Flysystem\UnableToGeneratePublicUrl;
+use League\Flysystem\UnableToGenerateTemporaryUrl;
 use League\Flysystem\UnableToMoveFile;
 use League\Flysystem\UnableToReadFile;
 use League\Flysystem\UnableToRetrieveMetadata;
 use League\Flysystem\UnableToSetVisibility;
 use League\Flysystem\UnableToWriteFile;
 use League\Flysystem\UrlGeneration\PublicUrlGenerator;
+use League\Flysystem\UrlGeneration\TemporaryUrlGenerator;
 use Throwable;
 
-class PathPrefixedAdapter implements FilesystemAdapter, PublicUrlGenerator
+class PathPrefixedAdapter implements FilesystemAdapter, PublicUrlGenerator, ChecksumProvider, TemporaryUrlGenerator
 {
-    protected FilesystemAdapter $adapter;
+    use CalculateChecksumFromStream;
+
     private PathPrefixer $prefix;
 
-    public function __construct(FilesystemAdapter $adapter, string $prefix)
+    public function __construct(private FilesystemAdapter $adapter, string $prefix)
     {
         if ($prefix === '') {
             throw new \InvalidArgumentException('The prefix must not be empty.');
         }
 
-        $this->adapter = $adapter;
         $this->prefix = new PathPrefixer($prefix);
     }
 
@@ -195,5 +200,23 @@ class PathPrefixedAdapter implements FilesystemAdapter, PublicUrlGenerator
         }
 
         return $this->adapter->publicUrl($this->prefix->prefixPath($path), $config);
+    }
+
+    public function checksum(string $path, Config $config): string
+    {
+        if ($this->adapter instanceof ChecksumProvider) {
+            return $this->adapter->checksum($path, $config);
+        }
+
+        return $this->calculateChecksumFromStream($path, $config);
+    }
+
+    public function temporaryUrl(string $path, DateTimeInterface $expiresAt, Config $config): string
+    {
+        if ( ! $this->adapter instanceof TemporaryUrlGenerator) {
+            throw UnableToGenerateTemporaryUrl::noGeneratorConfigured($path);
+        }
+
+        return $this->adapter->temporaryUrl($path, $expiresAt, $config);
     }
 }

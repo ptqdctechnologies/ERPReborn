@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace League\Flysystem\GoogleCloudStorage;
 
+use DateTimeInterface;
 use Google\Cloud\Core\Exception\NotFoundException;
 use Google\Cloud\Storage\Bucket;
 use Google\Cloud\Storage\StorageObject;
+use League\Flysystem\ChecksumAlgoIsNotSupported;
+use League\Flysystem\ChecksumProvider;
 use League\Flysystem\Config;
 use League\Flysystem\DirectoryAttributes;
 use League\Flysystem\FileAttributes;
@@ -18,61 +21,50 @@ use League\Flysystem\UnableToCheckFileExistence;
 use League\Flysystem\UnableToCopyFile;
 use League\Flysystem\UnableToDeleteDirectory;
 use League\Flysystem\UnableToDeleteFile;
+use League\Flysystem\UnableToGenerateTemporaryUrl;
 use League\Flysystem\UnableToMoveFile;
+use League\Flysystem\UnableToProvideChecksum;
 use League\Flysystem\UnableToReadFile;
 use League\Flysystem\UnableToRetrieveMetadata;
 use League\Flysystem\UnableToSetVisibility;
 use League\Flysystem\UnableToWriteFile;
 use League\Flysystem\UrlGeneration\PublicUrlGenerator;
+use League\Flysystem\UrlGeneration\TemporaryUrlGenerator;
 use League\Flysystem\Visibility;
 use League\MimeTypeDetection\FinfoMimeTypeDetector;
 use League\MimeTypeDetection\MimeTypeDetector;
+use LogicException;
 use Throwable;
-
 use function array_key_exists;
+use function base64_decode;
+use function bin2hex;
 use function count;
+use function in_array;
 use function rtrim;
 use function sprintf;
 use function strlen;
 
-class GoogleCloudStorageAdapter implements FilesystemAdapter, PublicUrlGenerator
+class GoogleCloudStorageAdapter implements FilesystemAdapter, PublicUrlGenerator, ChecksumProvider, TemporaryUrlGenerator
 {
-    /**
-     * @var Bucket
-     */
-    private $bucket;
+    private PathPrefixer $prefixer;
+    private VisibilityHandler $visibilityHandler;
+    private MimeTypeDetector $mimeTypeDetector;
 
-    /**
-     * @var PathPrefixer
-     */
-    private $prefixer;
-
-    /**
-     * @var VisibilityHandler
-     */
-    private $visibilityHandler;
-
-    /**
-     * @var string
-     */
-    private $defaultVisibility;
-
-    /**
-     * @var MimeTypeDetector
-     */
-    private $mimeTypeDetector;
+    private static array $algoToInfoMap = [
+        'md5' => 'md5Hash',
+        'crc32c' => 'crc32c',
+        'etag' => 'etag',
+    ];
 
     public function __construct(
-        Bucket $bucket,
+        private Bucket $bucket,
         string $prefix = '',
         VisibilityHandler $visibilityHandler = null,
-        string $defaultVisibility = Visibility::PRIVATE,
+        private string $defaultVisibility = Visibility::PRIVATE,
         MimeTypeDetector $mimeTypeDetector = null
     ) {
-        $this->bucket = $bucket;
         $this->prefixer = new PathPrefixer($prefix);
         $this->visibilityHandler = $visibilityHandler ?: new PortableVisibilityHandler();
-        $this->defaultVisibility = $defaultVisibility;
         $this->mimeTypeDetector = $mimeTypeDetector ?: new FinfoMimeTypeDetector();
     }
 
@@ -369,6 +361,38 @@ class GoogleCloudStorageAdapter implements FilesystemAdapter, PublicUrlGenerator
             $this->bucket->object($prefixedSource)->copy($this->bucket, $options);
         } catch (Throwable $previous) {
             throw UnableToCopyFile::fromLocationTo($source, $destination, $previous);
+        }
+    }
+
+    public function checksum(string $path, Config $config): string
+    {
+        $algo = $config->get('checksum_algo', 'md5');
+        $header = static::$algoToInfoMap[$algo] ?? null;
+
+        if ($header === null) {
+            throw new ChecksumAlgoIsNotSupported();
+        }
+
+        $prefixedPath = $this->prefixer->prefixPath($path);
+
+        try {
+            $checksum = $this->bucket->object($prefixedPath)->info()[$header]
+                ?? throw new LogicException("Header not present: $header");
+        } catch (Throwable $exception) {
+            throw new UnableToProvideChecksum($exception->getMessage(), $path);
+        }
+
+        return bin2hex(base64_decode($checksum));
+    }
+
+    public function temporaryUrl(string $path, DateTimeInterface $expiresAt, Config $config): string
+    {
+        $location = $this->prefixer->prefixPath($path);
+
+        try {
+            return $this->bucket->object($location)->signedUrl($expiresAt, $config->get('gcp_signing_options', []));
+        } catch (Throwable $exception) {
+            throw UnableToGenerateTemporaryUrl::dueToError($path, $exception);
         }
     }
 }

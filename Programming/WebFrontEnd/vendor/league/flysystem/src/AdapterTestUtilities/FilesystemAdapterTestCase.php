@@ -4,25 +4,28 @@ declare(strict_types=1);
 
 namespace League\Flysystem\AdapterTestUtilities;
 
+use DateInterval;
+use DateTimeImmutable;
 use Generator;
+use League\Flysystem\ChecksumProvider;
 use League\Flysystem\Config;
 use League\Flysystem\DirectoryAttributes;
 use League\Flysystem\FileAttributes;
 use League\Flysystem\FilesystemAdapter;
 use League\Flysystem\StorageAttributes;
 use League\Flysystem\UnableToMoveFile;
+use League\Flysystem\UnableToProvideChecksum;
 use League\Flysystem\UnableToReadFile;
 use League\Flysystem\UnableToRetrieveMetadata;
 use League\Flysystem\UnableToSetVisibility;
 use League\Flysystem\UrlGeneration\PublicUrlGenerator;
+use League\Flysystem\UrlGeneration\TemporaryUrlGenerator;
 use League\Flysystem\Visibility;
 use PHPUnit\Framework\TestCase;
 use Throwable;
-
 use function file_get_contents;
 use function is_resource;
 use function iterator_to_array;
-
 use const PHP_EOL;
 
 /**
@@ -791,5 +794,75 @@ abstract class FilesystemAdapterTestCase extends TestCase
         $contents = file_get_contents($url);
 
         self::assertEquals('public contents', $contents);
+    }
+
+    /**
+     * @test
+     */
+    public function generating_a_temporary_url(): void
+    {
+        $adapter = $this->adapter();
+
+        if ( ! $adapter instanceof TemporaryUrlGenerator) {
+            $this->markTestSkipped('Adapter does not supply temporary URls');
+        }
+
+        $adapter->write('some/private.txt', 'public contents', new Config(['visibility' => 'private']));
+
+        $expiresAt = (new DateTimeImmutable())->add(DateInterval::createFromDateString('1 minute'));
+        $url = $adapter->temporaryUrl('some/private.txt', $expiresAt, new Config());
+        $contents = file_get_contents($url);
+
+        self::assertEquals('public contents', $contents);
+    }
+
+    /**
+     * @test
+     */
+    public function get_checksum(): void
+    {
+        $adapter = $this->adapter();
+
+        if ( ! $adapter instanceof ChecksumProvider) {
+            $this->markTestSkipped('Adapter does not supply providing checksums');
+        }
+
+        $adapter->write('path.txt', 'foobar', new Config());
+
+        $this->assertSame('3858f62230ac3c915f300c664312c63f', $adapter->checksum('path.txt', new Config()));
+    }
+
+    /**
+     * @test
+     */
+    public function cannot_get_checksum_for_non_existent_file(): void
+    {
+        $adapter = $this->adapter();
+
+        if ( ! $adapter instanceof ChecksumProvider) {
+            $this->markTestSkipped('Adapter does not supply providing checksums');
+        }
+
+        $this->expectException(UnableToProvideChecksum::class);
+
+        $adapter->checksum('path.txt', new Config());
+    }
+
+    /**
+     * @test
+     */
+    public function cannot_get_checksum_for_directory(): void
+    {
+        $adapter = $this->adapter();
+
+        if ( ! $adapter instanceof ChecksumProvider) {
+            $this->markTestSkipped('Adapter does not supply providing checksums');
+        }
+
+        $adapter->createDirectory('dir', new Config());
+
+        $this->expectException(UnableToProvideChecksum::class);
+
+        $adapter->checksum('dir', new Config());
     }
 }

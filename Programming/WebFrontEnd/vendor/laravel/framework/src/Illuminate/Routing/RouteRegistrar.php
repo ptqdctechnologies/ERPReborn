@@ -26,6 +26,7 @@ use InvalidArgumentException;
  * @method \Illuminate\Routing\RouteRegistrar scopeBindings()
  * @method \Illuminate\Routing\RouteRegistrar where(array $where)
  * @method \Illuminate\Routing\RouteRegistrar withoutMiddleware(array|string $middleware)
+ * @method \Illuminate\Routing\RouteRegistrar withoutScopedBindings()
  */
 class RouteRegistrar
 {
@@ -158,11 +159,13 @@ class RouteRegistrar
      * Create a route group with shared attributes.
      *
      * @param  \Closure|string  $callback
-     * @return void
+     * @return $this
      */
     public function group($callback)
     {
         $this->router->group($this->attributes, $callback);
+
+        return $this;
     }
 
     /**
