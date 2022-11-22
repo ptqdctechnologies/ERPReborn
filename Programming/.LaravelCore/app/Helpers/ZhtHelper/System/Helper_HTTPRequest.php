@@ -160,6 +160,7 @@ namespace App\Helpers\ZhtHelper\System
                     $ObjClient = new \GuzzleHttp\Client();
                     try {
 //dd($varURL);
+//dd(json_encode($varData, true));
                         $varResponse = $ObjClient->request(
                             $varMethod,
                             $varURL,

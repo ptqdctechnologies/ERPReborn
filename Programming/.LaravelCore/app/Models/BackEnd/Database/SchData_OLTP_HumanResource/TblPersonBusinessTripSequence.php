@@ -43,8 +43,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-10-10                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2022-11-22                                                                                           |
         | ▪ Creation Date   : 2020-09-14                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -60,6 +60,9 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Person Reference ID                                     |
         |      ▪ (string) varStartDateTimeTZ ► Start DateTimeTZ                                                                    |
         |      ▪ (string) varFinishDateTimeTZ ► Finish DateTimeTZ                                                                  |
+        |      ▪ (int)    varBusinessTripAccommodationArrangementsType_RefID ► Business Trip Accommodation Arrangements Type       |
+        |                                                                      Reference ID                                        |
+        |      ▪ (array)  varBusinessTripTransportationType_RefIDArray ► Business Trip Transportation Type Reference ID Array      |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
@@ -70,7 +73,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varPersonBusinessTrip_RefID = null, int $varSequence = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, string $varRemarks = null,
+            int $varPersonBusinessTrip_RefID = null, int $varSequence = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, $varBusinessTripAccommodationArrangementsType_RefID = null, array $varBusinessTripTransportationType_RefIDArray = [], string $varRemarks = null,
             array $varAdditionalData = [])
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -91,6 +94,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
                         [$varStartDateTimeTZ, 'timestamptz'],
                         [$varFinishDateTimeTZ, 'timestamptz'],
+                        [$varBusinessTripAccommodationArrangementsType_RefID, 'bigint'],
+                        [$varBusinessTripTransportationType_RefIDArray, 'bigint[]'],
                         [$varRemarks, 'varchar'],
 
                         [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
@@ -105,8 +110,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-10-10                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2022-11-22                                                                                           |
         | ▪ Creation Date   : 2020-09-14                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -123,6 +128,9 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Person Reference ID                                     |
         |      ▪ (string) varStartDateTimeTZ ► Start DateTimeTZ                                                                    |
         |      ▪ (string) varFinishDateTimeTZ ► Finish DateTimeTZ                                                                  |
+        |      ▪ (int)    varBusinessTripAccommodationArrangementsType_RefID ► Business Trip Accommodation Arrangements Type       |
+        |                                                                      Reference ID                                        |
+        |      ▪ (array)  varBusinessTripTransportationType_RefIDArray ► Business Trip Transportation Type Reference ID Array      |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
@@ -133,7 +141,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varPersonBusinessTrip_RefID = null, int $varSequence = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, string $varRemarks = null,
+            int $varPersonBusinessTrip_RefID = null, int $varSequence = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, $varBusinessTripAccommodationArrangementsType_RefID = null, array $varBusinessTripTransportationType_RefIDArray = [], string $varRemarks = null,
             array $varAdditionalData = [])
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -154,6 +162,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
                         [$varStartDateTimeTZ, 'timestamptz'],
                         [$varFinishDateTimeTZ, 'timestamptz'],
+                        [$varBusinessTripAccommodationArrangementsType_RefID, 'bigint'],
+                        [$varBusinessTripTransportationType_RefIDArray, 'bigint[]'],
                         [$varRemarks, 'varchar'],
 
                         [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']

@@ -160,14 +160,14 @@ namespace App\Helpers\ZhtHelper\Database
                             {
                             $varSQL .= ", ";
                             }
-                        if((strcmp(substr($varData[$i][0], 0, 1), '(')==0)&&(strcmp(substr($varData[$i][0], strlen($varData[$i][0])-1, 1), ')')==0))
+                        if((is_array($varData[$i][0])==FALSE) && (strcmp(substr($varData[$i][0], 0, 1), '(')==0) && (strcmp(substr($varData[$i][0], strlen($varData[$i][0])-1, 1), ')')==0))
                             {
                             $varSQL .= $varData[$i][0]."::".$varData[$i][1];
                             }
-                        elseif(in_array(strtoupper($varData[$i][0]), $varSpecialKeyword)) 
+                        elseif((is_array($varData[$i][0])==FALSE) && (in_array(strtoupper($varData[$i][0]), $varSpecialKeyword))) 
                             { 
                             $varSQL .= $varData[$i][0]."::".$varData[$i][1];
-                            } 
+                            }
                         else
                             {
                             switch($varData[$i][1])
@@ -184,7 +184,22 @@ namespace App\Helpers\ZhtHelper\Database
                                     }
                                 case 'bigint[]':
                                     {
-                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::bigint[]";
+                                    if(is_array($varData[$i][0])==FALSE)
+                                        {
+                                        $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::bigint[]";                                
+                                        }
+                                    else
+                                        {
+                                        $varSQL .= "'{";
+                                        for($j=0, $jMax=count($varData[$i][0]); $j!=$jMax; $j++)
+                                            {
+                                            if($j>0) {
+                                                $varSQL .= ", ";                                        
+                                                }
+                                            $varSQL .= $varData[$i][0][$j];
+                                            }
+                                        $varSQL .= "}'::bigint[]";
+                                        }
                                     break;
                                     }
                                 case 'boolean':
@@ -271,6 +286,7 @@ namespace App\Helpers\ZhtHelper\Database
                         }
                     //--->
                     $varSQL .= ");";
+//dd($varSQL);
                     
                     $varReturn = $varSQL;
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
