@@ -65,6 +65,17 @@
                         "minLength": 10,
                         "maxLength": 30
                         },
+                    "businessTripAccommodationArrangementsType_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                    "businessTripTransportationType_RefIDArray": {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                            }
+                        },
                     "remarks": {
                         "type": [ "string", "null" ],
                         "minLength": 1,
@@ -138,6 +149,8 @@
                     "requesterWorkerJobsPosition_RefID", 
                     "startDateTimeTZ", 
                     "finishDateTimeTZ", 
+                    "businessTripAccommodationArrangementsType_RefID", 
+                    "businessTripTransportationType_RefIDArray", 
                     "remarks" 
                     ]
                 }

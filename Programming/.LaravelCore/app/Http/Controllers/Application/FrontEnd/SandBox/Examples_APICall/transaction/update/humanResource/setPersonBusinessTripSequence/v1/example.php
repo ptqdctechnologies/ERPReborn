@@ -23,7 +23,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                       transaction.update.humanResource.setPersonBusinessTripSequence.v1_throughAPIGateway                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2022-11-15                                                                                           |
+        | ▪ Last Update     : 2022-11-24                                                                                           |
         | ▪ Creation Date   : 2022-10-10                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -47,6 +47,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     "requesterWorkerJobsPosition_RefID" => 164000000000497,
                     "startDateTimeTZ" => '2022-10-10',
                     "finishDateTimeTZ" => '2022-10-14',
+                    "businessTripAccommodationArrangementsType_RefID" => 219000000000002,
+                    "businessTripTransportationType_RefIDArray" => [
+                        220000000000011, 
+                        220000000000005
+                        ],
                     "remarks" => 'Catatan',
                     "additionalData" => [
                         "itemList" => [
@@ -62,7 +67,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     ],
                                     [
                                     "entities" => [
-                                        "businessTripCostComponentEntity_RefID" => 81000000000002,
+                                        "businessTripCostComponentEntity_RefID" => 221000000000020,
                                         "amountCurrency_RefID" => 62000000000001,
                                         "amountCurrencyValue" => 40000,
                                         "amountCurrencyExchangeRate" => 1,

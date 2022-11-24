@@ -43,8 +43,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-10-07                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2022-11-24                                                                                           |
         | ▪ Creation Date   : 2020-09-14                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -56,7 +56,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varPersonBusinessTripSequence_RefID ► Person Business Trip Sequence Reference ID                         |
-        |      ▪ (int)    varBusinessTripCostComponent_RefID ► Business Trip Cost Component Reference ID                           |
+        |      ▪ (int)    varBusinessTripCostComponentEntity_RefID ► Business Trip Cost Component Entity Reference ID              |
         |      ▪ (int)    varAmountCurrency_RefID ► Amount Currency Reference ID                                                   |
         |      ▪ (float)  varAmountCurrencyValue ► Amount Currency Value                                                           |
         |      ▪ (float)  varAmountCurrencyExchangeRate ► Amount Currency Exchange Rate                                            |
@@ -68,7 +68,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varPersonBusinessTripSequence_RefID = null, int $varBusinessTripCostComponent_RefID = null, int $varAmountCurrency_RefID = null, float $varAmountCurrencyValue = null, float $varAmountCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varPersonBusinessTripSequence_RefID = null, int $varBusinessTripCostComponentEntity_RefID = null, int $varAmountCurrency_RefID = null, float $varAmountCurrencyValue = null, float $varAmountCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -84,7 +84,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [$varSysBaseCurrency_RefID, 'bigint'],
                         
                         [$varPersonBusinessTripSequence_RefID, 'bigint'],
-                        [$varBusinessTripCostComponent_RefID, 'bigint'],
+                        [$varBusinessTripCostComponentEntity_RefID, 'bigint'],
                         [$varAmountCurrency_RefID, 'bigint'],
                         [$varAmountCurrencyValue, 'numeric'],
                         [$varAmountCurrencyExchangeRate, 'numeric'],
@@ -100,8 +100,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-10-07                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2022-11-24                                                                                           |
         | ▪ Creation Date   : 2020-09-14                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -113,7 +113,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varPersonBusinessTripSequence_RefID ► Person Business Trip Sequence Reference ID                         |
-        |      ▪ (int)    varBusinessTripCostComponent_RefID ► Business Trip Cost Component Reference ID                           |
+        |      ▪ (int)    varBusinessTripCostComponentEntity_RefID ► Business Trip Cost Component Entity Reference ID              |
         |      ▪ (int)    varAmountCurrency_RefID ► Amount Currency Reference ID                                                   |
         |      ▪ (float)  varAmountCurrencyValue ► Amount Currency Value                                                           |
         |      ▪ (float)  varAmountCurrencyExchangeRate ► Amount Currency Exchange Rate                                            |
@@ -125,7 +125,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varPersonBusinessTripSequence_RefID = null, int $varBusinessTripCostComponent_RefID = null, int $varAmountCurrency_RefID = null, float $varAmountCurrencyValue = null, float $varAmountCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varPersonBusinessTripSequence_RefID = null, int $varBusinessTripCostComponentEntity_RefID = null, int $varAmountCurrency_RefID = null, float $varAmountCurrencyValue = null, float $varAmountCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -141,7 +141,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [$varSysBaseCurrency_RefID, 'bigint'],
                         
                         [$varPersonBusinessTripSequence_RefID, 'bigint'],
-                        [$varBusinessTripCostComponent_RefID, 'bigint'],
+                        [$varBusinessTripCostComponentEntity_RefID, 'bigint'],
                         [$varAmountCurrency_RefID, 'bigint'],
                         [$varAmountCurrencyValue, 'numeric'],
                         [$varAmountCurrencyExchangeRate, 'numeric'],

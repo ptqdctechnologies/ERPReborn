@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## 3.247.2 - 2022-11-23
+
+* `Aws\ManagedGrafana` - This release includes support for configuring a Grafana workspace to connect to a datasource within a VPC as well as new APIs for configuring Grafana settings.
+* `Aws\RecycleBin` - This release adds support for Rule Lock for Recycle Bin, which allows you to lock retention rules so that they can no longer be modified or deleted.
+
+## 3.247.1 - 2022-11-22
+
+* `Aws\Appflow` - Adding support for Amazon AppFlow to transfer the data to Amazon Redshift databases through Amazon Redshift Data API service. This feature will support the Redshift destination connector on both public and private accessible Amazon Redshift Clusters and Amazon Redshift Serverless.
+* `Aws\EndpointV2` - Fixes #2575
+* `Aws\KinesisAnalyticsV2` - Support for Apache Flink 1.15 in Kinesis Data Analytics.
+
+## 3.247.0 - 2022-11-21
+
+* `Aws\` - Add support for PHP 8.2
+* `Aws\EndpointV2` - Fixes #2572
+* `Aws\Route53` - Amazon Route 53 now supports the Asia Pacific (Hyderabad) Region (ap-south-2) for latency records, geoproximity records, and private DNS for Amazon VPCs in that region.
+
 ## 3.246.0 - 2022-11-18
 
 * `Aws\` - Removes SsmSap, which is to be re-released with an updated service id.
