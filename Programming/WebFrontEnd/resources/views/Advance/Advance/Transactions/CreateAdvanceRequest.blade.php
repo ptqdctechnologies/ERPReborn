@@ -84,13 +84,10 @@
                                 <div class="input-group control-group" style="width:100%;">
 
 
-                                  <!-- <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="91000000000011" readonly="true">
+                                  <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="91000000000011" readonly="true">
                                   <input type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" onchange="javascript: @php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord'); @endphp;" />
                                   <div id="dataShow_MasterFileRecord" style="border-style:solid; border-width:1px;"></div>
                                   <div id="dataShow_ActionPanel" style="border-style:solid; border-width:1px;"></div>
- -->
-
-
 
 
                                   <div class="input-group-btn">

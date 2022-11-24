@@ -29,7 +29,7 @@
         type: "GET",
         url: '{!! route("DeliveryOrder.DeliveryOrderByDorID") !!}?var_recordID=' + var_recordID,
         success: function(data) {
-            $.each(data, function(key, value) {
+            $.each(data.DataAdvanceList, function(key, value) {
                 var html =
                     '<tr>' +
                     '<td style="border:1px solid #e9ecef;width:5%;">' +
@@ -119,12 +119,6 @@
 </script>
 
 <script type="text/javascript">
-   
-   $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
 
     function addFromDetailtoCartJs() {
         
@@ -150,6 +144,12 @@
             $("#note").attr('required', true);
             $("#note").css("border", "1px solid red");
         } else {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            
             $.ajax({
                 type: "POST",
                 url: '{!! route("DeliveryOrder.StoreValidateDeliveryOrder") !!}?putProductId=' + $('#putProductId').val() + '&putWorkId=' + $('#putWorkId').val(),

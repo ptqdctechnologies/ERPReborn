@@ -494,8 +494,8 @@
         $("#totalBalance").val($this.data("id10"));
         $("#budgetRequest").val($this.data("id11").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
-        // $("#totalCostPerProduct").val($this.data("id12").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-        console.log($("#totalCostPerProduct").val());
+        $("#totalCostPerProduct").val($this.data("id12").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        // console.log($("#totalCostPerProduct").val());
 
       
         $("#putSequence").val($this.data("id8"));
