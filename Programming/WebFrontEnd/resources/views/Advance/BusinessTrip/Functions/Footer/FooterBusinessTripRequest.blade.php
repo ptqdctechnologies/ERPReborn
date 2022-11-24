@@ -91,7 +91,7 @@
           }
           var html = '<tr>' +
             '<td style="border:1px solid #e9ecef;width:5%;">' +
-            '&nbsp;&nbsp;<button type="reset" ' + status + ' class="btn btn-sm klikBudgetDetail klikBudgetDetail2' + status + '" data-id0="' + val2.combinedBudgetSubSectionLevel1_RefID + '" data-id1="' + val2.product_RefID + '" data-id2="' + val2.quantityRemain + '" data-id3="' + val2.unitPriceBaseCurrencyValue + '" data-id4="' + val2.sys_ID + '" data-id5="' + val2.productName + '" data-id6="' + val2.quantityUnitName + '" data-id7="' + val2.priceBaseCurrencyISOCode + '" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="15" alt="" title="Add to Detail"></button>' +
+            '&nbsp;&nbsp;<button type="reset" ' + status + ' class="btn btn-sm klikBudgetDetail klikBudgetDetail2' + status + '" data-id0="' + val2.combinedBudgetSubSectionLevel1_RefID + '" data-id1="' + val2.product_RefID + '" data-id2="' + val2.quantityRemain + '" data-id3="' + val2.quantity + '" data-id4="' + val2.unitPriceBaseCurrencyValue + '" data-id5="' + val2.sys_ID + '" data-id6="' + val2.productName + '" data-id7="' + val2.quantityUnitName + '" data-id8="' + val2.priceBaseCurrencyISOCode + '" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="15" alt="" title="Add to Detail"></button>' +
             '</td>' +
             '<td style="border:1px solid #e9ecef;">' +
             '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"> @if('+ applied +' >= '+0+' && '+ applied +' <= '+40+')<div class="progress-bar bg-red" style="width:'+ applied +'%;"></div> @elseif('+ applied +' >= '+41+' && '+ applied +' <= '+89+')<div class="progress-bar bg-blue" style="width:'+ applied +'%;"></div> @elseif('+ applied + ' >= '+ 90 +' && ' + applied + ' <= '+ 100 +')<div class="progress-bar bg-green" style="width:'+ applied +'%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>'+ applied +' %</center></small>' +
@@ -116,13 +116,14 @@
           var $this = $(this);
           var workId = $this.data("id0");
           var productId = $this.data("id1");
-          var qty = $this.data("id2");
-          var price = $this.data("id3");
-          var combinedBudget = $this.data("id4");
-          var productName = $this.data("id5");
-          var uom = $this.data("id6");
-          var currency = $this.data("id7");
-
+          var qtyAvail = $this.data("id2");
+          var qty = $this.data("id3");
+          var price = $this.data("id4");
+          var combinedBudget = $this.data("id5");
+          var productName = $this.data("id6");
+          var uom = $this.data("id7");
+          var currency = $this.data("id8");
+          
           if (productName == "Unspecified Product") {
             $("#putProductId2").prop("disabled", false);
             var putProductName = "";
@@ -140,13 +141,18 @@
           $("#putWorkId").val(workId);
           $("#putProductId").val(productId);
           $("#putProductName").val(putProductName);
-          $("#totalBalance").val(parseFloat(qty * price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+          $("#totalBalance").val(parseFloat(qtyAvail * price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
           $("#brfhide1").show();
           $("#sequenceRequest").val('1');
           $("#statusEditBrf").val('No');
 
           $(".klikBudgetDetail2").prop("disabled", true);
           $(".ActionButton").prop("disabled", true);
+          
+          $("#transportDetails").hide();
+          $("#followingCondition").show();
+          $(".FollowingCondition").show();
+
         });
       }
     });
@@ -168,16 +174,24 @@
 
   function addFromDetailtoCartJs() {
     var totalBalance = $('#totalBalance').val().replace(/,/g, '');
+    var budgetRequest = $('#budgetRequest').val().replace(/,/g, '');
     var varSequenceReq = $('#sequenceRequest').val();
     var varSequence = $('#sequence').val();
     var putProductId = $('#putProductId').val();
-    var putProductId = $('#putProductId').val();
     var putProductName = $('#putProductName').val();
-    
+
+    // var c = $(".totalCostPerProduct").val();
+    // console.log(c);
+
     if(putProductId === ""){
       $("#putProductId").focus();
       $("#putProductId").attr('required', true);
       $("#putProductId").css("border", "1px solid red");
+    }
+    else if(budgetRequest === ""){
+      $("#budgetRequest").focus();
+      $("#budgetRequest").attr('required', true);
+      $("#budgetRequest").css("border", "1px solid red");
     }
     else if (varSequence > varSequenceReq) {
       Swal.fire("Error !", "Total Sequence more than Sequence Request", "error");
@@ -200,16 +214,21 @@
       $("#sequence").val(varLoop);
 
       var varTotal = +allowance + +transport + +airport_tax + +accomodation + +other;
+
+      if($("#totalCostPerProduct").val() == ""){ $("#totalCostPerProduct").val('0'); }
+      var totalCostPerProduct = parseFloat($("#totalCostPerProduct").val().replace(/,/g, ''));
+      $("#totalCostPerProduct").val(parseFloat(+totalCostPerProduct + +varTotal).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+      var totalCostPerProduct = parseFloat($("#totalCostPerProduct").val().replace(/,/g, ''));
       
-      // if($("#totalBrf").html() == ""){ $("#totalBrf").html('0'); }
-      // var totalsBrf = parseFloat($("#totalBrf").html().replace(/,/g, ''));
-      // var totalsBrf2 = parseFloat(+totalsBrf + +varTotal);
+      console.log(totalCostPerProduct);
 
-      if (parseFloat(varTotal) > parseFloat(totalBalance)) {
-
+      if (parseFloat(totalCostPerProduct) > parseFloat(budgetRequest)) {
         Swal.fire("Error !", "Total Budget Request more than Budget", "error");
         var varLoop = $("#sequence").val() - 1;
         $("#sequence").val(varLoop);
+
+        $("#totalCostPerProduct").val(parseFloat(totalCostPerProduct - varTotal).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
       } else { 
 
           if($("#valAllowance").html() == ""){ $("#valAllowance").html('0'); }
@@ -246,6 +265,8 @@
             $('#putProductName').val("");
             $('#sequenceRequest').val("");
             $('#totalBalance').val("");
+            $('#budgetRequest').val("");
+            $('#totalCostPerProduct').val("");
             $('#sequence').val("1");
             $("#sequenceRequest").prop("disabled", false);
             $("#putSequence").val();
@@ -261,7 +282,7 @@
           var html = '<tr>' +
             '<td style="border:1px solid #e9ecef;width:7%;">' +
             // '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveBusinessTrip(this);"  data-id1="' + allowance + '" data-id2="' + transport + '" data-id3="' + airport_tax + '" data-id4="' + accomodation + '" data-id5="' + other + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
-            '&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton " onclick="EditBusinessTrip(this);" data-dismiss="modal" data-id1="' + allowance + '" data-id2="' + transport + '" data-id3="' + airport_tax + '" data-id4="' + accomodation + '" data-id5="' + other + '" data-id6="' + putProductId + '" data-id7="' + putProductName + '" data-id8="' + $("#putSequence").val() + '" data-id9="' + varSequenceReq + '" data-id10="' + totalBalance + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+            '&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton " onclick="EditBusinessTrip(this);" data-dismiss="modal" data-id1="' + allowance + '" data-id2="' + transport + '" data-id3="' + airport_tax + '" data-id4="' + accomodation + '" data-id5="' + other + '" data-id6="' + putProductId + '" data-id7="' + putProductName + '" data-id8="' + $("#putSequence").val() + '" data-id9="' + varSequenceReq + '" data-id10="' + totalBalance + '" data-id11="' + budgetRequest + '" data-id12="' + totalCostPerProduct + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
             '<input type="hidden" name="sequence[]" value="' + sequence + '">' +
             '<input type="hidden" name="allowance[]" value="' + allowance + '">' +
             '<input type="hidden" name="transport[]" value="' + transport + '">' +
@@ -291,6 +312,8 @@
             $('#putProductId').val("");
             $('#putProductName').val("");
             $('#sequenceRequest').val("");
+            $('#budgetRequest').val("");
+            $('#totalCostPerProduct').val("");
             $('#totalBalance').val("");
             $('#sequence').val("1");
             $("#saveBrfList").prop("disabled", false);
@@ -326,6 +349,8 @@
         var sequence = $('#sequence').val();
         var varSequenceReq = $('#sequenceRequest').val().replace(/^\s+|\s+$/g, '');
         var totalBalance = $('#totalBalance').val().replace(/^\s+|\s+$/g, '');
+        var budgetRequest = $('#budgetRequest').val().replace(/,/g, '');
+        var totalCostPerProduct = $('#totalCostPerProduct').val().replace(/,/g, '');
         var putSequence = $("#putSequence").val();
         var statusEditBrf = $("#statusEditBrf").val();
         
@@ -345,7 +370,7 @@
           var html = '<tr>' +
           '<td style="border:1px solid #e9ecef;width:7%;">' +
           // '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveBusinessTrip(this);"  data-id1="' + allowance + '" data-id2="' + transport + '" data-id3="' + airport_tax + '" data-id4="' + accomodation + '" data-id5="' + other + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
-          '&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton " onclick="EditBusinessTrip(this);" data-dismiss="modal" data-id1="' + allowance + '" data-id2="' + transport + '" data-id3="' + airport_tax + '" data-id4="' + accomodation + '" data-id5="' + other + '" data-id6="' + putProductId + '" data-id7="' + putProductName + '" data-id8="' + $("#putSequence").val() + '" data-id9="' + varSequenceReq + '" data-id10="' + totalBalance + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+          '&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton " onclick="EditBusinessTrip(this);" data-dismiss="modal" data-id1="' + allowance + '" data-id2="' + transport + '" data-id3="' + airport_tax + '" data-id4="' + accomodation + '" data-id5="' + other + '" data-id6="' + putProductId + '" data-id7="' + putProductName + '" data-id8="' + $("#putSequence").val() + '" data-id9="' + varSequenceReq + '" data-id10="' + totalBalance + '" data-id11="' + budgetRequest + '" data-id12="' + totalCostPerProduct + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
           '<input type="hidden" name="sequence[]" value="' + sequence + '">' +
           '<input type="hidden" name="allowance[]" value="' + allowance + '">' +
           '<input type="hidden" name="transport[]" value="' + transport + '">' +
@@ -405,6 +430,7 @@
         $("#totalBalance").val("");
         $("#sequence").val("");
         $("#sequenceRequest").val("");
+        $('#budgetRequest').val("");
         $("#putProductId").css("background-color", "#e9ecef");
         $("#putProductName").css("background-color", "#e9ecef");
         $(".ActionButton").prop("disabled", false);
@@ -454,6 +480,7 @@
         document.getElementById("TableBusinessTrip").deleteRow(i);
 
         var $this = $(tr);
+
         $("#allowance").val($this.data("id1"));
         $("#transport").val($this.data("id2"));
         $("#airport_tax").val($this.data("id3"));
@@ -465,7 +492,12 @@
         // $("#sequence").val($this.data("id8"));
         $("#sequenceRequest").val($this.data("id9"));
         $("#totalBalance").val($this.data("id10"));
+        $("#budgetRequest").val($this.data("id11").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
+        // $("#totalCostPerProduct").val($this.data("id12").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        console.log($("#totalCostPerProduct").val());
+
+      
         $("#putSequence").val($this.data("id8"));
 
         allowance = $this.data("id1");
@@ -502,6 +534,13 @@
         var totalSequence = $("#totalSequence").html();
         $("#totalSequence").html(totalSequence - 1);
 
+        console.log($("#totalCostPerProduct").val());
+
+        var totalCostPerProduct = parseFloat($("#totalCostPerProduct").val().replace(/,/g, ''));
+        $("#totalCostPerProduct").val(parseFloat(totalCostPerProduct - varTotalBrf).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+        console.log($("#totalCostPerProduct").val());
+        
         $("#statusEditBrf").val('Yes');
         $("#sequenceRequest").prop("disabled", true);
         $(".klikBudgetDetail2").prop("disabled", true);
@@ -602,9 +641,9 @@
 </script>
 
 
-<!-- <script>
+<script>
     $('document').ready(function() {
-        $('#totalBalance').keyup(function() {
+        $('#budgetRequest').keyup(function() {
 
             var budgetRequest = parseFloat($(this).val().replace(/,/g, ''));
             var totalBalance = parseFloat($('#totalBalance').val().replace(/,/g, ''));
@@ -616,12 +655,12 @@
                 $("#budgetRequest").val(0);
                 $("#budgetRequest").css("border", "1px solid red");
             }  else {
-                $('#totalBalance').val(budgetRequest);
+                // $('#budgetRequest').val(budgetRequest);
                 $("#budgetRequest").css("border", "1px solid #ced4da");
             }
         });
     });
-</script> -->
+</script>
 
 
 <script type="text/javascript">

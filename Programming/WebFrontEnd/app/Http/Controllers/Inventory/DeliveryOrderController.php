@@ -117,29 +117,30 @@ class DeliveryOrderController extends Controller
         return response()->json($varDataAdvanceSettlement['data']);
     }
 
-    public function DeliveryOrderByDorID(Request $request)
+    public function DeliveryOrderByBudgetID(Request $request)
     {
-        $advance_RefID = $request->input('var_recordID');
+        $projectcode = $request->input('projectcode');
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varDataAdvanceList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.finance.getAdvanceDetail',
-            'latest',
-            [
-                'parameter' => [
-                    'advance_RefID' => (int) $advance_RefID,
-                ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
+        $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varAPIWebToken, 
+        'transaction.read.dataList.finance.getAdvance', 
+        'latest', 
+        [
+        'parameter' => null,
+        'SQLStatement' => [
+            'pick' => null,
+            'sort' => null,
+            'filter' => '"CombinedBudget_RefID" = '.$projectcode.'',
+            'paging' => null
             ]
+        ]
         );
-        // dd($varDataAdvanceList);
-        return response()->json($varDataAdvanceList['data']);
+        
+        $compact = [
+            'DataAdvanceRequest' => $varDataAdvanceRequest['data'],
+        ];
+        return response()->json($compact);
     }
 
     public function RevisionDeliveryOrderIndex(Request $request)
@@ -162,6 +163,7 @@ class DeliveryOrderController extends Controller
         $compact = [
             'dataAdvanceRevisions' => $varDataAdvanceRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
             'dataRequester' => $varDataAdvanceRevision['data'][0]['document']['content']['involvedPersons']['requester'],
+            'dataAdvancenumber' => $varDataAdvanceRevision['data'][0]['document']['header']['number'],
             'var_recordID' => $request->searcDoNumberRevisionId,
         ];
         

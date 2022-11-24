@@ -134,7 +134,7 @@
                               &nbsp;<input id="putProductId" style="border-radius:0;" class="form-control" readonly>
                               <div class="input-group-append">
                                 <span style="border-radius:0;" class="input-group-text form-control">
-                                  <a href="#"><i id="product_id2" data-toggle="modal" data-target="#myProductArf" class="fas fa-gift" style="color:grey;"></i></a>
+                                  <a href="#"><i id="product_id2" data-toggle="modal" data-target="#myProduct" class="fas fa-gift" style="color:grey;"></i></a>
                                 </span>
                               </div>
                             </div>
@@ -167,6 +167,7 @@
                             <input id="totalBalance" style="border-radius:0;" type="text" class="form-control" readonly="">
                           </td>
                           <!-- Untuk Validasi -->
+                          <input id="statusProduct" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                           <input id="statusEditPr" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
                           <input id="ValidateQuantity" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                           <input id="ValidatePrice" style="border-radius:0;" type="hidden" class="form-control" readonly="">

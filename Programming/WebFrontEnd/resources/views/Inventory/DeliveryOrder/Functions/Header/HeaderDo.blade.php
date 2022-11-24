@@ -1,100 +1,47 @@
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <label class="card-title">
-                    Add New Delivery Order
-                </label>
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                    </button>
+<div class="card-body">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="form-group">
+        <table>
+          <tr>
+            <td style="padding-top: 5px;"><label>Budget Code</label></td>
+            <td>
+              <div class="input-group" style="width: 70%;">
+                <input id="projectcode" style="border-radius:0;" name="projectcode" class="form-control" readonly>
+                <div class="input-group-append">
+                  <span style="border-radius:0;" class="input-group-text form-control">
+                    <a id="projectcode2" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                  </span>
                 </div>
-            </div>
-            <div class="card-body" id="brfhide5">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <table>
-                                <tr class="budgetDetail">
-                                    <td><label>Transporter</label></td>
-                                    <td>
-                                        <div class="input-group">
-                                            <input name="transporter" id="transporter" style="border-radius:0;" type="text" class="form-control" disabled>
-                                            <div class="input-group-append">
-                                                <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a href="#" id="transporter2" data-toggle="modal" data-target="#myTransporter" class="myTransporter"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><label><strong> Transporter Detail</strong></label></td>
-                                </tr>
-                                <tr class="budgetDetail">
-                                    <td><label>Trans. Address</label></td>
-                                    <td>
-                                        <div class="input-group">
-                                            <textarea id="address" name="address" style="border-radius:0;" class="form-control"></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <table>
-                                <tr>
-                                    <td><label>Trans. Phone</label></td>
-                                    <td>
-                                        <div class="input-group">
-                                            <input id="phone" name="phone" style="border-radius:0;" type="number" class="form-control">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="budgetDetail">
-                                    <td><label>Trans. Fax</label></td>
-                                    <td>
-                                        <div class="input-group">
-                                            <input id="fax" name="fax" style="border-radius:0;" type="number" class="form-control">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="budgetDetail">
-                                    <td><label>Trans. Contact Person</label></td>
-                                    <td>
-                                        <div class="input-group">
-                                            <input id="contact_person" name="contact_person" style="border-radius:0;" type="number" class="form-control">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="budgetDetail">
-                                    <td><label>Trans. Handphone</label></td>
-                                    <td>
-                                        <div class="input-group">
-                                            <input id="handphone" name="handphone" style="border-radius:0;" type="number" class="form-control">
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                            <div style="padding-right:10px;padding-top:10px;">
-
-                                <a class="btn btn-default btn-sm float-right cancelDetailArf" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
-                                    <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel"> Cancel
-                                </a>
-                                <!-- <a class="btn btn-default btn-sm float-right cancelDetailArf" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
-                                    <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Reset"> Reset
-                                </a> -->
-                                <a class="btn btn-default btn-sm float-right" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;" data-toggle="modal" data-target="#mySearchDor" id="searchDor">
-                                    <img src="{{ asset('AdminLTE-master/dist/img/search.png') }}" width="13" alt="" title="Search"> Search DOR
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+              </div>
+            </td>
+            <td>
+              <div class="input-group" style="width: 153%;position:relative;right:38%;">
+                <input id="projectname" style="border-radius:0;" class="form-control" name="projectname" readonly>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <table>
+          <tr>
+            <td style="padding-top: 5px;"><label>PR Number</label></td>
+            <td>
+              <div class="input-group" style="width: 108%;">
+                <input id="pr_number" style="border-radius:0;" name="var_pr_number" class="form-control" readonly>
+                <div class="input-group-append">
+                  <span style="border-radius:0;" class="input-group-text form-control">
+                    <a id="pr_number2" data-toggle="modal" data-target="#mySearchDor  "><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                  </span>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>

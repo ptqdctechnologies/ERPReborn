@@ -11,6 +11,7 @@
         $("#headerPrNumber2").prop("disabled", true);
         $("#pr_number2").prop("disabled", true);
         $("#SubmitDor").prop("disabled", true);
+        // $("#pr_number").css("background-color", "white");
     });
 </script>
 
@@ -93,7 +94,7 @@
                 if($("#TotalDeliveryOrderRequest").html() == ""){
                     $("#TotalDeliveryOrderRequest").html('0');
                 }
-                var TotalDeliveryOrderRequest = parseFloat(value.priceBaseCurrencyValue.replace(/,/g, ''));
+                var TotalDeliveryOrderRequest = parseFloat(value.quantity.replace(/,/g, ''));
                 var TotalDeliveryOrderRequest2 = parseFloat($("#TotalDeliveryOrderRequest").html().replace(/,/g, ''));
                 $("#TotalDeliveryOrderRequest").html(parseFloat(+TotalDeliveryOrderRequest2 + +TotalDeliveryOrderRequest).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
             
@@ -175,7 +176,7 @@
                         if($("#TotalDeliveryOrderRequest").html() == ""){
                             $("#TotalDeliveryOrderRequest").html('0');
                         }
-                        var TotalDeliveryOrderRequest = parseFloat($("#average").val().replace(/,/g, ''));
+                        var TotalDeliveryOrderRequest = parseFloat($("#qtyCek").val().replace(/,/g, ''));
                         var TotalDeliveryOrderRequest2 = parseFloat($("#TotalDeliveryOrderRequest").html().replace(/,/g, ''));
                         $("#TotalDeliveryOrderRequest").html(parseFloat(+TotalDeliveryOrderRequest2 + TotalDeliveryOrderRequest).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
@@ -275,7 +276,7 @@
                         $('table.TableDorCart tbody').append(html);
 
                         var TotalDeliveryOrderRequest = parseFloat($("#TotalDeliveryOrderRequest").html().replace(/,/g, ''));
-                        $("#TotalDeliveryOrderRequest").html(parseFloat(+TotalDeliveryOrderRequest + average).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                        $("#TotalDeliveryOrderRequest").html(parseFloat(+TotalDeliveryOrderRequest + +qtyCek).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
                     }else {
                         Swal.fire("Error !", "Please use edit to update this item !", "error");
@@ -308,6 +309,12 @@
 
         var $this = $(t);
 
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        
         $.ajax({
             type: "POST",
             url: '{!! route("DeliveryOrderRequest.StoreValidateDeliveryOrderRequest2") !!}?putProductId=' + $this.data("id1") + '&putWorkId=' + $this.data("id0"),
@@ -326,9 +333,9 @@
 
         $("#ValidateQuantity").val($this.data("id3"));
 
-        var average = parseFloat($("#average").val().replace(/,/g, ''));
+        var qtyCek = parseFloat($("#qtyCek").val().replace(/,/g, ''));
         var TotalDeliveryOrderRequest = parseFloat($("#TotalDeliveryOrderRequest").html().replace(/,/g, ''));
-        $("#TotalDeliveryOrderRequest").html(parseFloat(TotalDeliveryOrderRequest - average).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        $("#TotalDeliveryOrderRequest").html(parseFloat(TotalDeliveryOrderRequest - qtyCek).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
         $(".AddToDetail2").prop("disabled", true);
         $(".ActionButton").prop("disabled", true);
@@ -364,9 +371,9 @@
 
         $("#ValidateQuantity").val($this.data("id3"));
 
-        var average = parseFloat($("#average").val().replace(/,/g, ''));
+        var qtyCek = parseFloat($("#qtyCek").val().replace(/,/g, ''));
         var TotalDeliveryOrderRequest = parseFloat($("#TotalDeliveryOrderRequest").html().replace(/,/g, ''));
-        $("#TotalDeliveryOrderRequest").html(parseFloat(TotalDeliveryOrderRequest - average).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        $("#TotalDeliveryOrderRequest").html(parseFloat(TotalDeliveryOrderRequest - qtyCek).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
         $(".AddToDetail2").prop("disabled", true);
         $(".ActionButton").prop("disabled", true);
@@ -482,21 +489,19 @@
         $("#FormSubmitDorRevision").on("submit", function(e) { //id of form 
             e.preventDefault();
 
-            var receiver_name = $("#receiver_name").val();
-            var receiver_number = $("#receiver_number").val();
+            var requester_name = $("#requester_name").val();
             var deliver_type = $("#deliver_type").val();
-            $("#receiver_name").css("border", "1px solid #ced4da");
-            $("#receiver_number").css("border", "1px solid #ced4da");
+            $("#requester_name").css("border", "1px solid #ced4da");
             $("#deliver_type").css("border", "1px solid #ced4da");
 
-            if (receiver_name === "") {
-                $("#receiver_name").focus();
-                $("#receiver_name").attr('required', true);
-                $("#receiver_name").css("border", "1px solid red");
-            } else if (receiver_number === "") {
-                $("#receiver_number").focus();
-                $("#receiver_number").attr('required', true);
-                $("#receiver_number").css("border", "1px solid red");
+            if (requester_name === "") {
+                $("#requester_name").focus();
+                $("#requester_name").attr('required', true);
+                $("#requester_name").css("border", "1px solid red");
+            } else if (deliver_type === "") {
+                $("#deliver_type").focus();
+                $("#deliver_type").attr('required', true);
+                $("#deliver_type").css("border", "1px solid red");
             } else if (deliver_type === "") {
                 $("#deliver_type").focus();
                 $("#deliver_type").attr('required', true);

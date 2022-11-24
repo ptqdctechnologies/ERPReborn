@@ -77,15 +77,15 @@
                     <div class="col-md-8">
                         <div class="form-group">
                             <table>
-                                <tr>
-                                    <td><label>Receiver Name</label></td>
-                                    <td>
-                                        <div class="input-group">
-                                            <input id="receiver_name" style="border-radius:0;" name="receiver_name" class="form-control">
-
-                                        </div>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td><label>Requester</label></td>
+                                <td>
+                                    <div class="input-group">
+                                        <input id="requester_id" style="border-radius:0;" name="requester_id" type="hidden" class="form-control">
+                                        <input id="requester_name" style="border-radius:0;" name="requester_name" type="text" class="form-control" readonly>
+                                    </div>
+                                </td>
+                            </tr>
                                 <tr>
                                     <td><label>Deliver Type</label></td>
                                     <td>
@@ -101,21 +101,6 @@
                                     </td>
                                 </tr>
 
-                            </table>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <table>
-                                <tr>
-                                    <td><label>Receiver Number</label></td>
-                                    <td>
-                                        <div class="input-group">
-                                            <input id="receiver_number" style="border-radius:0;" name="receiver_number" class="form-control">
-
-                                        </div>
-                                    </td>
-                                </tr>
                             </table>
                         </div>
                     </div>

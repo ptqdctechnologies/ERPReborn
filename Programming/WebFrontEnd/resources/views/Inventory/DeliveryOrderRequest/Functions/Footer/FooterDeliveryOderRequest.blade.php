@@ -11,6 +11,7 @@
         $("#headerPrNumber2").prop("disabled", true);
         $("#pr_number2").prop("disabled", true);
         $("#SubmitDor").prop("disabled", true);
+        // $("#pr_number").css("background-color", "white");
     });
 </script>
 
@@ -67,47 +68,58 @@
 
         $.ajax({
             type: "POST",
-            url: '{!! route("DeliveryOrderRequest.DeliveryOrderRequestByPrID") !!}?pr_RefID=' + pr_RefID,
+            url: '{!! route("DeliveryOrderRequest.StoreValidateDeliveryOrderRequestRequester") !!}?requester_id=' + requester_RefID + '&requester_name=' + requester_name + '&requester_id2=' + $('#requester_id').val() + '&pr_RefID=' + pr_RefID,
             success: function(data) {
-                $.each(data.varData, function(key, value) {
-                    var html =
-                        '<tr>' +
-                        '<td style="border:1px solid #e9ecef;width:5%;">' +
-                        '&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs AddToDetail AddToDetail2" data-dismiss="modal" data-id0="' + value.combinedBudget_SubSectionLevel1_RefID + '" data-id1="' + pr_number + '" data-id2="' + value.product_RefID + '" data-id3="' + value.productName + '" data-id4="' + value.quantity + '" data-id5="' + value.productUnitPriceCurrencyValue + '" data-id6="' + value.priceBaseCurrencyValue + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="18" alt="" title="Add"></button> ' +
-                        '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' +
-                        '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"><div class="progress-bar bg-red" style="width:50%;"></div><small><center>50 %</center></small></div>' +
-                        '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + pr_number + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + value.product_RefID + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + value.productName + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + value.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + value.productUnitPriceCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + value.priceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
-                        '</tr>';
 
-                    $('table.tablePrDetailDor tbody').append(html);
-                });
+                if (data.status == "200") {
 
-                $("body").on("click", ".AddToDetail", function() {
-                    $("#detailDor").show();
+                    $("#requester_id").val(data.requester_id);
+                    $("#requester_name").val(data.requester_name);
 
-                    var $this = $(this);
-                    $("#putWorkId").val($this.data("id0"));
-                    $("#pr_number_detail").val($this.data("id1"));
-                    $("#putProductId").val($this.data("id2"));
-                    $("#putProductName").val($this.data("id3"));
-                    $("#qtyCek").val($this.data("id4").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-                    $("#putQty").val($this.data("id4"));
-                    $("#priceCek").val($this.data("id5").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-                    $("#putPrice").val($this.data("id5"));
-                    $("#average").val($this.data("id6").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-                    $("#totalBalance").val($this.data("id4").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                    $.each(data.DataDorList, function(key, value) {
+                        var html =
+                            '<tr>' +
+                            '<td style="border:1px solid #e9ecef;width:5%;">' +
+                            '&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs AddToDetail AddToDetail2" data-dismiss="modal" data-id0="' + value.combinedBudget_SubSectionLevel1_RefID + '" data-id1="' + pr_number + '" data-id2="' + value.product_RefID + '" data-id3="' + value.productName + '" data-id4="' + value.quantity + '" data-id5="' + value.productUnitPriceCurrencyValue + '" data-id6="' + value.priceBaseCurrencyValue + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="18" alt="" title="Add"></button> ' +
+                            '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' +
+                            '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"><div class="progress-bar bg-red" style="width:50%;"></div><small><center>50 %</center></small></div>' +
+                            '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + pr_number + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + value.product_RefID + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + value.productName + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + value.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + value.productUnitPriceCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + value.priceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                            '</tr>';
 
-                    $(".AddToDetail2").prop("disabled", true);
-                    $(".ActionButton").prop("disabled", true);
+                        $('table.tablePrDetailDor tbody').append(html);
+                    });
 
-                });
+                    $("body").on("click", ".AddToDetail", function() {
+                        $("#detailDor").show();
+
+                        var $this = $(this);
+                        $("#putWorkId").val($this.data("id0"));
+                        $("#pr_number_detail").val($this.data("id1"));
+                        $("#putProductId").val($this.data("id2"));
+                        $("#putProductName").val($this.data("id3"));
+                        $("#qtyCek").val($this.data("id4").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                        $("#putQty").val($this.data("id4"));
+                        $("#priceCek").val($this.data("id5").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                        $("#putPrice").val($this.data("id5"));
+                        $("#average").val($this.data("id6").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                        $("#totalBalance").val($this.data("id4").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+                        $(".AddToDetail2").prop("disabled", true);
+                        $(".ActionButton").prop("disabled", true);
+
+                    });
+                } else if (data.status == "501") {
+                    Swal.fire("Cancelled", "You have chosen this number !", "error");
+                } else {
+                    Swal.fire("Cancelled", "Please use same requester !", "error");
+                }
             },
         });
     }
@@ -160,13 +172,13 @@
                         if($("#TotalDeliveryOrderRequest").html() == ""){
                             $("#TotalDeliveryOrderRequest").html('0');
                         }
-                        var TotalDeliveryOrderRequest = parseFloat($("#average").val().replace(/,/g, ''));
+                        var TotalDeliveryOrderRequest = parseFloat($("#qtyCek").val().replace(/,/g, ''));
                         var TotalDeliveryOrderRequest2 = parseFloat($("#TotalDeliveryOrderRequest").html().replace(/,/g, ''));
                         $("#TotalDeliveryOrderRequest").html(parseFloat(+TotalDeliveryOrderRequest2 + TotalDeliveryOrderRequest).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
                         var html = '<tr>' +
                             '<td style="border:1px solid #e9ecef;width:7%;">' +
-                            '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveDeliveryOrderRequest(\'' + work_id + '\', \'' + putProductId + '\', \'' + average + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+                            '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveDeliveryOrderRequest(\'' + work_id + '\', \'' + putProductId + '\', \'' + qtyCek + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
                             '&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="EditDeliveryOrderRequest(this)" data-dismiss="modal" data-id0="' + work_id + '" data-id1="' + putProductId + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + priceCek + '" data-id5="' + average + '" data-id6="' + totalBalance + '" data-id7="' + trano + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
                             '<input type="hidden" name="var_putProductId[]" value="' + putProductId + '">' +
                             '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
@@ -243,7 +255,7 @@
 
                         let html = '<tr>' +
                             '<td style="border:1px solid #e9ecef;width:7%;">' +
-                            '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveDeliveryOrderRequest(\'' + work_id + '\', \'' + putProductId + '\', \'' + average + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+                            '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveDeliveryOrderRequest(\'' + work_id + '\', \'' + putProductId + '\', \'' + qtyCek + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
                             '&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="EditDeliveryOrderRequest(this)" data-dismiss="modal" data-id0="' + work_id + '" data-id1="' + putProductId + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + priceCek + '" data-id5="' + average + '" data-id6="' + totalBalance + '" data-id7="' + trano + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
                             '<input type="hidden" name="var_putProductId[]" value="' + putProductId + '">' +
                             '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
@@ -261,7 +273,7 @@
                         $('table.TableDorCart tbody').append(html);
 
                         var TotalDeliveryOrderRequest = parseFloat($("#TotalDeliveryOrderRequest").html().replace(/,/g, ''));
-                        $("#TotalDeliveryOrderRequest").html(parseFloat(+TotalDeliveryOrderRequest + average).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                        $("#TotalDeliveryOrderRequest").html(parseFloat(+TotalDeliveryOrderRequest + +qtyCek).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
                     }else {
                         Swal.fire("Error !", "Please use edit to update this item !", "error");
@@ -290,7 +302,7 @@
 
 <script>
 
-    function RemoveDeliveryOrderRequest(workId, ProductId, average, tr) {
+    function RemoveDeliveryOrderRequest(workId, ProductId, qty, tr) {
         var i = tr.parentNode.parentNode.rowIndex;
         document.getElementById("TableDorCart").deleteRow(i);
         
@@ -299,9 +311,9 @@
             url: '{!! route("DeliveryOrderRequest.StoreValidateDeliveryOrderRequest2") !!}?putProductId=' + ProductId + '&putWorkId=' + workId,
         });
 
-        var average = parseFloat(average.replace(/,/g, ''));
+        var qty = parseFloat(qty.replace(/,/g, ''));
         var TotalDeliveryOrderRequest = parseFloat($("#TotalDeliveryOrderRequest").html().replace(/,/g, ''));
-        $("#TotalDeliveryOrderRequest").html(parseFloat(TotalDeliveryOrderRequest - average).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        $("#TotalDeliveryOrderRequest").html(parseFloat(TotalDeliveryOrderRequest - qty).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
     }
 
 </script>
@@ -331,9 +343,9 @@
 
         $("#ValidateQuantity").val($this.data("id3"));
 
-        var average = parseFloat($("#average").val().replace(/,/g, ''));
+        var qtyCek = parseFloat($("#qtyCek").val().replace(/,/g, ''));
         var TotalDeliveryOrderRequest = parseFloat($("#TotalDeliveryOrderRequest").html().replace(/,/g, ''));
-        $("#TotalDeliveryOrderRequest").html(parseFloat(TotalDeliveryOrderRequest - average).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        $("#TotalDeliveryOrderRequest").html(parseFloat(TotalDeliveryOrderRequest - qtyCek).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
         $(".AddToDetail2").prop("disabled", true);
         $(".ActionButton").prop("disabled", true);
@@ -447,21 +459,15 @@
         $("#FormSubmitDor").on("submit", function(e) { //id of form 
             e.preventDefault();
 
-            var receiver_name = $("#receiver_name").val();
-            var receiver_number = $("#receiver_number").val();
+            var requester_name = $("#requester_name").val();
             var deliver_type = $("#deliver_type").val();
-            $("#receiver_name").css("border", "1px solid #ced4da");
-            $("#receiver_number").css("border", "1px solid #ced4da");
+            $("#requester_name").css("border", "1px solid #ced4da");
             $("#deliver_type").css("border", "1px solid #ced4da");
 
-            if (receiver_name === "") {
-                $("#receiver_name").focus();
-                $("#receiver_name").attr('required', true);
-                $("#receiver_name").css("border", "1px solid red");
-            } else if (receiver_number === "") {
-                $("#receiver_number").focus();
-                $("#receiver_number").attr('required', true);
-                $("#receiver_number").css("border", "1px solid red");
+            if (requester_name === "") {
+                $("#requester_name").focus();
+                $("#requester_name").attr('required', true);
+                $("#requester_name").css("border", "1px solid red");
             } else if (deliver_type === "") {
                 $("#deliver_type").focus();
                 $("#deliver_type").attr('required', true);

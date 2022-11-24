@@ -23,7 +23,45 @@
                 <form method="post" enctype="multipart/form-data" action="{{ route('DeliveryOrder.store') }}" id="FormSubmitDo">
                     @csrf
                     <div class="tab-content p-3" id="nav-tabContent">
-                        @include('Inventory.DeliveryOrder.Functions.Header.HeaderDo')
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                <div class="card-header">
+                                    <label class="card-title">
+                                    Add New Delivery Order
+                                    </label>
+                                    <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                    </button>
+                                    </div>
+                                </div>
+                                    @include('Inventory.DeliveryOrder.Functions.Header.HeaderDo')
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
+                            <div class="row">
+                                <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                    <label class="card-title">
+                                        Transporter Detail
+                                    </label>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                        </button>
+                                    </div>
+                                    </div>
+                                    @include('Inventory.DeliveryOrder.Functions.Header.HeaderDo2')
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                            
                         <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="product-desc-tab">
                             <div class="row">
                                 <div class="col-12">

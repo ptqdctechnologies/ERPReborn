@@ -275,30 +275,18 @@
 </script>
 
 <script>
-
-    function RemoveIsuppCart(putWorkId, ProductId, qty, tr) {
-        var i = tr.parentNode.parentNode.rowIndex;
-        document.getElementById("TableiSuppCart").deleteRow(i);
-        
-        $.ajax({
-            type: "POST",
-            url: '{!! route("iSupp.StoreValidateiSupp2") !!}?putProductId=' + ProductId + '&putWorkId=' + putWorkId,
-        });
-
-        var totalQtyIsupp = parseFloat(qty.replace(/,/g, ''));
-        var TotalISupp = parseFloat($("#TotalISupp").html().replace(/,/g, ''));
-        $("#TotalISupp").html(parseFloat(TotalISupp - totalQtyIsupp).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-    }
-
-</script>
-
-<script>
     function EditiSupp(t) {
         var i = t.parentNode.parentNode.rowIndex;
         document.getElementById("TableiSuppCart").deleteRow(i);
 
         var $this = $(t);
-       
+        
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        
         $.ajax({
             type: "POST",
             url: '{!! route("iSupp.StoreValidateiSupp2") !!}?putProductId=' + $this.data("id1") + '&putWorkId=' + $this.data("id0"),

@@ -25,7 +25,45 @@
                     <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
                     <input id="sitecode" style="border-radius:0;" name="sitecode" class="form-control" type="hidden" value="{{$dataAdvanceRevisions['entities']['combinedBudgetSection_RefID']}}">
                     <div class="tab-content p-3" id="nav-tabContent">
-                        @include('Inventory.DeliveryOrder.Functions.Header.HeaderDoRevision')
+                        
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                <div class="card-header">
+                                    <label class="card-title">
+                                    Delivery Order Revision
+                                    </label>
+                                    <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                    </button>
+                                    </div>
+                                </div>
+                                    @include('Inventory.DeliveryOrder.Functions.Header.HeaderDoRevision')
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
+                            <div class="row">
+                                <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                    <label class="card-title">
+                                        Transporter Detail
+                                    </label>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                        </button>
+                                    </div>
+                                    </div>
+                                    @include('Inventory.DeliveryOrder.Functions.Header.HeaderDoRevision2')
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="product-desc-tab">
                             <div class="row">
                                 <div class="col-12">

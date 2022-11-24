@@ -99,6 +99,7 @@
       $('#tableDoNumber').DataTable();
       $('#tableGetReceive').DataTable();
       $('#tableGetDelivery').DataTable();
+      $('#tableGetProduct').DataTable();
   } );
   </script>
 
