@@ -85,7 +85,7 @@
                 if($("#TotalMaterialReturn").html() == ""){
                     $("#TotalMaterialReturn").html('0');
                 }
-                var TotalMaterialReturn = parseFloat(value.priceBaseCurrencyValue.replace(/,/g, ''));
+                var TotalMaterialReturn = parseFloat(value.quantity.replace(/,/g, ''));
                 var TotalMaterialReturn2 = parseFloat($("#TotalMaterialReturn").html().replace(/,/g, ''));
                 $("#TotalMaterialReturn").html(parseFloat(+TotalMaterialReturn2 + +TotalMaterialReturn).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                 var html =
@@ -169,7 +169,7 @@
             if($("#TotalMaterialReturn").html() == ""){
                 $("#TotalMaterialReturn").html('0');
             }
-            var TotalMaterialReturn = parseFloat($("#totalMret").val().replace(/,/g, ''));
+            var TotalMaterialReturn = parseFloat($("#qtyCek").val().replace(/,/g, ''));
             var TotalMaterialReturn2 = parseFloat($("#TotalMaterialReturn").html().replace(/,/g, ''));
             $("#TotalMaterialReturn").html(parseFloat(+TotalMaterialReturn2 + TotalMaterialReturn).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
@@ -277,7 +277,7 @@
                     $("#statusEditMatRet").val("No");
 
                     var TotalMaterialReturn = parseFloat($("#TotalMaterialReturn").html().replace(/,/g, ''));
-                    $("#TotalMaterialReturn").html(parseFloat(+TotalMaterialReturn + totalMret).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                    $("#TotalMaterialReturn").html(parseFloat(+TotalMaterialReturn + +qtyCek).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                   }else {
                       Swal.fire("Error !", "Please use edit to update this item !", "error");
                   }
@@ -300,31 +300,12 @@
 </script>
 
 <script>
-
-    function RemoveDetailMatRet(putWorkId, putProductId, totalMret, tr) {
-        var i = tr.parentNode.parentNode.rowIndex;
-        document.getElementById("TableMaterialReturn").deleteRow(i);
-        
-        $.ajax({
-          type: "POST",
-          url: '{!! route("MaterialReturn.StoreValidateiMaterialReturn2") !!}?putProductId=' + putProductId + '&putWorkId=' + putWorkId,
-        });
-
-        var totalMret = parseFloat(totalMret.replace(/,/g, ''));
-        var TotalMaterialReturn = parseFloat($("#TotalMaterialReturn").html().replace(/,/g, ''));
-        $("#TotalMaterialReturn").html(parseFloat(TotalMaterialReturn - totalMret).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-    }
-
-</script>
-
-<script>
     function EditMatRet(t) {
         var i = t.parentNode.parentNode.rowIndex;
         document.getElementById("TableMaterialReturn").deleteRow(i);
 
         var $this = $(t);
-        console.log($this.data("id0"));
-        console.log($this.data("id1"));
+        
         $.ajaxSetup({
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -350,7 +331,7 @@
         $("#totalMret").val($this.data("id8"));
         $("#statusEditMatRet").val("Yes");
         
-        var totalMret = parseFloat($("#totalMret").val().replace(/,/g, ''));
+        var totalMret = parseFloat($("#qtyCek").val().replace(/,/g, ''));
         var TotalMaterialReturn = parseFloat($("#TotalMaterialReturn").html().replace(/,/g, ''));
         $("#TotalMaterialReturn").html(parseFloat(TotalMaterialReturn - totalMret).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         

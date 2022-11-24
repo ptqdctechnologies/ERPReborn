@@ -11,6 +11,7 @@ class DeliveryOrderRequestController extends Controller
     public function index(Request $request)
     {
         $request->session()->forget("SessionDeliveryOrderRequest");
+        $request->session()->forget("SessionDeliveryOrderRequestRequester");
         
         $var = 0;
         if (!empty($_GET['var'])) {
@@ -67,6 +68,84 @@ class DeliveryOrderRequestController extends Controller
                 }
             }
         }
+    }
+
+    public function StoreValidateDeliveryOrderRequestRequester(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $tamp = 0;
+        $status = 200;
+        $varDataDorList['data'] = [];
+        $requester_id = $request->input('requester_id');
+        $requester_name = $request->input('requester_name');
+        $requester_id2 = $request->input('requester_id2');
+        $pr_RefID = $request->input('pr_RefID');
+
+        $data = $request->session()->get("SessionDeliveryOrderRequestRequester");
+        if ($request->session()->has("SessionDeliveryOrderRequestRequester")) {
+            for ($i = 0; $i < count($data); $i++) {
+                if ($data[$i] == $pr_RefID) {
+                    $tamp = 1;
+                }
+            }
+            if ($tamp == 0) {
+                if ($requester_id != $requester_id2 && $requester_id2 != "") {
+                    $status = 500;
+                } else {
+
+                    $varDataDorList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken,
+                        'transaction.read.dataList.finance.getAdvanceDetail',
+                        'latest',
+                        [
+                            'parameter' => [
+                                'advance_RefID' => (int) $pr_RefID,
+                            ],
+                            'SQLStatement' => [
+                                'pick' => null,
+                                'sort' => null,
+                                'filter' => null,
+                                'paging' => null
+                            ]
+                        ]
+                    );
+
+                    $request->session()->push("SessionDeliveryOrderRequestRequester", $pr_RefID);
+                }
+            } else {
+                $status = 501;
+            }
+        } else {
+
+            $varDataDorList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.finance.getAdvanceDetail',
+                'latest',
+                [
+                    'parameter' => [
+                        'advance_RefID' => (int) $pr_RefID,
+                    ],
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ]
+            );
+
+            $request->session()->push("SessionDeliveryOrderRequestRequester", $pr_RefID);
+        }
+        $compact = [
+            'status' => $status,
+            'requester_id' => $requester_id,
+            'requester_name' => $requester_name,
+            'DataDorList' => $varDataDorList['data'],
+        ];
+
+        return response()->json($compact);
     }
 
     public function store(Request $request)
@@ -166,39 +245,40 @@ class DeliveryOrderRequestController extends Controller
         return response()->json($compact);
     }
 
-    public function DeliveryOrderRequestByPrID(Request $request)
-    {
-        $pr_RefID = $request->input('pr_RefID');
-        $varAPIWebToken = $request->session()->get('SessionLogin');
+    // public function DeliveryOrderRequestByPrID(Request $request)
+    // {
+    //     $pr_RefID = $request->input('pr_RefID');
+    //     $varAPIWebToken = $request->session()->get('SessionLogin');
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken, 
-        'transaction.read.dataList.finance.getAdvanceDetail',
-        'latest',
-        [
-            'parameter' => [
-                'advance_RefID' => (int) $pr_RefID,
-            ],
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
-            ]
-        ]
-        );
+    //     $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+    //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+    //     $varAPIWebToken, 
+    //     'transaction.read.dataList.finance.getAdvanceDetail',
+    //     'latest',
+    //     [
+    //         'parameter' => [
+    //             'advance_RefID' => (int) $pr_RefID,
+    //         ],
+    //         'SQLStatement' => [
+    //             'pick' => null,
+    //             'sort' => null,
+    //             'filter' => null,
+    //             'paging' => null
+    //         ]
+    //     ]
+    //     );
     
-        $compact = [
-            'varData' => $varData['data'],
-        ];
-        return response()->json($compact);
-    }
+    //     $compact = [
+    //         'varData' => $varData['data'],
+    //     ];
+    //     return response()->json($compact);
+    // }
 
     public function RevisionDeliveryOrderRequestIndex(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionDeliveryOrderRequest");
+        $request->session()->forget("SessionDeliveryOrderRequestRequester");
 
         $varDataAdvanceRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),

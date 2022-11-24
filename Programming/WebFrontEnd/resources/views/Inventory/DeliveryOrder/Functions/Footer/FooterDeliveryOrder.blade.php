@@ -11,20 +11,17 @@
         $("#headerPrNumber2").prop("disabled", true);
         $("#transporter").css("background-color", "white");
         $("#searchDor").prop("disabled", true);
+        $("#pr_number2").prop("disabled", true);
     });
 </script>
 
+
+
 <script>
-    function klikTransporter(code, name, address, phone, fax, contact_person, handphone) {
-        $("#transporter").val(name);
-        $("#address").val(address);
-        $("#phone").val(phone);
-        $("#fax").val(fax);
-        $("#contact_person").val(contact_person);
-        $("#handphone").val(handphone);
-
-
-        $("#searchDor").prop("disabled", false);
+    function klikProject(code, name) {
+        $("#projectcode").val(code);
+        $("#projectname").val(name);
+        $("#pr_number2").prop("disabled", false);
 
         $.ajaxSetup({
             headers: {
@@ -33,29 +30,31 @@
         });
 
         $.ajax({
-        type: 'GET',
-        url: '{!! route("DeliveryOrder.DeliveryOrderListDataDor") !!}',
-        success: function(data) {
-            var no = 1; t = $('#tableSearchDorInDo').DataTable();
-            t.clear();
-            $.each(data, function(key, val) {
-                t.row.add([
-                    '<tbody><tr><td>' + no++ + '</td>',
-                    '<td><span data-dismiss="modal" onclick="klikSearchDorInDo(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.documentNumber + '</span></td>',
-                    '<td><span data-dismiss="modal" onclick="klikSearchDorInDo(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudget_RefID + '</span></td>',
-                    '<td><span data-dismiss="modal" onclick="klikSearchDorInDo(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudgetName + '</span></td>',
-                    '<td><span data-dismiss="modal" onclick="klikSearchDorInDo(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudgetSection_RefID + '</span></td>',
-                    '<td><span data-dismiss="modal" onclick="klikSearchDorInDo(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudgetSectionName + '</td></tr></tbody>'
-                ]).draw();
+            type: 'GET',
+            url: '{!! route("DeliveryOrder.DeliveryOrderByBudgetID") !!}?projectcode=' + $('#projectcode').val(),
+            success: function(data) {
 
-            });
-        }
-    });
+                var no = 1;
+                t = $('#tableSearchDorInDo').DataTable();
+                $.each(data.DataAdvanceRequest, function(key, val) {
+                    t.row.add([
+                        '<tbody><tr><td>' + no++ + '</td>',
+                        '<td><span data-dismiss="modal" onclick="klikPrNumberInDo(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.documentNumber + '</span></td>',
+                        '<td><span data-dismiss="modal" onclick="klikPrNumberInDo(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudget_RefID + '</span></td>',
+                        '<td><span data-dismiss="modal" onclick="klikPrNumberInDo(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudgetName + '</span></td>',
+                        '<td><span data-dismiss="modal" onclick="klikPrNumberInDo(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudgetSection_RefID + '</span></td>',
+                        '<td><span data-dismiss="modal" onclick="klikPrNumberInDo(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudgetSectionName + '</span></td>',
+                    ]).draw();
+
+                });
+            }
+        });
     }
 </script>
 
 <script>
-    function klikSearchDorInDo(id, docNum, reqId, reqName) {
+    function klikPrNumberInDo(id, docNum, reqId, reqName) {
+        alert('dd');
         var var_recordID = id;
         var trano = docNum;
         $("#tableShowHideDo").show();
@@ -68,7 +67,7 @@
 
         $.ajax({
             type: "GET",
-            url: '{!! route("DeliveryOrder.DeliveryOrderByDorID") !!}?var_recordID=' + var_recordID,
+            url: '{!! route("DeliveryOrder.DeliveryOrderByBudgetID") !!}?var_recordID=' + var_recordID,
             success: function(data) {
                 $.each(data, function(key, value) {
                     var html =
@@ -112,6 +111,78 @@
         });
     }
 </script>
+
+<!-- <script>
+    function klikSearchDorInDo(id, docNum, reqId, reqName) {
+        var var_recordID = id;
+        var trano = docNum;
+        $("#tableShowHideDo").show();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: "GET",
+            url: '{!! route("DeliveryOrder.DeliveryOrderByBudgetID") !!}?var_recordID=' + var_recordID,
+            success: function(data) {
+                $.each(data, function(key, value) {
+                    var html =
+                        '<tr>' +
+                        '<td style="border:1px solid #e9ecef;width:5%;">' +
+                        '&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs AddToDetail AddToDetail2" data-dismiss="modal" data-id0="' + trano + '" data-id1="' + value.combinedBudget_SubSectionLevel1_RefID + '" data-id2="' + value.combinedBudget_SubSectionLevel1Name + '" data-id3="' + value.product_RefID + '" data-id4="' + value.productName + '" data-id5="' + value.quantity + '" data-id6="' + value.quantityUnitName + '" data-id7="' + value.priceCurrencyISOCode + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="18" alt="" title="Add"></button> ' +
+                        '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' +
+                        '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"><div class="progress-bar bg-red" style="width:50%;"></div><small><center>50 %</center></small></div>' +
+                        '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + trano + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + value.product_RefID + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + value.productName + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + value.priceCurrencyISOCode + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + value.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                        '</tr>';
+
+                    $('table.TableDorDetail tbody').append(html);
+                });
+
+                $("body").on("click", ".AddToDetail", function() {
+                    $("#detailDo").show();
+
+                    var $this = $(this);
+                    $("#dor_number_detail").val($this.data("id0"));
+                    $("#putWorkId").val($this.data("id1"));
+                    $("#putWorkName").val($this.data("id2"));
+                    $("#putProductId").val($this.data("id3"));
+                    $("#putProductName").val($this.data("id4"));
+                    $("#delivery_type").val($this.data("id5"));
+                    $("#qtyCek").val($this.data("id5").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                    $("#putQty").val($this.data("id5"));
+                    $("#putUom").val($this.data("id6"));
+                    $("#putCurrency").val($this.data("id7"));
+
+                    $(".AddToDetail2").prop("disabled", true);
+                    $(".ActionButton").prop("disabled", true);
+
+                });
+            },
+        });
+    }
+</script> -->
+
+
+<script>
+    function klikTransporter(code, name, address, phone, fax, contact_person, handphone) {
+        $("#transporter").val(name);
+        $("#address").val(address);
+        $("#phone").val(phone);
+        $("#fax").val(fax);
+        $("#contact_person").val(contact_person);
+        $("#handphone").val(handphone);
+    }
+</script>
+
 
 <script type="text/javascript">
    

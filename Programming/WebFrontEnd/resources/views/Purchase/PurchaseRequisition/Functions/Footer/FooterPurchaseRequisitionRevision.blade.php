@@ -413,6 +413,12 @@
 
         var $this = $(t);
 
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        
         $.ajax({
             type: "POST",
             url: '{!! route("PurchaseRequisition.StoreValidatePurchaseRequisition2") !!}?putProductId=' + $this.data("id1") + '&putWorkId=' + $this.data("id0"),

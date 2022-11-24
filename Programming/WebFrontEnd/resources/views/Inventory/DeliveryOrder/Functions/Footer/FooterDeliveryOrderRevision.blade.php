@@ -299,25 +299,6 @@
     }
 </script>
 
-
-<script>
-
-    function RemoveDeliveryOrder(workId, ProductId, totalQty, tr) {
-        var i = tr.parentNode.parentNode.rowIndex;
-        document.getElementById("TableDorCart").deleteRow(i);
-        
-        $.ajax({
-            type: "POST",
-            url: '{!! route("DeliveryOrder.StoreValidateDeliveryOrder2") !!}?putProductId=' + ProductId + '&putWorkId=' + workId,
-        });
-
-        var totalQty = parseFloat(totalQty.replace(/,/g, ''));
-        var TotalDeliveryOrder = parseFloat($("#TotalDeliveryOrder").html().replace(/,/g, ''));
-        $("#TotalDeliveryOrder").html(parseFloat(TotalDeliveryOrder - totalQty).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-    }
-
-</script>
-
 <script>
     function EditDeliveryOrder(t) {
         var i = t.parentNode.parentNode.rowIndex;

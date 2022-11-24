@@ -205,7 +205,6 @@
                         var putPrice = $('#putPrice').val();
                         var combinedBudget = $("#combinedBudget").val();
                         var statusProduct = $("#statusProduct").val();
-                        console.log(statusProduct);
 
                         //TOTAL ADVANCE
                         if($("#TotalAdvance").html() == ""){
@@ -262,6 +261,9 @@
                         $("#qtyCek").attr('required', false);
                         $("#putProductId").attr('required', false);
                         $("#priceCek").attr('required', false);
+                        
+                        $("#putProductId").css("background-color", "#e9ecef");
+                        $("#putProductName").css("background-color", "#e9ecef");
                     } else {
                         Swal.fire("Error !", "Please use edit to update this item !", "error");
                     }
@@ -355,6 +357,8 @@
         $("#putCurrency").val("");
         $("#totalBalance").val("");
         $("#totalArfDetails").val("");
+        $("#putProductId").css("background-color", "#e9ecef");
+        $("#putProductName").css("background-color", "#e9ecef");
     }
 </script>
 

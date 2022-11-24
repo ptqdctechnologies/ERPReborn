@@ -21,7 +21,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- @php $no=1; @endphp -->
                                         <tr>
                                             <td>
                                                 <span class="tag tag-success">
@@ -84,7 +83,7 @@
             var $this = $(this);
             var code = $this.data("id");
             var name = $this.data("name");
-            $("#warehouse1").val(code);
+            $("#headerWarehouse1").val(code);
             $("#headerAddresWarehouse1").val(name);
         });
     });

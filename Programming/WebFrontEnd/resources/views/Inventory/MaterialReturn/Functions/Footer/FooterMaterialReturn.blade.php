@@ -169,13 +169,13 @@
             if($("#TotalMaterialReturn").html() == ""){
                 $("#TotalMaterialReturn").html('0');
             }
-            var TotalMaterialReturn = parseFloat($("#totalMret").val().replace(/,/g, ''));
+            var TotalMaterialReturn = parseFloat($("#qtyCek").val().replace(/,/g, ''));
             var TotalMaterialReturn2 = parseFloat($("#TotalMaterialReturn").html().replace(/,/g, ''));
             $("#TotalMaterialReturn").html(parseFloat(+TotalMaterialReturn2 + TotalMaterialReturn).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
             var html = '<tr>' +
               '<td style="border:1px solid #e9ecef;width:7%;">' +
-              '&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveDetailMatRet(\'' + putWorkId + '\'\'' + putProductId + '\', \'' + totalMret + '\', this);" " style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+              '&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveDetailMatRet(\'' + putWorkId + '\'\'' + putProductId + '\', \'' + qtyCek + '\', this);" " style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
               '&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="EditMatRet(this)" data-dismiss="modal" data-id0="' + putWorkId + '" data-id1="' + putProductId + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + putUom + '" data-id5="' + priceCek + '" data-id6="' + putCurrency + '" data-id7="' + putRemark + '" data-id8="' + totalMret + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
               '<input type="hidden" name="var_putProductId[]" value="' + putProductId + '">' +
               '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
@@ -255,7 +255,7 @@
 
                     var html = '<tr>' +
                       '<td style="border:1px solid #e9ecef;width:7%;">' +
-                      '&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveDetailMatRet((\'' + putWorkId + '\', \'' + putProductId + '\', \'' + totalMret + '\', this);" " style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+                      '&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveDetailMatRet((\'' + putWorkId + '\', \'' + putProductId + '\', \'' + qtyCek + '\', this);" " style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
                       '&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="EditMatRet(this)" data-dismiss="modal" data-id0="' + putWorkId + '" data-id1="' + putProductId + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + putUom + '" data-id5="' + priceCek + '" data-id6="' + putCurrency + '" data-id7="' + putRemark + '" data-id8="' + totalMret + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
                       '<input type="hidden" name="var_putProductId[]" value="' + putProductId + '">' +
                       '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
@@ -279,7 +279,7 @@
                     $("#statusEditMatRet").val("No");
 
                     var TotalMaterialReturn = parseFloat($("#TotalMaterialReturn").html().replace(/,/g, ''));
-                    $("#TotalMaterialReturn").html(parseFloat(+TotalMaterialReturn + totalMret).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                    $("#TotalMaterialReturn").html(parseFloat(+TotalMaterialReturn + +qtyCek).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                   }else {
                       Swal.fire("Error !", "Please use edit to update this item !", "error");
                   }
@@ -303,7 +303,7 @@
 
 <script>
 
-    function RemoveDetailMatRet(putWorkId, putProductId, totalMret, tr) {
+    function RemoveDetailMatRet(putWorkId, putProductId, qty, tr) {
         var i = tr.parentNode.parentNode.rowIndex;
         document.getElementById("TableMaterialReturn").deleteRow(i);
         
@@ -312,9 +312,9 @@
           url: '{!! route("MaterialReturn.StoreValidateiMaterialReturn2") !!}?putProductId=' + putProductId + '&putWorkId=' + putWorkId,
         });
 
-        var totalMret = parseFloat(totalMret.replace(/,/g, ''));
+        var qty = parseFloat(qty.replace(/,/g, ''));
         var TotalMaterialReturn = parseFloat($("#TotalMaterialReturn").html().replace(/,/g, ''));
-        $("#TotalMaterialReturn").html(parseFloat(TotalMaterialReturn - totalMret).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        $("#TotalMaterialReturn").html(parseFloat(TotalMaterialReturn - qty).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
     }
 
 </script>
@@ -345,9 +345,9 @@
         $("#totalMret").val($this.data("id8"));
         $("#statusEditMatRet").val("Yes");
         
-        var totalMret = parseFloat($("#totalMret").val().replace(/,/g, ''));
+        var qty = parseFloat($("#qtyCek").val().replace(/,/g, ''));
         var TotalMaterialReturn = parseFloat($("#TotalMaterialReturn").html().replace(/,/g, ''));
-        $("#TotalMaterialReturn").html(parseFloat(TotalMaterialReturn - totalMret).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        $("#TotalMaterialReturn").html(parseFloat(TotalMaterialReturn - qty).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         
         $(".klikDoDetail2").prop("disabled", true);
         $(".ActionButton").prop("disabled", true);
