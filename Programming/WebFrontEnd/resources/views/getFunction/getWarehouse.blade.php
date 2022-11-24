@@ -21,7 +21,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- @php $no=1; @endphp -->
                                         <tr>
                                             <td>
                                                 <span class="tag tag-success">

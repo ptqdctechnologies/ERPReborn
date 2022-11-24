@@ -82,7 +82,7 @@ class LoginController extends Controller
 
         if ($varData['metadata']['HTTPStatusCode'] == '200') {
             $request->session()->put('SessionLogin', $varAPIWebToken);
-            return redirect('/projectDashboard');
+            return redirect('/dashboard');
         }
         return redirect('/')->with('message', 'Login Failed');
     }

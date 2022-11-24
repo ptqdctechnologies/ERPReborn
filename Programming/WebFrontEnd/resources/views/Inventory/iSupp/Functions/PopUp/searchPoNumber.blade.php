@@ -2,11 +2,11 @@
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <label class="card-title">Choose No Trans</label>
+                <label class="card-title">Select Document</label>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form>
+                <!-- <form>
                     <div class="form-group">
                         <table>
                             <tr>
@@ -18,12 +18,13 @@
                                             <option>PO</option>
                                             <option>POO</option>
                                         </select>
+                                        <br><br><br>
                                     </div>
                                 </td>
                             </tr>
                         </table>
                     </div>
-                </form>
+                </form> -->
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -38,7 +39,8 @@
                                     </thead>
                                     <tbody>
                                         @php $no=1; @endphp
-                                        @for($i = 1; $i < 4; $i++) <tr>
+                                        @for($i = 1; $i < 4; $i++)
+                                        <tr>
                                             <td>
                                                 <span class="tag tag-success">
                                                     <p data-dismiss="modal" class="klikSearchPoNumber" data-id="Q00018{{ $i }}">Q00018{{$i}}</p>
@@ -54,8 +56,8 @@
                                                     <p data-dismiss="modal" class="klikSearchPoNumber" data-id="site_code {{ $i }}" data-name="site_name {{ $i }}">Site Code {{$i}}</p>
                                                 </span>
                                             </td>
-                                            </tr>
-                                            @endfor
+                                        </tr>
+                                        @endfor
                                     </tbody>
                                 </table>
                             </div>
@@ -74,10 +76,11 @@
             var $this = $(this);
             var code = $this.data("id");
             $("#po_number").val(code);
-            $(".projectCodeiSupp").val("143000000000029");
-            $("#projectCodeiSupp2").val("Pengadaan jasa elektrifikasi PI 402 (Kluster KMJ 11, KMJ9, dan KMJ 24) di PT PGE area Kamojang");
-            $("#supplierCodeiSupp").val("VDR2279");
-            $("#supplierCodeiSupp2").val("Infra Media Dinamika");
+            $("#sitecode").val("143000000000300");
+            $(".projectcode").val("143000000000300");
+            $("#projectcode2").val("Pengadaan jasa elektrifikasi PI 402 (Kluster KMJ 11, KMJ9, dan KMJ 24) di PT PGE area Kamojang");
+            $("#supplier_code").val("VDR2279");
+            $("#supplier_code2").val("Infra Media Dinamika");
             $("#netActiSupp").val("");
             $("#addToPoDetail").prop("disabled", false);
         });

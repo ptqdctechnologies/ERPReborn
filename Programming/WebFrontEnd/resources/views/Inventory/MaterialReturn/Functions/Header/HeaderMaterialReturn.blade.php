@@ -23,13 +23,13 @@
                                         <div class="input-group">
                                             <input id="projectcode" style="border-radius:0;" name="projectcode" class="form-control" readonly>
                                             <div class="input-group-append">
-                                            <span style="border-radius:0;" class="input-group-text form-control">
-                                                <a href="#" id="projectcode2" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                                            </span>
+                                                <span style="border-radius:0;" class="input-group-text form-control">
+                                                    <a href="#" id="projectcode2" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                </span>
                                             </div>
                                         </div>
-                                        </td>
-                                        <td>
+                                    </td>
+                                    <td>
                                         <div class="input-group">
                                             <input id="projectname" style="border-radius:0;" class="form-control" name="projectname" readonly>
                                         </div>
@@ -71,13 +71,13 @@
                                         <div class="input-group">
                                             <input id="sitecode" style="border-radius:0;" name="sitecode" class="form-control" readonly>
                                             <div class="input-group-append">
-                                            <span style="border-radius:0;" class="input-group-text form-control">
-                                                <a href="#" id="sitecode2" data-toggle="modal" data-target="#mySiteCode"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                                            </span>
+                                                <span style="border-radius:0;" class="input-group-text form-control">
+                                                    <a href="#" id="sitecode2" data-toggle="modal" data-target="#mySiteCode"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                </span>
                                             </div>
                                         </div>
-                                        </td>
-                                        <td>
+                                    </td>
+                                    <td>
                                         <div class="input-group">
                                             <input id="sitename" style="border-radius:0;" class="form-control" name="sitename" readonly>
                                         </div>
@@ -104,6 +104,11 @@
                                             </div>
                                         </div>
                                     </td>
+                                    <!-- <td>
+                                        <div class="input-group">
+                                            <input id="delivery2" style="border-radius:0;" class="form-control" name="projectname" readonly>
+                                        </div>
+                                    </td> -->
                                 </tr>
                                 <tr>
                                     <td><label>Receive By</label></td>
@@ -117,9 +122,15 @@
                                             </div>
                                         </div>
                                     </td>
+                                    <!-- <td>
+                                        <div class="input-group">
+                                            <input id="receive2" style="border-radius:0;" class="form-control" name="projectname" readonly>
+                                        </div>
+                                    </td> -->
                                 </tr>
                             </table>
                         </div>
+                        <br>
                         <a onclick="ResetMaterialReturn();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
                             <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Reset"> Reset
                         </a>

@@ -18,17 +18,19 @@
             </div>
             @include('Inventory.MaterialReturn.Functions.Menu.MenuMaterialReturn')
             <div class="card" style="position:relative;bottom:10px;">
-                <form method="post" enctype="multipart/form-data" action="{{ route('iSupp.store') }}" id="formSubmitMatRet">
+                <form method="post" enctype="multipart/form-data" action="{{ route('MaterialReturn.update', $var_recordID) }}" id="FormSubmitiSupp">
                     @csrf
+                    @method('PUT')
+                    <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
                     <div class="tab-content p-3" id="nav-tabContent">
-                        @include('Inventory.MaterialReturn.Functions.Header.headerMaterialReturn')
+                        @include('Inventory.MaterialReturn.Functions.Header.HeaderMaterialReturnRevision')
                         <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="product-desc-tab">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="card">
                                         <div class="card-header">
                                             <label class="card-title">
-                                                Delivery Order Detail
+                                            Material Return Detail
                                             </label>
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -36,7 +38,7 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        @include('Inventory.MaterialReturn.Functions.Table.returnDetailDor')
+                                        @include('Inventory.MaterialReturn.Functions.Table.TableDorDetail')
                                     </div>
                                 </div>
                             </div>
@@ -60,6 +62,7 @@
                                         <table class="table text-nowrap table-sm" style="text-align: center;">
                                             <thead>
                                                 <tr>
+                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:15%;border:1px solid #e9ecef;">Work Id</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;width:15%;border:1px solid #e9ecef;">Product Id</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;width:20%;border:1px solid #e9ecef;">Product Name</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;width:10%;border:1px solid #e9ecef;">Qty</th>
@@ -71,49 +74,50 @@
                                             </thead>
                                             <tbody>
                                                 <td style="border:1px solid #e9ecef;">
-                                                    <input id="ProductId" style="border-radius:0;" type="text" class="form-control" readonly="">
+                                                    <input id="putWorkId" style="border-radius:0;" type="text" class="form-control" readonly="">
                                                 </td>
                                                 <td style="border:1px solid #e9ecef;">
-                                                    <input id="ProductName" style="border-radius:0;" type="text" class="form-control" readonly="">
+                                                    <input id="putProductId" style="border-radius:0;" type="text" class="form-control" readonly="">
+                                                </td>
+                                                <td style="border:1px solid #e9ecef;">
+                                                    <input id="putProductName" style="border-radius:0;" type="text" class="form-control" readonly="">
                                                 </td>
                                                 <td style="border:1px solid #e9ecef;">
                                                     <div class="input-group">
-                                                        <input id="Quantity" style="border-radius:0;" type="text" class="form-control ChangeQty">
-                                                        <input id="QuantityHide" style="border-radius:0;" type="hidden" class="form-control">
-                                                        <input id="QuantityHide2" style="border-radius:0;" type="hidden" class="form-control">
+                                                        <input id="qtyCek" style="border-radius:0;" type="text" class="form-control ChangeQty" autocomplete="off" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                                                        <input id="putQty" style="border-radius:0;" type="hidden" class="form-control">
                                                     </div>
                                                 </td>
                                                 <td style="border:1px solid #e9ecef;">
                                                     <div class="input-group">
-                                                        <input readonly id="Uom" style="border-radius:0;" type="text" class="form-control">
+                                                        <input readonly id="putUom" style="border-radius:0;" type="text" class="form-control">
                                                     </div>
                                                 </td>
                                                 <td style="border:1px solid #e9ecef;">
                                                     <div class="input-group">
-                                                        <input id="Price" style="border-radius:0;" type="text" class="form-control" readonly="">
-                                                        <input id="PriceHide" style="border-radius:0;" type="hidden" class="form-control">
+                                                        <input id="priceCek" style="border-radius:0;" type="text" class="form-control" readonly="">
                                                     </div>
                                                 </td>
                                                 <td style="border:1px solid #e9ecef;">
                                                     <div class="input-group">
-                                                        <input readonly id="Currency" style="border-radius:0;" type="text" class="form-control">
+                                                        <input readonly id="putCurrency" style="border-radius:0;" type="text" class="form-control">
                                                     </div>
                                                 </td>
                                                 <td style="border:1px solid #e9ecef;">
-                                                    <input id="Remark" style="border-radius:0;" type="text" class="form-control">
-                                                    <input id="Remark2" style="border-radius:0;" type="hidden" class="form-control">
+                                                    <input id="putRemark" style="border-radius:0;" type="text" class="form-control">
+                                                    <input id="putRemark2" style="border-radius:0;" type="hidden" class="form-control">
                                                 </td>
 
-                                                <input id="WorkId" style="border-radius:0;" type="hidden" class="form-control">
-                                                <input id="WorkName" style="border-radius:0;" type="hidden" class="form-control">
+                                                <input id="ValidateQuantity" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                                                 <input id="statusEditMatRet" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                                                <input id="totalMret" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                                             </tbody>
                                         </table>
                                         <div style="padding-right:10px;padding-top:10px;">
-                                            <a class="btn btn-default btn-sm float-right CancelDetailMatret" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
+                                            <a class="btn btn-default btn-sm float-right" onclick="CancelDetailMatret()" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
                                                 <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel to Add Advance List Cart"> Cancel
                                             </a>
-                                            <a class="btn btn-default btn-sm float-right" id="addFromDetailtoCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                                            <a class="btn btn-default btn-sm float-right" onclick="addFromDetailtoCartJs()" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                                                 <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
                                             </a>
                                         </div>
@@ -137,18 +141,18 @@
                                         </div>
                                     </div>
 
-                                    <div class="card-body table-responsive p-0" id="MaterialReturnList">
-                                        <table class="table text-nowrap TableMaterialReturn table-sm">
+                                    <div class="card-body table-responsive p-0 MaterialReturnList" style="height: 180px;">
+                                        <table class="table text-nowrap table-sm TableMaterialReturn" id="TableMaterialReturn">
                                             <thead>
                                                 <tr>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Action</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Work Id</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Work Name</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Product Id</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Product Name</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Qty</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Uom</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Price</th>
+                                                    <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Total</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Currency</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Description</th>
                                                 </tr>
@@ -156,6 +160,15 @@
                                             <tbody>
 
                                             </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="card-body table-responsive p-0 MaterialReturnList">
+                                        <table class="table table-head-fixed table-sm text-nowrap">
+                                        <tfoot>
+                                            <tr>
+                                            <th style="color:brown;float:right;">Total Material Return : <span id="TotalMaterialReturn"></span></th>
+                                            </tr>
+                                        </tfoot>
                                         </table>
                                     </div>
                                 </div>

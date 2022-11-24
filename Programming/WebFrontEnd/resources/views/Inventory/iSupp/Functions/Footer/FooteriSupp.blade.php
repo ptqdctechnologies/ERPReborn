@@ -11,24 +11,12 @@
         $("#headerPrNumber2").prop("disabled", true);
         $("#SubmitiSupp").prop("disabled", true);
         $("#addToPoDetail").prop("disabled", true);
-    });
-</script>
-
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        $(".materialSource").on('click', function(e) {
-            e.preventDefault();
-            var valType = $(".materialSource").val();
-
-            if (valType == "Supplier to Site") {
-                $(".headeriSupp1").show();
-                $(".headeriSupp2").hide();
-            } else if (valType == "Warehouse to Warehouse") {
-                $(".headeriSupp2").show();
-                $(".headeriSupp1").hide();
-            }
-        });
+        $("#po_number").css("background-color", "white");
+        $("#warehouse1").css("background-color", "white");
+        $("#do_number").css("background-color", "white");
+        $("#warehouse1").css("background-color", "white");
+        $("#warehouse2").css("background-color", "white");
+        $("#warehouse3").css("background-color", "white");
     });
 </script>
 
@@ -48,19 +36,18 @@
 
             $.ajax({
                 type: 'GET',
-                url: '{!! route("getBudget") !!}?sitecode=' + $('.projectCodeiSupp').val(),
+                url: '{!! route("getBudget") !!}?sitecode=' + $('#sitecode').val(),
                 success: function(data) {
                     var no = 1;
                     $.each(data, function(key, val2) {
                         let applied = Math.round(val2.quantityRemainRatio * 100);
-                        console.log(applied);
                         var status = "";
                         if(applied == 100){
                             var status = "disabled";
                         }
                         var html = '<tr>' +
                             '<td style="border:1px solid #e9ecef;width:7%;">' +
-                            '&nbsp;&nbsp;<button type="reset" class="btn btn-sm klikPoDetail klikPoDetail2" data-id1="' + val2.product_RefID + '" data-id2="' + val2.productName + '" data-id3="' + val2.quantityRemain + '" data-id4="' + val2.unitPriceBaseCurrencyValue + '" data-id5="' + val2.priceBaseCurrencyValue + '" data-id6="' + val2.combinedBudgetSubSectionLevel1_RefID + '" data-id7="' + val2.quantityUnitName + '" title="Submit"  style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="15" alt="" title="Add to Detail"></button>' +
+                            '&nbsp;&nbsp;<button type="reset" class="btn btn-sm klikPoDetail klikPoDetail2" data-id0="' + val2.combinedBudgetSubSectionLevel1_RefID + '" data-id1="' + val2.product_RefID + '" data-id2="' + val2.productName + '" data-id3="' + val2.quantityRemain + '" data-id4="' + val2.unitPriceBaseCurrencyValue + '" data-id5="' + val2.priceBaseCurrencyValue + '" data-id6="' + val2.quantityUnitName + '" title="Submit"  style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="15" alt="" title="Add to Detail"></button>' +
                             '</td>' +
                             '<td style="border:1px solid #e9ecef;">' +
                             '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"> @if('+ applied +' >= '+0+' && '+ applied +' <= '+40+')<div class="progress-bar bg-red" style="width:'+ applied +'%;"></div> @elseif('+ applied +' >= '+41+' && '+ applied +' <= '+89+')<div class="progress-bar bg-blue" style="width:'+ applied +'%;"></div> @elseif('+ applied + ' >= '+ 90 +' && ' + applied + ' <= '+ 100 +')<div class="progress-bar bg-green" style="width:'+ applied +'%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>'+ applied +' %</center></small>' +
@@ -80,13 +67,12 @@
                         e.preventDefault();
                         var $this = $(this);
                         $("#DetailiSupp").show();
-                        $("#productiSuppDetail").val($this.data("id1"));
-                        $("#productiSuppDetail2").val($this.data("id2"));
-                        $("#balanceiSupp").val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-                        $("#qtyiSuppChange").val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-                        $("#qtyiSupp").val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-                        $("#UomiSupp").val($this.data("id7"));
-                        $("#workIdiSuppDetail").val($this.data("id6"));
+                        $("#putWorkId").val($this.data("id0"));
+                        $("#putProductId").val($this.data("id1"));
+                        $("#putProductName").val($this.data("id2"));
+                        $("#totalBalance").val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                        $("#qtyCek").val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                        $("#putUom").val($this.data("id6"));
                         $("#tableShowHideSupp").find("input,button,textarea,select").attr("disabled", true);
 
                         $(".klikPoDetail2").prop("disabled", true);
@@ -105,141 +91,158 @@
         }
     });
 
-    $(document).ready(function() {
-        $('#addFromDetailiSupptoCart').click(function(ev) {
-            ev.preventDefault();
-            ev.stopPropagation();
+    function addFromDetailtoCartJs() {
+        var putProductId = $("#putProductId").val();
+        var qtyCek = $("#qtyCek").val();
+        var remark = $("#remark").val();
 
-            var productiSuppDetail = $("#productiSuppDetail").val();
-            var qtyiSuppChange = $("#qtyiSuppChange").val();
-            var remarkiSuppDetail = $("#remarkiSuppDetail").val();
+        $("#putProductId").css("border", "1px solid #ced4da");
+        $("#qtyCek").css("border", "1px solid #ced4da");
+        $("#remark").css("border", "1px solid #ced4da");
 
-            if (productiSuppDetail === "") {
-                Swal.fire("Error !", "Product Cannot Empty", "error");
-            } else if (qtyiSuppChange === "") {
-                Swal.fire("Error !", "Quantity Cannot Empty", "error");
-            } else if (remarkiSuppDetail === "") {
-                Swal.fire("Error !", "Remark Cannot Empty", "error");
-            } else {
+        if (putProductId === "") {
+            $("#putProductId").focus();
+            $("#putProductId").attr('required', true);
+            $("#putProductId").css("border", "1px solid red");
+        } else if (qtyCek === "") {
+            $("#qtyCek").focus();
+            $("#qtyCek").attr('required', true);
+            $("#qtyCek").css("border", "1px solid red");
+        } else if (remark === "") {
+            $("#remark").focus();
+            $("#remark").attr('required', true);
+            $("#remark").css("border", "1px solid red");
+        } else {
 
-                $.ajax({
-                    type: "POST",
-                    url: '{!! route("iSupp.StoreValidateiSupp") !!}?productiSuppDetail=' + $('#productiSuppDetail').val(),
-                    success: function(data) {
+            $.ajax({
+                type: "POST",
+                url: '{!! route("iSupp.StoreValidateiSupp") !!}?putProductId=' + $('#putProductId').val() + '&putWorkId=' + $('#putWorkId').val(),
+                success: function(data) {
 
-                        if (data == "200") {
-                            $(".iSuppCart").show();
+                    if (data == "200") {
+                        $(".iSuppCart").show();
 
-                            var workIdiSuppDetail = $('#workIdiSuppDetail').val();
-                            var productiSuppDetail = $("#productiSuppDetail").val();
-                            var productiSuppDetail2 = $("#productiSuppDetail2").val();
-                            var qtyiSuppChange = $('#qtyiSuppChange').val();
-                            var UomiSupp = $('#UomiSupp').val();
-                            var balanceiSupp = $('#balanceiSupp').val();
-                            var remarkiSuppDetail = $('#remarkiSuppDetail').val();
+                        var putWorkId = $('#putWorkId').val();
+                        var putProductId = $("#putProductId").val();
+                        var putProductName = $("#putProductName").val();
+                        var qtyCek = $('#qtyCek').val();
+                        var putUom = $('#putUom').val();
+                        var totalBalance = $('#totalBalance').val();
+                        var remark = $('#remark').val();
 
-                            if($("#TotalISupp").html() == ""){ $("#TotalISupp").html('0'); }
-                            var TotalISupp = parseFloat($("#TotalISupp").html().replace(/,/g, ''));
-                            $("#TotalISupp").html(parseFloat(+TotalISupp + +qtyiSuppChange).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-                            
-                            var html = '<tr>' +
-                                '<td style="border:1px solid #e9ecef;width:7%;">' +
-                                '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveIsuppCart(\'' + productiSuppDetail + '\', \'' + qtyiSuppChange + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
-                                '&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="EditiSupp(this)" data-dismiss="modal" data-id0="' + workIdiSuppDetail + '" data-id1="' + productiSuppDetail + '" data-id2="' + productiSuppDetail2 + '" data-id3="' + qtyiSuppChange + '" data-id4="' + UomiSupp + '" data-id5="' + balanceiSupp + '" data-id6="' + remarkiSuppDetail + '"  style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
-                                '</td>' +
-                                '<td style="border:1px solid #e9ecef;">' + '<span id="getWorkId">' + workIdiSuppDetail + '</span>' + '</td>' +
-                                '<td style="border:1px solid #e9ecef;">' + '<span id="getProductId">' + productiSuppDetail + '</span>' + '</td>' +
-                                '<td style="border:1px solid #e9ecef;">' + '<span id="getProductName">' + productiSuppDetail2 + '</span>' + '</td>' +
-                                '<td style="border:1px solid #e9ecef;">' + '<span id="getQty">' + qtyiSuppChange + '</span>' + '</td>' +
-                                '<td style="border:1px solid #e9ecef;">' + '<span id="getUom">' + UomiSupp + '</span>' + '</td>' +
-                                '<td style="border:1px solid #e9ecef;">' + '<span id="getUom">' + remarkiSuppDetail + '</span>' + '</td>' +
-                                '</tr>';
-                            $('table.tableiSuppCart tbody').append(html);
-                            $("#statusEditiSupp").val("No");
+                        if($("#TotalISupp").html() == ""){ $("#TotalISupp").html('0'); }
+                        var TotalISupp = parseFloat($("#TotalISupp").html().replace(/,/g, ''));
+                        $("#TotalISupp").html(parseFloat(+TotalISupp + +qtyCek).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                        
+                        var html = '<tr>' +
+                            '<td style="border:1px solid #e9ecef;width:7%;">' +
+                            '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveIsuppCart(\'' + putWorkId + '\', \'' + putProductId + '\', \'' + qtyCek + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+                            '&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="EditiSupp(this)" data-dismiss="modal" data-id0="' + putWorkId + '" data-id1="' + putProductId + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + putUom + '" data-id5="' + totalBalance + '" data-id6="' + remark + '"  style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+                            '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + '<span id="getWorkId">' + putWorkId + '</span>' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + '<span id="getProductId">' + putProductId + '</span>' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + '<span id="getProductName">' + putProductName + '</span>' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + '<span id="getQty">' + qtyCek + '</span>' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + '<span id="getUom">' + putUom + '</span>' + '</td>' +
+                            '</tr>';
+                        $('table.TableiSuppCart tbody').append(html);
+                        $("#statusEditiSupp").val("No");
 
-                            $("#qtyiSuppChange").val("");
-                            $("#UomiSupp").val("");
-                            $("#productiSuppDetail").val("");
-                            $("#productiSuppDetail2").val("");
-                            $("#remarkiSuppDetail").val("");
-                            $("#balanceiSupp").val("");
+                        $("#qtyCek").val("");
+                        $("#putUom").val("");
+                        $("#putWorkId").val("");
+                        $("#putProductId").val("");
+                        $("#putProductName").val("");
+                        $("#remark").val("");
+                        $("#totalBalance").val("");
 
-                            $("#tableShowHideSupp").find("input,button,textarea,select").attr("disabled", false);
-                            $("#SubmitiSupp").prop("disabled", false);
-                            $(".klikPoDetail2").prop("disabled", false);
-                            $(".ActionButton").prop("disabled", false);
+                        $("#tableShowHideSupp").find("input,button,textarea,select").attr("disabled", false);
+                        $("#SubmitiSupp").prop("disabled", false);
+                        $(".klikPoDetail2").prop("disabled", false);
+                        $(".ActionButton").prop("disabled", false);
 
-                        } else {
-                            Swal.fire("Error !", "Please use edit to update this item !", "error");
-                        }
-                    },
-                });
-            }
-        });
-    });
+                    } else {
+                        Swal.fire("Error !", "Please use edit to update this item !", "error");
+                    }
+                },
+            });
+        }
+    }
 </script>
 
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $(".CancelDetailiSupp").click(function() {
+    function CancelDetailIsupp() {
+        var putWorkId = $('#putWorkId').val();
+        var putProductId = $("#putProductId").val();
+        var putProductName = $("#putProductName").val();
+        var qtyCek = $('#qtyCek').val();
+        var putUom = $('#putUom').val();
+        var totalBalance = $('#totalBalance').val();
+        var remark = $('#remark').val();
+        var statusEditiSupp = $("#statusEditiSupp").val();
+        if (statusEditiSupp == "Yes") {
+            var qtyCek = $('#ValidateQuantity').val();
+            var remark = $('#remark2').val();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            
+            $.ajax({
+                type: "POST",
+                url: '{!! route("iSupp.StoreValidateiSupp") !!}?putProductId=' + $('#putProductId').val() + '&putWorkId=' + $('#putWorkId').val(),
+                success: function(data) {
 
-            var workIdiSuppDetail = $('#workIdiSuppDetail').val();
-            var productiSuppDetail = $("#productiSuppDetail").val();
-            var productiSuppDetail2 = $("#productiSuppDetail2").val();
-            var qtyiSuppChange = $('#qtyiSuppChange').val();
-            var UomiSupp = $('#UomiSupp').val();
-            var balanceiSupp = $('#balanceiSupp').val();
-            var remarkiSuppDetail = $('#remarkiSuppDetail').val();
-            var statusEditiSupp = $("#statusEditiSupp").val();
-            if (statusEditiSupp == "Yes") {
+                    if (data == "200") {
 
-                var qtyiSuppChange = $('#qtyiSuppEdit').val();
-                var remarkiSuppDetail = $('#remarkiSuppDetail2').val();
+                        var html = '<tr>' +
+                            '<td style="border:1px solid #e9ecef;width:7%;">' +
+                            '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveIsuppCart(\'' + putWorkId + '\',\'' + putProductId + '\', \'' + qtyCek + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+                            '&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="EditiSupp(this)" data-dismiss="modal" data-id0="' + putWorkId + '" data-id1="' + putProductId + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + putUom + '" data-id5="' + totalBalance + '" data-id6="' + remark + '"  style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+                            '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + '<span id="getWorkId">' + putWorkId + '</span>' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + '<span id="getProductId">' + putProductId + '</span>' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + '<span id="getProductName">' + putProductName + '</span>' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + '<span id="getQty">' + qtyCek + '</span>' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + '<span id="getUom">' + putUom + '</span>' + '</td>' +
+                            '</tr>';
+                        $('table.TableiSuppCart tbody').append(html);
 
-                var html = '<tr>' +
-                    '<td style="border:1px solid #e9ecef;width:7%;">' +
-                    '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveIsuppCart(\'' + productiSuppDetail + '\', \'' + qtyiSuppChange + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
-                    '&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="EditiSupp(this)" data-dismiss="modal" data-id0="' + workIdiSuppDetail + '" data-id1="' + productiSuppDetail + '" data-id2="' + productiSuppDetail2 + '" data-id3="' + qtyiSuppChange + '" data-id4="' + UomiSupp + '" data-id5="' + balanceiSupp + '" data-id6="' + remarkiSuppDetail + '"  style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
-                    '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + '<span id="getWorkId">' + workIdiSuppDetail + '</span>' + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + '<span id="getProductId">' + productiSuppDetail + '</span>' + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + '<span id="getProductName">' + productiSuppDetail2 + '</span>' + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + '<span id="getQty">' + qtyiSuppChange + '</span>' + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + '<span id="getUom">' + UomiSupp + '</span>' + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + '<span id="getUom">' + remarkiSuppDetail + '</span>' + '</td>' +
-                    '</tr>';
-                $('table.tableiSuppCart tbody').append(html);
-                $("#statusEditiSupp").val("No");
+                        var TotalISupp = parseFloat($("#TotalISupp").html().replace(/,/g, ''));
+                        $("#TotalISupp").html(parseFloat(+TotalISupp + +qtyCek).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                    }else {
+                        Swal.fire("Error !", "Please use edit to update this item !", "error");
+                    }
+                },
+            });
+            $("#statusEditiSupp").val("No");
+        }
 
-                var TotalISupp = parseFloat($("#TotalISupp").html().replace(/,/g, ''));
-                $("#TotalISupp").html(parseFloat(+TotalISupp + qtyiSuppChange).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-   
-            }
+        $(".klikPoDetail2").prop("disabled", false);
+        $(".ActionButton").prop("disabled", false);
 
-            $(".klikPoDetail2").prop("disabled", false);
-            $(".ActionButton").prop("disabled", false);
-
-            $("#tableShowHideSupp").find("input,button,textarea,select").attr("disabled", false);
-            $("#productiSuppDetail").val("");
-            $("#productiSuppDetail2").val("");
-            $("#qtyiSuppChange").val("");
-            $("#UomiSupp").val("");
-            $("#balanceiSupp").val("");
-            $("#remarkiSuppDetail").val("");
-        });
-    });
+        $("#tableShowHideSupp").find("input,button,textarea,select").attr("disabled", false);
+        $("#putProductId").val("");
+        $("#putWorkId").val("");
+        $("#putProductName").val("");
+        $("#qtyCek").val("");
+        $("#putUom").val("");
+        $("#totalBalance").val("");
+        $("#remark").val("");
+    }
 </script>
 
 <script>
 
-    function RemoveIsuppCart(ProductId, qty, tr) {
+    function RemoveIsuppCart(putWorkId, ProductId, qty, tr) {
         var i = tr.parentNode.parentNode.rowIndex;
-        document.getElementById("tableiSuppCart").deleteRow(i);
+        document.getElementById("TableiSuppCart").deleteRow(i);
         
         $.ajax({
             type: "POST",
-            url: '{!! route("iSupp.StoreValidateiSupp2") !!}?productiSuppDetail=' + ProductId,
+            url: '{!! route("iSupp.StoreValidateiSupp2") !!}?putProductId=' + ProductId + '&putWorkId=' + putWorkId,
         });
 
         var totalQtyIsupp = parseFloat(qty.replace(/,/g, ''));
@@ -252,26 +255,27 @@
 <script>
     function EditiSupp(t) {
         var i = t.parentNode.parentNode.rowIndex;
-        document.getElementById("tableiSuppCart").deleteRow(i);
+        document.getElementById("TableiSuppCart").deleteRow(i);
 
         var $this = $(t);
        
         $.ajax({
             type: "POST",
-            url: '{!! route("iSupp.StoreValidateiSupp2") !!}?productiSuppDetail=' + $this.data("id1"),
+            url: '{!! route("iSupp.StoreValidateiSupp2") !!}?putProductId=' + $this.data("id1") + '&putWorkId=' + $this.data("id0"),
         });
 
-        $("#productiSuppDetail").val($this.data("id1"));
-        $("#productiSuppDetail2").val($this.data("id2"));
-        $("#qtyiSuppChange").val($this.data("id3"));
-        $("#qtyiSuppEdit").val($this.data("id3"));
-        $("#UomiSupp").val($this.data("id4"));
-        $("#balanceiSupp").val($this.data("id5"));
-        $("#remarkiSuppDetail").val($this.data("id6"));
-        $("#remarkiSuppDetail2").val($this.data("id6"));
+        $("#putWorkId").val($this.data("id0"));
+        $("#putProductId").val($this.data("id1"));
+        $("#putProductName").val($this.data("id2"));
+        $("#qtyCek").val($this.data("id3"));
+        $("#ValidateQuantity").val($this.data("id3"));
+        $("#putUom").val($this.data("id4"));
+        $("#totalBalance").val($this.data("id5"));
+        $("#remark").val($this.data("id6"));
+        $("#remark2").val($this.data("id6"));
         $("#statusEditiSupp").val("Yes");
 
-        var totalQtyIsupp = parseFloat($("#qtyiSuppChange").val().replace(/,/g, ''));
+        var totalQtyIsupp = parseFloat($("#qtyCek").val().replace(/,/g, ''));
         var TotalISupp = parseFloat($("#TotalISupp").html().replace(/,/g, ''));
         $("#TotalISupp").html(parseFloat(TotalISupp - totalQtyIsupp).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
@@ -280,22 +284,66 @@
     }
 </script>
 
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".materialSource").on('click', function(e) {
+            e.preventDefault();
+            var valType = $(".materialSource").val();
+
+            if (valType == "Supplier to Site") {
+                $(".headeriSupp1").show();
+                $(".headeriSupp2").hide();
+            } else if (valType == "Warehouse to Warehouse") {
+                $(".headeriSupp2").show();
+                $(".headeriSupp1").hide();
+            }
+        });
+    });
+</script>
+
+
+<script>
+    $('document').ready(function() {
+        $('.ChangeQty').keyup(function() {
+            var qtyReq = $(this).val();
+            var putQty = $('#totalBalance').val();
+            if (parseFloat(qtyReq) == '') {
+                $("#qtyCek").css("border", "1px solid red");
+            } else if (parseFloat(qtyReq) > parseFloat(putQty)) {
+                Swal.fire("Error !", "Your Quantity Request is Over", "error");
+                $("#qtyCek").val("");
+                $("#qtyCek").css("border", "1px solid red");
+            } else {
+                $("#qtyCek").css("border", "1px solid #ced4da");
+            }
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    function CanceliSupp() {
+        $("#loading").show();
+        $(".loader").show();
+        window.location.href = '/iSupp?var=1';
+    }
+</script>
+
 <script>
     $(function() {
-        $("#formSubmitiSupp").on("submit", function(e) { //id of form 
+        $("#FormSubmitiSupp").on("submit", function(e) { //id of form 
             e.preventDefault();
 
             var po_number = $("#po_number").val();
             var cek = 0;
             if (po_number !== "") {
-                var remarkiSupp = $("#remarkiSupp").val();
+                var remarkPo = $("#remarkPo").val();
                 var headerWarehouse1 = $("#headerWarehouse1").val();
-                $("#remarkiSupp").css("border", "1px solid #ced4da");
+                $("#remarkPo").css("border", "1px solid #ced4da");
                 $("#headerWarehouse1").css("border", "1px solid #ced4da");
-                if (remarkiSupp === "") {
-                    $("#remarkiSupp").focus();
-                    $("#remarkiSupp").attr('required', true);
-                    $("#remarkiSupp").css("border", "1px solid red");
+                if (remarkPo === "") {
+                    $("#remarkPo").focus();
+                    $("#remarkPo").attr('required', true);
+                    $("#remarkPo").css("border", "1px solid red");
                 } else if (headerWarehouse1 === "") {
                     $("#headerWarehouse1").focus();
                     $("#headerWarehouse1").attr('required', true);
@@ -304,12 +352,12 @@
                     cek = 1;
                 }
             } else {
-                var remarkiSupp2 = $("#remarkiSupp2").val();
-                $("#remarkiSupp2").css("border", "1px solid #ced4da");
-                if (remarkiSupp2 === "") {
-                    $("#remarkiSupp2").focus();
-                    $("#remarkiSupp2").attr('required', true);
-                    $("#remarkiSupp2").css("border", "1px solid red");
+                var remarkDo = $("#remarkDo").val();
+                $("#remarkDo").css("border", "1px solid #ced4da");
+                if (remarkDo === "") {
+                    $("#remarkDo").focus();
+                    $("#remarkDo").attr('required', true);
+                    $("#remarkDo").css("border", "1px solid red");
                 } else {
                     cek = 1;
                 }
@@ -413,39 +461,4 @@
         });
 
     });
-</script>
-
-<script>
-    $('document').ready(function() {
-        $('.ChangeQty').keyup(function() {
-            var qtyReq = $(this).val();
-            var putQty = $('#balanceiSupp').val();
-            if (parseFloat(qtyReq) == '') {
-                $("#qtyiSuppChange").css("border", "1px solid red");
-            } else if (parseFloat(qtyReq) > parseFloat(putQty)) {
-                Swal.fire("Error !", "Your Quantity Request is Over", "error");
-                $("#qtyiSuppChange").val("");
-                $("#qtyiSuppChange").css("border", "1px solid red");
-            } else {
-                $("#qtyiSuppChange").css("border", "1px solid #ced4da");
-            }
-        });
-    });
-</script>
-
-<script>
-    $('#qtyiSuppChange').on('blur', function() {
-        var amount = $('#qtyiSuppChange').val().replace(/^\s+|\s+$/g, '');
-        if (($('#qtyiSuppChange').val() != '') && (!amount.match(/^$/))) {
-            $('#qtyiSuppChange').val(parseFloat(amount).toFixed(2));
-        }
-    });
-</script>
-
-<script type="text/javascript">
-    function CanceliSupp() {
-        $("#loading").show();
-        $(".loader").show();
-        window.location.href = '/iSupp?var=1';
-    }
 </script>

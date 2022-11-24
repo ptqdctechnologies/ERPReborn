@@ -1,4 +1,3 @@
-<!--  SHOW HIDE AVAILABEL -->
 <script type="text/javascript">
     $(document).ready(function() {
         $(".headerDor1").hide();
@@ -6,237 +5,436 @@
         $(".headerDor3").hide();
         $(".headerDor4").hide();
         $("#detailPR").hide();
-        $("#detailDor").hide();
-        $("#detailDorList").hide();
-        $("#tableShowHideDor").hide();
+        $("#detailDo").hide();
+        $(".detailDoList").hide();
+        $("#tableShowHideDo").hide();
         $("#headerPrNumber2").prop("disabled", true);
+        $("#transporter").css("background-color", "white");
+        $("#searchDor").prop("disabled", true);
+        $("#pr_number2").prop("disabled", true);
     });
 </script>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-      $(".deliverType").on('click', function(e) {
-          e.preventDefault();
-          var valType = $(".deliverType").val();
-          if(valType == "Warehouse to Site"){
-              $(".headerDor1").show();
-              $(".headerDor2").hide();
-              $(".headerDor3").hide();
-              $(".headerDor4").hide();
-          }
-          else if(valType == "Warehouse to Warehouse"){
-              $(".headerDor2").show();
-              $(".headerDor1").hide();
-              $(".headerDor3").hide();
-              $(".headerDor4").hide();
-          }
-          else if(valType == "Supplier to Site"){
-              $(".headerDor3").show();
-              $(".headerDor2").hide();
-              $(".headerDor1").hide();
-              $(".headerDor4").hide();
-          }
-          else if(valType == "Site to Warehouse"){
-              $(".headerDor4").show();
-              $(".headerDor3").hide();
-              $(".headerDor2").hide();
-              $(".headerDor1").hide();
-          }
-      });
 
-      $(".siteName1").on('click', function(e) {
-          e.preventDefault();
-          var valSite = $(".siteName1").val();
-          if(valSite == "WH-001"){
-              $("#headerAddressSiteName1").val("Jl. Baru Leko. Kode Pos, : 97796. Desa/Kelurahan, : DESA LEKO SULA. Kecamatan/Kota (LN), Kec. Mangoli Barat, Kab. Kepulauan Sula, Prov. Maluku Utara");
-          }
-          else if(valSite == "WH-002"){
-              $("#headerAddressSiteName1").val("Bekasi cyber park, RT.001/RW.009, Kayuringin Jaya, Kec. Bekasi Bar., Kota Bks, Jawa Barat 17415");
-          }
-      });
 
-      $(".siteName2").on('click', function(e) {
-          e.preventDefault();
-          var valSite = $(".siteName2").val();
-          if(valSite == "WH-001"){
-              $("#headerAddressSiteName2").val("Jl. Baru Leko. Kode Pos, : 97796. Desa/Kelurahan, : DESA LEKO SULA. Kecamatan/Kota (LN), Kec. Mangoli Barat, Kab. Kepulauan Sula, Prov. Maluku Utara");
-          }
-          else if(valSite == "WH-002"){
-              $("#headerAddressSiteName2").val("Bekasi cyber park, RT.001/RW.009, Kayuringin Jaya, Kec. Bekasi Bar., Kota Bks, Jawa Barat 17415");
-          }
-      });
+<script>
+    function klikProject(code, name) {
+        $("#projectcode").val(code);
+        $("#projectname").val(name);
+        $("#pr_number2").prop("disabled", false);
 
-      $(".siteName3").on('click', function(e) {
-          e.preventDefault();
-          var valSite = $(".siteName3").val();
-          if(valSite == "WH-001"){
-              $("#headerAddressSiteName3").val("Jl. Baru Leko. Kode Pos, : 97796. Desa/Kelurahan, : DESA LEKO SULA. Kecamatan/Kota (LN), Kec. Mangoli Barat, Kab. Kepulauan Sula, Prov. Maluku Utara");
-          }
-          else if(valSite == "WH-002"){
-              $("#headerAddressSiteName3").val("Bekasi cyber park, RT.001/RW.009, Kayuringin Jaya, Kec. Bekasi Bar., Kota Bks, Jawa Barat 17415");
-          }
-      });
-    });
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("DeliveryOrder.DeliveryOrderByBudgetID") !!}?projectcode=' + $('#projectcode').val(),
+            success: function(data) {
+
+                var no = 1;
+                t = $('#tableSearchDorInDo').DataTable();
+                $.each(data.DataAdvanceRequest, function(key, val) {
+                    t.row.add([
+                        '<tbody><tr><td>' + no++ + '</td>',
+                        '<td><span data-dismiss="modal" onclick="klikPrNumberInDo(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.documentNumber + '</span></td>',
+                        '<td><span data-dismiss="modal" onclick="klikPrNumberInDo(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudget_RefID + '</span></td>',
+                        '<td><span data-dismiss="modal" onclick="klikPrNumberInDo(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudgetName + '</span></td>',
+                        '<td><span data-dismiss="modal" onclick="klikPrNumberInDo(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudgetSection_RefID + '</span></td>',
+                        '<td><span data-dismiss="modal" onclick="klikPrNumberInDo(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudgetSectionName + '</span></td>',
+                    ]).draw();
+
+                });
+            }
+        });
+    }
 </script>
-<!--  END SHOW HIDE AVAILABEL -->
-<script type="text/javascript">
-   $(document).ready(function () {
 
-    var x = 0;
-    
-    $('#addFromDetailDortoCart').click(function(ev){
-        ev.preventDefault();
-        ev.stopPropagation();
+<script>
+    function klikPrNumberInDo(id, docNum, reqId, reqName) {
+        alert('dd');
+        var var_recordID = id;
+        var trano = docNum;
+        $("#tableShowHideDo").show();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: "GET",
+            url: '{!! route("DeliveryOrder.DeliveryOrderByBudgetID") !!}?var_recordID=' + var_recordID,
+            success: function(data) {
+                $.each(data, function(key, value) {
+                    var html =
+                        '<tr>' +
+                        '<td style="border:1px solid #e9ecef;width:5%;">' +
+                        '&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs AddToDetail AddToDetail2" data-dismiss="modal" data-id0="' + trano + '" data-id1="' + value.combinedBudget_SubSectionLevel1_RefID + '" data-id2="' + value.combinedBudget_SubSectionLevel1Name + '" data-id3="' + value.product_RefID + '" data-id4="' + value.productName + '" data-id5="' + value.quantity + '" data-id6="' + value.quantityUnitName + '" data-id7="' + value.priceCurrencyISOCode + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="18" alt="" title="Add"></button> ' +
+                        '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' +
+                        '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"><div class="progress-bar bg-red" style="width:50%;"></div><small><center>50 %</center></small></div>' +
+                        '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + trano + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + value.product_RefID + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + value.productName + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + value.priceCurrencyISOCode + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + value.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                        '</tr>';
+
+                    $('table.TableDorDetail tbody').append(html);
+                });
+
+                $("body").on("click", ".AddToDetail", function() {
+                    $("#detailDo").show();
+
+                    var $this = $(this);
+                    $("#dor_number_detail").val($this.data("id0"));
+                    $("#putWorkId").val($this.data("id1"));
+                    $("#putWorkName").val($this.data("id2"));
+                    $("#putProductId").val($this.data("id3"));
+                    $("#putProductName").val($this.data("id4"));
+                    $("#delivery_type").val($this.data("id5"));
+                    $("#qtyCek").val($this.data("id5").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                    $("#putQty").val($this.data("id5"));
+                    $("#putUom").val($this.data("id6"));
+                    $("#putCurrency").val($this.data("id7"));
+
+                    $(".AddToDetail2").prop("disabled", true);
+                    $(".ActionButton").prop("disabled", true);
+
+                });
+            },
+        });
+    }
+</script>
+
+<!-- <script>
+    function klikSearchDorInDo(id, docNum, reqId, reqName) {
+        var var_recordID = id;
+        var trano = docNum;
+        $("#tableShowHideDo").show();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: "GET",
+            url: '{!! route("DeliveryOrder.DeliveryOrderByBudgetID") !!}?var_recordID=' + var_recordID,
+            success: function(data) {
+                $.each(data, function(key, value) {
+                    var html =
+                        '<tr>' +
+                        '<td style="border:1px solid #e9ecef;width:5%;">' +
+                        '&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs AddToDetail AddToDetail2" data-dismiss="modal" data-id0="' + trano + '" data-id1="' + value.combinedBudget_SubSectionLevel1_RefID + '" data-id2="' + value.combinedBudget_SubSectionLevel1Name + '" data-id3="' + value.product_RefID + '" data-id4="' + value.productName + '" data-id5="' + value.quantity + '" data-id6="' + value.quantityUnitName + '" data-id7="' + value.priceCurrencyISOCode + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="18" alt="" title="Add"></button> ' +
+                        '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' +
+                        '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"><div class="progress-bar bg-red" style="width:50%;"></div><small><center>50 %</center></small></div>' +
+                        '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + trano + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + value.product_RefID + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + value.productName + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + value.priceCurrencyISOCode + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + value.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                        '</tr>';
+
+                    $('table.TableDorDetail tbody').append(html);
+                });
+
+                $("body").on("click", ".AddToDetail", function() {
+                    $("#detailDo").show();
+
+                    var $this = $(this);
+                    $("#dor_number_detail").val($this.data("id0"));
+                    $("#putWorkId").val($this.data("id1"));
+                    $("#putWorkName").val($this.data("id2"));
+                    $("#putProductId").val($this.data("id3"));
+                    $("#putProductName").val($this.data("id4"));
+                    $("#delivery_type").val($this.data("id5"));
+                    $("#qtyCek").val($this.data("id5").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                    $("#putQty").val($this.data("id5"));
+                    $("#putUom").val($this.data("id6"));
+                    $("#putCurrency").val($this.data("id7"));
+
+                    $(".AddToDetail2").prop("disabled", true);
+                    $(".ActionButton").prop("disabled", true);
+
+                });
+            },
+        });
+    }
+</script> -->
+
+
+<script>
+    function klikTransporter(code, name, address, phone, fax, contact_person, handphone) {
+        $("#transporter").val(name);
+        $("#address").val(address);
+        $("#phone").val(phone);
+        $("#fax").val(fax);
+        $("#contact_person").val(contact_person);
+        $("#handphone").val(handphone);
+    }
+</script>
+
+
+<script type="text/javascript">
+   
+   $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    function addFromDetailtoCartJs() {
         
-        $("#detailDorList").show();
-        var val = $("#prNumberDorDetail").val();
-        if(val != ""){
+        $("#detailDoList").show();
+        var dor_number_detail = $("#dor_number_detail").val();
+        var qtyCek = $("#qtyCek").val();
+        var note = $("#note").val();
+
+        $("#dor_number_detail").css("border", "1px solid #ced4da");
+        $("#qtyCek").css("border", "1px solid #ced4da");
+        $("#note").css("border", "1px solid #ced4da");
+
+        if (dor_number_detail === "") {
+            $("#dor_number_detail").focus();
+            $("#dor_number_detail").attr('required', true);
+            $("#dor_number_detail").css("border", "1px solid red");
+        } else if (qtyCek === "") {
+            $("#qtyCek").focus();
+            $("#qtyCek").attr('required', true);
+            $("#qtyCek").css("border", "1px solid red");
+        } else if (note === "") {
+            $("#note").focus();
+            $("#note").attr('required', true);
+            $("#note").css("border", "1px solid red");
+        } else {
             $.ajax({
                 type: "POST",
-                url: '{!! route("DeliveryOrderRequest.StoreValidateDeliveryOrderRequest") !!}?productIdDorDetail=' + $('#productIdDorDetail2').val(),
+                url: '{!! route("DeliveryOrder.StoreValidateDeliveryOrder") !!}?putProductId=' + $('#putProductId').val() + '&putWorkId=' + $('#putWorkId').val(),
                 success: function(data) {
 
-                    if(data == "200"){
+                    if (data == "200") {
+                        
+                        var trano = $("#dor_number_detail").val();
+                        var putWorkId = $("#putWorkId").val();
+                        var putWorkName = $("#putWorkName").val();
+                        var putProductId = $("#putProductId").val();
+                        var putProductName = $("#putProductName").val();
+                        var qtyCek = $('#qtyCek').val().replace(/^\s+|\s+$/g, '');
+                        var putUom = $("#putUom").val();
+                        var putCurrency = $("#putCurrency").val();
+                        var note = $("#note").val();
+                        var delivery_type = $("#delivery_type").val();
 
-                        var prNumberDorDetail = $("#prNumberDorDetail").val();
-                        var projectDorDetail = $("#projectDorDetail").val();
-                        var projectDorDetail2 = $('#projectDorDetail2').val();
-                        var siteDorDetail = $("#siteDorDetail").val();
-                        var siteDorDetail2 = $("#siteDorDetail2").val();
-                        var workIdDorDetail = $("#workIdDorDetail").val();
-                        var workIdDorDetail2 = $('#workIdDorDetail2').val();
-                        var priceDorDetail = $("#priceDorDetail").val();
-                        var averageDorDetail = $("#averageDorDetail").val();
-                        var qtyDorDetail = $("#qtyDorDetail").val();
-                        var qtyDorDetail2 = $('#qtyDorDetail2').val();
-                        var productIdDorDetail = $("#productIdDorDetail").val();
-                        var productIdDorDetail2 = $("#productIdDorDetail2").val();
-                        var prQty = $("#prQty").val();
-                        var inDorQty = $("#inDorQty").val();
-                        var balanceQty = $("#balanceQty").val();
+                        //TOTAL DO
+                        if($("#TotalDeliveryOrder").html() == ""){
+                            $("#TotalDeliveryOrder").html('0');
+                        }
+                        var TotalDeliveryOrder = parseFloat($("#qtyCek").val().replace(/,/g, ''));
+                        var TotalDeliveryOrder2 = parseFloat($("#TotalDeliveryOrder").html().replace(/,/g, ''));
+                        $("#TotalDeliveryOrder").html(parseFloat(+TotalDeliveryOrder2 + +TotalDeliveryOrder).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
-                        var html = '<tr>'+
-                                    '<td>'+
-                                        '<button type="button" class="btn btn-danger btn-xs remove" data-id1="'+productIdDorDetail2+'"><i class="fa fa-trash"></i></button> '+
-                                        '<button type="button" class="btn btn-warning btn-xs edit" data-dismiss="modal" data-id1="'+prNumberDorDetail+'" data-id2="'+projectDorDetail+'" data-id3="'+projectDorDetail2+'" data-id4="'+siteDorDetail+'" data-id5="'+siteDorDetail2+'" data-id6="'+workIdDorDetail+'" data-id7="'+workIdDorDetail2+'" data-id8="'+priceDorDetail+'" data-id9="'+averageDorDetail+'" data-id10="'+qtyDorDetail+'" data-id11="'+qtyDorDetail2+'" data-id12="'+productIdDorDetail+'" data-id13="'+productIdDorDetail2+'" data-id14="'+prQty+'" data-id15="'+inDorQty+'" data-id16="'+balanceQty+'"><i class="fa fa-edit" style="color:white;"></i></button> '+
-                                    '</td>'+
-                                    '<td>'+prNumberDorDetail+'</td>'+
-                                    '<td>'+projectDorDetail+'</td>'+
-                                    '<td>'+siteDorDetail+'</td>'+
-                                    '<td>'+productIdDorDetail+'</td>'+
-                                    '<td>'+productIdDorDetail2+'</td>'+
-                                '</tr>';
-                        $('table.tableDorCart tbody').append(html);
+                        var html = '<tr>' +
+                            '<td style="border:1px solid #e9ecef;width:7%;">' +
+                            '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveDeliveryOrder(\'' + putWorkId + '\', \'' + putProductId + '\', \'' + qtyCek + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+                            '&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="EditDeliveryOrder(this)" data-dismiss="modal" data-id0="' + trano + '" data-id1="' + putWorkId + '" data-id2="' + putWorkName + '" data-id3="' + putProductId + '" data-id4="' + putProductName + '" data-id5="' + delivery_type + '" data-id6="' + qtyCek + '" data-id7="' + putUom + '" data-id8="' + note + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+                            '<input type="hidden" name="var_putProductId[]" value="' + putProductId + '">' +
+                            '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
+                            '<input type="hidden" name="var_quantity[]" value="' + parseFloat(qtyCek.replace(/,/g, '')) + '">' +
+                            '<input type="hidden" name="var_uom[]" value="' + putUom + '">' +
+                            '<input type="hidden" name="var_currency[]" value="' + putCurrency + '">' +
+                            '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + trano + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + putWorkId + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + putWorkName + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + putProductId + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + putProductName + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + qtyCek.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + putCurrency + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + note + '</td>' +
+                            '</tr>';
+                        $('table.TableDorCart tbody').append(html);
+                        $("#statusEditDo").val("No");
 
-                        $("body").on("click", ".remove", function () {
-                            $(this).closest("tr").remove();
-                            var ProductId = $(this).data("id1");
-                            $.ajax({
-                                type: "POST",
-                                url: '{!! route("DeliveryOrderRequest.StoreValidateDeliveryOrderRequest2") !!}?productIdDorDetail=' + ProductId,
-                            });
-                        });
-                        $("body").on("click", ".edit", function () {
-                            var $this = $(this);
-                            var id1 = $this.data("id1");
-                            var id2 = $this.data("id2");
-                            var id3 = $this.data("id3");
-                            var id4 = $this.data("id4");
-                            var id5 = $this.data("id5");
-                            var id6 = $this.data("id6");
-                            var id7 = $this.data("id7");
-                            var id8 = $this.data("id8");
-                            var id9 = $this.data("id9");
-                            var id10 = $this.data("id10");
-                            var id11 = $this.data("id11");
-                            var id12 = $this.data("id12");
-                            var id13 = $this.data("id13");
-                            var id14 = $this.data("id14");
-                            var id15 = $this.data("id15");
-                            var id16 = $this.data("id16");
+                        $("#dor_number_detail").val("");
+                        $("#putWorkId").val("");
+                        $("#putWorkName").val("");
+                        $("#putProductId").val("");
+                        $("#putProductName").val("");
+                        $("#delivery_type").val("");
+                        $("#qtyCek").val("");
+                        $("#putUom").val("");
+                        $("#note").val("");
 
-                            $.ajax({
-                                type: "POST",
-                                url: '{!! route("DeliveryOrderRequest.StoreValidateDeliveryOrderRequest2") !!}?productIdDorDetail=' + id13,
-                            });
+                        $(".AddToDetail2").prop("disabled", false);
+                        $(".ActionButton").prop("disabled", false);
+                        $(".detailDoList").show();
 
-                            $("#prNumberDorDetail").val(id1);
-                            $("#projectDorDetail").val(id2);
-                            $("#projectDorDetail2").val(id3);
-                            $("#siteDorDetail").val(id4);
-                            $("#siteDorDetail2").val(id5);
-                            $("#workIdDorDetail").val(id6);
-                            $("#workIdDorDetail2").val(id7);
-                            $("#priceDorDetail").val(id8);
-                            $("#averageDorDetail").val(id9);
-                            $("#qtyDorDetail").val(id10);
-                            $("#qtyDorDetail2").val(id11);
-                            $("#productIdDorDetail").val(id12);
-                            $("#productIdDorDetail2").val(id13);
-                            $("#prQty").val(id14);
-                            $("#inDorQty").val(id15);
-                            $("#balanceQty").val(id16);
-
-                            $(this).closest("tr").remove();
-
-                            if(id10 == "Unspecified Product"){
-                                $("#product_id2").prop("disabled", false);
-                            }
-                            else{
-                                $("#product_id2").prop("disabled", true);
-                            }
-                        });
-
-                        $("#prNumberDorDetail").val("");
-                        $("#projectDorDetail").val("");
-                        $("#projectDorDetail2").val("");
-                        $("#siteDorDetail").val("");
-                        $("#siteDorDetail2").val("");
-                        $("#workIdDorDetail").val("");
-                        $("#workIdDorDetail2").val("");
-                        $("#priceDorDetail").val("");
-                        $("#averageDorDetail").val("");
-                        $("#qtyDorDetail").val("");
-                        $("#qtyDorDetail2").val("");
-                        $("#productIdDorDetail").val("");
-                        $("#productIdDorDetail2").val("");
-                        $("#prQty").val("");
-                        $("#inDorQty").val("");
-                        $("#balanceQty").val("");
-
-                        $("#tableShowHideDor").find("input,button,textarea,select").attr("disabled", false);
-                    }
-                    else{
-                        Swal.fire("Cancelled", "Please use edit to update this item !", "error");
+                    } else {
+                        Swal.fire("Error !", "Please use edit to update this item !", "error");
                     }
                 },
-            });   
+            });
         }
-        else{
-            Swal.fire("Cancelled", "Data Cannot Empty", "error");
-        }
-    });
-});
+    }
 </script>
+
+
+<script type="text/javascript">
+    function CancelDetailDo() {
+        
+        var trano = $("#dor_number_detail").val();
+        var putWorkId = $("#putWorkId").val();
+        var putWorkName = $("#putWorkName").val();
+        var putProductId = $("#putProductId").val();
+        var putProductName = $("#putProductName").val();
+        var qtyCek = $('#qtyCek').val().replace(/^\s+|\s+$/g, '');
+        var putUom = $("#putUom").val();
+        var putCurrency = $("#putCurrency").val();
+        var note = $("#note").val();
+        var delivery_type = $("#delivery_type").val();
+        var statusEditDo = $("#statusEditDo").val();
+        if (statusEditDo == "Yes") {
+
+            qtyCek = $('#ValidateQuantity').val();
+            note = $('#ValidateNote').val();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            
+            $.ajax({
+                type: "POST",
+                url: '{!! route("DeliveryOrder.StoreValidateDeliveryOrder") !!}?putProductId=' + $('#putProductId').val() + '&putWorkId=' + $('#putWorkId').val(),
+                success: function(data) {
+
+                    if (data == "200") {
+
+                        let html = '<tr>' +
+                        '<td style="border:1px solid #e9ecef;width:7%;">' +
+                            '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveDeliveryOrder(\'' + putWorkId + '\', \'' + putProductId + '\', \'' + qtyCek + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+                            '&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="EditDeliveryOrder(this)" data-dismiss="modal" data-id0="' + trano + '" data-id1="' + putWorkId + '" data-id2="' + putWorkName + '" data-id3="' + putProductId + '" data-id4="' + putProductName + '" data-id5="' + delivery_type + '" data-id6="' + qtyCek + '" data-id7="' + putUom + '" data-id8="' + note + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+                            '<input type="hidden" name="var_putProductId[]" value="' + putProductId + '">' +
+                            '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
+                            '<input type="hidden" name="var_quantity[]" value="' + parseFloat(qtyCek.replace(/,/g, '')) + '">' +
+                            '<input type="hidden" name="var_uom[]" value="' + putUom + '">' +
+                            '<input type="hidden" name="var_currency[]" value="' + putCurrency + '">' +
+                            '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + trano + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + putWorkId + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + putWorkName + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + putProductId + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + putProductName + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + qtyCek.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + putCurrency + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + note + '</td>' +
+                            '</tr>';
+                        $('table.TableDorCart tbody').append(html);
+
+                        var TotalDeliveryOrder = parseFloat($("#TotalDeliveryOrder").html().replace(/,/g, ''));
+                        $("#TotalDeliveryOrder").html(parseFloat(+TotalDeliveryOrder + +qtyCek).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+                    }else {
+                        Swal.fire("Error !", "Please use edit to update this item !", "error");
+                    }
+                },
+            });
+            $("#statusEditDo").val("No");
+        }
+
+        $(".AddToDetail2").prop("disabled", false);
+        $(".ActionButton").prop("disabled", false);
+
+        $("#putProductId").css("border", "1px solid #ced4da");
+        $("#dor_number_detail").val("");
+        $("#putWorkId").val("");
+        $("#putWorkName").val("");
+        $("#putProductId").val("");
+        $("#putProductName").val("");
+        $("#delivery_type").val("");
+        $("#qtyCek").val("");
+        $("#putUom").val("");
+        $("#note").val("");
+    }
+</script>
+
+
+<script>
+
+    function RemoveDeliveryOrder(workId, ProductId, totalQty, tr) {
+        var i = tr.parentNode.parentNode.rowIndex;
+        document.getElementById("TableDorCart").deleteRow(i);
+        
+        $.ajax({
+            type: "POST",
+            url: '{!! route("DeliveryOrder.StoreValidateDeliveryOrder2") !!}?putProductId=' + ProductId + '&putWorkId=' + workId,
+        });
+
+        var totalQty = parseFloat(totalQty.replace(/,/g, ''));
+        var TotalDeliveryOrder = parseFloat($("#TotalDeliveryOrder").html().replace(/,/g, ''));
+        $("#TotalDeliveryOrder").html(parseFloat(TotalDeliveryOrder - totalQty).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+    }
+
+</script>
+
+<script>
+    function EditDeliveryOrder(t) {
+        var i = t.parentNode.parentNode.rowIndex;
+        document.getElementById("TableDorCart").deleteRow(i);
+
+        var $this = $(t);
+        $.ajax({
+            type: "POST",
+            url: '{!! route("DeliveryOrder.StoreValidateDeliveryOrder2") !!}?putProductId=' + $this.data("id3") + '&putWorkId=' + $this.data("id1"),
+        });
+
+        $("#dor_number_detail").val($this.data("id0"));
+        $("#putWorkId").val($this.data("id1"));
+        $("#putWorkName").val($this.data("id2"));
+        $("#putProductId").val($this.data("id3"));
+        $("#putProductName").val($this.data("id4"));
+        $("#delivery_type").val($this.data("id5"));
+        $("#qtyCek").val($this.data("id6"));
+        $("#ValidateQuantity").val($this.data("id6"));
+        $("#putUom").val($this.data("id7"));
+        $("#note").val($this.data("id8"));
+        $("#ValidateNote").val($this.data("id8"));
+        $("#statusEditDo").val("Yes");
+
+        var qtyCek = parseFloat($("#qtyCek").val().replace(/,/g, ''));
+        var TotalDeliveryOrder = parseFloat($("#TotalDeliveryOrder").html().replace(/,/g, ''));
+        $("#TotalDeliveryOrder").html(parseFloat(TotalDeliveryOrder - qtyCek).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+        $(".AddToDetail2").prop("disabled", true);
+        $(".ActionButton").prop("disabled", true);
+    }
+</script>
+
 
 <script>
     $('document').ready(function() {
         $('.ChangeQty').keyup(function() {
-            var qtyReq = $(this).val().replace(/[^a-zA-Z0-9 ]/g, "");
-            if (qtyReq == 0 || qtyReq == '') {
-                qtyReq = 0;
-            }
-            var qtyDorHide = $('#qtyDorHide').val();
-            
-            if (qtyReq == '') {
-                $("#addFromDetailDortoCart").prop("disabled", true);
 
-            } else if (qtyReq > qtyDorHide) {
-                Swal.fire("Error !", "Your Qty Request is Over", "error");
-                $("#qtyDorDetail").val(qtyDorHide);
-                $("#addFromDetailDortoCart").prop("disabled", true);
+            var qtyReq = $(this).val();
+            var putQty = $('#putQty').val();
+
+            if (parseFloat(qtyReq) == '') {
+                $("#qtyCek").css("border", "1px solid red");
+            } else if (parseFloat(qtyReq) > parseFloat(putQty)) {
+                Swal.fire("Error !", "Your Quantity Request is Over", "error");
+                $("#qtyCek").val(0);
+                $("#qtyCek").css("border", "1px solid red");
             } else {
-                $("#addFromDetailDortoCart").prop("disabled", false);
+                $("#qtyCek").css("border", "1px solid #ced4da");
             }
 
         });
@@ -244,9 +442,129 @@
 </script>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $(".CancelDor").click(function() {
-            $("#tableShowHideDor").find("input,button,textarea,select").attr("disabled", false);
+    function CancelDo() {
+        $("#loading").show();
+        $(".loader").show();
+        window.location.href = '/DeliveryOrder?var=1';
+    }
+</script>
+
+
+
+<script>
+    $(function() {
+        $("#FormSubmitDo").on("submit", function(e) { //id of form 
+            e.preventDefault();
+
+            // var valRequestName = $("#request_name").val();
+            // var valRemark = $("#putRemark").val();
+            // $("#request_name").css("border", "1px solid #ced4da");
+            // $("#putRemark").css("border", "1px solid #ced4da");
+
+            // if (valRequestName === "") {
+            //     $("#request_name").focus();
+            //     $("#request_name").attr('required', true);
+            //     $("#request_name").css("border", "1px solid red");
+            // } else if (valRemark === "") {
+            //     $("#putRemark").focus();
+            //     $("#putRemark").attr('required', true);
+            //     $("#putRemark").css("border", "1px solid red");
+            // } else {
+                var action = $(this).attr("action"); //get submit action from form
+                var method = $(this).attr("method"); // get submit method
+                var form_data = new FormData($(this)[0]); // convert form into formdata 
+                var form = $(this);
+
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    confirmButtonClass: 'btn btn-success btn-sm',
+                    cancelButtonClass: 'btn btn-danger btn-sm',
+                    buttonsStyling: true,
+                })
+
+                swalWithBootstrapButtons.fire({
+
+                    title: 'Are you sure?',
+                    text: "Save this data?",
+                    type: 'question',
+
+                    showCancelButton: true,
+                    confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
+                    cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
+                    confirmButtonColor: '#e9ecef',
+                    cancelButtonColor: '#e9ecef',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+
+                        $("#loading").show();
+                        $(".loader").show();
+
+                        $.ajax({
+                            url: action,
+                            dataType: 'json', // what to expect back from the server
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            data: form_data,
+                            type: method,
+                            success: function(response) {
+
+                                $("#loading").hide();
+                                $(".loader").hide();
+
+                                swalWithBootstrapButtons.fire({
+
+                                    title: 'Successful !',
+                                    type: 'success',
+                                    html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + response.advnumber + '</span>',
+                                    showCloseButton: false,
+                                    showCancelButton: false,
+                                    focusConfirm: false,
+                                    confirmButtonText: '<span style="color:black;"> Ok </span>',
+                                    confirmButtonColor: '#4B586A',
+                                    confirmButtonColor: '#e9ecef',
+                                    reverseButtons: true
+                                }).then((result) => {
+                                    if (result.value) {
+                                        $("#loading").show();
+                                        $(".loader").show();
+
+                                        window.location.href = '/DeliveryOrder?var=1';
+                                    }
+                                })
+                            },
+
+                            error: function(response) { // handle the error
+                                Swal.fire("Cancelled", "Data Cancel Inputed", "error");
+                            },
+
+                        })
+
+
+                    } else if (
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                        swalWithBootstrapButtons.fire({
+
+                            title: 'Cancelled',
+                            text: "Process Canceled",
+                            type: 'error',
+                            confirmButtonColor: '#e9ecef',
+                            confirmButtonText: '<span style="color:black;"> Ok </span>',
+
+                        }).then((result) => {
+                            if (result.value) {
+                                $("#loading").show();
+                                $(".loader").show();
+
+                                window.location.href = '/DeliveryOrder?var=1';
+                            }
+                        })
+                    }
+                })
+            // }
         });
+
     });
 </script>

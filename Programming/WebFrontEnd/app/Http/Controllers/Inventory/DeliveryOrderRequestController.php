@@ -11,6 +11,7 @@ class DeliveryOrderRequestController extends Controller
     public function index(Request $request)
     {
         $request->session()->forget("SessionDeliveryOrderRequest");
+        $request->session()->forget("SessionDeliveryOrderRequestRequester");
         
         $var = 0;
         if (!empty($_GET['var'])) {
@@ -69,9 +70,87 @@ class DeliveryOrderRequestController extends Controller
         }
     }
 
+    public function StoreValidateDeliveryOrderRequestRequester(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $tamp = 0;
+        $status = 200;
+        $varDataDorList['data'] = [];
+        $requester_id = $request->input('requester_id');
+        $requester_name = $request->input('requester_name');
+        $requester_id2 = $request->input('requester_id2');
+        $pr_RefID = $request->input('pr_RefID');
+
+        $data = $request->session()->get("SessionDeliveryOrderRequestRequester");
+        if ($request->session()->has("SessionDeliveryOrderRequestRequester")) {
+            for ($i = 0; $i < count($data); $i++) {
+                if ($data[$i] == $pr_RefID) {
+                    $tamp = 1;
+                }
+            }
+            if ($tamp == 0) {
+                if ($requester_id != $requester_id2 && $requester_id2 != "") {
+                    $status = 500;
+                } else {
+
+                    $varDataDorList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken,
+                        'transaction.read.dataList.finance.getAdvanceDetail',
+                        'latest',
+                        [
+                            'parameter' => [
+                                'advance_RefID' => (int) $pr_RefID,
+                            ],
+                            'SQLStatement' => [
+                                'pick' => null,
+                                'sort' => null,
+                                'filter' => null,
+                                'paging' => null
+                            ]
+                        ]
+                    );
+
+                    $request->session()->push("SessionDeliveryOrderRequestRequester", $pr_RefID);
+                }
+            } else {
+                $status = 501;
+            }
+        } else {
+
+            $varDataDorList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.finance.getAdvanceDetail',
+                'latest',
+                [
+                    'parameter' => [
+                        'advance_RefID' => (int) $pr_RefID,
+                    ],
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ]
+            );
+
+            $request->session()->push("SessionDeliveryOrderRequestRequester", $pr_RefID);
+        }
+        $compact = [
+            'status' => $status,
+            'requester_id' => $requester_id,
+            'requester_name' => $requester_name,
+            'DataDorList' => $varDataDorList['data'],
+        ];
+
+        return response()->json($compact);
+    }
+
     public function store(Request $request)
     {
-        
+        echo "d";die;
     }
 
     public function DeliveryOrderRequestListData(Request $request)
@@ -96,6 +175,30 @@ class DeliveryOrderRequestController extends Controller
         return response()->json($varDataAdvanceRequest['data']);
     }
     
+    public function DeliveryOrderRequestListDataByID(Request $request)
+    {
+        $advance_RefID = $request->input('var_recordID');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varDataAdvanceList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.finance.getAdvanceDetail',
+            'latest',
+            [
+                'parameter' => [
+                    'advance_RefID' => (int) $advance_RefID,
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ]
+        );
+        // dd($varDataAdvanceList);
+        return response()->json($varDataAdvanceList['data']);
+    }
 
     public function DeliveryOrderRequestByBudgetID(Request $request)
     {
@@ -142,39 +245,40 @@ class DeliveryOrderRequestController extends Controller
         return response()->json($compact);
     }
 
-    public function DeliveryOrderRequestByPrID(Request $request)
-    {
-        $pr_RefID = $request->input('pr_RefID');
-        $varAPIWebToken = $request->session()->get('SessionLogin');
+    // public function DeliveryOrderRequestByPrID(Request $request)
+    // {
+    //     $pr_RefID = $request->input('pr_RefID');
+    //     $varAPIWebToken = $request->session()->get('SessionLogin');
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken, 
-        'transaction.read.dataList.finance.getAdvanceDetail',
-        'latest',
-        [
-            'parameter' => [
-                'advance_RefID' => (int) $pr_RefID,
-            ],
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
-            ]
-        ]
-        );
+    //     $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+    //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+    //     $varAPIWebToken, 
+    //     'transaction.read.dataList.finance.getAdvanceDetail',
+    //     'latest',
+    //     [
+    //         'parameter' => [
+    //             'advance_RefID' => (int) $pr_RefID,
+    //         ],
+    //         'SQLStatement' => [
+    //             'pick' => null,
+    //             'sort' => null,
+    //             'filter' => null,
+    //             'paging' => null
+    //         ]
+    //     ]
+    //     );
     
-        $compact = [
-            'varData' => $varData['data'],
-        ];
-        return response()->json($compact);
-    }
+    //     $compact = [
+    //         'varData' => $varData['data'],
+    //     ];
+    //     return response()->json($compact);
+    // }
 
     public function RevisionDeliveryOrderRequestIndex(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionDeliveryOrderRequest");
+        $request->session()->forget("SessionDeliveryOrderRequestRequester");
 
         $varDataAdvanceRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -196,5 +300,34 @@ class DeliveryOrderRequestController extends Controller
 
         
         return view('Inventory.DeliveryOrderRequest.Transactions.RevisionDeliveryOrderRequest', $compact);
+    }
+
+    public function DeliveryOrderRequestListCartRevision(Request $request)
+    {
+        $var_recordID = $request->input('var_recordID');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.finance.getAdvanceDetail',
+            'latest',
+            [
+                'parameter' => [
+                    'advance_RefID' => (int) $var_recordID,
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ]
+        );
+        // dd($varData);
+        foreach($varData['data'] as $varDatas){
+            $request->session()->push("SessionDeliveryOrderRequest", (string)$varDatas['combinedBudget_SubSectionLevel1_RefID']);
+            $request->session()->push("SessionDeliveryOrderRequest", (string)$varDatas['product_RefID']);
+        }
+        return response()->json($varData['data']);
     }
 }

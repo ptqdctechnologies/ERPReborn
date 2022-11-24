@@ -15,23 +15,17 @@ use Illuminate\Support\Facades\Route;
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[START]---
 $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 $varAPIWebToken = 
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NjkyNTY0MDl9.MGQwMjlhNmQ2ZDg2OTJhN2IzN2ZhYTNhYjcxMjdlZWEzNzdiYzU4MGRlNmRhZDA5NjY1MzJjMmE5NGMxMzZjZQ'
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NjU5NzM2NDN9.ZDEyOTk3NGI3M2I4YzZmZmRkZTU5OGZjNWRkM2UxMmQzOTVlOWY3OTQwMDJiNTU2Y2NkMDhmMDhiYTA5Njc5MA'
     .'';
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
     $varAPIWebToken
     );
-
-\App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_UIComponent(
-    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-    $varAPIWebToken
-    );
-
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[ END ]---
-Route::get('zhtTestAdminLTE', function () {
-    return view('zhtTestAdminLTE');
-    })->middleware('web');
+
+//Programming/WebBackEnd/app/Http/Controllers/Application/BackEnd/System/FileHandling/Engines/upload/combined/general/deleteFile/v1/
+
 
 
 // LOGIN
@@ -46,7 +40,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
     // Dashboard
-    Route::get('projectDashboard', 'homeController@projectDashboard')->name('home.projectDashboard');
+    Route::get('dashboard', 'homeController@dashboard')->name('home.dashboard');
     Route::get('checkDocument', 'homeController@checkDocument')->name('home.checkDocument');
     Route::get('myDocument', 'homeController@myDocument')->name('home.myDocument');
     Route::get('submittedDocument', 'homeController@submittedDocument')->name('home.submittedDocument');
@@ -123,8 +117,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getSite', 'FunctionController@getSite')->name('getSite');
     Route::get('getBudget', 'FunctionController@getBudget')->name('getBudget');
     Route::get('getWorker', 'FunctionController@getWorker')->name('getWorker');
-    Route::get('getSupplier', 'FunctionController@getSupplier')->name('getSupplier');
-    Route::get('getDeliverTo', 'FunctionController@getDeliverTo')->name('getDeliverTo');
+
 
 
 
@@ -149,8 +142,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('StoreValidateAdvanceSettlementRequester', 'Advance\AdvanceSettlementController@StoreValidateAdvanceSettlementRequester')->name('AdvanceSettlement.StoreValidateAdvanceSettlementRequester');
     Route::post('RevisionAdvanceSettlement', 'Advance\AdvanceSettlementController@RevisionAdvanceSettlementIndex')->name('AdvanceSettlement.RevisionAdvanceSettlement');
     Route::get('AdvanceSettlementListData', 'Advance\AdvanceSettlementController@AdvanceSettlementListData')->name('AdvanceSettlement.AdvanceSettlementListData');
-    Route::get('AdvanceByBudgetID', 'Advance\AdvanceSettlementController@AdvanceByBudgetID')->name('AdvanceSettlement.AdvanceByBudgetID');
     Route::get('AdvanceSettlementListDataById', 'Advance\AdvanceSettlementController@AdvanceSettlementListDataById')->name('AdvanceSettlement.AdvanceSettlementListDataById');
+    Route::get('AdvanceByBudgetID', 'Advance\AdvanceSettlementController@AdvanceByBudgetID')->name('AdvanceSettlement.AdvanceByBudgetID');
     Route::get('AdvanceSettlementListCartRevision', 'Advance\AdvanceSettlementController@AdvanceSettlementListCartRevision')->name('AdvanceSettlement.AdvanceSettlementListCartRevision');
     Route::resource('AdvanceSettlement', 'Advance\AdvanceSettlementController');
 
@@ -191,8 +184,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('StoreValidatePurchaseOrder', 'Purchase\PurchaseOrderController@StoreValidatePurchaseOrder')->name('PurchaseOrder.StoreValidatePurchaseOrder');
     Route::post('StoreValidatePurchaseOrder2', 'Purchase\PurchaseOrderController@StoreValidatePurchaseOrder2')->name('PurchaseOrder.StoreValidatePurchaseOrder2');
     Route::post('StoreValidatePurchaseOrderPrNumber', 'Purchase\PurchaseOrderController@StoreValidatePurchaseOrderPrNumber')->name('PurchaseOrder.StoreValidatePurchaseOrderPrNumber');
-    Route::post('RevisionPurchaseOrder', 'Purchase\PurchaseOrderController@RevisionPurchaseOderIndex')->name('PurchaseOrder.RevisionPurchaseOrder');
-    Route::get('PurchaseOrderListData', 'Purchase\PurchaseOrderController@PurchaseOrderListData')->name('PurchaseOrder.PurchaseOrderListData');
     Route::post('RevisionPurchaseOrder', 'Purchase\PurchaseOrderController@RevisionPurchaseOrder')->name('PurchaseOrder.RevisionPurchaseOrder');
     Route::post('addListCartPurchaseOrder', 'Purchase\PurchaseOrderController@addListCartPurchaseOrder')->name('PurchaseOrder.addListCartPurchaseOrder');
     Route::resource('PurchaseOrder', 'Purchase\PurchaseOrderController');
@@ -214,32 +205,40 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // DOR
     Route::post('StoreValidateDeliveryOrderRequest', 'Inventory\DeliveryOrderRequestController@StoreValidateDeliveryOrderRequest')->name('DeliveryOrderRequest.StoreValidateDeliveryOrderRequest');
     Route::post('StoreValidateDeliveryOrderRequest2', 'Inventory\DeliveryOrderRequestController@StoreValidateDeliveryOrderRequest2')->name('DeliveryOrderRequest.StoreValidateDeliveryOrderRequest2');
+    Route::post('StoreValidateDeliveryOrderRequestRequester', 'Inventory\DeliveryOrderRequestController@StoreValidateDeliveryOrderRequestRequester')->name('DeliveryOrderRequest.StoreValidateDeliveryOrderRequestRequester');
     Route::post('RevisionDeliveryOrderRequestIndex', 'Inventory\DeliveryOrderRequestController@RevisionDeliveryOrderRequestIndex')->name('DeliveryOrderRequest.RevisionDeliveryOrderRequestIndex');
     Route::get('DeliveryOrderRequestListData', 'Inventory\DeliveryOrderRequestController@DeliveryOrderRequestListData')->name('DeliveryOrderRequest.DeliveryOrderRequestListData');
+    Route::get('DeliveryOrderRequestListDataByID', 'Inventory\DeliveryOrderRequestController@DeliveryOrderRequestListDataByID')->name('DeliveryOrderRequest.DeliveryOrderRequestListDataByID');
     Route::get('DeliveryOrderRequestByBudgetID', 'Inventory\DeliveryOrderRequestController@DeliveryOrderRequestByBudgetID')->name('DeliveryOrderRequest.DeliveryOrderRequestByBudgetID');
-    Route::post('DeliveryOrderRequestByPrID', 'Inventory\DeliveryOrderRequestController@DeliveryOrderRequestByPrID')->name('DeliveryOrderRequest.DeliveryOrderRequestByPrID');
+    // Route::post('DeliveryOrderRequestByPrID', 'Inventory\DeliveryOrderRequestController@DeliveryOrderRequestByPrID')->name('DeliveryOrderRequest.DeliveryOrderRequestByPrID');
+    Route::post('DeliveryOrderRequestListCartRevision', 'Inventory\DeliveryOrderRequestController@DeliveryOrderRequestListCartRevision')->name('DeliveryOrderRequest.DeliveryOrderRequestListCartRevision');
     Route::resource('DeliveryOrderRequest', 'Inventory\DeliveryOrderRequestController');
 
     // DO
     Route::post('StoreValidateDeliveryOrder', 'Inventory\DeliveryOrderController@StoreValidateDeliveryOrder')->name('DeliveryOrder.StoreValidateDeliveryOrder');
     Route::post('StoreValidateDeliveryOrder2', 'Inventory\DeliveryOrderController@StoreValidateDeliveryOrder2')->name('DeliveryOrder.StoreValidateDeliveryOrder2');
-    Route::post('RevisionDeliveryOrder', 'Inventory\DeliveryOrderController@RevisionDeliveryOrder')->name('DeliveryOrder.RevisionDeliveryOrder');
+    Route::post('RevisionDeliveryOrderIndex', 'Inventory\DeliveryOrderController@RevisionDeliveryOrderIndex')->name('DeliveryOrder.RevisionDeliveryOrderIndex');
     Route::get('DeliveryOrderListData', 'Inventory\DeliveryOrderController@DeliveryOrderListData')->name('DeliveryOrder.DeliveryOrderListData');
+    Route::get('DeliveryOrderListDataDor', 'Inventory\DeliveryOrderController@DeliveryOrderListDataDor')->name('DeliveryOrder.DeliveryOrderListDataDor');
+    Route::post('DeliveryOrderListCartRevision', 'Inventory\DeliveryOrderController@DeliveryOrderListCartRevision')->name('DeliveryOrder.DeliveryOrderListCartRevision');
+    Route::get('DeliveryOrderByBudgetID', 'Inventory\DeliveryOrderController@DeliveryOrderByBudgetID')->name('DeliveryOrder.DeliveryOrderByBudgetID');
     Route::resource('DeliveryOrder', 'Inventory\DeliveryOrderController');
 
     //iSupp
     Route::post('StoreValidateiSupp', 'Inventory\iSuppController@StoreValidateiSupp')->name('iSupp.StoreValidateiSupp');
     Route::post('StoreValidateiSupp2', 'Inventory\iSuppController@StoreValidateiSupp2')->name('iSupp.StoreValidateiSupp2');
     Route::post('IsuppListCartRevision', 'Inventory\iSuppController@IsuppListCartRevision')->name('iSupp.IsuppListCartRevision');
-    Route::post('RevisioniSupp', 'Inventory\iSuppController@RevisioniSupp')->name('iSupp.RevisioniSupp');
+    Route::get('IsuppListDataByID', 'Inventory\iSuppController@IsuppListDataByID')->name('iSupp.IsuppListDataByID');
+    Route::post('RevisioniSuppIndex', 'Inventory\iSuppController@RevisioniSuppIndex')->name('iSupp.RevisioniSuppIndex');
     Route::get('ISuppListData', 'Inventory\iSuppController@ISuppListData')->name('iSupp.ISuppListData');
     Route::resource('iSupp', 'Inventory\iSuppController');
 
     // MRET
     Route::post('StoreValidateiMaterialReturn', 'Inventory\MaterialReturnController@StoreValidateiMaterialReturn')->name('MaterialReturn.StoreValidateiMaterialReturn');
     Route::post('StoreValidateiMaterialReturn2', 'Inventory\MaterialReturnController@StoreValidateiMaterialReturn2')->name('MaterialReturn.StoreValidateiMaterialReturn2');
-    Route::post('RevisionMaterialReturn', 'Inventory\MaterialReturnController@RevisionMaterialReturn')->name('MaterialReturn.RevisionMaterialReturn');
+    Route::post('RevisionMaterialReturnIndex', 'Inventory\MaterialReturnController@RevisionMaterialReturnIndex')->name('MaterialReturn.RevisionMaterialReturnIndex');
     Route::get('MaterialReturnListData', 'Inventory\MaterialReturnController@MaterialReturnListData')->name('MaterialReturn.MaterialReturnListData');
+    Route::post('MaterialReturnListCartRevision', 'Inventory\MaterialReturnController@MaterialReturnListCartRevision')->name('MaterialReturn.MaterialReturnListCartRevision');
     Route::resource('MaterialReturn', 'Inventory\MaterialReturnController');
 
 

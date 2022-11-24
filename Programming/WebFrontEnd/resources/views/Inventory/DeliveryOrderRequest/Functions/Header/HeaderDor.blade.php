@@ -77,20 +77,20 @@
                     <div class="col-md-8">
                         <div class="form-group">
                             <table>
-                                <tr>
-                                    <td><label>Receiver Name</label></td>
-                                    <td>
-                                        <div class="input-group">
-                                            <input id="headerReceiverName" style="border-radius:0;" name="headerReceiverName" class="form-control">
-
-                                        </div>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td><label>Requester</label></td>
+                                <td>
+                                    <div class="input-group">
+                                        <input id="requester_id" style="border-radius:0;" name="requester_id" type="hidden" class="form-control">
+                                        <input id="requester_name" style="border-radius:0;" name="requester_name" type="text" class="form-control" readonly>
+                                    </div>
+                                </td>
+                            </tr>
                                 <tr>
                                     <td><label>Deliver Type</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <select class="form-control deliverType" style="border-radius:0;" name="headerOriginBudget" id="headerOriginBudget">
+                                            <select class="form-control deliverType" style="border-radius:0;" name="deliver_type" id="deliver_type">
                                                 <option selected="selected">Select Type</option>
                                                 <option value="Warehouse to Site">Warehouse to Site</option>
                                                 <option value="Warehouse to Warehouse">Warehouse to Warehouse</option>
@@ -101,21 +101,6 @@
                                     </td>
                                 </tr>
 
-                            </table>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <table>
-                                <tr>
-                                    <td><label>Receiver Number</label></td>
-                                    <td>
-                                        <div class="input-group">
-                                            <input id="headerReceiverNumber" style="border-radius:0;" name="headerReceiverNumber" class="form-control">
-
-                                        </div>
-                                    </td>
-                                </tr>
                             </table>
                         </div>
                     </div>
@@ -292,10 +277,10 @@
                                     <td><label>Supplier</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="headerSupplier" style="border-radius:0;margin-left:48px;" name="headerSupplier" class="form-control">
+                                            <input id="suppliercode" style="border-radius:0;margin-left:48px;" name="suppliercode" class="form-control">
                                             <div class="input-group-append">
                                                 <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a href="#"><i id="headerSupplier" data-toggle="modal" data-target="#myProject" class="fas fa-gift" style="color:grey;"></i></a>
+                                                    <a href="#"><i id="suppliercode2" data-toggle="modal" data-target="#mySupplier" class="fas fa-gift" style="color:grey;"></i></a>
                                                 </span>
                                             </div>
                                         </div>
@@ -305,7 +290,7 @@
                                     <td><label>Addres</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <textarea class="form-control" name="headerAddress5" id="headerAddress5" cols="20" rows="5" style="border-radius:0;margin-left:48px;"></textarea>
+                                            <textarea class="form-control" name="supplierAddress" id="supplierAddress" cols="20" rows="5" style="border-radius:0;margin-left:48px;"></textarea>
                                         </div>
                                     </td>
                                 </tr>
