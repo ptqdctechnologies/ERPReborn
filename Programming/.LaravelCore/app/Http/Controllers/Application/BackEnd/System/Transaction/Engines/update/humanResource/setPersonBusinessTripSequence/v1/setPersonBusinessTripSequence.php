@@ -44,7 +44,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2022-10-10                                                                                           |
+        | ▪ Last Update     : 2022-11-24                                                                                           |
         | ▪ Creation Date   : 2022-10-10                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -76,6 +76,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                             $varData['entities']['requesterWorkerJobsPosition_RefID'],
                             $varData['entities']['startDateTimeTZ'],
                             $varData['entities']['finishDateTimeTZ'],
+                            $varData['entities']['businessTripAccommodationArrangementsType_RefID'],
+                            $varData['entities']['businessTripTransportationType_RefIDArray'],
                             $varData['entities']['remarks'],
 
                             (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'additionalData', $varData['entities']) ? ((!is_null($varData['entities']['additionalData'])) ? $varData['entities']['additionalData'] : []) : [])

@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.update.humanResource.setPersonBusinessTrip.v1_throughAPIGateway      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-10-11                                                                                           |
+        | ▪ Last Update     : 2022-11-24                                                                                           |
         | ▪ Creation Date   : 2022-10-11                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -41,6 +41,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 'recordID' => 78000000000001,
                 'entities' => [
                     'documentDateTimeTZ' => '2022-10-10',
+                    'paymentDisbursementMethod_RefID' => 218000000000002,
                     'additionalData' => [
                         'itemList' => [
                             'items' => [
@@ -51,6 +52,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         'requesterWorkerJobsPosition_RefID' => 164000000000497,
                                         'startDateTimeTZ' => '2022-10-10',
                                         'finishDateTimeTZ' => '2022-10-14',
+                                        'businessTripAccommodationArrangementsType_RefID' => 219000000000002,
+                                        'businessTripTransportationType_RefIDArray' => [
+                                            220000000000011, 
+                                            220000000000005
+                                            ],
                                         'remarks' => 'Catatan',
                                         'additionalData' => [
                                            'itemList' => [
@@ -58,17 +64,17 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                         [
                                                         'recordID' => 80000000000001,
                                                         'entities' => [
-                                                           'businessTripCostComponent_RefID' => 81000000000001,
+                                                           'businessTripCostComponentEntity_RefID' => 81000000000001,
                                                            'amountCurrency_RefID' => 62000000000001,
                                                            'amountCurrencyValue' => 30000,
                                                            'amountCurrencyExchangeRate' => 1,
                                                            'remarks' => 'Catatan Pertama'                                    
-                                                           ]                                   
-                                                       ],
-                                                       [
+                                                            ]                                   
+                                                        ],
+                                                        [
                                                         'recordID' => 80000000000002,
-                                                       'entities' => [
-                                                           'businessTripCostComponent_RefID' => 81000000000002,
+                                                        'entities' => [
+                                                           'businessTripCostComponentEntity_RefID' => 221000000000020,
                                                            'amountCurrency_RefID' => 62000000000001,
                                                            'amountCurrencyValue' => 40000,
                                                            'amountCurrencyExchangeRate' => 1,
@@ -97,7 +103,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                       transaction.update.humanResource.setPersonBusinessTrip.v1_throughAPIGatewayJQuery                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-10-11                                                                                           |
+        | ▪ Last Update     : 2022-11-24                                                                                           |
         | ▪ Creation Date   : 2022-10-11                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
