@@ -143,6 +143,34 @@ class DeliveryOrderController extends Controller
         return response()->json($compact);
     }
 
+    public function DeliveryOrderByDorID(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $var_recordID = $request->input('var_recordID');
+        $varDataAdvanceList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varAPIWebToken,
+        'transaction.read.dataList.finance.getAdvanceDetail',
+        'latest',
+        [
+            'parameter' => [
+                'advance_RefID' => (int) $var_recordID,
+            ],
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+            ]
+        ]
+    );
+        
+        $compact = [
+            'DataAdvanceList' => $varDataAdvanceList['data'],
+        ];
+        return response()->json($compact);
+    }
+
     public function RevisionDeliveryOrderIndex(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');

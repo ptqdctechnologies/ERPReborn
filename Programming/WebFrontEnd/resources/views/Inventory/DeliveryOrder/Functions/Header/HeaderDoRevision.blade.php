@@ -28,13 +28,13 @@
       <div class="form-group">
         <table>
           <tr>
-            <td style="padding-top: 5px;"><label>PR Number</label></td>
+            <td style="padding-top: 5px;"><label>DOR Number</label></td>
             <td>
               <div class="input-group" style="width: 108%;">
-                <input id="advance_number" style="border-radius:0;" name="var_advance_number" class="form-control" readonly value="{{ $dataAdvancenumber }}">
+                <input id="dor_number" style="border-radius:0;" name="var_dor_number" class="form-control" readonly value="{{ $dataAdvancenumber }}">
                 <div class="input-group-append">
                   <span style="border-radius:0;" class="input-group-text form-control">
-                    <a id="advance_number2" data-toggle="modal" data-target="#mySearchArf"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                    <a id="dor_number2" data-toggle="modal" data-target="#mySearchArf"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                   </span>
                 </div>
               </div>

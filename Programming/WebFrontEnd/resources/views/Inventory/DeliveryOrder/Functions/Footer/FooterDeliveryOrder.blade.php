@@ -11,7 +11,7 @@
         $("#headerPrNumber2").prop("disabled", true);
         $("#transporter").css("background-color", "white");
         $("#searchDor").prop("disabled", true);
-        $("#pr_number2").prop("disabled", true);
+        $("#dor_number2").prop("disabled", true);
     });
 </script>
 
@@ -21,7 +21,7 @@
     function klikProject(code, name) {
         $("#projectcode").val(code);
         $("#projectname").val(name);
-        $("#pr_number2").prop("disabled", false);
+        $("#dor_number2").prop("disabled", false);
 
         $.ajaxSetup({
             headers: {
@@ -54,9 +54,9 @@
 
 <script>
     function klikPrNumberInDo(id, docNum, reqId, reqName) {
-        alert('dd');
         var var_recordID = id;
         var trano = docNum;
+        $("#dor_number").val(trano);
         $("#tableShowHideDo").show();
 
         $.ajaxSetup({
@@ -67,9 +67,9 @@
 
         $.ajax({
             type: "GET",
-            url: '{!! route("DeliveryOrder.DeliveryOrderByBudgetID") !!}?var_recordID=' + var_recordID,
+            url: '{!! route("DeliveryOrder.DeliveryOrderByDorID") !!}?var_recordID=' + var_recordID,
             success: function(data) {
-                $.each(data, function(key, value) {
+                $.each(data.DataAdvanceList, function(key, value) {
                     var html =
                         '<tr>' +
                         '<td style="border:1px solid #e9ecef;width:5%;">' +
