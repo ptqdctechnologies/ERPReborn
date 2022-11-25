@@ -37,6 +37,11 @@
                         "minLength": 10,
                         "maxLength": 30
                         },
+                    "combinedBudgetSectionDetail_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
                     "paymentDisbursementMethod_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
@@ -186,6 +191,7 @@
                     },
                 "required": [ 
                     "documentDateTimeTZ",
+                    "combinedBudgetSectionDetail_RefID",
                     "paymentDisbursementMethod_RefID"
                     ]
                 }

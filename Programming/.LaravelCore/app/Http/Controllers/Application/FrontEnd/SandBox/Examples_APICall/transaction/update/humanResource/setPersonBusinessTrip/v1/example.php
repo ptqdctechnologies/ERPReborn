@@ -41,6 +41,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 'recordID' => 78000000000001,
                 'entities' => [
                     'documentDateTimeTZ' => '2022-10-10',
+                    'combinedBudgetSectionDetail_RefID' => 169000000000001,
                     'paymentDisbursementMethod_RefID' => 218000000000002,
                     'additionalData' => [
                         'itemList' => [
