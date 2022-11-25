@@ -4,28 +4,28 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\humanResource                  |
-|                \getWorkerCareerInternal\v1                                                                                       |
+|                \getPersonBusinessTrip\v1                                                                                         |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\humanResource\getWorkerCareerInternal\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\humanResource\getPersonBusinessTrip\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getWorkerCareerInternal                                                                                      |
-    | ▪ Description : Menangani API transaction.read.dataList.humanResource.getWorkerCareerInternal Version 1                      |
+    | ▪ Class Name  : getPersonBusinessTrip                                                                                        |
+    | ▪ Description : Menangani API transaction.read.dataList.humanResource.getPersonBusinessTrip Version 1                        |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getWorkerCareerInternal extends \App\Http\Controllers\Controller
+    class getPersonBusinessTrip extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-05-25                                                                                           |
-        | ▪ Creation Date   : 2022-05-25                                                                                           |
+        | ▪ Last Update     : 2022-11-25                                                                                           |
+        | ▪ Creation Date   : 2022-11-25                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-05-25                                                                                           |
-        | ▪ Creation Date   : 2022-05-25                                                                                           |
+        | ▪ Last Update     : 2022-11-25                                                                                           |
+        | ▪ Creation Date   : 2022-11-25                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -59,7 +59,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Worker Internal Career Data List (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Person Business Trip Data List (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
@@ -67,11 +67,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                             {
                             throw new \Exception('SQL Injection Threat Prevention');
                             }
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_HumanResource\General())->getDataList_WorkerCareerInternal(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_HumanResource\General())->getDataList_PersonBusinessTrip(
                             $varUserSession, 
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
-                            $varData['parameter']['worker_RefID'],
-                            $varData['parameter']['dateTimeTZ'],
                             
                             $varData['SQLStatement']['pick'], 
                             $varData['SQLStatement']['sort'], 

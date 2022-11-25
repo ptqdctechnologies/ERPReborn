@@ -1709,6 +1709,7 @@ return array(
     'App\\Models\\Database\\SchData_OLTP_HumanResource\\TblWorkTimeSchedule' => $baseDir . '/app/Models/Database/SchData_OLTP_HumanResource/TblWorkTimeSchedule.php',
     'App\\Models\\Database\\SchData_OLTP_HumanResource\\TblWorker' => $baseDir . '/app/Models/Database/SchData_OLTP_HumanResource/TblWorker.php',
     'App\\Models\\Database\\SchData_OLTP_HumanResource\\TblWorkerCareerInternal' => $baseDir . '/app/Models/Database/SchData_OLTP_HumanResource/TblWorkerCareerInternal.php',
+    'App\\Models\\Database\\SchData_OLTP_HumanResource\\TblWorkerType' => $baseDir . '/app/Models/Database/SchData_OLTP_HumanResource/TblWorkerType.php',
     'App\\Models\\Database\\SchData_OLTP_Master\\General' => $baseDir . '/app/Models/Database/SchData_OLTP_Master/General.php',
     'App\\Models\\Database\\SchData_OLTP_Master\\TblAccountingEntryRecordType' => $baseDir . '/app/Models/Database/SchData_OLTP_Master/TblAccountingEntryRecordType.php',
     'App\\Models\\Database\\SchData_OLTP_Master\\TblBank' => $baseDir . '/app/Models/Database/SchData_OLTP_Master/TblBank.php',

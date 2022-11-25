@@ -43,8 +43,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2022-11-23                                                                                           |
+        | ▪ Version         : 1.0001.0000001                                                                                       |
+        | ▪ Last Update     : 2022-11-25                                                                                           |
         | ▪ Creation Date   : 2022-10-10                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -56,6 +56,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
+        |      ▪ (int)    varCombinedBudgetSectionDetail_RefID ► Combined Budget Section Detail Reference ID                       |
         |      ▪ (int)    varPaymentDisbursementMethod_RefID ► Payment Disbursement Method Reference ID                            |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
@@ -66,7 +67,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varPaymentDisbursementMethod_RefID = null,
+            string $varDocumentDateTimeTZ = null, int $varCombinedBudgetSectionDetail_RefID = null, int $varPaymentDisbursementMethod_RefID = null,
             array $varAdditionalData = [])
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -83,6 +84,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [$varSysBaseCurrency_RefID, 'bigint'],
 
                         [$varDocumentDateTimeTZ, 'timestamptz'],
+                        [$varCombinedBudgetSectionDetail_RefID, 'bigint'],
                         [$varPaymentDisbursementMethod_RefID, 'bigint'],
 
                         [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
@@ -97,8 +99,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2022-11-23                                                                                           |
+        | ▪ Version         : 1.0001.0000001                                                                                       |
+        | ▪ Last Update     : 2022-11-25                                                                                           |
         | ▪ Creation Date   : 2022-10-10                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -111,6 +113,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
+        |      ▪ (int)    varCombinedBudgetSectionDetail_RefID ► Combined Budget Section Detail Reference ID                       |
         |      ▪ (int)    varPaymentDisbursementMethod_RefID ► Payment Disbursement Method Reference ID                            |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
@@ -121,7 +124,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varPaymentDisbursementMethod_RefID = null,
+            string $varDocumentDateTimeTZ = null, int $varCombinedBudgetSectionDetail_RefID = null, int $varPaymentDisbursementMethod_RefID = null,
             array $varAdditionalData = [])
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -138,6 +141,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [$varSysBaseCurrency_RefID, 'bigint'],
 
                         [$varDocumentDateTimeTZ, 'timestamptz'],
+                        [$varCombinedBudgetSectionDetail_RefID, 'bigint'],
                         [$varPaymentDisbursementMethod_RefID, 'bigint'],
 
                         [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']

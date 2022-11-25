@@ -2304,6 +2304,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Models\\Database\\SchData_OLTP_HumanResource\\TblWorkTimeSchedule' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_HumanResource/TblWorkTimeSchedule.php',
         'App\\Models\\Database\\SchData_OLTP_HumanResource\\TblWorker' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_HumanResource/TblWorker.php',
         'App\\Models\\Database\\SchData_OLTP_HumanResource\\TblWorkerCareerInternal' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_HumanResource/TblWorkerCareerInternal.php',
+        'App\\Models\\Database\\SchData_OLTP_HumanResource\\TblWorkerType' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_HumanResource/TblWorkerType.php',
         'App\\Models\\Database\\SchData_OLTP_Master\\General' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Master/General.php',
         'App\\Models\\Database\\SchData_OLTP_Master\\TblAccountingEntryRecordType' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Master/TblAccountingEntryRecordType.php',
         'App\\Models\\Database\\SchData_OLTP_Master\\TblBank' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Master/TblBank.php',
