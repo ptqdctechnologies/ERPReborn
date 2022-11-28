@@ -12,6 +12,53 @@ class BusinessTripRequestController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionBusinessTripRequest");
+
+        $varDataAccomodation = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'dataPickList.humanResource.getBusinessTripAccommodationArrangementsType', 
+            'latest',
+            [
+            'parameter' => [
+                ]
+            ]
+            );
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'dataPickList.humanResource.getBusinessTripCostComponentEntity', 
+            'latest',
+            [
+            'parameter' => [
+                ]
+            ]
+            );
+
+        $varDataTransport = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'dataPickList.humanResource.getBusinessTripTransportationType', 
+            'latest',
+            [
+            'parameter' => [
+                ]
+            ]
+            );
+
+        $varDataApplicable = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'dataPickList.master.getPaymentDisbursementMethod', 
+            'latest',
+            [
+            'parameter' => [
+                ]
+            ]
+            );
+
+        dd($varData['data']);die;
+
         $var = 0;
         if(!empty($_GET['var'])){
            $var =  $_GET['var'];
@@ -19,7 +66,10 @@ class BusinessTripRequestController extends Controller
         
         $compact = [
             'var' => $var,
-            'varAPIWebToken' => $varAPIWebToken
+            'varAPIWebToken' => $varAPIWebToken,
+            'varDataAccomodation' => $varDataAccomodation['data']['data'],
+            'varDataTransport' => $varDataTransport['data']['data'],
+            'varDataApplicable' => $varDataApplicable['data']
         ];
     
         return view('Advance.BusinessTrip.Transactions.CreateBusinessTripRequest', $compact);
