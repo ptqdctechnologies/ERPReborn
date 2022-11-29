@@ -1945,6 +1945,10 @@ class ApplicationTest extends TestCase
      */
     public function testSetSignalsToDispatchEvent()
     {
+        if (!\defined('SIGUSR1')) {
+            $this->markTestSkipped('SIGUSR1 not available');
+        }
+
         $command = new BaseSignableCommand();
 
         $subscriber = new SignalEventSubscriber();
@@ -1973,6 +1977,25 @@ class ApplicationTest extends TestCase
         $application->setDispatcher($dispatcher);
         $application->add($command);
         $this->assertSame(0, $application->run(new ArrayInput(['signal'])));
+    }
+
+    public function testSignalableCommandHandlerCalledAfterEventListener()
+    {
+        if (!\defined('SIGUSR1')) {
+            $this->markTestSkipped('SIGUSR1 not available');
+        }
+
+        $command = new SignableCommand();
+
+        $subscriber = new SignalEventSubscriber();
+
+        $dispatcher = new EventDispatcher();
+        $dispatcher->addSubscriber($subscriber);
+
+        $application = $this->createSignalableApplication($command, $dispatcher);
+        $application->setSignalsToDispatchEvent(\SIGUSR1);
+        $this->assertSame(1, $application->run(new ArrayInput(['signal'])));
+        $this->assertSame([SignalEventSubscriber::class, SignableCommand::class], $command->signalHandlers);
     }
 
     /**
@@ -2074,6 +2097,7 @@ class DisabledCommand extends Command
 class BaseSignableCommand extends Command
 {
     public $signaled = false;
+    public $signalHandlers = [];
     public $loop = 1000;
     private $emitsSignal;
 
@@ -2111,6 +2135,7 @@ class SignableCommand extends BaseSignableCommand implements SignalableCommandIn
     public function handleSignal(int $signal): void
     {
         $this->signaled = true;
+        $this->signalHandlers[] = __CLASS__;
     }
 }
 
@@ -2122,6 +2147,7 @@ class SignalEventSubscriber implements EventSubscriberInterface
     {
         $this->signaled = true;
         $event->getCommand()->signaled = true;
+        $event->getCommand()->signalHandlers[] = __CLASS__;
     }
 
     public static function getSubscribedEvents(): array
