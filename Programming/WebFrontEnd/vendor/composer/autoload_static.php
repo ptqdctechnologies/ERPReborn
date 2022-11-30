@@ -2523,6 +2523,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'Illuminate\\Routing\\Middleware\\ThrottleRequestsWithRedis' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequestsWithRedis.php',
         'Illuminate\\Routing\\Middleware\\ValidateSignature' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Routing/Middleware/ValidateSignature.php',
         'Illuminate\\Routing\\PendingResourceRegistration' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Routing/PendingResourceRegistration.php',
+        'Illuminate\\Routing\\PendingSingletonResourceRegistration' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Routing/PendingSingletonResourceRegistration.php',
         'Illuminate\\Routing\\Pipeline' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Routing/Pipeline.php',
         'Illuminate\\Routing\\RedirectController' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Routing/RedirectController.php',
         'Illuminate\\Routing\\Redirector' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Routing/Redirector.php',

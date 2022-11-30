@@ -2032,6 +2032,7 @@ return array(
     'Illuminate\\Routing\\Middleware\\ThrottleRequestsWithRedis' => $vendorDir . '/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequestsWithRedis.php',
     'Illuminate\\Routing\\Middleware\\ValidateSignature' => $vendorDir . '/laravel/framework/src/Illuminate/Routing/Middleware/ValidateSignature.php',
     'Illuminate\\Routing\\PendingResourceRegistration' => $vendorDir . '/laravel/framework/src/Illuminate/Routing/PendingResourceRegistration.php',
+    'Illuminate\\Routing\\PendingSingletonResourceRegistration' => $vendorDir . '/laravel/framework/src/Illuminate/Routing/PendingSingletonResourceRegistration.php',
     'Illuminate\\Routing\\Pipeline' => $vendorDir . '/laravel/framework/src/Illuminate/Routing/Pipeline.php',
     'Illuminate\\Routing\\RedirectController' => $vendorDir . '/laravel/framework/src/Illuminate/Routing/RedirectController.php',
     'Illuminate\\Routing\\Redirector' => $vendorDir . '/laravel/framework/src/Illuminate/Routing/Redirector.php',

@@ -6,6 +6,8 @@ namespace Aws;
  *
  * @method \Aws\ACMPCA\ACMPCAClient createACMPCA(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionACMPCA(array $args = [])
+ * @method \Aws\ARCZonalShift\ARCZonalShiftClient createARCZonalShift(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionARCZonalShift(array $args = [])
  * @method \Aws\AccessAnalyzer\AccessAnalyzerClient createAccessAnalyzer(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionAccessAnalyzer(array $args = [])
  * @method \Aws\Account\AccountClient createAccount(array $args = [])
@@ -440,6 +442,10 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionNimbleStudio(array $args = [])
  * @method \Aws\OAM\OAMClient createOAM(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionOAM(array $args = [])
+ * @method \Aws\Omics\OmicsClient createOmics(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionOmics(array $args = [])
+ * @method \Aws\OpenSearchServerless\OpenSearchServerlessClient createOpenSearchServerless(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionOpenSearchServerless(array $args = [])
  * @method \Aws\OpenSearchService\OpenSearchServiceClient createOpenSearchService(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionOpenSearchService(array $args = [])
  * @method \Aws\OpsWorks\OpsWorksClient createOpsWorks(array $args = [])
@@ -558,6 +564,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionSecretsManager(array $args = [])
  * @method \Aws\SecurityHub\SecurityHubClient createSecurityHub(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionSecurityHub(array $args = [])
+ * @method \Aws\SecurityLake\SecurityLakeClient createSecurityLake(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionSecurityLake(array $args = [])
  * @method \Aws\ServerlessApplicationRepository\ServerlessApplicationRepositoryClient createServerlessApplicationRepository(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionServerlessApplicationRepository(array $args = [])
  * @method \Aws\ServiceCatalog\ServiceCatalogClient createServiceCatalog(array $args = [])
@@ -574,6 +582,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionSfn(array $args = [])
  * @method \Aws\Shield\ShieldClient createShield(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionShield(array $args = [])
+ * @method \Aws\SimSpaceWeaver\SimSpaceWeaverClient createSimSpaceWeaver(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionSimSpaceWeaver(array $args = [])
  * @method \Aws\Sms\SmsClient createSms(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionSms(array $args = [])
  * @method \Aws\SnowBall\SnowBallClient createSnowBall(array $args = [])
@@ -653,7 +663,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.248.0';
+    const VERSION = '3.250.0';
 
     /** @var array Arguments for creating clients */
     private $args;
