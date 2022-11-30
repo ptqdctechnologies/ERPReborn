@@ -187,42 +187,42 @@
                             <div class="form-group clearfix">
                               <td>
                                 <div class="icheck-primary d-inline">
-                                  <input type="checkbox" id="transportApplicableBus" name="TransportType" value="{{ $varDataTransport['0']['sys_ID'] }}">
+                                  <input type="checkbox" class="transportApplicable" id="transportApplicableBus" name="TransportType" value="{{ $varDataTransport['0']['sys_ID'] }}">
                                   <label for="transportApplicableBus"> {{ $varDataTransport['0']['sys_Text'] }}
                                   </label>
                                 </div>
                               </td>
                               <td>
                                 <div class="icheck-primary d-inline">
-                                  <input type="checkbox" id="transportApplicableRail" name="TransportType" value="{{ $varDataTransport['1']['sys_ID'] }}">
+                                  <input type="checkbox" class="transportApplicable" id="transportApplicableRail" name="TransportType" value="{{ $varDataTransport['1']['sys_ID'] }}">
                                   <label for="transportApplicableRail"> {{ $varDataTransport['1']['sys_Text'] }}
                                   </label>
                                 </div>
                               </td>
                               <td>
                                 <div class="icheck-primary d-inline">
-                                  <input type="checkbox" id="transportApplicableAir" name="TransportType" value="{{ $varDataTransport['2']['sys_ID'] }}">
+                                  <input type="checkbox" class="transportApplicable" id="transportApplicableAir" name="TransportType" value="{{ $varDataTransport['2']['sys_ID'] }}">
                                   <label for="transportApplicableAir"> {{ $varDataTransport['2']['sys_Text'] }}
                                   </label>
                                 </div>
                               </td>
                               <td>
                                 <div class="icheck-primary d-inline">
-                                  <input type="checkbox" id="transportApplicableSea" name="TransportType" value="{{ $varDataTransport['3']['sys_ID'] }}">
+                                  <input type="checkbox" class="transportApplicable" id="transportApplicableSea" name="TransportType" value="{{ $varDataTransport['3']['sys_ID'] }}">
                                   <label for="transportApplicableSea"> {{ $varDataTransport['3']['sys_Text'] }}
                                   </label>
                                 </div>
                               </td>
                               <td>
                                 <div class="icheck-primary d-inline">
-                                  <input type="checkbox" id="transportApplicableVehicle" name="TransportType" value="{{ $varDataTransport['4']['sys_ID'] }} Vehicle">
+                                  <input type="checkbox" class="transportApplicable" id="transportApplicableVehicle" name="TransportType" value="{{ $varDataTransport['4']['sys_ID'] }}">
                                   <label for="transportApplicableVehicle"> {{ $varDataTransport['4']['sys_Text'] }}
                                   </label>
                                 </div>
                               </td>
                               <td>
                                 <div class="icheck-primary d-inline">
-                                  <input type="checkbox" id="transportApplicableTrain" name="TransportType" value="{{ $varDataTransport['5']['sys_ID'] }}">
+                                  <input type="checkbox" class="transportApplicable" id="transportApplicableTrain" name="TransportType" value="{{ $varDataTransport['5']['sys_ID'] }}">
                                   <label for="transportApplicableTrain"> {{ $varDataTransport['5']['sys_Text'] }}
                                   </label>
                                 </div>
@@ -234,42 +234,42 @@
                             <div class="form-group clearfix">
                               <td>
                                 <div class="icheck-primary d-inline">
-                                  <input type="checkbox" id="transportApplicableBus" name="TransportType" value="{{ $varDataTransport['6']['sys_ID'] }}">
+                                  <input type="checkbox" class="transportApplicable" id="transportApplicableBus" name="TransportType" value="{{ $varDataTransport['6']['sys_ID'] }}">
                                   <label for="transportApplicableBus"> {{ $varDataTransport['6']['sys_Text'] }}
                                   </label>
                                 </div>
                               </td>
                               <td>
                                 <div class="icheck-primary d-inline">
-                                  <input type="checkbox" id="transportApplicableRail" name="TransportType" value="{{ $varDataTransport['7']['sys_ID'] }}">
+                                  <input type="checkbox" class="transportApplicable" id="transportApplicableRail" name="TransportType" value="{{ $varDataTransport['7']['sys_ID'] }}">
                                   <label for="transportApplicableRail"> {{ $varDataTransport['7']['sys_Text'] }}
                                   </label>
                                 </div>
                               </td>
                               <td>
                                 <div class="icheck-primary d-inline">
-                                  <input type="checkbox" id="transportApplicableAir" name="TransportType" value="{{ $varDataTransport['8']['sys_ID'] }}">
+                                  <input type="checkbox" class="transportApplicable" id="transportApplicableAir" name="TransportType" value="{{ $varDataTransport['8']['sys_ID'] }}">
                                   <label for="transportApplicableAir"> {{ $varDataTransport['8']['sys_Text'] }}
                                   </label>
                                 </div>
                               </td>
                               <td>
                                 <div class="icheck-primary d-inline">
-                                  <input type="checkbox" id="transportApplicableSea" name="TransportType" value="{{ $varDataTransport['9']['sys_ID'] }}">
+                                  <input type="checkbox" class="transportApplicable" id="transportApplicableSea" name="TransportType" value="{{ $varDataTransport['9']['sys_ID'] }}">
                                   <label for="transportApplicableSea"> {{ $varDataTransport['9']['sys_Text'] }}
                                   </label>
                                 </div>
                               </td>
                               <td>
                                 <div class="icheck-primary d-inline">
-                                  <input type="checkbox" id="transportApplicableVehicle" name="TransportType" value="{{ $varDataTransport['10']['sys_ID'] }} Vehicle">
+                                  <input type="checkbox" class="transportApplicable" id="transportApplicableVehicle" name="TransportType" value="{{ $varDataTransport['10']['sys_ID'] }}">
                                   <label for="transportApplicableVehicle"> {{ $varDataTransport['10']['sys_Text'] }}
                                   </label>
                                 </div>
                               </td>
                               <td>
                                 <div class="icheck-primary d-inline">
-                                  <input type="checkbox" id="transportApplicableTrain" name="TransportType" value="{{ $varDataTransport['11']['sys_ID'] }}">
+                                  <input type="checkbox" class="transportApplicable" id="transportApplicableTrain" name="TransportType" value="{{ $varDataTransport['11']['sys_ID'] }}">
                                   <label for="transportApplicableTrain"> {{ $varDataTransport['11']['sys_Text'] }}
                                   </label>
                                 </div>
