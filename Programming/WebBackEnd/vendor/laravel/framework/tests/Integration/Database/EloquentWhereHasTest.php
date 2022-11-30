@@ -87,7 +87,7 @@ class EloquentWhereHasTest extends DatabaseTestCase
         $this->assertEquals($userOrWhereHas->first()->id, $query->first()->id);
     }
 
-    public function dataProviderWhereRelationCallback()
+    public static function dataProviderWhereRelationCallback()
     {
         $callbackArray = function ($value) {
             $callbackEloquent = function (EloquentBuilder $builder) use ($value) {
@@ -110,7 +110,7 @@ class EloquentWhereHasTest extends DatabaseTestCase
         };
 
         return [
-            'Find user with post.public = true'  => $callbackArray(true),
+            'Find user with post.public = true' => $callbackArray(true),
             'Find user with post.public = false' => $callbackArray(false),
         ];
     }
