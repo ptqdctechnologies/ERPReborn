@@ -32,6 +32,7 @@
             <td>
               <div class="input-group">
                 <input id="sitecode" style="border-radius:0;" name="sitecode" class="form-control" readonly value="{{$dataAdvanceRevisions['entities']['combinedBudgetSection_RefID']}}">
+                <input name="var_combinedBudget" id="combinedBudget" style="border-radius:0;" type="hidden" class="form-control" readonly>
                 <div class="input-group-append">
                   <span style="border-radius:0;" class="input-group-text form-control">
                     <a id="sitecode2" data-toggle="modal"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>

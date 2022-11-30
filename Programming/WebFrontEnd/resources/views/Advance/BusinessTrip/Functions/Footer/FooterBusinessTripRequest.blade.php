@@ -9,7 +9,7 @@
     $("#tableShowHideBOQ3").hide();
     $("#sitecode2").prop("disabled", true);
     $("#request_name2").prop("disabled", true);
-    $("#saveBrfList").prop("disabled", true);
+    // $("#saveBrfList").prop("disabled", true);
     $("#dateEnd").prop("disabled", true);
     $("#dateEnd").css("background-color", "white");
     $("#dateArrival").prop("disabled", true);
@@ -179,6 +179,7 @@
     var varSequence = $('#sequence').val();
     var putProductId = $('#putProductId').val();
     var putProductName = $('#putProductName').val();
+    var combinedBudget = $("#combinedBudget").val();
 
     // var c = $(".totalCostPerProduct").val();
     // console.log(c);
@@ -219,9 +220,7 @@
       var totalCostPerProduct = parseFloat($("#totalCostPerProduct").val().replace(/,/g, ''));
       $("#totalCostPerProduct").val(parseFloat(+totalCostPerProduct + +varTotal).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
       var totalCostPerProduct = parseFloat($("#totalCostPerProduct").val().replace(/,/g, ''));
-      
-      console.log(totalCostPerProduct);
-
+  
       if (parseFloat(totalCostPerProduct) > parseFloat(budgetRequest)) {
         Swal.fire("Error !", "Total Budget Request more than Budget", "error");
         var varLoop = $("#sequence").val() - 1;
@@ -278,17 +277,18 @@
             }
             $("#putSequence").val(putSequence);
           }
-
+            
           var html = '<tr>' +
             '<td style="border:1px solid #e9ecef;width:7%;">' +
             // '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveBusinessTrip(this);"  data-id1="' + allowance + '" data-id2="' + transport + '" data-id3="' + airport_tax + '" data-id4="' + accomodation + '" data-id5="' + other + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
             '&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton " onclick="EditBusinessTrip(this);" data-dismiss="modal" data-id1="' + allowance + '" data-id2="' + transport + '" data-id3="' + airport_tax + '" data-id4="' + accomodation + '" data-id5="' + other + '" data-id6="' + putProductId + '" data-id7="' + putProductName + '" data-id8="' + $("#putSequence").val() + '" data-id9="' + varSequenceReq + '" data-id10="' + totalBalance + '" data-id11="' + budgetRequest + '" data-id12="' + totalCostPerProduct + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
-            '<input type="hidden" name="sequence[]" value="' + sequence + '">' +
+            '<input type="hidden" name="var_product_id[]" value="' + putProductId + '">' +
             '<input type="hidden" name="allowance[]" value="' + allowance + '">' +
             '<input type="hidden" name="transport[]" value="' + transport + '">' +
             '<input type="hidden" name="airport_tax[]" value="' + airport_tax + '">' +
             '<input type="hidden" name="accomodation[]" value="' + accomodation + '">' +
             '<input type="hidden" name="other[]" value="' + other + '">' +
+            '<input type="hidden" name="var_combinedBudget[]" value="' + combinedBudget + '">' +
             '</td>' +
             '<td style="border:1px solid #e9ecef;width:10%;">' + putProductId + '</td>' +
             '<td style="border:1px solid #e9ecef;width:10%;">' + putProductName + '</td>' +
@@ -352,6 +352,7 @@
         var budgetRequest = $('#budgetRequest').val().replace(/,/g, '');
         var totalCostPerProduct = $('#totalCostPerProduct').val().replace(/,/g, '');
         var putSequence = $("#putSequence").val();
+        var combinedBudget = $("#combinedBudget").val();
         var statusEditBrf = $("#statusEditBrf").val();
         
         if (statusEditBrf == "Yes") {
@@ -371,12 +372,14 @@
           '<td style="border:1px solid #e9ecef;width:7%;">' +
           // '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveBusinessTrip(this);"  data-id1="' + allowance + '" data-id2="' + transport + '" data-id3="' + airport_tax + '" data-id4="' + accomodation + '" data-id5="' + other + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
           '&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton " onclick="EditBusinessTrip(this);" data-dismiss="modal" data-id1="' + allowance + '" data-id2="' + transport + '" data-id3="' + airport_tax + '" data-id4="' + accomodation + '" data-id5="' + other + '" data-id6="' + putProductId + '" data-id7="' + putProductName + '" data-id8="' + $("#putSequence").val() + '" data-id9="' + varSequenceReq + '" data-id10="' + totalBalance + '" data-id11="' + budgetRequest + '" data-id12="' + totalCostPerProduct + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+          '<input type="hidden" name="var_product_id[]" value="' + putProductId + '">' +
           '<input type="hidden" name="sequence[]" value="' + sequence + '">' +
           '<input type="hidden" name="allowance[]" value="' + allowance + '">' +
           '<input type="hidden" name="transport[]" value="' + transport + '">' +
           '<input type="hidden" name="airport_tax[]" value="' + airport_tax + '">' +
           '<input type="hidden" name="accomodation[]" value="' + accomodation + '">' +
           '<input type="hidden" name="other[]" value="' + other + '">' +
+          '<input type="hidden" name="var_combinedBudget[]" value="' + combinedBudget + '">' +
           '</td>' +
           '<td style="border:1px solid #e9ecef;width:10%;">' + putProductId + '</td>' +
           '<td style="border:1px solid #e9ecef;width:10%;">' + putProductName + '</td>' +
@@ -752,64 +755,72 @@
   $(function() {
     $("#FormSubmitBusinessTrip").on("submit", function(e) { //id of form 
       e.preventDefault();
-      var request_name = $("#request_name").val();
-      var jobTitle = $("#jobTitle").val();
-      var department = $("#department").val();
-      var reasonTravel = $("#reasonTravel").val();
-      var dateCommance = $("#dateCommance").val();
-      var dateEnd = $("#dateEnd").val();
-      var headStationLocation = $("#headStationLocation").val();
-      var bussinesLocation = $("#bussinesLocation").val();
-      var contactPhone = $("#contactPhone").val();
+      // var request_name = $("#request_name").val();
+      // var jobTitle = $("#jobTitle").val();
+      // var department = $("#department").val();
+      // var reasonTravel = $("#reasonTravel").val();
+      // var dateCommance = $("#dateCommance").val();
+      // var dateEnd = $("#dateEnd").val();
+      // var headStationLocation = $("#headStationLocation").val();
+      // var bussinesLocation = $("#bussinesLocation").val();
+      // var contactPhone = $("#contactPhone").val();
+      
+      // $("#request_name").css("border", "1px solid #ced4da");
+      // $("#jobTitle").css("border", "1px solid #ced4da");
+      // $("#department").css("border", "1px solid #ced4da");
+      // $("#reasonTravel").css("border", "1px solid #ced4da");
+      // $("#dateCommance").css("border", "1px solid #ced4da");
+      // $("#dateEnd").css("border", "1px solid #ced4da");
+      // $("#headStationLocation").css("border", "1px solid #ced4da");
+      // $("#bussinesLocation").css("border", "1px solid #ced4da");
+      // $("#contactPhone").css("border", "1px solid #ced4da");
 
-      $("#request_name").css("border", "1px solid #ced4da");
-      $("#jobTitle").css("border", "1px solid #ced4da");
-      $("#department").css("border", "1px solid #ced4da");
-      $("#reasonTravel").css("border", "1px solid #ced4da");
-      $("#dateCommance").css("border", "1px solid #ced4da");
-      $("#dateEnd").css("border", "1px solid #ced4da");
-      $("#headStationLocation").css("border", "1px solid #ced4da");
-      $("#bussinesLocation").css("border", "1px solid #ced4da");
-      $("#contactPhone").css("border", "1px solid #ced4da");
+      // if (request_name === "") {
+      //   $("#request_name").focus();
+      //   $("#request_name").attr('required', true);
+      //   $("#request_name").css("border", "1px solid red");
+      // }  else if (jobTitle === "") {
+      //   $("#jobTitle").focus();
+      //   $("#jobTitle").attr('required', true);
+      //   $("#jobTitle").css("border", "1px solid red");
+      // } else if (department === "") {
+      //   $("#department").focus();
+      //   $("#department").attr('required', true);
+      //   $("#department").css("border", "1px solid red");
+      // } else if (reasonTravel === "") {
+      //   $("#reasonTravel").focus();
+      //   $("#reasonTravel").attr('required', true);
+      //   $("#reasonTravel").css("border", "1px solid red");
+      // }  else if (dateCommance === "") {
+      //   $("#dateCommance").focus();
+      //   $("#dateCommance").attr('required', true);
+      //   $("#dateCommance").css("border", "1px solid red");
+      // }  else if (dateEnd === "") {
+      //   $("#dateEnd").focus();
+      //   $("#dateEnd").attr('required', true);
+      //   $("#dateEnd").css("border", "1px solid red");
+      // }  else if (headStationLocation === "") {
+      //   $("#headStationLocation").focus();
+      //   $("#headStationLocation").attr('required', true);
+      //   $("#headStationLocation").css("border", "1px solid red");
+      // }  else if (bussinesLocation === "") {
+      //   $("#bussinesLocation").focus();
+      //   $("#bussinesLocation").attr('required', true);
+      //   $("#bussinesLocation").css("border", "1px solid red");
+      // }  else if (contactPhone === "") {
+      //   $("#contactPhone").focus();
+      //   $("#contactPhone").attr('required', true);
+      //   $("#contactPhone").css("border", "1px solid red");
+      // } 
+      // else {
 
-      if (request_name === "") {
-        $("#request_name").focus();
-        $("#request_name").attr('required', true);
-        $("#request_name").css("border", "1px solid red");
-      }  else if (jobTitle === "") {
-        $("#jobTitle").focus();
-        $("#jobTitle").attr('required', true);
-        $("#jobTitle").css("border", "1px solid red");
-      } else if (department === "") {
-        $("#department").focus();
-        $("#department").attr('required', true);
-        $("#department").css("border", "1px solid red");
-      } else if (reasonTravel === "") {
-        $("#reasonTravel").focus();
-        $("#reasonTravel").attr('required', true);
-        $("#reasonTravel").css("border", "1px solid red");
-      }  else if (dateCommance === "") {
-        $("#dateCommance").focus();
-        $("#dateCommance").attr('required', true);
-        $("#dateCommance").css("border", "1px solid red");
-      }  else if (dateEnd === "") {
-        $("#dateEnd").focus();
-        $("#dateEnd").attr('required', true);
-        $("#dateEnd").css("border", "1px solid red");
-      }  else if (headStationLocation === "") {
-        $("#headStationLocation").focus();
-        $("#headStationLocation").attr('required', true);
-        $("#headStationLocation").css("border", "1px solid red");
-      }  else if (bussinesLocation === "") {
-        $("#bussinesLocation").focus();
-        $("#bussinesLocation").attr('required', true);
-        $("#bussinesLocation").css("border", "1px solid red");
-      }  else if (contactPhone === "") {
-        $("#contactPhone").focus();
-        $("#contactPhone").attr('required', true);
-        $("#contactPhone").css("border", "1px solid red");
-      } 
-      else {
+        var arr = [];
+        $.each($("input[name='TransportType']:checked"), function(){
+          arr.push($(this).val());
+        });
+        
+        var html = '<input type="hidden" name="TransportType" value="' + arr + '">';
+          $('table.TableBusinessTrip tbody').append(html);
 
         var action = $(this).attr("action"); //get submit action from form
         var method = $(this).attr("method"); // get submit method
@@ -904,7 +915,7 @@
               })
           }
         })
-      }
+      // }
     });
 
   });
