@@ -24,23 +24,6 @@ class BusinessTripRequestController extends Controller
             ]
             );
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'dataPickList.humanResource.getBusinessTripCostComponentEntity', 
-            'latest',
-            [
-            'parameter' => [
-                "businessTripTransportationType_RefIDArray" => [
-                    220000000000011, 
-                    220000000000007
-                    ]
-                ]
-            ]
-            );
-        
-        dd($varData);die;
-
         $varDataTransport = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
@@ -51,7 +34,6 @@ class BusinessTripRequestController extends Controller
                 ]
             ]
             );
-            // dd($varDataTransport);die;
 
         $varDataApplicable = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -75,7 +57,8 @@ class BusinessTripRequestController extends Controller
             'varAPIWebToken' => $varAPIWebToken,
             'varDataAccomodation' => $varDataAccomodation['data']['data'],
             'varDataTransport' => $varDataTransport['data']['data'],
-            'varDataApplicable' => $varDataApplicable['data']
+            'varDataApplicable' => $varDataApplicable['data'],
+            'spasi' => "<span style='color: white;'>_____</span>"
         ];
     
         return view('Advance.BusinessTrip.Transactions.CreateBusinessTripRequest', $compact);

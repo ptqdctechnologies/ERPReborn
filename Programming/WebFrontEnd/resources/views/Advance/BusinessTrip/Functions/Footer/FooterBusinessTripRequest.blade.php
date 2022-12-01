@@ -18,6 +18,17 @@
     $("#sequenceRequest").prop("disabled", true);
     $(".FollowingCondition").hide();
     $(".TransportDetails").hide();
+
+    $(".airport_tax").hide();
+    $(".extra_baggage_charge").hide();
+    $(".ticket_fare").hide();
+    $(".fuel_charge").hide();
+    $(".parking_charge").hide();
+    $(".toll_charge").hide();
+    $(".rental_fee").hide();
+    $(".compensation_fee").hide();
+    $(".driver_fee").hide();
+
   });
 </script>
 
@@ -719,17 +730,6 @@
       $("#sequenceRequest").prop("disabled", true);
       $("#lupsum").prop("disabled", false);
     });
-
-    // $('#nonLupsum').click(function() {
-    //   $("#sequenceRequest").prop("disabled", false);
-    //   $("#sequenceRequest").val('0');
-    // });
-
-    // $('#lupsum').click(function() {
-    //   $("#sequenceRequest").val('1');
-    //   $("#sequenceRequest").prop("disabled", true);
-    //   $("#lupsum").prop("disabled", false);
-    // });
   });
 </script>
 
@@ -749,6 +749,107 @@
             $(".TransportDetails").show();
         });
     });
+</script>
+
+<script type="text/javascript">
+
+    $(".transportApplicable").change(function() {
+      if(this.checked) {
+
+        
+
+        // $(".airport_tax").show();
+        // $(".extra_baggage_charge").show();
+        // $(".ticket_fare").show();
+        // $(".fuel_charge").show();
+        // $(".parking_charge").show();
+        // $(".toll_charge").show();
+        // $(".rental_fee").show();
+        // $(".compensation_fee").show();
+        // $(".driver_fee").show();
+        var var_ID = $(this).val();
+        // console.log($(this).val());
+
+        if(var_ID == 220000000000011){
+          $(".airport_tax").show();
+          $(".extra_baggage_charge").show();
+          $(".ticket_fare").show();
+        }
+        else if(var_ID == 220000000000007){
+          $(".ticket_fare").show();
+        }
+        else if(var_ID == 220000000000009){
+          $(".ticket_fare").show();
+        }
+        else if(var_ID == 220000000000004){
+          $(".fuel_charge").show();
+          $(".parking_charge").show();
+          $(".toll_charge").show();
+        }
+        else if(var_ID == 220000000000001){
+          $(".fuel_charge").show();
+          $(".parking_charge").show();
+          $(".toll_charge").show();
+        }
+        else if(var_ID == 220000000000006){
+          $(".compensation_fee").show();
+          $(".fuel_charge").show();
+          $(".parking_charge").show();
+          $(".toll_charge").show();
+        }
+        else if(var_ID == 220000000000003){
+          $(".compensation_fee").show();
+          $(".fuel_charge").show();
+          $(".parking_charge").show();
+          $(".toll_charge").show();
+        }
+        else if(var_ID == 220000000000008){
+          $(".ticket_fare").show();
+        }
+        else if(var_ID == 220000000000010){
+          $(".extra_baggage_charge").show();
+          $(".ticket_fare").show();
+        }
+        else if(var_ID == 220000000000012){
+          $(".ticket_fare").show();
+        }
+        else if(var_ID == 220000000000002){
+          $(".fuel_charge").show();
+          $(".parking_charge").show();
+          $(".toll_charge").show();
+          $(".rental_fee").show();
+        }
+        else if(var_ID == 220000000000005){
+          $(".driver_fee").show();
+          $(".fuel_charge").show();
+          $(".parking_charge").show();
+          $(".toll_charge").show();
+          $(".rental_fee").show();
+        }
+        // $.ajaxSetup({
+        //     headers: {
+        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //     }
+        // });
+        
+        // $.ajax({
+        //     type: 'GET',
+        //     url: '{!! route("getBusinessTripCostComponentEntity") !!}?TripTransportationType=' + $(this).val(),
+        //     success: function(data) {
+        //       if(var_ID == 220000000000011){
+        //         $(".airport_tax").show();
+        //         $(".extra_baggage_charge").show();
+        //         $(".ticket_fare").show();
+        //       }
+
+        //       console.log(data);
+
+        //     }
+        // });
+
+      }
+    });
+
 </script>
 
 <script>

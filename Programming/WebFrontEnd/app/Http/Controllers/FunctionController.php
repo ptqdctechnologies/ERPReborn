@@ -125,4 +125,26 @@ class FunctionController extends Controller
             
         return response()->json($varDataWorker['data']['data']);
     }
+
+    public function getBusinessTripCostComponentEntity(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $TripTransportationType = $request->input('TripTransportationType');
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'dataPickList.humanResource.getBusinessTripCostComponentEntity', 
+            'latest',
+            [
+            'parameter' => [
+                "businessTripTransportationType_RefIDArray" => [
+                    (int)$TripTransportationType,
+                    ]
+                ]
+            ]
+            );
+        // dd($varData);
+            
+        return response()->json($varData['data']['data']);
+    }
 }

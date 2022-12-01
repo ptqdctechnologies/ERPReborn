@@ -183,98 +183,31 @@
                           <tr>
                             <td><label><strong>Transport Type Applicable</strong></label></td>
                           </tr>
-                          <tr>
-                            <div class="form-group clearfix">
-                              <td>
-                                <div class="icheck-primary d-inline">
-                                  <input type="checkbox" class="transportApplicable" id="transportApplicableBus" name="TransportType" value="{{ $varDataTransport['0']['sys_ID'] }}">
-                                  <label for="transportApplicableBus"> {{ $varDataTransport['0']['sys_Text'] }}
-                                  </label>
-                                </div>
-                              </td>
-                              <td>
-                                <div class="icheck-primary d-inline">
-                                  <input type="checkbox" class="transportApplicable" id="transportApplicableRail" name="TransportType" value="{{ $varDataTransport['1']['sys_ID'] }}">
-                                  <label for="transportApplicableRail"> {{ $varDataTransport['1']['sys_Text'] }}
-                                  </label>
-                                </div>
-                              </td>
-                              <td>
-                                <div class="icheck-primary d-inline">
-                                  <input type="checkbox" class="transportApplicable" id="transportApplicableAir" name="TransportType" value="{{ $varDataTransport['2']['sys_ID'] }}">
-                                  <label for="transportApplicableAir"> {{ $varDataTransport['2']['sys_Text'] }}
-                                  </label>
-                                </div>
-                              </td>
-                              <td>
-                                <div class="icheck-primary d-inline">
-                                  <input type="checkbox" class="transportApplicable" id="transportApplicableSea" name="TransportType" value="{{ $varDataTransport['3']['sys_ID'] }}">
-                                  <label for="transportApplicableSea"> {{ $varDataTransport['3']['sys_Text'] }}
-                                  </label>
-                                </div>
-                              </td>
-                              <td>
-                                <div class="icheck-primary d-inline">
-                                  <input type="checkbox" class="transportApplicable" id="transportApplicableVehicle" name="TransportType" value="{{ $varDataTransport['4']['sys_ID'] }}">
-                                  <label for="transportApplicableVehicle"> {{ $varDataTransport['4']['sys_Text'] }}
-                                  </label>
-                                </div>
-                              </td>
-                              <td>
-                                <div class="icheck-primary d-inline">
-                                  <input type="checkbox" class="transportApplicable" id="transportApplicableTrain" name="TransportType" value="{{ $varDataTransport['5']['sys_ID'] }}">
-                                  <label for="transportApplicableTrain"> {{ $varDataTransport['5']['sys_Text'] }}
-                                  </label>
-                                </div>
-                              </td>
-                            </div>
-                          </tr>
 
-                          <tr>
+                            @for($i = 0; $i < 6 ; $i++)
                             <div class="form-group clearfix">
                               <td>
                                 <div class="icheck-primary d-inline">
-                                  <input type="checkbox" class="transportApplicable" id="transportApplicableBus" name="TransportType" value="{{ $varDataTransport['6']['sys_ID'] }}">
-                                  <label for="transportApplicableBus"> {{ $varDataTransport['6']['sys_Text'] }}
-                                  </label>
-                                </div>
-                              </td>
-                              <td>
-                                <div class="icheck-primary d-inline">
-                                  <input type="checkbox" class="transportApplicable" id="transportApplicableRail" name="TransportType" value="{{ $varDataTransport['7']['sys_ID'] }}">
-                                  <label for="transportApplicableRail"> {{ $varDataTransport['7']['sys_Text'] }}
-                                  </label>
-                                </div>
-                              </td>
-                              <td>
-                                <div class="icheck-primary d-inline">
-                                  <input type="checkbox" class="transportApplicable" id="transportApplicableAir" name="TransportType" value="{{ $varDataTransport['8']['sys_ID'] }}">
-                                  <label for="transportApplicableAir"> {{ $varDataTransport['8']['sys_Text'] }}
-                                  </label>
-                                </div>
-                              </td>
-                              <td>
-                                <div class="icheck-primary d-inline">
-                                  <input type="checkbox" class="transportApplicable" id="transportApplicableSea" name="TransportType" value="{{ $varDataTransport['9']['sys_ID'] }}">
-                                  <label for="transportApplicableSea"> {{ $varDataTransport['9']['sys_Text'] }}
-                                  </label>
-                                </div>
-                              </td>
-                              <td>
-                                <div class="icheck-primary d-inline">
-                                  <input type="checkbox" class="transportApplicable" id="transportApplicableVehicle" name="TransportType" value="{{ $varDataTransport['10']['sys_ID'] }}">
-                                  <label for="transportApplicableVehicle"> {{ $varDataTransport['10']['sys_Text'] }}
-                                  </label>
-                                </div>
-                              </td>
-                              <td>
-                                <div class="icheck-primary d-inline">
-                                  <input type="checkbox" class="transportApplicable" id="transportApplicableTrain" name="TransportType" value="{{ $varDataTransport['11']['sys_ID'] }}">
-                                  <label for="transportApplicableTrain"> {{ $varDataTransport['11']['sys_Text'] }}
+                                  <input type="checkbox" class="transportApplicable" name="TransportType" value="{{ $varDataTransport[$i]['sys_ID'] }}">
+                                  <label for="transportApplicableBus"> {{ $varDataTransport[$i]['sys_Text'] }}
                                   </label>
                                 </div>
                               </td>
                             </div>
+                            @endfor
+                          </tr>
+                          <tr>
+                            @for($i = 6; $i < 12 ; $i++)
+                            <div class="form-group clearfix">
+                              <td>
+                                <div class="icheck-primary d-inline">
+                                  <input type="checkbox" class="transportApplicable" name="TransportType" value="{{ $varDataTransport[$i]['sys_ID'] }}">
+                                  <label for="transportApplicableBus"> {{ $varDataTransport[$i]['sys_Text'] }}
+                                  </label>
+                                </div>
+                              </td>
+                            </div>
+                            @endfor
                           </tr>
 
                           <tr>
@@ -392,12 +325,9 @@
                               <div class="input-group">
                                 <select class="form-control select2bs4" id="transportType" style="width: 100%; border-radius:0;">
                                   <option selected="selected"></option>
-                                  <option value="Bus">Bus</option>
-                                  <option value="Rail">Rail</option>
-                                  <option value="Air">Air</option>
-                                  <option value="Sea">Sea</option>
-                                  <option value="Company Vehicle">Company Vehicle</option>
-                                  <!-- <option value="Train">Train</option> -->
+                                  @foreach($varDataTransport as $varDataTransports)
+                                    <option value="{{ $varDataTransports['sys_ID'] }}"> {{$varDataTransports['sys_Text']}} </option>
+                                  @endforeach
                                 </select>
                               </div>
                             </td>
@@ -458,27 +388,33 @@
                       </button>
                     </div>
                   </div>
-
+                  
                   <div class="card-body table-responsive p-0" id="detailTransAvail">
                     <table class="table table-head-fixed text-nowrap table-sm" style="text-align: center;width:120%;">
                       <thead>
                         <tr>
                           <th colspan="5" style="border:2px solid #e9ecef;width:40%;"> Budget Detail</th>
-                          <th colspan="6" style="border:2px solid #e9ecef;width:60%;"> Payment Sequence</th>
+                          <th colspan="4" style="border:2px solid #e9ecef;width:60%;"> Payment Sequence</th>
                         </tr>
                         <tr>
-                          <th style="padding-bottom: 10px;padding-top: 10px;width:12%;border:1px solid #e9ecef;">Product ID</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;width:8%;border:1px solid #e9ecef;">Product Name</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;width:10%;border:1px solid #e9ecef;">Budget Request</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;width:2%;border:1px solid #e9ecef;">Sequence Req</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;width:2%;border:1px solid #e9ecef;">Sequence</th>
-
-                          <th style="padding-bottom: 10px;padding-top: 10px;width:10%;border:1px solid #e9ecef;">Allowance</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;width:10%;border:1px solid #e9ecef;">Transport</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;width:10%;border:1px solid #e9ecef;">Airport Tax</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;width:10%;border:1px solid #e9ecef;">Accomodation</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;width:10%;border:1px solid #e9ecef;">Other</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;width:10%;border:1px solid #e9ecef;">Balance</th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">{!! $spasi !!} Product ID {!! $spasi !!}</th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">{!! $spasi !!} Product Name {!! $spasi !!}</th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">{!! $spasi !!} Budget Request {!! $spasi !!}</th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">Sequence Req</th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">Sequence</th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">{!! $spasi !!}  Allowance {!! $spasi !!}</th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">{!! $spasi !!} Accomodation {!! $spasi !!}</th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="airport_tax">{!! $spasi !!} Airport Tax {!! $spasi !!}</th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="extra_baggage_charge">{!! $spasi !!} Extra Baggage Charge {!! $spasi !!}</th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="ticket_fare">{!! $spasi !!} Ticket Fare {!! $spasi !!}</th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="fuel_charge">{!! $spasi !!} Fuel Charge {!! $spasi !!}</th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="parking_charge">{!! $spasi !!} Parking Charge {!! $spasi !!}</th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="toll_charge">{!! $spasi !!} Toll Charge {!! $spasi !!}</th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="rental_fee">{!! $spasi !!} Rental Fee {!! $spasi !!}</th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="compensation_fee">{!! $spasi !!} Compensation Fee {!! $spasi !!}</th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="driver_fee">{!! $spasi !!} Driver Fee {!! $spasi !!}</th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">{!! $spasi !!} Other {!! $spasi !!}</th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">{!! $spasi !!} Balance {!! $spasi !!}</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -511,13 +447,34 @@
                           <input id="allowance" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                         </td>
                         <td style="border:1px solid #e9ecef;">
-                          <input id="transport" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="accomodation" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                         </td>
-                        <td style="border:1px solid #e9ecef;">
+                        <td style="border:1px solid #e9ecef;" class="airport_tax">
                           <input id="airport_tax" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                         </td>
-                        <td style="border:1px solid #e9ecef;">
-                          <input id="accomodation" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        <td style="border:1px solid #e9ecef;" class="extra_baggage_charge">
+                          <input id="extra_baggage_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </td>
+                        <td style="border:1px solid #e9ecef;" class="ticket_fare">
+                          <input id="ticket_fare" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </td>
+                        <td style="border:1px solid #e9ecef;" class="fuel_charge">
+                          <input id="fuel_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </td>
+                        <td style="border:1px solid #e9ecef;" class="parking_charge">
+                          <input id="parking_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </td>
+                        <td style="border:1px solid #e9ecef;" class="toll_charge">
+                          <input id="toll_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </td>
+                        <td style="border:1px solid #e9ecef;" class="rental_fee">
+                          <input id="rental_fee" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </td>
+                        <td style="border:1px solid #e9ecef;" class="compensation_fee">
+                          <input id="compensation_fee" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </td>
+                        <td style="border:1px solid #e9ecef;" class="driver_fee">
+                          <input id="driver_fee" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                         </td>
                         <td style="border:1px solid #e9ecef;">
                           <input id="other" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
