@@ -19,15 +19,41 @@
     $(".FollowingCondition").hide();
     $(".TransportDetails").hide();
 
-    $(".airport_tax").hide();
-    $(".extra_baggage_charge").hide();
-    $(".ticket_fare").hide();
-    $(".fuel_charge").hide();
-    $(".parking_charge").hide();
-    $(".toll_charge").hide();
-    $(".rental_fee").hide();
-    $(".compensation_fee").hide();
-    $(".driver_fee").hide();
+    $('.paymenSequence').attr('colspan', 4);
+
+    $(".a_airport_tax").hide();
+    $(".a_extra_baggage_charge").hide();
+    $(".a_ticket_fare").hide();
+    $(".b_ticket_fare").hide();
+    $(".m_ticket_fare").hide();
+    $(".cc_fuel_charge").hide();
+    $(".cc_parking_charge").hide();
+    $(".cc_toll_charge").hide();
+    $(".cm_fuel_charge").hide();
+    $(".cm_parking_charge").hide();
+    $(".cm_toll_charge").hide();
+    $(".ec_compensation_fee").hide();
+    $(".ec_fuel_charge").hide();
+    $(".ec_parking_charge").hide();
+    $(".ec_toll_charge").hide();
+    $(".em_compensation_fee").hide();
+    $(".em_fuel_charge").hide();
+    $(".em_parking_charge").hide();
+    $(".em_toll_charge").hide();
+    $(".ib_ticket_fare").hide();
+    $(".it_ticket_fare").hide();
+    $(".it_extra_baggage_charge").hide();
+    $(".s_ticket_fare").hide();
+    $(".tb_rental_fee").hide();
+    $(".tb_fuel_charge").hide();
+    $(".tb_parking_charge").hide();
+    $(".tb_toll_charge").hide();
+    $(".t_driver_fee").hide();
+    $(".t_rental_fee").hide();
+    $(".t_fuel_charge").hide();
+    $(".t_parking_charge").hide();
+    $(".t_toll_charge").hide();
+
 
   });
 </script>
@@ -755,97 +781,89 @@
 
     $(".transportApplicable").change(function() {
       if(this.checked) {
-
         
 
-        // $(".airport_tax").show();
-        // $(".extra_baggage_charge").show();
-        // $(".ticket_fare").show();
-        // $(".fuel_charge").show();
-        // $(".parking_charge").show();
-        // $(".toll_charge").show();
-        // $(".rental_fee").show();
-        // $(".compensation_fee").show();
-        // $(".driver_fee").show();
         var var_ID = $(this).val();
-        // console.log($(this).val());
+        var num = 0;
 
         if(var_ID == 220000000000011){
-          $(".airport_tax").show();
-          $(".extra_baggage_charge").show();
-          $(".ticket_fare").show();
+          $(".a_airport_tax").show();
+          $(".a_extra_baggage_charge").show();
+          $(".a_ticket_fare").show();
+          num += 3;
         }
         else if(var_ID == 220000000000007){
-          $(".ticket_fare").show();
+          $(".b_ticket_fare").show();
+          num += 1;
         }
         else if(var_ID == 220000000000009){
-          $(".ticket_fare").show();
+          $(".m_ticket_fare").show();
+          num += 1;
         }
         else if(var_ID == 220000000000004){
-          $(".fuel_charge").show();
-          $(".parking_charge").show();
-          $(".toll_charge").show();
+          $(".cc_fuel_charge").show();
+          $(".cc_parking_charge").show();
+          $(".cc_toll_charge").show();
+          num += 3;
         }
         else if(var_ID == 220000000000001){
-          $(".fuel_charge").show();
-          $(".parking_charge").show();
-          $(".toll_charge").show();
+          $(".cm_fuel_charge").show();
+          $(".cm_parking_charge").show();
+          $(".cm_toll_charge").show();
+          num += 3;
         }
         else if(var_ID == 220000000000006){
-          $(".compensation_fee").show();
-          $(".fuel_charge").show();
-          $(".parking_charge").show();
-          $(".toll_charge").show();
+          $(".ec_compensation_fee").show();
+          $(".ec_fuel_charge").show();
+          $(".ec_parking_charge").show();
+          $(".ec_toll_charge").show();
+          num += 4;
         }
         else if(var_ID == 220000000000003){
-          $(".compensation_fee").show();
-          $(".fuel_charge").show();
-          $(".parking_charge").show();
-          $(".toll_charge").show();
+          $(".em_compensation_fee").show();
+          $(".em_fuel_charge").show();
+          $(".em_parking_charge").show();
+          $(".em_toll_charge").show();
+          num += 4;
         }
         else if(var_ID == 220000000000008){
-          $(".ticket_fare").show();
+          $(".ib_ticket_fare").show();
+          num += 1;
         }
         else if(var_ID == 220000000000010){
-          $(".extra_baggage_charge").show();
-          $(".ticket_fare").show();
+          $(".it_ticket_fare").show();
+          $(".it_extra_baggage_charge").show();
+          num += 2;
         }
         else if(var_ID == 220000000000012){
-          $(".ticket_fare").show();
+         $(".s_ticket_fare").show();
+          num += 1;
         }
         else if(var_ID == 220000000000002){
-          $(".fuel_charge").show();
-          $(".parking_charge").show();
-          $(".toll_charge").show();
-          $(".rental_fee").show();
+          $(".tb_rental_fee").show();
+          $(".tb_fuel_charge").show();
+          $(".tb_parking_charge").show();
+          $(".tb_toll_charge").show();
+          num += 4;
         }
         else if(var_ID == 220000000000005){
-          $(".driver_fee").show();
-          $(".fuel_charge").show();
-          $(".parking_charge").show();
-          $(".toll_charge").show();
-          $(".rental_fee").show();
+          $(".t_driver_fee").show();
+          $(".t_rental_fee").show();
+          $(".t_fuel_charge").show();
+          $(".t_parking_charge").show();
+          $(".t_toll_charge").show();
+          num += 4;
         }
-        // $.ajaxSetup({
-        //     headers: {
-        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //     }
-        // });
         
-        // $.ajax({
-        //     type: 'GET',
-        //     url: '{!! route("getBusinessTripCostComponentEntity") !!}?TripTransportationType=' + $(this).val(),
-        //     success: function(data) {
-        //       if(var_ID == 220000000000011){
-        //         $(".airport_tax").show();
-        //         $(".extra_baggage_charge").show();
-        //         $(".ticket_fare").show();
-        //       }
+        $("#"+var_ID).prop("disabled", true);
 
-        //       console.log(data);
+        $("#"+var_ID).attr('readonly', 'readonly');k
 
-        //     }
-        // });
+        var paymenSequence = $("#paymenSequence").val();
+        $("#paymenSequence").val(+paymenSequence + num);
+        var paymenSequence2 = $("#paymenSequence").val();
+        
+        $('.paymenSequence').attr('colspan', paymenSequence2);
 
       }
     });

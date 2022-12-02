@@ -188,7 +188,7 @@
                             <div class="form-group clearfix">
                               <td>
                                 <div class="icheck-primary d-inline">
-                                  <input type="checkbox" class="transportApplicable" name="TransportType" value="{{ $varDataTransport[$i]['sys_ID'] }}">
+                                  <input type="checkbox" class="transportApplicable" name="TransportType"  id="{{ $varDataTransport[$i]['sys_ID'] }}" value="{{ $varDataTransport[$i]['sys_ID'] }}">
                                   <label for="transportApplicableBus"> {{ $varDataTransport[$i]['sys_Text'] }}
                                   </label>
                                 </div>
@@ -201,7 +201,7 @@
                             <div class="form-group clearfix">
                               <td>
                                 <div class="icheck-primary d-inline">
-                                  <input type="checkbox" class="transportApplicable" name="TransportType" value="{{ $varDataTransport[$i]['sys_ID'] }}">
+                                  <input type="checkbox" class="transportApplicable" name="TransportType"  id="{{ $varDataTransport[$i]['sys_ID'] }}" value="{{ $varDataTransport[$i]['sys_ID'] }}">
                                   <label for="transportApplicableBus"> {{ $varDataTransport[$i]['sys_Text'] }}
                                   </label>
                                 </div>
@@ -394,27 +394,65 @@
                       <thead>
                         <tr>
                           <th colspan="5" style="border:2px solid #e9ecef;width:40%;"> Budget Detail</th>
-                          <th colspan="4" style="border:2px solid #e9ecef;width:60%;"> Payment Sequence</th>
+                          <th class="paymenSequence" style="border:2px solid #e9ecef;width:60%;"> Payment Sequence</th>
+                          <input type="hidden" id="paymenSequence" value="4">
                         </tr>
                         <tr>
-                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">{!! $spasi !!} Product ID {!! $spasi !!}</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">{!! $spasi !!} Product Name {!! $spasi !!}</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">{!! $spasi !!} Budget Request {!! $spasi !!}</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">Sequence Req</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">Sequence</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">{!! $spasi !!}  Allowance {!! $spasi !!}</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">{!! $spasi !!} Accomodation {!! $spasi !!}</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="airport_tax">{!! $spasi !!} Airport Tax {!! $spasi !!}</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="extra_baggage_charge">{!! $spasi !!} Extra Baggage Charge {!! $spasi !!}</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="ticket_fare">{!! $spasi !!} Ticket Fare {!! $spasi !!}</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="fuel_charge">{!! $spasi !!} Fuel Charge {!! $spasi !!}</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="parking_charge">{!! $spasi !!} Parking Charge {!! $spasi !!}</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="toll_charge">{!! $spasi !!} Toll Charge {!! $spasi !!}</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="rental_fee">{!! $spasi !!} Rental Fee {!! $spasi !!}</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="compensation_fee">{!! $spasi !!} Compensation Fee {!! $spasi !!}</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="driver_fee">{!! $spasi !!} Driver Fee {!! $spasi !!}</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">{!! $spasi !!} Other {!! $spasi !!}</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">{!! $spasi !!} Balance {!! $spasi !!}</th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;"> {!! $spasi !!} Product ID {!! $spasi !!}</th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;"> {!! $spasi !!} Product Name {!! $spasi !!}</th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;"> Budget Request </th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;"> Sequence Req</th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;"> Sequence</th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;"> {!! $spasi !!} Allowance {!! $spasi !!}</th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;"> {!! $spasi !!} Accomodation {!! $spasi !!}</th>
+
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="a_airport_tax"> Airplane ► Airport Tax</th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="a_extra_baggage_charge"> Airplane ► Extra Baggage Charge </th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="a_ticket_fare"> Airplane ► Ticket Fare </th>
+                          
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="b_ticket_fare"> Busway ► Ticket Fare </th>
+
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="m_ticket_fare"> MRT ► Ticket Fare </th>
+
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="cc_fuel_charge"> Company's Car ► Fuel Charge </th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="cc_parking_charge"> Company's Car ► Parking Charge </th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="cc_parking_charge"> Company's Car ► Toll Charge </th>
+
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="cm_fuel_charge"> Company's Motorcycle ► Fuel Charge </th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="cm_parking_charge"> Company's Motorcycle ► Parking Charge </th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="cm_toll_charge"> Company's Motorcycle ► Toll Charge </th>
+
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="ec_compensation_fee"> Employee's Car ► Compensation Fee </th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="ec_fuel_charge"> Employee's Car ► Fuel Charge </th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="ec_parking_charge"> Employee's Car ► Parking Charge </th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="ec_toll_charge"> Employee's Car ► Toll Charge </th>
+
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="em_compensation_fee"> Employee's Motorcycle ► Compensation Fee </th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="em_fuel_charge"> Employee's Motorcycle ► Fuel Charge </th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="em_parking_charge"> Employee's Motorcycle ► Parking Charge </th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="em_toll_charge"> Employee's Motorcycle ► Toll Charge </th>
+
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="ib_ticket_fare"> Intercity Bus ► Ticket Fare </th>
+
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="it_ticket_fare"> Intercity Train ► Ticket Fare </th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="it_extra_baggage_charge"> Intercity Train ► Extra Baggage Charge </th>
+
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="s_ticket_fare"> Ship ► Ticket Fare </th>
+
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="tb_rental_fee"> Taxibike ► Rental Fee </th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="tb_fuel_charge"> Taxibike ► Fuel Charge </th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="tb_parking_charge"> Taxibike ► Parking Charge </th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="tb_toll_charge"> Taxibike ► Toll Charge </th>
+
+
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="t_driver_fee"> Taxi ► Driver Fee </th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="t_rental_fee"> Taxi ► Rental Fee </th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="t_fuel_charge"> Taxi ► Fuel Charge </th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="t_parking_charge"> Taxi ► Parking Charge </th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;" class="t_toll_charge"> Taxi ► Toll Charge </th>
+                          
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;"> {!! $spasi !!} Other {!! $spasi !!}</th>
+                          <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;"> {!! $spasi !!} Balance {!! $spasi !!}</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -449,33 +487,115 @@
                         <td style="border:1px solid #e9ecef;">
                           <input id="accomodation" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                         </td>
-                        <td style="border:1px solid #e9ecef;" class="airport_tax">
-                          <input id="airport_tax" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+
+                        <td style="border:1px solid #e9ecef;" class="a_airport_tax">
+                          <input id="a_airport_tax" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                         </td>
-                        <td style="border:1px solid #e9ecef;" class="extra_baggage_charge">
-                          <input id="extra_baggage_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        <td style="border:1px solid #e9ecef;" class="a_extra_baggage_charge">
+                          <input id="a_extra_baggage_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                         </td>
-                        <td style="border:1px solid #e9ecef;" class="ticket_fare">
-                          <input id="ticket_fare" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        <td style="border:1px solid #e9ecef;" class="a_ticket_fare">
+                          <input id="a_ticket_fare" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                         </td>
-                        <td style="border:1px solid #e9ecef;" class="fuel_charge">
-                          <input id="fuel_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+
+                        <td style="border:1px solid #e9ecef;" class="b_ticket_fare">
+                          <input id="b_ticket_fare" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                         </td>
-                        <td style="border:1px solid #e9ecef;" class="parking_charge">
-                          <input id="parking_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+
+                        <td style="border:1px solid #e9ecef;" class="m_ticket_fare">
+                          <input id="m_ticket_fare" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                         </td>
-                        <td style="border:1px solid #e9ecef;" class="toll_charge">
-                          <input id="toll_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+
+                        <td style="border:1px solid #e9ecef;" class="cc_fuel_charge">
+                          <input id="cc_fuel_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                         </td>
-                        <td style="border:1px solid #e9ecef;" class="rental_fee">
-                          <input id="rental_fee" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        <td style="border:1px solid #e9ecef;" class="cc_parking_charge">
+                          <input id="cc_parking_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                         </td>
-                        <td style="border:1px solid #e9ecef;" class="compensation_fee">
-                          <input id="compensation_fee" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        <td style="border:1px solid #e9ecef;" class="cc_toll_charge">
+                          <input id="cc_toll_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                         </td>
-                        <td style="border:1px solid #e9ecef;" class="driver_fee">
-                          <input id="driver_fee" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+
+                        <td style="border:1px solid #e9ecef;" class="cm_fuel_charge">
+                          <input id="cm_fuel_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                         </td>
+                        <td style="border:1px solid #e9ecef;" class="cm_parking_charge">
+                          <input id="cm_parking_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </td>
+                        <td style="border:1px solid #e9ecef;" class="cm_toll_charge">
+                          <input id="cm_toll_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </td>
+
+                        <td style="border:1px solid #e9ecef;" class="ec_compensation_fee">
+                          <input id="ec_compensation_fee" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </td>
+                        <td style="border:1px solid #e9ecef;" class="ec_fuel_charge">
+                          <input id="ec_fuel_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </td>
+                        <td style="border:1px solid #e9ecef;" class="ec_parking_charge">
+                          <input id="ec_parking_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </td>
+                        <td style="border:1px solid #e9ecef;" class="ec_toll_charge">
+                          <input id="ec_toll_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </td>
+
+                        <td style="border:1px solid #e9ecef;" class="em_compensation_fee">
+                          <input id="em_compensation_fee" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </td>
+                        <td style="border:1px solid #e9ecef;" class="em_fuel_charge">
+                          <input id="em_fuel_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </td>
+                        <td style="border:1px solid #e9ecef;" class="em_parking_charge">
+                          <input id="em_parking_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </td>
+                        <td style="border:1px solid #e9ecef;" class="em_toll_charge">
+                          <input id="em_toll_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </td>
+
+                        <td style="border:1px solid #e9ecef;" class="ib_ticket_fare">
+                          <input id="ib_ticket_fare" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </td>
+
+                        <td style="border:1px solid #e9ecef;" class="it_ticket_fare">
+                          <input id="it_ticket_fare" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </td>
+                        <td style="border:1px solid #e9ecef;" class="it_extra_baggage_charge">
+                          <input id="it_extra_baggage_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </td>
+
+                        <td style="border:1px solid #e9ecef;" class="s_ticket_fare">
+                          <input id="s_ticket_fare" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </td>
+
+                        <td style="border:1px solid #e9ecef;" class="tb_rental_fee">
+                          <input id="tb_rental_fee" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </td>
+                        <td style="border:1px solid #e9ecef;" class="tb_fuel_charge">
+                          <input id="tb_fuel_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </td>
+                        <td style="border:1px solid #e9ecef;" class="tb_parking_charge">
+                          <input id="tb_parking_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </td>
+                        <td style="border:1px solid #e9ecef;" class="tb_toll_charge">
+                          <input id="tb_toll_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </td>
+
+                        <td style="border:1px solid #e9ecef;" class="t_driver_fee">
+                          <input id="t_driver_fee" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </td>
+                        <td style="border:1px solid #e9ecef;" class="t_rental_fee">
+                          <input id="t_rental_fee" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </td>
+                        <td style="border:1px solid #e9ecef;" class="t_fuel_charge">
+                          <input id="t_fuel_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </td>
+                        <td style="border:1px solid #e9ecef;" class="t_parking_charge">
+                          <input id="t_parking_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </td>
+                        <td style="border:1px solid #e9ecef;" class="t_toll_charge">
+                          <input id="t_toll_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </td>
+
                         <td style="border:1px solid #e9ecef;">
                           <input id="other" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                         </td>
@@ -522,15 +642,59 @@
                     <table class="table table-head-fixed text-nowrap table-striped TableBusinessTrip" id="TableBusinessTrip">
                       <thead>
                         <tr>
-                          <th style="border:1px solid #e9ecef;text-align: center;width:7%;">Action</th>
-                          <th style="border:1px solid #e9ecef;text-align: center;width:10%;">Product ID</th>
-                          <th style="border:1px solid #e9ecef;text-align: center;width:10%;">Product Name</th>
-                          <th style="border:1px solid #e9ecef;text-align: center;width:10%;">Sequence</th>
-                          <th style="border:1px solid #e9ecef;text-align: center;width:13%;">Allowance</th>
-                          <th style="border:1px solid #e9ecef;text-align: center;width:13%;">Transport</th>
-                          <th style="border:1px solid #e9ecef;text-align: center;width:13%;">Airport Tax</th>
-                          <th style="border:1px solid #e9ecef;text-align: center;width:13%;">Accomodation</th>
-                          <th style="border:1px solid #e9ecef;text-align: center;width:13%;">Others</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;">Action</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;">Product ID</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;">Product Name</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;">Sequence</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;">Allowance</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;">Accomodation</th>
+
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="a_airport_tax">Airplane ► Airport Tax</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="a_extra_baggage_charge">Airplane ► Extra Baggage Charge</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="a_ticket_fare">Airplane ► Ticket Fare</th>
+
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="b_ticket_fare">Busway ► Ticket Fare</th>
+
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="m_ticket_fare">MRT ► Ticket Fare</th>
+
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="cc_fuel_charge">Company's Car ► Fuel Charge</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="cc_parking_charge">Company's Car ► Parking Charge</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="cc_parking_charge">Company's Car ► Toll Charge</th>
+
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="cm_fuel_charge">Company's Motorcycle ► Fuel Charge</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="cm_parking_charge">Company's Motorcycle ► Parking Charge</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="cm_toll_charge">Company's Motorcycle ► Toll Charge</th>
+
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="ec_compensation_fee"> Employee's Car ► Compensation Fee </th>
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="ec_fuel_charge"> Employee's Car ► Fuel Charge </th>
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="ec_parking_charge"> Employee's Car ► Parking Charge </th>
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="ec_toll_charge"> Employee's Car ► Toll Charge </th>
+
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="em_compensation_fee"> Employee's Motorcycle ► Compensation Fee </th>
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="em_fuel_charge"> Employee's Motorcycle ► Fuel Charge </th>
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="em_parking_charge"> Employee's Motorcycle ► Parking Charge </th>
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="em_toll_charge"> Employee's Motorcycle ► Toll Charge </th>
+
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="ib_ticket_fare"> Intercity Bus ► Ticket Fare </th>
+
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="it_ticket_fare"> Intercity Train ► Ticket Fare </th>
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="it_extra_baggage_charge"> Intercity Train ► Extra Baggage Charge </th>
+
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="s_ticket_fare"> Ship ► Ticket Fare </th>
+
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="tb_rental_fee"> Taxibike ► Rental Fee </th>
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="tb_fuel_charge"> Taxibike ► Fuel Charge </th>
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="tb_parking_charge"> Taxibike ► Parking Charge </th>
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="tb_toll_charge"> Taxibike ► Toll Charge </th>
+
+
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="t_driver_fee"> Taxi ► Driver Fee </th>
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="t_rental_fee"> Taxi ► Rental Fee </th>
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="t_fuel_charge"> Taxi ► Fuel Charge </th>
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="t_parking_charge"> Taxi ► Parking Charge </th>
+                          <th style="border:1px solid #e9ecef;text-align: center;" class="t_toll_charge"> Taxi ► Toll Charge </th>
+
+                          <th style="border:1px solid #e9ecef;text-align: center;">Others</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -543,15 +707,59 @@
                     <table class="table table-head-fixed text-nowrap table-striped TableBusinessTrip">
                       <thead>
                         <tr>
-                          <th style="border:1px solid #e9ecef;width:7%;"">Sub Total</th>
-                          <td style="border:1px solid #e9ecef;width:10%;"></td>
-                          <td style="border:1px solid #e9ecef;width:10%;"></td>
-                          <td style="border:1px solid #e9ecef;width:10%;"></td>
-                          <td style="border:1px solid #e9ecef;width:13%;" id="valAllowance"></td>
-                          <td style="border:1px solid #e9ecef;width:13%;" id="valTransport"></td>
-                          <td style="border:1px solid #e9ecef;width:13%;" id="valAirportTax"></td>
-                          <td style="border:1px solid #e9ecef;width:13%;" id="valAccomodation"></td>
-                          <td style="border:1px solid #e9ecef;width:13%;" id="valOthers"></td>
+                          <th style="border:1px solid #e9ecef;"">Sub Total</th>
+                          <td style="border:1px solid #e9ecef;"></td>
+                          <td style="border:1px solid #e9ecef;"></td>
+                          <td style="border:1px solid #e9ecef;"></td>
+                          <td style="border:1px solid #e9ecef;" id="valAllowance"></td>
+                          <td style="border:1px solid #e9ecef;" id="valAccomodation"></td>
+
+                          <td style="border:1px solid #e9ecef;" id="a_airport_tax" class="a_airport_tax"></td>
+                          <td style="border:1px solid #e9ecef;" id="a_extra_baggage_charge" class="a_extra_baggage_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="a_ticket_fare" class="a_ticket_fare"></td>
+
+                          <td style="border:1px solid #e9ecef;" id="b_ticket_fare" class="b_ticket_fare"></td>
+
+                          <td style="border:1px solid #e9ecef;" id="m_ticket_fare" class="m_ticket_fare"></td>
+
+                          <td style="border:1px solid #e9ecef;" id="cc_fuel_charge" class="cc_fuel_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="cc_parking_charge" class="cc_parking_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="cc_parking_charge" class="cc_parking_charge"></td>
+
+                          <td style="border:1px solid #e9ecef;" id="cm_fuel_charge" class="cm_fuel_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="cm_parking_charge" class="cm_parking_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="cm_toll_charge" class="cm_toll_charge"></td>
+
+                          <td style="border:1px solid #e9ecef;" id="ec_compensation_fee" class="ec_compensation_fee"></td>
+                          <td style="border:1px solid #e9ecef;" id="ec_fuel_charge" class="ec_fuel_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="ec_parking_charge" class="ec_parking_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="ec_toll_charge" class="ec_toll_charge"></td>
+
+                          <td style="border:1px solid #e9ecef;" id="em_compensation_fee" class="em_compensation_fee"></td>
+                          <td style="border:1px solid #e9ecef;" id="em_fuel_charge" class="em_fuel_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="em_parking_charge" class="em_parking_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="em_toll_charge" class="em_toll_charge"></td>
+
+                          <td style="border:1px solid #e9ecef;" id="ib_ticket_fare" class="ib_ticket_fare"></td>
+
+                          <td style="border:1px solid #e9ecef;" id="it_ticket_fare" class="it_ticket_fare"></td>
+                          <td style="border:1px solid #e9ecef;" id="it_extra_baggage_charge" class="it_extra_baggage_charge"></td>
+
+                          <td style="border:1px solid #e9ecef;" id="s_ticket_fare" class="s_ticket_fare"></td>
+
+                          <td style="border:1px solid #e9ecef;" id="tb_rental_fee" class="tb_rental_fee"></td>
+                          <td style="border:1px solid #e9ecef;" id="tb_fuel_charge" class="tb_fuel_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="tb_parking_charge" class="tb_parking_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="tb_toll_charge" class="tb_toll_charge"></td>
+
+
+                          <td style="border:1px solid #e9ecef;" id="t_driver_fee" class="t_driver_fee"></td>
+                          <td style="border:1px solid #e9ecef;" id="t_rental_fee" class="t_rental_fee"></td>
+                          <td style="border:1px solid #e9ecef;" id="t_fuel_charge" class="t_fuel_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="t_parking_charge" class="t_parking_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="t_toll_charge" class="t_toll_charge"></td>
+
+                          <td style="border:1px solid #e9ecef;" id="valOthers"></td>
                         </tr>
                       </thead>
                     </table>
