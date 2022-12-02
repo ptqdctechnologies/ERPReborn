@@ -396,6 +396,13 @@
             "2016-10-06": "2016-10-06"
         }
     },
+    "codecatalyst": {
+        "namespace": "CodeCatalyst",
+        "versions": {
+            "latest": "2022-09-28",
+            "2022-09-28": "2022-09-28"
+        }
+    },
     "codecommit": {
         "namespace": "CodeCommit",
         "versions": {
@@ -646,6 +653,13 @@
         "versions": {
             "latest": "2016-01-01",
             "2016-01-01": "2016-01-01"
+        }
+    },
+    "docdb-elastic": {
+        "namespace": "DocDBElastic",
+        "versions": {
+            "latest": "2022-11-28",
+            "2022-11-28": "2022-11-28"
         }
     },
     "docdb": {
@@ -1670,6 +1684,13 @@
             "2016-12-01": "2016-12-01"
         }
     },
+    "pipes": {
+        "namespace": "Pipes",
+        "versions": {
+            "latest": "2015-10-07",
+            "2015-10-07": "2015-10-07"
+        }
+    },
     "polly": {
         "namespace": "Polly",
         "versions": {
@@ -1928,6 +1949,13 @@
         "versions": {
             "latest": "2020-07-01",
             "2020-07-01": "2020-07-01"
+        }
+    },
+    "sagemaker-geospatial": {
+        "namespace": "SageMakerGeospatial",
+        "versions": {
+            "latest": "2020-05-27",
+            "2020-05-27": "2020-05-27"
         }
     },
     "sagemaker": {
