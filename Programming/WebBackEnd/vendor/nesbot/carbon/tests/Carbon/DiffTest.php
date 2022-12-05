@@ -110,6 +110,27 @@ class DiffTest extends AbstractTestCase
         $this->assertSame(-11, $dt->diffInMonths($dt->copy()->subYear()->addMonth(), false));
     }
 
+    public function testDiffInMonthsWithTimezone()
+    {
+        $first = new Carbon('2022-02-01 16:00 America/Toronto');
+        $second = new Carbon('2022-01-01 20:00 Europe/Berlin');
+
+        $this->assertSame(-1, $first->diffInMonths($second, false));
+        $this->assertSame(1, $second->diffInMonths($first, false));
+
+        $first = new Carbon('2022-02-01 01:00 America/Toronto');
+        $second = new Carbon('2022-01-01 00:00 Europe/Berlin');
+
+        $this->assertSame(-1, $first->diffInMonths($second, false));
+        $this->assertSame(1, $second->diffInMonths($first, false));
+
+        $first = new Carbon('2022-02-01 01:00 Europe/Berlin');
+        $second = new Carbon('2022-01-01 00:00 America/Toronto');
+
+        $this->assertSame(0, $first->diffInMonths($second, false));
+        $this->assertSame(0, $second->diffInMonths($first, false));
+    }
+
     public function testDiffInMonthsNegativeNoSign()
     {
         $dt = Carbon::createFromDate(2000, 1, 1);
@@ -576,12 +597,12 @@ class DiffTest extends AbstractTestCase
         Carbon::setTestNow('2021-11-04 15:42');
 
         $this->assertSame(
-            '26 weeks from now',
+            '28 weeks from now',
             Carbon::parse('2022-05-25')
                 ->diffForHumans(['skip' => ['y', 'm']])
         );
         $this->assertSame(
-            '188 days from now',
+            '201 days from now',
             Carbon::parse('2022-05-25')
                 ->diffForHumans(['skip' => ['y', 'm', 'w']])
         );
@@ -596,7 +617,7 @@ class DiffTest extends AbstractTestCase
                 ->diffForHumans(['skip' => ['y', 'm', 'w']])
         );
         $this->assertSame(
-            '486 days ago',
+            '528 days ago',
             Carbon::parse('2020-05-25')
                 ->diffForHumans(['skip' => ['y', 'm', 'w']])
         );
@@ -979,21 +1000,31 @@ class DiffTest extends AbstractTestCase
     public function testDiffForHumansOverWeekWithPartsCount1()
     {
         $this->wrapWithTestNow(function () {
-            $this->assertSame('1 week ago', Carbon::now()->subDays(8)->diffForHumans(null, false, false, 1));
+            $this->assertSame(
+                '1 week ago',
+                Carbon::now()->subDays(8)->diffForHumans(null, false, false, 1)
+            );
         });
     }
 
     public function testDiffForHumansOverWeekWithPartsCount2()
     {
         $this->wrapWithTestNow(function () {
-            $this->assertSame('1 week 1 day ago', Carbon::now()->subDays(8)->diffForHumans(null, false, false, 2));
+            $this->assertSame(
+                '1 week 1 day ago',
+                Carbon::now()->subDays(8)->diffForHumans(null, false, false, 2)
+            );
         });
     }
 
     public function testDiffForHumansOverWeekWithMicrosecondsBuggyGap()
     {
         $this->wrapWithTestNow(function () {
-            $this->assertSame('23 hours 59 minutes 59 seconds after', Carbon::parse('2018-12-03 12:34:45.123456')->diffForHumans('2018-12-02 12:34:45.123476', ['parts' => 3]));
+            $this->assertSame(
+                '23 hours 59 minutes 59 seconds after',
+                Carbon::parse('2018-12-03 12:34:45.123456')
+                    ->diffForHumans('2018-12-02 12:34:45.123476', ['parts' => 3])
+            );
         });
     }
 
@@ -1813,5 +1844,28 @@ class DiffTest extends AbstractTestCase
         $d2 = Carbon::make('2019-02-23 12:00:00');
 
         $this->assertSame(2678400, $d2->diffInSeconds($d1));
+    }
+
+    public function testDaysDiffPreservation()
+    {
+        $deletedDate = Carbon::now()->startOfDay()->addDays(31);
+
+        $this->assertSame('31 days', $deletedDate->diffForHumans(Carbon::now()->startOfDay(), [
+            'syntax' => CarbonInterface::DIFF_ABSOLUTE,
+            'skip' => ['m', 'w'],
+            'minimumUnit' => 'd',
+        ]));
+
+        $this->assertSame('31 days', $deletedDate->diffForHumans(Carbon::now()->startOfDay()->subHours(5), [
+            'syntax' => CarbonInterface::DIFF_ABSOLUTE,
+            'skip' => ['m', 'w'],
+            'minimumUnit' => 'd',
+        ]));
+
+        $this->assertSame('30 days', $deletedDate->diffForHumans(Carbon::now()->startOfDay()->addHours(5), [
+            'syntax' => CarbonInterface::DIFF_ABSOLUTE,
+            'skip' => ['m', 'w'],
+            'minimumUnit' => 'd',
+        ]));
     }
 }
