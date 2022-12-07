@@ -45,7 +45,7 @@ class BusinessTripRequestController extends Controller
                 ]
             ]
             );
-
+        // dd($varDataApplicable);
 
         $var = 0;
         if(!empty($_GET['var'])){
@@ -65,46 +65,53 @@ class BusinessTripRequestController extends Controller
     }
     public function store(Request $request)
     {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
         $input = $request->all();
         dd($input);
 
-        $tamp = array_map('intval', explode(',', $input['TransportType']));
-
-        $count_product = count($input['var_product_id']);
-        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $TransportationTypeID = array_map('intval', explode(',', $input['TransportType']));
 
         $detailBrf = [];
         $sequenceBrf = [];
 
-        for($n =0; $n < $count_product; $n++){
-            $detailBrf[$n] = [
+        for($m = 0; $m < $input['totalSequence']; $m++){
+
+            $paymentSequenceID = explode(",", $input['paymentSequenceID'][$m]);
+            $paymentSequenceValue = explode(",", $input['paymentSequenceValue'][$m]);
+
+            for($n =0; $n < $input['totalPaymentSequence']; $n++){
+
+                //DETAIL
+                $detailBrf[$n] = [
+                    'entities' => [
+                        'businessTripCostComponentEntity_RefID' => (int) $paymentSequenceID[$n],
+                        'amountCurrency_RefID' => 62000000000001,
+                        'amountCurrencyValue' => (int) $paymentSequenceValue[$n],
+                        'amountCurrencyExchangeRate' => 1,
+                        'remarks' => '5 Des 2022'                                    
+                    ]                                   
+                ];
+            }
+
+            //SEQUENCE
+            $sequenceBrf[$m] = [
                 'entities' => [
-                    'businessTripCostComponentEntity_RefID' => 81000000000001,
-                    'amountCurrency_RefID' => 62000000000001,
-                    'amountCurrencyValue' => 30000,
-                    'amountCurrencyExchangeRate' => 1,
-                    'remarks' => 'Catatan Pertama'                                    
-                ]                                   
-            ];
-        }
-        $sequenceBrf[0] = [
-            'entities' => [
-                'sequence' => 1,
-                'requesterWorkerJobsPosition_RefID' => (int)$input['request_name_id'],
-                'startDateTimeTZ' => '2022-10-10',
-                'finishDateTimeTZ' => '2022-10-14',
-                'businessTripAccommodationArrangementsType_RefID' =>  (int)$input['paymentApplicable'],
-                'businessTripTransportationType_RefIDArray' => $tamp,
-                'remarks' => 'Catatan',
-                'additionalData' => [
-                    'itemList' => [
-                        "items" => $detailBrf
+                    'sequence' => $m + 1,
+                    'requesterWorkerJobsPosition_RefID' => (int)$input['request_name_id'],
+                    'startDateTimeTZ' => '2022-10-10',
+                    'finishDateTimeTZ' => '2022-10-14',
+                    'businessTripAccommodationArrangementsType_RefID' =>  (int)$input['paymentApplicable'],
+                    'businessTripTransportationType_RefIDArray' => $TransportationTypeID,
+                    'remarks' => 'Catatan',
+                    'additionalData' => [
+                        'itemList' => [
+                            "items" => $detailBrf
+                        ]
                     ]
                 ]
-            ]
-        ];
-
-
+            ];
+        }
+        //HEADER
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
@@ -113,8 +120,8 @@ class BusinessTripRequestController extends Controller
             [
             'entities' => [
                 "documentDateTimeTZ" => '2022-10-10',
-                'combinedBudgetSectionDetail_RefID' => 169000000000001,
-                'paymentDisbursementMethod_RefID' => 218000000000002,
+                'combinedBudgetSectionDetail_RefID' => (int) $input['var_combinedBudget'],
+                'paymentDisbursementMethod_RefID' => (int) $input['paymentApplicable'],
                 "additionalData" => [
                     "itemList" => [
                         "items" => $sequenceBrf

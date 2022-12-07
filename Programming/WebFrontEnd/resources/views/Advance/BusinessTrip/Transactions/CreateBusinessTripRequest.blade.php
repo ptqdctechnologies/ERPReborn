@@ -394,8 +394,8 @@
                       <thead>
                         <tr>
                           <th colspan="5" style="border:2px solid #e9ecef;width:40%;"> Budget Detail</th>
-                          <th class="paymenSequence" style="border:2px solid #e9ecef;width:60%;"> Payment Sequence</th>
-                          <input type="hidden" id="paymenSequence" value="4">
+                          <th class="paymentSequence" style="border:2px solid #e9ecef;width:60%;"> Payment Sequence</th>
+                          <input type="hidden" id="paymentSequence" value="4">
                         </tr>
                         <tr>
                           <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;"> {!! $spasi !!} Product ID {!! $spasi !!}</th>
@@ -403,6 +403,7 @@
                           <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;"> Budget Request </th>
                           <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;"> Sequence Req</th>
                           <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;"> Sequence</th>
+
                           <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;"> {!! $spasi !!} Allowance {!! $spasi !!}</th>
                           <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;"> {!! $spasi !!} Accomodation {!! $spasi !!}</th>
 
@@ -477,127 +478,127 @@
                           <input id="sequenceRequest" name="sequenceRequest" style="border-radius:0;" type="number" class="form-control">
                         </td>
                         <td style="border:1px solid #e9ecef;">
-                          <input id="sequence" style="border-radius:0;font-weight:bold;" value="1" type="text" class="form-control" readonly>
+                          <input id="sequence" name="sequence" style="border-radius:0;font-weight:bold;" value="1" type="text" class="form-control" readonly>
                           <input id="putSequence" style="border-radius:0;border:none;background-color:white;font-weight:bold;" type="hidden" class="form-control" readonly>
                         </td>
-                        
+                         
                         <td style="border:1px solid #e9ecef;">
-                          <input id="allowance" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="allowance" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="81000000000001">
                         </td>
                         <td style="border:1px solid #e9ecef;">
-                          <input id="accomodation" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="accomodation" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="81000000000003">
                         </td>
 
                         <td style="border:1px solid #e9ecef;" class="a_airport_tax">
-                          <input id="a_airport_tax" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="a_airport_tax" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000041">
                         </td>
                         <td style="border:1px solid #e9ecef;" class="a_extra_baggage_charge">
-                          <input id="a_extra_baggage_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="a_extra_baggage_charge" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000042">
                         </td>
                         <td style="border:1px solid #e9ecef;" class="a_ticket_fare">
-                          <input id="a_ticket_fare" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="a_ticket_fare" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000040">
                         </td>
-
+                        
                         <td style="border:1px solid #e9ecef;" class="b_ticket_fare">
-                          <input id="b_ticket_fare" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="b_ticket_fare" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000031">
                         </td>
 
                         <td style="border:1px solid #e9ecef;" class="m_ticket_fare">
-                          <input id="m_ticket_fare" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="m_ticket_fare" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000035">
                         </td>
 
                         <td style="border:1px solid #e9ecef;" class="cc_fuel_charge">
-                          <input id="cc_fuel_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="cc_fuel_charge" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000016">
                         </td>
                         <td style="border:1px solid #e9ecef;" class="cc_parking_charge">
-                          <input id="cc_parking_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="cc_parking_charge" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000018">
                         </td>
                         <td style="border:1px solid #e9ecef;" class="cc_toll_charge">
-                          <input id="cc_toll_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="cc_toll_charge" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000017">
                         </td>
 
                         <td style="border:1px solid #e9ecef;" class="cm_fuel_charge">
-                          <input id="cm_fuel_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="cm_fuel_charge" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000002">
                         </td>
                         <td style="border:1px solid #e9ecef;" class="cm_parking_charge">
-                          <input id="cm_parking_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="cm_parking_charge" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000004">
                         </td>
                         <td style="border:1px solid #e9ecef;" class="cm_toll_charge">
-                          <input id="cm_toll_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="cm_toll_charge" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000003">
                         </td>
 
                         <td style="border:1px solid #e9ecef;" class="ec_compensation_fee">
-                          <input id="ec_compensation_fee" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="ec_compensation_fee" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000029">
                         </td>
                         <td style="border:1px solid #e9ecef;" class="ec_fuel_charge">
-                          <input id="ec_fuel_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="ec_fuel_charge" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000026">
                         </td>
                         <td style="border:1px solid #e9ecef;" class="ec_parking_charge">
-                          <input id="ec_parking_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="ec_parking_charge" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000028">
                         </td>
                         <td style="border:1px solid #e9ecef;" class="ec_toll_charge">
-                          <input id="ec_toll_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="ec_toll_charge" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000027">
                         </td>
 
                         <td style="border:1px solid #e9ecef;" class="em_compensation_fee">
-                          <input id="em_compensation_fee" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="em_compensation_fee" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000014">
                         </td>
                         <td style="border:1px solid #e9ecef;" class="em_fuel_charge">
-                          <input id="em_fuel_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="em_fuel_charge" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000011">
                         </td>
                         <td style="border:1px solid #e9ecef;" class="em_parking_charge">
-                          <input id="em_parking_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="em_parking_charge" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000013">
                         </td>
                         <td style="border:1px solid #e9ecef;" class="em_toll_charge">
-                          <input id="em_toll_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="em_toll_charge" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000012">
                         </td>
 
                         <td style="border:1px solid #e9ecef;" class="ib_ticket_fare">
-                          <input id="ib_ticket_fare" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="ib_ticket_fare" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000033">
                         </td>
 
                         <td style="border:1px solid #e9ecef;" class="it_ticket_fare">
-                          <input id="it_ticket_fare" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="it_ticket_fare" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000037">
                         </td>
-                        <td style="border:1px solid #e9ecef;" class="it_extra_baggage_charge">
-                          <input id="it_extra_baggage_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        <td style="border:1px solid3 #e9ecef;" class="it_extra_baggage_charge">
+                          <input id="it_extra_baggage_charge" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000038">
                         </td>
 
                         <td style="border:1px solid #e9ecef;" class="s_ticket_fare">
-                          <input id="s_ticket_fare" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="s_ticket_fare" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000044">
                         </td>
 
                         <td style="border:1px solid #e9ecef;" class="tb_rental_fee">
-                          <input id="tb_rental_fee" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="tb_rental_fee" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000006">
                         </td>
                         <td style="border:1px solid #e9ecef;" class="tb_fuel_charge">
-                          <input id="tb_fuel_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="tb_fuel_charge" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000007">
                         </td>
                         <td style="border:1px solid #e9ecef;" class="tb_parking_charge">
-                          <input id="tb_parking_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="tb_parking_charge" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000009">
                         </td>
                         <td style="border:1px solid #e9ecef;" class="tb_toll_charge">
-                          <input id="tb_toll_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="tb_toll_charge" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000008">
                         </td>
 
                         <td style="border:1px solid #e9ecef;" class="t_driver_fee">
-                          <input id="t_driver_fee" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="t_driver_fee" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000021">
                         </td>
                         <td style="border:1px solid #e9ecef;" class="t_rental_fee">
-                          <input id="t_rental_fee" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="t_rental_fee" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000020">
                         </td>
                         <td style="border:1px solid #e9ecef;" class="t_fuel_charge">
-                          <input id="t_fuel_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="t_fuel_charge" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000022">
                         </td>
                         <td style="border:1px solid #e9ecef;" class="t_parking_charge">
-                          <input id="t_parking_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="t_parking_charge" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000024">
                         </td>
                         <td style="border:1px solid #e9ecef;" class="t_toll_charge">
-                          <input id="t_toll_charge" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="t_toll_charge" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000023">
                         </td>
 
                         <td style="border:1px solid #e9ecef;">
-                          <input id="other" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                          <input id="other" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="81000000000004">
                         </td>
                         <td style="border:1px solid #e9ecef;">
                           <input id="totalBalance" style="border-radius:0;" type="text" class="form-control" readonly="">
@@ -617,7 +618,7 @@
                       <a class="btn btn-default btn-sm float-right" onclick="CancelDetailBrf()" id="CancelDetailBrf" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
                         <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel to Add Advance List Cart"> Cancel
                       </a>
-                      <a class="btn btn-default btn-sm float-right" onclick="addFromDetailtoCartJs()" id="AddToBrfListCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                      <a class="btn btn-default btn-sm float-right" id="AddToBrfListCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                         <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
                       </a>
                     </div>
@@ -646,6 +647,7 @@
                           <th style="border:1px solid #e9ecef;text-align: center;">Product ID</th>
                           <th style="border:1px solid #e9ecef;text-align: center;">Product Name</th>
                           <th style="border:1px solid #e9ecef;text-align: center;">Sequence</th>
+
                           <th style="border:1px solid #e9ecef;text-align: center;">Allowance</th>
                           <th style="border:1px solid #e9ecef;text-align: center;">Accomodation</th>
 
@@ -704,13 +706,14 @@
                   </div>
 
                   <div class="card-body table-responsive p-0 brfhide6">
-                    <table class="table table-head-fixed text-nowrap table-striped TableBusinessTrip">
+                    <!-- <table class="table table-head-fixed text-nowrap table-striped TableBusinessTrip">
                       <thead>
                         <tr>
                           <th style="border:1px solid #e9ecef;"">Sub Total</th>
                           <td style="border:1px solid #e9ecef;"></td>
                           <td style="border:1px solid #e9ecef;"></td>
                           <td style="border:1px solid #e9ecef;"></td>
+                          
                           <td style="border:1px solid #e9ecef;" id="valAllowance"></td>
                           <td style="border:1px solid #e9ecef;" id="valAccomodation"></td>
 
@@ -752,7 +755,6 @@
                           <td style="border:1px solid #e9ecef;" id="tb_parking_charge" class="tb_parking_charge"></td>
                           <td style="border:1px solid #e9ecef;" id="tb_toll_charge" class="tb_toll_charge"></td>
 
-
                           <td style="border:1px solid #e9ecef;" id="t_driver_fee" class="t_driver_fee"></td>
                           <td style="border:1px solid #e9ecef;" id="t_rental_fee" class="t_rental_fee"></td>
                           <td style="border:1px solid #e9ecef;" id="t_fuel_charge" class="t_fuel_charge"></td>
@@ -760,9 +762,10 @@
                           <td style="border:1px solid #e9ecef;" id="t_toll_charge" class="t_toll_charge"></td>
 
                           <td style="border:1px solid #e9ecef;" id="valOthers"></td>
+                          
                         </tr>
                       </thead>
-                    </table>
+                    </table> -->
                     <table class="table table-head-fixed text-nowrap table-striped">
                       <tfoot>
                         <tr>
