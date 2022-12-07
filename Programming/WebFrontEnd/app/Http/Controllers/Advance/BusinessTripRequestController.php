@@ -67,7 +67,7 @@ class BusinessTripRequestController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $input = $request->all();
-        // dd($input);
+        dd($input);
 
         $TransportationTypeID = array_map('intval', explode(',', $input['TransportType']));
 

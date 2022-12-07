@@ -215,12 +215,32 @@
     $("#AddToBrfListCart").on('click', function(e) {
       e.preventDefault();
 
+      var statusDisplay = [];
+      var paymentSequenceValuePerID = [];
       var paymentSequenceID = [];
       var paymentSequenceValue = [];
+      
       $.each($("input[name='formPaymentSequence']:visible"), function(){
         paymentSequenceID.push($(this).data("id"));
         paymentSequenceValue.push($(this).val());
       });
+
+      var data = [81000000000001, 81000000000003, 221000000000041, 221000000000042, 221000000000040, 221000000000031, 221000000000035, 221000000000016, 221000000000018, 221000000000017, 221000000000002, 221000000000004, 221000000000003, 221000000000029, 221000000000026, 221000000000028, 221000000000027, 221000000000014, 221000000000011, 221000000000013, 221000000000012, 221000000000033, 221000000000037, 221000000000038, 221000000000044, 221000000000006, 221000000000007, 221000000000009, 221000000000008, 221000000000021, 221000000000020, 221000000000022, 221000000000024, 221000000000023, 81000000000004];
+      
+      for (let index = 0; index < data.length; index++) {
+    
+        for (let index2 = 0; index2 < paymentSequenceID.length; index2++) {
+          if(paymentSequenceID[index2] == data[index]){
+            statusDisplay[index] = "";
+            paymentSequenceValuePerID[index] = paymentSequenceValue[index2];
+            break;
+          }
+          else{
+            statusDisplay[index] = "none;";
+            paymentSequenceValuePerID[index] = "";
+          }
+        } 
+      }
 
       var totalPaymentSequence = paymentSequenceID.length;
       var totalBalance = $('#totalBalance').val().replace(/,/g, '');
@@ -324,7 +344,8 @@
               }
               $("#putSequence").val(putSequence);
             }
-              
+
+
             var html = '<tr>' +
               '<td style="border:1px solid #e9ecef;width:7%;">' +
               // '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveBusinessTrip(this);"  data-id1="' + allowance + '" data-id2="' + transport + '" data-id3="' + airport_tax + '" data-id4="' + accomodation + '" data-id5="' + other + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
@@ -336,14 +357,46 @@
               '<input type="hidden" name="totalPaymentSequence" value="' + totalPaymentSequence + '">' +
               '<input type="hidden" name="var_combinedBudget" value="' + combinedBudget + '">' +
               '</td>' +
-              '<td style="border:1px solid #e9ecef;width:10%;">' + putProductId + '</td>' +
-              '<td style="border:1px solid #e9ecef;width:10%;">' + putProductName + '</td>' +
-              '<td style="border:1px solid #e9ecef;width:10%;">' + $("#putSequence").val() + '</td>' +
-              '<td style="border:1px solid #e9ecef;width:13%;">' + allowance + '</td>' +
-              '<td style="border:1px solid #e9ecef;width:13%;">' + allowance + '</td>' +
-              '<td style="border:1px solid #e9ecef;width:13%;">' + allowance + '</td>' +
-              '<td style="border:1px solid #e9ecef;width:13%;">' + accomodation + '</td>' +
-              '<td style="border:1px solid #e9ecef;width:13%;">' + other + '</td>' +
+              '<td style="border:1px solid #e9ecef;">' + putProductId + '</td>' +
+              '<td style="border:1px solid #e9ecef;">' + putProductName + '</td>' +
+              '<td style="border:1px solid #e9ecef;">' + $("#putSequence").val() + '</td>' +
+              
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[0]  +'">' + paymentSequenceValuePerID[0] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[1]  +'">' + paymentSequenceValuePerID[1] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[2]  +'">' + paymentSequenceValuePerID[2] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[3]  +'">' + paymentSequenceValuePerID[3] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[4]  +'">' + paymentSequenceValuePerID[4] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[5]  +'">' + paymentSequenceValuePerID[5] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[6]  +'">' + paymentSequenceValuePerID[6] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[7]  +'">' + paymentSequenceValuePerID[7] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[8]  +'">' + paymentSequenceValuePerID[8] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[9]  +'">' + paymentSequenceValuePerID[9] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[10]  +'">' + paymentSequenceValuePerID[10] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[11]  +'">' + paymentSequenceValuePerID[11] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[12]  +'">' + paymentSequenceValuePerID[12] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[13]  +'">' + paymentSequenceValuePerID[13] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[14]  +'">' + paymentSequenceValuePerID[14] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[15]  +'">' + paymentSequenceValuePerID[15] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[16]  +'">' + paymentSequenceValuePerID[16] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[17]  +'">' + paymentSequenceValuePerID[17] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[18]  +'">' + paymentSequenceValuePerID[18] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[19]  +'">' + paymentSequenceValuePerID[19] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[20]  +'">' + paymentSequenceValuePerID[20] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[21]  +'">' + paymentSequenceValuePerID[21] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[22]  +'">' + paymentSequenceValuePerID[22] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[23]  +'">' + paymentSequenceValuePerID[23] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[24]  +'">' + paymentSequenceValuePerID[24] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[25]  +'">' + paymentSequenceValuePerID[25] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[26]  +'">' + paymentSequenceValuePerID[26] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[27]  +'">' + paymentSequenceValuePerID[27] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[28]  +'">' + paymentSequenceValuePerID[28] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[29]  +'">' + paymentSequenceValuePerID[29] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[30]  +'">' + paymentSequenceValuePerID[30] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[31]  +'">' + paymentSequenceValuePerID[31] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[32]  +'">' + paymentSequenceValuePerID[32] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[33]  +'">' + paymentSequenceValuePerID[33] + '</td>' +
+              '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[34]  +'">' + paymentSequenceValuePerID[34] + '</td>' +
+              
               '</tr>';
             
             $('table.TableBusinessTrip tbody').append(html);
@@ -368,12 +421,7 @@
             }
         }
       }
-
-      $("#allowance").val("");
-      $("#transport").val("");
-      $('#airport_tax').val("");
-      $("#accomodation").val("");
-      $("#other ").val("");
+      $("input[name='formPaymentSequence']").val("");
     });
   });
 </script>
@@ -471,11 +519,7 @@
 
         $("#putProductId").val("");
         $("#putProductName").val("");
-        $("#allowance").val("");
-        $("#transport").val("");
-        $("#airport_tax").val("");
-        $("#accomodation").val("");
-        $("#other").val("");
+        $("input[name='formPaymentSequence']").val("");
         $("#totalBalance").val("");
         $("#sequence").val("");
         $("#sequenceRequest").val("");

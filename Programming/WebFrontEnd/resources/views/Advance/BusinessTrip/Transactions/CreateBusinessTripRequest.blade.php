@@ -403,6 +403,7 @@
                           <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;"> Budget Request </th>
                           <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;"> Sequence Req</th>
                           <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;"> Sequence</th>
+
                           <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;"> {!! $spasi !!} Allowance {!! $spasi !!}</th>
                           <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;"> {!! $spasi !!} Accomodation {!! $spasi !!}</th>
 
@@ -480,7 +481,6 @@
                           <input id="sequence" name="sequence" style="border-radius:0;font-weight:bold;" value="1" type="text" class="form-control" readonly>
                           <input id="putSequence" style="border-radius:0;border:none;background-color:white;font-weight:bold;" type="hidden" class="form-control" readonly>
                         </td>
-
                          
                         <td style="border:1px solid #e9ecef;">
                           <input id="allowance" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="81000000000001">
@@ -560,7 +560,7 @@
                         <td style="border:1px solid #e9ecef;" class="it_ticket_fare">
                           <input id="it_ticket_fare" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000037">
                         </td>
-                        <td style="border:1px solid #e9ecef;" class="it_extra_baggage_charge">
+                        <td style="border:1px solid3 #e9ecef;" class="it_extra_baggage_charge">
                           <input id="it_extra_baggage_charge" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000038">
                         </td>
 
@@ -596,7 +596,6 @@
                         <td style="border:1px solid #e9ecef;" class="t_toll_charge">
                           <input id="t_toll_charge" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="221000000000023">
                         </td>
-
 
                         <td style="border:1px solid #e9ecef;">
                           <input id="other" style="border-radius:0;" type="text" class="form-control" name="formPaymentSequence" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" data-id="81000000000004">
@@ -648,6 +647,7 @@
                           <th style="border:1px solid #e9ecef;text-align: center;">Product ID</th>
                           <th style="border:1px solid #e9ecef;text-align: center;">Product Name</th>
                           <th style="border:1px solid #e9ecef;text-align: center;">Sequence</th>
+
                           <th style="border:1px solid #e9ecef;text-align: center;">Allowance</th>
                           <th style="border:1px solid #e9ecef;text-align: center;">Accomodation</th>
 
@@ -706,13 +706,14 @@
                   </div>
 
                   <div class="card-body table-responsive p-0 brfhide6">
-                    <table class="table table-head-fixed text-nowrap table-striped TableBusinessTrip">
+                    <!-- <table class="table table-head-fixed text-nowrap table-striped TableBusinessTrip">
                       <thead>
                         <tr>
                           <th style="border:1px solid #e9ecef;"">Sub Total</th>
                           <td style="border:1px solid #e9ecef;"></td>
                           <td style="border:1px solid #e9ecef;"></td>
                           <td style="border:1px solid #e9ecef;"></td>
+                          
                           <td style="border:1px solid #e9ecef;" id="valAllowance"></td>
                           <td style="border:1px solid #e9ecef;" id="valAccomodation"></td>
 
@@ -754,7 +755,6 @@
                           <td style="border:1px solid #e9ecef;" id="tb_parking_charge" class="tb_parking_charge"></td>
                           <td style="border:1px solid #e9ecef;" id="tb_toll_charge" class="tb_toll_charge"></td>
 
-
                           <td style="border:1px solid #e9ecef;" id="t_driver_fee" class="t_driver_fee"></td>
                           <td style="border:1px solid #e9ecef;" id="t_rental_fee" class="t_rental_fee"></td>
                           <td style="border:1px solid #e9ecef;" id="t_fuel_charge" class="t_fuel_charge"></td>
@@ -762,9 +762,10 @@
                           <td style="border:1px solid #e9ecef;" id="t_toll_charge" class="t_toll_charge"></td>
 
                           <td style="border:1px solid #e9ecef;" id="valOthers"></td>
+                          
                         </tr>
                       </thead>
-                    </table>
+                    </table> -->
                     <table class="table table-head-fixed text-nowrap table-striped">
                       <tfoot>
                         <tr>
