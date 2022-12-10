@@ -702,70 +702,68 @@
                       <tbody>
 
                       </tbody>
-                    </table>
-                  </div>
-
-                  <div class="card-body table-responsive p-0 brfhide6">
-                    <!-- <table class="table table-head-fixed text-nowrap table-striped TableBusinessTrip">
-                      <thead>
+                      <!-- <tfoot style="position: relative;top:100px;">
                         <tr>
                           <th style="border:1px solid #e9ecef;"">Sub Total</th>
                           <td style="border:1px solid #e9ecef;"></td>
                           <td style="border:1px solid #e9ecef;"></td>
                           <td style="border:1px solid #e9ecef;"></td>
                           
-                          <td style="border:1px solid #e9ecef;" id="valAllowance"></td>
-                          <td style="border:1px solid #e9ecef;" id="valAccomodation"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_allowance"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_accomodation"></td>
 
-                          <td style="border:1px solid #e9ecef;" id="a_airport_tax" class="a_airport_tax"></td>
-                          <td style="border:1px solid #e9ecef;" id="a_extra_baggage_charge" class="a_extra_baggage_charge"></td>
-                          <td style="border:1px solid #e9ecef;" id="a_ticket_fare" class="a_ticket_fare"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_a_airport_tax" class="a_airport_tax"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_a_extra_baggage_charge" class="a_extra_baggage_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_a_ticket_fare" class="a_ticket_fare"></td>
 
-                          <td style="border:1px solid #e9ecef;" id="b_ticket_fare" class="b_ticket_fare"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_b_ticket_fare" class="b_ticket_fare"></td>
 
-                          <td style="border:1px solid #e9ecef;" id="m_ticket_fare" class="m_ticket_fare"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_m_ticket_fare" class="m_ticket_fare"></td>
 
-                          <td style="border:1px solid #e9ecef;" id="cc_fuel_charge" class="cc_fuel_charge"></td>
-                          <td style="border:1px solid #e9ecef;" id="cc_parking_charge" class="cc_parking_charge"></td>
-                          <td style="border:1px solid #e9ecef;" id="cc_parking_charge" class="cc_parking_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_cc_fuel_charge" class="cc_fuel_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_cc_parking_charge" class="cc_parking_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_cc_parking_charge" class="cc_parking_charge"></td>
 
-                          <td style="border:1px solid #e9ecef;" id="cm_fuel_charge" class="cm_fuel_charge"></td>
-                          <td style="border:1px solid #e9ecef;" id="cm_parking_charge" class="cm_parking_charge"></td>
-                          <td style="border:1px solid #e9ecef;" id="cm_toll_charge" class="cm_toll_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_cm_fuel_charge" class="cm_fuel_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_cm_parking_charge" class="cm_parking_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_cm_toll_charge" class="cm_toll_charge"></td>
 
-                          <td style="border:1px solid #e9ecef;" id="ec_compensation_fee" class="ec_compensation_fee"></td>
-                          <td style="border:1px solid #e9ecef;" id="ec_fuel_charge" class="ec_fuel_charge"></td>
-                          <td style="border:1px solid #e9ecef;" id="ec_parking_charge" class="ec_parking_charge"></td>
-                          <td style="border:1px solid #e9ecef;" id="ec_toll_charge" class="ec_toll_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_ec_compensation_fee" class="ec_compensation_fee"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_ec_fuel_charge" class="ec_fuel_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_ec_parking_charge" class="ec_parking_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_ec_toll_charge" class="ec_toll_charge"></td>
 
-                          <td style="border:1px solid #e9ecef;" id="em_compensation_fee" class="em_compensation_fee"></td>
-                          <td style="border:1px solid #e9ecef;" id="em_fuel_charge" class="em_fuel_charge"></td>
-                          <td style="border:1px solid #e9ecef;" id="em_parking_charge" class="em_parking_charge"></td>
-                          <td style="border:1px solid #e9ecef;" id="em_toll_charge" class="em_toll_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_em_compensation_fee" class="em_compensation_fee"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_em_fuel_charge" class="em_fuel_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_em_parking_charge" class="em_parking_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_em_toll_charge" class="em_toll_charge"></td>
 
-                          <td style="border:1px solid #e9ecef;" id="ib_ticket_fare" class="ib_ticket_fare"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_ib_ticket_fare" class="ib_ticket_fare"></td>
 
-                          <td style="border:1px solid #e9ecef;" id="it_ticket_fare" class="it_ticket_fare"></td>
-                          <td style="border:1px solid #e9ecef;" id="it_extra_baggage_charge" class="it_extra_baggage_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_it_ticket_fare" class="it_ticket_fare"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_it_extra_baggage_charge" class="it_extra_baggage_charge"></td>
 
-                          <td style="border:1px solid #e9ecef;" id="s_ticket_fare" class="s_ticket_fare"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_s_ticket_fare" class="s_ticket_fare"></td>
 
-                          <td style="border:1px solid #e9ecef;" id="tb_rental_fee" class="tb_rental_fee"></td>
-                          <td style="border:1px solid #e9ecef;" id="tb_fuel_charge" class="tb_fuel_charge"></td>
-                          <td style="border:1px solid #e9ecef;" id="tb_parking_charge" class="tb_parking_charge"></td>
-                          <td style="border:1px solid #e9ecef;" id="tb_toll_charge" class="tb_toll_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_tb_rental_fee" class="tb_rental_fee"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_tb_fuel_charge" class="tb_fuel_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_tb_parking_charge" class="tb_parking_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_tb_toll_charge" class="tb_toll_charge"></td>
 
-                          <td style="border:1px solid #e9ecef;" id="t_driver_fee" class="t_driver_fee"></td>
-                          <td style="border:1px solid #e9ecef;" id="t_rental_fee" class="t_rental_fee"></td>
-                          <td style="border:1px solid #e9ecef;" id="t_fuel_charge" class="t_fuel_charge"></td>
-                          <td style="border:1px solid #e9ecef;" id="t_parking_charge" class="t_parking_charge"></td>
-                          <td style="border:1px solid #e9ecef;" id="t_toll_charge" class="t_toll_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_t_driver_fee" class="t_driver_fee"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_t_rental_fee" class="t_rental_fee"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_t_fuel_charge" class="t_fuel_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_t_parking_charge" class="t_parking_charge"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_t_toll_charge" class="t_toll_charge"></td>
 
-                          <td style="border:1px solid #e9ecef;" id="valOthers"></td>
+                          <td style="border:1px solid #e9ecef;" id="val_others"></td>
                           
                         </tr>
-                      </thead>
-                    </table> -->
+                      </tfoot> -->
+                    </table>
+                  </div>
+
+                  <div class="card-body table-responsive p-0 brfhide6">
                     <table class="table table-head-fixed text-nowrap table-striped">
                       <tfoot>
                         <tr>
