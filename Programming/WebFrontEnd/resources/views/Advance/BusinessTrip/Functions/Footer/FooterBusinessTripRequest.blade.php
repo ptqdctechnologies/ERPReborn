@@ -207,14 +207,13 @@
       }
   });
   
-  var varTotal = 0;
-  var varTotalBrf = 0;
-  var y = 0;
 
-  $(function() {
-    $("#AddToBrfListCart").on('click', function(e) {
-      e.preventDefault();
+  function addFromDetailtoCartJs() {
 
+      var varTotal = 0;
+      var varTotalBrf = 0;
+      var y = 0;
+      
       var statusDisplay = [];
       var paymentSequenceValuePerID = [];
       var paymentSequenceID = [];
@@ -237,6 +236,11 @@
               paymentSequenceValuePerID[index] = "0.00";
             }
             varTotal += +paymentSequenceValue[index2];
+
+            if($("#"+paymentSequenceID[index2]).html() == ""){ $("#"+paymentSequenceID[index2]).html('0'); }
+            var val_allowance = parseFloat($("#"+paymentSequenceID[index2]).html().replace(/,/g, ''));
+            $("#"+paymentSequenceID[index2]).html(parseFloat(+val_allowance + +paymentSequenceValuePerID[index]).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
             break;
           }
           else{
@@ -288,18 +292,6 @@
 
         } else { 
 
-            // if($("#val_allowance").html() == ""){ $("#val_allowance").html('0'); }
-            // var val_allowance = parseFloat($("#val_allowance").html().replace(/,/g, ''));
-            // $("#val_allowance").html(parseFloat(+val_allowance + +allowance).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-            
-            if($("#totalBrf").html() == ""){ $("#totalBrf").html('0'); }
-            var totalBrf = parseFloat($("#totalBrf").html().replace(/,/g, ''));
-            $("#totalBrf").html(parseFloat(+totalBrf + +varTotal).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-
-            if($("#totalSequence").html() == ""){ $("#totalSequence").html('0'); }
-            $("#totalSequence").html(+$("#totalSequence").html() + +1);
-            var totalSequence = $("#totalSequence").html();
-
             var statusEditBrf = $('#statusEditBrf').val();
             if (statusEditBrf == 'Yes') {
               $('#putProductId').val("");
@@ -314,20 +306,25 @@
             }
             else{
               var putSequence = $('#TableBusinessTrip tr').length;
-              if(putSequence == 0){
-                putSequence = 1;
-              }
-              $("#putSequence").val(putSequence);
+              $("#putSequence").val(putSequence -1);
             }
+            
+            if($("#totalBrf").html() == ""){ $("#totalBrf").html('0'); }
+            var totalBrf = parseFloat($("#totalBrf").html().replace(/,/g, ''));
+            $("#totalBrf").html(parseFloat(+totalBrf + +varTotal).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+            if($("#totalSequence").html() == ""){ $("#totalSequence").html('0'); }
+            $("#totalSequence").html(+$("#totalSequence").html() + +1);
+            var totalSequence = $("#totalSequence").html();
 
             var html2 = [];
             for (let indexx = 0; indexx < data.length; indexx++) {
-              html2[indexx] = '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[indexx]  +'">' + paymentSequenceValuePerID[indexx] + '</td>';    
+              html2[indexx] = '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[indexx]  +'">' + paymentSequenceValuePerID[indexx] + '</td>';
             }
             var html = '<tr>' +
               '<td style="border:1px solid #e9ecef;width:7%;">' +
               // '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveBusinessTrip(this);"  data-id1="' + allowance + '" data-id2="' + transport + '" data-id3="' + airport_tax + '" data-id4="' + accomodation + '" data-id5="' + other + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
-              // '&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton " onclick="EditBusinessTrip(this);" data-dismiss="modal" data-id1="' + allowance + '" data-id2="' + transport + '" data-id3="' + airport_tax + '" data-id4="' + accomodation + '" data-id5="' + other + '" data-id6="' + putProductId + '" data-id7="' + putProductName + '" data-id8="' + $("#putSequence").val() + '" data-id9="' + varSequenceReq + '" data-id10="' + totalBalance + '" data-id11="' + budgetRequest + '" data-id12="' + totalCostPerProduct + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+              '&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton " onclick="EditBusinessTrip(this);" data-dismiss="modal" data-id1="' + paymentSequenceValue + '" data-id2="' + putProductId + '" data-id3="' + putProductName + '" data-id4="' + $("#putSequence").val() + '" data-id5="' + varSequenceReq + '" data-id6="' + totalBalance + '" data-id7="' + budgetRequest + '" data-id8="' + totalCostPerProduct + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
               '<input type="hidden" name="var_product_id[]" value="' + putProductId + '">' +
               '<input type="hidden" name="paymentSequenceID[]" value="' + paymentSequenceID + '">' +
               '<input type="hidden" name="paymentSequenceValue[]" value="' + paymentSequenceValue + '">' +
@@ -367,8 +364,7 @@
       }
       $("input[name='formPaymentSequence']").val("");
       
-    });
-  });
+  }
 </script>
 
 
@@ -518,54 +514,34 @@
         document.getElementById("TableBusinessTrip").deleteRow(i);
 
         var $this = $(tr);
+        var varTotalBrf = 0;
+        var numbersArray = $this.data("id1").split(',');
 
-        $("#allowance").val($this.data("id1"));
-        $("#transport").val($this.data("id2"));
-        $("#airport_tax").val($this.data("id3"));
-        $("#accomodation").val($this.data("id4"));
-        $("#other").val($this.data("id5"));
+        $.each($("input[name='formPaymentSequence']:visible"), function(index, value) { 
+         
+          var val_allowance = parseFloat($("#"+$(this).data("id")).html().replace(/,/g, ''));
+          $("#"+$(this).data("id")).html(parseFloat(val_allowance - numbersArray[index]).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
-        $("#putProductId").val($this.data("id6"));
-        $("#putProductName").val($this.data("id7"));
-        // $("#sequence").val($this.data("id8"));
-        $("#sequenceRequest").val($this.data("id9"));
-        $("#totalBalance").val($this.data("id10"));
-        $("#budgetRequest").val($this.data("id11").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+          $(this).val(numbersArray[index]);
+          varTotalBrf += +numbersArray[index];
+        });
+        
+        $("#putProductId").val($this.data("id2"));
+        $("#putProductName").val($this.data("id3"));
+        // $("#sequence").val($this.data("id4"));
+        $("#sequenceRequest").val($this.data("id5"));
+        $("#totalBalance").val($this.data("id6"));
+        $("#budgetRequest").val($this.data("id7").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
-        $("#totalCostPerProduct").val($this.data("id12").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-        // console.log($("#totalCostPerProduct").val());
+        // $("#totalCostPerProduct").val($this.data("id12").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        // // console.log($("#totalCostPerProduct").val());
 
       
-        $("#putSequence").val($this.data("id8"));
+        $("#putSequence").val($this.data("id4"));
 
-        allowance = $this.data("id1");
-        transport = $this.data("id2");
-        airportTax = $this.data("id3");
-        accomodation = $this.data("id4");
-        others = $this.data("id5");
+        // var val_others = parseFloat($("#val_others").html().replace(/,/g, ''));
+        // $("#val_others").html(parseFloat(val_others - others).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
-        $('#ValidateAllowance').val(allowance);
-        $('#ValidateTransport').val(transport);
-        $('#ValidateAirportTax').val(airportTax);
-        $('#ValidateAccomodation').val(accomodation);
-        $('#ValidateOther').val(others);
-        
-        var val_allowance = parseFloat($("#val_allowance").html().replace(/,/g, ''));
-        $("#val_allowance").html(parseFloat(val_allowance - allowance).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-
-        var valTransport = parseFloat($("#valTransport").html().replace(/,/g, ''));
-        $("#valTransport").html(parseFloat(valTransport - transport).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-
-        var valAirportTax = parseFloat($("#valAirportTax").html().replace(/,/g, ''));
-        $("#valAirportTax").html(parseFloat(valAirportTax - airportTax).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-
-        var val_accomodation = parseFloat($("#val_accomodation").html().replace(/,/g, ''));
-        $("#val_accomodation").html(parseFloat(val_accomodation - accomodation).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-        
-        var val_others = parseFloat($("#val_others").html().replace(/,/g, ''));
-        $("#val_others").html(parseFloat(val_others - others).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-
-        varTotalBrf = +allowance + +transport + +airportTax + +accomodation + +others;
         var totalBrf = parseFloat($("#totalBrf").html().replace(/,/g, ''));
         $("#totalBrf").html(parseFloat(totalBrf - varTotalBrf).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
@@ -577,7 +553,7 @@
         var totalCostPerProduct = parseFloat($("#totalCostPerProduct").val().replace(/,/g, ''));
         $("#totalCostPerProduct").val(parseFloat(totalCostPerProduct - varTotalBrf).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
-        console.log($("#totalCostPerProduct").val());
+        // console.log($("#totalCostPerProduct").val());
         
         $("#statusEditBrf").val('Yes');
         $("#sequenceRequest").prop("disabled", true);
