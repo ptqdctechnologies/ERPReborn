@@ -2654,6 +2654,8 @@ return array(
     'Aws\\SageMakerFeatureStoreRuntime\\SageMakerFeatureStoreRuntimeClient' => $vendorDir . '/aws/aws-sdk-php/src/SageMakerFeatureStoreRuntime/SageMakerFeatureStoreRuntimeClient.php',
     'Aws\\SageMakerGeospatial\\Exception\\SageMakerGeospatialException' => $vendorDir . '/aws/aws-sdk-php/src/SageMakerGeospatial/Exception/SageMakerGeospatialException.php',
     'Aws\\SageMakerGeospatial\\SageMakerGeospatialClient' => $vendorDir . '/aws/aws-sdk-php/src/SageMakerGeospatial/SageMakerGeospatialClient.php',
+    'Aws\\SageMakerMetrics\\Exception\\SageMakerMetricsException' => $vendorDir . '/aws/aws-sdk-php/src/SageMakerMetrics/Exception/SageMakerMetricsException.php',
+    'Aws\\SageMakerMetrics\\SageMakerMetricsClient' => $vendorDir . '/aws/aws-sdk-php/src/SageMakerMetrics/SageMakerMetricsClient.php',
     'Aws\\SageMakerRuntime\\Exception\\SageMakerRuntimeException' => $vendorDir . '/aws/aws-sdk-php/src/SageMakerRuntime/Exception/SageMakerRuntimeException.php',
     'Aws\\SageMakerRuntime\\SageMakerRuntimeClient' => $vendorDir . '/aws/aws-sdk-php/src/SageMakerRuntime/SageMakerRuntimeClient.php',
     'Aws\\SageMaker\\Exception\\SageMakerException' => $vendorDir . '/aws/aws-sdk-php/src/SageMaker/Exception/SageMakerException.php',

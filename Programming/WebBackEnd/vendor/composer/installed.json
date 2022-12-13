@@ -55,17 +55,17 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.252.6",
-            "version_normalized": "3.252.6.0",
+            "version": "3.253.0",
+            "version_normalized": "3.253.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "92b929f7552c2ed65d52875dbf1c5ce9833d567d"
+                "reference": "1fc9d166dd8ee7c2a187cf8f3ed9342863208865"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/92b929f7552c2ed65d52875dbf1c5ce9833d567d",
-                "reference": "92b929f7552c2ed65d52875dbf1c5ce9833d567d",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/1fc9d166dd8ee7c2a187cf8f3ed9342863208865",
+                "reference": "1fc9d166dd8ee7c2a187cf8f3ed9342863208865",
                 "shasum": ""
             },
             "require": {
@@ -105,7 +105,7 @@
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
                 "ext-sockets": "To use client-side monitoring"
             },
-            "time": "2022-12-09T19:21:09+00:00",
+            "time": "2022-12-12T19:23:54+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -146,7 +146,7 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.252.6"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.253.0"
             },
             "install-path": "../aws/aws-sdk-php"
         },
@@ -9012,23 +9012,23 @@
         },
         {
             "name": "tecnickcom/tcpdf",
-            "version": "6.6.0",
-            "version_normalized": "6.6.0.0",
+            "version": "6.6.1",
+            "version_normalized": "6.6.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tecnickcom/TCPDF.git",
-                "reference": "154bba45ffc9c2a049aa9e21501d02472b24deb4"
+                "reference": "a336b531f6f6b5487fca0caf034a671d4e60df5c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tecnickcom/TCPDF/zipball/154bba45ffc9c2a049aa9e21501d02472b24deb4",
-                "reference": "154bba45ffc9c2a049aa9e21501d02472b24deb4",
+                "url": "https://api.github.com/repos/tecnickcom/TCPDF/zipball/a336b531f6f6b5487fca0caf034a671d4e60df5c",
+                "reference": "a336b531f6f6b5487fca0caf034a671d4e60df5c",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2022-12-06T09:28:13+00:00",
+            "time": "2022-12-12T14:42:28+00:00",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -9075,7 +9075,7 @@
             ],
             "support": {
                 "issues": "https://github.com/tecnickcom/TCPDF/issues",
-                "source": "https://github.com/tecnickcom/TCPDF/tree/6.6.0"
+                "source": "https://github.com/tecnickcom/TCPDF/tree/v"
             },
             "funding": [
                 {

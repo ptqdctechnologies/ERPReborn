@@ -3249,6 +3249,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Aws\\SageMakerFeatureStoreRuntime\\SageMakerFeatureStoreRuntimeClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/SageMakerFeatureStoreRuntime/SageMakerFeatureStoreRuntimeClient.php',
         'Aws\\SageMakerGeospatial\\Exception\\SageMakerGeospatialException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/SageMakerGeospatial/Exception/SageMakerGeospatialException.php',
         'Aws\\SageMakerGeospatial\\SageMakerGeospatialClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/SageMakerGeospatial/SageMakerGeospatialClient.php',
+        'Aws\\SageMakerMetrics\\Exception\\SageMakerMetricsException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/SageMakerMetrics/Exception/SageMakerMetricsException.php',
+        'Aws\\SageMakerMetrics\\SageMakerMetricsClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/SageMakerMetrics/SageMakerMetricsClient.php',
         'Aws\\SageMakerRuntime\\Exception\\SageMakerRuntimeException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/SageMakerRuntime/Exception/SageMakerRuntimeException.php',
         'Aws\\SageMakerRuntime\\SageMakerRuntimeClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/SageMakerRuntime/SageMakerRuntimeClient.php',
         'Aws\\SageMaker\\Exception\\SageMakerException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/SageMaker/Exception/SageMakerException.php',
