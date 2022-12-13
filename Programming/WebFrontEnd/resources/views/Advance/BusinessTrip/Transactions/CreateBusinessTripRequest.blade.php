@@ -615,7 +615,7 @@
                       </tbody>
                     </table>
                     <div style="padding-right:10px;padding-top:10px;">
-                      <a class="btn btn-default btn-sm float-right" onclick="CancelDetailBrf()" id="CancelDetailBrf" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
+                      <a class="btn btn-default btn-sm float-right" onclick="CancelDetailBrf()" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
                         <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel to Add Advance List Cart"> Cancel
                       </a>
                       <a class="btn btn-default btn-sm float-right" onclick="addFromDetailtoCartJs()" id="AddToBrfListCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
