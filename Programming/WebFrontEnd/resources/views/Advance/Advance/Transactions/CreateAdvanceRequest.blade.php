@@ -60,7 +60,7 @@
               </div>
             </div>
 
-            
+
             <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
               <div class="row">
                 <div class="col-12">
@@ -84,10 +84,10 @@
                                 <div class="input-group control-group" style="width:100%;">
 
 
-                                  <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="91000000000011" readonly="true">
+                                  <!-- <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="91000000000011" readonly="true">
                                   <input type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" onchange="javascript: @php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord'); @endphp;" />
                                   <div id="dataShow_MasterFileRecord" style="border-style:solid; border-width:1px;"></div>
-                                  <div id="dataShow_ActionPanel" style="border-style:solid; border-width:1px;"></div>
+                                  <div id="dataShow_ActionPanel" style="border-style:solid; border-width:1px;"></div> -->
 
 
                                   <div class="input-group-btn">
@@ -107,7 +107,7 @@
               </div>
             </div>
 
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">
@@ -169,7 +169,6 @@
                         <td style="border:1px solid #e9ecef;">
                           <input id="totalBalance" style="border-radius:0;" type="text" class="form-control" readonly="">
                         </td>
-                        <!-- Untuk Validasi -->
                         <input id="statusProduct" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                         <input id="statusEditArf" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
                         <input id="ValidateQuantity" style="border-radius:0;" type="hidden" class="form-control" readonly="">
@@ -189,7 +188,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
 
             <div class="row">
               <div class="col-12">
@@ -205,19 +204,20 @@
                     </div>
                   </div>
 
-                  <div class="card-body table-responsive p-0 detailArfList" style="height: 180px;">
+                  <div class="card-body table-responsive p-0 AdvanceListCart" style="height: 180px;">
                     <table class="table table-head-fixed table-sm text-nowrap TableAdvance" id="TableAdvance">
                       <thead>
                         <tr>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Action</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Work Id</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Work Name</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Id</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Name</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Uom</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Price</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Total</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Currency</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Total</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -225,7 +225,7 @@
                       </tbody>
                     </table>
                   </div>
-                  <div class="card-body table-responsive p-0 detailArfList">
+                  <div class="card-body table-responsive p-0 AdvanceListCart">
                     <table class="table table-head-fixed table-sm text-nowrap">
                       <tfoot>
                         <tr>

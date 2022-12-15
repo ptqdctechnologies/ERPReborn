@@ -68,5 +68,6 @@
         $("#request_name").val(name);
         $("#request_position").val(position);
         $("#contactPhone").val(id);
+        $('#qty_req').focus();
     }
 </script>
