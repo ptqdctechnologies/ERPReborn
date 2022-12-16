@@ -86,7 +86,7 @@
                         var status = "disabled";
                     }
                     var html = '<tr>' +
-                        '<input name="getWorkId[]" value="'+ val2.combinedBudgetSubSectionLevel1_RefID +'" type="hidden">' +
+                        '<input id="getWorkIdx['+ key +']" name="getWorkId[]" value="'+ val2.combinedBudgetSubSectionLevel1_RefID +'" type="hidden">' +
                         '<input name="getWorkName[]" value="'+ val2.combinedBudgetSubSectionLevel1Name +'" type="hidden">' +
                         '<input name="getProductId[]" value="'+ val2.product_RefID +'" type="hidden">' +
                         '<input name="getProductName[]" value="'+ val2.productName +'" type="hidden">' +
@@ -111,6 +111,7 @@
 
                         '</tr>';
                     $('table.tableBudgetDetail tbody').append(html);
+                    // console.log(html);
 
                     $('#qty_req').focus();
 
@@ -172,30 +173,6 @@
     function addFromDetailtoCartJs() {
 
         $(".AdvanceListCart").show();
-
-
-        var qty_req = $("input[name='qty_req[]']").map(function(){return $(this).val();}).get();
-        
-        let myArray = [
-        {id: 0, name: "Jhon"},
-        {id: 1, name: "Sara"},
-        {id: 2, name: "Domnic"},
-        {id: 3, name: "Bravo"}
-        ],
-            
-        //Find index of specific object using findIndex method.    
-        objIndex = myArray.findIndex((obj => obj.id == 1));
-
-        //Log object to Console.
-        console.log("Before update: ", myArray[objIndex])
-
-        //Update object's name property.
-        myArray[objIndex].name = "Laila"
-
-        //Log object to console again.
-        console.log("After update: ", myArray[objIndex])
-
-
 
         var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
         var getWorkId = $("input[name='getWorkId[]']").map(function(){return $(this).val();}).get();
@@ -266,7 +243,9 @@
             }
         }
 
-        // $("#addFromDetailtoCart").prop("disabled", true);
+        $("input[name='qty_req[]']").val("");
+        $("input[name='price_req[]']").val("");
+        $("input[name='total_req[]']").val("");
         $("#submitArf").prop("disabled", false);
 
     }
@@ -390,7 +369,7 @@
     
 // </script>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     function CancelDetailArf() {
         var work_id = $("#putWorkId").val();
         var product_id = $("#putProductId").val();
@@ -476,7 +455,7 @@
         $("#putProductId").css("background-color", "#e9ecef");
         $("#putProductName").css("background-color", "#e9ecef");
     }
-</script>
+</script> -->
 
 <script>
 
@@ -498,10 +477,63 @@
 
 <script>
     function EditAdvance(t) {
-        var i = t.parentNode.parentNode.rowIndex;
-        document.getElementById("TableAdvance").deleteRow(i);
+        console.log($("#getWorkIdx["+1+"]").val());
+        // for (let index = 0; index < 19; index++) {
+        //     // console.log(index);
+        //     $(".qty_req").val(index);
+        // }
 
-        var $this = $(t);
+        // $("input[name='price_req[]").val(2);
+
+        // var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
+        // var getProductId = $("input[name='getProductId[]']").map(function(){return $(this).val();}).get();
+        // var getProductName = $("input[name='getProductName[]']").map(function(){return $(this).val();}).get();
+        // var getUom = $("input[name='getUom[]']").map(function(){return $(this).val();}).get();
+        // var getCurrency = $("input[name='getCurrency[]']").map(function(){return $(this).val();}).get();
+        // var qty_req = $("input[name='qty_req[]']").map(function(){return $(this).val();}).get();
+        // var price_req = $("input[name='price_req[]']").map(function(){return $(this).val();}).get();
+
+        // var combinedBudget = $("input[name='combinedBudget']").val();
+
+        // var TotalBudgetSelected = 0;
+        // var total_req = $("input[name='total_req[]']").map(function(){return $(this).val();}).get();
+        // for (let index = 0; index < total_req.length; index++) {
+        //     TotalBudgetSelected += +total_req[index];
+        //     console.log(index);
+        //     var htmlx = '<tr>' +
+        //         '<td style="border:1px solid #e9ecef;">' +
+        //         // '&nbsp;&nbsp;&nbsp;<div class="progress progress-xs" style="height: 14px;border-radius:8px;"> @if('+ applied +' >= '+0+' && '+ applied +' <= '+40+')<div class="progress-bar bg-red" style="width:'+ applied +'%;"></div> @elseif('+ applied +' >= '+41+' && '+ applied +' <= '+89+')<div class="progress-bar bg-blue" style="width:'+ applied +'%;"></div> @elseif('+ applied + ' >= '+ 90 +' && ' + applied + ' <= '+ 100 +')<div class="progress-bar bg-green" style="width:'+ applied +'%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>'+ applied +' %</center></small>' +
+        //         '</td>' +
+                
+        //         '<td style="border:1px solid #e9ecef;">' + '<span>'+ getProductId[index] + '</span>' + '</td>' +
+        //         '<td style="border:1px solid #e9ecef;">' + '<span>'+ getProductName[index] + '</span>' + '</td>' +
+        //         '<td style="border:1px solid #e9ecef;">' + '<span>'+ getProductId[index] + '</span>' + '</td>' +
+        //         '<td style="border:1px solid #e9ecef;">' + '<span>'+ getProductId[index] + '</span>' + '</td>' +
+        //         '<td style="border:1px solid #e9ecef;">' + '<span>'+ getProductId[index] + '</span>' + '</td>' +
+
+
+        //         '<td class="sticky-col third-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" value='+ getProductId[index] +'>' + '</td>' +
+        //         '<td class="sticky-col second-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req" style="border-radius:0;" name="price_req[]" class="form-control price_req" value='+ getProductId[index] +'>' + '</td>' +
+        //         '<td class="sticky-col first-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req" style="border-radius:0;" name="total_req[]" class="form-control total_req" value='+ getProductId[index] +'>' + '</td>' +
+
+        //         '</tr>';
+
+        //     $('table.tableBudgetDetail tbody').append(htmlx);
+        //     // $(html).replaceAll('.testtt');
+
+
+        //     // $('#qty_req').focus();
+
+        //     $("#TotalBudgetSelected").html(TotalBudgetSelected.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        //     $("#TotalAdvance").html(TotalBudgetSelected.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+        // }
+        
+
+        // var i = t.parentNode.parentNode.rowIndex;
+        // document.getElementById("TableAdvance").deleteRow(i);
+
+        // var $this = $(t);
         // console.log($this.data("id0"));
         // $("input[name='price_req[]").val(2);
         // $("input[name='total_req[]").val(3);
