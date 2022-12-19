@@ -30,7 +30,7 @@ class AdvanceRequestController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        // dd($input);
+        dd($input);
         $count_product = count($input['var_product_id']);
 
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -111,16 +111,23 @@ class AdvanceRequestController extends Controller
 
     public function StoreValidateAdvance2(Request $request)
     {
-        $val = $request->input('putWorkId');
-        $val2 = $request->input('putProductId');
-        $data = $request->session()->get("SessionAdvance");
-        if($request->session()->has("SessionAdvance")){
-            for($i = 0; $i < count($data); $i++){
-                if($data[$i] == $val && $data[$i+1] == $val2){
-                    unset($data[$i]);
-                    unset($data[$i+1]);
-                    $newClass = array_values($data);
-                    $request->session()->put("SessionAdvance", $newClass);
+        $StatusEdit = $request->input('StatusEdit');
+        if($StatusEdit == "All"){
+            $request->session()->forget("SessionAdvance");
+        }
+        else{
+            $val = $request->input('putWorkId');
+            $val2 = $request->input('putProductId');
+            $data = $request->session()->get("SessionAdvance");
+
+            if($request->session()->has("SessionAdvance")){
+                for($i = 0; $i < count($data); $i++){
+                    if($data[$i] == $val && $data[$i+1] == $val2){
+                        unset($data[$i]);
+                        unset($data[$i+1]);
+                        $newClass = array_values($data);
+                        $request->session()->put("SessionAdvance", $newClass);
+                    }
                 }
             }
         }

@@ -229,7 +229,15 @@
                     <table class="table table-head-fixed table-sm text-nowrap">
                       <tfoot>
                         <tr>
-                          <th style="color:brown;float:right;">Total Advance : <span id="TotalAdvance"></span></th>
+                          <th>Total Advance : <span id="TotalAdvance"></span></th>
+                          <th>
+                            <a class="btn btn-default btn-sm float-right" onclick="CancelDetailArf()" id="CancelDetailArf" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
+                              <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel to Add Advance List Cart"> Cancel
+                            </a>
+                            <button type="button" class="btn btn-default btn-sm float-right ActionButtonAll" onclick="EditAdvance('All')" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                              <img src="{{ asset('AdminLTE-master/dist/img/edit.png') }}" width="13" alt="" title="Add to Advance List"> Edit All
+                            </button>
+                          </th>
                         </tr>
                       </tfoot>
                     </table>
