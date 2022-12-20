@@ -756,9 +756,9 @@
             'dev_requirement' => false,
         ),
         'ramsey/uuid' => array(
-            'pretty_version' => '4.6.0',
-            'version' => '4.6.0.0',
-            'reference' => 'ad63bc700e7d021039e30ce464eba384c4a1d40f',
+            'pretty_version' => '4.7.0',
+            'version' => '4.7.0.0',
+            'reference' => '5ed9ad582647bbc3864ef78db34bdc1afdcf9b49',
             'type' => 'library',
             'install_path' => __DIR__ . '/../ramsey/uuid',
             'aliases' => array(),
@@ -767,7 +767,7 @@
         'rhumsaa/uuid' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => '4.6.0',
+                0 => '4.7.0',
             ),
         ),
         'sebastian/code-unit-reverse-lookup' => array(

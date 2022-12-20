@@ -352,6 +352,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionKinesisVideoMedia(array $args = [])
  * @method \Aws\KinesisVideoSignalingChannels\KinesisVideoSignalingChannelsClient createKinesisVideoSignalingChannels(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionKinesisVideoSignalingChannels(array $args = [])
+ * @method \Aws\KinesisVideoWebRTCStorage\KinesisVideoWebRTCStorageClient createKinesisVideoWebRTCStorage(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionKinesisVideoWebRTCStorage(array $args = [])
  * @method \Aws\Kms\KmsClient createKms(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionKms(array $args = [])
  * @method \Aws\LakeFormation\LakeFormationClient createLakeFormation(array $args = [])
@@ -673,7 +675,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.253.4';
+    const VERSION = '3.254.0';
 
     /** @var array Arguments for creating clients */
     private $args;

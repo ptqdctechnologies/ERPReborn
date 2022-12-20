@@ -2967,6 +2967,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Aws\\KinesisVideoMedia\\KinesisVideoMediaClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/KinesisVideoMedia/KinesisVideoMediaClient.php',
         'Aws\\KinesisVideoSignalingChannels\\Exception\\KinesisVideoSignalingChannelsException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/KinesisVideoSignalingChannels/Exception/KinesisVideoSignalingChannelsException.php',
         'Aws\\KinesisVideoSignalingChannels\\KinesisVideoSignalingChannelsClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/KinesisVideoSignalingChannels/KinesisVideoSignalingChannelsClient.php',
+        'Aws\\KinesisVideoWebRTCStorage\\Exception\\KinesisVideoWebRTCStorageException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/KinesisVideoWebRTCStorage/Exception/KinesisVideoWebRTCStorageException.php',
+        'Aws\\KinesisVideoWebRTCStorage\\KinesisVideoWebRTCStorageClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/KinesisVideoWebRTCStorage/KinesisVideoWebRTCStorageClient.php',
         'Aws\\KinesisVideo\\Exception\\KinesisVideoException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/KinesisVideo/Exception/KinesisVideoException.php',
         'Aws\\KinesisVideo\\KinesisVideoClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/KinesisVideo/KinesisVideoClient.php',
         'Aws\\Kinesis\\Exception\\KinesisException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Kinesis/Exception/KinesisException.php',

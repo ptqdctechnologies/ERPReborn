@@ -2372,6 +2372,8 @@ return array(
     'Aws\\KinesisVideoMedia\\KinesisVideoMediaClient' => $vendorDir . '/aws/aws-sdk-php/src/KinesisVideoMedia/KinesisVideoMediaClient.php',
     'Aws\\KinesisVideoSignalingChannels\\Exception\\KinesisVideoSignalingChannelsException' => $vendorDir . '/aws/aws-sdk-php/src/KinesisVideoSignalingChannels/Exception/KinesisVideoSignalingChannelsException.php',
     'Aws\\KinesisVideoSignalingChannels\\KinesisVideoSignalingChannelsClient' => $vendorDir . '/aws/aws-sdk-php/src/KinesisVideoSignalingChannels/KinesisVideoSignalingChannelsClient.php',
+    'Aws\\KinesisVideoWebRTCStorage\\Exception\\KinesisVideoWebRTCStorageException' => $vendorDir . '/aws/aws-sdk-php/src/KinesisVideoWebRTCStorage/Exception/KinesisVideoWebRTCStorageException.php',
+    'Aws\\KinesisVideoWebRTCStorage\\KinesisVideoWebRTCStorageClient' => $vendorDir . '/aws/aws-sdk-php/src/KinesisVideoWebRTCStorage/KinesisVideoWebRTCStorageClient.php',
     'Aws\\KinesisVideo\\Exception\\KinesisVideoException' => $vendorDir . '/aws/aws-sdk-php/src/KinesisVideo/Exception/KinesisVideoException.php',
     'Aws\\KinesisVideo\\KinesisVideoClient' => $vendorDir . '/aws/aws-sdk-php/src/KinesisVideo/KinesisVideoClient.php',
     'Aws\\Kinesis\\Exception\\KinesisException' => $vendorDir . '/aws/aws-sdk-php/src/Kinesis/Exception/KinesisException.php',
