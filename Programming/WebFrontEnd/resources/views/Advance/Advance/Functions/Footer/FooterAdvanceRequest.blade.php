@@ -1,7 +1,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $(".AdvanceListCart").hide();
-        // $(".Remark").hide();
+        $(".Remark").hide();
         $("#detailTransAvail").hide();
         $("#sitecode2").prop("disabled", true);
         $("#request_name2").prop("disabled", true);
@@ -52,15 +52,15 @@
 
     $(document).ready(function() {
     // function klikSite(code, name) {
-        // $("#sitecode").val(code);
-        // $("#sitename").val(name);
-        // $("#sitecode2").prop("disabled", true);
+    //     $("#sitecode").val(code);
+    //     $("#sitename").val(name);
+    //     $("#sitecode2").prop("disabled", true);
 
-        // $("#projectcode2").prop("disabled", true);
-        // $("#addToDoDetail").prop("disabled", false);
-        // $("#tableShowHideBOQ3").show();
-        // $("#request_name2").prop("disabled", false);
-        // $("#request_name").attr('required', true);
+    //     $("#projectcode2").prop("disabled", true);
+    //     $("#addToDoDetail").prop("disabled", false);
+    //     $("#tableShowHideBOQ3").show();
+    //     $("#request_name2").prop("disabled", false);
+    //     $("#request_name").attr('required', true);
 
         $.ajaxSetup({
             headers: {
@@ -173,6 +173,7 @@
     function addFromDetailtoCartJs() {
 
         $(".AdvanceListCart").show();
+        $(".Remark").show();
         var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
         var getWorkId = $("input[name='getWorkId[]']").map(function(){return $(this).val();}).get();
         var getWorkName = $("input[name='getWorkName[]']").map(function(){return $(this).val();}).get();
@@ -186,8 +187,10 @@
         var combinedBudget = $("input[name='combinedBudget']").val();
 
         var TotalBudgetSelected = 0;
-        var total_req = $("input[name='total_req[]']").map(function(){return $(this).val();}).get();
+        var TotalQty = 0;
 
+        var total_req = $("input[name='total_req[]']").map(function(){return $(this).val();}).get();
+        
         $.each(total_req, function(index, data) {
 
             if(total_req[index] != "" && total_req[index] > 0){
@@ -203,76 +206,39 @@
                     url: '{!! route("AdvanceRequest.StoreValidateAdvance") !!}?putProductId=' + getProductId[index] + '&putWorkId=' + getWorkId[index],
                     success: function(data) {
 
+                        TotalBudgetSelected += +total_req[index];
+                        TotalQty+= +qty_req[index];
+                        
                         if (data == "200") {
+                            var html = '<tr>' +
+                                // '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;width:7%;">' +
+                                // '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveAdvance(\'' + work_id + '\', \'' + product_id + '\', \'' + totalArfDetails + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+                                '&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="EditAdvance(this)" data-dismiss="modal" data-id0="' + index +'" data-id1="' + qty_req +'" data-id2="' + price_req +'" data-id3="' + total_req +'" data-id4="' + getWorkId[index] +'" data-id5="' + getProductId[index] +'" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+                                '<input type="hidden" name="var_product_id[]" value="' + getProductId[index] + '">' +
+                                '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + getProductName[index] + '">' +
+                                '<input type="hidden" name="var_quantity[]" class="qty_req2'+ index +'" data-id="'+ index +'" value="' + qty_req[index] + '">' +
+                                '<input type="hidden" name="var_uom[]" value="' + getUom[index] + '">' +
+                                '<input type="hidden" name="var_price[]" class="price_req2'+ index +'" value="' + price_req[index] + '">' +
+                                '<input type="hidden" name="var_total[]" class="total_req2'+ index +'" value="' + total_req[index] + '">' +
+                                '<input type="hidden" name="var_currency[]" value="' + getCurrency[index] + '">' +
+                                '<input type="hidden" name="var_date" value="' + date + '">' +
+                                '<input type="hidden" name="var_combinedBudget[]" value="' + combinedBudget + '">' +
+                                // '</td>' +
+                                '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkId[index] + '</td>' +
+                                '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkName[index] + '</td>' +
+                                '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getProductId[index] + '</td>' +
+                                '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getProductName[index] + '</td>' +
+                                '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="qty_req2'+ index +'">' + qty_req[index] + '</span>' + '</td>' +
+                                '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getUom[index] + '</td>' +
+                                '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="price_req2'+ index +'">' + price_req[index] + '</span>' + '</td>' +
+                                '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getCurrency[index] + '</td>' +
+                                '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="total_req2'+ index +'">' + total_req[index] + '</span>' + '</td>' +
+                                '</tr>';
+                            $('table.TableAdvance tbody').append(html);  
 
-                            TotalBudgetSelected += +total_req[index];
-                            
-                            if($("#statusEditArf").val() == "Yes"){
-                                if(index == $("#indexEdit").val()){
-                                    //BLADE VIEW
-                                    $(".qty_req2"+index).html(qty_req[index]);
-                                    $(".price_req2"+index).html(price_req[index]);
-                                    $(".total_req2"+index).html(total_req[index]);
-                                    //CONTROLLER DB
-                                    $(".qty_req2"+index).val(qty_req[index]);
-                                    $(".price_req2"+index).val(price_req[index]);
-                                    $(".total_req2"+index).val(total_req[index]);
-                                    //TOTAL
-                                    var totalEdit = parseFloat($("#totalEdit").val().replace(/,/g, ''));
-                                    var TotalAdvance = parseFloat($("#TotalAdvance").html().replace(/,/g, ''));
-                                    var totalTamp = (TotalAdvance - totalEdit) + +total_req[index];
-                                    $("#TotalAdvance").html(totalTamp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-                                    
-                                    $("#statusEditArf").val("No");
-                                }
-                            }
-                            else if($("#statusEditArfAll").val() == "Yes"){
-                                //BLADE VIEW
-                                $(".qty_req2"+index).html(qty_req[index]);
-                                $(".price_req2"+index).html(price_req[index]);
-                                $(".total_req2"+index).html(total_req[index]);
-                                //CONTROLLER DB
-                                $(".qty_req2"+index).val(qty_req[index]);
-                                $(".price_req2"+index).val(price_req[index]);
-                                $(".total_req2"+index).val(total_req[index]);
-                                //TOTAL
-                                $("#TotalAdvance").html(TotalBudgetSelected.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-                                
-                            }
-                            else{
-                                var html = '<tr>' +
-                                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;width:7%;">' +
-                                    // '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveAdvance(\'' + work_id + '\', \'' + product_id + '\', \'' + totalArfDetails + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
-                                    '&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="EditAdvance(this)" data-dismiss="modal" data-id0="' + index +'" data-id1="' + qty_req +'" data-id2="' + price_req +'" data-id3="' + total_req +'" data-id4="' + getWorkId[index] +'" data-id5="' + getProductId[index] +'" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
-                                    '<input type="hidden" name="var_product_id[]" value="' + getProductId[index] + '">' +
-                                    '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + getProductName[index] + '">' +
-                                    '<input type="hidden" name="var_quantity[]" class="qty_req2'+ index +'" value="' + parseFloat(qty_req[index].replace(/,/g, '')) + '">' +
-                                    '<input type="hidden" name="var_uom[]" value="' + getUom[index] + '">' +
-                                    '<input type="hidden" name="var_price[]" class="price_req2'+ index +'" value="' + parseFloat(price_req[index].replace(/,/g, '')) + '">' +
-                                    '<input type="hidden" name="var_currency[]" value="' + getCurrency[index] + '">' +
-                                    '<input type="hidden" name="var_date" value="' + date + '">' +
-                                    '<input type="hidden" name="var_combinedBudget[]" value="' + combinedBudget + '">' +
-                                    '</td>' +
-                                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkId[index] + '</td>' +
-                                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkName[index] + '</td>' +
-                                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getProductId[index] + '</td>' +
-                                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getProductName[index] + '</td>' +
-                                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span class="qty_req2'+ index +'">' + qty_req[index] + '</span>' + '</td>' +
-                                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getUom[index] + '</td>' +
-                                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span class="price_req2'+ index +'">' + price_req[index] + '</span>' + '</td>' +
-                                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getCurrency[index] + '</td>' +
-                                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span class="total_req2'+ index +'">' + total_req[index] + '</span>' + '</td>' +
-                                    '</tr>';
-                                $('table.TableAdvance tbody').append(html);  
-
-                                $("#TotalBudgetSelected").html(TotalBudgetSelected.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-                                $("#TotalAdvance").html(TotalBudgetSelected.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-
-                            }
-
-                            $("input[name='qty_req[]']").prop("disabled", false);
-                            $("input[name='price_req[]']").prop("disabled", false);
-                            $("input[name='total_req[]']").prop("disabled", false);
+                            $("#TotalBudgetSelected").html(TotalBudgetSelected.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                            $("#TotalAdvance").html(TotalBudgetSelected.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                            $("#TotalQty").html(TotalQty.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
                             $("#submitArf").prop("disabled", false);
                             $(".ActionButton").prop("disabled", false);
@@ -280,102 +246,26 @@
                             
 
                         } else {
-                            Swal.fire("Error !", "Please use edit to update this item !", "error");
-
+                            //BLADE VIEW
+                            $(".qty_req2"+index).html(qty_req[index]);
+                            $(".price_req2"+index).html(price_req[index]);
+                            $(".total_req2"+index).html(total_req[index]);
+                            //CONTROLLER DB
+                            $(".qty_req2"+index).val(qty_req[index]);
+                            $(".price_req2"+index).val(price_req[index]);
+                            $(".total_req2"+index).val(total_req[index]);
+                            //TOTAL
+                            $("#TotalBudgetSelected").html(TotalBudgetSelected.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                            $("#TotalAdvance").html(TotalBudgetSelected.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                            $("#TotalQty").html(TotalQty.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                         }
                     },
                 });
-
             }
-
-            var EditAll = '<input type="hidden" name="var_qty_all[]" class="var_qty_all'+ index +'" value="' + qty_req[index] + '">' +
-                        '<input type="hidden" name="var_price_all[]" class="var_price_all'+ index +'" value="' + price_req[index] + '">' +
-                        '<input type="hidden" name="var_total_all[]" class="var_total_all'+ index +'" value="' + total_req[index] + '">';
-                        $('table.TableAdvance tbody').append(EditAll);
         });
-
-
-        $("input[name='qty_req[]']").val("");
-        $("input[name='price_req[]']").val("");
-        $("input[name='total_req[]']").val("");
-
-
-        $("#statusEditArfAll").val("No");
         
     }
 </script>
-
-
-<script>
-    function EditAdvance(t) {
-        if(t == "All"){
-            $.ajax({
-                type: "POST",
-                url: '{!! route("AdvanceRequest.StoreValidateAdvance2") !!}?StatusEdit=' + "All",
-            });
-            var totalEdit = 0;
-            var qty_req = $("input[name='var_qty_all[]']").map(function(){return $(this).val();}).get();
-            var price_req = $("input[name='var_price_all[]']").map(function(){return $(this).val();}).get();
-            var total_req = $("input[name='var_total_all[]']").map(function(){return $(this).val();}).get();
-
-            $.each(total_req, function(key, data) {
-                if(total_req[key] != "" && total_req[key] > 0){
-                    $("#qty_req"+key).val(qty_req[key]);
-                    $("#price_req"+key).val(price_req[key]);
-                    $("#total_req"+key).val(total_req[key]);
-
-                    totalEdit += +total_req[key];
-                    $("#totalEdit").val(totalEdit);
-                }
-                else{
-                    $("#qty_req"+key).prop("disabled", true);
-                    $("#price_req"+key).prop("disabled", true);
-                    $("#total_req"+key).prop("disabled", true);
-                }
-            });
-
-            $("#statusEditArfAll").val("Yes");
-
-        }
-        else{
-            var $this = $(t);
-            var index = $this.data("id0");
-            var qty_req = $this.data("id1").split(',');
-            var price_req = $this.data("id2").split(',');
-            var total_req = $this.data("id3").split(',');
-
-            $.ajax({
-                type: "POST",
-                url: '{!! route("AdvanceRequest.StoreValidateAdvance2") !!}?putProductId=' + $this.data("id5") + '&putWorkId=' + $this.data("id4"),
-            });
-
-            $.each(total_req, function(key, data) {
-                if(index == key){
-                    $("#qty_req"+key).val(qty_req[index]);
-                    $("#price_req"+key).val(price_req[index]);
-                    $("#total_req"+key).val(total_req[index]);
-
-                    $("#indexEdit").val(index);
-                    $("#totalEdit").val(total_req[index]);
-
-                    $("#qty_req"+key).focus();
-                }
-                else{
-                    $("#qty_req"+key).prop("disabled", true);
-                    $("#price_req"+key).prop("disabled", true);
-                    $("#total_req"+key).prop("disabled", true);
-                }
-            });
-
-            $("#statusEditArf").val("Yes");
-        }
-
-        $(".ActionButton").prop("disabled", true);
-        $(".ActionButtonAll").prop("disabled", true);
-        
-    }
-</script>
-
 
 <script>
 

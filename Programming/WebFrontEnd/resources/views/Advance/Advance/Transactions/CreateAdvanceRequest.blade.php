@@ -223,9 +223,19 @@
                       <tbody>
 
                       </tbody>
+
+                      <tfoot>
+                        <tr>
+                          <th colspan="4" style="text-align: center;">Total Item : </th>
+                          <th><span id="TotalQty"></span></th>
+                          <th colspan="3"></th>
+                          <th><span id="TotalAdvance"></span></th>
+                        </tr>
+                      </tfoot>
+                      
                     </table>
                   </div>
-                  <div class="card-body table-responsive p-0 AdvanceListCart">
+                  <!-- <div class="card-body table-responsive p-0 AdvanceListCart">
                     <table class="table table-head-fixed table-sm text-nowrap">
                       <tfoot>
                         <tr>
@@ -241,7 +251,7 @@
                         </tr>
                       </tfoot>
                     </table>
-                  </div>
+                  </div> -->
 
                 </div>
                 <!-- <div class="card-body">
