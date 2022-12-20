@@ -790,5 +790,5 @@
 </div>
 
 @include('Partials.footer')
-@include('Advance.BusinessTrip.Functions.Footer.FooterBusinessTripRequest')
+@include('Advance.BusinessTrip.Functions.Footer.FooterBusinessTripRequestForm')
 @endsection
