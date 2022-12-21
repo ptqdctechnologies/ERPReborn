@@ -34,6 +34,8 @@ use function dirname;
 use function explode;
 use function fclose;
 use function implode;
+use function parse_url;
+use function rawurldecode;
 
 class WebDAVAdapter implements FilesystemAdapter, PublicUrlGenerator
 {
@@ -274,10 +276,13 @@ class WebDAVAdapter implements FilesystemAdapter, PublicUrlGenerator
     {
         $location = $this->encodePath($this->prefixer->prefixDirectoryPath($path));
         $response = $this->client->propFind($location, self::FIND_PROPERTIES, 1);
+
+        // This is the directory itself, the files are subsequent entries.
         array_shift($response);
 
         foreach ($response as $path => $object) {
-            $path = $this->prefixer->stripPrefix(rawurldecode($path));
+            $path = (string) parse_url(rawurldecode($path), PHP_URL_PATH);
+            $path = $this->prefixer->stripPrefix($path);
             $object = $this->normalizeObject($object);
 
             if ($this->propsIsDirectory($object)) {
