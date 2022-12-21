@@ -111,8 +111,8 @@ class AdvanceRequestController extends Controller
 
     public function StoreValidateAdvance2(Request $request)
     {
-        $StatusEdit = $request->input('StatusEdit');
-        if($StatusEdit == "All"){
+        $CancelAdvanceList = $request->input('CancelAdvanceList');
+        if($CancelAdvanceList == "Yes"){
             $request->session()->forget("SessionAdvance");
         }
         else{
