@@ -1,8 +1,8 @@
-<div class="wrapper-budget card-body table-responsive p-0" style="height: 280px;" id="tableShowHideBOQ3"">
-    <table class=" table table-head-fixed text-nowrap table-striped table-sm tableBudgetDetail">
+<div class="wrapper-budget card-body table-responsive p-0 tableShowHideBOQ3" style="height: 280px;" id="tableShowHideBOQ3"">
+    <table class=" table table-head-fixed text-nowrap table-sm tableBudgetDetail">
     <thead>
         <tr>
-            &nbsp;&nbsp;&nbsp;<th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Applied</th>
+            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">&nbsp;&nbsp;&nbsp; Used &nbsp;&nbsp;&nbsp;</th>
             <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Id</th>
             <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Name</th>
             <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty Budget</th>
@@ -19,7 +19,7 @@
     </table>
 </div>
 
-<div class="card-body" >
+<div class="card-body tableShowHideBOQ3" >
     <table style="float:right;">
         <tr>
             <th style="position: relative;right:20px;"> Total : <span id="TotalBudgetSelected"></span></th>

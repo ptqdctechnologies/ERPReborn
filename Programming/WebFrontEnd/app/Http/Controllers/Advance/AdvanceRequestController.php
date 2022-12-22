@@ -30,7 +30,6 @@ class AdvanceRequestController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        dd($input);
         $count_product = count($input['var_product_id']);
 
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -46,11 +45,10 @@ class AdvanceRequestController extends Controller
                     "productUnitPriceCurrency_RefID" => 62000000000001,
                     "productUnitPriceCurrencyValue" => (float) $input['var_price'][$n],
                     "productUnitPriceCurrencyExchangeRate" => 1,
-                    "remarks" => 'test jumat'
+                    "remarks" => 'Catatan'
                 ]
             ];
         }
-
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
@@ -73,6 +71,9 @@ class AdvanceRequestController extends Controller
                 ]
             ]                    
             );
+
+        
+            // dd($varData);
 
         $compact = [
             "advnumber"=> $varData['data']['businessDocument']['documentNumber'],
