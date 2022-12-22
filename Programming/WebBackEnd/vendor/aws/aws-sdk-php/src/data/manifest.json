@@ -1229,6 +1229,13 @@
             "2019-12-04": "2019-12-04"
         }
     },
+    "kinesis-video-webrtc-storage": {
+        "namespace": "KinesisVideoWebRTCStorage",
+        "versions": {
+            "latest": "2018-05-10",
+            "2018-05-10": "2018-05-10"
+        }
+    },
     "kinesis": {
         "namespace": "Kinesis",
         "versions": {
@@ -1283,6 +1290,13 @@
         "versions": {
             "latest": "2017-04-19",
             "2017-04-19": "2017-04-19"
+        }
+    },
+    "license-manager-linux-subscriptions": {
+        "namespace": "LicenseManagerLinuxSubscriptions",
+        "versions": {
+            "latest": "2018-05-10",
+            "2018-05-10": "2018-05-10"
         }
     },
     "license-manager-user-subscriptions": {
@@ -1956,6 +1970,13 @@
         "versions": {
             "latest": "2020-05-27",
             "2020-05-27": "2020-05-27"
+        }
+    },
+    "sagemaker-metrics": {
+        "namespace": "SageMakerMetrics",
+        "versions": {
+            "latest": "2022-09-30",
+            "2022-09-30": "2022-09-30"
         }
     },
     "sagemaker": {

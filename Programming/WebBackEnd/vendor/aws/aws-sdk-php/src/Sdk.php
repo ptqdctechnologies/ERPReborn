@@ -352,6 +352,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionKinesisVideoMedia(array $args = [])
  * @method \Aws\KinesisVideoSignalingChannels\KinesisVideoSignalingChannelsClient createKinesisVideoSignalingChannels(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionKinesisVideoSignalingChannels(array $args = [])
+ * @method \Aws\KinesisVideoWebRTCStorage\KinesisVideoWebRTCStorageClient createKinesisVideoWebRTCStorage(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionKinesisVideoWebRTCStorage(array $args = [])
  * @method \Aws\Kms\KmsClient createKms(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionKms(array $args = [])
  * @method \Aws\LakeFormation\LakeFormationClient createLakeFormation(array $args = [])
@@ -368,6 +370,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionLexRuntimeV2(array $args = [])
  * @method \Aws\LicenseManager\LicenseManagerClient createLicenseManager(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionLicenseManager(array $args = [])
+ * @method \Aws\LicenseManagerLinuxSubscriptions\LicenseManagerLinuxSubscriptionsClient createLicenseManagerLinuxSubscriptions(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionLicenseManagerLinuxSubscriptions(array $args = [])
  * @method \Aws\LicenseManagerUserSubscriptions\LicenseManagerUserSubscriptionsClient createLicenseManagerUserSubscriptions(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionLicenseManagerUserSubscriptions(array $args = [])
  * @method \Aws\Lightsail\LightsailClient createLightsail(array $args = [])
@@ -558,6 +562,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionSageMakerFeatureStoreRuntime(array $args = [])
  * @method \Aws\SageMakerGeospatial\SageMakerGeospatialClient createSageMakerGeospatial(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionSageMakerGeospatial(array $args = [])
+ * @method \Aws\SageMakerMetrics\SageMakerMetricsClient createSageMakerMetrics(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionSageMakerMetrics(array $args = [])
  * @method \Aws\SageMakerRuntime\SageMakerRuntimeClient createSageMakerRuntime(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionSageMakerRuntime(array $args = [])
  * @method \Aws\SagemakerEdgeManager\SagemakerEdgeManagerClient createSagemakerEdgeManager(array $args = [])
@@ -671,7 +677,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.252.0';
+    const VERSION = '3.255.0';
 
     /** @var array Arguments for creating clients */
     private $args;
