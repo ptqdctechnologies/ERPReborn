@@ -105,7 +105,50 @@
   } );
   </script>
 
+
   <script>
+      function currency(num){
+          var str = num.toString().replace("$", ""), parts = false, output = [], i = 1, formatted = null;
+          if(str.indexOf(".") > 0) {
+              parts = str.split(".");
+              str = parts[0];
+          }
+          str = str.split("").reverse();
+          for(var j = 0, len = str.length; j < len; j++) {
+              if(str[j] != ",") {
+                  output.push(str[j]);
+                  if(i%3 == 0 && j < (len - 1)) {
+                      output.push(",");
+                  }
+                  i++;
+              }
+          }
+          formatted = output.reverse().join("");
+          return(formatted + ((parts) ? "." + parts[1].substr(0, 2) : ""));
+      };
+
+      function currencyTotal(num){
+          var str = num.toString().replace("$", ""), parts = false, output = [], i = 1, formatted = null;
+          if(str.indexOf(".") > 0) {
+              parts = str.split(".");
+              str = parts[0];
+          }
+          str = str.split("").reverse();
+          for(var j = 0, len = str.length; j < len; j++) {
+              if(str[j] != ",") {
+                  output.push(str[j]);
+                  if(i%3 == 0 && j < (len - 1)) {
+                      output.push(",");
+                  }
+                  i++;
+              }
+          }
+          formatted = output.reverse().join("");
+          return(formatted + ((parts) ? "." + parts[1].substr(0, 2) : ".00"));
+      };
+  </script>
+
+  <!-- <script>
     // CURRENCY FUNCTION
 
     $("input[data-type='currency']").on({
@@ -153,7 +196,7 @@
       caret_pos = updated_len - original_len + caret_pos;
       input[0].setSelectionRange(caret_pos, caret_pos);
     }
-  </script>
+  </script> -->
 </body>
 
 </html>
