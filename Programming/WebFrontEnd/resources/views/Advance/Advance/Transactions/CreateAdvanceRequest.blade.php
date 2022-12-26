@@ -121,19 +121,18 @@
                     </div>
                   </div>
 
-                  <div class="card-body table-responsive p-0 AdvanceListCart" style="height:280px;">
+                  <div class="card-body table-responsive p-0 AdvanceListCart" style="height:230px;">
                     <table class="table table-head-fixed table-sm text-nowrap TableAdvance" id="TableAdvance">
                       <thead>
                         <tr>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Delete</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Work Id</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Work Name</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Id</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Name</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Uom</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Currency</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Price</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Total</th>
                         </tr>
                       </thead>
@@ -143,25 +142,15 @@
 
                       <tfoot style="border: 1px solid #ced4da;position:relative;top:5px;">
                         <tr>
-                          <th colspan="7" style="text-align: center;">Total Item : </th>
+                          <th colspan="6"></th>
+                          <th style="text-align: center;border: 1px solid #ced4da;">Total Item : </th>
                           <th style="border: 1px solid #ced4da;"><span id="TotalQty"></span></th>
-                          <th style="border: 1px solid #ced4da;"><span id="TotalPrice"></span></th>
-                          <th style="border: 1px solid #ced4da;"><span id="TotalAdvance"></span></th>
+                          <th style="border: 1px solid #ced4da;"><span id="GrandTotal"></span></th>
                         </tr>
                       </tfoot>
                       
                     </table>
                   </div>
-
-                  <div class="card-body AdvanceListCart" >
-                    <table style="float:right;">
-                        <tr>
-                            <th><a onclick="CancelAdvanceList()" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
-                                <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
-                              </a></th>
-                        </tr>
-                    </table>
-                </div>
                 </div>
                 
                 

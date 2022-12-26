@@ -59,10 +59,6 @@
                 <input name="request_name" id="request_name" style="border-radius:0;" type="text" class="form-control">
                 <input name="request_name_id" id="request_name_id" style="border-radius:0;" type="hidden" class="form-control" readonly>
                 <input name="var_combinedBudget" id="combinedBudget" style="border-radius:0;" type="hidden" class="form-control" readonly>
-                <input id="statusEditArf" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
-                <input id="statusEditArfAll" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
-                <input id="indexEdit" style="border-radius:0;" type="hidden" class="form-control" readonly="">
-                <input id="totalEdit" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                 <div class="input-group-append">
                   <span style="border-radius:0;" class="input-group-text form-control">
                     <a href="#" id="request_name2" data-toggle="modal" data-target="#myWorker" class="myWorker"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>

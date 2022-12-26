@@ -6,8 +6,8 @@
         $("#sitecode2").prop("disabled", true);
         $("#request_name2").prop("disabled", true);
         $("#request_name").prop("readonly", true);
-        // $("#showContentBOQ3").hide();
-        // $(".tableShowHideBOQ3").hide();
+        $("#showContentBOQ3").hide();
+        $(".tableShowHideBOQ3").hide();
         $("#iconUnitPrice2").hide();
         $("#product_id2").prop("disabled", true);
         $("#submitArf").prop("disabled", true);
@@ -50,17 +50,17 @@
 
 <script>
 
-    $(document).ready(function() {
-    // function klikSite(code, name) {
-    //     $("#sitecode").val(code);
-    //     $("#sitename").val(name);
-    //     $("#sitecode2").prop("disabled", true);
+    // $(document).ready(function() {
+    function klikSite(code, name) {
+        $("#sitecode").val(code);
+        $("#sitename").val(name);
+        $("#sitecode2").prop("disabled", true);
 
-    //     $("#projectcode2").prop("disabled", true);
-    //     $("#addToDoDetail").prop("disabled", false);
-    //     $(".tableShowHideBOQ3").show();
-    //     $("#request_name2").prop("disabled", false);
-    //     $("#request_name").attr('required', true);
+        $("#projectcode2").prop("disabled", true);
+        $("#addToDoDetail").prop("disabled", false);
+        $(".tableShowHideBOQ3").show();
+        $("#request_name2").prop("disabled", false);
+        $("#request_name").attr('required', true);
 
         $.ajaxSetup({
             headers: {
@@ -150,6 +150,7 @@
                             $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
                         }
                         else if (parseFloat(qty_val) > parseFloat(budget_qty_val)) {
+                            Swal.fire("Error !", "Qty is over budget !", "error");
                             $('#qty_req'+key).val("");
                             $('#total_req'+key).val("0.00");
                             $('#qty_req'+key).css("border", "1px solid red");
@@ -176,6 +177,7 @@
                             $("input[name='price_req[]']").css("border", "1px solid #ced4da");
                         }
                         else if (parseFloat(price_val) > parseFloat(budget_price_val)) {
+                            Swal.fire("Error !", "Price is over budget !", "error");
                             $('#price_req'+key).val("");
                             $('#total_req'+key).val("0.00");
                             $('#price_req'+key).css("border", "1px solid red");
@@ -196,8 +198,8 @@
                 });
             }
         });
-    // }
-    });
+    }
+    // });
 </script>
 
 <script>
@@ -219,7 +221,6 @@
 
         var TotalBudgetSelected = 0;
         var TotalQty = 0;
-        var TotalPrice = 0;
 
         var total_req = $("input[name='total_req[]']").map(function(){return $(this).val();}).get();
         $.each(total_req, function(index, data) {
@@ -248,22 +249,11 @@
 
                         TotalBudgetSelected += +total_req[index].replace(/,/g, '');
                         TotalQty+= +qty_req[index].replace(/,/g, '');
-                        TotalPrice+= +price_req[index].replace(/,/g, '');
-
                         if (data == "200") {
                             var html = '<tr>' +
-                                '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;width:7%;">' +
-                                
-                                // '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveAdvance(\'' + getWorkId[index] + '\', \'' + getProductId[index] + '\', \'' + index + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
-                                // '<input type="hidden" name="var_product_id[]" value="' + getProductId[index] + '">' +
-                                // '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + getProductName[index] + '">' +
 
-
-                                '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveAdvance(\'' + getWorkId[index] + '\', \'' + putProductId + '\', \'' + index + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
                                 '<input type="hidden" name="var_product_id[]" value="' + putProductId + '">' +
                                 '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
-
-
                                 '<input type="hidden" name="var_quantity[]" class="qty_req2'+ index +'" data-id="'+ index +'" value="' + currencyTotal(qty_req[index]).replace(/,/g, '') + '">' +
                                 '<input type="hidden" name="var_uom[]" value="' + getUom[index] + '">' +
                                 '<input type="hidden" name="var_price[]" class="price_req2'+ index +'" value="' + currencyTotal(price_req[index]).replace(/,/g, '') + '">' +
@@ -271,28 +261,22 @@
                                 '<input type="hidden" name="var_currency[]" value="' + getCurrency[index] + '">' +
                                 '<input type="hidden" name="var_date" value="' + date + '">' +
                                 '<input type="hidden" name="var_combinedBudget[]" value="' + combinedBudget + '">' +
-                                '</td>' +
+                               
                                 '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkId[index] + '</td>' +
                                 '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkName[index] + '</td>' +
-
-
-                                // '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getProductId[index] + '</td>' +
-                                // '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getProductName[index] + '</td>' +
-
                                 '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductId + '</td>' +
                                 '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductName + '</td>' +
                                 '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getUom[index] + '</td>' +
                                 '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getCurrency[index] + '</td>' +
-                                '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="qty_req2'+ index +'">' + currencyTotal(qty_req[index]) + '</span>' + '</td>' +
                                 '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="price_req2'+ index +'">' + currencyTotal(price_req[index]) + '</span>' + '</td>' +
+                                '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="qty_req2'+ index +'">' + currencyTotal(qty_req[index]) + '</span>' + '</td>' +
                                 '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="total_req2'+ index +'">' + currencyTotal(total_req[index]) + '</span>' + '</td>' +
                                 '</tr>';
                             $('table.TableAdvance tbody').append(html);  
 
                             $("#TotalBudgetSelected").html(currencyTotal(TotalBudgetSelected));
-                            $("#TotalAdvance").html(currencyTotal(TotalBudgetSelected));
+                            $("#GrandTotal").html(currencyTotal(TotalBudgetSelected));
                             $("#TotalQty").html(currencyTotal(TotalQty));
-                            $("#TotalPrice").html(currencyTotal(TotalPrice));
 
                             $("#submitArf").prop("disabled", false);
                             $(".ActionButton").prop("disabled", false);
@@ -310,9 +294,8 @@
                             //TOTAL
 
                             $("#TotalBudgetSelected").html(currencyTotal(TotalBudgetSelected));
-                            $("#TotalAdvance").html(currencyTotal(TotalBudgetSelected));
+                            $("#GrandTotal").html(currencyTotal(TotalBudgetSelected));
                             $("#TotalQty").html(currencyTotal(TotalQty));
-                            $("#TotalPrice").html(currencyTotal(TotalPrice));
                         }
                     },
                 });
@@ -345,19 +328,17 @@
 
         var TotalBudgetSelected = 0;
         var TotalQty = 0;
-        var TotalPrice = 0;
 
         $.each(total_req, function(index, data) {
             TotalBudgetSelected += +total_req[index].replace(/,/g, '');
             TotalQty+= +qty_req[index].replace(/,/g, '');
-            TotalPrice+= +price_req[index].replace(/,/g, '');
             
             $("#TotalBudgetSelected").html(currencyTotal(TotalBudgetSelected));
-            $("#TotalAdvance").html(currencyTotal(TotalBudgetSelected));
+            $("#GrandTotal").html(currencyTotal(TotalBudgetSelected));
             $("#TotalQty").html(currencyTotal(TotalQty));
-            $("#TotalPrice").html(currencyTotal(TotalPrice));
         });
 
+        if(i == 1){ $("#submitArf").prop("disabled", true); }
           
     }
 
@@ -383,9 +364,9 @@
             url: '{!! route("AdvanceRequest.StoreValidateAdvance2") !!}?CancelAdvanceList='+ "Yes",
         });
 
-        $("#TotalAdvance").html('0');
+        $("#GrandTotal").html('0');
         $("#TotalQty").html('0');
-        $("#TotalPrice").html('0');
+        $("#submitArf").prop("disabled", true);
     }
 
     
