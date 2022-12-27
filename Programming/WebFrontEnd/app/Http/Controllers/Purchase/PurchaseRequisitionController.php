@@ -40,7 +40,8 @@ class PurchaseRequisitionController extends Controller
                     "productUnitPriceCurrency_RefID" => 62000000000001,
                     "productUnitPriceCurrencyValue" => (float) $input['var_price'][$n],
                     "productUnitPriceCurrencyExchangeRate" => 1,
-                    "remarks" => $input['var_remark'][$n],
+                    "remarks" => "test",
+                    // "remarks" => $input['var_remark'][$n],
                 ]
             ];
         }
@@ -101,16 +102,22 @@ class PurchaseRequisitionController extends Controller
 
     public function StoreValidatePurchaseRequisition2(Request $request)
     {
-        $val = $request->input('putWorkId');
-        $val2 = $request->input('putProductId');
-        $data = $request->session()->get("SessionPurchaseRequisition");
-        if($request->session()->has("SessionPurchaseRequisition")){
-            for($i = 0; $i < count($data); $i++){
-                if($data[$i] == $val && $data[$i+1] == $val2){
-                    unset($data[$i]);
-                    unset($data[$i+1]);
-                    $newClass = array_values($data);
-                    $request->session()->put("SessionPurchaseRequisition", $newClass);
+        $ResetPrList = $request->input('ResetPrList');
+        if($ResetPrList == "Yes"){
+            $request->session()->forget("SessionPurchaseRequisition");
+        }
+        else{
+            $val = $request->input('putWorkId');
+            $val2 = $request->input('putProductId');
+            $data = $request->session()->get("SessionPurchaseRequisition");
+            if($request->session()->has("SessionPurchaseRequisition")){
+                for($i = 0; $i < count($data); $i++){
+                    if($data[$i] == $val && $data[$i+1] == $val2){
+                        unset($data[$i]);
+                        unset($data[$i+1]);
+                        $newClass = array_values($data);
+                        $request->session()->put("SessionPurchaseRequisition", $newClass);
+                    }
                 }
             }
         }

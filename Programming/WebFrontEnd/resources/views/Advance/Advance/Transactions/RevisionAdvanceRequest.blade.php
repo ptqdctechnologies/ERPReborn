@@ -3,7 +3,7 @@
 @include('Partials.navbar')
 @include('Partials.sidebar')
 @include('getFunction.getSite')
-@include('getFunction.getProduk')
+@include('getFunction.getProduct')
 @include('Advance.Advance.Functions.PopUp.PopUpAdvanceRevision')
 @include('getFunction.getProject')
 @include('getFunction.getWorker')
@@ -112,96 +112,6 @@
                 <div class="card">
                   <div class="card-header">
                     <label class="card-title">
-                      Detail Transaction Request & Balance
-                    </label>
-                    <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                      </button>
-                    </div>
-                  </div>
-
-                  <div class="card-body table-responsive p-0" id="detailTransAvail">
-                    <table class="table table-head-fixed text-nowrap table-sm" style="text-align: center;">
-                      <thead>
-                        <tr>
-                          <th style="padding-bottom: 10px;padding-top: 10px;width:15%;border:1px solid #e9ecef;">Product Id</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;width:16%;border:1px solid #e9ecef;">Product Name</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;width:5%;border:1px solid #e9ecef;">Qty</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;width:5%;border:1px solid #e9ecef;">Uom</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;width:8%;border:1px solid #e9ecef;">Unit Price</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;width:5%;border:1px solid #e9ecef;">Currency</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;width:12%;border:1px solid #e9ecef;">Total</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;width:12%;border:1px solid #e9ecef;">Balance</th>
-                          <th style="padding-bottom: 10px;padding-top: 10px;width:12%;border:1px solid #e9ecef;">Payment</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <td style="border:1px solid #e9ecef;">
-                          <div class="input-group">
-                            &nbsp;<input id="putWorkId" type="hidden" style="border-radius:0;" class="form-control" readonly>
-                            &nbsp;<input id="putProductId" style="border-radius:0;" name="putProductId" class="form-control" readonly>
-                            <div class="input-group-append">
-                              <span style="border-radius:0;" class="input-group-text form-control">
-                                <a id="product_id2" data-toggle="modal" data-target="#myProduct"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                              </span>
-                            </div>
-                          </div>
-                        </td>
-                        <td style="border:1px solid #e9ecef;">
-                          <input name="product_name" id="putProductName" style="border-radius:0;" type="text" class="form-control" readonly="">
-                        </td>
-                        <td style="border:1px solid #e9ecef;">
-                          <input name="qtyCek" id="qtyCek" style="border-radius:0;" type="text" class="form-control ChangeQty quantity" autocomplete="off" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
-                          <span id="putQtybyId"></span>
-                          <input name="putQty" id="putQty" style="border-radius:0;" type="hidden" class="form-control">
-                        </td>
-                        <td style="border:1px solid #e9ecef;">
-                          <input name="qty_detail" id="putUom" style="border-radius:0;" type="text" class="form-control" readonly="">
-                        </td>
-                        <td style="border:1px solid #e9ecef;">
-                          <input name="price" id="priceCek" style="border-radius:0;" type="text" class="form-control ChangePrice" autocomplete="off" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
-                          <input name="price2" id="putPrice" style="border-radius:0;" type="hidden" class="form-control">
-                        </td>
-                        <td style="border:1px solid #e9ecef;">
-                          <input name="price_detail" id="putCurrency" style="border-radius:0;" type="text" class="form-control" readonly="">
-                        </td>
-                        <td style="border:1px solid #e9ecef;">
-                          <input name="total" id="totalArfDetails" style="border-radius:0;" type="text" class="form-control" readonly="">
-                        </td>
-
-                        <td style="border:1px solid #e9ecef;">
-                          <input name="balance" id="totalBalance" style="border-radius:0;" type="text" class="form-control" readonly="">
-                        </td>
-                        <td style="border:1px solid #e9ecef;">
-                          <input name="payment" id="totalPayment" style="border-radius:0;" type="text" class="form-control" readonly="" value="">
-                        </td>
-
-                        <input name="statusProduct" id="statusProduct" style="border-radius:0;" type="hidden" class="form-control" readonly="">
-                        <input id="statusEditArfRevision" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
-                        <input id="ValidateQuantity" style="border-radius:0;" type="hidden" class="form-control" readonly="">
-                        <input id="ValidatePrice" style="border-radius:0;" type="hidden" class="form-control" readonly="">
-
-                      </tbody>
-                    </table><br>
-                    <div style="padding-right:10px;">
-                      <a class="btn btn-default btn-sm float-right" onclick="CancelDetailArfRevision()" id="CancelDetailArfRevision" style="background-color:#e9ecef;border:1px solid #ced4da;">
-                        <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel to Add Advance List Cart"> Cancel
-                      </a>
-                      <a class="btn btn-default btn-sm float-right" onclick="addFromDetailtoCartJs();" id="addFromDetailtoCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                        <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
-                      </a>
-                    </div>
-                  </div>
-                  <br>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-12">
-                <div class="card">
-                  <div class="card-header">
-                    <label class="card-title">
                       Advance List (Cart)
                     </label>
                     <div class="card-tools">
@@ -211,58 +121,36 @@
                     </div>
                   </div>
 
-                  <div class="card-body table-responsive p-0" style="height: 180px;" id="detailArfList">
+                  <div class="card-body table-responsive p-0" style="height: 230px;" id="detailArfList">
                     <table class="table table-head-fixed table-sm text-nowrap TableAdvance" id="TableAdvance">
-                      <thead>
+                    <thead>
                         <tr>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Action</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Work Id</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Work Name</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Id</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Name</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Uom</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Price</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Total</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Currency</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Price</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Total</th>
                         </tr>
                       </thead>
                       <tbody>
+
                       </tbody>
-                    </table>
-                  </div>
-                  <div class="card-body table-responsive p-0 detailArfList">
-                    <table class="table table-head-fixed table-sm text-nowrap">
-                      <tfoot>
+
+                      <tfoot style="border: 1px solid #ced4da;position:relative;top:5px;">
                         <tr>
-                          <th style="color:brown;float:right;">Total Advance : <span id="TotalAdvance"></span></th>
+                          <th colspan="6"></th>
+                          <th style="text-align: center;border: 1px solid #ced4da;">Total Item : </th>
+                          <th style="border: 1px solid #ced4da;"><span id="TotalQty"></span></th>
+                          <th style="border: 1px solid #ced4da;"><span id="GrandTotal"></span></th>
                         </tr>
                       </tfoot>
                     </table>
                   </div>
                 </div>
-                <!-- <div class="card-body">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <table>
-                          <tr>
-                            <td style="padding-top: 5px;"><label>Remark&nbsp;</label></td>
-                            <td>
-                              <textarea name="var_remark" id="putRemark" rows="2" cols="1000" class="form-control" required>{{$dataAdvanceRevisions['entities']['remarks']}}</textarea>
-                            </td>
-                          </tr>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <a onclick="cancelAdvance();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
-                  <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
-                </a>
-                <button class="btn btn-default btn-sm float-right" type="submit" id="submitArf" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                  <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
-                </button> -->
-
               </div>
             </div>
             <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">

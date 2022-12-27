@@ -21,7 +21,8 @@ class AdvanceRequestController extends Controller
         }
         $compact = [
             'var' => $var,
-            'varAPIWebToken' => $varAPIWebToken
+            'varAPIWebToken' => $varAPIWebToken,
+            'status' => 0,
         ];
         return view('Advance.Advance.Transactions.CreateAdvanceRequest', $compact);
 
@@ -112,23 +113,17 @@ class AdvanceRequestController extends Controller
 
     public function StoreValidateAdvance2(Request $request)
     {
-        $CancelAdvanceList = $request->input('CancelAdvanceList');
-        if($CancelAdvanceList == "Yes"){
-            $request->session()->forget("SessionAdvance");
-        }
-        else{
-            $val = $request->input('putWorkId');
-            $val2 = $request->input('putProductId');
-            $data = $request->session()->get("SessionAdvance");
+        $val = $request->input('putWorkId');
+        $val2 = $request->input('putProductId');
+        $data = $request->session()->get("SessionAdvance");
 
-            if($request->session()->has("SessionAdvance")){
-                for($i = 0; $i < count($data); $i++){
-                    if($data[$i] == $val && $data[$i+1] == $val2){
-                        unset($data[$i]);
-                        unset($data[$i+1]);
-                        $newClass = array_values($data);
-                        $request->session()->put("SessionAdvance", $newClass);
-                    }
+        if($request->session()->has("SessionAdvance")){
+            for($i = 0; $i < count($data); $i++){
+                if($data[$i] == $val && $data[$i+1] == $val2){
+                    unset($data[$i]);
+                    unset($data[$i+1]);
+                    $newClass = array_values($data);
+                    $request->session()->put("SessionAdvance", $newClass);
                 }
             }
         }
@@ -176,6 +171,7 @@ class AdvanceRequestController extends Controller
             'dataAdvanceRevisions' => $varDataAdvanceRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
             'dataRequester' => $varDataAdvanceRevision['data'][0]['document']['content']['involvedPersons']['requester'],
             'var_recordID' => $request->searchArfNumberRevisionId,
+            'status' => 1,
         ];
 
         return view('Advance.Advance.Transactions.RevisionAdvanceRequest', $compact);
