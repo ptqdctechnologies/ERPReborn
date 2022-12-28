@@ -4,39 +4,38 @@ declare(strict_types=1);
 
 namespace Ramsey\Collection\Test;
 
+use Mockery;
+use Mockery\MockInterface;
 use Ramsey\Collection\Exception\InvalidArgumentException;
 use Ramsey\Collection\Exception\NoSuchElementException;
-use Ramsey\Collection\QueueInterface;
+use Ramsey\Collection\Queue;
 use stdClass;
 
-trait QueueBehavior
+/**
+ * @covers \Ramsey\Collection\Queue
+ */
+class QueueTest extends TestCase
 {
-    /**
-     * @param mixed[] $data
-     *
-     * @return QueueInterface<T>
-     *
-     * @template T
-     */
-    abstract protected function queue(string $type, array $data = []): QueueInterface;
-
     public function testConstructorSetsType(): void
     {
-        $queue = $this->queue('integer');
+        /** @var Queue<int> $queue */
+        $queue = new Queue('integer');
 
-        $this->assertEquals('integer', $queue->getType());
+        $this->assertSame('integer', $queue->getType());
     }
 
     public function testConstructorWithData(): void
     {
-        $queue = $this->queue('string', ['Foo', 'Bar']);
+        /** @var Queue<string> $queue */
+        $queue = new Queue('string', ['Foo', 'Bar']);
 
         $this->assertCount(2, $queue);
     }
 
     public function testOffsetSet(): void
     {
-        $queue = $this->queue('string');
+        /** @var Queue<string> $queue */
+        $queue = new Queue('string');
         $queue[] = $this->faker->text();
 
         $this->assertCount(1, $queue);
@@ -44,16 +43,23 @@ trait QueueBehavior
 
     public function testOffsetSetThrowsException(): void
     {
-        $queue = $this->queue('string');
+        /** @var Queue<string> $queue */
+        $queue = new Queue('string');
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Value must be of type string; value is 42');
+
+        /**
+         * @phpstan-ignore-next-line
+         * @psalm-suppress InvalidArgument
+         */
         $queue[] = 42;
     }
 
     public function testValuesCanBeAdded(): void
     {
-        $queue = $this->queue('string');
+        /** @var Queue<string> $queue */
+        $queue = new Queue('string');
 
         $this->assertTrue($queue->add('Foo'));
         $this->assertCount(1, $queue);
@@ -66,8 +72,11 @@ trait QueueBehavior
         $obj1 = new stdClass();
         $obj1->name = $this->faker->name();
 
-        $queue1 = $this->queue(stdClass::class);
-        $queue2 = $this->queue(stdClass::class);
+        /** @var Queue<stdClass> $queue1 */
+        $queue1 = new Queue(stdClass::class);
+
+        /** @var Queue<stdClass> $queue2 */
+        $queue2 = new Queue(stdClass::class);
 
         // Add the same object multiple times
         for ($i = 0; $i < $expectedCount; $i++) {
@@ -85,7 +94,8 @@ trait QueueBehavior
 
     public function testOfferAddsElement(): void
     {
-        $queue = $this->queue(stdClass::class);
+        /** @var Queue<stdClass> $queue */
+        $queue = new Queue(stdClass::class);
 
         $object = new stdClass();
         $object->name = $this->faker->name();
@@ -98,7 +108,8 @@ trait QueueBehavior
 
     public function testIterateOverQueue(): void
     {
-        $queue = $this->queue(stdClass::class);
+        /** @var Queue<stdClass> $queue */
+        $queue = new Queue(stdClass::class);
 
         for ($i = 0; $i < 4; $i++) {
             $object = new stdClass();
@@ -108,7 +119,7 @@ trait QueueBehavior
 
         $id = 0;
         foreach ($queue as $item) {
-            $this->assertEquals($id, $item->id);
+            $this->assertSame($id, $item->id);
             $id++;
         }
     }
@@ -121,7 +132,8 @@ trait QueueBehavior
         $object2 = new stdClass();
         $object2->name = 'bar';
 
-        $queue = $this->queue(stdClass::class);
+        /** @var Queue<stdClass> $queue */
+        $queue = new Queue(stdClass::class);
         $queue->add($object1);
         $queue->add($object2);
 
@@ -132,7 +144,8 @@ trait QueueBehavior
 
     public function testElementThrowsExceptionIfEmpty(): void
     {
-        $queue = $this->queue('string');
+        /** @var Queue<string> $queue */
+        $queue = new Queue('string');
 
         $this->expectException(NoSuchElementException::class);
         $this->expectExceptionMessage('Can\'t return element from Queue. Queue is empty.');
@@ -148,7 +161,8 @@ trait QueueBehavior
         $object2 = new stdClass();
         $object2->name = $this->faker->name();
 
-        $queue = $this->queue(stdClass::class);
+        /** @var Queue<stdClass> $queue */
+        $queue = new Queue(stdClass::class);
         $queue->add($object1);
         $queue->add($object2);
 
@@ -158,14 +172,16 @@ trait QueueBehavior
 
     public function testPeekReturnsNullIfEmpty(): void
     {
-        $queue = $this->queue('bool');
+        /** @var Queue<bool> $queue */
+        $queue = new Queue('bool');
 
         $this->assertNull($queue->peek());
     }
 
     public function testPollRemovesTheHead(): void
     {
-        $queue = $this->queue('string');
+        /** @var Queue<string> $queue */
+        $queue = new Queue('string');
 
         $queue->add('Foo');
         $queue->add('Bar');
@@ -179,7 +195,8 @@ trait QueueBehavior
 
     public function testPollReturnsNullIfEmpty(): void
     {
-        $queue = $this->queue(stdClass::class);
+        /** @var Queue<stdClass> $queue */
+        $queue = new Queue(stdClass::class);
 
         $this->assertNull($queue->poll());
     }
@@ -189,7 +206,8 @@ trait QueueBehavior
         $obj1 = new stdClass();
         $obj1->name = $this->faker->name();
 
-        $queue = $this->queue(stdClass::class);
+        /** @var Queue<stdClass> $queue */
+        $queue = new Queue(stdClass::class);
 
         // Add the same object multiple times
         $queue->add($obj1);
@@ -209,7 +227,8 @@ trait QueueBehavior
         $object2 = new stdClass();
         $object2->name = $this->faker->name();
 
-        $queue = $this->queue(stdClass::class);
+        /** @var Queue<stdClass> $queue */
+        $queue = new Queue(stdClass::class);
         $queue->add($object1);
         $queue->add($object2);
 
@@ -224,7 +243,8 @@ trait QueueBehavior
 
     public function testMixedUsageOfAllMethods(): void
     {
-        $queue = $this->queue('string');
+        /** @var Queue<string> $queue */
+        $queue = new Queue('string');
 
         $queue->add('Foo');
         $queue->add('Bar');
@@ -242,5 +262,18 @@ trait QueueBehavior
         $this->assertSame('Foo', $queue->remove());
 
         $this->assertCount(1, $queue);
+    }
+
+    public function testOfferReturnsFalseOnException(): void
+    {
+        $element = 'foo';
+
+        /** @var Queue<string> & MockInterface $queue */
+        $queue = Mockery::mock(Queue::class);
+        $queue->shouldReceive('offer')->passthru();
+
+        $queue->expects('add')->with($element)->andThrow(InvalidArgumentException::class);
+
+        $this->assertFalse($queue->offer($element));
     }
 }
