@@ -25,7 +25,7 @@ class PurchaseOrderController extends Controller
             'var' => $var,
         ];
 
-        return view('Purchase.PurchaseOrder.Transactions.CreatePurchaseOrder', $compact);
+        return view('Purchase.Purchase.Transactions.CreatePurchaseOrder', $compact);
     }
 
     public function StoreValidatePurchaseOrderPrNumber(Request $request)
@@ -118,16 +118,18 @@ class PurchaseOrderController extends Controller
     public function StoreValidatePurchaseOrder(Request $request)
     {
         $tamp = 0; $status = 200;
-        $val = $request->input('putProductId');
+        $val = $request->input('putWorkId');
+        $val2 = $request->input('putProductId');
         $data = $request->session()->get("SessionPurchaseOrder");
         if($request->session()->has("SessionPurchaseOrder")){
             for($i = 0; $i < count($data); $i++){
-                if($data[$i] == $val){
+                if($data[$i] == $val && $data[$i+1] == $val2){
                     $tamp = 1;
                 }
             }
             if($tamp == 0){
                 $request->session()->push("SessionPurchaseOrder", $val);
+                $request->session()->push("SessionPurchaseOrder", $val2);
             }
             else{
                 $status = 500;
@@ -135,21 +137,76 @@ class PurchaseOrderController extends Controller
         }
         else{
             $request->session()->push("SessionPurchaseOrder", $val);
+            $request->session()->push("SessionPurchaseOrder", $val2);
         }
 
         return response()->json($status);
+
     }
-    public function StoreValidatePO2(Request $request)
+    public function StoreValidatePurchaseOrder2(Request $request)
     {
-        $messages = $request->session()->get("SessionAsf");
-        $val = $request->input('putProductName');
-        if (($key = array_search($val, $messages)) !== false) {
-            unset($messages[$key]);
-            $newClass = array_values($messages);
-            $request->session()->put("SessionAsf", $newClass);
+        $val = $request->input('putWorkId');
+        $val2 = $request->input('putProductId');
+        $data = $request->session()->get("SessionPurchaseOrder");
+        if($request->session()->has("SessionPurchaseOrder")){
+            for($i = 0; $i < count($data); $i++){
+                if($data[$i] == $val && $data[$i+1] == $val2){
+                    unset($data[$i]);
+                    unset($data[$i+1]);
+                    $newClass = array_values($data);
+                    $request->session()->put("SessionPurchaseOrder", $newClass);
+                }
+            }
         }
     }
+    public function PurchaseOrderListData(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varDataPurchaseRequisition = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.supplyChain.getPurchaseRequisition',
+            'latest',
+            [
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ]
+        );
+        // dd($varDataPurchaseRequisition);
 
+        return response()->json($varDataPurchaseRequisition['data']);
+    }
+    public function RevisionPurchaseOrderIndex(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $request->session()->forget("SessionPurchaseRequisition");
+
+        $varDataPurchaseOrderRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'report.form.documentForm.supplyChain.getPurchaseRequisition',
+            'latest',
+            [
+                'parameter' => [
+                    'recordID' => (int) $request->searchPONumberRevisionId
+                ]
+            ]
+        );
+        // dd($varDataProcReqRevision);
+        
+        $compact = [
+            'dataPurchaseOrderRevision' => $varDataPurchaseOrderRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
+            'dataPurchaOrdernumber' => $varDataAdvanceSettlementRevision['data'][0]['document']['header']['number'],
+            'var_recordID' => $request->searchPONumberRevisionId,
+        ];
+
+        return view('Purchase.Purchase.Transactions.RevisionPurchaseOrder', $compact);
+    }
     /**
      * Show the form for creating a new resource.
      *
