@@ -121,7 +121,7 @@
                     </div>
                   </div>
 
-                  <div class="card-body table-responsive p-0 AdvanceListCart" style="height:230px;">
+                  <div class="card-body table-responsive p-0 AdvanceListCart" style="height:135px;">
                     <table class="table table-head-fixed table-sm text-nowrap TableAdvance" id="TableAdvance">
                       <thead>
                         <tr>
@@ -140,7 +140,7 @@
 
                       </tbody>
 
-                      <tfoot style="border: 1px solid #ced4da;position:relative;top:5px;">
+                      <!-- <tfoot style="border: 1px solid #ced4da;position:relative;top:5px;">
                         <tr>
                           <th colspan="6"></th>
                           <th style="text-align: center;border: 1px solid #ced4da;">Total Item : </th>
@@ -148,9 +148,18 @@
                           <th style="border: 1px solid #ced4da;"><span id="GrandTotal"></span></th>
                         </tr>
                       </tfoot>
-                      
+                       -->
                     </table>
                   </div>
+
+                  <div class="card-body AdvanceListCart" >
+                      <table style="float:right;">
+                          <tr>
+                              <th style="position: relative;right:45px;"> Total Item : <span id="TotalQty"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="GrandTotal"></span></th>
+                          </tr>
+                      </table>
+                  </div>
+
                 </div>
                 
                 
