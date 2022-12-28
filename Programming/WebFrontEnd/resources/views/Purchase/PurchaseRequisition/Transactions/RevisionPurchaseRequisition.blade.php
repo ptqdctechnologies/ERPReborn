@@ -3,11 +3,11 @@
 @include('Partials.navbar')
 @include('Partials.sidebar')
 @include('getFunction.getSite')
-@include('getFunction.getProduk')
+@include('getFunction.getProduct')
 @include('Purchase.PurchaseRequisition.Functions.PopUp.PopUpPrRevision')
 @include('getFunction.getProject')
 
-<div class="content-wrapper" style="position:relative;bottom:12px;">
+<div class="content-wrapper" style="position:relative;bottom:24px;">
   <section class="content">
     <div class="container-fluid">
       <div class="row mb-1" style="background-color:#4B586A;">
@@ -107,104 +107,6 @@
                   <div class="card">
                     <div class="card-header">
                       <label class="card-title">
-                        Detail Transaction Request & Balance
-                      </label>
-                      <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                          <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                        </button>
-                      </div>
-                    </div>
-
-
-                    <div class="card-body table-responsive p-0" id="detailTransAvail">
-                    <table class="table table-head-fixed text-nowrap table-sm" style="text-align: center;">
-                        <thead>
-                          <tr>
-                            <th style="padding-bottom: 10px;padding-top: 10px;width:15%;border:1px solid #e9ecef;">Product Id</th>
-                            <th style="padding-bottom: 10px;padding-top: 10px;width:20%;border:1px solid #e9ecef;">Product Name</th>
-                            <th style="padding-bottom: 10px;padding-top: 10px;width:5%;border:1px solid #e9ecef;">Qty</th>
-                            <th style="padding-bottom: 10px;padding-top: 10px;width:5%;border:1px solid #e9ecef;">Uom</th>
-                            <th style="padding-bottom: 10px;padding-top: 10px;width:10%;border:1px solid #e9ecef;">Unit Price</th>
-                            <th style="padding-bottom: 10px;padding-top: 10px;width:5%;border:1px solid #e9ecef;">Currency</th>
-                            <th style="padding-bottom: 10px;padding-top: 10px;width:10%;border:1px solid #e9ecef;">Total</th>
-                            <th style="padding-bottom: 10px;padding-top: 10px;width:10%;border:1px solid #e9ecef;">Remark</th>
-                            <th style="padding-bottom: 10px;padding-top: 10px;width:10%;border:1px solid #e9ecef;">Balance</th>
-                            <th style="padding-bottom: 10px;padding-top: 10px;width:10%;border:1px solid #e9ecef;">Total PO</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <td style="border:1px solid #e9ecef;">
-                            <div class="input-group">
-                              &nbsp;<input id="putWorkId" type="hidden" style="border-radius:0;" class="form-control" readonly>
-                              &nbsp;<input id="putProductId" style="border-radius:0;" class="form-control" readonly>
-                              <div class="input-group-append">
-                                <span style="border-radius:0;" class="input-group-text form-control">
-                                  <a href="#"><i id="product_id2" data-toggle="modal" data-target="#myProductArf" class="fas fa-gift" style="color:grey;"></i></a>
-                                </span>
-                              </div>
-                            </div>
-                          </td>
-                          <td style="border:1px solid #e9ecef;">
-                            <input id="putProductName" style="border-radius:0;" type="text" class="form-control" readonly="">
-                          </td>
-                          <td style="border:1px solid #e9ecef;">
-                            <input id="qtyCek" style="border-radius:0;" type="text" class="form-control ChangeQty quantity" autocomplete="off" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
-                            <span id="putQtybyId"></span>
-                            <input id="putQty" style="border-radius:0;" type="hidden" class="form-control">
-                          </td>
-                          <td style="border:1px solid #e9ecef;">
-                            <input id="putUom" style="border-radius:0;" type="text" class="form-control" readonly="">
-                          </td>
-                          <td style="border:1px solid #e9ecef;">
-                            <input id="priceCek" style="border-radius:0;" type="text" class="form-control ChangePrice" autocomplete="off" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
-                            <input id="putPrice" style="border-radius:0;" type="hidden" class="form-control">
-                          </td>
-                          <td style="border:1px solid #e9ecef;">
-                            <input id="putCurrency" style="border-radius:0;" type="text" class="form-control" readonly="">
-                          </td>
-                          <td style="border:1px solid #e9ecef;">
-                            <input id="totalProcReqDetails" style="border-radius:0;" type="text" class="form-control" readonly="">
-                          </td>
-                          <td style="border:1px solid #e9ecef;">
-                            <textarea id="putRemark" rows="1" cols="30" class="form-control"></textarea>
-                          </td>
-                          <td style="border:1px solid #e9ecef;">
-                            <input id="totalBalance" style="border-radius:0;" type="text" class="form-control" readonly="">
-                          </td>
-                          <td style="border:1px solid #e9ecef;">
-                            <input id="totalPo" style="border-radius:0;" type="text" class="form-control" readonly="" value="30,000.00">
-                          </td>
-                          <!-- Untuk Validari -->
-                          <input id="statusEditProcReqRevision" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
-                          <input id="recordIDDetail" style="border-radius:0;" type="hidden" class="form-control" readonly="">
-                          <input id="ValidateQuantity" style="border-radius:0;" type="hidden" class="form-control" readonly="">
-                          <input id="ValidatePrice" style="border-radius:0;" type="hidden" class="form-control" readonly="">
-                            <input id="ValidateRemark" style="border-radius:0;" type="hidden" class="form-control">
-
-                        </tbody>
-                      </table>
-                      <br>
-                      <div style="padding-right:10px;">
-                        <a class="btn btn-default btn-sm float-right CancelDetailPurchaseRequisition" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
-                          <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel to Add Purchase Requisition List Cart"> Cancel
-                        </a>
-                        <a class="btn btn-default btn-sm float-right" onclick="addFromDetailtoCartJs();" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                          <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Purchase Requisition List"> Add
-                        </a>
-                      </div>
-                      <br><br><br>
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-12">
-                  <div class="card">
-                    <div class="card-header">
-                      <label class="card-title">
                         Purchase Requisition List (Cart)
                       </label>
                       <div class="card-tools">
@@ -214,43 +116,52 @@
                       </div>
                     </div>
 
-                    <div class="card-body table-responsive p-0 detailPurchaseRequisitionList" style="height: 180px;">
+                    <div class="card-body table-responsive p-0 detailPurchaseRequisitionList" style="height: 230px;">
                       <table class="table table-head-fixed text-nowrap table-sm TablePurchaseRequisition" id="TablePurchaseRequisition">
                         <thead>
                           <tr>
-                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Action</th>
-                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Product Id</th>
-                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Product Name</th>
-                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Qty</th>
-                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Uom</th>
-                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Price</th>
-                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Total</th>
-                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Currency</th>
-                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Remark</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Work Id</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Work Name</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Id</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Name</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Uom</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Currency</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Remark</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Price</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Total</th>
                           </tr>
                         </thead>
                         <tbody>
 
                         </tbody>
+                        <tfoot style="border: 1px solid #ced4da;position:relative;top:5px;">
+                        <tr>
+                          <th colspan="7"></th>
+                          <th style="text-align: center;border: 1px solid #ced4da;">Total Item : </th>
+                          <th style="border: 1px solid #ced4da;"><span id="TotalQty"></span></th>
+                          <th style="border: 1px solid #ced4da;"><span id="GrandTotal"></span></th>
+                        </tr>
+                      </tfoot>
                       </table>
                     </div>
-                    <div class="card-body table-responsive p-0 detailPurchaseRequisitionList">
-                      <table class="table table-head-fixed table-sm text-nowrap">
-                        <tfoot>
-                          <tr>
-                            <th style="color:brown;float:right;">Total Purchase Requistion : <span id="TotalPurchaseRequisition"></span></th>
-                          </tr>
-                        </tfoot>
-                      </table>
-                    </div>
-                  </div>
-                  <a onclick="CancelPurchaseRequisition();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
-                    <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
-                  </a>
-                  <button class="btn btn-default btn-sm float-right" type="submit" id="submitPR" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                    <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Purchase Requisition"> Submit
-                  </button>
 
+                    <div class="card-body detailPurchaseRequisitionList" >
+                        <table style="float:right;">
+                            <tr>
+                                <th>
+                                  <button class="btn btn-default btn-sm float-right" type="submit" id="submitPR" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                                    <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Purchase Requisition"> Submit
+                                  </button>
+                                  <a onclick="CancelPurchaseRequisition();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                                    <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
+                                  </a>
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                  </div>
                 </div>
               </div>
             </div>

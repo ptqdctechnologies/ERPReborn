@@ -18,6 +18,9 @@ class PurchaseRequisitionController extends Controller
 
         $compact = [
             'var' => $var,
+            'statusAdvanceRevisi' => 0,
+            'statusPrRevisi' => 0,
+            'statusPr' => 1,
         ];
         return view('Purchase.PurchaseRequisition.Transactions.CreatePurchaseRequisition', $compact);
     }
@@ -25,6 +28,7 @@ class PurchaseRequisitionController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
+        // dd($input);
         $count_product = count($input['var_product_id']);
 
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -40,8 +44,7 @@ class PurchaseRequisitionController extends Controller
                     "productUnitPriceCurrency_RefID" => 62000000000001,
                     "productUnitPriceCurrencyValue" => (float) $input['var_price'][$n],
                     "productUnitPriceCurrencyExchangeRate" => 1,
-                    "remarks" => "test",
-                    // "remarks" => $input['var_remark'][$n],
+                    "remarks" => $input['var_remark'][$n],
                 ]
             ];
         }
@@ -167,6 +170,9 @@ class PurchaseRequisitionController extends Controller
         $compact = [
             'dataProcReqRevision' => $varDataProcReqRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
             'var_recordID' => $request->searchPrNumberRevisionId,
+            'statusAdvanceRevisi' => 0,
+            'statusPrRevisi' => 1,
+            'statusPr' => 1,
         ];
 
         return view('Purchase.PurchaseRequisition.Transactions.RevisionPurchaseRequisition', $compact);
@@ -175,7 +181,6 @@ class PurchaseRequisitionController extends Controller
     public function update(Request $request, $id)
     {
         $input = $request->all();
-        // dd($input);/
         $count_product = count($input['var_product_id']);
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
