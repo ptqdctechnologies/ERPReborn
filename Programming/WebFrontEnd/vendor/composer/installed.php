@@ -85,6 +85,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'fakerphp/faker' => array(
+            'pretty_version' => 'v1.21.0',
+            'version' => '1.21.0.0',
+            'reference' => '92efad6a967f0b79c499705c69b662f738cc9e4d',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../fakerphp/faker',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'filp/whoops' => array(
             'pretty_version' => '2.14.6',
             'version' => '2.14.6.0',

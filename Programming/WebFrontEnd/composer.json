@@ -11,6 +11,7 @@
         "php": "^7.3|^8.0",
         "dragonmantank/cron-expression": "^3.0",
         "egulias/email-validator": "^3.1",
+        "fakerphp/faker": "^1.21",
         "fruitcake/laravel-cors": "^3.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "illuminate/http": "^9.2",
