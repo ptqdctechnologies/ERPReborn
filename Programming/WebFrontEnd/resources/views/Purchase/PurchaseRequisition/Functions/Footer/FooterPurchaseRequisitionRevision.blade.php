@@ -51,7 +51,7 @@
                     '<input type="hidden" name="var_combinedBudget[]" value="' + value.combinedBudgetSectionDetail_RefID + '">' +
                     '<input type="hidden" name="var_recordIDDetail[]" value="' + value.sys_ID + '">' +
 
-                    '<input type="hidden" name="var_remark[]" value="' + value.priceCurrencyISOCode + '">' +
+                    '<input type="hidden" name="var_remark[]" value="' + value.remarks + '">' +
                     
                     '<td style="border:1px solid #e9ecef;">' + value.combinedBudgetSectionDetail_SubSectionLevel1_RefID + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + value.combinedBudgetSectionDetail_SubSectionLevel1Name + '</td>' +
@@ -59,7 +59,7 @@
                     '<td style="border:1px solid #e9ecef;">' + value.productName + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + value.quantityUnitName + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + value.priceCurrencyISOCode + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + value.priceCurrencyISOCode + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + value.remarks + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ key +'" class="price_req2'+ key +'">' + currencyTotal(value.productUnitPriceCurrencyValue) + '</span>' + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ key +'" class="qty_req2'+ key +'">' + currencyTotal(value.quantity) + '</span>' + '</td>' +
                     '<td style="padding-top: 10px;padding-btwottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ key +'" class="total_req2'+ key +'">' + currencyTotal(value.priceBaseCurrencyValue) + '</span>' + '</td>' +

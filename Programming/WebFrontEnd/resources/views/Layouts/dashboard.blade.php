@@ -21,13 +21,13 @@
                                 <hr>
                                 <div class="card-body">
                                     <div class="card-body table-responsive p-0" style="height: 770px;">
-                                        <table id="example1" class="table table-head-fixed text-nowrap table-striped">
+                                        <!-- <table id="example1" class="table table-head-fixed text-nowrap table-striped">
                                             <tbody>
                                                 <div id="chartdiv"></div>
                                                 <img src="{{ asset('AdminLTE-master/dist/img/qdc.png') }}" style="display: block;margin-left: auto;margin-right: auto;margin-left: auto;margin-right: auto;margin-top:10%; width: 15%;" alt="">
                                                 
                                             </tbody>
-                                        </table>
+                                        </table> -->
                                     </div>
                                 </div>
                             </div>
