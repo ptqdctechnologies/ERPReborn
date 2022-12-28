@@ -3,7 +3,7 @@
 @include('Partials.navbar')
 @include('Partials.sidebar')
 @include('getFunction.getSite')
-@include('getFunction.getProduk')
+@include('getFunction.getProduct')
 @include('Purchase.PurchaseRequisition.Functions.PopUp.PopUpPrRevision')
 @include('getFunction.getProject')
 
@@ -113,19 +113,19 @@
                       </div>
                     </div>
 
-                    <div class="card-body table-responsive p-0 detailPurchaseRequisitionList" style="height: 220px;">
+                    <div class="card-body table-responsive p-0 detailPurchaseRequisitionList" style="height: 230px;">
                       <table class="table table-head-fixed text-nowrap table-sm TablePurchaseRequisition" id="TablePurchaseRequisition">
                         <thead>
                           <tr>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Delete</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Work Id</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Work Name</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Id</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Name</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Uom</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Currency</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Remark</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Price</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Total</th>
                           </tr>
                         </thead>
@@ -134,9 +134,9 @@
                         </tbody>
                         <tfoot style="border: 1px solid #ced4da;position:relative;top:5px;">
                         <tr>
-                          <th colspan="7" style="text-align: center;">Total Item : </th>
+                          <th colspan="7"></th>
+                          <th style="text-align: center;border: 1px solid #ced4da;">Total Item : </th>
                           <th style="border: 1px solid #ced4da;"><span id="TotalQty"></span></th>
-                          <th style="border: 1px solid #ced4da;"><span id="TotalPrice"></span></th>
                           <th style="border: 1px solid #ced4da;"><span id="GrandTotal"></span></th>
                         </tr>
                       </tfoot>
@@ -150,9 +150,6 @@
                                   <button class="btn btn-default btn-sm float-right" type="submit" id="submitPR" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                                     <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Purchase Requisition"> Submit
                                   </button>
-                                  <a onclick="ResetPrList()" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
-                                    <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Reset List Cart"> Reset
-                                  </a>
                                   <a onclick="CancelPurchaseRequisition();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
                                     <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
                                   </a>

@@ -67,6 +67,7 @@
 
             $("#qty_req"+key).prop("disabled", false);
             $("#price_req"+key).prop("disabled", false);
+            $("#remark_req"+key).prop("disabled", false);
 
         });
     });

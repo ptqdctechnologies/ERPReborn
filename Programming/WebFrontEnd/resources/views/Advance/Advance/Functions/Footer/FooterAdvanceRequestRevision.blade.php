@@ -6,7 +6,7 @@
         $("#addFromDetailtoCart").prop("disabled", true);
         $("#showContentBOQ3").hide();
         $("#product_id2").prop("disabled", true);
-        $("#submitArf").prop("disabled", true);
+        // $("#submitArf").prop("disabled", true);
     });
 </script>
 
@@ -76,6 +76,7 @@
                 var var_qtys = "";
                 var var_prices = "";
                 var var_total = "";
+                var var_recordIDDetail = "";
 
                 if(val2.quantityAbsorption == "0.00" && val2.quantity == "0.00"){
                     var applied = 0;
@@ -100,14 +101,15 @@
                 var Product = $("input[name='var_product_id[]']").map(function(){return $(this).val();}).get();
                 var Quantity = $("input[name='var_quantity[]']").map(function(){return $(this).val();}).get();
                 var Price = $("input[name='var_price[]']").map(function(){return $(this).val();}).get();
+                var RecordID = $("input[name='var_recordIDDetail[]']").map(function(){return $(this).val();}).get();
 
                 $.each(Product, function(ProductKey, ProductValue) {
                     if(ProductValue == val2.product_RefID){
                         var_qtys = Quantity[ProductKey];
                         var_prices = Price[ProductKey];
+                        var_recordIDDetail = RecordID[ProductKey];
                     }
                 });
-
                 if((var_qtys * var_prices) != 0){
                     var var_total = currencyTotal(var_qtys * var_prices);
                 }
@@ -121,6 +123,7 @@
                     '<input name="getUom[]" value="'+ val2.quantityUnitName +'" type="hidden">' +
                     '<input name="getCurrency[]" value="'+ val2.priceBaseCurrencyISOCode +'" type="hidden">' +
                     '<input name="combinedBudget" value="'+ val2.sys_ID +'" type="hidden">' +
+                    '<input name="getRecordIDDetail[]" value="' + var_recordIDDetail + '"  type="hidden">' +
 
                     '<td style="border:1px solid #e9ecef;">' +
                     '&nbsp;&nbsp;&nbsp;<div class="progress '+ status +' progress-xs" style="height: 14px;border-radius:8px;"> @if('+ applied +' >= '+0+' && '+ applied +' <= '+40+')<div class="progress-bar bg-red" style="width:'+ applied +'%;"></div> @elseif('+ applied +' >= '+41+' && '+ applied +' <= '+89+')<div class="progress-bar bg-blue" style="width:'+ applied +'%;"></div> @elseif('+ applied + ' >= '+ 90 +' && ' + applied + ' <= '+ 100 +')<div class="progress-bar bg-green" style="width:'+ applied +'%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>'+ applied +' %</center></small>' +
@@ -128,7 +131,7 @@
 
                     '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[key] +'";">' + 
                         '<div class="input-group">' +
-                            '<input id="putProductId'+ key +'" style="border-radius:0;width:130px;background-color:white;" name="putProductId" class="form-control" readonly>' +
+                            '<input id="putProaductId'+ key +'" style="border-radius:0;width:130px;background-color:white;" name="putProductId" class="form-control" readonly>' +
                             '<div class="input-group-append">' +
                             '<span style="border-radius:0;" class="input-group-text form-control" data-id="10">' +
                                 '<a id="product_id2" data-toggle="modal" data-target="#myProduct" onclick="KeyFunction('+ key +')"><img src="{{ asset("AdminLTE-master/dist/img/box.png") }}" width="13" alt=""></a>' +
@@ -172,7 +175,7 @@
                             onOpen: function () {
                                 swal.disableConfirmButton();
                                 Swal.fire("Error !", "Qty is over budget !", "error");
-                            }
+                            }                
                         });
                         $('#qty_req'+key).val(currency(var_qtys));
                         $('#total_req'+key).val("0.00");
@@ -202,7 +205,7 @@
                     else if (parseFloat(price_val) > parseFloat(budget_price_val)) {
                         swal({
                             onOpen: function () {
-                                swal.disableConfirmButton();
+                                swal.disableConfirmButton();combinedBudgetSubSectionLevel1_RefID
                                 Swal.fire("Error !", "Price is over budget !", "error");
                             }
                         });
@@ -237,6 +240,7 @@
         var getProductName = $("input[name='getProductName[]']").map(function(){return $(this).val();}).get();
         var getUom = $("input[name='getUom[]']").map(function(){return $(this).val();}).get();
         var getCurrency = $("input[name='getCurrency[]']").map(function(){return $(this).val();}).get();
+        var getRecordIDDetail = $("input[name='getRecordIDDetail[]']").map(function(){return $(this).val();}).get();
         var qty_req = $("input[name='qty_req[]']").map(function(){return $(this).val();}).get();
         var price_req = $("input[name='price_req[]']").map(function(){return $(this).val();}).get();
 
@@ -269,6 +273,7 @@
                     '<input type="hidden" name="var_currency[]" value="' + getCurrency[index] + '">' +
                     '<input type="hidden" name="var_date" value="' + date + '">' +
                     '<input type="hidden" name="var_combinedBudget[]" value="' + combinedBudget + '">' +
+                    '<input type="hidden" name="var_recordIDDetail[]" value="' + getRecordIDDetail[index] + '">' +
                     
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkId[index] + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkName[index] + '</td>' +

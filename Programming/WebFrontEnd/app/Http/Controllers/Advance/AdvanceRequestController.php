@@ -22,7 +22,9 @@ class AdvanceRequestController extends Controller
         $compact = [
             'var' => $var,
             'varAPIWebToken' => $varAPIWebToken,
-            'status' => 0,
+            'statusAdvanceRevisi' => 0,
+            'statusPrRevisi' => 0,
+            'statusPr' => 0,
         ];
         return view('Advance.Advance.Transactions.CreateAdvanceRequest', $compact);
 
@@ -171,7 +173,9 @@ class AdvanceRequestController extends Controller
             'dataAdvanceRevisions' => $varDataAdvanceRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
             'dataRequester' => $varDataAdvanceRevision['data'][0]['document']['content']['involvedPersons']['requester'],
             'var_recordID' => $request->searchArfNumberRevisionId,
-            'status' => 1,
+            'statusAdvanceRevisi' => 1,
+            'statusPrRevisi' => 0,
+            'statusPr' => 0,
         ];
 
         return view('Advance.Advance.Transactions.RevisionAdvanceRequest', $compact);
