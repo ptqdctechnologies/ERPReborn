@@ -415,6 +415,49 @@ namespace App\Models\Database\SchSysConfig
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_DBObject_Schema                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-12-29                                                                                           |
+        | ▪ Creation Date   : 2022-12-29                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar WorkFlow                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_DBObject_Schema(
+            $varUserSession, int $varBranchID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    'SchSysConfig.Func_GetDataList_DBObject_Schema',
+                    [
+                        [$varBranchID, 'bigint' ],
+
+                        [$varPickStatement, 'varchar'],
+                        [$varSortStatement, 'varchar'],
+                        [$varFilterStatement, 'varchar'],
+                        [$varPagingStatement, 'varchar']
+                    ]
+                    )
+                );
+            return $varReturn['Data'];
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataList_BranchAccess                                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |

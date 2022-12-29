@@ -35,6 +35,7 @@ clear;
 ./BashScript/Script.Docker.BuildImage.PostgreSQL.sh;
 ./BashScript/Script.Docker.BuildImage.Redis.sh;
 ./BashScript/Script.Docker.BuildImage.Samba.sh;
+./BashScript/Script.Docker.BuildImage.MinIO.sh;
 ./BashScript/Script.Docker.BuildImage.PHPApacheBackEnd.sh;
 ./BashScript/Script.Docker.BuildImage.PHPApacheFrontEnd.sh;
 ./BashScript/Script.Docker.BuildImage.Grafana.sh;
