@@ -82,7 +82,7 @@
         type: 'GET',
         url: '{!! route("getBudget") !!}?sitecode=' + siteCodePrRevAfter,
         success: function(data) {
-            var no = 1; applied = 0; TotalBudgetSelected = 0;status = ""; statusDisplay = [];statusDisplay2 = []; statusForm = [];
+            var no = 1; applied = 0; TotalBudgetSelected = 0; totalPO=2000000;status = ""; statusDisplay = [];statusDisplay2 = []; statusForm = [];
             $.each(data, function(key, val2) {
                 var var_qtys = "";
                 var var_prices = "";
@@ -160,16 +160,50 @@
                     '<td style="border:1px solid #e9ecef;">' + '<span">' + val2.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + '<span">' + val2.quantityRemain.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.unitPriceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + '<span>' + "0.00" + '</span>' + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + '<span>' + (val2.unitPriceBaseCurrencyValue * val2.quantityRemain).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + '<span>' + totalPO.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
 
-                    '<td class="sticky-col forth-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="remark_req'+ key +'" style="border-radius:0;" name="remark_req[]" class="form-control" autocomplete="off" '+ statusForm[key] +' value="'+ var_remark +'">' + '</td>' +
-                    '<td class="sticky-col third-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" '+ statusForm[key] +' value="'+ currency(var_qtys) +'">' + '</td>' +
-                    '<td class="sticky-col second-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req'+ key +'" style="border-radius:0;" name="price_req[]" class="form-control price_req" autocomplete="off" '+ statusForm[key] +' value="'+ currency(var_prices) +'">' + '</td>' +
-                    '<td class="sticky-col first-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req'+ key +'" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled value="'+ var_total +'">' + '</td>' +
+                    '<td class="sticky-col third-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;position: relative;width:50px;" name="qty_req[]" class="form-control qty_req" autocomplete="off" '+ statusForm[key] +' value="'+ currency(var_qtys) +'">' + '</td>' +
+                    '<td class="sticky-col second-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req'+ key +'" style="border-radius:0;position: relative;width:80px;" name="price_req[]" class="form-control price_req" autocomplete="off" '+ statusForm[key] +' value="'+ currency(var_prices) +'">' + '</td>' +
+                    '<td class="sticky-col first-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req'+ key +'" style="border-radius:0;position: relative;width:80px;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled value="'+ var_total +'">' + '</td>' +
+                    '<td class="sticky-col forth-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="remark_req'+ key +'" style="border-radius:0;position: relative;width:130px;" name="remark_req[]" class="form-control" autocomplete="off" '+ statusForm[key] +' value="'+ var_remark +'">' + '</td>' +
 
                     '</tr>';
                 $('table.tableBudgetDetail tbody').append(html);
                 
+                //VALIDASI TOTAL REQUEST
+                // $('#total_req'+key).keyup(function() {
+
+                //     $(this).val(currency($(this).val()));
+
+                //     var qty_val = $(this).val().replace(/,/g, '');
+                //     var budget_qty_val = $("#budget_qty"+key).val();
+                    // var price_req = $("#price_req"+key).val().replace(/,/g, '');
+                    // var totalPR =2000000;
+                    // var total = qty_val * price_req;
+
+                //     if (qty_val == "") {
+                //         $('#qty_req'+key).val(currency(var_qtys));
+                //         $('#total_req'+key).val("");
+                //         $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
+                //     }
+                //     else if (parseFloat(budget_qty_val) >= parseFloat(totalPR)) {
+                //         swal({
+                //             onOpen: function () {
+                //                 swal.disableConfirmButton();
+                //                 Swal.fire("Error !", "Qty is over budget !", "error");
+                //             }                
+                //         });
+                //         $('#qty_req'+key).val(currency(var_qtys));
+                //         $('#total_req'+key).val("0.00");
+                //         $('#qty_req'+key).focus();
+                //     }
+                //         else {
+                //         $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
+                //         $('#total_req'+key).val(currencyTotal(total));
+                //     }
+                // });
+
                 //VALIDASI QTY
                 $('#qty_req'+key).keyup(function() {
 
@@ -179,6 +213,7 @@
                     var budget_qty_val = $("#budget_qty"+key).val();
                     var price_req = $("#price_req"+key).val().replace(/,/g, '');
                     var total = qty_val * price_req;
+                    var totalPR= 2000000;
 
                     if (qty_val == "") {
                         $('#qty_req'+key).val(currency(var_qtys));
