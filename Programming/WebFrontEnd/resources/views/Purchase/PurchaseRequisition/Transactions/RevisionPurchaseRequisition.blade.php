@@ -116,7 +116,7 @@
                       </div>
                     </div>
 
-                    <div class="card-body table-responsive p-0 detailPurchaseRequisitionList" style="height: 230px;">
+                    <div class="card-body table-responsive p-0 detailPurchaseRequisitionList" style="height: 135px;">
                       <table class="table table-head-fixed text-nowrap table-sm TablePurchaseRequisition" id="TablePurchaseRequisition">
                         <thead>
                           <tr>

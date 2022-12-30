@@ -8,19 +8,21 @@
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty Budget</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty Avail</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Price</th>
+                @if($statusPr == 1)
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Balance</th>
+                @endif
                 @if($statusAdvanceRevisi == 1)
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Total Payment</th>
                 @endif
                 @if($statusPrRevisi == 1)
-                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Total PO</th>
-                @endif
-                @if($statusPr == 1)
-                <th class="sticky-col forth-col" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Remark</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Total PR</th>
                 @endif
                 <th class="sticky-col third-col" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Qty Req</th>
                 <th class="sticky-col second-col" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Price Req</th>
                 <th class="sticky-col first-col" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Total Req</th>
-                
+                @if($statusPr == 1)
+                <th class="sticky-col forth-col" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Remark</th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -30,9 +32,16 @@
 
 <div class="card-body tableShowHideBOQ3" >
     <table style="float:right;">
-        <tr>
-            <th style="position: relative;right:20px;"> Total : <span id="TotalBudgetSelected"></span></th>
-        </tr>
+        @if($statusAdvanceRevisi == 1)
+            <tr>
+                <th style="position: relative;right:20px;"> Total : <span id="TotalBudgetSelected"></span></th>
+            </tr>
+        @endif
+        @if($statusPrRevisi == 1)
+            <tr>
+                <th style="position: relative;right:45px;"> Total : <span id="TotalBudgetSelected"></span></th>
+            </tr>
+        @endif
         <tr>
             <td>
                 <br>
