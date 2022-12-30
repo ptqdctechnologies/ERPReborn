@@ -19,7 +19,8 @@
       <code>isLarge</code>
       <code>isMedium</code>
     </InternalMethod>
-    <RedundantCondition occurrences="1">
+    <RedundantCondition occurrences="2">
+      <code>$class-&gt;isSubclassOf($parentClass)</code>
       <code>is_array($linesToBeCovered)</code>
     </RedundantCondition>
     <UnresolvableInclude occurrences="1">
@@ -149,6 +150,14 @@
       <code>$this-&gt;functionCoverage[$file][$functionName]['branches']</code>
     </PossiblyNullArrayAssignment>
   </file>
+  <file src="src/Report/Html/Renderer.php">
+    <PossiblyUndefinedArrayOffset occurrences="4">
+      <code>$data['branchesExecutedPercentAsString']</code>
+      <code>$data['linesExecutedPercentAsString']</code>
+      <code>$data['pathsExecutedPercentAsString']</code>
+      <code>$data['testedMethodsPercentAsString']</code>
+    </PossiblyUndefinedArrayOffset>
+  </file>
   <file src="src/Report/Html/Renderer/File.php">
     <InternalClass occurrences="7">
       <code>BaseTestRunner::STATUS_ERROR</code>
@@ -159,6 +168,9 @@
       <code>BaseTestRunner::STATUS_SKIPPED</code>
       <code>BaseTestRunner::STATUS_WARNING</code>
     </InternalClass>
+    <InvalidArrayOffset occurrences="1">
+      <code>$tokens[$j - 1]</code>
+    </InvalidArrayOffset>
   </file>
   <file src="src/Report/Xml/BuildInformation.php">
     <PossiblyNullReference occurrences="1">
