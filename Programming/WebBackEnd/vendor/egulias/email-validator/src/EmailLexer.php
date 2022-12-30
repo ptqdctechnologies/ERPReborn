@@ -151,7 +151,7 @@ class EmailLexer extends AbstractLexer
     /**
      * The next token in the input.
      *
-     * @var array{position: int, type: int|null|string, value: int|string}|null
+     * @var array|null
      */
     public $lookahead;
 
@@ -237,7 +237,7 @@ class EmailLexer extends AbstractLexer
         $encoded = $value;
 
         if (mb_detect_encoding($value, 'auto', true) !== 'UTF-8') {
-            $encoded = mb_convert_encoding($value, 'UTF-8', 'Windows-1252');
+            $encoded = utf8_encode($value);
         }
 
         if ($this->isValid($encoded)) {
