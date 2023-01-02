@@ -32,6 +32,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-11-13                                                                                           |
+        | ▪ Creation Date   : 2020-11-13                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -46,6 +47,22 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
             }
 
 
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getOptionList        ,                                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2023-01-02                                                                                           |
+        | ▪ Creation Date   : 2020-11-13                                                                                           |
+        | ▪ Description     : Fungsi Pembentukan Option List                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varData ► Data                                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         private function getOptionList(int $varUserSession, int $varUserID)
             {
             $varData = (new \App\Models\Database\SchSysConfig\General())->getDataList_BranchAccess($varUserID);
@@ -88,8 +105,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setLogin                                                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-11-13                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2023-01-02                                                                                           |
+        | ▪ Creation Date   : 2020-11-13                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -140,20 +158,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                         while((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true);
 
                         
-/*     
-$x = (new \App\Models\Database\SchSysConfig\General())->getUserRolePrivilege(
-    $varUserSession, 
-    11000000000001,
-
-    );*/
-/*
-                        dd($varUserName);
-$x = (new \App\Models\Database\SchSysConfig\General())->getUserIDByName(
-        $varUserSession, 
-        $varUserName
-        );
-*/                        
-
                         //---> Insert Data to PostgreSQL
                         $varBufferDB = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->setDataInsert(
                             6000000000001, 
