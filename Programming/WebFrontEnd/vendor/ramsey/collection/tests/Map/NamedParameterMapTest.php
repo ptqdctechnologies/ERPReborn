@@ -74,7 +74,7 @@ class NamedParameterMapTest extends TestCase
 
         $namedParameterMap['myArray'] = $this->faker->words();
         $namedParameterMap['myBool'] = $this->faker->boolean();
-        $namedParameterMap['myCallable'] = fn () => true;
+        $namedParameterMap['myCallable'] = fn (): bool => true;
         $namedParameterMap['myFloat'] = $this->faker->randomFloat();
         $namedParameterMap['myDouble'] = $this->faker->randomFloat();
         $namedParameterMap['myInt'] = $this->faker->randomNumber();
@@ -126,5 +126,19 @@ class NamedParameterMapTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Value for \'foo\' must be of type int');
         $namedParameterMap['foo'] = new DateTime();
+    }
+
+    public function testNamedParametersWithNullKeyThrowsException(): void
+    {
+        $namedParameterMap = new NamedParameterMap(['foo']);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Attempting to set value for unconfigured parameter 'NULL'");
+
+        /**
+         * @phpstan-ignore-next-line
+         * @psalm-suppress NullArgument
+         */
+        $namedParameterMap[] = 123;
     }
 }

@@ -22,9 +22,9 @@ use Egulias\EmailValidator\Warning\DomainLiteral as WarningDomainLiteral;
 
 class DomainLiteral extends PartParser
 {
-    const IPV4_REGEX = '/\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/';
+    public const IPV4_REGEX = '/\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/';
 
-    const OBSOLETE_WARNINGS = [
+    public const OBSOLETE_WARNINGS = [
         EmailLexer::INVALID,
         EmailLexer::C_DEL,
         EmailLexer::S_LF,
@@ -50,7 +50,7 @@ class DomainLiteral extends PartParser
             }
 
             if ($this->lexer->isNextTokenAny(
-                array(EmailLexer::S_HTAB, EmailLexer::S_SP, $this->lexer->token['type'] === EmailLexer::CRLF)
+                array(EmailLexer::S_HTAB, EmailLexer::S_SP, EmailLexer::CRLF)
             )) {
                 $this->warnings[CFWSWithFWS::CODE] = new CFWSWithFWS();
                 $this->parseFWS();
