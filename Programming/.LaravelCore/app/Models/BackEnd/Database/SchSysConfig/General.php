@@ -185,6 +185,39 @@ namespace App\Models\Database\SchSysConfig
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getUserRolePrivilege                                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-01-02                                                                                           |
+        | ▪ Creation Date    : 2023-01-02                                                                                           |
+        | ▪ Description     : Get User Role Privilege                                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch Reference ID                                                                        |
+        |      ▪ (int)    varUserID ► User Reference ID                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getUserRolePrivilege($varUserSession, int $varBranchID, int $varUserID)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession,
+                'SELECT "SchSysConfig"."Func_General_GetUserRolePrivilege"('.$varBranchID.'::bigint, '.$varUserID.'::bigint);'
+                );
+            return
+                \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                    $varUserSession,
+                    $varReturn['Data'][0]['Func_General_GetUserRolePrivilege']
+                    );
+            }
+
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getYearByDate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |

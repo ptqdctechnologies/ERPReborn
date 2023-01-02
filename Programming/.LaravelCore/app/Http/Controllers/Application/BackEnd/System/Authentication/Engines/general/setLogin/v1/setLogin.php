@@ -32,6 +32,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-11-13                                                                                           |
+        | ▪ Creation Date   : 2020-11-13                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -46,14 +47,30 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
             }
 
 
-        private function getOptionList(int $varUserSession)
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getOptionList        ,                                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2023-01-02                                                                                           |
+        | ▪ Creation Date   : 2020-11-13                                                                                           |
+        | ▪ Description     : Fungsi Pembentukan Option List                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varData ► Data                                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        private function getOptionList(int $varUserSession, int $varUserID)
             {
-            $varData = (new \App\Models\Database\SchSysConfig\General())->getDataList_BranchAccess($varUserSession);
+            $varData = (new \App\Models\Database\SchSysConfig\General())->getDataList_BranchAccess($varUserID);
             
             for($i=0; $i!=count($varData); $i++)
                 {
-                $varDataUserRole = (new \App\Models\Database\SchSysConfig\General())->getDataList_UserRole($varUserSession, $varData[$i]['Sys_ID']);
-                $varReturnUserRole = null;
+                $varDataUserRole = (new \App\Models\Database\SchSysConfig\General())->getDataList_UserRole($varUserID, $varData[$i]['Sys_ID']);
+/*                $varReturnUserRole = null;
                 for($j=0; $j!=count($varDataUserRole); $j++)
                     {
                     if(!$varDataUserRole[$j]['Sys_ID'])
@@ -64,7 +81,16 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                         'UserRole_RefID' => $varDataUserRole[$j]['Sys_ID'],
                         'UserRoleName' => $varDataUserRole[$j]['UserRoleName'],
                         ];  
-                    }
+                    }*/
+                $varReturnUserRole =
+                    (new \App\Models\Database\SchSysConfig\General())
+                        ->getUserRolePrivilege(
+                            $varUserSession, 
+                            11000000000001,
+                            $varUserID
+                            );
+
+
                 $varReturn[$i]=[
                     'Branch_RefID' => $varData[$i]['Sys_ID'],
                     'BranchName' => $varData[$i]['BranchName'],
@@ -79,8 +105,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setLogin                                                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-11-13                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2023-01-02                                                                                           |
+        | ▪ Creation Date   : 2020-11-13                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -99,7 +126,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                     //---> Variable Initializing
                     $varUserName = $varData['userName'];
                     $varUserPassword = $varData['userPassword'];
-
+                    
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     $varHost = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'LDAP_HOST');
                     $varPost = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'LDAP_PORT');
@@ -116,9 +143,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                         $varOptionList = 
                             \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_LowerFirstCharacter(
                                 $varUserSession, 
-                                $this->getOptionList((new \App\Models\Database\SchSysConfig\General())->getUserIDByName($varUserSession, $varUserName))
+                                $this->getOptionList(
+                                    $varUserSession,
+                                    (new \App\Models\Database\SchSysConfig\General())->getUserIDByName($varUserSession, $varUserName)
+                                    )
                                 );
-                        
+                 
                         //---> Generate APIWebToken
                         $i=0;
                         do
@@ -126,6 +156,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             $varAPIWebToken = \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken($varUserSession, $varUserName, \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession), 'HS256', (int) \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentUnixTime($varUserSession));
                             }
                         while((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true);
+
                         
                         //---> Insert Data to PostgreSQL
                         $varBufferDB = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->setDataInsert(
@@ -175,11 +206,24 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             'optionList' => $varOptionList
                             ];
                         
-//$varDataSend = ['xxx' => $varBufferDB];
-//$varDataSend = ['xxx' => $varData];
-//$varDataSend = ['xxx' => $varSysID];
-//$varDataSend = ['xxx' => $varUserName];
-              
+                        //$varDataSend = ['xxx' => $varBufferDB];
+                        //$varDataSend = ['xxx' => $varData];
+                        //$varDataSend = ['xxx' => $varSysID];
+                        //$varDataSend = ['xxx' => $varUserName];
+                        /*
+                        $varDataSend = ['xxx' => 
+                            (new \App\Models\Database\SchSysConfig\General())
+                                ->getUserRolePrivilege(
+                                    $varUserSession, 
+                                    11000000000001,
+                                    (new \App\Models\Database\SchSysConfig\General())->getUserIDByName(
+                                        $varUserSession, 
+                                        $varUserName
+                                        )
+                                    )
+                            ];
+                        */
+                        
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend, $this->varAPIIdentity);
                         }
                     //---> Jika Otentikasi gagal

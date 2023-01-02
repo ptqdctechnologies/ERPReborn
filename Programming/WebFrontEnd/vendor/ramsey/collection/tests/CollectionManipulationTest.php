@@ -7,11 +7,14 @@ namespace Ramsey\Collection\Test;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Ramsey\Collection\Collection;
 use Ramsey\Collection\Exception\CollectionMismatchException;
-use Ramsey\Collection\Exception\InvalidSortOrderException;
-use Ramsey\Collection\Exception\ValueExtractionException;
+use Ramsey\Collection\Exception\InvalidPropertyOrMethod;
+use Ramsey\Collection\Exception\UnsupportedOperationException;
+use Ramsey\Collection\Sort;
 use Ramsey\Collection\Test\Mock\Bar;
 use Ramsey\Collection\Test\Mock\BarCollection;
 use Ramsey\Collection\Test\Mock\FooCollection;
+
+use function trim;
 
 /**
  * This test collection will test all manipulation methods on Collection.
@@ -60,7 +63,7 @@ class CollectionManipulationTest extends TestCase
         $bar3 = new Bar(3, 'a');
         $barCollection = new BarCollection([$bar1, $bar2, $bar3]);
 
-        $sortedCollection = $barCollection->sort('name', 'desc');
+        $sortedCollection = $barCollection->sort('name', Sort::Descending);
 
         $this->assertNotSame($barCollection, $sortedCollection);
         $this->assertSame([$bar1, $bar2, $bar3], $sortedCollection->toArray());
@@ -75,12 +78,86 @@ class CollectionManipulationTest extends TestCase
         $bar3 = new Bar(3, 'a');
         $barCollection = new BarCollection([$bar1, $bar2, $bar3]);
 
-        $sortedCollection = $barCollection->sort('getName', 'desc');
+        $sortedCollection = $barCollection->sort('getName', Sort::Descending);
 
         $this->assertNotSame($barCollection, $sortedCollection);
         $this->assertSame([$bar1, $bar2, $bar3], $sortedCollection->toArray());
         // Make sure original collection is untouched
         $this->assertSame([$bar1, $bar2, $bar3], $barCollection->toArray());
+    }
+
+    public function testSortWholeObject(): void
+    {
+        $bar1 = new Bar(1, 'a');
+        $bar2 = new Bar(2, 'b');
+        $bar3 = new Bar(3, 'c');
+        $barCollection = new BarCollection([$bar2, $bar1, $bar3]);
+
+        $sortedAsc = $barCollection->sort();
+        $sortedDesc = $barCollection->sort(null, Sort::Descending);
+
+        $this->assertNotSame($barCollection, $sortedAsc);
+        $this->assertNotSame($barCollection, $sortedDesc);
+        $this->assertNotSame($sortedAsc, $sortedDesc);
+        $this->assertSame([$bar1, $bar2, $bar3], $sortedAsc->toArray());
+        $this->assertSame([$bar3, $bar2, $bar1], $sortedDesc->toArray());
+        $this->assertSame([$bar2, $bar1, $bar3], $barCollection->toArray());
+    }
+
+    public function testSortOnNonObjectCollection(): void
+    {
+        /** @var Collection<int> $collection */
+        $collection = new Collection('int', [88, 23, 12, 42]);
+        $sortedAsc = $collection->sort();
+        $sortedDesc = $collection->sort(null, Sort::Descending);
+
+        $this->assertNotSame($collection, $sortedAsc);
+        $this->assertNotSame($collection, $sortedDesc);
+        $this->assertNotSame($sortedAsc, $sortedDesc);
+        $this->assertSame([88, 23, 12, 42], $collection->toArray());
+        $this->assertSame([12, 23, 42, 88], $sortedAsc->toArray());
+        $this->assertSame([88, 42, 23, 12], $sortedDesc->toArray());
+    }
+
+    public function testSortByArrayKey(): void
+    {
+        /** @var Collection<array{id: int, name: string}> $collection */
+        $collection = new Collection('array', [
+            ['id' => 2, 'name' => 'a'],
+            ['id' => 1, 'name' => 'c'],
+            ['id' => 3, 'name' => 'b'],
+        ]);
+
+        $sortedId = $collection->sort('id');
+        $sortedName = $collection->sort('name', Sort::Descending);
+
+        $this->assertNotSame($collection, $sortedId);
+        $this->assertNotSame($collection, $sortedName);
+        $this->assertNotSame($sortedId, $sortedName);
+        $this->assertSame(
+            [
+                ['id' => 2, 'name' => 'a'],
+                ['id' => 1, 'name' => 'c'],
+                ['id' => 3, 'name' => 'b'],
+            ],
+            $collection->toArray(),
+        );
+        $this->assertSame(
+            [
+                ['id' => 1, 'name' => 'c'],
+                ['id' => 2, 'name' => 'a'],
+                ['id' => 3, 'name' => 'b'],
+            ],
+            $sortedId->toArray(),
+        );
+        $this->assertSame(
+            [
+                ['id' => 1, 'name' => 'c'],
+                ['id' => 3, 'name' => 'b'],
+                ['id' => 2, 'name' => 'a'],
+            ],
+            $sortedName->toArray(),
+        );
     }
 
     public function testSortNameWithInvalidProperty(): void
@@ -90,19 +167,38 @@ class CollectionManipulationTest extends TestCase
 
         $barCollection = new BarCollection([$bar1, $bar2]);
 
-        $this->expectException(ValueExtractionException::class);
+        $this->expectException(InvalidPropertyOrMethod::class);
         $this->expectExceptionMessage('Method or property "unknown" not defined in Ramsey\Collection\Test\Mock\Bar');
 
         $barCollection->sort('unknown');
     }
 
-    public function testUnknownSortOrderShouldRaiseException(): void
+    public function testSortNameWithInvalidArrayKey(): void
     {
-        $barCollection = new BarCollection();
+        /** @var Collection<array{id: int, name: string}> $collection */
+        $collection = new Collection('array', [
+            ['id' => 1, 'name' => 'a'],
+            ['id' => 2, 'name' => 'b'],
+            ['id' => 3, 'name' => 'c'],
+        ]);
 
-        $this->expectException(InvalidSortOrderException::class);
-        $this->expectExceptionMessage('Invalid sort order given: bar');
-        $barCollection->sort('fu', 'bar');
+        $this->expectException(InvalidPropertyOrMethod::class);
+        $this->expectExceptionMessage('Key or index "unknown" not found in collection elements');
+
+        $collection->sort('unknown');
+    }
+
+    public function testSortShouldRaiseExceptionWhenNotSupported(): void
+    {
+        /** @var Collection<string> $collection */
+        $collection = new Collection('string', ['a', 'b', 'c', 'd']);
+
+        $this->expectException(UnsupportedOperationException::class);
+        $this->expectExceptionMessage(
+            'The collection type "string" does not support the $propertyOrMethod parameter',
+        );
+
+        $collection->sort('foo');
     }
 
     public function testFilter(): void
@@ -162,6 +258,101 @@ class CollectionManipulationTest extends TestCase
         $this->assertSame([$bar1, $bar2], $barCollection->toArray());
     }
 
+    public function testWhereWithArrayKey(): void
+    {
+        /** @var Collection<array{id: int, name: string}> $collection */
+        $collection = new Collection('array', [
+            ['id' => 1, 'name' => 'a'],
+            ['id' => 2, 'name' => 'b'],
+            ['id' => 3, 'name' => 'c'],
+        ]);
+
+        $where = $collection->where('id', 2);
+
+        $this->assertNotSame($collection, $where);
+        $this->assertSame(
+            [
+                ['id' => 2, 'name' => 'b'],
+            ],
+            $where->toArray(),
+        );
+        $this->assertSame(
+            [
+                ['id' => 1, 'name' => 'a'],
+                ['id' => 2, 'name' => 'b'],
+                ['id' => 3, 'name' => 'c'],
+            ],
+            $collection->toArray(),
+        );
+    }
+
+    public function testWhereWithoutPropertyOrMethod(): void
+    {
+        /** @var Collection<array{id: int, name: string}> $collection */
+        $collection = new Collection('array', [
+            ['id' => 1, 'name' => 'a'],
+            ['id' => 2, 'name' => 'b'],
+            ['id' => 3, 'name' => 'c'],
+        ]);
+
+        $where = $collection->where(null, ['id' => 3, 'name' => 'c']);
+
+        $this->assertNotSame($collection, $where);
+        $this->assertSame(
+            [
+                ['id' => 3, 'name' => 'c'],
+            ],
+            $where->toArray(),
+        );
+        $this->assertSame(
+            [
+                ['id' => 1, 'name' => 'a'],
+                ['id' => 2, 'name' => 'b'],
+                ['id' => 3, 'name' => 'c'],
+            ],
+            $collection->toArray(),
+        );
+    }
+
+    public function testWhereWithScalar(): void
+    {
+        /** @var Collection<int> $collection */
+        $collection = new Collection('int', [1, 2, 3, 4]);
+
+        $where = $collection->where(null, 3);
+
+        $this->assertNotSame($collection, $where);
+        $this->assertSame([3], $where->toArray());
+        $this->assertSame([1, 2, 3, 4], $collection->toArray());
+    }
+
+    public function testWhereWithMultipleObjectMatches(): void
+    {
+        $bar1 = new Bar(1, 'a');
+        $bar2 = new Bar(2, 'b');
+        $bar3 = new Bar(3, 'c');
+        $barCollection = new BarCollection([$bar1, $bar2, $bar3, $bar2]);
+
+        $where = $barCollection->where(null, $bar2);
+
+        $this->assertNotSame($barCollection, $where);
+        $this->assertSame([$bar2, $bar2], $where->toArray());
+        $this->assertSame([$bar1, $bar2, $bar3, $bar2], $barCollection->toArray());
+    }
+
+    public function testWhereShouldRaiseExceptionWhenNotSupported(): void
+    {
+        /** @var Collection<int> $collection */
+        $collection = new Collection('int', [1, 2, 3, 4]);
+
+        $this->expectException(UnsupportedOperationException::class);
+        $this->expectExceptionMessage(
+            'The collection type "int" does not support the $propertyOrMethod parameter',
+        );
+
+        $collection->where('foo', 3);
+    }
+
     public function testMapShouldRunOverEachItem(): void
     {
         $bar1 = $this->prophesize(Bar::class);
@@ -171,11 +362,86 @@ class CollectionManipulationTest extends TestCase
 
         $barCollection = new BarCollection([$bar1->reveal(), $bar2->reveal()]);
 
-        $mapCollection = $barCollection->map(function (Bar $item) {
-            $item->getName();
-        });
+        $mapCollection = $barCollection->map(fn (Bar $item): string => $item->getName());
 
         $this->assertNotSame($barCollection, $mapCollection);
+    }
+
+    public function testReduceShouldRunOverEachItem(): void
+    {
+        $bar1 = new Bar(1, 'a');
+        $bar2 = new Bar(2, 'b');
+
+        $barCollection = new BarCollection([$bar1, $bar2]);
+
+        $reduced = $barCollection->reduce(
+            fn (string $carry, Bar $item): string => trim("$carry {$item->getName()}"),
+            '',
+        );
+
+        $this->assertSame('a b', $reduced);
+    }
+
+    public function testReduceShouldAllowNullInitialValue(): void
+    {
+        $bar1 = new Bar(1, 'a');
+        $bar2 = new Bar(2, 'b');
+        $bar3 = new Bar(3, 'c');
+        $bar4 = new Bar(4, 'd');
+
+        $barCollection = new BarCollection([$bar2, $bar3, $bar1, $bar4]);
+
+        // Reduced should be the item with the lowest scoring name value.
+        $reduced = $barCollection->reduce(
+            function (?Bar $carry, Bar $item): Bar {
+                if ($carry === null) {
+                    return $item;
+                }
+
+                if ($carry->getName() < $item->getName()) {
+                    return $carry;
+                }
+
+                return $item;
+            },
+            null,
+        );
+
+        $this->assertSame($bar1, $reduced);
+    }
+
+    public function testReduceWithAnEmptyCollectionA(): void
+    {
+        $barCollection = new BarCollection();
+
+        $reduced = $barCollection->reduce(
+            function (?Bar $carry, Bar $item): Bar {
+                if ($carry === null) {
+                    return $item;
+                }
+
+                if ($carry->getName() < $item->getName()) {
+                    return $carry;
+                }
+
+                return $item;
+            },
+            null,
+        );
+
+        $this->assertNull($reduced);
+    }
+
+    public function testReduceWithAnEmptyCollectionB(): void
+    {
+        $barCollection = new BarCollection();
+
+        $reduced = $barCollection->reduce(
+            fn (string $carry, Bar $item): string => trim("$carry {$item->getName()}"),
+            '',
+        );
+
+        $this->assertSame('', $reduced);
     }
 
     public function testDiffShouldRaiseExceptionOnDiverseCollections(): void
@@ -185,7 +451,10 @@ class CollectionManipulationTest extends TestCase
         $this->expectException(CollectionMismatchException::class);
         $this->expectExceptionMessage('Collection must be of type Ramsey\Collection\Test\Mock\BarCollection');
 
-        // @phpstan-ignore-next-line
+        /**
+         * @phpstan-ignore-next-line
+         * @psalm-suppress InvalidArgument
+         */
         $barCollection->diff(new FooCollection());
     }
 
@@ -217,16 +486,21 @@ class CollectionManipulationTest extends TestCase
         $this->assertSame([$bar2, $bar1], $barCollection3->toArray());
     }
 
-    public function testdiffShouldRaiseExceptionOnDiverseCollectionType(): void
+    public function testDiffShouldRaiseExceptionOnDiverseCollectionType(): void
     {
+        /** @var Collection<int> $barCollection */
         $barCollection = new Collection('int');
+
+        /** @var Collection<string> $fooCollection */
         $fooCollection = new Collection('string');
 
         $this->expectException(CollectionMismatchException::class);
-        $this->expectExceptionMessage(
-            'Collection items must be of type int',
-        );
+        $this->expectExceptionMessage('Collection items must be of type int');
 
+        /**
+         * @phpstan-ignore-next-line
+         * @psalm-suppress InvalidArgument
+         */
         $barCollection->diff($fooCollection);
     }
 
@@ -250,7 +524,10 @@ class CollectionManipulationTest extends TestCase
         $this->expectException(CollectionMismatchException::class);
         $this->expectExceptionMessage('Collection must be of type Ramsey\Collection\Test\Mock\BarCollection');
 
-        // @phpstan-ignore-next-line
+        /**
+         * @phpstan-ignore-next-line
+         * @psalm-suppress InvalidArgument
+         */
         $barCollection->intersect(new FooCollection());
     }
 
@@ -285,7 +562,10 @@ class CollectionManipulationTest extends TestCase
 
     public function testIntersectShouldRaiseExceptionOnDiverseCollectionType(): void
     {
+        /** @var Collection<int> $barCollection */
         $barCollection = new Collection('int');
+
+        /** @var Collection<string> $fooCollection */
         $fooCollection = new Collection('string');
 
         $this->expectException(CollectionMismatchException::class);
@@ -293,6 +573,10 @@ class CollectionManipulationTest extends TestCase
             'Collection items must be of type int',
         );
 
+        /**
+         * @phpstan-ignore-next-line
+         * @psalm-suppress InvalidArgument
+         */
         $barCollection->intersect($fooCollection);
     }
 
@@ -318,7 +602,10 @@ class CollectionManipulationTest extends TestCase
             'Collection with index 1 must be of type Ramsey\Collection\Test\Mock\BarCollection',
         );
 
-        // @phpstan-ignore-next-line
+        /**
+         * @phpstan-ignore-next-line
+         * @psalm-suppress InvalidArgument
+         */
         $barCollection->merge(new BarCollection(), new FooCollection());
     }
 
@@ -372,7 +659,10 @@ class CollectionManipulationTest extends TestCase
 
     public function testMergeShouldRaiseExceptionOnDiverseCollectionType(): void
     {
+        /** @var Collection<int> $barCollection */
         $barCollection = new Collection('int');
+
+        /** @var Collection<string> $fooCollection */
         $fooCollection = new Collection('string');
 
         $this->expectException(CollectionMismatchException::class);
@@ -380,6 +670,10 @@ class CollectionManipulationTest extends TestCase
             'Collection items in collection with index 1 must be of type int',
         );
 
+        /**
+         * @phpstan-ignore-next-line
+         * @psalm-suppress InvalidArgument
+         */
         $barCollection->merge($barCollection, $fooCollection);
     }
 
@@ -417,21 +711,30 @@ class CollectionManipulationTest extends TestCase
 
     public function testWorksUniformlyWithTypeAliases(): void
     {
+        /** @var Collection<int> $collection1 */
         $collection1 = new Collection('integer', [1, 2, 3]);
+
+        /** @var Collection<int> $collection2 */
         $collection2 = new Collection('int', [1, 2]);
 
         $this->assertEquals([3], $collection1->diff($collection2)->toArray());
         $this->assertEquals([1, 2], $collection1->intersect($collection2)->toArray());
         $this->assertEquals([1, 2, 3, 1, 2], $collection1->merge($collection2)->toArray());
 
+        /** @var Collection<float> $collection1 */
         $collection1 = new Collection('float', [1.5, 2.5, 3.5]);
+
+        /** @var Collection<float> $collection2 */
         $collection2 = new Collection('double', [1.5, 2.5]);
 
         $this->assertEquals([3.5], $collection1->diff($collection2)->toArray());
         $this->assertEquals([1.5, 2.5], $collection1->intersect($collection2)->toArray());
         $this->assertEquals([1.5, 2.5, 3.5, 1.5, 2.5], $collection1->merge($collection2)->toArray());
 
+        /** @var Collection<bool> $collection1 */
         $collection1 = new Collection('bool', [true]);
+
+        /** @var Collection<bool> $collection2 */
         $collection2 = new Collection('boolean', [false]);
 
         $this->assertEquals([true, false], $collection1->diff($collection2)->toArray());

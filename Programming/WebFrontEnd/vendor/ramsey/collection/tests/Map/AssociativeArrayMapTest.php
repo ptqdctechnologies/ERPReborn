@@ -4,10 +4,15 @@ declare(strict_types=1);
 
 namespace Ramsey\Collection\Test\Map;
 
+use ArrayIterator;
+use Ramsey\Collection\ArrayInterface;
 use Ramsey\Collection\Exception\InvalidArgumentException;
 use Ramsey\Collection\Map\AssociativeArrayMap;
 use Ramsey\Collection\Test\Mock\Foo;
 use Ramsey\Collection\Test\TestCase;
+
+use function serialize;
+use function unserialize;
 
 /**
  * Tests for AssociativeArrayMap, as well as coverage for AbstractMap
@@ -20,6 +25,11 @@ class AssociativeArrayMapTest extends TestCase
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Map elements are key/value pairs; a key must be provided for value 123');
+
+        /**
+         * @phpstan-ignore-next-line
+         * @psalm-suppress NullArgument
+         */
         $associativeArrayMapObject[] = 123;
     }
 
@@ -77,7 +87,7 @@ class AssociativeArrayMapTest extends TestCase
         $associativeArrayMapObject = new AssociativeArrayMap($data);
 
         $this->assertSame($data['foo'], $associativeArrayMapObject->get('foo'));
-        $this->assertFalse($associativeArrayMapObject->get('bar', false));
+        $this->assertNull($associativeArrayMapObject->get('bar', null));
     }
 
     public function testPut(): void
@@ -87,23 +97,13 @@ class AssociativeArrayMapTest extends TestCase
 
         $this->assertNull($previousValue);
 
+        /** @var int $previousValue */
         $previousValue = $associativeArrayMapObject->put('foo', 456);
 
         $this->assertSame(123, $previousValue);
 
         // Ensure the value changed
         $this->assertSame(456, $associativeArrayMapObject->get('foo'));
-    }
-
-    public function testPutWithNullKeyThrowsException(): void
-    {
-        $associativeArrayMapObject = new AssociativeArrayMap();
-
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Map elements are key/value pairs; a key must be provided for value 123');
-
-        /** @phpstan-ignore-next-line */
-        $associativeArrayMapObject->put(null, 123);
     }
 
     public function testPutIfAbsent(): void
@@ -113,6 +113,7 @@ class AssociativeArrayMapTest extends TestCase
 
         $this->assertNull($currentValue);
 
+        /** @var int $currentValue */
         $currentValue = $associativeArrayMapObject->putIfAbsent('foo', 456);
 
         $this->assertSame(123, $currentValue);
@@ -121,25 +122,16 @@ class AssociativeArrayMapTest extends TestCase
         $this->assertSame(123, $associativeArrayMapObject->get('foo'));
     }
 
-    public function testPutIfAbsentWithNullKeyThrowsException(): void
-    {
-        $associativeArrayMapObject = new AssociativeArrayMap();
-
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Map elements are key/value pairs; a key must be provided for value 123');
-
-        /** @phpstan-ignore-next-line */
-        $associativeArrayMapObject->putIfAbsent(null, 123);
-    }
-
     public function testRemove(): void
     {
         $data = ['foo' => 123];
+
         $associativeArrayMapObject = new AssociativeArrayMap($data);
         $previousValue = $associativeArrayMapObject->remove('foo');
 
         $this->assertSame($data['foo'], $previousValue);
 
+        /** @var mixed $previousValue */
         $previousValue = $associativeArrayMapObject->remove('foo');
 
         $this->assertNull($previousValue);
@@ -149,6 +141,7 @@ class AssociativeArrayMapTest extends TestCase
     public function testRemoveIf(): void
     {
         $data = ['foo' => 123];
+
         $associativeArrayMapObject = new AssociativeArrayMap($data);
 
         $this->assertFalse($associativeArrayMapObject->removeIf('foo', 456));
@@ -160,13 +153,17 @@ class AssociativeArrayMapTest extends TestCase
     public function testReplace(): void
     {
         $data = ['foo' => 123];
+
         $associativeArrayMapObject = new AssociativeArrayMap($data);
+
         $previousValue = $associativeArrayMapObject->replace('foo', 456);
 
         $this->assertSame($data['foo'], $previousValue);
         $this->assertSame(456, $associativeArrayMapObject->get('foo'));
 
+        /** @var mixed $previousValue */
         $previousValue = $associativeArrayMapObject->replace('bar', 789);
+
         $this->assertNull($previousValue);
         $this->assertFalse($associativeArrayMapObject->containsKey('bar'));
     }
@@ -174,11 +171,39 @@ class AssociativeArrayMapTest extends TestCase
     public function testReplaceIf(): void
     {
         $data = ['foo' => 123];
+
         $associativeArrayMapObject = new AssociativeArrayMap($data);
 
         $this->assertFalse($associativeArrayMapObject->replaceIf('foo', 456, 789));
         $this->assertSame($data['foo'], $associativeArrayMapObject->get('foo'));
         $this->assertTrue($associativeArrayMapObject->replaceIf('foo', 123, 987));
         $this->assertSame(987, $associativeArrayMapObject->get('foo'));
+    }
+
+    public function testGetIterator(): void
+    {
+        $associativeArrayMapObject = new AssociativeArrayMap();
+
+        $this->assertInstanceOf(ArrayIterator::class, $associativeArrayMapObject->getIterator());
+    }
+
+    public function testSerializable(): void
+    {
+        $phpArray = ['foo' => 123, 'bar' => 456];
+        $associativeArrayMapObject = new AssociativeArrayMap($phpArray);
+
+        $associativeArrayMapObjectSerialized = serialize($associativeArrayMapObject);
+        $associativeArrayMapObject2 = unserialize($associativeArrayMapObjectSerialized);
+
+        $this->assertInstanceOf(ArrayInterface::class, $associativeArrayMapObject2);
+        $this->assertEquals($associativeArrayMapObject, $associativeArrayMapObject2);
+    }
+
+    public function testToArray(): void
+    {
+        $phpArray = ['foo' => 123, 'bar' => 456];
+        $associativeArrayMapObject = new AssociativeArrayMap($phpArray);
+
+        $this->assertSame($phpArray, $associativeArrayMapObject->toArray());
     }
 }
