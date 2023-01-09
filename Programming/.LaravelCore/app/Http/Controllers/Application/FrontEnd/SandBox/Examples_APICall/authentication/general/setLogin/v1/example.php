@@ -29,8 +29,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
             //---Parameter Set---
             $varUserName = 'sysadmin';
             $varUserPassword = 'sysadmin1234';
-            $varUserName = 'aldi.mulyadi';
-            $varUserPassword = 'aldi1234';
+//            $varUserName = 'aldi.mulyadi';
+//            $varUserPassword = 'aldi1234';
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
