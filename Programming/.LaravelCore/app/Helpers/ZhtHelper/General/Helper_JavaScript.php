@@ -2233,595 +2233,478 @@ namespace App\Helpers\ZhtHelper\General
                                 'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value = document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value; '.
                                 '} '.
                             'catch(varError) {'.
-                                //---> Main Action (Start)
-                                self::getSyntaxCreateDOM_InputText(
-                                    $varUserSession, 
-                                    [
-                                        'ID' => 'zhtSysObjDOMText_'.$varUniqueID.'_MainData',
-                                        'ParentID' => 'document.body',
-                                        'Value' => '',
-                                        'Style' => [
-                                            ['width', '200px'],
-                                            ['height', '100px']
-                                            ]
-                                    ]).
-                                //---> Penambahan Script
-                                self::getSyntaxCreateDOM_JavaScript(
-                                    $varUserSession, 
-                                    [],
-                                    self::setEscapeForEscapeSequenceOnSyntaxLiteral(
-                                        $varUserSession, 
-                                        (
-                                        //---> JSFunc_LockObject_...
-                                        'function JSFunc_LockObject_'.$varUniqueID.'() {'.
-                                            'try {'.
-                                                'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').disabled = false; '.
-                                                'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').style.visibility = \'hidden\'; '.
-                                                //'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').style.display = \'none\'; '.
-                                                '} '.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
-                                                '}'.
-                                            '}'.
-
-                                        //---> JSFunc_UnlockObject_...
-                                        'function JSFunc_UnlockObject_'.$varUniqueID.'() {'.
-                                            'try {'.
-                                                'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').disabled = true; '.
-                                                'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').style.visibility = \'visible\'; '.
-                                                //'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').style.display = \'inline\'; '.
-                                                '} '.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
-                                                '}'.
-                                            '}'.
-
-                                        //---> JSFunc_GetActionPanel_Reload_...
-                                        'function JSFunc_GetActionPanel_Reload_'.$varUniqueID.'(varURLDelete) {'.
-                                            'try {'.
-                                                'var XHR = new XMLHttpRequest(); '.
-                                                'XHR.onreadystatechange = function() {'.
-                                                    'if (XHR.readyState == XMLHttpRequest.DONE) {'.
-                                                    //'if (XHR.readyState == 4 && XHR.status == 200) {'.
-                                                        'alert(\'Record has been deleted\'); '.
-                                                        //'alert(varURLDelete); '.
-                                                        'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
-                                                        '}'.
-                                                    '}; '.
-                                                'XHR.open(\'GET\', varURLDelete, true); '.
-                                                'XHR.send(null); '.
-                                                '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
-                                                '}'.
-                                            '}'.
-
-                                        //---> JSFunc_GetActionPanel_Commit_...
-                                        'function JSFunc_GetActionPanel_Commit_'.$varUniqueID.'() {'.
-                                            'try {'.
-                                                'varReturn = ('.
-                                                    'JSON.parse('.
-                                                        str_replace(
-                                                            '"', 
-                                                            '\'', 
-                                                            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                                                                $varUserSession, 
-                                                                $varAPIWebToken, 
-                                                                'fileHandling.upload.archive.general.setFilesFromStagingArea', 
-                                                                'latest', 
-                                                                '{'.
-                                                                    '"parameter" : {'.
-                                                                        '"log_FileUpload_Pointer_RefID" : JSFunc_MainData_GetData_FileUploadPointerRefID_'.$varUniqueID.'(), '.
-                                                                        '"rotateLog_FileUploadStagingArea_RefRPK" : JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'(), '.
-                                                                        '"deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" : JSFunc_MainData_GetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'()'.
-                                                                        '}'.
-                                                                '}'
-                                                                )
-                                                            ).
-                                                        ').data.log_FileUpload_Pointer_RefID'.
-                                                    '); '.
-                                                //'alert(JSON.stringify(varReturn)); '.
-                                                'document.getElementById(\''.$varDOMReturnID.'\').value = JSON.stringify(varReturn); '.
-                                                'JSFunc_MainData_SetData_FileUploadPointerRefID_'.$varUniqueID.'(varReturn); '.
-                                                'JSFunc_MainData_SetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'(null); '.
-//                                                'JSFunc_MainData_InitData_'.$varUniqueID.'(document.getElementById(\''.$varDOMReturnID.'\').value, null, []); '.
-                                                //'alert(\'Committed File(s) Upload Complete\'); '.
-                                                'varNothing = JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
-                                                '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
-                                                '}'.
-//                                            'varNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varUniqueID, 'document.body', false).
-                                            '}'.
-
-                                        //---> JSFunc_MainData_InitData_...
-                                        'function JSFunc_MainData_InitData_'.$varUniqueID.'(log_FileUpload_Pointer_RefID, rotateLog_FileUploadStagingArea_RefRPK, deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID) {'.
-                                            'try {'.
-                                                'if(JSFunc_MainData_GetData_'.$varUniqueID.'() == null) {'.
-                                                    //---> Main Template
-                                                    'varJSONData = \'{\' + '.
-                                                        'String.fromCharCode(34) + \'header\' + String.fromCharCode(34) + \' : {\' + '.
-                                                            'String.fromCharCode(34) + \'log_FileUpload_Pointer_RefID\' + String.fromCharCode(34) + \' : \' + ((log_FileUpload_Pointer_RefID == \'\') ? null : log_FileUpload_Pointer_RefID) + \', \' + '.
-                                                            'String.fromCharCode(34) + \'rotateLog_FileUploadStagingArea_RefRPK\' + String.fromCharCode(34) + \' : \' + ((rotateLog_FileUploadStagingArea_RefRPK == \'\') ? null : rotateLog_FileUploadStagingArea_RefRPK) + \', \' + '.
-                                                            'String.fromCharCode(34) + \'deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID\' + String.fromCharCode(34) + \' : \' + ((deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID == \'\') ? \'[]\' : deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID) + \', \' + '.
-                                                            'String.fromCharCode(34) + \'signNeedToCommit\' + String.fromCharCode(34) + \' : false\' + \', \' + '.
-                                                            'String.fromCharCode(34) + \'signNeedToCommit_Archive\' + String.fromCharCode(34) + \' : false\' + '.
-                                                            '\'}, \' + '.
-                                                        'String.fromCharCode(34) + \'data\' + String.fromCharCode(34) + \' : {\' + '.
-                                                            'String.fromCharCode(34) + \'masterFileRecord\' + String.fromCharCode(34) + \' : {\' + '.
-                                                                '\'}\' + '.
-                                                           '\'}\' + '.
-                                                        '\'}\';'.
-                                                    'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(JSON.parse(varJSONData))); '.
-                                                    //---> Update MasterFileRecord From Database
-                                                    'varDataJSONMasterFileRecord = JSFunc_MainData_GetDataFromDatabase_MasterFileRecord_'.$varUniqueID.'(); '.
-                                                    'JSFunc_MainData_SetData_MasterFileRecord_'.$varUniqueID.'(varDataJSONMasterFileRecord); '.
-                                                    '}'.
-                                                '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
-                                                '}'.
-                                            '}'.
-
-                                        //---> JSFunc_MainData_GetData_...
-                                        'function JSFunc_MainData_GetData_'.$varUniqueID.'() {'.
-                                            'varReturn = null; '.
-                                            'try {'.
-                                                'if(document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value != \'\') {'.
-                                                    'varReturn = JSON.parse(document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value); '.
-                                                    '}'.
-                                                '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
-                                                '}'.
-                                            'return varReturn; '.
-                                            '}'.
-
-                                        //---> JSFunc_MainData_SetData_...
-                                        'function JSFunc_MainData_SetData_'.$varUniqueID.'(varDataJSON) {'.
-                                            'try {'.
-                                                'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value = varDataJSON;'.
-                                                '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
-                                                '}'.
-                                            '}'.
-
-                                        //---> JSFunc_MainData_GetData_FileUploadPointerRefID_...
-                                        'function JSFunc_MainData_GetData_FileUploadPointerRefID_'.$varUniqueID.'() {'.
-                                            'varReturn = null; '.
-                                            'try {'.
-                                                'varData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
-                                                'varReturn = varData.header.log_FileUpload_Pointer_RefID; '.
-                                                '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
-                                                '}'.
-                                            'return varReturn; '.
-                                            '}'.
-
-                                        //---> JSFunc_MainData_SetData_FileUploadPointerRefID_...
-                                        'function JSFunc_MainData_SetData_FileUploadPointerRefID_'.$varUniqueID.'(varDataID) {'.
-                                            'try {'.
-                                                'varDataJSON = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
-                                                'varDataJSON.header.log_FileUpload_Pointer_RefID = varDataID; '.
-                                                'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
-                                                '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
-                                                '}'.
-                                            '}'.
-
-                                        //---> JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_
-                                        'function JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'() {'.
-                                            'varReturn = null; '.
-                                            'try {'.
-                                                'varData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
-                                                'varReturn = varData.header.rotateLog_FileUploadStagingArea_RefRPK; '.
-                                                '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
-                                                '}'.
-                                            'return varReturn; '.
-                                            '}'.
-
-                                        //---> JSFunc_MainData_SetData_FileUploadStagingAreaRefRPK_...
-                                        'function JSFunc_MainData_SetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'(varDataRPK) {'.
-                                            'try {'.
-                                                'varDataJSON = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
-                                                'varDataJSON.header.rotateLog_FileUploadStagingArea_RefRPK = varDataRPK; '.
-                                                'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
-                                                '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
-                                                '}'.
-                                            '}'.
-
-                                        //---> JSFunc_MainData_GetData_SignNeedToCommit_...
-                                        'function JSFunc_MainData_GetData_SignNeedToCommit_'.$varUniqueID.'() {'.
-                                            'varReturn = null; '.
-                                            'try {'.
-                                                'varData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
-                                                'varReturn = varData.header.signNeedToCommit; '.
-                                                '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
-                                                '}'.
-                                            'return varReturn; '.
-                                            '}'.
-
-                                        //---> JSFunc_MainData_SetData_SignNeedToCommit_...
-                                        'function JSFunc_MainData_SetData_SignNeedToCommit_'.$varUniqueID.'(varStatus) {'.
-                                            'try {'.
-                                                'varDataJSON = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
-                                                'varDataJSON.header.signNeedToCommit = varStatus; '.
-                                                'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
-                                                '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
-                                                '}'.
-                                            '}'.
-
-                                        //---> JSFunc_MainData_GetData_DeleteCandidateFileUploadObjectDetailRefArrayID_...
-                                        'function JSFunc_MainData_GetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'() {'.
-                                            'varReturn = JSON.parse(\'[]\'); '.
-                                            'try {'.
-                                                'varData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
-                                                'varReturn = varData.header.deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID; '.
-                                                'if(varReturn == null) {'.
-                                                    'varReturn = JSON.parse(\'[]\'); '.
-                                                    '}'.
-                                                '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
-                                                '}'.
-                                            'return varReturn; '.
-                                            '}'.
-
-                                        //---> JSFunc_MainData_SetData_DeleteCandidateFileUploadObjectDetailRefArrayID_...
-                                        'function JSFunc_MainData_SetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'(varDataArrayID) {'.
-                                            'try {'.
-                                                'varDataJSON = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
-                                                'varDataJSONDeleteCandidate = varDataJSON.header.deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID; '.
-                                                'if (varDataArrayID === undefined || varDataArrayID.length == 0) {'.
-                                                    'varDataJSONDeleteCandidate = []; '. //JSON.parse(\'[]\'); '.
-                                                    '}'.
-                                                'else {'.
-                                                    'varDataJSONDeleteCandidate.push(varDataArrayID); '.
-                                                    '}'.
-                                                'varDataJSON.header.deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID = varDataJSONDeleteCandidate; '.
-                                                'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
-                                                '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
-                                                '}'.
-                                            '}'.
-
-                                        //---> JSFunc_FileDownload_...
-                                        'function JSFunc_FileDownload_'.$varUniqueID.'(varFilePath, varMIME, varFileName) {'.
-                                            'try {'.
-                                                'varBase64Data = ('.
-                                                    'JSON.parse('.                           
-                                                        str_replace(
-                                                            '"', 
-                                                            '\'', 
-                                                            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                                                                $varUserSession, 
-                                                                $varAPIWebToken, 
-                                                                'fileHandling.upload.combined.general.getFileContent', 
-                                                                'latest', 
-                                                                '{'.
-                                                                    '"parameter" : {'.
-                                                                        '"filePath" : varFilePath'.
-                                                                        '}'.
-                                                                '}'
-                                                                )
-                                                            ).
-                                                        ').data.contentBase64'.
-                                                    '); '.
-                                                'varObjDownloadLink = document.createElement(\'a\'); '.
-                                                'varObjDownloadLink.href = \'data:text/plain;base64,\' + varBase64Data; '.
-                                                'varObjDownloadLink.download = varFileName; '.
-                                                'varObjDownloadLink.click(); '.
-                                                'varObjDownloadLink.parentNode.removeChild(varObjDownloadLink); '.
-                                                '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
-                                                '}'.
-                                            '}'.
-
-                                        //---> JSFunc_FilePreview_...
-                                        'function JSFunc_FilePreview_'.$varUniqueID.'(varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ) {'.
-                                            'try {'.
-//                                                'alert(varFilePath);'.
-                                                'varReturn = ('.
-                                                    'JSON.parse('.                           
-                                                        str_replace(
-                                                            '"', 
-                                                            '\'', 
-                                                            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                                                                $varUserSession, 
-                                                                $varAPIWebToken, 
-                                                                'fileHandling.upload.combined.general.getFileContent', 
-                                                                'latest', 
-                                                                '{'.
-                                                                    '"parameter" : {'.
-                                                                        '"filePath" : varFilePath'.
-                                                                        '}'.
-                                                                '}'
-                                                                )
-                                                            ).
-                                                        ').data.contentBase64'.
-                                                    '); '.
-                                                'varNothing = '.
-                                                    self::getSyntaxCreateDOM_DivCustom_ModalBox_FilePreview(
-                                                        $varUserSession,
-                                                        $varAPIWebToken,
-                                                        'ObjDivModalBox_'.$varUniqueID
-                                                        ).
-                                                    '; '.
-                                                '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
-                                                '}'.
-                                            '}'.
-
-                                        //---> JSFunc_MainData_GetData_MasterFileRecord_...
-                                        'function JSFunc_MainData_GetData_MasterFileRecord_'.$varUniqueID.'() {'.
-                                            'varReturn = null; '.
-                                            'try {'.
-                                                'varData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
-                                                'varReturn = varData.data.masterFileRecord; '.
-                                                '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
-                                                '}'.
-                                            'return varReturn; '.
-                                            '}'.
-
-                                        //---> JSFunc_MainData_SetData_MasterFileRecord_...
-                                        'function JSFunc_MainData_SetData_MasterFileRecord_'.$varUniqueID.'(varDataJSONMasterFileRecord) {'.
-                                            'try {'.
-                                                'varDataJSON = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
-                                                'varDataJSON.data.masterFileRecord = varDataJSONMasterFileRecord; '.
-                                                'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
-                                                '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
-                                                '}'.
-                                            '}'.
-
-                                        //---> JSFunc_MainData_GetDataFromDatabase_MasterFileRecord_...
-                                        'function JSFunc_MainData_GetDataFromDatabase_MasterFileRecord_'.$varUniqueID.'() {'.
-                                            'varReturn = null; '.
-                                            'try {'.
-                                                'varReturn = ('.
-                                                    'JSON.parse('.
-                                                        str_replace(
-                                                            '"', 
-                                                            '\'', 
-                                                            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                                                                $varUserSession, 
-                                                                $varAPIWebToken, 
-                                                                'fileHandling.upload.combined.general.getMasterFileRecord', 
-                                                                'latest', 
-                                                                '{'.
-                                                                    '"parameter" : {'.
-                                                                        '"log_FileUpload_Pointer_RefID" : JSFunc_MainData_GetData_FileUploadPointerRefID_'.$varUniqueID.'(), '.
-                                                                        '"rotateLog_FileUploadStagingArea_RefRPK" : JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'(), '.
-                                                                        '"deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" : JSFunc_MainData_GetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'()'.
-                                                                        '}'.
-                                                                '}'
-                                                                )
-                                                            ).
-                                                        ').data'.
-                                                    ').data; '.
-                                                '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
-                                                '}'.
-                                            'return varReturn; '.
-                                            '}'.
-
-                                        //---> JSFunc_ObjDOMTable_ActionPanel_Show_...
-                                        'function JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'() {'.
-                                            'try {'.
-                                                //---> Ambil varDataJSONMasterFileRecord dari database
-                                                'varDataJSONMasterFileRecord = JSFunc_MainData_GetDataFromDatabase_MasterFileRecord_'.$varUniqueID.'(); '.
-    //                                            'varDataJSONMasterFileRecord = JSFunc_MainData_GetData_MasterFileRecord_'.$varUniqueID.'(); '.
-                                                //'alert(JSON.stringify(varDataJSONMasterFileRecord)); '.
-
-                                                //---> Update varDataJSONMasterFileRecord di Main Data
-                                                'JSFunc_MainData_SetData_MasterFileRecord_'.$varUniqueID.'(varDataJSONMasterFileRecord); '.
-
-                                                //---> SignNeedToCommit Reinit
-                                                'JSFunc_MainData_SetData_SignNeedToCommit_'.$varUniqueID.'(false); '.
-                                                'if((JSFunc_MainData_GetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'() == \'\') == false) { '.
-                                                    'JSFunc_MainData_SetData_SignNeedToCommit_'.$varUniqueID.'(true); '.
-                                                    '}'.
-                                                'if(JSFunc_MainData_GetData_SignNeedToCommit_'.$varUniqueID.'() == false) {'.
-                                                    'if(varDataJSONMasterFileRecord != null) '.
+                                'varSignExistAPIWebToken = function () {'.
+                                    'try {'.
+                                        'varReturn = ('.
+                                            'JSON.parse('.                           
+                                                str_replace(
+                                                    '"', 
+                                                    '\'', 
+                                                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                        $varUserSession, 
+                                                        $varAPIWebToken, 
+                                                        'authentication.general.isSessionExist', 
+                                                        'latest', 
                                                         '{'.
-                                                        'for(i=0, iMax = varDataJSONMasterFileRecord.length; i != iMax; i++)'.
-                                                            '{'.
-                                                            'if(varDataJSONMasterFileRecord[i][\'signExistOnArchive\'] == false) {'.
-                                                                'JSFunc_MainData_SetData_SignNeedToCommit_'.$varUniqueID.'(true); '.
-                                                                '}'.
-                                                            '}'.
+                                                            '"parameter" : null'.
+                                                        '}'
+                                                        )
+                                                    ).
+                                                ').data.signExist'. //.data.contentBase64'.
+                                            '); '.
+                                        'return varReturn; '.
+                                        '} '.
+                                    'catch(varError) {'.
+                                        //'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                        'return false; '.
+                                        '}'.
+                                    '} (); '.
+                                //'alert(varSignExistAPIWebToken); '.
+                                'if(varSignExistAPIWebToken == false) {'.
+                                    'alert(\'ERP Reborn Error Notification\n\nAPI Web Token Not Exist\'); '.
+                                    '}'.
+                                'else {'.
+                                    //---> Main Action (Start)
+                                    self::getSyntaxCreateDOM_InputText(
+                                        $varUserSession, 
+                                        [
+                                            'ID' => 'zhtSysObjDOMText_'.$varUniqueID.'_MainData',
+                                            'ParentID' => 'document.body',
+                                            'Value' => '',
+                                            'Style' => [
+                                                ['width', '200px'],
+                                                ['height', '100px']
+                                                ]
+                                        ]).
+                                    //---> Penambahan Script
+                                    self::getSyntaxCreateDOM_JavaScript(
+                                        $varUserSession, 
+                                        [],
+                                        self::setEscapeForEscapeSequenceOnSyntaxLiteral(
+                                            $varUserSession, 
+                                                (
+                                                //---> JSFunc_LockObject_...
+                                                'function JSFunc_LockObject_'.$varUniqueID.'() {'.
+                                                    'try {'.
+                                                        'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').disabled = false; '.
+                                                        'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').style.visibility = \'hidden\'; '.
+                                                        //'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').style.display = \'none\'; '.
+                                                        '} '.
+                                                    'catch(varError) {'.
+                                                        'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
                                                         '}'.
                                                     '}'.
 
-                                                //---> Object Table
-                                                'if(document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\') != null)'.
-                                                    '{'.
-                                                    'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').remove(); '.
+                                                //---> JSFunc_UnlockObject_...
+                                                'function JSFunc_UnlockObject_'.$varUniqueID.'() {'.
+                                                    'try {'.
+                                                        'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').disabled = true; '.
+                                                        'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').style.visibility = \'visible\'; '.
+                                                        //'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').style.display = \'inline\'; '.
+                                                        '} '.
+                                                    'catch(varError) {'.
+                                                        'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                                        '}'.
                                                     '}'.
 
-                                                self::getSyntaxCreateDOM_Table(
-                                                    $varUserSession, 
-                                                    [
-                                                    'ID' => 'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel',
-                                                    'ParentID' => 'document.getElementById(\''.$varDOMActionPanel.'\')',
-                                                    'Style' => $varStyle_TableAction
-                                                    ],
-                                                    (
-                                                    //---> Table Head
-                                                    self::getSyntaxCreateDOM_TableHead(
-                                                        $varUserSession, 
-                                                        [
-                                                        'ID' => 'varObjTHead',
-                                                        'ParentID' => 'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel'
-                                                        ],
-                                                        (
-                                                        self::getSyntaxCreateDOM_TableRow(
-                                                            $varUserSession, 
-                                                            [
-                                                            'ID' => 'varObjTTR',
-                                                            'ParentID' => 'varObjTHead'
-                                                            ], 
-                                                            (
-                                                            self::getSyntaxCreateDOM_TableData(
-                                                                $varUserSession, 
-                                                                [
-                                                                'ID' => 'varObjTTD',
-                                                                'ParentID' => 'varObjTTR',
-                                                                'Style' => $varStyle_TableActionPanelHead,
-                                                                'RowSpan' => 2
-                                                                ],
-                                                                'varObjTTD.appendChild(document.createTextNode(\'NO\')); '
-                                                                ).
-                                                            self::getSyntaxCreateDOM_TableData(
-                                                                $varUserSession, 
-                                                                [
-                                                                'ID' => 'varObjTTD',
-                                                                'ParentID' => 'varObjTTR',
-                                                                'Style' => $varStyle_TableActionPanelHead,
-                                                                'RowSpan' => 2
-                                                                ],
-                                                                'varObjTTD.appendChild(document.createTextNode(\'FILE NAME\')); '
-                                                                ).
-                                                            self::getSyntaxCreateDOM_TableData(
-                                                                $varUserSession, 
-                                                                [
-                                                                'ID' => 'varObjTTD',
-                                                                'ParentID' => 'varObjTTR',
-                                                                'Style' => $varStyle_TableActionPanelHead,
-                                                                'RowSpan' => 2
-                                                                ],
-                                                                'varObjTTD.appendChild(document.createTextNode(\'SIZE\')); '
-                                                                ).
-                                                            self::getSyntaxCreateDOM_TableData(
-                                                                $varUserSession, 
-                                                                [
-                                                                'ID' => 'varObjTTD',
-                                                                'ParentID' => 'varObjTTR',
-                                                                'Style' => $varStyle_TableActionPanelHead,
-                                                                'RowSpan' => 2
-                                                                ],
-                                                                'varObjTTD.appendChild(document.createTextNode(\'UPLOAD DATE & TIME\')); '
-                                                                ).
-                                                            self::getSyntaxCreateDOM_TableData(
-                                                                $varUserSession, 
-                                                                [
-                                                                'ID' => 'varObjTTD',
-                                                                'ParentID' => 'varObjTTR',
-                                                                'Style' => $varStyle_TableActionPanelHead,
-                                                                'ColSpan' => 4
-                                                                ],
-                                                                'varObjTTD.appendChild(document.createTextNode(\'ACTION\')); '
-                                                                )
-                                                            )
-                                                            ).
-                                                        self::getSyntaxCreateDOM_TableRow(
-                                                            $varUserSession, 
-                                                            [
-                                                            'ID' => 'varObjTTR',
-                                                            'ParentID' => 'varObjTHead'
-                                                            ], 
-                                                            (
-                                                            self::getSyntaxCreateDOM_TableData(
-                                                                $varUserSession, 
-                                                                [
-                                                                'ID' => 'varObjTTD',
-                                                                'ParentID' => 'varObjTTR',
-                                                                'Style' => $varStyle_TableActionPanelHead,
-                                                                ],
-                                                                'varObjTTD.appendChild(document.createTextNode(\'DELETE\')); '
-                                                                ).
-                                                            self::getSyntaxCreateDOM_TableData(
-                                                                $varUserSession, 
-                                                                [
-                                                                'ID' => 'varObjTTD',
-                                                                'ParentID' => 'varObjTTR',
-                                                                'Style' => $varStyle_TableActionPanelHead,
-                                                                ],
-                                                                'varObjTTD.appendChild(document.createTextNode(\'SAVE\')); '
-                                                                ).
-                                                            self::getSyntaxCreateDOM_TableData(
-                                                                $varUserSession, 
-                                                                [
-                                                                'ID' => 'varObjTTD',
-                                                                'ParentID' => 'varObjTTR',
-                                                                'Style' => $varStyle_TableActionPanelHead,
-                                                                ],
-                                                                'varObjTTD.appendChild(document.createTextNode(\'PREVIEW\')); '
-                                                                ).
-                                                            self::getSyntaxCreateDOM_TableData(
-                                                                $varUserSession, 
-                                                                [
-                                                                'ID' => 'varObjTTD',
-                                                                'ParentID' => 'varObjTTR',
-                                                                'Style' => $varStyle_TableActionPanelHead,
-                                                                ],
-                                                                'varObjTTD.appendChild(document.createTextNode(\'DOWNLOAD\')); '
-                                                                )
-                                                            )
-                                                            )
-                                                        )
-                                                        ).
-                                                    //---> Table Body
-                                                    self::getSyntaxCreateDOM_TableBody(
-                                                        $varUserSession, 
-                                                        [
-                                                        'ID' => 'varObjTHead',
-                                                        'ParentID' => 'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel'
-                                                        ],
-                                                        (
-
-                                                        'if(varDataJSONMasterFileRecord == null) {'.
-                                                            'varDataJSONMasterFileRecord = ['.
-                                                                '{'.
-                                                                '\'sequence\' : \'\', '.
-                                                                '\'signExistOnArchive\' : \'\', '.
-                                                                '\'recordReference\' : \'\', '.
-                                                                '\'name\' : \'\', '.
-                                                                '\'size\' : \'\', '.
-                                                                '\'MIME\' : \'\', '.
-                                                                '\'extension\' : \'\', '.
-                                                                '\'lastModifiedDateTimeTZ\' : \'\', '.
-                                                                '\'lastModifiedUnixTimestamp\' : \'\', '.
-                                                                '\'hashMethod_RefID\' : \'\', '.
-                                                                '\'contentBase64Hash\' : \'\', '.
-                                                                '\'uploadDateTimeTZ\' : \'\', '.
-                                                                '\'filePath\' : \'\', '.
-                                                                '\'URLDelete\' : \'\' '.
+                                                //---> JSFunc_GetActionPanel_Reload_...
+                                                'function JSFunc_GetActionPanel_Reload_'.$varUniqueID.'(varURLDelete) {'.
+                                                    'try {'.
+                                                        'var XHR = new XMLHttpRequest(); '.
+                                                        'XHR.onreadystatechange = function() {'.
+                                                            'if (XHR.readyState == XMLHttpRequest.DONE) {'.
+                                                            //'if (XHR.readyState == 4 && XHR.status == 200) {'.
+                                                                'alert(\'Record has been deleted\'); '.
+                                                                //'alert(varURLDelete); '.
+                                                                'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
                                                                 '}'.
-                                                                '];'.
+                                                            '}; '.
+                                                        'XHR.open(\'GET\', varURLDelete, true); '.
+                                                        'XHR.send(null); '.
+                                                        '}'.
+                                                    'catch(varError) {'.
+                                                        'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                                        '}'.
+                                                    '}'.
+
+                                                //---> JSFunc_GetActionPanel_Commit_...
+                                                'function JSFunc_GetActionPanel_Commit_'.$varUniqueID.'() {'.
+                                                    'try {'.
+                                                        'varReturn = ('.
+                                                            'JSON.parse('.
+                                                                str_replace(
+                                                                    '"', 
+                                                                    '\'', 
+                                                                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                                        $varUserSession, 
+                                                                        $varAPIWebToken, 
+                                                                        'fileHandling.upload.archive.general.setFilesFromStagingArea', 
+                                                                        'latest', 
+                                                                        '{'.
+                                                                            '"parameter" : {'.
+                                                                                '"log_FileUpload_Pointer_RefID" : JSFunc_MainData_GetData_FileUploadPointerRefID_'.$varUniqueID.'(), '.
+                                                                                '"rotateLog_FileUploadStagingArea_RefRPK" : JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'(), '.
+                                                                                '"deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" : JSFunc_MainData_GetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'()'.
+                                                                                '}'.
+                                                                        '}'
+                                                                        )
+                                                                    ).
+                                                                ').data.log_FileUpload_Pointer_RefID'.
+                                                            '); '.
+                                                        //'alert(JSON.stringify(varReturn)); '.
+                                                        'document.getElementById(\''.$varDOMReturnID.'\').value = JSON.stringify(varReturn); '.
+                                                        'JSFunc_MainData_SetData_FileUploadPointerRefID_'.$varUniqueID.'(varReturn); '.
+                                                        'JSFunc_MainData_SetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'(null); '.
+        //                                                'JSFunc_MainData_InitData_'.$varUniqueID.'(document.getElementById(\''.$varDOMReturnID.'\').value, null, []); '.
+                                                        //'alert(\'Committed File(s) Upload Complete\'); '.
+                                                        'varNothing = JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
+                                                        '}'.
+                                                    'catch(varError) {'.
+                                                        'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                                        '}'.
+        //                                            'varNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varUniqueID, 'document.body', false).
+                                                    '}'.
+
+                                               //---> JSFunc_MainData_InitData_...
+                                                'function JSFunc_MainData_InitData_'.$varUniqueID.'(log_FileUpload_Pointer_RefID, rotateLog_FileUploadStagingArea_RefRPK, deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID) {'.
+                                                    'try {'.
+                                                        'if(JSFunc_MainData_GetData_'.$varUniqueID.'() == null) {'.
+                                                            //---> Main Template
+                                                            'varJSONData = \'{\' + '.
+                                                                'String.fromCharCode(34) + \'header\' + String.fromCharCode(34) + \' : {\' + '.
+                                                                    'String.fromCharCode(34) + \'log_FileUpload_Pointer_RefID\' + String.fromCharCode(34) + \' : \' + ((log_FileUpload_Pointer_RefID == \'\') ? null : log_FileUpload_Pointer_RefID) + \', \' + '.
+                                                                    'String.fromCharCode(34) + \'rotateLog_FileUploadStagingArea_RefRPK\' + String.fromCharCode(34) + \' : \' + ((rotateLog_FileUploadStagingArea_RefRPK == \'\') ? null : rotateLog_FileUploadStagingArea_RefRPK) + \', \' + '.
+                                                                    'String.fromCharCode(34) + \'deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID\' + String.fromCharCode(34) + \' : \' + ((deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID == \'\') ? \'[]\' : deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID) + \', \' + '.
+                                                                    'String.fromCharCode(34) + \'signNeedToCommit\' + String.fromCharCode(34) + \' : false\' + \', \' + '.
+                                                                    'String.fromCharCode(34) + \'signNeedToCommit_Archive\' + String.fromCharCode(34) + \' : false\' + '.
+                                                                    '\'}, \' + '.
+                                                                'String.fromCharCode(34) + \'data\' + String.fromCharCode(34) + \' : {\' + '.
+                                                                    'String.fromCharCode(34) + \'masterFileRecord\' + String.fromCharCode(34) + \' : {\' + '.
+                                                                        '\'}\' + '.
+                                                                   '\'}\' + '.
+                                                                '\'}\';'.
+                                                            'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(JSON.parse(varJSONData))); '.
+                                                            //---> Update MasterFileRecord From Database
+                                                            'varDataJSONMasterFileRecord = JSFunc_MainData_GetDataFromDatabase_MasterFileRecord_'.$varUniqueID.'(); '.
+                                                            'JSFunc_MainData_SetData_MasterFileRecord_'.$varUniqueID.'(varDataJSONMasterFileRecord); '.
+                                                            '}'.
+                                                        '}'.
+                                                    'catch(varError) {'.
+                                                        'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                                        '}'.
+                                                    '}'.
+
+                                                //---> JSFunc_MainData_GetData_...
+                                                'function JSFunc_MainData_GetData_'.$varUniqueID.'() {'.
+                                                    'varReturn = null; '.
+                                                    'try {'.
+                                                        'if(document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value != \'\') {'.
+                                                            'varReturn = JSON.parse(document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value); '.
+                                                            '}'.
+                                                        '}'.
+                                                    'catch(varError) {'.
+                                                        'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                                        '}'.
+                                                    'return varReturn; '.
+                                                    '}'.
+
+                                                //---> JSFunc_MainData_SetData_...
+                                                'function JSFunc_MainData_SetData_'.$varUniqueID.'(varDataJSON) {'.
+                                                    'try {'.
+                                                        'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value = varDataJSON;'.
+                                                        '}'.
+                                                    'catch(varError) {'.
+                                                        'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                                        '}'.
+                                                    '}'.
+
+                                                //---> JSFunc_MainData_GetData_FileUploadPointerRefID_...
+                                                'function JSFunc_MainData_GetData_FileUploadPointerRefID_'.$varUniqueID.'() {'.
+                                                    'varReturn = null; '.
+                                                    'try {'.
+                                                        'varData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+                                                        'varReturn = varData.header.log_FileUpload_Pointer_RefID; '.
+                                                        '}'.
+                                                    'catch(varError) {'.
+                                                        'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                                        '}'.
+                                                    'return varReturn; '.
+                                                    '}'.
+
+                                                //---> JSFunc_MainData_SetData_FileUploadPointerRefID_...
+                                                'function JSFunc_MainData_SetData_FileUploadPointerRefID_'.$varUniqueID.'(varDataID) {'.
+                                                    'try {'.
+                                                        'varDataJSON = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+                                                        'varDataJSON.header.log_FileUpload_Pointer_RefID = varDataID; '.
+                                                        'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
+                                                        '}'.
+                                                    'catch(varError) {'.
+                                                        'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                                        '}'.
+                                                    '}'.
+
+                                                //---> JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_
+                                                'function JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'() {'.
+                                                    'varReturn = null; '.
+                                                    'try {'.
+                                                        'varData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+                                                        'varReturn = varData.header.rotateLog_FileUploadStagingArea_RefRPK; '.
+                                                        '}'.
+                                                    'catch(varError) {'.
+                                                        'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                                        '}'.
+                                                    'return varReturn; '.
+                                                    '}'.
+
+                                                //---> JSFunc_MainData_SetData_FileUploadStagingAreaRefRPK_...
+                                                'function JSFunc_MainData_SetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'(varDataRPK) {'.
+                                                    'try {'.
+                                                        'varDataJSON = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+                                                        'varDataJSON.header.rotateLog_FileUploadStagingArea_RefRPK = varDataRPK; '.
+                                                        'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
+                                                        '}'.
+                                                    'catch(varError) {'.
+                                                        'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                                        '}'.
+                                                    '}'.
+
+                                                //---> JSFunc_MainData_GetData_SignNeedToCommit_...
+                                                'function JSFunc_MainData_GetData_SignNeedToCommit_'.$varUniqueID.'() {'.
+                                                    'varReturn = null; '.
+                                                    'try {'.
+                                                        'varData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+                                                        'varReturn = varData.header.signNeedToCommit; '.
+                                                        '}'.
+                                                    'catch(varError) {'.
+                                                        'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                                        '}'.
+                                                    'return varReturn; '.
+                                                    '}'.
+
+                                                //---> JSFunc_MainData_SetData_SignNeedToCommit_...
+                                                'function JSFunc_MainData_SetData_SignNeedToCommit_'.$varUniqueID.'(varStatus) {'.
+                                                    'try {'.
+                                                        'varDataJSON = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+                                                        'varDataJSON.header.signNeedToCommit = varStatus; '.
+                                                        'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
+                                                        '}'.
+                                                    'catch(varError) {'.
+                                                        'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                                        '}'.
+                                                    '}'.
+
+                                                //---> JSFunc_MainData_GetData_DeleteCandidateFileUploadObjectDetailRefArrayID_...
+                                                'function JSFunc_MainData_GetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'() {'.
+                                                    'varReturn = JSON.parse(\'[]\'); '.
+                                                    'try {'.
+                                                        'varData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+                                                        'varReturn = varData.header.deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID; '.
+                                                        'if(varReturn == null) {'.
+                                                            'varReturn = JSON.parse(\'[]\'); '.
+                                                            '}'.
+                                                        '}'.
+                                                    'catch(varError) {'.
+                                                        'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                                        '}'.
+                                                    'return varReturn; '.
+                                                    '}'.
+
+                                                //---> JSFunc_MainData_SetData_DeleteCandidateFileUploadObjectDetailRefArrayID_...
+                                                'function JSFunc_MainData_SetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'(varDataArrayID) {'.
+                                                    'try {'.
+                                                        'varDataJSON = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+                                                        'varDataJSONDeleteCandidate = varDataJSON.header.deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID; '.
+                                                        'if (varDataArrayID === undefined || varDataArrayID.length == 0) {'.
+                                                            'varDataJSONDeleteCandidate = []; '. //JSON.parse(\'[]\'); '.
+                                                            '}'.
+                                                        'else {'.
+                                                            'varDataJSONDeleteCandidate.push(varDataArrayID); '.
+                                                            '}'.
+                                                        'varDataJSON.header.deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID = varDataJSONDeleteCandidate; '.
+                                                        'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
+                                                        '}'.
+                                                    'catch(varError) {'.
+                                                        'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                                        '}'.
+                                                    '}'.
+
+                                                //---> JSFunc_FileDownload_...
+                                                'function JSFunc_FileDownload_'.$varUniqueID.'(varFilePath, varMIME, varFileName) {'.
+                                                    'try {'.
+                                                        'varBase64Data = ('.
+                                                            'JSON.parse('.                           
+                                                                str_replace(
+                                                                    '"', 
+                                                                    '\'', 
+                                                                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                                        $varUserSession, 
+                                                                        $varAPIWebToken, 
+                                                                        'fileHandling.upload.combined.general.getFileContent', 
+                                                                        'latest', 
+                                                                        '{'.
+                                                                            '"parameter" : {'.
+                                                                                '"filePath" : varFilePath'.
+                                                                                '}'.
+                                                                        '}'
+                                                                        )
+                                                                    ).
+                                                                ').data.contentBase64'.
+                                                            '); '.
+                                                        'varObjDownloadLink = document.createElement(\'a\'); '.
+                                                        'varObjDownloadLink.href = \'data:text/plain;base64,\' + varBase64Data; '.
+                                                        'varObjDownloadLink.download = varFileName; '.
+                                                        'varObjDownloadLink.click(); '.
+                                                        'varObjDownloadLink.parentNode.removeChild(varObjDownloadLink); '.
+                                                        '}'.
+                                                    'catch(varError) {'.
+                                                        'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                                        '}'.
+                                                    '}'.
+
+
+                                                //---> JSFunc_FilePreview_...
+                                                'function JSFunc_FilePreview_'.$varUniqueID.'(varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ) {'.
+                                                    'try {'.
+        //                                                'alert(varFilePath);'.
+                                                        'varReturn = ('.
+                                                            'JSON.parse('.                           
+                                                                str_replace(
+                                                                    '"', 
+                                                                    '\'', 
+                                                                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                                        $varUserSession, 
+                                                                        $varAPIWebToken, 
+                                                                        'fileHandling.upload.combined.general.getFileContent', 
+                                                                        'latest', 
+                                                                        '{'.
+                                                                            '"parameter" : {'.
+                                                                                '"filePath" : varFilePath'.
+                                                                                '}'.
+                                                                        '}'
+                                                                        )
+                                                                    ).
+                                                                ').data.contentBase64'.
+                                                            '); '.
+                                                        'varNothing = '.
+                                                            self::getSyntaxCreateDOM_DivCustom_ModalBox_FilePreview(
+                                                                $varUserSession,
+                                                                $varAPIWebToken,
+                                                                'ObjDivModalBox_'.$varUniqueID
+                                                                ).
+                                                            '; '.
+                                                        '}'.
+                                                    'catch(varError) {'.
+                                                        'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                                        '}'.
+                                                    '}'.
+
+                                                //---> JSFunc_MainData_GetData_MasterFileRecord_...
+                                                'function JSFunc_MainData_GetData_MasterFileRecord_'.$varUniqueID.'() {'.
+                                                    'varReturn = null; '.
+                                                    'try {'.
+                                                        'varData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+                                                        'varReturn = varData.data.masterFileRecord; '.
+                                                        '}'.
+                                                    'catch(varError) {'.
+                                                        'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                                        '}'.
+                                                    'return varReturn; '.
+                                                    '}'.
+
+                                                //---> JSFunc_MainData_SetData_MasterFileRecord_...
+                                                'function JSFunc_MainData_SetData_MasterFileRecord_'.$varUniqueID.'(varDataJSONMasterFileRecord) {'.
+                                                    'try {'.
+                                                        'varDataJSON = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+                                                        'varDataJSON.data.masterFileRecord = varDataJSONMasterFileRecord; '.
+                                                        'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
+                                                        '}'.
+                                                    'catch(varError) {'.
+                                                        'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                                        '}'.
+                                                    '}'.
+
+                                                //---> JSFunc_MainData_GetDataFromDatabase_MasterFileRecord_...
+                                                'function JSFunc_MainData_GetDataFromDatabase_MasterFileRecord_'.$varUniqueID.'() {'.
+                                                    'varReturn = null; '.
+                                                    'try {'.
+                                                        'varReturn = ('.
+                                                            'JSON.parse('.
+                                                                str_replace(
+                                                                    '"', 
+                                                                    '\'', 
+                                                                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                                        $varUserSession, 
+                                                                        $varAPIWebToken, 
+                                                                        'fileHandling.upload.combined.general.getMasterFileRecord', 
+                                                                        'latest', 
+                                                                        '{'.
+                                                                            '"parameter" : {'.
+                                                                                '"log_FileUpload_Pointer_RefID" : JSFunc_MainData_GetData_FileUploadPointerRefID_'.$varUniqueID.'(), '.
+                                                                                '"rotateLog_FileUploadStagingArea_RefRPK" : JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'(), '.
+                                                                                '"deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" : JSFunc_MainData_GetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'()'.
+                                                                                '}'.
+                                                                        '}'
+                                                                        )
+                                                                    ).
+                                                                ').data'.
+                                                            ').data; '.
+                                                        '}'.
+                                                    'catch(varError) {'.
+                                                        'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                                        '}'.
+                                                    'return varReturn; '.
+                                                    '}'.
+
+                                                //---> JSFunc_ObjDOMTable_ActionPanel_Show_...
+                                                'function JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'() {'.
+                                                    'try {'.
+                                                        //---> Ambil varDataJSONMasterFileRecord dari database
+                                                        'varDataJSONMasterFileRecord = JSFunc_MainData_GetDataFromDatabase_MasterFileRecord_'.$varUniqueID.'(); '.
+            //                                            'varDataJSONMasterFileRecord = JSFunc_MainData_GetData_MasterFileRecord_'.$varUniqueID.'(); '.
+                                                        //'alert(JSON.stringify(varDataJSONMasterFileRecord)); '.
+
+                                                        //---> Update varDataJSONMasterFileRecord di Main Data
+                                                        'JSFunc_MainData_SetData_MasterFileRecord_'.$varUniqueID.'(varDataJSONMasterFileRecord); '.
+
+                                                        //---> SignNeedToCommit Reinit
+                                                        'JSFunc_MainData_SetData_SignNeedToCommit_'.$varUniqueID.'(false); '.
+                                                        'if((JSFunc_MainData_GetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'() == \'\') == false) { '.
+                                                            'JSFunc_MainData_SetData_SignNeedToCommit_'.$varUniqueID.'(true); '.
+                                                            '}'.
+                                                        'if(JSFunc_MainData_GetData_SignNeedToCommit_'.$varUniqueID.'() == false) {'.
+                                                            'if(varDataJSONMasterFileRecord != null) '.
+                                                                '{'.
+                                                                'for(i=0, iMax = varDataJSONMasterFileRecord.length; i != iMax; i++)'.
+                                                                    '{'.
+                                                                    'if(varDataJSONMasterFileRecord[i][\'signExistOnArchive\'] == false) {'.
+                                                                        'JSFunc_MainData_SetData_SignNeedToCommit_'.$varUniqueID.'(true); '.
+                                                                        '}'.
+                                                                    '}'.
+                                                                '}'.
                                                             '}'.
 
-                                                        'if(varDataJSONMasterFileRecord != null) '.
+                                                        //---> Object Table
+                                                        'if(document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\') != null)'.
                                                             '{'.
-                                                            '; '.
-                                                            'for(i=0, iMax = varDataJSONMasterFileRecord.length; i != iMax; i++)'.
-                                                                '{'.
-                                                                'varFilePath = varDataJSONMasterFileRecord[i][\'filePath\']; '.
-                                                                'if(!varFilePath) {'.
-                                                                    'varTRID = null; '.
-                                                                    '}'.
-                                                                'else {'.
-                                                                    'varFilePath = varFilePath.replace(/[^a-zA-Z0-9]/g, \'_\'); '.
-                                                                    'varTRID = \'Sys_ObjDOMTR_'.$varUniqueID.'_\' + varFilePath; '.
-                                                                    '}'.
+                                                            'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').remove(); '.
+                                                            '}'.
+
+                                                        self::getSyntaxCreateDOM_Table(
+                                                            $varUserSession, 
+                                                            [
+                                                            'ID' => 'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel',
+                                                            'ParentID' => 'document.getElementById(\''.$varDOMActionPanel.'\')',
+                                                            'Style' => $varStyle_TableAction
+                                                            ],
+                                                            (
+                                                            //---> Table Head
+                                                            self::getSyntaxCreateDOM_TableHead(
+                                                                $varUserSession, 
+                                                                [
+                                                                'ID' => 'varObjTHead',
+                                                                'ParentID' => 'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel'
+                                                                ],
+                                                                (
                                                                 self::getSyntaxCreateDOM_TableRow(
                                                                     $varUserSession, 
                                                                     [
@@ -2834,412 +2717,571 @@ namespace App\Helpers\ZhtHelper\General
                                                                         [
                                                                         'ID' => 'varObjTTD',
                                                                         'ParentID' => 'varObjTTR',
-                                                                        'Style' => array_merge(
-                                                                            $varStyle_TableActionPanelBody,
-                                                                            [
-                                                                                ['textAlign', 'center']
-                                                                            ]
-                                                                            ),
+                                                                        'Style' => $varStyle_TableActionPanelHead,
+                                                                        'RowSpan' => 2
                                                                         ],
-                                                                        'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'sequence\'])); '
+                                                                        'varObjTTD.appendChild(document.createTextNode(\'NO\')); '
                                                                         ).
                                                                     self::getSyntaxCreateDOM_TableData(
                                                                         $varUserSession, 
                                                                         [
                                                                         'ID' => 'varObjTTD',
                                                                         'ParentID' => 'varObjTTR',
-                                                                        'Style' => $varStyle_TableActionPanelBody,
+                                                                        'Style' => $varStyle_TableActionPanelHead,
+                                                                        'RowSpan' => 2
                                                                         ],
-                                                                        'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'name\'])); '
+                                                                        'varObjTTD.appendChild(document.createTextNode(\'FILE NAME\')); '
                                                                         ).
                                                                     self::getSyntaxCreateDOM_TableData(
                                                                         $varUserSession, 
                                                                         [
                                                                         'ID' => 'varObjTTD',
                                                                         'ParentID' => 'varObjTTR',
-                                                                        'Style' => array_merge(
-                                                                            $varStyle_TableActionPanelBody,
-                                                                            [
-                                                                                ['textAlign', 'right']
-                                                                            ]
-                                                                            ),
+                                                                        'Style' => $varStyle_TableActionPanelHead,
+                                                                        'RowSpan' => 2
                                                                         ],
-                                                                        'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'size\'])); '
+                                                                        'varObjTTD.appendChild(document.createTextNode(\'SIZE\')); '
                                                                         ).
                                                                     self::getSyntaxCreateDOM_TableData(
                                                                         $varUserSession, 
                                                                         [
                                                                         'ID' => 'varObjTTD',
                                                                         'ParentID' => 'varObjTTR',
-                                                                        'Style' => $varStyle_TableActionPanelBody,
+                                                                        'Style' => $varStyle_TableActionPanelHead,
+                                                                        'RowSpan' => 2
                                                                         ],
-                                                                        'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'uploadDateTimeTZ\'])); '
+                                                                        'varObjTTD.appendChild(document.createTextNode(\'UPLOAD DATE & TIME\')); '
                                                                         ).
                                                                     self::getSyntaxCreateDOM_TableData(
                                                                         $varUserSession, 
                                                                         [
                                                                         'ID' => 'varObjTTD',
                                                                         'ParentID' => 'varObjTTR',
-                                                                        'Style' => array_merge(
-                                                                            $varStyle_TableActionPanelBody,
-                                                                            [
-                                                                                ['textAlign', 'center']
-                                                                            ]
-                                                                            ),
+                                                                        'Style' => $varStyle_TableActionPanelHead,
+                                                                        'ColSpan' => 4
                                                                         ],
-                                                                        (
-                                                                        'var varObjA = document.createElement(\'a\'); '.
-                                                                            'varFilePath = varFilePath.replace(/[^a-zA-Z0-9]/g, \'/\'); '.
-                                                                            'varURLDelete = varDataJSONMasterFileRecord[i][\'URLDelete\']; '.
-                                                                            'if(varDataJSONMasterFileRecord[i][\'sequence\'] != \'\') {'.
-                                                                                'if(varDataJSONMasterFileRecord[i][\'signExistOnArchive\'] == true) {'.
-                                                                                    'varObjA.href = \'javascript:'.
-                                                                                        'JSFunc_MainData_SetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'(\' + varDataJSONMasterFileRecord[i][\'recordReference\'] + \'); '.
-                                                                                        'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
-                                                                                        '\'; '.
-                                                                                    '}'.
-                                                                                'else {'.
-                                                                                    'varObjA.href = \'javascript:'.
-                                                                                        '(function(varURLDelete) {'.
-                                                                                                'JSFunc_GetActionPanel_Reload_'.$varUniqueID.'(varURLDelete); '.
-                                                                                            '})(\\\'\' + varURLDelete + \'\\\');'.
-                                                                                        '\'; '.
-                                                                                    '}'.
-                                                                                'varObjA.innerHTML = \'Delete\'; '.
-                                                                                '}'.
-                                                                        'varObjTTD.appendChild(varObjA); '
+                                                                        'varObjTTD.appendChild(document.createTextNode(\'ACTION\')); '
                                                                         )
+                                                                    )
+                                                                    ).
+                                                                self::getSyntaxCreateDOM_TableRow(
+                                                                    $varUserSession, 
+                                                                    [
+                                                                    'ID' => 'varObjTTR',
+                                                                    'ParentID' => 'varObjTHead'
+                                                                    ], 
+                                                                    (
+                                                                    self::getSyntaxCreateDOM_TableData(
+                                                                        $varUserSession, 
+                                                                        [
+                                                                        'ID' => 'varObjTTD',
+                                                                        'ParentID' => 'varObjTTR',
+                                                                        'Style' => $varStyle_TableActionPanelHead,
+                                                                        ],
+                                                                        'varObjTTD.appendChild(document.createTextNode(\'DELETE\')); '
                                                                         ).
-                                                                    'if(i == 0) '.
+                                                                    self::getSyntaxCreateDOM_TableData(
+                                                                        $varUserSession, 
+                                                                        [
+                                                                        'ID' => 'varObjTTD',
+                                                                        'ParentID' => 'varObjTTR',
+                                                                        'Style' => $varStyle_TableActionPanelHead,
+                                                                        ],
+                                                                        'varObjTTD.appendChild(document.createTextNode(\'SAVE\')); '
+                                                                        ).
+                                                                    self::getSyntaxCreateDOM_TableData(
+                                                                        $varUserSession, 
+                                                                        [
+                                                                        'ID' => 'varObjTTD',
+                                                                        'ParentID' => 'varObjTTR',
+                                                                        'Style' => $varStyle_TableActionPanelHead,
+                                                                        ],
+                                                                        'varObjTTD.appendChild(document.createTextNode(\'PREVIEW\')); '
+                                                                        ).
+                                                                    self::getSyntaxCreateDOM_TableData(
+                                                                        $varUserSession, 
+                                                                        [
+                                                                        'ID' => 'varObjTTD',
+                                                                        'ParentID' => 'varObjTTR',
+                                                                        'Style' => $varStyle_TableActionPanelHead,
+                                                                        ],
+                                                                        'varObjTTD.appendChild(document.createTextNode(\'DOWNLOAD\')); '
+                                                                        )
+                                                                    )
+                                                                    )
+                                                                )
+                                                                ).
+                                                            //---> Table Body
+                                                            self::getSyntaxCreateDOM_TableBody(
+                                                                $varUserSession, 
+                                                                [
+                                                                'ID' => 'varObjTHead',
+                                                                'ParentID' => 'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel'
+                                                                ],
+                                                                (
+
+                                                                'if(varDataJSONMasterFileRecord == null) {'.
+                                                                    'varDataJSONMasterFileRecord = ['.
                                                                         '{'.
-                                                                        self::getSyntaxCreateDOM_TableData(
+                                                                        '\'sequence\' : \'\', '.
+                                                                        '\'signExistOnArchive\' : \'\', '.
+                                                                        '\'recordReference\' : \'\', '.
+                                                                        '\'name\' : \'\', '.
+                                                                        '\'size\' : \'\', '.
+                                                                        '\'MIME\' : \'\', '.
+                                                                        '\'extension\' : \'\', '.
+                                                                        '\'lastModifiedDateTimeTZ\' : \'\', '.
+                                                                        '\'lastModifiedUnixTimestamp\' : \'\', '.
+                                                                        '\'hashMethod_RefID\' : \'\', '.
+                                                                        '\'contentBase64Hash\' : \'\', '.
+                                                                        '\'uploadDateTimeTZ\' : \'\', '.
+                                                                        '\'filePath\' : \'\', '.
+                                                                        '\'URLDelete\' : \'\' '.
+                                                                        '}'.
+                                                                        '];'.
+                                                                    '}'.
+
+                                                                'if(varDataJSONMasterFileRecord != null) '.
+                                                                    '{'.
+                                                                    '; '.
+                                                                    'for(i=0, iMax = varDataJSONMasterFileRecord.length; i != iMax; i++)'.
+                                                                        '{'.
+                                                                        'varFilePath = varDataJSONMasterFileRecord[i][\'filePath\']; '.
+                                                                        'if(!varFilePath) {'.
+                                                                            'varTRID = null; '.
+                                                                            '}'.
+                                                                        'else {'.
+                                                                            'varFilePath = varFilePath.replace(/[^a-zA-Z0-9]/g, \'_\'); '.
+                                                                            'varTRID = \'Sys_ObjDOMTR_'.$varUniqueID.'_\' + varFilePath; '.
+                                                                            '}'.
+                                                                        self::getSyntaxCreateDOM_TableRow(
                                                                             $varUserSession, 
                                                                             [
-                                                                            'ID' => 'varObjTTD',
-                                                                            'ParentID' => 'varObjTTR',
-                                                                            'RowSpan' => 'iMax',
-                                                                            'Style' => array_merge(
-                                                                                $varStyle_TableActionPanelBody,
-                                                                                [
-                                                                                    ['textAlign', 'center']
-                                                                                ]
-                                                                                ),
-                                                                            ],
+                                                                            'ID' => 'varObjTTR',
+                                                                            'ParentID' => 'varObjTHead'
+                                                                            ], 
                                                                             (
-                                                                            'if (JSFunc_MainData_GetData_SignNeedToCommit_'.$varUniqueID.'() == true) {'.
+                                                                            self::getSyntaxCreateDOM_TableData(
+                                                                                $varUserSession, 
+                                                                                [
+                                                                                'ID' => 'varObjTTD',
+                                                                                'ParentID' => 'varObjTTR',
+                                                                                'Style' => array_merge(
+                                                                                    $varStyle_TableActionPanelBody,
+                                                                                    [
+                                                                                        ['textAlign', 'center']
+                                                                                    ]
+                                                                                    ),
+                                                                                ],
+                                                                                'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'sequence\'])); '
+                                                                                ).
+                                                                            self::getSyntaxCreateDOM_TableData(
+                                                                                $varUserSession, 
+                                                                                [
+                                                                                'ID' => 'varObjTTD',
+                                                                                'ParentID' => 'varObjTTR',
+                                                                                'Style' => $varStyle_TableActionPanelBody,
+                                                                                ],
+                                                                                'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'name\'])); '
+                                                                                ).
+                                                                            self::getSyntaxCreateDOM_TableData(
+                                                                                $varUserSession, 
+                                                                                [
+                                                                                'ID' => 'varObjTTD',
+                                                                                'ParentID' => 'varObjTTR',
+                                                                                'Style' => array_merge(
+                                                                                    $varStyle_TableActionPanelBody,
+                                                                                    [
+                                                                                        ['textAlign', 'right']
+                                                                                    ]
+                                                                                    ),
+                                                                                ],
+                                                                                'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'size\'])); '
+                                                                                ).
+                                                                            self::getSyntaxCreateDOM_TableData(
+                                                                                $varUserSession, 
+                                                                                [
+                                                                                'ID' => 'varObjTTD',
+                                                                                'ParentID' => 'varObjTTR',
+                                                                                'Style' => $varStyle_TableActionPanelBody,
+                                                                                ],
+                                                                                'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'uploadDateTimeTZ\'])); '
+                                                                                ).
+                                                                            self::getSyntaxCreateDOM_TableData(
+                                                                                $varUserSession, 
+                                                                                [
+                                                                                'ID' => 'varObjTTD',
+                                                                                'ParentID' => 'varObjTTR',
+                                                                                'Style' => array_merge(
+                                                                                    $varStyle_TableActionPanelBody,
+                                                                                    [
+                                                                                        ['textAlign', 'center']
+                                                                                    ]
+                                                                                    ),
+                                                                                ],
+                                                                                (
                                                                                 'var varObjA = document.createElement(\'a\'); '.
-                                                                                    'varObjA.href = \'javascript:'.
-                                                                                        '(function() {'.
-                                                                                            self::setEscapeForEscapeSequenceOnSyntaxLiteral(
-                                                                                                $varUserSession,
-                                                                                                (
-                                                                                                'varNothing = '.
-                                                                                                self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varUniqueID, 'document.body', true)
-                                                                                                )
-                                                                                                ).
-                                                                                            'setTimeout('.
+                                                                                    'varFilePath = varFilePath.replace(/[^a-zA-Z0-9]/g, \'/\'); '.
+                                                                                    'varURLDelete = varDataJSONMasterFileRecord[i][\'URLDelete\']; '.
+                                                                                    'if(varDataJSONMasterFileRecord[i][\'sequence\'] != \'\') {'.
+                                                                                        'if(varDataJSONMasterFileRecord[i][\'signExistOnArchive\'] == true) {'.
+                                                                                            'varObjA.href = \'javascript:'.
+                                                                                                'JSFunc_MainData_SetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'(\' + varDataJSONMasterFileRecord[i][\'recordReference\'] + \'); '.
+                                                                                                'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
+                                                                                                '\'; '.
+                                                                                            '}'.
+                                                                                        'else {'.
+                                                                                            'varObjA.href = \'javascript:'.
+                                                                                                '(function(varURLDelete) {'.
+                                                                                                        'JSFunc_GetActionPanel_Reload_'.$varUniqueID.'(varURLDelete); '.
+                                                                                                    '})(\\\'\' + varURLDelete + \'\\\');'.
+                                                                                                '\'; '.
+                                                                                            '}'.
+                                                                                        'varObjA.innerHTML = \'Delete\'; '.
+                                                                                        '}'.
+                                                                                'varObjTTD.appendChild(varObjA); '
+                                                                                )
+                                                                                ).
+                                                                            'if(i == 0) '.
+                                                                                '{'.
+                                                                                self::getSyntaxCreateDOM_TableData(
+                                                                                    $varUserSession, 
+                                                                                    [
+                                                                                    'ID' => 'varObjTTD',
+                                                                                    'ParentID' => 'varObjTTR',
+                                                                                    'RowSpan' => 'iMax',
+                                                                                    'Style' => array_merge(
+                                                                                        $varStyle_TableActionPanelBody,
+                                                                                        [
+                                                                                            ['textAlign', 'center']
+                                                                                        ]
+                                                                                        ),
+                                                                                    ],
+                                                                                    (
+                                                                                    'if (JSFunc_MainData_GetData_SignNeedToCommit_'.$varUniqueID.'() == true) {'.
+                                                                                        'var varObjA = document.createElement(\'a\'); '.
+                                                                                            'varObjA.href = \'javascript:'.
                                                                                                 '(function() {'.
-                                                                                                    'JSFunc_GetActionPanel_Commit_'.$varUniqueID.'(); '.
                                                                                                     self::setEscapeForEscapeSequenceOnSyntaxLiteral(
                                                                                                         $varUserSession,
                                                                                                         (
                                                                                                         'varNothing = '.
-                                                                                                        self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varUniqueID, 'document.body', false)
+                                                                                                        self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varUniqueID, 'document.body', true)
                                                                                                         )
                                                                                                         ).
-                                                                                                    'JSFunc_MainData_SetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'([]); '.
-                                                                                                    'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
-                                                                                                    '}'.
-                                                                                                '), 50);'.
-                                                                                            '})();'.
-                                                                                        '\'; '.
-                                                                                    'varObjA.innerHTML = \'Commit\'; '.
-                                                                                'varObjTTD.appendChild(varObjA); '.
-                                                                                '}'
+                                                                                                    'setTimeout('.
+                                                                                                        '(function() {'.
+                                                                                                            'JSFunc_GetActionPanel_Commit_'.$varUniqueID.'(); '.
+                                                                                                            self::setEscapeForEscapeSequenceOnSyntaxLiteral(
+                                                                                                                $varUserSession,
+                                                                                                                (
+                                                                                                                'varNothing = '.
+                                                                                                                self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varUniqueID, 'document.body', false)
+                                                                                                                )
+                                                                                                                ).
+                                                                                                            'JSFunc_MainData_SetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'([]); '.
+                                                                                                            'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
+                                                                                                            '}'.
+                                                                                                        '), 50);'.
+                                                                                                    '})();'.
+                                                                                                '\'; '.
+                                                                                            'varObjA.innerHTML = \'Commit\'; '.
+                                                                                        'varObjTTD.appendChild(varObjA); '.
+                                                                                        '}'
+                                                                                    )
+                                                                                    ).
+                                                                                '}'.
+                                                                            self::getSyntaxCreateDOM_TableData(
+                                                                                $varUserSession, 
+                                                                                [
+                                                                                'ID' => 'varObjTTD',
+                                                                                'ParentID' => 'varObjTTR',
+                                                                                'Style' => array_merge(
+                                                                                    $varStyle_TableActionPanelBody,
+                                                                                    [
+                                                                                        ['textAlign', 'center']
+                                                                                    ]
+                                                                                    ),
+                                                                                ],
+                                                                                (
+                                                                                'if (varDataJSONMasterFileRecord[i][\'filePath\'] != \'\') {'.
+                                                                                    'var varFileName = varDataJSONMasterFileRecord[i][\'name\']; '.
+                                                                                    'var varObjA = document.createElement(\'a\'); '.
+                                                                                        'varObjA.href = \'javascript:'.
+                                                                                            '(function(varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ) {'.
+                                                                                                'JSFunc_FilePreview_'.$varUniqueID.'(varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ); '.
+                                                                                                '}) ('.
+                                                                                                    '\\\'\' + varDataJSONMasterFileRecord[i][\'filePath\'] + \'\\\','.
+                                                                                                    ' \\\'\' + varFileName.replace(/\'/g, \'\\\\\\\'\') + \'\\\', '.
+                                                                                                    ' \\\'\' + varDataJSONMasterFileRecord[i][\'size\'] + \'\\\', '.
+                                                                                                    ' \\\'\' + varDataJSONMasterFileRecord[i][\'MIME\'] + \'\\\', '.
+                                                                                                    ' \\\'\' + varDataJSONMasterFileRecord[i][\'uploadDateTimeTZ\'] + \'\\\''.
+                                                                                                    ');'.
+                                                                                            '\'; '.
+                                                                                        'varObjA.innerHTML = \'Preview\'; '.
+                                                                                    'varObjTTD.appendChild(varObjA); '.
+                                                                                    '}'
+                                                                                )
+                                                                                ).
+                                                                            self::getSyntaxCreateDOM_TableData(
+                                                                                $varUserSession, 
+                                                                                [
+                                                                                'ID' => 'varObjTTD',
+                                                                                'ParentID' => 'varObjTTR',
+                                                                                'Style' => array_merge(
+                                                                                    $varStyle_TableActionPanelBody,
+                                                                                    [
+                                                                                        ['textAlign', 'center']
+                                                                                    ]
+                                                                                    ),
+                                                                                ],
+                                                                                (
+                                                                                'if (varDataJSONMasterFileRecord[i][\'filePath\'] != \'\') {'.
+                                                                                    'var varObjA = document.createElement(\'a\'); '.
+                                                                                        'varFileName = varDataJSONMasterFileRecord[i][\'name\'];'.
+                                                                                        'varObjA.href = \'javascript:'.
+                                                                                            '(function(varFilePath, varMIME, varFileName) {'.
+                                                                                                    'JSFunc_FileDownload_'.$varUniqueID.'(varFilePath, varMIME, varFileName); '.
+                                                                                                '})(\\\'\' + varDataJSONMasterFileRecord[i][\'filePath\'] + \'\\\', \\\'\' + varDataJSONMasterFileRecord[i][\'MIME\'] + \'\\\', \\\'\' + varFileName.replace(/\'/g, \'\\\\\\\'\') + \'\\\');'.
+                                                                                            '\'; '.
+                                                                                        'varObjA.innerHTML = \'Download\'; '.
+                                                                                    'varObjTTD.appendChild(varObjA); '.
+                                                                                    '}'
+                                                                                )
+                                                                                ).
+                                                                            ''
                                                                             )
                                                                             ).
                                                                         '}'.
-                                                                    self::getSyntaxCreateDOM_TableData(
-                                                                        $varUserSession, 
-                                                                        [
-                                                                        'ID' => 'varObjTTD',
-                                                                        'ParentID' => 'varObjTTR',
-                                                                        'Style' => array_merge(
-                                                                            $varStyle_TableActionPanelBody,
-                                                                            [
-                                                                                ['textAlign', 'center']
-                                                                            ]
-                                                                            ),
-                                                                        ],
-                                                                        (
-                                                                        'if (varDataJSONMasterFileRecord[i][\'filePath\'] != \'\') {'.
-                                                                            'var varFileName = varDataJSONMasterFileRecord[i][\'name\']; '.
-                                                                            'var varObjA = document.createElement(\'a\'); '.
-                                                                                'varObjA.href = \'javascript:'.
-                                                                                    '(function(varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ) {'.
-                                                                                        'JSFunc_FilePreview_'.$varUniqueID.'(varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ); '.
-                                                                                        '}) ('.
-                                                                                            '\\\'\' + varDataJSONMasterFileRecord[i][\'filePath\'] + \'\\\','.
-                                                                                            ' \\\'\' + varFileName.replace(/\'/g, \'\\\\\\\'\') + \'\\\', '.
-                                                                                            ' \\\'\' + varDataJSONMasterFileRecord[i][\'size\'] + \'\\\', '.
-                                                                                            ' \\\'\' + varDataJSONMasterFileRecord[i][\'MIME\'] + \'\\\', '.
-                                                                                            ' \\\'\' + varDataJSONMasterFileRecord[i][\'uploadDateTimeTZ\'] + \'\\\''.
-                                                                                            ');'.
-                                                                                    '\'; '.
-                                                                                'varObjA.innerHTML = \'Preview\'; '.
-                                                                            'varObjTTD.appendChild(varObjA); '.
-                                                                            '}'
-                                                                        )
-                                                                        ).
-                                                                    self::getSyntaxCreateDOM_TableData(
-                                                                        $varUserSession, 
-                                                                        [
-                                                                        'ID' => 'varObjTTD',
-                                                                        'ParentID' => 'varObjTTR',
-                                                                        'Style' => array_merge(
-                                                                            $varStyle_TableActionPanelBody,
-                                                                            [
-                                                                                ['textAlign', 'center']
-                                                                            ]
-                                                                            ),
-                                                                        ],
-                                                                        (
-                                                                        'if (varDataJSONMasterFileRecord[i][\'filePath\'] != \'\') {'.
-                                                                            'var varObjA = document.createElement(\'a\'); '.
-                                                                                'varFileName = varDataJSONMasterFileRecord[i][\'name\'];'.
-                                                                                'varObjA.href = \'javascript:'.
-                                                                                    '(function(varFilePath, varMIME, varFileName) {'.
-                                                                                            'JSFunc_FileDownload_'.$varUniqueID.'(varFilePath, varMIME, varFileName); '.
-                                                                                        '})(\\\'\' + varDataJSONMasterFileRecord[i][\'filePath\'] + \'\\\', \\\'\' + varDataJSONMasterFileRecord[i][\'MIME\'] + \'\\\', \\\'\' + varFileName.replace(/\'/g, \'\\\\\\\'\') + \'\\\');'.
-                                                                                    '\'; '.
-                                                                                'varObjA.innerHTML = \'Download\'; '.
-                                                                            'varObjTTD.appendChild(varObjA); '.
-                                                                            '}'
-                                                                        )
-                                                                        ).
-                                                                    ''
-                                                                    )
-                                                                    ).
-                                                                '}'.
-                                                            '}'
-                                                        )
-                                                        )
-                                                    )
-                                                    ).
-                                                '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
-                                                '}'.
-                                            '}; '.
-
-                                        'JSFunc_MainData_InitData_'.$varUniqueID.'(document.getElementById(\''.$varDOMReturnID.'\').value, null, []); '.
-                                        'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
-                                        ''
-                                        )
-                                        )
-                                    ).
-                                'ObjHead.appendChild(ObjScript); '.
-                                '} '.
-                                //---> Main Action (End)
-                            //---> Main Function ( Start )
-                            '(function(varObj, varReturnDOMObject) {'.
-                                //'alert(\'Masuk\'); '.
-                                'varNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varUniqueID, 'document.body', true).
-                                'if ((typeof varObj != \'undefined\') && (typeof varReturnDOMObject != \'undefined\')) {'.
-                                    'var varObjFileList = varObj.files; '.
-                                    'if(varObjFileList.length > 0)'.
-                                        '{'.
-                                        'try {'.
-                                            //---> Nonaktifkan Element
-                                            'varObj.disabled = true; '.
-                                            'varReturnDOMObject.disabled = true; '.
-                                            'JSFunc_LockObject_'.$varUniqueID.'(); '.
-                            
-                                            'var varReturn = \'\'; '.
-                                            'var varStagingTag = \''. \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'TAG_DATA_SEPARATOR_FILE_STAGING_AREA').$varAction.'::\'; '.
-
-                                            'var varAccumulatedFiles = 0; '.
-                                            'var varJSONDataBuilder = \'\'; '.
-
-                                            //---> Inner Function : Mengurutkan Ulang Sequence dan Mencari Last Sequence
-                                            'function innerFuncGetLastSequence(varRotateLog_FileUploadStagingArea_RefRPK)'.
-                                                '{'.
-                                                'varReturn = (JSON.parse('.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                                                    $varUserSession, 
-                                                    $varAPIWebToken, 
-                                                    'fileHandling.upload.stagingArea.general.resetSequence', 
-                                                    'latest', 
-                                                    '{'.
-                                                        '"parameter" : {'.
-                                                            '"rotateLog_FileUploadStagingArea_RefRPK" : varRotateLog_FileUploadStagingArea_RefRPK'.
-                                                            '}'.
-                                                    '}'
-                                                    )).').data.lastSequence); '.
-                                                'return varReturn;'.
-                                                '}'.
-
-                                            //---> Inner Function : Mendapatkan New ID untuk RotateLog_FileUploadStagingArea_RefRPK
-                                            'function innerFuncGetNewID()'.
-                                                '{'.
-                                                'varReturn = parseInt(JSON.parse('.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                                                    $varUserSession, 
-                                                    $varAPIWebToken, 
-                                                    'fileHandling.upload.stagingArea.general.getNewID', 
-                                                    'latest', 
-                                                    '{'.
-                                                        '"applicationKey" : "'.$varAPIWebToken.'"'.
-                                                    '}'
-                                                    )).').data.recordRPK); '.
-                                                'return varReturn;'.
-                                                '}'.
-
-                                            //---> Mendapatkan RotateLog_FileUploadStagingArea_RefRPK
-                                            'if(JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'() == null) {'.
-                                                'JSFunc_MainData_SetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'('.
-                                                    'innerFuncGetNewID()'.
-                                                    '); '.
-                                                '}'.
-
-                                            'JSFunc_MainData_InitData_'.$varUniqueID.'('.
-                                                'varReturnDOMObject.value, '.
-                                                'JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'(), '.
-                                                'JSFunc_MainData_GetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'()'.
-                                                '); '.
-                            
-                                            'var'.$varUniqueID.'_ObjJSONMasterFileRecord = JSFunc_MainData_GetData_MasterFileRecord_'.$varUniqueID.'(); '.
-                                            'varPreviousListFileCount = ((var'.$varUniqueID.'_ObjJSONMasterFileRecord == undefined) ? 0 : Object.keys(var'.$varUniqueID.'_ObjJSONMasterFileRecord).length); '.
-                                            //'alert(varPreviousListFileCount); '.
-                            
-                                            //---> Mendapatkan Last sequence
-                                            'varLastSequence = innerFuncGetLastSequence(JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'());'.
-                                            //'alert(varLastSequence); '.
-
-                                            'var var'.$varUniqueID.'_ObjJSONMasterFileRecord = JSFunc_MainData_GetData_MasterFileRecord_'.$varUniqueID.'(); '.
-                                            'for(var i = 0; i < varObjFileList.length; i++) '.
-                                                '{'.
-                                                '(function(varObjCurrentFile, i) {'.
-                                                    'var varObjFileReader = new FileReader(); '.
-                                                    'varObjFileReader.onloadend = function(event) {'.
-                                                        'varAccumulatedFiles++; '.
-                                                        'if(varAccumulatedFiles != 1) {'.
-                                                            'varJSONDataBuilder = varJSONDataBuilder + \', \'; '.
-                                                            '}'.
-                                                        //'alert(JSON.stringify(varObjCurrentFile.size));'.
-                                                        'var varJSONDataBuilderNew = \'{\' + '.
-                                                            'String.fromCharCode(34) + \'log_FileUpload_Pointer_RefID\' + String.fromCharCode(34) + \' : \' + (varReturnDOMObject.getAttribute(\'value\') == \'\' ? \'null\' : parseInt(varReturnDOMObject.getAttribute(\'value\'))) + \', \' + '.
-                                                            'String.fromCharCode(34) + \'rotateLog_FileUploadStagingArea_RefRPK\' + String.fromCharCode(34) + \' : \' + (JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'()) + \', \' + '.
-                                                            'String.fromCharCode(34) + \'sequence\' + String.fromCharCode(34) + \' : \' + (i+1+varLastSequence) + \', \' + '.
-                                                            'String.fromCharCode(34) + \'name\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name) + String.fromCharCode(34) + \', \' + '.
-                                                            'String.fromCharCode(34) + \'size\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.size) + \', \' + '.
-                                                            'String.fromCharCode(34) + \'MIME\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + ((event.target.result.split(\',\')[0]).match(/[^:\s*]\w+\/[\w-+\d.]+(?=[;| ])/)[0]) + String.fromCharCode(34) + \', \' + '.
-                                                            'String.fromCharCode(34) + \'extension\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name.split(\'.\').pop().toLowerCase()) + String.fromCharCode(34) + \', \' + '.
-                                                            'String.fromCharCode(34) + \'lastModifiedDateTimeTZ\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.lastModifiedDate) + String.fromCharCode(34) + \', \' + '.
-                                                            'String.fromCharCode(34) + \'lastModifiedUnixTimestamp\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.lastModified) + \', \' + '.
-                                                            'String.fromCharCode(34) + \'contentBase64\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (event.target.result.substr(event.target.result.indexOf(\',\') + 1)) + String.fromCharCode(34) + \'\' + '.
-                                                            '\'}\'; '.
-                                                        //'alert(varJSONDataBuilderNew); '.
-                                                        'var var'.$varUniqueID.'_ObjDOMInputTemp = document.createElement(\'INPUT\'); '.
-                                                        'var'.$varUniqueID.'_ObjDOMInputTemp.setAttribute(\'type\', \'text\'); '.
-                                                        'var'.$varUniqueID.'_ObjDOMInputTemp.setAttribute(\'value\', varJSONDataBuilderNew);'.
-                                                        'varJSONDataBuilder = varJSONDataBuilder + varJSONDataBuilderNew; '.
-
-                                                        'var varNothing = '.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                                                            $varUserSession, 
-                                                            $varAPIWebToken, 
-                                                            'fileHandling.upload.stagingArea.localStorage.setFileThenCopyToCloudStorage', 
-                                                            'latest', 
-                                                            '{'.
-                                                                '"parameter" : JSON.parse(var'.$varUniqueID.'_ObjDOMInputTemp.getAttribute(\'value\'))'.
-                                                            '}'
-                                                            )).';'.
-                                                        //'alert(varNothing); '.
-                            
-                                                        //---> Jika semua file sudah terupload pada Staging Area
-                                                        'if(varAccumulatedFiles == varObjFileList.length) '.
-                                                            '{'.
-                                                            'var varNothing = '.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                                                                $varUserSession, 
-                                                                $varAPIWebToken, 
-                                                                'fileHandling.upload.stagingArea.localStorage.deleteDirectory', 
-                                                                'latest', 
-                                                                '{'.
-                                                                    '"parameter" : {'.
-                                                                        '"rotateLog_FileUploadStagingArea_RefRPK" : + JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'()'.
-                                                                        '}'.
-                                                                '}'
-                                                                )).';'.
-                                                            //'alert(varNothing); '.
-                            
-                                                            'var'.$varUniqueID.'_ObjJSONMasterFileRecord = JSFunc_MainData_GetDataFromDatabase_MasterFileRecord_'.$varUniqueID.'();'.
-
-                                                            'if((parseInt(varPreviousListFileCount) + parseInt(varObjFileList.length)) == (parseInt(Object.keys(var'.$varUniqueID.'_ObjJSONMasterFileRecord).length)))'.
-                                                                '{'.
-                                                                'alert(\'All new file(s) uploaded successfully\'); '.
-                                                                '}'.
-                                                            'else'.
-                                                                '{'.
-                                                                'varFailedUploadFiles = (parseInt(varPreviousListFileCount) + parseInt(varObjFileList.length)) - (parseInt(Object.keys(var'.$varUniqueID.'_ObjJSONMasterFileRecord).length)); '.
-                                                                'alert(varFailedUploadFiles + \' new file(s) failed to upload\'); '.
-                                                                '}'.
-                            
-                            //                                'if(varFailedUploadFiles == parseInt(varObjFileList.length)) {'.
-                            //                                    '}'.
-                            
-                                                            //'alert(\'Previous List File Count : \'+ varPreviousListFileCount + \', TryUploadList : \' + varObjFileList.length + \', MFR : \' + Object.keys(var'.$varUniqueID.'_ObjJSONMasterFileRecord).length); '.
-
-                            
-                                                            'varReturn = JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'(); '.
-
-                                                            'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
-
-                                                            //---> Aktifasi kembali Element
-                                                            'varObj.disabled = false; '.
-                                                            'varReturnDOMObject.disabled = false; '.
-                                                            'JSFunc_UnlockObject_'.$varUniqueID.'(); '.
-                                                            'varNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varUniqueID, 'document.body', false).
-                                                            '}'.
-                                                        '}; '.
-                                                    'varObjFileReader.readAsDataURL(varObjCurrentFile); '.
-                                                    '}) (varObjFileList[i], i); '.
-                                                '} '.
-                                            'setTimeout('.
-                                                '(function() {'.
-                                                    'try {'.
-                                                        'if(varReturn!=\'\') {'.
-                                                            'if(varReturn == \'[object Object]\') {'.
-                                                                'varObj.value=null; '.
-                                                                'varReturnDOMObject.value = (varReturnDOMObject.value.split(varStagingTag))[0]; '.
-                                                                'alert(\'An internal error has occurred. Please to select file(s) again\'); '.
-                                                                '}'.
-                                                            'else {'.
-                                                                //'varReturnDOMObject.value = (varReturnDOMObject.value.split(varStagingTag))[0] + varStagingTag + varReturn; '.
-                                                                'varReturnDOMObject.value = varReturnDOMObject.value; '.
-                                                                '}'.
-                                                            //'varReturnDOMObject.value = varReturn; '.
-                                                            'return varReturn;'.
-                                                            '}'.
-                                                        'else {'.
-                                                            //'varReturnDOMObject.value = \'\'; '.
-                                                            '}'.
+                                                                    '}'
+                                                                )
+                                                                )
+                                                            )
+                                                            ).
                                                         '}'.
                                                     'catch(varError) {'.
-                                                        'alert(\'ERP Reborn Error Notification\n\nInvalid Object\n(\' + varError + \')\'); '.
+                                                        'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
                                                         '}'.
-                                                    '}'.
-                                                '), 1);'.
-                                            '}'.
-                                        'catch(varError) {'.
-                                            'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
-                                            '}'.
-                                        '}'.
-                                    '}'.
-                                'else {'.
-                                    'alert(\'ERP Reborn Error Notification\n\nInvalid DOM Objects\'); '.
-                                    '}'.
-                                '}) (this, document.getElementById(\''.$varDOMReturnID.'\'))'.
+                                                    '}; '.
 
-                            //---> Main Function ( End )
-                            //'alert(\'ocrehhhhh\'); '.
+                                                'JSFunc_MainData_InitData_'.$varUniqueID.'(document.getElementById(\''.$varDOMReturnID.'\').value, null, []); '.
+                                                'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
+                                                ''
+                                                )
+                                            )
+                                        ).
+                                    'ObjHead.appendChild(ObjScript); '.
+                                    //---> Main Action (End)
+
+
+                                    //---> Main Function ( Start )
+                                    '(function(varObj, varReturnDOMObject) {'.
+                                        //'alert(\'Masuk\'); '.
+                                        'varNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varUniqueID, 'document.body', true).
+                                        'if ((typeof varObj != \'undefined\') && (typeof varReturnDOMObject != \'undefined\')) {'.
+                                            'var varObjFileList = varObj.files; '.
+                                            'if(varObjFileList.length > 0)'.
+                                                '{'.    
+                                                'try {'.
+                                                    //---> Nonaktifkan Element
+                                                    'varObj.disabled = true; '.
+                                                    'varReturnDOMObject.disabled = true; '.
+                                                    'JSFunc_LockObject_'.$varUniqueID.'(); '.
+
+                                                    'var varReturn = \'\'; '.
+                                                    'var varStagingTag = \''. \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'TAG_DATA_SEPARATOR_FILE_STAGING_AREA').$varAction.'::\'; '.
+
+                                                    'var varAccumulatedFiles = 0; '.
+                                                    'var varJSONDataBuilder = \'\'; '.
+
+                                                    //---> Inner Function : Mengurutkan Ulang Sequence dan Mencari Last Sequence
+                                                    'function innerFuncGetLastSequence(varRotateLog_FileUploadStagingArea_RefRPK)'.
+                                                        '{'.
+                                                        'varReturn = (JSON.parse('.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                            $varUserSession, 
+                                                            $varAPIWebToken, 
+                                                            'fileHandling.upload.stagingArea.general.resetSequence', 
+                                                            'latest', 
+                                                            '{'.
+                                                                '"parameter" : {'.
+                                                                    '"rotateLog_FileUploadStagingArea_RefRPK" : varRotateLog_FileUploadStagingArea_RefRPK'.
+                                                                    '}'.
+                                                            '}'
+                                                            )).').data.lastSequence); '.
+                                                        'return varReturn;'.
+                                                        '}'.
+
+                                                    //---> Inner Function : Mendapatkan New ID untuk RotateLog_FileUploadStagingArea_RefRPK
+                                                    'function innerFuncGetNewID()'.
+                                                        '{'.
+                                                        'varReturn = parseInt(JSON.parse('.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                            $varUserSession, 
+                                                            $varAPIWebToken, 
+                                                            'fileHandling.upload.stagingArea.general.getNewID', 
+                                                            'latest', 
+                                                            '{'.
+                                                                '"applicationKey" : "'.$varAPIWebToken.'"'.
+                                                            '}'
+                                                            )).').data.recordRPK); '.
+                                                        'return varReturn;'.
+                                                        '}'.
+
+                                                    //---> Mendapatkan RotateLog_FileUploadStagingArea_RefRPK
+                                                    'if(JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'() == null) {'.
+                                                        'JSFunc_MainData_SetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'('.
+                                                            'innerFuncGetNewID()'.
+                                                            '); '.
+                                                        '}'.
+
+                                                    'JSFunc_MainData_InitData_'.$varUniqueID.'('.
+                                                        'varReturnDOMObject.value, '.
+                                                        'JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'(), '.
+                                                        'JSFunc_MainData_GetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'()'.
+                                                        '); '.
+
+                                                    'var'.$varUniqueID.'_ObjJSONMasterFileRecord = JSFunc_MainData_GetData_MasterFileRecord_'.$varUniqueID.'(); '.
+                                                    'varPreviousListFileCount = ((var'.$varUniqueID.'_ObjJSONMasterFileRecord == undefined) ? 0 : Object.keys(var'.$varUniqueID.'_ObjJSONMasterFileRecord).length); '.
+                                                    //'alert(varPreviousListFileCount); '.
+
+                                                    //---> Mendapatkan Last sequence
+                                                    'varLastSequence = innerFuncGetLastSequence(JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'());'.
+                                                    //'alert(varLastSequence); '.
+
+                                                    'var var'.$varUniqueID.'_ObjJSONMasterFileRecord = JSFunc_MainData_GetData_MasterFileRecord_'.$varUniqueID.'(); '.
+                                                    'for(var i = 0; i < varObjFileList.length; i++) '.
+                                                        '{'.
+                                                        '(function(varObjCurrentFile, i) {'.
+                                                            'var varObjFileReader = new FileReader(); '.
+                                                            'varObjFileReader.onloadend = function(event) {'.
+                                                                'varAccumulatedFiles++; '.
+                                                                'if(varAccumulatedFiles != 1) {'.
+                                                                    'varJSONDataBuilder = varJSONDataBuilder + \', \'; '.
+                                                                    '}'.
+                                                                //'alert(JSON.stringify(varObjCurrentFile.size));'.
+                                                                'var varJSONDataBuilderNew = \'{\' + '.
+                                                                    'String.fromCharCode(34) + \'log_FileUpload_Pointer_RefID\' + String.fromCharCode(34) + \' : \' + (varReturnDOMObject.getAttribute(\'value\') == \'\' ? \'null\' : parseInt(varReturnDOMObject.getAttribute(\'value\'))) + \', \' + '.
+                                                                    'String.fromCharCode(34) + \'rotateLog_FileUploadStagingArea_RefRPK\' + String.fromCharCode(34) + \' : \' + (JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'()) + \', \' + '.
+                                                                    'String.fromCharCode(34) + \'sequence\' + String.fromCharCode(34) + \' : \' + (i+1+varLastSequence) + \', \' + '.
+                                                                    'String.fromCharCode(34) + \'name\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name) + String.fromCharCode(34) + \', \' + '.
+                                                                    'String.fromCharCode(34) + \'size\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.size) + \', \' + '.
+                                                                    'String.fromCharCode(34) + \'MIME\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + ((event.target.result.split(\',\')[0]).match(/[^:\s*]\w+\/[\w-+\d.]+(?=[;| ])/)[0]) + String.fromCharCode(34) + \', \' + '.
+                                                                    'String.fromCharCode(34) + \'extension\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name.split(\'.\').pop().toLowerCase()) + String.fromCharCode(34) + \', \' + '.
+                                                                    'String.fromCharCode(34) + \'lastModifiedDateTimeTZ\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.lastModifiedDate) + String.fromCharCode(34) + \', \' + '.
+                                                                    'String.fromCharCode(34) + \'lastModifiedUnixTimestamp\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.lastModified) + \', \' + '.
+                                                                    'String.fromCharCode(34) + \'contentBase64\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (event.target.result.substr(event.target.result.indexOf(\',\') + 1)) + String.fromCharCode(34) + \'\' + '.
+                                                                    '\'}\'; '.
+                                                                //'alert(varJSONDataBuilderNew); '.
+                                                                'var var'.$varUniqueID.'_ObjDOMInputTemp = document.createElement(\'INPUT\'); '.
+                                                                'var'.$varUniqueID.'_ObjDOMInputTemp.setAttribute(\'type\', \'text\'); '.
+                                                                'var'.$varUniqueID.'_ObjDOMInputTemp.setAttribute(\'value\', varJSONDataBuilderNew);'.
+                                                                'varJSONDataBuilder = varJSONDataBuilder + varJSONDataBuilderNew; '.
+
+                                                                'var varNothing = '.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                                    $varUserSession, 
+                                                                    $varAPIWebToken, 
+                                                                    'fileHandling.upload.stagingArea.localStorage.setFileThenCopyToCloudStorage', 
+                                                                    'latest', 
+                                                                    '{'.
+                                                                        '"parameter" : JSON.parse(var'.$varUniqueID.'_ObjDOMInputTemp.getAttribute(\'value\'))'.
+                                                                    '}'
+                                                                    )).';'.
+                                                                //'alert(varNothing); '.
+
+                                                                //---> Jika semua file sudah terupload pada Staging Area
+                                                                'if(varAccumulatedFiles == varObjFileList.length) '.
+                                                                    '{'.
+                                                                    'var varNothing = '.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                                        $varUserSession, 
+                                                                        $varAPIWebToken, 
+                                                                        'fileHandling.upload.stagingArea.localStorage.deleteDirectory', 
+                                                                        'latest', 
+                                                                        '{'.
+                                                                            '"parameter" : {'.
+                                                                                '"rotateLog_FileUploadStagingArea_RefRPK" : + JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'()'.
+                                                                                '}'.
+                                                                        '}'
+                                                                        )).';'.
+                                                                    //'alert(varNothing); '.
+
+                                                                    'var'.$varUniqueID.'_ObjJSONMasterFileRecord = JSFunc_MainData_GetDataFromDatabase_MasterFileRecord_'.$varUniqueID.'();'.
+
+                                                                    'if((parseInt(varPreviousListFileCount) + parseInt(varObjFileList.length)) == (parseInt(Object.keys(var'.$varUniqueID.'_ObjJSONMasterFileRecord).length)))'.
+                                                                        '{'.
+                                                                        'alert(\'All new file(s) uploaded successfully\'); '.
+                                                                        '}'.
+                                                                    'else'.
+                                                                        '{'.
+                                                                        'varFailedUploadFiles = (parseInt(varPreviousListFileCount) + parseInt(varObjFileList.length)) - (parseInt(Object.keys(var'.$varUniqueID.'_ObjJSONMasterFileRecord).length)); '.
+                                                                        'alert(varFailedUploadFiles + \' new file(s) failed to upload\'); '.
+                                                                        '}'.
+
+                                    //                                'if(varFailedUploadFiles == parseInt(varObjFileList.length)) {'.
+                                    //                                    '}'.
+
+                                                                    //'alert(\'Previous List File Count : \'+ varPreviousListFileCount + \', TryUploadList : \' + varObjFileList.length + \', MFR : \' + Object.keys(var'.$varUniqueID.'_ObjJSONMasterFileRecord).length); '.
+
+
+                                                                    'varReturn = JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'(); '.
+
+                                                                    'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
+
+                                                                    //---> Aktifasi kembali Element
+                                                                    'varObj.disabled = false; '.
+                                                                    'varReturnDOMObject.disabled = false; '.
+                                                                    'JSFunc_UnlockObject_'.$varUniqueID.'(); '.
+                                                                    'varNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varUniqueID, 'document.body', false).
+                                                                    '}'.
+                                                                '}; '.
+                                                            'varObjFileReader.readAsDataURL(varObjCurrentFile); '.
+                                                            '}) (varObjFileList[i], i); '.
+                                                        '} '.
+                                                    'setTimeout('.
+                                                        '(function() {'.
+                                                            'try {'.
+                                                                'if(varReturn!=\'\') {'.
+                                                                    'if(varReturn == \'[object Object]\') {'.
+                                                                        'varObj.value=null; '.
+                                                                        'varReturnDOMObject.value = (varReturnDOMObject.value.split(varStagingTag))[0]; '.
+                                                                        'alert(\'An internal error has occurred. Please to select file(s) again\'); '.
+                                                                        '}'.
+                                                                    'else {'.
+                                                                        //'varReturnDOMObject.value = (varReturnDOMObject.value.split(varStagingTag))[0] + varStagingTag + varReturn; '.
+                                                                        'varReturnDOMObject.value = varReturnDOMObject.value; '.
+                                                                        '}'.
+                                                                    //'varReturnDOMObject.value = varReturn; '.
+                                                                    'return varReturn;'.
+                                                                    '}'.
+                                                                'else {'.
+                                                                    //'varReturnDOMObject.value = \'\'; '.
+                                                                    '}'.
+                                                                '}'.
+                                                            'catch(varError) {'.
+                                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Object\n(\' + varError + \')\'); '.
+                                                                '}'.
+                                                            '}'.
+                                                        '), 1);'.
+                                                    '}'.
+                                                'catch(varError) {'.
+                                                    'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                                    '}'.
+                                                '}'.
+                                            '}'.
+                                        'else {'.
+                                            'alert(\'ERP Reborn Error Notification\n\nInvalid DOM Objects\'); '.
+                                            '}'.
+                                        '}) (this, document.getElementById(\''.$varDOMReturnID.'\'))'.
+                                    '}'.
+                                    //---> Main Function ( End )
+                                '}'.
+                            
+                            
+                            
+                            
+                            
+                            
+
+
+                            'alert(\'ocrehhhhh\'); '.
                             '} '.
                         'catch(varError) {'.
                             '}';
