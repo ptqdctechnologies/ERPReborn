@@ -2873,6 +2873,7 @@ return array(
     'Carbon\\FactoryImmutable' => $vendorDir . '/nesbot/carbon/src/Carbon/FactoryImmutable.php',
     'Carbon\\Language' => $vendorDir . '/nesbot/carbon/src/Carbon/Language.php',
     'Carbon\\Laravel\\ServiceProvider' => $vendorDir . '/nesbot/carbon/src/Carbon/Laravel/ServiceProvider.php',
+    'Carbon\\MessageFormatter\\MessageFormatterMapper' => $vendorDir . '/nesbot/carbon/src/Carbon/MessageFormatter/MessageFormatterMapper.php',
     'Carbon\\PHPStan\\AbstractMacro' => $vendorDir . '/nesbot/carbon/src/Carbon/PHPStan/AbstractMacro.php',
     'Carbon\\PHPStan\\Macro' => $vendorDir . '/nesbot/carbon/src/Carbon/PHPStan/Macro.php',
     'Carbon\\PHPStan\\MacroExtension' => $vendorDir . '/nesbot/carbon/src/Carbon/PHPStan/MacroExtension.php',
