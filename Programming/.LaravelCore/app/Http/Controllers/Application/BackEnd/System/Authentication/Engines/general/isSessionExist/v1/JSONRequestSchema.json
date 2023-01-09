@@ -27,14 +27,11 @@
     "data": {
         "type": "object",
         "properties": {
-            "userName": {
-                "type": "string"
-                },
-            "userPassword": {
-                "type": "string"
-                }                
+            "parameter": {
+                "additionalProperties": false
+                }    
             },
-        "required": [ "userName", "userPassword" ]
+        "required": [ "parameter" ]
         }
     },
 "required": [ "metadata", "data" ]

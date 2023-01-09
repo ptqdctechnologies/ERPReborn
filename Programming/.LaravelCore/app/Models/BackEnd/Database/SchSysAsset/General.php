@@ -18,6 +18,43 @@ namespace App\Models\Database\SchSysAsset
     */
     class General //extends \Illuminate\Database\Eloquent\Model
         {
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getData_APIWebToken_IsExist                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-01-09                                                                                           |
+        | ▪ Creation Date   : 2023-01-09                                                                                           |
+        | ▪ Description     : Mendapatkan Eksistansi dari API Web Token                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)   varUserSession ► User Session                                                                           |
+        |      ▪ (int)     varAPIWebToken ► API Web Token                                                                          |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (boolean) varReturn                                                                                               | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getData_APIWebToken_IsExist($varUserSession, $varAPIWebToken)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    'SchSysAsset.Func_GetData_APIWebToken_IsExist',
+                    [
+                        [$varAPIWebToken, 'varchar']
+                    ]
+                    )
+                );
+            return
+                [
+                'SignExist' => (boolean) $varReturn['Data'][0]['Func_GetData_APIWebToken_IsExist']                
+                ];
+            }
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getData_FileUpload_IsFileAlreadyExist                                                                |
