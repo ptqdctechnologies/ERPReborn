@@ -24,7 +24,6 @@
         "league/flysystem-aws-s3-v3": "^3.0",
         "maatwebsite/excel": "^3.1",
         "ncjoes/office-converter": "^1.0",
-        "nesbot/carbon": "^2.65",
         "nunomaduro/collision": "^6.1",
         "predis/predis": "^1.1",
         "spatie/laravel-ignition": "^1.0",
