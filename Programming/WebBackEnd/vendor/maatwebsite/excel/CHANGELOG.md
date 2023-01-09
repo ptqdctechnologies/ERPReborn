@@ -4,16 +4,30 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [3.1.45] - 2023-01-02
+
+### Added
+- Add support for ignoring PHP auto_detect_line_endings INI directive
+
+### Fixed
+- Fix the PSR simple cache dependency mess to maintain backwards compatability and support 3.0 of the interface.
+
+## [3.1.44] - 2022-10-14
+
+### Fixed
+
+- Fix output of `WithFormatData` in combination with `SkipsEmptyRows` (#3760)
+
 ### Changed
-- Cast empty headings to indexed integer
-- Adds `isEmptyWhen` to customize is row empty logic.
+
+- Cast empty headings to indexed integer (#3646)
+- Adds `isEmptyWhen` to customize is row empty logic. (#3645)
 
 ### Fixed
 
 - Fix temporary local files not being cleaned up when setting force_resync_remote config to true (#3623)
 - Fix testing for multiple stored files by regex matching (#3631).
 - Allow `required_unless` rule (#3660)
-- Fix output of `WithFormatData` in combination with `SkipsEmptyRows` (#3760)
 
 ## [3.1.40] - 2022-05-02
 
@@ -44,18 +58,22 @@ All notable changes to this project will be documented in this file.
 ## [3.1.37] - 2022-02-28
 
 ### Fixed
+
 - Add `@mixin` docblock to all macroable classes to allow for IDE autocompletion of delegate classes
 - Fix issue with `Excel::toArray` not allowing nullable reader types for uploaded files
 
 ### Changed
+
 - Change default Csv Import to auto-detect the delimiter when not explicitly defined
 
 ## [3.1.36] - 2022-02-03
 
 ### Fixed
+
 - Fix return type of `FromQuery::query()`
 
-## Changed
+### Changed
+
 - Support Laravel 9
 - Added a config setting to specify DB connection
 - Added a config setting to specify CSV output encoding

@@ -253,4 +253,34 @@ class ModifyTest extends AbstractTestCase
             Carbon::parse('2000-01-25')->change('before yesterday')->format('Y-m-d H:i:s')
         );
     }
+
+    public function testInvalidModifier(): void
+    {
+        $this->assertFalse(@Carbon::parse('2000-01-25')->change('invalid'));
+        $this->assertFalse(@Carbon::now()->next('invalid'));
+        $this->assertFalse(@Carbon::now()->previous('invalid'));
+    }
+
+    public function testImplicitCast(): void
+    {
+        $this->assertSame(
+            '2000-01-25 06:00:00.000000',
+            Carbon::parse('2000-01-25')->addRealHours('6')->format('Y-m-d H:i:s.u')
+        );
+
+        $this->assertSame(
+            '2000-01-25 07:00:00.000000',
+            Carbon::parse('2000-01-25')->addRealUnit('hour', '7')->format('Y-m-d H:i:s.u')
+        );
+
+        $this->assertSame(
+            '2000-01-25 00:08:00.000000',
+            Carbon::parse('2000-01-25')->addRealUnit('minute', '8')->format('Y-m-d H:i:s.u')
+        );
+
+        $this->assertSame(
+            '2000-01-25 00:00:00.007000',
+            Carbon::parse('2000-01-25')->addRealUnit('millisecond', '7')->format('Y-m-d H:i:s.u')
+        );
+    }
 }
