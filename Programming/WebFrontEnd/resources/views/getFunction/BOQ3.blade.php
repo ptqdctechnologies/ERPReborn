@@ -13,6 +13,7 @@
                 @endif
                 @if($statusAdvanceRevisi == 1)
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Total Payment</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Balance</th>
                 @endif
                 @if($statusPrRevisi == 1)
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Total PR</th>

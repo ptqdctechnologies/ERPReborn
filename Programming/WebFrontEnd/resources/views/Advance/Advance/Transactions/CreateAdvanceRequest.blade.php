@@ -139,16 +139,6 @@
                       <tbody>
 
                       </tbody>
-
-                      <!-- <tfoot style="border: 1px solid #ced4da;position:relative;top:5px;">
-                        <tr>
-                          <th colspan="6"></th>
-                          <th style="text-align: center;border: 1px solid #ced4da;">Total Item : </th>
-                          <th style="border: 1px solid #ced4da;"><span id="TotalQty"></span></th>
-                          <th style="border: 1px solid #ced4da;"><span id="GrandTotal"></span></th>
-                        </tr>
-                      </tfoot>
-                       -->
                     </table>
                   </div>
 
@@ -161,8 +151,7 @@
                   </div>
 
                 </div>
-                
-                
+                                
               </div>
             </div>
             <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
