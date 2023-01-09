@@ -90,7 +90,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_AUTH'),
                         $varDataArray
                         );
-//dd($varResponseData);
+dd($varResponseData);
                     
                     if($varResponseData['metadata']['HTTPStatusCode']==200)
                         {
