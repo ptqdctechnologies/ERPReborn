@@ -2629,6 +2629,7 @@ namespace App\Helpers\ZhtHelper\General
                                                 //---> Ambil varDataJSONMasterFileRecord dari database
                                                 'varDataJSONMasterFileRecord = JSFunc_MainData_GetDataFromDatabase_MasterFileRecord_'.$varUniqueID.'(); '.
     //                                            'varDataJSONMasterFileRecord = JSFunc_MainData_GetData_MasterFileRecord_'.$varUniqueID.'(); '.
+                                                //'alert(JSON.stringify(varDataJSONMasterFileRecord)); '.
 
                                                 //---> Update varDataJSONMasterFileRecord di Main Data
                                                 'JSFunc_MainData_SetData_MasterFileRecord_'.$varUniqueID.'(varDataJSONMasterFileRecord); '.
@@ -3042,6 +3043,7 @@ namespace App\Helpers\ZhtHelper\General
                                 //---> Main Action (End)
                             //---> Main Function ( Start )
                             '(function(varObj, varReturnDOMObject) {'.
+                                //'alert(\'Masuk\'); '.
                                 'varNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varUniqueID, 'document.body', true).
                                 'if ((typeof varObj != \'undefined\') && (typeof varReturnDOMObject != \'undefined\')) {'.
                                     'var varObjFileList = varObj.files; '.

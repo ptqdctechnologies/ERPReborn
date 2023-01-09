@@ -690,7 +690,7 @@ namespace App\Helpers\ZhtHelper\System
         | ▪ Method Name     : getUserSessionID_ByAPIWebToken                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-08-04                                                                                           |
+        | ▪ Last Update     : 2023-09-01                                                                                           |
         | ▪ Creation Date   : 2022-08-04                                                                                           |
         | ▪ Description     : Mendapatkan User Session ID berdasarkan API Web Token (varAPIWebToken)                               |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -708,13 +708,13 @@ namespace App\Helpers\ZhtHelper\System
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        'SchSysAsset.Func_GetData_UserSessionIDByAPIWebToken',
+                        'SchSysAsset.Func_GetData_UserSession_IDByAPIWebToken',
                         [
                             [$varAPIWebToken, 'varchar']
                         ]
                         )
                     );
-                return $varReturn['Data'][0]['Func_GetData_UserSessionIDByAPIWebToken'];
+                return $varReturn['Data'][0]['Func_GetData_UserSession_IDByAPIWebToken'];
                 }
             catch (\Exception $ex) {
                 return NULL;
@@ -744,13 +744,13 @@ namespace App\Helpers\ZhtHelper\System
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        'SchSysAsset.Func_GetData_APIWebTokenByUserSessionID',
+                        'SchSysAsset.Func_GetData_APIWebToken_ByUserSessionID',
                         [
                             [$varUserSession, 'bigint']
                         ]
                         )
                     );
-                return $varReturn['Data'][0]['Func_GetData_APIWebTokenByUserSessionID'];
+                return $varReturn['Data'][0]['Func_GetData_APIWebToken_ByUserSessionID'];
                 }
             catch (\Exception $ex) {
                 return NULL;
@@ -781,12 +781,12 @@ namespace App\Helpers\ZhtHelper\System
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        'SchSysConfig.FuncSys_General_GetAPIWebToken_SysEngine',
+                        'SchSysAsset.Func_GetData_APIWebToken_SysEngine',
                         [
                         ]
                         )
                     );
-                return $varReturn['Data'][0]['FuncSys_General_GetAPIWebToken_SysEngine'];
+                return $varReturn['Data'][0]['Func_GetData_APIWebToken_SysEngine'];
                 }
             catch (\Exception $ex) {
                 return [];
