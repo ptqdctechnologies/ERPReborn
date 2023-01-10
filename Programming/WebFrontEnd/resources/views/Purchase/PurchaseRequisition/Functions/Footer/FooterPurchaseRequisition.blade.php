@@ -69,8 +69,9 @@
             url: '{!! route("getBudget") !!}?sitecode=' + $('#sitecode').val(),
             // url: '{!! route("getBudget") !!}?sitecode=' + 143000000000305,
             success: function(data) {
-                var no = 1; applied = 0; TotalBudgetSelected = 0;status = ""; statusDisplay = [];statusDisplay2 = []; statusForm = [];
+                var no = 1; applied = 0; TotalBudgetSelected = 0;status = ""; statusDisplay = [];statusDisplay2 = []; statusForm = []; 
                 $.each(data, function(key, val2) {
+                    var var_balance = 4000;
                     if(val2.quantityAbsorption == "0.00" && val2.quantity == "0.00"){
                         var applied = 0;
                     }
@@ -123,12 +124,12 @@
                         '<td style="border:1px solid #e9ecef;">' + '<span">' + val2.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span">' + val2.quantityRemain.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.unitPriceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + '<span>' + (val2.unitPriceBaseCurrencyValue * val2.quantityRemain).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + '<span>' + var_balance + '</span>' + '</td>' +
 
-                        '<td class="sticky-col third-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;position: relative;width:50px;" name="qty_req[]" class="form-control qty_req" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
-                        '<td class="sticky-col second-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req'+ key +'" style="border-radius:0;position: relative;width:80px;" name="price_req[]" class="form-control price_req" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
-                        '<td class="sticky-col first-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req'+ key +'" style="border-radius:0;position: relative;width:80px;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled>' + '</td>' +
-                        '<td class="sticky-col forth-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="remark_req'+ key +'" style="border-radius:0;position: relative;width:130px;" name="remark_req[]" class="form-control" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
+                        '<td class="sticky-col forth-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
+                        '<td class="sticky-col third-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req'+ key +'" style="border-radius:0;" name="price_req[]" class="form-control price_req" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
+                        '<td class="sticky-col second-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req'+ key +'" style="border-radius:0;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled>' + '</td>' +
+                        '<td class="sticky-col first-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="remark_req'+ key +'" style="border-radius:0;" name="remark_req[]" class="form-control" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
 
                         '</tr>';
                     $('table.tableBudgetDetail tbody').append(html);
@@ -159,6 +160,17 @@
                             $('#qty_req'+key).css("border", "1px solid red");
                             $('#qty_req'+key).focus();
                         }
+                        else if(parseFloat(total) > parseFloat(var_balance)){
+                            swal({
+                                onOpen: function () {
+                                    swal.disableConfirmButton();
+                                    Swal.fire("Error !", "Total is over budget than Balance !", "error");
+                                }                
+                            });
+                            $('#total_req'+key).val("");
+                            $('#qty_req'+key).val("");
+                            $('#qty_req'+key).focus();
+                        }
                           else {
                             $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
                             $('#total_req'+key).val(currencyTotal(total));
@@ -178,6 +190,20 @@
                             $("input[name='price_req[]']").css("border", "1px solid #ced4da");
                         }
                         else if (parseFloat(price_val) > parseFloat(budget_price_val)) {
+
+                            swal({
+                                onOpen: function () {
+                                    swal.disableConfirmButton();
+                                    Swal.fire("Error !", "Price is over budget !", "error");
+                                }
+                            });
+
+                            $('#price_req'+key).val("");
+                            $('#total_req'+key).val("");
+                            $('#price_req'+key).css("border", "1px solid red");
+                            $('#price_req'+key).focus();
+                        }
+                        else if (parseFloat(total) > parseFloat(var_balance)) {
 
                             swal({
                                 onOpen: function () {
