@@ -2973,6 +2973,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Aws\\KafkaConnect\\KafkaConnectClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/KafkaConnect/KafkaConnectClient.php',
         'Aws\\Kafka\\Exception\\KafkaException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Kafka/Exception/KafkaException.php',
         'Aws\\Kafka\\KafkaClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Kafka/KafkaClient.php',
+        'Aws\\KendraRanking\\Exception\\KendraRankingException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/KendraRanking/Exception/KendraRankingException.php',
+        'Aws\\KendraRanking\\KendraRankingClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/KendraRanking/KendraRankingClient.php',
         'Aws\\Keyspaces\\Exception\\KeyspacesException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Keyspaces/Exception/KeyspacesException.php',
         'Aws\\Keyspaces\\KeyspacesClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Keyspaces/KeyspacesClient.php',
         'Aws\\KinesisAnalyticsV2\\Exception\\KinesisAnalyticsV2Exception' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/KinesisAnalyticsV2/Exception/KinesisAnalyticsV2Exception.php',

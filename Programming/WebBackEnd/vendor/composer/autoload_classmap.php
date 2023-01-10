@@ -2374,6 +2374,8 @@ return array(
     'Aws\\KafkaConnect\\KafkaConnectClient' => $vendorDir . '/aws/aws-sdk-php/src/KafkaConnect/KafkaConnectClient.php',
     'Aws\\Kafka\\Exception\\KafkaException' => $vendorDir . '/aws/aws-sdk-php/src/Kafka/Exception/KafkaException.php',
     'Aws\\Kafka\\KafkaClient' => $vendorDir . '/aws/aws-sdk-php/src/Kafka/KafkaClient.php',
+    'Aws\\KendraRanking\\Exception\\KendraRankingException' => $vendorDir . '/aws/aws-sdk-php/src/KendraRanking/Exception/KendraRankingException.php',
+    'Aws\\KendraRanking\\KendraRankingClient' => $vendorDir . '/aws/aws-sdk-php/src/KendraRanking/KendraRankingClient.php',
     'Aws\\Keyspaces\\Exception\\KeyspacesException' => $vendorDir . '/aws/aws-sdk-php/src/Keyspaces/Exception/KeyspacesException.php',
     'Aws\\Keyspaces\\KeyspacesClient' => $vendorDir . '/aws/aws-sdk-php/src/Keyspaces/KeyspacesClient.php',
     'Aws\\KinesisAnalyticsV2\\Exception\\KinesisAnalyticsV2Exception' => $vendorDir . '/aws/aws-sdk-php/src/KinesisAnalyticsV2/Exception/KinesisAnalyticsV2Exception.php',
