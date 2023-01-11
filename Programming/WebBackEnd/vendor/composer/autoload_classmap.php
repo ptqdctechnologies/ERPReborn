@@ -59,7 +59,6 @@ return array(
     'App\\Helpers\\ZhtHelper\\General\\Helper_JQuery' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_JQuery.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_JSON' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_JSON.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_JavaScript' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_JavaScript.php',
-    'App\\Helpers\\ZhtHelper\\General\\Helper_JavaScript_OLD' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_JavaScript_OLD.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_LDAP' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_LDAP.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_Network' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_Network.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_PHPObject' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_PHPObject.php',
