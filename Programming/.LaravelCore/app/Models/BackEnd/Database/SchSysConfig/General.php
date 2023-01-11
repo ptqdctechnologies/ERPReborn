@@ -357,6 +357,49 @@ namespace App\Models\Database\SchSysConfig
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_AppObject_Menu                                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-01-11                                                                                           |
+        | ▪ Creation Date   : 2023-01-11                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Menu                                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_AppObject_Menu(
+            $varUserSession, int $varBranchID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    'SchSysConfig.Func_GetDataList_AppObject_Menu',
+                    [
+                        [$varBranchID, 'bigint' ],
+
+                        [$varPickStatement, 'varchar'],
+                        [$varSortStatement, 'varchar'],
+                        [$varFilterStatement, 'varchar'],
+                        [$varPagingStatement, 'varchar']
+                    ]
+                    )
+                );
+            return $varReturn['Data'];
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataList_AppObject_UserRole                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
