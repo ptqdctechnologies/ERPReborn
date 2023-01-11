@@ -2233,61 +2233,18 @@ namespace App\Helpers\ZhtHelper\General
                                 'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value = document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value; '.
                                 '} '.
                             'catch(varError) {'.
-                                'varSignExistAPIWebToken = function () {'.
-                                    'try {'.
-                                        'varReturn = ('.
-                                            'JSON.parse('.                           
-                                                str_replace(
-                                                    '"', 
-                                                    '\'', 
-                                                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                                                        $varUserSession, 
-                                                        $varAPIWebToken.'xxx', 
-                                                        'authentication.general.isSessionExist', 
-                                                        'latest', 
-                                                        '{'.
-                                                            '"parameter" : null'.
-                                                        '}'
-                                                        )
-                                                    ).
-                                                ').data.signExist'. //.data.contentBase64'.
-                                            '); '.
-                                        'return varReturn; '.
-                                        '} '.
-                                    'catch(varError) {'.
-                                        //'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
-                                        'return false; '.
-                                        '}'.
-                                    '} (); '.
-                                //'alert(varSignExistAPIWebToken); '.
-                                'if(varSignExistAPIWebToken == true) {'.
-                                    //---> Main Action (Start)
-                                    self::getSyntaxCreateDOM_InputText(
-                                        $varUserSession, 
-                                        [
-                                            'ID' => 'zhtSysObjDOMText_'.$varUniqueID.'_MainData',
-                                            'ParentID' => 'document.body',
-                                            'Value' => '',
-                                            'Style' => [
-                                                ['width', '200px'],
-                                                ['height', '100px']
-                                                ]
-                                        ]).
-
-
-
-
-                                    '}'.
-                                '}'.
-                            
-                            
-                            
-                            
-                            
-                            
-/*
-                            
-                            
+                                //---> Main Action (Start)
+                                self::getSyntaxCreateDOM_InputText(
+                                    $varUserSession, 
+                                    [
+                                        'ID' => 'zhtSysObjDOMText_'.$varUniqueID.'_MainData',
+                                        'ParentID' => 'document.body',
+                                        'Value' => '',
+                                        'Style' => [
+                                            ['width', '200px'],
+                                            ['height', '100px']
+                                            ]
+                                    ]).
                                 //---> Penambahan Script
                                 self::getSyntaxCreateDOM_JavaScript(
                                     $varUserSession, 
@@ -2572,7 +2529,6 @@ namespace App\Helpers\ZhtHelper\General
                                                 'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
                                                 '}'.
                                             '}'.
-
 
                                         //---> JSFunc_FilePreview_...
                                         'function JSFunc_FilePreview_'.$varUniqueID.'(varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ) {'.
@@ -3085,9 +3041,6 @@ namespace App\Helpers\ZhtHelper\General
                                 'ObjHead.appendChild(ObjScript); '.
                                 '} '.
                                 //---> Main Action (End)
-*/
-
-/*
                             //---> Main Function ( Start )
                             '(function(varObj, varReturnDOMObject) {'.
                                 //'alert(\'Masuk\'); '.
@@ -3284,10 +3237,9 @@ namespace App\Helpers\ZhtHelper\General
                                     'alert(\'ERP Reborn Error Notification\n\nInvalid DOM Objects\'); '.
                                     '}'.
                                 '}) (this, document.getElementById(\''.$varDOMReturnID.'\'))'.
-*/
 
                             //---> Main Function ( End )
-                            'alert(\'ocrehhhhh\'); '.
+                            //'alert(\'ocrehhhhh\'); '.
                             '} '.
                         'catch(varError) {'.
                             '}';
