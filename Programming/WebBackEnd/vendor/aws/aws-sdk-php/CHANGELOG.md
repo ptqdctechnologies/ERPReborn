@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 3.256.2 - 2023-01-11
+
+* `Aws\kendra` - This release adds support to new document types - RTF, XML, XSLT, MS_EXCEL, CSV, JSON, MD
+
+## 3.256.1 - 2023-01-10
+
+* `Aws\LocationService` - This release adds support for two new route travel models, Bicycle and Motorcycle which can be used with Grab data source.
+* `Aws\RDS` - This release adds support for configuring allocated storage on the CreateDBInstanceReadReplica, RestoreDBInstanceFromDBSnapshot, and RestoreDBInstanceToPointInTime APIs.
+
 ## 3.256.0 - 2023-01-09
 
 * `Aws\ECRPublic` - This release for Amazon ECR Public makes several change to bring the SDK into sync with the API.
