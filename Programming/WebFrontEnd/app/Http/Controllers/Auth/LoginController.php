@@ -28,7 +28,39 @@ class LoginController extends Controller
             $username,
             $password
         );
-        
+
+        if(count($varData['data']['optionList']) == 1){
+            if(count($varData['data']['optionList'][0]['userRole'])){
+
+                $varBranchID = $varData['data']['optionList']['0']['branch_RefID'];
+                $varUserRoleID = $varData['data']['optionList']['0']['userRole']['0']['userRole_RefID'];
+
+                $dataAwal = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $username,
+                    $password
+                );
+                $varAPIWebToken = $dataAwal['data']['APIWebToken'];
+
+                //---Core---
+
+                $varDatas = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken, 
+                    'authentication.general.setLoginBranchAndUserRole', 
+                    'latest', 
+                    [
+                    'branchID' => $varBranchID,
+                    'userRoleID' => $varUserRoleID
+                    ]
+                );
+
+                $request->session()->put('SessionLogin', $varAPIWebToken);
+                return response()->json($varDatas['metadata']['HTTPStatusCode']);
+                
+            }
+        }
+
         if ($varData['metadata']['HTTPStatusCode'] == '401') {
             return response()->json($varData['metadata']['HTTPStatusCode']);
         } else {
@@ -68,7 +100,9 @@ class LoginController extends Controller
             $password
         );
         $varAPIWebToken = $dataAwal['data']['APIWebToken'];
+
         //---Core---
+
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 

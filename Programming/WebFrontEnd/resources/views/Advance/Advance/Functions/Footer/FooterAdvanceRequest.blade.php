@@ -75,6 +75,9 @@
             success: function(data) {
                 var no = 1; applied = 0; TotalBudgetSelected = 0;status = ""; statusDisplay = [];statusDisplay2 = []; statusForm = [];
                 $.each(data, function(key, val2) {
+
+                    var var_totalBalance = 4000;
+
                     if(val2.quantityAbsorption == "0.00" && val2.quantity == "0.00"){
                         var applied = 0;
                     }
@@ -127,6 +130,7 @@
                         '<td style="border:1px solid #e9ecef;">' + '<span">' + val2.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span">' + val2.quantityRemain.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.unitPriceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(var_totalBalance) + '</span>' + '</td>' +
 
                         '<td class="sticky-col third-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
                         '<td class="sticky-col second-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req'+ key +'" style="border-radius:0;" name="price_req[]" class="form-control price_req" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
@@ -152,13 +156,25 @@
                             swal({
                                 onOpen: function () {
                                     swal.disableConfirmButton();
-                                    Swal.fire("Error !", "Qty is over budget !", "error");
+                                    Swal.fire("Error !", "Qty is over !", "error");
                                 }
                             });
 
                             $('#qty_req'+key).val("");
                             $('#total_req'+key).val("");
                             $('#qty_req'+key).css("border", "1px solid red");
+                            $('#qty_req'+key).focus();
+                        }
+                        else if(parseFloat(total) > parseFloat(var_totalBalance)){
+                            swal({
+                                onOpen: function () {
+                                    swal.disableConfirmButton();
+                                    Swal.fire("Error !", "Total is over than Balance !", "error");
+                                }                
+                            });
+
+                            $('#total_req'+key).val("");
+                            $('#qty_req'+key).val("");
                             $('#qty_req'+key).focus();
                         }
                           else {
@@ -184,7 +200,7 @@
                             swal({
                                 onOpen: function () {
                                     swal.disableConfirmButton();
-                                    Swal.fire("Error !", "Price is over budget !", "error");
+                                    Swal.fire("Error !", "Price is over !", "error");
                                 }
                             });
 
@@ -192,6 +208,18 @@
                             $('#total_req'+key).val("");
                             $('#price_req'+key).css("border", "1px solid red");
                             $('#price_req'+key).focus();
+                        }
+                        else if(parseFloat(total) > parseFloat(var_totalBalance)){
+                            swal({
+                                onOpen: function () {
+                                    swal.disableConfirmButton();
+                                    Swal.fire("Error !", "Total is over than Balance !", "error");
+                                }                
+                            });
+
+                            $('#total_req'+key).val("");
+                            $('#qty_req'+key).val("");
+                            $('#qty_req'+key).focus();
                         }
                         else {
                             $("input[name='price_req[]']").css("border", "1px solid #ced4da");
@@ -397,14 +425,7 @@
                             confirmButtonColor: '#e9ecef',
                             confirmButtonText: '<span style="color:black;"> Ok </span>',
 
-                        }).then((result) => {
-                            if (result.value) {
-                                $("#loading").show();
-                                $(".loader").show();
-
-                                window.location.href = '/AdvanceRequest?var=1';
-                            }
-                        })
+                        });
                     }
                 })
             }

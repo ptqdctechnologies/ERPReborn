@@ -134,36 +134,36 @@
 
                         </tbody>
                         <!-- <tfoot style="border: 1px solid #ced4da;position:relative;top:5px;">
-                        <tr>
-                          <th colspan="6"></th>
-                          <th style="text-align: center;border: 1px solid #ced4da;">Total Item : </th>
-                          <th style="border: 1px solid #ced4da;"><span id="TotalQty"></span></th>
-                          <th style="border: 1px solid #ced4da;"><span id="GrandTotal"></span></th>
-                        </tr>
-                      </tfoot> -->
+                          <tr>
+                            <th colspan="6"></th>
+                            <th style="text-align: center;border: 1px solid #ced4da;">Total Item : </th>
+                            <th style="border: 1px solid #ced4da;"><span id="TotalQty"></span></th>
+                            <th style="border: 1px solid #ced4da;"><span id="GrandTotal"></span></th>
+                          </tr>
+                        </tfoot> -->
                       </table>
                     </div>
                     <div class="card-body AdvanceListCart" >
                       <table style="float:right;">
-                          <tr>
-                              <th style="position: relative;right:35px;"> Total Item : <span id="TotalQty"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="GrandTotal"></span></th>
-                          </tr>
+                        <tr>
+                          <th style="position: relative;right:35px;"> Total Item : <span id="TotalQty"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="GrandTotal"></span></th>
+                        </tr>
                       </table>
                     </div>
 
                     <div class="card-body detailPurchaseRequisitionList" >
-                        <table style="float:right;">
-                            <tr>
-                                <th>
-                                  <button class="btn btn-default btn-sm float-right" type="submit" id="submitPR" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                                    <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Purchase Requisition"> Submit
-                                  </button>
-                                  <a onclick="CancelPurchaseRequisition();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
-                                    <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
-                                  </a>
-                                </th>
-                            </tr>
-                        </table>
+                      <table style="float:right;">
+                        <tr>
+                          <th>
+                            <button class="btn btn-default btn-sm float-right" type="submit" id="submitPR" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                              <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Purchase Requisition"> Submit
+                            </button>
+                            <a onclick="CancelPurchaseRequisition();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                              <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
+                            </a>
+                          </th>
+                        </tr>
+                      </table>
                     </div>
                     
                   </div>
