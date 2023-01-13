@@ -2216,7 +2216,7 @@ namespace App\Helpers\ZhtHelper\General
                             ['color', '#FFFFFF'],
                             ['fontFamily', '\\\'verdana\\\''],
                             ['whiteSpace', 'nowrap'],
-                            ['fontSize', '10px'],
+                            ['fontSize', '13px'],
                             ['textAlign', 'center']
                         ];
                     
@@ -2226,7 +2226,7 @@ namespace App\Helpers\ZhtHelper\General
                             ['color', '#000000'],
                             ['fontFamily', '\\\'verdana\\\''],
                             ['whiteSpace', 'nowrap'],
-                            ['fontSize', '10px'],
+                            ['fontSize', '13px'],
                             ['textAlign', 'left']
                         ];
 
