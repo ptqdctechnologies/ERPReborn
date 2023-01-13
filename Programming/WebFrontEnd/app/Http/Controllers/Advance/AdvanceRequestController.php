@@ -52,7 +52,7 @@ class AdvanceRequestController extends Controller
                     "remarks" => 'Catatan'
                 ]
             ];
-        }iya y
+        }
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
@@ -172,8 +172,10 @@ class AdvanceRequestController extends Controller
         );
         $compact = [
             'dataAdvanceRevisions' => $varDataAdvanceRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
+            'log_FileUpload_Pointer_RefID' => $varDataAdvanceRevision['data'][0]['document']['content']['attachmentFiles']['main']['log_FileUpload_Pointer_RefID'],
             'dataRequester' => $varDataAdvanceRevision['data'][0]['document']['content']['involvedPersons']['requester'],
             'var_recordID' => $request->searchArfNumberRevisionId,
+            'varAPIWebToken' => $varAPIWebToken,
             'statusAdvanceRevisi' => 1,
             'statusPrRevisi' => 0,
             'statusPr' => 0,
