@@ -222,16 +222,17 @@ namespace App\Helpers\ZhtHelper\General
                                     ''
                                     ).
                                 self::getSyntaxCreateDOM_InputHidden(
-                                    $varUserSession, 
-                                    $varID.'_ProcessLoad_DataSignShow',
-                                    $varID.'_ProcessLoad_Back',
-                                    'OK',
+                                    $varUserSession,
                                     [
                                         'ID' => $varID.'_ProcessLoad_DataSignShow',
                                         'ParentID' => $varID.'_ProcessLoad_Back',
-                                    ]
-                                    ).
-                                self::getSyntaxCreateDOM_InputHidden(
+                                        'Value' => 'OK',
+                                        'Style' => [
+                                            ['width', '200px'],
+                                            ['height', '100px']
+                                            ]
+                                    ]).
+                                    /*
                                     $varUserSession, 
                                     $varID.'_ProcessLoad_DataMessage',
                                     $varID.'_ProcessLoad_Back',
@@ -240,7 +241,7 @@ namespace App\Helpers\ZhtHelper\General
                                         'ID' => $varID.'_ProcessLoad_DataMessage',
                                         'ParentID' => $varID.'_ProcessLoad_Back',
                                     ]
-                                    ).
+                                    ).*/
                                 self::getSyntaxCreateDOM_Div(
                                     $varUserSession, 
                                     [
@@ -1598,8 +1599,8 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getSyntaxCreateDOM_InputHidden                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-05                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2023-01-13                                                                                           |
         | ▪ Creation Date   : 2022-09-05                                                                                           |
         | ▪ Description     : Mendapatkan Syntax Pembuatan DOM Object : Input Hidden                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -1620,55 +1621,43 @@ namespace App\Helpers\ZhtHelper\General
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getSyntaxCreateDOM_InputHidden($varUserSession, $varID, $varParentID, $varValue, $varArrayProperties)
+        public static function getSyntaxCreateDOM_InputHidden($varUserSession, $varArrayProperties)
             {
             $varReturn = '';
             $varObjectID = (
-                $varID ? $varID : (
-                    (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == TRUE) ? $varArrayProperties['ID'] : 'TempObject')
-                );
-            $varObjectParentID = (
-                $varParentID ? $varParentID : (
-                    (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ParentID', $varArrayProperties) == TRUE) ? $varArrayProperties['ParentID'] : '')
+                (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == FALSE) ? 
+                    'TempObject' : 
+                    $varArrayProperties['ID']
                 );
 
+            if((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'Style', $varArrayProperties) == TRUE)) {
+                for($i=0, $iMax=count($varArrayProperties['Style']); $i!=$iMax; $i++) {
+                    $varReturn .= $varObjectID.'.style.'.$varArrayProperties['Style'][$i][0].' = \''.$varArrayProperties['Style'][$i][1].'\'; ';
+                    }
+                }
             $varReturn = 
-                'varNothing = function (varLocalID, varLocalParentID, varLocalValue) {'.
-                    'try {'.
-                        'var '.$varObjectID.' = document.createElement(\'input\'); '.
-                        //---> set ID
-                        $varObjectID.'.id = \''.$varObjectID.'\'; '.
-                        ''.$varArrayProperties['ID'].'.setAttribute(\'type\', \'hidden\'); '.
-                        //---> value
-                        ''.$varID.'.setAttribute(\'value\', \''.$varValue.'\'); '.
-
-//                        ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'Value', $varArrayProperties) == FALSE) ? '' : 
-//                            ''.$varArrayProperties['ID'].'.setAttribute(\'value\', \''.$varArrayProperties['Value'].'\'); '
-//                            ).
-                        //---> style
-                        $varReturn.
-                        //---> appendChild
-                        ((strcmp($varObjectParentID, '') == 0) ? '' : 
-                            $varObjectParentID.'.appendChild('.$varObjectID.'); '
-                            ).
-                        //---> remove ID
-                        //((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == TRUE) ? '' : 
-                        //    $varObjectID.'.removeAttribute(\'id\'); ').
-                        '}'.
-                    'catch(varError) {'.
-                        'alert(\'ERP Reborn Error Notification\n\nInvalid Object\n(\' + varError + \')\'); '.
-                        '}'.
-                    '} ('.
-                        ($varID ? '\''.$varID.'\'' : 'varID').
-                        ', '.
-                        ($varParentID ? '\''.$varParentID.'\'' : 'varParentID').
-                        ', '.
-                        ($varValue ? '\''.$varValue.'\'' : 'varValue').
-                        ');'.
-                    '';
+                'var '.$varObjectID.' = document.createElement(\'input\'); '.
+                //---> set ID
+                $varObjectID.'.id = \''.$varObjectID.'\'; '.
+                ''.$varArrayProperties['ID'].'.setAttribute(\'type\', \'hidden\'); '.
+                //---> value
+                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'Value', $varArrayProperties) == FALSE) ? '' : 
+                    ''.$varArrayProperties['ID'].'.setAttribute(\'value\', \''.$varArrayProperties['Value'].'\'); '
+                    ).
+                //---> style
+                $varReturn.
+                //---> appendChild
+                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ParentID', $varArrayProperties) == FALSE) ? '' : 
+                    $varArrayProperties['ParentID'].'.appendChild('.$varObjectID.'); '
+                    ).
+                //---> remove ID
+                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == TRUE) ? '' : 
+                    $varObjectID.'.removeAttribute(\'id\'); ').
+                '';
 
             return $varReturn;
             }
+
 
 
         /*
@@ -2268,7 +2257,8 @@ namespace App\Helpers\ZhtHelper\General
                                     '} '.
                                 'catch(varError) {'.
                                     //---> Main Action (Start)
-                                    self::getSyntaxCreateDOM_InputText(
+                                    //self::getSyntaxCreateDOM_InputText(
+                                    self::getSyntaxCreateDOM_InputHidden(
                                         $varUserSession, 
                                         [
                                             'ID' => 'zhtSysObjDOMText_'.$varUniqueID.'_MainData',
