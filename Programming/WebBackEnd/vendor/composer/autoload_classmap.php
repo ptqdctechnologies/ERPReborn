@@ -1996,6 +1996,8 @@ return array(
     'Aws\\ChimeSDKVoice\\Exception\\ChimeSDKVoiceException' => $vendorDir . '/aws/aws-sdk-php/src/ChimeSDKVoice/Exception/ChimeSDKVoiceException.php',
     'Aws\\Chime\\ChimeClient' => $vendorDir . '/aws/aws-sdk-php/src/Chime/ChimeClient.php',
     'Aws\\Chime\\Exception\\ChimeException' => $vendorDir . '/aws/aws-sdk-php/src/Chime/Exception/ChimeException.php',
+    'Aws\\CleanRooms\\CleanRoomsClient' => $vendorDir . '/aws/aws-sdk-php/src/CleanRooms/CleanRoomsClient.php',
+    'Aws\\CleanRooms\\Exception\\CleanRoomsException' => $vendorDir . '/aws/aws-sdk-php/src/CleanRooms/Exception/CleanRoomsException.php',
     'Aws\\ClientResolver' => $vendorDir . '/aws/aws-sdk-php/src/ClientResolver.php',
     'Aws\\ClientSideMonitoring\\AbstractMonitoringMiddleware' => $vendorDir . '/aws/aws-sdk-php/src/ClientSideMonitoring/AbstractMonitoringMiddleware.php',
     'Aws\\ClientSideMonitoring\\ApiCallAttemptMonitoringMiddleware' => $vendorDir . '/aws/aws-sdk-php/src/ClientSideMonitoring/ApiCallAttemptMonitoringMiddleware.php',
