@@ -98,7 +98,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             //---> Cached Data Menu
                             for($k=0, $kMax=count($varDataOptionList[$i]['userRole'][$j]['menu']); $k!=$kMax; $k++)
                                 {
-//                                dd($varDataOptionList[$i]['userRole'][$j]['menu'][$k][]); 
                                 $varCachedData[($varDataOptionList[$i]['userRole'][$j]['userRole_RefID'])]['menu']['keyList'][] = $varDataOptionList[$i]['userRole'][$j]['menu'][$k]['entities']['key'];
                                 $varCachedData[($varDataOptionList[$i]['userRole'][$j]['userRole_RefID'])]['menu']['dataTable'][] = 
                                     [
@@ -110,6 +109,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             }
                         }
                     
+                    //dd($varCachedData);
                     //dd($varCachedData[$varUserRoleID]['menu']['index']);
                     //dd($varCachedData_CombinedBudget);
                     //dd($varDataOptionList);
@@ -160,7 +160,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                         (new \App\Models\Cache\General\APIWebToken())->setDataUpdate($varUserSession, $varAPIWebToken, \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varDataRedis));
                         //--->
                         $varDataSend = ['message' => 'Chosen Branch ID and User Role ID have been saved'];
-            dd($varDataRedis);
+                        //dd($varDataRedis);
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);                        
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----

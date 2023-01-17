@@ -756,7 +756,8 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
                 'sessionStartDateTimeTZ' => null,
                 'sessionAutoStartDateTimeTZ' => null,
                 'sessionAutoFinishDateTimeTZ' => null,
-                'userPrivilegesMenu' => null
+                //'userPrivilegesMenu' => null
+                'environment' => null
                 ];
             
             if((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true)
@@ -774,7 +775,11 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
                 //    {
                 //    $varReturn['userPrivilegesMenu'] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varData['userPrivilegesMenu']);
                 //    }
-                $varReturn['environment'] = $varData['environment'];
+                //$varReturn['environment'] = $varData['environment'];
+                if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'environment', $varData))
+                    {
+                    $varReturn['environment'] = $varData['environment'];
+                    }
                 }
 
             return $varReturn;
