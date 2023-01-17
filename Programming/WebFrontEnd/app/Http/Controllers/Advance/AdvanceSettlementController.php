@@ -11,6 +11,7 @@ class AdvanceSettlementController extends Controller
     {
         // $data = $request->session()->get("SessionPurchaseRequisition");
         // dd($data);
+        $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionAdvanceSetllement");
         $request->session()->forget("SessionAdvanceSetllementRequester");
 
@@ -21,6 +22,8 @@ class AdvanceSettlementController extends Controller
 
         $compact = [
             'var' => $var,
+            'varAPIWebToken' => $varAPIWebToken,
+            'statusRevisi' => 0,
         ];
 
         return view('Advance.Advance.Transactions.CreateAdvanceSettlement', $compact);
@@ -325,6 +328,8 @@ class AdvanceSettlementController extends Controller
             'dataRequester' => $varDataAdvanceSettlementRevision['data'][0]['document']['content']['involvedPersons']['requester'],
             'dataAdvancenumber' => $varDataAdvanceSettlementRevision['data'][0]['document']['header']['number'],
             'var_recordID' => $request->searchAsfNumberRevisionId,
+            'varAPIWebToken' => $varAPIWebToken,
+            'statusRevisi' => 1,
         ];
 
         return view('Advance.Advance.Transactions.RevisionAdvanceSettlement', $compact);

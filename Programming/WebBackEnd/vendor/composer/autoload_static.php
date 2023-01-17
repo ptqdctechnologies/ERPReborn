@@ -2595,8 +2595,6 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Aws\\ChimeSDKVoice\\Exception\\ChimeSDKVoiceException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/ChimeSDKVoice/Exception/ChimeSDKVoiceException.php',
         'Aws\\Chime\\ChimeClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Chime/ChimeClient.php',
         'Aws\\Chime\\Exception\\ChimeException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Chime/Exception/ChimeException.php',
-        'Aws\\CleanRooms\\CleanRoomsClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/CleanRooms/CleanRoomsClient.php',
-        'Aws\\CleanRooms\\Exception\\CleanRoomsException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/CleanRooms/Exception/CleanRoomsException.php',
         'Aws\\ClientResolver' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/ClientResolver.php',
         'Aws\\ClientSideMonitoring\\AbstractMonitoringMiddleware' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/ClientSideMonitoring/AbstractMonitoringMiddleware.php',
         'Aws\\ClientSideMonitoring\\ApiCallAttemptMonitoringMiddleware' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/ClientSideMonitoring/ApiCallAttemptMonitoringMiddleware.php',
