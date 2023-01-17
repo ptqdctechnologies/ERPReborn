@@ -183,25 +183,31 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             );
 
                         $varSysID = $varBufferDB['SignRecordID'];                        
-                        $varBufferDB = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord(
+                        $varBufferDB = 
+                            (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord(
                             $varUserSession, 
                             $varSysID
                             );
 
                         //---> Insert Data to Redis
-                        $varRedisID = (new \App\Models\Cache\General\APIWebToken())->setDataInsert(
-                            $varUserSession, 
-                            $varBufferDB[0]['APIWebToken'],
-                            json_encode([
-                                'userLoginSession_RefID' => $varBufferDB[0]['Sys_ID'],
-                                'user_RefID' => $varBufferDB[0]['User_RefID'],
-                                'userRole_RefID' => $varBufferDB[0]['UserRole_RefID'],
-                                'branch_RefID' => $varBufferDB[0]['Branch_RefID'],
-                                'sessionStartDateTimeTZ' => $varBufferDB[0]['SessionStartDateTimeTZ'],
-                                'sessionAutoStartDateTimeTZ' => $varBufferDB[0]['SessionAutoStartDateTimeTZ'],
-                                'sessionAutoFinishDateTimeTZ' => $varBufferDB[0]['SessionAutoFinishDateTimeTZ']
-                                ]), 
-                            $varSessionIntervalInSeconds);
+                        $varRedisID = 
+                            (new \App\Models\Cache\General\APIWebToken())->setDataInsert(
+                                $varUserSession, 
+                                $varBufferDB[0]['APIWebToken'],
+                                \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
+                                    $varUserSession,
+                                    [
+                                    'userLoginSession_RefID' => $varBufferDB[0]['Sys_ID'],
+                                    'user_RefID' => $varBufferDB[0]['User_RefID'],
+                                    'userRole_RefID' => $varBufferDB[0]['UserRole_RefID'],
+                                    'branch_RefID' => $varBufferDB[0]['Branch_RefID'],
+                                    'sessionStartDateTimeTZ' => $varBufferDB[0]['SessionStartDateTimeTZ'],
+                                    'sessionAutoStartDateTimeTZ' => $varBufferDB[0]['SessionAutoStartDateTimeTZ'],
+                                    'sessionAutoFinishDateTimeTZ' => $varBufferDB[0]['SessionAutoFinishDateTimeTZ']
+                                    ]
+                                    ),
+                                $varSessionIntervalInSeconds
+                                );
 
                         //---> Set Return Value
                         $varDataSend = [
