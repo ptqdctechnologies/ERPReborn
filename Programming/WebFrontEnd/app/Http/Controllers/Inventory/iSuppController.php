@@ -24,6 +24,7 @@ class iSuppController extends Controller
             'statusAdvanceRevisi' => 0,
             'statusPrRevisi' => 0,
             'statusPr' => 0,
+            'statusRevisi' => 0,
         ];
         return view('Inventory.iSupp.Transactions.CreateiSupp', $compact);
     }
@@ -150,6 +151,7 @@ class iSuppController extends Controller
             'statusAdvanceRevisi' => 0,
             'statusPrRevisi' => 0,
             'statusPr' => 0,
+            'statusRevisi' => 1,
         ];
 
         return view('Inventory.iSupp.Transactions.RevisioniSupp', $compact);

@@ -6,7 +6,7 @@
     $(".FormTransportDetails").hide();
     $(".brfhide6").hide();
     $(".budgetDetail").hide();
-    $("#tableShowHideBOQ3").hide();
+    $(".tableShowHideBOQ3").hide();
     $("#sitecode2").prop("disabled", true);
     $("#request_name2").prop("disabled", true);
     // $("#saveBrfList").prop("disabled", true);
@@ -98,7 +98,7 @@
     $("#sitename").val(name);
     $("#sitecode2").prop("disabled", true);
     $("#projectcode2").prop("disabled", true);
-    $("#tableShowHideBOQ3").show();
+    $(".tableShowHideBOQ3").show();
     $("#request_name2").prop("disabled", false);
     $("#request_name").attr('required', true);
 
