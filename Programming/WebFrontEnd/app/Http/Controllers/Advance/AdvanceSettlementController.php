@@ -23,6 +23,7 @@ class AdvanceSettlementController extends Controller
         $compact = [
             'var' => $var,
             'varAPIWebToken' => $varAPIWebToken,
+            'statusRevisi' => 0,
         ];
 
         return view('Advance.Advance.Transactions.CreateAdvanceSettlement', $compact);
@@ -328,6 +329,7 @@ class AdvanceSettlementController extends Controller
             'dataAdvancenumber' => $varDataAdvanceSettlementRevision['data'][0]['document']['header']['number'],
             'var_recordID' => $request->searchAsfNumberRevisionId,
             'varAPIWebToken' => $varAPIWebToken,
+            'statusRevisi' => 1,
         ];
 
         return view('Advance.Advance.Transactions.RevisionAdvanceSettlement', $compact);

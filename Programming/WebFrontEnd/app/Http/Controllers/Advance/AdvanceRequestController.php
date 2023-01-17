@@ -25,6 +25,7 @@ class AdvanceRequestController extends Controller
             'statusAdvanceRevisi' => 0,
             'statusPrRevisi' => 0,
             'statusPr' => 0,
+            'statusRevisi' => 0,
         ];
         return view('Advance.Advance.Transactions.CreateAdvanceRequest', $compact);
 
@@ -179,6 +180,7 @@ class AdvanceRequestController extends Controller
             'statusAdvanceRevisi' => 1,
             'statusPrRevisi' => 0,
             'statusPr' => 0,
+            'statusRevisi' => 1,
         ];
 
         return view('Advance.Advance.Transactions.RevisionAdvanceRequest', $compact);
@@ -260,7 +262,7 @@ class AdvanceRequestController extends Controller
             ]
         ]
         );
-        // dd($varData);
+        dd($varData);
 
         foreach($varData['data'] as $varDatas){
             $request->session()->push("SessionAdvance", (string)$varDatas['combinedBudget_SubSectionLevel1_RefID']);

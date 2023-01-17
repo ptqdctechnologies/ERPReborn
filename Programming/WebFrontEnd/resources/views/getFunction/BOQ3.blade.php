@@ -30,7 +30,7 @@
 
 <div class="card-body tableShowHideBOQ3" >
     <table style="float:right;">
-        @if($statusAdvanceRevisi == 1)
+        @if($statusRevisi == 1)
             <tr>
                 <th style="position: relative;right:20px;"> Total : <span id="TotalBudgetSelected"></span></th>
             </tr>
@@ -43,7 +43,7 @@
         <tr>
             <td>
                 <br>
-                @if($statusAdvanceRevisi == 1)
+                @if($statusRevisi == 1)
                     <a class="btn btn-default btn-sm float-right" onclick="addFromDetailtoCartJs()" id="addFromDetailtoCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                         <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
                     </a>

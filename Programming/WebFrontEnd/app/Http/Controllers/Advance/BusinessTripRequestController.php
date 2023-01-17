@@ -63,6 +63,7 @@ class BusinessTripRequestController extends Controller
             'statusAdvanceRevisi' => 0,
             'statusPrRevisi' => 0,
             'statusPr' => 0,
+            'statusRevisi' => 0,
         ];
     
         return view('Advance.BusinessTrip.Transactions.CreateBusinessTripRequest', $compact);
@@ -189,6 +190,7 @@ class BusinessTripRequestController extends Controller
             'statusAdvanceRevisi' => 0,
             'statusPrRevisi' => 0,
             'statusPr' => 0,
+            'statusRevisi' => 1,
         ];
         return view('Advance.BusinessTrip.Transactions.RevisionBusinessTripRequest', $compact);
     }

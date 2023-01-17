@@ -62,12 +62,6 @@
   <script src="{{ asset('AdminLTE-master/dist/js/adminlte.js') }}"></script>
   <script src="{{ asset('AdminLTE-master/dist/js/demo.js') }}"></script>
 
-  <script type="text/javascript">
-    window.onload = function() {
-      document.getElementById("dataInput_Log_FileUpload_Pointer_RefID_Action").dispatchEvent(new Event("change"));
-    }
-  </script>
-
   <script>
     // TIME FUNCTION
 
@@ -197,6 +191,11 @@
       input[0].setSelectionRange(caret_pos, caret_pos);
     }
   </script> -->
+  <script type="text/javascript">
+    window.onload = function() {
+      document.getElementById("dataInput_Log_FileUpload_Pointer_RefID_Action").dispatchEvent(new Event("change"));
+    }
+  </script>
 </body>
 
 </html>
