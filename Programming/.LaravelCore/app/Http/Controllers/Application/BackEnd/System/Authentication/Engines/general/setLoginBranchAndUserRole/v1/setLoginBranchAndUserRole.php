@@ -24,6 +24,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-11-13                                                                                           |
+        | ▪ Creation Date   : 2020-11-13                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,6 +44,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-11-13                                                                                           |
+        | ▪ Creation Date   : 2020-11-13                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -70,15 +72,47 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
     //                $varDataSend = ['message' => $varAPIWebToken];
                     
                     //--->
+                    //dd((new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, $varUserSession)[0]['OptionsList']);
                     $varDataOptionList = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, $varUserSession)[0]['OptionsList']);
                     for($i=0; $i!=count($varDataOptionList); $i++)
                         {
+                        $varCachedData = [];
                         $varDataBranchList[$i] = $varDataOptionList[$i]['branch_RefID'];
-                        for($j=0; $j!=count($varDataOptionList[$i]['userRole']); $j++)
+                        for($j=0, $jMax = count($varDataOptionList[$i]['userRole']); $j!=$jMax; $j++)
                             {
                             $varDataUserRoleList[$varDataOptionList[$i]['branch_RefID']][$j] = $varDataOptionList[$i]['userRole'][$j]['userRole_RefID'];
+                            //dd($varDataOptionList[$i]['branch_RefID']);
+                            //dd($varDataOptionList[$i]['userRole']);
+                            
+                            //---> Cached Data Combined Budget
+                            for($k=0, $kMax=count($varDataOptionList[$i]['userRole'][$j]['combinedBudget']); $k!=$kMax; $k++)
+                                {
+                                $varCachedData[($varDataOptionList[$i]['userRole'][$j]['userRole_RefID'])]['combinedBudget']['keyList'][] = $varDataOptionList[$i]['userRole'][$j]['combinedBudget'][$k]['recordID'];
+                                $varCachedData[($varDataOptionList[$i]['userRole'][$j]['userRole_RefID'])]['combinedBudget']['dataTable'][] = 
+                                    [
+                                    'sys_ID' => $varDataOptionList[$i]['userRole'][$j]['combinedBudget'][$k]['recordID'],
+                                    'sys_TEXT' => $varDataOptionList[$i]['userRole'][$j]['combinedBudget'][$k]['entities']['name']
+                                    ];
+                                }
+
+                            //---> Cached Data Menu
+                            for($k=0, $kMax=count($varDataOptionList[$i]['userRole'][$j]['menu']); $k!=$kMax; $k++)
+                                {
+//                                dd($varDataOptionList[$i]['userRole'][$j]['menu'][$k][]); 
+                                $varCachedData[($varDataOptionList[$i]['userRole'][$j]['userRole_RefID'])]['menu']['keyList'][] = $varDataOptionList[$i]['userRole'][$j]['menu'][$k]['entities']['key'];
+                                $varCachedData[($varDataOptionList[$i]['userRole'][$j]['userRole_RefID'])]['menu']['dataTable'][] = 
+                                    [
+                                    'sys_ID' => $varDataOptionList[$i]['userRole'][$j]['menu'][$k]['entities']['key'],
+                                    'sys_TEXT' => $varDataOptionList[$i]['userRole'][$j]['menu'][$k]['entities']['caption']
+                                    ];
+                                }
+
                             }
                         }
+                    
+                    //dd($varCachedData[$varUserRoleID]['menu']['index']);
+                    //dd($varCachedData_CombinedBudget);
+                    //dd($varDataOptionList);
 //$varDataBranchList=333;
 //$varDataUserRoleList=333;
 
@@ -114,10 +148,19 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                         $varDataRedis = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, (new \App\Models\Cache\General\APIWebToken())->getDataRecord($varUserSession, $varAPIWebToken));
                         $varDataRedis['branch_RefID'] = $varBranchID;
                         $varDataRedis['userRole_RefID'] = $varUserRoleID;
-                        $varDataRedis['userPrivilegesMenu'] = $varUserPrivilegesMenu;
+                        //$varDataRedis['userPrivilegesMenu'] = $varUserPrivilegesMenu;
+                        $varDataRedis['environment']['userPrivileges']['menu'] = [
+                            'keyList' => $varCachedData[$varUserRoleID]['menu']['keyList'],
+                            'dataTable' => $varCachedData[$varUserRoleID]['menu']['dataTable']
+                            ];
+                        $varDataRedis['environment']['userPrivileges']['combinedBudget'] = [
+                            'keyList' => $varCachedData[$varUserRoleID]['combinedBudget']['keyList'],
+                            'dataTable' => $varCachedData[$varUserRoleID]['combinedBudget']['dataTable']
+                            ];
                         (new \App\Models\Cache\General\APIWebToken())->setDataUpdate($varUserSession, $varAPIWebToken, \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varDataRedis));
                         //--->
                         $varDataSend = ['message' => 'Chosen Branch ID and User Role ID have been saved'];
+            dd($varDataRedis);
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);                        
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----

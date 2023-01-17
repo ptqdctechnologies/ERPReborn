@@ -1,36 +1,31 @@
-.wrapper-budget {
-  position: relative;
-  overflow: auto;
-  /* white-space: nowrap; */
-}
 
-.sticky-col {
-  position: -webkit-sticky;
-  position: sticky;
-}
+  .wrapper-budget {
+    position: relative;
+    overflow: auto;
+    /* white-space: nowrap; */
+  }
 
-.first-col {
-  width: 125px;
-  min-width: 125px;
-  max-width: 125px;
-  right: 0px;
-}
+  .sticky-col {
+    position: -webkit-sticky;
+    position: sticky;
+  }
 
-.second-col {
-  width: 110px;
-  min-width: 110px;
-  max-width: 110px;
-  right: 124px;
-}
-.third-col {
-  width: 70px;
-  min-width: 70px;
-  max-width: 70px;
-  right: 232px;
-}
-.forth-col {
-  width: 125px;
-  min-width: 125px;
-  max-width: 125px;
-  right: 301px;
-}
+  .first-col {
+    width: 120px;
+    min-width: 120px;
+    max-width: 120px;
+    right: 0px;
+  }
+
+  .second-col {
+    width: 110px;
+    min-width: 110px;
+    max-width: 110px;
+    right: 121px;
+  }
+  .third-col {
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+    right: 232px;
+  }

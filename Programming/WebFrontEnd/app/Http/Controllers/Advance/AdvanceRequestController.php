@@ -33,7 +33,6 @@ class AdvanceRequestController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        // dd($input);
         $count_product = count($input['var_product_id']);
 
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -61,7 +60,7 @@ class AdvanceRequestController extends Controller
             [
             'entities' => [
                 "documentDateTimeTZ" => $input['var_date'],
-                "log_FileUpload_Pointer_RefID" => (int)$input['dataInput_Log_FileUpload_Pointer_RefID'],
+                "log_FileUpload_Pointer_RefID" => 91000000000001,
                 "requesterWorkerJobsPosition_RefID" => (int)$input['request_name_id'],
                 "beneficiaryWorkerJobsPosition_RefID" => 25000000000439,
                 "beneficiaryBankAccount_RefID" => 167000000000001,
@@ -172,10 +171,8 @@ class AdvanceRequestController extends Controller
         );
         $compact = [
             'dataAdvanceRevisions' => $varDataAdvanceRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
-            'log_FileUpload_Pointer_RefID' => $varDataAdvanceRevision['data'][0]['document']['content']['attachmentFiles']['main']['log_FileUpload_Pointer_RefID'],
             'dataRequester' => $varDataAdvanceRevision['data'][0]['document']['content']['involvedPersons']['requester'],
             'var_recordID' => $request->searchArfNumberRevisionId,
-            'varAPIWebToken' => $varAPIWebToken,
             'statusAdvanceRevisi' => 1,
             'statusPrRevisi' => 0,
             'statusPr' => 0,

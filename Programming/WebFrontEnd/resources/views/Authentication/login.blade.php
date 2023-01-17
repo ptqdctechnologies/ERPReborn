@@ -211,7 +211,7 @@
 
                     <div class="input-group mb-4">
                         <select class="form-control branch_name" name="branch_name" id="dis2">
-                            <option selected="selected" value=""> Select Company Name </option>
+                            <option selected="selected" value=""> Select Branch Name </option>
                         </select>
                     </div>
                     <div class="input-group mb-4">
@@ -284,27 +284,11 @@
                     type: 'GET',
                     url: '{!! route("getBranchLogin") !!}?username=' + $('.username').val() + '&password=' + $('.password').val(),
                     success: function(data) {
-
+                        console.log(data);
                         var len = 0;
                         if (data == 'undefined') {
                             Swal.fire("Cancelled", "Pastikan username dan password and benar", "error");
-                        }
-                        else if (data == 200) {
-                            var delay = 500;
-                            $(document).ready(function() {
-                                $("#loading").show();
-                                $(".loader").show();
-
-                                setTimeout(function() {
-                                    $("#loading").hide();
-                                    $(".loader").hide();
-                                }, delay);
-                            });
-
-                            window.location.href = '/dashboard';
-
-                        }
-                        else {
+                        } else {
                             var delay = 500;
                             $(document).ready(function() {
                                 $("#loading").show();
@@ -319,7 +303,7 @@
 
                             $(".branch_name").empty();
 
-                            var option = "<option value='" + '' + "'>" + 'Select Company Name' + "</option>";
+                            var option = "<option value='" + '' + "'>" + 'Select Branch Name' + "</option>";
                             $(".branch_name").append(option);
 
                             len = data.length;
