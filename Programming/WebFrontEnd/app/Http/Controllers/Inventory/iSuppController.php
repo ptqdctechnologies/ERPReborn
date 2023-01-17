@@ -10,6 +10,8 @@ class iSuppController extends Controller
 {
     public function index(Request $request)
     {
+
+        $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessioniSupp");
 
         $var = 0;
@@ -18,6 +20,10 @@ class iSuppController extends Controller
         }
         $compact = [
             'var' => $var,
+            'varAPIWebToken' => $varAPIWebToken,
+            'statusAdvanceRevisi' => 0,
+            'statusPrRevisi' => 0,
+            'statusPr' => 0,
         ];
         return view('Inventory.iSupp.Transactions.CreateiSupp', $compact);
     }
@@ -140,6 +146,10 @@ class iSuppController extends Controller
             'dataAdvanceRevisions' => $varDataAdvanceRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
             'dataRequester' => $varDataAdvanceRevision['data'][0]['document']['content']['involvedPersons']['requester'],
             'var_recordID' => $request->searchiSuppNumberRevisionId,
+            'varAPIWebToken' => $varAPIWebToken,
+            'statusAdvanceRevisi' => 0,
+            'statusPrRevisi' => 0,
+            'statusPr' => 0,
         ];
 
         return view('Inventory.iSupp.Transactions.RevisioniSupp', $compact);

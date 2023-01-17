@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-header">
                 <label class="card-title">
-                    Add New iSupp
+                    iSupp Revision
                 </label>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">

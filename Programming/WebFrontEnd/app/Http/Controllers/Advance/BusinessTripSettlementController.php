@@ -10,6 +10,7 @@ class BusinessTripSettlementController extends Controller
 {
     public function index(Request $request)
     {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionBusinessTripSettllement");
         $request->session()->forget("SessionBusinessTripSettllementRequester");
         $var = 0;
@@ -19,6 +20,10 @@ class BusinessTripSettlementController extends Controller
         
         $compact = [
             'var' => $var,
+            'varAPIWebToken' => $varAPIWebToken,
+            'statusAdvanceRevisi' => 0,
+            'statusPrRevisi' => 0,
+            'statusPr' => 0,
         ];
         
         return view('Advance.BusinessTrip.Transactions.CreateBusinessTripSettlement', $compact);
@@ -274,6 +279,10 @@ class BusinessTripSettlementController extends Controller
             'dataRequester' => $varDataAdvanceSettlementRevision['data'][0]['document']['content']['involvedPersons']['requester'],
             'dataAdvancenumber' => $varDataAdvanceSettlementRevision['data'][0]['document']['header']['number'],
             'var_recordID' => $request->searchBsfNumberRevisionId,
+            'varAPIWebToken' => $varAPIWebToken,
+            'statusAdvanceRevisi' => 0,
+            'statusPrRevisi' => 0,
+            'statusPr' => 0,
         ];
 
         return view('Advance.BusinessTrip.Transactions.RevisionBusinessTripSettlement', $compact);
