@@ -25,6 +25,11 @@
   <!-- fullcalendar -->
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/fullcalendar/customfullcalender.css') }}">
 
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+
+  
+
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
@@ -48,6 +53,13 @@
     <aside class="control-sidebar control-sidebar-dark"></aside>
   </div>
 
+
+  <script type="text/javascript">
+    window.onload = function() {
+      document.getElementById("dataInput_Log_FileUpload_Pointer_RefID_Action").dispatchEvent(new Event("change"));
+    }
+  </script>
+
   <!-- jQuery -->
   <script src="{{ asset('AdminLTE-master/plugins/jquery/jquery.min.js') }}"></script>
   <script src="{{ asset('AdminLTE-master/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
@@ -61,6 +73,8 @@
 
   <script src="{{ asset('AdminLTE-master/dist/js/adminlte.js') }}"></script>
   <script src="{{ asset('AdminLTE-master/dist/js/demo.js') }}"></script>
+
+  <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 
   <script>
     // TIME FUNCTION
@@ -191,11 +205,6 @@
       input[0].setSelectionRange(caret_pos, caret_pos);
     }
   </script> -->
-  <script type="text/javascript">
-    window.onload = function() {
-      document.getElementById("dataInput_Log_FileUpload_Pointer_RefID_Action").dispatchEvent(new Event("change"));
-    }
-  </script>
 </body>
 
 </html>

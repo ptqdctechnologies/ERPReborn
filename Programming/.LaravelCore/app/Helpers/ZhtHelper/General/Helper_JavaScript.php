@@ -216,7 +216,7 @@ namespace App\Helpers\ZhtHelper\General
                                             ['left', '0px'],
                                             ['height', '100%'],
                                             ['width', '100%'],
-                                            ['background', 'rgba(255, 255, 0, 0.5)']
+                                            ['background', '#ced4da']
                                             ]
                                     ], 
                                     ''
@@ -251,15 +251,15 @@ namespace App\Helpers\ZhtHelper\General
                                             ['position', 'absolute'],
                                             ['top', '50%'],
                                             ['left', '50%'],
-                                            ['background', '#0a912c'],
+                                            ['background', '#ced4da'],
                                             ['fontFamily', '\\\'Helvetica, Verdana, Arial, Tahoma, Serif\\\''],
                                             ['fontWeight', 'bold'],
                                             ['valign', 'top'],
-                                            ['color', '#ffffff'],
-                                            ['fontSize', '60px'],
-                                            ['textShadow', '2px 2px 5px #000000'],
-                                            ['border', '5px solid'],
-                                            ['borderColor', 'black'],
+                                            ['color', '#212529'],
+                                            ['fontSize', '30px'],
+                                            ['textShadow', '2px 2px 5px #ced4da'],
+                                            ['border', '5px solid #ced4da'],
+                                            ['borderColor', 'ced4da'],
                                             ['borderSpacing', '2px'],
                                             ['padding', '5px'],
                                             ['borderRadius', '10px'],
@@ -358,18 +358,18 @@ namespace App\Helpers\ZhtHelper\General
                 ['fontFamily', '\\\'Helvetica, Verdana, Arial, Tahoma, Serif\\\''],
                 ['fontWeight', 'bold'],
                 ['valign', 'top'],
-                ['color', '#ffffff'],
+                ['color', '#212529'],
                 ['fontSize', '12px'],
-                ['textShadow', '2px 2px 5px #000000']
+                ['textShadow', '2px 2px 5px #ced4da']
                 ];
 
             $varStyle_TableDataPagination = [
                 ['fontFamily', '\\\'Helvetica, Verdana, Arial, Tahoma, Serif\\\''],
                 ['fontWeight', 'bold'],
                 ['valign', 'top'],
-                ['color', '#ffffff'],
+                ['color', '#212529'],
                 ['fontSize', '12px'],
-                ['textShadow', '2px 2px 5px #000000']
+                ['textShadow', '2px 2px 5px #ced4da']
                 ];
 
             $varReturn = 
@@ -516,7 +516,7 @@ namespace App\Helpers\ZhtHelper\General
                                             'Style' => [
                                                 ['position', 'relative'],
                                                 ['top', '50%'],
-                                                ['filter', 'drop-shadow(3px 3px 3px #000000)']
+                                                ['filter', 'drop-shadow(3px 3px 3px #ced4da)']
                                                 ]
                                         ], 
                                         'varDataArrayOption'
@@ -718,8 +718,8 @@ namespace App\Helpers\ZhtHelper\General
                                     ['height', '480px'],
                                     ['width', '410px'],
                                     ['background', 'rgba(88, 88, 88, 1.0)'],
-                                    ['border', '2px solid #ffff00'],
-                                    ['boxShadow', '10px 20px 30px #333333']
+                                    ['border', '2px solid #ced4da'],
+                                    ['boxShadow', '10px 20px 30px #ced4da']
                                     ]
                             ], 
                             ''
@@ -739,8 +739,8 @@ namespace App\Helpers\ZhtHelper\General
                                     ['height', '200px'],
                                     ['width', '410px'],
                                     ['background', 'rgba(88, 88, 88, 1.0)'],
-                                    ['border', '2px solid #ffff00'],
-                                    ['boxShadow', '10px 20px 30px #333333']
+                                    ['border', '2px solid #ced4da'],
+                                    ['boxShadow', '10px 20px 30px #ced4da']
                                     ]
                             ], 
                             ''
@@ -928,12 +928,12 @@ namespace App\Helpers\ZhtHelper\General
                                     ['height', '30px'],
                                     ['lineHeight', '30px'],
                                     ['width', '100%'],
-                                    ['background', '#ffffff'],
+                                    ['background', '#212529'],
                                     ['backgroundImage', 'linear-gradient(#000108, #181d57 10%, #000108)'],
                                     ['fontFamily', '\\\'Helvetica, Verdana, Arial, Tahoma, Serif\\\''],
                                     ['fontWeight', 'bold'],
-                                    ['color', '#ffffff'],
-                                    ['textShadow', '2px 2px 5px #000000']
+                                    ['color', '#212529'],
+                                    ['textShadow', '2px 2px 5px #ced4da']
                                     ]
                             ], 
                             'FILE PREVIEW'
@@ -1073,8 +1073,8 @@ namespace App\Helpers\ZhtHelper\General
                                             'Style' => [
                                                 ['position', 'relative'],
                                                 //['top', '50%'],
-                                                ['border', '1px solid'],
-                                                ['borderColor', 'black'],
+                                                ['border', '1px solid #ced4da'],
+                                                ['borderColor', 'ced4da'],
                                                 ['borderSpacing', '2px'],
                                                 ['padding', '2px'],
                                                 ['backgroundImage', 'linear-gradient(#a10e03, #360401 30%, #a10e03)'],
@@ -1122,7 +1122,7 @@ namespace App\Helpers\ZhtHelper\General
                                                                 ['position', 'relative'],
                                                                 ['top', '50%'],
                                                                 ['left', '0'],
-                                                                ['filter', 'drop-shadow(3px 3px 3px #000000)']
+                                                                ['filter', 'drop-shadow(3px 3px 3px #ced4da)']
                                                                 ]
                                                         ], 
                                                         '\'images/Icon/Pagination/Previous-300-32.png\''
@@ -1211,7 +1211,7 @@ namespace App\Helpers\ZhtHelper\General
                                                                 ['position', 'relative'],
                                                                 ['top', '50%'],
                                                                 ['left', '0'],
-                                                                ['filter', 'drop-shadow(3px 3px 3px #000000)']
+                                                                ['filter', 'drop-shadow(3px 3px 3px #ced4da)']
                                                                 ]
                                                         ], 
                                                         '\'images/Icon/Pagination/Next-300-32.png\''
@@ -2196,13 +2196,13 @@ namespace App\Helpers\ZhtHelper\General
                     $varStyle_TableAction =
                         [
                             ['width', '100px'],
-                            ['border', '1px solid black']
+                            ['border', '1px solid #ced4da']
                         ];
 
                     $varStyle_TableActionPanelHead =
                         [
-                            ['backgroundColor', '#292630'],
-                            ['color', '#FFFFFF'],
+                            ['backgroundColor', '#E9ECEF'],
+                            ['color', '#212529'],
                             ['fontFamily', '\\\'verdana\\\''],
                             ['whiteSpace', 'nowrap'],
                             ['fontSize', '13px'],
@@ -2211,7 +2211,7 @@ namespace App\Helpers\ZhtHelper\General
                     
                     $varStyle_TableActionPanelBody =
                         [
-                            ['backgroundColor', '#FADBB4'],
+                            ['backgroundColor', '#E9ECEF'],
                             ['color', '#000000'],
                             ['fontFamily', '\\\'verdana\\\''],
                             ['whiteSpace', 'nowrap'],

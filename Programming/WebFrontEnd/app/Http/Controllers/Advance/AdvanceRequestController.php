@@ -219,7 +219,7 @@ class AdvanceRequestController extends Controller
                 'recordID' => (int)$input['var_recordID'],
                 'entities' => [
                     "documentDateTimeTZ" => '2022-03-07',
-                    "log_FileUpload_Pointer_RefID" => 91000000000001,
+                    "log_FileUpload_Pointer_RefID" => (int)$input['dataInput_Log_FileUpload_Pointer_RefID'],
                     "requesterWorkerJobsPosition_RefID" => (int)$input['request_name_id'],
                     "beneficiaryWorkerJobsPosition_RefID" => 25000000000439,
                     "beneficiaryBankAccount_RefID" => 167000000000001,
@@ -262,7 +262,7 @@ class AdvanceRequestController extends Controller
             ]
         ]
         );
-        dd($varData);
+        // dd($varData);
 
         foreach($varData['data'] as $varDatas){
             $request->session()->push("SessionAdvance", (string)$varDatas['combinedBudget_SubSectionLevel1_RefID']);

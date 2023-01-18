@@ -42,7 +42,7 @@
                 type: 'GET',
                 url: '{!! route("AdvanceRequest.AdvanceListData") !!}',
                 success: function(data) {
-                    var no = 1; t = $('#tableSearchArfRevision').DataTable();
+                    var no = 1; t = $('#TableSearchArfRevision').DataTable();
                     t.clear();
                     $.each(data, function(key, val) {
                         t.row.add([
