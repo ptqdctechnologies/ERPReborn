@@ -756,7 +756,8 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
                 'sessionStartDateTimeTZ' => null,
                 'sessionAutoStartDateTimeTZ' => null,
                 'sessionAutoFinishDateTimeTZ' => null,
-                'userPrivilegesMenu' => null
+                //'userPrivilegesMenu' => null
+                'environment' => null
                 ];
             
             if((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true)
@@ -770,9 +771,14 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
                 $varReturn['sessionStartDateTimeTZ'] = $varData['sessionStartDateTimeTZ'];
                 $varReturn['sessionAutoStartDateTimeTZ'] = $varData['sessionAutoStartDateTimeTZ'];
                 $varReturn['sessionAutoFinishDateTimeTZ'] = $varData['sessionAutoFinishDateTimeTZ'];
-                if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'userPrivilegesMenu', $varData))
+                //if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'userPrivilegesMenu', $varData))
+                //    {
+                //    $varReturn['userPrivilegesMenu'] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varData['userPrivilegesMenu']);
+                //    }
+                //$varReturn['environment'] = $varData['environment'];
+                if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'environment', $varData))
                     {
-                    $varReturn['userPrivilegesMenu'] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varData['userPrivilegesMenu']);
+                    $varReturn['environment'] = $varData['environment'];
                     }
                 }
 

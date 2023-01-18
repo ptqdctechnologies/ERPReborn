@@ -21,7 +21,7 @@
   <!-- Loading css -->
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/loading.css') }}">
   <!-- Budget css -->
-  <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/budget.css') }}">
+  <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/budgets.css') }}">
   <!-- fullcalendar -->
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/fullcalendar/customfullcalender.css') }}">
 
@@ -33,10 +33,10 @@
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  
-  <script src = "js/zht-js/core.js" type="text/javascript"></script>
-  <script>new zht_JSCore();</script>
-  
+  <!-- <script>
+    new zht_JSCore();
+  </script> -->
+  <script src="{{ asset('js/zht-js/core.js') }}"></script>
 </head>
 
 <body class="hold-transition sidebar-mini">

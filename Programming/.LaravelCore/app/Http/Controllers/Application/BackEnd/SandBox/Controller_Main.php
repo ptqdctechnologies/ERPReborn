@@ -1545,7 +1545,7 @@ dd($x);
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
             $varUserSession=0;
 
-            $varKey = 'ERPReborn::APIWebToken::eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMTQ1NTcxMH0.KfZQ_diR-r3eiEKgyfsQSUhasCgDi_9thgN3CRF3C6c';
+            $varKey = 'ERPReborn::APIWebToken::eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NzM5NDMwNTR9.MDM5NjMzMmI2YzRjZDY3NTFkOThjMWQ5NjdmMTMwM2Q1OWNjYWRiYmQ1MGMwZDMxZWRhOGYzNGQwNDJhMzJlYQ';
             echo "<br>~~~~~~~<br>".\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue($varUserSession, $varKey);
 
 

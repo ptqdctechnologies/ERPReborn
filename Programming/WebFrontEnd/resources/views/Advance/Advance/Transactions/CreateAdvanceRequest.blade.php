@@ -76,27 +76,26 @@
                     </div>
                     <div class="card-body">
                       <div class="row">
-                        <div class="col-md-12">
-                          <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID">
-                          <input type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" name="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" onchange="javascript: @php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord'); @endphp;" />
-                        </div>
-                        <br><br>
-                        <div class="col-md-12">
-                          <div class="card-body table-responsive p-0" style="height:90px;">
-                            
-                          <table class="table table-head-fixed table-sm text-nowrap">
+                        <div class="col-md-6">
+                          <div class="card-body table-responsive p-0" style="width:100%;">
+                            <table class="table table-head-fixed text-nowrap">
                               <div class="form-group input_fields_wrap">
+                                <div class="input-group control-group" style="width:100%;">
 
-                                <div class="input-group control-group">
 
-                                  <!-- <div id="dataShow_MasterFileRecord" style="border-style:solid; border-width:1px;"></div> -->
-                                  <div id="dataShow_ActionPanel" style="border-style:solid; border-width:1px;"></div>
-                                  
+                                  <!-- <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="91000000000011" readonly="true">
+                                  <input type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" onchange="javascript: @php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord'); @endphp;" />
+                                  <div id="dataShow_MasterFileRecord" style="border-style:solid; border-width:1px;"></div>
+                                  <div id="dataShow_ActionPanel" style="border-style:solid; border-width:1px;"></div> -->
+
+
+                                  <div class="input-group-btn">
+                                    <button style="background-color:#e9ecef;border:1px solid #ced4da;" class="btn btn-sm add_field_button" type="button"><img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="15" alt=""> Add</button>
+                                  </div>
                                 </div>
                               </div>
 
                             </table>
-                              
                           </div>
                         </div>
 
