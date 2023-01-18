@@ -24,5 +24,10 @@ if [ ! -f /zhtConf/tmp/processSign/.initialized ]; then
    samba-tool user add suyanto suyanto1234;
    samba-tool user delete aldi.mulyadi;
    samba-tool user add aldi.mulyadi aldi1234;
+ 
+   samba-tool user delete kurnia;
+   samba-tool user add kurnia kurnia1234;
+   samba-tool user delete eka.bagus;
+   samba-tool user add eka.bagus eka.bagus1234;
 
 fi
