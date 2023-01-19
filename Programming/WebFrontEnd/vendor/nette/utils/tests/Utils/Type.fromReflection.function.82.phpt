@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @phpversion 8.1
+ * @phpversion 8.2
  */
 
 declare(strict_types=1);
@@ -42,7 +42,7 @@ Assert::same(['mixed'], $type->getNames());
 Assert::same('mixed', (string) $type);
 
 
-$type = Type::fromReflection(new ReflectionFunction(function (): Bar&Foo {}));
+$type = Type::fromReflection(new ReflectionFunction(function (): Bar & Foo {}));
 
 Assert::same(['Bar', 'Foo'], $type->getNames());
 Assert::same('Bar&Foo', (string) $type);
@@ -51,3 +51,8 @@ Assert::same('Bar&Foo', (string) $type);
 // tentative type
 $type = Type::fromReflection(new ReflectionMethod(ArrayObject::class, 'count'));
 Assert::same('int', (string) $type);
+
+
+// disjunctive normal form
+$type = Type::fromReflection(new ReflectionFunction(function (): (Bar & Foo)|string|int|null {}));
+Assert::same('(Bar&Foo)|string|int|null', (string) $type);
