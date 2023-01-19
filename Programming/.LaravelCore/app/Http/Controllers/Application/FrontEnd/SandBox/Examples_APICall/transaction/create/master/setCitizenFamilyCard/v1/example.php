@@ -76,14 +76,27 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 }
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            $varFileUpload_UniqueID = 'Upload';
             echo '<br>Log FileUpload Pointer RefID ► '.
 //                '<input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="" readOnly="true">'.
                 '<input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="91000000000011" readOnly="true">'.
                 '<input type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" '.
-                    'onChange="javascript:'.\App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord').';" />'.
+                    'onChange="javascript:'.
+                        \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(
+                            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                            $varAPIWebToken, 
+                            $varFileUpload_UniqueID, 
+                            'dataInput_Log_FileUpload_Pointer_RefID', 
+                            'dataShow_ActionPanel', 
+                            'dataShow_MasterFileRecord'
+                            ).
+                    ';" />'.
                 '<div id="dataShow_MasterFileRecord" style="border-style:solid; border-width:1px;"></div>'.
                 '<div id="dataShow_ActionPanel" style="border-style:solid; border-width:1px;" onLoad="javascript:alert(\'xxx\');"></div>';
 
+            echo '<br><br><button onclick="javascript: JSFunc_GetActionPanel_CommitFromOutside_'.$varFileUpload_UniqueID.'();">TEST COMMIT FROM OUTSIDE</button><br><br>';
+
+            
 //91000000000023
 /*
 echo '<div style="position: relative; z-index: 3">Hello world</div>';
@@ -101,7 +114,7 @@ echo '<div style="position: relative; z-index: 3">Hello world</div>';
                         //'document.getElementById("dataInput_Log_FileUpload_Pointer_RefID_Action2").dispatchEvent(new Event("change"));'.
                         '}; '.
                 '</script>';
-
+                        
             echo '<br>Card Number ► '.
                 '<input type="text" id="dataInput_CardNumber" value="3174091701099012">';
             echo '<br>Issued Date ► '.
@@ -124,6 +137,7 @@ echo '<div style="position: relative; z-index: 3">Hello world</div>';
                 '<input type="text" id="dataInput_PostalCode" value="12530">';
             echo '<br>Card Serial Number ► '.
                 '<input type="text" id="dataInput_CardSerialNumber" value="K 3100 6431728">';
+                        
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 

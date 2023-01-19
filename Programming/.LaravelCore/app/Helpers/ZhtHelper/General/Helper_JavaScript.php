@@ -2319,6 +2319,17 @@ namespace App\Helpers\ZhtHelper\General
                                                     'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
                                                     '}'.
                                                 '}'.
+                            
+                                            //---> JSFunc_GetActionPanel_CommitFromOutside_...
+                                            'function JSFunc_GetActionPanel_CommitFromOutside_'.$varUniqueID.'() {'.
+                                                'try {'.
+                                                    'JSFunc_GetActionPanel_Commit_'.$varUniqueID.'(); '.
+                                                    'alert(\'Test Commit Berhasil dieksekusi\'); '.
+                                                    '}'.
+                                                'catch(varError) {'.
+                                                    'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                                    '}'.
+                                                '}'.
 
                                             //---> JSFunc_GetActionPanel_Commit_...
                                             'function JSFunc_GetActionPanel_Commit_'.$varUniqueID.'() {'.
