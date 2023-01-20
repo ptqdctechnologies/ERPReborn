@@ -28,15 +28,16 @@
 
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
 
-  
 
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  <!-- <script>
-    new zht_JSCore();
-  </script> -->
+
   <script src="{{ asset('js/zht-js/core.js') }}"></script>
+  <script>
+    new zht_JSCore();
+  </script>
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -80,6 +81,7 @@
     // TIME FUNCTION
 
     setInterval(customClock, 500);
+
     function customClock() {
       var time = new Date();
       var date = time.getDate();
@@ -101,7 +103,7 @@
   </script>
 
   <script>
-    $(document).ready( function () {
+    $(document).ready(function() {
       $('#tableGetWarehouse').DataTable();
       $('#tableGetWarehouse2').DataTable();
       $('#tableGetWarehouse3').DataTable();
@@ -110,50 +112,58 @@
       $('#tableGetReceive').DataTable();
       $('#tableGetDelivery').DataTable();
       $('#tableGetProduct').DataTable();
-  } );
+    });
   </script>
 
 
   <script>
-      function currency(num){
-          var str = num.toString().replace("$", ""), parts = false, output = [], i = 1, formatted = null;
-          if(str.indexOf(".") > 0) {
-              parts = str.split(".");
-              str = parts[0];
+    function currency(num) {
+      var str = num.toString().replace("$", ""),
+        parts = false,
+        output = [],
+        i = 1,
+        formatted = null;
+      if (str.indexOf(".") > 0) {
+        parts = str.split(".");
+        str = parts[0];
+      }
+      str = str.split("").reverse();
+      for (var j = 0, len = str.length; j < len; j++) {
+        if (str[j] != ",") {
+          output.push(str[j]);
+          if (i % 3 == 0 && j < (len - 1)) {
+            output.push(",");
           }
-          str = str.split("").reverse();
-          for(var j = 0, len = str.length; j < len; j++) {
-              if(str[j] != ",") {
-                  output.push(str[j]);
-                  if(i%3 == 0 && j < (len - 1)) {
-                      output.push(",");
-                  }
-                  i++;
-              }
-          }
-          formatted = output.reverse().join("");
-          return(formatted + ((parts) ? "." + parts[1].substr(0, 2) : ""));
-      };
+          i++;
+        }
+      }
+      formatted = output.reverse().join("");
+      return (formatted + ((parts) ? "." + parts[1].substr(0, 2) : ""));
+    };
 
-      function currencyTotal(num){
-          var str = num.toString().replace("$", ""), parts = false, output = [], i = 1, formatted = null;
-          if(str.indexOf(".") > 0) {
-              parts = str.split(".");
-              str = parts[0];
+    function currencyTotal(num) {
+      var str = num.toString().replace("$", ""),
+        parts = false,
+        output = [],
+        i = 1,
+        formatted = null;
+      if (str.indexOf(".") > 0) {
+        parts = str.split(".");
+        str = parts[0];
+      }
+      str = str.split("").reverse();
+      for (var j = 0, len = str.length; j < len; j++) {
+        if (str[j] != ",") {
+          output.push(str[j]);
+          if (i % 3 == 0 && j < (len - 1)) {
+            output.push(",");
           }
-          str = str.split("").reverse();
-          for(var j = 0, len = str.length; j < len; j++) {
-              if(str[j] != ",") {
-                  output.push(str[j]);
-                  if(i%3 == 0 && j < (len - 1)) {
-                      output.push(",");
-                  }
-                  i++;
-              }
-          }
-          formatted = output.reverse().join("");
-          return(formatted + ((parts) ? "." + parts[1].substr(0, 2) : ".00"));
-      };
+          i++;
+        }
+      }
+      formatted = output.reverse().join("");
+      return (formatted + ((parts) ? "." + parts[1].substr(0, 2) : ".00"));
+    };
   </script>
 
   <!-- <script>
