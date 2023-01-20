@@ -79,7 +79,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             $varFileUpload_UniqueID = 'Upload';
             echo '<br>Log FileUpload Pointer RefID ► '.
 //                '<input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="" readOnly="true">'.
-                '<input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="91000000000011" readOnly="true">'.
+                '<input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="" readOnly="true">'.
                 '<input type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" '.
                     'onChange="javascript:'.
                         \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(
