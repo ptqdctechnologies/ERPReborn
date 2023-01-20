@@ -136,6 +136,23 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                 []
                 );
 
+            //---> Execute only ROLE_SYNCHRONIZE_AGENT is TRUE (config\Application\BackEnd\environment.txt)
+            //if(strcmp(strtoupper(\App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'ROLE_SYNCHRONIZE_AGENT')), 'TRUE') == 0)
+                {
+                //---> API Call : Record Last Modified Resynchronization
+                $varFilePath = '/zhtConf/log/lastSession/scheduledTask/'.$this->varSheduleIdentity.'/jobs/instruction.server.internal.database.system.recordLastModifiedResynchronization';
+                shell_exec("touch ".$varFilePath);
+                $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken, 
+                    'instruction.server.internal.database.system.recordLastModifiedResynchronization',
+                    'latest', 
+                    [
+                    'parameter' => null
+                    ]
+                    );
+                }
+
             return $varReturn;
             }
         }
