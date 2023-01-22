@@ -211,12 +211,12 @@ namespace App\Helpers\ZhtHelper\General
                                         'ID' => $varID.'_ProcessLoad_Back',
                                         'ParentID' => $varParentID,
                                         'Style' => [
-                                            ['position', 'absolute'],
+                                            ['position', 'fixed'],
                                             ['top', '0px'],
                                             ['left', '0px'],
                                             ['height', '100%'],
                                             ['width', '100%'],
-                                            ['background', '#ced4da']
+                                            ['background', 'center no-repeat #fff']
                                             ]
                                     ], 
                                     ''
@@ -248,7 +248,25 @@ namespace App\Helpers\ZhtHelper\General
                                         'ID' => $varID.'_ProcessLoad_BackMessage',
                                         'ParentID' => $varID.'_ProcessLoad_Back',
                                         'Style' => [
-                                            ['position', 'absolute'],
+                                            // ['position', 'absolute'],
+                                            // ['top', '50%'],
+                                            // ['left', '50%'],
+                                            // ['background', '#ced4da'],
+                                            // ['fontFamily', '\\\'Helvetica, Verdana, Arial, Tahoma, Serif\\\''],
+                                            // ['fontWeight', 'bold'],
+                                            // ['valign', 'top'],
+                                            // ['color', '#212529'],
+                                            // ['fontSize', '30px'],
+                                            // ['textShadow', '2px 2px 5px #ced4da'],
+                                            // ['border', '5px solid #ced4da'],
+                                            // ['borderColor', 'ced4da'],
+                                            // ['borderSpacing', '2px'],
+                                            // ['padding', '5px'],
+                                            // ['borderRadius', '10px'],
+                                            // ['boxShadow', '10px 20px 30px #333333'],
+                                            // ['transform', 'translate(-50%, -50%)']
+
+                                            ['position', 'fixed'],
                                             ['top', '50%'],
                                             ['left', '50%'],
                                             ['background', '#ced4da'],
@@ -264,7 +282,10 @@ namespace App\Helpers\ZhtHelper\General
                                             ['padding', '5px'],
                                             ['borderRadius', '10px'],
                                             ['boxShadow', '10px 20px 30px #333333'],
+                                            // ['webkit-animation', 'spin 2s linear infinite'],
+                                            // ['animation', 'spin 2s linear infinite'],
                                             ['transform', 'translate(-50%, -50%)']
+
                                             ]
                                     ], 
                                     str_replace(' ', '&nbsp', $varMessage)
@@ -2205,8 +2226,9 @@ namespace App\Helpers\ZhtHelper\General
                             ['color', '#212529'],
                             ['fontFamily', '\\\'verdana\\\''],
                             ['whiteSpace', 'nowrap'],
-                            ['fontSize', '10px'],
-                            ['textAlign', 'center']
+                            ['fontSize', '11px'],
+                            ['textAlign', 'center'],
+                            ['border', '1px solid #ced4da']
                         ];
                     
                     $varStyle_TableActionPanelBody =
@@ -2215,8 +2237,10 @@ namespace App\Helpers\ZhtHelper\General
                             ['color', '#000000'],
                             ['fontFamily', '\\\'verdana\\\''],
                             ['whiteSpace', 'nowrap'],
-                            ['fontSize', '10px'],
-                            ['textAlign', 'left']
+                            ['fontSize', '13px'],
+                            ['textAlign', 'left'],
+                            ['border', '1px solid #ced4da'],
+                            ['padding', '8px 10px']
                         ];
 
                     $varReturn =
@@ -2324,7 +2348,7 @@ namespace App\Helpers\ZhtHelper\General
                                             'function JSFunc_GetActionPanel_CommitFromOutside_'.$varUniqueID.'() {'.
                                                 'try {'.
                                                     'JSFunc_GetActionPanel_Commit_'.$varUniqueID.'(); '.
-                                                    'alert(\'Test Commit Berhasil dieksekusi\'); '.
+                                                    // 'alert(\'Test Commit Berhasil dieksekusi\'); '.
                                                     '}'.
                                                 'catch(varError) {'.
                                                     'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
@@ -2783,15 +2807,15 @@ namespace App\Helpers\ZhtHelper\General
                                                                     ],
                                                                     'varObjTTD.appendChild(document.createTextNode(\'DELETE\')); '
                                                                     ).
-                                                                self::getSyntaxCreateDOM_TableData(
-                                                                    $varUserSession, 
-                                                                    [
-                                                                    'ID' => 'varObjTTD',
-                                                                    'ParentID' => 'varObjTTR',
-                                                                    'Style' => $varStyle_TableActionPanelHead,
-                                                                    ],
-                                                                    'varObjTTD.appendChild(document.createTextNode(\'SAVE\')); '
-                                                                    ).
+                                                                // self::getSyntaxCreateDOM_TableData(
+                                                                //     $varUserSession, 
+                                                                //     [
+                                                                //     'ID' => 'varObjTTD',
+                                                                //     'ParentID' => 'varObjTTR',
+                                                                //     'Style' => $varStyle_TableActionPanelHead,
+                                                                //     ],
+                                                                //     'varObjTTD.appendChild(document.createTextNode(\'SAVE\')); '
+                                                                //     ).
                                                                 self::getSyntaxCreateDOM_TableData(
                                                                     $varUserSession, 
                                                                     [
@@ -2945,55 +2969,55 @@ namespace App\Helpers\ZhtHelper\General
                                                                             'varObjTTD.appendChild(varObjA); '
                                                                             )
                                                                             ).
-                                                                        'if(i == 0) '.
-                                                                            '{'.
-                                                                            self::getSyntaxCreateDOM_TableData(
-                                                                                $varUserSession, 
-                                                                                [
-                                                                                'ID' => 'varObjTTD',
-                                                                                'ParentID' => 'varObjTTR',
-                                                                                'RowSpan' => 'iMax',
-                                                                                'Style' => array_merge(
-                                                                                    $varStyle_TableActionPanelBody,
-                                                                                    [
-                                                                                        ['textAlign', 'center']
-                                                                                    ]
-                                                                                    ),
-                                                                                ],
-                                                                                (
-                                                                                'if (JSFunc_MainData_GetData_SignNeedToCommit_'.$varUniqueID.'() == true) {'.
-                                                                                    'var varObjA = document.createElement(\'a\'); '.
-                                                                                        'varObjA.href = \'javascript:'.
-                                                                                            '(function() {'.
-                                                                                                self::setEscapeForEscapeSequenceOnSyntaxLiteral(
-                                                                                                    $varUserSession,
-                                                                                                    (
-                                                                                                    'varNothing = '.
-                                                                                                    self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varUniqueID, 'document.body', true)
-                                                                                                    )
-                                                                                                    ).
-                                                                                                'setTimeout('.
-                                                                                                    '(function() {'.
-                                                                                                        'JSFunc_GetActionPanel_Commit_'.$varUniqueID.'(); '.
-                                                                                                        self::setEscapeForEscapeSequenceOnSyntaxLiteral(
-                                                                                                            $varUserSession,
-                                                                                                            (
-                                                                                                            'varNothing = '.
-                                                                                                            self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varUniqueID, 'document.body', false)
-                                                                                                            )
-                                                                                                            ).
-                                                                                                        'JSFunc_MainData_SetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'([]); '.
-                                                                                                        'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
-                                                                                                        '}'.
-                                                                                                    '), 50);'.
-                                                                                                '})();'.
-                                                                                            '\'; '.
-                                                                                        'varObjA.innerHTML = \'Commit\'; '.
-                                                                                    'varObjTTD.appendChild(varObjA); '.
-                                                                                    '}'
-                                                                                )
-                                                                                ).
-                                                                            '}'.
+                                                                        // 'if(i == 0) '.
+                                                                        //     '{'.
+                                                                        //     self::getSyntaxCreateDOM_TableData(
+                                                                        //         $varUserSession, 
+                                                                        //         [
+                                                                        //         'ID' => 'varObjTTD',
+                                                                        //         'ParentID' => 'varObjTTR',
+                                                                        //         'RowSpan' => 'iMax',
+                                                                        //         'Style' => array_merge(
+                                                                        //             $varStyle_TableActionPanelBody,
+                                                                        //             [
+                                                                        //                 ['textAlign', 'center']
+                                                                        //             ]
+                                                                        //             ),
+                                                                        //         ],
+                                                                        //         (
+                                                                        //         'if (JSFunc_MainData_GetData_SignNeedToCommit_'.$varUniqueID.'() == true) {'.
+                                                                        //             'var varObjA = document.createElement(\'a\'); '.
+                                                                        //                 'varObjA.href = \'javascript:'.
+                                                                        //                     '(function() {'.
+                                                                        //                         self::setEscapeForEscapeSequenceOnSyntaxLiteral(
+                                                                        //                             $varUserSession,
+                                                                        //                             (
+                                                                        //                             'varNothing = '.
+                                                                        //                             self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varUniqueID, 'document.body', true)
+                                                                        //                             )
+                                                                        //                             ).
+                                                                        //                         'setTimeout('.
+                                                                        //                             '(function() {'.
+                                                                        //                                 'JSFunc_GetActionPanel_Commit_'.$varUniqueID.'(); '.
+                                                                        //                                 self::setEscapeForEscapeSequenceOnSyntaxLiteral(
+                                                                        //                                     $varUserSession,
+                                                                        //                                     (
+                                                                        //                                     'varNothing = '.
+                                                                        //                                     self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varUniqueID, 'document.body', false)
+                                                                        //                                     )
+                                                                        //                                     ).
+                                                                        //                                 'JSFunc_MainData_SetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'([]); '.
+                                                                        //                                 'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
+                                                                        //                                 '}'.
+                                                                        //                             '), 50);'.
+                                                                        //                         '})();'.
+                                                                        //                     '\'; '.
+                                                                        //                 'varObjA.innerHTML = \'Commit\'; '.
+                                                                        //             'varObjTTD.appendChild(varObjA); '.
+                                                                        //             '}'
+                                                                        //         )
+                                                                        //         ).
+                                                                        //     '}'.
                                                                         self::getSyntaxCreateDOM_TableData(
                                                                             $varUserSession, 
                                                                             [
@@ -3207,15 +3231,15 @@ namespace App\Helpers\ZhtHelper\General
 
                                                                 'var'.$varUniqueID.'_ObjJSONMasterFileRecord = JSFunc_MainData_GetDataFromDatabase_MasterFileRecord_'.$varUniqueID.'();'.
 
-                                                                'if((parseInt(varPreviousListFileCount) + parseInt(varObjFileList.length)) == (parseInt(Object.keys(var'.$varUniqueID.'_ObjJSONMasterFileRecord).length)))'.
-                                                                    '{'.
-                                                                    'alert(\'All new file(s) uploaded successfully\'); '.
-                                                                    '}'.
-                                                                'else'.
-                                                                    '{'.
-                                                                    'varFailedUploadFiles = (parseInt(varPreviousListFileCount) + parseInt(varObjFileList.length)) - (parseInt(Object.keys(var'.$varUniqueID.'_ObjJSONMasterFileRecord).length)); '.
-                                                                    'alert(varFailedUploadFiles + \' new file(s) failed to upload\'); '.
-                                                                    '}'.
+                                                                // 'if((parseInt(varPreviousListFileCount) + parseInt(varObjFileList.length)) == (parseInt(Object.keys(var'.$varUniqueID.'_ObjJSONMasterFileRecord).length)))'.
+                                                                //     '{'.
+                                                                //     'alert(\'All new file(s) uploaded successfully\'); '.
+                                                                //     '}'.
+                                                                // 'else'.
+                                                                //     '{'.
+                                                                //     'varFailedUploadFiles = (parseInt(varPreviousListFileCount) + parseInt(varObjFileList.length)) - (parseInt(Object.keys(var'.$varUniqueID.'_ObjJSONMasterFileRecord).length)); '.
+                                                                //     'alert(varFailedUploadFiles + \' new file(s) failed to upload\'); '.
+                                                                //     '}'.
 
                                 //                                'if(varFailedUploadFiles == parseInt(varObjFileList.length)) {'.
                                 //                                    '}'.

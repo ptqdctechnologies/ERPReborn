@@ -173,7 +173,6 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
             'Dotenv\\' => 7,
             'Doctrine\\Instantiator\\' => 22,
             'Doctrine\\Inflector\\' => 19,
-            'Doctrine\\Deprecations\\' => 22,
             'Doctrine\\Common\\Lexer\\' => 22,
             'Dflydev\\DotAccessData\\' => 22,
             'DeepCopy\\' => 9,
@@ -540,10 +539,6 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Doctrine\\Inflector\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector',
-        ),
-        'Doctrine\\Deprecations\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/doctrine/deprecations/lib/Doctrine/Deprecations',
         ),
         'Doctrine\\Common\\Lexer\\' => 
         array (
@@ -2601,8 +2596,6 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Aws\\ChimeSDKVoice\\Exception\\ChimeSDKVoiceException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/ChimeSDKVoice/Exception/ChimeSDKVoiceException.php',
         'Aws\\Chime\\ChimeClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Chime/ChimeClient.php',
         'Aws\\Chime\\Exception\\ChimeException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Chime/Exception/ChimeException.php',
-        'Aws\\CleanRooms\\CleanRoomsClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/CleanRooms/CleanRoomsClient.php',
-        'Aws\\CleanRooms\\Exception\\CleanRoomsException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/CleanRooms/Exception/CleanRoomsException.php',
         'Aws\\ClientResolver' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/ClientResolver.php',
         'Aws\\ClientSideMonitoring\\AbstractMonitoringMiddleware' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/ClientSideMonitoring/AbstractMonitoringMiddleware.php',
         'Aws\\ClientSideMonitoring\\ApiCallAttemptMonitoringMiddleware' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/ClientSideMonitoring/ApiCallAttemptMonitoringMiddleware.php',
@@ -2982,8 +2975,6 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Aws\\KafkaConnect\\KafkaConnectClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/KafkaConnect/KafkaConnectClient.php',
         'Aws\\Kafka\\Exception\\KafkaException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Kafka/Exception/KafkaException.php',
         'Aws\\Kafka\\KafkaClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Kafka/KafkaClient.php',
-        'Aws\\KendraRanking\\Exception\\KendraRankingException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/KendraRanking/Exception/KendraRankingException.php',
-        'Aws\\KendraRanking\\KendraRankingClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/KendraRanking/KendraRankingClient.php',
         'Aws\\Keyspaces\\Exception\\KeyspacesException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Keyspaces/Exception/KeyspacesException.php',
         'Aws\\Keyspaces\\KeyspacesClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Keyspaces/KeyspacesClient.php',
         'Aws\\KinesisAnalyticsV2\\Exception\\KinesisAnalyticsV2Exception' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/KinesisAnalyticsV2/Exception/KinesisAnalyticsV2Exception.php',
@@ -3577,8 +3568,6 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Dflydev\\DotAccessData\\Exception\\InvalidPathException' => __DIR__ . '/..' . '/dflydev/dot-access-data/src/Exception/InvalidPathException.php',
         'Dflydev\\DotAccessData\\Exception\\MissingPathException' => __DIR__ . '/..' . '/dflydev/dot-access-data/src/Exception/MissingPathException.php',
         'Dflydev\\DotAccessData\\Util' => __DIR__ . '/..' . '/dflydev/dot-access-data/src/Util.php',
-        'Doctrine\\Deprecations\\Deprecation' => __DIR__ . '/..' . '/doctrine/deprecations/lib/Doctrine/Deprecations/Deprecation.php',
-        'Doctrine\\Deprecations\\PHPUnit\\VerifyDeprecations' => __DIR__ . '/..' . '/doctrine/deprecations/lib/Doctrine/Deprecations/PHPUnit/VerifyDeprecations.php',
         'Doctrine\\Inflector\\CachedWordInflector' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/CachedWordInflector.php',
         'Doctrine\\Inflector\\GenericLanguageInflectorFactory' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/GenericLanguageInflectorFactory.php',
         'Doctrine\\Inflector\\Inflector' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Inflector.php',

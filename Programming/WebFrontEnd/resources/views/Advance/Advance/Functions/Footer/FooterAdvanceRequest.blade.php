@@ -299,7 +299,7 @@
     $(function() {
         $("#formSubmitArf").on("submit", function(e) { //id of form 
             e.preventDefault();
-
+            var varFileUpload_UniqueID = "Upload";
             var valRequestName = $("#request_name").val();
             var valRemark = $("#putRemark").val();
             $("#request_name").css("border", "1px solid #ced4da");
@@ -314,11 +314,15 @@
                 $("#putRemark").attr('required', true);
                 $("#putRemark").css("border", "1px solid red");
             } else {
+                
+                var varFileUpload_UniqueID = "Upload";
+                window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
+            
+                
                 var action = $(this).attr("action"); //get submit action from form
                 var method = $(this).attr("method"); // get submit method
                 var form_data = new FormData($(this)[0]); // convert form into formdata 
                 var form = $(this);
-
 
                 const swalWithBootstrapButtons = Swal.mixin({
                     confirmButtonClass: 'btn btn-success btn-sm',
@@ -338,7 +342,7 @@
                     confirmButtonColor: '#e9ecef',
                     cancelButtonColor: '#e9ecef',
                     reverseButtons: true
-                }).then((result) => {
+                }).then((result) => {    
                     if (result.value) {
 
                         $("#loading").show();
