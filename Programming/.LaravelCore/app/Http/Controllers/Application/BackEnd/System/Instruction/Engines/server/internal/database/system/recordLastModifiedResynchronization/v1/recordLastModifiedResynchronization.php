@@ -97,7 +97,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
                 $varUserSession, 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                     $varUserSession,
-                    'SchSysConfig.FuncSys_General_ReSync_LastModified',
+                    'SchSysConfig.FuncSys_General_SetResync_LastModified',
                     [
                     ]
                     )
