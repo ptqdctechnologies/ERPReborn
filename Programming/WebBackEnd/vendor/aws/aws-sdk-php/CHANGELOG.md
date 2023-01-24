@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## 3.257.6 - 2023-01-23
+
+* `Aws\EndpointV2` - Test fixes related to signing, particularly sigv4a.
+* `Aws\Lambda` - Release Lambda RuntimeManagementConfig, enabling customers to better manage runtime updates to their Lambda functions. This release adds two new APIs, GetRuntimeManagementConfig and PutRuntimeManagementConfig, as well as support on existing Create/Get/Update function APIs.
+* `Aws\SageMaker` - Amazon SageMaker Inference now supports P4de instance types.
+
+## 3.257.5 - 2023-01-20
+
+* `Aws\EC2` - C6in, M6in, M6idn, R6in and R6idn instances are powered by 3rd Generation Intel Xeon Scalable processors (code named Ice Lake) with an all-core turbo frequency of 3.5 GHz.
+* `Aws\IVS` - API and Doc update. Update to arns field in BatchGetStreamKey. Also updates to operations and structures.
+* `Aws\QuickSight` - This release adds support for data bars in QuickSight table and increases pivot table field well limit.
+
 ## 3.257.4 - 2023-01-19
 
 * `Aws\Appflow` - Adding support for Salesforce Pardot connector in Amazon AppFlow.
