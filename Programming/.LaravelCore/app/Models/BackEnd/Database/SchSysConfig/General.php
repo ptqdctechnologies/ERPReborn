@@ -201,6 +201,49 @@ namespace App\Models\Database\SchSysConfig
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_getBusinessDocumentWorkFlowPath                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-01-26                                                                                           |
+        | ▪ Creation Date   : 2023-01-26                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Business Document Work Flow Path                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_getBusinessDocumentWorkFlowPath(
+            $varUserSession, int $varBranchID, 
+            int $varBusinessDocumentType_RefID = null, int $varSubmitterEntity_RefID = null, 
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_GetDataPickList_BusinessDocumentWorkFlowPath',
+                        [
+                            [$varBranchID, 'bigint'],
+                            
+                            [$varBusinessDocumentType_RefID, 'bigint'],
+                            [$varSubmitterEntity_RefID, 'bigint']
+                        ]
+                        )
+                    );                
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getReferenceTextByReferenceID                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -679,6 +722,69 @@ namespace App\Models\Database\SchSysConfig
                     ]
                     )
                 );
+            return $varReturn['Data'];
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_BusinessDocumentWorkFlowPath                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-01-26                                                                                           |
+        | ▪ Creation Date   : 2023-01-26                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Business Document WorkFlow Path                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varBusinessDocumentType_RefID ► Business Document Type Reference ID                                      |
+        |      ▪ (int)    varSubmitterEntity_RefID ► Submitter Entity Reference ID                                                 |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_BusinessDocumentWorkFlowPath(
+            $varUserSession, int $varBranchID,
+            int $varBusinessDocumentType_RefID = null, int $varSubmitterEntity_RefID = null,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    'SchSysConfig.Func_GetDataList_BusinessDocumentWorkFlowPath',
+                    [
+                        [$varBranchID, 'bigint'],
+
+                        [$varBusinessDocumentType_RefID, 'bigint'],
+                        [$varSubmitterEntity_RefID, 'bigint'],
+
+                        [$varPickStatement, 'varchar'],
+                        [$varSortStatement, 'varchar'],
+                        [$varFilterStatement, 'varchar'],
+                        [$varPagingStatement, 'varchar']
+                    ]
+                    )
+                );
+            for($i=0, $iMax=count($varReturn['Data']); $i!=$iMax; $i++)
+                {
+                $varReturn['Data'][$i]['AlternativeItemList'] = 
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession, 
+                        $varReturn['Data'][$i]['AlternativeItemList']
+                        );
+                $varReturn['Data'][$i]['NextApproverPath'] = 
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession, 
+                        $varReturn['Data'][$i]['NextApproverPath']
+                        );
+                }
             return $varReturn['Data'];
             }
 
