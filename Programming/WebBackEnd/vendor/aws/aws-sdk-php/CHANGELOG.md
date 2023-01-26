@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## 3.257.8 - 2023-01-25
+
+* `Aws\CloudFormation` - Enabled FIPS aws-us-gov endpoints in SDK.
+* `Aws\EC2` - This release adds new functionality that allows customers to provision IPv6 CIDR blocks through Amazon VPC IP Address Manager (IPAM) as well as allowing customers to utilize IPAM Resource Discovery APIs.
+* `Aws\MainframeModernization` - Add returnCode, batchJobIdentifier in GetBatchJobExecution response, for user to view the batch job execution result & unique identifier from engine. Also removed unused headers from REST APIs
+* `Aws\Polly` - Add 5 new neural voices - Sergio (es-ES), Andres (es-MX), Remi (fr-FR), Adriano (it-IT) and Thiago (pt-BR).
+* `Aws\RedshiftServerless` - Added query monitoring rules as possible parameters for create and update workgroup operations.
+* `Aws\S3Control` - Add additional endpoint tests for S3 Control. Fix missing endpoint parameters for PutBucketVersioning and GetBucketVersioning. Prior to this fix, those operations may have resulted in an invalid endpoint being resolved.
+* `Aws\STS` - Doc only change to update wording in a key topic
+* `Aws\SageMaker` - SageMaker Inference Recommender now decouples from Model Registry and could accept Model Name to invoke inference recommendations job; Inference Recommender now provides CPU/Memory Utilization metrics data in recommendation output.
+
+## 3.257.7 - 2023-01-24
+
+* `Aws\GlueDataBrew` - Enabled FIPS us-gov-west-1 endpoints in SDK.
+* `Aws\Route53` - Amazon Route 53 now supports the Asia Pacific (Melbourne) Region (ap-southeast-4) for latency records, geoproximity records, and private DNS for Amazon VPCs in that region.
+* `Aws\SsmSap` - This release provides updates to documentation and support for listing operations performed by AWS Systems Manager for SAP.
+
 ## 3.257.6 - 2023-01-23
 
 * `Aws\EndpointV2` - Test fixes related to signing, particularly sigv4a.
