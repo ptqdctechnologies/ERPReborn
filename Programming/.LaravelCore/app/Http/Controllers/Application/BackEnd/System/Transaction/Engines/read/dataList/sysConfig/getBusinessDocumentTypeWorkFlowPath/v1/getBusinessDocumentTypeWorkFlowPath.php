@@ -3,21 +3,21 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\sysConfig\getBusinessDocumentWorkFlowPath   |
-|                \v1                                                                                                               |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\sysConfig                      |
+|                \getBusinessDocumentTypeWorkFlowPath\v1                                                                           |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\sysConfig\getBusinessDocumentWorkFlowPath\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\sysConfig\getBusinessDocumentTypeWorkFlowPath\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getBusinessDocumentWorkFlowPath                                                                              |
-    | ▪ Description : Menangani API dataPickList.sysConfig.getBusinessDocumentWorkFlowPath Version 1                               |
+    | ▪ Class Name  : getBusinessDocumentTypeWorkFlowPath                                                                          |
+    | ▪ Description : Menangani API transaction.read.dataList.sysConfig.getBusinessDocumentTypeWorkFlowPath Version 1              |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getBusinessDocumentWorkFlowPath extends \App\Http\Controllers\Controller
+    class getBusinessDocumentTypeWorkFlowPath extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -59,16 +59,25 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\s
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Data Pick List Business Dcoument Work Flow Path (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Business Document Type Work Flow Path Data List (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try {
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchSysConfig\General())->getDataPickList_getBusinessDocumentWorkFlowPath(
-                            $varUserSession, 
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            
+                    try{
+                        if(($varData['SQLStatement']['filter']) && (\App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, $varData['SQLStatement']['filter']) == FALSE))
+                            {
+                            throw new \Exception('SQL Injection Threat Prevention');
+                            }
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchSysConfig\General())->getDataList_BusinessDocumentTypeWorkFlowPath(
+                            $varUserSession,
+                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
+
                             $varData['parameter']['businessDocumentType_RefID'], 
-                            $varData['parameter']['submitterEntity_RefID']
+                            $varData['parameter']['submitterEntity_RefID'], 
+
+                            $varData['SQLStatement']['pick'], 
+                            $varData['SQLStatement']['sort'], 
+                            $varData['SQLStatement']['filter'], 
+                            $varData['SQLStatement']['paging']
                             ))))
                             {
                             throw new \Exception();
@@ -94,3 +103,5 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\s
             }
         }
     }
+
+?>
