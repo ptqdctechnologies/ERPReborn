@@ -4,21 +4,21 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dataPickList\sysConfig                       |
-|                 \getBusinessDocumentWorkFlowPath\v1                                                                              |
-| ▪ API Key     : dataPickList.sysConfig.getBusinessDocumentWorkFlowPath                                                           |
+|                 \getBusinessDocumentTypeWorkFlowPath\v1                                                                          |
+| ▪ API Key     : dataPickList.sysConfig.getBusinessDocumentTypeWorkFlowPath                                                       |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dataPickList\sysConfig\getBusinessDocumentWorkFlowPath\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dataPickList\sysConfig\getBusinessDocumentTypeWorkFlowPath\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/dataPickList.sysConfig.getBusinessDocumentWorkFlowPath.v1_throughAPIGateway         |
-        |                     ► http://172.28.0.4/dataPickList.sysConfig.getBusinessDocumentWorkFlowPath.v1_throughAPIGateway      |
+        | ▪ Call URL        : http(s)://<HOST>/dataPickList.sysConfig.getBusinessDocumentTypeWorkFlowPath.v1_throughAPIGateway     |
+        |                     ► http://172.28.0.4/dataPickList.sysConfig.getBusinessDocumentTypeWorkFlowPath.v1_throughAPIGateway  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2023-01-26                                                                                           |
@@ -35,7 +35,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'dataPickList.sysConfig.getBusinessDocumentWorkFlowPath', 
+                'dataPickList.sysConfig.getBusinessDocumentTypeWorkFlowPath', 
                 'latest',
                 [
                 'parameter' => [
@@ -50,9 +50,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/dataPickList.sysConfig.getBusinessDocumentWorkFlowPath.v1_throughAPIGatewayJQuery   |
+        | ▪ Call URL        : http(s)://<HOST>/dataPickList.sysConfig.getBusinessDocumentTypeWorkFlowPath.v1_throughAPIGatewayJQuery   |
         |                     ► http://172.28.0.4/                                                                                 |
-        |                       dataPickList.sysConfig.getBusinessDocumentWorkFlowPath.v1_throughAPIGatewayJQuery                  |
+        |                       dataPickList.sysConfig.getBusinessDocumentTypeWorkFlowPath.v1_throughAPIGatewayJQuery                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2023-01-26                                                                                           |
@@ -75,7 +75,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
-                'dataPickList.sysConfig.getBusinessDocumentWorkFlowPath', 
+                'dataPickList.sysConfig.getBusinessDocumentTypeWorkFlowPath', 
                 'latest', 
                 '{'.
                     '"parameter" : {'.

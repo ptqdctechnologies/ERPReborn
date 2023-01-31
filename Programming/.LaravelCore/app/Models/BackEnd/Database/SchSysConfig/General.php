@@ -201,12 +201,12 @@ namespace App\Models\Database\SchSysConfig
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataPickList_getBusinessDocumentWorkFlowPath                                                      |
+        | ▪ Method Name     : getDataPickList_getBusinessDocumentTypeWorkFlowPath                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2023-01-26                                                                                           |
         | ▪ Creation Date   : 2023-01-26                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Business Document Work Flow Path                                                  |
+        | ▪ Description     : Mendapatkan Daftar Business Document Type Work Flow Path                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
@@ -215,7 +215,7 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataPickList_getBusinessDocumentWorkFlowPath(
+        public function getDataPickList_getBusinessDocumentTypeWorkFlowPath(
             $varUserSession, int $varBranchID, 
             int $varBusinessDocumentType_RefID = null, int $varSubmitterEntity_RefID = null, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
@@ -225,7 +225,7 @@ namespace App\Models\Database\SchSysConfig
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        'SchSysConfig.Func_GetDataPickList_BusinessDocumentWorkFlowPath',
+                        'SchSysConfig.Func_GetDataPickList_BusinessDocumentTypeWorkFlowPath',
                         [
                             [$varBranchID, 'bigint'],
                             
@@ -728,12 +728,12 @@ namespace App\Models\Database\SchSysConfig
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataList_BusinessDocumentWorkFlowPath                                                             |
+        | ▪ Method Name     : getDataList_BusinessDocumentTypeWorkFlowPath                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2023-01-26                                                                                           |
         | ▪ Creation Date   : 2023-01-26                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Business Document WorkFlow Path                                                   |
+        | ▪ Description     : Mendapatkan Daftar Business Document Type WorkFlow Path                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
@@ -749,7 +749,7 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_BusinessDocumentWorkFlowPath(
+        public function getDataList_BusinessDocumentTypeWorkFlowPath(
             $varUserSession, int $varBranchID,
             int $varBusinessDocumentType_RefID = null, int $varSubmitterEntity_RefID = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
@@ -758,7 +758,7 @@ namespace App\Models\Database\SchSysConfig
                 $varUserSession, 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                     $varUserSession,
-                    'SchSysConfig.Func_GetDataList_BusinessDocumentWorkFlowPath',
+                    'SchSysConfig.Func_GetDataList_BusinessDocumentTypeWorkFlowPath',
                     [
                         [$varBranchID, 'bigint'],
 
