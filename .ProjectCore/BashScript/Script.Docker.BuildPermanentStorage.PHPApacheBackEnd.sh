@@ -1,7 +1,7 @@
 #----------------------------------------------------------------------------------------------------
 # ▪ Nama               : Script.Docker.BuildPermanentStorage.PHPApacheBackEnd.sh
-# ▪ Versi              : 1.00.0005
-# ▪ Tanggal            : 2022-11-21 - 2023-01-20
+# ▪ Versi              : 1.00.0006
+# ▪ Tanggal            : 2023-12-01 - 2023-01-20
 # ▪ Input              : -
 # ▪ Output             : -
 # ▪ Deskripsi          : Script ini digunakan untuk memetakan permanent storage PHPApacheBackEnd 
@@ -28,6 +28,7 @@ if [ ! -d $varDirectory ]; then
    sudo mkdir -p $varDirectory/zhtConf/log/lastSession/scheduledTask/everyHour/jobs;
    sudo mkdir -p $varDirectory/zhtConf/log/lastSession/scheduledTask/everyTwoHours/jobs;
    sudo mkdir -p $varDirectory/zhtConf/log/lastSession/scheduledTask/everyDay/jobs;
+   sudo mkdir -p $varDirectory/zhtConf/log/lastSession/scheduledTask/everyDayAt21/jobs;
    sudo mkdir -p $varDirectory/zhtConf/log/lastSession/scheduledTask/everyMonth/jobs;
    sudo mkdir -p $varDirectory/zhtConf/log/lastSession/scheduledTask/everyYear/jobs;
 

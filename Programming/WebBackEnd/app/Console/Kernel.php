@@ -50,6 +50,10 @@ class Kernel extends ConsoleKernel
             ->daily()
             ->appendOutputTo('/var/log/cron.log');
 
+        $schedule->command(\App\Console\Commands\zhtScheduler\ScheduledTask_EveryDayAt21::class, ['--no-ansi'])
+            ->dailyAt('21:00')
+            ->appendOutputTo('/var/log/cron.log');
+
         $schedule->command(\App\Console\Commands\zhtScheduler\ScheduledTask_EveryWeek::class, ['--no-ansi'])
             ->weekly()
             ->appendOutputTo('/var/log/cron.log');
