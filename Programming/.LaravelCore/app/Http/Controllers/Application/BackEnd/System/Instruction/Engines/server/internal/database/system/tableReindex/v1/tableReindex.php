@@ -87,7 +87,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
 
         private function dataProcessing($varUserSession)
             {
-            /*
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
@@ -106,7 +105,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
                     ]
                     )
                 );
-            */
             return 'Process Completed';
             }
         }

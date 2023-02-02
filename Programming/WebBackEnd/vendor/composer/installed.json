@@ -55,17 +55,17 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.258.0",
-            "version_normalized": "3.258.0.0",
+            "version": "3.258.1",
+            "version_normalized": "3.258.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "96ed88ca45e54f74a158002411966a92891e8ead"
+                "reference": "7d7c4f89d2d0bd77c36cb8f3c8cd20b5aa8c0e6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/96ed88ca45e54f74a158002411966a92891e8ead",
-                "reference": "96ed88ca45e54f74a158002411966a92891e8ead",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/7d7c4f89d2d0bd77c36cb8f3c8cd20b5aa8c0e6d",
+                "reference": "7d7c4f89d2d0bd77c36cb8f3c8cd20b5aa8c0e6d",
                 "shasum": ""
             },
             "require": {
@@ -105,7 +105,7 @@
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
                 "ext-sockets": "To use client-side monitoring"
             },
-            "time": "2023-01-31T19:33:16+00:00",
+            "time": "2023-02-01T19:22:26+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -146,7 +146,7 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.258.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.258.1"
             },
             "install-path": "../aws/aws-sdk-php"
         },
@@ -1700,17 +1700,17 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v9.49.0",
-            "version_normalized": "9.49.0.0",
+            "version": "v9.50.1",
+            "version_normalized": "9.50.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "e02d9453442ad0a6a2f5dc9df96ea0319d218026"
+                "reference": "3b400f76619cd5257a69fdd6b897043b6522a89a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/e02d9453442ad0a6a2f5dc9df96ea0319d218026",
-                "reference": "e02d9453442ad0a6a2f5dc9df96ea0319d218026",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/3b400f76619cd5257a69fdd6b897043b6522a89a",
+                "reference": "3b400f76619cd5257a69fdd6b897043b6522a89a",
                 "shasum": ""
             },
             "require": {
@@ -1843,7 +1843,7 @@
                 "symfony/postmark-mailer": "Required to enable support for the Postmark mail transport (^6.0).",
                 "symfony/psr-http-message-bridge": "Required to use PSR-7 bridging features (^2.0)."
             },
-            "time": "2023-01-31T14:36:47+00:00",
+            "time": "2023-02-01T17:36:26+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -7298,17 +7298,17 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v6.2.5",
-            "version_normalized": "6.2.5.0",
+            "version": "v6.2.6",
+            "version_normalized": "6.2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "9d081ead9d3432e2e8002178d14c4c9dd4b8ffbf"
+                "reference": "e8dd1f502bc2b3371d05092aa233b064b03ce7ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/9d081ead9d3432e2e8002178d14c4c9dd4b8ffbf",
-                "reference": "9d081ead9d3432e2e8002178d14c4c9dd4b8ffbf",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/e8dd1f502bc2b3371d05092aa233b064b03ce7ed",
+                "reference": "e8dd1f502bc2b3371d05092aa233b064b03ce7ed",
                 "shasum": ""
             },
             "require": {
@@ -7331,7 +7331,7 @@
             "suggest": {
                 "symfony/mime": "To use the file extension guesser"
             },
-            "time": "2023-01-01T08:38:09+00:00",
+            "time": "2023-01-30T15:46:28+00:00",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -7359,7 +7359,7 @@
             "description": "Defines an object-oriented layer for the HTTP specification",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/http-foundation/tree/v6.2.5"
+                "source": "https://github.com/symfony/http-foundation/tree/v6.2.6"
             },
             "funding": [
                 {
@@ -7379,17 +7379,17 @@
         },
         {
             "name": "symfony/http-kernel",
-            "version": "v6.2.5",
-            "version_normalized": "6.2.5.0",
+            "version": "v6.2.6",
+            "version_normalized": "6.2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-kernel.git",
-                "reference": "f68aaa11eee6b21c99bce0f3d98815924888fe62"
+                "reference": "7122db07b0d8dbf0de682267c84217573aee3ea7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/f68aaa11eee6b21c99bce0f3d98815924888fe62",
-                "reference": "f68aaa11eee6b21c99bce0f3d98815924888fe62",
+                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/7122db07b0d8dbf0de682267c84217573aee3ea7",
+                "reference": "7122db07b0d8dbf0de682267c84217573aee3ea7",
                 "shasum": ""
             },
             "require": {
@@ -7445,7 +7445,7 @@
                 "symfony/console": "",
                 "symfony/dependency-injection": ""
             },
-            "time": "2023-01-24T15:33:24+00:00",
+            "time": "2023-02-01T08:32:25+00:00",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -7473,7 +7473,7 @@
             "description": "Provides a structured process for converting a Request into a Response",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/http-kernel/tree/v6.2.5"
+                "source": "https://github.com/symfony/http-kernel/tree/v6.2.6"
             },
             "funding": [
                 {
