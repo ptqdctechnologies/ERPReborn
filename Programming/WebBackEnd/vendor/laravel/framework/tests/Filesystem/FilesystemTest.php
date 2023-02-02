@@ -19,7 +19,7 @@ class FilesystemTest extends TestCase
      */
     public static function setUpTempDir()
     {
-        self::$tempDir = sys_get_temp_dir().'/tmp';
+        self::$tempDir = sys_get_temp_dir().'/tmp'.time();
         mkdir(self::$tempDir);
     }
 
@@ -97,14 +97,25 @@ class FilesystemTest extends TestCase
         $this->assertStringEqualsFile($tempFile, 'Hello Taylor');
     }
 
+    public function testFilePermissionRestoredAfterReplace()
+    {
+        $tempFile = self::$tempDir.'/file.txt';
+        $filesystem = new Filesystem;
+        $filesystem->replace($tempFile, 'Hello World');
+        $umaskValue = umask();
+        $permissionValueInDecimal = (int) base_convert('777', 8, 10);
+        $actualPermission = $permissionValueInDecimal - $umaskValue;
+        $this->assertEquals($actualPermission, $this->getFilePermissions($tempFile));
+    }
+
     /**
      * @requires OS Linux|Darwin
      */
     public function testReplaceWhenUnixSymlinkExists()
     {
-        $tempFile = self::$tempDir.'/file.txt';
-        $symlinkDir = self::$tempDir.'/symlink_dir';
-        $symlink = "{$symlinkDir}/symlink.txt";
+        $tempFile = self::$tempDir.'/'.time().'file.txt';
+        $symlinkDir = self::$tempDir.'/'.time().'symlink_dir';
+        $symlink = "{$symlinkDir}/'.time().'symlink.txt";
 
         mkdir($symlinkDir);
         symlink($tempFile, $symlink);
