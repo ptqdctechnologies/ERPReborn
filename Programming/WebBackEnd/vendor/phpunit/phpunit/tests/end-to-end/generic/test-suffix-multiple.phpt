@@ -13,6 +13,7 @@ PHPUnit\TextUI\Command::main();
 --EXPECTF--
 PHPUnit %s by Sebastian Bergmann and contributors.
 
+Warning:       Abstract test case classes with "Test" suffix are deprecated (PHPUnit\TestFixture\AbstractTest)
 Warning:       Test case class not matching filename is deprecated
                in %sBankAccountTest.test.php
                Class name was 'BankAccountWithCustomExtensionTest', expected 'BankAccountTest'

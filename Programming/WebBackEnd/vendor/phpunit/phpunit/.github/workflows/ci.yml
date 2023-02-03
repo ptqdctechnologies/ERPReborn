@@ -7,7 +7,7 @@ on:
 name: CI
 
 env:
-  COMPOSER_ROOT_VERSION: "9.5-dev"
+  COMPOSER_ROOT_VERSION: "9.6-dev"
 
 permissions:
   contents: read
@@ -68,6 +68,8 @@ jobs:
       PHP_EXTENSIONS: none, curl, dom, json, libxml, mbstring, openssl, phar, soap, tokenizer, xml, xmlwriter
       PHP_INI_VALUES: assert.exception=1, zend.assertions=1, error_reporting=-1, log_errors_max_len=0, display_errors=On
 
+    continue-on-error: ${{ matrix.experimental }}
+
     strategy:
       fail-fast: false
       matrix:
@@ -81,7 +83,18 @@ jobs:
           - "8.0"
           - "8.1"
           - "8.2"
-          - "8.3"
+
+        experimental:
+          - false
+
+        include:
+          - os: ubuntu-latest
+            php-version: "8.3"
+            experimental: true
+
+          - os: windows-latest
+            php-version: "8.3"
+            experimental: true
 
     steps:
       - name: Configure git to avoid issues with line endings
@@ -117,6 +130,8 @@ jobs:
       PHP_EXTENSIONS: none, curl, dom, json, libxml, mbstring, openssl, phar, soap, tokenizer, xml, xmlwriter
       PHP_INI_VALUES: assert.exception=1, zend.assertions=1, error_reporting=-1, log_errors_max_len=0, display_errors=On
 
+    continue-on-error: ${{ matrix.experimental }}
+
     strategy:
       fail-fast: false
       matrix:
@@ -130,7 +145,18 @@ jobs:
           - "8.0"
           - "8.1"
           - "8.2"
-          - "8.3"
+
+        experimental:
+          - false
+
+        include:
+          - os: ubuntu-latest
+            php-version: "8.3"
+            experimental: true
+
+          - os: windows-latest
+            php-version: "8.3"
+            experimental: true
 
     steps:
       - name: Configure git to avoid issues with line endings

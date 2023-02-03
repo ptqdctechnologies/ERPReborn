@@ -117,7 +117,7 @@ test('', function () {
 		'j' => 'Jack',
 		'children' => $list['children'],
 		'c' => 'Jim',
-	], iterator_to_array(new RecursiveIteratorIterator($list, RecursiveIteratorIterator::SELF_FIRST)));
+	], iterator_to_array(new RecursiveIteratorIterator(new RecursiveArrayIterator($list), RecursiveIteratorIterator::SELF_FIRST)));
 });
 
 
@@ -182,13 +182,17 @@ test('null fields', function () {
 
 test('undeclared fields', function () {
 	$row = new ArrayHash;
-	Assert::error(function () use ($row) {
-		$row->undef;
-	}, PHP_VERSION_ID < 80000 ? E_NOTICE : E_WARNING, 'Undefined property: Nette\Utils\ArrayHash::$undef');
+	Assert::error(
+		fn() => $row->undef,
+		PHP_VERSION_ID < 80000 ? E_NOTICE : E_WARNING,
+		'Undefined property: Nette\Utils\ArrayHash::$undef',
+	);
 
-	Assert::error(function () use ($row) {
-		$row['undef'];
-	}, PHP_VERSION_ID < 80000 ? E_NOTICE : E_WARNING, 'Undefined property: Nette\Utils\ArrayHash::$undef');
+	Assert::error(
+		fn() => $row['undef'],
+		PHP_VERSION_ID < 80000 ? E_NOTICE : E_WARNING,
+		'Undefined property: Nette\Utils\ArrayHash::$undef',
+	);
 });
 
 
@@ -199,4 +203,14 @@ test('PHP 7 changed behavior https://3v4l.org/2A1pf', function () {
 	}
 
 	Assert::count(0, $hash);
+});
+
+
+test('iteration with reference', function () {
+	$hash = ArrayHash::from([1, 2, 3]);
+	foreach ($hash as $key => &$value) {
+		$value = 'new';
+	}
+
+	Assert::same(['new', 'new', 'new'], (array) $hash);
 });
