@@ -50,22 +50,28 @@ test('', function () {
 });
 
 
-Assert::exception(function () {
-	Image::fromFile('fixtures.images/missing.png');
-}, Nette\Utils\UnknownImageFileException::class, "File 'fixtures.images/missing.png' not found.");
+Assert::exception(
+	fn() => Image::fromFile('fixtures.images/missing.png'),
+	Nette\Utils\UnknownImageFileException::class,
+	"File 'fixtures.images/missing.png' not found.",
+);
 
 
 Assert::null(Image::detectTypeFromFile('fixtures.images/missing.png'));
 
 
-Assert::exception(function () {
-	Image::fromFile(__DIR__ . '/fixtures.images/logo.tiff');
-}, Nette\Utils\UnknownImageFileException::class, "Unknown type of file '%a%fixtures.images/logo.tiff'.");
+Assert::exception(
+	fn() => Image::fromFile(__DIR__ . '/fixtures.images/logo.tiff'),
+	Nette\Utils\UnknownImageFileException::class,
+	"Unknown type of file '%a%fixtures.images/logo.tiff'.",
+);
 
 
-Assert::exception(function () {
-	Image::fromFile(__DIR__ . '/fixtures.images/bad.gif');
-}, Nette\Utils\ImageException::class, '%a% not a valid GIF file');
+Assert::exception(
+	fn() => Image::fromFile(__DIR__ . '/fixtures.images/bad.gif'),
+	Nette\Utils\ImageException::class,
+	'%a% not a valid GIF file',
+);
 
 
 test('', function () {
@@ -76,20 +82,21 @@ test('', function () {
 
 
 test('', function () {
-	$image = Image::fromString(Image::EMPTY_GIF, $format);
+	$image = Image::fromString(Image::EmptyGIF, $format);
 	Assert::same(1, $image->getWidth());
 	Assert::same(1, $image->getHeight());
 	Assert::same(Image::GIF, $format);
 
-	Assert::same(Image::GIF, Image::detectTypeFromString(Image::EMPTY_GIF, $w, $h));
+	Assert::same(Image::GIF, Image::detectTypeFromString(Image::EmptyGIF, $w, $h));
 	Assert::same(1, $w);
 	Assert::same(1, $h);
 });
 
 
-Assert::exception(function () {
-	Image::fromString('abcdefg');
-}, Nette\Utils\UnknownImageFileException::class);
+Assert::exception(
+	fn() => Image::fromString('abcdefg'),
+	Nette\Utils\UnknownImageFileException::class,
+);
 
 
 Assert::null(Image::detectTypeFromString('x'));

@@ -64,13 +64,19 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
                 }
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Parameter</p></td></tr>';
+            echo '<tr><td>Bank&nbsp;RefID</td><td><input type="text" id="dataInput_Bank_RefID" value=166000000000001></td></tr>';
+            echo '</table>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
                 'dataPickList.master.getBankBranch', 
                 'latest', 
                 '{'.
-                    '"parameter" : null'.
+                    '"parameter" : {'.
+                        'bank_RefID :  parseInt(document.getElementById("dataInput_Bank_RefID").value) '.
+                        '}'.
                 '}'
                 );            
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";

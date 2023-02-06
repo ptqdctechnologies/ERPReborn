@@ -18,18 +18,6 @@
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
     </plugins>
     <issueHandlers>
-        <DeprecatedMethod>
-            <errorLevel type="suppress">
-                <referencedMethod name="Doctrine\Common\Lexer\Token::offsetGet"/>
-                <referencedMethod name="Doctrine\Common\Lexer\Token::offsetSet"/>
-            </errorLevel>
-        </DeprecatedMethod>
-        <DocblockTypeContradiction>
-            <errorLevel type="suppress">
-                <!-- let us assume no one actually unsets the value of a token -->
-                <file name="tests/TokenTest.php" />
-            </errorLevel>
-        </DocblockTypeContradiction>
         <InvalidReturnStatement>
             <errorLevel type="suppress">
                 <!-- https://github.com/vimeo/psalm/issues/8878 -->
@@ -49,6 +37,7 @@
         </MixedAssignment>
         <MixedReturnStatement>
             <errorLevel type="suppress">
+                <file name="src/AbstractLexer.php" />
                 <file name="src/Token.php" />
             </errorLevel>
         </MixedReturnStatement>
@@ -56,6 +45,7 @@
             <errorLevel type="suppress">
                 <!-- https://github.com/vimeo/psalm/issues/8891 -->
                 <file name="src/AbstractLexer.php" />
+                <file name="tests/EnumLexer.php" />
             </errorLevel>
         </ReferenceConstraintViolation>
         <RedundantConditionGivenDocblockType>

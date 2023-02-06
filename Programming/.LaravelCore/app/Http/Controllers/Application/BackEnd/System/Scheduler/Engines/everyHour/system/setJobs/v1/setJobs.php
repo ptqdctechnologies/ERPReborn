@@ -131,7 +131,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
             /*
             ..... Call all functions will be loaded .....
             */
-            
+
             return $varReturn;
             }
         }
