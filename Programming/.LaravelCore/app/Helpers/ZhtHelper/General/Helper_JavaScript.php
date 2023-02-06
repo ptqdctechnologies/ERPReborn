@@ -248,6 +248,7 @@ namespace App\Helpers\ZhtHelper\General
                                         'ID' => $varID.'_ProcessLoad_BackMessage',
                                         'ParentID' => $varID.'_ProcessLoad_Back',
                                         'Style' => [
+
                                             // ['position', 'absolute'],
                                             // ['top', '50%'],
                                             // ['left', '50%'],
@@ -265,31 +266,44 @@ namespace App\Helpers\ZhtHelper\General
                                             // ['borderRadius', '10px'],
                                             // ['boxShadow', '10px 20px 30px #333333'],
                                             // ['transform', 'translate(-50%, -50%)']
-
+                                            
                                             ['position', 'fixed'],
-                                            ['top', '50%'],
+                                            ['width', '100px'],
+                                            ['height', '100px'],
+                                            ['top', '35%'],
                                             ['left', '50%'],
-                                            ['background', '#ced4da'],
-                                            ['fontFamily', '\\\'Helvetica, Verdana, Arial, Tahoma, Serif\\\''],
-                                            ['fontWeight', 'bold'],
-                                            ['valign', 'top'],
-                                            ['color', '#212529'],
-                                            ['fontSize', '30px'],
-                                            ['textShadow', '2px 2px 5px #ced4da'],
-                                            ['border', '5px solid #ced4da'],
-                                            ['borderColor', 'ced4da'],
-                                            ['borderSpacing', '2px'],
-                                            ['padding', '5px'],
-                                            ['borderRadius', '10px'],
-                                            ['boxShadow', '10px 20px 30px #333333'],
-                                            // ['webkit-animation', 'spin 2s linear infinite'],
-                                            // ['animation', 'spin 2s linear infinite'],
+                                            ['background', '#fff'],
+                                            ['borderRadius', '50%'],
+                                            ['borderLeft', '10px solid blue'],
+                                            ['borderTop', '10px solid red'],
+                                            ['borderBottom', '10px solid yellow'],
+                                            ['animation', 'spin 2s linear infinite'],
                                             ['transform', 'translate(-50%, -50%)']
 
                                             ]
-                                    ], 
-                                    str_replace(' ', '&nbsp', $varMessage)
-                                    ).
+                                        ], 
+                                        ''
+                                        ).
+
+                                    self::getSyntaxCreateDOM_Div(
+                                        $varUserSession, 
+                                        [
+                                            'ID' => $varID.'_ProcessLoad_BackMessage',
+                                            'ParentID' => $varID.'_ProcessLoad_Back',
+                                            'Style' => [
+    
+                                                ['position', 'absolute'],
+                                                ['top', '50%'],
+                                                ['left', '40%'],
+                                                ['fontFamily', '\\\'Helvetica, Verdana, Arial, Tahoma, Serif\\\''],
+                                                ['fontWeight', 'bold'],
+                                                ['valign', 'top'],
+                                                ['color', '#212529'],
+                                                ['fontSize', '20px'],
+                                                ]
+                                        ], 
+                                        str_replace(' ', '&nbsp', $varMessage)
+                                        ).
                                 self::getSyntaxCreateDOM_Div(
                                     $varUserSession, 
                                     [
@@ -2343,12 +2357,22 @@ namespace App\Helpers\ZhtHelper\General
                                                     'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
                                                     '}'.
                                                 '}'.
-                            
+                                                
                                             //---> JSFunc_GetActionPanel_CommitFromOutside_...
                                             'function JSFunc_GetActionPanel_CommitFromOutside_'.$varUniqueID.'() {'.
                                                 'try {'.
+
+                                                    // 'document.getElementById(\''.$varUniqueID.'_ProcessLoad_DataSignShow'.'\').value = Boolean(true); '.
+                                                    // 'document.getElementById(\''.$varUniqueID.'_ProcessLoad_Back'.'\').style.display = \'block\'; '.
+                                                    // 'document.getElementById(\''.$varUniqueID.'_ProcessLoad_Back'.'\').style.visibility = \'visible\'; '.
+
                                                     'JSFunc_GetActionPanel_Commit_'.$varUniqueID.'(); '.
-                                                    // 'alert(\'Test Commit Berhasil dieksekusi\'); '.
+
+                                                    // 'document.getElementById(\''.$varUniqueID.'_ProcessLoad_DataSignShow'.'\').value = Boolean(false); '.
+                                                    // 'document.getElementById(\''.$varUniqueID.'_ProcessLoad_Back'.'\').style.display = \'none\'; '.
+                                                    // 'document.getElementById(\''.$varUniqueID.'_ProcessLoad_Back'.'\').style.visibility = \'hidden\'; '.
+                                                    
+                                                    'alert(\'Test Commit Berhasil dieksekusi\'); '.
                                                     '}'.
                                                 'catch(varError) {'.
                                                     'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
@@ -2358,6 +2382,11 @@ namespace App\Helpers\ZhtHelper\General
                                             //---> JSFunc_GetActionPanel_Commit_...
                                             'function JSFunc_GetActionPanel_Commit_'.$varUniqueID.'() {'.
                                                 'try {'.
+
+                                                    // 'document.getElementById(\''.$varUniqueID.'_ProcessLoad_DataSignShow'.'\').value = Boolean(true); '.
+                                                    // 'document.getElementById(\''.$varUniqueID.'_ProcessLoad_Back'.'\').style.display = \'block\'; '.
+                                                    // 'document.getElementById(\''.$varUniqueID.'_ProcessLoad_Back'.'\').style.visibility = \'visible\'; '.
+
                                                     'varReturn = ('.
                                                         'JSON.parse('.
                                                             str_replace(
@@ -2367,7 +2396,7 @@ namespace App\Helpers\ZhtHelper\General
                                                                     $varUserSession, 
                                                                     $varAPIWebToken, 
                                                                     'fileHandling.upload.archive.general.setFilesFromStagingArea', 
-                                                                    'latest', 
+                                                                    'latest',
                                                                     '{'.
                                                                         '"parameter" : {'.
                                                                             '"log_FileUpload_Pointer_RefID" : JSFunc_MainData_GetData_FileUploadPointerRefID_'.$varUniqueID.'(), '.
@@ -2379,14 +2408,17 @@ namespace App\Helpers\ZhtHelper\General
                                                                 ).
                                                             ').data.log_FileUpload_Pointer_RefID'.
                                                         '); '.
-                                                    //'alert(JSON.stringify(varReturn)); '.
+                                                    // 'alert(JSON.stringify(varReturn)); '.
                                                     'document.getElementById(\''.$varDOMReturnID.'\').value = JSON.stringify(varReturn); '.
                                                     'JSFunc_MainData_SetData_FileUploadPointerRefID_'.$varUniqueID.'(varReturn); '.
                                                     'JSFunc_MainData_SetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'(null); '.
     //                                                'JSFunc_MainData_InitData_'.$varUniqueID.'(document.getElementById(\''.$varDOMReturnID.'\').value, null, []); '.
                                                     //'alert(\'Committed File(s) Upload Complete\'); '.
                                                     'varNothing = JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
-                                                    '}'.
+                                                '}'.
+
+                                                    
+
                                                 'catch(varError) {'.
                                                     'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
                                                     '}'.
