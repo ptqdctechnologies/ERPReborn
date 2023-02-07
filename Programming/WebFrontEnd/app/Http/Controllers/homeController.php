@@ -11,7 +11,20 @@ class homeController extends Controller
      */
     public function dashboard(Request $request)
     {
-        return view('Layouts.dashboard');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varAPIWebToken, 
+        'environment.general.session.keyList.getMenu', 
+        'latest', 
+        [
+        ]
+        );
+
+        $compact = [
+            'privilageMenu' => $varData['data']['keyList']
+        ];
+        return view('Layouts.dashboard', $compact);
     }
 
     public function checkDocument()

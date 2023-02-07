@@ -2372,7 +2372,7 @@ namespace App\Helpers\ZhtHelper\General
                                                     // 'document.getElementById(\''.$varUniqueID.'_ProcessLoad_Back'.'\').style.display = \'none\'; '.
                                                     // 'document.getElementById(\''.$varUniqueID.'_ProcessLoad_Back'.'\').style.visibility = \'hidden\'; '.
                                                     
-                                                    'alert(\'Test Commit Berhasil dieksekusi\'); '.
+                                                    // 'alert(\'Test Commit Berhasil dieksekusi\'); '.
                                                     '}'.
                                                 'catch(varError) {'.
                                                     'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.

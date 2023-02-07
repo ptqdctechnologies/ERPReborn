@@ -437,20 +437,25 @@
                 </li> -->
 
                 <li class="nav-item has-treeview">
+                    @if(in_array("Module.Finance.Advance.Transaction.Create", $privilageMenu, TRUE) || in_array("Module.Finance.AdvanceSettlement.Transaction.Create", $privilageMenu, TRUE) || in_array("Module.HumanResource.PersonBusinessTrip.Transaction.Create", $privilageMenu, TRUE) || in_array("Module.HumanResource.PersonBusinessTripSettlement.Transaction.Create", $privilageMenu, TRUE))        
                     <a href="#" class="nav-link">
                         <i class="nav-icon-sm fas fa-shopping-basket" style="color:#e9ecef;"></i>
                         <label>
-                            Advance
+                            Advance 
                         </label>
                         <i class="right fas fa-angle-left"></i>
                     </a>
+                    @endif
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
+
+                            @if(in_array("Module.Finance.Advance.Transaction.Create", $privilageMenu, TRUE) || in_array("Module.Finance.AdvanceSettlement.Transaction.Create", $privilageMenu, TRUE))
                             <a href="#" class="nav-link">&nbsp;
                                 <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
                                 <label>Advance</label>
                                 <i class="right fas fa-angle-left"></i>
                             </a>
+                            @endif
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">&nbsp;&nbsp;&nbsp;
@@ -459,30 +464,38 @@
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
+                                        @if(in_array("Module.Finance.Advance.Report.DataForm", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Advance Detail Report</label>
                                             </a>
                                         </li>
+                                        @endif
+                                        @if(in_array("Module.Finance.Advance.Report.DataList.AllDocuments", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Advance Summary Report</label>
                                             </a>
                                         </li>
+                                        @endif
+                                        @if(in_array("Module.Finance.AdvanceSettlement.Report.DataForm", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceSettlement.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Advance Settlement Detail Report</label>
                                             </a>
                                         </li>
+                                        @endif
+                                        @if(in_array("Module.Finance.AdvanceSettlement.Report.DataList.AllDocuments", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="#" class="nav-link" data-toggle="modal" data-target="#asfNumberPopup">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Advance Settlement Summary Report</label>
                                             </a>
                                         </li>
+                                        @endif
                                         <li class="nav-item">
                                             <a href="#" class="nav-link" data-toggle="modal" data-target="#asfNumberPopup">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
@@ -500,18 +513,22 @@
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
+                                        @if(in_array("Module.Finance.Advance.Transaction.Create", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceRequest.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Advance Request</label>
                                             </a>
                                         </li>
+                                        @endif
+                                        @if(in_array("Module.Finance.AdvanceSettlement.Transaction.Create", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceSettlement.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Advance Settlement</label>
                                             </a>
                                         </li>
+                                        @endif
                                     </ul>
                                 </li>
                             </ul>
@@ -519,11 +536,13 @@
                     </ul>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
+                            @if(in_array("Module.HumanResource.PersonBusinessTrip.Transaction.Create", $privilageMenu, TRUE) || in_array("Module.HumanResource.PersonBusinessTripSettlement.Transaction.Create", $privilageMenu, TRUE))
                             <a href="#" class="nav-link">&nbsp;
                                 <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
                                 <label>Business Trip</label>
                                 <i class="right fas fa-angle-left"></i>
                             </a>
+                            @endif
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">&nbsp;&nbsp;&nbsp;
@@ -532,30 +551,38 @@
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
+                                        @if(in_array("Module.HumanResource.PersonBusinessTrip.Report.DataForm", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Business Trip Detail Report</label>
                                             </a>
                                         </li>
+                                        @endif
+                                        @if(in_array("Module.HumanResource.PersonBusinessTrip.Report.DataList.AllDocuments", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Business Trip Summary Report</label>
                                             </a>
                                         </li>
+                                        @endif
+                                        @if(in_array("Module.HumanResource.PersonBusinessTripSettlement.Report.DataForm", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceSettlement.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Business Trip Settlement Detail Report</label>
                                             </a>
                                         </li>
+                                        @endif
+                                        @if(in_array("Module.HumanResource.PersonBusinessTripSettlement.Report.DataList.AllDocuments", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="#" class="nav-link" data-toggle="modal" data-target="#asfNumberPopup">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Business Trip Settlement Summary Report</label>
                                             </a>
                                         </li>
+                                        @endif
                                         <li class="nav-item">
                                             <a href="#" class="nav-link" data-toggle="modal" data-target="#asfNumberPopup">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
@@ -573,18 +600,22 @@
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
+                                        @if(in_array("Module.HumanResource.PersonBusinessTrip.Transaction.Create", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('BusinessTripRequest.index') }}?var=1"" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Business Trip Request</label>
                                             </a>
                                         </li>
+                                        @endif
+                                        @if(in_array("Module.HumanResource.PersonBusinessTripSettlement.Transaction.Create", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('BusinessTripSettlement.index') }}?var=1"" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Business Trip Settlement</label>
                                             </a>
                                         </li>
+                                        @endif
                                     </ul>
                                 </li>
                             </ul>
@@ -1296,6 +1327,7 @@
                     </ul>
                 </li>
                 <li class="nav-item has-treeview">
+                    @if(in_array("Module.SupplyChain.Procurement.PurchaseRequisition.Transaction.Create", $privilageMenu, TRUE) || in_array("Module.SupplyChain.Procurement.PurchaseOrder.Transaction.Create", $privilageMenu, TRUE))
                     <a href="#" class="nav-link">
                         <i class="nav-icon-sm fas fa-cart-arrow-down" style="color:#e9ecef;"></i>
                         <label>
@@ -1303,13 +1335,16 @@
                         </label>
                         <i class="right fas fa-angle-left"></i>
                     </a>
+                    @endif
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
+                            @if(in_array("Module.SupplyChain.Procurement.PurchaseRequisition.Transaction.Create", $privilageMenu, TRUE))
                             <a href="#" class="nav-link">&nbsp;
                                 <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
                                 <label>Purchase Requisition</label>
                                 <i class="right fas fa-angle-left"></i>
                             </a>
+                            @endif
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">&nbsp;&nbsp;&nbsp;
@@ -1318,18 +1353,22 @@
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
+                                        @if(in_array("Module.SupplyChain.Procurement.PurchaseRequisition.Report.DataForm", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Purchase Requisition Detail Report</label>
                                             </a>
                                         </li>
+                                        @endif
+                                        @if(in_array("Module.SupplyChain.Procurement.PurchaseRequisition.Report.DataList.AllDocuments", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Purchase Requisition Summary Report</label>
                                             </a>
                                         </li>
+                                        @endif
                                     </ul>
                                 </li>
                             </ul>
@@ -1341,12 +1380,14 @@
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
+                                        @if(in_array("Module.SupplyChain.Procurement.PurchaseRequisition.Transaction.Create", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('PurchaseRequisition.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Purchase Requisition</label>
                                             </a>
                                         </li>
+                                        @endif
                                     </ul>
                                 </li>
                             </ul>
@@ -1355,11 +1396,13 @@
 
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
+                            @if(in_array("Module.SupplyChain.Procurement.PurchaseOrder.Transaction.Create", $privilageMenu, TRUE))
                             <a href="#" class="nav-link">&nbsp;
                                 <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
                                 <label>Purchase Order</label>
                                 <i class="right fas fa-angle-left"></i>
                             </a>
+                            @endif
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">&nbsp;&nbsp;&nbsp;
@@ -1368,18 +1411,22 @@
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
+                                        @if(in_array("Module.SupplyChain.Procurement.PurchaseOrder.Report.DataForm", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Purchase Order Detail Report</label>
                                             </a>
                                         </li>
+                                        @endif
+                                        @if(in_array("Module.SupplyChain.Procurement.PurchaseOrder.Report.DataList.AllDocuments", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Purchase Order Summary Report</label>
                                             </a>
                                         </li>
+                                        @endif
                                         <li class="nav-item">
                                             <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
@@ -1397,12 +1444,14 @@
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
+                                        @if(in_array("Module.SupplyChain.Procurement.PurchaseOrder.Transaction.Create", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('PurchaseOrder.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Purchase Order</label>
                                             </a>
                                         </li>
+                                        @endif
                                     </ul>
                                 </li>
                             </ul>

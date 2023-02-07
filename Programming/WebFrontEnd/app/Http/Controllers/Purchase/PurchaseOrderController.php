@@ -23,6 +23,7 @@ class PurchaseOrderController extends Controller
         }
         $compact = [
             'var' => $var,
+            'statusRevisi' => 1,
         ];
 
         return view('Purchase.Purchase.Transactions.CreatePurchaseOrder', $compact);
@@ -201,7 +202,7 @@ class PurchaseOrderController extends Controller
         
         $compact = [
             'dataPurchaseOrderRevision' => $varDataPurchaseOrderRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
-            'dataPurchaOrdernumber' => $varDataAdvanceSettlementRevision['data'][0]['document']['header']['number'],
+            'dataPurchaOrdernumber' => $varDataPurchaseOrderRevision['data'][0]['document']['header']['number'],
             'var_recordID' => $request->searchPONumberRevisionId,
         ];
 

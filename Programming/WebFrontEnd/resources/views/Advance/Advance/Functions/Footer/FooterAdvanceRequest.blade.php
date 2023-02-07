@@ -314,30 +314,8 @@
                 $("#putRemark").css("border", "1px solid red");
             } else {
                 
-                $("#loading").show();
-                $(".loader").show();
-
-
-                var Timer_Started = true;
-                var Timer = setTimeout(DoThis,5000);
-
-                function DoThis(){
-                    Timer_Started = false;
-                }
-
-                if(Timer_Started){
-                    var varFileUpload_UniqueID = "Upload";
-                    window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
-                }else{
-                    $("#loading").hide();
-                    $(".loader").hide();
-                }
-                alert(Timer_Started);
-
-                // setTimeout(function() {
-                // var varFileUpload_UniqueID = "Upload";
-                // window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
-                // }, 5000);
+                var varFileUpload_UniqueID = "Upload";
+                window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
                                 
                 var action = $(this).attr("action"); //get submit action from form
                 var method = $(this).attr("method"); // get submit method
