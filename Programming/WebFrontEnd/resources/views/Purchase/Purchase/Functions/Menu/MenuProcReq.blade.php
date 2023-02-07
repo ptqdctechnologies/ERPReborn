@@ -9,16 +9,20 @@
                                 <span style="position:relative;bottom:5px;"><img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"> SELECT ACTION </span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-left" style="padding: 10px;font-size:14px;background-color:#4B586A;margin-top:8px;">
+                                @if(in_array("Module.SupplyChain.Procurement.PurchaseRequisition.Transaction.Create", $privilageMenu, TRUE))
                                 <li class="nav-item">
                                     <a href="{{ route('PurchaseRequisition.index') }}" class="nav-link" style="color:white;padding-bottom:10px;">
-                                        <i class="far fa-file nav-icon-sm"> Create Purchase Requisitiont</i>
+                                        <i class="far fa-file nav-icon-sm"> Create Purchase Requisition</i>
                                     </a>
                                 </li>
+                                @endif
+                                @if(in_array("Module.SupplyChain.Procurement.PurchaseRequisition.Transaction.Edit", $privilageMenu, TRUE))
                                 <li class="nav-item">
                                     <a class="nav-link myPopUpPurchaseRequisitionRevision" data-toggle="modal" data-target="#myPopUpPurchaseRequisitionRevision" style="color:white;padding-bottom:10px;">
-                                        <i class="far fa-file nav-icon-sm"> Revision Purchase Requisitiont</i>
+                                        <i class="far fa-file nav-icon-sm"> Revision Purchase Requisition</i>
                                     </a>
                                 </li>
+                                @endif
                             </ul>
                         </li>
                     </ul>

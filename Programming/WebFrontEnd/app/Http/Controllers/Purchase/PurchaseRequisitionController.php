@@ -21,6 +21,7 @@ class PurchaseRequisitionController extends Controller
             'statusAdvanceRevisi' => 0,
             'statusPrRevisi' => 0,
             'statusPr' => 1,
+            'statusRevisi' => 1,
         ];
         return view('Purchase.PurchaseRequisition.Transactions.CreatePurchaseRequisition', $compact);
     }
@@ -173,6 +174,7 @@ class PurchaseRequisitionController extends Controller
             'statusAdvanceRevisi' => 0,
             'statusPrRevisi' => 1,
             'statusPr' => 1,
+            'statusRevisi' => 1,
         ];
 
         return view('Purchase.PurchaseRequisition.Transactions.RevisionPurchaseRequisition', $compact);

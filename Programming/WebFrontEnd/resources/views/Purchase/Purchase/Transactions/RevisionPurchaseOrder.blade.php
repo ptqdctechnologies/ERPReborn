@@ -7,62 +7,8 @@
 @include('getFunction.getSupplier')
 @include('getFunction.getDeliverTo')
 @include('getFunction.getProduk')
-@include('Purchase.PurchaseOrder.Functions.PopUp.searchPO')
-@include('Purchase.PurchaseOrder.Functions.PopUp.PopUpPurchaseOrderRevision')
-
-<div class="content-wrapper" style="position:relative;bottom:12px;">
-  <section class="content">
-    <div class="container-fluid">
-      <div class="row mb-1" style="background-color:#4B586A;">
-        <div class="col-sm-6" style="height:30px;">
-          <label style="font-size:15px;position:relative;top:7px;color:white;">Revision Advance Settlement</label>
-        </div>
-      </div>
-      @include('Purchase.PurchaseOrder.Functions.Menu.MenuAPurchaseOrder')
-      <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
-      <div class="card" style="position:relative;bottom:10px;">
-        <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceSettlement.update', $var_recordID) }}" id="FormStoreAdvanceSettlementRevision">
-          @method('PUT')
-          @csrf
-          <div class="tab-content p-3" id="nav-tabContent">
-            <div class="row">
-              <div class="col-12">
-                <div class="card">
-                  <div class="card-header">
-                    <label class="card-title">
-                      Add New Settlement
-                    </label>
-                    <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                      </button>
-                    </div>
-                  </div>
-                  @include('Purchase.PurchaseOrder.Functions.Header.HeaderPORevision')
-                </div>
-              </div>
-            </div>  
-          </div>
-        </form>
-      </div>
-    </div>
-  </section>
-</div>
-@include('Partials.footer')
-@include('Advance.Advance.Functions.Footer.FooterAdvanceSettlementRevision')
-@endsection
-
-@extends('Partials.app')
-@section('main')
-@include('Partials.navbar')
-@include('Partials.sidebar')
-@include('getFunction.getProject')
-@include('getFunction.getSite')
-@include('getFunction.getSupplier')
-@include('getFunction.getDeliverTo')
-@include('getFunction.getProduk')
-@include('Purchase.PurchaseOrder.Functions.PopUp.searchPO')
-@include('Purchase.PurchaseOrder.Functions.PopUp.PopUpPurchaseOrderRevision')
+@include('Purchase.Purchase.Functions.PopUp.searchPR')
+@include('Purchase.Purchase.Functions.PopUp.PopUpPurchaseOrderRevision')
 
 <div class="content-wrapper" style="position:relative;bottom:12px;">
   <section class="content">
@@ -72,8 +18,7 @@
           <label style="font-size:15px;position:relative;top:7px;color:white;">Purchase Order</label>
         </div>
       </div>
-      @include('Purchase.PurchaseOrder.Functions.Menu.MenuPurchaseOrder')
-      @if($var == 0)
+      @include('Purchase.Purchase.Functions.Menu.MenuPurchaseOrder')
       <div class="card" style="position:relative;bottom:10px;">
         <form method="post" enctype="multipart/form-data" action="{{ route('PurchaseOrder.store') }}" name="formPO">
           <div class="tab-content p-3" id="nav-tabContent">
@@ -91,7 +36,7 @@
                       </button>
                     </div>
                   </div>
-                  @include('Purchase.PurchaseOrder.Functions.Header.headerPO2')
+                  @include('Purchase.Purchase.Functions.Header.headerPO2')
                 </div>
               </div>
             </div>
@@ -110,7 +55,7 @@
                         </button>
                       </div>
                     </div>
-                    @include('Purchase.PurchaseOrder.Functions.Header.headerPO')
+                    @include('Purchase.Purchase.Functions.Header.headerPO')
                   </div>
                 </div>
               </div>
@@ -129,7 +74,7 @@
                       </button>
                     </div>
                   </div>
-                  @include('Purchase.PurchaseOrder.Functions.Table.tablePRDetail')
+                  @include('Purchase.Purchase.Functions.Table.tablePRDetail')
                 </div>
               </div>
             </div>
@@ -337,10 +282,9 @@
           </div>
         </form>
       </div>
-      @endif
     </div>
   </section>
 </div>
 @include('Partials.footer')
-@include('Purchase.PurchaseOrder.Functions.Footer.footerPO')
+@include('Purchase.Purchase.Functions.Footer.footerPO')
 @endsection

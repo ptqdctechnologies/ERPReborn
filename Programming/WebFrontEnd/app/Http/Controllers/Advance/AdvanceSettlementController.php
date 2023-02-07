@@ -14,7 +14,7 @@ class AdvanceSettlementController extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionAdvanceSetllement");
         $request->session()->forget("SessionAdvanceSetllementRequester");
-
+    
         $var = 0;
         if (!empty($_GET['var'])) {
             $var =  $_GET['var'];
@@ -323,6 +323,7 @@ class AdvanceSettlementController extends Controller
                 ]
             ]
         );
+            
         $compact = [
             'dataAdvanceRevisions' => $varDataAdvanceSettlementRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
             'dataRequester' => $varDataAdvanceSettlementRevision['data'][0]['document']['content']['involvedPersons']['requester'],
