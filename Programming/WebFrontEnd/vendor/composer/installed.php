@@ -464,9 +464,9 @@
             'dev_requirement' => true,
         ),
         'monolog/monolog' => array(
-            'pretty_version' => '2.9.0',
-            'version' => '2.9.0.0',
-            'reference' => 'e1c0ae1528ce313a450e5e1ad782765c4a8dd3cb',
+            'pretty_version' => '2.9.1',
+            'version' => '2.9.1.0',
+            'reference' => 'f259e2b15fb95494c83f52d3caad003bbf5ffaa1',
             'type' => 'library',
             'install_path' => __DIR__ . '/../monolog/monolog',
             'aliases' => array(),
@@ -767,7 +767,7 @@
         'ramsey/uuid' => array(
             'pretty_version' => '4.x-dev',
             'version' => '4.9999999.9999999.9999999-dev',
-            'reference' => '25c4faac19549ebfcd3a6a73732dddeb188eaf5a',
+            'reference' => 'd33a8f1023af74aae4071dc98b5955d0b185ab6f',
             'type' => 'library',
             'install_path' => __DIR__ . '/../ramsey/uuid',
             'aliases' => array(),

@@ -1872,16 +1872,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "2.9.0",
+            "version": "2.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "e1c0ae1528ce313a450e5e1ad782765c4a8dd3cb"
+                "reference": "f259e2b15fb95494c83f52d3caad003bbf5ffaa1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/e1c0ae1528ce313a450e5e1ad782765c4a8dd3cb",
-                "reference": "e1c0ae1528ce313a450e5e1ad782765c4a8dd3cb",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/f259e2b15fb95494c83f52d3caad003bbf5ffaa1",
+                "reference": "f259e2b15fb95494c83f52d3caad003bbf5ffaa1",
                 "shasum": ""
             },
             "require": {
@@ -1958,7 +1958,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Seldaek/monolog/issues",
-                "source": "https://github.com/Seldaek/monolog/tree/2.9.0"
+                "source": "https://github.com/Seldaek/monolog/tree/2.9.1"
             },
             "funding": [
                 {
@@ -1970,7 +1970,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-02-05T13:07:32+00:00"
+            "time": "2023-02-06T13:44:46+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -3173,12 +3173,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ramsey/uuid.git",
-                "reference": "25c4faac19549ebfcd3a6a73732dddeb188eaf5a"
+                "reference": "d33a8f1023af74aae4071dc98b5955d0b185ab6f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ramsey/uuid/zipball/25c4faac19549ebfcd3a6a73732dddeb188eaf5a",
-                "reference": "25c4faac19549ebfcd3a6a73732dddeb188eaf5a",
+                "url": "https://api.github.com/repos/ramsey/uuid/zipball/d33a8f1023af74aae4071dc98b5955d0b185ab6f",
+                "reference": "d33a8f1023af74aae4071dc98b5955d0b185ab6f",
                 "shasum": ""
             },
             "require": {
@@ -3258,7 +3258,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-28T17:00:47+00:00"
+            "time": "2023-02-06T21:10:27+00:00"
         },
         {
             "name": "spatie/backtrace",
