@@ -122,6 +122,7 @@ services:
       - './.ProjectCore/PermanentStorage/LocalStorage/WebFrontEnd:/var/www/html/WebFrontEnd/storage/app/Application'
 
 
+
   #---> Services : Redis
   redis:
     container_name: 'redis'

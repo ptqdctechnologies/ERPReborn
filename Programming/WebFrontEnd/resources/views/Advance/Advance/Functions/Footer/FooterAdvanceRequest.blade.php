@@ -299,7 +299,6 @@
     $(function() {
         $("#formSubmitArf").on("submit", function(e) { //id of form 
             e.preventDefault();
-            var varFileUpload_UniqueID = "Upload";
             var valRequestName = $("#request_name").val();
             var valRemark = $("#putRemark").val();
             $("#request_name").css("border", "1px solid #ced4da");
@@ -315,10 +314,31 @@
                 $("#putRemark").css("border", "1px solid red");
             } else {
                 
-                var varFileUpload_UniqueID = "Upload";
-                window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
-            
-                
+                $("#loading").show();
+                $(".loader").show();
+
+
+                var Timer_Started = true;
+                var Timer = setTimeout(DoThis,5000);
+
+                function DoThis(){
+                    Timer_Started = false;
+                }
+
+                if(Timer_Started){
+                    var varFileUpload_UniqueID = "Upload";
+                    window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
+                }else{
+                    $("#loading").hide();
+                    $(".loader").hide();
+                }
+                alert(Timer_Started);
+
+                // setTimeout(function() {
+                // var varFileUpload_UniqueID = "Upload";
+                // window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
+                // }, 5000);
+                                
                 var action = $(this).attr("action"); //get submit action from form
                 var method = $(this).attr("method"); // get submit method
                 var form_data = new FormData($(this)[0]); // convert form into formdata 
@@ -345,8 +365,8 @@
                 }).then((result) => {    
                     if (result.value) {
 
-                        $("#loading").show();
-                        $(".loader").show();
+                        // $("#loading").hide();
+                        // $(".loader").hide();
 
                         $.ajax({
                             url: action,

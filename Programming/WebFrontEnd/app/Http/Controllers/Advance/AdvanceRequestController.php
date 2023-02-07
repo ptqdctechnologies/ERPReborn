@@ -15,6 +15,17 @@ class AdvanceRequestController extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         // dd($varAPIWebToken);
         $request->session()->forget("SessionAdvance");
+
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varAPIWebToken, 
+        'environment.general.session.keyList.getMenu', 
+        'latest', 
+        [
+        ]
+        );
+        // dd($varData['data']['keyList'][16]);        
         $var = 0;
         if(!empty($_GET['var'])){
            $var =  $_GET['var'];
@@ -26,15 +37,15 @@ class AdvanceRequestController extends Controller
             'statusPrRevisi' => 0,
             'statusPr' => 0,
             'statusRevisi' => 0,
+            'test' => $varData['data']['keyList'][16]
         ];
         return view('Advance.Advance.Transactions.CreateAdvanceRequest', $compact);
-
     }
 
     public function store(Request $request)
     {
         $input = $request->all();
-        // dd($input);
+        dd($input);
         $count_product = count($input['var_product_id']);
 
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -76,7 +87,6 @@ class AdvanceRequestController extends Controller
                 ]
             ]                    
             );
-
         
             // dd($varData);
 

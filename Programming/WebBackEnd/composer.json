@@ -17,7 +17,7 @@
         "illuminate/http": "^9.2",
         "illuminate/support": "^9.2",
         "intervention/httpauth": "^3.0",
-        "laravel/framework": "^9.2",
+        "laravel/framework": "^9.50",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
         "league/flysystem": "^3.1",
