@@ -159,6 +159,53 @@ namespace App\Models\Database\SchSysConfig
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataEntities_ApproverEntity                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-02-07                                                                                           |
+        | ▪ Creation Date   : 2023-02-07                                                                                           |
+        | ▪ Description     : Get Data Entities - Approver Entity                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysID ► System Record ID                                                                              |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataEntities_ApproverEntity($varUserSession, 
+            string $varIDSet)
+            {
+            try {
+                $varFunctionName='SchSysConfig.Func_GetDataEntities_ApproverEntity';
+                $varTemp = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        $varFunctionName,
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varIDSet, 'bigint[]']
+                        ]
+                        )
+                    );
+
+                for ($i=0; $i!=count($varTemp['Data']); $i++)
+                    {
+                    $varReturn[$i] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession, 
+                        $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]);
+                    }
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataPickList_AppObject_WorkFlowPath                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |

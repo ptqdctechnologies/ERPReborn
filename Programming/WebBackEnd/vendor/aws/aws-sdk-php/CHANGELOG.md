@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## 3.258.4 - 2023-02-06
+
+* `Aws\ComputeOptimizer` - AWS Compute optimizer can now infer if Kafka is running on an instance.
+* `Aws\CustomerProfiles` - This release deprecates the PartyType and Gender enum data types from the Profile model and replaces them with new PartyTypeString and GenderString attributes, which accept any string of length up to 255.
+* `Aws\FraudDetector` - My AWS Service (Amazon Fraud Detector) - This release introduces Cold Start Model Training which optimizes training for small datasets and adds intelligent methods for treating unlabeled data. You can now train Online Fraud Insights or Transaction Fraud Insights models with minimal historical-data.
+* `Aws\MediaConvert` - The AWS Elemental MediaConvert SDK has added improved scene change detection capabilities and a bandwidth reduction filter, along with video quality enhancements, to the AVC encoder.
+* `Aws\Outposts` - Adds OrderType to Order structure. Adds PreviousOrderId and PreviousLineItemId to LineItem structure. Adds new line item status REPLACED. Increases maximum length of pagination token.
+
+## 3.258.3 - 2023-02-03
+
+* `Aws\` - Increase the minimum required version of the CRT repo
+* `Aws\Proton` - Add new GetResourcesSummary API
+* `Aws\Redshift` - Corrects descriptions of the parameters for the API operations RestoreFromClusterSnapshot, RestoreTableFromClusterSnapshot, and CreateCluster.
+
 ## 3.258.2 - 2023-02-02
 
 * `Aws\AppConfig` - AWS AppConfig introduces KMS customer-managed key (CMK) encryption of configuration data, along with AWS Secrets Manager as a new configuration data source. S3 objects using SSE-KMS encryption and SSM Parameter Store SecureStrings are also now supported.
