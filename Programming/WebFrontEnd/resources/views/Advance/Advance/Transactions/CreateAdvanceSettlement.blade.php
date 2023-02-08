@@ -88,7 +88,7 @@
                                 <div class="input-group control-group">
 
                                   <!-- <div id="dataShow_MasterFileRecord" style="border-style:solid; border-width:1px;"></div> -->
-                                  <div id="dataShow_ActionPanel" style="border-style:solid; border-width:1px;"></div>
+                                  <div id="dataShow_ActionPanel"></div>
                                   
                                 </div>
                               </div>

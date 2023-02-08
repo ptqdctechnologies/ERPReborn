@@ -10,7 +10,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="tableSearchAsfRevision">
+                                <table class="table table-head-fixed text-nowrap" id="tableSearchAsfRevisions">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -75,7 +75,7 @@
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("asf_number_revision");
         filter = input.value.toUpperCase();
-        table = document.getElementById("tableSearchAsfRevision`");
+        table = document.getElementById("tableSearchAsfRevisions");
         tr = table.getElementsByTagName("tr");
 
         // Loop through all table rows, and hide those who don't match the search query
@@ -96,7 +96,7 @@
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("arf_number_revision");
         filter = input.value.toUpperCase();
-        table = document.getElementById("tableSearchAsfRevision`");
+        table = document.getElementById("tableSearchAsfRevisions");
         tr = table.getElementsByTagName("tr");
 
         // Loop through all table rows, and hide those who don't match the search query
@@ -118,7 +118,7 @@
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("project_code_asf_revision");
         filter = input.value.toUpperCase();
-        table = document.getElementById("tableSearchAsfRevision`");
+        table = document.getElementById("tableSearchAsfRevisions");
         tr = table.getElementsByTagName("tr");
 
         // Loop through all table rows, and hide those who don't match the search query
@@ -140,7 +140,7 @@
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("site_code_asf_revision");
         filter = input.value.toUpperCase();
-        table = document.getElementById("tableSearchAsfRevision`");
+        table = document.getElementById("tableSearchAsfRevisions");
         tr = table.getElementsByTagName("tr");
 
         // Loop through all table rows, and hide those who don't match the search query

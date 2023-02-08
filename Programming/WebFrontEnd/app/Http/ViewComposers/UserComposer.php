@@ -19,6 +19,7 @@ class UserComposer
             [
             ]
             );
+        
 
         $compact = [
             'privilageMenu' => $varData['data']['keyList']
