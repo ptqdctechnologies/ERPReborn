@@ -4,20 +4,20 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\sysConfig                  |
-|                \getAppObject_WorkFlow\v1                                                                                         |
+|                \getAppObject_WorkFlowEdge\v1                                                                                     |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\sysConfig\getAppObject_WorkFlow\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\sysConfig\getAppObject_WorkFlowEdge\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getAppObject_WorkFlow                                                                                        |
-    | ▪ Description : Menangani API transaction.read.dataEntities.sysConfig.getAppObject_WorkFlow Version 1                        |
+    | ▪ Class Name  : getAppObject_WorkFlowEdge                                                                                    |
+    | ▪ Description : Menangani API transaction.read.dataEntities.sysConfig.getAppObject_WorkFlowEdge Version 1                    |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getAppObject_WorkFlow extends \App\Http\Controllers\Controller
+    class getAppObject_WorkFlowEdge extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -59,11 +59,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Work Flow Data Entities (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Work Flow Edge Data Entities (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchSysConfig\TblAppObject_WorkFlow())->getDataEntities(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchSysConfig\TblAppObject_WorkFlowEdge())->getDataEntities(
                             $varUserSession, 
                             
                             $varData['parameter']['recordIDSet'],
