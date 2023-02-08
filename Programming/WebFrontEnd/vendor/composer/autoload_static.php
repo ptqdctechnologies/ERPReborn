@@ -127,6 +127,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         ),
         'G' => 
         array (
+            'GuzzleHttp\\UriTemplate\\' => 23,
             'GuzzleHttp\\Psr7\\' => 16,
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
@@ -409,6 +410,10 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'Illuminate\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate',
+        ),
+        'GuzzleHttp\\UriTemplate\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/uri-template/src',
         ),
         'GuzzleHttp\\Psr7\\' => 
         array (
@@ -895,6 +900,8 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\read\\dataEntities\\supplyChain\\getSupplier\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/read/dataEntities/supplyChain/getSupplier/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\read\\dataEntities\\supplyChain\\getWarehouseType\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/read/dataEntities/supplyChain/getWarehouseType/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\read\\dataEntities\\supplyChain\\getWarehouse\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/read/dataEntities/supplyChain/getWarehouse/v1/example.php',
+        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\read\\dataEntities\\sysConfig\\getAppObject_WorkFlowPathAction\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/read/dataEntities/sysConfig/getAppObject_WorkFlowPathAction/v1/example.php',
+        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\read\\dataEntities\\sysConfig\\getApproverEntity\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/read/dataEntities/sysConfig/getApproverEntity/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\read\\dataEntities\\taxation\\getTaxTariff\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/read/dataEntities/taxation/getTaxTariff/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\read\\dataEntities\\taxation\\getTaxType\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/read/dataEntities/taxation/getTaxType/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\read\\dataEntities\\taxation\\getTransactionTaxDetail\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/read/dataEntities/taxation/getTransactionTaxDetail/v1/example.php',
@@ -1151,9 +1158,11 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Http\\Middleware\\TrustHosts' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustHosts.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Http\\ViewComposers\\UserComposer' => __DIR__ . '/../..' . '/app/Http/ViewComposers/UserComposer.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
+        'App\\Providers\\ComposerServiceProvider' => __DIR__ . '/../..' . '/app/Providers/ComposerServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
@@ -2071,6 +2080,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'GuzzleHttp\\RequestOptions' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/RequestOptions.php',
         'GuzzleHttp\\RetryMiddleware' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/RetryMiddleware.php',
         'GuzzleHttp\\TransferStats' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/TransferStats.php',
+        'GuzzleHttp\\UriTemplate\\UriTemplate' => __DIR__ . '/..' . '/guzzlehttp/uri-template/src/UriTemplate.php',
         'GuzzleHttp\\Utils' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Utils.php',
         'Hamcrest\\Arrays\\IsArray' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArray.php',
         'Hamcrest\\Arrays\\IsArrayContaining' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContaining.php',
@@ -2549,6 +2559,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'Illuminate\\Database\\Eloquent\\MissingAttributeException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/MissingAttributeException.php',
         'Illuminate\\Database\\Eloquent\\Model' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Model.php',
         'Illuminate\\Database\\Eloquent\\ModelNotFoundException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/ModelNotFoundException.php',
+        'Illuminate\\Database\\Eloquent\\PendingHasThroughRelationship' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/PendingHasThroughRelationship.php',
         'Illuminate\\Database\\Eloquent\\Prunable' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Prunable.php',
         'Illuminate\\Database\\Eloquent\\QueueEntityResolver' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/QueueEntityResolver.php',
         'Illuminate\\Database\\Eloquent\\RelationNotFoundException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/RelationNotFoundException.php',
