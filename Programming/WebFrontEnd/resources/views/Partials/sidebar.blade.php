@@ -932,6 +932,7 @@
                     </ul>
                 </li> -->
                 <li class="nav-item has-treeview">
+                    @if(in_array("Module.HumanResource.Timesheet.Transaction.Create", $privilageMenu, TRUE))
                     <a href="#" class="nav-link">
                         <i class="nav-icon-sm fas fa-users" style="color:#e9ecef;"></i>
                         <label>
@@ -939,6 +940,7 @@
                         </label>
                         <i class="right fas fa-angle-left"></i>
                     </a>
+                    @endif
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="#" class="nav-link">&nbsp;
@@ -1041,11 +1043,13 @@
 
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
+                            @if(in_array("Module.HumanResource.Timesheet.Transaction.Create", $privilageMenu, TRUE))
                             <a href="#" class="nav-link">&nbsp;
                                 <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
                                 <label>Timesheet</label>
                                 <i class="right fas fa-angle-left"></i>
                             </a>
+                            @endif
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">&nbsp;&nbsp;&nbsp;
@@ -1077,12 +1081,14 @@
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
+                                        @if(in_array("Module.HumanResource.Timesheet.Transaction.Create", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('Timesheet.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Timesheet</label>
                                             </a>
                                         </li>
+                                        @endif
                                     </ul>
                                 </li>
                             </ul>
