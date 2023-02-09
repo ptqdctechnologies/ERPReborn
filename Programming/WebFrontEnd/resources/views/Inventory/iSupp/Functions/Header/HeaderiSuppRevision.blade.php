@@ -44,7 +44,7 @@
                                             <input id="po_number" style="border-radius:0;" name="po_number" class="form-control" readonly value="{{$dataAdvanceRevisions['entities']['combinedBudget_RefID']}}">
                                             <div class="input-group-append">
                                                 <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a href="#"><i id="customerPopUp" data-toggle="modal" data-target="#myPoNumber" class="fas fa-gift" style="color:grey;"></i></a>
+                                                    <a href="#"><i id="customerPopUp" data-toggle="modal" data-target="#myPoNumber" class="fas fa-gift myPoNumber" style="color:grey;"></i></a>
                                                 </span>
                                             </div>
                                         </div>
@@ -118,7 +118,7 @@
                                             <input id="do_number" style="border-radius:0;" class="form-control" readonly>
                                             <div class="input-group-append">
                                                 <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a href="#"><i id="customerPopUp" data-toggle="modal" data-target="#myDoNumber" class="fas fa-gift" style="color:grey;"></i></a>
+                                                    <a href="#"><i id="customerPopUp" data-toggle="modal" data-target="#myDoNumber" class="fas fa-gift myDoNumber" style="color:grey;"></i></a>
                                                 </span>
                                             </div>
                                         </div>

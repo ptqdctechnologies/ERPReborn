@@ -11,7 +11,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="tableGetWarehouse">
+                                <table class="table table-head-fixed text-nowrap" id="tableGetWarehouse1">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -75,6 +75,16 @@
         </div>
     </div>
 </div>
+
+<script>
+
+    $(function() {
+        $('.mySearchWarehouse1').on('click', function(e) {
+            e.preventDefault();
+            $('#tableGetWarehouse1').DataTable();
+        });
+    });
+</script>
 
 <script>
     $(function() {

@@ -51,7 +51,7 @@
                 <li class="user-header bg-secondary">
                     <img src="{{ asset('AdminLTE-master/dist/img/user.png')}}" class="img-circle elevation-2" alt="User Image">
                     <p>
-                        Aldi Mulyadi - QDC Technology
+                        IT - QDC Technology
                         <small>Member since Oct. 2020</small>
                     </p>
                 </li>

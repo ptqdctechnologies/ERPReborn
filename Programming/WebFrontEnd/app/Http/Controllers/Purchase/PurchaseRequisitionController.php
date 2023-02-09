@@ -10,6 +10,7 @@ class PurchaseRequisitionController extends Controller
 {
     public function index(Request $request)
     {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionPurchaseRequisition");
         $var = 0;
         if (!empty($_GET['var'])) {
@@ -18,6 +19,7 @@ class PurchaseRequisitionController extends Controller
 
         $compact = [
             'var' => $var,
+            'varAPIWebToken' => $varAPIWebToken,
             'statusAdvanceRevisi' => 0,
             'statusPrRevisi' => 0,
             'statusPr' => 1,
@@ -169,6 +171,7 @@ class PurchaseRequisitionController extends Controller
         // dd($varDataProcReqRevision);
         
         $compact = [
+            'varAPIWebToken' => $varAPIWebToken,
             'dataProcReqRevision' => $varDataProcReqRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
             'var_recordID' => $request->searchPrNumberRevisionId,
             'statusAdvanceRevisi' => 0,
