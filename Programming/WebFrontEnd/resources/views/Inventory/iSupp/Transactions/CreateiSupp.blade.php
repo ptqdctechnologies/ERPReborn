@@ -45,7 +45,7 @@
                                                 </div>
                                                 <br><br>
                                                 <div class="col-md-12">
-                                                    <div class="card-body table-responsive p-0" style="height:90px;">
+                                                    <div class="card-body table-responsive p-0" style="height:125px;">
 
                                                         <table class="table table-head-fixed table-sm text-nowrap">
                                                             <div class="form-group input_fields_wrap">
@@ -53,7 +53,7 @@
                                                                 <div class="input-group control-group">
 
                                                                     <!-- <div id="dataShow_MasterFileRecord" style="border-style:solid; border-width:1px;"></div> -->
-                                                                    <div id="dataShow_ActionPanel" style="border-style:solid; border-width:1px;"></div>
+                                                                    <div id="dataShow_ActionPanel"></div>
 
                                                                 </div>
                                                             </div>

@@ -50,6 +50,7 @@
 <script>
     function KeyFunction(key) {
         $("#key").val(key);
+        $('#tableGetProduct').DataTable();
     }
 </script>
 

@@ -10,7 +10,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap table-striped" id="tableGetWarehouse">
+                                <table class="table table-head-fixed text-nowrap table-striped" id="tableGetDeliverTo">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -47,7 +47,7 @@
                 url: '{!! route("getDeliverTo") !!}',
                 success: function(data) {
                     var no = 1; 
-                    t = $('#tableGetWarehouse').DataTable();
+                    t = $('#tableGetDeliverTo').DataTable();
                     t.clear();
                     console.log(data);
                     $.each(data, function(key, val) {

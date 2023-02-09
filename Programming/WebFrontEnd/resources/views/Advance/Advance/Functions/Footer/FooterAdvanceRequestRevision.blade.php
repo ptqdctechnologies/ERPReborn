@@ -133,7 +133,7 @@
 
                     '<td style="border:1px solid #e9ecef;display:'+ statusDisplay[key] +'";">' + 
                         '<div class="input-group">' +
-                            '<input id="putProaductId'+ key +'" style="border-radius:0;width:130px;background-color:white;" name="putProductId" class="form-control" readonly>' +
+                            '<input id="putProductId'+ key +'" style="border-radius:0;width:130px;background-color:white;" name="putProductId" class="form-control" readonly>' +
                             '<div class="input-group-append">' +
                             '<span style="border-radius:0;" class="input-group-text form-control" data-id="10">' +
                                 '<a id="product_id2" data-toggle="modal" data-target="#myProduct" onclick="KeyFunction('+ key +')"><img src="{{ asset("AdminLTE-master/dist/img/box.png") }}" width="13" alt=""></a>' +

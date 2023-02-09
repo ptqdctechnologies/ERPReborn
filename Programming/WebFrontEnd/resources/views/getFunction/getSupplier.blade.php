@@ -56,9 +56,9 @@
                     $.each(data, function(key, val) {
                         t.row.add([
                             '<tbody><tr><td>' + no++ + '</td>',
-                            '<td><span data-dismiss="modal" onclick="klikSupplier(\'' + val.sys_ID + '\', \'' + val.sys_Text + '\');">' + val.sys_ID + '</span></td>',
-                            '<td style="border:1px solid #e9ecef;">' + val.sys_Text + '</td>',
-                            '<td style="border:1px solid #e9ecef;">' + val.sys_Text + '</td></tr></tbody>'
+                            '<td><span data-dismiss="modal" onclick="klikSupplier(\'' + val.sys_ID + '\', \'' + val.code + '\', \'' + val.fullName + '\', \'' + val.fullName + '\');">' + val.code + '</span></td>',
+                            '<td style="border:1px solid #e9ecef;">' + val.fullName + '</td>',
+                            '<td style="border:1px solid #e9ecef;">' + val.fullName + '</td></tr></tbody>'
                         ]).draw();
 
                     });
@@ -69,8 +69,9 @@
     });
 </script>
 <script>
-    function klikSupplier(id, name) {
-        $("#supplier_code").val(id);
+    function klikSupplier(id, code, name, address) {
+        $("#supplier_code").val(code);
         $("#supplier_name").val(name);
+        $("#supplierAddress").val(address);
     }
 </script>

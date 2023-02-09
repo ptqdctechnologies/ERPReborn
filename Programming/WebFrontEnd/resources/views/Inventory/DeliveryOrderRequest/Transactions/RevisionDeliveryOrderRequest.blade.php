@@ -9,6 +9,7 @@
 @include('getFunction.getWarehouse')
 @include('getFunction.getWarehouse2')
 @include('getFunction.getWarehouse3')
+@include('getFunction.getSupplier')
 
 <div class="content-wrapper" style="position:relative;bottom:12px;">
     <section class="content">@csrf

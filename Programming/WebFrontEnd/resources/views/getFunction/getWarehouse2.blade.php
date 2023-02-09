@@ -78,6 +78,16 @@
 </div>
 
 <script>
+
+    $(function() {
+        $('.mySearchWarehouse2').on('click', function(e) {
+            e.preventDefault();
+            $('#tableGetWarehouse2').DataTable();
+        });
+    });
+</script>
+
+<script>
     $(function() {
         $(".klikSearchWarehouse2").on('click', function(e) {
             e.preventDefault(); // in chase you change to a link or button

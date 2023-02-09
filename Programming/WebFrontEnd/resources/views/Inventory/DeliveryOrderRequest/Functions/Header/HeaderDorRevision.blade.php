@@ -138,7 +138,7 @@
                                             <input id="headerWarehouse1" style="border-radius:0;margin-left:33px;" name="headerWarehouse1" class="form-control">
                                             <div class="input-group-append">
                                                 <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a href="#"><i id="headerWarehouse1" data-toggle="modal" data-target="#mySearchWarehouse1" class="fas fa-gift" style="color:grey;"></i></a>
+                                                    <a href="#"><i id="headerWarehouse1" data-toggle="modal" data-target="#mySearchWarehouse1" class="fas fa-gift mySearchWarehouse1" style="color:grey;"></i></a>
                                                 </span>
                                             </div>
                                         </div>
@@ -219,7 +219,7 @@
                                             <input id="headerWarehouse2" style="border-radius:0;margin-left:33px;" name="headerWarehouse2" class="form-control">
                                             <div class="input-group-append">
                                                 <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a href="#"><i id="headerWarehouse2" data-toggle="modal" data-target="#mySearchWarehouse2" class="fas fa-gift" style="color:grey;"></i></a>
+                                                    <a href="#"><i id="headerWarehouse2" data-toggle="modal" data-target="#mySearchWarehouse2" class="fas fa-gift mySearchWarehouse2" style="color:grey;"></i></a>
                                                 </span>
                                             </div>
                                         </div>
@@ -293,10 +293,10 @@
                                     <td><label>Supplier</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="suppliercode" style="border-radius:0;margin-left:48px;" name="suppliercode" class="form-control">
+                                            <input id="supplier_code" style="border-radius:0;margin-left:48px;" name="supplier_code" class="form-control">
                                             <div class="input-group-append">
                                                 <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a href="#"><i id="suppliercode2" data-toggle="modal" data-target="#mySupplier" class="fas fa-gift" style="color:grey;"></i></a>
+                                                    <a href="#"><i id="suppliercode2" data-toggle="modal" data-target="#mySupplier" class="fas fa-gift mySupplier" style="color:grey;"></i></a>
                                                 </span>
                                             </div>
                                         </div>
@@ -422,7 +422,7 @@
                                             <input id="headerWarehouse3" style="border-radius:0;margin-left:33px;" name="headerWarehouse3" class="form-control">
                                             <div class="input-group-append">
                                                 <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a href="#"><i id="headerWarehouse3" data-toggle="modal" data-target="#mySearchWarehouse3" class="fas fa-gift" style="color:grey;"></i></a>
+                                                    <a href="#"><i id="headerWarehouse3" data-toggle="modal" data-target="#mySearchWarehouse3" class="fas fa-gift mySearchWarehouse3" style="color:grey;"></i></a>
                                                 </span>
                                             </div>
                                         </div>

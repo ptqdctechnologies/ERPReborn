@@ -114,7 +114,7 @@
                       <div class="form-group">
                       <td>Timesheet</td>
                         <td>
-                          <div class="input-group" style="width: 150%;">
+                          <div class="input-group" style="width: 100%;">
                             <select class="form-control select2" style="border-radius:0;" name="timesheet">
                               <option value=""> -- Select Timesheet -- </option>
                               @foreach($TimesheetData as $TimesheetDatas)
