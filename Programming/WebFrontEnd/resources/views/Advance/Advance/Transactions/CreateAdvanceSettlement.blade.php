@@ -118,11 +118,11 @@
                       </button>
                     </div>
                   </div>
-                  @include('Advance.Advance.Functions.Table.tableArfDetail')
+                  @include('Advance.Advance.Functions.Table.TableArfDetail')
                 </div>
               </div>
             </div>
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">
@@ -183,11 +183,6 @@
                             <input id="put_price_expense" style="border-radius:0;" type="hidden" class="form-control">
                           </div>
                         </td>
-                        <!-- <td style="border:1px solid #e9ecef;width:4%;">
-                          <div class="input-group">
-                            <input readonly id="price_expense2" style="border-radius:0;" type="text" class="form-control">
-                          </div>
-                        </td> -->
                         <td style="border:1px solid #e9ecef;">
                           <div class="input-group">
                             <input readonly id="total_expense" style="border-radius:0;" type="text" class="form-control">
@@ -215,11 +210,6 @@
                             <input id="put_price_amount" style="border-radius:0;" type="hidden" class="form-control">
                           </div>
                         </td>
-                        <!-- <td style="border:1px solid #e9ecef;width:4%;">
-                          <div class="input-group">
-                            <input readonly id="price_amount2" style="border-radius:0;" type="text" class="form-control">
-                          </div>
-                        </td> -->
                         <td style="border:1px solid #e9ecef;">
                           <div class="input-group">
                             <input readonly id="total_amount" style="border-radius:0;" type="text" class="form-control">
@@ -247,8 +237,7 @@
                         <input id="ValidatePriceAmount" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                         <input id="ValidateQuantityExpense" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                         <input id="ValidatePriceExpense" style="border-radius:0;" type="hidden" class="form-control" readonly="">
-                        <!-- <input id="ValidateTableId" style="border-radius:0;" type="hidden" class="form-control" readonly=""> -->
-                  </div>
+                      </div>
 
                   </tbody>
                   </table>
@@ -264,8 +253,8 @@
                   <br><br><br>
                 </div>
               </div>
-            </div>
-          </div>
+            </div> 
+          </div> -->
         
           <nav class="w-100">
             <div class="nav nav-tabs" id="product-tab" role="tablist">

@@ -121,7 +121,7 @@
                       </button>
                     </div>
                   </div>
-                  @include('Advance.Advance.Functions.Table.tableArfDetail')
+                  @include('Advance.Advance.Functions.Table.TableArfDetail')
                 </div>
               </div>
             </div>

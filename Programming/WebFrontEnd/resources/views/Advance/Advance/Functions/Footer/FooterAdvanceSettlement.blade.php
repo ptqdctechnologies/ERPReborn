@@ -4,7 +4,7 @@
         $("#SaveAsfList").prop("disabled", true);
         $("#advance_number2").prop("disabled", true);
         $("#detailASF").hide();
-        $("#tableShowHideArfDetail").hide();
+        // $("#tableShowHideArfDetail").hide();
         $("#amountCompanyCart").hide();
         $(".amountCompanyCart").hide();
         $("#expenseCompanyCart").hide();
@@ -91,6 +91,17 @@
                             '<td style="border:1px solid #e9ecef;">' + value.priceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + value.priceCurrencyISOCode + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + value.remarks + '</td>' +
+
+                            '<td class="sticky-col third-col-asf-expense-qty" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req third-col-asf-expense-qty" style="border-radius:0;width:50px;" name="qty_req[]" class="form-control qty_req" autocomplete="off">' + '</td>' +
+                            '<td class="sticky-col third-col-asf-expense-price" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req third-col-asf-expense-qty" style="border-radius:0;width:90px;" name="price_req[]" class="form-control price_req" autocomplete="off">' + '</td>' +
+                            '<td class="sticky-col third-col-asf-expense-total" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req" style="border-radius:0;width:90px;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled>' + '</td>' +
+
+                            '<td class="sticky-col second-col-asf-amount-qty" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req" style="border-radius:0;width:50px;" name="qty_req[]" class="form-control qty_req" autocomplete="off">' + '</td>' +
+                            '<td class="sticky-col second-col-asf-amount-price" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req" style="border-radius:0;width:90px;" name="price_req[]" class="form-control price_req" autocomplete="off">' + '</td>' +
+                            '<td class="sticky-col second-col-asf-amount-total" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req" style="border-radius:0;width:90px;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled>' + '</td>' +
+                            
+                            '<td class="sticky-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req" style="border-radius:0;width:90px;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled>' + '</td>' +
+                            
                             '</tr>';
 
                         $('table.tableArfDetail tbody').append(html);
