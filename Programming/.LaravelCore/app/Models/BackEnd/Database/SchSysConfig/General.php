@@ -937,8 +937,8 @@ namespace App\Models\Database\SchSysConfig
             int $varLog_BusinessDocumentWorkFlowPathHistory_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
-            $varReturn = //\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                //$varUserSession, 
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                     $varUserSession,
                     'SchSysConfig.Func_GetDataList_Log_BusinessDocumentWorkFlowPathHistory',
@@ -952,9 +952,9 @@ namespace App\Models\Database\SchSysConfig
                         [$varFilterStatement, 'varchar'],
                         [$varPagingStatement, 'varchar']
                     ]
-                    //)
+                    )
                 );
-            dd($varReturn);
+//            dd($varReturn);
             return $varReturn['Data'];
             }
 
