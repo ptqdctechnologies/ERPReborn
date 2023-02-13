@@ -1,0 +1,94 @@
+wrapper-budget {
+  position: relative;
+  overflow: auto;
+  /* white-space: nowrap; */
+}
+
+.sticky-col {
+  position: -webkit-sticky;
+  position: sticky;
+}
+
+.first-col {
+  width: 125px;
+  min-width: 125px;
+  max-width: 125px;
+  right: 0px;
+}
+
+.second-col {
+  width: 110px;
+  min-width: 110px;
+  max-width: 110px;
+  right: 124px;
+}
+.third-col {
+  width: 70px;
+  min-width: 70px; 
+  max-width: 70px;
+  right: 232px;
+}
+.forth-col {
+  width: 125px;
+  min-width: 125px;
+  max-width: 125px;
+  right: 301px;
+}
+.first-col-asf-balance {
+  width: 125px;
+  min-width: 125px;
+  max-width: 125px;
+  right: 0px;
+}
+.second-col-asf-amount {
+  width: 200px;
+  min-width: 200px;
+  max-width: 200px;
+  right: 125px;
+}
+.third-col-asf-expense {
+  width: 200px;
+  min-width: 200px; 
+  max-width: 200px;
+  right: 325px;
+}
+
+
+.second-col-asf-amount-qty {
+  width: 50px;
+  min-width: 50px;
+  max-width: 50px;
+  right: 305px;
+}
+.second-col-asf-amount-price {
+  width: 90px;
+  min-width: 90px;
+  max-width: 90px;
+  right: 215px;
+}
+.second-col-asf-amount-total {
+  width: 90px;
+  min-width: 90px;
+  max-width: 90px;
+  right: 125px;
+}
+
+
+.third-col-asf-expense-qty {
+  width: 50px;
+  min-width: 50px;
+  max-width: 50px;
+  right: 535px;
+}
+.third-col-asf-expense-price {
+  width: 90px;
+  min-width: 90px;
+  max-width: 90px;
+  right: 445px;
+}
+.third-col-asf-expense-total {
+  width: 90px;
+  min-width: 90px;
+  max-width: 90px;
+  right: 355px;
+}
