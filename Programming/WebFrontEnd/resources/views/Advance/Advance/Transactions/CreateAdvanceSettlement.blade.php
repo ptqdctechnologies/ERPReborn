@@ -4,6 +4,7 @@
 @include('Partials.sidebar')
 @include('getFunction.getProject')
 @include('getFunction.getSite')
+@include('getFunction.getProduct')
 @include('Advance.Advance.Functions.PopUp.SearchAdvance')
 @include('Advance.Advance.Functions.PopUp.PopUpAdvanceSettlementRevision')
 
@@ -119,6 +120,7 @@
                     </div>
                   </div>
                   @include('Advance.Advance.Functions.Table.TableArfDetail')
+                  <!-- <input id="TotalQty" style="border-radius:0;" type="hidden" class="form-control" readonly=""> -->
                 </div>
               </div>
             </div>
