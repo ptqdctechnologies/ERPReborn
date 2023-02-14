@@ -76,6 +76,51 @@ namespace App\Models\Database\SchSysConfig
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getBusinessDocumentTypeWorkFlowPath                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-02-14                                                                                           |
+        | ▪ Creation Date   : 2023-02-14                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Riwayat Persetujuan Jalur Work Flow Dokumen Bisnis                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varBusinessDocumentType_RefID ► Business Document Type ID                                                |
+        |      ▪ (int)    varSubmitterEntity_RefID ► Submitter Entity ID                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getBusinessDocumentTypeWorkFlowPath(
+            $varUserSession, int $varBranchID, 
+            int $varBusinessDocumentType_RefID = null, int $varSubmitterEntity_RefID = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_GetDataList_BusinessDocumentTypeWorkFlowPath',
+                        [
+                            [$varBranchID, 'bigint'],
+                            
+                            [$varBusinessDocumentType_RefID, 'bigint'],
+                            [$varSubmitterEntity_RefID, 'bigint']
+                        ]
+                        )
+                    );                
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getBusinessDocumentWorkFlowPathApprovementHistory                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
