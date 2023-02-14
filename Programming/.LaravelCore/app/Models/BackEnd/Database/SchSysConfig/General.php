@@ -74,6 +74,93 @@ namespace App\Models\Database\SchSysConfig
             }
 
 
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getBusinessDocumentWorkFlowPathApprovementHistory                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-02-14                                                                                           |
+        | ▪ Creation Date   : 2023-02-14                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Riwayat Persetujuan Jalur Work Flow Dokumen Bisnis                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varBusinessDocument_RefID ► Business Document ID                                                         |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getBusinessDocumentWorkFlowPathApprovementHistory(
+            $varUserSession, int $varBranchID, 
+            int $varBusinessDocument_RefID = null, 
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_General_GetBusDocWorkFlowPathApprovementHistory',
+                        [
+                            [$varBranchID, 'bigint' ],
+                            
+                            [$varBusinessDocument_RefID, 'bigint' ]
+                        ]
+                        )
+                    );                
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getBusinessDocumentCurrentAndNextWorkFlowPathStage                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-02-14                                                                                           |
+        | ▪ Creation Date   : 2023-02-14                                                                                           |
+        | ▪ Description     : Mendapatkan Tahapan Saat ini dan Tahapan Selanjutnya pada Jalur Work Flow Dokumen Bisnis             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varBusinessDocument_RefID ► Business Document ID                                                         |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getBusinessDocumentCurrentAndNextWorkFlowPathStage(
+            $varUserSession, int $varBranchID, 
+            int $varBusinessDocument_RefID = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_General_GetBusDocCurrentAndNextWorkFlowPathStage',
+                        [
+                            //[$varBranchID, 'bigint' ],
+                            
+                            [$varBusinessDocument_RefID, 'bigint' ]
+                        ]
+                        )
+                    );                
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
         public function getDevicePersonAccess_LastRecordDateTimeTZ($varUserSession, int $varGoodsIdentityID, string $varTimeZoneOffset = null)
             {
             if(!$varTimeZoneOffset)
