@@ -584,6 +584,55 @@ namespace App\Models\Database\SchSysConfig
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setActionForBusinessDocumentWorkFlowPath                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-02-14                                                                                           |
+        | ▪ Creation Date   : 2023-02-14                                                                                           |
+        | ▪ Description     : Menyimpan Aksi Approver pada Jalur Work Flow Dokumen Bisnis                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varBusinessDocument_RefID ► Business Document Reference ID                                               |
+        |      ▪ (int)    varWorkFlowPath_RefID ► Work Flow Path Reference ID                                                      |
+        |      ▪ (int)    varWorkFlowPathAction_RefID ► Work Flow Path Action Reference ID                                         |
+        |      ▪ (string) varRemarks ► Remarks                                                                                     |
+        |      ▪ (int)    varApproverEntity_RefID ► Approver Entity Reference ID                                                   |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function setActionForBusinessDocumentWorkFlowPath(
+            $varUserSession, int $varBranchID, 
+            int $varBusinessDocument_RefID = null, int $varWorkFlowPath_RefID = null, int $varWorkFlowPathAction_RefID = null, string $varRemarks = null, int $varApproverEntity_RefID = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_General_SetActionForBusinessDocumentWorkFlowPath',
+                        [
+                            [$varBusinessDocument_RefID, 'bigint'],
+                            [$varWorkFlowPath_RefID, 'bigint'],
+                            [$varWorkFlowPathAction_RefID, 'bigint'],
+                            [$varRemarks, 'varchar'],
+                            [$varApproverEntity_RefID, 'bigint']
+                        ]
+                        )
+                    );                
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setUserSessionBranchAndUserRole                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
