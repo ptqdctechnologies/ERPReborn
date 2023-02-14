@@ -41,54 +41,69 @@ wrapper-budget {
   right: 0px;
 }
 .second-col-asf-amount {
-  width: 200px;
-  min-width: 200px;
-  max-width: 200px;
+  width: 260px;
+  min-width: 260px;
+  max-width: 260px;
   right: 125px;
 }
 .third-col-asf-expense {
-  width: 200px;
-  min-width: 200px; 
-  max-width: 200px;
-  right: 325px;
+  width: 260px;
+  min-width: 260px; 
+  max-width: 260px;
+  right: 385px;
+}
+
+
+.first-col-asf-balance-total {
+  width: 90px;
+  min-width: 90px;
+  max-width: 90px;
+  right: 0px;
+  z-index: 10;
 }
 
 
 .second-col-asf-amount-qty {
-  width: 50px;
-  min-width: 50px;
-  max-width: 50px;
-  right: 305px;
+  width: 54px;
+  min-width: 54px;
+  max-width: 54px;
+  right: 325px;
+  z-index: 10;
 }
 .second-col-asf-amount-price {
   width: 90px;
   min-width: 90px;
   max-width: 90px;
-  right: 215px;
+  right: 225px;
+  z-index: 10;
 }
 .second-col-asf-amount-total {
   width: 90px;
   min-width: 90px;
   max-width: 90px;
   right: 125px;
+  z-index: 10;
 }
 
 
 .third-col-asf-expense-qty {
-  width: 50px;
-  min-width: 50px;
-  max-width: 50px;
-  right: 535px;
+  width: 54px;
+  min-width: 54px;
+  max-width: 54px;
+  right: 585px;
+  z-index: 10;
 }
 .third-col-asf-expense-price {
   width: 90px;
   min-width: 90px;
   max-width: 90px;
-  right: 445px;
+  right: 485px;
+  z-index: 10;
 }
 .third-col-asf-expense-total {
   width: 90px;
   min-width: 90px;
   max-width: 90px;
-  right: 355px;
+  right: 385px;
+  z-index: 10;
 }
