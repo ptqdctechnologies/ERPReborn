@@ -508,6 +508,51 @@ namespace App\Models\Database\SchSysConfig
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getWorkFlowVersionByWorkFlowPathID                                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-02-15                                                                                           |
+        | ▪ Creation Date   : 2023-02-15                                                                                           |
+        | ▪ Description     : Mendapatkan Versi Work Flow dari ID Jalur Work Flow                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varWorkFlowPath_RefID ► Work Flow Path Reference ID                                                      |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getWorkFlowVersionByWorkFlowPathID(
+            $varUserSession, int $varBranchID, 
+            int $varWorkFlowPath_RefID = null)
+            {
+            try {
+                $varReturnTemp = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_General_GetWorkFlowVersionByWorkFlowPathID',
+                        [                           
+                            [$varWorkFlowPath_RefID, 'bigint']
+                        ]
+                        )
+                    );
+                $varReturn = [
+                    'workFlowVersion_SysID' => $varReturnTemp['Data'][0]['BaseWorkFlowVersion_SysID'],
+                    'version' => $varReturnTemp['Data'][0]['BaseVersion']
+                    ];
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : isExist_APIWebToken                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
