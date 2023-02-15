@@ -615,6 +615,8 @@ namespace App\Models\Database\SchSysConfig
                         $varUserSession,
                         'SchSysConfig.Func_General_SetActionForBusinessDocumentWorkFlowPath',
                         [
+                            [$varUserSession, 'bigint'],
+
                             [$varBusinessDocument_RefID, 'bigint'],
                             [$varWorkFlowPath_RefID, 'bigint'],
                             [$varWorkFlowPathAction_RefID, 'bigint'],
@@ -622,8 +624,8 @@ namespace App\Models\Database\SchSysConfig
                             [$varApproverEntity_RefID, 'bigint']
                         ]
                         )
-                    );                
-                return $varReturn['Data'];
+                    );
+                return $varReturn['Data'][0];
                 }
             catch (\Exception $ex) {
                 return [];
