@@ -74,11 +74,14 @@
 
                     var no = 1; applied = 0; TotalBudgetSelected = 0;status = ""; statusDisplay = [];statusDisplay2 = []; statusForm = [];
                     $.each(data.DataAdvanceList, function(key, value) {
-                        if(value.quantityAbsorption == "0.00" && value.quantity == "0.00"){
+                        
+                        // if(value.quantityAbsorption == "0.00" && value.quantity == "0.00"){
+                        if(value.quantity == "0.00"){
                             var applied = 0;
                         }
                         else{
-                            var applied = Math.round(parseFloat(value.quantityAbsorption) / parseFloat(value.quantity) * 100);
+                            // var applied = Math.round(parseFloat(value.quantityAbsorption) / parseFloat(value.quantity) * 100);
+                            var applied = Math.round(parseFloat(value.quantity) * 100);
                         }
                         if(applied >= 100){
                             var status = "disabled";
@@ -93,7 +96,6 @@
                             statusDisplay2[key] = "";
                             statusForm[key] = "";
                         }
-                        
                         var html =
                             '<tr>' +
 
@@ -104,13 +106,11 @@
                             '<input name="getQty[]" id="budget_qty'+ key +'" value="'+ value.quantity +'" type="hidden">' +
                             '<input name="getPrice[]" id="budget_price'+ key +'" value="'+ value.productUnitPriceCurrencyValue +'" type="hidden">' +
                             '<input name="getUom[]" value="'+ value.quantityUnitName +'" type="hidden">' +
-                            '<input name="getCurrency[]" value="'+ value.priceBaseCurrencyISOCode +'" type="hidden">' +
+                            '<input name="getCurrency[]" value="'+ value.priceCurrencyISOCode +'" type="hidden">' +
+                            '<input name="getAdvanceNumber[]" value="'+ advance_number +'" type="hidden">' +
+                            '<input name="getRemark[]" value="'+ value.remarks +'" type="hidden">' +
                             '<input name="combinedBudget" value="'+ value.sys_ID +'" type="hidden">' +
-
-                            '<td style="border:1px solid #e9ecef;width:5%;">' +
-                            '&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs AddToDetailSettlement AddToDetailSettlement2" data-dismiss="modal" data-id0="' + value.combinedBudget_SubSectionLevel1_RefID + '" data-id1="' + advance_number + '" data-id2="' + value.quantity + '" data-id3="' + value.productUnitPriceCurrencyValue + '" data-id4="' + value.priceBaseCurrencyValue + '" data-id5="' + value.priceCurrencyISOCode + '" data-id6="' + value.quantityUnitName + '" data-id7="' + value.product_RefID + '" data-id8="' + value.productName + '" data-id9="' + value.remarks + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="18" alt="" title="Add"></button> ' +
-                            '</td>' +
-
+                            
                             '<td style="border:1px solid #e9ecef;">' +
                             '&nbsp;&nbsp;&nbsp;<div class="progress '+ status +' progress-xs" style="height: 14px;border-radius:8px;"> @if('+ applied +' >= '+0+' && '+ applied +' <= '+40+')<div class="progress-bar bg-red" style="width:'+ applied +'%;"></div> @elseif('+ applied +' >= '+41+' && '+ applied +' <= '+89+')<div class="progress-bar bg-blue" style="width:'+ applied +'%;"></div> @elseif('+ applied + ' >= '+ 90 +' && ' + applied + ' <= '+ 100 +')<div class="progress-bar bg-green" style="width:'+ applied +'%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>'+ applied +' %</center></small>' +
                             '</td>' +
@@ -147,7 +147,7 @@
                             '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col second-col-asf-amount-price">' + '<input id="price_amount'+ key +'" style="border-radius:0;width:90px;" name="price_amount[]" class="form-control price_amount" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
                             '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col second-col-asf-amount-total">' + '<input id="total_amount'+ key +'" style="border-radius:0;width:90px;background-color:white;" name="total_amount[]" class="form-control total_amount" autocomplete="off" disabled>' + '</td>' +
                             
-                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col first-col-asf-balance-total">' + '<input id="total_balance'+ key +'" style="border-radius:0;width:90px;background-color:white;" name="total_balance[]" class="form-control total_balance" autocomplete="off" disabled>' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col first-col-asf-balance-total">' + '<input id="total_balance'+ key +'" style="border-radius:0;width:90px;background-color:white;" name="total_balance[]" class="form-control total_balance" autocomplete="off" disabled value="' + value.priceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '">' + '</td>' +
                             
                             '</tr>';
 
@@ -155,7 +155,7 @@
 
                         //VALIDASI QTY EXPENSE
                         $('#qty_expense'+key).keyup(function() {
-                            var qty_val = parseFloat($(this).val().replace(/,/g, ''));
+                            var qty_val = $(this).val().replace(/,/g, '');
                             var budget_qty_val = $("#budget_qty"+key).val();
                             var price_expense = $("#price_expense"+key).val().replace(/,/g, '');
 
@@ -202,7 +202,7 @@
 
                         //VALIDASI QTY AMOUNT
                         $('#qty_amount'+key).keyup(function() {
-                            var qty_val = parseFloat($(this).val().replace(/,/g, ''));
+                            var qty_val = $(this).val().replace(/,/g, '');
                             var budget_qty_val = $("#budget_qty"+key).val();
                             var price_amount = $("#price_amount"+key).val().replace(/,/g, '');
 
@@ -248,29 +248,13 @@
 
                         //VALIDASI PRICE EXPENSE
                         $('#price_expense'+key).keyup(function() {
-                            var price_val = parseFloat($(this).val().replace(/,/g, ''));
+                            var price_val = $(this).val().replace(/,/g, '');
                             var budget_price_val = $("#budget_price"+key).val().replace(/,/g, '');
                             var qty_expense = $("#qty_expense"+key).val();
-
-                            var price_amount = $("#price_amount"+key).val().replace(/,/g, '');
-                            var TotalPrice = +price_val + +price_amount;
                             
                             if (price_val == "") {
                                 $('#total_expense'+key).val("");
                                 $("input[name='price_expense[]']").css("border", "1px solid #ced4da");
-                            }
-                            else if (parseFloat(TotalPrice) > parseFloat(budget_price_val)) {
-                                swal({
-                                    onOpen: function () {
-                                        swal.disableConfirmButton();
-                                        Swal.fire("Error !", "Price is over budget !", "error");
-                                    }
-                                });
-
-                                $('#price_expense'+key).val("");
-                                $('#total_expense'+key).val("");
-                                $('#price_expense'+key).css("border", "1px solid red");
-                                $('#price_expense'+key).focus();
                             }
                             else if (parseFloat(price_val) > parseFloat(budget_price_val)) {
 
@@ -295,29 +279,13 @@
 
                         //VALIDASI PRICE AMOUNT
                         $('#price_amount'+key).keyup(function() {
-                            var price_val = parseFloat($(this).val().replace(/,/g, ''));
+                            var price_val = $(this).val().replace(/,/g, '');
                             var budget_price_val = $("#budget_price"+key).val().replace(/,/g, '');
                             var qty_amount = $("#qty_amount"+key).val();
-
-                            var price_expense = $("#price_expense"+key).val().replace(/,/g, '');
-                            var TotalPrice = +price_val + +price_expense;
                             
                             if (price_val == "") {
                                 $('#total_amount'+key).val("");
                                 $("input[name='price_amount[]']").css("border", "1px solid #ced4da");
-                            }
-                            else if (parseFloat(TotalPrice) > parseFloat(budget_price_val)) {
-                                swal({
-                                    onOpen: function () {
-                                        swal.disableConfirmButton();
-                                        Swal.fire("Error !", "Price is over budget !", "error");
-                                    }
-                                });
-
-                                $('#price_amount'+key).val("");
-                                $('#total_amount'+key).val("");
-                                $('#price_amount'+key).css("border", "1px solid red");
-                                $('#price_amount'+key).focus();
                             }
                             else if (parseFloat(price_val) > parseFloat(budget_price_val)) {
 
@@ -352,543 +320,138 @@
     }
 </script>
 
-<script type="text/javascript">
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
+<script>
     function addFromDetailtoCartJs() {
-        
-        var VarArfNumber = $("#advance_number_detail").val();
-        $("#advance_number_detail").css("border", "1px solid #ced4da");
 
-        if (VarArfNumber === "") {
-            $("#advance_number_detail").focus();
-            $("#advance_number_detail").attr('required', true);
-            $("#advance_number_detail").css("border", "1px solid red");
-        } else {
-            var balance = parseFloat($('#balance').val().replace(/,/g, ''));
-            var putProductId = $('#putProductId').val();
-            var total_expense = parseFloat($('#total_expense').val().replace(/,/g, ''));
-            var total_amount = parseFloat($('#total_amount').val().replace(/,/g, ''));
-            var totalExpenseAmount = +total_expense + +total_amount;
-            if (totalExpenseAmount <= balance) {
-                $.ajax({
-                    type: "POST",
-                    url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlement") !!}?putProductId=' + $("#putProductId").val() + '&putWorkId=' + $('#putWorkId').val(),
-                    success: function(data) {
-                        if (data == "200") {
+        $('#TableExpenseClaim').find('tbody').empty();
+        $('#TableAmountDueto').find('tbody').empty();
 
-                            var work_id = $("#putWorkId").val();
-                            var product_id = $("#putProductId").val();
-                            var product_name = $("#putProductName").val();
-                            var trano = $('#advance_number_detail').val();
-                            var arf_date = $('#arf_date').val();
-                            var balance = $('#balance').val();
-                            var balance2 = $('#balance2').val();
-                            var qty_expense = $('#qty_expense').val();
-                            var qty_expense2 = $('#qty_expense2').val();
-                            var price_expense = $('#price_expense').val();
-                            var price_expense2 = $('#price_expense2').val();
-                            var total_expense = $('#total_expense').val();
-                            var total_expense2 = $('#total_expense2').val();
-                            var qty_amount = $('#qty_amount').val();
-                            var qty_amount2 = $('#qty_amount2').val();
-                            var price_amount = $('#price_amount').val();
-                            var price_amount2 = $('#price_amount2').val();
-                            var total_amount = $('#total_amount').val();
-                            var total_amount2 = $('#total_amount2').val();
-                            var description = $("#putDescription").val();
-
-                            //TOTAL AMOUNT
-                            if($("#TotalAmount").html() == ""){
-                                $("#TotalAmount").html('0');
-                            }
-                            var TotalAmount = parseFloat($("#total_amount").val().replace(/,/g, ''));
-                            var TotalAmount2 = parseFloat($("#TotalAmount").html().replace(/,/g, ''));
-                            $("#TotalAmount").html(parseFloat(+TotalAmount2 + TotalAmount).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));    
-
-                            var html = '<tr>' +
-                                '<td style="border:1px solid #e9ecef;width:7%;">' +
-                                '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveAmount(\'' + work_id + '\', \'' + product_id + '\', \'' + total_amount + '\', \'' + total_expense + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
-                                '&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="EditAmount(this)" data-dismiss="modal" data-id0="' + work_id + '" data-id1="' + product_id + '" data-id2="' + arf_date + '" data-id3="' + balance + '" data-id4="' + balance2 + '" data-id5="' + qty_expense + '" data-id6="' + qty_expense2 + '" data-id7="' + price_expense + '" data-id8="' + price_expense2 + '" data-id9="' + total_expense + '" data-id110="' + total_expense2 + '" data-id11="' + qty_amount + '" data-id12="' + qty_amount2 + '" data-id13="' + price_amount + '" data-id14="' + price_amount2 + '" data-id15="' + total_amount + '" data-id16="' + total_amount2 + '" data-id17="' + trano + '" data-id18="' + product_name + '" data-id19="' + description + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
-                                '<input type="hidden" name="var_trano[]" value="' + trano + '">' +
-                                '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
-                                '<input type="hidden" name="var_product_name[]" value="' + product_name + '">' +
-                                '<input type="hidden" name="var_uom[]" value="' + qty_amount2 + '">' +
-                                '<input type="hidden" name="var_price_amount[]" value="' + price_amount + '">' +
-                                '<input type="hidden" name="var_qty_amount[]" value="' + qty_amount + '">' +
-                                '<input type="hidden" name="var_total_amount[]" value="' + total_amount + '">' +
-                                '<input type="hidden" name="var_description[]" id="var_description[]" value="' + description + '">' +
-                                '</td>' +
-                                '<td style="border:1px solid #e9ecef;">' + trano + '</td>' +
-                                '<td style="border:1px solid #e9ecef;">' + product_id + '</td>' +
-                                '<td style="border:1px solid #e9ecef;">' + product_name + '</td>' +
-                                '<td style="border:1px solid #e9ecef;">' + qty_amount2 + '</td>' +
-                                '<td style="border:1px solid #e9ecef;">' + qty_amount + '</td>' +
-                                '<td style="border:1px solid #e9ecef;">' + price_amount + '</td>' +
-                                '<td style="border:1px solid #e9ecef;">' + total_amount + '</td>' +
-                                '</tr>';
-
-                            $('table.TableAmountDueto tbody').append(html);
-
-                            //TOTAL EXPENSE
-                            if($("#TotalExpense").html() == ""){
-                                $("#TotalExpense").html('0');
-                            }
-                            var TotalExpense = parseFloat($("#total_expense").val().replace(/,/g, ''));
-                            var TotalExpense2 = parseFloat($("#TotalExpense").html().replace(/,/g, ''));
-                            $("#TotalExpense").html(parseFloat(+TotalExpense2 + TotalExpense).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-
-                            var html2 = '<tr>' +
-                                '<td style="border:1px solid #e9ecef;width:7%;">' +
-                                '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveExpense(\'' + work_id + '\', \'' + product_id + '\', \'' + total_amount + '\', \'' + total_expense + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
-                                '&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="EditExpense(this)" data-dismiss="modal" data-id0="' + work_id + '" data-id1="' + product_id + '" data-id2="' + arf_date + '" data-id3="' + balance + '" data-id4="' + balance2 + '" data-id5="' + qty_expense + '" data-id6="' + qty_expense2 + '" data-id7="' + price_expense + '" data-id8="' + price_expense2 + '" data-id9="' + total_expense + '" data-id110="' + total_expense2 + '" data-id11="' + qty_amount + '" data-id12="' + qty_amount2 + '" data-id13="' + price_amount + '" data-id14="' + price_amount2 + '" data-id15="' + total_amount + '" data-id16="' + total_amount2 + '" data-id17="' + trano + '" data-id18="' + product_name + '" data-id19="' + description + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
-                                '<input type="hidden" id="var_tranox" name="var_trano[]" value="' + trano + '">' +
-                                '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
-                                '<input type="hidden" name="var_product_name[]" value="' + product_name + '">' +
-                                '<input type="hidden" name="var_uom[]" value="' + qty_expense2 + '">' +
-                                '<input type="hidden" name="var_price_expense[]" value="' + price_expense + '">' +
-                                '<input type="hidden" name="var_qty_expense[]" value="' + qty_expense + '">' +
-                                '<input type="hidden" name="var_total_expense[]" value="' + total_expense + '">' +
-                                '<input type="hidden" name="var_description[]" value="' + description + '">' +
-                                '</td>' +
-                                '<td style="border:1px solid #e9ecef;">' + trano + '</td>' +
-                                '<td style="border:1px solid #e9ecef;">' + product_id + '</td>' +
-                                '<td style="border:1px solid #e9ecef;">' + product_name + '</td>' +
-                                '<td style="border:1px solid #e9ecef;">' + qty_expense2 + '</td>' +
-                                '<td style="border:1px solid #e9ecef;">' + qty_expense + '</td>' +
-                                '<td style="border:1px solid #e9ecef;">' + price_expense + '</td>' +
-                                '<td style="border:1px solid #e9ecef;">' + total_expense + '</td>' +
-                                '</tr>';
-
-                            $('table.TableExpenseClaim tbody').append(html2);
-
-                            $("#statusEditAsf").val("No");
-                            $("#expenseCompanyCart").show();
-                            $(".expenseCompanyCart").show();
-                            $("#SaveAsfList").prop("disabled", false);
-
-                            $("#advance_number_detail").val("");
-                            $("#arf_date").val("");
-                            $("#priceCek").val("");
-                            $("#balance").val("");
-                            $("#balance2").val("");
-                            $("#qty_expense").val("");
-                            $("#qty_expense2").val("");
-                            $("#price_expense").val("");
-                            $("#price_expense2").val("");
-                            $("#total_expense").val("");
-                            $("#total_expense2").val("");
-                            $("#qty_amount").val("");
-                            $("#qty_amount2").val("");
-                            $("#price_amount").val("");
-                            $("#price_amount2").val("");
-                            $("#total_amount").val("");
-                            $("#total_amount2").val("");
-
-                            $("#qty_expense").prop("disabled", false);
-                            $("#price_expense").prop("disabled", false);
-                            $("#qty_amount").prop("disabled", false);
-                            $("#price_amount").prop("disabled", false);
+        $("#expenseCompanyCart").show();
+        $(".expenseCompanyCart").show();
                             
-                            $("#qty_expense").css("border", "1px solid #ced4da");
-                            $("#price_expense").css("border", "1px solid #ced4da");
-                            $("#qty_amount").css("border", "1px solid #ced4da");
-                            $("#price_amount").css("border", "1px solid #ced4da");
+        var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
+        var getAdvanceNumber = $("input[name='getAdvanceNumber[]']").map(function(){return $(this).val();}).get();
+        var getWorkId = $("input[name='getWorkId[]']").map(function(){return $(this).val();}).get();
+        var getWorkName = $("input[name='getWorkName[]']").map(function(){return $(this).val();}).get();
+        var getProductId = $("input[name='getProductId[]']").map(function(){return $(this).val();}).get();
+        var getProductName = $("input[name='getProductName[]']").map(function(){return $(this).val();}).get();
+        var getUom = $("input[name='getUom[]']").map(function(){return $(this).val();}).get();
+        var getCurrency = $("input[name='getCurrency[]']").map(function(){return $(this).val();}).get();
+        var getRemark = $("input[name='getRemark[]']").map(function(){return $(this).val();}).get();
 
-                            $(".AddToDetailSettlement2").prop("disabled", false);
-                            $(".ActionButton").prop("disabled", false);
+        var qty_expense = $("input[name='qty_expense[]']").map(function(){return $(this).val();}).get();
+        var price_expense = $("input[name='price_expense[]']").map(function(){return $(this).val();}).get();
+        var total_expense = $("input[name='total_expense[]']").map(function(){return $(this).val();}).get();
 
-                        } else {
-                            Swal.fire("Cancelled", "Please use edit to update this item !", "error");
-                        }
-                    },
-                });
-            } else {
-                Swal.fire("Error !", "Request over budget", "error");
+        var qty_amount = $("input[name='qty_amount[]']").map(function(){return $(this).val();}).get();
+        var price_amount = $("input[name='price_amount[]']").map(function(){return $(this).val();}).get();
+        var total_amount = $("input[name='total_amount[]']").map(function(){return $(this).val();}).get();
+
+        var combinedBudget = $("input[name='combinedBudget']").val();
+
+        var TotalBudgetSelected = 0;
+        var TotalQtyExpense = 0;
+        var TotalQtyAmount = 0;
+        var GrandTotalExpense = 0;
+        var GrandTotalAmount = 0;
+
+        $.each(total_expense, function(index, data) {
+            if(total_expense[index] != "" && total_expense[index] > "0.00" && total_expense[index] != "NaN.00"){
+
+                var putProductId = getProductId[index];
+                var putProductName = getProductName[index];
+
+                if(getProductName[index] == "Unspecified Product"){
+                    var putProductId = $("#putProductId"+index).val();
+                    var putProductName = $("#putProductName"+index).html();
+                }
+                TotalBudgetSelected += +total_expense[index].replace(/,/g, '');
+                GrandTotalExpense += +total_expense[index].replace(/,/g, '');
+                TotalQtyExpense+= +qty_expense[index].replace(/,/g, '');
+
+                var html = '<tr>' +
+
+                    '<input type="hidden" name="var_product_id_expense[]" value="' + putProductId + '">' +
+                    '<input type="hidden" name="var_product_name_expense[]" id="var_product_name" value="' + putProductName + '">' +
+                    '<input type="hidden" name="var_quantity_expense[]" class="qty_expense2'+ index +'" data-id="'+ index +'" value="' + currencyTotal(qty_expense[index]).replace(/,/g, '') + '">' +
+                    '<input type="hidden" name="var_uom_expense[]" value="' + getUom[index] + '">' +
+                    '<input type="hidden" name="var_price_expense[]" class="price_expense2'+ index +'" value="' + currencyTotal(price_expense[index]).replace(/,/g, '') + '">' +
+                    '<input type="hidden" name="var_total_expense[]" class="total_expense2'+ index +'" value="' + total_expense[index] + '">' +
+                    '<input type="hidden" name="var_currency_expense[]" value="' + getCurrency[index] + '">' +
+                    
+                    '<input type="hidden" name="var_advance_number" value="' + getAdvanceNumber[index] + '">' +
+                    '<input type="hidden" name="var_date" value="' + date + '">' +
+                    '<input type="hidden" name="var_combined_budget" value="' + combinedBudget + '">' +
+                    '<input type="hidden" name="var_remark" value="' + getRemark[index] + '">' +
+
+                    '<td style="border:1px solid #e9ecef;">' + getAdvanceNumber[index] + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + putProductId + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + putProductName + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + getUom[index] + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + price_expense[index] + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + qty_expense[index] + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + total_expense[index] + '</td>' +
+                    '</tr>';
+
+                $('table.TableExpenseClaim tbody').append(html);
+
+                $("#TotalBudgetSelected").html(currencyTotal(TotalBudgetSelected));
+                $("#GrandTotalExpense").html(currencyTotal(GrandTotalExpense));
+                $("#TotalQtyExpense").html(currencyTotal(TotalQtyExpense));
+
+                $("#SaveAsfList").prop("disabled", false);
             }
-        }
+        });
+
+        $.each(total_amount, function(index, data) {
+            if(total_amount[index] != "" && total_amount[index] > "0.00" && total_amount[index] != "NaN.00"){
+
+                var putProductId = getProductId[index];
+                var putProductName = getProductName[index];
+
+                if(getProductName[index] == "Unspecified Product"){
+                    var putProductId = $("#putProductId"+index).val();
+                    var putProductName = $("#putProductName"+index).html();
+                }
+                TotalBudgetSelected += +total_amount[index].replace(/,/g, '');
+                GrandTotalAmount += +total_amount[index].replace(/,/g, '');
+                TotalQtyAmount+= +qty_amount[index].replace(/,/g, '');
+
+                var html = '<tr>' +
+
+                    '<input type="hidden" name="var_product_id_amount[]" value="' + putProductId + '">' +
+                    '<input type="hidden" name="var_product_name_amount[]" id="var_product_name" value="' + putProductName + '">' +
+                    '<input type="hidden" name="var_quantity_amount[]" class="qty_amount2'+ index +'" data-id="'+ index +'" value="' + currencyTotal(qty_amount[index]).replace(/,/g, '') + '">' +
+                    '<input type="hidden" name="var_uom_amount[]" value="' + getUom[index] + '">' +
+                    '<input type="hidden" name="var_price_amount[]" class="price_amount2'+ index +'" value="' + currencyTotal(price_amount[index]).replace(/,/g, '') + '">' +
+                    '<input type="hidden" name="var_total_amount[]" class="total_amount2'+ index +'" value="' + total_amount[index] + '">' +
+                    '<input type="hidden" name="var_currency_amount[]" value="' + getCurrency[index] + '">' +
+                    
+                    '<input type="hidden" name="var_advance_number" value="' + getAdvanceNumber[index] + '">' +
+                    '<input type="hidden" name="var_date" value="' + date + '">' +
+                    '<input type="hidden" name="var_combined_budget" value="' + combinedBudget + '">' +
+                    '<input type="hidden" name="var_remark" value="' + getRemark[index] + '">' +
+
+                    '<td style="border:1px solid #e9ecef;">' + getAdvanceNumber[index] + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + putProductId + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + putProductName + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + getUom[index] + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + price_amount[index] + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + qty_amount[index] + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + total_amount[index] + '</td>' +
+                    '</tr>';
+
+                $('table.TableAmountDueto tbody').append(html);
+
+                $("#TotalBudgetSelected").html(currencyTotal(TotalBudgetSelected));
+                $("#GrandTotalAmount").html(currencyTotal(GrandTotalAmount));
+                $("#TotalQtyAmount").html(currencyTotal(TotalQtyAmount));
+
+                $("#SaveAsfList").prop("disabled", false);
+            }
+        });
+        
     }
-</script>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        $(".CancelDetailAsf").click(function() {
-            
-            var work_id = $("#putWorkId").val();
-            var product_id = $("#putProductId").val();
-            var product_name = $("#putProductName").val();
-            var trano = $('#advance_number_detail').val();
-            var arf_date = $('#arf_date').val();
-            var balance = $('#balance').val();
-            var balance2 = $('#balance2').val();
-            var qty_expense = $('#qty_expense').val();
-            var qty_expense2 = $('#qty_expense2').val();
-            var price_expense = $('#price_expense').val();
-            var price_expense2 = $('#price_expense2').val();
-            var total_expense = $('#total_expense').val();
-            var total_expense2 = $('#total_expense2').val();
-            var qty_amount = $('#qty_amount').val();
-            var qty_amount2 = $('#qty_amount2').val();
-            var price_amount = $('#price_amount').val();
-            var price_amount2 = $('#price_amount2').val();
-            var total_amount = $('#total_amount').val();
-            var total_amount2 = $('#total_amount2').val();
-            var description = $("#putDescription").val();
-            var statusEditAsf = $("#statusEditAsf").val();
-
-
-            if (statusEditAsf == "Yes") {
-
-                var qty_expense = $("#ValidateQuantityExpense").val();
-                var price_expense = $("#ValidatePriceExpense").val();
-                var qty_amount = $("#ValidateQuantityAmount").val();
-                var price_amount = $("#ValidatePriceAmount").val();
-                console.log(qty_amount);
-                console.log(price_amount);
-
-                var total_amount = parseFloat(qty_amount.replace(/,/g, '') * price_amount.replace(/,/g, ''));
-                var total_expense = parseFloat(qty_expense.replace(/,/g, '') * price_expense.replace(/,/g, ''));
-
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                
-                $.ajax({
-                    type: "POST",
-                    url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlement") !!}?putProductId=' + $('#putProductId').val() + '&putWorkId=' + $('#putWorkId').val(),
-                    success: function(data) {
-
-                        if (data == "200") {
-                            // if (total_amount != "") {
-                                var html = '<tr>' +
-                                    '<td style="border:1px solid #e9ecef;width:7%;">' +
-                                    '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveAmount(\'' + work_id + '\', \'' + product_id + '\', \'' + total_amount + '\', \'' + total_expense + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
-                                    '&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="EditAmount(this)" data-dismiss="modal" data-id0="' + work_id + '" data-id1="' + product_id + '" data-id2="' + arf_date + '" data-id3="' + balance + '" data-id4="' + balance2 + '" data-id5="' + qty_expense + '" data-id6="' + qty_expense2 + '" data-id7="' + price_expense + '" data-id8="' + price_expense2 + '" data-id9="' + total_expense + '" data-id110="' + total_expense2 + '" data-id11="' + qty_amount + '" data-id12="' + qty_amount2 + '" data-id13="' + price_amount + '" data-id14="' + price_amount2 + '" data-id15="' + total_amount + '" data-id16="' + total_amount2 + '" data-id17="' + trano + '" data-id18="' + product_name + '" data-id19="' + description + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
-                                    '<input type="hidden" id="var_tranox" name="var_trano[]" value="' + trano + '">' +
-                                    '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
-                                    '<input type="hidden" name="var_product_name[]" value="' + product_name + '">' +
-                                    '<input type="hidden" name="var_uom[]" value="' + qty_amount2 + '">' +
-                                    '<input type="hidden" name="var_price_amount[]" value="' + price_amount + '">' +
-                                    '<input type="hidden" name="var_qty_amount[]" value="' + qty_amount + '">' +
-                                    '<input type="hidden" name="var_total_amount[]" value="' + total_amount + '">' +
-                                    '<input type="hidden" name="var_description[]" value="' + description + '">' +
-                                    '</td>' +
-                                    '<td style="border:1px solid #e9ecef;">' + trano + '</td>' +
-                                    '<td style="border:1px solid #e9ecef;">' + product_id + '</td>' +
-                                    '<td style="border:1px solid #e9ecef;">' + product_name + '</td>' +
-                                    '<td style="border:1px solid #e9ecef;">' + qty_amount2 + '</td>' +
-                                    '<td style="border:1px solid #e9ecef;">' + qty_amount + '</td>' +
-                                    '<td style="border:1px solid #e9ecef;">' + price_amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
-                                    '<td style="border:1px solid #e9ecef;">' + total_amount.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
-                                    '</tr>';
-
-                                $('table.TableAmountDueto tbody').append(html);
-
-                                var TotalAmount = parseFloat($("#TotalAmount").html().replace(/,/g, ''));
-                                $("#TotalAmount").html(parseFloat(+TotalAmount + total_amount).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-
-                            // }
-                            // if (total_expense !== "") {
-
-                                var html2 = '<tr>' +
-                                    '<td style="border:1px solid #e9ecef;width:7%;">' +
-                                    '&nbsp;&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="RemoveExpense(\'' + work_id + '\', \'' + product_id + '\', \'' + total_amount + '\', \'' + total_expense + '\', this);" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
-                                    '&nbsp;<button type="button" class="btn btn-xs ActionButton" onclick="EditExpense(this)" data-dismiss="modal" data-id0="' + work_id + '" data-id1="' + product_id + '" data-id2="' + arf_date + '" data-id3="' + balance + '" data-id4="' + balance2 + '" data-id5="' + qty_expense + '" data-id6="' + qty_expense2 + '" data-id7="' + price_expense + '" data-id8="' + price_expense2 + '" data-id9="' + total_expense + '" data-id110="' + total_expense2 + '" data-id11="' + qty_amount + '" data-id12="' + qty_amount2 + '" data-id13="' + price_amount + '" data-id14="' + price_amount2 + '" data-id15="' + total_amount + '" data-id16="' + total_amount2 + '" data-id17="' + trano + '" data-id18="' + product_name + '" data-id19="' + description + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
-                                    '<input type="hidden" id="var_tranox" name="var_trano[]" value="' + trano + '">' +
-                                    '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
-                                    '<input type="hidden" name="var_product_name[]" value="' + product_name + '">' +
-                                    '<input type="hidden" name="var_uom[]" value="' + qty_expense2 + '">' +
-                                    '<input type="hidden" name="var_price_expense[]" value="' + price_expense + '">' +
-                                    '<input type="hidden" name="var_qty_expense[]" value="' + qty_expense + '">' +
-                                    '<input type="hidden" name="var_total_expense[]" value="' + total_expense + '">' +
-                                    '<input type="hidden" name="var_description[]" value="' + description + '">' +
-                                    '</td>' +
-                                    '<td style="border:1px solid #e9ecef;">' + trano + '</td>' +
-                                    '<td style="border:1px solid #e9ecef;">' + product_id + '</td>' +
-                                    '<td style="border:1px solid #e9ecef;">' + product_name + '</td>' +
-                                    '<td style="border:1px solid #e9ecef;">' + qty_expense2 + '</td>' +
-                                    '<td style="border:1px solid #e9ecef;">' + qty_expense + '</td>' +
-                                    '<td style="border:1px solid #e9ecef;">' + price_expense.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
-                                    '<td style="border:1px solid #e9ecef;">' + total_expense.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
-                                    '</tr>';
-
-                                $('table.TableExpenseClaim tbody').append(html2);
-
-                                var TotalExpense = parseFloat($("#TotalExpense").html().replace(/,/g, ''));
-                                $("#TotalExpense").html(parseFloat(+TotalExpense + total_expense).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-                            // }
-                        }
-                        else {
-                            Swal.fire("Error !", "Please use edit to update this item !", "error");
-                        }
-                    },
-                });
-                $("#statusEditAsf").val("No");
-            }
-            $("#advance_number_detail").val("");
-            $("#arf_date").val("");
-            $("#balance").val("");
-            $("#balance2").val("");
-            $("#qty_expense").val("");
-            $("#qty_expense2").val("");
-            $("#price_expense").val("");
-            $("#price_expense2").val("");
-            $("#total_expense").val("");
-            $("#total_expense2").val("");
-            $("#qty_amount").val("");
-            $("#qty_amount2").val("");
-            $("#price_amount").val("");
-            $("#price_amount2").val("");
-            $("#total_amount").val("");
-            $("#total_amount2").val("");
-
-            $("#putProductId").css("border", "1px solid #ced4da");
-            $(".ActionButton").prop("disabled", false);
-            $(".AddToDetailSettlement2").prop("disabled", false);
-        });
-    });
-</script>
-
-
-<script>
-
-    function RemoveExpense(workId, ProductId, total_amount, total_expense, tr) {
-        var i = tr.parentNode.parentNode.rowIndex;
-        document.getElementById("TableExpenseClaim").deleteRow(i);
-        document.getElementById("TableAmountDueto").deleteRow(i);
-        
-        $.ajax({
-            type: "POST",
-            url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlement2") !!}?putProductId=' + ProductId + '&putWorkId=' + workId,
-        });
-        
-        var total_expense = parseFloat(total_expense.replace(/,/g, ''));
-        var TotalExpense = parseFloat($("#TotalExpense").html().replace(/,/g, ''));
-        $("#TotalExpense").html(parseFloat(TotalExpense - total_expense).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-        
-        var total_amount = parseFloat(total_amount.replace(/,/g, ''));
-        var TotalAmount = parseFloat($("#TotalAmount").html().replace(/,/g, ''));
-        $("#TotalAmount").html(parseFloat(TotalAmount - total_amount).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-    }
-
-</script>
-
-<script>
-
-    function RemoveAmount(workId, ProductId, total_amount, total_expense, tr) {
-        var i = tr.parentNode.parentNode.rowIndex;
-        document.getElementById("TableExpenseClaim").deleteRow(i);
-        document.getElementById("TableAmountDueto").deleteRow(i);
-        
-        $.ajax({
-            type: "POST",
-            url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlement2") !!}?putProductId=' + ProductId + '&putWorkId=' + workId,
-        });
-        var total_expense = parseFloat(total_expense.replace(/,/g, ''));
-        var TotalExpense = parseFloat($("#TotalExpense").html().replace(/,/g, ''));
-        $("#TotalExpense").html(parseFloat(TotalExpense - total_expense).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-        
-        var total_amount = parseFloat(total_amount.replace(/,/g, ''));
-        var TotalAmount = parseFloat($("#TotalAmount").html().replace(/,/g, ''));
-        $("#TotalAmount").html(parseFloat(TotalAmount - total_amount).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-    }
-
-</script>
-
-<script>
-    function EditExpense(t) {
-        var i = t.parentNode.parentNode.rowIndex;
-        document.getElementById("TableExpenseClaim").deleteRow(i);
-        document.getElementById("TableAmountDueto").deleteRow(i);
-
-        var $this = $(t);
-        $.ajax({
-            type: "POST",
-            url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlement2") !!}?putProductId=' + $this.data("id1") + '&putWorkId=' + $this.data("id0"),
-        });
-        $("#putWorkId").val($this.data("id0"));
-        $("#putProductId").val($this.data("id1"));
-        $("#putProductName").val($this.data("id18"));
-        $("#putDescription").val($this.data("id19"));
-        $("#advance_number_detail").val($this.data("id17"));
-        $("#arf_date").val($this.data("id2"));
-        $("#balance").val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-        $("#balance2").val($this.data("id4"));
-        $("#qty_expense").val($this.data("id5"));
-        $("#qty_expense2").val($this.data("id6"));
-        $("#price_expense").val($this.data("id7"));
-        $("#price_expense2").val($this.data("id8"));
-        $("#total_expense").val($this.data("id9"));
-        $("#total_expense2").val($this.data("id10"));
-        $("#qty_amount").val($this.data("id11"));
-        $("#qty_amount2").val($this.data("id12"));
-        $("#price_amount").val($this.data("id13"));
-        $("#price_amount2").val($this.data("id14"));
-        $("#total_amount").val($this.data("id15"));
-        $("#total_amount2").val($this.data("id10"));
-        $("#statusEditAsf").val("Yes");
-
-        $("#ValidateQuantityExpense").val($this.data("id5"));
-        $("#ValidatePriceExpense").val($this.data("id7"));
-        $("#ValidateQuantityAmount").val($this.data("id11"));
-        $("#ValidatePriceAmount").val($this.data("id13"));
-        // $("#ValidateTableId").val(i);
-        
-
-        $(".AddToDetailSettlement2").prop("disabled", true);
-        $(".ActionButton").prop("disabled", true);
-
-        var total_expense = parseFloat($("#total_expense").val().replace(/,/g, ''));
-        var TotalExpense = parseFloat($("#TotalExpense").html().replace(/,/g, ''));
-        $("#TotalExpense").html(parseFloat(TotalExpense - total_expense).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-
-        var total_amount = parseFloat($("#total_amount").val().replace(/,/g, ''));
-        var TotalAmount = parseFloat($("#TotalAmount").html().replace(/,/g, ''));
-        $("#TotalAmount").html(parseFloat(TotalAmount - total_amount).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-
-    }
-</script>
-
-
-<script>
-    function EditAmount(t) {
-        var i = t.parentNode.parentNode.rowIndex;
-        document.getElementById("TableExpenseClaim").deleteRow(i);
-        document.getElementById("TableAmountDueto").deleteRow(i);
-
-        var $this = $(t);
-
-        $.ajax({
-            type: "POST",
-            url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlement2") !!}?putProductId=' + $this.data("id1") + '&putWorkId=' + $this.data("id0"),
-        });
-
-        $("#putWorkId").val($this.data("id0"));
-        $("#putProductId").val($this.data("id1"));
-        $("#putProductName").val($this.data("id18"));
-        $("#putDescription").val($this.data("id19"));
-        $("#advance_number_detail").val($this.data("id17"));
-        $("#arf_date").val($this.data("id2"));
-        $("#balance").val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-        $("#balance2").val($this.data("id4"));
-        $("#qty_expense").val($this.data("id5"));
-        $("#qty_expense2").val($this.data("id6"));
-        $("#price_expense").val($this.data("id7"));
-        $("#price_expense2").val($this.data("id8"));
-        $("#total_expense").val($this.data("id9"));
-        $("#total_expense2").val($this.data("id10"));
-        $("#qty_amount").val($this.data("id11"));
-        $("#qty_amount2").val($this.data("id12"));
-        $("#price_amount").val($this.data("id13"));
-        $("#price_amount2").val($this.data("id14"));
-        $("#total_amount").val($this.data("id15"));
-        $("#total_amount2").val($this.data("id16"));
-        $("#statusEditAsf").val("Yes");
-
-        $("#ValidateQuantityExpense").val($this.data("id5"));
-        $("#ValidatePriceExpense").val($this.data("id7"));
-        $("#ValidateQuantityAmount").val($this.data("id11"));
-        $("#ValidatePriceAmount").val($this.data("id13"));
-
-        $(".AddToDetailSettlement2").prop("disabled", true);
-        $(".ActionButton").prop("disabled", true);
-
-        var total_expense = parseFloat($("#total_expense").val().replace(/,/g, ''));
-        var TotalExpense = parseFloat($("#TotalExpense").html().replace(/,/g, ''));
-        $("#TotalExpense").html(parseFloat(TotalExpense - total_expense).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-
-        var total_amount = parseFloat($("#total_amount").val().replace(/,/g, ''));
-        var TotalAmount = parseFloat($("#TotalAmount").html().replace(/,/g, ''));
-        $("#TotalAmount").html(parseFloat(TotalAmount - total_amount).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-
-    }
-</script>
-
-
-<script>
-    $('document').ready(function() {
-        $('#qty_expense').keyup(function() {
-            var qty_expense = parseFloat($(this).val().replace(/,/g, ''));
-            var qty_amount = $('#qty_amount').val();
-            var price_expense = parseFloat($('#price_expense').val().replace(/,/g, ''));
-            var total_expense = qty_expense * price_expense;
-            var TotalQty = $('#TotalQty').val();
-            var TotalQty2 = +qty_expense + +qty_amount;
-            if (qty_expense == 0) {
-                $('#total_expense').val("0.00");
-            } else if (parseFloat(TotalQty2) > parseFloat(TotalQty)) {
-                Swal.fire("Error !", "Your Request Is Over Budget", "error");
-                $("#qty_expense").css("border", "1px solid red");
-                $('#qty_expense').val("");
-                $('#total_expense').val("");
-            } else {
-                $("#qty_expense").css("border", "1px solid #ced4da");
-                $('#total_expense').val(parseFloat(total_expense).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-            }
-        });
-
-        $('#qty_amount').keyup(function() {
-            var qty_amount = parseFloat($(this).val().replace(/,/g, ''));
-            var qty_expense = $('#qty_expense').val();
-            var price_amount = parseFloat($('#price_amount').val().replace(/,/g, ''));
-            var total_amount = qty_amount * price_amount;
-            var TotalQty = $('#TotalQty').val();
-            var TotalQty2 = +qty_expense + +qty_amount;
-            if (qty_amount == 0) {
-                $('#total_amount').val("0.00");
-            } else if (parseFloat(TotalQty2) > parseFloat(TotalQty)) {
-                Swal.fire("Error !", "Your Request Is Over Budget", "error");
-                $("#qty_amount").css("border", "1px solid red");
-                $('#qty_amount').val("");
-                $('#total_amount').val("");
-            } else {
-                $("#qty_amount").css("border", "1px solid #ced4da");
-                $('#total_amount').val(parseFloat(total_amount).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-            }
-        });
-
-        $('#price_expense').keyup(function() {
-            var price_expense = parseFloat($(this).val().replace(/,/g, ''));
-            var qty_expense = $('#qty_expense').val();
-            var put_price_expense = parseFloat($('#put_price_expense').val().replace(/,/g, ''));
-            var total_expense = price_expense * qty_expense;
-            if (price_expense == 0) {
-                $('#total_expense').val("0.00");
-            } else if (parseFloat(price_expense) > parseFloat(put_price_expense)) {
-                Swal.fire("Error !", "Your Request Is Over Budget", "error");
-                $("#price_expense").css("border", "1px solid red");
-                $('#price_expense').val("");
-                $('#total_expense').val("");
-            } else {
-                $("#price_expense").css("border", "1px solid #ced4da");
-                $('#total_expense').val(parseFloat(total_expense).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-            }
-        });
-
-        $('#price_amount').keyup(function() {
-            var price_amount = parseFloat($(this).val().replace(/,/g, ''));
-            var qty_amount = $('#qty_amount').val();
-            var put_price_expense = parseFloat($('#put_price_expense').val().replace(/,/g, ''));
-            var total_amount = price_amount * qty_amount;
-            if (price_amount == 0) {
-                $('#total_amount').val("0.00");
-            } else if (parseFloat(price_amount) > parseFloat(put_price_expense)) {
-                Swal.fire("Error !", "Your Request Is Over Budget", "error");
-                $("#price_amount").css("border", "1px solid red");
-                $('#price_amount').val("");
-                $('#total_amount').val("");
-            } else {
-                $("#price_amount").css("border", "1px solid #ced4da");
-                $('#total_amount').val(parseFloat(total_amount).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-            }
-        });
-    });
 </script>
 
 <script>
@@ -902,6 +465,10 @@
                 $("#remark").attr('required', true);
                 $("#remark").css("border", "1px solid red");
             } else {
+
+                var varFileUpload_UniqueID = "Upload";
+                window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
+
                 var action = $(this).attr("action"); 
                 var method = $(this).attr("method"); 
                 var form_data = new FormData($(this)[0]); 

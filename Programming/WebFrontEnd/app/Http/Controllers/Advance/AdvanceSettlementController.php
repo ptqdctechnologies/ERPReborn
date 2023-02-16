@@ -32,6 +32,7 @@ class AdvanceSettlementController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
+        dd($input);
         $count_product = count($input['var_product_id']);
 
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -323,7 +324,7 @@ class AdvanceSettlementController extends Controller
                 ]
             ]
         );
-
+        // dd($varDataAdvanceSettlementRevision['data'][0]['document']['content']['itemList']['ungrouped'][0]);
         $compact = [
             'dataAdvanceRevisions' => $varDataAdvanceSettlementRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
             'log_FileUpload_Pointer_RefID' => $varDataAdvanceSettlementRevision['data'][0]['document']['content']['attachmentFiles']['main']['log_FileUpload_Pointer_RefID'],
