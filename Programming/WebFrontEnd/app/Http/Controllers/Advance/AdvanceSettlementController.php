@@ -340,6 +340,7 @@ class AdvanceSettlementController extends Controller
     public function update(Request $request, $id)
     {
         $input = $request->all();
+        dd($input);
         $count_product = count($input['var_product_id']);
         // $varAPIWebToken = $request->session()->get('SessionLogin');
 

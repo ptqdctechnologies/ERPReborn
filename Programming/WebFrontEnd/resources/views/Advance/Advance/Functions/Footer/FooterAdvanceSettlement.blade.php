@@ -4,7 +4,7 @@
         $("#SaveAsfList").prop("disabled", true);
         $("#advance_number2").prop("disabled", true);
         $("#detailASF").hide();
-        // $("#tableShowHideArfDetail").hide();
+        $("#tableShowHideArfDetail").hide();
         $("#amountCompanyCart").hide();
         $(".amountCompanyCart").hide();
         $("#expenseCompanyCart").hide();
@@ -151,7 +151,7 @@
                             
                             '</tr>';
 
-                        $('table.tableArfDetail tbody').append(html);
+                        $('table.TableArfDetail tbody').append(html);
 
                         //VALIDASI QTY EXPENSE
                         $('#qty_expense'+key).keyup(function() {
