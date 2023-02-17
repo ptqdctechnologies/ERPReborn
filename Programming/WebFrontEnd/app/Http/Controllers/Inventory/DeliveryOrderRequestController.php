@@ -19,6 +19,7 @@ class DeliveryOrderRequestController extends Controller
         }
         $compact = [
             'var' => $var,
+            'statusRevisi' => 0,
         ];
         
         return view('Inventory.DeliveryOrderRequest.Transactions.CreateDeliveryOrderRequest', $compact);
@@ -296,6 +297,7 @@ class DeliveryOrderRequestController extends Controller
             'dataRequester' => $varDataAdvanceRevision['data'][0]['document']['content']['involvedPersons']['requester'],
             'dataAdvancenumber' => $varDataAdvanceRevision['data'][0]['document']['header']['number'],
             'var_recordID' => $request->searcDorNumberRevisionId,
+            'statusRevisi' => 1,
         ];
 
         
