@@ -44,7 +44,7 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        @include('Inventory.DeliveryOrderRequest.Functions.Table.tablePrDetail')
+                                        @include('Inventory.DeliveryOrderRequest.Functions.Table.TablePrDetail')
                                     </div>
                                 </div>
                             </div>

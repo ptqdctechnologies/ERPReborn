@@ -152,7 +152,6 @@
                 var QuantityAmount = $("input[name='var_qty_amount[]']").map(function(){return $(this).val();}).get();
                 var PriceAmount = $("input[name='var_price_amount[]']").map(function(){return $(this).val();}).get();
                 var RecordID = $("input[name='var_recordIDDetail[]']").map(function(){return $(this).val();}).get();
-                console.log(QuantityExpense);
 
                 $.each(ProductExpense, function(ProductKey, ProductValue) {
                     if(ProductValue == value.product_RefID){

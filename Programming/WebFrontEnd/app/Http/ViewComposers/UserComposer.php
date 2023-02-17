@@ -18,8 +18,7 @@ class UserComposer
             'latest', 
             [
             ]
-            );
-        
+            );        
 
         $compact = [
             'privilageMenu' => $varData['data']['keyList']
