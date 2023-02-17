@@ -153,6 +153,60 @@ class BusinessTripSettlementController extends Controller
         return response()->json($compact);
     }
 
+    public function store(Request $request)
+    {
+        $input = $request->all();
+        dd($input);
+        $count_product = count($input['var_product_id']);
+
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        // $advanceDetail = [];
+        // for($n =0; $n < $count_product; $n++){
+        //     $advanceDetail[$n] = [
+        //     'entities' => [
+        //             "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
+        //             "product_RefID" => (int) $input['var_product_id'][$n],
+        //             "quantity" => (float) $input['var_quantity'][$n],
+        //             "quantityUnit_RefID" => 73000000000001,
+        //             "productUnitPriceCurrency_RefID" => 62000000000001,
+        //             "productUnitPriceCurrencyValue" => (float) $input['var_price'][$n],
+        //             "productUnitPriceCurrencyExchangeRate" => 1,
+        //             "remarks" => 'test jumat'
+        //         ]
+        //     ];
+        // }
+
+        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varAPIWebToken, 
+        //     'transaction.create.finance.setAdvance', 
+        //     'latest', 
+        //     [
+        //     'entities' => [
+        //         "documentDateTimeTZ" => $input['var_date'],
+        //         "log_FileUpload_Pointer_RefID" => 91000000000001,
+        //         "requesterWorkerJobsPosition_RefID" => (int)$input['request_name_id'],
+        //         "beneficiaryWorkerJobsPosition_RefID" => 25000000000439,
+        //         "beneficiaryBankAccount_RefID" => 167000000000001,
+        //         "internalNotes" => 'My Internal Notes',
+        //         "remarks" => $input['var_remark'],
+        //         "additionalData" => [
+        //             "itemList" => [
+        //                 "items" => $advanceDetail
+        //                 ]
+        //             ]
+        //         ]
+        //     ]                    
+        //     );
+
+        $compact = [
+            "advnumber" => 'ASF-0000001',
+        ];
+
+        return response()->json($compact);
+    }
+
     public function BusinessTripRequestByBudgetID(Request $request)
     {
         $projectcode = $request->input('projectcode');
@@ -288,5 +342,59 @@ class BusinessTripSettlementController extends Controller
         ];
 
         return view('Advance.BusinessTrip.Transactions.RevisionBusinessTripSettlement', $compact);
+    }
+    public function update(Request $request, $id)
+    {
+        $input = $request->all();
+        dd($input);
+        $count_product = count($input['var_product_id']);
+        // $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        // $advanceDetail = [];
+        // if ($count_product > 0 && isset($count_product)) {
+        //     for($n =0; $n < $count_product; $n++){
+        //         $advanceDetail[$n] = [
+        //             'recordID' => ((!$input['var_recordIDDetail'][$n]) ? null : (int) $input['var_recordIDDetail'][$n]),
+        //             'entities' => [
+        //                 "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
+        //                 "product_RefID" => (int) $input['var_product_id'][$n],
+        //                 "quantity" => (float) $input['var_quantity'][$n],
+        //                 "quantityUnit_RefID" => 73000000000001,
+        //                 "productUnitPriceCurrency_RefID" => 62000000000001,
+        //                 "productUnitPriceCurrencyValue" => (float) $input['var_price'][$n],
+        //                 "productUnitPriceCurrencyExchangeRate" => 1,
+        //                 "remarks" => 'Catatan'
+        //             ]
+        //         ];
+        //     }
+        // }
+        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varAPIWebToken, 
+        //     'transaction.update.finance.setAdvance', 
+        //     'latest', 
+        //     [
+        //         'recordID' => (int)$input['var_recordID'],
+        //         'entities' => [
+        //             "documentDateTimeTZ" => '2022-03-07',
+        //             "log_FileUpload_Pointer_RefID" => 91000000000001,
+        //             "requesterWorkerJobsPosition_RefID" => (int)$input['request_name_id'],
+        //             "beneficiaryWorkerJobsPosition_RefID" => 25000000000439,
+        //             "beneficiaryBankAccount_RefID" => 167000000000001,
+        //             "internalNotes" => 'My Internal Notes',
+        //             "remarks" => $input['var_remark'],
+        //             "additionalData" => [
+        //                 "itemList" => [
+        //                     "items" => $advanceDetail
+        //                     ]
+        //                 ]
+        //             ]
+        //         ]                   
+        // );
+        $compact = [
+            "status" => true,
+        ];
+
+        return response()->json($compact);
     }
 }
