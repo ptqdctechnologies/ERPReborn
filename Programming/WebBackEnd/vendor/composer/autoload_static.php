@@ -2488,6 +2488,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Models\\Database\\SchSysConfig\\TblAppObject_WorkFlowPath' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblAppObject_WorkFlowPath.php',
         'App\\Models\\Database\\SchSysConfig\\TblAppObject_WorkFlowPathAction' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblAppObject_WorkFlowPathAction.php',
         'App\\Models\\Database\\SchSysConfig\\TblAppObject_WorkFlowPathSequence' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblAppObject_WorkFlowPathSequence.php',
+        'App\\Models\\Database\\SchSysConfig\\TblAppObject_WorkFlowPathSequenceRemapping' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblAppObject_WorkFlowPathSequenceRemapping.php',
         'App\\Models\\Database\\SchSysConfig\\TblAppObject_WorkFlowVersion' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblAppObject_WorkFlowVersion.php',
         'App\\Models\\Database\\SchSysConfig\\TblDBObject_Index' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblDBObject_Index.php',
         'App\\Models\\Database\\SchSysConfig\\TblDBObject_Schema' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblDBObject_Schema.php',

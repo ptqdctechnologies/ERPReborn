@@ -1889,6 +1889,7 @@ return array(
     'App\\Models\\Database\\SchSysConfig\\TblAppObject_WorkFlowPath' => $baseDir . '/app/Models/Database/SchSysConfig/TblAppObject_WorkFlowPath.php',
     'App\\Models\\Database\\SchSysConfig\\TblAppObject_WorkFlowPathAction' => $baseDir . '/app/Models/Database/SchSysConfig/TblAppObject_WorkFlowPathAction.php',
     'App\\Models\\Database\\SchSysConfig\\TblAppObject_WorkFlowPathSequence' => $baseDir . '/app/Models/Database/SchSysConfig/TblAppObject_WorkFlowPathSequence.php',
+    'App\\Models\\Database\\SchSysConfig\\TblAppObject_WorkFlowPathSequenceRemapping' => $baseDir . '/app/Models/Database/SchSysConfig/TblAppObject_WorkFlowPathSequenceRemapping.php',
     'App\\Models\\Database\\SchSysConfig\\TblAppObject_WorkFlowVersion' => $baseDir . '/app/Models/Database/SchSysConfig/TblAppObject_WorkFlowVersion.php',
     'App\\Models\\Database\\SchSysConfig\\TblDBObject_Index' => $baseDir . '/app/Models/Database/SchSysConfig/TblDBObject_Index.php',
     'App\\Models\\Database\\SchSysConfig\\TblDBObject_Schema' => $baseDir . '/app/Models/Database/SchSysConfig/TblDBObject_Schema.php',
