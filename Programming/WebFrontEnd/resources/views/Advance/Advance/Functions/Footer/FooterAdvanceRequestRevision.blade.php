@@ -11,6 +11,7 @@
 </script>
 
 <script type="text/javascript">
+    
     //GET ARF LIST 
 
     $.ajaxSetup({
@@ -387,6 +388,10 @@
                 $("#putRemark").attr('required', true);
                 $("#putRemark").css("border", "1px solid red");
             } else {
+
+                var varFileUpload_UniqueID = "Upload";
+                window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
+                
                 var action = $(this).attr("action"); //get submit action from form
                 var method = $(this).attr("method"); // get submit method
                 var form_data = new FormData($(this)[0]); // convert form into formdata 

@@ -12,7 +12,6 @@
                 <th rowspan="2" style="padding-bottom:17px;border:1px solid #e9ecef;text-align: center;">Unit Price</th>
                 <th rowspan="2" style="padding-bottom:17px;border:1px solid #e9ecef;text-align: center;">Total Budget</th>
                 <th rowspan="2" style="padding-bottom:17px;border:1px solid #e9ecef;text-align: center;">Currency</th>
-                <th rowspan="2" style="padding-bottom:17px;border:1px solid #e9ecef;text-align: center;">Description</th>
                 <th colspan="3" class="sticky-col third-col-asf-expense" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">Expense Claim Cart</th>
                 <th colspan="3" class="sticky-col second-col-asf-amount" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">Amount Due to Company Cart</th>
                 <th rowspan="2" class="sticky-col first-col-asf-balance" style="padding-bottom:17px;border-right:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Balance</th>

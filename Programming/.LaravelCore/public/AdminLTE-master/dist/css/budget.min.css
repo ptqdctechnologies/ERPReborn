@@ -8,6 +8,19 @@ wrapper-budget {
   position: -webkit-sticky;
   position: sticky;
 }
+.first-col-dor-note {
+  width: 225px;
+  min-width: 225px;
+  max-width: 225px;
+  right: 0px;
+}
+
+.second-col-dor-qty {
+  width: 110px;
+  min-width: 110px;
+  max-width: 110px;
+  right: 226px;
+}
 
 .first-col {
   width: 125px;
