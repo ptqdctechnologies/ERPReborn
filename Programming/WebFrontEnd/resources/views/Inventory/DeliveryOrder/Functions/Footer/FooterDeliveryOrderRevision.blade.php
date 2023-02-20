@@ -12,7 +12,6 @@
 
 <script type="text/javascript">
 
-
     //GET DOR DETAIL
     $("#tableShowHideDo").show();
 

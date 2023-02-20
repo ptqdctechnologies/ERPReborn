@@ -27,16 +27,16 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
-                                <div class="card-header">
-                                    <label class="card-title">
-                                    Add New Delivery Order
-                                    </label>
-                                    <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                                    </button>
+                                    <div class="card-header">
+                                        <label class="card-title">
+                                            Add New Delivery Order
+                                        </label>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
                                     @include('Inventory.DeliveryOrder.Functions.Header.HeaderDo')
                                 </div>
                             </div>
@@ -45,23 +45,23 @@
                         <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
                             <div class="row">
                                 <div class="col-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                    <label class="card-title">
-                                        Transporter Detail
-                                    </label>
-                                    <div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                                        </button>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <label class="card-title">
+                                                Transporter Detail
+                                            </label>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                    <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        @include('Inventory.DeliveryOrder.Functions.Header.HeaderDo2')
                                     </div>
-                                    </div>
-                                    @include('Inventory.DeliveryOrder.Functions.Header.HeaderDo2')
-                                </div>
                                 </div>
                             </div>
                         </div>
-                            
+
                         <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="product-desc-tab">
                             <div class="row">
                                 <div class="col-12">
@@ -82,7 +82,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
@@ -152,7 +152,6 @@
                                                         </label>
                                                     </div>
                                                 </td>
-                                                <!-- Untuk Validasi -->
                                                 <input id="putCurrency" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                                                 <input id="statusEditDo" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
                                                 <input id="ValidateQuantity" style="border-radius:0;" type="hidden" class="form-control" readonly="">
@@ -172,7 +171,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="row">
                             <div class="col-12">
@@ -189,10 +188,9 @@
                                     </div>
 
                                     <div class="card-body table-responsive p-0 detailDoList" style="height: 180px;">
-                                        <table class="table table-head-fixed text-nowrap TableDorCart" id="TableDorCart">
+                                        <table class="table table-head-fixed text-nowrap TableDoCart" id="TableDoCart">
                                             <thead>
                                                 <tr>
-                                                    <th>Action</th>
                                                     <th>Trano</th>
                                                     <th>Work Id</th>
                                                     <th>Work Name</th>
@@ -208,13 +206,11 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="card-body table-responsive p-0 detailDoList">
-                                        <table class="table table-head-fixed table-sm text-nowrap">
-                                            <tfoot>
-                                                <tr>
-                                                    <th style="color:brown;float:right;">Total Delivery Order : <span id="TotalDeliveryOrder"></span></th>
-                                                </tr>
-                                            </tfoot>
+                                    <div class="card-body AdvanceListCart" >
+                                        <table style="float:right;">
+                                            <tr>
+                                                <th style="position: relative;right:45px;"> Total Item : <span id="TotalQty"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="GrandTotal"></span></th>
+                                            </tr>
                                         </table>
                                     </div>
                                 </div>

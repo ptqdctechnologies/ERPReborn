@@ -45,7 +45,7 @@
                 '<input type="hidden" name="var_product_id_expense[]" value="' + value.product_RefID + '">' +
                 '<input type="hidden" name="var_product_name[]" value="' + value.productName + '">' +
                 '<input type="hidden" name="var_uom[]" value="' + value.quantityUnitName + '">' +
-                '<input type="hidden" name="vakerr_price_expense[]" value="' + value.productUnitPriceCurrencyValue + '">' +
+                '<input type="hidden" name="var_price_expense[]" value="' + value.productUnitPriceCurrencyValue + '">' +
                 '<input type="hidden" name="var_qty_expense[]" value="' + value.quantity + '">' +
                 '<input type="hidden" name="var_total_expense[]" value="' + value.priceBaseCurrencyValue + '">' +
                 '<input type="hidden" name="var_description[]" value="' + value.remarks + '">' +
@@ -115,7 +115,6 @@
 
             var no = 1; applied = 0; TotalBudgetSelected = 0;status = ""; statusDisplay = [];statusDisplay2 = []; statusForm = [];
             $.each(data, function(key, value) {
-
                 var var_qty_expense = "";
                 var var_price_expense = "";
                 var var_qty_amount = "";
@@ -221,7 +220,6 @@
                     '<td style="border:1px solid #e9ecef;">' + value.productUnitPriceCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + value.priceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + value.priceCurrencyISOCode + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + value.remarks + '</td>' +
 
                     '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col third-col-asf-expense-qty">' + '<input id="qty_expense'+ key +'" style="border-radius:0;width:50px;" name="qty_expense[]" class="form-control qty_expense" autocomplete="off" '+ statusForm[key] +' value="'+ currency(var_qty_expense) +'">' + '</td>' +
                     '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col third-col-asf-expense-price">' + '<input id="price_expense'+ key +'" style="border-radius:0;width:90px;" name="price_expense[]" class="form-control price_expense" autocomplete="off" '+ statusForm[key] +' value="'+ currency(var_price_expense) +'">' + '</td>' +
@@ -543,6 +541,10 @@
                 $("#remark").attr('required', true);
                 $("#remark").css("border", "1px solid red");
             } else {
+
+                var varFileUpload_UniqueID = "Upload";
+                window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
+                
                 var action = $(this).attr("action");
                 var method = $(this).attr("method");
                 var form_data = new FormData($(this)[0]);

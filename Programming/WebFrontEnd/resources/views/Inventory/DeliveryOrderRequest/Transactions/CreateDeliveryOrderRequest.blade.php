@@ -32,7 +32,7 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <label class="card-title">
-                                                PR Detail
+                                            Purchase Requisition Detail
                                             </label>
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -64,7 +64,6 @@
                                         <table class="table table-head-fixed text-nowrap TableDorCart" id="TableDorCart">
                                             <thead>
                                                 <tr>
-                                                    <!-- <th>Trano</th> -->
                                                     <th>Work Id</th>
                                                     <th>Product Id</th>
                                                     <th>Product Name</th>

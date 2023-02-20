@@ -78,8 +78,6 @@
 
                     $.each(data.DataDorList, function(key, value) {
 
-                        console.log(value);
-
                         // if(value.quantityAbsorption == "0.00" && value.quantity == "0.00"){
                         if(value.quantity == "0.00"){
                             var applied = 0;
