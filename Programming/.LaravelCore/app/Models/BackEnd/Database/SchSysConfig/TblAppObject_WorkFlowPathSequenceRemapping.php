@@ -12,11 +12,11 @@ namespace App\Models\Database\SchSysConfig
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblAppObject_WorkFlowPathSequenceRempapping                                                                  |
-    | ▪ Description : Menangani Models Database ► SchSysConfig ► TblAppObject_WorkFlowPathSequenceRempapping                       |
+    | ▪ Class Name  : TblAppObject_WorkFlowPathSequenceRemapping                                                                   |
+    | ▪ Description : Menangani Models Database ► SchSysConfig ► TblAppObject_WorkFlowPathSequenceRemapping                        |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblAppObject_WorkFlowPathSequenceRempapping extends \App\Models\Database\DefaultClassPrototype
+    class TblAppObject_WorkFlowPathSequenceRemapping extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

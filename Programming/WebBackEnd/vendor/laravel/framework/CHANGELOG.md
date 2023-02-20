@@ -1,6 +1,62 @@
 # Release Notes for 9.x
 
-## [Unreleased](https://github.com/laravel/framework/compare/v9.49.0...9.x)
+## [Unreleased](https://github.com/laravel/framework/compare/v9.51.0...9.x)
+
+
+## [v9.51.0](https://github.com/laravel/framework/compare/v9.50.2...v9.51.0) - 2023-02-07
+
+### Added
+- Added `Illuminate/Foundation/Testing/Concerns/InteractsWithDatabase::expectsDatabaseQueryCount()` ([#45932](https://github.com/laravel/framework/pull/45932))
+- Added pending has-many-through and has-one-through builder ([#45894](https://github.com/laravel/framework/pull/45894))
+- Added `Illuminate/Http/Client/PendingRequest::withUrlParameters()` ([#45982](https://github.com/laravel/framework/pull/45982))
+
+### Fixed
+- Fix: prevent duplicated content-type on HTTP client ([#45960](https://github.com/laravel/framework/pull/45960))
+- Add missing php extensions in composer ([#45941](https://github.com/laravel/framework/pull/45941))
+
+### Changed
+- Command schedule:work minor features: schedule:run output file & environment specific verbosity ([#45949](https://github.com/laravel/framework/pull/45949))
+- Added missing self reserved word to reservedNames array in `Illuminate/Console/GeneratorCommand.php` ([#46001](https://github.com/laravel/framework/pull/46001))
+- pass value along to ttl callback in `Illuminate/Cache/Repository::remember()` ([#46006](https://github.com/laravel/framework/pull/46006))
+- Make sure the lock_connection is used for schedule's withoutOverlapping() ([#45963](https://github.com/laravel/framework/pull/45963))
+
+
+## [v9.50.2](https://github.com/laravel/framework/compare/v9.50.1...v9.50.2) - 2023-02-02
+
+### Fixed
+- Fixed missing_with and missing_with_all validation ([#45913](https://github.com/laravel/framework/pull/45913))
+- Fixes blade escaped tags issue ([#45928](https://github.com/laravel/framework/pull/45928))
+
+### Changed
+- Trims numeric validation values / parameters ([#45912](https://github.com/laravel/framework/pull/45912))
+- Random function doesn't generate evenly distributed random chars ([#45916](https://github.com/laravel/framework/pull/45916))
+
+
+## [v9.50.1](https://github.com/laravel/framework/compare/v9.50.0...v9.50.1) - 2023-02-01
+
+### Reverted
+- Reverted ["Optimize destroy method"](https://github.com/laravel/framework/pull/45709) ([#45903](https://github.com/laravel/framework/pull/45903))
+
+### Changed
+- Allow scheme to be specified in `Illuminate/Mail/MailManager::createSmtpTransport()` ([68a8bfc](https://github.com/laravel/framework/commit/68a8bfc3ab758962c8f050160ec32833dc12e467))
+- Accept optional mode in `Illuminate/Filesystem/Filesystem::replace()` ([2664e7f](https://github.com/laravel/framework/commit/2664e7fcdfe3a290462ae8e326ba79a17c747c1e))
+
+
+## [v9.50.0](https://github.com/laravel/framework/compare/v9.49.0...v9.50.0) - 2023-02-01
+
+### Added
+- Added `Illuminate/Translation/Translator::stringable()` ([#45874](https://github.com/laravel/framework/pull/45874))
+- Added `Illuminate/Foundation/Testing/DatabaseTruncation` ([#45726](https://github.com/laravel/framework/pull/45726))
+- Added @style Blade directive ([#45887](https://github.com/laravel/framework/pull/45887))
+
+### Reverted
+- Reverted: ["Fix Illuminate Filesystem replace() leaves file executable"](https://github.com/laravel/framework/pull/45856) ([5ea388d](https://github.com/laravel/framework/commit/5ea388d7fe6f786b6dbcb34e0b52341c0b38ad7e))
+
+### Fixed
+- Fixed LazyCollection::makeIterator() to accept non Generator Function ([#45881](https://github.com/laravel/framework/pull/45881))
+
+### Changed
+- Solve data to be dumped for separate schemes ([#45805](https://github.com/laravel/framework/pull/45805))
 
 
 ## [v9.49.0](https://github.com/laravel/framework/compare/v9.48.0...v9.49.0) - 2023-01-31
