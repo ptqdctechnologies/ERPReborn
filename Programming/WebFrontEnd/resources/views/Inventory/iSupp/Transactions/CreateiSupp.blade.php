@@ -6,6 +6,8 @@
 @include('Inventory.iSupp.Functions.PopUp.searchDoNumber')
 @include('Inventory.iSupp.Functions.PopUp.PopUpiSuppRevision')
 @include('getFunction.getWarehouse')
+@include('getFunction.getWarehouse2')
+@include('getFunction.getWarehouse3')
 
 <div class="content-wrapper" style="position:relative;bottom:12px;">
     <section class="content">
@@ -95,77 +97,6 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <label class="card-title">
-                                            Detail i-Supp
-                                        </label>
-                                        <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                                <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="card-body table-responsive p-0" id="DetailiSupp">
-                                        <table class="table table-head-fixed text-nowrap table-sm" style="text-align: center;">
-                                            <thead>
-                                                <tr>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:10%;border:1px solid #e9ecef;">Work Id</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:10%;border:1px solid #e9ecef;">Product Id</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:20%;border:1px solid #e9ecef;">Product Name</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:8%;border:1px solid #e9ecef;">Qty</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:3%;border:1px solid #e9ecef;">UOM</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:10%;border:1px solid #e9ecef;">Balance Qty</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:20%;border:1px solid #e9ecef;">Remark</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <td style="border:1px solid #e9ecef;">
-                                                    <input id="putWorkId" style="border-radius:0;" type="text" class="form-control" readonly="">
-                                                </td>
-                                                <td style="border:1px solid #e9ecef;">
-                                                    <input id="putProductId" style="border-radius:0;" type="text" class="form-control" readonly="">
-                                                </td>
-                                                <td style="border:1px solid #e9ecef;">
-                                                    <input id="putProductName" style="border-radius:0;" type="text" class="form-control" readonly="">
-                                                </td>
-                                                <td style="border:1px solid #e9ecef;">
-                                                    <input id="qtyCek" style="border-radius:0;" type="text" class="form-control ChangeQty" autocomplete="off" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
-                                                    <input id="putQty" style="border-radius:0;" type="hidden" class="form-control">
-                                                </td>
-                                                <td style="border:1px solid #e9ecef;">
-                                                    <input id="putUom" style="border-radius:0;" type="text" class="form-control" readonly>
-                                                </td>
-                                                <td style="border:1px solid #e9ecef;">
-                                                    <input id="totalBalance" style="border-radius:0;" type="text" class="form-control" readonly="">
-                                                </td>
-                                                <td style="border:1px solid #e9ecef;">
-                                                    <input id="remark" style="border-radius:0;" type="text" class="form-control">
-                                                    <input id="remark2" style="border-radius:0;" type="hidden" class="form-control">
-                                                </td>
-
-                                                <input id="statusEditiSupp" style="border-radius:0;" type="hidden" class="form-control" readonly="">
-                                                <input id="ValidateQuantity" style="border-radius:0;" type="hidden" class="form-control" readonly="">
-
-                                            </tbody>
-                                        </table>
-                                        <br>
-                                        <div style="padding-right:10px;padding-top:10px;">
-                                            <a class="btn btn-default btn-sm float-right" onclick="CancelDetailIsupp()" id="CancelDetailDor" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
-                                                <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel to Add Advance List Cart"> Cancel
-                                            </a>
-                                            <a class="btn btn-default btn-sm float-right" onclick="addFromDetailtoCartJs()" id="addFromDetailtoCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                                                <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
-                                            </a>
-                                        </div>
-                                        <br><br><br>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <label class="card-title">
                                             i-Supp Cart
                                         </label>
                                         <div class="card-tools">
@@ -179,12 +110,12 @@
                                         <table class="table table-head-fixed text-nowrap table-striped TableiSuppCart" id="TableiSuppCart">
                                             <thead>
                                                 <tr>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Action</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Work Id</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Product Id</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Product Name</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Qty</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">UOM</th>
+                                                    <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Note</th>
+                                                    <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Qty</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -192,13 +123,10 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="card-body table-responsive p-0 iSuppCart">
-                                        <table class="table table-head-fixed table-sm text-nowrap">
-                                            <tfoot>
-                                                <tr>
-                                                    <th style="color:brown;float:right;">Total i-Supp : <span id="TotalISupp"></span></th>
-                                                </tr>
-                                            </tfoot>
+                                    <div class="card-body AdvanceListCart">
+                                        <table style="float:right;">
+                                            <tr>
+                                                <th style="position: relative;right:15px;"> Total Item : <span id="TotalQty">
                                         </table>
                                     </div>
                                 </div>

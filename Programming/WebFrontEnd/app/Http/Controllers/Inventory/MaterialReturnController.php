@@ -18,6 +18,7 @@ class MaterialReturnController extends Controller
 
         $compact = [
             'var' => $var,
+            'statusRevisi' => 0,
         ];
 
         return view('Inventory.MaterialReturn.Transactions.CreateMaterialReturn', $compact);
@@ -68,6 +69,12 @@ class MaterialReturnController extends Controller
         }
     }
 
+    public function store(Request $request)
+    {
+        $input = $request->all();
+        dd($input);
+    }
+
     public function MaterialReturnListData(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -89,7 +96,34 @@ class MaterialReturnController extends Controller
             
         return response()->json($varDataAdvanceRequest['data']);
     }
-    
+    public function MaterialReturnByDorID(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $var_recordID = $request->input('var_recordID');
+        $varDataAdvanceList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.finance.getAdvanceDetail',
+            'latest',
+            [
+                'parameter' => [
+                    'advance_RefID' => (int) $var_recordID,
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ]
+        );
+        // dd($varDataAdvanceList);
+        $compact = [
+            'DataAdvanceList' => $varDataAdvanceList['data'],
+        ];
+        return response()->json($compact);
+    }
+
     public function RevisionMaterialReturnIndex(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -111,6 +145,7 @@ class MaterialReturnController extends Controller
             'dataAdvanceRevisions' => $varDataAdvanceRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
             'dataRequester' => $varDataAdvanceRevision['data'][0]['document']['content']['involvedPersons']['requester'],
             'var_recordID' => $request->searchMaterialReturnNumberRevisionId,
+            'statusRevisi' => 0,
         ];
         
         return view('Inventory.MaterialReturn.Transactions.RevisionMaterialReturn', $compact);
@@ -144,5 +179,11 @@ class MaterialReturnController extends Controller
             $request->session()->push("SessionMaterialReturn", (string)$varDatas['product_RefID']);
         }
         return response()->json($varData['data']);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $input = $request->all();
+        dd($input);
     }
 }

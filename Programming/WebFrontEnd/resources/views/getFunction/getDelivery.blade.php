@@ -39,9 +39,17 @@
         </div>
     </div>
 </div>
-<!--|----------------------------------------------------------------------------------|
-    |                            End Function My Project Code                          |
-    |----------------------------------------------------------------------------------|-->
+
+<script>
+
+    $(function() {
+        $('.myDelivery').on('click', function(e) {
+            e.preventDefault();
+            $('#tableGetDelivery').DataTable();
+        });
+    });
+</script>
+
 <script>
 
     $(".klikTableDelivery").on('click', function(e) {

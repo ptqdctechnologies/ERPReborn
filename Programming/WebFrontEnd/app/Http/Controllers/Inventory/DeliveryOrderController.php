@@ -149,23 +149,23 @@ class DeliveryOrderController extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $var_recordID = $request->input('var_recordID');
         $varDataAdvanceList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken,
-        'transaction.read.dataList.finance.getAdvanceDetail',
-        'latest',
-        [
-            'parameter' => [
-                'advance_RefID' => (int) $var_recordID,
-            ],
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.finance.getAdvanceDetail',
+            'latest',
+            [
+                'parameter' => [
+                    'advance_RefID' => (int) $var_recordID,
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
             ]
-        ]
-    );
-        
+        );
+        // dd($varDataAdvanceList);
         $compact = [
             'DataAdvanceList' => $varDataAdvanceList['data'],
         ];
@@ -210,7 +210,7 @@ class DeliveryOrderController extends Controller
     {
 
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $do_RefID = $request->input('do_RefID');
+        $var_recordID = $request->input('var_recordID');
 
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -219,7 +219,7 @@ class DeliveryOrderController extends Controller
         'latest', 
         [
         'parameter' => [
-            'advance_RefID' => (int) $do_RefID,
+            'advance_RefID' => (int) $var_recordID,
             ],
         'SQLStatement' => [
             'pick' => null,

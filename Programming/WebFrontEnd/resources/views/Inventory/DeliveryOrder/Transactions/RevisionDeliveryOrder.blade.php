@@ -25,20 +25,20 @@
                     <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
                     <input id="sitecode" style="border-radius:0;" name="sitecode" class="form-control" type="hidden" value="{{$dataAdvanceRevisions['entities']['combinedBudgetSection_RefID']}}">
                     <div class="tab-content p-3" id="nav-tabContent">
-                        
+
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
-                                <div class="card-header">
-                                    <label class="card-title">
-                                    Delivery Order Revision
-                                    </label>
-                                    <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                                    </button>
+                                    <div class="card-header">
+                                        <label class="card-title">
+                                            Delivery Order Revision
+                                        </label>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
                                     @include('Inventory.DeliveryOrder.Functions.Header.HeaderDoRevision')
                                 </div>
                             </div>
@@ -47,19 +47,19 @@
                         <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
                             <div class="row">
                                 <div class="col-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                    <label class="card-title">
-                                        Transporter Detail
-                                    </label>
-                                    <div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                                        </button>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <label class="card-title">
+                                                Transporter Detail
+                                            </label>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                    <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        @include('Inventory.DeliveryOrder.Functions.Header.HeaderDoRevision2')
                                     </div>
-                                    </div>
-                                    @include('Inventory.DeliveryOrder.Functions.Header.HeaderDoRevision2')
-                                </div>
                                 </div>
                             </div>
                         </div>
@@ -89,98 +89,6 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <label class="card-title">
-                                            Delivery Order Detail
-                                        </label>
-                                        <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                                <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="card-body table-responsive p-0" id="detailDo">
-                                        <table class="table table-head-fixed text-nowrap table-sm" style="text-align: center;">
-                                            <thead>
-                                                <tr>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:12%;border:1px solid #e9ecef;">DOR Number</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:12%;border:1px solid #e9ecef;">Work Id</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:12%;border:1px solid #e9ecef;">Work Name</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:12%;border:1px solid #e9ecef;">Product Id</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:12%;border:1px solid #e9ecef;">Product Name</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:12%;border:1px solid #e9ecef;">Delivery Type</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:4%;border:1px solid #e9ecef;">Qty Request</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:4%;border:1px solid #e9ecef;">Uom</th>
-                                                    <th style="paddin0.32g-bottom: 10px;padding-top: 10px;width:18%;border:1px solid #e9ecef;">Note</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:12%;border:1px solid #e9ecef;">With Journal</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <td style="border:1px solid #e9ecef;">
-                                                    <input id="dor_number_detail" style="border-radius:0;" type="text" class="form-control" readonly="">
-                                                </td>
-                                                <td style="border:1px solid #e9ecef;">
-                                                    <input id="putWorkId" style="border-radius:0;" type="text" class="form-control" readonly="">
-                                                </td>
-                                                <td style="border:1px solid #e9ecef;">
-                                                    <input id="putWorkName" style="border-radius:0;" type="text" class="form-control" readonly="">
-                                                </td>
-                                                <td style="border:1px solid #e9ecef;">
-                                                    <input id="putProductId" style="border-radius:0;" type="text" class="form-control" readonly="">
-                                                </td>
-                                                <td style="border:1px solid #e9ecef;">
-                                                    <input id="putProductName" style="border-radius:0;" type="text" class="form-control" readonly>
-                                                </td>
-                                                <td style="border:1px solid #e9ecef;">
-                                                    <input id="delivery_type" style="border-radius:0;" type="text" class="form-control" readonly="">
-                                                </td>
-                                                <td style="border:1px solid #e9ecef;">
-                                                    <input id="qtyCek" style="border-radius:0;" type="text" class="form-control ChangeQty quantity" autocomplete="off" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
-                                                    <input id="putQty" style="border-radius:0;" type="hidden" class="form-control">
-                                                </td>
-                                                <td style="border:1px solid #e9ecef;">
-                                                    <input id="putUom" style="border-radius:0;" type="text" class="form-control" readonly>
-                                                </td>
-                                                <td style="border:1px solid #e9ecef;">
-                                                    <input id="note" style="border-radius:0;" type="text" class="form-control">
-                                                </td>
-                                                <td style="border:1px solid #e9ecef;">
-                                                    <div class="icheck-primary d-inline">
-                                                        <input type="radio" id="no" name="journal" value="No" checked>
-                                                        <label for="no">No
-                                                        </label>
-                                                    </div>
-                                                    <div class="icheck-primary d-inline">
-                                                        <input type="radio" id="yes" name="journal" value="Yes">
-                                                        <label for="yes">Yes
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                                <!-- Untuk Validasi -->
-                                                <input id="putCurrency" style="border-radius:0;" type="hidden" class="form-control" readonly="">
-                                                <input id="statusEditDo" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
-                                                <input id="ValidateQuantity" style="border-radius:0;" type="hidden" class="form-control" readonly="">
-                                                <input id="ValidateNote" style="border-radius:0;" type="hidden" class="form-control" readonly="">
-
-                                            </tbody>
-                                        </table>
-                                        <div style="padding-right:10px;padding-top:10px;">
-                                            <a class="btn btn-default btn-sm float-right" onclick="CancelDetailDo()" id="CancelDetailDo" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
-                                                <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel to Add Advance List Cart"> Cancel
-                                            </a>
-                                            <a class="btn btn-default btn-sm float-right" onclick="addFromDetailtoCartJs()" id="addFromDetailtoCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                                                <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
-                                            </a>
-                                        </div>
-                                        <br><br><br>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <label class="card-title">
                                             Delivery Order Cart
                                         </label>
                                         <div class="card-tools">
@@ -191,18 +99,17 @@
                                     </div>
 
                                     <div class="card-body table-responsive p-0 detailDoList" style="height: 180px;">
-                                        <table class="table table-head-fixed text-nowrap TableDorCart" id="TableDorCart">
+                                        <table class="table table-head-fixed text-nowrap TableDoCart" id="TableDoCart">
                                             <thead>
                                                 <tr>
-                                                    <th>Action</th>
                                                     <th>Trano</th>
                                                     <th>Work Id</th>
                                                     <th>Work Name</th>
                                                     <th>Product Id</th>
                                                     <th>Product Name</th>
-                                                    <th>Qty</th>
                                                     <th>Valuta</th>
                                                     <th>Note</th>
+                                                    <th>Qty</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -210,13 +117,10 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="card-body table-responsive p-0 detailDoList">
-                                        <table class="table table-head-fixed table-sm text-nowrap">
-                                            <tfoot>
-                                                <tr>
-                                                    <th style="color:brown;float:right;">Total Delivery Order : <span id="TotalDeliveryOrder"></span></th>
-                                                </tr>
-                                            </tfoot>
+                                    <div class="card-body AdvanceListCart">
+                                        <table style="float:right;">
+                                            <tr>
+                                                <th style="position: relative;right:20px;"> Total Item : <span id="TotalQty">
                                         </table>
                                     </div>
                                 </div>

@@ -6,6 +6,8 @@
 @include('Inventory.iSupp.Functions.PopUp.searchDoNumber')
 @include('Inventory.iSupp.Functions.PopUp.PopUpiSuppRevision')
 @include('getFunction.getWarehouse')
+@include('getFunction.getWarehouse2')
+@include('getFunction.getWarehouse3')
 
 <div class="content-wrapper" style="position:relative;bottom:12px;">
     <section class="content">
@@ -27,46 +29,46 @@
                         <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
                             <div class="row">
                                 <div class="col-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                    <label class="card-title">
-                                        File Attachment
-                                    </label>
-                                    <div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                                        </button>
-                                    </div>
-                                    </div>
-                                    <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                        <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID">
-                                        <input type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" name="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" onchange="javascript: @php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord'); @endphp;" />
-                                        </div>
-                                        <br><br>
-                                        <div class="col-md-12">
-                                        <div class="card-body table-responsive p-0" style="height:125px;">
-                                            
-                                        <table class="table table-head-fixed table-sm text-nowrap">
-                                            <div class="form-group input_fields_wrap">
-
-                                                <div class="input-group control-group">
-
-                                                <!-- <div id="dataShow_MasterFileRecord" style="border-style:solid; border-width:1px;"></div> -->
-                                                <div id="dataShow_ActionPanel"></div>
-                                                
-                                                </div>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <label class="card-title">
+                                                File Attachment
+                                            </label>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                    <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                                </button>
                                             </div>
-
-                                            </table>
-                                            
                                         </div>
-                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="{{ $log_FileUpload_Pointer_RefID }}" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID">
+                                                    <input type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" name="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" onchange="javascript: @php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord'); @endphp;" />
+                                                </div>
+                                                <br><br>
+                                                <div class="col-md-12">
+                                                    <div class="card-body table-responsive p-0" style="height:125px;">
 
+                                                        <table class="table table-head-fixed table-sm text-nowrap">
+                                                            <div class="form-group input_fields_wrap">
+
+                                                                <div class="input-group control-group">
+
+                                                                    <!-- <div id="dataShow_MasterFileRecord" style="border-style:solid; border-width:1px;"></div> -->
+                                                                    <div id="dataShow_ActionPanel"></div>
+
+                                                                </div>
+                                                            </div>
+
+                                                        </table>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
                                     </div>
-                                    </div>
-                                </div>
                                 </div>
                             </div>
                         </div>
@@ -91,7 +93,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
@@ -158,7 +160,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="row">
                             <div class="col-12">
@@ -178,12 +180,12 @@
                                         <table class="table table-head-fixed text-nowrap table-striped TableiSuppCart" id="TableiSuppCart">
                                             <thead>
                                                 <tr>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Action</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Work Id</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Product Id</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Product Name</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Qty</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">UOM</th>
+                                                    <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Note</th>
+                                                    <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Qty</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -191,13 +193,10 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="card-body table-responsive p-0 iSuppCart">
-                                        <table class="table table-head-fixed table-sm text-nowrap">
-                                            <tfoot>
-                                                <tr>
-                                                    <th style="color:brown;float:right;">Total i-Supp : <span id="TotalISupp"></span></th>
-                                                </tr>
-                                            </tfoot>
+                                    <div class="card-body AdvanceListCart">
+                                        <table style="float:right;">
+                                            <tr>
+                                                <th style="position: relative;right:15px;"> Total Item : <span id="TotalQty">
                                         </table>
                                     </div>
                                 </div>
