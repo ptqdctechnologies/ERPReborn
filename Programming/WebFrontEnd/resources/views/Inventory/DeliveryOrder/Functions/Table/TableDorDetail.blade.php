@@ -18,7 +18,7 @@
     </table>
 </div>
 
-<div class="card-body tableShowHideDor" >
+<div class="card-body tableShowHideDo" >
     <table style="float:right;">
         <tr>
             <th style="position: relative;right:20px;"> Total : <span id="TotalBudgetSelected"></span></th>

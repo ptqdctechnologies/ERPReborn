@@ -29,7 +29,7 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <label class="card-title">
-                                            Material Return Detail
+                                                Material Return Detail
                                             </label>
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -38,89 +38,6 @@
                                             </div>
                                         </div>
                                         @include('Inventory.MaterialReturn.Functions.Table.TableDorDetail')
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <label class="card-title">
-                                            Detail Material Return
-                                        </label>
-                                        <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                                <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="card-body table-responsive p-0" id="DetailMaterialReturn">
-                                        <table class="table text-nowrap table-sm" style="text-align: center;">
-                                            <thead>
-                                                <tr>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:15%;border:1px solid #e9ecef;">Work Id</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:15%;border:1px solid #e9ecef;">Product Id</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:20%;border:1px solid #e9ecef;">Product Name</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:10%;border:1px solid #e9ecef;">Qty</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:5%;border:1px solid #e9ecef;">UOM</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:10%;border:1px solid #e9ecef;">Unit Price</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:5%;border:1px solid #e9ecef;">Currency</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;width:20%;border:1px solid #e9ecef;">Remark</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <td style="border:1px solid #e9ecef;">
-                                                    <input id="putWorkId" style="border-radius:0;" type="text" class="form-control" readonly="">
-                                                </td>
-                                                <td style="border:1px solid #e9ecef;">
-                                                    <input id="putProductId" style="border-radius:0;" type="text" class="form-control" readonly="">
-                                                </td>
-                                                <td style="border:1px solid #e9ecef;">
-                                                    <input id="putProductName" style="border-radius:0;" type="text" class="form-control" readonly="">
-                                                </td>
-                                                <td style="border:1px solid #e9ecef;">
-                                                    <div class="input-group">
-                                                        <input id="qtyCek" style="border-radius:0;" type="text" class="form-control ChangeQty" autocomplete="off" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
-                                                        <input id="putQty" style="border-radius:0;" type="hidden" class="form-control">
-                                                    </div>
-                                                </td>
-                                                <td style="border:1px solid #e9ecef;">
-                                                    <div class="input-group">
-                                                        <input readonly id="putUom" style="border-radius:0;" type="text" class="form-control">
-                                                    </div>
-                                                </td>
-                                                <td style="border:1px solid #e9ecef;">
-                                                    <div class="input-group">
-                                                        <input id="priceCek" style="border-radius:0;" type="text" class="form-control" readonly="">
-                                                    </div>
-                                                </td>
-                                                <td style="border:1px solid #e9ecef;">
-                                                    <div class="input-group">
-                                                        <input readonly id="putCurrency" style="border-radius:0;" type="text" class="form-control">
-                                                    </div>
-                                                </td>
-                                                <td style="border:1px solid #e9ecef;">
-                                                    <input id="putRemark" style="border-radius:0;" type="text" class="form-control">
-                                                    <input id="putRemark2" style="border-radius:0;" type="hidden" class="form-control">
-                                                </td>
-
-                                                <input id="ValidateQuantity" style="border-radius:0;" type="hidden" class="form-control" readonly="">
-                                                <input id="statusEditMatRet" style="border-radius:0;" type="hidden" class="form-control" readonly="">
-                                                <input id="totalMret" style="border-radius:0;" type="hidden" class="form-control" readonly="">
-                                            </tbody>
-                                        </table>
-                                        <div style="padding-right:10px;padding-top:10px;">
-                                            <a class="btn btn-default btn-sm float-right" onclick="CancelDetailMatret()" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
-                                                <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel to Add Advance List Cart"> Cancel
-                                            </a>
-                                            <a class="btn btn-default btn-sm float-right" onclick="addFromDetailtoCartJs()" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                                                <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
-                                            </a>
-                                        </div>
-                                        <br><br><br>
                                     </div>
                                 </div>
                             </div>
@@ -144,16 +61,13 @@
                                         <table class="table text-nowrap table-sm TableMaterialReturn" id="TableMaterialReturn">
                                             <thead>
                                                 <tr>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Action</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Work Id</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Product Id</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Product Name</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Qty</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Uom</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Price</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Total</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Currency</th>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Description</th>
+                                                    <th>Trano</th>
+                                                    <th>Work Id</th>
+                                                    <th>Product Id</th>
+                                                    <th>Product Name</th>
+                                                    <th>Valuta</th>
+                                                    <th>Note</th>
+                                                    <th>Qty</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -161,13 +75,10 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="card-body table-responsive p-0 MaterialReturnList">
-                                        <table class="table table-head-fixed table-sm text-nowrap">
-                                        <tfoot>
+                                    <div class="card-body MaterialReturnList">
+                                        <table style="float:right;">
                                             <tr>
-                                            <th style="color:brown;float:right;">Total Material Return : <span id="TotalMaterialReturn"></span></th>
-                                            </tr>
-                                        </tfoot>
+                                                <th style="position: relative;right:20px;"> Total Item : <span id="TotalQty">
                                         </table>
                                     </div>
                                 </div>

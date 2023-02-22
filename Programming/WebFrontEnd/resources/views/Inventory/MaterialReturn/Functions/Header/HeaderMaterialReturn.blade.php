@@ -99,7 +99,7 @@
                                             <input id="delivery" name="delivery" class="form-control" readonly>
                                             <div class="input-group-append">
                                                 <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a href="#"><i id="delivery" data-toggle="modal" data-target="#myDelivery" class="fas fa-gift" style="color:grey;"></i></a>
+                                                    <a href="#"><i id="delivery" data-toggle="modal" data-target="#myDelivery" class="fas fa-gift myDelivery" style="color:grey;"></i></a>
                                                 </span>
                                             </div>
                                         </div>
@@ -117,7 +117,7 @@
                                             <input id="receive" name="receive" class="form-control" readonly>
                                             <div class="input-group-append">
                                                 <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a href="#"><i id="receive" data-toggle="modal" data-target="#myReceive" class="fas fa-gift" style="color:grey;"></i></a>
+                                                    <a href="#"><i id="receive" data-toggle="modal" data-target="#myReceive" class="fas fa-gift myReceive" style="color:grey;"></i></a>
                                                 </span>
                                             </div>
                                         </div>

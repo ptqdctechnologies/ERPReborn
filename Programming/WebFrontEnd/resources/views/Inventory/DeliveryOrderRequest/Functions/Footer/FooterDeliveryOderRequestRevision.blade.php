@@ -68,8 +68,6 @@
 
     //GET PR DATA 
 
-    //GET BUDGET
-
     var var_recordID = $("#var_recordID").val();
     var pr_number = $("#pr_number").val();
 

@@ -76,6 +76,8 @@ class iSuppController extends Controller
 
     public function store(Request $request)
     {
+        $input = $request->all();
+        dd($input);
     }
 
     public function ISuppListData(Request $request)
@@ -145,6 +147,7 @@ class iSuppController extends Controller
         // dd($varDataAdvanceRevision['data'][0]['document']['content']['itemList']['ungrouped'][0]);
         $compact = [
             'dataAdvanceRevisions' => $varDataAdvanceRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
+            'log_FileUpload_Pointer_RefID' => $varDataAdvanceRevision['data'][0]['document']['content']['attachmentFiles']['main']['log_FileUpload_Pointer_RefID'],
             'dataRequester' => $varDataAdvanceRevision['data'][0]['document']['content']['involvedPersons']['requester'],
             'var_recordID' => $request->searchiSuppNumberRevisionId,
             'varAPIWebToken' => $varAPIWebToken,
@@ -158,6 +161,8 @@ class iSuppController extends Controller
     }
     public function update(Request $request, $id)
     {
+        $input = $request->all();
+        dd($input);
         $compact = [
             "status"=>true,
         ];

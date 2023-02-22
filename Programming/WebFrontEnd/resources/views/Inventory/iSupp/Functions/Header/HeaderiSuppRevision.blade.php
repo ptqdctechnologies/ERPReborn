@@ -95,10 +95,10 @@
                                     <td style="padding-top: 5px;"><label>Warehouse</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="warehouse1" style="border-radius:0;" name="warehouse1" class="form-control" readonly value="{{$dataAdvanceRevisions['entities']['remarks']}}">
+                                            <input id="headerWarehouse1" style="border-radius:0;" name="headerWarehouse1" class="form-control" readonly value="{{$dataAdvanceRevisions['entities']['remarks']}}">
                                             <div class="input-group-append">
                                                 <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a href="#"><i id="customerPopUp" data-toggle="modal" data-target="#mySearchWarehouse1" class="fas fa-gift" style="color:grey;"></i></a>
+                                                    <a href="#"><i id="customerPopUp" data-toggle="modal" data-target="#mySearchWarehouse1" class="fas fa-gift mySearchWarehouse1" style="color:grey;"></i></a>
                                                 </span>
                                             </div>
                                         </div>
@@ -156,10 +156,10 @@
                                     <td style="padding-top: 5px;"><label>Warehouse (From)</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="warehouse2" style="border-radius:0;" name="warehouse2" class="form-control" readonly>
+                                            <input id="headerWarehouse2" style="border-radius:0;" name="headerWarehouse2" class="form-control" readonly>
                                             <div class="input-group-append">
                                                 <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a href="#"><i id="customerPopUp" data-toggle="modal" data-target="#myCustomer" class="fas fa-gift" style="color:grey;"></i></a>
+                                                    <a href="#"><i id="customerPopUp" data-toggle="modal" data-target="#mySearchWarehouse2" class="fas fa-gift mySearchWarehouse2" style="color:grey;"></i></a>
                                                 </span>
                                             </div>
                                         </div>
@@ -170,10 +170,10 @@
                                     <td style="padding-top: 5px;"><label>Warehouse (Destination)</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="warehouse3" style="border-radius:0;" name="warehouse3" class="form-control" readonly>
+                                            <input id="headerWarehouse3" style="border-radius:0;" name="headerWarehouse3" class="form-control" readonly>
                                             <div class="input-group-append">
                                                 <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a href="#"><i id="customerPopUp" data-toggle="modal" data-target="#myCustomer" class="fas fa-gift" style="color:grey;"></i></a>
+                                                    <a href="#"><i id="customerPopUp" data-toggle="modal" data-target="#mySearchWarehouse3" class="fas fa-gift mySearchWarehouse3" style="color:grey;"></i></a>
                                                 </span>
                                             </div>
                                         </div>

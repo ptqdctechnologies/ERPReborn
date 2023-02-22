@@ -42,6 +42,16 @@
 
 <script>
     $(function() {
+        $('.myReceive').on('click', function(e) {
+            e.preventDefault();
+            $('#tableGetReceive').DataTable();
+        });
+    });
+</script>
+
+
+<script>
+    $(function() {
         $(".klikTableReceive").on('click', function(e) {
             e.preventDefault(); // in chase you change to a link or button
             var $this = $(this);
