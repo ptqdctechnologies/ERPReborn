@@ -12,7 +12,7 @@
         $(".amountCompanyCart").hide();
         $("#expenseCompanyCart").hide();
         $(".expenseCompanyCart").hide();
-        $("#tableShowHideBrfDetail").hide();
+        $(".tableShowHideBrfDetail").hide();
     });
 </script>
 
@@ -60,7 +60,7 @@
         var requester_RefID = reqId;
         var requester_name = reqName;
         $("#brf_number").val(docNum);
-        $("#tableShowHideBrfDetail").show();
+        $(".tableShowHideBrfDetail").show();
         $("#projectcode2").prop("disabled", true);
         $.ajaxSetup({
             headers: {

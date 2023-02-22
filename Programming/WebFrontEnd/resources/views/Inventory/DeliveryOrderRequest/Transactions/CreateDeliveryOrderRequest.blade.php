@@ -78,7 +78,7 @@
                                         </table>
                                     </div>
                                     
-                                    <div class="card-body AdvanceListCart">
+                                    <div class="card-body detailDorList">
                                         <table style="float:right;">
                                             <tr>
                                                 <th style="position: relative;right:30px;"> Total Item : <span id="TotalQty">

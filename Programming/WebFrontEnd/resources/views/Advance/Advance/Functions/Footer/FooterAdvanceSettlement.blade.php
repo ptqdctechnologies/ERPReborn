@@ -4,7 +4,7 @@
         $("#SaveAsfList").prop("disabled", true);
         $("#advance_number2").prop("disabled", true);
         $("#detailASF").hide();
-        $("#tableShowHideArfDetail").hide();
+        $(".tableShowHideArfDetail").hide();
         $("#amountCompanyCart").hide();
         $(".amountCompanyCart").hide();
         $("#expenseCompanyCart").hide();
@@ -55,7 +55,7 @@
         var requester_RefID = reqId;
         var requester_name = reqName;
         $("#advance_number").val(docNum);
-        $("#tableShowHideArfDetail").show();
+        $(".tableShowHideArfDetail").show();
         $("#projectcode2").prop("disabled", true);
         $.ajaxSetup({
             headers: {
