@@ -7,7 +7,7 @@
         $("#detailPR").hide();
         $("#detailDor").hide();
         $(".detailDorList").hide();
-        // $("#tableShowHideDor").hide();
+        $(".tableShowHideDor").hide();
         $("#headerPrNumber2").prop("disabled", true);
         $("#pr_number2").prop("disabled", true);
         $("#SubmitDor").prop("disabled", true);
@@ -58,7 +58,7 @@
         var requester_RefID = reqId;
         var requester_name = reqName;
         $("#pr_number").val(docNum);
-        $("#tableShowHideDor").show();
+        $(".tableShowHideDor").show();
         $("#projectcode2").prop("disabled", true);
         $.ajaxSetup({
             headers: {

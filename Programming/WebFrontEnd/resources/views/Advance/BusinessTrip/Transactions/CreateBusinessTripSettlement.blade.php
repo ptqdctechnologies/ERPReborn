@@ -162,7 +162,7 @@
                         </tbody>
                       </table>
                     </div>
-                    <div class="card-body AdvanceListCart">
+                    <div class="card-body expenseCompanyCart">
                         <table style="float:right;">
                           <tr>
                             <th style="position: relative;right:45px;"> Total Item : <span id="TotalQtyExpense"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="GrandTotalExpense"></span></th>
@@ -207,7 +207,7 @@
                         </tbody>
                       </table>
                     </div>
-                    <div class="card-body AdvanceListCart">
+                    <div class="card-body amountCompanyCart">
                       <table style="float:right;">
                         <tr>
                           <th style="position: relative;right:45px;"> Total Item : <span id="TotalQtyAmount"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="GrandTotalAmount"></span></th>

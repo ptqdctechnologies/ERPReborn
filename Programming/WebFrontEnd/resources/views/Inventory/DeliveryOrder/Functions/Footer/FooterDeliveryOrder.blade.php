@@ -7,7 +7,7 @@
         $("#detailPR").hide();
         $("#detailDo").hide();
         $(".detailDoList").hide();
-        // $("#tableShowHideDo").hide();
+        $(".tableShowHideDo").hide();
         $("#headerPrNumber2").prop("disabled", true);
         $("#transporter").css("background-color", "white");
         $("#searchDor").prop("disabled", true);
@@ -58,7 +58,7 @@
         var var_recordID = id;
         var trano = docNum;
         $("#dor_number").val(trano);
-        $("#tableShowHideDo").show();
+        $(".tableShowHideDo").show();
 
         $.ajaxSetup({
             headers: {

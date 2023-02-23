@@ -1,4 +1,4 @@
-<div class="wrapper-budget card-body table-responsive p-0" style="height: 230px;" id="tableShowHideSupp">
+<div class="wrapper-budget card-body table-responsive p-0 tableShowHideSupp" style="height: 230px;">
     <table class="table text-nowrap table-head-fixed table-striped tablePoDetailiSupp">
         <thead>
             <tr>

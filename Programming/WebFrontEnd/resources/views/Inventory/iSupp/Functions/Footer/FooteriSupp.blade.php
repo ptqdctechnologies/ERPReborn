@@ -7,7 +7,7 @@
         $("#FileReceipt").hide();
         $("#DetailiSupp").hide();
         $(".iSuppCart").hide();
-        $("#tableShowHideSupp").hide();
+        $(".tableShowHideSupp").hide();
         $("#headerPrNumber2").prop("disabled", true);
         $("#SubmitiSupp").prop("disabled", true);
         $("#addToPoDetail").prop("disabled", true);
@@ -25,7 +25,7 @@
 
         $('#addToPoDetail').on('click', function(e) {
             e.preventDefault(); // in chase you change to a link or button
-            $("#tableShowHideSupp").show();
+            $(".tableShowHideSupp").show();
             $("#FileReceipt").show();
             $("#addToPoDetail").prop("disabled", true);
 
