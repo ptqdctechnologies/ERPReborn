@@ -1,6 +1,5 @@
 <?php
 
-use Flare as FlareFacade;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\View;
 use Spatie\FlareClient\Flare;
@@ -19,13 +18,8 @@ beforeEach(function () {
 
     $this->fakeClient = new FakeClient();
 
-    app()->singleton(Flare::class, function () {
-        $flare = new Flare($this->fakeClient);
+    app()->singleton(Flare::class, fn () => new Flare($this->fakeClient));
 
-        $flare->sendReportsImmediately();
-
-        return $flare;
-    });
 
     $this->useTime('2019-01-01 12:34:56');
 
@@ -33,7 +27,9 @@ beforeEach(function () {
 });
 
 it('can manually report exceptions', function () {
-    FlareFacade::report(new Exception());
+    \Spatie\LaravelIgnition\Facades\Flare::sendReportsImmediately();
+
+    \Spatie\LaravelIgnition\Facades\Flare::report(new Exception());
 
     $this->fakeClient->assertRequestsSent(1);
 });

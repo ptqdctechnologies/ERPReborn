@@ -1,6 +1,60 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/ui/compare/v3.4.5...3.x)
+## [Unreleased](https://github.com/laravel/ui/compare/v4.2.0...4.x)
+
+## [v4.2.0](https://github.com/laravel/ui/compare/v4.1.1...v4.2.0) - 2023-01-10
+
+### Added
+
+- Add Laravel 10 support by @jnoordsij in https://github.com/laravel/ui/pull/246
+
+### Fixed
+
+- Update @vitejs/plugin-vue version by @asherawelan in https://github.com/laravel/ui/pull/245
+
+## [v4.1.1](https://github.com/laravel/ui/compare/v4.1.0...v4.1.1) - 2022-12-05
+
+### Changed
+
+- Bump Bootstrap dependencies by @PerryvanderMeer in https://github.com/laravel/ui/pull/243
+
+## [v4.1.0](https://github.com/laravel/ui/compare/v4.0.2...v4.1.0) - 2022-11-15
+
+### Added
+
+- Reactjs18 by @gqrlab in https://github.com/laravel/ui/pull/242
+
+## [v4.0.2](https://github.com/laravel/ui/compare/v4.0.1...v4.0.2) - 2022-09-09
+
+### Changed
+
+- Bump bootstrap version to latest by @kjoedion in https://github.com/laravel/ui/pull/237
+
+## [v4.0.1](https://github.com/laravel/ui/compare/v4.0.0...v4.0.1) - 2022-09-07
+
+### Changed
+
+- Update deprecated globing mechanism by @timacdonald in https://github.com/laravel/ui/pull/236
+
+## [v4.0.0](https://github.com/laravel/ui/compare/v3.4.6...v4.0.0) - 2022-07-25
+
+### Added
+
+- Vite by @jessarcher in https://github.com/laravel/ui/pull/228 and in https://github.com/laravel/ui/pull/231
+
+### Changed
+
+- Improves console output by @nunomaduro in https://github.com/laravel/ui/pull/233
+
+### Removed
+
+- Drop support for Laravel 8 and PHP 7.3 & 7.4 by @driesvints in https://github.com/laravel/ui/pull/232
+
+## [v3.4.6](https://github.com/laravel/ui/compare/v3.4.5...v3.4.6) - 2022-05-20
+
+### Fixes
+
+- Fixes AuthenticatesUsers always force remember me by @crynobone in https://github.com/laravel/ui/pull/227
 
 ## [v3.4.5](https://github.com/laravel/ui/compare/v3.4.4...v3.4.5) - 2022-02-22
 

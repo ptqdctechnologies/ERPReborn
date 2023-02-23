@@ -14,7 +14,7 @@ namespace Monolog\Handler;
 use Monolog\Formatter\ElasticaFormatter;
 use Monolog\Formatter\NormalizerFormatter;
 use Monolog\Test\TestCase;
-use Monolog\Logger;
+use Monolog\Level;
 use Elastica\Client;
 use Elastica\Request;
 use Elastica\Response;
@@ -27,12 +27,12 @@ class ElasticaHandlerTest extends TestCase
     /**
      * @var Client mock
      */
-    protected $client;
+    protected Client $client;
 
     /**
      * @var array Default handler options
      */
-    protected $options = [
+    protected array $options = [
         'index' => 'my_index',
         'type'  => 'doc_type',
     ];
@@ -67,15 +67,7 @@ class ElasticaHandlerTest extends TestCase
     public function testHandle()
     {
         // log message
-        $msg = [
-            'level' => Logger::ERROR,
-            'level_name' => 'ERROR',
-            'channel' => 'meh',
-            'context' => ['foo' => 7, 'bar', 'class' => new \stdClass],
-            'datetime' => new \DateTimeImmutable("@0"),
-            'extra' => [],
-            'message' => 'log',
-        ];
+        $msg = $this->getRecord(Level::Error, 'log', context: ['foo' => 7, 'bar', 'class' => new \stdClass], datetime: new \DateTimeImmutable("@0"));
 
         // format expected result
         $formatter = new ElasticaFormatter($this->options['index'], $this->options['type']);
@@ -154,10 +146,7 @@ class ElasticaHandlerTest extends TestCase
         }
     }
 
-    /**
-     * @return array
-     */
-    public function providerTestConnectionErrors()
+    public function providerTestConnectionErrors(): array
     {
         return [
             [false, ['RuntimeException', 'Error sending messages to Elasticsearch']],
@@ -175,17 +164,9 @@ class ElasticaHandlerTest extends TestCase
      */
     public function testHandleIntegrationNewESVersion()
     {
-        $msg = [
-            'level' => Logger::ERROR,
-            'level_name' => 'ERROR',
-            'channel' => 'meh',
-            'context' => ['foo' => 7, 'bar', 'class' => new \stdClass],
-            'datetime' => new \DateTimeImmutable("@0"),
-            'extra' => [],
-            'message' => 'log',
-        ];
+        $msg = $this->getRecord(Level::Error, 'log', context: ['foo' => 7, 'bar', 'class' => new \stdClass], datetime: new \DateTimeImmutable("@0"));
 
-        $expected = $msg;
+        $expected = (array) $msg;
         $expected['datetime'] = $msg['datetime']->format(\DateTime::ISO8601);
         $expected['context'] = [
             'class' => '[object] (stdClass: {})',
@@ -223,10 +204,9 @@ class ElasticaHandlerTest extends TestCase
 
     /**
      * Return last created document id from ES response
-     * @param  Response    $response Elastica Response object
-     * @return string|null
+     * @param Response $response Elastica Response object
      */
-    protected function getCreatedDocId(Response $response)
+    protected function getCreatedDocId(Response $response): ?string
     {
         $data = $response->getData();
 
@@ -241,13 +221,10 @@ class ElasticaHandlerTest extends TestCase
 
     /**
      * Retrieve document by id from Elasticsearch
-     * @param  Client  $client     Elastica client
-     * @param  string  $index
-     * @param  ?string $type
-     * @param  string  $documentId
-     * @return array
+     * @param Client  $client Elastica client
+     * @param ?string $type
      */
-    protected function getDocSourceFromElastic(Client $client, $index, $type, $documentId)
+    protected function getDocSourceFromElastic(Client $client, string $index, $type, string $documentId): array
     {
         if ($type === null) {
             $path  = "/{$index}/_doc/{$documentId}";

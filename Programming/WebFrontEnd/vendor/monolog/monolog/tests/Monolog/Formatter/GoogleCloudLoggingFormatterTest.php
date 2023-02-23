@@ -21,7 +21,7 @@ class GoogleCloudLoggingFormatterTest extends TestCase
      * @test
      *
      * @covers \Monolog\Formatter\JsonFormatter
-     * @covers \Monolog\Formatter\GoogleCloudLoggingFormatter::format
+     * @covers \Monolog\Formatter\GoogleCloudLoggingFormatter::normalizeRecord
      */
     public function formatProvidesRfc3339Timestamps(): void
     {
@@ -31,14 +31,14 @@ class GoogleCloudLoggingFormatterTest extends TestCase
         $formatted_decoded = json_decode($formatter->format($record), true);
         $this->assertArrayNotHasKey("datetime", $formatted_decoded);
         $this->assertArrayHasKey("time", $formatted_decoded);
-        $this->assertSame($record['datetime']->format(DateTimeInterface::RFC3339_EXTENDED), $formatted_decoded["time"]);
+        $this->assertSame($record->datetime->format(DateTimeInterface::RFC3339_EXTENDED), $formatted_decoded["time"]);
     }
 
     /**
      * @test
      *
      * @covers \Monolog\Formatter\JsonFormatter
-     * @covers \Monolog\Formatter\GoogleCloudLoggingFormatter::format
+     * @covers \Monolog\Formatter\GoogleCloudLoggingFormatter::normalizeRecord
      */
     public function formatIntroducesLogSeverity(): void
     {
@@ -49,6 +49,6 @@ class GoogleCloudLoggingFormatterTest extends TestCase
         $this->assertArrayNotHasKey("level", $formatted_decoded);
         $this->assertArrayNotHasKey("level_name", $formatted_decoded);
         $this->assertArrayHasKey("severity", $formatted_decoded);
-        $this->assertSame($record['level_name'], $formatted_decoded["severity"]);
+        $this->assertSame($record->level->getName(), $formatted_decoded["severity"]);
     }
 }

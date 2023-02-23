@@ -7,7 +7,10 @@ use Illuminate\Contracts\Mail\Attachable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Mail\Attachment;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Mail\Mailer;
+use Illuminate\Mail\Markdown;
 use Illuminate\Mail\Transport\ArrayTransport;
 use Mockery as m;
 use PHPUnit\Framework\AssertionFailedError;
@@ -436,6 +439,52 @@ class MailMailableTest extends TestCase
         }
     }
 
+    public function testMailableSetsMarkdownThemeCorrectly()
+    {
+        $viewFactory = m::mock(Factory::class);
+        $viewFactory->shouldReceive('flushFinderCache');
+        $viewFactory->shouldReceive('replaceNamespace')->andReturnSelf();
+        $viewFactory->shouldReceive('make')->andReturnSelf();
+        $viewFactory->shouldReceive('render')->andReturn('<html></html>', 'body {}');
+        $viewFactory->shouldReceive('exists')->andReturn(true);
+
+        Container::getInstance()->instance(Factory::class, $viewFactory);
+        Container::getInstance()->singleton(Markdown::class);
+        Container::getInstance()->instance('mailer', new class
+        {
+            public function render()
+            {
+                //
+            }
+        });
+
+        (new class() extends Mailable
+        {
+            public $theme = 'custom-theme';
+
+            public function content()
+            {
+                return new Content(
+                    markdown: 'mail.markdown',
+                );
+            }
+        })->render();
+
+        $this->assertEquals('custom-theme', Container::getInstance()->make(Markdown::class)->getTheme());
+
+        (new class() extends Mailable
+        {
+            public function content()
+            {
+                return new Content(
+                    markdown: 'mail.markdown',
+                );
+            }
+        })->render();
+
+        $this->assertEquals('default', Container::getInstance()->make(Markdown::class)->getTheme());
+    }
+
     public function testMailableSetsSubjectCorrectly()
     {
         $mailable = new WelcomeMailableStub;
@@ -728,6 +777,85 @@ class MailMailableTest extends TestCase
                 'mime' => 'image/png',
             ],
         ], $mailable->rawAttachments[0]);
+    }
+
+    public function testItCanJitNameAttachments()
+    {
+        $mailable = new WelcomeMailableStub;
+        $unnamedAttachable = new class() implements Attachable
+        {
+            public function toMailAttachment()
+            {
+                return Attachment::fromData(fn () => 'bar')->withMime('image/png');
+            }
+        };
+
+        $mailable->attach($unnamedAttachable, ['as' => 'foo.jpg']);
+
+        $this->assertSame([
+            'data' => 'bar',
+            'name' => 'foo.jpg',
+            'options' => [
+                'mime' => 'image/png',
+            ],
+        ], $mailable->rawAttachments[0]);
+    }
+
+    public function testHasAttachmentWithJitNamedAttachment()
+    {
+        $mailable = new WelcomeMailableStub;
+        $unnamedAttachable = new class() implements Attachable
+        {
+            public function toMailAttachment()
+            {
+                return Attachment::fromData(fn () => 'bar')->withMime('image/png');
+            }
+        };
+
+        $mailable->attach($unnamedAttachable, ['as' => 'foo.jpg']);
+
+        $this->assertTrue($mailable->hasAttachment($unnamedAttachable, ['as' => 'foo.jpg']));
+    }
+
+    public function testHasAttachmentWithEnvelopeAttachments()
+    {
+        Container::getInstance()->instance('mailer', new class
+        {
+            public function render()
+            {
+                //
+            }
+        });
+        $mailable = new class extends Mailable
+        {
+            public function envelope()
+            {
+                return new Envelope();
+            }
+
+            public function attachments()
+            {
+                return [
+                    Attachment::fromData(fn () => 'bar')
+                        ->withMime('image/png')
+                        ->as('foo.jpg'),
+                ];
+            }
+        };
+        $unnamedAttachable = new class() implements Attachable
+        {
+            public function toMailAttachment()
+            {
+                return Attachment::fromData(fn () => 'bar');
+            }
+        };
+
+        $mailable->render();
+
+        $this->assertFalse($mailable->hasAttachment($unnamedAttachable));
+        $this->assertFalse($mailable->hasAttachment($unnamedAttachable, ['as' => 'foo.jpg']));
+        $this->assertFalse($mailable->hasAttachment($unnamedAttachable, ['mime' => 'image/png']));
+        $this->assertTrue($mailable->hasAttachment($unnamedAttachable, ['as' => 'foo.jpg', 'mime' => 'image/png']));
     }
 
     public function testItCanCheckForPathBasedAttachments()

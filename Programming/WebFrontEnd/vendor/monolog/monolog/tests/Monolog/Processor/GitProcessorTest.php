@@ -11,6 +11,7 @@
 
 namespace Monolog\Processor;
 
+use Monolog\Level;
 use Monolog\Test\TestCase;
 
 class GitProcessorTest extends TestCase
@@ -23,7 +24,18 @@ class GitProcessorTest extends TestCase
         $processor = new GitProcessor();
         $record = $processor($this->getRecord());
 
-        $this->assertArrayHasKey('git', $record['extra']);
-        $this->assertTrue(!is_array($record['extra']['git']['branch']));
+        $this->assertArrayHasKey('git', $record->extra);
+        $this->assertTrue(!is_array($record->extra['git']['branch']));
+    }
+
+    /**
+     * @covers Monolog\Processor\GitProcessor::__invoke
+     */
+    public function testProcessorWithLevel()
+    {
+        $processor = new GitProcessor(Level::Error);
+        $record = $processor($this->getRecord());
+
+        $this->assertArrayNotHasKey('git', $record->extra);
     }
 }
