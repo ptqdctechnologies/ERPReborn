@@ -1,6 +1,41 @@
 # Release Notes for 9.x
 
-## [Unreleased](https://github.com/laravel/framework/compare/v9.51.0...9.x)
+## [Unreleased](https://github.com/laravel/framework/compare/v9.52.2...9.x)
+
+
+## [v9.52.2](https://github.com/laravel/framework/compare/v9.52.1...v9.52.2) - 2023-02-21
+
+### Fixed
+- Fixed `Illuminate/Collections/Arr::shuffle()` with empty array ([0c6cae0](https://github.com/laravel/framework/commit/0c6cae0ef647158b9554cad05ff39db7e7ad0d33))
+
+
+## [v9.52.1](https://github.com/laravel/framework/compare/v9.52.0...v9.52.1) - 2023-02-21
+
+### Changed
+- Use secure randomness in Arr:random and Arr:shuffle ([#46105](https://github.com/laravel/framework/pull/46105))
+
+
+## [v9.52.0](https://github.com/laravel/framework/compare/v9.51.0...v9.52.0) - 2023-02-14
+
+### Added
+- Added methods to Enumerable contract ([#46021](https://github.com/laravel/framework/pull/46021))
+- Added new mailer transport for AWS SES V2 API ([#45977](https://github.com/laravel/framework/pull/45977))
+- Add S3 temporaryUploadUrl method to AwsS3V3Adapter ([#45753](https://github.com/laravel/framework/pull/45753))
+- Add index hinting support to query builder ([#46063](https://github.com/laravel/framework/pull/46063))
+- Add mailer name to data for SentMessage and MessageSending events ([#46079](https://github.com/laravel/framework/pull/46079))
+- Added --pending option to migrate:status ([#46089](https://github.com/laravel/framework/pull/46089))
+
+### Fixed
+- Fixed pdo exception when rollbacking without active transaction ([#46017](https://github.com/laravel/framework/pull/46017))
+- Fix duplicated columns on select ([#46049](https://github.com/laravel/framework/pull/46049))
+- Fixes memory leak on anonymous migrations ([№46073](https://github.com/laravel/framework/pull/46073))
+- Fixed race condition in locks issued by the file cache driver ([#46011](https://github.com/laravel/framework/pull/46011))
+
+### Changed
+- Allow choosing tables to truncate in `Illuminate/Foundation/Testing/DatabaseTruncation::truncateTablesForConnection()` ([#46025](https://github.com/laravel/framework/pull/46025))
+- Update afterPromptingForMissingArguments method ([#46052](https://github.com/laravel/framework/pull/46052))
+- Accept closure in bus assertion helpers ([#46075](https://github.com/laravel/framework/pull/46075))
+- Avoid mutating the $expectedLitener between loops on Event::assertListening ([#46095](https://github.com/laravel/framework/pull/46095))
 
 
 ## [v9.51.0](https://github.com/laravel/framework/compare/v9.50.2...v9.51.0) - 2023-02-07

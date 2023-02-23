@@ -3427,6 +3427,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Aws\\TimestreamQuery\\TimestreamQueryClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/TimestreamQuery/TimestreamQueryClient.php',
         'Aws\\TimestreamWrite\\Exception\\TimestreamWriteException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/TimestreamWrite/Exception/TimestreamWriteException.php',
         'Aws\\TimestreamWrite\\TimestreamWriteClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/TimestreamWrite/TimestreamWriteClient.php',
+        'Aws\\Tnb\\Exception\\TnbException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Tnb/Exception/TnbException.php',
+        'Aws\\Tnb\\TnbClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Tnb/TnbClient.php',
         'Aws\\Token\\BearerTokenAuthorization' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Token/BearerTokenAuthorization.php',
         'Aws\\Token\\ParsesIniTrait' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Token/ParsesIniTrait.php',
         'Aws\\Token\\RefreshableTokenProviderInterface' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Token/RefreshableTokenProviderInterface.php',

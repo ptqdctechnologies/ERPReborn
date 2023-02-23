@@ -2828,6 +2828,8 @@ return array(
     'Aws\\TimestreamQuery\\TimestreamQueryClient' => $vendorDir . '/aws/aws-sdk-php/src/TimestreamQuery/TimestreamQueryClient.php',
     'Aws\\TimestreamWrite\\Exception\\TimestreamWriteException' => $vendorDir . '/aws/aws-sdk-php/src/TimestreamWrite/Exception/TimestreamWriteException.php',
     'Aws\\TimestreamWrite\\TimestreamWriteClient' => $vendorDir . '/aws/aws-sdk-php/src/TimestreamWrite/TimestreamWriteClient.php',
+    'Aws\\Tnb\\Exception\\TnbException' => $vendorDir . '/aws/aws-sdk-php/src/Tnb/Exception/TnbException.php',
+    'Aws\\Tnb\\TnbClient' => $vendorDir . '/aws/aws-sdk-php/src/Tnb/TnbClient.php',
     'Aws\\Token\\BearerTokenAuthorization' => $vendorDir . '/aws/aws-sdk-php/src/Token/BearerTokenAuthorization.php',
     'Aws\\Token\\ParsesIniTrait' => $vendorDir . '/aws/aws-sdk-php/src/Token/ParsesIniTrait.php',
     'Aws\\Token\\RefreshableTokenProviderInterface' => $vendorDir . '/aws/aws-sdk-php/src/Token/RefreshableTokenProviderInterface.php',
