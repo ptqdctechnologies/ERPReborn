@@ -13,7 +13,7 @@ trait GuardHelpers
     /**
      * The currently authenticated user.
      *
-     * @var \Illuminate\Contracts\Auth\Authenticatable
+     * @var \Illuminate\Contracts\Auth\Authenticatable|null
      */
     protected $user;
 
@@ -86,7 +86,7 @@ trait GuardHelpers
      * Set the current user.
      *
      * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
-     * @return $this
+     * @return void
      */
     public function setUser(AuthenticatableContract $user)
     {

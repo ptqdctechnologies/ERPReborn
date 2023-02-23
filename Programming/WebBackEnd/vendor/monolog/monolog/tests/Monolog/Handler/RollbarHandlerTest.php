@@ -13,7 +13,7 @@ namespace Monolog\Handler;
 
 use Exception;
 use Monolog\Test\TestCase;
-use Monolog\Logger;
+use Monolog\Level;
 use PHPUnit\Framework\MockObject\MockObject;
 use Rollbar\RollbarLogger;
 
@@ -27,15 +27,9 @@ use Rollbar\RollbarLogger;
  */
 class RollbarHandlerTest extends TestCase
 {
-    /**
-     * @var MockObject
-     */
-    private $rollbarLogger;
+    private RollbarLogger&MockObject $rollbarLogger;
 
-    /**
-     * @var array
-     */
-    private $reportedExceptionArguments = null;
+    private array $reportedExceptionArguments;
 
     protected function setUp(): void
     {
@@ -59,21 +53,21 @@ class RollbarHandlerTest extends TestCase
     {
         $handler = $this->createHandler();
 
-        $handler->handle($this->createExceptionRecord(Logger::DEBUG));
+        $handler->handle($this->createExceptionRecord(Level::Debug));
 
         $this->assertEquals('debug', $this->reportedExceptionArguments['payload']['level']);
     }
 
     private function setupRollbarLoggerMock()
     {
-        $config = array(
+        $config = [
             'access_token' => 'ad865e76e7fb496fab096ac07b1dbabb',
             'environment' => 'test',
-        );
+        ];
 
         $this->rollbarLogger = $this->getMockBuilder(RollbarLogger::class)
-            ->setConstructorArgs(array($config))
-            ->onlyMethods(array('log'))
+            ->setConstructorArgs([$config])
+            ->onlyMethods(['log'])
             ->getMock();
 
         $this->rollbarLogger
@@ -86,10 +80,10 @@ class RollbarHandlerTest extends TestCase
 
     private function createHandler(): RollbarHandler
     {
-        return new RollbarHandler($this->rollbarLogger, Logger::DEBUG);
+        return new RollbarHandler($this->rollbarLogger, Level::Debug);
     }
 
-    private function createExceptionRecord($level = Logger::DEBUG, $message = 'test', $exception = null): array
+    private function createExceptionRecord($level = Level::Debug, $message = 'test', $exception = null): array
     {
         return $this->getRecord($level, $message, [
             'exception' => $exception ?: new Exception(),

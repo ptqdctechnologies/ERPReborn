@@ -18,10 +18,6 @@ jobs:
 
       matrix:
         php-version:
-          - "7.2"
-          - "7.3"
-          - "7.4"
-          - "8.0"
           - "8.1"
 
         dependencies: [highest]
@@ -32,9 +28,6 @@ jobs:
           - "ubuntu-latest"
 
         include:
-          - php-version: "7.2"
-            dependencies: lowest
-            operating-system: ubuntu-latest
           - php-version: "8.1"
             dependencies: lowest
             operating-system: ubuntu-latest
@@ -108,10 +101,6 @@ jobs:
           - "ubuntu-latest"
 
         php-version:
-          - "7.2"
-          - "7.3"
-          - "7.4"
-          - "8.0"
           - "8.1"
 
         dependencies:
@@ -121,16 +110,6 @@ jobs:
         es-version:
           - "7.0.0"
           - "7.17.0"
-
-        exclude:
-          # php 7.3 is required
-          - php-version: "7.2"
-            es-version: "7.17.0"
-          # tests failing due an error in deprecated guzzlehttp/ringphp
-          - php-version: "7.3"
-            es-version: "7.0.0"
-          - php-version: "7.4"
-            es-version: "7.0.0"
 
     steps:
       - name: "Checkout"
@@ -198,9 +177,6 @@ jobs:
           - "ubuntu-latest"
 
         php-version:
-          # ES 8 requires PHP 7.4+
-          - "7.4"
-          - "8.0"
           - "8.1"
 
         dependencies:

@@ -1,5 +1,26 @@
 # CHANGELOG
 
+## 3.260.1 - 2023-02-22
+
+* `Aws\ChimeSDKVoice` - This release introduces support for Voice Connector media metrics in the Amazon Chime SDK Voice namespace
+* `Aws\CloudFront` - CloudFront now supports block lists in origin request policies so that you can forward all headers, cookies, or query string from viewer requests to the origin *except* for those specified in the block list.
+* `Aws\CloudWatchRUM` - CloudWatch RUM now supports CloudWatch Custom Metrics
+* `Aws\DataSync` - AWS DataSync has relaxed the minimum length constraint of AccessKey for Object Storage locations to 1.
+* `Aws\OpenSearchService` - This release lets customers configure Off-peak window and software update related properties for a new/existing domain. It enhances the capabilities of StartServiceSoftwareUpdate API; adds 2 new APIs - ListScheduledActions & UpdateScheduledAction; and allows Auto-tune to make use of Off-peak window.
+* `Aws\SSM` - Document only update for Feb 2023
+
+## 3.260.0 - 2023-02-21
+
+* `Aws\QuickSight` - S3 data sources now accept a custom IAM role.
+* `Aws\ResilienceHub` - In this release we improved resilience hub application creation and maintenance by introducing new resource and app component crud APIs, improving visibility and maintenance of application input sources and added support for additional information attributes to be provided by customers.
+* `Aws\SecurityHub` - Documentation updates for AWS Security Hub
+* `Aws\Tnb` - This is the initial SDK release for AWS Telco Network Builder (TNB). AWS Telco Network Builder is a network automation service that helps you deploy and manage telecom networks.
+
+## 3.259.1 - 2023-02-20
+
+* `Aws\AuditManager` - This release introduces a ServiceQuotaExceededException to the UpdateAssessmentFrameworkShare API operation.
+* `Aws\Connect` - Reasons for failed diff has been approved by SDK Reviewer
+
 ## 3.259.0 - 2023-02-17
 
 * `Aws\` - Emit a warning to users on PHP versions 7.2.4 and below that we are ending support for this language version on 08/15/2023
