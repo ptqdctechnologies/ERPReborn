@@ -620,9 +620,9 @@
             'dev_requirement' => true,
         ),
         'phpunit/phpunit' => array(
-            'pretty_version' => '8.5.32',
-            'version' => '8.5.32.0',
-            'reference' => '375686930d05c9fd7d20f6e5fc38121e8d7a9d55',
+            'pretty_version' => '8.5.33',
+            'version' => '8.5.33.0',
+            'reference' => '7d1ff0e8c6b35db78ff13e3e05517d7cbf7aa32e',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpunit/phpunit',
             'aliases' => array(),
