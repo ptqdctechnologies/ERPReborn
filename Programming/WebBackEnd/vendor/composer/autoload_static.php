@@ -3004,6 +3004,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Aws\\Inspector2\\Inspector2Client' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Inspector2/Inspector2Client.php',
         'Aws\\Inspector\\Exception\\InspectorException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Inspector/Exception/InspectorException.php',
         'Aws\\Inspector\\InspectorClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Inspector/InspectorClient.php',
+        'Aws\\InternetMonitor\\Exception\\InternetMonitorException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/InternetMonitor/Exception/InternetMonitorException.php',
+        'Aws\\InternetMonitor\\InternetMonitorClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/InternetMonitor/InternetMonitorClient.php',
         'Aws\\IoT1ClickDevicesService\\Exception\\IoT1ClickDevicesServiceException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/IoT1ClickDevicesService/Exception/IoT1ClickDevicesServiceException.php',
         'Aws\\IoT1ClickDevicesService\\IoT1ClickDevicesServiceClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/IoT1ClickDevicesService/IoT1ClickDevicesServiceClient.php',
         'Aws\\IoT1ClickProjects\\Exception\\IoT1ClickProjectsException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/IoT1ClickProjects/Exception/IoT1ClickProjectsException.php',

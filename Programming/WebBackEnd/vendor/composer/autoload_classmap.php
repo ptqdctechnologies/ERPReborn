@@ -2406,6 +2406,8 @@ return array(
     'Aws\\Inspector2\\Inspector2Client' => $vendorDir . '/aws/aws-sdk-php/src/Inspector2/Inspector2Client.php',
     'Aws\\Inspector\\Exception\\InspectorException' => $vendorDir . '/aws/aws-sdk-php/src/Inspector/Exception/InspectorException.php',
     'Aws\\Inspector\\InspectorClient' => $vendorDir . '/aws/aws-sdk-php/src/Inspector/InspectorClient.php',
+    'Aws\\InternetMonitor\\Exception\\InternetMonitorException' => $vendorDir . '/aws/aws-sdk-php/src/InternetMonitor/Exception/InternetMonitorException.php',
+    'Aws\\InternetMonitor\\InternetMonitorClient' => $vendorDir . '/aws/aws-sdk-php/src/InternetMonitor/InternetMonitorClient.php',
     'Aws\\IoT1ClickDevicesService\\Exception\\IoT1ClickDevicesServiceException' => $vendorDir . '/aws/aws-sdk-php/src/IoT1ClickDevicesService/Exception/IoT1ClickDevicesServiceException.php',
     'Aws\\IoT1ClickDevicesService\\IoT1ClickDevicesServiceClient' => $vendorDir . '/aws/aws-sdk-php/src/IoT1ClickDevicesService/IoT1ClickDevicesServiceClient.php',
     'Aws\\IoT1ClickProjects\\Exception\\IoT1ClickProjectsException' => $vendorDir . '/aws/aws-sdk-php/src/IoT1ClickProjects/Exception/IoT1ClickProjectsException.php',
