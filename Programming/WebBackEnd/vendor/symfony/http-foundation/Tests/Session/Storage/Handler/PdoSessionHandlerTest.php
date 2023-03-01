@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
 
 /**
  * @requires extension pdo_sqlite
+ *
  * @group time-sensitive
  */
 class PdoSessionHandlerTest extends TestCase
@@ -326,7 +327,7 @@ class PdoSessionHandlerTest extends TestCase
         }
     }
 
-    public function provideUrlDsnPairs()
+    public static function provideUrlDsnPairs()
     {
         yield ['mysql://localhost/test', 'mysql:host=localhost;dbname=test;'];
         yield ['mysql://localhost/test?charset=utf8mb4', 'mysql:charset=utf8mb4;host=localhost;dbname=test;'];

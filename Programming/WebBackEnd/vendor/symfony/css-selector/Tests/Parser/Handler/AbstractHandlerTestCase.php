@@ -19,7 +19,7 @@ use Symfony\Component\CssSelector\Parser\TokenStream;
 /**
  * @author Jean-François Simon <contact@jfsimon.fr>
  */
-abstract class AbstractHandlerTest extends TestCase
+abstract class AbstractHandlerTestCase extends TestCase
 {
     /** @dataProvider getHandleValueTestData */
     public function testHandleValue($value, Token $expectedToken, $remainingContent)
@@ -43,9 +43,9 @@ abstract class AbstractHandlerTest extends TestCase
         $this->assertRemainingContent($reader, $value);
     }
 
-    abstract public function getHandleValueTestData();
+    abstract public static function getHandleValueTestData();
 
-    abstract public function getDontHandleValueTestData();
+    abstract public static function getDontHandleValueTestData();
 
     abstract protected function generateHandler();
 
