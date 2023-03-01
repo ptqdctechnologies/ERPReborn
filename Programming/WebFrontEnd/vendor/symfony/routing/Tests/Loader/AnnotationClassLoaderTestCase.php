@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Routing\Loader\AnnotationClassLoader;
 use Symfony\Component\Routing\Tests\Fixtures\AnnotationFixtures\AbstractClassController;
 
-abstract class AnnotationClassLoaderTest extends TestCase
+abstract class AnnotationClassLoaderTestCase extends TestCase
 {
     /**
      * @var AnnotationClassLoader
@@ -30,7 +30,7 @@ abstract class AnnotationClassLoaderTest extends TestCase
         $this->assertSame($expectedSupports, $this->loader->supports($resource), '->supports() returns true if the resource is loadable');
     }
 
-    public function provideTestSupportsChecksResource()
+    public static function provideTestSupportsChecksResource()
     {
         return [
             ['class', true],
