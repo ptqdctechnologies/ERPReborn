@@ -437,11 +437,11 @@
                 </li> -->
 
                 <li class="nav-item has-treeview">
-                    @if(in_array("Module.Finance.Advance.Transaction.Create", $privilageMenu, TRUE) || in_array("Module.Finance.AdvanceSettlement.Transaction.Create", $privilageMenu, TRUE) || in_array("Module.HumanResource.PersonBusinessTrip.Transaction.Create", $privilageMenu, TRUE) || in_array("Module.HumanResource.PersonBusinessTripSettlement.Transaction.Create", $privilageMenu, TRUE))        
+                    @if(in_array("Module.Finance.Advance.Transaction.Create", $privilageMenu, TRUE) || in_array("Module.Finance.AdvanceSettlement.Transaction.Create", $privilageMenu, TRUE) || in_array("Module.HumanResource.PersonBusinessTrip.Transaction.Create", $privilageMenu, TRUE) || in_array("Module.HumanResource.PersonBusinessTripSettlement.Transaction.Create", $privilageMenu, TRUE))
                     <a href="#" class="nav-link">
                         <i class="nav-icon-sm fas fa-shopping-basket" style="color:#e9ecef;"></i>
                         <label>
-                            Advance 
+                            Advance
                         </label>
                         <i class="right fas fa-angle-left"></i>
                     </a>
@@ -602,7 +602,7 @@
                                     <ul class="nav nav-treeview">
                                         @if(in_array("Module.HumanResource.PersonBusinessTrip.Transaction.Create", $privilageMenu, TRUE))
                                         <li class="nav-item">
-                                            <a href="{{ route('BusinessTripRequest.index') }}?var=1"" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="{{ route('BusinessTripRequest.index') }}?var=1"" class=" nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Business Trip Request</label>
                                             </a>
@@ -610,7 +610,7 @@
                                         @endif
                                         @if(in_array("Module.HumanResource.PersonBusinessTripSettlement.Transaction.Create", $privilageMenu, TRUE))
                                         <li class="nav-item">
-                                            <a href="{{ route('BusinessTripSettlement.index') }}?var=1"" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="{{ route('BusinessTripSettlement.index') }}?var=1"" class=" nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Business Trip Settlement</label>
                                             </a>
@@ -1675,6 +1675,57 @@
                                             </a>
                                         </li>
                                     </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon-sm fas fa-chart-line" style="color:#e9ecef;"></i>
+                        <label>
+                            Admin
+                        </label>
+                        <i class="right fas fa-angle-left"></i>
+                    </a>
+
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">&nbsp;
+                                <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
+                                <label>Workflow</label>
+                                <i class="right fas fa-angle-left"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('CO.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
+                                        <label>Document</label>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('CO.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
+                                        <label>Nominal Limit</label>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('CO.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
+                                        <label>Notification</label>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('Workflow.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
+                                        <label>Workflow</label>
+                                    </a>
                                 </li>
                             </ul>
                         </li>

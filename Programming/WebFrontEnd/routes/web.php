@@ -256,6 +256,10 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('MaterialReturn', 'Inventory\MaterialReturnController');
 
 
+    // Workflow
+    Route::get('WorkflowRoute', 'Admin\Workflow\WorkflowController@WorkflowRoute')->name('Workflow.WorkflowRoute');
+    Route::resource('Workflow', 'Admin\Workflow\WorkflowController');
+
 
 
 
