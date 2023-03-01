@@ -29,6 +29,7 @@
         "spatie/laravel-ignition": "^2.0",
         "swaggest/json-schema": "^0.12.31",
         "symfony/console": "^6.0",
+        "symfony/deprecation-contracts": "*",
         "symfony/event-dispatcher-contracts": "*",
         "symfony/google-mailer": "^6.0",
         "symfony/http-foundation": "^6.0",
