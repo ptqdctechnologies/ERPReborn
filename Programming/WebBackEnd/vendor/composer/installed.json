@@ -8800,12 +8800,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation-contracts.git",
-                "reference": "1f40e77fbb12a16d841688f42fecefd8ceb43ed6"
+                "reference": "dfec258b9dd17a6b24420d464c43bffe347441c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/1f40e77fbb12a16d841688f42fecefd8ceb43ed6",
-                "reference": "1f40e77fbb12a16d841688f42fecefd8ceb43ed6",
+                "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/dfec258b9dd17a6b24420d464c43bffe347441c8",
+                "reference": "dfec258b9dd17a6b24420d464c43bffe347441c8",
                 "shasum": ""
             },
             "require": {
@@ -8814,7 +8814,7 @@
             "suggest": {
                 "symfony/translation-implementation": ""
             },
-            "time": "2023-02-16T12:50:33+00:00",
+            "time": "2023-03-01T10:32:47+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {

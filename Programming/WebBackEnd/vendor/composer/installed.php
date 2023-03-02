@@ -1352,7 +1352,7 @@
         'symfony/translation-contracts' => array(
             'pretty_version' => 'v3.2.1',
             'version' => '3.2.1.0',
-            'reference' => '1f40e77fbb12a16d841688f42fecefd8ceb43ed6',
+            'reference' => 'dfec258b9dd17a6b24420d464c43bffe347441c8',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/translation-contracts',
             'aliases' => array(),
