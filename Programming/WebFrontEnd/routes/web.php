@@ -256,6 +256,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
 
     // Workflow
+    Route::post('WorkflowRoute/store', 'Admin\Workflow\WorkflowController@WorkflowRouteStore')->name('Workflow.WorkflowRouteStore');
     Route::get('WorkflowRoute', 'Admin\Workflow\WorkflowController@WorkflowRoute')->name('Workflow.WorkflowRoute');
     Route::resource('Workflow', 'Admin\Workflow\WorkflowController');
 

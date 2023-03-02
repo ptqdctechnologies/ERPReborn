@@ -20,10 +20,6 @@ class WorkflowController extends Controller
         $compact = [
             'var' => $var,
             'varAPIWebToken' => $varAPIWebToken,
-            'statusAdvanceRevisi' => 0,
-            'statusPrRevisi' => 0,
-            'statusPr' => 0,
-            'statusRevisi' => 0,
         ];
         return view('Admin.Workflow.Transactions.CreateWorkflow', $compact);
     }
@@ -40,67 +36,38 @@ class WorkflowController extends Controller
         $compact = [
             'var' => $var,
             'varAPIWebToken' => $varAPIWebToken,
-            'statusAdvanceRevisi' => 0,
-            'statusPrRevisi' => 0,
-            'statusPr' => 0,
-            'statusRevisi' => 0,
+            'start' => ['Aldi', 'Mul', 'Yadi', 'Utsman'],
+            'intermediate' => ['Toni', 'Muhammad'],
+            'end' => ['Deden', 'Agus']
         ];
         return view('Admin.Workflow.Transactions.CreateWorkflowRoute', $compact);
     }
 
-    public function store(Request $request)
+    public function WorkflowRouteStore(Request $request)
     {
         $input = $request->all();
-        dd($input);
-        $count_product = count($input['var_product_id']);
+        dd($input['start']);
+        // for($n =0; $n < $count_product; $n++){
+        //     $advanceDetail[$n] = [
+        //     'entities' => [
+        //             "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
+        //             "product_RefID" => (int) $input['var_product_id'][$n],
+        //             "quantity" => (float) $input['var_quantity'][$n],
+        //             "quantityUnit_RefID" => 73000000000001,
+        //             "productUnitPriceCurrency_RefID" => 62000000000001,
+        //             "productUnitPriceCurrencyValue" => (float) $input['var_price'][$n],
+        //             "productUnitPriceCurrencyExchangeRate" => 1,
+        //             "remarks" => 'Catatan'
+        //         ]
+        //     ];
+        // }
+        // dd($varData);
 
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        
-        $advanceDetail = [];
-        for($n =0; $n < $count_product; $n++){
-            $advanceDetail[$n] = [
-            'entities' => [
-                    "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
-                    "product_RefID" => (int) $input['var_product_id'][$n],
-                    "quantity" => (float) $input['var_quantity'][$n],
-                    "quantityUnit_RefID" => 73000000000001,
-                    "productUnitPriceCurrency_RefID" => 62000000000001,
-                    "productUnitPriceCurrencyValue" => (float) $input['var_price'][$n],
-                    "productUnitPriceCurrencyExchangeRate" => 1,
-                    "remarks" => 'Catatan'
-                ]
-            ];
-        }
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.create.finance.setAdvance', 
-            'latest', 
-            [
-            'entities' => [
-                "documentDateTimeTZ" => $input['var_date'],
-                "log_FileUpload_Pointer_RefID" => (int)$input['dataInput_Log_FileUpload_Pointer_RefID'],
-                "requesterWorkerJobsPosition_RefID" => (int)$input['request_name_id'],
-                "beneficiaryWorkerJobsPosition_RefID" => 25000000000439,
-                "beneficiaryBankAccount_RefID" => 167000000000001,
-                "internalNotes" => 'My Internal Notes',
-                "remarks" => $input['var_remark'],
-                "additionalData" => [
-                    "itemList" => [
-                        "items" => $advanceDetail
-                        ]
-                    ]
-                ]
-            ]                    
-            );
-        
-            // dd($varData);
+        // $compact = [
+        //     "advnumber"=> $varData['data']['businessDocument']['documentNumber'],
+        // ];
 
-        $compact = [
-            "advnumber"=> $varData['data']['businessDocument']['documentNumber'],
-        ];
-
-        return response()->json($compact); 
+        // return response()->json($compact); 
     }
 
     public function StoreValidateAdvance(Request $request)
