@@ -10,7 +10,6 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <input type="hidden" id="idx">
                                 <table class="table table-head-fixed text-nowrap" id="tableGetUser">
                                     <thead>
                                         <tr>
@@ -36,20 +35,35 @@
     |                            End Function My Project Code                          |
     |----------------------------------------------------------------------------------|-->
 <script>
-
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    
-    function myUser(idx) {
-        
-        $("#idx").val(idx);
-        $('#tableGetUser').DataTable();
 
-        var idx = $("#idx").val();
-        console.log(idx);
+    function myUserStart(idx) {
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getSupplier") !!}',
+            success: function(data) {
+                var no = 1;
+                t = $('#tableGetUser').DataTable();
+                t.clear();
+                $.each(data, function(key, val) {
+                    t.row.add([
+                        '<tbody><tr><td>' + no++ + '</td>',
+                        '<td><span data-dismiss="modal" onclick="ClickUserStart(\'' + val.sys_ID + '\', \'' + val.code + '\', \'' + val.fullName + '\', \'' + val.fullName + '\', \'' + idx + '\');">' + val.fullName + '</span></td>',
+                        '<td style="border:1px solid #e9ecef;">' + val.fullName + '</td>',
+                        '<td style="border:1px solid #e9ecef;">' + val.fullName + '</td></tr></tbody>'
+                    ]).draw();
+
+                });
+            }
+        });
+
+    }
+
+    function myUserIntermediate(idx) {
 
         $.ajax({
             type: 'GET',
@@ -61,7 +75,7 @@
                 $.each(data, function(key, val) {
                     t.row.add([
                         '<tbody><tr><td>' + no++ + '</td>',
-                        '<td><span data-dismiss="modal" onclick="klikSupplier(\'' + val.sys_ID + '\', \'' + val.code + '\', \'' + val.fullName + '\', \'' + val.fullName + '\', \'' + idx + '\');">' + val.fullName + '</span></td>',
+                        '<td><span data-dismiss="modal" onclick="ClickUserIntermediate(\'' + val.sys_ID + '\', \'' + val.code + '\', \'' + val.fullName + '\', \'' + val.fullName + '\', \'' + idx + '\');">' + val.fullName + '</span></td>',
                         '<td style="border:1px solid #e9ecef;">' + val.fullName + '</td>',
                         '<td style="border:1px solid #e9ecef;">' + val.fullName + '</td></tr></tbody>'
                     ]).draw();
@@ -69,14 +83,49 @@
                 });
             }
         });
-        
+
+    }
+
+    function myUserEnd(idx) {
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getSupplier") !!}',
+            success: function(data) {
+                var no = 1;
+                t = $('#tableGetUser').DataTable();
+                t.clear();
+                $.each(data, function(key, val) {
+                    t.row.add([
+                        '<tbody><tr><td>' + no++ + '</td>',
+                        '<td><span data-dismiss="modal" onclick="ClickUserEnd(\'' + val.sys_ID + '\', \'' + val.code + '\', \'' + val.fullName + '\', \'' + val.fullName + '\', \'' + idx + '\');">' + val.fullName + '</span></td>',
+                        '<td style="border:1px solid #e9ecef;">' + val.fullName + '</td>',
+                        '<td style="border:1px solid #e9ecef;">' + val.fullName + '</td></tr></tbody>'
+                    ]).draw();
+
+                });
+            }
+        });
+
     }
 </script>
 
 <script>
-    function klikSupplier(id, code, name, address, idx) {
-        $("#user_code"+idx).val(name);
+    function ClickUserStart(id, code, name, address, idx) {
+        $("#start" + idx).val(name);
         $("#supplier_name").val(name);
         $("#supplierAddress").val(address);
     }
+
+    function ClickUserIntermediate(id, code, name, address, idx) {
+        $("#intermediate" + idx).val(name);
+        $("#supplier_name").val(name);
+        $("#supplierAddress").val(address);
+    }
+
+    function ClickUserEnd(id, code, name, address, idx) {
+        $("#end" + idx).val(name);
+        $("#supplier_name").val(name);
+        $("#supplierAddress").val(address);
+    }
+
 </script>
