@@ -4,28 +4,29 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\documentWorkFlow\general                      |
-|                \getBusinessDocumentTypeWorkFlowPath\v1                                                                           |
+|                \getBusinessDocumentTypeWorkFlowPathBySubmitterEntityIDAndCombinedBudgetID\v1                                     |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\documentWorkFlow\general\getBusinessDocumentTypeWorkFlowPath\v1
+namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\documentWorkFlow\general\getBusinessDocumentTypeWorkFlowPathBySubmitterEntityIDAndCombinedBudgetID\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getBusinessDocumentTypeWorkFlowPath                                                                          |
-    | ▪ Description : Menangani API userAction.documentWorkFlow.general.getBusinessDocumentTypeWorkFlowPath Version 1              |
+    | ▪ Class Name  : getBusinessDocumentTypeWorkFlowPathBySubmitterEntityIDAndCombinedBudgetID                                    |
+    | ▪ Description : Menangani API userAction.documentWorkFlow.general.                                                           |
+    |                 getBusinessDocumentTypeWorkFlowPathBySubmitterEntityIDAndCombinedBudgetID Version 1                          |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getBusinessDocumentTypeWorkFlowPath extends \App\Http\Controllers\Controller
+    class getBusinessDocumentTypeWorkFlowPathBySubmitterEntityIDAndCombinedBudgetID extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-02-14                                                                                           |
-        | ▪ Creation Date   : 2023-02-14                                                                                           |
+        | ▪ Last Update     : 2023-03-02                                                                                           |
+        | ▪ Creation Date   : 2023-03-02                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -45,7 +46,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\doc
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Last Update     : 2023-03-02                                                                                           |
-        | ▪ Creation Date   : 2023-02-14                                                                                           |
+        | ▪ Creation Date   : 2023-03-02                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -59,7 +60,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\doc
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Business Document Work Flow Path Approvement History (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Business Document Work Flow Path Approvement History By Submitter Entity ID (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
@@ -68,8 +69,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\doc
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
 
                             $varData['parameter']['businessDocumentType_RefID'],
-                            null,
-                            null
+                            $varData['parameter']['submitterEntity_RefID'],
+                            $varData['parameter']['combinedBudget_RefID']
                             ))))
                             {
                             throw new \Exception();
