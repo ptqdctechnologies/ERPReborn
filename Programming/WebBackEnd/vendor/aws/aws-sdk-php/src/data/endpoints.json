@@ -1666,6 +1666,9 @@
       "apprunner" : {
         "endpoints" : {
           "ap-northeast-1" : { },
+          "ap-southeast-1" : { },
+          "ap-southeast-2" : { },
+          "eu-central-1" : { },
           "eu-west-1" : { },
           "fips-us-east-1" : {
             "credentialScope" : {
@@ -2853,8 +2856,10 @@
           "ap-northeast-2" : { },
           "ap-northeast-3" : { },
           "ap-south-1" : { },
+          "ap-south-2" : { },
           "ap-southeast-1" : { },
           "ap-southeast-2" : { },
+          "ap-southeast-3" : { },
           "ca-central-1" : {
             "variants" : [ {
               "hostname" : "codecommit-fips.ca-central-1.amazonaws.com",
@@ -2881,6 +2886,7 @@
             "deprecated" : true,
             "hostname" : "codecommit-fips.ca-central-1.amazonaws.com"
           },
+          "me-central-1" : { },
           "me-south-1" : { },
           "sa-east-1" : { },
           "us-east-1" : {
@@ -22558,7 +22564,8 @@
       },
       "secretsmanager" : {
         "endpoints" : {
-          "us-iso-east-1" : { }
+          "us-iso-east-1" : { },
+          "us-iso-west-1" : { }
         }
       },
       "snowball" : {

@@ -44,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\doc
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-02-14                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2023-03-02                                                                                           |
         | ▪ Creation Date   : 2023-02-14                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -69,7 +69,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\doc
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
 
                             $varData['parameter']['businessDocumentType_RefID'],
-                            $varData['parameter']['submitterEntity_RefID']
+                            $varData['parameter']['submitterEntity_RefID'],
+                            NULL
                             ))))
                             {
                             throw new \Exception();

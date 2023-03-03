@@ -57,43 +57,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             ]
                             ),
                     "remarks" => null
-/*
-                                1,
-                                2,
-                                [
-                                    4,
-                                    5
-                                ],
-                                ['x' => 't'],
-                                [
-                                'a',
-                                'b'
-                                ],
-                                'xxx',
-                                '987',
-                                ['0' => 4]
-
-
-
-
-
-			JSON_BUILD_OBJECT(
-				'start', JSON_BUILD_ARRAY(
-					JSON_BUILD_ARRAY('S-IT-1', 164000000000023, 'I-IT-1'),
-					JSON_BUILD_ARRAY('S-IT-2', 164000000000428, 'I-IT-1'),
-					JSON_BUILD_ARRAY('S-IT-3', 164000000000196, 'FA-IT-1'),		
-					JSON_BUILD_ARRAY('S-IT-4', 164000000000497, 'FA-IT-1')	
-					),
-				'finish', JSON_BUILD_ARRAY(
-					JSON_BUILD_ARRAY('FA-IT-1', 164000000000439)
-					),
-				'intermediate', JSON_BUILD_ARRAY(
-					JSON_BUILD_ARRAY('I-IT-1', 164000000000196, NULL, 'FA-IT-1')
-					)
-				)
-                    
-*/                    
-                    
                     ]
                 ]                    
                 );

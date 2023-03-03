@@ -87,15 +87,16 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
         |      ------------------------------                                                                                      |
-        |      ▪ (int)    varBusinessDocumentType_RefID ► Business Document Type ID                                                |
-        |      ▪ (int)    varSubmitterEntity_RefID ► Submitter Entity ID                                                           |
+        |      ▪ (int)    varBusinessDocumentType_RefID ► Business Document Type Reference ID                                      |
+        |      ▪ (int)    varSubmitterEntity_RefID ► Submitter Entity Reference ID                                                 |
+        |      ▪ (int)    varCombinedBudget_RefID ► Submitter Entity Reference ID                                                  |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getBusinessDocumentTypeWorkFlowPath(
             $varUserSession, int $varBranchID, 
-            int $varBusinessDocumentType_RefID = null, int $varSubmitterEntity_RefID = null)
+            int $varBusinessDocumentType_RefID = null, int $varSubmitterEntity_RefID = null, int $varCombinedBudget_RefID = null)
             {
             try {
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -107,7 +108,8 @@ namespace App\Models\Database\SchSysConfig
                             [$varBranchID, 'bigint'],
                             
                             [$varBusinessDocumentType_RefID, 'bigint'],
-                            [$varSubmitterEntity_RefID, 'bigint']
+                            [$varSubmitterEntity_RefID, 'bigint'],
+                            [$varCombinedBudget_RefID, 'bigint']
                         ]
                         )
                     );                
