@@ -4,6 +4,22 @@
 @include('Partials.sidebar')
 @include('getFunction.getUser')
 
+<style>
+    .container {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+    }
+
+    .box {
+        border: 3px solid #666;
+        background-color: #ddd;
+        border-radius: .5em;
+        padding: 10px;
+        cursor: move;
+    }
+</style>
+
 <div class="content-wrapper" style="position:relative;bottom:12px;">
     <section class="content">
         <div class="container-fluid">
@@ -38,6 +54,20 @@
                                                 <div class="form-group">
                                                     <table>
                                                         <tr>
+                                                            <div class="container">
+                                                                <div draggable="true" class="box">
+                                                                    <input type="text" name="A[]" value="A">
+                                                                </div>
+                                                                <div draggable="true" class="box">
+                                                                    <input type="text" name="B[]" value="B">
+                                                                </div>
+                                                                <div draggable="true" class="box">
+                                                                    <input type="text" name="C[]" value="C">
+                                                                </div>
+                                                                <br><br><br>
+                                                            </div>
+                                                        </tr>
+                                                        <!-- <tr>
                                                             <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp; START</label></td>
                                                             <td>
                                                                 <div class="input-group add_start">
@@ -109,7 +139,7 @@
                                                                     </span>
                                                                 </div>
                                                             </td>
-                                                        </tr>
+                                                        </tr> -->
                                                     </table>
                                                 </div>
                                             </div>
@@ -124,7 +154,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
@@ -178,7 +208,7 @@
                                                                 </div>
                                                             </td>
                                                         </tr>
-                                                    
+
                                                         @endforeach
                                                     </table>
                                                 </div>
@@ -192,7 +222,7 @@
 
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </form>
             </div>
