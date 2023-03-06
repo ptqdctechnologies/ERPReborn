@@ -38,6 +38,7 @@ namespace App\Models\Database\SchSysConfig
             parent::__construct(__CLASS__);
             }
 
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
@@ -54,7 +55,7 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varBusinessDocumentType_RefID ► Business Document Type Reference                                         |
+        |      ▪ (int)    varBusinessDocumentType_RefID ► Business Document Type Reference ID                                      |
         |      ▪ (int)    varCombinedBudget_RefID ► Combined Budget_Reference ID                                                   |
         |      ▪ (int)    varWorkFlow_RefID ► WorkFlow Reference ID                                                                |
         | ▪ Output Variable :                                                                                                      |
@@ -106,7 +107,7 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varBusinessDocumentType_RefID ► Business Document Type Reference                                         |
+        |      ▪ (int)    varBusinessDocumentType_RefID ► Business Document Type Reference ID                                      |
         |      ▪ (int)    varCombinedBudget_RefID ► Combined Budget_Reference ID                                                   |
         |      ▪ (int)    varWorkFlow_RefID ► WorkFlow Reference ID                                                                |
         | ▪ Output Variable :                                                                                                      |

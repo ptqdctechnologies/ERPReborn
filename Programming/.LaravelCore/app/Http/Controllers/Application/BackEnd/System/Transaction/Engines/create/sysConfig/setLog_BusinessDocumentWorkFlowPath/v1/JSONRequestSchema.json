@@ -1,0 +1,58 @@
+{
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of transaction.create.sysConfig.setLog_BusinessDocumentWorkFlowPath (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            "API": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "enum": [ "transaction.create.sysConfig.setLog_BusinessDocumentWorkFlowPath" ]
+                        },
+                    "version": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1
+                        }
+                    },
+                "required": [ "key", "version" ]
+                }
+            },
+        "required": [ "API" ]
+        },
+    "data": {
+        "type": "object",
+        "properties": {
+            "entities" : {
+                "type": "object",
+                "properties": {
+                    "businessDocument_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                    "lastLog_BusinessDocumentWorkFlowPathHistory_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                    "signActive": {
+                        "type": [ "boolean", "null" ]
+                        }
+                    },
+                "required": [ 
+                    "businessDocument_RefID",
+                    "lastLog_BusinessDocumentWorkFlowPathHistory_RefID",
+                    "signActive"
+                    ]
+                }
+            },
+        "required": [ "entities" ]
+        }
+    },
+"required": [ "metadata", "data" ]
+}
