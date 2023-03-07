@@ -53,7 +53,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <table>
-                                                        <tr>
+                                                        <!-- <tr>
                                                             <div class="container">
                                                                 <div draggable="true" class="box">
                                                                     <input type="text" name="A[]" value="A">
@@ -66,8 +66,8 @@
                                                                 </div>
                                                                 <br><br><br>
                                                             </div>
-                                                        </tr>
-                                                        <!-- <tr>
+                                                        </tr> -->
+                                                        <tr>
                                                             <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp; START</label></td>
                                                             <td>
                                                                 <div class="input-group add_start">
@@ -139,7 +139,7 @@
                                                                     </span>
                                                                 </div>
                                                             </td>
-                                                        </tr> -->
+                                                        </tr>
                                                     </table>
                                                 </div>
                                             </div>
@@ -154,7 +154,7 @@
                             </div>
                         </div>
 
-                        <!-- <div class="row">
+                        <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
@@ -222,7 +222,7 @@
 
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                 </form>
             </div>
