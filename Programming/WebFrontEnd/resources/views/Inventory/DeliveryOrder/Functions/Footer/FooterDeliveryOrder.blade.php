@@ -54,6 +54,7 @@
 </script>
 
 <script>
+    var keys = 0;
     function klikDorNumberInDo(id, docNum, reqId, reqName) {
         var var_recordID = id;
         var trano = docNum;
@@ -74,6 +75,8 @@
                 var no = 1; applied = 0; TotalBudgetSelected = 0;status = ""; statusDisplay = [];statusDisplay2 = []; statusForm = [];
                 $.each(data.DataAdvanceList, function(key, value) {
 
+                    keys += 1;
+
                     // if(value.quantityAbsorption == "0.00" && value.quantity == "0.00"){
                     if(value.quantity == "0.00"){
                         var applied = 0;
@@ -86,14 +89,14 @@
                         var status = "disabled";
                     }
                     if(value.productName == "Unspecified Product"){
-                        statusDisplay[key] = "";
-                        statusDisplay2[key] = "none";
-                        statusForm[key] = "disabled";
+                        statusDisplay[keys] = "";
+                        statusDisplay2[keys] = "none";
+                        statusForm[keys] = "disabled";
                     }
                     else{
-                        statusDisplay[key] = "none";
-                        statusDisplay2[key] = "";
-                        statusForm[key] = "";
+                        statusDisplay[keys] = "none";
+                        statusDisplay2[keys] = "";
+                        statusForm[keys] = "";
                     }
 
                     var html = '<tr>' +
@@ -101,8 +104,8 @@
                         '<input name="getWorkName[]" value="'+ value.combinedBudget_SubSectionLevel1Name +'" type="hidden">' +
                         '<input name="getProductId[]" value="'+ value.product_RefID +'" type="hidden">' +
                         '<input name="getProductName[]" value="'+ value.productName +'" type="hidden">' +
-                        '<input name="getQty[]" id="budget_qty'+ key +'" value="'+ value.quantity +'" type="hidden">' +
-                        '<input name="getPrice[]" id="budget_price'+ key +'" value="'+ value.productUnitPriceCurrencyValue +'" type="hidden">' +
+                        '<input name="getQty[]" id="budget_qty'+ keys +'" value="'+ value.quantity +'" type="hidden">' +
+                        '<input name="getPrice[]" id="budget_price'+ keys +'" value="'+ value.productUnitPriceCurrencyValue +'" type="hidden">' +
                         '<input name="getUom[]" value="'+ value.quantityUnitName +'" type="hidden">' +
                         '<input name="getCurrency[]" value="'+ value.priceCurrencyISOCode +'" type="hidden">' +
                         '<input name="getTotal[]" value="'+ value.priceBaseCurrencyValue +'" type="hidden">' +
@@ -119,45 +122,41 @@
                         '<td style="border:1px solid #e9ecef;">' + value.priceCurrencyISOCode + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + value.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
 
-                        '<td class="sticky-col second-col-dor-qty" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
-                        '<td class="sticky-col first-col-dor-note" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="note_req'+ key +'" style="border-radius:0;" name="note_req[]" class="form-control note_req" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
+                        '<td class="sticky-col second-col-dor-qty" style="border:1px solid #e9ecef;background-color:white;">' + '<input onkeyup="qty_req('+ keys +', this)" id="qty_req'+ keys +'" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" '+ statusForm[keys] +'>' + '</td>' +
+                        '<td class="sticky-col first-col-dor-note" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="note_req'+ keys +'" style="border-radius:0;" name="note_req[]" class="form-control note_req" autocomplete="off" '+ statusForm[keys] +'>' + '</td>' +
 
                         '</tr>';
 
                     $('table.TableDorDetail tbody').append(html);
-
-                    //VALIDASI QTY
-                    $('#qty_req'+key).keyup(function() {
-                        $(this).val(currency($(this).val()));
-                        var qty_val = $(this).val().replace(/,/g, '');
-                        var budget_qty_val = $("#budget_qty"+key).val();
-
-                        if (qty_val == "") {
-                            $('#total_req'+key).val("");
-                            $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
-                        }
-                        else if (parseFloat(qty_val) > parseFloat(budget_qty_val)) {
-
-                            swal({
-                                onOpen: function () {
-                                    swal.disableConfirmButton();
-                                    Swal.fire("Error !", "Qty is over budget !", "error");
-                                }
-                            });
-
-                            $('#qty_req'+key).val("");
-                            $('#qty_req'+key).css("border", "1px solid red");
-                            $('#qty_req'+key).focus();
-                        }
-                        else {
-                            $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
-                        }
-                    });
-
                 });
             },
         });
+    }
+    //VALIDASI QTY
+    function qty_req(key, value) {
+        var qty_val = (value.value).replace(/,/g, '');
+        var budget_qty_val = $("#budget_qty"+key).val();
 
+        if (qty_val == "") {
+            $('#total_req'+key).val("");
+            $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
+        }
+        else if (parseFloat(qty_val) > parseFloat(budget_qty_val)) {
+
+            swal({
+                onOpen: function () {
+                    swal.disableConfirmButton();
+                    Swal.fire("Error !", "Qty is over budget !", "error");
+                }
+            });
+
+            $('#qty_req'+key).val("");
+            $('#qty_req'+key).css("border", "1px solid red");
+            $('#qty_req'+key).focus();
+        }
+        else {
+            $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
+        }
     }
 </script>
 

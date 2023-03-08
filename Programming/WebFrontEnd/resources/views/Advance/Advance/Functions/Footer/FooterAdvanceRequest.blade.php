@@ -10,7 +10,7 @@
         $(".tableShowHideBOQ3").hide();
         $("#iconUnitPrice2").hide();
         $("#product_id2").prop("disabled", true);
-        $("#submitArf").prop("disabled", true);
+        // $("#submitArf").prop("disabled", true);
     });
 </script>
 
@@ -304,17 +304,17 @@
             $("#request_name").css("border", "1px solid #ced4da");
             $("#putRemark").css("border", "1px solid #ced4da");
 
-            if (valRequestName === "") {
-                $("#request_name").focus();
-                $("#request_name").attr('required', true);
-                $("#request_name").css("border", "1px solid red");
-            } else if (valRemark === "") {
-                $("#putRemark").focus();
-                $("#putRemark").attr('required', true);
-                $("#putRemark").css("border", "1px solid red");
-            } else {
-                
-                var varFileUpload_UniqueID = "Upload";
+            // if (valRequestName === "") {
+            //     $("#request_name").focus();
+            //     $("#request_name").attr('required', true);
+            //     $("#request_name").css("border", "1px solid red");
+            // } else if (valRemark === "") {
+            //     $("#putRemark").focus();
+            //     $("#putRemark").attr('required', true);
+            //     $("#putRemark").css("border", "1px solid red");
+            // } else {
+
+                varFileUpload_UniqueID = "Upload";
                 window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
                                 
                 var action = $(this).attr("action"); //get submit action from form
@@ -409,7 +409,7 @@
                         })
                     }
                 })
-            }
+            // }
         });
 
     });
