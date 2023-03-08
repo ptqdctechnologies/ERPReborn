@@ -46,7 +46,7 @@ class WorkflowController extends Controller
     public function WorkflowRouteStore(Request $request)
     {
         $input = $request->all();
-        dd($input['start']);
+        dd($input);
         // for($n =0; $n < $count_product; $n++){
         //     $advanceDetail[$n] = [
         //     'entities' => [
