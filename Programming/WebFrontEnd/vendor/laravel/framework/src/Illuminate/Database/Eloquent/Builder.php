@@ -880,15 +880,16 @@ class Builder implements BuilderContract
      * @param  array|string  $columns
      * @param  string  $pageName
      * @param  int|null  $page
+     * @param  \Closure|int|null  $total
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      *
      * @throws \InvalidArgumentException
      */
-    public function paginate($perPage = null, $columns = ['*'], $pageName = 'page', $page = null)
+    public function paginate($perPage = null, $columns = ['*'], $pageName = 'page', $page = null, $total = null)
     {
         $page = $page ?: Paginator::resolveCurrentPage($pageName);
 
-        $total = $this->toBase()->getCountForPagination();
+        $total = value($total) ?? $this->toBase()->getCountForPagination();
 
         $perPage = ($perPage instanceof Closure
             ? $perPage($total)
@@ -1034,7 +1035,7 @@ class Builder implements BuilderContract
         }
 
         return $this->toBase()->upsert(
-            $this->addTimestampsToUpsertValues($values),
+            $this->addTimestampsToUpsertValues($this->addUniqueIdsToUpsertValues($values)),
             $uniqueBy,
             $this->addUpdatedAtToUpsertColumns($update)
         );
@@ -1120,6 +1121,29 @@ class Builder implements BuilderContract
         $values[$qualifiedColumn] = Arr::get($values, $qualifiedColumn, $values[$column]);
 
         unset($values[$column]);
+
+        return $values;
+    }
+
+    /**
+     * Add unique IDs to the inserted values.
+     *
+     * @param  array  $values
+     * @return array
+     */
+    protected function addUniqueIdsToUpsertValues(array $values)
+    {
+        if (! $this->model->usesUniqueIds()) {
+            return $values;
+        }
+
+        foreach ($this->model->uniqueIds() as $uniqueIdAttribute) {
+            foreach ($values as &$row) {
+                if (! array_key_exists($uniqueIdAttribute, $row)) {
+                    $row = array_merge([$uniqueIdAttribute => $this->model->newUniqueId()], $row);
+                }
+            }
+        }
 
         return $values;
     }
