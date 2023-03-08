@@ -2,6 +2,14 @@
 
 All notable changes to `backtrace` will be documented in this file
 
+## 1.3.0 - 2023-03-04
+
+- add `getAsString` to snippet
+
+## 1.2.2 - 2023-02-21
+
+- fix a misconfigured application path
+
 ## 1.2.1 - 2021-11-09
 
 - Add a return typehint (#4)

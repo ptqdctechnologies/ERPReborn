@@ -49,6 +49,37 @@ namespace App\Models\Database\SchSysConfig
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getWorkFlowPathOfBusinessDocument                                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-03-08                                                                                           |
+        | ▪ Creation Date   : 2023-03-08                                                                                           |
+        | ▪ Description     : Get WorkFlow Path Of Business Document                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBusinessDocument_RefID ► Business Document Reference ID                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (mixed)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getWorkFlowPathOfBusinessDocument(
+            $varUserSession, 
+            int $varBusinessDocument_RefID = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession,
+                'SELECT "SchSysConfig"."Func_General_GetWorkFlowPathOfBusinessDocument"('.
+                    $varBusinessDocument_RefID.'::bigint'.
+                    ');'
+                );
+            return (int) $varReturn['Data'][0]['Func_General_GetWorkFlowPathOfBusinessDocument'];   
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getApplicationParameter_BaseCurrencyID                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -68,7 +99,10 @@ namespace App\Models\Database\SchSysConfig
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession,
-                'SELECT "SchSysConfig"."FuncSys_General_GetParameterValue_App"(\''.$varKey.'\'::varchar, '.$varBranchID.'::bigint);'
+                'SELECT "SchSysConfig"."FuncSys_General_GetParameterValue_App"('.
+                    '\''.$varKey.'\'::varchar, '.
+                    $varBranchID.'::bigint'.
+                    ');'
                 );
             return (int) $varReturn['Data'][0]['FuncSys_General_GetParameterValue_App'];            
             }
