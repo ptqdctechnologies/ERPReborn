@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of userAction.documentWorkFlow.approvalStage.setUserApprovalPermanentRejection (version 1)",
+"description": "JSON Request Schema of userAction.documentWorkFlow.approvalStage.setSystemApprovalPermanentRejection (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "userAction.documentWorkFlow.approvalStage.setUserApprovalPermanentRejection" ]
+                        "enum": [ "userAction.documentWorkFlow.approvalStage.setSystemApprovalPermanentRejection" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -39,17 +39,11 @@
                         "type": [ "string", "null" ],
                         "minLength": 1,
                         "maxLength": 256
-                        },
-                    "approverEntity_RefID": {
-                        "type": [ "integer", "null" ],
-                        "minimum": 1,
-                        "maximum": 9223372036854775807
                         }
                     },
                 "required": [ 
                     "businessDocument_RefID", 
-                    "remarks", 
-                    "approverEntity_RefID" 
+                    "remarks"
                     ]
                 }
             },

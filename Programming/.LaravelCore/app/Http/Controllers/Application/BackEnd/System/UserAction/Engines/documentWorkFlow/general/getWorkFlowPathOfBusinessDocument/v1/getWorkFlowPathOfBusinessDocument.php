@@ -3,29 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\documentWorkFlow\approvalStage                |
-|                \setUserApprovalPermanentRejection\v1                                                                             |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\documentWorkFlow\general                      |
+|                \getWorkFlowPathOfBusinessDocument\v1                                                                             |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\documentWorkFlow\approvalStage\setUserApprovalPermanentRejection\v1
+namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\documentWorkFlow\general\getWorkFlowPathOfBusinessDocument\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setUserApprovalPermanentRejection                                                                            |
-    | ▪ Description : Menangani API userAction.documentWorkFlow.approvalStage.setUserApprovalPermanentRejection Version 1          |
+    | ▪ Class Name  : getWorkFlowPathOfBusinessDocument                                                                            |
+    | ▪ Description : Menangani API userAction.documentWorkFlow.general.getWorkFlowPathOfBusinessDocument Version 1                |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setUserApprovalPermanentRejection extends \App\Http\Controllers\Controller
+    class getWorkFlowPathOfBusinessDocument extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-03-07                                                                                           |
-        | ▪ Creation Date   : 2023-03-07                                                                                           |
+        | ▪ Last Update     : 2023-03-08                                                                                           |
+        | ▪ Creation Date   : 2023-03-08                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\doc
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-03-07                                                                                           |
-        | ▪ Creation Date   : 2023-03-07                                                                                           |
+        | ▪ Last Update     : 2023-03-08                                                                                           |
+        | ▪ Creation Date   : 2023-03-08                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -59,21 +59,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\doc
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Set Business Document Work Flow Path Approval Permanent Rejection By User Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get WorkFlow Path Of Business Document (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchSysConfig\General())->setActionForBusinessDocumentWorkFlowPath(
+                        if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchSysConfig\General())->getWorkFlowPathOfBusinessDocument(
                             $varUserSession, 
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                                
-                            $varData['entities']['businessDocument_RefID'],
-                            (new \App\Models\Database\SchSysConfig\General())->getWorkFlowPathOfBusinessDocument(
-                                $varUserSession, 
-                                $varData['entities']['businessDocument_RefID']
-                                ),                            118000000000012,
-                            $varData['entities']['remarks'],
-                            $varData['entities']['approverEntity_RefID']
+                            //(\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+
+                            $varData['parameter']['businessDocument_RefID']
                             ))))
                             {
                             throw new \Exception();

@@ -35,11 +35,6 @@
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         },
-                    "workFlowPath_RefID": {
-                        "type": [ "integer" ],
-                        "minimum": 1,
-                        "maximum": 9223372036854775807
-                        },
                     "remarks": {
                         "type": [ "string", "null" ],
                         "minLength": 1,
@@ -53,7 +48,6 @@
                     },
                 "required": [ 
                     "businessDocument_RefID", 
-                    "workFlowPath_RefID",
                     "remarks", 
                     "approverEntity_RefID" 
                     ]

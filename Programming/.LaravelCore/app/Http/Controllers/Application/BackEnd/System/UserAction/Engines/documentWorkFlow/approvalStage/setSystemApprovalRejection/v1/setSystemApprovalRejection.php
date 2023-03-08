@@ -4,28 +4,28 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\documentWorkFlow\approvalStage                |
-|                \setUserApprovalPermanentRejection\v1                                                                             |
+|                \setSystemApprovalRejection\v1                                                                                    |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\documentWorkFlow\approvalStage\setUserApprovalPermanentRejection\v1
+namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\documentWorkFlow\approvalStage\setSystemApprovalRejection\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setUserApprovalPermanentRejection                                                                            |
-    | ▪ Description : Menangani API userAction.documentWorkFlow.approvalStage.setUserApprovalPermanentRejection Version 1          |
+    | ▪ Class Name  : setSystemApprovalRejection                                                                                   |
+    | ▪ Description : Menangani API userAction.documentWorkFlow.approvalStage.setSystemApprovalRejection Version 1                 |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setUserApprovalPermanentRejection extends \App\Http\Controllers\Controller
+    class setSystemApprovalRejection extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-03-07                                                                                           |
-        | ▪ Creation Date   : 2023-03-07                                                                                           |
+        | ▪ Last Update     : 2023-03-08                                                                                           |
+        | ▪ Creation Date   : 2023-03-08                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\doc
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-03-07                                                                                           |
-        | ▪ Creation Date   : 2023-03-07                                                                                           |
+        | ▪ Last Update     : 2023-03-08                                                                                           |
+        | ▪ Creation Date   : 2023-03-08                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -59,7 +59,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\doc
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Set Business Document Work Flow Path Approval Permanent Rejection By User Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Set Business Document Work Flow Path Approval Rejection By System Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
@@ -71,9 +71,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\doc
                             (new \App\Models\Database\SchSysConfig\General())->getWorkFlowPathOfBusinessDocument(
                                 $varUserSession, 
                                 $varData['entities']['businessDocument_RefID']
-                                ),                            118000000000012,
+                                ),
+                            118000000000009,
                             $varData['entities']['remarks'],
-                            $varData['entities']['approverEntity_RefID']
+                            4000000000001
                             ))))
                             {
                             throw new \Exception();

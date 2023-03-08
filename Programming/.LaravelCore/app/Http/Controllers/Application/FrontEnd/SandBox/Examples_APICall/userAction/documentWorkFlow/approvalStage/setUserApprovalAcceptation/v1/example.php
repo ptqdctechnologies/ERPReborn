@@ -42,7 +42,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\use
                 [
                 'entities' => [
                     "businessDocument_RefID" => 74000000020323,
-                    "workFlowPath_RefID" => 116000000000001,
                     "remarks" => null,
                     "approverEntity_RefID" => null
                     ]
@@ -76,7 +75,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\use
             echo '<table border="1" style="border-collapse: collapse;">';
             echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Parameter</p></td></tr>';
             echo '<tr><td>Business&nbsp;Document&nbsp;RefID</td><td><input type="text" id="dataInput_BusinessDocument_RefID" value=74000000020323></td></tr>';
-            echo '<tr><td>WorkFlow&nbsp;Path&nbsp;RefID</td><td><input type="text" id="dataInput_WorkFlowPath_RefID" value=116000000000001></td></tr>';
             echo '<tr><td>Remarks</td><td><input type="text" id="dataInput_Remarks" value=""></td></tr>';
             echo '<tr><td>Approver&nbsp;Entity&nbsp;RefID</td><td><input type="text" id="dataInput_ApproverEntity_RefID" value=""></td></tr>';
             echo '</table>';
@@ -88,7 +86,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\use
                 '{'.
                     '"entities" : {'.
                         '"businessDocument_RefID" : parseInt(document.getElementById("dataInput_BusinessDocument_RefID").value), '.
-                        '"workFlowPath_RefID" : parseInt(document.getElementById("dataInput_WorkFlowPath_RefID").value), '.
                         '"remarks" : document.getElementById("dataInput_Remarks").value, '.
                         '"approverEntity_RefID" : parseInt(document.getElementById("dataInput_ApproverEntity_RefID").value) '.
                         '}'.
