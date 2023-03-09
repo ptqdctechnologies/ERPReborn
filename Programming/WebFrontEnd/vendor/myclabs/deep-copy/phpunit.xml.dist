@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         colors="true">
+
+    <testsuites>
+        <testsuite name="Test suite">
+            <directory>./tests/DeepCopyTest</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./src/</directory>
+            <exclude>
+                <file>src/DeepCopy/deep_copy.php</file>
+            </exclude>
+        </whitelist>
+    </filter>
+
+</phpunit>
