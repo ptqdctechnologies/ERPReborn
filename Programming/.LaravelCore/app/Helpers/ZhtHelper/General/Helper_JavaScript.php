@@ -2224,6 +2224,10 @@ namespace App\Helpers\ZhtHelper\General
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get DOM Input Files Content');
                 try {
+
+
+                    'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n\'); ';
+
                     if(!$varAction)
                         {
                         $varAction = 'OverWrite';
@@ -2404,7 +2408,7 @@ namespace App\Helpers\ZhtHelper\General
                                                                 ).
                                                             ').data.log_FileUpload_Pointer_RefID'.
                                                         '); '.
-                                                    // 'alert(JSON.stringify(varReturn)); '.
+                                                    'alert(JSON.stringify(varReturn)); '.
 
                                                     // 'alert(document.getElementById(\''.$varDOMReturnID.'\').value);'.
                                                     'document.getElementById(\''.$varDOMReturnID.'\').value = JSON.stringify(varReturn); '.
@@ -2846,15 +2850,15 @@ namespace App\Helpers\ZhtHelper\General
                                                                 //     ],
                                                                 //     'varObjTTD.appendChild(document.createTextNode(\'SAVE\')); '
                                                                 //     ).
-                                                                self::getSyntaxCreateDOM_TableData(
-                                                                    $varUserSession, 
-                                                                    [
-                                                                    'ID' => 'varObjTTD',
-                                                                    'ParentID' => 'varObjTTR',
-                                                                    'Style' => $varStyle_TableActionPanelHead,
-                                                                    ],
-                                                                    'varObjTTD.appendChild(document.createTextNode(\'PREVIEW\')); '
-                                                                    ).
+                                                                // self::getSyntaxCreateDOM_TableData(
+                                                                //     $varUserSession, 
+                                                                //     [
+                                                                //     'ID' => 'varObjTTD',
+                                                                //     'ParentID' => 'varObjTTR',
+                                                                //     'Style' => $varStyle_TableActionPanelHead,
+                                                                //     ],
+                                                                //     'varObjTTD.appendChild(document.createTextNode(\'PREVIEW\')); '
+                                                                //     ).
                                                                 self::getSyntaxCreateDOM_TableData(
                                                                     $varUserSession, 
                                                                     [
@@ -3048,38 +3052,38 @@ namespace App\Helpers\ZhtHelper\General
                                                                         //         )
                                                                         //         ).
                                                                         //     '}'.
-                                                                        self::getSyntaxCreateDOM_TableData(
-                                                                            $varUserSession, 
-                                                                            [
-                                                                            'ID' => 'varObjTTD',
-                                                                            'ParentID' => 'varObjTTR',
-                                                                            'Style' => array_merge(
-                                                                                $varStyle_TableActionPanelBody,
-                                                                                [
-                                                                                    ['textAlign', 'center']
-                                                                                ]
-                                                                                ),
-                                                                            ],
-                                                                            (
-                                                                            'if (varDataJSONMasterFileRecord[i][\'filePath\'] != \'\') {'.
-                                                                                'var varFileName = varDataJSONMasterFileRecord[i][\'name\']; '.
-                                                                                'var varObjA = document.createElement(\'a\'); '.
-                                                                                    'varObjA.href = \'javascript:'.
-                                                                                        '(function(varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ) {'.
-                                                                                            'JSFunc_FilePreview_'.$varUniqueID.'(varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ); '.
-                                                                                            '}) ('.
-                                                                                                '\\\'\' + varDataJSONMasterFileRecord[i][\'filePath\'] + \'\\\','.
-                                                                                                ' \\\'\' + varFileName.replace(/\'/g, \'\\\\\\\'\') + \'\\\', '.
-                                                                                                ' \\\'\' + varDataJSONMasterFileRecord[i][\'size\'] + \'\\\', '.
-                                                                                                ' \\\'\' + varDataJSONMasterFileRecord[i][\'MIME\'] + \'\\\', '.
-                                                                                                ' \\\'\' + varDataJSONMasterFileRecord[i][\'uploadDateTimeTZ\'] + \'\\\''.
-                                                                                                ');'.
-                                                                                        '\'; '.
-                                                                                    'varObjA.innerHTML = \'Preview\'; '.
-                                                                                'varObjTTD.appendChild(varObjA); '.
-                                                                                '}'
-                                                                            )
-                                                                            ).
+                                                                        // self::getSyntaxCreateDOM_TableData(
+                                                                        //     $varUserSession, 
+                                                                        //     [
+                                                                        //     'ID' => 'varObjTTD',
+                                                                        //     'ParentID' => 'varObjTTR',
+                                                                        //     'Style' => array_merge(
+                                                                        //         $varStyle_TableActionPanelBody,
+                                                                        //         [
+                                                                        //             ['textAlign', 'center']
+                                                                        //         ]
+                                                                        //         ),
+                                                                        //     ],
+                                                                        //     (
+                                                                        //     'if (varDataJSONMasterFileRecord[i][\'filePath\'] != \'\') {'.
+                                                                        //         'var varFileName = varDataJSONMasterFileRecord[i][\'name\']; '.
+                                                                        //         'var varObjA = document.createElement(\'a\'); '.
+                                                                        //             'varObjA.href = \'javascript:'.
+                                                                        //                 '(function(varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ) {'.
+                                                                        //                     'JSFunc_FilePreview_'.$varUniqueID.'(varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ); '.
+                                                                        //                     '}) ('.
+                                                                        //                         '\\\'\' + varDataJSONMasterFileRecord[i][\'filePath\'] + \'\\\','.
+                                                                        //                         ' \\\'\' + varFileName.replace(/\'/g, \'\\\\\\\'\') + \'\\\', '.
+                                                                        //                         ' \\\'\' + varDataJSONMasterFileRecord[i][\'size\'] + \'\\\', '.
+                                                                        //                         ' \\\'\' + varDataJSONMasterFileRecord[i][\'MIME\'] + \'\\\', '.
+                                                                        //                         ' \\\'\' + varDataJSONMasterFileRecord[i][\'uploadDateTimeTZ\'] + \'\\\''.
+                                                                        //                         ');'.
+                                                                        //                 '\'; '.
+                                                                        //             'varObjA.innerHTML = \'Preview\'; '.
+                                                                        //         'varObjTTD.appendChild(varObjA); '.
+                                                                        //         '}'
+                                                                        //     )
+                                                                        //     ).
                                                                         self::getSyntaxCreateDOM_TableData(
                                                                             $varUserSession, 
                                                                             [
