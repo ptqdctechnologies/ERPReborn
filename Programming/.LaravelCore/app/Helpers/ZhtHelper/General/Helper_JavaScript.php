@@ -2408,7 +2408,7 @@ namespace App\Helpers\ZhtHelper\General
                                                                 ).
                                                             ').data.log_FileUpload_Pointer_RefID'.
                                                         '); '.
-                                                    'alert(JSON.stringify(varReturn)); '.
+                                                    // 'alert(JSON.stringify(varReturn)); '.
 
                                                     // 'alert(document.getElementById(\''.$varDOMReturnID.'\').value);'.
                                                     'document.getElementById(\''.$varDOMReturnID.'\').value = JSON.stringify(varReturn); '.
