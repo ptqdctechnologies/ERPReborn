@@ -4,7 +4,7 @@
       <div class="form-group">
         <table>
           <tr>
-            <td style="padding-top: 5px;"><label>Budget Code</label></td>
+            <td style="padding-top: 12px;"><label>Budget Code</label></td>
             <td>
               <div class="input-group" style="width: 70%;">
                 <input id="projectcode" style="border-radius:0;" name="projectcode" class="form-control" readonly>
@@ -29,7 +29,7 @@
       <div class="form-group">
         <table>
           <tr>
-            <td style="padding-top:8px;"><label>Requester</label></td>
+            <td style="padding-top:12px;"><label>Requester</label></td>
             <td style="padding-top:8px;">
               <div class="input-group">
                 <input id="requester_id" style="border-radius:0;" name="requester_id" type="hidden" class="form-control">
@@ -45,7 +45,7 @@
       <div class="form-group">
         <table>
           <tr>
-            <td style="padding-bottom:22px;"><Label>Remark</Label></td>
+            <td style="padding-bottom:20px;"><Label>Remark</Label></td>
             <td>
               <div class="input-group">
                 <textarea name="remark" id="remark" style="border-radius:0;" cols="30" rows="3" class="form-control"></textarea>

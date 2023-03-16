@@ -1,5 +1,5 @@
 <div class="wrapper-budget card-body table-responsive p-0 tableShowHideDor" style="height: 230px;">
-    <table class="table table-head-fixed text-nowrap table-striped TablePrDetailDor">
+    <table class="table table-head-fixed text-nowrap table-sm TablePrDetailDor">
         <thead>
             <tr>
                 <th style="border:1px solid #e9ecef;text-align: center;">Used</th>

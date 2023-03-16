@@ -27,7 +27,21 @@
     <div class="col-md-4">
       <div class="form-group">
         <table>
-          <tr>
+          <tr class="budgetDetail">
+            <td style="padding-top:8px;"><label>Transporter</label></td>
+            <td>
+              <div class="input-group">
+                <input name="transporter" id="transporter" style="border-radius:0;" type="text" class="form-control" disabled>
+                <div class="input-group-append">
+                  <span style="border-radius:0;" class="input-group-text form-control">
+                    <a href="#" id="transporter2" data-toggle="modal" data-target="#myTransporter" class="myTransporter"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                  </span>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <!-- <tr>
             <td style="padding-top: 5px;"><label>DOR Number</label></td>
             <td>
               <div class="input-group" style="width: 108%;">
@@ -39,7 +53,7 @@
                 </div>
               </div>
             </td>
-          </tr>
+          </tr> -->
         </table>
       </div>
     </div>

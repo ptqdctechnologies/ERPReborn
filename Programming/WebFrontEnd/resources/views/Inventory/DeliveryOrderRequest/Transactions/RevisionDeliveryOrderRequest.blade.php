@@ -12,10 +12,9 @@
 @include('getFunction.getSupplier')
 
 <div class="content-wrapper" style="position:relative;bottom:12px;">
-    <section class="content">@csrf
-                    @method('PUT')
-                    <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
-                    
+    <section class="content">
+        <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
+
         <div class="container-fluid">
             <div class="row mb-1" style="background-color:#4B586A;">
                 <div class="col-sm-6" style="height:30px;">
@@ -36,7 +35,8 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <label class="card-title">
-                                            Purchase Requisition Detail
+                                                Purchase Requisition Detail &nbsp;&nbsp;
+                                                <a id="pr_number2" data-toggle="modal" data-target="#mySearchPurchaseRequistion" title="Select Purchase Requisition"><img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt=""></a>
                                             </label>
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
