@@ -13,6 +13,7 @@ class AdvanceRequestController extends Controller
         // $data = $request->session()->get("SessionDeliveryOrder");
         // dd($data);
         $varAPIWebToken = $request->session()->get('SessionLogin');
+
         // dd($varAPIWebToken);
         $request->session()->forget("SessionAdvance");
         
@@ -38,7 +39,7 @@ class AdvanceRequestController extends Controller
         $count_product = count($input['var_product_id']);
 
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        
+
         $advanceDetail = [];
         for($n =0; $n < $count_product; $n++){
             $advanceDetail[$n] = [
@@ -64,8 +65,8 @@ class AdvanceRequestController extends Controller
                 "documentDateTimeTZ" => $input['var_date'],
                 "log_FileUpload_Pointer_RefID" => (int)$input['dataInput_Log_FileUpload_Pointer_RefID'],
                 "requesterWorkerJobsPosition_RefID" => (int)$input['request_name_id'],
-                "beneficiaryWorkerJobsPosition_RefID" => 25000000000439,
-                "beneficiaryBankAccount_RefID" => 167000000000001,
+                "beneficiaryWorkerJobsPosition_RefID" => (int)$input['beneficiary_name_id'],
+                "beneficiaryBankAccount_RefID" => (int)$input['beneficiaryBankAccount_RefID'],
                 "internalNotes" => 'My Internal Notes',
                 "remarks" => $input['var_remark'],
                 "additionalData" => [
@@ -78,6 +79,22 @@ class AdvanceRequestController extends Controller
             );
         
             // dd($varData);
+
+        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        // $varAPIWebToken, 
+        // 'userAction.documentWorkFlow.approvalStage.setUserSubmission', 
+        // 'latest',
+        // [
+        // 'entities' => [
+        //     "businessDocument_RefID" => 74000000020323,
+        //     "workFlowPath_RefID" => 116000000000010,
+        //     "remarks" => null,
+        //     "approverEntity_RefID" => 164000000000023
+        //     ]
+        // ]
+        // );
+        // dd($varData);
 
         $compact = [
             "advnumber"=> $varData['data']['businessDocument']['documentNumber'],
@@ -171,10 +188,12 @@ class AdvanceRequestController extends Controller
         ]
         );
 
+        // dd($varDataAdvanceRevision);
+
         $compact = [
             'dataAdvanceRevisions' => $varDataAdvanceRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
             'log_FileUpload_Pointer_RefID' => $varDataAdvanceRevision['data'][0]['document']['content']['attachmentFiles']['main']['log_FileUpload_Pointer_RefID'],
-            'dataRequester' => $varDataAdvanceRevision['data'][0]['document']['content']['involvedPersons']['requester'],
+            'dataWorker' => $varDataAdvanceRevision['data'][0]['document']['content']['involvedPersons'],
             'var_recordID' => $request->searchArfNumberRevisionId,
             'varAPIWebToken' => $varAPIWebToken,
             'statusAdvanceRevisi' => 1,

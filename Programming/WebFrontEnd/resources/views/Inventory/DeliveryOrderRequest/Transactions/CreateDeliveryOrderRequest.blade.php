@@ -32,7 +32,8 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <label class="card-title">
-                                            Purchase Requisition Detail
+                                                Purchase Requisition Detail &nbsp;&nbsp;
+                                                <a id="pr_number2" data-toggle="modal" data-target="#mySearchPurchaseRequistion" title="Select Purchase Requisition"><img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt=""></a>
                                             </label>
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -77,7 +78,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    
+
                                     <div class="card-body detailDorList">
                                         <table style="float:right;">
                                             <tr>

@@ -3,7 +3,8 @@
         <div class="col-md-8">
             <div class="form-group">
                 <table>
-                  <tr class="budgetDetail">
+                    
+                  <!-- <tr class="budgetDetail">
                       <td><label>Transporter</label></td>
                       <td>
                           <div class="input-group">
@@ -15,7 +16,7 @@
                               </div>
                           </div>
                       </td>
-                  </tr>
+                  </tr> -->
                   <tr>
                       <td><label>Trans. Phone</label></td>
                       <td>
@@ -59,7 +60,7 @@
                       <td><label>Trans. Address</label></td>
                       <td>
                           <div class="input-group">
-                              <textarea id="address" rows="4" name="address" style="border-radius:0;" class="form-control"></textarea>
+                              <textarea id="address" rows="3" name="address" style="border-radius:0;" class="form-control"></textarea>
                           </div>
                       </td>
                   </tr>

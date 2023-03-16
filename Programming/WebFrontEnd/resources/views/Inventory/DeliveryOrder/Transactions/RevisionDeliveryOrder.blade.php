@@ -70,7 +70,9 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <label class="card-title">
-                                                Delivery Order Request Detail
+                                                Delivery Order Request Detail&nbsp;&nbsp;
+                                                <a id="dor_number2" data-toggle="modal" data-target="#mySearchDor"><img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt=""></a>
+
                                             </label>
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">

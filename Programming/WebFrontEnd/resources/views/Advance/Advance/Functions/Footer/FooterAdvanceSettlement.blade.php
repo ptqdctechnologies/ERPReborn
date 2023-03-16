@@ -9,6 +9,7 @@
         $(".amountCompanyCart").hide();
         $("#expenseCompanyCart").hide();
         $(".expenseCompanyCart").hide();
+        $(".file-attachment").hide();
     });
 </script>
 
@@ -18,6 +19,9 @@
         $("#projectcode").val(code);
         $("#projectname").val(name);
         $("#advance_number2").prop("disabled", false);
+
+
+        $(".file-attachment").show();
 
         $.ajaxSetup({
             headers: {
@@ -60,6 +64,7 @@
         $("#advance_number").val(docNum);
         $(".tableShowHideArfDetail").show();
         $("#projectcode2").prop("disabled", true);
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

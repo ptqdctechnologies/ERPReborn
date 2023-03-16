@@ -12,6 +12,7 @@
         $("#pr_number2").prop("disabled", true);
         $("#SubmitDor").prop("disabled", true);
         // $("#pr_number").css("background-color", "white");
+        $(".dor_detail").hide();
     });
 </script>
 
@@ -20,6 +21,9 @@
         $("#projectcode").val(code);
         $("#projectname").val(name);
         $("#pr_number2").prop("disabled", false);
+
+
+        $(".dor_detail").show();
 
         $.ajaxSetup({
             headers: {
