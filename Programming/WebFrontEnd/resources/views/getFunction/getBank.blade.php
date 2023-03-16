@@ -1,8 +1,8 @@
-<div id="myProject" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="myGetBank" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Choose Budget</h4>
+                <h4 class="modal-title">Choose Bank</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
@@ -10,12 +10,12 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap table-striped" id="tableGetProject">
+                                <table class="table table-head-fixed text-nowrap table-striped" id="tableGetBank">
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Budget Code</th>
-                                            <th>Budget Name</th>
+                                            <th>Name</th>
+                                            <th>Full Name</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -38,26 +38,25 @@
     });
 
     $(function() {
-        $('.myProject').on('click', function(e) {
+        $('.myGetBank').on('click', function(e) {
             e.preventDefault();
             
             $.ajax({
                 type: 'GET',
-                url: '{!! route("getProject") !!}',
+                url: '{!! route("getBank") !!}',
                 success: function(data) {
-                    var no = 1; t = $('#tableGetProject').DataTable();
+                    var no = 1; t = $('#tableGetBank').DataTable();
                     t.clear();
                     $.each(data, function(key, val) {
                         t.row.add([
                             '<tbody><tr><td>' + no++ + '</td>',
-                            '<td><span data-dismiss="modal" onclick="klikProject(\'' + val.sys_ID + '\', \'' + val.sys_Text + '\');">' + val.sys_ID + '</span></td>',
-                            '<td style="border:1px solid #e9ecef;">' + val.sys_Text + '</td></tr></tbody>'
+                            '<td><span data-dismiss="modal" onclick="klikGetBank(\'' + val.sys_ID + '\', \'' + val.acronym + '\');">' + val.acronym + '</span></td>',
+                            '<td style="border:1px solid #e9ecef;">' + val.name + '</td></tr></tbody>'
                         ]).draw();
 
                     });
                 }
             });
-            
         });
 
     });

@@ -4,13 +4,18 @@
         $(".Remark").hide();
         $("#detailTransAvail").hide();
         $("#sitecode2").prop("disabled", true);
-        $("#request_name2").prop("disabled", true);
-        $("#request_name").prop("readonly", true);
+        // $("#request_name2").prop("disabled", true);
+        // $("#beneficiary_name2").prop("disabled", true);
         $("#showContentBOQ3").hide();
         $(".tableShowHideBOQ3").hide();
-        $("#iconUnitPrice2").hide();
+        // $(".file-attachment").hide();
+        $(".advance-detail").hide();
+        
         $("#product_id2").prop("disabled", true);
+        // $("#bank_name2").prop("disabled", true);
+        // $("#bank_account2").prop("disabled", true);
         // $("#submitArf").prop("disabled", true);
+        
     });
 </script>
 
@@ -60,7 +65,12 @@
         $("#addToDoDetail").prop("disabled", false);
         $(".tableShowHideBOQ3").show();
         $("#request_name2").prop("disabled", false);
-        $("#request_name").attr('required', true);
+        $("#beneficiary_name2").prop("disabled", false);
+        $("#bank_name2").prop("disabled", false);
+
+
+        $(".file-attachment").show();
+        $(".advance-detail").show();
 
         $.ajaxSetup({
             headers: {
@@ -115,17 +125,18 @@
                                 '<input id="putProductId'+ key +'" style="border-radius:0;width:130px;background-color:white;" name="putProductId" class="form-control" readonly>' +
                                 '<div class="input-group-append">' +
                                 '<span style="border-radius:0;" class="input-group-text form-control" data-id="10">' +
-                                    '<a id="product_id2" data-toggle="modal" data-target="#myProduct" onclick="KeyFunction('+ key +')"><img src="{{ asset("AdminLTE-master/dist/img/box.png") }}" width="13" alt=""></a>' +
+                                    '<a id="product_id2" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction('+ key +')"><img src="{{ asset("AdminLTE-master/dist/img/box.png") }}" width="13" alt=""></a>' +
                                 '</span>' +
                                 '</div>' +
                             '</div>' +
                         '</td>' +
 
                         '<td style="border:1px solid #e9ecef;display:'+ statusDisplay2[key] +'">' + '<span>' + val2.product_RefID + '</span>' + '</td>' +
-                        
                         '<td style="border:1px solid #e9ecef;">' + '<span id="putProductName'+ key +'">' + val2.productName + '</span>' + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + '<span">' + val2.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + '<span">' + val2.quantityRemain.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
+                        '<input id="putUom'+ key +'" type="hidden">' +
+
+                        '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.quantityRemain.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.unitPriceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
 
                         '<td class="sticky-col third-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
@@ -234,10 +245,12 @@
 
                 var putProductId = getProductId[index];
                 var putProductName = getProductName[index];
+                var putUom = getUom[index];
 
                 if(getProductName[index] == "Unspecified Product"){
                     var putProductId = $("#putProductId"+index).val();
                     var putProductName = $("#putProductName"+index).html();
+                    var putUom = $("#putUom"+index).val();
                 }
                 TotalBudgetSelected += +total_req[index].replace(/,/g, '');
                 TotalQty+= +qty_req[index].replace(/,/g, '');
@@ -257,7 +270,7 @@
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkName[index] + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductId + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductName + '</td>' +
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getUom[index] + '</td>' +
+                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putUom + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getCurrency[index] + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="price_req2'+ index +'">' + currencyTotal(price_req[index]) + '</span>' + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="qty_req2'+ index +'">' + currencyTotal(qty_req[index]) + '</span>' + '</td>' +

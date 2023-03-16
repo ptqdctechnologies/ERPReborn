@@ -171,4 +171,82 @@ class FunctionController extends Controller
             
         return response()->json($varData['data']['data']);
     }
+
+    public function getBank(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.read.dataList.master.getBank', 
+            'latest', 
+            [
+            'parameter' => [
+                ],
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+            );
+        
+        // dd($varData);
+        
+        return response()->json($varData['data']);
+    }
+
+    public function getBankAccount(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $bank_code = $request->input('bank_code');
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.read.dataList.master.getBankAccount', 
+            'latest', 
+            [
+            'parameter' => [
+                'bank_RefID' => (int)$bank_code,
+                ],
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+            );
+        
+        // dd($varData);
+        
+        return response()->json($varData['data']);
+    }
+
+    public function getProduct(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.read.dataList.master.getProduct', 
+            'latest', 
+            [
+            'parameter' => [
+                'dateTime' => null
+                ],
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,                    
+                'paging' => null
+                ]
+            ]
+            );
+        
+        // dd($varData['data'][0]);
+        
+        return response()->json($varData['data']);
+    }
 }
