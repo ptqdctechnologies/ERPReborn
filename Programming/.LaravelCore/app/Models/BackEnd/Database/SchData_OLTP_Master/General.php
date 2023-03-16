@@ -2958,5 +2958,48 @@ namespace App\Models\Database\SchData_OLTP_Master
                 }
             }
 
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isBusinessDocumentFinalApproved                                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-03-16                                                                                           |
+        | ▪ Creation Date   : 2023-03-16                                                                                           |
+        | ▪ Description     : Mengecek Status Final Approve pada Dokumen Bisnis                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varBusinessDocument_RefID ► Business Document Reference ID                                               |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function isBusinessDocumentFinalApproved(
+            $varUserSession, int $varBranchID,
+            int $varBusinessDocument_RefID = null)
+            {
+            try {
+                $varData = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-Master.Func_General_IsBusinessDocumentFinalApproved',
+                        [
+                            [$varBusinessDocument_RefID, 'bigint']
+                        ]
+                        )
+                    );
+                $varReturn = [
+                    'status' => $varData['Data'][0]['Func_General_IsBusinessDocumentFinalApproved']
+                    ];
+                return $varReturn;
+                } 
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
         }
     }

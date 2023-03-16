@@ -4,28 +4,28 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\documentWorkFlow\approvalStage                |
-|                \getCurrentAndNextStage\v1                                                                                        |
+|                \isBusinessDocumentFinalApproved\v1                                                                               |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\documentWorkFlow\approvalStage\getCurrentAndNextStage\v1
+namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\documentWorkFlow\approvalStage\isBusinessDocumentFinalApproved\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getCurrentAndNextStage                                                                                       |
-    | ▪ Description : Menangani API userAction.documentWorkFlow.approvalStage.getCurrentAndNextStage Version 1                     |
+    | ▪ Class Name  : isBusinessDocumentFinalApproved                                                                              |
+    | ▪ Description : Menangani API userAction.documentWorkFlow.approvalStage.isBusinessDocumentFinalApproved Version 1            |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getCurrentAndNextStage extends \App\Http\Controllers\Controller
+    class isBusinessDocumentFinalApproved extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-02-14                                                                                           |
-        | ▪ Creation Date   : 2023-02-14                                                                                           |
+        | ▪ Last Update     : 2023-03-16                                                                                           |
+        | ▪ Creation Date   : 2023-03-16                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\doc
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-02-14                                                                                           |
-        | ▪ Creation Date   : 2023-02-14                                                                                           |
+        | ▪ Last Update     : 2023-03-16                                                                                           |
+        | ▪ Creation Date   : 2023-03-16                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -59,11 +59,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\doc
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Business Document Current And Next Work Flow PathStage (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Is Business Document Final Approved (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchSysConfig\General())->getBusinessDocumentCurrentAndNextWorkFlowPathStage(
+                    try {
+                        if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\General())->isBusinessDocumentFinalApproved(
                             $varUserSession, 
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
 
