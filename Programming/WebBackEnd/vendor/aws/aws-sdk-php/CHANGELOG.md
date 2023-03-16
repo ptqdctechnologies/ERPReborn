@@ -1,5 +1,46 @@
 # CHANGELOG
 
+## 3.261.12 - 2023-03-15
+
+* `Aws\MigrationHubStrategyRecommendations` - This release adds the binary analysis that analyzes IIS application DLLs on Windows and Java applications on Linux to provide anti-pattern report without configuring access to the source code.
+* `Aws\S3Control` - Added support for S3 Object Lambda aliases.
+* `Aws\SecurityLake` - Make Create/Get/ListSubscribers APIs return resource share ARN and name so they can be used to validate the RAM resource share to accept. GetDatalake can be used to track status of UpdateDatalake and DeleteDatalake requests.
+
+## 3.261.11 - 2023-03-14
+
+* `Aws\ApplicationAutoScaling` - Application Auto Scaling customers can now use mathematical functions to customize the metric used with Target Tracking policies within the policy configuration itself, saving the cost and effort of publishing the customizations as a separate metric.
+* `Aws\DataExchange` - This release enables data providers to license direct access to S3 objects encrypted with Customer Managed Keys (CMK) in AWS KMS through AWS Data Exchange. Subscribers can use these keys to decrypt, then use the encrypted S3 objects shared with them, without creating or managing copies.
+* `Aws\DirectConnect` - describe-direct-connect-gateway-associations includes a new status, updating, indicating that the association is currently in-process of updating.
+* `Aws\EC2` - This release adds a new DnsOptions key (PrivateDnsOnlyForInboundResolverEndpoint) to CreateVpcEndpoint and ModifyVpcEndpoint APIs.
+* `Aws\IAM` - Documentation only updates to correct customer-reported issues
+* `Aws\Keyspaces` - Adding support for client-side timestamps
+
+## 3.261.10 - 2023-03-13
+
+* `Aws\AppIntegrationsService` - Adds FileConfiguration to Amazon AppIntegrations CreateDataIntegration supporting scheduled downloading of third party files into Amazon Connect from sources such as Microsoft SharePoint.
+* `Aws\ConnectWisdomService` - This release extends Wisdom CreateKnowledgeBase API to support SharePoint connector type by removing the @required trait for objectField
+* `Aws\LakeFormation` - This release updates the documentation regarding Get/Update DataCellsFilter
+* `Aws\S3Control` - Added support for cross-account Multi-Region Access Points. Added support for S3 Replication for S3 on Outposts.
+* `Aws\Tnb` - This release adds tagging support to the following Network Instance APIs : Instantiate, Update, Terminate.
+
+## 3.261.9 - 2023-03-10
+
+* `Aws\SecretsManager` - The type definitions of SecretString and SecretBinary now have a minimum length of 1 in the model to match the exception thrown when you pass in empty values.
+* `Aws\ivschat` - This release adds a new exception returned when calling AWS IVS chat UpdateLoggingConfiguration. Now UpdateLoggingConfiguration can return ConflictException when invalid updates are made in sequence to Logging Configurations.
+
+## 3.261.8 - 2023-03-09
+
+* `Aws\CloudWatchEvidently` - Updated entity override documentation
+* `Aws\CodeArtifact` - This release introduces the generic package format, a mechanism for storing arbitrary binary assets. It also adds a new API, PublishPackageVersion, to allow for publishing generic packages.
+* `Aws\Connect` - This release adds a new API, GetMetricDataV2, which returns metric data for Amazon Connect.
+* `Aws\NetworkManager` - This update provides example usage for TransitGatewayRouteTableArn.
+* `Aws\QuickSight` - This release has two changes: add state persistence feature for embedded dashboard and console in GenerateEmbedUrlForRegisteredUser API; add properties for hidden collapsed row dimensions in PivotTableOptions.
+* `Aws\RedshiftDataAPIService` - Added support for Redshift Serverless workgroup-arn wherever the WorkgroupName parameter is available.
+* `Aws\SESv2` - This release introduces a new recommendation in Virtual Deliverability Manager Advisor, which detects missing or misconfigured Brand Indicator for Message Identification (BIMI) DNS records for customer sending identities.
+* `Aws\SageMaker` - Amazon SageMaker Inference now allows SSM access to customer's model container by setting the "EnableSSMAccess" parameter for a ProductionVariant in CreateEndpointConfig API.
+* `Aws\ServiceDiscovery` - Updated all AWS Cloud Map APIs to provide consistent throttling exception (RequestLimitExceeded)
+* `Aws\Signature` - Adds support for sigV4a presigned urls.
+
 ## 3.261.7 - 2023-03-08
 
 * `Aws\Athena` - A new field SubstatementType is added to GetQueryExecution API, so customers have an error free way to detect the query type and interpret the result.

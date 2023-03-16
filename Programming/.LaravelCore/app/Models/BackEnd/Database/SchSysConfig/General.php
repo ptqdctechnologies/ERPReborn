@@ -228,12 +228,12 @@ namespace App\Models\Database\SchSysConfig
                         $varUserSession,
                         'SchSysConfig.Func_General_GetBusDocCurrentAndNextWorkFlowPathStage',
                         [
-                            //[$varBranchID, 'bigint' ],
-                            
+                            [$varBranchID, 'bigint' ],
+
                             [$varBusinessDocument_RefID, 'bigint' ]
                         ]
                         )
-                    );                
+                    );
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
