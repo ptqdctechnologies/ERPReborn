@@ -9,9 +9,8 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <input type="hidden" id="key">
-                                <table class="table table-head-fixed text-nowrap" id="tableGetProduct">
+                            <div class="card-body table-responsive p-0" style="height: 425px;">
+                                <table class="table table-head-fixed table-sm text-nowrap" id="tableGetProduct">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -20,23 +19,6 @@
                                             <th>UOM</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        @php $no=1; @endphp
-                                        @for($i = 1; $i < 20; $i++)
-                                        <tr>
-                                            <td>{{ $no++ }}</td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikProduct" data-id1="00012345{{ $i }}" data-id2="Product Name {{ $i }}">00012345{{$i}}</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <p>Product Name {{$i}}</p>
-                                            </td>
-                                            <td>Pcs</td>
-                                        </tr>
-                                        @endfor
-                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -47,12 +29,60 @@
     </div>
 </div>
 
+
+
 <script>
     function KeyFunction(key) {
-        $("#key").val(key);
-        $('#tableGetProduct').DataTable();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var dataShow = [];
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getProduct") !!}',
+            success: function(data) {
+                var no = 1;
+
+                for ( var i=0 ; i< Object.keys(data).length ; i++ ) {
+                    dataShow.push([
+                        i+1,
+                        '<span data-dismiss="modal" onclick="klikProduct(\'' + data[i]['sys_ID'] + '\', \'' + data[i]['name'] + '\', \'' + data[i]['quantityUnitName'] + '\', \'' + key + '\');">' + data[i]['sys_ID'] + '</span>',
+                        '<span data-dismiss="modal" onclick="klikProduct(\'' + data[i]['sys_ID'] + '\', \'' + data[i]['name'] + '\', \'' + data[i]['quantityUnitName'] + '\', \'' + key + '\');">' + data[i]['name'] + '</span>',
+                        '<span data-dismiss="modal" onclick="klikProduct(\'' + data[i]['sys_ID'] + '\', \'' + data[i]['name'] + '\', \'' + data[i]['quantityUnitName'] + '\', \'' + key + '\');">' + data[i]['quantityUnitName'] + '</span>',  
+                    ]);
+                }
+
+                $("#tableGetProduct").dataTable().fnDestroy()
+
+                $('#tableGetProduct').DataTable( {
+                    data:           dataShow,
+                    deferRender:    true,
+                    // scrollY:        200,
+                    scrollCollapse: true,
+                    scroller:       true
+                } );
+            }
+        });
     }
 </script>
+
+<script>
+    function klikProduct(id, name, uom, key) {
+
+        $("#putProductId"+key).val(id);
+        $("#putProductName"+key).html(name);
+        $("#putUom"+key).val(uom);
+
+        $("#qty_req"+key).prop("disabled", false);
+        $("#price_req"+key).prop("disabled", false);
+        $("#remark_req"+key).prop("disabled", false);
+    }
+</script>
+<!-- 
+
 
 <script>
     $(function() {
@@ -72,5 +102,4 @@
 
         });
     });
-</script>
-
+</script> -->

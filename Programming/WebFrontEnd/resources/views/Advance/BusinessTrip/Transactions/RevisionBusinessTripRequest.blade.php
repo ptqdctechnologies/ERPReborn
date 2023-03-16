@@ -60,25 +60,25 @@
                       <div class="row">
                         <div class="col-md-12">
                           <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID">
-                          <input type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" name="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" onchange="javascript: @php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord'); @endphp;" />
+                          <input type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" name="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" onchange="javascript: @php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataInput_Log_FileUpload_Pointer_RefID_Action', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord'); @endphp;" />
                         </div>
                         <br><br>
                         <div class="col-md-12">
                           <div class="card-body table-responsive p-0" style="height:125px;">
-                            
-                          <table class="table table-head-fixed table-sm text-nowrap">
+
+                            <table class="table table-head-fixed table-sm text-nowrap">
                               <div class="form-group input_fields_wrap">
 
                                 <div class="input-group control-group">
 
                                   <!-- <div id="dataShow_MasterFileRecord" style="border-style:solid; border-width:1px;"></div> -->
                                   <div id="dataShow_ActionPanel"></div>
-                                  
+
                                 </div>
                               </div>
 
                             </table>
-                              
+
                           </div>
                         </div>
 
@@ -88,7 +88,7 @@
                 </div>
               </div>
             </div>
-            
+
             <div class="row">
               <div class="col-12">
                 <div class="card">
@@ -152,20 +152,20 @@
                               </td>
                             </tr>
                             <tr>
-                            <td><label>Head Station Location</label></td>
-                            <td>
-                              <div class="input-group">
-                                <input id="headStationLocation" name="headStationLocation" style="border-radius:0;" type="text" class="form-control">
-                              </div>
-                            </td>
-                          </tr>
+                              <td><label>Head Station Location</label></td>
+                              <td>
+                                <div class="input-group">
+                                  <input id="headStationLocation" name="headStationLocation" style="border-radius:0;" type="text" class="form-control">
+                                </div>
+                              </td>
+                            </tr>
                           </table>
                         </div>
                       </div>
 
                       <div class="col-md-6">
                         <table>
-                          
+
                           <tr>
                             <td><label>Business Trip Location</label></td>
                             <td>
@@ -185,7 +185,7 @@
                 </div>
               </div>
             </div>
-        
+
             <div class="row">
               <div class="col-12">
                 <div class="card">
@@ -509,7 +509,7 @@
                           <input id="sequence" style="border-radius:0;font-weight:bold;" value="1" type="text" class="form-control" readonly>
                           <input id="putSequence" style="border-radius:0;border:none;background-color:white;font-weight:bold;" type="hidden" class="form-control" readonly>
                         </td>
-                        
+
                         <td style="border:1px solid #e9ecef;">
                           <input id="allowance" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                         </td>
@@ -528,7 +528,7 @@
                         <td style="border:1px solid #e9ecef;">
                           <input id="totalBalance" style="border-radius:0;" type="text" class="form-control" readonly="">
                         </td>
-                        
+
                         <input id="statusEditBrf" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
                         <input id="ValidateAllowance" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                         <input id="ValidateTransport" style="border-radius:0;" type="hidden" class="form-control" readonly="">
@@ -589,7 +589,8 @@
                       <thead>
                         <tr>
                           <th style="border:1px solid #e9ecef;width:7%;"">Sub Total</th>
-                          <td style="border:1px solid #e9ecef;width:10%;"></td>
+                          <td style=" border:1px solid #e9ecef;width:10%;">
+                            </td>
                           <td style="border:1px solid #e9ecef;width:10%;"></td>
                           <td style="border:1px solid #e9ecef;width:10%;"></td>
                           <td style="border:1px solid #e9ecef;width:13%;" id="valAllowance"></td>

@@ -32,7 +32,7 @@ class AdvanceSettlementController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        dd($input);
+        // dd($input);
         $count_product = count($input['var_product_id']);
 
         $varAPIWebToken = $request->session()->get('SessionLogin');

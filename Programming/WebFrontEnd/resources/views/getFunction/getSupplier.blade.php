@@ -44,7 +44,6 @@
     $(function() {
         $('.mySupplier').on('click', function(e) {
             e.preventDefault();
-            
             $.ajax({
                 type: 'GET',
                 url: '{!! route("getSupplier") !!}',
@@ -52,7 +51,6 @@
                     var no = 1; 
                     t = $('#tableGetSupplier').DataTable();
                     t.clear();
-                    console.log(data);
                     $.each(data, function(key, val) {
                         t.row.add([
                             '<tbody><tr><td>' + no++ + '</td>',

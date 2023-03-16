@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-header">
                 <label class="card-title">
-                    Add New Delivery Order Request
+                    Delivery Order Request Revision
                 </label>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -13,24 +13,24 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <table>
                                 <tr>
-                                    <td><label>Budget Code</label></td>
+                                    <td style="padding-top: 12px;"><label>Budget Code</label></td>
                                     <td>
                                         <div class="input-group" style="width: 70%;">
                                             <input id="projectcode" style="border-radius:0;" name="var_budget_code" class="form-control" readonly value="{{$dataAdvanceRevisions['entities']['combinedBudget_RefID']}}">
                                             <div class="input-group-append">
                                                 <span style="border-radius:0;" class="input-group-text form-control">
-                                                <a href="#" id="projectcode2" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                                            </span>
+                                                    <a href="#" id="projectcode2" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                </span>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="input-group" style="width: 153%;position:relative;right:38%;">
-                                            <input id="projectname" style="border-radius:0;" class="form-control" name="var_budget_code2" readonly  value="{{$dataAdvanceRevisions['entities']['combinedBudgetName']}}">
+                                        <div class="input-group" style="width: 140%;position:relative;right:38%;">
+                                            <input id="projectname" style="border-radius:0;" class="form-control" name="var_budget_code2" readonly value="{{$dataAdvanceRevisions['entities']['combinedBudgetName']}}">
                                         </div>
                                     </td>
                                 </tr>
@@ -40,7 +40,18 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <table>
+
                                 <tr>
+                                    <td style="padding-top:15px;"><label>Receiver Name</label></td>
+                                    <td style="padding-top:10px;">
+                                        <div class="input-group">
+                                            <input id="receiver_name" style="border-radius:0;" name="receiver_name" class="form-control" value="{{$dataAdvanceRevisions['entities']['combinedBudget_RefID']}}">
+
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <!-- <tr>
                                     <td><label>PR Number</label></td>
                                     <td>
                                         <div class="input-group" style="width: 70%;">
@@ -52,7 +63,38 @@
                                             </div>
                                         </div>
                                     </td>
+                                </tr> -->
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <table>
+
+                                <tr>
+                                    <td style="padding-top:15px;"><label>Receiver Number</label></td>
+                                    <td style="padding-top:10px;">
+                                        <div class="input-group">
+                                            <input id="receiver_number" style="border-radius:0;" name="receiver_number" class="form-control" value="{{$dataAdvanceRevisions['entities']['combinedBudget_RefID']}}">
+
+                                        </div>
+                                    </td>
                                 </tr>
+
+                                <!-- <tr>
+                                    <td><label>PR Number</label></td>
+                                    <td>
+                                        <div class="input-group" style="width: 70%;">
+                                            <input id="pr_number" style="border-radius:0;" name="var_sub_budget_code" class="form-control" readonly value="{{ $dataAdvancenumber }}">
+                                            <div class="input-group-append">
+                                                <span style="border-radius:0;" class="input-group-text form-control">
+                                                    <a href="#" id="pr_number2" data-toggle="modal" data-target="#mySearchPurchaseRequistion"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr> -->
                             </table>
                         </div>
                     </div>
@@ -74,10 +116,10 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                <div class="col-md-8">
+                    <div class="col-md-8">
                         <div class="form-group">
                             <table>
-                                <tr>
+                                <!-- <tr>
                                     <td><label>Receiver Name</label></td>
                                     <td>
                                         <div class="input-group">
@@ -85,7 +127,7 @@
 
                                         </div>
                                     </td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                     <td><label>Deliver Type</label></td>
                                     <td>
@@ -104,7 +146,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <!-- <div class="col-md-4">
                         <div class="form-group">
                             <table>
                                 <tr>
@@ -118,7 +160,7 @@
                                 </tr>
                             </table>
                         </div>
-                    </div>
+                    </div> -->
 
 
                     <div class="col-md-6 headerDor1">

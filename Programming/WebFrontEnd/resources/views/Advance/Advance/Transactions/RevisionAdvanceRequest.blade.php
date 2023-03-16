@@ -43,23 +43,20 @@
               </div>
             </div>
 
-
-            <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
-              <div class="row">
-                <div class="col-12">
-                  <div class="card">
-                    <div class="card-header">
-                      <label class="card-title">
-                        Budget Details
-                      </label>
-                      <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                          <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                        </button>
-                      </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <label class="card-title">
+                      Advance Request Detail
+                    </label>
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                      </button>
                     </div>
-                    @include('getFunction.BOQ3')
                   </div>
+                  @include('Advance.Advance.Functions.Header.HeaderAdvanceDetailRevision')
                 </div>
               </div>
             </div>
@@ -78,7 +75,7 @@
                         </button>
                       </div>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body file-attachment">
                       <div class="row">
                         <div class="col-md-12">
                           <!-- <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID2" value="" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID"> -->
@@ -111,6 +108,28 @@
                 </div>
               </div>
             </div>
+
+            <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <label class="card-title">
+                        Budget Details
+                      </label>
+                      <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                          <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                        </button>
+                      </div>
+                    </div>
+                    @include('getFunction.BOQ3')
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            
 
             <div class="row">
               <div class="col-12">
