@@ -459,6 +459,92 @@ namespace App\Models\Database\SchSysConfig
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getManualRemappingWorkFlowPathSequenceDestinationList                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-03-17                                                                                           |
+        | ▪ Creation Date   : 2023-03-17                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Tujuan untuk Remapping Manual Urutan Jalur WorkFlow                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varWorkFlowPathSequence_RefID ► Work Flow Path Sequence Reference ID                                                      |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getManualRemappingWorkFlowPathSequenceDestinationList(
+            $varUserSession, int $varBranchID, 
+            int $varWorkFlow_RefID = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_General_GetWorkFlowPathSequenceManualRemapping_DstList',
+                        [
+                            [$varUserSession, 'bigint'],
+
+                            [$varWorkFlow_RefID, 'bigint']
+                        ]
+                        )
+                    );
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getManualRemappingWorkFlowPathSequenceSourceList                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-03-17                                                                                           |
+        | ▪ Creation Date   : 2023-03-17                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Sumber untuk Remapping Manual Urutan Jalur WorkFlow                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varWorkFlowPathSequence_RefID ► Work Flow Path Sequence Reference ID                                                      |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getManualRemappingWorkFlowPathSequenceSourceList(
+            $varUserSession, int $varBranchID, 
+            int $varWorkFlow_RefID = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_General_GetWorkFlowPathSequenceManualRemapping_SrcList',
+                        [
+                            [$varUserSession, 'bigint'],
+
+                            [$varWorkFlow_RefID, 'bigint']
+                        ]
+                        )
+                    );
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getReferenceTextByReferenceID                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
