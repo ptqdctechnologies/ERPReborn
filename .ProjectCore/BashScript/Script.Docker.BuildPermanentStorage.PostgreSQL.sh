@@ -23,14 +23,20 @@ if [ ! -d $varDirectory ]; then
 fi
 
 #------[ PostgreSQL ]------
-varDirectory="./../ERPReborn-PermanentStorage/BindMount/PostgreSQL/var/lib/postgresql/data";
+#varDirectory="./../ERPReborn-PermanentStorage/BindMount/PostgreSQL/var/lib/postgresql/data";
+varDirectory="./../ERPReborn-PermanentStorage/BindMount/PostgreSQL/var/lib/postgresql";
 
 if [ ! -d $varDirectory ]; then
    sudo mkdir -p $varDirectory;
+   sudo cp .ProjectCore/Configuration/Docker/PostgreSQL/ERPReborn-PermanentStorage_PostgreSQL_PostgreDB.tgz ./../ERPReborn-PermanentStorage/BindMount/PostgreSQL/var/lib/ERPReborn-PermanentStorage_PostgreSQL_PostgreDB.tgz;
+   cd ./../ERPReborn-PermanentStorage/BindMount/PostgreSQL/var/lib;
+   sudo tar xzvf ERPReborn-PermanentStorage_PostgreSQL_PostgreDB.tgz;
+   sudo rm -rf ./ERPReborn-PermanentStorage_PostgreSQL_PostgreDB.tgz;
+   cd -;
 fi
 
-sudo chmod 700 $varDirectory;
-sudo chown 999 $varDirectory;
+sudo chmod 700 $varDirectory/data;
+sudo chown 999 $varDirectory/data;
 
 #------[ MySQL ]------
 
