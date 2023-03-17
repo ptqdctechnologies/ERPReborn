@@ -163,10 +163,10 @@
                     '<td style="border:1px solid #e9ecef;">' + '<span>' + (val2.unitPriceBaseCurrencyValue * val2.quantityRemain).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + '<span>' + totalPO.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
 
-                    '<td class="sticky-col third-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;position: relative;width:50px;" name="qty_req[]" class="form-control qty_req" autocomplete="off" '+ statusForm[key] +' value="'+ currency(var_qtys) +'">' + '</td>' +
-                    '<td class="sticky-col second-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req'+ key +'" style="border-radius:0;position: relative;width:80px;" name="price_req[]" class="form-control price_req" autocomplete="off" '+ statusForm[key] +' value="'+ currency(var_prices) +'">' + '</td>' +
-                    '<td class="sticky-col first-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req'+ key +'" style="border-radius:0;position: relative;width:80px;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled value="'+ var_total +'">' + '</td>' +
-                    '<td class="sticky-col forth-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="remark_req'+ key +'" style="border-radius:0;position: relative;width:130px;" name="remark_req[]" class="form-control" autocomplete="off" '+ statusForm[key] +' value="'+ var_remark +'">' + '</td>' +
+                    '<td class="sticky-col forth-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" '+ statusForm[key] +' value="'+ currency(var_qtys) +'">' + '</td>' +
+                    '<td class="sticky-col third-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req'+ key +'" style="border-radius:0;" name="price_req[]" class="form-control price_req" autocomplete="off" '+ statusForm[key] +' value="'+ currency(var_prices) +'">' + '</td>' +
+                    '<td class="sticky-col second-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req'+ key +'" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled value="'+ var_total +'">' + '</td>' +
+                    '<td class="sticky-col first-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="remark_req'+ key +'" style="border-radius:0;background-color:white;" name="remark_req[]" class="form-control" autocomplete="off" '+ statusForm[key] +' value="'+ var_remark +'">' + '</td>' +
 
                     '</tr>';
                 $('table.tableBudgetDetail tbody').append(html);
@@ -231,7 +231,7 @@
                         $('#total_req'+key).val("0.00");
                         $('#qty_req'+key).focus();
                     }
-                        else {
+                    else {
                         $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
                         $('#total_req'+key).val(currencyTotal(total));
                     }
@@ -353,9 +353,6 @@
         });
         
     }
-</script>
-
-
 </script>
 
 <script type="text/javascript">

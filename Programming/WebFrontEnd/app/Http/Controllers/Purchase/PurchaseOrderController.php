@@ -14,7 +14,7 @@ class PurchaseOrderController extends Controller
      */
     public function index(Request $request)
     {
-        
+        $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionPurchaseOrderPrNumber");
         $request->session()->forget("SessionPurchaseOrder");
         $var = 0;
@@ -22,11 +22,12 @@ class PurchaseOrderController extends Controller
             $var =  $_GET['var'];
         }
         $compact = [
+            'varAPIWebToken' => $varAPIWebToken,
             'var' => $var,
             'statusRevisi' => 1,
         ];
 
-        return view('Purchase.Purchase.Transactions.CreatePurchaseOrder', $compact);
+        return view('Purchase.PurchaseOrder.Transactions.CreatePurchaseOrder', $compact);
     }
 
     public function StoreValidatePurchaseOrderPrNumber(Request $request)
@@ -181,6 +182,33 @@ class PurchaseOrderController extends Controller
         // dd($varDataPurchaseRequisition);
 
         return response()->json($varDataPurchaseRequisition['data']);
+    }
+    public function PurchaseOrderByPrID(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $var_recordID = $request->input('var_recordID');
+        $varDataPurchaseRequisitionList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail',
+            'latest',
+            [
+                'parameter' => [
+                    'purchaseRequisition_RefID' => (int) $var_recordID
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ]
+        );
+        // dd($varDataPurchaseRequisitionList);
+        $compact = [
+            'DataPurchaseList' => $varDataPurchaseRequisitionList['data'],
+        ];
+        return response()->json($compact);
     }
     public function RevisionPurchaseOrderIndex(Request $request)
     {
