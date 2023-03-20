@@ -42,9 +42,9 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2023-03-20                                                                                           |
         | ▪ Creation Date   : 2023-02-28                                                                                           |
-        | ▪ Last Update     : 2023-02-28                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -54,10 +54,8 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varPreviousWorkFlowPath_RefID ► Previous WorkFlow Path Reference ID                                      |
-        |      ▪ (int)    varPreviousSequence ► Previous Sequence                                                                  |
-        |      ▪ (int)    varCurrentWorkFlowPath_RefID ► Current WorkFlow Path Reference ID                                        |
-        |      ▪ (int)    varCurrentSequence ► Current Sequence                                                                    |
+        |      ▪ (int)    varPreviousWorkFlowPathSequence_RefID ► Previous WorkFlow Path Sequence Reference ID                     |
+        |      ▪ (int)    varCurrentWorkFlowPathSequence_RefID ► Current WorkFlow Path Sequence Reference ID                       |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -66,7 +64,7 @@ namespace App\Models\Database\SchSysConfig
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varPreviousWorkFlowPath_RefID = null, int $varPreviousSequence = null, int $varCurrentWorkFlowPath_RefID = null, int $varCurrentSequence = null, string $varRemarks = null)
+            int $varPreviousWorkFlowPathSequence_RefID = null, int $varCurrentWorkFlowPathSequence_RefID = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -81,10 +79,8 @@ namespace App\Models\Database\SchSysConfig
                         [$varSysBranch_RefID, 'bigint'],
                         [$varSysBaseCurrency_RefID, 'bigint'],
                         
-                        [$varPreviousWorkFlowPath_RefID, 'bigint'],
-                        [$varPreviousSequence, 'smallint'],
-                        [$varCurrentWorkFlowPath_RefID, 'bigint'],
-                        [$varCurrentSequence, 'smallint'],
+                        [$varPreviousWorkFlowPathSequence_RefID, 'bigint'],
+                        [$varCurrentWorkFlowPathSequence_RefID, 'bigint'],
                         [$varRemarks, 'varchar']
                     ]
                     )
@@ -97,9 +93,9 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2023-03-20                                                                                           |
         | ▪ Creation Date   : 2023-02-28                                                                                           |
-        | ▪ Last Update     : 2023-02-28                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -110,10 +106,8 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varPreviousWorkFlowPath_RefID ► Previous WorkFlow Path Reference ID                                      |
-        |      ▪ (int)    varPreviousSequence ► Previous Sequence                                                                  |
-        |      ▪ (int)    varCurrentWorkFlowPath_RefID ► Current WorkFlow Path Reference ID                                        |
-        |      ▪ (int)    varCurrentSequence ► Current Sequence                                                                    |
+        |      ▪ (int)    varPreviousWorkFlowPathSequence_RefID ► Previous WorkFlow Path Sequence Reference ID                     |
+        |      ▪ (int)    varCurrentWorkFlowPathSequence_RefID ► Current WorkFlow Path Sequence Reference ID                       |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -122,7 +116,7 @@ namespace App\Models\Database\SchSysConfig
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varPreviousWorkFlowPath_RefID = null, int $varPreviousSequence = null, int $varCurrentWorkFlowPath_RefID = null, int $varCurrentSequence = null, string $varRemarks = null)
+            int $varPreviousWorkFlowPathSequence_RefID = null, int $varCurrentWorkFlowPathSequence_RefID = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -137,10 +131,8 @@ namespace App\Models\Database\SchSysConfig
                         [$varSysBranch_RefID, 'bigint'],
                         [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [$varPreviousWorkFlowPath_RefID, 'bigint'],
-                        [$varPreviousSequence, 'smallint'],
-                        [$varCurrentWorkFlowPath_RefID, 'bigint'],
-                        [$varCurrentSequence, 'smallint'],
+                        [$varPreviousWorkFlowPathSequence_RefID, 'bigint'],
+                        [$varCurrentWorkFlowPathSequence_RefID, 'bigint'],
                         [$varRemarks, 'varchar']
                     ]
                     )

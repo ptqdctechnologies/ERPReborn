@@ -464,7 +464,7 @@ namespace App\Models\Database\SchSysConfig
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2023-03-17                                                                                           |
         | ▪ Creation Date   : 2023-03-17                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Tujuan untuk Remapping Manual Urutan Jalur WorkFlow                               |
+        | ▪ Description     : Mendapatkan Daftar Tujuan untuk Pemetaan Ulang Manual Urutan Jalur WorkFlow                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
@@ -507,7 +507,7 @@ namespace App\Models\Database\SchSysConfig
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2023-03-17                                                                                           |
         | ▪ Creation Date   : 2023-03-17                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Sumber untuk Remapping Manual Urutan Jalur WorkFlow                               |
+        | ▪ Description     : Mendapatkan Daftar Sumber untuk Pemetaan Ulang Manual Urutan Jalur WorkFlow                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |

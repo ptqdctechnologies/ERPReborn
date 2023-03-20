@@ -30,25 +30,15 @@
             "entities" : {
                 "type": "object",
                 "properties": {
-                    "previousWorkFlowPath_RefID": {
+                    "previousWorkFlowPathSequence_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         },
-                    "previousSequence": {
-                        "type": [ "integer", "null" ],
-                        "minimum": 1,
-                        "maximum": 32767
-                        },
-                    "currentWorkFlowPath_RefID": {
+                    "currentWorkFlowPathSequence_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
-                        },
-                    "currentSequence": {
-                        "type": [ "integer", "null" ],
-                        "minimum": 1,
-                        "maximum": 32767
                         },
                     "remarks": {
                         "type": [ "string", "null" ],
@@ -57,10 +47,8 @@
                         }
                     },
                 "required": [ 
-                    "previousWorkFlowPath_RefID",
-                    "previousSequence",
-                    "currentWorkFlowPath_RefID",
-                    "currentSequence",
+                    "previousWorkFlowPathSequence_RefID",
+                    "currentWorkFlowPathSequence_RefID",
                     "remarks"
                     ]
                 }

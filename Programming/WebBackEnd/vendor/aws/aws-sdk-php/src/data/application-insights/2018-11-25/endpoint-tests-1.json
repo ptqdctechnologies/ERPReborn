@@ -882,7 +882,8 @@
                 "Region": "sa-east-1",
                 "UseDualStack": false,
                 "UseFIPS": false
-            }        },
+            }
+        },
         {
             "documentation": "For region ap-east-1 with FIPS enabled and DualStack enabled",
             "expect": {
@@ -1010,7 +1011,7 @@
             "params": {
                 "Region": "us-gov-west-1",
                 "UseDualStack": false,
-                "UseFHPS": true
+                "UseFIPS": true
             }
         },
         {
