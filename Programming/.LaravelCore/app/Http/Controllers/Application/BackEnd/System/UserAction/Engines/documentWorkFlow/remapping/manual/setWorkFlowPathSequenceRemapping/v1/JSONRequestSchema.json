@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.update.sysConfig.setWorkFlowPathSequenceRemapping (version 1)",
+"description": "JSON Request Schema of userAction.documentWorkFlow.remapping.manual.setWorkFlowPathSequenceRemapping (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.update.sysConfig.setWorkFlowPathSequenceRemapping" ]
+                        "enum": [ "userAction.documentWorkFlow.remapping.manual.setWorkFlowPathSequenceRemapping" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -27,20 +27,15 @@
     "data": {
         "type": "object",
         "properties": {
-            "recordID" : {
-                "type": "integer",
-                "minimum": 1,
-                "maximum": 9223372036854775807
-                },
             "entities" : {
                 "type": "object",
                 "properties": {
-                    "previousWorkFlowPathSequence_RefID": {
+                    "sourceWorkFlowPathSequence_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         },
-                    "currentWorkFlowPathSequence_RefID": {
+                    "destinationWorkFlowPathSequence_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
@@ -52,13 +47,13 @@
                         }
                     },
                 "required": [ 
-                    "previousWorkFlowPathSequence_RefID",
-                    "currentWorkFlowPathSequence_RefID",
+                    "sourceWorkFlowPathSequence_RefID",
+                    "destinationWorkFlowPathSequence_RefID",
                     "remarks"
                     ]
                 }
             },
-        "required": [ "recordID", "entities" ]
+        "required": [ "entities" ]
         }
     },
 "required": [ "metadata", "data" ]
