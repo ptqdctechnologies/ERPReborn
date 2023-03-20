@@ -43,8 +43,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-03-03                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2023-03-20                                                                                           |
         | ▪ Creation Date   : 2023-03-03                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -71,10 +71,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                             \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
 
-                            $varData['entities']['previousWorkFlowPath_RefID'],
-                            $varData['entities']['previousSequence'],
-                            $varData['entities']['currentWorkFlowPath_RefID'],
-                            $varData['entities']['currentSequence'],
+                            $varData['entities']['previousWorkFlowPathSequence_RefID'],
+                            $varData['entities']['currentWorkFlowPathSequence_RefID'],
                             $varData['entities']['remarks']
                             ))))
                             {
