@@ -149,6 +149,29 @@ class FunctionController extends Controller
         return response()->json($varDataSupplier['data']);
     }
 
+    public function getDeliverTo(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varDataDeliverTo = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.read.dataList.supplyChain.getSupplier', 
+            'latest', 
+            [
+            'parameter' => null,
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+            );
+            // dd($varDataSupplier);
+            
+        return response()->json($varDataDeliverTo['data']);
+    }
+
 
     public function getBusinessTripCostComponentEntity(Request $request)
     {

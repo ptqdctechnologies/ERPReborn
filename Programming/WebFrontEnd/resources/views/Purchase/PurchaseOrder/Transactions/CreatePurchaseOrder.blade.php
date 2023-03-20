@@ -62,6 +62,45 @@
               </div>
             </div>
 
+            <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <label class="card-title">
+                        File Attachment
+                      </label>
+                      <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                          <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="card-body fileAttachment">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID">
+                          <input type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" name="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" onchange="javascript: @php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord'); @endphp;" />
+                        </div>
+                        <br><br>
+                        <div class="col-md-12">
+                          <div class="card-body table-responsive p-0" style="height:125px;">
+                            <table class="table table-head-fixed table-sm text-nowrap">
+                              <div class="form-group input_fields_wrap">
+                                <div class="input-group control-group">
+                                  <!-- <div id="dataShow_MasterFileRecord" style="border-style:solid; border-width:1px;"></div> -->
+                                  <div id="dataShow_ActionPanel"></div>
+                                </div>
+                              </div>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             <div class="row">
               <div class="col-12">
                 <div class="card">
@@ -79,7 +118,7 @@
                 </div>
               </div>
             </div>
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">
@@ -187,7 +226,7 @@
                 </div>
 
               </div>
-            </div>
+            </div> -->
             <nav class="w-100">
             <div class="nav nav-tabs" id="product-tab" role="tablist">
               <a class="nav-item nav-link active idExpense" id="product-comments-tab" data-toggle="tab" href="#expense" role="tab" aria-controls="product-comments" aria-selected="true"><span style="font-weight:bold;padding:10px;color:#212529;">PO Shopping Cart</span></a>&nbsp;&nbsp;&nbsp;
@@ -210,19 +249,20 @@
                     </div>
                   </div>
 
-                  <div class="card-body table-responsive p-0" style="height: 180px;" id="expenseCompanyCart">
-                    <table class="table text-nowrap table-striped tableExpenseClaim">
+                  <div class="card-body table-responsive p-0 expenseCompanyCart"  style="height: 180px;" id="expenseCompanyCart">
+                    <table class="table text-nowrap table-striped tableShoppingCart">
                       <thead>
                         <tr>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Action</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Trano</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Id</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Name</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">UOM</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Currency</th>
+                      
+                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Description</th>          
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Price</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Total</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Description</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -239,6 +279,7 @@
             <div class="row">
               <div class="col-12">
                 <div class="card">
+            
                   <div class="card-header">
                     <label class="card-title">
                       Price History
