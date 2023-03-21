@@ -14,8 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[START]---
 $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NzkyOTQ2NjZ9.ZTE4ZTkwNWQyM2YzNzViZTIwZGYxMDVkZTUwMjBlYTZhNzFjNjVhYzNjODBmMDcxMDQ3ZDg4NGMyNTFiMjVmNA';
-
+$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxkaS5tdWx5YWRpIiwiaWF0IjoxNjc5MzA3MzMwfQ.YzIwYzAwZTIwNTQ3ZjVmYzkyOThmYjI4NWNlNDMwYzJiYzlhYTc3ZmZmMzlmYWE4MDMyYTA5ZDViZGNlMTJkMQ';
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -115,6 +114,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getPurchaseRequisitionByBudgetID', 'FunctionController@getPurchaseRequisitionByBudgetID')->name('getPurchaseRequisitionByBudgetID');
     Route::get('getSite', 'FunctionController@getSite')->name('getSite');
     Route::get('getBudget', 'FunctionController@getBudget')->name('getBudget');
+    Route::get('getBank', 'FunctionController@getBank')->name('getBank');
+    Route::get('getBankAccount', 'FunctionController@getBankAccount')->name('getBankAccount');
+    Route::get('getProduct', 'FunctionController@getProduct')->name('getProduct');
     Route::get('getWorker', 'FunctionController@getWorker')->name('getWorker');
     Route::get('getSupplier', 'FunctionController@getSupplier')->name('getSupplier');
     Route::get('getDeliverTo', 'FunctionController@getDeliverTo')->name('getDeliverTo');
@@ -255,6 +257,11 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('MaterialReturnByDorID', 'Inventory\MaterialReturnController@MaterialReturnByDorID')->name('MaterialReturn.MaterialReturnByDorID');
     Route::resource('MaterialReturn', 'Inventory\MaterialReturnController');
 
+
+    // Workflow
+    Route::post('WorkflowRoute/store', 'Admin\Workflow\WorkflowController@WorkflowRouteStore')->name('Workflow.WorkflowRouteStore');
+    Route::get('WorkflowRoute', 'Admin\Workflow\WorkflowController@WorkflowRoute')->name('Workflow.WorkflowRoute');
+    Route::resource('Workflow', 'Admin\Workflow\WorkflowController');
 
 
 

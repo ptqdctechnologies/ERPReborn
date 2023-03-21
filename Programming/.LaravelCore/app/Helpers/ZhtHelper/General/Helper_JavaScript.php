@@ -2208,7 +2208,8 @@ namespace App\Helpers\ZhtHelper\General
         |      ▪ (mixed)  varUserSession (Mandatory) ► User Session                                                                |
         |      ▪ (string) varAPIWebToken (Mandatory) ► API Web Token                                                               |
         |      ▪ (string) varUniqueID (Mandatory) ► Penanda Unik untuk DOM (Tidak boleh terduplikasi)                              |
-        |      ▪ (string) varDOMReturnID (Mandatory) ► DOMReturnID                                                                 |
+        |      ▪ (string) varDOMReturnID (Mandatory) ► DOMReturnID
+        |      ▪ (string) varDOMReturnIDAction (Mandatory) ► DOMReturnIDAction                                                                 |
         |      ▪ (string) varDOMAction (Mandatory) ► DOMAction                                                                     |
         |      ▪ (string) varAction (Optional) ► Action                                                                            |
         | ▪ Output Variable :                                                                                                      |
@@ -2217,7 +2218,7 @@ namespace App\Helpers\ZhtHelper\General
         */
         public static function getSyntaxFunc_DOMInputFileContent(
             $varUserSession, string $varAPIWebToken, 
-            string $varUniqueID, string $varDOMReturnID, string $varDOMActionPanel, string $varDOMAction, string $varAction = null)
+            string $varUniqueID, string $varDOMReturnID, string $varDOMReturnIDAction, string $varDOMActionPanel, string $varDOMAction, string $varAction = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
             try {
@@ -2361,17 +2362,11 @@ namespace App\Helpers\ZhtHelper\General
                                             //---> JSFunc_GetActionPanel_CommitFromOutside_...
                                             'function JSFunc_GetActionPanel_CommitFromOutside_'.$varUniqueID.'() {'.
                                                 'try {'.
-
-                                                    // 'document.getElementById(\''.$varUniqueID.'_ProcessLoad_DataSignShow'.'\').value = Boolean(true); '.
-                                                    // 'document.getElementById(\''.$varUniqueID.'_ProcessLoad_Back'.'\').style.display = \'block\'; '.
-                                                    // 'document.getElementById(\''.$varUniqueID.'_ProcessLoad_Back'.'\').style.visibility = \'visible\'; '.
-
-                                                    'JSFunc_GetActionPanel_Commit_'.$varUniqueID.'(); '.
-
-                                                    // 'document.getElementById(\''.$varUniqueID.'_ProcessLoad_DataSignShow'.'\').value = Boolean(false); '.
-                                                    // 'document.getElementById(\''.$varUniqueID.'_ProcessLoad_Back'.'\').style.display = \'none\'; '.
-                                                    // 'document.getElementById(\''.$varUniqueID.'_ProcessLoad_Back'.'\').style.visibility = \'hidden\'; '.
                                                     
+                                                    'if(document.getElementById(\''.$varDOMReturnIDAction.'\').value != null) {'.
+                                                        'JSFunc_GetActionPanel_Commit_'.$varUniqueID.'(); '.
+                                                    '}'.                                               
+
                                                     // 'alert(\'Test Commit Berhasil dieksekusi\'); '.
                                                     '}'.
                                                 'catch(varError) {'.
@@ -2382,10 +2377,6 @@ namespace App\Helpers\ZhtHelper\General
                                             //---> JSFunc_GetActionPanel_Commit_...
                                             'function JSFunc_GetActionPanel_Commit_'.$varUniqueID.'() {'.
                                                 'try {'.
-
-                                                    // 'document.getElementById(\''.$varUniqueID.'_ProcessLoad_DataSignShow'.'\').value = Boolean(true); '.
-                                                    // 'document.getElementById(\''.$varUniqueID.'_ProcessLoad_Back'.'\').style.display = \'block\'; '.
-                                                    // 'document.getElementById(\''.$varUniqueID.'_ProcessLoad_Back'.'\').style.visibility = \'visible\'; '.
 
                                                     'varReturn = ('.
                                                         'JSON.parse('.
@@ -2420,7 +2411,7 @@ namespace App\Helpers\ZhtHelper\General
                                                     
 
                                                 'catch(varError) {'.
-                                                    'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                                    // 'alert(\'ERP Reborn Error Notification\n\nInvalid Processn\n(\' + varError + \')\'); '.
                                                     '}'.
     //                                            'varNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varUniqueID, 'document.body', false).
                                                 '}'.
@@ -2614,7 +2605,7 @@ namespace App\Helpers\ZhtHelper\General
                                                     'varObjDownloadLink.href = \'data:text/plain;base64,\' + varBase64Data; '.
                                                     'varObjDownloadLink.download = varFileName; '.
                                                     'varObjDownloadLink.click(); '.
-                                                    'varObjDownloadLink.parentNode.removeChild(varObjDownloadLink); '.
+                                                    // 'varObjDownloadLink.parentNode.removeChild(varObjDownloadLink); '.
                                                     '}'.
                                                 'catch(varError) {'.
                                                     'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
@@ -2622,40 +2613,40 @@ namespace App\Helpers\ZhtHelper\General
                                                 '}'.
 
                                             //---> JSFunc_FilePreview_...
-                                            'function JSFunc_FilePreview_'.$varUniqueID.'(varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ) {'.
-                                                'try {'.
-    //                                                'alert(varFilePath);'.
-                                                    'varReturn = ('.
-                                                        'JSON.parse('.                           
-                                                            str_replace(
-                                                                '"', 
-                                                                '\'', 
-                                                                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                                                                    $varUserSession, 
-                                                                    $varAPIWebToken, 
-                                                                    'fileHandling.upload.combined.general.getFileContent', 
-                                                                    'latest', 
-                                                                    '{'.
-                                                                        '"parameter" : {'.
-                                                                            '"filePath" : varFilePath'.
-                                                                            '}'.
-                                                                    '}'
-                                                                    )
-                                                                ).
-                                                            ').data.contentBase64'.
-                                                        '); '.
-                                                    'varNothing = '.
-                                                        self::getSyntaxCreateDOM_DivCustom_ModalBox_FilePreview(
-                                                            $varUserSession,
-                                                            $varAPIWebToken,
-                                                            'ObjDivModalBox_'.$varUniqueID
-                                                            ).
-                                                        '; '.
-                                                    '}'.
-                                                'catch(varError) {'.
-                                                    'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
-                                                    '}'.
-                                                '}'.
+    //                                         'function JSFunc_FilePreview_'.$varUniqueID.'(varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ) {'.
+    //                                             'try {'.
+    // //                                                'alert(varFilePath);'.
+    //                                                 'varReturn = ('.
+    //                                                     'JSON.parse('.                           
+    //                                                         str_replace(
+    //                                                             '"', 
+    //                                                             '\'', 
+    //                                                             \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+    //                                                                 $varUserSession, 
+    //                                                                 $varAPIWebToken, 
+    //                                                                 'fileHandling.upload.combined.general.getFileContent', 
+    //                                                                 'latest', 
+    //                                                                 '{'.
+    //                                                                     '"parameter" : {'.
+    //                                                                         '"filePath" : varFilePath'.
+    //                                                                         '}'.
+    //                                                                 '}'
+    //                                                                 )
+    //                                                             ).
+    //                                                         ').data.contentBase64'.
+    //                                                     '); '.
+    //                                                 'varNothing = '.
+    //                                                     self::getSyntaxCreateDOM_DivCustom_ModalBox_FilePreview(
+    //                                                         $varUserSession,
+    //                                                         $varAPIWebToken,
+    //                                                         'ObjDivModalBox_'.$varUniqueID
+    //                                                         ).
+    //                                                     '; '.
+    //                                                 '}'.
+    //                                             'catch(varError) {'.
+    //                                                 'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+    //                                                 '}'.
+    //                                             '}'.
 
                                             //---> JSFunc_MainData_GetData_MasterFileRecord_...
                                             'function JSFunc_MainData_GetData_MasterFileRecord_'.$varUniqueID.'() {'.
@@ -2848,15 +2839,15 @@ namespace App\Helpers\ZhtHelper\General
                                                                 //     ],
                                                                 //     'varObjTTD.appendChild(document.createTextNode(\'SAVE\')); '
                                                                 //     ).
-                                                                self::getSyntaxCreateDOM_TableData(
-                                                                    $varUserSession, 
-                                                                    [
-                                                                    'ID' => 'varObjTTD',
-                                                                    'ParentID' => 'varObjTTR',
-                                                                    'Style' => $varStyle_TableActionPanelHead,
-                                                                    ],
-                                                                    'varObjTTD.appendChild(document.createTextNode(\'PREVIEW\')); '
-                                                                    ).
+                                                                // self::getSyntaxCreateDOM_TableData(
+                                                                //     $varUserSession, 
+                                                                //     [
+                                                                //     'ID' => 'varObjTTD',
+                                                                //     'ParentID' => 'varObjTTR',
+                                                                //     'Style' => $varStyle_TableActionPanelHead,
+                                                                //     ],
+                                                                //     'varObjTTD.appendChild(document.createTextNode(\'PREVIEW\')); '
+                                                                //     ).
                                                                 self::getSyntaxCreateDOM_TableData(
                                                                     $varUserSession, 
                                                                     [
@@ -3050,38 +3041,38 @@ namespace App\Helpers\ZhtHelper\General
                                                                         //         )
                                                                         //         ).
                                                                         //     '}'.
-                                                                        self::getSyntaxCreateDOM_TableData(
-                                                                            $varUserSession, 
-                                                                            [
-                                                                            'ID' => 'varObjTTD',
-                                                                            'ParentID' => 'varObjTTR',
-                                                                            'Style' => array_merge(
-                                                                                $varStyle_TableActionPanelBody,
-                                                                                [
-                                                                                    ['textAlign', 'center']
-                                                                                ]
-                                                                                ),
-                                                                            ],
-                                                                            (
-                                                                            'if (varDataJSONMasterFileRecord[i][\'filePath\'] != \'\') {'.
-                                                                                'var varFileName = varDataJSONMasterFileRecord[i][\'name\']; '.
-                                                                                'var varObjA = document.createElement(\'a\'); '.
-                                                                                    'varObjA.href = \'javascript:'.
-                                                                                        '(function(varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ) {'.
-                                                                                            'JSFunc_FilePreview_'.$varUniqueID.'(varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ); '.
-                                                                                            '}) ('.
-                                                                                                '\\\'\' + varDataJSONMasterFileRecord[i][\'filePath\'] + \'\\\','.
-                                                                                                ' \\\'\' + varFileName.replace(/\'/g, \'\\\\\\\'\') + \'\\\', '.
-                                                                                                ' \\\'\' + varDataJSONMasterFileRecord[i][\'size\'] + \'\\\', '.
-                                                                                                ' \\\'\' + varDataJSONMasterFileRecord[i][\'MIME\'] + \'\\\', '.
-                                                                                                ' \\\'\' + varDataJSONMasterFileRecord[i][\'uploadDateTimeTZ\'] + \'\\\''.
-                                                                                                ');'.
-                                                                                        '\'; '.
-                                                                                    'varObjA.innerHTML = \'Preview\'; '.
-                                                                                'varObjTTD.appendChild(varObjA); '.
-                                                                                '}'
-                                                                            )
-                                                                            ).
+                                                                        // self::getSyntaxCreateDOM_TableData(
+                                                                        //     $varUserSession, 
+                                                                        //     [
+                                                                        //     'ID' => 'varObjTTD',
+                                                                        //     'ParentID' => 'varObjTTR',
+                                                                        //     'Style' => array_merge(
+                                                                        //         $varStyle_TableActionPanelBody,
+                                                                        //         [
+                                                                        //             ['textAlign', 'center']
+                                                                        //         ]
+                                                                        //         ),
+                                                                        //     ],
+                                                                        //     (
+                                                                        //     'if (varDataJSONMasterFileRecord[i][\'filePath\'] != \'\') {'.
+                                                                        //         'var varFileName = varDataJSONMasterFileRecord[i][\'name\']; '.
+                                                                        //         'var varObjA = document.createElement(\'a\'); '.
+                                                                        //             'varObjA.href = \'javascript:'.
+                                                                        //                 '(function(varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ) {'.
+                                                                        //                     'JSFunc_FilePreview_'.$varUniqueID.'(varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ); '.
+                                                                        //                     '}) ('.
+                                                                        //                         '\\\'\' + varDataJSONMasterFileRecord[i][\'filePath\'] + \'\\\','.
+                                                                        //                         ' \\\'\' + varFileName.replace(/\'/g, \'\\\\\\\'\') + \'\\\', '.
+                                                                        //                         ' \\\'\' + varDataJSONMasterFileRecord[i][\'size\'] + \'\\\', '.
+                                                                        //                         ' \\\'\' + varDataJSONMasterFileRecord[i][\'MIME\'] + \'\\\', '.
+                                                                        //                         ' \\\'\' + varDataJSONMasterFileRecord[i][\'uploadDateTimeTZ\'] + \'\\\''.
+                                                                        //                         ');'.
+                                                                        //                 '\'; '.
+                                                                        //             'varObjA.innerHTML = \'Preview\'; '.
+                                                                        //         'varObjTTD.appendChild(varObjA); '.
+                                                                        //         '}'
+                                                                        //     )
+                                                                        //     ).
                                                                         self::getSyntaxCreateDOM_TableData(
                                                                             $varUserSession, 
                                                                             [

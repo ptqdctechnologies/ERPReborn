@@ -28,22 +28,17 @@ class LoginController extends Controller
             $username,
             $password
         );
+        
 
         if(count($varData['data']['optionList']) == 1){
             if(count($varData['data']['optionList'][0]['userRole'])){
 
-                $varBranchID = $varData['data']['optionList']['0']['branch_RefID'];
-                $varUserRoleID = $varData['data']['optionList']['0']['userRole']['0']['userRole_RefID'];
-
-                $dataAwal = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $username,
-                    $password
-                );
-                $varAPIWebToken = $dataAwal['data']['APIWebToken'];
+                $varBranchID = (int)$varData['data']['optionList']['0']['branch_RefID'];
+                $varUserRoleID = (int)$varData['data']['optionList']['0']['userRole']['0']['userRole_RefID'];
+                
+                $varAPIWebToken = $varData['data']['APIWebToken'];
 
                 //---Core---
-
                 $varDatas = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken, 
@@ -54,6 +49,7 @@ class LoginController extends Controller
                     'userRoleID' => $varUserRoleID
                     ]
                 );
+
                 $request->session()->put('SessionLogin', $varAPIWebToken);
                 return response()->json($varDatas['metadata']['HTTPStatusCode']);
                 
