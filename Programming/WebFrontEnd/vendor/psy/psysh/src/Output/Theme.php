@@ -95,7 +95,7 @@ class Theme
                     $config = static::MODERN_THEME;
                     break;
 
-                    case 'compact':
+                case 'compact':
                     $config = static::COMPACT_THEME;
                     break;
 
@@ -138,10 +138,6 @@ class Theme
 
                 case 'grayFallback':
                     $this->setGrayFallback($value);
-                    break;
-
-                case 'compact':
-                    $this->setCompact($value);
                     break;
             }
         }
