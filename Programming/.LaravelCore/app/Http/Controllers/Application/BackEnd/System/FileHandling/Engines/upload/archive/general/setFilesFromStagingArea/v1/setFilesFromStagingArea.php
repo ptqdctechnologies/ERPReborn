@@ -3,7 +3,8 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\archive\general\setFilesFromStagingArea\v1      |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\archive\general                      |
+|                \setFilesFromStagingArea\v1                                                                                       |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
@@ -12,8 +13,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setFilesFromStagingArea                                                                                                     |
-    | ▪ Description : Menangani API fileHandling.upload.stagingArea.general.setFilesFromStagingArea Version 1                                     |
+    | ▪ Class Name  : setFilesFromStagingArea                                                                                      |
+    | ▪ Description : Menangani API fileHandling.upload.stagingArea.general.setFilesFromStagingArea Version 1                      |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class setFilesFromStagingArea extends \App\Http\Controllers\Controller
