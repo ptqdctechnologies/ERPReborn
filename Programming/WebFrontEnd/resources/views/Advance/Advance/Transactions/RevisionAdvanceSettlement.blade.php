@@ -76,7 +76,7 @@
                       <div class="row">
                         <div class="col-md-12">
                           <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="{{ $log_FileUpload_Pointer_RefID }}" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID">
-                          <input type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" name="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" onchange="javascript: @php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord'); @endphp;" />
+                          <input type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" name="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" onchange="javascript: @php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataInput_Log_FileUpload_Pointer_RefID_Action', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord'); @endphp;" />
                         </div>
                         <br><br>
                         <div class="col-md-12">
@@ -129,7 +129,7 @@
                     <div class="card-header">
                       <label class="card-title">
                         Advance Request Detail &nbsp;&nbsp;
-                        <a id="advance_number2" data-toggle="modal" data-target="#mySearchArf"><img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt=""></a>
+                        <a id="advance_number2" data-toggle="modal" data-target="#mySearchArf" title="Select Advance Number"><img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt=""></a>
 
                       </label>
                       <div class="card-tools">

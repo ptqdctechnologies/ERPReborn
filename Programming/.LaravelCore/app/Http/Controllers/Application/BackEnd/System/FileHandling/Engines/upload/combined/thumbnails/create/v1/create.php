@@ -124,60 +124,60 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             //dd($varFileMIME);
 
             //---> Convert Data ---> Image
-            if($varFileMIME[0] == 'image')
-                {
-                $varDataTemp = 
-                    \App\Helpers\ZhtHelper\General\Helper_ImageProcessing::getConvertDataContent_ImageToPNG(
-                        $varUserSession, 
-                        (new \App\Models\CloudStorage\System\General())->getFileContent(
-                            $varUserSession,
-                            $varFilePath
-                            //'Archive/92000000000132/12000000000158'
-                            ),
-                        400,
-                        300
-                        );
-                $varDataThumbnails[] = $varDataTemp;
-                }
-            //---> Convert Data ---> PDF
-            elseif (($varFileMIME[0] == 'application') && (($varFileMIME[1] == 'pdf')))
-                {
-                $varDataTemp = 
-                    \App\Helpers\ZhtHelper\General\Helper_ImageProcessing::getConvertDataContent_PDFToPNG(
-                        $varUserSession, 
-                        (new \App\Models\CloudStorage\System\General())->getFileContent(
-                            $varUserSession,
-                            $varFilePath
-                            //'Archive/92000000000133/12000000000159'
-                            ),
-                        400,
-                        300
-                        );
-                $varDataThumbnails = $varDataTemp;
-                }
-            //---> Convert Data ---> Office Document
-            elseif (\App\Helpers\ZhtHelper\General\Helper_FileConvert::isConvertible_OfficeDocumentToPDF($varUserSession, $varFileMIME[0].'/'.$varFileMIME[1]) == TRUE)
-                {
-                $varDataTemp = 
-                    \App\Helpers\ZhtHelper\General\Helper_ImageProcessing::getConvertDataContent_PDFToPNG(
-                        $varUserSession, 
-                        \App\Helpers\ZhtHelper\General\Helper_FileConvert::getConvertDataContent_OfficeToPDF(
-                            $varUserSession,
-                            (new \App\Models\CloudStorage\System\General())->getFileContent(
-                                $varUserSession,
-                                $varFilePath
-                                //'Archive/92000000000134/12000000000160'
-                                )
-                            ),
-                        400,
-                        300
-                        );
-                $varDataThumbnails = $varDataTemp;
-                }
-            //---> Convert Data ---> Other Data
-            else
-                {                
-                }
+            // if($varFileMIME[0] == 'image')
+            //     {
+            //     $varDataTemp = 
+            //         \App\Helpers\ZhtHelper\General\Helper_ImageProcessing::getConvertDataContent_ImageToPNG(
+            //             $varUserSession, 
+            //             (new \App\Models\CloudStorage\System\General())->getFileContent(
+            //                 $varUserSession,
+            //                 $varFilePath
+            //                 //'Archive/92000000000132/12000000000158'
+            //                 ),
+            //             400,
+            //             300
+            //             );
+            //     $varDataThumbnails[] = $varDataTemp;
+            //     }
+            // //---> Convert Data ---> PDF
+            // elseif (($varFileMIME[0] == 'application') && (($varFileMIME[1] == 'pdf')))
+            //     {
+            //     $varDataTemp = 
+            //         \App\Helpers\ZhtHelper\General\Helper_ImageProcessing::getConvertDataContent_PDFToPNG(
+            //             $varUserSession, 
+            //             (new \App\Models\CloudStorage\System\General())->getFileContent(
+            //                 $varUserSession,
+            //                 $varFilePath
+            //                 //'Archive/92000000000133/12000000000159'
+            //                 ),
+            //             400,
+            //             300
+            //             );
+            //     $varDataThumbnails = $varDataTemp;
+            //     }
+            // //---> Convert Data ---> Office Document
+            // elseif (\App\Helpers\ZhtHelper\General\Helper_FileConvert::isConvertible_OfficeDocumentToPDF($varUserSession, $varFileMIME[0].'/'.$varFileMIME[1]) == TRUE)
+            //     {
+            //     $varDataTemp = 
+            //         \App\Helpers\ZhtHelper\General\Helper_ImageProcessing::getConvertDataContent_PDFToPNG(
+            //             $varUserSession, 
+            //             \App\Helpers\ZhtHelper\General\Helper_FileConvert::getConvertDataContent_OfficeToPDF(
+            //                 $varUserSession,
+            //                 (new \App\Models\CloudStorage\System\General())->getFileContent(
+            //                     $varUserSession,
+            //                     $varFilePath
+            //                     //'Archive/92000000000134/12000000000160'
+            //                     )
+            //                 ),
+            //             400,
+            //             300
+            //             );
+            //     $varDataThumbnails = $varDataTemp;
+            //     }
+            // //---> Convert Data ---> Other Data
+            // else
+            //     {                
+            //     }
 
 
             if(count($varDataThumbnails) > 0)

@@ -50,7 +50,7 @@
                     $.each(data, function(key, val) {
                         t.row.add([
                             '<tbody><tr><td>' + no++ + '</td>',
-                            '<td><span data-dismiss="modal" onclick="klikGetBank(\'' + val.sys_ID + '\', \'' + val.acronym + '\');">' + val.acronym + '</span></td>',
+                            '<td><span data-dismiss="modal" onclick="klikGetBank(\'' + val.sys_ID + '\', \'' + val.acronym + '\', \'' + val.name + '\');">' + val.acronym + '</span></td>',
                             '<td style="border:1px solid #e9ecef;">' + val.name + '</td></tr></tbody>'
                         ]).draw();
 

@@ -9,10 +9,10 @@
   <title>ERP Reborn</title>
 
 
-  <script src="{{ asset('js/zht-js/core.js') }}"></script>
+  <!-- <script src="{{ asset('js/zht-js/core.js') }}"></script>
   <script>
     new zht_JSCore();
-  </script>
+  </script> -->
   
 
   <link rel="shortcut icon" href="{{ asset('AdminLTE-master/dist/img/favicon.ico') }}">
@@ -31,7 +31,7 @@
   <!-- Loading css -->
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/loading.css') }}">
   <!-- Budget css -->
-  <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/budget.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/budgets.min.css') }}">
   <!-- fullcalendar -->
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/fullcalendar/customfullcalender.css') }}">
 
