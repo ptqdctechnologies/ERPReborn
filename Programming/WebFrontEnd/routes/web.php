@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[START]---
 $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Nzk2MjY2NTB9.MGFkZmEwNzU5NWU3MTBiMDU1ZjQyMjAxMDllZTU3YzBmNWU1MjNlNTI2NmE5ZmU5MThmMTc5NTUxOWExNWNmYg';
+$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Nzk1NDcwMTN9.NWYxMjA5NjUxNDlhZGQzODYyN2FhNmY0NGI3OTU4ZTIwYjk2NzEwNjg5ZDVmN2I3YmVmYzc3NDIzMDU3YjNhYw';
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -114,6 +114,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getPurchaseRequisitionByBudgetID', 'FunctionController@getPurchaseRequisitionByBudgetID')->name('getPurchaseRequisitionByBudgetID');
     Route::get('getSite', 'FunctionController@getSite')->name('getSite');
     Route::get('getBudget', 'FunctionController@getBudget')->name('getBudget');
+    Route::get('getBank', 'FunctionController@getBank')->name('getBank');
+    Route::get('getBankAccount', 'FunctionController@getBankAccount')->name('getBankAccount');
+    Route::get('getProduct', 'FunctionController@getProduct')->name('getProduct');
     Route::get('getWorker', 'FunctionController@getWorker')->name('getWorker');
     Route::get('getSupplier', 'FunctionController@getSupplier')->name('getSupplier');
     Route::get('getDeliverTo', 'FunctionController@getDeliverTo')->name('getDeliverTo');
@@ -189,6 +192,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('RevisionPurchaseOrder', 'Purchase\PurchaseOrderController@RevisionPurchaseOrderIndex')->name('PurchaseOrder.RevisionPurchaseOrder');
     Route::get('PurchaseOrderListData', 'Purchase\PurchaseOrderController@PurchaseOrderListData')->name('PurchaseOrder.PurchaseOrderListData');
     // Route::post('RevisionPurchaseOrder', 'Purchase\PurchaseOrderController@RevisionPurchaseOrder')->name('PurchaseOrder.RevisionPurchaseOrder');
+    Route::get('PurchaseOrderByPrID', 'Purchase\PurchaseOrderController@PurchaseOrderByPrID')->name('PurchaseOrder.PurchaseOrderByPrID');
     Route::post('addListCartPurchaseOrder', 'Purchase\PurchaseOrderController@addListCartPurchaseOrder')->name('PurchaseOrder.addListCartPurchaseOrder');
     Route::resource('PurchaseOrder', 'Purchase\PurchaseOrderController');
 
@@ -254,6 +258,11 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('MaterialReturnByDorID', 'Inventory\MaterialReturnController@MaterialReturnByDorID')->name('MaterialReturn.MaterialReturnByDorID');
     Route::resource('MaterialReturn', 'Inventory\MaterialReturnController');
 
+
+    // Workflow
+    Route::post('WorkflowRoute/store', 'Admin\Workflow\WorkflowController@WorkflowRouteStore')->name('Workflow.WorkflowRouteStore');
+    Route::get('WorkflowRoute', 'Admin\Workflow\WorkflowController@WorkflowRoute')->name('Workflow.WorkflowRoute');
+    Route::resource('Workflow', 'Admin\Workflow\WorkflowController');
 
 
 

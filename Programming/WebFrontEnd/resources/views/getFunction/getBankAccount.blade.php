@@ -33,9 +33,13 @@
 
 
 <script>
-    function klikGetBank(code, name) {
+    function klikGetBank(code, acronym, name) {
         $("#bank_code").val(code);
-        $("#bank_name").val(name);
+        $("#bank_name").val(acronym);
+        $("#bank_name_full").val(name);
+        $("#bank_account").val("");
+        $("#account_name").val("");
+
         $("#bank_account2").prop("disabled", false);
 
         $.ajaxSetup({

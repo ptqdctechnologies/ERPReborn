@@ -78,22 +78,22 @@ class AdvanceRequestController extends Controller
             ]                    
             );
         
-            // dd($varData);
+        // dd($varData);
 
-        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        // $varAPIWebToken, 
-        // 'userAction.documentWorkFlow.approvalStage.setUserSubmission', 
-        // 'latest',
-        // [
-        // 'entities' => [
-        //     "businessDocument_RefID" => 74000000020323,
-        //     "workFlowPath_RefID" => 116000000000010,
-        //     "remarks" => null,
-        //     "approverEntity_RefID" => 164000000000023
-        //     ]
-        // ]
-        // );
+        $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varAPIWebToken, 
+        'userAction.documentWorkFlow.approvalStage.setUserSubmission', 
+        'latest',
+        [
+        'entities' => [
+            "businessDocument_RefID" => (int)$varData['data']['businessDocument']['businessDocument_RefID'],
+            "workFlowPath_RefID" => 116000000000010,
+            "remarks" => null,
+            "approverEntity_RefID" => (int)$input['request_name_id'],
+            ]
+        ]
+        );
         // dd($varData);
 
         $compact = [

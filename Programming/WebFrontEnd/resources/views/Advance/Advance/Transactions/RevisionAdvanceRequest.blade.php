@@ -7,6 +7,8 @@
 @include('Advance.Advance.Functions.PopUp.PopUpAdvanceRevision')
 @include('getFunction.getProject')
 @include('getFunction.getWorker')
+@include('getFunction.getBank')
+@include('getFunction.getBankAccount')
 
 <div class="content-wrapper" style="position:relative;bottom:12px;">
   <section class="content">
@@ -79,26 +81,26 @@
                       <div class="row">
                         <div class="col-md-12">
                           <!-- <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID2" value="" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID"> -->
-                          <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="{{ $log_FileUpload_Pointer_RefID }}" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID">
-                          <input type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" name="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" onchange="javascript: @php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord'); @endphp;" />
+                          <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="{{ $log_FileUpload_Pointer_RefID }}" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID" hidden>
+                          <input type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" name="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" onchange="javascript: @php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataInput_Log_FileUpload_Pointer_RefID_Action', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord'); @endphp;" />
                         </div>
                         <br><br>
                         <div class="col-md-12">
                           <div class="card-body table-responsive p-0" style="height:125px;">
-                            
-                          <table class="table table-head-fixed table-sm text-nowrap">
+
+                            <table class="table table-head-fixed table-sm text-nowrap">
                               <div class="form-group input_fields_wrap">
 
                                 <div class="input-group control-group">
 
                                   <!-- <div id="dataShow_MasterFileRecord" style="border-style:solid; border-width:1px;"></div> -->
                                   <div id="dataShow_ActionPanel"></div>
-                                  
+
                                 </div>
                               </div>
 
                             </table>
-                              
+
                           </div>
                         </div>
 
@@ -123,13 +125,13 @@
                         </button>
                       </div>
                     </div>
-                    @include('getFunction.BOQ3')
+                    @include('Advance.Advance.Functions.Table.getBOQ')
                   </div>
                 </div>
               </div>
             </div>
 
-            
+
 
             <div class="row">
               <div class="col-12">
@@ -147,7 +149,7 @@
 
                   <div class="card-body table-responsive p-0" style="height: 135px;" id="detailArfList">
                     <table class="table table-head-fixed table-sm text-nowrap TableAdvance" id="TableAdvance">
-                    <thead>
+                      <thead>
                         <tr>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Work Id</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Work Name</th>
@@ -175,14 +177,14 @@
                     </table>
                   </div>
 
-                  <div class="card-body AdvanceListCart" >
-                      <table style="float:right;">
-                          <tr>
-                              <th style="position: relative;right:45px;"> Total Item : <span id="TotalQty"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="GrandTotal"></span></th>
-                          </tr>
-                      </table>
+                  <div class="card-body AdvanceListCart">
+                    <table style="float:right;">
+                      <tr>
+                        <th style="position: relative;right:45px;"> Total Item : <span id="TotalQty"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="GrandTotal"></span></th>
+                      </tr>
+                    </table>
                   </div>
-                  
+
                 </div>
               </div>
             </div>
@@ -207,7 +209,7 @@
                             <table>
                               <tr>
                                 <td>
-                                <textarea name="var_remark" id="putRemark" rows="2" cols="1000" class="form-control" required>{{$dataAdvanceRevisions['entities']['remarks']}}</textarea>
+                                  <textarea name="var_remark" id="putRemark" rows="2" cols="1000" class="form-control" required>{{$dataAdvanceRevisions['entities']['remarks']}}</textarea>
                                 </td>
                               </tr>
                             </table>

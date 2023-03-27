@@ -123,12 +123,13 @@
                         '<td style="border:1px solid #e9ecef;">' + '<span">' + val2.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span">' + val2.quantityRemain.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.unitPriceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + '<span>' + (val2.unitPriceBaseCurrencyValue * val2.quantityRemain).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
-
-                        '<td class="sticky-col third-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;position: relative;width:50px;" name="qty_req[]" class="form-control qty_req" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
-                        '<td class="sticky-col second-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req'+ key +'" style="border-radius:0;position: relative;width:80px;" name="price_req[]" class="form-control price_req" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
-                        '<td class="sticky-col first-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req'+ key +'" style="border-radius:0;position: relative;width:80px;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled>' + '</td>' +
-                        '<td class="sticky-col forth-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="remark_req'+ key +'" style="border-radius:0;position: relative;width:130px;" name="remark_req[]" class="form-control" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.priceBaseCurrencyValue .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.priceBaseCurrencyValue .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
+                        
+                        '<td class="sticky-col forth-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
+                        '<td class="sticky-col third-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req'+ key +'" style="border-radius:0;" name="price_req[]" class="form-control price_req" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
+                        '<td class="sticky-col second-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req'+ key +'" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled>' + '</td>' +
+                        '<td class="sticky-col first-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="remark_req'+ key +'" style="border-radius:0;background-color:white;" name="remark_req[]" class="form-control" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
 
                         '</tr>';
                     $('table.tableBudgetDetail tbody').append(html);
@@ -159,7 +160,7 @@
                             $('#qty_req'+key).css("border", "1px solid red");
                             $('#qty_req'+key).focus();
                         }
-                          else {
+                        else {
                             $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
                             $('#total_req'+key).val(currencyTotal(total));
                         }
@@ -267,7 +268,7 @@
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="total_req2'+ index +'">' + currencyTotal(total_req[index]) + '</span>' + '</td>' +
                     
                     '</tr>';
-                $('table.TablePurchaseRequisition tbody').append(html);  
+                $('table.TablePurchaseRequisition tbody').append(html);
 
                 $("#TotalBudgetSelected").html(currencyTotal(TotalBudgetSelected));
                 $("#GrandTotal").html(currencyTotal(TotalBudgetSelected));
@@ -305,7 +306,9 @@
     $(function() {
         $("#FormSubmitProcReq").on("submit", function(e) { //id of form 
             e.preventDefault();
-
+            var varFileUpload_UniqueID = "Upload";
+                window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
+                
             var action = $(this).attr("action"); //get submit action from form
             var method = $(this).attr("method"); // get submit method
             var form_data = new FormData($(this)[0]); // convert form into formdata 

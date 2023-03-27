@@ -386,955 +386,955 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public static function getSyntaxCreateDOM_DivCustom_ModalBox_FilePreview($varUserSession, string $varAPIWebToken, $varID)
-            {
-            $varStyle_TableDataStyle = [
-                ['fontFamily', '\\\'Helvetica, Verdana, Arial, Tahoma, Serif\\\''],
-                ['fontWeight', 'bold'],
-                ['valign', 'top'],
-                ['color', '#212529'],
-                ['fontSize', '12px'],
-                ['textShadow', '2px 2px 5px #ced4da']
-                ];
+//         */
+//         public static function getSyntaxCreateDOM_DivCustom_ModalBox_FilePreview($varUserSession, string $varAPIWebToken, $varID)
+//             {
+//             $varStyle_TableDataStyle = [
+//                 ['fontFamily', '\\\'Helvetica, Verdana, Arial, Tahoma, Serif\\\''],
+//                 ['fontWeight', 'bold'],
+//                 ['valign', 'top'],
+//                 ['color', '#212529'],
+//                 ['fontSize', '12px'],
+//                 ['textShadow', '2px 2px 5px #ced4da']
+//                 ];
 
-            $varStyle_TableDataPagination = [
-                ['fontFamily', '\\\'Helvetica, Verdana, Arial, Tahoma, Serif\\\''],
-                ['fontWeight', 'bold'],
-                ['valign', 'top'],
-                ['color', '#212529'],
-                ['fontSize', '12px'],
-                ['textShadow', '2px 2px 5px #ced4da']
-                ];
+//             $varStyle_TableDataPagination = [
+//                 ['fontFamily', '\\\'Helvetica, Verdana, Arial, Tahoma, Serif\\\''],
+//                 ['fontWeight', 'bold'],
+//                 ['valign', 'top'],
+//                 ['color', '#212529'],
+//                 ['fontSize', '12px'],
+//                 ['textShadow', '2px 2px 5px #ced4da']
+//                 ];
 
-            $varReturn = 
-                'function (varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ) {'.
-                    'try {'.
-                        'var varFilePathArray = varFilePath.split(\'/\'); '.
-                        'var varLocalThumbnailsFolderPath = \'Thumbnails/\' + varFilePathArray[0] + \'/\' + varFilePathArray[2]; '.
+//             $varReturn = 
+//                 'function (varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ) {'.
+//                     'try {'.
+//                         'var varFilePathArray = varFilePath.split(\'/\'); '.
+//                         'var varLocalThumbnailsFolderPath = \'Thumbnails/\' + varFilePathArray[0] + \'/\' + varFilePathArray[2]; '.
 
-                        //---> zhtInnerFunc_CloseDivModal
-                        'function zhtInnerFunc_CloseDivModal(varObj) {'.
-                            'varNothing = '.
-                                'function() {'.
-                                    'varObj.parentNode.removeChild(varObj);'.
-                                    '} (); '.
-                            '}; '.
+//                         //---> zhtInnerFunc_CloseDivModal
+//                         'function zhtInnerFunc_CloseDivModal(varObj) {'.
+//                             'varNothing = '.
+//                                 'function() {'.
+//                                     'varObj.parentNode.removeChild(varObj);'.
+//                                     '} (); '.
+//                             '}; '.
 
-                        //---> zhtInnerFunc_CheckConvertibleStatus
-                        'function zhtInnerFunc_CheckConvertibleStatus(varLocalFilePath) {'.
-                            'let varLocalData = ('.
-                                'JSON.parse('.                           
-                                    str_replace(
-                                        '"', 
-                                        '\'', 
-                                        \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                                            $varUserSession, 
-                                            $varAPIWebToken, 
-                                            'fileHandling.upload.combined.thumbnails.isConvertible', 
-                                            'latest', 
-                                            '{'.
-                                                '"parameter" : {'.
-                                                    '"filePath" : varLocalFilePath'.
-                                                    '}'.
-                                            '}'
-                                            )
-                                        ).
-                                    ').data.signConvertibleStatus'.
-                                '); '.
-                            //'alert(JSON.stringify(varData)); '.
-                            'return varLocalData; '.
-                            '} (varFilePath); '.
+//                         //---> zhtInnerFunc_CheckConvertibleStatus
+//                         'function zhtInnerFunc_CheckConvertibleStatus(varLocalFilePath) {'.
+//                             'let varLocalData = ('.
+//                                 'JSON.parse('.                           
+//                                     str_replace(
+//                                         '"', 
+//                                         '\'', 
+//                                         \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+//                                             $varUserSession, 
+//                                             $varAPIWebToken, 
+//                                             'fileHandling.upload.combined.thumbnails.isConvertible', 
+//                                             'latest', 
+//                                             '{'.
+//                                                 '"parameter" : {'.
+//                                                     '"filePath" : varLocalFilePath'.
+//                                                     '}'.
+//                                             '}'
+//                                             )
+//                                         ).
+//                                     ').data.signConvertibleStatus'.
+//                                 '); '.
+//                             //'alert(JSON.stringify(varData)); '.
+//                             'return varLocalData; '.
+//                             '} (varFilePath); '.
 
-                        //---> zhtInnerFunc_RecreateThumbnails
-                        'function zhtInnerFunc_RecreateThumbnails(varLocalThumbnailsFolderPath, varLocalFilePath) {'.
-                            'varLocalNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varID, $varID.'_Back', true).
-                            'let varTimestamp = new Date().getTime();'.
-                            'let varLocalImageSource = \'images/Logo/AppObject_System/NoPreviewAvailable.jpg\' + \'?t=\' + varTimestamp; '.
-                            'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').src = varLocalImageSource; '.
-                            'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').onload = function() {'.
-                                'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.width = 400; '.
-                                'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.height = 400; '.
-                                'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.height = 400; '.
-                                'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.width = 400; '.
-                                '} (); '.
+//                         //---> zhtInnerFunc_RecreateThumbnails
+//                         'function zhtInnerFunc_RecreateThumbnails(varLocalThumbnailsFolderPath, varLocalFilePath) {'.
+//                             'varLocalNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varID, $varID.'_Back', true).
+//                             'let varTimestamp = new Date().getTime();'.
+//                             'let varLocalImageSource = \'images/Logo/AppObject_System/NoPreviewAvailable.jpg\' + \'?t=\' + varTimestamp; '.
+//                             'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').src = varLocalImageSource; '.
+//                             'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').onload = function() {'.
+//                                 'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.width = 400; '.
+//                                 'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.height = 400; '.
+//                                 'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.height = 400; '.
+//                                 'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.width = 400; '.
+//                                 '} (); '.
 
-//                                'setTimeout(('.
-                                    'varNothing = function() {'.
-                                        'varLocalNothing = ('.
-                                            'JSON.parse('.                           
-                                                str_replace(
-                                                    '"', 
-                                                    '\'', 
-                                                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                                                        $varUserSession, 
-                                                        $varAPIWebToken, 
-                                                        'fileHandling.upload.combined.thumbnails.create', 
-                                                        'latest', 
-                                                        '{'.
-                                                            '"parameter" : {'.
-                                                                '"filePath" : varLocalFilePath'.
-                                                                '}'.
-                                                        '}',
-                                                        10000
-                                                        )
-                                                    ).
-                                                ').data'.
-                                            '); '.
-                                        '} ();'.
-//                                    '), 1); '.
-                            'varLocalNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varID, $varID.'_Back', false).
-                            '}; '.
-
-
-                        //---> zhtInnerFunc_GetThumbnailsMainData
-                        'function zhtInnerFunc_GetThumbnailsMainData(varLocalFilePath) {'.
-                            'varLocalThumbnailsMainData = ('.
-                                'JSON.parse('.                           
-                                    str_replace(
-                                        '"', 
-                                        '\'', 
-                                        \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                                            $varUserSession, 
-                                            $varAPIWebToken, 
-                                            'fileHandling.upload.combined.thumbnails.isExist', 
-                                            'latest', 
-                                            '{'.
-                                                '"parameter" : {'.
-                                                    '"folderPath" : varLocalFilePath'.
-                                                    '}'.
-                                            '}'
-                                            )
-                                        ).
-                                    ').data'.
-                                '); '.
-                            'return varLocalThumbnailsMainData; '.
-                            '}; '.
+// //                                'setTimeout(('.
+//                                     'varNothing = function() {'.
+//                                         'varLocalNothing = ('.
+//                                             'JSON.parse('.                           
+//                                                 str_replace(
+//                                                     '"', 
+//                                                     '\'', 
+//                                                     \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+//                                                         $varUserSession, 
+//                                                         $varAPIWebToken, 
+//                                                         'fileHandling.upload.combined.thumbnails.create', 
+//                                                         'latest', 
+//                                                         '{'.
+//                                                             '"parameter" : {'.
+//                                                                 '"filePath" : varLocalFilePath'.
+//                                                                 '}'.
+//                                                         '}',
+//                                                         10000
+//                                                         )
+//                                                     ).
+//                                                 ').data'.
+//                                             '); '.
+//                                         '} ();'.
+// //                                    '), 1); '.
+//                             'varLocalNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varID, $varID.'_Back', false).
+//                             '}; '.
 
 
-                        //---> zhtInnerFunc_GetThumbnailsReload
-                        'function zhtInnerFunc_GetThumbnailsReload(varLocalThumbnailsFolderPath, varLocalFilePath) {'.
-                            'varThumbnailsMainData = zhtInnerFunc_GetThumbnailsMainData(varLocalFilePath); '.
-                            'varDataArrayOption = []; '.
-                            'if(varThumbnailsMainData.filesCount == 0) {'.
-                                'document.getElementById(\''.$varID.'_DialogPaginationTTD'.'\').style.display = \'none\'; '.
-                                'document.getElementById(\''.$varID.'_DialogPaginationTTD'.'\').style.visibility = \'hidden\'; '.
-                                'varDataArrayOption.push({'.
-                                    'value: \'\', '.
-                                    'text: 1'.
-                                    '}); '.
-                                '}'.
-                            'else {'.
-                                'document.getElementById(\''.$varID.'_DialogPaginationTTD'.'\').style.display = \'block\'; '.
-                                'document.getElementById(\''.$varID.'_DialogPaginationTTD'.'\').style.visibility = \'visible\'; '.
-                                'for(i=0, iMax=varThumbnailsMainData.filesCount; i!=iMax; i++) {'.
-                                    'varDataArrayOption.push({'.
-                                        'value: (varThumbnailsMainData.filesList[i]).fullName, '.
-                                        'text: i+1'.
-                                        '}); '.
-                                    '} '.
-                                '}'.
-
-                            'document.getElementById(\''.$varID.'_LabelTotalPage'.'\').innerHTML = varThumbnailsMainData.filesCount;'.
-
-                            'if(document.getElementById(\''.$varID.'_DialogPageSelect\') != null) {'.
-                                'document.getElementById(\''.$varID.'_DialogPageSelect\').parentNode.removeChild(document.getElementById(\''.$varID.'_DialogPageSelect\')); '.
-                                '}'.
-
-                            'if(document.getElementById(\''.$varID.'_DialogPageSelect\') == null) {'.
-                                'varNothing = '.
-                                    self::getSyntaxCreateDOM_Select(
-                                        $varUserSession, 
-                                        [
-                                            'ID' => $varID.'_DialogPageSelect',
-                                            'ParentID' => $varID.'_DialogPageTTD',
-                                            'Style' => [
-                                                ['position', 'relative'],
-                                                ['top', '50%'],
-                                                ['filter', 'drop-shadow(3px 3px 3px #ced4da)']
-                                                ]
-                                        ], 
-                                        'varDataArrayOption'
-                                        ).
-                                    '; '.
-                                //---> Page Select Event
-                                'document.getElementById(\''.$varID.'_DialogPageSelect'.'\').addEventListener('.
-                                    '\'change\', '.
-                                    'function() {'.
-                                        'zhtInnerFunc_ShowThumbnails('.
-                                            'varLocalThumbnailsFolderPath, '.
-                                            'parseInt(document.getElementById(\''.$varID.'_DialogPageSelect'.'\').options[document.getElementById(\''.$varID.'_DialogPageSelect'.'\').selectedIndex].text), '.
-                                            'document.getElementById(\''.$varID.'_DialogPageSelect'.'\').options[document.getElementById(\''.$varID.'_DialogPageSelect'.'\').selectedIndex].value'.
-                                            '); '.
-                                        '}, '.
-                                    'true); '.
-                                'document.getElementById(\''.$varID.'_DialogPageSelect'.'\').addEventListener('.
-                                    '\'mouseover\','.
-                                    'function() {'.
-                                        'document.getElementById(\''.$varID.'_DialogPageSelect'.'\').style.transform = \'scale(1.3)\'; '.
-                                        '}, '.
-                                    'false'.
-                                    '); '.
-                                'document.getElementById(\''.$varID.'_DialogPageSelect'.'\').addEventListener('.
-                                    '\'mouseout\','.
-                                    'function() {'.
-                                        'document.getElementById(\''.$varID.'_DialogPageSelect'.'\').style.transform = \'none\'; '.
-                                        'document.getElementById(\''.$varID.'_DialogPageSelect'.'\').style.transition = \'1.0s ease\'; '.
-                                        '}, '.
-                                    'false'.
-                                    '); '.
-                                //---> Page Previous Img
-                                'document.getElementById(\''.$varID.'_PagePreviousImg'.'\').addEventListener('.
-                                    '\'mouseover\','.
-                                    'function() {'.
-                                        'document.getElementById(\''.$varID.'_PagePreviousImg'.'\').style.transform = \'scale(1.3)\'; '.
-                                        '}, '.
-                                    'false'.
-                                    '); '.
-                                'document.getElementById(\''.$varID.'_PagePreviousImg'.'\').addEventListener('.
-                                    '\'mouseout\','.
-                                    'function() {'.
-                                        'document.getElementById(\''.$varID.'_PagePreviousImg'.'\').style.transform = \'none\'; '.
-                                        'document.getElementById(\''.$varID.'_PagePreviousImg'.'\').style.transition = \'1.0s ease\'; '.
-                                        '}, '.
-                                    'false'.
-                                    '); '.
-                                'document.getElementById(\''.$varID.'_PagePreviousImg'.'\').addEventListener('.
-                                    '\'click\','.
-                                    'function() {'.
-                                        'if(document.getElementById(\''.$varID.'_DialogPageSelect\').selectedIndex != 0) {'.
-                                            'document.getElementById(\''.$varID.'_DialogPageSelect\').selectedIndex = document.getElementById(\''.$varID.'_DialogPageSelect\').selectedIndex - 1; '.
-                                            'document.getElementById(\''.$varID.'_DialogPageSelect\').dispatchEvent(new Event(\'change\')); '.
-                                            '}'.
-                                        '}'.
-                                    '); '.
-                                //---> Page Next Img
-                                'document.getElementById(\''.$varID.'_PageNextImg'.'\').addEventListener('.
-                                    '\'mouseover\','.
-                                    'function() {'.
-                                        'document.getElementById(\''.$varID.'_PageNextImg'.'\').style.transform = \'scale(1.3)\'; '.
-                                        '}, '.
-                                    'false'.
-                                    '); '.
-                                'document.getElementById(\''.$varID.'_PageNextImg'.'\').addEventListener('.
-                                    '\'mouseout\','.
-                                    'function() {'.
-                                        'document.getElementById(\''.$varID.'_PageNextImg'.'\').style.transform = \'none\'; '.
-                                        'document.getElementById(\''.$varID.'_PageNextImg'.'\').style.transition = \'1.0s ease\'; '.
-                                        '}, '.
-                                    'false'.
-                                    '); '.
-                                'document.getElementById(\''.$varID.'_PageNextImg'.'\').addEventListener('.
-                                    '\'click\','.
-                                    'function() {'.
-                                        'if(document.getElementById(\''.$varID.'_DialogPageSelect\').selectedIndex != (varThumbnailsMainData.filesCount - 1)) {'.
-                                            'document.getElementById(\''.$varID.'_DialogPageSelect\').selectedIndex = document.getElementById(\''.$varID.'_DialogPageSelect\').selectedIndex + 1; '.
-                                            'document.getElementById(\''.$varID.'_DialogPageSelect\').dispatchEvent(new Event(\'change\')); '.
-                                            '}'.
-                                        '}'.
-                                    '); '.
-                                '}'.
-
-                            'return varDataArrayOption;'.
-                            '}; '.
+//                         //---> zhtInnerFunc_GetThumbnailsMainData
+//                         'function zhtInnerFunc_GetThumbnailsMainData(varLocalFilePath) {'.
+//                             'varLocalThumbnailsMainData = ('.
+//                                 'JSON.parse('.                           
+//                                     str_replace(
+//                                         '"', 
+//                                         '\'', 
+//                                         \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+//                                             $varUserSession, 
+//                                             $varAPIWebToken, 
+//                                             'fileHandling.upload.combined.thumbnails.isExist', 
+//                                             'latest', 
+//                                             '{'.
+//                                                 '"parameter" : {'.
+//                                                     '"folderPath" : varLocalFilePath'.
+//                                                     '}'.
+//                                             '}'
+//                                             )
+//                                         ).
+//                                     ').data'.
+//                                 '); '.
+//                             'return varLocalThumbnailsMainData; '.
+//                             '}; '.
 
 
-                        //---> zhtInnerFunc_ShowThumbnails
-                        'function zhtInnerFunc_ShowThumbnails(varLocalThumbnailsFolderPath, varIndex, varPath) {'.
-                            'varThumbnailsFileName = String(varIndex-1).padStart(10, \'0\') + \'.png\'; '.
-                            'varThumbnailsFilePath = varLocalThumbnailsFolderPath + \'/\' + varThumbnailsFileName; '.
-                            'varImageSource = ('.
-                                'JSON.parse('.                           
-                                    str_replace(
-                                        '"', 
-                                        '\'', 
-                                        \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                                            $varUserSession, 
-                                            $varAPIWebToken, 
-                                            'fileHandling.upload.combined.general.getFileContent', 
-                                            'latest', 
-                                            '{'.
-                                                '"parameter" : {'.
-                                                    '"filePath" : varThumbnailsFilePath'.
-                                                    '}'.
-                                            '}'
-                                            )
-                                        ).
-                                    ').data.contentBase64'.
-                                '); '.
-                            //'alert(varImageSource); '.
-                            'if(varImageSource == null) {'.
-                                'varImageSource = \'images/Logo/AppObject_System/NoPreviewAvailable.jpg\'; '.
-                                '}'.
-                            'else {'.
-                                'varImageSource = \'data:image/png;base64, \' + varImageSource + \'\'; '.
-                                '}'.
-                            'varObjImage = new Image(); '.
-                            'varObjImage.src = varImageSource; '.
-                            'varObjImage.onload = function() {'.
-                                'let varObjImageWidth = varObjImage.naturalWidth; '.
-                                'let varObjImageHeight = varObjImage.naturalHeight; '.
-                                'if(varObjImageWidth > varObjImageHeight) {'.
-                                    'varSizeFactor = 400/varObjImageWidth; '.
-                                    '}'.
-                                'else {'.
-                                    'varSizeFactor = 400/varObjImageHeight; '.
-                                    '}'.
-                                'varObjImageWidth = varObjImageWidth * varSizeFactor; '.
-                                'varObjImageHeight = varObjImageHeight * varSizeFactor; '.
+//                         //---> zhtInnerFunc_GetThumbnailsReload
+//                         'function zhtInnerFunc_GetThumbnailsReload(varLocalThumbnailsFolderPath, varLocalFilePath) {'.
+//                             'varThumbnailsMainData = zhtInnerFunc_GetThumbnailsMainData(varLocalFilePath); '.
+//                             'varDataArrayOption = []; '.
+//                             'if(varThumbnailsMainData.filesCount == 0) {'.
+//                                 'document.getElementById(\''.$varID.'_DialogPaginationTTD'.'\').style.display = \'none\'; '.
+//                                 'document.getElementById(\''.$varID.'_DialogPaginationTTD'.'\').style.visibility = \'hidden\'; '.
+//                                 'varDataArrayOption.push({'.
+//                                     'value: \'\', '.
+//                                     'text: 1'.
+//                                     '}); '.
+//                                 '}'.
+//                             'else {'.
+//                                 'document.getElementById(\''.$varID.'_DialogPaginationTTD'.'\').style.display = \'block\'; '.
+//                                 'document.getElementById(\''.$varID.'_DialogPaginationTTD'.'\').style.visibility = \'visible\'; '.
+//                                 'for(i=0, iMax=varThumbnailsMainData.filesCount; i!=iMax; i++) {'.
+//                                     'varDataArrayOption.push({'.
+//                                         'value: (varThumbnailsMainData.filesList[i]).fullName, '.
+//                                         'text: i+1'.
+//                                         '}); '.
+//                                     '} '.
+//                                 '}'.
 
-                                'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').src = varImageSource; '.
-                                'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').onload = function() {'.
-                                    'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.top = \'50%\'; '.
-                                    'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.left = \'50%\'; '.
-                                    'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.transform = \'translate(-50%, -50%)\';'.
-                                    'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.width = varObjImageWidth; '.
-                                    'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.height = varObjImageHeight; '.
+//                             'document.getElementById(\''.$varID.'_LabelTotalPage'.'\').innerHTML = varThumbnailsMainData.filesCount;'.
 
-                                    'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.width = varObjImageWidth; '.
-                                    'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.height = varObjImageHeight; '.
-                                    '}; '.
-                                '}; '.
-                            //'alert(varImageSource); '.
-                            '}; '.
+//                             'if(document.getElementById(\''.$varID.'_DialogPageSelect\') != null) {'.
+//                                 'document.getElementById(\''.$varID.'_DialogPageSelect\').parentNode.removeChild(document.getElementById(\''.$varID.'_DialogPageSelect\')); '.
+//                                 '}'.
 
-                        //---> Main Code
-                        //'alert(varLocalThumbnailsFolderPath); '.
-                        'varMaxZIndex = (parseInt('.self::getSyntaxFunc_MaxZIndex($varUserSession).') + 1); '.
-                        self::getSyntaxCreateDOM_Div(
-                            $varUserSession, 
-                            [
-                                'ID' => $varID.'_Back',
-                                'ParentID' => 'document.body',
-                                'Style' => [
-                                    ['position', 'absolute'],
-                                    ['top', '0px'],
-                                    ['left', '0px'],
-                                    ['height', '100%'],
-                                    ['width', '100%'],
-                                    ['background', 'rgba(255, 0, 0, 0.3)']
-                                    ]
-                            ], 
-                            ''
-                            ).
-                        'document.getElementById(\''.$varID.'_Back'.'\').style.zIndex = (varMaxZIndex+0); '.
-                        'document.getElementById(\''.$varID.'_Back'.'\').style.height = '.self::getSyntaxFunc_PageHeight($varUserSession).'; '.
-                        'document.getElementById(\''.$varID.'_Back'.'\').style.width = '.self::getSyntaxFunc_PageWidth($varUserSession).'; '.
+//                             'if(document.getElementById(\''.$varID.'_DialogPageSelect\') == null) {'.
+//                                 'varNothing = '.
+//                                     self::getSyntaxCreateDOM_Select(
+//                                         $varUserSession, 
+//                                         [
+//                                             'ID' => $varID.'_DialogPageSelect',
+//                                             'ParentID' => $varID.'_DialogPageTTD',
+//                                             'Style' => [
+//                                                 ['position', 'relative'],
+//                                                 ['top', '50%'],
+//                                                 ['filter', 'drop-shadow(3px 3px 3px #ced4da)']
+//                                                 ]
+//                                         ], 
+//                                         'varDataArrayOption'
+//                                         ).
+//                                     '; '.
+//                                 //---> Page Select Event
+//                                 'document.getElementById(\''.$varID.'_DialogPageSelect'.'\').addEventListener('.
+//                                     '\'change\', '.
+//                                     'function() {'.
+//                                         'zhtInnerFunc_ShowThumbnails('.
+//                                             'varLocalThumbnailsFolderPath, '.
+//                                             'parseInt(document.getElementById(\''.$varID.'_DialogPageSelect'.'\').options[document.getElementById(\''.$varID.'_DialogPageSelect'.'\').selectedIndex].text), '.
+//                                             'document.getElementById(\''.$varID.'_DialogPageSelect'.'\').options[document.getElementById(\''.$varID.'_DialogPageSelect'.'\').selectedIndex].value'.
+//                                             '); '.
+//                                         '}, '.
+//                                     'true); '.
+//                                 'document.getElementById(\''.$varID.'_DialogPageSelect'.'\').addEventListener('.
+//                                     '\'mouseover\','.
+//                                     'function() {'.
+//                                         'document.getElementById(\''.$varID.'_DialogPageSelect'.'\').style.transform = \'scale(1.3)\'; '.
+//                                         '}, '.
+//                                     'false'.
+//                                     '); '.
+//                                 'document.getElementById(\''.$varID.'_DialogPageSelect'.'\').addEventListener('.
+//                                     '\'mouseout\','.
+//                                     'function() {'.
+//                                         'document.getElementById(\''.$varID.'_DialogPageSelect'.'\').style.transform = \'none\'; '.
+//                                         'document.getElementById(\''.$varID.'_DialogPageSelect'.'\').style.transition = \'1.0s ease\'; '.
+//                                         '}, '.
+//                                     'false'.
+//                                     '); '.
+//                                 //---> Page Previous Img
+//                                 'document.getElementById(\''.$varID.'_PagePreviousImg'.'\').addEventListener('.
+//                                     '\'mouseover\','.
+//                                     'function() {'.
+//                                         'document.getElementById(\''.$varID.'_PagePreviousImg'.'\').style.transform = \'scale(1.3)\'; '.
+//                                         '}, '.
+//                                     'false'.
+//                                     '); '.
+//                                 'document.getElementById(\''.$varID.'_PagePreviousImg'.'\').addEventListener('.
+//                                     '\'mouseout\','.
+//                                     'function() {'.
+//                                         'document.getElementById(\''.$varID.'_PagePreviousImg'.'\').style.transform = \'none\'; '.
+//                                         'document.getElementById(\''.$varID.'_PagePreviousImg'.'\').style.transition = \'1.0s ease\'; '.
+//                                         '}, '.
+//                                     'false'.
+//                                     '); '.
+//                                 'document.getElementById(\''.$varID.'_PagePreviousImg'.'\').addEventListener('.
+//                                     '\'click\','.
+//                                     'function() {'.
+//                                         'if(document.getElementById(\''.$varID.'_DialogPageSelect\').selectedIndex != 0) {'.
+//                                             'document.getElementById(\''.$varID.'_DialogPageSelect\').selectedIndex = document.getElementById(\''.$varID.'_DialogPageSelect\').selectedIndex - 1; '.
+//                                             'document.getElementById(\''.$varID.'_DialogPageSelect\').dispatchEvent(new Event(\'change\')); '.
+//                                             '}'.
+//                                         '}'.
+//                                     '); '.
+//                                 //---> Page Next Img
+//                                 'document.getElementById(\''.$varID.'_PageNextImg'.'\').addEventListener('.
+//                                     '\'mouseover\','.
+//                                     'function() {'.
+//                                         'document.getElementById(\''.$varID.'_PageNextImg'.'\').style.transform = \'scale(1.3)\'; '.
+//                                         '}, '.
+//                                     'false'.
+//                                     '); '.
+//                                 'document.getElementById(\''.$varID.'_PageNextImg'.'\').addEventListener('.
+//                                     '\'mouseout\','.
+//                                     'function() {'.
+//                                         'document.getElementById(\''.$varID.'_PageNextImg'.'\').style.transform = \'none\'; '.
+//                                         'document.getElementById(\''.$varID.'_PageNextImg'.'\').style.transition = \'1.0s ease\'; '.
+//                                         '}, '.
+//                                     'false'.
+//                                     '); '.
+//                                 'document.getElementById(\''.$varID.'_PageNextImg'.'\').addEventListener('.
+//                                     '\'click\','.
+//                                     'function() {'.
+//                                         'if(document.getElementById(\''.$varID.'_DialogPageSelect\').selectedIndex != (varThumbnailsMainData.filesCount - 1)) {'.
+//                                             'document.getElementById(\''.$varID.'_DialogPageSelect\').selectedIndex = document.getElementById(\''.$varID.'_DialogPageSelect\').selectedIndex + 1; '.
+//                                             'document.getElementById(\''.$varID.'_DialogPageSelect\').dispatchEvent(new Event(\'change\')); '.
+//                                             '}'.
+//                                         '}'.
+//                                     '); '.
+//                                 '}'.
 
-                        //---> Dialog
-                        self::getSyntaxCreateDOM_Div(
-                            $varUserSession, 
-                            [
-                                'ID' => $varID.'_Dialog',
-                                'ParentID' =>  $varID.'_Back',
-                                'Style' => [
-                                    ['position', 'absolute'],
-                                    ['top', '50%'],
-                                    ['left', '50%'],
-                                    ['height', '485px'],
-                                    ['width', '835px'],
-                                    ['transform', 'translate(-50%, -50%)']
-                                    ]
-                            ], 
-                            ''
-                            ).
-                        'document.getElementById(\''.$varID.'_Dialog'.'\').style.zIndex = (varMaxZIndex+1); '.
-
-                        //---> Dialog ---> DialogPreviewPlcHold
-                        self::getSyntaxCreateDOM_Div(
-                            $varUserSession, 
-                            [
-                                'ID' => $varID.'_DialogPreviewPlcHold',
-                                'ParentID' =>  $varID.'_Dialog',
-                                'Style' => [
-                                    ['position', 'absolute'],
-                                    ['top', '0'],
-                                    ['left', '0'],
-                                    ['height', '480px'],
-                                    ['width', '410px'],
-                                    ['background', 'rgba(88, 88, 88, 1.0)'],
-                                    ['border', '2px solid #ced4da'],
-                                    ['boxShadow', '10px 20px 30px #ced4da']
-                                    ]
-                            ], 
-                            ''
-                            ).
-                        'document.getElementById(\''.$varID.'_DialogPreviewPlcHold'.'\').style.zIndex = (varMaxZIndex+2); '.
-
-                        //---> Dialog ---> DialogIdentityPlcHod
-                        self::getSyntaxCreateDOM_Div(
-                            $varUserSession, 
-                            [
-                                'ID' => $varID.'_DialogIdentityPlcHod',
-                                'ParentID' =>  $varID.'_Dialog',
-                                'Style' => [
-                                    ['position', 'absolute'],
-                                    ['top', '30'],
-                                    ['left', '420px'],
-                                    ['height', '200px'],
-                                    ['width', '410px'],
-                                    ['background', 'rgba(88, 88, 88, 1.0)'],
-                                    ['border', '2px solid #ced4da'],
-                                    ['boxShadow', '10px 20px 30px #ced4da']
-                                    ]
-                            ], 
-                            ''
-                            ).
-                        'document.getElementById(\''.$varID.'_DialogIdentityPlcHod'.'\').style.zIndex = (varMaxZIndex+2); '.
-
-                        self::getSyntaxCreateDOM_Table(
-                            $varUserSession, 
-                            [
-                            'ID' => $varID.'_DialogIdentityTable',
-                            'ParentID' => $varID.'_DialogIdentityPlcHod'   //,
-//                            'Style' => $varStyle_TableAction
-                            ],
-                            self::getSyntaxCreateDOM_TableHead($varUserSession, 
-                                [
-                                    'ID' => $varID.'_DialogIdentityTableHead',
-                                    'ParentID' => $varID.'_DialogIdentityTable'
-                                ],
-                                ''
-                                ).
-                            self::getSyntaxCreateDOM_TableBody($varUserSession, 
-                                [
-                                    'ID' => $varID.'_DialogIdentityTableBody',
-                                    'ParentID' => $varID.'_DialogIdentityTable'
-                                ],
-                                (
-                                //---> File Name
-                                self::getSyntaxCreateDOM_TableRow(
-                                    $varUserSession, 
-                                    [
-                                    'ID' => 'varObjTTR',
-                                    'ParentID' => $varID.'_DialogIdentityTableBody'
-                                    ],
-                                    (
-                                    self::getSyntaxCreateDOM_TableData(
-                                        $varUserSession, 
-                                        [
-                                        'ID' => 'varObjTTD',
-                                        'ParentID' => 'varObjTTR',
-                                        'Style' => $varStyle_TableDataStyle,
-                                        ],
-                                        'varObjTTD.appendChild(document.createTextNode(\'File Name\')); '
-                                        ).
-                                    self::getSyntaxCreateDOM_TableData(
-                                        $varUserSession, 
-                                        [
-                                        'ID' => 'varObjTTD',
-                                        'ParentID' => 'varObjTTR',
-                                        'Style' => $varStyle_TableDataStyle,
-                                        ],
-                                        'varObjTTD.appendChild(document.createTextNode(\':\')); '
-                                        ).
-                                    self::getSyntaxCreateDOM_TableData(
-                                        $varUserSession, 
-                                        [
-                                        'ID' => 'varObjTTD',
-                                        'ParentID' => 'varObjTTR',
-                                        'Style' => $varStyle_TableDataStyle,
-                                        ],
-                                        'varObjTTD.appendChild(document.createTextNode(varName)); '
-                                        )
-                                    )).
-                                //---> File Type
-                                self::getSyntaxCreateDOM_TableRow(
-                                    $varUserSession, 
-                                    [
-                                    'ID' => 'varObjTTR',
-                                    'ParentID' => $varID.'_DialogIdentityTableBody'
-                                    ],
-                                    (
-                                    self::getSyntaxCreateDOM_TableData(
-                                        $varUserSession, 
-                                        [
-                                        'ID' => 'varObjTTD',
-                                        'ParentID' => 'varObjTTR',
-                                        'Style' => $varStyle_TableDataStyle,
-                                        ],
-                                        'varObjTTD.appendChild(document.createTextNode(\'File Type\')); '
-                                        ).
-                                    self::getSyntaxCreateDOM_TableData(
-                                        $varUserSession, 
-                                        [
-                                        'ID' => 'varObjTTD',
-                                        'ParentID' => 'varObjTTR',
-                                        'Style' => $varStyle_TableDataStyle,
-                                        ],
-                                        'varObjTTD.appendChild(document.createTextNode(\':\')); '
-                                        ).
-                                    self::getSyntaxCreateDOM_TableData(
-                                        $varUserSession, 
-                                        [
-                                        'ID' => 'varObjTTD',
-                                        'ParentID' => 'varObjTTR',
-                                        'Style' => $varStyle_TableDataStyle,
-                                        ],
-                                        'varObjTTD.appendChild(document.createTextNode(varMIME)); '
-                                        )
-                                    )).
-                                //---> File Size
-                                self::getSyntaxCreateDOM_TableRow(
-                                    $varUserSession, 
-                                    [
-                                    'ID' => 'varObjTTR',
-                                    'ParentID' => $varID.'_DialogIdentityTableBody'
-                                    ],
-                                    (
-                                    self::getSyntaxCreateDOM_TableData(
-                                        $varUserSession, 
-                                        [
-                                        'ID' => 'varObjTTD',
-                                        'ParentID' => 'varObjTTR',
-                                        'Style' => $varStyle_TableDataStyle,
-                                        ],
-                                        'varObjTTD.appendChild(document.createTextNode(\'File Size\')); '
-                                        ).
-                                    self::getSyntaxCreateDOM_TableData(
-                                        $varUserSession, 
-                                        [
-                                        'ID' => 'varObjTTD',
-                                        'ParentID' => 'varObjTTR',
-                                        'Style' => $varStyle_TableDataStyle,
-                                        ],
-                                        'varObjTTD.appendChild(document.createTextNode(\':\')); '
-                                        ).
-                                    self::getSyntaxCreateDOM_TableData(
-                                        $varUserSession, 
-                                        [
-                                        'ID' => 'varObjTTD',
-                                        'ParentID' => 'varObjTTR',
-                                        'Style' => $varStyle_TableDataStyle,
-                                        ],
-                                        'varObjTTD.appendChild(document.createTextNode(varSize + \' byte\')); '
-                                        )
-                                    )).
-                                //---> File Size
-                                self::getSyntaxCreateDOM_TableRow(
-                                    $varUserSession, 
-                                    [
-                                    'ID' => 'varObjTTR',
-                                    'ParentID' => $varID.'_DialogIdentityTableBody'
-                                    ],
-                                    (
-                                    self::getSyntaxCreateDOM_TableData(
-                                        $varUserSession, 
-                                        [
-                                        'ID' => 'varObjTTD',
-                                        'ParentID' => 'varObjTTR',
-                                        'Style' => $varStyle_TableDataStyle,
-                                        ],
-                                        'varObjTTD.appendChild(document.createTextNode(\'Upload Date Time\')); '
-                                        ).
-                                    self::getSyntaxCreateDOM_TableData(
-                                        $varUserSession, 
-                                        [
-                                        'ID' => 'varObjTTD',
-                                        'ParentID' => 'varObjTTR',
-                                        'Style' => $varStyle_TableDataStyle,
-                                        ],
-                                        'varObjTTD.appendChild(document.createTextNode(\':\')); '
-                                        ).
-                                    self::getSyntaxCreateDOM_TableData(
-                                        $varUserSession, 
-                                        [
-                                        'ID' => 'varObjTTD',
-                                        'ParentID' => 'varObjTTR',
-                                        'Style' => $varStyle_TableDataStyle,
-                                        ],
-                                        'varObjTTD.appendChild(document.createTextNode(varUploadDateTimeTZ)); '
-                                        )
-                                    ))
-                                )
-                                )
-                            ).
-
-                        //---> Dialog ---> DialogPreviewPlcHold ---> DialogTitlePlcHold
-                        self::getSyntaxCreateDOM_Div(
-                            $varUserSession, 
-                            [
-                                'ID' => $varID.'_DialogTitlePlcHold',
-                                'ParentID' =>  $varID.'_DialogPreviewPlcHold',
-                                'Style' => [
-                                    ['position', 'absolute'],
-                                    ['top', '0px'],
-                                    ['left', '0px'],
-                                    ['height', '30px'],
-                                    ['lineHeight', '30px'],
-                                    ['width', '100%'],
-                                    ['background', '#212529'],
-                                    ['backgroundImage', 'linear-gradient(#000108, #181d57 10%, #000108)'],
-                                    ['fontFamily', '\\\'Helvetica, Verdana, Arial, Tahoma, Serif\\\''],
-                                    ['fontWeight', 'bold'],
-                                    ['color', '#212529'],
-                                    ['textShadow', '2px 2px 5px #ced4da']
-                                    ]
-                            ], 
-                            'FILE PREVIEW'
-                            ).
-                        'document.getElementById(\''.$varID.'_DialogTitlePlcHold'.'\').style.zIndex = (varMaxZIndex+3); '.
-                        'document.getElementById(\''.$varID.'_DialogTitlePlcHold'.'\').setAttribute(\'display\', \'table-cell\'); '.
-                        'document.getElementById(\''.$varID.'_DialogTitlePlcHold'.'\').setAttribute(\'align\', \'center\'); '.
-                        'document.getElementById(\''.$varID.'_DialogTitlePlcHold'.'\').setAttribute(\'vertical-align\', \'middle\'); '.
-
-                        //---> Dialog ---> DialogPreviewPlcHold ---> DialogContentPlcHold
-                        self::getSyntaxCreateDOM_Div(
-                            $varUserSession, 
-                            [
-                                'ID' => $varID.'_DialogContentPlcHold',
-                                'ParentID' =>  $varID.'_DialogPreviewPlcHold',
-                                'Style' => [
-                                    ['position', 'absolute'],
-                                    ['top', '35px'],
-                                    ['left', '5px'],
-                                    ['height', '400px'],
-                                    ['width', '400px'],
-//                                    ['background', 'blue']
-//                                    ['background', 'rgba(bb, bb, 00, 1.0)']
-                                    ]
-                            ], 
-                            ''
-                            ).
-                        'document.getElementById(\''.$varID.'_DialogContentPlcHold'.'\').style.zIndex = (varMaxZIndex+4); '.
-
-                        //---> Dialog ---> DialogPreviewPlcHold ---> DialogContentPlcHold ---> DialogContentPlcHoldBack
-                        self::getSyntaxCreateDOM_Div(
-                            $varUserSession, 
-                            [
-                                'ID' => $varID.'_DialogContentPlcHoldBack',
-                                'ParentID' =>  $varID.'_DialogContentPlcHold',
-                                'Style' => [
-                                    ['position', 'absolute'],
-                                    ['top', '50%'],
-                                    ['left', '50%'],
-                                    ['height', '400px'],
-                                    ['width', '400px'],
-                                    ['background', 'white'],
-                                    ['transform', 'translate(-50%, -50%)']
-                                    ]
-                            ], 
-                            ''
-                            ).
-                        'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.zIndex = (varMaxZIndex+5); '.
-
-                        'zhtInnerFunc_ShowThumbnails(varLocalThumbnailsFolderPath, 1, \'\'); '.
-
-                        //---> Dialog ---> DialogPreviewPlcHold ---> DialogContentPlcHold ---> DialogContentPlcHoldBack ---> DialogContentThumbnailImage
-                        self::getSyntaxCreateDOM_Image(
-                            $varUserSession, 
-                            [
-                                'ID' => $varID.'_DialogContentThumbnailImage',
-                                'ParentID' =>  $varID.'_DialogContentPlcHoldBack',
-                                'Height' => 400,
-                                'Style' => [
-                                    ['position', 'absolute'],
-                                    ['top', '50%'],
-                                    ['left', '50%'],
-                                    ['transform', 'translate(-50%, -50%)']
-                                    ]
-                            ], 
-                            'varImageSource'
-                            ).
-                        'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.zIndex = (varMaxZIndex+6); '.
-
-                        //---> Dialog ---> DialogPreviewPlcHold ---> DialogButtonPlcHold
-                        self::getSyntaxCreateDOM_Div(
-                            $varUserSession, 
-                            [
-                                'ID' => $varID.'_DialogButtonPlcHold',
-                                'ParentID' =>  $varID.'_DialogPreviewPlcHold',
-                                'Style' => [
-                                    ['position', 'absolute'],
-                                    ['top', '440px'],
-                                    ['left', '0px'],
-                                    ['height', '40px'],
-                                    ['inlineHeight', '40px'],
-                                    ['width', '100%'],
-                                    ['backgroundImage', 'linear-gradient(#000108, #181d57 10%, #000108)'],
-                                    ]
-                            ], 
-                            ''
-                            ).
-                        'document.getElementById(\''.$varID.'_DialogButtonPlcHold'.'\').style.zIndex = (varMaxZIndex+4); '.
-                        'document.getElementById(\''.$varID.'_DialogButtonPlcHold'.'\').setAttribute(\'align\', \'center\'); '.
-
-                        //---> Dialog ---> DialogPreviewPlcHold ---> DialogButtonPlcHold ---> DialogActionTable
-                        self::getSyntaxCreateDOM_Table(
-                            $varUserSession, 
-                            [
-                            'ID' => $varID.'_DialogActionTable',
-                            'ParentID' => $varID.'_DialogButtonPlcHold',
-                            'Style' => [
-                                ['position', 'relative'],
-                                ['top', '50%'],
-                                ]
-//                            'Style' => $varStyle_TableAction
-                            ],
-                            self::getSyntaxCreateDOM_TableHead($varUserSession, 
-                                [
-                                    'ID' => $varID.'_DialogActionTableHead',
-                                    'ParentID' => $varID.'_DialogActionTable'
-                                ],
-                                ''
-                                ).
-                            self::getSyntaxCreateDOM_TableBody($varUserSession, 
-                                [
-                                    'ID' => $varID.'_DialogActionTableBody',
-                                    'ParentID' => $varID.'_DialogActionTable'
-                                ],
-                                (
-                                self::getSyntaxCreateDOM_TableRow(
-                                    $varUserSession, 
-                                    [
-                                    'ID' => $varID.'_DialogActionTTR',
-                                    'ParentID' => $varID.'_DialogActionTableBody'
-                                    ],
-                                    (
-                                    //---> Pagination
-                                    self::getSyntaxCreateDOM_TableData(
-                                        $varUserSession, 
-                                        [
-                                        'ID' => $varID.'_DialogPaginationTTD',
-                                        'ParentID' => $varID.'_DialogActionTTR',
-                                        'Style' => $varStyle_TableDataStyle,
-                                        ],
-                                        (
-                                        self::getSyntaxCreateDOM_Table(
-                                            $varUserSession, 
-                                            [
-                                            'ID' => $varID.'_DialogPaginationTable',
-                                            'ParentID' => $varID.'_DialogPaginationTTD',
-                                            'Style' => [
-                                                ['position', 'relative'],
-                                                //['top', '50%'],
-                                                ['border', '1px solid #ced4da'],
-                                                ['borderColor', 'ced4da'],
-                                                ['borderSpacing', '2px'],
-                                                ['padding', '2px'],
-                                                ['backgroundImage', 'linear-gradient(#a10e03, #360401 30%, #a10e03)'],
-                                                ['borderRadius', '10px']
-                                                ]
-                                            ],
-                                            self::getSyntaxCreateDOM_TableHead($varUserSession, 
-                                                [
-                                                    'ID' => $varID.'_DialogPaginationTableHead',
-                                                    'ParentID' => $varID.'_DialogPaginationTable'
-                                                ],
-                                                ''
-                                                ).
-                                            self::getSyntaxCreateDOM_TableBody(
-                                                $varUserSession, 
-                                                [
-                                                    'ID' => $varID.'_DialogPaginationTableBody',
-                                                    'ParentID' => $varID.'_DialogPaginationTable'
-                                                ],
-                                                self::getSyntaxCreateDOM_TableRow(
-                                                    $varUserSession, 
-                                                    [
-                                                    'ID' => $varID.'_DialogPaginationTTR',
-                                                    'ParentID' => $varID.'_DialogPaginationTableBody'
-                                                    ],
+//                             'return varDataArrayOption;'.
+//                             '}; '.
 
 
-                                                    //---> Page Next
-                                                    self::getSyntaxCreateDOM_TableData(
-                                                        $varUserSession, 
-                                                        [
-                                                        'ID' => $varID.'_DialogPagePreviousTTD',
-                                                        'ParentID' => $varID.'_DialogPaginationTTR',
-                                                        'Style' => $varStyle_TableDataPagination
-                                                        ],
-                                                        ''
-                                                        ).
-                                                    self::getSyntaxCreateDOM_Image(
-                                                        $varUserSession, 
-                                                        [
-                                                            'ID' => $varID.'_PagePreviousImg',
-                                                            'ParentID' =>  $varID.'_DialogPagePreviousTTD',
-                                                            'Height' => 25,
-                                                            'Style' => [
-                                                                ['position', 'relative'],
-                                                                ['top', '50%'],
-                                                                ['left', '0'],
-                                                                ['filter', 'drop-shadow(3px 3px 3px #ced4da)']
-                                                                ]
-                                                        ], 
-                                                        '\'images/Icon/Pagination/Previous-300-32.png\''
-                                                        ).
-                                                    //---> Pagination Label1
-                                                    self::getSyntaxCreateDOM_TableData(
-                                                        $varUserSession, 
-                                                        [
-                                                        'ID' => $varID.'_DialogPaginationLabel1TTD',
-                                                        'ParentID' => $varID.'_DialogPaginationTTR',
-                                                        'Style' => $varStyle_TableDataPagination
-                                                        ],
-                                                        (
-                                                        self::getSyntaxCreateDOM_Label(
-                                                            $varUserSession, 
-                                                            [
-                                                            'ID' => $varID.'_LabelPage1',
-                                                            'ParentID' => $varID.'_DialogPaginationLabel1TTD'
-                                                            ],
-                                                            'Page '
-                                                            )
-                                                        )).
-                                                    //---> Page Select
-                                                    self::getSyntaxCreateDOM_TableData(
-                                                        $varUserSession, 
-                                                        [
-                                                        'ID' => $varID.'_DialogPageTTD',
-                                                        'ParentID' => $varID.'_DialogPaginationTTR',
-                                                        'Style' => $varStyle_TableDataPagination
-                                                        ],
-                                                        ''
-                                                        ).
-                                                    //---> Pagination Label2
-                                                    self::getSyntaxCreateDOM_TableData(
-                                                        $varUserSession, 
-                                                        [
-                                                        'ID' => $varID.'_DialogPaginationLabel2TTD',
-                                                        'ParentID' => $varID.'_DialogPaginationTTR',
-                                                        'Style' => $varStyle_TableDataPagination
-                                                        ],
-                                                        (
-                                                        self::getSyntaxCreateDOM_Label(
-                                                            $varUserSession, 
-                                                            [
-                                                            'ID' => $varID.'_LabelPage2',
-                                                            'ParentID' => $varID.'_DialogPaginationLabel2TTD'
-                                                            ],
-                                                            ' of '
-                                                            )
-                                                        )).
-                                                    //---> Pagination Label3
-                                                    self::getSyntaxCreateDOM_TableData(
-                                                        $varUserSession, 
-                                                        [
-                                                        'ID' => $varID.'_DialogPaginationLabel3TTD',
-                                                        'ParentID' => $varID.'_DialogPaginationTTR',
-                                                        'Style' => $varStyle_TableDataStyle,
-                                                        ],
-                                                        (
-                                                        self::getSyntaxCreateDOM_Label(
-                                                            $varUserSession, 
-                                                            [
-                                                            'ID' => $varID.'_LabelTotalPage',
-                                                            'ParentID' => $varID.'_DialogPaginationLabel3TTD'
-                                                            ],
-                                                            ' of '
-                                                            )
-                                                        )).
-                                                    //---> Page Next
-                                                    self::getSyntaxCreateDOM_TableData(
-                                                        $varUserSession, 
-                                                        [
-                                                        'ID' => $varID.'_DialogPageNextTTD',
-                                                        'ParentID' => $varID.'_DialogPaginationTTR',
-                                                        'Style' => $varStyle_TableDataPagination
-                                                        ],
-                                                        ''
-                                                        ).
-                                                    self::getSyntaxCreateDOM_Image(
-                                                        $varUserSession, 
-                                                        [
-                                                            'ID' => $varID.'_PageNextImg',
-                                                            'ParentID' =>  $varID.'_DialogPageNextTTD',
-                                                            'Height' => 25,
-                                                            'Style' => [
-                                                                ['position', 'relative'],
-                                                                ['top', '50%'],
-                                                                ['left', '0'],
-                                                                ['filter', 'drop-shadow(3px 3px 3px #ced4da)']
-                                                                ]
-                                                        ], 
-                                                        '\'images/Icon/Pagination/Next-300-32.png\''
-                                                        )
+//                         //---> zhtInnerFunc_ShowThumbnails
+//                         'function zhtInnerFunc_ShowThumbnails(varLocalThumbnailsFolderPath, varIndex, varPath) {'.
+//                             'varThumbnailsFileName = String(varIndex-1).padStart(10, \'0\') + \'.png\'; '.
+//                             'varThumbnailsFilePath = varLocalThumbnailsFolderPath + \'/\' + varThumbnailsFileName; '.
+//                             'varImageSource = ('.
+//                                 'JSON.parse('.                           
+//                                     str_replace(
+//                                         '"', 
+//                                         '\'', 
+//                                         \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+//                                             $varUserSession, 
+//                                             $varAPIWebToken, 
+//                                             'fileHandling.upload.combined.general.getFileContent', 
+//                                             'latest', 
+//                                             '{'.
+//                                                 '"parameter" : {'.
+//                                                     '"filePath" : varThumbnailsFilePath'.
+//                                                     '}'.
+//                                             '}'
+//                                             )
+//                                         ).
+//                                     ').data.contentBase64'.
+//                                 '); '.
+//                             //'alert(varImageSource); '.
+//                             'if(varImageSource == null) {'.
+//                                 'varImageSource = \'images/Logo/AppObject_System/NoPreviewAvailable.jpg\'; '.
+//                                 '}'.
+//                             'else {'.
+//                                 'varImageSource = \'data:image/png;base64, \' + varImageSource + \'\'; '.
+//                                 '}'.
+//                             'varObjImage = new Image(); '.
+//                             'varObjImage.src = varImageSource; '.
+//                             'varObjImage.onload = function() {'.
+//                                 'let varObjImageWidth = varObjImage.naturalWidth; '.
+//                                 'let varObjImageHeight = varObjImage.naturalHeight; '.
+//                                 'if(varObjImageWidth > varObjImageHeight) {'.
+//                                     'varSizeFactor = 400/varObjImageWidth; '.
+//                                     '}'.
+//                                 'else {'.
+//                                     'varSizeFactor = 400/varObjImageHeight; '.
+//                                     '}'.
+//                                 'varObjImageWidth = varObjImageWidth * varSizeFactor; '.
+//                                 'varObjImageHeight = varObjImageHeight * varSizeFactor; '.
+
+//                                 'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').src = varImageSource; '.
+//                                 'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').onload = function() {'.
+//                                     'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.top = \'50%\'; '.
+//                                     'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.left = \'50%\'; '.
+//                                     'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.transform = \'translate(-50%, -50%)\';'.
+//                                     'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.width = varObjImageWidth; '.
+//                                     'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.height = varObjImageHeight; '.
+
+//                                     'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.width = varObjImageWidth; '.
+//                                     'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.height = varObjImageHeight; '.
+//                                     '}; '.
+//                                 '}; '.
+//                             //'alert(varImageSource); '.
+//                             '}; '.
+
+//                         //---> Main Code
+//                         //'alert(varLocalThumbnailsFolderPath); '.
+//                         'varMaxZIndex = (parseInt('.self::getSyntaxFunc_MaxZIndex($varUserSession).') + 1); '.
+//                         self::getSyntaxCreateDOM_Div(
+//                             $varUserSession, 
+//                             [
+//                                 'ID' => $varID.'_Back',
+//                                 'ParentID' => 'document.body',
+//                                 'Style' => [
+//                                     ['position', 'absolute'],
+//                                     ['top', '0px'],
+//                                     ['left', '0px'],
+//                                     ['height', '100%'],
+//                                     ['width', '100%'],
+//                                     ['background', 'rgba(255, 0, 0, 0.3)']
+//                                     ]
+//                             ], 
+//                             ''
+//                             ).
+//                         'document.getElementById(\''.$varID.'_Back'.'\').style.zIndex = (varMaxZIndex+0); '.
+//                         'document.getElementById(\''.$varID.'_Back'.'\').style.height = '.self::getSyntaxFunc_PageHeight($varUserSession).'; '.
+//                         'document.getElementById(\''.$varID.'_Back'.'\').style.width = '.self::getSyntaxFunc_PageWidth($varUserSession).'; '.
+
+//                         //---> Dialog
+//                         self::getSyntaxCreateDOM_Div(
+//                             $varUserSession, 
+//                             [
+//                                 'ID' => $varID.'_Dialog',
+//                                 'ParentID' =>  $varID.'_Back',
+//                                 'Style' => [
+//                                     ['position', 'absolute'],
+//                                     ['top', '50%'],
+//                                     ['left', '50%'],
+//                                     ['height', '485px'],
+//                                     ['width', '835px'],
+//                                     ['transform', 'translate(-50%, -50%)']
+//                                     ]
+//                             ], 
+//                             ''
+//                             ).
+//                         'document.getElementById(\''.$varID.'_Dialog'.'\').style.zIndex = (varMaxZIndex+1); '.
+
+//                         //---> Dialog ---> DialogPreviewPlcHold
+//                         self::getSyntaxCreateDOM_Div(
+//                             $varUserSession, 
+//                             [
+//                                 'ID' => $varID.'_DialogPreviewPlcHold',
+//                                 'ParentID' =>  $varID.'_Dialog',
+//                                 'Style' => [
+//                                     ['position', 'absolute'],
+//                                     ['top', '0'],
+//                                     ['left', '0'],
+//                                     ['height', '480px'],
+//                                     ['width', '410px'],
+//                                     ['background', 'rgba(88, 88, 88, 1.0)'],
+//                                     ['border', '2px solid #ced4da'],
+//                                     ['boxShadow', '10px 20px 30px #ced4da']
+//                                     ]
+//                             ], 
+//                             ''
+//                             ).
+//                         'document.getElementById(\''.$varID.'_DialogPreviewPlcHold'.'\').style.zIndex = (varMaxZIndex+2); '.
+
+//                         //---> Dialog ---> DialogIdentityPlcHod
+//                         self::getSyntaxCreateDOM_Div(
+//                             $varUserSession, 
+//                             [
+//                                 'ID' => $varID.'_DialogIdentityPlcHod',
+//                                 'ParentID' =>  $varID.'_Dialog',
+//                                 'Style' => [
+//                                     ['position', 'absolute'],
+//                                     ['top', '30'],
+//                                     ['left', '420px'],
+//                                     ['height', '200px'],
+//                                     ['width', '410px'],
+//                                     ['background', 'rgba(88, 88, 88, 1.0)'],
+//                                     ['border', '2px solid #ced4da'],
+//                                     ['boxShadow', '10px 20px 30px #ced4da']
+//                                     ]
+//                             ], 
+//                             ''
+//                             ).
+//                         'document.getElementById(\''.$varID.'_DialogIdentityPlcHod'.'\').style.zIndex = (varMaxZIndex+2); '.
+
+//                         self::getSyntaxCreateDOM_Table(
+//                             $varUserSession, 
+//                             [
+//                             'ID' => $varID.'_DialogIdentityTable',
+//                             'ParentID' => $varID.'_DialogIdentityPlcHod'   //,
+// //                            'Style' => $varStyle_TableAction
+//                             ],
+//                             self::getSyntaxCreateDOM_TableHead($varUserSession, 
+//                                 [
+//                                     'ID' => $varID.'_DialogIdentityTableHead',
+//                                     'ParentID' => $varID.'_DialogIdentityTable'
+//                                 ],
+//                                 ''
+//                                 ).
+//                             self::getSyntaxCreateDOM_TableBody($varUserSession, 
+//                                 [
+//                                     'ID' => $varID.'_DialogIdentityTableBody',
+//                                     'ParentID' => $varID.'_DialogIdentityTable'
+//                                 ],
+//                                 (
+//                                 //---> File Name
+//                                 self::getSyntaxCreateDOM_TableRow(
+//                                     $varUserSession, 
+//                                     [
+//                                     'ID' => 'varObjTTR',
+//                                     'ParentID' => $varID.'_DialogIdentityTableBody'
+//                                     ],
+//                                     (
+//                                     self::getSyntaxCreateDOM_TableData(
+//                                         $varUserSession, 
+//                                         [
+//                                         'ID' => 'varObjTTD',
+//                                         'ParentID' => 'varObjTTR',
+//                                         'Style' => $varStyle_TableDataStyle,
+//                                         ],
+//                                         'varObjTTD.appendChild(document.createTextNode(\'File Name\')); '
+//                                         ).
+//                                     self::getSyntaxCreateDOM_TableData(
+//                                         $varUserSession, 
+//                                         [
+//                                         'ID' => 'varObjTTD',
+//                                         'ParentID' => 'varObjTTR',
+//                                         'Style' => $varStyle_TableDataStyle,
+//                                         ],
+//                                         'varObjTTD.appendChild(document.createTextNode(\':\')); '
+//                                         ).
+//                                     self::getSyntaxCreateDOM_TableData(
+//                                         $varUserSession, 
+//                                         [
+//                                         'ID' => 'varObjTTD',
+//                                         'ParentID' => 'varObjTTR',
+//                                         'Style' => $varStyle_TableDataStyle,
+//                                         ],
+//                                         'varObjTTD.appendChild(document.createTextNode(varName)); '
+//                                         )
+//                                     )).
+//                                 //---> File Type
+//                                 self::getSyntaxCreateDOM_TableRow(
+//                                     $varUserSession, 
+//                                     [
+//                                     'ID' => 'varObjTTR',
+//                                     'ParentID' => $varID.'_DialogIdentityTableBody'
+//                                     ],
+//                                     (
+//                                     self::getSyntaxCreateDOM_TableData(
+//                                         $varUserSession, 
+//                                         [
+//                                         'ID' => 'varObjTTD',
+//                                         'ParentID' => 'varObjTTR',
+//                                         'Style' => $varStyle_TableDataStyle,
+//                                         ],
+//                                         'varObjTTD.appendChild(document.createTextNode(\'File Type\')); '
+//                                         ).
+//                                     self::getSyntaxCreateDOM_TableData(
+//                                         $varUserSession, 
+//                                         [
+//                                         'ID' => 'varObjTTD',
+//                                         'ParentID' => 'varObjTTR',
+//                                         'Style' => $varStyle_TableDataStyle,
+//                                         ],
+//                                         'varObjTTD.appendChild(document.createTextNode(\':\')); '
+//                                         ).
+//                                     self::getSyntaxCreateDOM_TableData(
+//                                         $varUserSession, 
+//                                         [
+//                                         'ID' => 'varObjTTD',
+//                                         'ParentID' => 'varObjTTR',
+//                                         'Style' => $varStyle_TableDataStyle,
+//                                         ],
+//                                         'varObjTTD.appendChild(document.createTextNode(varMIME)); '
+//                                         )
+//                                     )).
+//                                 //---> File Size
+//                                 self::getSyntaxCreateDOM_TableRow(
+//                                     $varUserSession, 
+//                                     [
+//                                     'ID' => 'varObjTTR',
+//                                     'ParentID' => $varID.'_DialogIdentityTableBody'
+//                                     ],
+//                                     (
+//                                     self::getSyntaxCreateDOM_TableData(
+//                                         $varUserSession, 
+//                                         [
+//                                         'ID' => 'varObjTTD',
+//                                         'ParentID' => 'varObjTTR',
+//                                         'Style' => $varStyle_TableDataStyle,
+//                                         ],
+//                                         'varObjTTD.appendChild(document.createTextNode(\'File Size\')); '
+//                                         ).
+//                                     self::getSyntaxCreateDOM_TableData(
+//                                         $varUserSession, 
+//                                         [
+//                                         'ID' => 'varObjTTD',
+//                                         'ParentID' => 'varObjTTR',
+//                                         'Style' => $varStyle_TableDataStyle,
+//                                         ],
+//                                         'varObjTTD.appendChild(document.createTextNode(\':\')); '
+//                                         ).
+//                                     self::getSyntaxCreateDOM_TableData(
+//                                         $varUserSession, 
+//                                         [
+//                                         'ID' => 'varObjTTD',
+//                                         'ParentID' => 'varObjTTR',
+//                                         'Style' => $varStyle_TableDataStyle,
+//                                         ],
+//                                         'varObjTTD.appendChild(document.createTextNode(varSize + \' byte\')); '
+//                                         )
+//                                     )).
+//                                 //---> File Size
+//                                 self::getSyntaxCreateDOM_TableRow(
+//                                     $varUserSession, 
+//                                     [
+//                                     'ID' => 'varObjTTR',
+//                                     'ParentID' => $varID.'_DialogIdentityTableBody'
+//                                     ],
+//                                     (
+//                                     self::getSyntaxCreateDOM_TableData(
+//                                         $varUserSession, 
+//                                         [
+//                                         'ID' => 'varObjTTD',
+//                                         'ParentID' => 'varObjTTR',
+//                                         'Style' => $varStyle_TableDataStyle,
+//                                         ],
+//                                         'varObjTTD.appendChild(document.createTextNode(\'Upload Date Time\')); '
+//                                         ).
+//                                     self::getSyntaxCreateDOM_TableData(
+//                                         $varUserSession, 
+//                                         [
+//                                         'ID' => 'varObjTTD',
+//                                         'ParentID' => 'varObjTTR',
+//                                         'Style' => $varStyle_TableDataStyle,
+//                                         ],
+//                                         'varObjTTD.appendChild(document.createTextNode(\':\')); '
+//                                         ).
+//                                     self::getSyntaxCreateDOM_TableData(
+//                                         $varUserSession, 
+//                                         [
+//                                         'ID' => 'varObjTTD',
+//                                         'ParentID' => 'varObjTTR',
+//                                         'Style' => $varStyle_TableDataStyle,
+//                                         ],
+//                                         'varObjTTD.appendChild(document.createTextNode(varUploadDateTimeTZ)); '
+//                                         )
+//                                     ))
+//                                 )
+//                                 )
+//                             ).
+
+//                         //---> Dialog ---> DialogPreviewPlcHold ---> DialogTitlePlcHold
+//                         self::getSyntaxCreateDOM_Div(
+//                             $varUserSession, 
+//                             [
+//                                 'ID' => $varID.'_DialogTitlePlcHold',
+//                                 'ParentID' =>  $varID.'_DialogPreviewPlcHold',
+//                                 'Style' => [
+//                                     ['position', 'absolute'],
+//                                     ['top', '0px'],
+//                                     ['left', '0px'],
+//                                     ['height', '30px'],
+//                                     ['lineHeight', '30px'],
+//                                     ['width', '100%'],
+//                                     ['background', '#212529'],
+//                                     ['backgroundImage', 'linear-gradient(#000108, #181d57 10%, #000108)'],
+//                                     ['fontFamily', '\\\'Helvetica, Verdana, Arial, Tahoma, Serif\\\''],
+//                                     ['fontWeight', 'bold'],
+//                                     ['color', '#212529'],
+//                                     ['textShadow', '2px 2px 5px #ced4da']
+//                                     ]
+//                             ], 
+//                             'FILE PREVIEW'
+//                             ).
+//                         'document.getElementById(\''.$varID.'_DialogTitlePlcHold'.'\').style.zIndex = (varMaxZIndex+3); '.
+//                         'document.getElementById(\''.$varID.'_DialogTitlePlcHold'.'\').setAttribute(\'display\', \'table-cell\'); '.
+//                         'document.getElementById(\''.$varID.'_DialogTitlePlcHold'.'\').setAttribute(\'align\', \'center\'); '.
+//                         'document.getElementById(\''.$varID.'_DialogTitlePlcHold'.'\').setAttribute(\'vertical-align\', \'middle\'); '.
+
+//                         //---> Dialog ---> DialogPreviewPlcHold ---> DialogContentPlcHold
+//                         self::getSyntaxCreateDOM_Div(
+//                             $varUserSession, 
+//                             [
+//                                 'ID' => $varID.'_DialogContentPlcHold',
+//                                 'ParentID' =>  $varID.'_DialogPreviewPlcHold',
+//                                 'Style' => [
+//                                     ['position', 'absolute'],
+//                                     ['top', '35px'],
+//                                     ['left', '5px'],
+//                                     ['height', '400px'],
+//                                     ['width', '400px'],
+// //                                    ['background', 'blue']
+// //                                    ['background', 'rgba(bb, bb, 00, 1.0)']
+//                                     ]
+//                             ], 
+//                             ''
+//                             ).
+//                         'document.getElementById(\''.$varID.'_DialogContentPlcHold'.'\').style.zIndex = (varMaxZIndex+4); '.
+
+//                         //---> Dialog ---> DialogPreviewPlcHold ---> DialogContentPlcHold ---> DialogContentPlcHoldBack
+//                         self::getSyntaxCreateDOM_Div(
+//                             $varUserSession, 
+//                             [
+//                                 'ID' => $varID.'_DialogContentPlcHoldBack',
+//                                 'ParentID' =>  $varID.'_DialogContentPlcHold',
+//                                 'Style' => [
+//                                     ['position', 'absolute'],
+//                                     ['top', '50%'],
+//                                     ['left', '50%'],
+//                                     ['height', '400px'],
+//                                     ['width', '400px'],
+//                                     ['background', 'white'],
+//                                     ['transform', 'translate(-50%, -50%)']
+//                                     ]
+//                             ], 
+//                             ''
+//                             ).
+//                         'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.zIndex = (varMaxZIndex+5); '.
+
+//                         'zhtInnerFunc_ShowThumbnails(varLocalThumbnailsFolderPath, 1, \'\'); '.
+
+//                         //---> Dialog ---> DialogPreviewPlcHold ---> DialogContentPlcHold ---> DialogContentPlcHoldBack ---> DialogContentThumbnailImage
+//                         self::getSyntaxCreateDOM_Image(
+//                             $varUserSession, 
+//                             [
+//                                 'ID' => $varID.'_DialogContentThumbnailImage',
+//                                 'ParentID' =>  $varID.'_DialogContentPlcHoldBack',
+//                                 'Height' => 400,
+//                                 'Style' => [
+//                                     ['position', 'absolute'],
+//                                     ['top', '50%'],
+//                                     ['left', '50%'],
+//                                     ['transform', 'translate(-50%, -50%)']
+//                                     ]
+//                             ], 
+//                             'varImageSource'
+//                             ).
+//                         'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.zIndex = (varMaxZIndex+6); '.
+
+//                         //---> Dialog ---> DialogPreviewPlcHold ---> DialogButtonPlcHold
+//                         self::getSyntaxCreateDOM_Div(
+//                             $varUserSession, 
+//                             [
+//                                 'ID' => $varID.'_DialogButtonPlcHold',
+//                                 'ParentID' =>  $varID.'_DialogPreviewPlcHold',
+//                                 'Style' => [
+//                                     ['position', 'absolute'],
+//                                     ['top', '440px'],
+//                                     ['left', '0px'],
+//                                     ['height', '40px'],
+//                                     ['inlineHeight', '40px'],
+//                                     ['width', '100%'],
+//                                     ['backgroundImage', 'linear-gradient(#000108, #181d57 10%, #000108)'],
+//                                     ]
+//                             ], 
+//                             ''
+//                             ).
+//                         'document.getElementById(\''.$varID.'_DialogButtonPlcHold'.'\').style.zIndex = (varMaxZIndex+4); '.
+//                         'document.getElementById(\''.$varID.'_DialogButtonPlcHold'.'\').setAttribute(\'align\', \'center\'); '.
+
+//                         //---> Dialog ---> DialogPreviewPlcHold ---> DialogButtonPlcHold ---> DialogActionTable
+//                         self::getSyntaxCreateDOM_Table(
+//                             $varUserSession, 
+//                             [
+//                             'ID' => $varID.'_DialogActionTable',
+//                             'ParentID' => $varID.'_DialogButtonPlcHold',
+//                             'Style' => [
+//                                 ['position', 'relative'],
+//                                 ['top', '50%'],
+//                                 ]
+// //                            'Style' => $varStyle_TableAction
+//                             ],
+//                             self::getSyntaxCreateDOM_TableHead($varUserSession, 
+//                                 [
+//                                     'ID' => $varID.'_DialogActionTableHead',
+//                                     'ParentID' => $varID.'_DialogActionTable'
+//                                 ],
+//                                 ''
+//                                 ).
+//                             self::getSyntaxCreateDOM_TableBody($varUserSession, 
+//                                 [
+//                                     'ID' => $varID.'_DialogActionTableBody',
+//                                     'ParentID' => $varID.'_DialogActionTable'
+//                                 ],
+//                                 (
+//                                 self::getSyntaxCreateDOM_TableRow(
+//                                     $varUserSession, 
+//                                     [
+//                                     'ID' => $varID.'_DialogActionTTR',
+//                                     'ParentID' => $varID.'_DialogActionTableBody'
+//                                     ],
+//                                     (
+//                                     //---> Pagination
+//                                     self::getSyntaxCreateDOM_TableData(
+//                                         $varUserSession, 
+//                                         [
+//                                         'ID' => $varID.'_DialogPaginationTTD',
+//                                         'ParentID' => $varID.'_DialogActionTTR',
+//                                         'Style' => $varStyle_TableDataStyle,
+//                                         ],
+//                                         (
+//                                         self::getSyntaxCreateDOM_Table(
+//                                             $varUserSession, 
+//                                             [
+//                                             'ID' => $varID.'_DialogPaginationTable',
+//                                             'ParentID' => $varID.'_DialogPaginationTTD',
+//                                             'Style' => [
+//                                                 ['position', 'relative'],
+//                                                 //['top', '50%'],
+//                                                 ['border', '1px solid #ced4da'],
+//                                                 ['borderColor', 'ced4da'],
+//                                                 ['borderSpacing', '2px'],
+//                                                 ['padding', '2px'],
+//                                                 ['backgroundImage', 'linear-gradient(#a10e03, #360401 30%, #a10e03)'],
+//                                                 ['borderRadius', '10px']
+//                                                 ]
+//                                             ],
+//                                             self::getSyntaxCreateDOM_TableHead($varUserSession, 
+//                                                 [
+//                                                     'ID' => $varID.'_DialogPaginationTableHead',
+//                                                     'ParentID' => $varID.'_DialogPaginationTable'
+//                                                 ],
+//                                                 ''
+//                                                 ).
+//                                             self::getSyntaxCreateDOM_TableBody(
+//                                                 $varUserSession, 
+//                                                 [
+//                                                     'ID' => $varID.'_DialogPaginationTableBody',
+//                                                     'ParentID' => $varID.'_DialogPaginationTable'
+//                                                 ],
+//                                                 self::getSyntaxCreateDOM_TableRow(
+//                                                     $varUserSession, 
+//                                                     [
+//                                                     'ID' => $varID.'_DialogPaginationTTR',
+//                                                     'ParentID' => $varID.'_DialogPaginationTableBody'
+//                                                     ],
 
 
-                                                    )
-                                                )
-                                            )
-                                        )
-                                        ).
-                                    //---> Recreate Action Button
-                                    self::getSyntaxCreateDOM_TableData(
-                                        $varUserSession, 
-                                        [
-                                        'ID' => $varID.'_DialogRecreateTTD',
-                                        'ParentID' => $varID.'_DialogActionTTR',
-                                        'Style' => $varStyle_TableDataStyle,
-                                        ],
-                                        ''
-                                        ).
-                                    //---> Close Button
-                                    self::getSyntaxCreateDOM_TableData(
-                                        $varUserSession, 
-                                        [
-                                        'ID' => $varID.'_DialogCloseTTD',
-                                        'ParentID' => $varID.'_DialogActionTTR',
-                                        'Style' => $varStyle_TableDataStyle,
-                                        ],
-                                        ''
-                                        )
-                                    ))
-                                ))
-                            ).
-                        'document.getElementById(\''.$varID.'_DialogActionTable'.'\').style.transform = \'translateY(-50%)\'; '.
-//                        'document.getElementById(\''.$varID.'_DialogActionTable'.'\').onclick = function() {alert(\'xxx\');}(); '.
+//                                                     //---> Page Next
+//                                                     self::getSyntaxCreateDOM_TableData(
+//                                                         $varUserSession, 
+//                                                         [
+//                                                         'ID' => $varID.'_DialogPagePreviousTTD',
+//                                                         'ParentID' => $varID.'_DialogPaginationTTR',
+//                                                         'Style' => $varStyle_TableDataPagination
+//                                                         ],
+//                                                         ''
+//                                                         ).
+//                                                     self::getSyntaxCreateDOM_Image(
+//                                                         $varUserSession, 
+//                                                         [
+//                                                             'ID' => $varID.'_PagePreviousImg',
+//                                                             'ParentID' =>  $varID.'_DialogPagePreviousTTD',
+//                                                             'Height' => 25,
+//                                                             'Style' => [
+//                                                                 ['position', 'relative'],
+//                                                                 ['top', '50%'],
+//                                                                 ['left', '0'],
+//                                                                 ['filter', 'drop-shadow(3px 3px 3px #ced4da)']
+//                                                                 ]
+//                                                         ], 
+//                                                         '\'images/Icon/Pagination/Previous-300-32.png\''
+//                                                         ).
+//                                                     //---> Pagination Label1
+//                                                     self::getSyntaxCreateDOM_TableData(
+//                                                         $varUserSession, 
+//                                                         [
+//                                                         'ID' => $varID.'_DialogPaginationLabel1TTD',
+//                                                         'ParentID' => $varID.'_DialogPaginationTTR',
+//                                                         'Style' => $varStyle_TableDataPagination
+//                                                         ],
+//                                                         (
+//                                                         self::getSyntaxCreateDOM_Label(
+//                                                             $varUserSession, 
+//                                                             [
+//                                                             'ID' => $varID.'_LabelPage1',
+//                                                             'ParentID' => $varID.'_DialogPaginationLabel1TTD'
+//                                                             ],
+//                                                             'Page '
+//                                                             )
+//                                                         )).
+//                                                     //---> Page Select
+//                                                     self::getSyntaxCreateDOM_TableData(
+//                                                         $varUserSession, 
+//                                                         [
+//                                                         'ID' => $varID.'_DialogPageTTD',
+//                                                         'ParentID' => $varID.'_DialogPaginationTTR',
+//                                                         'Style' => $varStyle_TableDataPagination
+//                                                         ],
+//                                                         ''
+//                                                         ).
+//                                                     //---> Pagination Label2
+//                                                     self::getSyntaxCreateDOM_TableData(
+//                                                         $varUserSession, 
+//                                                         [
+//                                                         'ID' => $varID.'_DialogPaginationLabel2TTD',
+//                                                         'ParentID' => $varID.'_DialogPaginationTTR',
+//                                                         'Style' => $varStyle_TableDataPagination
+//                                                         ],
+//                                                         (
+//                                                         self::getSyntaxCreateDOM_Label(
+//                                                             $varUserSession, 
+//                                                             [
+//                                                             'ID' => $varID.'_LabelPage2',
+//                                                             'ParentID' => $varID.'_DialogPaginationLabel2TTD'
+//                                                             ],
+//                                                             ' of '
+//                                                             )
+//                                                         )).
+//                                                     //---> Pagination Label3
+//                                                     self::getSyntaxCreateDOM_TableData(
+//                                                         $varUserSession, 
+//                                                         [
+//                                                         'ID' => $varID.'_DialogPaginationLabel3TTD',
+//                                                         'ParentID' => $varID.'_DialogPaginationTTR',
+//                                                         'Style' => $varStyle_TableDataStyle,
+//                                                         ],
+//                                                         (
+//                                                         self::getSyntaxCreateDOM_Label(
+//                                                             $varUserSession, 
+//                                                             [
+//                                                             'ID' => $varID.'_LabelTotalPage',
+//                                                             'ParentID' => $varID.'_DialogPaginationLabel3TTD'
+//                                                             ],
+//                                                             ' of '
+//                                                             )
+//                                                         )).
+//                                                     //---> Page Next
+//                                                     self::getSyntaxCreateDOM_TableData(
+//                                                         $varUserSession, 
+//                                                         [
+//                                                         'ID' => $varID.'_DialogPageNextTTD',
+//                                                         'ParentID' => $varID.'_DialogPaginationTTR',
+//                                                         'Style' => $varStyle_TableDataPagination
+//                                                         ],
+//                                                         ''
+//                                                         ).
+//                                                     self::getSyntaxCreateDOM_Image(
+//                                                         $varUserSession, 
+//                                                         [
+//                                                             'ID' => $varID.'_PageNextImg',
+//                                                             'ParentID' =>  $varID.'_DialogPageNextTTD',
+//                                                             'Height' => 25,
+//                                                             'Style' => [
+//                                                                 ['position', 'relative'],
+//                                                                 ['top', '50%'],
+//                                                                 ['left', '0'],
+//                                                                 ['filter', 'drop-shadow(3px 3px 3px #ced4da)']
+//                                                                 ]
+//                                                         ], 
+//                                                         '\'images/Icon/Pagination/Next-300-32.png\''
+//                                                         )
 
-                        //---> Dialog ---> DialogPreviewPlcHold ---> DialogButtonPlcHold ---> DialogPageSelect
-                        'varDataArrayOption = zhtInnerFunc_GetThumbnailsReload(varLocalThumbnailsFolderPath, varFilePath); '.
 
-                        //---> Dialog ---> DialogPreviewPlcHold ---> DialogButtonPlcHold ---> DialogRecreateButton
-                        self::getSyntaxCreateDOM_Button(
-                            $varUserSession, 
-                            [
-                                'ID' => $varID.'_DialogRecreateButton',
-                                'ParentID' => $varID.'_DialogRecreateTTD',
-                                'Style' => [
-                                    ['position', 'relative'],
-                                    ['top', '50%'],
-                                    ]
-                            ], 
-                            'Recreate',
-                            'function() {'.
-                                'zhtInnerFunc_RecreateThumbnails(varLocalThumbnailsFolderPath, varFilePath); '.
-                                'zhtInnerFunc_ShowThumbnails(varLocalThumbnailsFolderPath, 1, \'\'); '.
-                                '}'
-                            ).
+//                                                     )
+//                                                 )
+//                                             )
+//                                         )
+//                                         ).
+//                                     //---> Recreate Action Button
+//                                     self::getSyntaxCreateDOM_TableData(
+//                                         $varUserSession, 
+//                                         [
+//                                         'ID' => $varID.'_DialogRecreateTTD',
+//                                         'ParentID' => $varID.'_DialogActionTTR',
+//                                         'Style' => $varStyle_TableDataStyle,
+//                                         ],
+//                                         ''
+//                                         ).
+//                                     //---> Close Button
+//                                     self::getSyntaxCreateDOM_TableData(
+//                                         $varUserSession, 
+//                                         [
+//                                         'ID' => $varID.'_DialogCloseTTD',
+//                                         'ParentID' => $varID.'_DialogActionTTR',
+//                                         'Style' => $varStyle_TableDataStyle,
+//                                         ],
+//                                         ''
+//                                         )
+//                                     ))
+//                                 ))
+//                             ).
+//                         'document.getElementById(\''.$varID.'_DialogActionTable'.'\').style.transform = \'translateY(-50%)\'; '.
+// //                        'document.getElementById(\''.$varID.'_DialogActionTable'.'\').onclick = function() {alert(\'xxx\');}(); '.
 
-                        //---> Dialog ---> DialogPreviewPlcHold ---> DialogButtonPlcHold ---> DialogCloseButton
-                        self::getSyntaxCreateDOM_Button(
-                            $varUserSession, 
-                            [
-                                'ID' => $varID.'_DialogCloseButton',
-                                'ParentID' => $varID.'_DialogCloseTTD',
-                                'Style' => [
-                                    ['position', 'relative'],
-                                    ['top', '50%'],
-                                    ]
-                            ], 
-                            'Close',
-                            'function() {'.
-                                'zhtInnerFunc_CloseDivModal(document.getElementById(\''.$varID.'_Back'.'\')); '.
-                                '}'
-                            ).
+//                         //---> Dialog ---> DialogPreviewPlcHold ---> DialogButtonPlcHold ---> DialogPageSelect
+//                         'varDataArrayOption = zhtInnerFunc_GetThumbnailsReload(varLocalThumbnailsFolderPath, varFilePath); '.
 
-                        //'varNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varID, $varID.'_Back', false).'; '.
+//                         //---> Dialog ---> DialogPreviewPlcHold ---> DialogButtonPlcHold ---> DialogRecreateButton
+//                         self::getSyntaxCreateDOM_Button(
+//                             $varUserSession, 
+//                             [
+//                                 'ID' => $varID.'_DialogRecreateButton',
+//                                 'ParentID' => $varID.'_DialogRecreateTTD',
+//                                 'Style' => [
+//                                     ['position', 'relative'],
+//                                     ['top', '50%'],
+//                                     ]
+//                             ], 
+//                             'Recreate',
+//                             'function() {'.
+//                                 'zhtInnerFunc_RecreateThumbnails(varLocalThumbnailsFolderPath, varFilePath); '.
+//                                 'zhtInnerFunc_ShowThumbnails(varLocalThumbnailsFolderPath, 1, \'\'); '.
+//                                 '}'
+//                             ).
 
-                        'if(zhtInnerFunc_CheckConvertibleStatus(varFilePath) == false) {'.
-                            'document.getElementById(\''.$varID.'_DialogRecreateTTD'.'\').style.display = \'none\'; '.
-                            'document.getElementById(\''.$varID.'_DialogRecreateTTD'.'\').style.visibility = \'hidden\'; '.
-                            '}'.
-                        '}'.
-                    'catch(varError) {'.
-                        '}'.
-                    '} (varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ); '.
-                    '';
-            return $varReturn;
-            }
+//                         //---> Dialog ---> DialogPreviewPlcHold ---> DialogButtonPlcHold ---> DialogCloseButton
+//                         self::getSyntaxCreateDOM_Button(
+//                             $varUserSession, 
+//                             [
+//                                 'ID' => $varID.'_DialogCloseButton',
+//                                 'ParentID' => $varID.'_DialogCloseTTD',
+//                                 'Style' => [
+//                                     ['position', 'relative'],
+//                                     ['top', '50%'],
+//                                     ]
+//                             ], 
+//                             'Close',
+//                             'function() {'.
+//                                 'zhtInnerFunc_CloseDivModal(document.getElementById(\''.$varID.'_Back'.'\')); '.
+//                                 '}'
+//                             ).
+
+//                         //'varNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varID, $varID.'_Back', false).'; '.
+
+//                         'if(zhtInnerFunc_CheckConvertibleStatus(varFilePath) == false) {'.
+//                             'document.getElementById(\''.$varID.'_DialogRecreateTTD'.'\').style.display = \'none\'; '.
+//                             'document.getElementById(\''.$varID.'_DialogRecreateTTD'.'\').style.visibility = \'hidden\'; '.
+//                             '}'.
+//                         '}'.
+//                     'catch(varError) {'.
+//                         '}'.
+//                     '} (varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ); '.
+//                     '';
+//             return $varReturn;
+//             }
 
 
         /*
@@ -2208,7 +2208,8 @@ namespace App\Helpers\ZhtHelper\General
         |      ▪ (mixed)  varUserSession (Mandatory) ► User Session                                                                |
         |      ▪ (string) varAPIWebToken (Mandatory) ► API Web Token                                                               |
         |      ▪ (string) varUniqueID (Mandatory) ► Penanda Unik untuk DOM (Tidak boleh terduplikasi)                              |
-        |      ▪ (string) varDOMReturnID (Mandatory) ► DOMReturnID                                                                 |
+        |      ▪ (string) varDOMReturnID (Mandatory) ► DOMReturnID
+        |      ▪ (string) varDOMReturnIDAction (Mandatory) ► DOMReturnIDAction                                                                 |
         |      ▪ (string) varDOMAction (Mandatory) ► DOMAction                                                                     |
         |      ▪ (string) varAction (Optional) ► Action                                                                            |
         | ▪ Output Variable :                                                                                                      |
@@ -2217,7 +2218,7 @@ namespace App\Helpers\ZhtHelper\General
         */
         public static function getSyntaxFunc_DOMInputFileContent(
             $varUserSession, string $varAPIWebToken, 
-            string $varUniqueID, string $varDOMReturnID, string $varDOMActionPanel, string $varDOMAction, string $varAction = null)
+            string $varUniqueID, string $varDOMReturnID, string $varDOMReturnIDAction, string $varDOMActionPanel, string $varDOMAction, string $varAction = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
             try {
@@ -2361,17 +2362,11 @@ namespace App\Helpers\ZhtHelper\General
                                             //---> JSFunc_GetActionPanel_CommitFromOutside_...
                                             'function JSFunc_GetActionPanel_CommitFromOutside_'.$varUniqueID.'() {'.
                                                 'try {'.
-
-                                                    // 'document.getElementById(\''.$varUniqueID.'_ProcessLoad_DataSignShow'.'\').value = Boolean(true); '.
-                                                    // 'document.getElementById(\''.$varUniqueID.'_ProcessLoad_Back'.'\').style.display = \'block\'; '.
-                                                    // 'document.getElementById(\''.$varUniqueID.'_ProcessLoad_Back'.'\').style.visibility = \'visible\'; '.
-
-                                                    'JSFunc_GetActionPanel_Commit_'.$varUniqueID.'(); '.
-
-                                                    // 'document.getElementById(\''.$varUniqueID.'_ProcessLoad_DataSignShow'.'\').value = Boolean(false); '.
-                                                    // 'document.getElementById(\''.$varUniqueID.'_ProcessLoad_Back'.'\').style.display = \'none\'; '.
-                                                    // 'document.getElementById(\''.$varUniqueID.'_ProcessLoad_Back'.'\').style.visibility = \'hidden\'; '.
                                                     
+                                                    'if(document.getElementById(\''.$varDOMReturnIDAction.'\').value != null) {'.
+                                                        'JSFunc_GetActionPanel_Commit_'.$varUniqueID.'(); '.
+                                                    '}'.                                               
+
                                                     // 'alert(\'Test Commit Berhasil dieksekusi\'); '.
                                                     '}'.
                                                 'catch(varError) {'.
@@ -2382,11 +2377,7 @@ namespace App\Helpers\ZhtHelper\General
                                             //---> JSFunc_GetActionPanel_Commit_...
                                             'function JSFunc_GetActionPanel_Commit_'.$varUniqueID.'() {'.
                                                 'try {'.
-
-                                                    // 'document.getElementById(\''.$varUniqueID.'_ProcessLoad_DataSignShow'.'\').value = Boolean(true); '.
-                                                    // 'document.getElementById(\''.$varUniqueID.'_ProcessLoad_Back'.'\').style.display = \'block\'; '.
-                                                    // 'document.getElementById(\''.$varUniqueID.'_ProcessLoad_Back'.'\').style.visibility = \'visible\'; '.
-
+                                                    
                                                     'varReturn = ('.
                                                         'JSON.parse('.
                                                             str_replace(
@@ -2420,7 +2411,7 @@ namespace App\Helpers\ZhtHelper\General
                                                     
 
                                                 'catch(varError) {'.
-                                                    'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                                    // 'alert(\'ERP Reborn Error Notification\n\nInvalid Processn\n(\' + varError + \')\'); '.
                                                     '}'.
     //                                            'varNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varUniqueID, 'document.body', false).
                                                 '}'.
@@ -2614,7 +2605,7 @@ namespace App\Helpers\ZhtHelper\General
                                                     'varObjDownloadLink.href = \'data:text/plain;base64,\' + varBase64Data; '.
                                                     'varObjDownloadLink.download = varFileName; '.
                                                     'varObjDownloadLink.click(); '.
-                                                    'varObjDownloadLink.parentNode.removeChild(varObjDownloadLink); '.
+                                                    // 'varObjDownloadLink.parentNode.removeChild(varObjDownloadLink); '.
                                                     '}'.
                                                 'catch(varError) {'.
                                                     'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
@@ -2622,40 +2613,40 @@ namespace App\Helpers\ZhtHelper\General
                                                 '}'.
 
                                             //---> JSFunc_FilePreview_...
-                                            'function JSFunc_FilePreview_'.$varUniqueID.'(varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ) {'.
-                                                'try {'.
-    //                                                'alert(varFilePath);'.
-                                                    'varReturn = ('.
-                                                        'JSON.parse('.                           
-                                                            str_replace(
-                                                                '"', 
-                                                                '\'', 
-                                                                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                                                                    $varUserSession, 
-                                                                    $varAPIWebToken, 
-                                                                    'fileHandling.upload.combined.general.getFileContent', 
-                                                                    'latest', 
-                                                                    '{'.
-                                                                        '"parameter" : {'.
-                                                                            '"filePath" : varFilePath'.
-                                                                            '}'.
-                                                                    '}'
-                                                                    )
-                                                                ).
-                                                            ').data.contentBase64'.
-                                                        '); '.
-                                                    'varNothing = '.
-                                                        self::getSyntaxCreateDOM_DivCustom_ModalBox_FilePreview(
-                                                            $varUserSession,
-                                                            $varAPIWebToken,
-                                                            'ObjDivModalBox_'.$varUniqueID
-                                                            ).
-                                                        '; '.
-                                                    '}'.
-                                                'catch(varError) {'.
-                                                    'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
-                                                    '}'.
-                                                '}'.
+    //                                         'function JSFunc_FilePreview_'.$varUniqueID.'(varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ) {'.
+    //                                             'try {'.
+    // //                                                'alert(varFilePath);'.
+    //                                                 'varReturn = ('.
+    //                                                     'JSON.parse('.                           
+    //                                                         str_replace(
+    //                                                             '"', 
+    //                                                             '\'', 
+    //                                                             \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+    //                                                                 $varUserSession, 
+    //                                                                 $varAPIWebToken, 
+    //                                                                 'fileHandling.upload.combined.general.getFileContent', 
+    //                                                                 'latest', 
+    //                                                                 '{'.
+    //                                                                     '"parameter" : {'.
+    //                                                                         '"filePath" : varFilePath'.
+    //                                                                         '}'.
+    //                                                                 '}'
+    //                                                                 )
+    //                                                             ).
+    //                                                         ').data.contentBase64'.
+    //                                                     '); '.
+    //                                                 'varNothing = '.
+    //                                                     self::getSyntaxCreateDOM_DivCustom_ModalBox_FilePreview(
+    //                                                         $varUserSession,
+    //                                                         $varAPIWebToken,
+    //                                                         'ObjDivModalBox_'.$varUniqueID
+    //                                                         ).
+    //                                                     '; '.
+    //                                                 '}'.
+    //                                             'catch(varError) {'.
+    //                                                 'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+    //                                                 '}'.
+    //                                             '}'.
 
                                             //---> JSFunc_MainData_GetData_MasterFileRecord_...
                                             'function JSFunc_MainData_GetData_MasterFileRecord_'.$varUniqueID.'() {'.
@@ -2848,15 +2839,15 @@ namespace App\Helpers\ZhtHelper\General
                                                                 //     ],
                                                                 //     'varObjTTD.appendChild(document.createTextNode(\'SAVE\')); '
                                                                 //     ).
-                                                                self::getSyntaxCreateDOM_TableData(
-                                                                    $varUserSession, 
-                                                                    [
-                                                                    'ID' => 'varObjTTD',
-                                                                    'ParentID' => 'varObjTTR',
-                                                                    'Style' => $varStyle_TableActionPanelHead,
-                                                                    ],
-                                                                    'varObjTTD.appendChild(document.createTextNode(\'PREVIEW\')); '
-                                                                    ).
+                                                                // self::getSyntaxCreateDOM_TableData(
+                                                                //     $varUserSession, 
+                                                                //     [
+                                                                //     'ID' => 'varObjTTD',
+                                                                //     'ParentID' => 'varObjTTR',
+                                                                //     'Style' => $varStyle_TableActionPanelHead,
+                                                                //     ],
+                                                                //     'varObjTTD.appendChild(document.createTextNode(\'PREVIEW\')); '
+                                                                //     ).
                                                                 self::getSyntaxCreateDOM_TableData(
                                                                     $varUserSession, 
                                                                     [
@@ -3050,38 +3041,38 @@ namespace App\Helpers\ZhtHelper\General
                                                                         //         )
                                                                         //         ).
                                                                         //     '}'.
-                                                                        self::getSyntaxCreateDOM_TableData(
-                                                                            $varUserSession, 
-                                                                            [
-                                                                            'ID' => 'varObjTTD',
-                                                                            'ParentID' => 'varObjTTR',
-                                                                            'Style' => array_merge(
-                                                                                $varStyle_TableActionPanelBody,
-                                                                                [
-                                                                                    ['textAlign', 'center']
-                                                                                ]
-                                                                                ),
-                                                                            ],
-                                                                            (
-                                                                            'if (varDataJSONMasterFileRecord[i][\'filePath\'] != \'\') {'.
-                                                                                'var varFileName = varDataJSONMasterFileRecord[i][\'name\']; '.
-                                                                                'var varObjA = document.createElement(\'a\'); '.
-                                                                                    'varObjA.href = \'javascript:'.
-                                                                                        '(function(varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ) {'.
-                                                                                            'JSFunc_FilePreview_'.$varUniqueID.'(varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ); '.
-                                                                                            '}) ('.
-                                                                                                '\\\'\' + varDataJSONMasterFileRecord[i][\'filePath\'] + \'\\\','.
-                                                                                                ' \\\'\' + varFileName.replace(/\'/g, \'\\\\\\\'\') + \'\\\', '.
-                                                                                                ' \\\'\' + varDataJSONMasterFileRecord[i][\'size\'] + \'\\\', '.
-                                                                                                ' \\\'\' + varDataJSONMasterFileRecord[i][\'MIME\'] + \'\\\', '.
-                                                                                                ' \\\'\' + varDataJSONMasterFileRecord[i][\'uploadDateTimeTZ\'] + \'\\\''.
-                                                                                                ');'.
-                                                                                        '\'; '.
-                                                                                    'varObjA.innerHTML = \'Preview\'; '.
-                                                                                'varObjTTD.appendChild(varObjA); '.
-                                                                                '}'
-                                                                            )
-                                                                            ).
+                                                                        // self::getSyntaxCreateDOM_TableData(
+                                                                        //     $varUserSession, 
+                                                                        //     [
+                                                                        //     'ID' => 'varObjTTD',
+                                                                        //     'ParentID' => 'varObjTTR',
+                                                                        //     'Style' => array_merge(
+                                                                        //         $varStyle_TableActionPanelBody,
+                                                                        //         [
+                                                                        //             ['textAlign', 'center']
+                                                                        //         ]
+                                                                        //         ),
+                                                                        //     ],
+                                                                        //     (
+                                                                        //     'if (varDataJSONMasterFileRecord[i][\'filePath\'] != \'\') {'.
+                                                                        //         'var varFileName = varDataJSONMasterFileRecord[i][\'name\']; '.
+                                                                        //         'var varObjA = document.createElement(\'a\'); '.
+                                                                        //             'varObjA.href = \'javascript:'.
+                                                                        //                 '(function(varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ) {'.
+                                                                        //                     'JSFunc_FilePreview_'.$varUniqueID.'(varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ); '.
+                                                                        //                     '}) ('.
+                                                                        //                         '\\\'\' + varDataJSONMasterFileRecord[i][\'filePath\'] + \'\\\','.
+                                                                        //                         ' \\\'\' + varFileName.replace(/\'/g, \'\\\\\\\'\') + \'\\\', '.
+                                                                        //                         ' \\\'\' + varDataJSONMasterFileRecord[i][\'size\'] + \'\\\', '.
+                                                                        //                         ' \\\'\' + varDataJSONMasterFileRecord[i][\'MIME\'] + \'\\\', '.
+                                                                        //                         ' \\\'\' + varDataJSONMasterFileRecord[i][\'uploadDateTimeTZ\'] + \'\\\''.
+                                                                        //                         ');'.
+                                                                        //                 '\'; '.
+                                                                        //             'varObjA.innerHTML = \'Preview\'; '.
+                                                                        //         'varObjTTD.appendChild(varObjA); '.
+                                                                        //         '}'
+                                                                        //     )
+                                                                        //     ).
                                                                         self::getSyntaxCreateDOM_TableData(
                                                                             $varUserSession, 
                                                                             [
