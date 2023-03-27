@@ -45,7 +45,8 @@
                 type: 'GET',
                 url: '{!! route("getProject") !!}',
                 success: function(data) {
-                    var no = 1; t = $('#tableGetProject').DataTable();
+                    var no = 1; 
+                    var t = $('#tableGetProject').DataTable();
                     t.clear();
                     $.each(data, function(key, val) {
                         t.row.add([

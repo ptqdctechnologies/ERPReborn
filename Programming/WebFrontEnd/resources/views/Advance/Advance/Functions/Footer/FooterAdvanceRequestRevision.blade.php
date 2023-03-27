@@ -149,12 +149,13 @@
                     '<td style="border:1px solid #e9ecef;">' + '<span">' + val2.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + '<span">' + val2.quantityRemain.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.unitPriceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + '<span>' + var_totalPayment + '</span>' + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + '<span>' + var_totalBalance + '</span>' + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.priceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + '<span id="total_payment'+ key +'">' + var_totalPayment + '</span>' + '</td>' +
 
-                    '<td class="sticky-col third-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" '+ statusForm[key] +' value="'+ currency(var_qtys) +'">' + '</td>' +
-                    '<td class="sticky-col second-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req'+ key +'" style="border-radius:0;" name="price_req[]" class="form-control price_req" autocomplete="off" '+ statusForm[key] +' value="'+ currency(var_prices) +'">' + '</td>' +
-                    '<td class="sticky-col first-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req'+ key +'" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled value="'+ var_total +'">' + '</td>' +
+                    '<td class="sticky-col forth-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" '+ statusForm[key] +' value="'+ currency(var_qtys) +'">' + '</td>' +
+                    '<td class="sticky-col third-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req'+ key +'" style="border-radius:0;" name="price_req[]" class="form-control price_req" autocomplete="off" '+ statusForm[key] +' value="'+ currency(var_prices) +'">' + '</td>' +
+                    '<td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req'+ key +'" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled value="'+ var_total +'">' + '</td>' +
+                    '<td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_balance'+ key +'" style="border-radius:0;background-color:white;" name="total_balance[]" class="form-control total_balance" autocomplete="off" disabled value="'+ var_totalBalance +'">' + '</td>' +
 
                     '</tr>';
                 $('table.tableBudgetDetail tbody').append(html);
@@ -169,8 +170,6 @@
                     var price_req = $("#price_req"+key).val().replace(/,/g, '');
                     var total = qty_val * price_req;
 
-                    console.log(total);
-                    console.log(var_totalPayment);
                     if (qty_val == "") {
                         $('#total_req'+key).val("");
                         $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
@@ -302,8 +301,31 @@
         var TotalQty = 0;
 
         var total_req = $("input[name='total_req[]']").map(function(){return $(this).val();}).get();
+        var total_balance = $("input[name='total_balance[]']").map(function(){return $(this).val();}).get();
+        var total_payment = $("input[name='total_payment[]']").map(function(){return $(this).val();}).get();
+        
         $.each(total_req, function(index, data) {
-            if(total_req[index] != "" && total_req[index] > "0.00" && total_req[index] != "NaN.00"){
+            
+            if(total_req[index] > total_balance){
+                console.log(index);
+                swal({
+                    onOpen: function () {
+                        swal.disableConfirmButton();
+                        Swal.fire("Error !", "Total is over budget than Balance !", "error");
+                    }                
+                });
+                $('#qty_req'+index).focus();
+            }
+            else if(total_req[index] < total_payment){
+                swal({
+                    onOpen: function () {
+                        swal.disableConfirmButton();
+                        Swal.fire("Error !", "Total Payment is over budget than Total Request !", "error");
+                    }                
+                });
+                $('#qty_req'+index).focus();
+            }
+            else if(total_req[index] != "" && total_req[index] > "0.00" && total_req[index] != "NaN.00"){
 
                 var putProductId = getProductId[index];
                 var putProductName = getProductName[index];
