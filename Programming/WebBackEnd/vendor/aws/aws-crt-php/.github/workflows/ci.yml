@@ -30,12 +30,6 @@ jobs:
       with:
         submodules: recursive
 
-    - name: Install ancient PHPUnit
-      run: composer require --dev --ignore-platform-reqs phpunit/phpunit "4.8.36"
-
-    - name: Install dependencies
-      run: composer update --no-interaction
-
     - name: Build for PHP 5.5
       env:
         CC: clang
@@ -43,7 +37,12 @@ jobs:
       run: |
         phpize
         ./configure
-        make
+        # Normally, CRT uses the system's default libcrypto.so.
+        # But in this CI run, PHP 5.5 is using a different older libcrypto.so, as PHP 5.5 cannot build with openssl >=1.1.1.
+        # When an applications uses two different libcrypto.so at the same time, things tend to explode.
+        # Therefore, in this CI run we build AWS-LC statically, and use its libcrypto.a instead.
+        USE_OPENSSL=OFF make
+        ./dev-scripts/run_tests.sh
 
   php-linux-x64:
     runs-on: ubuntu-latest
@@ -58,6 +57,8 @@ jobs:
           - "7.3"
           - "7.4"
           - "8.0"
+          - "8.1"
+          - "8.2"
     steps:
     - name: Setup PHP with Xdebug
       uses: shivammathur/setup-php@v2
@@ -71,9 +72,6 @@ jobs:
       with:
         submodules: recursive
 
-    - name: Install dependencies
-      run: composer update --no-interaction
-
     - name: Run tests
       env:
         CC: clang
@@ -82,37 +80,50 @@ jobs:
         phpize
         ./configure
         make
-        make test
+        ./dev-scripts/run_tests.sh
 
+    # linux-arm:
+    #   name: ARM (${{ matrix.arch }})
+    #   runs-on: ubuntu-latest
+    #   strategy:
+    #     matrix:
+    #       arch: [armv6, armv7, arm64]
+    #   steps:
+    #   - name: Build ${{ env.PACKAGE_NAME }}
+    #     run: |
+    #       python3 -c "from urllib.request import urlretrieve; urlretrieve('${{ env.BUILDER_HOST }}/${{ env.BUILDER_SOURCE }}/${{ env.BUILDER_VERSION }}/builder.pyz?run=${{ env.RUN }}', 'builder')"
+    #       chmod a+x builder
+    #       ./builder build -p ${{ env.PACKAGE_NAME }} --target=linux-${{ matrix.arch }} --spec=downstream
 
-  #   linux-arm:
-  #     name: ARM (${{ matrix.arch }})
-  #     runs-on: ubuntu-latest
-  #     strategy:
-  #       matrix:
-  #         arch: [armv6, armv7, arm64]
-  #     steps:
-  #     - name: Build ${{ env.PACKAGE_NAME }}
-  #       run: |
-  #         python3 -c "from urllib.request import urlretrieve; urlretrieve('${{ env.BUILDER_HOST }}/${{ env.BUILDER_SOURCE }}/${{ env.BUILDER_VERSION }}/builder.pyz?run=${{ env.RUN }}', 'builder')"
-  #         chmod a+x builder
-  #         ./builder build -p ${{ env.PACKAGE_NAME }} --target=linux-${{ matrix.arch }} --spec=downstream
-
-  # windows-vc16:
-  #   runs-on: windows-latest
-  #   strategy:
-  #     matrix:
-  #       arch: [x64]
-  #   steps:
-  #   - uses: ilammy/msvc-dev-cmd@v1
-  #     with:
-  #       arch: ${{ matrix.arch }}
-  #       uwp: false
-  #       spectre: true
-  #   - name: Build ${{ env.PACKAGE_NAME }} + consumers
-  #     run: |
-  #       python -c "from urllib.request import urlretrieve; urlretrieve('${{ env.BUILDER_HOST }}/${{ env.BUILDER_SOURCE }}/${{ env.BUILDER_VERSION }}/builder.pyz?run=${{ env.RUN }}', 'builder.pyz')"
-  #       python builder.pyz build -p ${{ env.PACKAGE_NAME }} --spec=downstream
+  windows-vc16:
+    runs-on: windows-2019
+    defaults:
+      run:
+        shell: cmd # use CMD instead of powershell to catch error from bat script
+    strategy:
+      matrix:
+        arch: [x64]
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: recursive
+    - id: setup-php-sdk
+      uses: cmb69/setup-php-sdk@v0.6
+      with:
+        version: '8.0'
+        arch: ${{ matrix.arch }}
+        ts: ts
+        deps: openssl
+    - uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: ${{ matrix.arch }}
+        toolset: ${{steps.setup-php-sdk.outputs.toolset}}
+    # not sure why CMD can't do multiline run statements
+    - run: phpize
+    - run: .\configure --with-prefix=${{steps.setup-php-sdk.outputs.prefix}} --enable-awscrt=shared --enable-cli --enable-openssl
+    - run: nmake
+    - run: nmake generate-php-ini
+    - run: .\dev-scripts\run_tests.bat ${{steps.setup-php-sdk.outputs.prefix}}\php
 
   # windows-vc14:
   #   runs-on: windows-latest
@@ -154,3 +165,21 @@ jobs:
           python3 -c "from urllib.request import urlretrieve; urlretrieve('${{ env.BUILDER_HOST }}/${{ env.BUILDER_SOURCE }}/${{ env.BUILDER_VERSION }}/builder.pyz?run=${{ env.RUN }}', 'builder')"
           chmod a+x builder
           ./builder build -p ${{ env.PACKAGE_NAME }} --spec=downstream
+
+  pecl-package-test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.0'
+
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        submodules: recursive
+
+    - name: Test PECL package build
+      run: |
+        python3 dev-scripts/prepare_pecl_release.py --name aws-crt --user aws-crt --version 1.0.0
+        sudo pecl install awscrt-1.0.0.tgz

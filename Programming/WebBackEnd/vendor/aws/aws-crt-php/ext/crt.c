@@ -272,7 +272,7 @@ zend_module_entry awscrt_module_entry = {
     NULL, /* RINIT */
     NULL, /* RSHUTDOWN */
     NULL, /* MINFO */
-    NO_VERSION_YET,
+    PHP_AWSCRT_VERSION,
     PHP_MODULE_GLOBALS(awscrt),
     PHP_GINIT(awscrt),
     NULL, /* GSHUTDOWN */

@@ -49,67 +49,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getOptionList        ,                                                                               |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2023-01-02                                                                                           |
-        | ▪ Creation Date   : 2020-11-13                                                                                           |
-        | ▪ Description     : Fungsi Pembentukan Option List                                                                       |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (array)  varData ► Data                                                                                           |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        private function getOptionList(int $varUserSession, int $varUserID)
-            {
-            $varReturn = [];
-            $varData = (new \App\Models\Database\SchSysConfig\General())->getDataList_BranchAccess($varUserID);
-            
-            //$varIndex = 0;
-            for($i=0; $i!=count($varData); $i++)
-                {
-                $varDataUserRole = (new \App\Models\Database\SchSysConfig\General())->getDataList_UserRole($varUserID, $varData[$i]['Sys_ID']);
-/*                $varReturnUserRole = null;
-                for($j=0; $j!=count($varDataUserRole); $j++)
-                    {
-                    if(!$varDataUserRole[$j]['Sys_ID'])
-                        {
-                        continue;
-                        }
-                    $varReturnUserRole[$j]=[
-                        'UserRole_RefID' => $varDataUserRole[$j]['Sys_ID'],
-                        'UserRoleName' => $varDataUserRole[$j]['UserRoleName'],
-                        ];  
-                    }*/
-                $varReturnUserRole =
-                    (new \App\Models\Database\SchSysConfig\General())
-                        ->getUserRolePrivilege(
-                            $varUserSession, 
-                            //11000000000001,
-                            $varData[$i]['Sys_ID'],
-                            $varUserID
-                            );
-                
-                if (count($varReturnUserRole)!=0)
-                    {
-                    //$varReturn[$i] = 
-                    $varReturn[count($varReturn)] = 
-                        [
-                        'Branch_RefID' => $varData[$i]['Sys_ID'],
-                        'BranchName' => $varData[$i]['BranchName'],
-                        'UserRole' => $varReturnUserRole
-                        ];
-                    }
-                }
-            return $varReturn;
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setLogin                                                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
@@ -256,7 +195,68 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
             catch (\Exception $ex) {
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
-            }    
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getOptionList        ,                                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2023-01-02                                                                                           |
+        | ▪ Creation Date   : 2020-11-13                                                                                           |
+        | ▪ Description     : Fungsi Pembentukan Option List                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varData ► Data                                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        private function getOptionList(int $varUserSession, int $varUserID)
+            {
+            $varReturn = [];
+            $varData = (new \App\Models\Database\SchSysConfig\General())->getDataList_BranchAccess($varUserID);
+            
+            //$varIndex = 0;
+            for($i=0; $i!=count($varData); $i++)
+                {
+                $varDataUserRole = (new \App\Models\Database\SchSysConfig\General())->getDataList_UserRole($varUserID, $varData[$i]['Sys_ID']);
+/*                $varReturnUserRole = null;
+                for($j=0; $j!=count($varDataUserRole); $j++)
+                    {
+                    if(!$varDataUserRole[$j]['Sys_ID'])
+                        {
+                        continue;
+                        }
+                    $varReturnUserRole[$j]=[
+                        'UserRole_RefID' => $varDataUserRole[$j]['Sys_ID'],
+                        'UserRoleName' => $varDataUserRole[$j]['UserRoleName'],
+                        ];  
+                    }*/
+                $varReturnUserRole =
+                    (new \App\Models\Database\SchSysConfig\General())
+                        ->getUserRolePrivilege(
+                            $varUserSession, 
+                            //11000000000001,
+                            $varData[$i]['Sys_ID'],
+                            $varUserID
+                            );
+                
+                if (count($varReturnUserRole)!=0)
+                    {
+                    //$varReturn[$i] = 
+                    $varReturn[count($varReturn)] = 
+                        [
+                        'Branch_RefID' => $varData[$i]['Sys_ID'],
+                        'BranchName' => $varData[$i]['BranchName'],
+                        'UserRole' => $varReturnUserRole
+                        ];
+                    }
+                }
+            return $varReturn;
+            }
         }
     }
 
