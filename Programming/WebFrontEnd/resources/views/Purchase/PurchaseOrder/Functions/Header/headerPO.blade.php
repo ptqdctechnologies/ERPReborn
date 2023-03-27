@@ -2,7 +2,7 @@
     <!-- <div class="card"> -->
     <div class="card-body">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="form-group">
                     <table>
                         <!-- <tr>
@@ -22,10 +22,10 @@
                             <td><label>Supplier Code</label></td>
                             <td style="border:1px solid #e9ecef;">
                                 <div class="input-group">
-                                <input id="putSupplierId" style="border-radius:0;" class="form-control" readonly>
+                                <input id="supplier_code" style="border-radius:0;" class="form-control" readonly>
                                 <div class="input-group-append">
                                     <span style="border-radius:0;" class="input-group-text form-control">
-                                    <a href="#"><i id="product_id2" data-toggle="modal" data-target="#mySupplier" class="fas fa-gift" style="color:grey;"></i></a>
+                                    <a href="#"><i id="product_id2" data-toggle="modal" data-target="#mySupplier" class="fas fa-gift mySupplier" style="color:grey;"></i></a>
                                     </span>
                                 </div>
                                 </div>
@@ -34,17 +34,17 @@
                         <tr>
                             <td><label>Supplier Name</label></td>
                             <td style="border:1px solid #e9ecef;">
-                                <input id="putSupplierName" style="border-radius:0;" type="text" class="form-control" readonly="">
+                                <input id="supplier_name" style="border-radius:0;" type="text" class="form-control" readonly="">
                             </td>
                         </tr>
                         <tr>
                             <td><label>Deliver To</label></td>
                             <td style="border:1px solid #e9ecef;">
                                 <div class="input-group">
-                                <input id="putDeliverId" style="border-radius:0;" class="form-control" readonly>
+                                <input id="deliver_to" style="border-radius:0;" class="form-control" readonly>
                                 <div class="input-group-append">
                                     <span style="border-radius:0;" class="input-group-text form-control">
-                                    <a href="#"><i id="product_id2" data-toggle="modal" data-target="#myDeliverTo" class="fas fa-gift" style="color:grey;"></i></a>
+                                    <a href="#"><i id="product_id2" data-toggle="modal" data-target="#myDeliverTo" class="fas fa-gift myDeliverTo" style="color:grey;"></i></a>
                                     </span>
                                 </div>
                                 </div>
@@ -58,7 +58,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td><label>COD</label></td>
                             <td style="border:1px solid #e9ecef;">
                                 <input type="radio" id="yes" name="fav_language" value="HTML">
@@ -66,11 +66,11 @@
                                 <input type="radio" id="no" name="fav_language" value="HTML" checked="checked">
                                 <label for="html">No</label>
                             </td>
-                        </tr>
+                        </tr> -->
                     </table>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="form-group">
                     <table>
                         <tr>
@@ -105,23 +105,6 @@
                                 </div>
                             </td>
                         </tr>
-                    </table>
-                </div>
-            </div>
-            
-            <div class="col-md-4">
-                <div class="card-body table-responsive p-0" style="height: 145px;width:100%;">
-                    <table class="table table-head-fixed text-nowrap">
-                        <div class="form-group input_fields_wrap">
-                            <div class="input-group control-group" style="width:100%;">
-                                <input type="file" class="form-control filenames_1" id="filenames_1" style="height:26px;" name="filenames">
-                                <div class="input-group-btn">
-                                    <a class="btn btn-outline btn-success btn-sm add_field_button">
-                                        <i class="fas fa-plus" aria-hidden="true" title="Add File" style="color:white;">Add</i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
                     </table>
                 </div>
             </div>

@@ -11,7 +11,7 @@ class ComposerServiceProvider extends ServiceProvider
     {
         // Using class based composers...
         View::composer(
-            ['Partials.sidebar', 'Advance.Advance.Functions.Menu.MenuAdvanceRequest', 'Advance.Advance.Functions.Menu.MenuAdvanceSettlement', 'Advance.BusinessTrip.Functions.Menu.MenuBusinessTripRequest', 'Advance.BusinessTrip.Functions.Menu.MenuBusinessTripSettlement', 'Purchase.Purchase.Functions.Menu.MenuPurchaseOrder', 'Purchase.PurchaseRequisition.Functions.Menu.MenuProcReq'],
+            ['Partials.sidebar', 'Advance.Advance.Functions.Menu.MenuAdvanceRequest', 'Advance.Advance.Functions.Menu.MenuAdvanceSettlement', 'Advance.BusinessTrip.Functions.Menu.MenuBusinessTripRequest', 'Advance.BusinessTrip.Functions.Menu.MenuBusinessTripSettlement', 'Purchase.PurchaseOrder.Functions.Menu.MenuPurchaseOrder', 'Purchase.PurchaseRequisition.Functions.Menu.MenuProcReq'],
             'App\Http\ViewComposers\UserComposer'
         );
     }

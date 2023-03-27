@@ -59,7 +59,8 @@ class PurchaseRequisitionController extends Controller
             'latest',
             [
                 'entities' => [
-                    "documentDateTimeTZ" => '2022-03-07',
+                    "documentDateTimeTZ" => $input['var_date'],
+                    "log_FileUpload_Pointer_RefID" => (int)$input['dataInput_Log_FileUpload_Pointer_RefID'],
                     "requesterWorkerJobsPosition_RefID" => 164000000000497,
                     "remarks" => 'My Remarks',
                     "additionalData" => [
@@ -172,10 +173,10 @@ class PurchaseRequisitionController extends Controller
         
         $compact = [
             'varAPIWebToken' => $varAPIWebToken,
+            'log_FileUpload_Pointer_RefID' => $varDataProcReqRevision['data'][0]['document']['content']['attachmentFiles']['main']['log_FileUpload_Pointer_RefID'],
             'dataProcReqRevision' => $varDataProcReqRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
             'var_recordID' => $request->searchPrNumberRevisionId,
             'statusAdvanceRevisi' => 0,
-            'statusPrRevisi' => 1,
             'statusPr' => 1,
             'statusRevisi' => 1,
         ];
@@ -216,7 +217,8 @@ class PurchaseRequisitionController extends Controller
             [
                 'recordID' => (int)$input['var_recordID'],
                 'entities' => [
-                    "documentDateTimeTZ" => '2022-03-07',
+                    "documentDateTimeTZ" => $input['var_date'],
+                    "log_FileUpload_Pointer_RefID" => (int)$input['dataInput_Log_FileUpload_Pointer_RefID'],
                     "requesterWorkerJobsPosition_RefID" => 164000000000497,
                     "remarks" => 'My Remarks',
                     "additionalData" => [
