@@ -29,13 +29,30 @@ class AdvanceRequestController extends Controller
             'statusPr' => 0,
             'statusRevisi' => 0,
         ];
+
+
+        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varAPIWebToken, 
+        //     'userAction.documentWorkFlow.general.getBusinessDocumentTypeWorkFlowPathBySubmitterEntityIDAndCombinedBudgetID', 
+        //     'latest',
+        //     [
+        //     'parameter' => [
+        //         'businessDocumentType_RefID' => 77000000000057,
+        //         'submitterEntity_RefID' => 164000000000023,
+        //         'combinedBudget_RefID' => 103000000000001
+        //         ]
+        //     ]
+        //     );
+
+
         return view('Advance.Advance.Transactions.CreateAdvanceRequest', $compact);
     }
 
     public function store(Request $request)
     {
         $input = $request->all();
-        // dd($input);
+        dd($input);
         $count_product = count($input['var_product_id']);
 
         $varAPIWebToken = $request->session()->get('SessionLogin');
