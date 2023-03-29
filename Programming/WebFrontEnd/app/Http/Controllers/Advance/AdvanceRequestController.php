@@ -10,8 +10,6 @@ class AdvanceRequestController extends Controller
 {
     public function index(Request $request)
     {
-        // $data = $request->session()->get("SessionDeliveryOrder");
-        // dd($data);
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
         // dd($varAPIWebToken);
@@ -30,7 +28,7 @@ class AdvanceRequestController extends Controller
             'statusRevisi' => 0,
         ];
 
-
+    
         // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
         //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
         //     $varAPIWebToken, 
@@ -44,31 +42,31 @@ class AdvanceRequestController extends Controller
         //         ]
         //     ]
         //     );
-
+        
+        // dd($varData);
 
         return view('Advance.Advance.Transactions.CreateAdvanceRequest', $compact);
     }
 
     public function store(Request $request)
     {
-        $input = $request->all();
-        dd($input);
-        $count_product = count($input['var_product_id']);
 
         $varAPIWebToken = $request->session()->get('SessionLogin');
-
+        $input = $request->all();
+        // dd($input);
+        $count_product = count($input['var_product_id']);
         $advanceDetail = [];
         for($n =0; $n < $count_product; $n++){
             $advanceDetail[$n] = [
             'entities' => [
-                    "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
+                    "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudgetSectionDetail_RefID'][$n],
                     "product_RefID" => (int) $input['var_product_id'][$n],
                     "quantity" => (float) $input['var_quantity'][$n],
                     "quantityUnit_RefID" => 73000000000001,
                     "productUnitPriceCurrency_RefID" => 62000000000001,
                     "productUnitPriceCurrencyValue" => (float) $input['var_price'][$n],
                     "productUnitPriceCurrencyExchangeRate" => 1,
-                    "remarks" => 'Catatan'
+                    "remarks" => $input['var_remark'],
                 ]
             ];
         }
@@ -97,20 +95,36 @@ class AdvanceRequestController extends Controller
         
         // dd($varData);
 
-        $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken, 
-        'userAction.documentWorkFlow.approvalStage.setUserSubmission', 
-        'latest',
-        [
-        'entities' => [
-            "businessDocument_RefID" => (int)$varData['data']['businessDocument']['businessDocument_RefID'],
-            "workFlowPath_RefID" => 116000000000010,
-            "remarks" => null,
-            "approverEntity_RefID" => (int)$input['request_name_id'],
-            ]
-        ]
-        );
+        // $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varAPIWebToken, 
+        //     'userAction.documentWorkFlow.general.getBusinessDocumentTypeWorkFlowPathBySubmitterEntityIDAndCombinedBudgetID', 
+        //     'latest',
+        //     [
+        //     'parameter' => [
+        //         'businessDocumentType_RefID' => (int)$varData['data']['businessDocument']['businessDocumentType_RefID'],
+        //         'submitterEntity_RefID' => 164000000000023,
+        //         'combinedBudget_RefID' => (int)$input['var_combinedBudget_RefID'],
+        //         ]
+        //     ]
+        //     );
+        // dd($varData2);
+
+
+        // $varData3 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        // $varAPIWebToken, 
+        // 'userAction.documentWorkFlow.approvalStage.setUserSubmission', 
+        // 'latest',
+        // [
+        // 'entities' => [
+        //     "businessDocument_RefID" => (int)$varData['data']['businessDocument']['businessDocument_RefID'],
+        //     "workFlowPath_RefID" => 116000000000010,
+        //     "remarks" => null,
+        //     "approverEntity_RefID" => (int)$input['request_name_id'],
+        //     ]
+        // ]
+        // );
         // dd($varData);
 
         $compact = [
@@ -225,7 +239,7 @@ class AdvanceRequestController extends Controller
     public function update(Request $request, $id)
     {
         $input = $request->all();
-        dd($input);
+        // dd($input);
         $count_product = count($input['var_product_id']);
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
@@ -235,7 +249,7 @@ class AdvanceRequestController extends Controller
                 $advanceDetail[$n] = [
                     'recordID' => ((!$input['var_recordIDDetail'][$n]) ? null : (int) $input['var_recordIDDetail'][$n]),
                     'entities' => [
-                        "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
+                        "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudgetSectionDetail_RefID'][$n],
                         "product_RefID" => (int) $input['var_product_id'][$n],
                         "quantity" => (float) $input['var_quantity'][$n],
                         "quantityUnit_RefID" => 73000000000001,

@@ -114,7 +114,8 @@
                         '<input name="getPrice[]" id="budget_price'+ key +'" value="'+ val2.unitPriceBaseCurrencyValue +'" type="hidden">' +
                         '<input name="getUom[]" value="'+ val2.quantityUnitName +'" type="hidden">' +
                         '<input name="getCurrency[]" value="'+ val2.priceBaseCurrencyISOCode +'" type="hidden">' +
-                        '<input name="combinedBudget[]" value="'+ val2.sys_ID +'" type="hidden">' +
+                        '<input name="combinedBudgetSectionDetail_RefID[]" value="'+ val2.sys_ID +'" type="hidden">' +
+                        '<input name="combinedBudget_RefID" value="'+ val2.combinedBudget_RefID +'" type="hidden">' +
 
                         '<td style="border:1px solid #e9ecef;">' +
                         '&nbsp;&nbsp;&nbsp;<div class="progress '+ status +' progress-xs" style="height: 14px;border-radius:8px;"> @if('+ applied +' >= '+0+' && '+ applied +' <= '+40+')<div class="progress-bar bg-red" style="width:'+ applied +'%;"></div> @elseif('+ applied +' >= '+41+' && '+ applied +' <= '+89+')<div class="progress-bar bg-blue" style="width:'+ applied +'%;"></div> @elseif('+ applied + ' >= '+ 90 +' && ' + applied + ' <= '+ 100 +')<div class="progress-bar bg-green" style="width:'+ applied +'%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>'+ applied +' %</center></small>' +
@@ -323,8 +324,8 @@
         var getCurrency = $("input[name='getCurrency[]']").map(function(){return $(this).val();}).get();
         var qty_req = $("input[name='qty_req[]']").map(function(){return $(this).val();}).get();
         var price_req = $("input[name='price_req[]']").map(function(){return $(this).val();}).get();
-        var combinedBudget = $("input[name='combinedBudget[]']").map(function(){return $(this).val();}).get();
-
+        var combinedBudgetSectionDetail_RefID = $("input[name='combinedBudgetSectionDetail_RefID[]']").map(function(){return $(this).val();}).get();
+        var combinedBudget_RefID = $("input[name='combinedBudget_RefID']").val();
         var TotalBudgetSelected = 0;
         var TotalQty = 0;
 
@@ -353,7 +354,8 @@
                     '<input type="hidden" name="var_total[]" class="total_req2'+ index +'" value="' + total_req[index] + '">' +
                     '<input type="hidden" name="var_currency[]" value="' + getCurrency[index] + '">' +
                     '<input type="hidden" name="var_date" value="' + date + '">' +
-                    '<input type="hidden" name="var_combinedBudget[]" value="' + combinedBudget[index] + '">' +
+                    '<input type="hidden" name="var_combinedBudgetSectionDetail_RefID[]" value="' + combinedBudgetSectionDetail_RefID[index] + '">' +
+                    '<input type="hidden" name="var_combinedBudget_RefID" value="' + combinedBudget_RefID + '">' +
                     
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkId[index] + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkName[index] + '</td>' +
@@ -406,15 +408,15 @@
             $("#request_name").css("border", "1px solid #ced4da");
             $("#putRemark").css("border", "1px solid #ced4da");
 
-            if (valRequestName === "") {
-                $("#request_name").focus();
-                $("#request_name").attr('required', true);
-                $("#request_name").css("border", "1px solid red");
-            } else if (valRemark === "") {
-                $("#putRemark").focus();
-                $("#putRemark").attr('required', true);
-                $("#putRemark").css("border", "1px solid red");
-            } else {
+            // if (valRequestName === "") {
+            //     $("#request_name").focus();
+            //     $("#request_name").attr('required', true);
+            //     $("#request_name").css("border", "1px solid red");
+            // } else if (valRemark === "") {
+            //     $("#putRemark").focus();
+            //     $("#putRemark").attr('required', true);
+            //     $("#putRemark").css("border", "1px solid red");
+            // } else {
 
                 $("#submitArf").prop("disabled", true);
 
@@ -517,7 +519,7 @@
                         })
                     }
                 })
-            }
+            // }
         });
 
     });
