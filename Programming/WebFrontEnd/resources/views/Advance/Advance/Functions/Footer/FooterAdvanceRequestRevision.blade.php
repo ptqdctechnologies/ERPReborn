@@ -41,7 +41,8 @@
                     '<input type="hidden" name="var_price[]" value="' + value.productUnitPriceCurrencyValue + '">' +
                     '<input type="hidden" name="var_totalPrice[]" value="' + value.priceBaseCurrencyValue + '">' +
                     '<input type="hidden" name="var_currency[]" value="' + value.priceCurrencyISOCode + '">' +
-                    '<input type="hidden" name="var_combinedBudget[]" value="' + value.combinedBudgetSectionDetail_RefID + '">' +
+                    '<input type="hidden" name="var_combinedBudgetSectionDetail_RefID[]" value="' + value.combinedBudgetSectionDetail_RefID + '">' +
+                    // '<input type="hidden" name="var_combinedBudget_RefID" value="'+ value.combinedBudget_RefID +'">' +
                     '<input type="hidden" name="var_recordIDDetail[]" value="' + value.sys_ID + '">' +
                     
                     '<td style="border:1px solid #e9ecef;">' + value.combinedBudget_SubSectionLevel1_RefID + '</td>' +
@@ -125,7 +126,8 @@
                     '<input name="getPrice[]" id="budget_price'+ key +'" value="'+ val2.unitPriceBaseCurrencyValue +'" type="hidden">' +
                     '<input name="getUom[]" value="'+ val2.quantityUnitName +'" type="hidden">' +
                     '<input name="getCurrency[]" value="'+ val2.priceBaseCurrencyISOCode +'" type="hidden">' +
-                    '<input name="combinedBudget" value="'+ val2.sys_ID +'" type="hidden">' +
+                    '<input name="combinedBudgetSectionDetail_RefID[]" value="'+ val2.sys_ID +'" type="hidden">' +
+                    '<input name="combinedBudget_RefID" value="'+ val2.combinedBudget_RefID +'" type="hidden">' +
                     '<input name="getRecordIDDetail[]" value="' + var_recordIDDetail + '"  type="hidden">' +
 
                     '<td style="border:1px solid #e9ecef;">' +
@@ -295,7 +297,8 @@
         var qty_req = $("input[name='qty_req[]']").map(function(){return $(this).val();}).get();
         var price_req = $("input[name='price_req[]']").map(function(){return $(this).val();}).get();
 
-        var combinedBudget = $("input[name='combinedBudget']").val();
+        var combinedBudgetSectionDetail_RefID = $("input[name='combinedBudgetSectionDetail_RefID[]']").map(function(){return $(this).val();}).get();
+        var combinedBudget_RefID = $("input[name='combinedBudget_RefID']").val();
 
         var TotalBudgetSelected = 0;
         var TotalQty = 0;
@@ -346,7 +349,8 @@
                     '<input type="hidden" name="var_total[]" class="total_req2'+ index +'" value="' + total_req[index] + '">' +
                     '<input type="hidden" name="var_currency[]" value="' + getCurrency[index] + '">' +
                     '<input type="hidden" name="var_date" value="' + date + '">' +
-                    '<input type="hidden" name="var_combinedBudget[]" value="' + combinedBudget + '">' +
+                    '<input type="hidden" name="var_combinedBudgetSectionDetail_RefID[]" value="' + combinedBudgetSectionDetail_RefID[index] + '">' +
+                    '<input type="hidden" name="combinedBudget_RefID" value="' + combinedBudget_RefID + '">' +
                     '<input type="hidden" name="var_recordIDDetail[]" value="' + getRecordIDDetail[index] + '">' +
                     
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkId[index] + '</td>' +

@@ -125,7 +125,7 @@ class zht_JSCore
     */
     setJSSource()
         {
-        this.setJSSource_Specific("js/jQuery/jquery.min.js");
+        //this.setJSSource_Specific("js/jQuery/jquery.min.js");
         this.setJSSource_Specific("js/crypto-js/core.min.js");
         this.setJSSource_Specific("js/crypto-js/md5.js");
         //this.setJSSource_Specific("js/jQuery-MD5/jquery.md5.js");

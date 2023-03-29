@@ -50,6 +50,17 @@ class LoginController extends Controller
                     ]
                 );
 
+                $varDatax = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken, 
+                    'environment.general.session.getData', 
+                    'latest', 
+                    [
+                    ]
+                    );
+                dd($varDatax['data']['userLoginSessionID']);
+
+
                 $request->session()->put('SessionLogin', $varAPIWebToken);
                 return response()->json($varDatas['metadata']['HTTPStatusCode']);
                 

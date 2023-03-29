@@ -293,7 +293,7 @@ namespace App\Helpers\ZhtHelper\General
                                             'Style' => [
     
                                                 ['position', 'absolute'],
-                                                ['top', '50%'],
+                                                ['top', '60%'],
                                                 ['left', '40%'],
                                                 ['fontFamily', '\\\'Helvetica, Verdana, Arial, Tahoma, Serif\\\''],
                                                 ['fontWeight', 'bold'],

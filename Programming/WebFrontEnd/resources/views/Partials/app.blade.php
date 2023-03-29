@@ -9,6 +9,7 @@
   <title>ERP Reborn</title>
 
 
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
   <script src="{{ asset('js/zht-js/core.js') }}"></script>
   <script>
     new zht_JSCore();
@@ -35,7 +36,6 @@
   <!-- fullcalendar -->
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/fullcalendar/customfullcalender.css') }}">
 
-  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
   <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">

@@ -123,9 +123,8 @@
                 <div class="card">
                   <div class="card-header">
                     <label class="card-title">
-                      Advance Request Detail &nbsp;&nbsp;
-                      <a id="advance_number2" data-toggle="modal" data-target="#mySearchArf"><img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt=""></a>
-
+                      Advance Request Detail &nbsp;&nbsp; || &nbsp;&nbsp; Select Advance Number
+                      <a href="#" id="advance_number2" data-toggle="modal" data-target="#mySearchArf"><img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></a>
                     </label>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse">
