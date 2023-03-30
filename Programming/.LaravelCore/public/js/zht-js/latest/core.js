@@ -5,7 +5,7 @@
 | ▪ Class Name  : zht_JSCore                                                                                                       |
 | ▪ Description : Menangani Library Utama ERP Reborn                                                                               |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2020 - 2023 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 class zht_JSCore
@@ -14,8 +14,9 @@ class zht_JSCore
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Method Name     : constructor                                                                                              |
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Version         : 1.0000.0000000                                                                                           |
-    | ▪ Last Update     : 2020-12-30                                                                                               |
+    | ▪ Version         : 1.0000.0000001                                                                                           |
+    | ▪ Last Update     : 2023-03-30                                                                                               |
+    | ▪ Creation Date   : 2020-12-30                                                                                               |
     | ▪ Description     : System's Default Constructor                                                                             |
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Input Variable  :                                                                                                          |
@@ -24,10 +25,10 @@ class zht_JSCore
     |      ▪ (void)                                                                                                                |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    constructor()
+    constructor(varJQueryEnable = true)
         {
         //alert("ERPReborn_JSCore constructor");
-        this.setJSSource();
+        this.setJSSource(varJQueryEnable);
         }
 
     /*
@@ -36,6 +37,7 @@ class zht_JSCore
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Version         : 1.0000.0000000                                                                                           |
     | ▪ Last Update     : 2020-12-30                                                                                               |
+    | ▪ Creation Date   : 2020-12-30                                                                                               |
     | ▪ Description     : Mengecek apakah suatu Script sudah masuk didalam Header HTML. Bila sudah diload maka akan mengembalikan  |
     |                     nilai TRUE dan bila sebaliknya akan mengembalikan nilai FALSE                                            |
     +------------------------------------------------------------------------------------------------------------------------------+
@@ -64,6 +66,7 @@ class zht_JSCore
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Version         : 1.0000.0000000                                                                                           |
     | ▪ Last Update     : 2020-12-30                                                                                               |
+    | ▪ Creation Date   : 2020-12-30                                                                                               |
     | ▪ Description     : Mengeset Script untuk ditambahkan kedalam Head HTML                                                      |
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Input Variable  :                                                                                                          |
@@ -91,6 +94,7 @@ class zht_JSCore
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Version         : 1.0000.0000000                                                                                           |
     | ▪ Last Update     : 2020-12-30                                                                                               |
+    | ▪ Creation Date   : 2020-12-30                                                                                               |
     | ▪ Description     : Mengeset JS Source spesifik bila belum di masukan kedalam Head HTML                                      |
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Input Variable  :                                                                                                          |
@@ -113,8 +117,9 @@ class zht_JSCore
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Method Name     : setJSSource                                                                                              |
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Version         : 1.0000.0000000                                                                                           |
-    | ▪ Last Update     : 2020-12-30                                                                                               |
+    | ▪ Version         : 1.0000.0000001                                                                                           |
+    | ▪ Last Update     : 2023-03-30                                                                                               |
+    | ▪ Creation Date   : 2020-12-30                                                                                               |
     | ▪ Description     : Mengeset Seluruh JS Source kedalam Head HTML                                                             |
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Input Variable  :                                                                                                          |
@@ -123,9 +128,12 @@ class zht_JSCore
     |      ▪ (void)                                                                                                                |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    setJSSource()
+    setJSSource(varJQueryEnable)
         {
-        //this.setJSSource_Specific("js/jQuery/jquery.min.js");
+        //window.alert(varJQueryEnable);
+        if(varJQueryEnable == true) {
+            this.setJSSource_Specific("js/jQuery/jquery.min.js");            
+            }
         this.setJSSource_Specific("js/crypto-js/core.min.js");
         this.setJSSource_Specific("js/crypto-js/md5.js");
         //this.setJSSource_Specific("js/jQuery-MD5/jquery.md5.js");

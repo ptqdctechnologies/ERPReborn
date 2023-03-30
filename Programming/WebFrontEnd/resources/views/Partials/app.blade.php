@@ -8,14 +8,6 @@
 
   <title>ERP Reborn</title>
 
-
-  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-  <script src="{{ asset('js/zht-js/core.js') }}"></script>
-  <script>
-    new zht_JSCore();
-  </script>
-  
-
   <link rel="shortcut icon" href="{{ asset('AdminLTE-master/dist/img/favicon.ico') }}">
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/fontawesome-free/css/all.min.css') }}">
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -36,9 +28,14 @@
   <!-- fullcalendar -->
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/fullcalendar/customfullcalender.css') }}">
 
-  <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+  <script src="{{ asset('js/zht-js/core.js') }}"></script>
+  <script>
+    new zht_JSCore(false)
+  </script>
 
 </head>
 

@@ -14,7 +14,7 @@
         $("#product_id2").prop("disabled", true);
         $("#bank_name2").prop("disabled", true);
         $("#bank_account2").prop("disabled", true);
-        $("#submitArf").prop("disabled", true);
+        // $("#submitArf").prop("disabled", true);
         
     });
 </script>
