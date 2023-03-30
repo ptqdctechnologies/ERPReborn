@@ -127,6 +127,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             $varUserSession, 
                             $varSysID
                             );
+                        
+                        //---> Data Initailizing Base On Database Record
+                        //---> Get User Identity
+                        $varUserIdentity = 
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserIdentity(
+                                $varUserSession, 
+                                $varBufferDB[0]['LDAPUserID']
+                                );
 
                         //---> Insert Data to Redis
                         $varRedisID = 
@@ -137,13 +145,16 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                     $varUserSession,
                                     [
                                     'userLoginSession_RefID' => $varBufferDB[0]['Sys_ID'],
-                                    'LDAPUserID' => $varBufferDB[0]['LDAPUserID'],
                                     'user_RefID' => $varBufferDB[0]['User_RefID'],
                                     'userRole_RefID' => $varBufferDB[0]['UserRole_RefID'],
                                     'branch_RefID' => $varBufferDB[0]['Branch_RefID'],
                                     'sessionStartDateTimeTZ' => $varBufferDB[0]['SessionStartDateTimeTZ'],
                                     'sessionAutoStartDateTimeTZ' => $varBufferDB[0]['SessionAutoStartDateTimeTZ'],
-                                    'sessionAutoFinishDateTimeTZ' => $varBufferDB[0]['SessionAutoFinishDateTimeTZ']
+                                    'sessionAutoFinishDateTimeTZ' => $varBufferDB[0]['SessionAutoFinishDateTimeTZ'],
+                                    'userIdentity' => $varUserIdentity
+//                                        [
+//                                        'LDAPUserID' => $varBufferDB[0]['LDAPUserID']
+//                                        ]
                                     ]
                                     ),
                                 $varSessionIntervalInSeconds
@@ -152,6 +163,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                         //---> Set Return Value
                         $varDataSend = [
                             'APIWebToken' => $varBufferDB[0]['APIWebToken'],
+                            //'userIdentity' => $varUserIdentity,
                             //'LDAPUserID' => $varBufferDB[0]['LDAPUserID'],
                             'sessionStartDateTimeTZ' => $varBufferDB[0]['SessionStartDateTimeTZ'],
                             'sessionAutoStartDateTimeTZ' => $varBufferDB[0]['SessionAutoStartDateTimeTZ'],

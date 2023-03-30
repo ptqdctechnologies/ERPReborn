@@ -607,7 +607,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $varErrorMessage);
                         }
                     $varJSONSchemaValidationStatus = \App\Helpers\ZhtHelper\General\Helper_JSON::getSchemaValidationFromFile($varUserSession, \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varRealDataRequest), $varFilePathJSONValidation);
-                    if($varJSONSchemaValidationStatus==false)
+                    if($varJSONSchemaValidationStatus == false)
                         {
                         $varErrorMessage = 'JSON Request incompatible with API\'s Contract ('.$varAPIKey.' version '.$varAPIVersion.')';
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 400, $varErrorMessage);
@@ -724,7 +724,7 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
             }
 
 
-         /*
+        /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getUserLoginSessionEntityByAPIWebToken                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -756,6 +756,7 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
                 'sessionStartDateTimeTZ' => null,
                 'sessionAutoStartDateTimeTZ' => null,
                 'sessionAutoFinishDateTimeTZ' => null,
+                'userIdentity' => null,
                 //'userPrivilegesMenu' => null
                 'environment' => null
                 ];
@@ -771,6 +772,12 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
                 $varReturn['sessionStartDateTimeTZ'] = $varData['sessionStartDateTimeTZ'];
                 $varReturn['sessionAutoStartDateTimeTZ'] = $varData['sessionAutoStartDateTimeTZ'];
                 $varReturn['sessionAutoFinishDateTimeTZ'] = $varData['sessionAutoFinishDateTimeTZ'];
+                //---> Bila $varReturn['userIdentity'] diambil Redis, data tidak terupdate apabila ada perubahan pada database 
+                $varReturn['userIdentity'] = 
+                    //null;
+                    self::getUserIdentity($varUserSession, $varData['userIdentity']['LDAPUserID']); //---> Data Diambil dari DB (Lebih update bila ada perubahan data)
+                    //$varData['userIdentity']; //---> Data Diambil dari Redis (Lebih responsif tapi tidak adaptif)
+
                 //if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'userPrivilegesMenu', $varData))
                 //    {
                 //    $varReturn['userPrivilegesMenu'] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varData['userPrivilegesMenu']);
@@ -782,6 +789,54 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
                     }
                 }
 
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getUserIdentity                                                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-03-30                                                                                           |
+        | ▪ Creation Date   : 2023-03-30                                                                                           |
+        | ▪ Description     : Mendapatkan User Identity dari LDAP User ID                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varLDAPUserID ► LDAP User ID                                                                             |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (int)    varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getUserIdentity($varUserSession, string $varLDAPUserID = null)
+            {
+            $varLDAPUserID = 'teguh.pratama';
+            $varData = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    'SchSysConfig.FuncSys_General_GetUserIdentityByLDAPUserID',
+                    [
+                        [$varLDAPUserID, 'varchar']
+                    ]
+                    )
+                )['Data'][0];
+            
+            $varReturn = [
+                'LDAPUserID' => $varLDAPUserID,
+                'person_RefID' => $varData['Person_RefID'],
+                'personName' => $varData['PersonName'],
+                'worker_RefID' => $varData['Worker_RefID'],
+                'workerIdentityNumber' => $varData['WorkerIdentityNumber'],
+                'workerCareerInternal_RefID' => $varData['WorkerCareerInternal_RefID'],
+                'workerType_RefID' => $varData['WorkerType_RefID'],
+                'workerTypeName' => $varData['WorkerTypeName'],
+                'organizationalDepartment_RefID' => $varData['OrganizationalDepartment_RefID'],
+                'organizationalDepartmentName' => $varData['OrganizationalDepartmentName'],
+                'organizationalJobPosition_RefID' => $varData['OrganizationalJobPosition_RefID'],
+                'organizationalJobPositionName' => $varData['OrganizationalJobPositionName']
+                ];
             return $varReturn;
             }
         }
