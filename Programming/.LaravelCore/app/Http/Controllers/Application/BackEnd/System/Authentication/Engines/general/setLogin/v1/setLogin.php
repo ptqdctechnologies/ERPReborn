@@ -102,7 +102,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             $varAPIWebToken = \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken($varUserSession, $varUserName, \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession), 'HS256', (int) \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentUnixTime($varUserSession));
                             }
                         while((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true);
-
                         
                         //---> Insert Data to PostgreSQL
                         $varBufferDB = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->setDataInsert(
@@ -110,6 +109,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             null, 
                             \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentYear($varUserSession),
                             11000000000001,
+
                             $varUserName, 
                             $varAPIWebToken, 
                             \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varOptionList),
@@ -127,6 +127,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             $varUserSession, 
                             $varSysID
                             );
+                        
+                        //---> Data Initailizing Base On Database Record
+                        //---> Get User Identity
+                        $varUserIdentity = 
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserIdentity(
+                                $varUserSession, 
+                                $varBufferDB[0]['LDAPUserID']
+                                );
 
                         //---> Insert Data to Redis
                         $varRedisID = 
@@ -142,7 +150,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                     'branch_RefID' => $varBufferDB[0]['Branch_RefID'],
                                     'sessionStartDateTimeTZ' => $varBufferDB[0]['SessionStartDateTimeTZ'],
                                     'sessionAutoStartDateTimeTZ' => $varBufferDB[0]['SessionAutoStartDateTimeTZ'],
-                                    'sessionAutoFinishDateTimeTZ' => $varBufferDB[0]['SessionAutoFinishDateTimeTZ']
+                                    'sessionAutoFinishDateTimeTZ' => $varBufferDB[0]['SessionAutoFinishDateTimeTZ'],
+                                    'userIdentity' => $varUserIdentity
                                     ]
                                     ),
                                 $varSessionIntervalInSeconds
@@ -151,6 +160,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                         //---> Set Return Value
                         $varDataSend = [
                             'APIWebToken' => $varBufferDB[0]['APIWebToken'],
+                            //'userIdentity' => $varUserIdentity,
+                            //'LDAPUserID' => $varBufferDB[0]['LDAPUserID'],
                             'sessionStartDateTimeTZ' => $varBufferDB[0]['SessionStartDateTimeTZ'],
                             'sessionAutoStartDateTimeTZ' => $varBufferDB[0]['SessionAutoStartDateTimeTZ'],
                             'sessionAutoFinishDateTimeTZ' => $varBufferDB[0]['SessionAutoFinishDateTimeTZ'],

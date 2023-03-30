@@ -24,6 +24,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-09-02                                                                                           |
+        | ▪ Creation Date   : 2020-09-02                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,8 +43,9 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-08-28                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2023-03-29                                                                                           |
+        | ▪ Creation Date   : 2020-08-28                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -51,7 +53,8 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (string) varUser_Name ► User Name                                                                                 |
+        |        ----------------------------------------                                                                          |
+        |      ▪ (string) varLDAPUserID ► LDAP User ID                                                                             |
         |      ▪ (string) varAPIWebToken ► API Web Token                                                                           |
         |      ▪ (string) varOptionsList ► Options List                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch Reference ID                                                                    |
@@ -67,7 +70,7 @@ namespace App\Models\Database\SchSysConfig
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            string $varUser_Name = null, string $varAPIWebToken = null, string $varOptionsList = null, int $varBranch_RefID = null, int $varUserRole_RefID = null, string $varSessionStartDateTimeTZ = null, string $varSessionFinishDateTimeTZ = null, string $varSessionAutoStartDateTimeTZ = null, string $varSessionAutoFinishDateTimeTZ = null)
+            string $varLDAPUserID = null, string $varAPIWebToken = null, string $varOptionsList = null, int $varBranch_RefID = null, int $varUserRole_RefID = null, string $varSessionStartDateTimeTZ = null, string $varSessionFinishDateTimeTZ = null, string $varSessionAutoStartDateTimeTZ = null, string $varSessionAutoFinishDateTimeTZ = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -81,7 +84,7 @@ namespace App\Models\Database\SchSysConfig
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
                         
-                        [$varUser_Name, 'varchar'],
+                        [$varLDAPUserID, 'varchar'],
                         [$varAPIWebToken, 'varchar'],
                         [$varOptionsList, 'json'],
                         [$varBranch_RefID, 'bigint'],
@@ -101,8 +104,9 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-08-28                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2023-03-29                                                                                           |
+        | ▪ Creation Date   : 2020-08-28                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -111,7 +115,8 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (string) varUser_Name ► User Name                                                                                 |
+        |        ----------------------------------------                                                                          |
+        |      ▪ (string) varLDAPUserID ► LDAP User ID                                                                             |
         |      ▪ (string) varAPIWebToken ► API Web Token                                                                           |
         |      ▪ (string) varOptionsList ► Options List                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch Reference ID                                                                    |
@@ -127,7 +132,7 @@ namespace App\Models\Database\SchSysConfig
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            string $varUser_Name = null, string $varAPIWebToken = null, string $varOptionsList = null, int $varBranch_RefID = null, int $varUserRole_RefID = null, string $varSessionStartDateTimeTZ = null, string $varSessionFinishDateTimeTZ = null, string $varSessionAutoStartDateTimeTZ = null, string $varSessionAutoFinishDateTimeTZ = null)
+            string $varLDAPUserID = null, string $varAPIWebToken = null, string $varOptionsList = null, int $varBranch_RefID = null, int $varUserRole_RefID = null, string $varSessionStartDateTimeTZ = null, string $varSessionFinishDateTimeTZ = null, string $varSessionAutoStartDateTimeTZ = null, string $varSessionAutoFinishDateTimeTZ = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -141,7 +146,7 @@ namespace App\Models\Database\SchSysConfig
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
                         
-                        [$varUser_Name, 'varchar'],
+                        [$varLDAPUserID, 'varchar'],
                         [$varAPIWebToken, 'varchar'],
                         [$varOptionsList, 'json'],
                         [$varBranch_RefID, 'bigint'],

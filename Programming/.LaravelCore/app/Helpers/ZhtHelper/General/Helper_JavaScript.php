@@ -3591,8 +3591,9 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setLibrary                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-12-31                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2023-03-30                                                                                           |
+        | ▪ Creation Date   : 2020-12-31                                                                                           |
         | ▪ Description     : Mengeset Library JQuery                                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -3601,11 +3602,16 @@ namespace App\Helpers\ZhtHelper\General
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function setLibrary($varUserSession)
+        public static function setLibrary($varUserSession, $varParameter = null)
             {
+            $varJSParameter = 'false';
+            if ($varParameter == null) {
+                $varJSParameter = 'true';
+                }
+                
             $varReturn = 
                 '<script src = "js/zht-js/core.js" type="text/javascript"></script>'.
-                '<script>new zht_JSCore();</script>'.
+                '<script>new zht_JSCore('.$varJSParameter.');</script>'.
                 '';
             return $varReturn;
             }

@@ -79,6 +79,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varBank_RefID ► Bank Reference ID                                                                        |
         |      ▪ (string) varAccountNumber ► Account Number                                                                        |
         |      ▪ (string) varName ► Account Name                                                                                   |
@@ -128,6 +129,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varBank_RefID ► Bank Reference ID                                                                        |
         |      ▪ (string) varAccountNumber ► Account Number                                                                        |
         |      ▪ (string) varName ► Account Name                                                                                   |

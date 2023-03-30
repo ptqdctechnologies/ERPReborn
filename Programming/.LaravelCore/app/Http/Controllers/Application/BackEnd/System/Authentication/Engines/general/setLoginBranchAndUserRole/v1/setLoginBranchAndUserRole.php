@@ -116,7 +116,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
 //$varDataBranchList=333;
 //$varDataUserRoleList=333;
 
-
                     if(\App\Helpers\ZhtHelper\General\Helper_Array::isElementExist($varUserSession, $varBranchID, $varDataBranchList) == false)
                         {
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 403, 'Branch ID was not found in the register list');
@@ -125,9 +124,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                         {
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 403, 'User Role ID was not found in the register list');
                         }
-                    elseif(self::isSet($varUserSession, $varAPIWebToken)==true)
+                    elseif(self::isSet($varUserSession, $varAPIWebToken) == true)
                         {
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 403, 'Branch ID and User Role ID already choosen');                        
+                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 403, 'Branch ID and User Role ID already choosen');
+//dd(\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession));
+//dd(\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession)['userIdentity']['workerCareerInternal_RefID']);
                         }
                         
                     if(!$varReturn)
@@ -146,8 +147,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                         (new \App\Models\Database\SchSysConfig\General())->setUserSessionBranchAndUserRole($varUserSession, $varUserSession, $varBranchID, $varUserRoleID);
                         //---> Update Redis
                         $varDataRedis = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, (new \App\Models\Cache\General\APIWebToken())->getDataRecord($varUserSession, $varAPIWebToken));
+                        $varUserIdentity = $varDataRedis['userIdentity'];
                         $varDataRedis['branch_RefID'] = $varBranchID;
-                        $varDataRedis['userRole_RefID'] = $varUserRoleID;
+//                        $varDataRedis['userRole_RefID'] = $varUserRoleID;
+                        $varDataRedis['userIdentity'] = 
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserIdentity(
+                                $varUserSession, 
+                                \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession)['userIdentity']['LDAPUserID']
+                                );
                         //$varDataRedis['userPrivilegesMenu'] = $varUserPrivilegesMenu;
                         $varDataRedis['environment']['userPrivileges']['menu'] = [
                             'keyList' => $varCachedData[$varUserRoleID]['menu']['keyList'],
@@ -157,10 +164,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             'keyList' => $varCachedData[$varUserRoleID]['combinedBudget']['keyList'],
                             'dataTable' => $varCachedData[$varUserRoleID]['combinedBudget']['dataTable']
                             ];
+                        //$varDataRedis['userIdentity'] = $varUserIdentity;
                         (new \App\Models\Cache\General\APIWebToken())->setDataUpdate($varUserSession, $varAPIWebToken, \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varDataRedis));
                         //--->
                         $varDataSend = ['message' => 'Chosen Branch ID and User Role ID have been saved'];
-                        //dd($varDataRedis);
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);                        
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
