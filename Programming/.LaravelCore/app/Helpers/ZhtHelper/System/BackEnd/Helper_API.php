@@ -811,7 +811,7 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
         */
         public static function getUserIdentity($varUserSession, string $varLDAPUserID = null)
             {
-            $varLDAPUserID = 'teguh.pratama';
+            //$varLDAPUserID = 'teguh.pratama';
             $varData = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(

@@ -152,9 +152,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                     'sessionAutoStartDateTimeTZ' => $varBufferDB[0]['SessionAutoStartDateTimeTZ'],
                                     'sessionAutoFinishDateTimeTZ' => $varBufferDB[0]['SessionAutoFinishDateTimeTZ'],
                                     'userIdentity' => $varUserIdentity
-//                                        [
-//                                        'LDAPUserID' => $varBufferDB[0]['LDAPUserID']
-//                                        ]
                                     ]
                                     ),
                                 $varSessionIntervalInSeconds
