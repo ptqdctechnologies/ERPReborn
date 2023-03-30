@@ -5194,6 +5194,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Illuminate\\Database\\Eloquent\\Casts\\AsEnumCollection' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Casts/AsEnumCollection.php',
         'Illuminate\\Database\\Eloquent\\Casts\\AsStringable' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Casts/AsStringable.php',
         'Illuminate\\Database\\Eloquent\\Casts\\Attribute' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Casts/Attribute.php',
+        'Illuminate\\Database\\Eloquent\\Casts\\Json' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Casts/Json.php',
         'Illuminate\\Database\\Eloquent\\Collection' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Collection.php',
         'Illuminate\\Database\\Eloquent\\Concerns\\GuardsAttributes' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php',
         'Illuminate\\Database\\Eloquent\\Concerns\\HasAttributes' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasAttributes.php',

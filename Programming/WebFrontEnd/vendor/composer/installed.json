@@ -1327,17 +1327,17 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v10.4.1",
-            "version_normalized": "10.4.1.0",
+            "version": "v10.5.1",
+            "version_normalized": "10.5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "7d15f7eef442633cff108f83d9fe43d8c3b8b76f"
+                "reference": "485f22333e8c1dff5bae0fe0421c1e2e139713de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/7d15f7eef442633cff108f83d9fe43d8c3b8b76f",
-                "reference": "7d15f7eef442633cff108f83d9fe43d8c3b8b76f",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/485f22333e8c1dff5bae0fe0421c1e2e139713de",
+                "reference": "485f22333e8c1dff5bae0fe0421c1e2e139713de",
                 "shasum": ""
             },
             "require": {
@@ -1482,7 +1482,7 @@
                 "symfony/postmark-mailer": "Required to enable support for the Postmark mail transport (^6.2).",
                 "symfony/psr-http-message-bridge": "Required to use PSR-7 bridging features (^2.0)."
             },
-            "time": "2023-03-18T11:34:02+00:00",
+            "time": "2023-03-29T15:09:16+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -3867,17 +3867,17 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.11.13",
-            "version_normalized": "0.11.13.0",
+            "version": "v0.11.14",
+            "version_normalized": "0.11.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "722317c9f5627e588788e340f29b923e58f92f54"
+                "reference": "8c2e264def7a8263a68ef6f0b55ce90b77d41e17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/722317c9f5627e588788e340f29b923e58f92f54",
-                "reference": "722317c9f5627e588788e340f29b923e58f92f54",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/8c2e264def7a8263a68ef6f0b55ce90b77d41e17",
+                "reference": "8c2e264def7a8263a68ef6f0b55ce90b77d41e17",
                 "shasum": ""
             },
             "require": {
@@ -3900,7 +3900,7 @@
                 "ext-posix": "If you have PCNTL, you'll want the POSIX extension as well.",
                 "ext-readline": "Enables support for arrow-key history navigation, and showing and manipulating command history."
             },
-            "time": "2023-03-21T14:22:44+00:00",
+            "time": "2023-03-28T03:41:01+00:00",
             "bin": [
                 "bin/psysh"
             ],
@@ -3940,7 +3940,7 @@
             ],
             "support": {
                 "issues": "https://github.com/bobthecow/psysh/issues",
-                "source": "https://github.com/bobthecow/psysh/tree/v0.11.13"
+                "source": "https://github.com/bobthecow/psysh/tree/v0.11.14"
             },
             "install-path": "../psy/psysh"
         },
@@ -4086,12 +4086,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ramsey/uuid.git",
-                "reference": "bf2bee216a4379eaf62162307d62bb7850405fec"
+                "reference": "8e955307d32dc9b6992440ff81321d3cb09db75a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ramsey/uuid/zipball/bf2bee216a4379eaf62162307d62bb7850405fec",
-                "reference": "bf2bee216a4379eaf62162307d62bb7850405fec",
+                "url": "https://api.github.com/repos/ramsey/uuid/zipball/8e955307d32dc9b6992440ff81321d3cb09db75a",
+                "reference": "8e955307d32dc9b6992440ff81321d3cb09db75a",
                 "shasum": ""
             },
             "require": {
@@ -4132,7 +4132,7 @@
                 "paragonie/random-lib": "Provides RandomLib for use with the RandomLibAdapter",
                 "ramsey/uuid-doctrine": "Allows the use of Ramsey\\Uuid\\Uuid as Doctrine field type."
             },
-            "time": "2023-02-07T16:14:23+00:00",
+            "time": "2023-03-27T22:05:11+00:00",
             "default-branch": true,
             "type": "library",
             "extra": {
