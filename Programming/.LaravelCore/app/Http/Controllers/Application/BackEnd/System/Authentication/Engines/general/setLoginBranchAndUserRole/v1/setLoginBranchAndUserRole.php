@@ -127,7 +127,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                         }
                     elseif(self::isSet($varUserSession, $varAPIWebToken)==true)
                         {
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 403, 'Branch ID and User Role ID already choosen');                        
+                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 403, 'Branch ID and User Role ID already choosen');
+dd(\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession));                        
                         }
                         
                     if(!$varReturn)

@@ -806,6 +806,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-10-16                                                                                           |
+        | ▪ Creation Date   : 2020-10-16                                                                                           |
         | ▪ Description     : Penyimpanan UserSessionBranch (varBranchID) dan UserRole (varUserRoleID) sesuai ID Record            |
         |                     (varRecordID)                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -1463,6 +1464,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-12-14                                                                                           |
+        | ▪ Creation Date   : 2020-12-14                                                                                           |
         | ▪ Description     : Mendapatkan Menu berdasarkan User Role ID (varUserRoleIDe) dan Branch ID (varBranchID)               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -1486,6 +1488,39 @@ namespace App\Models\Database\SchSysConfig
                     )
                 );
             return $varReturn['Data'];
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getUserMainEntitiesByLDAPUserID                                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-03-29                                                                                           |
+        | ▪ Creation Date   : 2023-03-29                                                                                           |
+        | ▪ Description     : Mendapatkan Entities Utama Pengguna berdasarkan ID Pengguna LDAP (varLDAPUserID)                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (int)    varUserSessionID ► User Session ID                                                                       |
+        |      ▪ (string) varLDAPUserID ► User LDAP ID                                                                             |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getUserMainEntitiesByLDAPUserID($varUserSessionID, string $varLDAPUserID = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    'SchSysConfig.FuncSys_General_GetUserMainEntitiesByLDAPUserID',
+                    [
+                        [$varUserSessionID, 'bigint'],
+                        [$varLDAPUserID, 'varchar']
+                    ]
+                    )
+                );
+            return $varReturn['Data'];            
             }
 
 
