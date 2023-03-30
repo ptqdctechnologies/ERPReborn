@@ -11,7 +11,6 @@ class AdvanceRequestController extends Controller
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-
         // dd($varAPIWebToken);
         $request->session()->forget("SessionAdvance");
         
@@ -27,7 +26,6 @@ class AdvanceRequestController extends Controller
             'statusPr' => 0,
             'statusRevisi' => 0,
         ];
-
     
         // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
         //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -66,7 +64,7 @@ class AdvanceRequestController extends Controller
                     "productUnitPriceCurrency_RefID" => 62000000000001,
                     "productUnitPriceCurrencyValue" => (float) $input['var_price'][$n],
                     "productUnitPriceCurrencyExchangeRate" => 1,
-                    "remarks" => $input['var_remark'],
+                    "remarks" => 'Catatan Detail'
                 ]
             ];
         }
@@ -222,9 +220,7 @@ class AdvanceRequestController extends Controller
         // dd($varDataAdvanceRevision);
 
         $compact = [
-            'dataAdvanceRevisions' => $varDataAdvanceRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
-            'log_FileUpload_Pointer_RefID' => $varDataAdvanceRevision['data'][0]['document']['content']['attachmentFiles']['main']['log_FileUpload_Pointer_RefID'],
-            'dataWorker' => $varDataAdvanceRevision['data'][0]['document']['content']['involvedPersons'],
+            'dataAdvance' => $varDataAdvanceRevision['data'][0]['document']['content'],
             'var_recordID' => $request->searchArfNumberRevisionId,
             'varAPIWebToken' => $varAPIWebToken,
             'statusAdvanceRevisi' => 1,
@@ -256,7 +252,7 @@ class AdvanceRequestController extends Controller
                         "productUnitPriceCurrency_RefID" => 62000000000001,
                         "productUnitPriceCurrencyValue" => (float) $input['var_price'][$n],
                         "productUnitPriceCurrencyExchangeRate" => 1,
-                        "remarks" => 'Catatan'
+                        "remarks" => 'Catatan Detail'
                     ]
                 ];
             }

@@ -25,7 +25,7 @@
           @csrf
           @method('PUT')
           <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
-          <input id="siteCodeRevArfAfter" style="border-radius:0;" name="siteCodeRevArfAfter" class="form-control" type="hidden" value="{{$dataAdvanceRevisions['entities']['combinedBudgetSection_RefID']}}">
+          <input id="siteCodeRevArfAfter" style="border-radius:0;" name="siteCodeRevArfAfter" class="form-control" type="hidden" value="{{$dataAdvance['itemList']['ungrouped'][0]['entities']['combinedBudgetSection_RefID']}}">
           <div class="tab-content p-3" id="nav-tabContent">
             <div class="row">
               <div class="col-12">
@@ -81,7 +81,7 @@
                       <div class="row">
                         <div class="col-md-12">
                           <!-- <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID2" value="" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID"> -->
-                          <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="{{ $log_FileUpload_Pointer_RefID }}" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID" hidden>
+                          <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="{{ $dataAdvance['attachmentFiles']['main']['log_FileUpload_Pointer_RefID']}}" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID" hidden>
                           <input type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" name="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" onchange="javascript: @php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataInput_Log_FileUpload_Pointer_RefID_Action', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord'); @endphp;" />
                         </div>
                         <br><br>
@@ -209,7 +209,7 @@
                             <table>
                               <tr>
                                 <td>
-                                  <textarea name="var_remark" id="putRemark" rows="2" cols="1000" class="form-control" required>{{$dataAdvanceRevisions['entities']['remarks']}}</textarea>
+                                  <textarea name="var_remark" id="putRemark" rows="2" cols="1000" class="form-control" required>{{$dataAdvance['remarks']}}</textarea>
                                 </td>
                               </tr>
                             </table>
