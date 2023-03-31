@@ -19,6 +19,13 @@
     });
 </script>
 
+<!-- <script>
+    function myFunction() {
+        // jQuery.noConflict(true);
+        $('#myGetBank').modal('toggle');
+    }
+
+</script> -->
 <script>
     function klikProject(code, name) {
         $("#projectcode").val(code);
@@ -420,8 +427,8 @@
 
                 $("#submitArf").prop("disabled", true);
 
-                varFileUpload_UniqueID = "Upload";
-                window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
+                // varFileUpload_UniqueID = "Upload";
+                // window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
                                 
                 var action = $(this).attr("action"); //get submit action from form
                 var method = $(this).attr("method"); // get submit method
@@ -447,10 +454,8 @@
                     cancelButtonColor: '#e9ecef',
                     reverseButtons: true
                 }).then((result) => {    
-                    if (result.value) {
 
-                        // $("#loading").hide();
-                        // $(".loader").hide();
+                    if (result.value) {
 
                         $.ajax({
                             url: action,
@@ -462,29 +467,50 @@
                             type: method,
                             success: function(response) {
 
-                                $("#loading").hide();
-                                $(".loader").hide();
+                                if(response.message === "SelectWorkFlow"){
+                                    
+                                    $("#loading").hide();
+                                    $(".loader").hide();
 
-                                swalWithBootstrapButtons.fire({
+                                    $('#getWorkFlow').modal('toggle');
+                                    
+                                    var t = $('#tableGetWorkFlow').DataTable();
+                                    t.clear();
+                                    $.each(response.data, function(key, val) {
+                                        t.row.add([
+                                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.sys_ID + '\', \'' + response.input + '\', \'' + response.varData + '\', \'' + response.VarSelectWorkFlow + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                                            '<td style="border:1px solid #e9ecef;">' + val.fullApproverPath + '</td></tr></tbody>'
+                                        ]).draw();
+                                    });
+                                    
+                                }
+                                else{
+                                    
+                                    $("#loading").hide();
+                                    $(".loader").hide();
 
-                                    title: 'Successful !',
-                                    type: 'success',
-                                    html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + response.advnumber + '</span>',
-                                    showCloseButton: false,
-                                    showCancelButton: false,
-                                    focusConfirm: false,
-                                    confirmButtonText: '<span style="color:black;"> Ok </span>',
-                                    confirmButtonColor: '#4B586A',
-                                    confirmButtonColor: '#e9ecef',
-                                    reverseButtons: true
-                                }).then((result) => {
-                                    if (result.value) {
-                                        $("#loading").show();
-                                        $(".loader").show();
+                                    swalWithBootstrapButtons.fire({
 
-                                        window.location.href = '/AdvanceRequest?var=1';
-                                    }
-                                })
+                                        title: 'Successful !',
+                                        type: 'success',
+                                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + response.advnumber + '</span>',
+                                        showCloseButton: false,
+                                        showCancelButton: false,
+                                        focusConfirm: false,
+                                        confirmButtonText: '<span style="color:black;"> Ok </span>',
+                                        confirmButtonColor: '#4B586A',
+                                        confirmButtonColor: '#e9ecef',
+                                        reverseButtons: true
+                                    }).then((result) => {
+                                        if (result.value) {
+                                            $("#loading").show();
+                                            $(".loader").show();
+
+                                            window.location.href = '/AdvanceRequest?var=1';
+                                        }
+                                    })
+                                }
+                                
                             },
 
                             error: function(response) { // handle the error
@@ -523,4 +549,53 @@
         });
 
     });
+</script>
+
+<script>
+
+    function SelectWorkFlow(sys_ID, input, varData, VarSelectWorkFlow) {
+
+        console.log(varData);
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("StoreWorkFlow") !!}?sys_ID=' + sys_ID + '&input=' + input + '&varData=' + varData + '&VarSelectWorkFlow=' + VarSelectWorkFlow,
+            success: function(data) {
+                $("#loading").hide();
+                $(".loader").hide();
+
+                swalWithBootstrapButtons.fire({
+
+                    title: 'Successful !',
+                    type: 'success',
+                    html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + response.advnumber + '</span>',
+                    showCloseButton: false,
+                    showCancelButton: false,
+                    focusConfirm: false,
+                    confirmButtonText: '<span style="color:black;"> Ok </span>',
+                    confirmButtonColor: '#4B586A',
+                    confirmButtonColor: '#e9ecef',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+                        $("#loading").show();
+                        $(".loader").show();
+
+                        window.location.href = '/AdvanceRequest?var=1';
+                    }
+                })
+                
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                Swal.fire("Cancelled", "Data Cancel Inputed", "error");
+            }
+        });
+
+    }
 </script>

@@ -160,7 +160,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                         //---> Set Return Value
                         $varDataSend = [
                             'APIWebToken' => $varBufferDB[0]['APIWebToken'],
-                            //'userIdentity' => $varUserIdentity,
+                            'userIdentity' => $varUserIdentity,
                             //'LDAPUserID' => $varBufferDB[0]['LDAPUserID'],
                             'sessionStartDateTimeTZ' => $varBufferDB[0]['SessionStartDateTimeTZ'],
                             'sessionAutoStartDateTimeTZ' => $varBufferDB[0]['SessionAutoStartDateTimeTZ'],
