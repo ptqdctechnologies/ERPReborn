@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Advance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class AdvanceRequestController extends Controller
 {
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        // dd($varAPIWebToken);
         $request->session()->forget("SessionAdvance");
         
         $var = 0;
@@ -26,7 +26,7 @@ class AdvanceRequestController extends Controller
             'statusPr' => 0,
             'statusRevisi' => 0,
         ];
-    
+        
         // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
         //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
         //     $varAPIWebToken, 
@@ -41,13 +41,41 @@ class AdvanceRequestController extends Controller
         //     ]
         //     );
         
-        // dd($varData);
+        // $size = count(collect($varData['data']));
+        // dd($size);
 
+        
         return view('Advance.Advance.Transactions.CreateAdvanceRequest', $compact);
     }
 
     public function store(Request $request)
     {
+
+
+        // $varAPIWebToken = $request->session()->get('SessionLogin');
+        // $VarSelectWorkFlow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varAPIWebToken, 
+        //     'transaction.read.dataList.master.getBank', 
+        //     'latest', 
+        //     [
+        //     'parameter' => [
+        //         ],
+        //     'SQLStatement' => [
+        //         'pick' => null,
+        //         'sort' => null,
+        //         'filter' => null,
+        //         'paging' => null
+        //         ]
+        //     ]
+        //     );
+
+        // $compact = [
+        //     "data"=> $VarSelectWorkFlow['data'],
+        //     "message" => "SelectWorkFlow"
+        // ];
+
+        // return response()->json($compact);
 
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $input = $request->all();
@@ -89,93 +117,9 @@ class AdvanceRequestController extends Controller
                     ]
                 ]
             ]                    
-            );
-        
-        // dd($varData);
+        );
 
-        // $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        //     $varAPIWebToken, 
-        //     'userAction.documentWorkFlow.general.getBusinessDocumentTypeWorkFlowPathBySubmitterEntityIDAndCombinedBudgetID', 
-        //     'latest',
-        //     [
-        //     'parameter' => [
-        //         'businessDocumentType_RefID' => (int)$varData['data']['businessDocument']['businessDocumentType_RefID'],
-        //         'submitterEntity_RefID' => 164000000000023,
-        //         'combinedBudget_RefID' => (int)$input['var_combinedBudget_RefID'],
-        //         ]
-        //     ]
-        //     );
-        // dd($varData2);
-
-
-        // $varData3 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        // $varAPIWebToken, 
-        // 'userAction.documentWorkFlow.approvalStage.setUserSubmission', 
-        // 'latest',
-        // [
-        // 'entities' => [
-        //     "businessDocument_RefID" => (int)$varData['data']['businessDocument']['businessDocument_RefID'],
-        //     "workFlowPath_RefID" => 116000000000010,
-        //     "remarks" => null,
-        //     "approverEntity_RefID" => (int)$input['request_name_id'],
-        //     ]
-        // ]
-        // );
-        // dd($varData);
-
-        $compact = [
-            "advnumber"=> $varData['data']['businessDocument']['documentNumber'],
-        ];
-
-        return response()->json($compact); 
-    }
-
-    public function StoreValidateAdvance(Request $request)
-    {
-        $tamp = 0; $status = 200;
-        $val = $request->input('putWorkId');
-        $val2 = $request->input('putProductId');
-        $data = $request->session()->get("SessionAdvance");
-        if($request->session()->has("SessionAdvance")){
-            for($i = 0; $i < count($data); $i++){
-                if($data[$i] == $val && $data[$i+1] == $val2){
-                    $tamp = 1;
-                }
-            }
-            if($tamp == 0){
-                $request->session()->push("SessionAdvance", $val);
-                $request->session()->push("SessionAdvance", $val2);
-            }
-            else{
-                $status = 500;
-            }
-        }
-        else{
-            $request->session()->push("SessionAdvance", $val);
-            $request->session()->push("SessionAdvance", $val2);
-        }
-
-        return response()->json($status);
-    }
-
-    public function StoreValidateAdvance2(Request $request)
-    {
-        $val = $request->input('putWorkId');
-        $val2 = $request->input('putProductId');
-        $data = $request->session()->get("SessionAdvance");
-
-        if($request->session()->has("SessionAdvance")){
-            for($i = 0; $i < count($data); $i++){
-                if($data[$i] == $val && $data[$i+1] == $val2){
-                    unset($data[$i]);
-                    unset($data[$i+1]);
-                    $newClass = array_values($data);
-                    $request->session()->put("SessionAdvance", $newClass);
-                }
-            }
-        }
+        return $this->SelectWorkFlow($input, $varData);
     }
 
     public function AdvanceListData(Request $request)

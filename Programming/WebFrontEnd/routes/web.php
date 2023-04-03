@@ -123,6 +123,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getBusinessTripCostComponentEntity', 'FunctionController@getBusinessTripCostComponentEntity')->name('getBusinessTripCostComponentEntity');
 
 
+    Route::get('StoreWorkFlow', 'Controller@StoreWorkFlow')->name('StoreWorkFlow');
+
+
 
 
 

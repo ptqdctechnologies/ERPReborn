@@ -28,7 +28,7 @@ class LoginController extends Controller
             $username,
             $password
         );
-        
+        // dd($varData);
 
         if(count($varData['data']['optionList']) == 1){
             if(count($varData['data']['optionList'][0]['userRole'])){
@@ -58,10 +58,11 @@ class LoginController extends Controller
                     [
                     ]
                     );
-                dd($varDatax['data']['userLoginSessionID']);
+                // dd($varDatax['data']['userLoginSessionID']);
 
 
                 $request->session()->put('SessionLogin', $varAPIWebToken);
+                $request->session()->put('SessionWorkerCareerInternal_RefID', $varData['data']['userIdentity']['workerCareerInternal_RefID']);
                 return response()->json($varDatas['metadata']['HTTPStatusCode']);
                 
             }
