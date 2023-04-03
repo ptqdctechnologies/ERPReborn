@@ -2962,6 +2962,8 @@ return array(
     'Aws\\Transfer\\TransferClient' => $vendorDir . '/aws/aws-sdk-php/src/Transfer/TransferClient.php',
     'Aws\\Translate\\Exception\\TranslateException' => $vendorDir . '/aws/aws-sdk-php/src/Translate/Exception/TranslateException.php',
     'Aws\\Translate\\TranslateClient' => $vendorDir . '/aws/aws-sdk-php/src/Translate/TranslateClient.php',
+    'Aws\\VPCLattice\\Exception\\VPCLatticeException' => $vendorDir . '/aws/aws-sdk-php/src/VPCLattice/Exception/VPCLatticeException.php',
+    'Aws\\VPCLattice\\VPCLatticeClient' => $vendorDir . '/aws/aws-sdk-php/src/VPCLattice/VPCLatticeClient.php',
     'Aws\\VoiceID\\Exception\\VoiceIDException' => $vendorDir . '/aws/aws-sdk-php/src/VoiceID/Exception/VoiceIDException.php',
     'Aws\\VoiceID\\VoiceIDClient' => $vendorDir . '/aws/aws-sdk-php/src/VoiceID/VoiceIDClient.php',
     'Aws\\WAFV2\\Exception\\WAFV2Exception' => $vendorDir . '/aws/aws-sdk-php/src/WAFV2/Exception/WAFV2Exception.php',

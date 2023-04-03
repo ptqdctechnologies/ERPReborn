@@ -4,20 +4,20 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\server\system\internal\database\system       |
-|                \tableSignatureResync\v1                                                                                          |
+|                \tableSignatureResynchronization\v1                                                                               |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\server\internal\database\system\tableSignatureResync\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\server\internal\database\system\tableSignatureResynchronization\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : tableSignatureResync                                                                                         |
-    | ▪ Description : Menangani API instruction.server.internal.database.system.tableSignatureResync Version 1                     |
+    | ▪ Class Name  : tableSignatureResynchronization                                                                              |
+    | ▪ Description : Menangani API instruction.server.internal.database.system.tableSignatureResynchronization Version 1          |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class tableSignatureResync extends \App\Http\Controllers\Controller
+    class tableSignatureResynchronization extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -100,9 +100,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
                     ]
                     )
                 );
-            //return $varReturn['Data'][0]['FuncSys_General_SetTableSnapshotSignature'];
-            
-            return ['x' => 'x'];
+            return $varReturn['Data'][0]['FuncSys_General_SetTableSnapshotSignature'];
             }
         }
     }

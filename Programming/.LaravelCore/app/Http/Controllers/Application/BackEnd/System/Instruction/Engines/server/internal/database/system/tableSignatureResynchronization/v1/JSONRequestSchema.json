@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of instruction.server.internal.database.system.tableSignatureResync (version 1)",
+"description": "JSON Request Schema of instruction.server.internal.database.system.tableSignatureResynchronization (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "instruction.server.internal.database.system.tableSignatureResync" ]
+                        "enum": [ "instruction.server.internal.database.system.tableSignatureResynchronization" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
