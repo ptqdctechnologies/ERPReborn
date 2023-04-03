@@ -14,18 +14,11 @@
         $("#product_id2").prop("disabled", true);
         $("#bank_name2").prop("disabled", true);
         $("#bank_account2").prop("disabled", true);
-        // $("#submitArf").prop("disabled", true);
+        $("#submitArf").prop("disabled", true);
         
     });
 </script>
 
-<!-- <script>
-    function myFunction() {
-        // jQuery.noConflict(true);
-        $('#myGetBank').modal('toggle');
-    }
-
-</script> -->
 <script>
     function klikProject(code, name) {
         $("#projectcode").val(code);
@@ -411,24 +404,39 @@
         $("#formSubmitArf").on("submit", function(e) { //id of form 
             e.preventDefault();
             var valRequestName = $("#request_name").val();
+            var valBeneficiaryName = $("#beneficiary_name").val();
+            var valBankCode = $("#bank_code").val();
+            var valBankAccount = $("#bank_account").val();
             var valRemark = $("#putRemark").val();
             $("#request_name").css("border", "1px solid #ced4da");
             $("#putRemark").css("border", "1px solid #ced4da");
 
-            // if (valRequestName === "") {
-            //     $("#request_name").focus();
-            //     $("#request_name").attr('required', true);
-            //     $("#request_name").css("border", "1px solid red");
-            // } else if (valRemark === "") {
-            //     $("#putRemark").focus();
-            //     $("#putRemark").attr('required', true);
-            //     $("#putRemark").css("border", "1px solid red");
-            // } else {
+            if (valRequestName === "") {
+                $("#request_name").focus();
+                $("#request_name").attr('required', true);
+                $("#request_name").css("border", "1px solid red");
+            } else if (valBeneficiaryName === "") {
+                $("#beneficiary_name").focus();
+                $("#beneficiary_name").attr('required', true);
+                $("#beneficiary_name").css("border", "1px solid red");
+            } else if (valBankCode === "") {
+                $("#bank_code").focus();
+                $("#bank_code").attr('required', true);
+                $("#bank_code").css("border", "1px solid red");
+            } else if (valBankAccount === "") {
+                $("#bank_account").focus();
+                $("#bank_account").attr('required', true);
+                $("#bank_account").css("border", "1px solid red");
+            } else if (valRemark === "") {
+                $("#putRemark").focus();
+                $("#putRemark").attr('required', true);
+                $("#putRemark").css("border", "1px solid red");
+            } else {
 
                 $("#submitArf").prop("disabled", true);
 
-                // varFileUpload_UniqueID = "Upload";
-                // window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
+                varFileUpload_UniqueID = "Upload";
+                window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
                                 
                 var action = $(this).attr("action"); //get submit action from form
                 var method = $(this).attr("method"); // get submit method
@@ -478,7 +486,7 @@
                                     t.clear();
                                     $.each(response.data, function(key, val) {
                                         t.row.add([
-                                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.sys_ID + '\', \'' + response.input + '\', \'' + response.varData + '\', \'' + response.VarSelectWorkFlow + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.sys_ID + '\', \'' + response.businessDocument_RefID + '\', \'' + response.documentNumber + '\', \'' + response.approverEntity_RefID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
                                             '<td style="border:1px solid #e9ecef;">' + val.fullApproverPath + '</td></tr></tbody>'
                                         ]).draw();
                                     });
@@ -493,7 +501,7 @@
 
                                         title: 'Successful !',
                                         type: 'success',
-                                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + response.advnumber + '</span>',
+                                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + response.documentNumber + '</span>',
                                         showCloseButton: false,
                                         showCancelButton: false,
                                         focusConfirm: false,
@@ -545,7 +553,7 @@
                         })
                     }
                 })
-            // }
+            }
         });
 
     });
@@ -553,9 +561,7 @@
 
 <script>
 
-    function SelectWorkFlow(sys_ID, input, varData, VarSelectWorkFlow) {
-
-        console.log(varData);
+    function SelectWorkFlow(workFlowPath_RefID, businessDocument_RefID, documentNumber, approverEntity_RefID) {
 
         $.ajaxSetup({
             headers: {
@@ -565,16 +571,23 @@
 
         $.ajax({
             type: 'GET',
-            url: '{!! route("StoreWorkFlow") !!}?sys_ID=' + sys_ID + '&input=' + input + '&varData=' + varData + '&VarSelectWorkFlow=' + VarSelectWorkFlow,
+            url: '{!! route("StoreWorkFlow") !!}?workFlowPath_RefID=' + workFlowPath_RefID + '&businessDocument_RefID=' + businessDocument_RefID + '&documentNumber=' + documentNumber + '&approverEntity_RefID=' + approverEntity_RefID,
             success: function(data) {
+
                 $("#loading").hide();
                 $(".loader").hide();
 
+                const swalWithBootstrapButtons = Swal.mixin({
+                    confirmButtonClass: 'btn btn-success btn-sm',
+                    cancelButtonClass: 'btn btn-danger btn-sm',
+                    buttonsStyling: true,
+                })
+                
                 swalWithBootstrapButtons.fire({
 
                     title: 'Successful !',
                     type: 'success',
-                    html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + response.advnumber + '</span>',
+                    html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + data.documentNumber + '</span>',
                     showCloseButton: false,
                     showCancelButton: false,
                     focusConfirm: false,

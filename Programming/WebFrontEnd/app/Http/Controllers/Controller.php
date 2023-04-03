@@ -13,7 +13,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function SelectWorkFlow($input, $varData)
+    public function SelectWorkFlow($varData, $combinedBudget_RefID, $approverEntity_RefID)
     {
         $varAPIWebToken = Session::get('SessionLogin');
         $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
@@ -27,18 +27,18 @@ class Controller extends BaseController
             'parameter' => [
                 'businessDocumentType_RefID' => (int)$varData['data']['businessDocument']['businessDocumentType_RefID'],
                 'submitterEntity_RefID' => (int)$SessionWorkerCareerInternal_RefID,
-                'combinedBudget_RefID' => (int)$input['var_combinedBudget_RefID'],
+                'combinedBudget_RefID' => (int)$combinedBudget_RefID,
                 ]
             ]
             );
-        // if(count(collect($VarSelectWorkFlow['data'])) > 1){
-        if(count(collect($VarSelectWorkFlow['data'])) == 1){
-
+        
+        // if(count(collect($VarSelectWorkFlow['data'])) == 1){
+        if(count(collect($VarSelectWorkFlow['data'])) > 1){
             $compact = [
                 "data"=> $VarSelectWorkFlow['data'],
-                "input" => $input,
-                "varData" => $varData,
-                "VarSelectWorkFlow" => $VarSelectWorkFlow,
+                "businessDocument_RefID"=> $varData['data']['businessDocument']['businessDocument_RefID'],
+                "documentNumber" => $varData['data']['businessDocument']['documentNumber'],
+                "approverEntity_RefID" => $approverEntity_RefID,
                 "message" => "SelectWorkFlow"
             ];
     
@@ -47,7 +47,6 @@ class Controller extends BaseController
         }
         else{
             
-            $varAPIWebToken = Session::get('SessionLogin');
             $VarStoreWorkFlow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
@@ -58,13 +57,13 @@ class Controller extends BaseController
                 "businessDocument_RefID" => (int)$varData['data']['businessDocument']['businessDocument_RefID'],
                 "workFlowPath_RefID" => (int)$VarSelectWorkFlow['data'][0]['sys_ID'],
                 "remarks" => null,
-                "approverEntity_RefID" => (int)$input['request_name_id'],
+                "approverEntity_RefID" => (int)$approverEntity_RefID,
                 ]
             ]
             );
             
             $compact = [
-                "advnumber"=> $varData['data']['businessDocument']['documentNumber'],
+                "documentNumber"=> $varData['data']['businessDocument']['documentNumber'],
             ];
 
             return response()->json($compact); 
@@ -77,14 +76,11 @@ class Controller extends BaseController
     {
         $varAPIWebToken = Session::get('SessionLogin');
 
-        $sys_ID = $request->sys_ID;
-        $input = $request->input;
-        $varData = $request->varData;
-        $VarSelectWorkFlow = $request->VarSelectWorkFlow;
-        
-        // dd($VarSelectWorkFlow);
-
-        $varAPIWebToken = Session::get('SessionLogin');
+        $workFlowPath_RefID = $request->workFlowPath_RefID;
+        $businessDocument_RefID = $request->businessDocument_RefID;
+        $documentNumber = $request->documentNumber;
+        $approverEntity_RefID = $request->approverEntity_RefID;
+    
         $VarStoreWorkFlow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
@@ -92,16 +88,16 @@ class Controller extends BaseController
         'latest',
         [
         'entities' => [
-            "businessDocument_RefID" => (int)$varData['data']['businessDocument']['businessDocument_RefID'],
-            "workFlowPath_RefID" => (int)$VarSelectWorkFlow['data'][0]['sys_ID'],
+            "businessDocument_RefID" => (int)$businessDocument_RefID,
+            "workFlowPath_RefID" => (int)$workFlowPath_RefID,
             "remarks" => null,
-            "approverEntity_RefID" => (int)$input['request_name_id'],
+            "approverEntity_RefID" => (int)$approverEntity_RefID
             ]
         ]
         );
         
         $compact = [
-            "advnumber"=> $varData['data']['businessDocument']['documentNumber'],
+            "documentNumber"=> $documentNumber,
         ];
 
         return response()->json($compact); 
