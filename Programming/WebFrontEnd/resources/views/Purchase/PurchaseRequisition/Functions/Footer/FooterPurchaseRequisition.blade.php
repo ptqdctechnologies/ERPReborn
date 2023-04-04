@@ -100,7 +100,8 @@
                         '<input name="getPrice[]" id="budget_price'+ key +'" value="'+ val2.unitPriceBaseCurrencyValue +'" type="hidden">' +
                         '<input name="getUom[]" value="'+ val2.quantityUnitName +'" type="hidden">' +
                         '<input name="getCurrency[]" value="'+ val2.priceBaseCurrencyISOCode +'" type="hidden">' +
-                        '<input name="combinedBudget" value="'+ val2.sys_ID +'" type="hidden">' +
+                        '<input name="combinedBudgetSectionDetail_RefID[]" value="'+ val2.sys_ID +'" type="hidden">' +
+                        '<input name="combinedBudget_RefID" value="'+ val2.combinedBudget_RefID +'" type="hidden">' +
 
                         '<td style="border:1px solid #e9ecef;">' +
                         '&nbsp;&nbsp;&nbsp;<div class="progress '+ status +' progress-xs" style="height: 14px;border-radius:8px;"> @if('+ applied +' >= '+0+' && '+ applied +' <= '+40+')<div class="progress-bar bg-red" style="width:'+ applied +'%;"></div> @elseif('+ applied +' >= '+41+' && '+ applied +' <= '+89+')<div class="progress-bar bg-blue" style="width:'+ applied +'%;"></div> @elseif('+ applied + ' >= '+ 90 +' && ' + applied + ' <= '+ 100 +')<div class="progress-bar bg-green" style="width:'+ applied +'%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>'+ applied +' %</center></small>' +
@@ -222,6 +223,8 @@
         var getRemark = $("input[name='remark_req[]']").map(function(){return $(this).val();}).get();
         var qty_req = $("input[name='qty_req[]']").map(function(){return $(this).val();}).get();
         var price_req = $("input[name='price_req[]']").map(function(){return $(this).val();}).get();
+        var combinedBudgetSectionDetail_RefID = $("input[name='combinedBudgetSectionDetail_RefID[]']").map(function(){return $(this).val();}).get();
+        var combinedBudget_RefID = $("input[name='combinedBudget_RefID']").val();
 
         var combinedBudget = $("input[name='combinedBudget']").val();
 
@@ -253,8 +256,9 @@
                     '<input type="hidden" name="var_total[]" class="total_req2'+ index +'" value="' + total_req[index] + '">' +
                     '<input type="hidden" name="var_currency[]" value="' + getCurrency[index] + '">' +
                     '<input type="hidden" name="var_date" value="' + date + '">' +
-                    '<input type="hidden" name="var_combinedBudget[]" value="' + combinedBudget + '">' +
                     '<input type="hidden" name="var_remark[]" value="' + getRemark[index] + '">' +
+                    '<input type="hidden" name="var_combinedBudgetSectionDetail_RefID[]" value="' + combinedBudgetSectionDetail_RefID[index] + '">' +
+                    '<input type="hidden" name="var_combinedBudget_RefID" value="' + combinedBudget_RefID + '">' +
 
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkId[index] + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkName[index] + '</td>' +
@@ -306,8 +310,11 @@
     $(function() {
         $("#FormSubmitProcReq").on("submit", function(e) { //id of form 
             e.preventDefault();
+
+            $("#submitPR").prop("disabled", true);
+
             var varFileUpload_UniqueID = "Upload";
-                window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
+            window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
                 
             var action = $(this).attr("action"); //get submit action from form
             var method = $(this).attr("method"); // get submit method
@@ -335,10 +342,6 @@
                 reverseButtons: true
             }).then((result) => {
                 if (result.value) {
-
-                    $("#loading").show();
-                    $(".loader").show();
-
                     $.ajax({
                         url: action,
                         dataType: 'json', // what to expect back from the server
@@ -348,32 +351,58 @@
                         data: form_data,
                         type: method,
                         success: function(response) {
+                            
+                            console.log(response);
 
-                            $("#loading").hide();
-                            $(".loader").hide();
+                            if(response.message === "SelectWorkFlow"){
+                                
+                                $("#loading").hide();
+                                $(".loader").hide();
 
-                            swalWithBootstrapButtons.fire({
+                                $('#getWorkFlow').modal('toggle');
+                                
+                                var t = $('#tableGetWorkFlow').DataTable();
+                                t.clear();
+                                $.each(response.data, function(key, val) {
+                                    t.row.add([
+                                        '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.sys_ID + '\', \'' + response.businessDocument_RefID + '\', \'' + response.documentNumber + '\', \'' + response.approverEntity_RefID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                                        '<td style="border:1px solid #e9ecef;">' + val.fullApproverPath + '</td></tr></tbody>'
+                                    ]).draw();
+                                });
+                                
+                            }
+                            else{
+                                
+                                $("#loading").hide();
+                                $(".loader").hide();
 
-                                title: 'Successful !',
-                                type: 'success',
-                                html: 'Data has been saved. Your transaction number iss ' + '<span style="color:red;">' + response.ProcReqNumber + '</span>',
-                                showCloseButton: false,
-                                showCancelButton: false,
-                                focusConfirm: false,
-                                confirmButtonText: '<span style="color:black;"> Ok </span>',
-                                confirmButtonColor: '#4B586A',
-                                confirmButtonColor: '#e9ecef',
-                                reverseButtons: true
-                            }).then((result) => {
-                                if (result.value) {
-                                    $("#loading").show();
-                                    $(".loader").show();
-                                    window.location.href = '/PurchaseRequisition?var=1';
-                                }
-                            })
+                                swalWithBootstrapButtons.fire({
+
+                                    title: 'Successful !',
+                                    type: 'success',
+                                    html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + response.documentNumber + '</span>',
+                                    showCloseButton: false,
+                                    showCancelButton: false,
+                                    focusConfirm: false,
+                                    confirmButtonText: '<span style="color:black;"> Ok </span>',
+                                    confirmButtonColor: '#4B586A',
+                                    confirmButtonColor: '#e9ecef',
+                                    reverseButtons: true
+                                }).then((result) => {
+                                    if (result.value) {
+                                        $("#loading").show();
+                                        $(".loader").show();
+
+                                        window.location.href = '/PurchaseRequisition?var=1';
+                                    }
+                                })
+                            }
+
                         },
-
                         error: function(response) { // handle the error
+
+                            $("#submitPR").prop("disabled", false);
+
                             Swal.fire("Cancelled", "Data Cancel Inputed", "error");
                         },
 
@@ -403,4 +432,59 @@
         });
 
     });
+</script>
+
+
+<script>
+
+    function SelectWorkFlow(workFlowPath_RefID, businessDocument_RefID, documentNumber, approverEntity_RefID) {
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("StoreWorkFlow") !!}?workFlowPath_RefID=' + workFlowPath_RefID + '&businessDocument_RefID=' + businessDocument_RefID + '&documentNumber=' + documentNumber + '&approverEntity_RefID=' + approverEntity_RefID,
+            success: function(data) {
+
+                $("#loading").hide();
+                $(".loader").hide();
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    confirmButtonClass: 'btn btn-success btn-sm',
+                    cancelButtonClass: 'btn btn-danger btn-sm',
+                    buttonsStyling: true,
+                })
+                
+                swalWithBootstrapButtons.fire({
+
+                    title: 'Successful !',
+                    type: 'success',
+                    html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + data.documentNumber + '</span>',
+                    showCloseButton: false,
+                    showCancelButton: false,
+                    focusConfirm: false,
+                    confirmButtonText: '<span style="color:black;"> Ok </span>',
+                    confirmButtonColor: '#4B586A',
+                    confirmButtonColor: '#e9ecef',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+                        $("#loading").show();
+                        $(".loader").show();
+
+                        window.location.href = '/PurchaseRequisition?var=1';
+                    }
+                })
+                
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                Swal.fire("Cancelled", "Data Cancel Inputed", "error");
+            }
+        });
+
+    }
 </script>

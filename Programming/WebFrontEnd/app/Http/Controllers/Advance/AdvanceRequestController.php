@@ -50,33 +50,6 @@ class AdvanceRequestController extends Controller
 
     public function store(Request $request)
     {
-
-
-        // $varAPIWebToken = $request->session()->get('SessionLogin');
-        // $VarSelectWorkFlow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        //     $varAPIWebToken, 
-        //     'transaction.read.dataList.master.getBank', 
-        //     'latest', 
-        //     [
-        //     'parameter' => [
-        //         ],
-        //     'SQLStatement' => [
-        //         'pick' => null,
-        //         'sort' => null,
-        //         'filter' => null,
-        //         'paging' => null
-        //         ]
-        //     ]
-        //     );
-
-        // $compact = [
-        //     "data"=> $VarSelectWorkFlow['data'],
-        //     "message" => "SelectWorkFlow"
-        // ];
-
-        // return response()->json($compact);
-
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $input = $request->all();
         // dd($input);
@@ -119,7 +92,7 @@ class AdvanceRequestController extends Controller
             ]                    
         );
 
-        return $this->SelectWorkFlow($input, $varData);
+        return $this->SelectWorkFlow($varData, $input['var_combinedBudget_RefID'], $input['request_name_id']);
     }
 
     public function AdvanceListData(Request $request)
