@@ -13,10 +13,10 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function SelectWorkFlow($varData, $combinedBudget_RefID, $approverEntity_RefID)
+    public function SelectWorkFlow($varData, $combinedBudget_RefID, $approverEntity_RefID, $submitterEntity_RefID)
     {
+        
         $varAPIWebToken = Session::get('SessionLogin');
-        $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
 
         $VarSelectWorkFlow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -26,14 +26,14 @@ class Controller extends BaseController
             [
             'parameter' => [
                 'businessDocumentType_RefID' => (int)$varData['data']['businessDocument']['businessDocumentType_RefID'],
-                'submitterEntity_RefID' => (int)$SessionWorkerCareerInternal_RefID,
+                'submitterEntity_RefID' => (int)$submitterEntity_RefID,
                 'combinedBudget_RefID' => (int)$combinedBudget_RefID,
                 ]
             ]
             );
-        
-        // if(count(collect($VarSelectWorkFlow['data'])) == 1){
+
         if(count(collect($VarSelectWorkFlow['data'])) > 1){
+            
             $compact = [
                 "data"=> $VarSelectWorkFlow['data'],
                 "businessDocument_RefID"=> $varData['data']['businessDocument']['businessDocument_RefID'],

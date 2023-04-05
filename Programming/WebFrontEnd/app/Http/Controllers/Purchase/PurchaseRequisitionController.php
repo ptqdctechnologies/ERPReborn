@@ -73,8 +73,8 @@ class PurchaseRequisitionController extends Controller
                 ]
             ]
         );
-
-        return $this->SelectWorkFlow($varData, $input['var_combinedBudget_RefID'], $SessionWorkerCareerInternal_RefID);
+        // Var Data -> Combined Budget -> Approver Entity -> Submitter Entity
+        return $this->SelectWorkFlow($varData, $input['var_combinedBudget_RefID'], $SessionWorkerCareerInternal_RefID, $SessionWorkerCareerInternal_RefID);
     }
 
     public function StoreValidatePurchaseRequisition(Request $request)
