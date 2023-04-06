@@ -4927,6 +4927,7 @@ return array(
     'Illuminate\\Foundation\\Testing\\RefreshDatabaseState' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Testing/RefreshDatabaseState.php',
     'Illuminate\\Foundation\\Testing\\TestCase' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Testing/TestCase.php',
     'Illuminate\\Foundation\\Testing\\Traits\\CanConfigureMigrationCommands' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Testing/Traits/CanConfigureMigrationCommands.php',
+    'Illuminate\\Foundation\\Testing\\WithConsoleEvents' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Testing/WithConsoleEvents.php',
     'Illuminate\\Foundation\\Testing\\WithFaker' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Testing/WithFaker.php',
     'Illuminate\\Foundation\\Testing\\WithoutEvents' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Testing/WithoutEvents.php',
     'Illuminate\\Foundation\\Testing\\WithoutMiddleware' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Testing/WithoutMiddleware.php',
