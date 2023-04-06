@@ -63,10 +63,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
                         if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_Mulyadi\TblMahasiswa())->setDataInsert(
-                            $varUserSession, 
-                            null, 
-                            null,
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                            $varUserSession,
                             $varData['entities']['nik'],
                             $varData['entities']['nama'],
                             $varData['entities']['alamat']

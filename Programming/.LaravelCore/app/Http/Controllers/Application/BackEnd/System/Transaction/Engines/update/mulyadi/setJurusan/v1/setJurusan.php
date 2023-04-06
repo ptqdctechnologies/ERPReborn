@@ -3,20 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\mulyadi\setMahasiswa\v1                     |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\mulyadi\setJurusan\v1                     |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\mulyadi\setMahasiswa\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\mulyadi\setJurusan\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setMahasiswa                                                                                                      |
-    | ▪ Description : Menangani API transaction.update.mulyadi.setMahasiswa Version 1                                                    |
+    | ▪ Class Name  : setJurusan                                                                                                      |
+    | ▪ Description : Menangani API transaction.update.mulyadi.setJurusan Version 1                                                    |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setMahasiswa extends \App\Http\Controllers\Controller
+    class setJurusan extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -63,12 +63,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate($varUserSession, (new \App\Models\Database\SchData_Mulyadi\TblMahasiswa())->setDataUpdate(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate($varUserSession, (new \App\Models\Database\SchData_Mulyadi\TblJurusan())->setDataUpdate(
                             $varUserSession,
                             $varData['recordID'],
-                            $varData['entities']['nik'],
-                            $varData['entities']['nama'],
-                            $varData['entities']['alamat']
+                            $varData['entities']['jurusan'],
                             ))))
                             {
                             throw new \Exception();
