@@ -30,20 +30,74 @@ class AdvanceRequestController extends Controller
         // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
         //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
         //     $varAPIWebToken, 
-        //     'userAction.documentWorkFlow.general.getBusinessDocumentTypeWorkFlowPathBySubmitterEntityIDAndCombinedBudgetID', 
-        //     'latest',
+        //     'transaction.read.dataList.mulyadi.getMahasiswa', 
+        //     'latest', 
         //     [
         //     'parameter' => [
-        //         'businessDocumentType_RefID' => 77000000000057,
-        //         'submitterEntity_RefID' => 164000000000023,
-        //         'combinedBudget_RefID' => 103000000000001
+        //         ],
+        //     'SQLStatement' => [
+        //         'pick' => null,
+        //         'sort' => null,
+        //         'filter' => null,
+        //         'paging' => null
         //         ]
         //     ]
         //     );
-        
-        // $size = count(collect($varData['data']));
-        // dd($size);
 
+        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varAPIWebToken, 
+        //     'transaction.create.mulyadi.setMahasiswa',
+        //     'latest', 
+        //     [
+        //     'entities' => [
+        //         "nik" => '07171005',
+        //         "nama" => 'Ato',
+        //         "alamat" => 'Bandung'
+        //         ]
+        //     ]
+        //     );
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.update.mulyadi.setMahasiswa', 
+            'latest', 
+            [
+            'recordID' => 7,
+            'entities' => [
+                "nik" => '07171009',
+                "nama" => 'Anggun',
+                "alamat" => 'Bandung'   
+                ]
+            ]
+            );
+        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varAPIWebToken, 
+        //     'transaction.update.master.setCitizenFamilyCard', 
+        //     'latest', 
+        //     [
+        //     'recordID' => 30000000000001,
+        //     'entities' => [
+        //         'log_FileUpload_Pointer_RefID' => null,
+        //         'cardNumber' => '3174091701099012',
+        //         'issuedDate' => '2017-01-24',
+        //         'addressCountryAdministrativeAreaLevel1_RefID' => 21000000000013,
+        //         'addressCountryAdministrativeAreaLevel2_RefID' => 22000000000192,
+        //         'addressCountryAdministrativeAreaLevel3_RefID' => 23000000002670,
+        //         'addressCountryAdministrativeAreaLevel4_RefID' => 27000000000003,
+        //         'address' => 'Jl. Rancho Indah No. 26F',
+        //         'addressNeighbourhoodNumber' => 002,
+        //         'addressHamletNumber' => 002,
+        //         'postalCode' => '12530',
+        //         'cardSerialNumber' => 'K 3100 6431728'   
+        //         ]
+        //     ]
+        //     );
+            
+        
+        dd($varData);
         
         return view('Advance.Advance.Transactions.CreateAdvanceRequest', $compact);
     }
@@ -51,6 +105,7 @@ class AdvanceRequestController extends Controller
     public function store(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
+        $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
         $input = $request->all();
         // dd($input);
         $count_product = count($input['var_product_id']);
@@ -92,7 +147,9 @@ class AdvanceRequestController extends Controller
             ]                    
         );
 
-        return $this->SelectWorkFlow($varData, $input['var_combinedBudget_RefID'], $input['request_name_id']);
+        // Var Data -> Combined Budget -> Approver Entity -> Submitter Entity
+        
+        return $this->SelectWorkFlow($varData, $input['var_combinedBudget_RefID'], $input['request_name_id'], $SessionWorkerCareerInternal_RefID);
     }
 
     public function AdvanceListData(Request $request)
