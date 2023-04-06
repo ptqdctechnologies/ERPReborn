@@ -1,5 +1,45 @@
 # CHANGELOG
 
+## 3.263.4 - 2023-04-05
+
+* `Aws\AppRunner` - App Runner adds support for seven new vCPU and memory configurations.
+* `Aws\ConfigService` - This release adds resourceType enums for types released in March 2023.
+* `Aws\ECS` - This is a document only updated to add information about Amazon Elastic Inference (EI).
+* `Aws\IVSRealTime` - Fix ParticipantToken ExpirationTime format
+* `Aws\IdentityStore` - Documentation updates for Identity Store CLI command reference.
+* `Aws\NetworkFirewall` - AWS Network Firewall now supports IPv6-only subnets.
+* `Aws\ServiceCatalog` - removed incorrect product type value
+* `Aws\VPCLattice` - This release removes the entities in the API doc model package for auth policies.
+
+## 3.263.3 - 2023-04-04
+
+* `Aws\AmplifyUIBuilder` - Support StorageField and custom displays for data-bound options in form builder. Support non-string operands for predicates in collections. Support choosing client to get token from.
+* `Aws\AutoScaling` - Documentation updates for Amazon EC2 Auto Scaling
+* `Aws\DataExchange` - This release updates the value of MaxResults.
+* `Aws\EC2` - C6in, M6in, M6idn, R6in and R6idn bare metal instances are powered by 3rd Generation Intel Xeon Scalable processors and offer up to 200 Gbps of network bandwidth.
+* `Aws\ElasticInference` - Updated public documentation for the Describe and Tagging APIs.
+* `Aws\SageMaker` - Amazon SageMaker Asynchronous Inference now allows customer's to receive failure model responses in S3 and receive success/failure model responses in SNS notifications.
+* `Aws\SageMakerRuntime` - Amazon SageMaker Asynchronous Inference now provides customers a FailureLocation as a response parameter in InvokeEndpointAsync API to capture the model failure responses.
+* `Aws\WAFV2` - This release rolls back association config feature for webACLs that protect CloudFront protections.
+
+## 3.263.2 - 2023-04-03
+
+* `Aws\Glue` - Add support for database-level federation
+* `Aws\LakeFormation` - Add support for database-level federation
+* `Aws\LicenseManager` - This release adds grant override options to the CreateGrantVersion API. These options can be used to specify grant replacement behavior during grant activation.
+* `Aws\MWAA` - This Amazon MWAA release adds the ability to customize the Apache Airflow environment by launching a shell script at startup. This shell script is hosted in your environment's Amazon S3 bucket. Amazon MWAA runs the script before installing requirements and initializing the Apache Airflow process.
+* `Aws\ServiceCatalog` - This release introduces Service Catalog support for Terraform open source. It enables 1. The notify* APIs to Service Catalog. These APIs are used by the terraform engine to notify the result of the provisioning engine execution. 2. Adds a new TERRAFORM_OPEN_SOURCE product type in CreateProduct API.
+* `Aws\WAFV2` - For web ACLs that protect CloudFront protections, the default request body inspection size is now 16 KB, and you can use the new association configuration to increase the inspection size further, up to 64 KB. Sizes over 16 KB can incur additional costs.
+
+## 3.263.1 - 2023-03-31
+
+* `Aws\EC2` - Documentation updates for EC2 On Demand Capacity Reservations
+* `Aws\InternetMonitor` - This release adds a new feature for Amazon CloudWatch Internet Monitor that enables customers to deliver internet measurements to Amazon S3 buckets as well as CloudWatch Logs.
+* `Aws\ResilienceHub` - Adding EKS related documentation for appTemplateBody
+* `Aws\S3` - Documentation updates for Amazon S3
+* `Aws\SMS` - Deprecating AWS Server Migration Service.
+* `Aws\SageMakerFeatureStoreRuntime` - In this release, you can now chose between soft delete and hard delete when calling the DeleteRecord API, so you have more flexibility when it comes to managing online store data.
+
 ## 3.263.0 - 2023-03-30
 
 * `Aws\Athena` - Make DefaultExecutorDpuSize and CoordinatorDpuSize fields optional in StartSession
