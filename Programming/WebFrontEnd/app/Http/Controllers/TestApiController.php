@@ -9,24 +9,25 @@ class TestApiController extends Controller
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
+
         //JURUSAN
             
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.mulyadi.getJurusan', 
-            'latest', 
-            [
-            'parameter' => [
-                ],
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
-                ]
-            ]
-            );
+        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varAPIWebToken, 
+        //     'transaction.read.dataList.mulyadi.getJurusan', 
+        //     'latest', 
+        //     [
+        //     'parameter' => [
+        //         ],
+        //     'SQLStatement' => [
+        //         'pick' => null,
+        //         'sort' => null,
+        //         'filter' => null,
+        //         'paging' => null
+        //         ]
+        //     ]
+        //     );
 
         // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
         //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -56,22 +57,23 @@ class TestApiController extends Controller
 
         // MAHASISWA
 
-        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        //     $varAPIWebToken, 
-        //     'transaction.read.dataList.mulyadi.getMahasiswa', 
-        //     'latest', 
-        //     [
-        //     'parameter' => [
-        //         ],
-        //     'SQLStatement' => [
-        //         'pick' => null,
-        //         'sort' => null,
-        //         'filter' => null,
-        //         'paging' => null
-        //         ]
-        //     ]
-        //     );
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.read.dataList.mulyadi.getMahasiswa', 
+            'latest', 
+            [
+            'parameter' => [
+                'Jurusan_RefID' => 1
+                ],
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+            );
 
         // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
         //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -80,9 +82,10 @@ class TestApiController extends Controller
         //     'latest', 
         //     [
         //     'entities' => [
-        //         "nik" => '07171005',
-        //         "nama" => 'Ato',
-        //         "alamat" => 'Bandung'
+        //         "Jurusan_RefID" => 1,
+        //         "Nik" => '07171099',
+        //         "Nama" => 'Agung',
+        //         "Alamat" => 'Bandung'
         //         ]
         //     ]
         //     );
@@ -95,12 +98,14 @@ class TestApiController extends Controller
         //     [
         //     'recordID' => 6,
         //     'entities' => [
-        //         "nik" => '07171003',
-        //         "nama" => 'Aldi Mulyadi',
-        //         "alamat" => 'Banjar'   
+        //         "Jurusan_RefID" => 1,
+        //         "Nik" => '07171003',
+        //         "Nama" => 'Aldi Mulyadi',
+        //         "Alamat" => 'Banten'   
         //         ]
         //     ]
         //     );
+        
 
         dd($varData);
 

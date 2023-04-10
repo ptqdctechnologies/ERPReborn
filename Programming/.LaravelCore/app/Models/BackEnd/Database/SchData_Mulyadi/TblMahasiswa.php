@@ -85,7 +85,7 @@ namespace App\Models\Database\SchData_Mulyadi
         */
         public function setDataInsert(
             
-            $varUserSession, 
+            $varUserSession, int $varJurusan_RefID = null,
             string $varNik = null, string $varNama = null, string $varAlamat = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -94,6 +94,7 @@ namespace App\Models\Database\SchData_Mulyadi
                     $varUserSession,
                     parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_INSERT',
                     [
+                        [$varJurusan_RefID, 'bigint'],
                         [$varNik, 'varchar'],
                         [$varNama, 'varchar'],
                         [$varAlamat, 'varchar']
@@ -123,8 +124,8 @@ namespace App\Models\Database\SchData_Mulyadi
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
-            $varUserSession, 
-            int $varSysID, string $varNik = null, string $varNama = null, string $varAlamat = null)
+            $varUserSession,
+            int $varSysID, int $varJurusan_RefID = null, string $varNik = null, string $varNama = null, string $varAlamat = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -133,6 +134,7 @@ namespace App\Models\Database\SchData_Mulyadi
                     parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_UPDATE',
                     [
                         [$varSysID, 'bigint'],
+                        [$varJurusan_RefID, 'bigint'],
                         [$varNik, 'varchar'],
                         [$varNama, 'varchar'],
                         [$varAlamat, 'varchar']

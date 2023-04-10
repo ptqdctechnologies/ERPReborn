@@ -64,9 +64,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                     try{
                         if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_Mulyadi\TblMahasiswa())->setDataInsert(
                             $varUserSession,
-                            $varData['entities']['nik'],
-                            $varData['entities']['nama'],
-                            $varData['entities']['alamat']
+                            $varData['entities']['Jurusan_RefID'],
+                            $varData['entities']['Nik'],
+                            $varData['entities']['Nama'],
+                            $varData['entities']['Alamat']
                             ))))
                             {
                             throw new \Exception();

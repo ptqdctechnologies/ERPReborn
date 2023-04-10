@@ -30,23 +30,28 @@
                 "entities" : {
                     "type": "object",
                     "properties": {
-                        "nik": {
+                        "Jurusan_RefID": {
+                            "type": [ "integer" ],
+                            "minimum": 1,
+                            "maximum": 9223372036854775807
+                            },
+                        "Nik": {
                             "type": [ "string", "null" ],
                             "minLength": 1,
                             "maxLength": 64
                             },
-                        "nama": {
+                        "Nama": {
                             "type": [ "string", "null" ],
                             "minLength": 1,
                             "maxLength": 16
                             },
-                        "alamat": {
+                        "Alamat": {
                             "type": [ "string", "null" ],
                             "minLength": 1,
                             "maxLength": 64
                             }
                         },
-                    "required": [ "nik", "nama", "alamat"]
+                    "required": [ "Jurusan_RefID", "Nik", "Nama", "Alamat"]
                     }
                 },
             "required": [ "entities" ]
