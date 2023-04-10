@@ -16,7 +16,7 @@ namespace App\Models\Database\SchData_Mulyadi
     | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblBank                                                    |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblMahasiswa extends \App\Models\Database\DefaultClassPrototype
+    class TblJurusan extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -76,7 +76,7 @@ namespace App\Models\Database\SchData_Mulyadi
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                               |
-        |      ▪ (string) varNik ► Nik                                                 |
+        |      ▪ (string) varJurusan ► Nik                                                 |
         |      ▪ (string) varNama ► Nama                                                                                      |
         |      ▪ (string) varAlamat ► Bank Alamat                                                                                |
         | ▪ Output Variable :                                                                                                      |
@@ -86,7 +86,7 @@ namespace App\Models\Database\SchData_Mulyadi
         public function setDataInsert(
             
             $varUserSession, 
-            string $varNik = null, string $varNama = null, string $varAlamat = null)
+            string $varJurusan = null, )
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -94,9 +94,7 @@ namespace App\Models\Database\SchData_Mulyadi
                     $varUserSession,
                     parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_INSERT',
                     [
-                        [$varNik, 'varchar'],
-                        [$varNama, 'varchar'],
-                        [$varAlamat, 'varchar']
+                        [$varJurusan, 'varchar'],
                     ]
                     )
                 );
@@ -115,7 +113,7 @@ namespace App\Models\Database\SchData_Mulyadi
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysID ► System Record ID                                                                |
-        |      ▪ (string) varNik ► Nik                                                 |
+        |      ▪ (string) varJurusan ► Nik                                                 |
         |      ▪ (string) varNama ► Nama                                                                                      |
         |      ▪ (string) varAlamat ► Bank Alamat                                                                                |
         | ▪ Output Variable :                                                                                                      |
@@ -124,7 +122,7 @@ namespace App\Models\Database\SchData_Mulyadi
         */
         public function setDataUpdate(
             $varUserSession, 
-            int $varSysID, string $varNik = null, string $varNama = null, string $varAlamat = null)
+            int $varSysID, string $varJurusan = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -133,9 +131,7 @@ namespace App\Models\Database\SchData_Mulyadi
                     parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_UPDATE',
                     [
                         [$varSysID, 'bigint'],
-                        [$varNik, 'varchar'],
-                        [$varNama, 'varchar'],
-                        [$varAlamat, 'varchar']
+                        [$varJurusan, 'varchar'],
                     ],
                     )
                 );

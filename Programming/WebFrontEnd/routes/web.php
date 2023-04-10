@@ -126,6 +126,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('StoreWorkFlow', 'Controller@StoreWorkFlow')->name('StoreWorkFlow');
 
 
+    Route::get('TestApi', 'TestApiController@index')->name('TestApi');
+
+
 
 
 

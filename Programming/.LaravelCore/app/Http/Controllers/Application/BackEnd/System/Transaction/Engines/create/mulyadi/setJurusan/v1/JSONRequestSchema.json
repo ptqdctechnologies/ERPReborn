@@ -1,6 +1,6 @@
 {
     "title": "JSON Request Schema",
-    "description": "JSON Request Schema of transaction.update.mulyadi.setMahasiswa (version 1)",
+    "description": "JSON Request Schema of transaction.create.mulyadi.setJurusan (version 1)",
     "type": "object",
     "properties": {
         "metadata": {
@@ -11,7 +11,7 @@
                     "properties": {
                         "key": {
                             "type": "string",
-                            "enum": [ "transaction.update.mulyadi.setMahasiswa" ]
+                            "enum": [ "transaction.create.mulyadi.setJurusan" ]
                             },
                         "version": {
                             "type": [ "integer", "string" ],
@@ -27,35 +27,19 @@
         "data": {
             "type": "object",
             "properties": {
-                "recordID" : {
-                    "type": "integer",
-                    "minimum": 1,
-                    "maximum": 9223372036854775807
-                    },
-                "entities" :
-                    {
+                "entities" : {
                     "type": "object",
                     "properties": {
-                        "nik": {
+                        "jurusan": {
                             "type": [ "string", "null" ],
                             "minLength": 1,
                             "maxLength": 64
-                            },
-                        "nama": {
-                            "type": [ "string", "null" ],
-                            "minLength": 1,
-                            "maxLength": 256
-                            },
-                        "alamat": {
-                            "type": [ "string", "null" ],
-                            "minLength": 1,
-                            "maxLength": 256
                             }
                         },
-                    "required": ["nik", "nama", "alamat"]
+                    "required": [ "jurusan" ]
                     }
                 },
-            "required": [ "recordID", "entities" ]
+            "required": [ "entities" ]
             }
         },
     "required": [ "metadata", "data" ]

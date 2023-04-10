@@ -1,6 +1,6 @@
 {
     "title": "JSON Request Schema",
-    "description": "JSON Request Schema of transaction.update.mulyadi.setMahasiswa (version 1)",
+    "description": "JSON Request Schema of transaction.read.dataList.mulyadi.getJurusan (version 1)",
     "type": "object",
     "properties": {
         "metadata": {
@@ -11,7 +11,7 @@
                     "properties": {
                         "key": {
                             "type": "string",
-                            "enum": [ "transaction.update.mulyadi.setMahasiswa" ]
+                            "enum": [ "transaction.read.dataList.mulyadi.getJurusan" ]
                             },
                         "version": {
                             "type": [ "integer", "string" ],
@@ -27,35 +27,29 @@
         "data": {
             "type": "object",
             "properties": {
-                "recordID" : {
-                    "type": "integer",
-                    "minimum": 1,
-                    "maximum": 9223372036854775807
+                "parameter": {
+                    "additionalProperties": false
                     },
-                "entities" :
-                    {
+                "SQLStatement": {
                     "type": "object",
                     "properties": {
-                        "nik": {
-                            "type": [ "string", "null" ],
-                            "minLength": 1,
-                            "maxLength": 64
+                        "pick": {
+                            "type": [ "string", "null" ]
                             },
-                        "nama": {
-                            "type": [ "string", "null" ],
-                            "minLength": 1,
-                            "maxLength": 256
+                        "sort": {
+                            "type": [ "string", "null" ]
                             },
-                        "alamat": {
-                            "type": [ "string", "null" ],
-                            "minLength": 1,
-                            "maxLength": 256
+                        "filter": {
+                            "type": [ "string", "null" ]
+                            },
+                        "paging": {
+                            "type": [ "string", "null" ]
                             }
                         },
-                    "required": ["nik", "nama", "alamat"]
+                    "required": [ "pick", "sort", "filter", "paging" ]
                     }
                 },
-            "required": [ "recordID", "entities" ]
+            "required": [ "parameter", "SQLStatement" ]
             }
         },
     "required": [ "metadata", "data" ]
