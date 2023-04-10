@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## 3.263.6 - 2023-04-07
+
+* `Aws\DLM` - Updated timestamp format for GetLifecyclePolicy API
+* `Aws\DocDB` - This release adds a new parameter 'DBClusterParameterGroupName' to 'RestoreDBClusterFromSnapshot' API to associate the name of the DB cluster parameter group while performing restore.
+* `Aws\FSx` - Amazon FSx for Lustre now supports creating data repository associations on Persistent_1 and Scratch_2 file systems.
+* `Aws\Lambda` - This release adds a new Lambda InvokeWithResponseStream API to support streaming Lambda function responses. The release also adds a new InvokeMode parameter to Function Url APIs to control whether the response will be streamed or buffered.
+* `Aws\QuickSight` - This release has two changes: adding the OR condition to tag-based RLS rules in CreateDataSet and UpdateDataSet; adding RefreshSchedule and Incremental RefreshProperties operations for users to programmatically configure SPICE dataset ingestions.
+* `Aws\RedshiftDataAPIService` - Update documentation of API descriptions as needed in support of temporary credentials with IAM identity.
+* `Aws\ServiceCatalog` - Updates description for property
+
+## 3.263.5 - 2023-04-06
+
+* `Aws\CloudFormation` - Including UPDATE_COMPLETE as a failed status for DeleteStack waiter.
+* `Aws\GreengrassV2` - Add support for SUCCEEDED value in coreDeviceExecutionStatus field. Documentation updates for Greengrass V2.
+* `Aws\Proton` - This release adds support for the AWS Proton service sync feature. Service sync enables managing an AWS Proton service (creating and updating instances) and all of it's corresponding service instances from a Git repository.
+* `Aws\RDS` - Adds and updates the SDK examples
+
 ## 3.263.4 - 2023-04-05
 
 * `Aws\AppRunner` - App Runner adds support for seven new vCPU and memory configurations.
