@@ -173,6 +173,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                         //$varDataSend = ['xxx' => $varData];
                         //$varDataSend = ['xxx' => $varSysID];
                         //$varDataSend = ['xxx' => $varUserName];
+                        //$varDataSend = ['xxx' => $varUserIdentity];
+
                         /*
                         $varDataSend = ['xxx' => 
                             (new \App\Models\Database\SchSysConfig\General())

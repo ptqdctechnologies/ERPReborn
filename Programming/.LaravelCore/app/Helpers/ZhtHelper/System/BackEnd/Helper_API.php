@@ -764,7 +764,7 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
             if((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true)
                 {
                 $varData = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue($varUserSession, 'ERPReborn::APIWebToken::'.$varAPIWebToken));
-            
+//dd($varData['userIdentity']['LDAPUserID']);            
                 $varReturn['userLoginSessionID'] = $varData['userLoginSession_RefID'];
                 $varReturn['userID'] = $varData['user_RefID'];
                 $varReturn['userRoleID'] = $varData['userRole_RefID'];
@@ -773,11 +773,15 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
                 $varReturn['sessionAutoStartDateTimeTZ'] = $varData['sessionAutoStartDateTimeTZ'];
                 $varReturn['sessionAutoFinishDateTimeTZ'] = $varData['sessionAutoFinishDateTimeTZ'];
                 //---> Bila $varReturn['userIdentity'] diambil Redis, data tidak terupdate apabila ada perubahan pada database 
-                $varReturn['userIdentity'] = 
-                    //null;
-                    self::getUserIdentity($varUserSession, $varData['userIdentity']['LDAPUserID']); //---> Data Diambil dari DB (Lebih update bila ada perubahan data)
-                    //$varData['userIdentity']; //---> Data Diambil dari Redis (Lebih responsif tapi tidak adaptif)
 
+                if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'userIdentity', $varData))
+                    {
+                    $varReturn['userIdentity'] = 
+                        //null;
+                        self::getUserIdentity($varUserSession, $varData['userIdentity']['LDAPUserID']); //---> Data Diambil dari DB (Lebih update bila ada perubahan data)
+                        //$varData['userIdentity']; //---> Data Diambil dari Redis (Lebih responsif tapi tidak adaptif)                    
+                    }
+                
                 //if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'userPrivilegesMenu', $varData))
                 //    {
                 //    $varReturn['userPrivilegesMenu'] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varData['userPrivilegesMenu']);
@@ -789,6 +793,7 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
                     }
                 }
 
+            //dd($varReturn);
             return $varReturn;
             }
 
