@@ -36,7 +36,7 @@ class TestApiController extends Controller
         //     'latest', 
         //     [
         //     'entities' => [
-        //         "jurusan" => 'Bahasa',
+        //         "jurusan" => 'Inggris',
         //         ]
         //     ]
         //     );
@@ -47,9 +47,9 @@ class TestApiController extends Controller
         //     'transaction.update.mulyadi.setJurusan', 
         //     'latest', 
         //     [
-        //     'recordID' => 2,
+        //     'recordID' => 3,
         //     'entities' => [
-        //         "jurusan" => 'Cina'
+        //         "jurusan" => 'Jerman'
         //         ]
         //     ]
         //     );
@@ -57,23 +57,23 @@ class TestApiController extends Controller
 
         // MAHASISWA
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.mulyadi.getMahasiswa', 
-            'latest', 
-            [
-            'parameter' => [
-                'Jurusan_RefID' => 1
-                ],
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
-                ]
-            ]
-            );
+        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varAPIWebToken, 
+        //     'transaction.read.dataList.mulyadi.getMahasiswa', 
+        //     'latest', 
+        //     [
+        //     'parameter' => [
+        //         'Jurusan_RefID' => 2
+        //         ],
+        //     'SQLStatement' => [
+        //         'pick' => null,
+        //         'sort' => null,
+        //         'filter' => null,
+        //         'paging' => null
+        //         ]
+        //     ]
+        //     );
 
         // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
         //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -83,28 +83,28 @@ class TestApiController extends Controller
         //     [
         //     'entities' => [
         //         "Jurusan_RefID" => 1,
-        //         "Nik" => '07171099',
-        //         "Nama" => 'Agung',
-        //         "Alamat" => 'Bandung'
+        //         "Nik" => '07171011',
+        //         "Nama" => 'Amel',
+        //         "Alamat" => 'Bandung Barat'
         //         ]
         //     ]
         //     );
 
-        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        //     $varAPIWebToken, 
-        //     'transaction.update.mulyadi.setMahasiswa', 
-        //     'latest', 
-        //     [
-        //     'recordID' => 6,
-        //     'entities' => [
-        //         "Jurusan_RefID" => 1,
-        //         "Nik" => '07171003',
-        //         "Nama" => 'Aldi Mulyadi',
-        //         "Alamat" => 'Banten'   
-        //         ]
-        //     ]
-        //     );
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.update.mulyadi.setMahasiswa', 
+            'latest', 
+            [
+            'recordID' => 13,
+            'entities' => [
+                "Jurusan_RefID" => 1,
+                "Nik" => '07171011',
+                "Nama" => 'Amelia',
+                "Alamat" => 'Banten'   
+                ]
+            ]
+            );
         
 
         dd($varData);

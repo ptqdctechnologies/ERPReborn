@@ -41,7 +41,7 @@ namespace App\Models\Database\SchData_Mulyadi
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Jurusan(
-            $varUserSession, int $varBranchID, 
+            $varUserSession,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
 
@@ -52,7 +52,6 @@ namespace App\Models\Database\SchData_Mulyadi
                         $varUserSession,
                         'SchData-Mulyadi.Func_GetDataList_Jurusan',
                         [
-                            [$varBranchID, 'bigint' ],
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
                             [$varFilterStatement, 'varchar'],

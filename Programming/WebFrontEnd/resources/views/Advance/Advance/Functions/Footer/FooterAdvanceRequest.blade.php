@@ -83,7 +83,7 @@
             url: '{!! route("getBudget") !!}?sitecode=' + $('#sitecode').val(),
             // url: '{!! route("getBudget") !!}?sitecode=' + 143000000000305,
             success: function(data) {
-                var no = 1; applied = 0; TotalBudgetSelected = 0;status = ""; statusDisplay = [];statusDisplay2 = []; statusForm = [];
+                var no = 1; applied = 0; status = ""; statusDisplay = [];statusDisplay2 = []; statusForm = [];
                 $.each(data, function(key, val2) {
                     if(val2.quantityAbsorption == "0.00" && val2.quantity == "0.00"){
                         var applied = 0;
@@ -136,6 +136,8 @@
                         '<td style="border:1px solid #e9ecef;">' + '<span id="putProductName'+ key +'">' + val2.productName + '</span>' + '</td>' +
                         '<input id="putUom'+ key +'" type="hidden">' +
 
+                        '<input id="TotalBudget'+ key +'" type="hidden">' +
+
                         '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.quantityRemain.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.unitPriceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
@@ -144,7 +146,7 @@
                         '<td class="sticky-col forth-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
                         '<td class="sticky-col third-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req'+ key +'" style="border-radius:0;" name="price_req[]" class="form-control price_req" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
                         '<td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req'+ key +'" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled>' + '</td>' +
-                        '<td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_balance'+ key +'" style="border-radius:0;width:90px;background-color:white;" name="total_balance[]" class="form-control total_balance" autocomplete="off" disabled value="' + (val2.quantityRemain * val2.unitPriceBaseCurrencyValue).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '">' + '</td>' +
+                        '<td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_balance'+ key +'" style="border-radius:0;width:90px;background-color:white;" name="total_balance[]" class="form-control total_balance" autocomplete="off" disabled value="' + currencyTotal(val2.quantityRemain * val2.unitPriceBaseCurrencyValue) + '">' + '</td>' +
 
                         '</tr>';
                     $('table.tableBudgetDetail tbody').append(html);
@@ -183,6 +185,9 @@
                                 $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
                                 $('#total_req'+key).val(currencyTotal(total));
                             }
+
+                            //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED
+                            TotalBudgetSelected();
                         });
 
                         //VALIDASI PRICE
@@ -229,7 +234,11 @@
                             else {
                                 $("input[name='price_req[]']").css("border", "1px solid #ced4da");
                                 $('#total_req'+key).val(currencyTotal(total));
+
                             }
+
+                            //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED
+                            TotalBudgetSelected();
                         });
 
                     }
@@ -263,9 +272,13 @@
                                 $('#qty_req'+key).focus();
                             }
                             else {
+
                                 $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
                                 $('#total_req'+key).val(currencyTotal(total));
                             }
+
+                            //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED
+                            TotalBudgetSelected();
                         });
 
                         //VALIDASI PRICE
@@ -295,9 +308,14 @@
                                 $('#price_req'+key).focus();
                             }
                             else {
+
                                 $("input[name='price_req[]']").css("border", "1px solid #ced4da");
                                 $('#total_req'+key).val(currencyTotal(total));
                             }
+
+                            //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED
+                            TotalBudgetSelected();
+
                         });
                     }
 
@@ -306,6 +324,23 @@
         });
     }
     // });
+</script>
+
+<script>
+    function TotalBudgetSelected(){
+
+        var TotalBudgetSelected = 0;
+        var total_req = $("input[name='total_req[]']").map(function(){return $(this).val();}).get();
+
+        $.each(total_req, function(index, data) {
+            if(total_req[index] != "" && total_req[index] > "0.00" && total_req[index] != "NaN.00"){
+                TotalBudgetSelected += parseFloat(total_req[index].replace(/,/g, ''));
+            }
+        });
+
+        $('#TotalBudgetSelected').html(currencyTotal(TotalBudgetSelected));
+        
+    }
 </script>
 
 <script>
@@ -369,7 +404,6 @@
                     '</tr>';
                 $('table.TableAdvance tbody').append(html);  
 
-                $("#TotalBudgetSelected").html(currencyTotal(TotalBudgetSelected));
                 $("#GrandTotal").html(currencyTotal(TotalBudgetSelected));
                 $("#TotalQty").html(currencyTotal(TotalQty));
 
