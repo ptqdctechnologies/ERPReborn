@@ -15,6 +15,8 @@
 
 clear;
 
+sudo dnf -y install docker-compose;
+
 ./BashScript/Script.Docker.Reinitializing.LaravelFolderOwnership.sh;
 #./BashScript/Script.Laravel.ComposerUpdate.sh;
 

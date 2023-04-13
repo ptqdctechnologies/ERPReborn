@@ -100,6 +100,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-05-03                                                                                           |
+        | ▪ Creation Date   : 2021-05-03                                                                                           |
         | ▪ Description     : Mengeset Tax Exchange Rate                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -161,7 +162,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                         'HostPort' => 4370,
                         'SerialNumber' => 'AEYU221060096',
                         'TimeZoneOffset' => '+07'
-                        ]/*,
+                        ],
+/*
                         //---> Swing Barrier Gate : HO Lantai 1
                         [
                         'GoodsIdentity_RefID' => 17000000000008,

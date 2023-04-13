@@ -186,7 +186,12 @@ class AsyncAwsS3Adapter implements FilesystemAdapter, PublicUrlGenerator, Checks
             return;
         }
 
-        $this->client->deleteObjects(['Bucket' => $this->bucket, 'Delete' => ['Objects' => $objects]]);
+        foreach (array_chunk($objects, 1000) as $chunk) {
+            $this->client->deleteObjects([
+                'Bucket' => $this->bucket,
+                'Delete' => ['Objects' => $chunk],
+            ]);
+        }
     }
 
     public function createDirectory(string $path, Config $config): void
@@ -274,6 +279,7 @@ class AsyncAwsS3Adapter implements FilesystemAdapter, PublicUrlGenerator, Checks
 
     public function listContents(string $path, bool $deep): iterable
     {
+        $path = trim($path, '/');
         $prefix = trim($this->prefixer->prefixPath($path), '/');
         $prefix = empty($prefix) ? '' : $prefix . '/';
         $options = ['Bucket' => $this->bucket, 'Prefix' => $prefix];
@@ -285,7 +291,13 @@ class AsyncAwsS3Adapter implements FilesystemAdapter, PublicUrlGenerator, Checks
         $listing = $this->retrievePaginatedListing($options);
 
         foreach ($listing as $item) {
-            yield $this->mapS3ObjectMetadata($item);
+            $item = $this->mapS3ObjectMetadata($item);
+
+            if ($item->path() === $path) {
+                continue;
+            }
+
+            yield $item;
         }
     }
 

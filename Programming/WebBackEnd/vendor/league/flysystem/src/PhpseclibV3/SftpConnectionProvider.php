@@ -41,7 +41,8 @@ class SftpConnectionProvider implements ConnectionProvider
         private int $maxTries = 4,
         private ?string $hostFingerprint = null,
         ConnectivityChecker $connectivityChecker = null,
-        private array $preferredAlgorithms = []
+        private array $preferredAlgorithms = [],
+        private bool $disableStatCache = true,
     ) {
         $this->connectivityChecker = $connectivityChecker ?: new SimpleConnectivityChecker();
     }
@@ -74,7 +75,7 @@ class SftpConnectionProvider implements ConnectionProvider
     {
         $connection = new SFTP($this->host, $this->port, $this->timeout);
         $connection->setPreferredAlgorithms($this->preferredAlgorithms);
-        $connection->disableStatCache();
+        $this->disableStatCache && $connection->disableStatCache();
 
         try {
             $this->checkFingerprint($connection);
@@ -163,7 +164,7 @@ class SftpConnectionProvider implements ConnectionProvider
 
     private function loadPrivateKey(): AsymmetricKey
     {
-        if ("---" !== substr($this->privateKey, 0, 3) && is_file($this->privateKey)) {
+        if (("---" !== substr($this->privateKey, 0, 3) || "PuTTY" !== substr($this->privateKey, 0, 5)) && is_file($this->privateKey)) {
             $this->privateKey = file_get_contents($this->privateKey);
         }
 
