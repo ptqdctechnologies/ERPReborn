@@ -439,7 +439,7 @@
             e.preventDefault();
             var valRequestName = $("#request_name").val();
             var valBeneficiaryName = $("#beneficiary_name").val();
-            var valBankCode = $("#bank_code").val();
+            var valBankName = $("#bank_name").val();
             var valBankAccount = $("#bank_account").val();
             var valRemark = $("#putRemark").val();
             $("#request_name").css("border", "1px solid #ced4da");
@@ -453,10 +453,10 @@
                 $("#beneficiary_name").focus();
                 $("#beneficiary_name").attr('required', true);
                 $("#beneficiary_name").css("border", "1px solid red");
-            } else if (valBankCode === "") {
-                $("#bank_code").focus();
-                $("#bank_code").attr('required', true);
-                $("#bank_code").css("border", "1px solid red");
+            } else if (valBankName === "") {
+                $("#bank_name").focus();
+                $("#bank_name").attr('required', true);
+                $("#bank_name").css("border", "1px solid red");
             } else if (valBankAccount === "") {
                 $("#bank_account").focus();
                 $("#bank_account").attr('required', true);
@@ -508,7 +508,7 @@
                             data: form_data,
                             type: method,
                             success: function(response) {
-
+                                console.log(response.message);
                                 if(response.message === "SelectWorkFlow"){
                                     
                                     $("#loading").hide();
@@ -524,6 +524,29 @@
                                             '<td style="border:1px solid #e9ecef;">' + val.fullApproverPath + '</td></tr></tbody>'
                                         ]).draw();
                                     });
+                                    
+                                }
+                                else if(response.message === "WorkFlowError"){
+                                    
+                                    $("#loading").hide();
+                                    $(".loader").hide();
+
+                                    swalWithBootstrapButtons.fire({
+
+                                    title: 'Cancelled',
+                                    text: "You do not have access to this menu!",
+                                    type: 'error',
+                                    confirmButtonColor: '#e9ecef',
+                                    confirmButtonText: '<span style="color:black;"> Ok </span>',
+
+                                    }).then((result) => {
+                                    if (result.value) {
+                                        $("#loading").show();
+                                        $(".loader").show();
+
+                                        window.location.href = '/AdvanceRequest?var=1';
+                                    }
+                                    })
                                     
                                 }
                                 else{
