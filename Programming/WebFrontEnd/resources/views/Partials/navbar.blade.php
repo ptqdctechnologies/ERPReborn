@@ -4,17 +4,12 @@
             <br>
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
-        
-    </ul>
-    <!-- <ul class="navbar-nav">
         <li class="nav-item">
+            <br>&nbsp;&nbsp;&nbsp;&nbsp;
             <span id="clock"></span>
         </li>
-    </ul>     -->
+    </ul>
     <ul class="navbar-nav ml-auto">      
-    <li class="nav-item">
-            <br><span id="clock"></span>&nbsp;&nbsp;&nbsp;&nbsp;
-        </li>
 
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">

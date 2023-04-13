@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2ODEzNTcxNDF9.MTE5Y2VjOGY2NGFjZDhhMGRmMmMwMjliMmZjYWQ1ZGY0YjgyYjMyYzgzOWNkNmRmMDdjYjJjYWRkNjFhNDg1YQ';
 
+
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
     $varAPIWebToken
@@ -124,6 +125,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
 
     Route::get('StoreWorkFlow', 'Controller@StoreWorkFlow')->name('StoreWorkFlow');
+
+
+    Route::get('TestApi', 'TestApiController@index')->name('TestApi');
 
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Purchase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class PurchaseRequisitionController extends Controller
 {
@@ -35,12 +36,13 @@ class PurchaseRequisitionController extends Controller
         $count_product = count($input['var_product_id']);
 
         $varAPIWebToken = $request->session()->get('SessionLogin');
+        $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
 
         $PurchaseRequisitionDetail = [];
         for ($n = 0; $n < $count_product; $n++) {
             $PurchaseRequisitionDetail[$n] = [
                 "entities" => [
-                    "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
+                    "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudgetSectionDetail_RefID'][$n],
                     "product_RefID" => (int) $input['var_product_id'][$n],
                     "quantity" => (float) $input['var_quantity'][$n],
                     "quantityUnit_RefID" => 73000000000001,
@@ -71,12 +73,8 @@ class PurchaseRequisitionController extends Controller
                 ]
             ]
         );
-
-        $compact = [
-            "ProcReqNumber"=> $varData['data']['businessDocument']['documentNumber'],
-        ];
-
-        return response()->json($compact);
+        // Var Data -> Combined Budget -> Approver Entity -> Submitter Entity
+        return $this->SelectWorkFlow($varData, $input['var_combinedBudget_RefID'], $SessionWorkerCareerInternal_RefID, $SessionWorkerCareerInternal_RefID);
     }
 
     public function StoreValidatePurchaseRequisition(Request $request)

@@ -146,6 +146,8 @@ namespace App\Models\Database\SchData_OLTP_Master
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
             int $varLog_FileUpload_Pointer_RefID = null, string $varCardNumber = null, string $varIssuedDate = null, int $varAddressCountryAdministrativeAreaLevel1_RefID = null, int $varAddressCountryAdministrativeAreaLevel2_RefID = null, int $varAddressCountryAdministrativeAreaLevel3_RefID = null, int $varAddressCountryAdministrativeAreaLevel4_RefID = null, string $varAddress = null, int $varAddressNeighbourhoodNumber = null, int $varAddressHamletNumber = null, string $varPostalCode = null, string $varCardSerialNumber = null)
             {
+
+            echo $varAddressNeighbourhoodNumber;die;
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(

@@ -14,18 +14,11 @@
         $("#product_id2").prop("disabled", true);
         $("#bank_name2").prop("disabled", true);
         $("#bank_account2").prop("disabled", true);
-        // $("#submitArf").prop("disabled", true);
+        $("#submitArf").prop("disabled", true);
         
     });
 </script>
 
-<!-- <script>
-    function myFunction() {
-        // jQuery.noConflict(true);
-        $('#myGetBank').modal('toggle');
-    }
-
-</script> -->
 <script>
     function klikProject(code, name) {
         $("#projectcode").val(code);
@@ -90,7 +83,7 @@
             url: '{!! route("getBudget") !!}?sitecode=' + $('#sitecode').val(),
             // url: '{!! route("getBudget") !!}?sitecode=' + 143000000000305,
             success: function(data) {
-                var no = 1; applied = 0; TotalBudgetSelected = 0;status = ""; statusDisplay = [];statusDisplay2 = []; statusForm = [];
+                var no = 1; applied = 0; status = ""; statusDisplay = [];statusDisplay2 = []; statusForm = [];
                 $.each(data, function(key, val2) {
                     if(val2.quantityAbsorption == "0.00" && val2.quantity == "0.00"){
                         var applied = 0;
@@ -143,6 +136,8 @@
                         '<td style="border:1px solid #e9ecef;">' + '<span id="putProductName'+ key +'">' + val2.productName + '</span>' + '</td>' +
                         '<input id="putUom'+ key +'" type="hidden">' +
 
+                        '<input id="TotalBudget'+ key +'" type="hidden">' +
+
                         '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.quantityRemain.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.unitPriceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
@@ -151,7 +146,7 @@
                         '<td class="sticky-col forth-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
                         '<td class="sticky-col third-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req'+ key +'" style="border-radius:0;" name="price_req[]" class="form-control price_req" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
                         '<td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req'+ key +'" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled>' + '</td>' +
-                        '<td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_balance'+ key +'" style="border-radius:0;width:90px;background-color:white;" name="total_balance[]" class="form-control total_balance" autocomplete="off" disabled value="' + (val2.quantityRemain * val2.unitPriceBaseCurrencyValue).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '">' + '</td>' +
+                        '<td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_balance'+ key +'" style="border-radius:0;width:90px;background-color:white;" name="total_balance[]" class="form-control total_balance" autocomplete="off" disabled value="' + currencyTotal(val2.quantityRemain * val2.unitPriceBaseCurrencyValue) + '">' + '</td>' +
 
                         '</tr>';
                     $('table.tableBudgetDetail tbody').append(html);
@@ -190,6 +185,9 @@
                                 $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
                                 $('#total_req'+key).val(currencyTotal(total));
                             }
+
+                            //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED
+                            TotalBudgetSelected();
                         });
 
                         //VALIDASI PRICE
@@ -236,7 +234,11 @@
                             else {
                                 $("input[name='price_req[]']").css("border", "1px solid #ced4da");
                                 $('#total_req'+key).val(currencyTotal(total));
+
                             }
+
+                            //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED
+                            TotalBudgetSelected();
                         });
 
                     }
@@ -270,9 +272,13 @@
                                 $('#qty_req'+key).focus();
                             }
                             else {
+
                                 $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
                                 $('#total_req'+key).val(currencyTotal(total));
                             }
+
+                            //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED
+                            TotalBudgetSelected();
                         });
 
                         //VALIDASI PRICE
@@ -302,9 +308,14 @@
                                 $('#price_req'+key).focus();
                             }
                             else {
+
                                 $("input[name='price_req[]']").css("border", "1px solid #ced4da");
                                 $('#total_req'+key).val(currencyTotal(total));
                             }
+
+                            //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED
+                            TotalBudgetSelected();
+
                         });
                     }
 
@@ -313,6 +324,23 @@
         });
     }
     // });
+</script>
+
+<script>
+    function TotalBudgetSelected(){
+
+        var TotalBudgetSelected = 0;
+        var total_req = $("input[name='total_req[]']").map(function(){return $(this).val();}).get();
+
+        $.each(total_req, function(index, data) {
+            if(total_req[index] != "" && total_req[index] > "0.00" && total_req[index] != "NaN.00"){
+                TotalBudgetSelected += parseFloat(total_req[index].replace(/,/g, ''));
+            }
+        });
+
+        $('#TotalBudgetSelected').html(currencyTotal(TotalBudgetSelected));
+        
+    }
 </script>
 
 <script>
@@ -376,7 +404,6 @@
                     '</tr>';
                 $('table.TableAdvance tbody').append(html);  
 
-                $("#TotalBudgetSelected").html(currencyTotal(TotalBudgetSelected));
                 $("#GrandTotal").html(currencyTotal(TotalBudgetSelected));
                 $("#TotalQty").html(currencyTotal(TotalQty));
 
@@ -411,24 +438,39 @@
         $("#formSubmitArf").on("submit", function(e) { //id of form 
             e.preventDefault();
             var valRequestName = $("#request_name").val();
+            var valBeneficiaryName = $("#beneficiary_name").val();
+            var valBankName = $("#bank_name").val();
+            var valBankAccount = $("#bank_account").val();
             var valRemark = $("#putRemark").val();
             $("#request_name").css("border", "1px solid #ced4da");
             $("#putRemark").css("border", "1px solid #ced4da");
 
-            // if (valRequestName === "") {
-            //     $("#request_name").focus();
-            //     $("#request_name").attr('required', true);
-            //     $("#request_name").css("border", "1px solid red");
-            // } else if (valRemark === "") {
-            //     $("#putRemark").focus();
-            //     $("#putRemark").attr('required', true);
-            //     $("#putRemark").css("border", "1px solid red");
-            // } else {
+            if (valRequestName === "") {
+                $("#request_name").focus();
+                $("#request_name").attr('required', true);
+                $("#request_name").css("border", "1px solid red");
+            } else if (valBeneficiaryName === "") {
+                $("#beneficiary_name").focus();
+                $("#beneficiary_name").attr('required', true);
+                $("#beneficiary_name").css("border", "1px solid red");
+            } else if (valBankName === "") {
+                $("#bank_name").focus();
+                $("#bank_name").attr('required', true);
+                $("#bank_name").css("border", "1px solid red");
+            } else if (valBankAccount === "") {
+                $("#bank_account").focus();
+                $("#bank_account").attr('required', true);
+                $("#bank_account").css("border", "1px solid red");
+            } else if (valRemark === "") {
+                $("#putRemark").focus();
+                $("#putRemark").attr('required', true);
+                $("#putRemark").css("border", "1px solid red");
+            } else {
 
                 $("#submitArf").prop("disabled", true);
 
-                // varFileUpload_UniqueID = "Upload";
-                // window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
+                varFileUpload_UniqueID = "Upload";
+                window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
                                 
                 var action = $(this).attr("action"); //get submit action from form
                 var method = $(this).attr("method"); // get submit method
@@ -466,7 +508,7 @@
                             data: form_data,
                             type: method,
                             success: function(response) {
-
+                                console.log(response.message);
                                 if(response.message === "SelectWorkFlow"){
                                     
                                     $("#loading").hide();
@@ -478,10 +520,33 @@
                                     t.clear();
                                     $.each(response.data, function(key, val) {
                                         t.row.add([
-                                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.sys_ID + '\', \'' + response.input + '\', \'' + response.varData + '\', \'' + response.VarSelectWorkFlow + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.sys_ID + '\', \'' + response.businessDocument_RefID + '\', \'' + response.documentNumber + '\', \'' + response.approverEntity_RefID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
                                             '<td style="border:1px solid #e9ecef;">' + val.fullApproverPath + '</td></tr></tbody>'
                                         ]).draw();
                                     });
+                                    
+                                }
+                                else if(response.message === "WorkFlowError"){
+                                    
+                                    $("#loading").hide();
+                                    $(".loader").hide();
+
+                                    swalWithBootstrapButtons.fire({
+
+                                    title: 'Cancelled',
+                                    text: "You do not have access to this menu!",
+                                    type: 'error',
+                                    confirmButtonColor: '#e9ecef',
+                                    confirmButtonText: '<span style="color:black;"> Ok </span>',
+
+                                    }).then((result) => {
+                                    if (result.value) {
+                                        $("#loading").show();
+                                        $(".loader").show();
+
+                                        window.location.href = '/AdvanceRequest?var=1';
+                                    }
+                                    })
                                     
                                 }
                                 else{
@@ -493,7 +558,7 @@
 
                                         title: 'Successful !',
                                         type: 'success',
-                                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + response.advnumber + '</span>',
+                                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + response.documentNumber + '</span>',
                                         showCloseButton: false,
                                         showCancelButton: false,
                                         focusConfirm: false,
@@ -545,7 +610,7 @@
                         })
                     }
                 })
-            // }
+            }
         });
 
     });
@@ -553,9 +618,7 @@
 
 <script>
 
-    function SelectWorkFlow(sys_ID, input, varData, VarSelectWorkFlow) {
-
-        console.log(varData);
+    function SelectWorkFlow(workFlowPath_RefID, businessDocument_RefID, documentNumber, approverEntity_RefID) {
 
         $.ajaxSetup({
             headers: {
@@ -565,16 +628,23 @@
 
         $.ajax({
             type: 'GET',
-            url: '{!! route("StoreWorkFlow") !!}?sys_ID=' + sys_ID + '&input=' + input + '&varData=' + varData + '&VarSelectWorkFlow=' + VarSelectWorkFlow,
+            url: '{!! route("StoreWorkFlow") !!}?workFlowPath_RefID=' + workFlowPath_RefID + '&businessDocument_RefID=' + businessDocument_RefID + '&documentNumber=' + documentNumber + '&approverEntity_RefID=' + approverEntity_RefID,
             success: function(data) {
+
                 $("#loading").hide();
                 $(".loader").hide();
 
+                const swalWithBootstrapButtons = Swal.mixin({
+                    confirmButtonClass: 'btn btn-success btn-sm',
+                    cancelButtonClass: 'btn btn-danger btn-sm',
+                    buttonsStyling: true,
+                })
+                
                 swalWithBootstrapButtons.fire({
 
                     title: 'Successful !',
                     type: 'success',
-                    html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + response.advnumber + '</span>',
+                    html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + data.documentNumber + '</span>',
                     showCloseButton: false,
                     showCancelButton: false,
                     focusConfirm: false,
