@@ -14,6 +14,17 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             
         public function testAja()
             {
+            echo "Test Aja";
+            
+            $x = 
+            (new \App\Models\Database\SchData_OLTP_Master\TblBusinessDocumentType())->getIDByName(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                'Purchase Requisition Form'
+                );
+            
+            dd($x);
+            
+            /*
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             $varAPIWebToken = 'xxx';
 
@@ -23,6 +34,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
                         14485000000000002
                         );
                 dd($varData);
+             */
 
             
 /*            
