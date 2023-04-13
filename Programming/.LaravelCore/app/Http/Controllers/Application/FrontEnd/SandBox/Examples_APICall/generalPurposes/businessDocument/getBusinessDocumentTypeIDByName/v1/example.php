@@ -69,13 +69,16 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\gen
                 }
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_Name" value="Purchase Requisition Form">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
                 'generalPurposes.businessDocument.getBusinessDocumentTypeIDByName', 
                 'latest', 
                 '{'.
-                    '"parameter" : null'.
+                    '"parameter" : {'.
+                        '"name" : document.getElementById("dataInput_Name").value'.
+                        '}'.
                 '}'
                 );            
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
