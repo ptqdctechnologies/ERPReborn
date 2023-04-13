@@ -80,7 +80,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\doc
                             {
                             $varDataSend[$i]['fullApproverPathArray'] = explode(' ► ', $varDataSend[$i]['fullApproverPath']);
                             }
-                        // dd($varDataSend);
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {

@@ -3,28 +3,26 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\instruction\server\internal\database\system  |
-|                 \tableSignatureResync\v1                                                                                         |
-| ▪ API Key     : instruction.server.internal.database.system.tableSignatureResync                                                 |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\delete\supplyChain               |
+|                 \setWarehouseType\v1                                                                                             |
+| ▪ API Key     : transaction.delete.supplyChain.setWarehouseType                                                                  |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\instruction\server\internal\database\system\tableSignatureResync\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\delete\supplyChain\setWarehouseType\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
-        |                     instruction.server.internal.database.system.tableSignatureResync.v1_throughAPIGateway                |
-        |                     ► http://172.28.0.4/                                                                                 |
-        |                       instruction.server.internal.database.system.tableSignatureResync.v1_throughAPIGateway              |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.delete.supplyChain.setWarehouseType.v1_throughAPIGateway                |
+        |                     ► http://172.28.0.4/transaction.delete.supplyChain.setWarehouseType.v1_throughAPIGateway             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-03-28                                                                                           |
-        | ▪ Creation Date   : 2023-03-28                                                                                           |
+        | ▪ Last Update     : 2023-03-31                                                                                           |
+        | ▪ Creation Date   : 2023-03-31                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
@@ -37,10 +35,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\ins
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'instruction.server.internal.database.system.tableSignatureResync', 
+                'transaction.delete.supplyChain.setWarehouseType', 
                 'latest', 
                 [
-                'parameter' => null
+                'recordID' => 172000000000001
                 ]
                 );
             var_dump($varData);
@@ -49,14 +47,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\ins
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
-        |                     instruction.server.internal.database.system.tableSignatureResync.v1_throughAPIGatewayJQuery          |
-        |                     ► http://172.28.0.4/                                                                                 |
-        |                       instruction.server.internal.database.system.tableSignatureResync.v1_throughAPIGatewayJQuery        |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.delete.supplyChain.setWarehouseType.v1_throughAPIGatewayJQuery          |
+        |                     ► http://172.28.0.4/transaction.delete.supplyChain.setWarehouseType.v1_throughAPIGatewayJQuery       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-03-28                                                                                           |
-        | ▪ Creation Date   : 2023-03-28                                                                                           |
+        | ▪ Last Update     : 2023-03-31                                                                                           |
+        | ▪ Creation Date   : 2023-03-31                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGatewayJQuery($varAPIWebToken)
@@ -67,15 +63,16 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\ins
                 }
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=172000000000001>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
-                'instruction.server.internal.database.system.tableSignatureResync', 
+                'transaction.delete.supplyChain.setWarehouseType', 
                 'latest', 
                 '{'.
-                    '"parameter" : null'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
                 '}'
-                );
+                ); 
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);
             }
