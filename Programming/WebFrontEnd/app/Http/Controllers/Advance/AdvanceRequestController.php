@@ -36,48 +36,76 @@ class AdvanceRequestController extends Controller
         $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
         $input = $request->all();
         // dd($input);
-        $count_product = count($input['var_product_id']);
-        $advanceDetail = [];
-        for($n =0; $n < $count_product; $n++){
-            $advanceDetail[$n] = [
-            'entities' => [
-                    "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudgetSectionDetail_RefID'][$n],
-                    "product_RefID" => (int) $input['var_product_id'][$n],
-                    "quantity" => (float) $input['var_quantity'][$n],
-                    "quantityUnit_RefID" => 73000000000001,
-                    "productUnitPriceCurrency_RefID" => 62000000000001,
-                    "productUnitPriceCurrencyValue" => (float) $input['var_price'][$n],
-                    "productUnitPriceCurrencyExchangeRate" => 1,
-                    "remarks" => 'Catatan Detail'
-                ]
-            ];
-        }
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+
+        $VarSelectWorkFlow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
-            'transaction.create.finance.setAdvance', 
-            'latest', 
+            'userAction.documentWorkFlow.general.getBusinessDocumentTypeWorkFlowPathBySubmitterEntityIDAndCombinedBudgetID', 
+            'latest',
             [
-            'entities' => [
-                "documentDateTimeTZ" => $input['var_date'],
-                "log_FileUpload_Pointer_RefID" => (int)$input['dataInput_Log_FileUpload_Pointer_RefID'],
-                "requesterWorkerJobsPosition_RefID" => (int)$input['request_name_id'],
-                "beneficiaryWorkerJobsPosition_RefID" => (int)$input['beneficiary_name_id'],
-                "beneficiaryBankAccount_RefID" => (int)$input['beneficiaryBankAccount_RefID'],
-                "internalNotes" => 'My Internal Notes',
-                "remarks" => $input['var_remark'],
-                "additionalData" => [
-                    "itemList" => [
-                        "items" => $advanceDetail
+            'parameter' => [
+                'businessDocumentType_RefID' => 1,
+                'submitterEntity_RefID' => 164000000000428,
+                'combinedBudget_RefID' => 46000000000033,
+                ]
+            ]
+            );
+            
+        if($VarSelectWorkFlow['metadata']['HTTPStatusCode'] == "500"){
+
+            $compact = [
+                "message" => "WorkFlowError"
+            ];
+    
+            return response()->json($compact);  
+        }
+        else{
+            
+            $count_product = count($input['var_product_id']);
+            $advanceDetail = [];
+            for($n =0; $n < $count_product; $n++){
+                $advanceDetail[$n] = [
+                'entities' => [
+                        "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudgetSectionDetail_RefID'][$n],
+                        "product_RefID" => (int) $input['var_product_id'][$n],
+                        "quantity" => (float) $input['var_quantity'][$n],
+                        "quantityUnit_RefID" => 73000000000001,
+                        "productUnitPriceCurrency_RefID" => 62000000000001,
+                        "productUnitPriceCurrencyValue" => (float) $input['var_price'][$n],
+                        "productUnitPriceCurrencyExchangeRate" => 1,
+                        "remarks" => 'Catatan Detail'
+                    ]
+                ];
+            }
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.create.finance.setAdvance', 
+                'latest', 
+                [
+                'entities' => [
+                    "documentDateTimeTZ" => $input['var_date'],
+                    "log_FileUpload_Pointer_RefID" => (int)$input['dataInput_Log_FileUpload_Pointer_RefID'],
+                    "requesterWorkerJobsPosition_RefID" => (int)$input['request_name_id'],
+                    "beneficiaryWorkerJobsPosition_RefID" => (int)$input['beneficiary_name_id'],
+                    "beneficiaryBankAccount_RefID" => (int)$input['beneficiaryBankAccount_RefID'],
+                    "internalNotes" => 'My Internal Notes',
+                    "remarks" => $input['var_remark'],
+                    "additionalData" => [
+                        "itemList" => [
+                            "items" => $advanceDetail
+                            ]
                         ]
                     ]
-                ]
-            ]                    
-        );
+                ]                    
+            );
+            // dd($varData);
 
-        // Var Data -> Combined Budget -> Approver Entity -> Submitter Entity
-        
-        return $this->SelectWorkFlow($varData, $input['var_combinedBudget_RefID'], $input['request_name_id'], $SessionWorkerCareerInternal_RefID);
+            // Var Data -> Combined Budget -> Approver Entity -> Submitter Entity
+            
+            return $this->SelectWorkFlow($varData, $input['var_combinedBudget_RefID'], $input['request_name_id'], $SessionWorkerCareerInternal_RefID);
+            
+        }
     }
 
     public function AdvanceListData(Request $request)
