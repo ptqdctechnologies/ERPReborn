@@ -56,7 +56,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         */
         function main($varUserSession, $varData)
             {
-
+            
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Update Mahasiswa Data (version 1)');
@@ -66,9 +66,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                         if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate($varUserSession, (new \App\Models\Database\SchData_Mulyadi\TblMahasiswa())->setDataUpdate(
                             $varUserSession,
                             $varData['recordID'],
-                            $varData['entities']['nik'],
-                            $varData['entities']['nama'],
-                            $varData['entities']['alamat']
+                            $varData['entities']['Jurusan_RefID'],
+                            $varData['entities']['Nik'],
+                            $varData['entities']['Nama'],
+                            $varData['entities']['Alamat']
                             ))))
                             {
                             throw new \Exception();

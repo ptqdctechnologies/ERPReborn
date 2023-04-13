@@ -43,7 +43,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-11-26                                                                                           |
-        | ▪ Description     : Fungsi Utama Engine                                                                                  |
+        | ▪ Description     : Fungsi Utama EnJurusan_RefIDgine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
@@ -65,8 +65,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                             throw new \Exception('SQL Injection Threat Prevention');
                             }
                         if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_Mulyadi\General())->getDataList_Mahasiswa(
-                            $varUserSession, 
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
+                            $varUserSession,
+                            $varData['parameter']['Jurusan_RefID'], 
                             $varData['SQLStatement']['pick'], 
                             $varData['SQLStatement']['sort'], 
                             $varData['SQLStatement']['filter'], 

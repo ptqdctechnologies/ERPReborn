@@ -41,7 +41,7 @@ namespace App\Models\Database\SchData_Mulyadi
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Jurusan(
-            $varUserSession, int $varBranchID, 
+            $varUserSession,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
 
@@ -52,7 +52,6 @@ namespace App\Models\Database\SchData_Mulyadi
                         $varUserSession,
                         'SchData-Mulyadi.Func_GetDataList_Jurusan',
                         [
-                            [$varBranchID, 'bigint' ],
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
                             [$varFilterStatement, 'varchar'],
@@ -89,9 +88,10 @@ namespace App\Models\Database\SchData_Mulyadi
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Mahasiswa(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varJurusan_RefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
+                
             try {
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession, 
@@ -99,7 +99,7 @@ namespace App\Models\Database\SchData_Mulyadi
                         $varUserSession,
                         'SchData-Mulyadi.Func_GetDataList_Mahasiswa',
                         [
-                            [$varBranchID, 'bigint' ],
+                            [$varJurusan_RefID, 'bigint' ],
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
                             [$varFilterStatement, 'varchar'],
