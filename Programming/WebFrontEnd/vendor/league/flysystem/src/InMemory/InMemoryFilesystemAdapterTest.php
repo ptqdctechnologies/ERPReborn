@@ -87,7 +87,6 @@ class InMemoryFilesystemAdapterTest extends FilesystemAdapterTestCase
         $this->assertTrue($adapter->fileExists('a/path.txt'));
         $this->assertFalse($adapter->fileExists('a/b/path.txt'));
         $this->assertFalse($adapter->fileExists('a/b/c/path.txt'));
-//        var_dump(iterator_to_array($adapter->listContents('', false)));
     }
 
     /**
@@ -261,7 +260,7 @@ class InMemoryFilesystemAdapterTest extends FilesystemAdapterTestCase
         $this->assertTrue($adapter->fileExists(self::PATH));
         $this->assertEquals(754, $adapter->fileSize(self::PATH)->fileSize());
         $this->assertEquals(1234, $adapter->lastModified(self::PATH)->lastModified());
-        $this->assertStringStartsWith('image/svg', $adapter->mimeType(self::PATH)->mimeType());
+        $this->assertStringStartsWith('image/svg+xml', $adapter->mimeType(self::PATH)->mimeType());
     }
 
     /**

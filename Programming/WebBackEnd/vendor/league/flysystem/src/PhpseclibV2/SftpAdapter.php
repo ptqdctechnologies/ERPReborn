@@ -58,7 +58,8 @@ class SftpAdapter implements FilesystemAdapter
         ConnectionProvider $connectionProvider,
         string $root,
         VisibilityConverter $visibilityConverter = null,
-        MimeTypeDetector $mimeTypeDetector = null
+        MimeTypeDetector $mimeTypeDetector = null,
+        private bool $detectMimeTypeUsingPath = false,
     ) {
         $this->connectionProvider = $connectionProvider;
         $this->prefixer = new PathPrefixer($root);
@@ -246,8 +247,9 @@ class SftpAdapter implements FilesystemAdapter
     public function mimeType(string $path): FileAttributes
     {
         try {
-            $contents = $this->read($path);
-            $mimetype = $this->mimeTypeDetector->detectMimeType($path, $contents);
+            $mimetype = $this->detectMimeTypeUsingPath
+                ? $this->mimeTypeDetector->detectMimeTypeFromPath($path)
+                : $this->mimeTypeDetector->detectMimeType($path, $this->read($path));
         } catch (Throwable $exception) {
             throw UnableToRetrieveMetadata::mimeType($path, $exception->getMessage(), $exception);
         }

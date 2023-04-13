@@ -25,6 +25,7 @@ use League\Flysystem\UnableToDeleteFile;
 use League\Flysystem\UnableToMoveFile;
 use League\Flysystem\UnableToRetrieveMetadata;
 use League\Flysystem\Visibility;
+use function iterator_to_array;
 
 /**
  * @group aws
@@ -358,6 +359,26 @@ class AsyncAwsS3AdapterTest extends FilesystemAdapterTestCase
             $this->assertTrue($adapter->fileExists('destination.txt'));
             $this->assertEquals(Visibility::PRIVATE, $adapter->visibility('destination.txt')->visibility());
             $this->assertEquals('contents to be copied', $adapter->read('destination.txt'));
+        });
+    }
+
+    /**
+     * @test
+     */
+    public function top_level_directory_excluded_from_listing(): void
+    {
+        $this->runScenario(function () {
+            $adapter = $this->adapter();
+            $adapter->write('directory/file.txt', '', new Config());
+            $adapter->createDirectory('empty', new Config());
+            $adapter->createDirectory('nested/nested', new Config());
+            $listing1 = iterator_to_array($adapter->listContents('directory', true));
+            $listing2 = iterator_to_array($adapter->listContents('empty', true));
+            $listing3 = iterator_to_array($adapter->listContents('nested', true));
+
+            self::assertCount(1, $listing1);
+            self::assertCount(0, $listing2);
+            self::assertCount(1, $listing3);
         });
     }
 
