@@ -508,8 +508,8 @@
                             data: form_data,
                             type: method,
                             success: function(response) {
-                                console.log(response.message);
-                                if(response.message === "SelectWorkFlow"){
+                                console.log();
+                                if(response.message == "SelectWorkFlow"){
                                     
                                     $("#loading").hide();
                                     $(".loader").hide();
@@ -524,29 +524,6 @@
                                             '<td style="border:1px solid #e9ecef;">' + val.fullApproverPath + '</td></tr></tbody>'
                                         ]).draw();
                                     });
-                                    
-                                }
-                                else if(response.message === "WorkFlowError"){
-                                    
-                                    $("#loading").hide();
-                                    $(".loader").hide();
-
-                                    swalWithBootstrapButtons.fire({
-
-                                    title: 'Cancelled',
-                                    text: "You do not have access to this menu!",
-                                    type: 'error',
-                                    confirmButtonColor: '#e9ecef',
-                                    confirmButtonText: '<span style="color:black;"> Ok </span>',
-
-                                    }).then((result) => {
-                                    if (result.value) {
-                                        $("#loading").show();
-                                        $(".loader").show();
-
-                                        window.location.href = '/AdvanceRequest?var=1';
-                                    }
-                                    })
                                     
                                 }
                                 else{

@@ -36,7 +36,18 @@ class AdvanceRequestController extends Controller
         $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
         $input = $request->all();
         // dd($input);
-
+        $GetBusinessDoc = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'generalPurposes.businessDocument.getBusinessDocumentTypeIDByName', 
+            'latest',
+            [
+            'parameter' => [
+                'name' => 'Advance Form'
+                ]
+            ]
+            );
+        
         $VarSelectWorkFlow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
@@ -44,20 +55,20 @@ class AdvanceRequestController extends Controller
             'latest',
             [
             'parameter' => [
-                'businessDocumentType_RefID' => 1,
-                'submitterEntity_RefID' => 164000000000428,
-                'combinedBudget_RefID' => 46000000000033,
+                'businessDocumentType_RefID' => (int)$GetBusinessDoc['data']['businessDocumentType_RefID'],
+                'submitterEntity_RefID' => (int)$SessionWorkerCareerInternal_RefID,
+                'combinedBudget_RefID' => (int)$input['var_combinedBudget_RefID']
                 ]
             ]
             );
-            
-        if($VarSelectWorkFlow['metadata']['HTTPStatusCode'] == "500"){
+
+        if($VarSelectWorkFlow['metadata']['HTTPStatusCode'] != "200"){
 
             $compact = [
-                "message" => "WorkFlowError"
+                "message" => "WorkflowError"
             ];
     
-            return response()->json($compact);  
+            return response()->json($compact);
         }
         else{
             
@@ -101,9 +112,9 @@ class AdvanceRequestController extends Controller
             );
             // dd($varData);
 
-            // Var Data -> Combined Budget -> Approver Entity -> Submitter Entity
+            // Var Data -> Combined Budget -> Submitter Entity -> Var Select WorkFlow
             
-            return $this->SelectWorkFlow($varData, $input['var_combinedBudget_RefID'], $input['request_name_id'], $SessionWorkerCareerInternal_RefID);
+            return $this->SelectWorkFlow($varData, $input['request_name_id'], $VarSelectWorkFlow);
             
         }
     }

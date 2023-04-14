@@ -29,7 +29,6 @@ class LoginController extends Controller
             $password
         );
         // dd($varData);
-
         if(count($varData['data']['optionList']) == 1){
             if(count($varData['data']['optionList'][0]['userRole'])){
 
@@ -50,18 +49,9 @@ class LoginController extends Controller
                     ]
                 );
 
-                $varDatax = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'environment.general.session.getData', 
-                    'latest', 
-                    [
-                    ]
-                    );
-                // dd($varDatax['data']['userLoginSessionID']);
-
-
                 $request->session()->put('SessionLogin', $varAPIWebToken);
+                $request->session()->put('SessionLoginName', $varData['data']['userIdentity']['personName']);
+                
                 $request->session()->put('SessionWorkerCareerInternal_RefID', $varData['data']['userIdentity']['workerCareerInternal_RefID']);
                 return response()->json($varDatas['metadata']['HTTPStatusCode']);
                 
@@ -123,6 +113,7 @@ class LoginController extends Controller
 
         if ($varData['metadata']['HTTPStatusCode'] == '200') {
             $request->session()->put('SessionLogin', $varAPIWebToken);
+            $request->session()->put('SessionLoginName', $dataAwal['data']['userIdentity']['personName']);
             return redirect('/dashboard');
         }
         return redirect('/')->with('message', 'Login Failed');
