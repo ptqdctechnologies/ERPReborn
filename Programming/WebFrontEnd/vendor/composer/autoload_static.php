@@ -334,8 +334,8 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -647,6 +647,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\fileHandling\\upload\\stagingArea\\localStorage\\getFilesList\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/fileHandling/upload/stagingArea/localStorage/getFilesList/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\fileHandling\\upload\\stagingArea\\localStorage\\getSubDirectoriesList\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/fileHandling/upload/stagingArea/localStorage/getSubDirectoriesList/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\fileHandling\\upload\\stagingArea\\localStorage\\setFileThenCopyToCloudStorage\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/fileHandling/upload/stagingArea/localStorage/setFileThenCopyToCloudStorage/v1/example.php',
+        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\generalPurposes\\businessDocument\\getBusinessDocumentTypeIDByName\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/generalPurposes/businessDocument/getBusinessDocumentTypeIDByName/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\instruction\\device\\fingerprintAttendance\\ALBox\\FP800\\getDataAttendance\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/instruction/device/fingerprintAttendance/ALBox/FP800/getDataAttendance/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\instruction\\device\\fingerprintAttendance\\Solution\\x601\\getDataAttendance\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/instruction/device/fingerprintAttendance/Solution/x601/getDataAttendance/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\instruction\\server\\internal\\database\\system\\recordLastModifiedResynchronization\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/instruction/server/internal/database/system/recordLastModifiedResynchronization/v1/example.php',
@@ -1239,6 +1240,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Http\\Controllers\\Master\\UomController' => __DIR__ . '/../..' . '/app/Http/Controllers/Master/UomController.php',
         'App\\Http\\Controllers\\Purchase\\PurchaseOrderController' => __DIR__ . '/../..' . '/app/Http/Controllers/Purchase/PurchaseOrderController.php',
         'App\\Http\\Controllers\\Purchase\\PurchaseRequisitionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Purchase/PurchaseRequisitionController.php',
+        'App\\Http\\Controllers\\TestApiController' => __DIR__ . '/../..' . '/app/Http/Controllers/TestApiController.php',
         'App\\Http\\Controllers\\controllerSalesCo' => __DIR__ . '/../..' . '/app/Http/Controllers/controllerSalesCo.php',
         'App\\Http\\Controllers\\finance' => __DIR__ . '/../..' . '/app/Http/Controllers/finance.php',
         'App\\Http\\Controllers\\homeController' => __DIR__ . '/../..' . '/app/Http/Controllers/homeController.php',
