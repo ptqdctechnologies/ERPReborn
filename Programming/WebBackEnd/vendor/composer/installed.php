@@ -20,9 +20,9 @@
             'dev_requirement' => false,
         ),
         'aws/aws-sdk-php' => array(
-            'pretty_version' => '3.263.9',
-            'version' => '3.263.9.0',
-            'reference' => '539a5fa9d27017120db16c7a0e5fc345858835d4',
+            'pretty_version' => '3.263.11',
+            'version' => '3.263.11.0',
+            'reference' => '4ac444fd1dfabe18714d05d2603e92468c00a28b',
             'type' => 'library',
             'install_path' => __DIR__ . '/../aws/aws-sdk-php',
             'aliases' => array(),
@@ -755,9 +755,9 @@
             'dev_requirement' => true,
         ),
         'phpunit/phpunit' => array(
-            'pretty_version' => '9.6.6',
-            'version' => '9.6.6.0',
-            'reference' => 'b65d59a059d3004a040c16a82e07bbdf6cfdd115',
+            'pretty_version' => '9.6.7',
+            'version' => '9.6.7.0',
+            'reference' => 'c993f0d3b0489ffc42ee2fe0bd645af1538a63b2',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpunit/phpunit',
             'aliases' => array(),
@@ -906,9 +906,9 @@
             'dev_requirement' => false,
         ),
         'ramsey/uuid' => array(
-            'pretty_version' => '4.x-dev',
-            'version' => '4.9999999.9999999.9999999-dev',
-            'reference' => '8e955307d32dc9b6992440ff81321d3cb09db75a',
+            'pretty_version' => '4.7.4',
+            'version' => '4.7.4.0',
+            'reference' => '60a4c63ab724854332900504274f6150ff26d286',
             'type' => 'library',
             'install_path' => __DIR__ . '/../ramsey/uuid',
             'aliases' => array(),
@@ -917,7 +917,7 @@
         'rhumsaa/uuid' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => '4.x-dev',
+                0 => '4.7.4',
             ),
         ),
         'sebastian/cli-parser' => array(
@@ -1146,9 +1146,9 @@
             'dev_requirement' => false,
         ),
         'symfony/error-handler' => array(
-            'pretty_version' => 'v6.2.7',
-            'version' => '6.2.7.0',
-            'reference' => '61e90f94eb014054000bc902257d2763fac09166',
+            'pretty_version' => 'v6.2.9',
+            'version' => '6.2.9.0',
+            'reference' => 'e95f1273b3953c3b5e5341172dae838bacee11ee',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/error-handler',
             'aliases' => array(),
@@ -1206,9 +1206,9 @@
             'dev_requirement' => false,
         ),
         'symfony/http-kernel' => array(
-            'pretty_version' => 'v6.2.8',
-            'version' => '6.2.8.0',
-            'reference' => '9563229e56076070d92ca30c089e801e8a4629a3',
+            'pretty_version' => 'v6.2.9',
+            'version' => '6.2.9.0',
+            'reference' => '02246510cf7031726f7237138d61b796b95799b3',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/http-kernel',
             'aliases' => array(),

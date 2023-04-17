@@ -771,9 +771,9 @@
             'dev_requirement' => false,
         ),
         'ramsey/uuid' => array(
-            'pretty_version' => '4.x-dev',
-            'version' => '4.9999999.9999999.9999999-dev',
-            'reference' => '8e955307d32dc9b6992440ff81321d3cb09db75a',
+            'pretty_version' => '4.7.4',
+            'version' => '4.7.4.0',
+            'reference' => '60a4c63ab724854332900504274f6150ff26d286',
             'type' => 'library',
             'install_path' => __DIR__ . '/../ramsey/uuid',
             'aliases' => array(),
@@ -782,7 +782,7 @@
         'rhumsaa/uuid' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => '4.x-dev',
+                0 => '4.7.4',
             ),
         ),
         'sebastian/code-unit-reverse-lookup' => array(
@@ -957,9 +957,9 @@
             'dev_requirement' => false,
         ),
         'symfony/error-handler' => array(
-            'pretty_version' => 'v6.2.7',
-            'version' => '6.2.7.0',
-            'reference' => '61e90f94eb014054000bc902257d2763fac09166',
+            'pretty_version' => 'v6.2.9',
+            'version' => '6.2.9.0',
+            'reference' => 'e95f1273b3953c3b5e5341172dae838bacee11ee',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/error-handler',
             'aliases' => array(),
@@ -1008,9 +1008,9 @@
             'dev_requirement' => false,
         ),
         'symfony/http-kernel' => array(
-            'pretty_version' => 'v6.2.8',
-            'version' => '6.2.8.0',
-            'reference' => '9563229e56076070d92ca30c089e801e8a4629a3',
+            'pretty_version' => 'v6.2.9',
+            'version' => '6.2.9.0',
+            'reference' => '02246510cf7031726f7237138d61b796b95799b3',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/http-kernel',
             'aliases' => array(),

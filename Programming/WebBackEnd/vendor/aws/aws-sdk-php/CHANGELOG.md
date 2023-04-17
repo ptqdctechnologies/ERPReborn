@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## 3.263.11 - 2023-04-14
+
+* `Aws\ECS` - This release supports ephemeral storage for AWS Fargate Windows containers.
+* `Aws\Lambda` - This release adds SnapStart related exceptions to InvokeWithResponseStream API. IAM access related documentation is also added for this API.
+* `Aws\MigrationHubRefactorSpaces` - Doc only update for Refactor Spaces environments without network bridge feature.
+* `Aws\RDS` - This release adds support of modifying the engine mode of database clusters.
+
+## 3.263.10 - 2023-04-13
+
+* `Aws\ChimeSDKVoice` - This release adds tagging support for Voice Connectors and SIP Media Applications
+* `Aws\MediaConnect` - Gateway is a new feature of AWS Elemental MediaConnect. Gateway allows the deployment of on-premises resources for the purpose of transporting live video to and from the AWS Cloud.
+
 ## 3.263.9 - 2023-04-12
 
 * `Aws\GroundStation` - AWS Ground Station Wideband DigIF GA Release
