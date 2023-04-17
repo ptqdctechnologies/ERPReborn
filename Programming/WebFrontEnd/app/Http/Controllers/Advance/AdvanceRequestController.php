@@ -61,8 +61,10 @@ class AdvanceRequestController extends Controller
                 ]
             ]
             );
+            
+        // dd($VarSelectWorkFlow);
 
-        if($VarSelectWorkFlow['metadata']['HTTPStatusCode'] != "200"){
+        if($VarSelectWorkFlow['metadata']['HTTPStatusCode'] != "200" || count($VarSelectWorkFlow['data']) == 0){
 
             $compact = [
                 "message" => "WorkflowError"
@@ -80,8 +82,8 @@ class AdvanceRequestController extends Controller
                         "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudgetSectionDetail_RefID'][$n],
                         "product_RefID" => (int) $input['var_product_id'][$n],
                         "quantity" => (float) $input['var_quantity'][$n],
-                        "quantityUnit_RefID" => 73000000000001,
-                        "productUnitPriceCurrency_RefID" => 62000000000001,
+                        "quantityUnit_RefID" => (int) $input['var_qty_id'][$n],
+                        "productUnitPriceCurrency_RefID" => (int) $input['var_currency_id'][$n],
                         "productUnitPriceCurrencyValue" => (float) $input['var_price'][$n],
                         "productUnitPriceCurrencyExchangeRate" => 1,
                         "remarks" => 'Catatan Detail'

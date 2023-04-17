@@ -31,12 +31,10 @@ class PurchaseRequisitionController extends Controller
 
     public function store(Request $request)
     {
-        $input = $request->all();
-        // dd($input);
-        $count_product = count($input['var_product_id']);
-
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
+        $input = $request->all();
+        // dd($input);
 
         $GetBusinessDoc = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -64,7 +62,7 @@ class PurchaseRequisitionController extends Controller
             ]
             );
 
-        if($VarSelectWorkFlow['metadata']['HTTPStatusCode'] != "200"){
+        if($VarSelectWorkFlow['metadata']['HTTPStatusCode'] != "200" || count($VarSelectWorkFlow['data']) == 0){
 
             $compact = [
                 "message" => "WorkflowError"
@@ -74,6 +72,7 @@ class PurchaseRequisitionController extends Controller
         }
         else{
 
+            $count_product = count($input['var_product_id']);
             $PurchaseRequisitionDetail = [];
             for ($n = 0; $n < $count_product; $n++) {
                 $PurchaseRequisitionDetail[$n] = [

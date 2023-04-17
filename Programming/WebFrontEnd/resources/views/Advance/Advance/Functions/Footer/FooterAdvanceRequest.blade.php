@@ -14,7 +14,7 @@
         $("#product_id2").prop("disabled", true);
         $("#bank_name2").prop("disabled", true);
         $("#bank_account2").prop("disabled", true);
-        $("#submitArf").prop("disabled", true);
+        // $("#submitArf").prop("disabled", true);
         
     });
 </script>
@@ -110,10 +110,12 @@
                         '<input name="getWorkName[]" value="'+ val2.combinedBudgetSubSectionLevel1Name +'" type="hidden">' +
                         '<input name="getProductId[]" value="'+ val2.product_RefID +'" type="hidden">' +
                         '<input name="getProductName[]" value="'+ val2.productName +'" type="hidden">' +
+                        '<input name="getQtyId[]" value="'+ val2.quantityUnit_RefID +'" type="hidden">' +
                         '<input name="getQty[]" id="budget_qty'+ key +'" value="'+ val2.quantityRemain +'" type="hidden">' +
                         '<input name="getPrice[]" id="budget_price'+ key +'" value="'+ val2.unitPriceBaseCurrencyValue +'" type="hidden">' +
                         '<input name="getUom[]" value="'+ val2.quantityUnitName +'" type="hidden">' +
                         '<input name="getCurrency[]" value="'+ val2.priceBaseCurrencyISOCode +'" type="hidden">' +
+                        '<input name="getCurrencyId[]" value="'+ val2.sys_BaseCurrency_RefID +'" type="hidden">' +
                         '<input name="combinedBudgetSectionDetail_RefID[]" value="'+ val2.sys_ID +'" type="hidden">' +
                         '<input name="combinedBudget_RefID" value="'+ val2.combinedBudget_RefID +'" type="hidden">' +
 
@@ -356,6 +358,8 @@
         var getProductId = $("input[name='getProductId[]']").map(function(){return $(this).val();}).get();
         var getProductName = $("input[name='getProductName[]']").map(function(){return $(this).val();}).get();
         var getUom = $("input[name='getUom[]']").map(function(){return $(this).val();}).get();
+        var getQtyId = $("input[name='getQtyId[]']").map(function(){return $(this).val();}).get();
+        var getCurrencyId = $("input[name='getCurrencyId[]']").map(function(){return $(this).val();}).get();
         var getCurrency = $("input[name='getCurrency[]']").map(function(){return $(this).val();}).get();
         var qty_req = $("input[name='qty_req[]']").map(function(){return $(this).val();}).get();
         var price_req = $("input[name='price_req[]']").map(function(){return $(this).val();}).get();
@@ -385,6 +389,8 @@
                     '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
                     '<input type="hidden" name="var_quantity[]" class="qty_req2'+ index +'" data-id="'+ index +'" value="' + currencyTotal(qty_req[index]).replace(/,/g, '') + '">' +
                     '<input type="hidden" name="var_uom[]" value="' + getUom[index] + '">' +
+                    '<input type="hidden" name="var_qty_id[]" value="' + getQtyId[index] + '">' +
+                    '<input type="hidden" name="var_currency_id[]" value="' + getCurrencyId[index] + '">' +
                     '<input type="hidden" name="var_price[]" class="price_req2'+ index +'" value="' + currencyTotal(price_req[index]).replace(/,/g, '') + '">' +
                     '<input type="hidden" name="var_total[]" class="total_req2'+ index +'" value="' + total_req[index] + '">' +
                     '<input type="hidden" name="var_currency[]" value="' + getCurrency[index] + '">' +
@@ -416,23 +422,6 @@
     }
 </script>
 
-<script type="text/javascript">
-    function ResetBudget() {
-      $("input[name='qty_req[]']").val("");
-      $("input[name='price_req[]']").val("");
-      $("input[name='total_req[]']").val("");
-    }
-    
-</script>
-
-<script type="text/javascript">
-    function CancelAdvance() {
-        $("#loading").show();
-        $(".loader").show();
-        window.location.href = '/AdvanceRequest?var=1';
-    }
-</script>
-
 <script>
     $(function() {
         $("#formSubmitArf").on("submit", function(e) { //id of form 
@@ -445,27 +434,27 @@
             $("#request_name").css("border", "1px solid #ced4da");
             $("#putRemark").css("border", "1px solid #ced4da");
 
-            if (valRequestName === "") {
-                $("#request_name").focus();
-                $("#request_name").attr('required', true);
-                $("#request_name").css("border", "1px solid red");
-            } else if (valBeneficiaryName === "") {
-                $("#beneficiary_name").focus();
-                $("#beneficiary_name").attr('required', true);
-                $("#beneficiary_name").css("border", "1px solid red");
-            } else if (valBankName === "") {
-                $("#bank_name").focus();
-                $("#bank_name").attr('required', true);
-                $("#bank_name").css("border", "1px solid red");
-            } else if (valBankAccount === "") {
-                $("#bank_account").focus();
-                $("#bank_account").attr('required', true);
-                $("#bank_account").css("border", "1px solid red");
-            } else if (valRemark === "") {
-                $("#putRemark").focus();
-                $("#putRemark").attr('required', true);
-                $("#putRemark").css("border", "1px solid red");
-            } else {
+            // if (valRequestName === "") {
+            //     $("#request_name").focus();
+            //     $("#request_name").attr('required', true);
+            //     $("#request_name").css("border", "1px solid red");
+            // } else if (valBeneficiaryName === "") {
+            //     $("#beneficiary_name").focus();
+            //     $("#beneficiary_name").attr('required', true);
+            //     $("#beneficiary_name").css("border", "1px solid red");
+            // } else if (valBankName === "") {
+            //     $("#bank_name").focus();
+            //     $("#bank_name").attr('required', true);
+            //     $("#bank_name").css("border", "1px solid red");
+            // } else if (valBankAccount === "") {
+            //     $("#bank_account").focus();
+            //     $("#bank_account").attr('required', true);
+            //     $("#bank_account").css("border", "1px solid red");
+            // } else if (valRemark === "") {
+            //     $("#putRemark").focus();
+            //     $("#putRemark").attr('required', true);
+            //     $("#putRemark").css("border", "1px solid red");
+            // } else {
 
                 $("#submitArf").prop("disabled", true);
 
@@ -559,7 +548,7 @@
 
                                 $("#submitArf").prop("disabled", false);
 
-                                Swal.fire("Cancelled", "Data Cancel Inputed", "error");
+                                Swal.fire("Cancelled", "You don't have access", "error");
                             },
 
                         })
@@ -587,7 +576,7 @@
                         })
                     }
                 })
-            }
+            // }
         });
 
     });
@@ -644,5 +633,23 @@
             }
         });
 
+    }
+</script>
+
+
+<script type="text/javascript">
+    function ResetBudget() {
+      $("input[name='qty_req[]']").val("");
+      $("input[name='price_req[]']").val("");
+      $("input[name='total_req[]']").val("");
+    }
+    
+</script>
+
+<script type="text/javascript">
+    function CancelAdvance() {
+        $("#loading").show();
+        $(".loader").show();
+        window.location.href = '/AdvanceRequest?var=1';
     }
 </script>
