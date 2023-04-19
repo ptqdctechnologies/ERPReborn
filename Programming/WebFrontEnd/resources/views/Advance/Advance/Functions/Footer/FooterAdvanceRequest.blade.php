@@ -14,7 +14,7 @@
         $("#product_id2").prop("disabled", true);
         $("#bank_name2").prop("disabled", true);
         $("#bank_account2").prop("disabled", true);
-        // $("#submitArf").prop("disabled", true);
+        $("#submitArf").prop("disabled", true);
         
     });
 </script>
@@ -434,27 +434,27 @@
             $("#request_name").css("border", "1px solid #ced4da");
             $("#putRemark").css("border", "1px solid #ced4da");
 
-            // if (valRequestName === "") {
-            //     $("#request_name").focus();
-            //     $("#request_name").attr('required', true);
-            //     $("#request_name").css("border", "1px solid red");
-            // } else if (valBeneficiaryName === "") {
-            //     $("#beneficiary_name").focus();
-            //     $("#beneficiary_name").attr('required', true);
-            //     $("#beneficiary_name").css("border", "1px solid red");
-            // } else if (valBankName === "") {
-            //     $("#bank_name").focus();
-            //     $("#bank_name").attr('required', true);
-            //     $("#bank_name").css("border", "1px solid red");
-            // } else if (valBankAccount === "") {
-            //     $("#bank_account").focus();
-            //     $("#bank_account").attr('required', true);
-            //     $("#bank_account").css("border", "1px solid red");
-            // } else if (valRemark === "") {
-            //     $("#putRemark").focus();
-            //     $("#putRemark").attr('required', true);
-            //     $("#putRemark").css("border", "1px solid red");
-            // } else {
+            if (valRequestName === "") {
+                $("#request_name").focus();
+                $("#request_name").attr('required', true);
+                $("#request_name").css("border", "1px solid red");
+            } else if (valBeneficiaryName === "") {
+                $("#beneficiary_name").focus();
+                $("#beneficiary_name").attr('required', true);
+                $("#beneficiary_name").css("border", "1px solid red");
+            } else if (valBankName === "") {
+                $("#bank_name").focus();
+                $("#bank_name").attr('required', true);
+                $("#bank_name").css("border", "1px solid red");
+            } else if (valBankAccount === "") {
+                $("#bank_account").focus();
+                $("#bank_account").attr('required', true);
+                $("#bank_account").css("border", "1px solid red");
+            } else if (valRemark === "") {
+                $("#putRemark").focus();
+                $("#putRemark").attr('required', true);
+                $("#putRemark").css("border", "1px solid red");
+            } else {
 
                 $("#submitArf").prop("disabled", true);
 
@@ -528,7 +528,7 @@
                                         showCloseButton: false,
                                         showCancelButton: false,
                                         focusConfirm: false,
-                                        confirmButtonText: '<span style="color:black;"> Ok </span>',
+                                        confirmButtonText: '<span style="color:black;"> OK </span>',
                                         confirmButtonColor: '#4B586A',
                                         confirmButtonColor: '#e9ecef',
                                         reverseButtons: true
@@ -548,7 +548,24 @@
 
                                 $("#submitArf").prop("disabled", false);
 
-                                Swal.fire("Cancelled", "You don't have access", "error");
+                                // Swal.fire("Cancelled", "You don't have access", "error");
+
+                                swalWithBootstrapButtons.fire({
+
+                                title: 'Cancelled',
+                                text: "You don't have access",
+                                type: 'error',
+                                confirmButtonColor: '#e9ecef',
+                                confirmButtonText: '<span style="color:black;"> OK </span>',
+
+                                }).then((result) => {
+                                if (result.value) {
+                                    $("#loading").show();
+                                    $(".loader").show();
+
+                                    window.location.href = '/AdvanceRequest?var=1';
+                                }
+                                })
                             },
 
                         })
@@ -564,7 +581,7 @@
                             text: "Process Canceled",
                             type: 'error',
                             confirmButtonColor: '#e9ecef',
-                            confirmButtonText: '<span style="color:black;"> Ok </span>',
+                            confirmButtonText: '<span style="color:black;"> OK </span>',
 
                         }).then((result) => {
                             if (result.value) {
@@ -576,7 +593,7 @@
                         })
                     }
                 })
-            // }
+            }
         });
 
     });
@@ -614,7 +631,7 @@
                     showCloseButton: false,
                     showCancelButton: false,
                     focusConfirm: false,
-                    confirmButtonText: '<span style="color:black;"> Ok </span>',
+                    confirmButtonText: '<span style="color:black;"> OK </span>',
                     confirmButtonColor: '#4B586A',
                     confirmButtonColor: '#e9ecef',
                     reverseButtons: true
