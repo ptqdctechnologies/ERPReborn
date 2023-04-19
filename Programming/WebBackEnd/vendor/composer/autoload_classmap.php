@@ -5250,6 +5250,7 @@ return array(
     'Illuminate\\Support\\Composer' => $vendorDir . '/laravel/framework/src/Illuminate/Support/Composer.php',
     'Illuminate\\Support\\ConfigurationUrlParser' => $vendorDir . '/laravel/framework/src/Illuminate/Support/ConfigurationUrlParser.php',
     'Illuminate\\Support\\DateFactory' => $vendorDir . '/laravel/framework/src/Illuminate/Support/DateFactory.php',
+    'Illuminate\\Support\\DefaultProviders' => $vendorDir . '/laravel/framework/src/Illuminate/Support/DefaultProviders.php',
     'Illuminate\\Support\\Enumerable' => $vendorDir . '/laravel/framework/src/Illuminate/Collections/Enumerable.php',
     'Illuminate\\Support\\Env' => $vendorDir . '/laravel/framework/src/Illuminate/Support/Env.php',
     'Illuminate\\Support\\Exceptions\\MathException' => $vendorDir . '/laravel/framework/src/Illuminate/Support/Exceptions/MathException.php',
