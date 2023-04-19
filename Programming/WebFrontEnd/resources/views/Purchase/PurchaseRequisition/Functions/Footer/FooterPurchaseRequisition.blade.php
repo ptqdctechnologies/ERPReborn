@@ -384,7 +384,7 @@
                                     showCloseButton: false,
                                     showCancelButton: false,
                                     focusConfirm: false,
-                                    confirmButtonText: '<span style="color:black;"> Ok </span>',
+                                    confirmButtonText: '<span style="color:black;"> OK </span>',
                                     confirmButtonColor: '#4B586A',
                                     confirmButtonColor: '#e9ecef',
                                     reverseButtons: true
@@ -403,7 +403,22 @@
 
                             $("#submitPR").prop("disabled", false);
 
-                            Swal.fire("Cancelled", "Data Cancel Inputed", "error");
+                            swalWithBootstrapButtons.fire({
+
+                            title: 'Cancelled',
+                            text: "You don't have access",
+                            type: 'error',
+                            confirmButtonColor: '#e9ecef',
+                            confirmButtonText: '<span style="color:black;"> OK </span>',
+
+                            }).then((result) => {
+                            if (result.value) {
+                                $("#loading").show();
+                                $(".loader").show();
+                                window.location.href = '/PurchaseRequisition?var=1';
+                            }
+                            })
+
                         },
 
                     })
@@ -418,7 +433,7 @@
                         text: "Process Canceled",
                         type: 'error',
                         confirmButtonColor: '#e9ecef',
-                        confirmButtonText: '<span style="color:black;"> Ok </span>',
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
 
                     }).then((result) => {
                         if (result.value) {
@@ -467,7 +482,7 @@
                     showCloseButton: false,
                     showCancelButton: false,
                     focusConfirm: false,
-                    confirmButtonText: '<span style="color:black;"> Ok </span>',
+                    confirmButtonText: '<span style="color:black;"> OK </span>',
                     confirmButtonColor: '#4B586A',
                     confirmButtonColor: '#e9ecef',
                     reverseButtons: true

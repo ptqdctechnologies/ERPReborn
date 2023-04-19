@@ -363,7 +363,6 @@
                         type: 'GET',
                         url: '{!! route("getRoleLogin") !!}?username=' + $('.username').val() + '&password=' + $('.password').val() + '&branch_name=' + $('.branch_name').val(),
                         success: function(data) {
-                            console.log(data);
                             var len = 0;
                             if (data == '401') {
                                 Swal.fire("Cancelled", "Pastikan username dan password and benar", "error");
