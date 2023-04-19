@@ -42,7 +42,7 @@ varRolePassword='748159263';
 #+-------------------------------------------------------------------------------------------------+
 varDBName='dbERPReborn-SysConfig';
 varFileName='/var/lib/postgresql/temp/dump.sql';
-varDBMasterHost='192.168.1.24';
+varDBMasterHost='192.168.1.27';
 varDBMasterPort='5432';
 
 echo "---> Reinitializing Database : "$varDBName;
@@ -68,7 +68,7 @@ echo "";
 #+-------------------------------------------------------------------------------------------------+
 varDBName='dbERPReborn-Data-OLTP';
 varFileName='/var/lib/postgresql/temp/dump.sql';
-varDBMasterHost='192.168.1.24';
+varDBMasterHost='192.168.1.27';
 varDBMasterPort='5432';
 
 echo "---> Reinitializing Database : "$varDBName;
@@ -90,7 +90,7 @@ echo "";
 #+-------------------------------------------------------------------------------------------------+
 varDBName='dbERPReborn-Data-OLAP';
 varFileName='/var/lib/postgresql/temp/dump.sql';
-varDBMasterHost='192.168.1.24';
+varDBMasterHost='192.168.1.27';
 varDBMasterPort='5432';
 echo "---> Reinitializing Database : "$varDBName;
 varCmdContainer='psql -U postgres -d postgres -c';
@@ -109,7 +109,7 @@ echo "";
 #+-------------------------------------------------------------------------------------------------+
 varDBName='dbERPReborn-Data-BinaryObject';
 varFileName='/var/lib/postgresql/temp/dump.sql';
-varDBMasterHost='192.168.1.24';
+varDBMasterHost='192.168.1.27';
 varDBMasterPort='5432';
 
 echo "---> Reinitializing Database : "$varDBName;
@@ -134,7 +134,7 @@ varRolePassword='748159263';
 #+-------------------------------------------------------------------------------------------------+
 varDBName='dbERPReborn';
 varFileName='/var/lib/postgresql/temp/dump.sql';
-varDBMasterHost='192.168.1.24';
+varDBMasterHost='192.168.1.27';
 varDBMasterPort='5432';
 
 echo "---> Reinitializing Database : "$varDBName;
