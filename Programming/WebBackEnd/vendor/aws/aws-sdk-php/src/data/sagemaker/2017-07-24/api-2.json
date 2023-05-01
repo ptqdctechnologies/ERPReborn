@@ -3755,7 +3755,9 @@
         "ml.g5.12xlarge",
         "ml.g5.24xlarge",
         "ml.g5.48xlarge",
-        "ml.geospatial.interactive"
+        "ml.geospatial.interactive",
+        "ml.p4d.24xlarge",
+        "ml.p4de.24xlarge"
       ]
     },
     "AppList":{
@@ -4714,7 +4716,8 @@
     "CanvasAppSettings":{
       "type":"structure",
       "members":{
-        "TimeSeriesForecastingSettings":{"shape":"TimeSeriesForecastingSettings"}
+        "TimeSeriesForecastingSettings":{"shape":"TimeSeriesForecastingSettings"},
+        "ModelRegisterSettings":{"shape":"ModelRegisterSettings"}
       }
     },
     "CapacitySize":{
@@ -15099,6 +15102,13 @@
         "EndpointInput":{"shape":"EndpointInput"},
         "BatchTransformInput":{"shape":"BatchTransformInput"},
         "GroundTruthS3Input":{"shape":"MonitoringGroundTruthS3Input"}
+      }
+    },
+    "ModelRegisterSettings":{
+      "type":"structure",
+      "members":{
+        "Status":{"shape":"FeatureStatus"},
+        "CrossAccountModelRegisterRoleArn":{"shape":"RoleArn"}
       }
     },
     "ModelSortKey":{

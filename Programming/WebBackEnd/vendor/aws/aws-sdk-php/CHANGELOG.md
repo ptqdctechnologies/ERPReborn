@@ -1,5 +1,71 @@
 # CHANGELOG
 
+## 3.269.2 - 2023-04-28
+
+* `Aws\Appflow` - Adds Jwt Support for Salesforce Credentials.
+* `Aws\Athena` - You can now use capacity reservations on Amazon Athena to run SQL queries on fully-managed compute capacity.
+* `Aws\DirectConnect` - This release corrects the jumbo frames MTU from 9100 to 8500.
+* `Aws\EFS` - This release adds PAUSED and PAUSING state as a returned value for DescribeReplicationConfigurations response.
+* `Aws\IoT` - This release allows AWS IoT Core users to specify a TLS security policy when creating and updating AWS IoT Domain Configurations.
+* `Aws\ManagedGrafana` - This release adds support for the grafanaVersion parameter in CreateWorkspace.
+* `Aws\Rekognition` - Added support for aggregating moderation labels by video segment timestamps for Stored Video Content Moderation APIs and added additional information about the job to all Stored Video Get API responses.
+* `Aws\SimSpaceWeaver` - Added a new CreateSnapshot API. For the StartSimulation API, SchemaS3Location is now optional, added a new SnapshotS3Location parameter. For the DescribeSimulation API, added SNAPSHOT_IN_PROGRESS simulation state, deprecated SchemaError, added new fields: StartError and SnapshotS3Location.
+* `Aws\WAFV2` - You can now associate a web ACL with a Verified Access instance.
+* `Aws\WorkSpaces` - Added Windows 11 to support Microsoft_Office_2019
+
+## 3.269.1 - 2023-04-27
+
+* `Aws\` - Takes explicit dependency on psr/http-message >= 1.0 to avoid conflicts.
+* `Aws\EC2` - This release adds support for AMD SEV-SNP on EC2 instances.
+* `Aws\EMRContainers` - This release adds GetManagedEndpointSessionCredentials, a new API that allows customers to generate an auth token to connect to a managed endpoint, enabling features such as self-hosted Jupyter notebooks for EMR on EKS.
+* `Aws\GuardDuty` - Added API support to initiate on-demand malware scan on specific resources.
+* `Aws\IoTDeviceAdvisor` - AWS IoT Core Device Advisor now supports MQTT over WebSocket. With this update, customers can run all three test suites of AWS IoT Core Device Advisor - qualification, custom, and long duration tests - using Signature Version 4 for MQTT over WebSocket.
+* `Aws\Kafka` - Amazon MSK has added new APIs that allows multi-VPC private connectivity and cluster policy support for Amazon MSK clusters that simplify connectivity and access between your Apache Kafka clients hosted in different VPCs and AWS accounts and your Amazon MSK clusters.
+* `Aws\Lambda` - Add Java 17 (java17) support to AWS Lambda
+* `Aws\MarketplaceCatalog` - Enabled Pagination for List Entities and List Change Sets operations
+* `Aws\OSIS` - Documentation updates for OpenSearch Ingestion
+* `Aws\QLDB` - Documentation updates for Amazon QLDB
+* `Aws\SageMaker` - Added ml.p4d.24xlarge and ml.p4de.24xlarge as supported instances for SageMaker Studio
+* `Aws\XRay` - Updated X-Ray documentation with Resource Policy API descriptions.
+
+## 3.269.0 - 2023-04-26
+
+* `Aws\OSIS` - Initial release for OpenSearch Ingestion
+
+## 3.268.18 - 2023-04-25
+
+* `Aws\ChimeSDKMessaging` - Remove non actionable field from UpdateChannelReadMarker and DeleteChannelRequest. Add precise exceptions to DeleteChannel and DeleteStreamingConfigurations error cases.
+* `Aws\Connect` - Amazon Connect, Contact Lens Evaluation API release including ability to manage forms and to submit contact evaluations.
+* `Aws\DataSync` - This release adds 13 new APIs to support AWS DataSync Discovery GA.
+* `Aws\DirectoryService` - New field added in AWS Managed Microsoft AD DescribeSettings response and regex pattern update for UpdateSettings value. Added length validation to RemoteDomainName.
+* `Aws\Pinpoint` - Adds support for journey runs and querying journey execution metrics based on journey runs. Adds execution metrics to campaign activities. Updates docs for Advanced Quiet Time.
+
+## 3.268.17 - 2023-04-24
+
+* `Aws\Appflow` - Increased the max length for RefreshToken and AuthCode from 2048 to 4096.
+* `Aws\CodeCatalyst` - Documentation updates for Amazon CodeCatalyst.
+* `Aws\EC2` - API changes to AWS Verified Access related to identity providers' information.
+* `Aws\MediaConvert` - This release introduces a noise reduction pre-filter, linear interpolation deinterlace mode, video pass-through, updated default job settings, and expanded LC-AAC Stereo audio bitrate ranges.
+* `Aws\Rekognition` - Added new status result to Liveness session status.
+
+## 3.268.16 - 2023-04-21
+
+* `Aws\Connect` - This release adds a new API CreateParticipant. For Amazon Connect Chat, you can use this new API to customize chat flow experiences.
+* `Aws\ECS` - Documentation update to address various Amazon ECS tickets.
+* `Aws\FMS` - AWS Firewall Manager adds support for multiple administrators. You can now delegate more than one administrator per organization.
+
+## 3.263.14 - 2023-04-20
+
+* `Aws\Chime` - Adds support for Hindi and Thai languages and additional Amazon Transcribe parameters to the StartMeetingTranscription API.
+* `Aws\ChimeSDKMediaPipelines` - This release adds support for specifying the recording file format in an S3 recording sink configuration.
+* `Aws\ChimeSDKMeetings` - Adds support for Hindi and Thai languages and additional Amazon Transcribe parameters to the StartMeetingTranscription API.
+* `Aws\GameLift` - Amazon GameLift supports creating Builds for Windows 2016 operating system.
+* `Aws\GuardDuty` - This release adds support for the new Lambda Protection feature.
+* `Aws\IoT` - Support additional OTA states in GetOTAUpdate API
+* `Aws\SageMaker` - Amazon SageMaker Canvas adds ModelRegisterSettings support for CanvasAppSettings.
+* `Aws\Snowball` - Adds support for Amazon S3 compatible storage. AWS Snow Family customers can now use Amazon S3 compatible storage on Snowball Edge devices. Also adds support for V3_5S. This is a refreshed AWS Snowball Edge Storage Optimized device type with 210TB SSD (customer usable).
+* `Aws\WAFV2` - You can now create encrypted API keys to use in a client application integration of the JavaScript CAPTCHA API . You can also retrieve a list of your API keys and the JavaScript application integration URL.
+
 ## 3.263.13 - 2023-04-19
 
 * `Aws\Comprehend` - This release supports native document models for custom classification, in addition to plain-text models. You train native document models using documents (PDF, Word, images) in their native format.
