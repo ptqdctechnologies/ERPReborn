@@ -96,6 +96,137 @@ namespace App\Helpers\ZhtHelper\Database
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getArrayFromQueryExecutionDataFetch_UsingLaravelConnection                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2023-05-03                                                                                           |
+        | ▪ Creation Date   : 2023-05-03                                                                                           |
+        | ▪ Description     : Mengambil data berbentuk Array dari database sesuai syntax query (varSQLQuery) melalui koneksi       |
+        |                     Laravel Connection                                                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession                                                                                           |
+        |      ▪ (string) varSQLQuery                                                                                              |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array) $varDataFetch                                                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        private static function getArrayFromQueryExecutionDataFetch_UsingLaravelConnection($varUserSession, $varSQLQuery)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Fetch Array Data from SQL syntax `'.$varSQLQuery.'`');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    //$varSQLQuery = preg_replace('/\s+/', '', $varSQLQuery);                   
+                    $i=0;
+                    $varDataFetch = self::getQueryExecutionDataFetch($varUserSession, $varSQLQuery);
+                    //var_dump($varReturn);
+                    //var_dump($varSQLQuery);
+                    $varData = [];
+                    $varNotice = null;
+                    foreach($varDataFetch as $row)
+                        {
+                        $varData[] = (array) $row;
+                        //str_replace("world","Peter","Hello world!");
+                        //$varData[] = str_replace("\\u20ac", "€", ((array) $row));
+                        $i++;
+                        }
+                    $varReturn['Data'] = $varData;
+                    $varReturn['Notice'] = null;
+                    $varReturn['RowCount']=$i;
+                    unset($varData);                   
+                    
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getArrayFromQueryExecutionDataFetch_UsingPGSQLConnection                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2023-05-03                                                                                           |
+        | ▪ Creation Date   : 2023-05-03                                                                                           |
+        | ▪ Description     : Mengambil data berbentuk Array dari database sesuai syntax query (varSQLQuery) melalui koneksi       |
+        |                     PGSQL/Connection                                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession                                                                                           |
+        |      ▪ (string) varSQLQuery                                                                                              |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array) $varDataFetch                                                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        private static function getArrayFromQueryExecutionDataFetch_UsingPGSQLConnection($varUserSession, $varSQLQuery)
+            {  
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Fetch data from SQL syntax Using PGSQL/Connection`'.$varSQLQuery.'`');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    $varConfig = (array) (\Illuminate\Support\Facades\DB::getConfig());
+
+                    if(!is_null($varConfig))
+                        {
+                        $varConnectionString = 
+                            'host='.$varConfig['host'].' '.
+                            'port='.$varConfig['port'].' '.
+                            'dbname='.$varConfig['database'].' '.
+                            'user='.$varConfig['username'].' '.
+                            'password='.$varConfig['password'];
+
+                        $i=0;
+                        $varData = [];
+                        $varNotice = null;
+                        if($DBConnection = pg_connect($varConnectionString))
+                            {
+                            $varResult = pg_query($DBConnection, $varSQLQuery);
+                            $varNotice = pg_last_notice($DBConnection, PGSQL_NOTICE_ALL);
+
+                            while ($row = pg_fetch_assoc($varResult)) {
+                                $varData[] = $row;
+                                $i++;
+                                }
+                            }
+                        $varReturn['Data'] = $varData;
+                        $varReturn['Notice'] = $varNotice;
+                        $varReturn['RowCount']=$i;
+                        }
+                    else
+                        {
+                        //dd($varConfig);
+                        $varDataTemp = self::getArrayFromQueryExecutionDataFetch_UsingLaravelConnection($varUserSession, $varSQLQuery);
+                        $varReturn['Data'] = $varDataTemp['Data'];
+                        $varReturn['Notice'] = $varDataTemp['Notice'];
+                        $varReturn['RowCount'] = $varDataTemp['RowCount'];                        
+                        }
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getBuildStringLiteral_StoredProcedure                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000002                                                                                       |
@@ -567,31 +698,24 @@ namespace App\Helpers\ZhtHelper\Database
                             else
                                 {
                                 //---> Inisialisasi [Process][StartDateTime]
-                                $varDataFetch = self::getQueryExecutionDataFetch($varUserSession, "SELECT NOW();");
-                                foreach($varDataFetch as $row)
-                                    {
-                                    $varData[] = (array) $row;
-                                    }
-                                $varReturn['Process']['StartDateTime']=$varData[0]['now'];
-                                unset($varData);
-                                //---> Inisialisasi [Data], [RowCount]
-                                $i=0;
-                                $varDataFetch = self::getQueryExecutionDataFetch($varUserSession, $varSQLQuery);
-                                //var_dump($varReturn);
-                                //var_dump($varSQLQuery);
-                                $varData = [];
-                                foreach($varDataFetch as $row)
-                                    {
-                                    $varData[] = (array) $row;
-                                    //str_replace("world","Peter","Hello world!");
-                                    //$varData[] = str_replace("\\u20ac", "€", ((array) $row));
-                                    $i++;
-                                    }
-                                $varReturn['Data'] = $varData;
-                                $varReturn['RowCount']=$i;
-                                unset($varData);
+                                $varDataTemp = 
+                                    self::getArrayFromQueryExecutionDataFetch_UsingLaravelConnection(
+                                        $varUserSession, 
+                                        "SELECT NOW();"
+                                        );
+                                $varReturn['Process']['StartDateTime'] = $varDataTemp['Data'][0]['now'];
+                                unset($varDataTemp);
+
+                                //---> Inisialisasi [Data], [RowCount], [Notice]
+                                //$varDataTemp = self::getArrayFromQueryExecutionDataFetch_UsingLaravelConnection($varUserSession, $varSQLQuery);
+                                $varDataTemp = self::getArrayFromQueryExecutionDataFetch_UsingPGSQLConnection($varUserSession, $varSQLQuery);
+                                $varReturn['Data'] = $varDataTemp['Data'];
+                                $varReturn['RowCount'] = $varDataTemp['RowCount'];
+                                $varReturn['Notice'] = $varDataTemp['Notice'];
+                                unset($varDataTemp);
+                                
                                 //---> Inisialisasi [Process][StartDateTime]
-                                $varDataFetch = self::getQueryExecutionDataFetch(
+                                $varDataTemp = self::getArrayFromQueryExecutionDataFetch_UsingLaravelConnection(
                                     $varUserSession,
                                     "
                                     SELECT
@@ -603,13 +727,9 @@ namespace App\Helpers\ZhtHelper\Database
                                         ) AS \"SubSQL\"
                                     "
                                     );
-                                foreach($varDataFetch as $row)
-                                    {
-                                    $varData[] = (array) $row;
-                                    }
-                                $varReturn['Process']['FinishDateTime']=$varData[0]['FinishDateTime'];
-                                $varReturn['Process']['ExecutionTime']=$varData[0]['ExecutionTime'];
-                                unset($varData);                            
+                                $varReturn['Process']['FinishDateTime']=$varDataTemp['Data'][0]['FinishDateTime'];
+                                $varReturn['Process']['ExecutionTime']=$varDataTemp['Data'][0]['ExecutionTime'];                                
+                                unset($varDataTemp);
                                 }
                             }
                         else
@@ -637,6 +757,7 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000002                                                                                       |
         | ▪ Last Update     : 2020-07-26                                                                                           |
+        | ▪ Creation Date   : 2020-07-21                                                                                           |
         | ▪ Description     : Mengambil data dari database sesuai syntax query (varSQLQuery)                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -655,7 +776,26 @@ namespace App\Helpers\ZhtHelper\Database
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     //$varSQLQuery = preg_replace('/\s+/', '', $varSQLQuery);
                     $varSQLQuery = ltrim(str_replace("\n", "" , $varSQLQuery));
+                    
+                    
                     $varReturn = \Illuminate\Support\Facades\DB::select($varSQLQuery);
+                    
+                    //dd(((array) \Illuminate\Support\Facades\DB::getConnections())['pgsql']);
+                    //$connection = \Illuminate\Support\Facades\DB::connection();
+//(array) (\Illuminate\Support\Facades\DB::getConnections())['pgsql'];
+                    //dd($connection);
+                    
+                    
+                    
+                    ///$varPDOConnection = (((array) \Illuminate\Support\Facades\DB::getConnections())['pgsql']->getRawPdo());
+                    
+                    //dd(((array) \Illuminate\Support\Facades\DB::getConnections())['pgsql']);
+                    
+                    //dd($varPDOConnection);
+                    
+                    //pg_last_notice($connection);
+                    
+                    
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 

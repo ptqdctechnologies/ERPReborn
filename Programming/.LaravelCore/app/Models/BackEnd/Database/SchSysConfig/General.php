@@ -270,6 +270,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-01-27                                                                                           |
+        | ▪ Creation Date   : 2021-01-27                                                                                           |
         | ▪ Description     : Get Current Date Time with TimeZone                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -304,6 +305,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-01-27                                                                                           |
+        | ▪ Creation Date   : 2021-01-27                                                                                           |
         | ▪ Description     : Get Current Year                                                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -549,6 +551,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-07-14                                                                                           |
+        | ▪ Creation Date   : 2021-07-14                                                                                           |
         | ▪ Description     : Get Reference Text By Reference ID                                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -575,7 +578,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2023-01-02                                                                                           |
-        | ▪ Creation Date    : 2023-01-02                                                                                           |
+        | ▪ Creation Date   : 2023-01-02                                                                                           |
         | ▪ Description     : Get User Role Privilege                                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -608,6 +611,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-07-27                                                                                           |
+        | ▪ Creation Date   : 2021-07-27                                                                                           |
         | ▪ Description     : Get Year By Date                                                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -677,8 +681,9 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : isExist_APIWebToken                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-08-24                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2023-03-03                                                                                           |
+        | ▪ Creation Date   : 2020-08-24                                                                                           |
         | ▪ Description     : Cek eksistensi APIWebToken pada sistem                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -690,7 +695,7 @@ namespace App\Models\Database\SchSysConfig
         */
         public function isExist_APIWebToken($varUserSession, string $varAPIWebToken)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+            $varData = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                     $varUserSession,
@@ -700,8 +705,14 @@ namespace App\Models\Database\SchSysConfig
                     ]
                     )
                 );
-            return $varReturn['Data'][0]['FuncSys_General_GetExistantionOnSystem_APIWebToken'];
+            $varReturn = true;
+            if(strcmp($varData['Data'][0]['FuncSys_General_GetExistantionOnSystem_APIWebToken'], 'f') == 0)
+                {
+                $varReturn = false;
+                }
+            return $varReturn;
             }
+
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -709,6 +720,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-06-24                                                                                           |
+        | ▪ Creation Date   : 2021-06-24                                                                                           |
         | ▪ Description     : Cek eksistensi apakah UserSessionBranch And UserRole sudah diset untuk APIWebToken tertentu          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |

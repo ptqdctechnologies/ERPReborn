@@ -94,7 +94,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                     (new \App\Models\Database\SchSysConfig\General())->getUserIDByName($varUserSession, $varUserName)
                                     )
                                 );
-                 
+
+/*
+$varAPIWebToken = \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken($varUserSession, $varUserName, \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession), 'HS256', (int) \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentUnixTime($varUserSession));
+$varDataSend = [
+    'AWT' => $varAPIWebToken,
+    'xxx' => ((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken)) 
+    ];
+*/
+
                         //---> Generate APIWebToken
                         $i=0;
                         do
@@ -102,7 +110,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             $varAPIWebToken = \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken($varUserSession, $varUserName, \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession), 'HS256', (int) \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentUnixTime($varUserSession));
                             }
                         while((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true);
-                        
+                       
                         //---> Insert Data to PostgreSQL
                         $varBufferDB = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->setDataInsert(
                             6000000000001, 
@@ -168,7 +176,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             'redisID' => $varRedisID,
                             'optionList' => $varOptionList
                             ];
-                        
+
                         //$varDataSend = ['xxx' => $varBufferDB];
                         //$varDataSend = ['xxx' => $varData];
                         //$varDataSend = ['xxx' => $varSysID];
