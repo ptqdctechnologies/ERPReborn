@@ -159,7 +159,7 @@ namespace App\Helpers\ZhtHelper\Database
         | ▪ Last Update     : 2023-05-03                                                                                           |
         | ▪ Creation Date   : 2023-05-03                                                                                           |
         | ▪ Description     : Mengambil data berbentuk Array dari database sesuai syntax query (varSQLQuery) melalui koneksi       |
-        |                     PGSQL/Connection                                                                                     |
+        |                     PgSql\Connection                                                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (string) varUserSession                                                                                           |
@@ -191,6 +191,7 @@ namespace App\Helpers\ZhtHelper\Database
                         $varNotice = null;
                         if($DBConnection = pg_connect($varConnectionString))
                             {
+                            pg_last_notice($DBConnection, PGSQL_NOTICE_CLEAR);
                             $varResult = pg_query($DBConnection, $varSQLQuery);
                             $varNotice = pg_last_notice($DBConnection, PGSQL_NOTICE_ALL);
 

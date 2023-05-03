@@ -89,6 +89,7 @@ namespace App\Models\Database\SchSysConfig
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch Reference ID                                                                        |
+        |      ------------------------------                                                                                      |
         |      ▪ (string) varKey ► Key                                                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Output Variable :                                                                                                      |
