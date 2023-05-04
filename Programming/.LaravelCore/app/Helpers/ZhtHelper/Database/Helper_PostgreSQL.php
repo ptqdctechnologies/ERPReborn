@@ -228,6 +228,50 @@ namespace App\Helpers\ZhtHelper\Database
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getBooleanConvertion                                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-05-03                                                                                           |
+        | ▪ Creation Date   : 2023-05-03                                                                                           |
+        | ▪ Description     : Mendapatkan konversi Boolean PHP dari data Boolean PostgreSQL (varData)                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession                                                                                           |
+        |      ▪ (string) varSQLQuery                                                                                              |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array) $varDataFetch                                                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getBooleanConvertion($varUserSession, $varData)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Boolean Convertion From PostgreSQL To PHP');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----                    
+                    $varReturn = true;
+                    if ((strcmp($varData, 'f') == 0) OR ((boolean) $varData == false))
+                        {
+                        $varReturn = false;
+                        }
+                    //dd($varReturn);
+                    return $varReturn;
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getBuildStringLiteral_StoredProcedure                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000002                                                                                       |
@@ -777,7 +821,6 @@ namespace App\Helpers\ZhtHelper\Database
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     //$varSQLQuery = preg_replace('/\s+/', '', $varSQLQuery);
                     $varSQLQuery = ltrim(str_replace("\n", "" , $varSQLQuery));
-                    
                     
                     $varReturn = \Illuminate\Support\Facades\DB::select($varSQLQuery);
                     

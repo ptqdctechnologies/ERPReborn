@@ -706,11 +706,8 @@ namespace App\Models\Database\SchSysConfig
                     ]
                     )
                 );
-            $varReturn = true;
-            if(strcmp($varData['Data'][0]['FuncSys_General_GetExistantionOnSystem_APIWebToken'], 'f') == 0)
-                {
-                $varReturn = false;
-                }
+
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBooleanConvertion($varUserSession, $varData['Data'][0]['FuncSys_General_GetExistantionOnSystem_APIWebToken']);
             return $varReturn;
             }
 
@@ -757,8 +754,9 @@ namespace App\Models\Database\SchSysConfig
                 $varUserSession, 
                 $varSQLQuery
                 );
-            
-            return (boolean) $varReturn['Data'][0]['Sign'];
+
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBooleanConvertion($varUserSession, $varReturn['Data'][0]['Sign']);
+            return $varReturn;
             }
 
 

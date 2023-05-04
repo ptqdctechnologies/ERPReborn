@@ -23,8 +23,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Create Date     : 2022-04-16                                                                                           |
         | ▪ Last Update     : 2022-04-16                                                                                           |
+        | ▪ Creation Date   : 2022-04-16                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Creation Date   : 2022-04-18                                                                                           |
         | ▪ Last Update     : 2022-04-20                                                                                           |
+        | ▪ Creation Date   : 2022-04-18                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -71,7 +71,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         */
         public function setDataInsert(
             $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null, int $varSysBaseCurrency_RefID = null,
+            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
             int $varPurchaseOrder_RefID = null, int $varPaymentTerm_RefID = null, int $varDueDays = null, int $varCurrency_RefID = null, float $varCurrencyValue = null, float $varCurrencyExchangeRate = null, string $varBaseCurrencyValue = null, int $varDiscountDueDays = null, float $varDiscountPercentageRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -109,8 +109,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Creation Date   : 2022-04-18                                                                                           |
         | ▪ Last Update     : 2022-04-20                                                                                           |
+        | ▪ Creation Date   : 2022-04-18                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -137,7 +137,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         */
         public function setDataUpdate(
             $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null, int $varSysBaseCurrency_RefID = null,
+            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
             int $varPurchaseOrder_RefID = null, int $varPaymentTerm_RefID = null, int $varDueDays = null, int $varCurrency_RefID = null, float $varCurrencyValue = null, float $varCurrencyExchangeRate = null, string $varBaseCurrencyValue = null, int $varDiscountDueDays = null, float $varDiscountPercentageRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
