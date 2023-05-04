@@ -13,24 +13,9 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function SelectWorkFlow($varData, $combinedBudget_RefID, $approverEntity_RefID, $submitterEntity_RefID)
+    public function SelectWorkFlow($varData, $approverEntity_RefID, $VarSelectWorkFlow)
     {
-        
         $varAPIWebToken = Session::get('SessionLogin');
-
-        $VarSelectWorkFlow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'userAction.documentWorkFlow.general.getBusinessDocumentTypeWorkFlowPathBySubmitterEntityIDAndCombinedBudgetID', 
-            'latest',
-            [
-            'parameter' => [
-                'businessDocumentType_RefID' => (int)$varData['data']['businessDocument']['businessDocumentType_RefID'],
-                'submitterEntity_RefID' => (int)$submitterEntity_RefID,
-                'combinedBudget_RefID' => (int)$combinedBudget_RefID,
-                ]
-            ]
-            );
 
         if(count(collect($VarSelectWorkFlow['data'])) > 1){
             

@@ -10,17 +10,18 @@
 
   <link rel="shortcut icon" href="{{ asset('AdminLTE-master/dist/img/favicon.ico') }}">
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/fontawesome-free/css/all.min.css') }}">
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> -->
+  <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/ionicons.min.css') }}">
+
   <!-- DataTables -->
   <!-- <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}"> -->
   <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css"> -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/jquery.dataTables.min.css') }}">
 
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/adminlte.min.css') }}">
-  <!-- sweetalert -->
-  <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/adminltesweatalert.min.css') }}">
+
   <!-- Loading css -->
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/loading.css') }}">
   <!-- Budget css -->
@@ -28,9 +29,18 @@
   <!-- fullcalendar -->
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/fullcalendar/customfullcalender.css') }}">
 
-  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <!-- JQUERY JS -->
+  <script src="{{ asset('AdminLTE-master/dist/js/jquery-3.5.1.js') }}"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
+
+  <!-- sweetalert -->
+  <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/adminltesweatalert.min.css') }}">
+  <script src="{{ asset('AdminLTE-master/dist/js/sweetalert2.min.js') }}"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script> -->
+
+  <!-- Font Googleapis -->
+  <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/fonts.googleapis.css') }}">
+  <!-- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet"> -->
 
   <script src="{{ asset('js/zht-js/core.js') }}"></script>
   <script>
@@ -69,22 +79,13 @@
   <script src="{{ asset('AdminLTE-master/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
   <script src="{{ asset('AdminLTE-master/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script> -->
   <!-- <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script> -->
-  <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+  <script src="{{ asset('AdminLTE-master/dist/js/jquery.dataTables.min.js') }}"></script>
   
   <!-- Fullcalender -->
   <script src="{{ asset('AdminLTE-master/plugins/fullcalendar/customfullcalender.js') }}"></script>
 
   <script src="{{ asset('AdminLTE-master/dist/js/adminlte.js') }}"></script>
-  <script src="{{ asset('AdminLTE-master/dist/js/demo.js') }}"></script>
-
-
-  <!-- <script>
-    $(document).ready(function() {
-      $('#tableGetReceive').DataTable();
-      $('#tableGetDelivery').DataTable();
-      $('#tableGetDeliverTo').DataTable();
-    });
-  </script> -->
+  <!-- <script src="{{ asset('AdminLTE-master/dist/js/demo.js') }}"></script> -->
 
   <script>
     // TIME FUNCTION

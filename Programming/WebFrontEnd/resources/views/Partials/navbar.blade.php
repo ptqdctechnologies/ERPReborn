@@ -46,7 +46,7 @@
                 <li class="user-header bg-secondary">
                     <img src="{{ asset('AdminLTE-master/dist/img/user.png')}}" class="img-circle elevation-2" alt="User Image">
                     <p>
-                        IT - QDC Technology
+                        {{Session::get('SessionLoginName')}}
                         <small>Member since Oct. 2020</small>
                     </p>
                 </li>
