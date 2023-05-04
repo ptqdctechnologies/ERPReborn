@@ -43,7 +43,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                     ]
                 ]
                 );
-            var_dump($varData);
+            //var_dump($varData);
+            var_dump(json_encode($varData));
             }
         }
     }

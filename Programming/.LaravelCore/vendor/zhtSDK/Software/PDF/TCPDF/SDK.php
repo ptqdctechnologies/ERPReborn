@@ -401,9 +401,12 @@ namespace zhtSDK\Software\PDF\TCPDF
 
             EOD;
 
-            //$this->Cell($varCellWidth, $varCellHeight, $varCaption, 0, false, $varAlign, ($this->varSignTableContentRecord == 0 ? true : false), '', '', '', '', '', 'M');
-            $this->MultiCell($varCellWidth, $varCellHeight, $varCaption, 0, $varAlign, ($this->varSignTableContentRecord == 0 ? true : false), 0, $varX, $varY, true, 0, false, true, $varCellHeight, 'M');
             
+            //$this->Cell($varCellWidth, $varCellHeight, $varCaption, 0, false, $varAlign, ($this->varSignTableContentRecord == 0 ? true : false), '', '', '', '', '', 'M');
+            //$this->MultiCell($varCellWidth, $varCellHeight, $varCaption, 0, $varAlign, ($this->varSignTableContentRecord == 0 ? true : false), 0, $varX, $varY, true, 0, false, true, $varCellHeight, 'M');
+            
+            $this->MultiCell($varCellWidth, $varCellHeight, $varCaption, 0, $varAlign, false, 1, $varX, $varY, true, 0, false, true, $varCellHeight, 'M');
+                       
             $this->zhtSetContentCoordinate_CurrentPosition($varUserSession);
             }
 

@@ -32,6 +32,7 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-07-17                                                                                           |
+        | ▪ Creation Date   : 2020-07-17                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -51,6 +52,7 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-07-17                                                                                           |
+        | ▪ Creation Date   : 2020-07-17                                                                                           |
         | ▪ Description     : System's Default Destructor                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -70,6 +72,7 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-07-13                                                                                           |
+        | ▪ Creation Date   : 2020-07-13                                                                                           |
         | ▪ Description     : Inisialisasi                                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -86,10 +89,52 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDateConvertion_YYYYMMDDToDDMMYYYY                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-05-03                                                                                           |
+        | ▪ Creation Date   : 2023-05-03                                                                                           |
+        | ▪ Description     : Mengkonversi Tanggal dari Format YYYY-MM-DD ke DD-MM-YYYY                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (mixed)  varOriginalDate ► Original Date                                                                          |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (int)    varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getDateConvertion_YYYYMMDDToDDMMYYYY($varUserSession, $varOriginalDate)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Date Convertion From YYYY-MM-DD To DD-MM-YYYY');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    $varTimeStamp = strtotime($varOriginalDate);
+                    $varNewDate = date("d-m-Y", $varTimeStamp);
+                    $varReturn = $varNewDate;
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                }
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getCurrentDateTimeString                                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-05-04                                                                                           |
+        | ▪ Creation Date   : 2021-05-04                                                                                           |
         | ▪ Description     : Mendapatkan Waktu Saat Ini                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -126,10 +171,12 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-02-02                                                                                           |
+        | ▪ Creation Date   : 2021-02-02                                                                                           |
         | ▪ Description     : Mengkonversi Tanggal dalam format Indonesia kedalam Data Tanggal                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ------------------------------                                                                                      |
         |      ▪ (stirng) varIndonesianDateString ► Tanggal Format Indonesia                                                       |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (void)                                                                                                            |
@@ -182,11 +229,13 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000002                                                                                       |
         | ▪ Last Update     : 2020-08-03                                                                                           |
+        | ▪ Creation Date   : 2020-08-03                                                                                           |
         | ▪ Description     : Mendapatkan tanggal dan waktu dari UnixTime (varUnixTime)                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (float)    varUnixTime ► Unix Time                                                                                 |
+        |      ------------------------------                                                                                      |
+        |      ▪ (float)  varUnixTime ► Unix Time                                                                                  |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -217,16 +266,18 @@ namespace App\Helpers\ZhtHelper\General
             }
 
 
-       /*
+        /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDateTimeStringDifference                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-05-04                                                                                           |
+        | ▪ Creation Date   : 2021-05-04                                                                                           |
         | ▪ Description     : Mendapatkan Waktu Saat Ini                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ------------------------------                                                                                      |
         |      ▪ (string) varStartDateTimeTZ ► Start DateTimeTZ                                                                    |
         |      ▪ (string) varFinishDateTimeTZ ► Finish DateTimeTZ                                                                  |
         | ▪ Output Variable :                                                                                                      |
@@ -279,10 +330,12 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-08-03                                                                                           |
+        | ▪ Creation Date   : 2020-08-03                                                                                           |
         | ▪ Description     : Mendapatkan tanggal dan waktu GMT saat ini                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ------------------------------                                                                                      |
         |      ▪ (string) varDateTimeFormat ► Format penulisan waktu                                                               |
         |      ▪ (int)    varUnixTime ► Waktu Unix                                                                                 |
         | ▪ Output Variable :                                                                                                      |
@@ -328,6 +381,7 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-07-26                                                                                           |
+        | ▪ Creation Date   : 2020-07-26                                                                                           |
         | ▪ Description     : Mendapatkan MicroTime                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -368,10 +422,12 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-09-02                                                                                           |
+        | ▪ Creation Date   : 2020-09-02                                                                                           |
         | ▪ Description     : Mendapatkan interval waktu dari UnixTime (varUnixTime)                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ------------------------------                                                                                      |
         |      ▪ (float)  varUnixTime ► Unix Time                                                                                  |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (void)                                                                                                            |
@@ -407,11 +463,13 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-08-25                                                                                           |
+        | ▪ Creation Date   : 2020-08-25                                                                                           |
         | ▪ Description     : Mendapatkan konversi Time Stamp with Time Zone dari GMT berdasarkan offset Time Zone                 |
         |                     (varTimeZoneOffset)                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ------------------------------                                                                                      |
         |      ▪ (string) varGMTDateTime ► GMT Date Time                                                                           |
         |      ▪ (int)    varTimeZoneOffset ► Time Zone Offset                                                                     |
         | ▪ Output Variable :                                                                                                      |
@@ -446,10 +504,12 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-08-25                                                                                           |
+        | ▪ Creation Date   : 2020-08-25                                                                                           |
         | ▪ Description     : Mendapatkan Time Zone Offset dari suatu Zone (varZone)                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ------------------------------                                                                                      |
         |      ▪ (string) varZone ► Zone                                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (int)    varReturn                                                                                                |
@@ -490,10 +550,12 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Last Update     : 2020-08-03                                                                                           |
+        | ▪ Creation Date   : 2020-08-03                                                                                           |
         | ▪ Description     : Mendapatkan UnixTime                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ------------------------------                                                                                      |
         |      ▪ (string) varDateTimeString ► Date Time String                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (int)    varReturn                                                                                                |
@@ -542,6 +604,7 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-07-29                                                                                           |
+        | ▪ Creation Date   : 2020-07-29                                                                                           |
         | ▪ Description     : Mendapatkan UnixTime melalui Java Script                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
