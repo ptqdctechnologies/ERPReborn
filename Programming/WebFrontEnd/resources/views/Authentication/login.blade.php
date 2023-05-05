@@ -192,7 +192,6 @@
                         </div>
 
                     </div>
-
                     <div class="input-group mb-4">
                         <input type="password" class="form-control password" placeholder="Password" name="password" id="login_password" required="" autocomplete="off">
 

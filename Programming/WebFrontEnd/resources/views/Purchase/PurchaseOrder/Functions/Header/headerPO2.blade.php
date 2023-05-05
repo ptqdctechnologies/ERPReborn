@@ -24,24 +24,5 @@
         </table>
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="form-group">
-        <table>
-          <tr>
-            <td style="padding-top: 5px;"><label>PR Number</label></td>
-            <td>
-              <div class="input-group" style="width: 108%;">
-                <input id="pr_number" style="border-radius:0;" name="pr_number" class="form-control" readonly>
-                <div class="input-group-append">
-                  <span style="border-radius:0;" class="input-group-text form-control">
-                    <a id="pr_number2" data-toggle="modal" data-target="#mySearchPR"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                  </span>
-                </div>
-              </div>
-            </td>
-          </tr>
-        </table>
-      </div>
-    </div>
   </div>
 </div>

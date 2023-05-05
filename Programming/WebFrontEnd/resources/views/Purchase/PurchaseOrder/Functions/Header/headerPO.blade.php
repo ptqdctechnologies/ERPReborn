@@ -5,36 +5,22 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <table>
-                        <!-- <tr>
-                            <td><label>Budget Code</label></td>
-                            <td>
-                                <div class="input-group">
-                                    <input id="projectcode3" style="border-radius:0;" name="projectcode3" type="text" class="form-control" readonly>
+                        <tr>
+                            <td><label>Supplier Code</label></td>
+                            <td style="border:1px solid #e9ecef;">
+                                <div class="input-group" style="width: 70%;">
+                                    <input id="supplier_code" style="border-radius:0;" class="form-control" readonly>
                                     <div class="input-group-append">
                                         <span style="border-radius:0;" class="input-group-text form-control">
-                                            <a href="#"><i id="ProjectId" data-toggle="modal" class="fas fa-gift" style="color:grey;" readonly></i></a>
+                                            <a href="#"><i id="product_id2" data-toggle="modal" data-target="#mySupplier" class="fas fa-gift mySupplier" style="color:grey;"></i></a>
                                         </span>
                                     </div>
                                 </div>
                             </td>
-                        </tr> -->
-                        <tr>
-                            <td><label>Supplier Code</label></td>
-                            <td style="border:1px solid #e9ecef;">
-                                <div class="input-group">
-                                <input id="supplier_code" style="border-radius:0;" class="form-control" readonly>
-                                <div class="input-group-append">
-                                    <span style="border-radius:0;" class="input-group-text form-control">
-                                    <a href="#"><i id="product_id2" data-toggle="modal" data-target="#mySupplier" class="fas fa-gift mySupplier" style="color:grey;"></i></a>
-                                    </span>
+                            <td>
+                                <div class="input-group" style="width: 153%;position:relative;right:38%;">
+                                    <input id="supplier_name" style="border-radius:0;" class="form-control" name="projectname" readonly>
                                 </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label>Supplier Name</label></td>
-                            <td style="border:1px solid #e9ecef;">
-                                <input id="supplier_name" style="border-radius:0;" type="text" class="form-control" readonly="">
                             </td>
                         </tr>
                         <tr>
@@ -73,19 +59,42 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <table>
-                        <tr>
+                        <!-- <tr>
                             <td><label>Payment Term</label></td>
                             <td style="border:1px solid #e9ecef;">
                                 <div class="input-group">
                                     <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
                                 </div>
                             </td>
+                        </tr> -->
+                        <tr>
+                            <td><label>DP</label></td>
+                            <td style="border:1px solid #e9ecef;">
+                                <select name="" id="" style="border-radius:0;" type="text" class="form-control">
+                                    <option value="">No</option>
+                                    <option value="">Yes</option>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <td><label>TOP</label></td>
                             <td style="border:1px solid #e9ecef;">
+                                <select name="" id="" style="border-radius:0;" type="text" class="form-control">
+                                    <option value="">Select</option>
+                                    <option value="">Cash Before Delivery</option>
+                                    <option value="">Cash On Delivery</option>
+                                    <option value="">Progress</option>
+                                    <option value="">Payment On Completion</option>
+                                    <option value="">Bank Finance</option>
+                                    <option value="">Other</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>Payment Notes</label></td>
+                            <td style="border:1px solid #e9ecef;">
                                 <div class="input-group">
-                                    <input id="top" style="border-radius:0;" type="number" class="form-control"><label>Days</label>
+                                    <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
                                 </div>
                             </td>
                         </tr>
