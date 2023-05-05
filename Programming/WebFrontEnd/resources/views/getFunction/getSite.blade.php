@@ -10,12 +10,13 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap table-striped" id="tableGetSite">
+                                <table class="table table-head-fixed text-nowrap" id="tableGetSite">
                                     <thead>
                                         <tr>
                                             <th>No</th>
                                             <th>Sub Budget Code</th>
                                             <th>Sub Budget Name</th>
+                                            <th style="display: none;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>

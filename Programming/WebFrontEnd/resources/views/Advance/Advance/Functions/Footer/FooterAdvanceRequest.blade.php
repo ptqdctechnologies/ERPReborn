@@ -4,8 +4,8 @@
         $(".Remark").hide();
         $("#detailTransAvail").hide();
         $("#sitecode2").prop("disabled", true);
-        $("#request_name2").prop("disabled", true);
-        $("#beneficiary_name2").prop("disabled", true);
+        // $("#request_name2").prop("disabled", true);
+        // $("#beneficiary_name2").prop("disabled", true);
         $("#showContentBOQ3").hide();
         $(".tableShowHideBOQ3").hide();
         $(".file-attachment").hide();
@@ -20,7 +20,15 @@
 </script>
 
 <script>
-    function klikProject(sys_id, code, name) {
+
+    $('#tableGetProject tbody').on('click', 'tr', function () {
+
+        $("#myProject").modal('toggle');
+
+        var row = $(this).closest("tr");    
+        var sys_id = row.find("td:nth-child(4)").text();
+        var code = row.find("td:nth-child(2)").text();
+        var name = row.find("td:nth-child(3)").text();
 
         $("#projectcode").val(code);
         $("#projectname").val(name);
@@ -43,21 +51,29 @@
                 t.clear();
                 $.each(data, function(key, val) {
                     t.row.add([
-                        '<tbody><tr><td><span data-dismiss="modal" onclick="klikSite(\'' + val.sys_ID + '\', \'' + val.code + '\', \'' + val.name + '\');">' + no++ + '</span></td>',
-                        '<td><span data-dismiss="modal" onclick="klikSite(\'' + val.sys_ID + '\', \'' + val.code + '\', \'' + val.name + '\');">' + val.code + '</span></td>',
-                        '<td><span data-dismiss="modal" onclick="klikSite(\'' + val.sys_ID + '\', \'' + val.code + '\', \'' + val.name + '\');">' + val.name + '</span></td></tr></tbody>'
+                        '<tbody><tr><td>' + no++ + '</td>',
+                        '<td>' + val.code + '</td>',
+                        '<td>' + val.name + '</td>',
+                        '<span style="display:none;"><td>' + val.sys_ID + '</td></span></tr></tbody>'
                     ]).draw();
                 });
             }
         });
-    }
+    });
     
 </script>
 
 <script>
 
-    // $(document).ready(function() {
-    function klikSite(sys_id, code, name) {
+    $('#tableGetSite tbody').on('click', 'tr', function () {
+
+        $("#mySiteCode").modal('toggle');
+
+        var row = $(this).closest("tr");    
+        var sys_id = row.find("td:nth-child(4)").text();
+        var code = row.find("td:nth-child(2)").text();
+        var name = row.find("td:nth-child(3)").text();
+
         $("#sitecode").val(code);
         $("#sitename").val(name);
         $("#sitecode2").prop("disabled", true);
@@ -112,7 +128,7 @@
                         '<input name="getProductId[]" value="'+ val2.product_RefID +'" type="hidden">' +
                         '<input name="getProductName[]" value="'+ val2.productName +'" type="hidden">' +
                         '<input name="getQtyId[]" value="'+ val2.quantityUnit_RefID +'" type="hidden">' +
-                        '<input name="getQty[]" id="budget_qty'+ key +'" value="'+ val2.quantityRemain +'" type="hidden">' +
+                        '<input name="getQty[]" id="budget_qty'+ key +'" value="'+ val2.quantity +'" type="hidden">' +
                         '<input name="getPrice[]" id="budget_price'+ key +'" value="'+ val2.unitPriceBaseCurrencyValue +'" type="hidden">' +
                         '<input name="getUom[]" value="'+ val2.quantityUnitName +'" type="hidden">' +
                         '<input name="getCurrency[]" value="'+ val2.priceBaseCurrencyISOCode +'" type="hidden">' +
@@ -142,14 +158,14 @@
                         '<input id="TotalBudget'+ key +'" type="hidden">' +
 
                         '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.quantityRemain.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.unitPriceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.priceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
 
                         '<td class="sticky-col forth-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
                         '<td class="sticky-col third-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req'+ key +'" style="border-radius:0;" name="price_req[]" class="form-control price_req" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
                         '<td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req'+ key +'" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled>' + '</td>' +
-                        '<td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_balance'+ key +'" style="border-radius:0;width:90px;background-color:white;" name="total_balance[]" class="form-control total_balance" autocomplete="off" disabled value="' + currencyTotal(val2.quantityRemain * val2.unitPriceBaseCurrencyValue) + '">' + '</td>' +
+                        '<td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_balance'+ key +'" style="border-radius:0;width:90px;background-color:white;" name="total_balance[]" class="form-control total_balance" autocomplete="off" disabled value="' + currencyTotal(val2.quantity * val2.unitPriceBaseCurrencyValue) + '">' + '</td>' +
 
                         '</tr>';
                     $('table.tableBudgetDetail tbody').append(html);
@@ -325,8 +341,7 @@
                 });
             }
         });
-    }
-    // });
+    });
 </script>
 
 <script>

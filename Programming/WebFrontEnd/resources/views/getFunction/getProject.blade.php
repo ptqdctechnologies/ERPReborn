@@ -10,12 +10,13 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap table-striped" id="tableGetProject">
+                                <table class="table table-head-fixed text-nowrap" id="tableGetProject">
                                     <thead>
                                         <tr>
                                             <th>No</th>
                                             <th>Budget Code</th>
                                             <th>Budget Name</th>
+                                            <th style="display: none;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -31,6 +32,7 @@
 </div>
 
 <script>
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -50,10 +52,13 @@
                     t.clear();
                     $.each(data, function(key, val) {
                         t.row.add([
-                            '<tbody><tr><td><span data-dismiss="modal" onclick="klikProject(\'' + val.sys_ID + '\', \'' + val.code + '\', \'' + val.name + '\');">' + no++ + '</span></td>',
-                            '<td><span data-dismiss="modal" onclick="klikProject(\'' + val.sys_ID + '\', \'' + val.code + '\', \'' + val.name + '\');">' + val.code + '</span></td>',
-                            '<td><span data-dismiss="modal" onclick="klikProject(\'' + val.sys_ID + '\', \'' + val.code + '\', \'' + val.name + '\');">' + val.name + '</span></td></tr></tbody>'
+                            '<tbody><tr><td>' + no++ + '</td>',
+                            '<td>' + val.code + '</td>',
+                            '<td>' + val.name + '</td>',
+                            '<span style="display:none;"><td">' + val.sys_ID + '</td></span></tr></tbody>'
                         ]).draw();
+
+
 
                     });
                 }
@@ -62,4 +67,5 @@
         });
 
     });
+    
 </script>

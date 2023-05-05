@@ -31,7 +31,7 @@
                                 <input name="beneficiary_name_id" id="beneficiary_name_id" style="border-radius:0;" type="hidden" class="form-control" readonly>
                                 <div class="input-group-append">
                                     <span style="border-radius:0;" class="input-group-text form-control">
-                                        <a href="#" id="beneficiary_name2" data-toggle="modal" data-target="#myWorker" class="myWorkerBeneficiary"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                        <a href="#" id="beneficiary_name2" data-toggle="modal" data-target="#myBeneficiary" class="myBeneficiary"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                     </span>
                                 </div>
                             </div>
