@@ -160,6 +160,23 @@
       return (formatted + ((parts) ? "." + parts[1].substr(0, 2) : ".00"));
     };
   </script>
+
+  <!-- JS FOR BACKGROUND COLOUR TR IN DATATABLE -->
+
+  <script>
+
+    var css = 'table tbody tr:hover{ background-color: #f2f2f2 }';
+    var style = document.createElement('style');
+
+    if (style.styleSheet) {
+        style.styleSheet.cssText = css;
+    } else {
+        style.appendChild(document.createTextNode(css));
+    }
+
+    document.getElementsByTagName('head')[0].appendChild(style);
+
+  </script>
 </body>
 
 </html>

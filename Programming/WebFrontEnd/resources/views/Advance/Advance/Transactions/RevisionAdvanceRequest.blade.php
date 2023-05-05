@@ -7,6 +7,7 @@
 @include('Advance.Advance.Functions.PopUp.PopUpAdvanceRevision')
 @include('getFunction.getProject')
 @include('getFunction.getWorker')
+@include('getFunction.getBeneficiary')
 @include('getFunction.getBank')
 @include('getFunction.getBankAccount')
 

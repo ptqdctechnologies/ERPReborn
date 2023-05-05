@@ -35,7 +35,7 @@
                                 <input name="var_recordIDDetail" id="recordIDDetail" style="border-radius:0;" type="hidden" class="form-control" readonly required>
                                 <div class="input-group-append">
                                     <span style="border-radius:0;" class="input-group-text form-control">
-                                        <a id="beneficiary_name2" data-toggle="modal" data-target="#myWorker"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                        <a id="beneficiary_name2" data-toggle="modal" data-target="#myBeneficiary"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                     </span>
                                 </div>
                             </div>
