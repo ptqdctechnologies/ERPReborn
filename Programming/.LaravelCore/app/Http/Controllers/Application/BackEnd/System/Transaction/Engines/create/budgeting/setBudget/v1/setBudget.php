@@ -5,7 +5,7 @@
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\budgeting\setBudget\v1                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2021 - 2023 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\budgeting\setBudget\v1
@@ -24,6 +24,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-06-14                                                                                           |
+        | ▪ Creation Date   : 2021-06-14                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -41,8 +42,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2022-09-27                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2023-05-05                                                                                           |
         | ▪ Creation Date   : 2021-06-14                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -66,9 +67,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                             null, 
                             null,
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                            \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
+
                             $varData['entities']['name'],
                             $varData['entities']['validStartDateTimeTZ'],
-                            $varData['entities']['validFinishDateTimeTZ']
+                            $varData['entities']['validFinishDateTimeTZ'],
+                            $varData['entities']['code']
                             ))))
                             {
                             throw new \Exception();
