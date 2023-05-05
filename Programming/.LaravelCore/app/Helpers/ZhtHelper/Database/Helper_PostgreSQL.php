@@ -350,12 +350,14 @@ namespace App\Helpers\ZhtHelper\Database
                                 {
                                 case 'bigint':
                                     {
-                                    if((!$varData[$i][0]) OR (is_int($varData[$i][0]) == TRUE))
+                                    if((!$varData[$i][0]) OR (is_int($varData[$i][0]) == TRUE) OR (is_int((int) $varData[$i][0]) == TRUE))
                                         {
                                         $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForBigInteger($varUserSession, $varData[$i][0]))."::bigint";
                                         }
                                     else
-                                        {throw new \Exception('Error');}
+                                        {
+                                        throw new \Exception('Error');                                        
+                                        }
                                     break;
                                     }
                                 case 'bigint[]':
@@ -462,7 +464,10 @@ namespace App\Helpers\ZhtHelper\Database
                         }
                     //--->
                     $varSQL .= ");";
+
+
 //dd($varSQL);
+
                     
                     $varReturn = $varSQL;
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
