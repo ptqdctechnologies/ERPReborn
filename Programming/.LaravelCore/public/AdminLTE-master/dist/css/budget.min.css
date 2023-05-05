@@ -8,6 +8,9 @@ wrapper-budget {
   position: -webkit-sticky;
   position: sticky;
 }
+
+/* DOR */
+
 .first-col-dor-note {
   width: 225px;
   min-width: 225px;
@@ -21,6 +24,8 @@ wrapper-budget {
   max-width: 110px;
   right: 226px;
 }
+
+/* GENERAL */
 
 .first-col {
   width: 225px;
@@ -59,6 +64,7 @@ wrapper-budget {
   right: 605px;
 }
 
+/* ADVANCE */
 
 .first-col-arf {
   width: 125px;
@@ -85,6 +91,7 @@ wrapper-budget {
   right: 363px;
 }
 
+/* ASF */
 
 .first-col-asf-balance {
   width: 125px;
@@ -104,7 +111,6 @@ wrapper-budget {
   max-width: 260px;
   right: 385px;
 }
-
 
 .first-col-asf-balance-total {
   width: 90px;
@@ -158,4 +164,38 @@ wrapper-budget {
   max-width: 90px;
   right: 385px;
   z-index: 10;
+}
+
+/* BRF */
+
+.first-col-brf {
+  width: 125px;
+  min-width: 125px;
+  max-width: 125px;
+  right: 0px;
+}
+.second-col-brf {
+  width: 125px;
+  min-width: 125px;
+  max-width: 125px;
+  right: 126px;
+}
+.third-col-brf {
+  width: 125px;
+  min-width: 125px; 
+  max-width: 125px;
+  right: 252px;
+}
+.forth-col-brf {
+  width: 125px;
+  min-width: 125px;
+  max-width: 125px;
+  right: 378px;
+}
+
+.fifth-col-brf {
+  width: 125px;
+  min-width: 125px;
+  max-width: 125px;
+  right: 504px;
 }

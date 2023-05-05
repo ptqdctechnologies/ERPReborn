@@ -2,11 +2,11 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
+@include('getFunction.getProduct')
 @include('Advance.BusinessTrip.Functions.PopUp.PopUpBusinessTripRequestRevision')
 @include('getFunction.getProject')
 @include('getFunction.getSite')
 @include('getFunction.getWorker')
-@include('getFunction.getProduk')
 
 <div class="content-wrapper" style="position:relative;bottom:12px;">
   <section class="content">
@@ -56,7 +56,7 @@
                         </button>
                       </div>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body file-attachment">
                       <div class="row">
                         <div class="col-md-12">
                           <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID">
@@ -182,24 +182,6 @@
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-12">
-                <div class="card">
-                  <div class="card-header">
-                    <label class="card-title">
-                      Please select your budget for this business trip
-                    </label>
-                    <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                      </button>
-                    </div>
-                  </div>
-                  @include('getFunction.BOQ3')
                 </div>
               </div>
             </div>
@@ -422,6 +404,24 @@
         </div>
       </div>
       <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <label class="card-title">
+                Please select your budget for this business trip
+              </label>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                </button>
+              </div>
+            </div>
+            @include('Advance.BusinessTrip.Functions.Table.getBOQ')
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="row">
         <div class="col-12">
           <div class="card">
             <div class="card-header">
@@ -672,7 +672,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="row">
         <div class="col-12">
           <div class="card">
@@ -685,19 +685,20 @@
                 </button>
               </div>
             </div>
-            <div class="card-body table-responsive p-0 brfhide6" style="height: 180px;">
+            <div class="card-body table-responsive p-0 BrfListCart" style="height: 180px;">
               <table class="table table-head-fixed text-nowrap table-striped TableBusinessTrip" id="TableBusinessTrip">
                 <thead>
                   <tr>
-                    <th style="border:1px solid #e9ecef;text-align: center;">Action</th>
+                    <th style="border:1px solid #e9ecef;text-align: center;">Work ID</th>
+                    <th style="border:1px solid #e9ecef;text-align: center;">Work Name</th>
                     <th style="border:1px solid #e9ecef;text-align: center;">Product ID</th>
                     <th style="border:1px solid #e9ecef;text-align: center;">Product Name</th>
-                    <th style="border:1px solid #e9ecef;text-align: center;">Sequence</th>
+                    <!-- <th style="border:1px solid #e9ecef;text-align: center;">Sequence</th> -->
 
                     <th style="border:1px solid #e9ecef;text-align: center;">Allowance</th>
                     <th style="border:1px solid #e9ecef;text-align: center;">Accomodation</th>
 
-                    <th style="border:1px solid #e9ecef;text-align: center;" class="a_airport_tax">Airplane ► Airport Tax</th>
+                    <!-- <th style="border:1px solid #e9ecef;text-align: center;" class="a_airport_tax">Airplane ► Airport Tax</th>
                     <th style="border:1px solid #e9ecef;text-align: center;" class="a_extra_baggage_charge">Airplane ► Extra Baggage Charge</th>
                     <th style="border:1px solid #e9ecef;text-align: center;" class="a_ticket_fare">Airplane ► Ticket Fare</th>
 
@@ -740,19 +741,20 @@
                     <th style="border:1px solid #e9ecef;text-align: center;" class="t_rental_fee"> Taxi ► Rental Fee </th>
                     <th style="border:1px solid #e9ecef;text-align: center;" class="t_fuel_charge"> Taxi ► Fuel Charge </th>
                     <th style="border:1px solid #e9ecef;text-align: center;" class="t_parking_charge"> Taxi ► Parking Charge </th>
-                    <th style="border:1px solid #e9ecef;text-align: center;" class="t_toll_charge"> Taxi ► Toll Charge </th>
+                    <th style="border:1px solid #e9ecef;text-align: center;" class="t_toll_charge"> Taxi ► Toll Charge </th> -->
 
                     <th style="border:1px solid #e9ecef;text-align: center;">Others</th>
+                    <th style="border:1px solid #e9ecef;text-align: center;">Total</th>
                   </tr>
                 </thead>
                 <tbody>
 
                 </tbody>
-                <tfoot style="position: relative;top:100px;">
+                <!-- <tfoot style="position: relative;top:100px;">
                   <tr>
-                    <th style="border:1px solid #e9ecef;text-align:center;"" colspan=" 4">Sub Total</th>
+                    <th style="border:1px solid #e9ecef;text-align:center;"" colspan=" 4">Sub Total</th> -->
 
-                    <td style="border:1px solid #e9ecef;" id="81000000000001"></td>
+                <!-- <td style="border:1px solid #e9ecef;" id="81000000000001"></td>
                     <td style="border:1px solid #e9ecef;" id="81000000000003"></td>
 
                     <td style="border:1px solid #e9ecef;" id="221000000000041" class="a_airport_tax"></td>
@@ -799,20 +801,18 @@
                     <td style="border:1px solid #e9ecef;" id="221000000000024" class="t_parking_charge"></td>
                     <td style="border:1px solid #e9ecef;" id="221000000000023" class="t_toll_charge"></td>
 
-                    <td style="border:1px solid #e9ecef;" id="81000000000004"></td>
+                    <td style="border:1px solid #e9ecef;" id="81000000000004"></td> -->
 
-                  </tr>
-                </tfoot>
+                <!-- </tr>
+                </tfoot> -->
               </table>
             </div>
 
-            <div class="card-body table-responsive p-0 brfhide6">
-              <table class="table table-head-fixed text-nowrap table-striped">
-                <tfoot>
-                  <tr>
-                    <th style="color:brown;float:right;">Total Business Trip : <span id="totalBrf"></span> || Total Sequence : <span id="totalSequence"></span></th>
-                  </tr>
-                </tfoot>
+            <div class="card-body BrfListCart">
+              <table style="float:right;">
+                <tr>
+                  <th style="position: relative;right:45px;"> Total Item : <span id="TotalAllowance"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="TotalAccomodation"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="TotalOther"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="GrandTotal"></span></th>
+                </tr>
               </table>
             </div>
 
@@ -836,5 +836,5 @@
 </div>
 
 @include('Partials.footer')
-@include('Advance.BusinessTrip.Functions.Footer.FooterBusinessTripRequestForm')
+@include('Advance.BusinessTrip.Functions.Footer.FooterBusinessTripRequest')
 @endsection

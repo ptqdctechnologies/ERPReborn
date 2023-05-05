@@ -186,24 +186,6 @@
               </div>
             </div>
 
-            <div class="row">
-              <div class="col-12">
-                <div class="card">
-                  <div class="card-header">
-                    <label class="card-title">
-                      Please select your budget for this business trip
-                    </label>
-                    <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                      </button>
-                    </div>
-                  </div>
-                  @include('getFunction.BOQ3')
-                </div>
-              </div>
-            </div>
-
             <nav class="w-100">
               <div class="nav nav-tabs" id="product-tab" role="tablist">
                 <a class="nav-item nav-link active idFollowingCondition" id="product-comments-tab" data-toggle="tab" href="#followingCondition" role="tab" aria-controls="product-comments" aria-selected="true"><span style="font-weight:bold;padding:10px;color:#212529;">The following condition</span></a>&nbsp;&nbsp;&nbsp;
@@ -447,8 +429,25 @@
               </div>
             </div>
 
-
             <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <label class="card-title">
+                      Please select your budget for this business trip
+                    </label>
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                      </button>
+                    </div>
+                  </div>
+                  @include('Advance.BusinessTrip.Functions.Table.getBOQ')
+                </div>
+              </div>
+            </div>
+
+            <!-- <div class="row">
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">
@@ -550,7 +549,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <div class="row">
               <div class="col-12">
                 <div class="card">
@@ -567,15 +566,14 @@
                     <table class="table table-head-fixed text-nowrap table-striped TableBusinessTrip" id="TableBusinessTrip">
                       <thead>
                         <tr>
-                          <th style="border:1px solid #e9ecef;text-align: center;width:7%;">Action</th>
-                          <th style="border:1px solid #e9ecef;text-align: center;width:10%;">Product ID</th>
-                          <th style="border:1px solid #e9ecef;text-align: center;width:10%;">Product Name</th>
-                          <th style="border:1px solid #e9ecef;text-align: center;width:10%;">Sequence</th>
-                          <th style="border:1px solid #e9ecef;text-align: center;width:13%;">Allowance</th>
-                          <th style="border:1px solid #e9ecef;text-align: center;width:13%;">Transport</th>
-                          <th style="border:1px solid #e9ecef;text-align: center;width:13%;">Airport Tax</th>
-                          <th style="border:1px solid #e9ecef;text-align: center;width:13%;">Accomodation</th>
-                          <th style="border:1px solid #e9ecef;text-align: center;width:13%;">Others</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;">Work ID</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;">Work Name</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;">Product ID</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;">Product Name</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;">Allowance</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;">Accomodation</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;">Others</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;">Total</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -584,7 +582,15 @@
                     </table>
                   </div>
 
-                  <div class="card-body table-responsive p-0">
+                  <div class="card-body BrfListCart">
+                    <table style="float:right;">
+                      <tr>
+                        <th style="position: relative;right:45px;"> Total Item : <span id="TotalAllowance"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="TotalAccomodation"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="TotalOther"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="GrandTotal"></span></th>
+                      </tr>
+                    </table>
+                  </div>
+
+                  <!-- <div class="card-body table-responsive p-0">
                     <table class="table table-head-fixed text-nowrap table-striped TableBusinessTrip">
                       <thead>
                         <tr>
@@ -608,7 +614,7 @@
                         </tr>
                       </tfoot>
                     </table>
-                  </div>
+                  </div> -->
 
                 </div>
                 <a onclick="CancelBusinessTrip();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">

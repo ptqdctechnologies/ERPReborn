@@ -4,7 +4,7 @@
             <div class="form-group">
                 <table>
                     <tr>
-                        <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Budget &nbsp;&nbsp;&nbsp;Code</label></td>
+                        <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Budget Code</label></td>
                         <td>
                             <div class="input-group">
                                 <input id="projectcode" style="border-radius:0;" name="projectcode" class="form-control" readonly>
@@ -28,7 +28,7 @@
             <div class="form-group">
                 <table>
                     <tr>
-                        <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Sub Budget &nbsp;&nbsp;&nbsp;Code</label></td>
+                        <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Sub Budget Code</label></td>
                         <td>
                             <div class="input-group">
                                 <input id="sitecode" style="border-radius:0;" name="sitecode" class="form-control" readonly>

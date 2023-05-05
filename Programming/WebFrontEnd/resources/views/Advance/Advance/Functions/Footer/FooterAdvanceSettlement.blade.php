@@ -15,7 +15,7 @@
 
 
 <script>
-    function klikProject(code, name) {
+    function klikProject(sys_id, code, name) {
         $("#projectcode").val(code);
         $("#projectname").val(name);
         $("#advance_number2").prop("disabled", false);
@@ -31,7 +31,7 @@
 
         $.ajax({
             type: 'GET',
-            url: '{!! route("AdvanceSettlement.AdvanceByBudgetID") !!}?projectcode=' + $('#projectcode').val(),
+            url: '{!! route("AdvanceSettlement.AdvanceByBudgetID") !!}?projectcode=' + sys_id,
             success: function(data) {
 
                 var no = 1;

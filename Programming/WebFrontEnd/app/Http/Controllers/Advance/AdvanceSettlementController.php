@@ -82,49 +82,49 @@ class AdvanceSettlementController extends Controller
 
         return response()->json($compact);
     }
-    public function StoreValidateAdvanceSettlement(Request $request)
-    {
-        $tamp = 0; $status = 200;
-        $val = $request->input('putWorkId');
-        $val2 = $request->input('putProductId');
-        $data = $request->session()->get("SessionAdvanceSetllement");
-        if($request->session()->has("SessionAdvanceSetllement")){
-            for($i = 0; $i < count($data); $i++){
-                if($data[$i] == $val && $data[$i+1] == $val2){
-                    $tamp = 1;
-                }
-            }
-            if($tamp == 0){
-                $request->session()->push("SessionAdvanceSetllement", $val);
-                $request->session()->push("SessionAdvanceSetllement", $val2);
-            }
-            else{
-                $status = 500;
-            }
-        }
-        else{
-            $request->session()->push("SessionAdvanceSetllement", $val);
-            $request->session()->push("SessionAdvanceSetllement", $val2);
-        }
+    // public function StoreValidateAdvanceSettlement(Request $request)
+    // {
+    //     $tamp = 0; $status = 200;
+    //     $val = $request->input('putWorkId');
+    //     $val2 = $request->input('putProductId');
+    //     $data = $request->session()->get("SessionAdvanceSetllement");
+    //     if($request->session()->has("SessionAdvanceSetllement")){
+    //         for($i = 0; $i < count($data); $i++){
+    //             if($data[$i] == $val && $data[$i+1] == $val2){
+    //                 $tamp = 1;
+    //             }
+    //         }
+    //         if($tamp == 0){
+    //             $request->session()->push("SessionAdvanceSetllement", $val);
+    //             $request->session()->push("SessionAdvanceSetllement", $val2);
+    //         }
+    //         else{
+    //             $status = 500;
+    //         }
+    //     }
+    //     else{
+    //         $request->session()->push("SessionAdvanceSetllement", $val);
+    //         $request->session()->push("SessionAdvanceSetllement", $val2);
+    //     }
 
-        return response()->json($status);
-    }
-    public function StoreValidateAdvanceSettlement2(Request $request)
-    {
-        $val = $request->input('putWorkId');
-        $val2 = $request->input('putProductId');
-        $data = $request->session()->get("SessionAdvanceSetllement");
-        if($request->session()->has("SessionAdvanceSetllement")){
-            for($i = 0; $i < count($data); $i++){
-                if($data[$i] == $val && $data[$i+1] == $val2){
-                    unset($data[$i]);
-                    unset($data[$i+1]);
-                    $newClass = array_values($data);
-                    $request->session()->put("SessionAdvanceSetllement", $newClass);
-                }
-            }
-        }
-    }
+    //     return response()->json($status);
+    // }
+    // public function StoreValidateAdvanceSettlement2(Request $request)
+    // {
+    //     $val = $request->input('putWorkId');
+    //     $val2 = $request->input('putProductId');
+    //     $data = $request->session()->get("SessionAdvanceSetllement");
+    //     if($request->session()->has("SessionAdvanceSetllement")){
+    //         for($i = 0; $i < count($data); $i++){
+    //             if($data[$i] == $val && $data[$i+1] == $val2){
+    //                 unset($data[$i]);
+    //                 unset($data[$i+1]);
+    //                 $newClass = array_values($data);
+    //                 $request->session()->put("SessionAdvanceSetllement", $newClass);
+    //             }
+    //         }
+    //     }
+    // }
 
     public function StoreValidateAdvanceSettlementRequester(Request $request)
     {

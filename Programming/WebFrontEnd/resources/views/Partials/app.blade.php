@@ -85,7 +85,6 @@
   <script src="{{ asset('AdminLTE-master/plugins/fullcalendar/customfullcalender.js') }}"></script>
 
   <script src="{{ asset('AdminLTE-master/dist/js/adminlte.js') }}"></script>
-  <!-- <script src="{{ asset('AdminLTE-master/dist/js/demo.js') }}"></script> -->
 
   <script>
     // TIME FUNCTION

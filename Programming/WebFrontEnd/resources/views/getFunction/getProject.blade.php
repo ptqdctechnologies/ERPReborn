@@ -50,9 +50,9 @@
                     t.clear();
                     $.each(data, function(key, val) {
                         t.row.add([
-                            '<tbody><tr><td>' + no++ + '</td>',
-                            '<td><span data-dismiss="modal" onclick="klikProject(\'' + val.sys_ID + '\', \'' + val.sys_Text + '\');">' + val.sys_ID + '</span></td>',
-                            '<td style="border:1px solid #e9ecef;">' + val.sys_Text + '</td></tr></tbody>'
+                            '<tbody><tr><td><span data-dismiss="modal" onclick="klikProject(\'' + val.sys_ID + '\', \'' + val.code + '\', \'' + val.name + '\');">' + no++ + '</span></td>',
+                            '<td><span data-dismiss="modal" onclick="klikProject(\'' + val.sys_ID + '\', \'' + val.code + '\', \'' + val.name + '\');">' + val.code + '</span></td>',
+                            '<td><span data-dismiss="modal" onclick="klikProject(\'' + val.sys_ID + '\', \'' + val.code + '\', \'' + val.name + '\');">' + val.name + '</span></td></tr></tbody>'
                         ]).draw();
 
                     });
