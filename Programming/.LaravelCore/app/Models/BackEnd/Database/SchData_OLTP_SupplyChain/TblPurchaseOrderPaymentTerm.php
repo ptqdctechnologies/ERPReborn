@@ -23,8 +23,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Create Date     : 2022-04-16                                                                                           |
         | ▪ Last Update     : 2022-04-16                                                                                           |
+        | ▪ Creation Date   : 2022-04-16                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,9 +43,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2023-05-04                                                                                           |
         | ▪ Creation Date   : 2022-04-18                                                                                           |
-        | ▪ Last Update     : 2022-04-20                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -58,10 +58,6 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (int)    varPurchaseOrder_RefID ► Purchase Order Reference ID                                                     |
         |      ▪ (int)    varPaymentTerm_RefID ► Payment Term Reference ID                                                         |
         |      ▪ (int)    varDueDays ► Due Days                                                                                    |
-        |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
-        |      ▪ (float)  varCurrencyValue ► Currency Value                                                                        |
-        |      ▪ (float)  varCurrencyExchangeRate ► Currency Exchange Rate                                                         |
-        |      ▪ (float)  varBaseCurrencyValue ► Base Currency Value                                                               |
         |      ▪ (int)    varDiscountDueDays ► Discount Due Days                                                                   |
         |      ▪ (float)  varDiscountPercentageRate ► Discount Percentage Rate                                                     |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
@@ -71,8 +67,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         */
         public function setDataInsert(
             $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varPurchaseOrder_RefID = null, int $varPaymentTerm_RefID = null, int $varDueDays = null, int $varCurrency_RefID = null, float $varCurrencyValue = null, float $varCurrencyExchangeRate = null, string $varBaseCurrencyValue = null, int $varDiscountDueDays = null, float $varDiscountPercentageRate = null, string $varRemarks = null)
+            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
+            int $varPurchaseOrder_RefID = null, int $varPaymentTerm_RefID = null, int $varDueDays = null, int $varDiscountDueDays = null, float $varDiscountPercentageRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -90,10 +86,6 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [$varPurchaseOrder_RefID, 'bigint'],
                         [$varPaymentTerm_RefID, 'bigint'],
                         [$varDueDays, 'timestamptz'],
-                        [$varCurrency_RefID, 'bigint'],
-                        [$varCurrencyValue, 'numeric'],
-                        [$varCurrencyExchangeRate, 'numeric'],
-                        [$varBaseCurrencyValue, 'numeric'],
                         [$varDiscountDueDays, 'timestamptz'],
                         [$varDiscountPercentageRate, 'numeric'],
                         [$varRemarks, 'varchar']
@@ -108,9 +100,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2023-05-04                                                                                           |
         | ▪ Creation Date   : 2022-04-18                                                                                           |
-        | ▪ Last Update     : 2022-04-20                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -124,10 +116,6 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (int)    varPurchaseOrder_RefID ► Purchase Order Reference ID                                                     |
         |      ▪ (int)    varPaymentTerm_RefID ► Payment Term Reference ID                                                         |
         |      ▪ (int)    varDueDays ► Due Days                                                                                    |
-        |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
-        |      ▪ (float)  varCurrencyValue ► Currency Value                                                                        |
-        |      ▪ (float)  varCurrencyExchangeRate ► Currency Exchange Rate                                                         |
-        |      ▪ (float)  varBaseCurrencyValue ► Base Currency Value                                                               |
         |      ▪ (int)    varDiscountDueDays ► Discount Due Days                                                                   |
         |      ▪ (float)  varDiscountPercentageRate ► Discount Percentage Rate                                                     |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
@@ -137,8 +125,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         */
         public function setDataUpdate(
             $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varPurchaseOrder_RefID = null, int $varPaymentTerm_RefID = null, int $varDueDays = null, int $varCurrency_RefID = null, float $varCurrencyValue = null, float $varCurrencyExchangeRate = null, string $varBaseCurrencyValue = null, int $varDiscountDueDays = null, float $varDiscountPercentageRate = null, string $varRemarks = null)
+            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
+            int $varPurchaseOrder_RefID = null, int $varPaymentTerm_RefID = null, int $varDueDays = null, int $varDiscountDueDays = null, float $varDiscountPercentageRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -156,10 +144,6 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [$varPurchaseOrder_RefID, 'bigint'],
                         [$varPaymentTerm_RefID, 'bigint'],
                         [$varDueDays, 'timestamptz'],
-                        [$varCurrency_RefID, 'bigint'],
-                        [$varCurrencyValue, 'numeric'],
-                        [$varCurrencyExchangeRate, 'numeric'],
-                        [$varBaseCurrencyValue, 'numeric'],
                         [$varDiscountDueDays, 'timestamptz'],
                         [$varDiscountPercentageRate, 'numeric'],
                         [$varRemarks, 'varchar']

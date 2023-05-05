@@ -1,5 +1,21 @@
 # Changelog
 
+## 3.15.1 - 2023-05-04
+
+### Fixed
+
+- Remove duplicate class caused by package extractin and inclusion
+
+## 3.15.0 - 2023-05-04
+
+### Added
+
+- Extracted the local adapter as a standalone package
+
+### Changed
+
+- Removed readme's from shipped artefacts.
+
 ## 3.14.0 - 2023-04-11
 
 ### Added
