@@ -845,6 +845,7 @@ namespace App\Models\Database\SchSysConfig
                     ]
                     )
                 );
+            //dd($varReturn);
             return $varReturn['Data'][0]['FuncSys_General_SetUserSessionBranchAndUserRole'];
             }
 
