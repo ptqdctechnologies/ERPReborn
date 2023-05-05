@@ -20,7 +20,8 @@
 </script>
 
 <script>
-    function klikProject(code, name) {
+    function klikProject(sys_id, code, name) {
+
         $("#projectcode").val(code);
         $("#projectname").val(name);
         $("#sitecode2").prop("disabled", false);
@@ -33,7 +34,7 @@
 
         $.ajax({
             type: 'GET',
-            url: '{!! route("getSite") !!}?projectcode=' + $('#projectcode').val(),
+            url: '{!! route("getSite") !!}?projectcode=' + sys_id,
             success: function(data) {
 
                 var no = 1;
@@ -42,9 +43,9 @@
                 t.clear();
                 $.each(data, function(key, val) {
                     t.row.add([
-                        '<tbody><tr><td>' + no++ + '</td>',
-                        '<td><span data-dismiss="modal" onclick="klikSite(\'' + val.sys_ID + '\', \'' + val.sys_Text + '\');">' + val.sys_ID + '</span></td>',
-                        '<td style="border:1px solid #e9ecef;">' + val.sys_Text + '</td></tr></tbody>'
+                        '<tbody><tr><td><span data-dismiss="modal" onclick="klikSite(\'' + val.sys_ID + '\', \'' + val.code + '\', \'' + val.name + '\');">' + no++ + '</span></td>',
+                        '<td><span data-dismiss="modal" onclick="klikSite(\'' + val.sys_ID + '\', \'' + val.code + '\', \'' + val.name + '\');">' + val.code + '</span></td>',
+                        '<td><span data-dismiss="modal" onclick="klikSite(\'' + val.sys_ID + '\', \'' + val.code + '\', \'' + val.name + '\');">' + val.name + '</span></td></tr></tbody>'
                     ]).draw();
                 });
             }
@@ -56,7 +57,7 @@
 <script>
 
     // $(document).ready(function() {
-    function klikSite(code, name) {
+    function klikSite(sys_id, code, name) {
         $("#sitecode").val(code);
         $("#sitename").val(name);
         $("#sitecode2").prop("disabled", true);
@@ -66,7 +67,7 @@
         $(".tableShowHideBOQ3").show();
         $("#request_name2").prop("disabled", false);
         $("#beneficiary_name2").prop("disabled", false);
-        $("#bank_name2").prop("disabled", false);
+        $("#bank_name2").prop("dsitecodeisabled", false);
 
 
         $(".file-attachment").show();
@@ -80,7 +81,7 @@
 
         $.ajax({
             type: 'GET',
-            url: '{!! route("getBudget") !!}?sitecode=' + $('#sitecode').val(),
+            url: '{!! route("getBudget") !!}?sitecode=' + sys_id,
             // url: '{!! route("getBudget") !!}?sitecode=' + 143000000000305,
             success: function(data) {
                 var no = 1; applied = 0; status = ""; statusDisplay = [];statusDisplay2 = []; statusForm = [];

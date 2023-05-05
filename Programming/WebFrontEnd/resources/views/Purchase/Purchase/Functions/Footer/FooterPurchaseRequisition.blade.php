@@ -495,7 +495,7 @@
 
                                 title: 'Successful !',
                                 type: 'success',
-                                html: 'Data has been saved. Your transaction number iss ' + '<span style="color:red;">' + response.ProcReqNumber + '</span>',
+                                html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + response.ProcReqNumber + '</span>',
                                 showCloseButton: false,
                                 showCancelButton: false,
                                 focusConfirm: false,

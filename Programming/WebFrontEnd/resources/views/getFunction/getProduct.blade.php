@@ -77,6 +77,11 @@
         $("#qty_req"+key).prop("disabled", false);
         $("#price_req"+key).prop("disabled", false);
         $("#remark_req"+key).prop("disabled", false);
+
+
+        $("#allowance_req"+key).prop("disabled", false);
+        $("#accomodation_req"+key).prop("disabled", false);
+        $("#other_req"+key).prop("disabled", false);
     }
 </script>
 <!-- 
