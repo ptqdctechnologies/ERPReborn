@@ -168,6 +168,8 @@
 </script>
 
 <script>
+    var keys = 0;
+
     function klikPrNumberinPO(id, docNum) {
         var var_recordID = id;
         var trano = docNum;
@@ -188,9 +190,10 @@
             url: '{!! route("PurchaseOrder.PurchaseOrderByPrID") !!}?var_recordID=' + var_recordID,
             success: function(data) {
 
-                var no = 1; applied = 0; TotalBudgetSelected = 0;status = ""; statusDisplay = [];statusDisplay2 = []; statusForm = [];
+                var no = 1; applied = 0; status = ""; statusDisplay = [];statusDisplay2 = []; statusForm = [];
                 $.each(data.DataPurchaseList, function(key, value) {
-                    console.log(value);
+                    keys += 1;
+                    // console.log(value);
                     // if(value.quantityAbsorption == "0.00" && value.quantity == "0.00"){
                     if(value.quantity == "0.00"){
                         var applied = 0;
@@ -242,8 +245,8 @@
                         '<td style="border:1px solid #e9ecef;">' + value.priceCurrencyISOCode + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + value.priceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
 
-                        '<td class="sticky-col six-col" style="border:1px solid #e9ecef;background-color:white;">' + '<select id="ppn' + key + '" class="form-control " style=" border-radius:0;" name="ppn[]"><option value="No"> No </option><option value="Yes"> Yes </option></select>' + '</td>' +
-                        '<td class="sticky-col five-col" style="border:1px solid #e9ecef;background-color:white;">' + '<select id="ppn_persen' + key + '" class="form-control " style="border-radius:0;" name="ppn_persen[]"><option selected="selected">Select Tax</option><option value="1">1%</option><option value="11">11%</option></select>' + '</td>' +
+                        // '<td class="sticky-col six-col" style="border:1px solid #e9ecef;background-color:white;">' + '<select id="ppn' + key + '" class="form-control " style=" border-radius:0;" name="ppn[]"><option value="No"> No </option><option value="Yes"> Yes </option></select>' + '</td>' +
+                        // '<td class="sticky-col five-col" style="border:1px solid #e9ecef;background-color:white;">' + '<select id="ppn_persen' + key + '" class="form-control " style="border-radius:0;" name="ppn_persen[]"><option selected="selected">Select Tax</option><option value="1">1%</option><option value="11">11%</option></select>' + '</td>' +
                         '<td class="sticky-col forth-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +   
                         '<td class="sticky-col third-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req'+ key +'" style="border-radius:0;" name="price_req[]" class="form-control price_req" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
                         '<td class="sticky-col second-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req'+ key +'" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled>' + '</td>' +
@@ -258,6 +261,11 @@
                         $(this).val(currency($(this).val()));
                         var qty_val = $(this).val().replace(/,/g, '');
                         var budget_qty_val = $("#budget_qty"+key).val();
+
+                        var price_req = $("#price_req"+key).val();
+
+
+                        var total = price_req * qty_val;
 
                         if (qty_val == "") {
                             $('#total_req'+key).val("");
@@ -278,7 +286,9 @@
                         }
                         else {
                             $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
+                            $('#total_req'+key).val(currencyTotal(total));
                         }
+                        TotalBudgetSelected();
                     });
 
                     
@@ -319,17 +329,48 @@
                         }
                         else {
                             $("input[name='price_req[]']").css("border", "1px solid #ced4da");
-                            $('#total_req'+key).val(currencyTotal(total+(total*var_ppn)));
+                            $('#total_req'+key).val(currencyTotal(total));
 
                         }
+                        TotalBudgetSelected();
                     });
-                    $('#ppn_persen'+key).on('click', function(e) {
+
+                    $('#ppn').on('click', function(e) {
                         e.preventDefault();
-                        var ppn_persen = $(this).val().replace(/,/g, '');
-                        var price_req = $("#price_req"+key).val().replace(/,/g, '');
-                        var qty_req = $("#qty_req"+key).val();
-                        var total = price_req * qty_req;
-                        var ppn = $("#ppn"+key).val();
+
+                        var ppn = $(this).val();
+                        var ppn_persen = $("#ppn_persen").val();
+                        var totalBudget = $("#TotalBudgetSelected").html();
+                        var totalPpn = $("#TotalPpn").html();
+
+                        var var_ppn = 0; 
+
+                        if(ppn == "Yes"){
+                            if(ppn_persen == "1"){
+                                var_ppn = 0.01;    
+                            }
+                            else if(ppn_persen == "11"){
+                                var_ppn = 0.11;    
+                            }
+                        }
+                        var totalBudgetPpn = parseFloat(+totalBudget + +(totalBudget*var_ppn));
+                        $('#TotalBudgetSelectedPpn').html(currencyTotal(totalBudgetPpn));
+                        var totalPpn = parseFloat(totalBudget*var_ppn);
+                        $('#TotalPpn').html(currencyTotal(totalPpn));
+
+
+                        $("input[name='price_req[]']").css("border", "1px solid #ced4da");
+                    });
+
+
+                    $('#ppn_persen').on('click', function(e) {
+                        e.preventDefault();
+                        var ppn_persen = $(this).val();
+                        var ppn = $("#ppn").val();
+
+                        var totalBudget = $("#TotalBudgetSelected").html();
+                        var totalPpn = $("#TotalPpn").html();
+
                         var var_ppn = 0; 
                         if(ppn == "Yes"){
                             if(ppn_persen == "1"){
@@ -339,34 +380,37 @@
                                 var_ppn = 0.11;    
                             }
                         }
-                        $("input[name='price_req[]']").css("border", "1px solid #ced4da");
-                        $('#total_req'+key).val(currencyTotal(total+(total*var_ppn)));
-                    });
 
-                    $('#ppn'+key).on('click', function(e) {
-                        e.preventDefault();
-                        var ppn = $(this).val().replace(/,/g, '');
-                        var price_req = $("#price_req"+key).val().replace(/,/g, '');
-                        var qty_req = $("#qty_req"+key).val();
-                        var total = price_req * qty_req;
-                        var ppn_persen = $("#ppn_persen"+key).val();
-                        var var_ppn = 0; 
-                        if(ppn == "Yes"){
-                            if(ppn_persen == "1"){
-                                var_ppn = 0.01;    
-                            }
-                            else if(ppn_persen == "11"){
-                                var_ppn = 0.11;    
-                            }
-                        }
+                        var totalBudgetPpn = parseFloat(+totalBudget + +(totalBudget*var_ppn));
+                        $('#TotalBudgetSelectedPpn').html(currencyTotal(totalBudgetPpn));
+                        var totalPpn = parseFloat(totalBudget*var_ppn);
+                        $('#TotalPpn').html(currencyTotal(totalPpn));
+
                         $("input[name='price_req[]']").css("border", "1px solid #ced4da");
-                        $('#total_req'+key).val(currencyTotal(total+(total*var_ppn)));
+
                     });
 
                 });
             },
         });
 
+    }
+</script>
+
+<script>
+    function TotalBudgetSelected(){
+
+        var TotalBudgetSelected = 0;
+        var total_req = $("input[name='total_req[]']").map(function(){return $(this).val();}).get();
+
+        $.each(total_req, function(index, data) {
+            if(total_req[index] != "" && total_req[index] > "0.00" && total_req[index] != "NaN.00"){
+                TotalBudgetSelected += parseFloat(total_req[index].replace(/,/g, ''));
+            }
+        });
+
+        $('#TotalBudgetSelected').html(currencyTotal(TotalBudgetSelected));
+        
     }
 </script>
 
@@ -434,7 +478,7 @@
                     '</tr>';
                 $('table.tableShoppingCart tbody').append(html);  
 
-                $("#TotalBudgetSelected").html(currencyTotal(TotalBudgetSelected));
+                // $("#TotalBudgetSelected").html(currencyTotal(TotalBudgetSelected));
                 $("#GrandTotal").html(currencyTotal(TotalBudgetSelected));
                 $("#TotalQty").html(currencyTotal(TotalQty));
                 $("#TotalPrice").html(currencyTotal(TotalPrice));
@@ -516,7 +560,7 @@
 </script>
 
 <script>
-    $(function() {
+    $(function() {  
         $(".idExpense").on('click', function(e) {
             $("#amountdueto").hide();
             $("#expense").show();

@@ -14,8 +14,8 @@
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Currency</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Balance</th>
 
-                <th class="sticky-col six-col" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">PPN</th>
-                <th class="sticky-col five-col" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">PPN(%)</th>
+                <!-- <th class="sticky-col six-col" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">PPN</th>
+                <th class="sticky-col five-col" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">PPN(%)</th> -->
                 <th class="sticky-col forth-col" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Qty</th>
                 <th class="sticky-col third-col" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Price</th>
                 <th class="sticky-col second-col" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Total Req</th>
@@ -29,11 +29,52 @@
     </table>
 </div>
 
+<div class="card-body">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <table>
+                    <tr>
+                        <td><label>PPN</label></td>
+                        <td style="border:1px solid #e9ecef;">
+                            <select name="ppn" id="ppn" style="border-radius:0;" type="text" class="form-control">
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <table>
+                    <tr>
+                        <td><label>PPN(%)</label></td>
+                        <td style="border:1px solid #e9ecef;">
+                            <select name="ppn_persen" id="ppn_persen" style="border-radius:0;" type="text" class="form-control">
+                                <option value="">Select</option>
+                                <option value="1">1%</option>
+                                <option value="11">11%</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="card-body tableShowHidePRDetail" >
     <table style="float:right;">
         @if($statusRevisi == 1)
             <tr>
-                <th style="position: relative;right:20px;"> Total : <span id="TotalBudgetSelected"></span></th>
+                <th style="position: relative;right:20px;"> Total Request: <span id="TotalBudgetSelected">0.00</span></th>
+            </tr>
+            <tr>
+                <th style="position: relative;right:20px;"> PPN: <span id="TotalPpn">0.00</span></th>
+            </tr>
+            <tr>
+                <th style="position: relative;right:20px;"> Total Request + PPN: <span id="TotalBudgetSelectedPpn">0.00</span></th>
             </tr>
         @endif
         <tr>

@@ -15,7 +15,7 @@
 </script>
 
 <script>
-    function klikProject(code, name) {
+    function klikProject(sys_id,code, name) {
         $("#projectcode").val(code);
         $("#projectname").val(name);
         $("#sitecode2").prop("disabled", false);
@@ -28,7 +28,7 @@
 
         $.ajax({
             type: 'GET',
-            url: '{!! route("getSite") !!}?projectcode=' + $('#projectcode').val(),
+            url: '{!! route("getSite") !!}?projectcode=' + sys_id,
             success: function(data) {
 
                 var no = 1;
@@ -37,9 +37,9 @@
                 $.each(data, function(key, val) {
 
                     t.row.add([
-                        '<tbody><tr><td>' + no++ + '</td>',
-                        '<td><span data-dismiss="modal" onclick="klikSite(\'' + val.sys_ID + '\', \'' + val.sys_Text + '\');">' + val.sys_ID + '</span></td>',
-                        '<td style="border:1px solid #e9ecef;">' + val.sys_Text + '</td></tr></tbody>'
+                        '<tbody><tr><td><span data-dismiss="modal" onclick="klikSite(\'' + val.sys_ID + '\',\'' + val.code + '\', \'' + val.name + '\');">' + no++ + '</span></td>',
+                        '<td><span data-dismiss="modal" onclick="klikSite(\'' + val.sys_ID + '\',\'' + val.code + '\', \'' + val.name + '\');">' + val.code + '</span></td>',
+                        '<td><span data-dismiss="modal" onclick="klikSite(\'' + val.sys_ID + '\',\'' + val.code + '\', \'' + val.name + '\');">' + val.name + '</span></td></tr></tbody>'
                     ]).draw();
 
                 });
@@ -51,7 +51,7 @@
 <script>
 
     // $(document).ready(function() {
-    function klikSite(code, name) {
+    function klikSite(sys_id, code, name) {
         $("#sitecode").val(code);
         $("#sitename").val(name);
         $("#sitecode2").prop("disabled", true);
@@ -66,7 +66,7 @@
 
         $.ajax({
             type: 'GET',
-            url: '{!! route("getBudget") !!}?sitecode=' + $('#sitecode').val(),
+            url: '{!! route("getBudget") !!}?sitecode=' + sys_id,
             // url: '{!! route("getBudget") !!}?sitecode=' + 143000000000305,
             success: function(data) {
                 var no = 1; applied = 0; TotalBudgetSelected = 0;status = ""; statusDisplay = [];statusDisplay2 = []; statusForm = [];
@@ -96,7 +96,7 @@
                         '<input name="getWorkName[]" value="'+ val2.combinedBudgetSubSectionLevel1Name +'" type="hidden">' +
                         '<input name="getProductId[]" value="'+ val2.product_RefID +'" type="hidden">' +
                         '<input name="getProductName[]" value="'+ val2.productName +'" type="hidden">' +
-                        '<input name="getQty[]" id="budget_qty'+ key +'" value="'+ val2.quantityRemain +'" type="hidden">' +
+                        '<input name="getQty[]" id="budget_qty'+ key +'" value="'+ val2.quantity +'" type="hidden">' +
                         '<input name="getPrice[]" id="budget_price'+ key +'" value="'+ val2.unitPriceBaseCurrencyValue +'" type="hidden">' +
                         '<input name="getUom[]" value="'+ val2.quantityUnitName +'" type="hidden">' +
                         '<input name="getCurrency[]" value="'+ val2.priceBaseCurrencyISOCode +'" type="hidden">' +
@@ -122,7 +122,7 @@
                         
                         '<td style="position:relative;width:130px; border:1px solid #e9ecef;">' + '<span id="putProductName'+ key +'">' + val2.productName + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span">' + val2.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + '<span">' + val2.quantityRemain.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + '<span">' + val2.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.unitPriceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.priceBaseCurrencyValue .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.priceBaseCurrencyValue .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
