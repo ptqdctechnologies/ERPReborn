@@ -17,8 +17,11 @@
                                             <th>Product Code</th>
                                             <th>Product Name</th>
                                             <th>UOM</th>
+                                            <th style="display: none;"></th>
                                         </tr>
                                     </thead>
+                                    <tbody>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -42,14 +45,14 @@
             type: 'GET',
             url: '{!! route("getProduct") !!}',
             success: function(data) {
-                var no = 1;
-
                 for ( var i=0 ; i< Object.keys(data).length ; i++ ) {
+                    var no = i+1;
                     dataShow.push([
-                        i+1,
-                        '<span data-dismiss="modal" onclick="klikProduct(\'' + data[i]['sys_ID'] + '\', \'' + data[i]['name'] + '\', \'' + data[i]['quantityUnitName'] + '\', \'' + key + '\');">' + data[i]['sys_ID'] + '</span>',
-                        '<span data-dismiss="modal" onclick="klikProduct(\'' + data[i]['sys_ID'] + '\', \'' + data[i]['name'] + '\', \'' + data[i]['quantityUnitName'] + '\', \'' + key + '\');">' + data[i]['name'] + '</span>',
-                        '<span data-dismiss="modal" onclick="klikProduct(\'' + data[i]['sys_ID'] + '\', \'' + data[i]['name'] + '\', \'' + data[i]['quantityUnitName'] + '\', \'' + key + '\');">' + data[i]['quantityUnitName'] + '</span>',  
+                        '<tbody><tr><td>' + no + '</td>',
+                        '<td>' + data[i]['sys_ID'] + '</td>',
+                        '<td>' + data[i]['name'] + '</td>',
+                        '<td>' + data[i]['quantityUnitName'] + '</td>',
+                        '<span style="display:none;"><td">' + key + '</td></span></tr></tbody>'
                     ]);
                 }
 
@@ -68,9 +71,19 @@
 </script>
 
 <script>
-    function klikProduct(id, name, uom, key) {
 
-        $("#putProductId"+key).val(id);
+    $('#tableGetProduct tbody').on('click', 'tr', function () {
+
+        $("#myProduct").modal('toggle');
+
+        var row = $(this).closest("tr");    
+        var sys_id = row.find("td:nth-child(2)").text();
+        var name = row.find("td:nth-child(3)").text();
+        var uom = row.find("td:nth-child(4)").text();
+        var key = row.find("td:nth-child(5)").text();
+        console.log(key);
+
+        $("#putProductId"+key).val(sys_id);
         $("#putProductName"+key).html(name);
         $("#putUom"+key).val(uom);
 
@@ -78,31 +91,11 @@
         $("#price_req"+key).prop("disabled", false);
         $("#remark_req"+key).prop("disabled", false);
 
-
         $("#allowance_req"+key).prop("disabled", false);
         $("#accomodation_req"+key).prop("disabled", false);
         $("#other_req"+key).prop("disabled", false);
-    }
-</script>
-<!-- 
 
-
-<script>
-    $(function() {
-        $(".klikProduct").on('click', function(e) {
-            e.preventDefault(); // in chase you change to a link or button
-            var $this = $(this);
-            var code = $this.data("id1");
-            var name = $this.data("id2");
-            var key = $("#key").val();
-
-            $("#putProductId"+key).val(code);
-            $("#putProductName"+key).html(name);
-
-            $("#qty_req"+key).prop("disabled", false);
-            $("#price_req"+key).prop("disabled", false);
-            $("#remark_req"+key).prop("disabled", false);
-
-        });
     });
-</script> -->
+    
+</script>
+

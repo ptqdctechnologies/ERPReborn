@@ -10,12 +10,13 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap table-striped" id="tableGetBank">
+                                <table class="table table-head-fixed text-nowrap" id="tableGetBank">
                                     <thead>
                                         <tr>
                                             <th>No</th>
                                             <th>Name</th>
                                             <th>Full Name</th>
+                                            <th style="display:none;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -49,9 +50,12 @@
                     t.clear();
                     $.each(data, function(key, val) {
                         t.row.add([
+
                             '<tbody><tr><td>' + no++ + '</td>',
-                            '<td><span data-dismiss="modal" onclick="klikGetBank(\'' + val.sys_ID + '\', \'' + val.acronym + '\', \'' + val.name + '\');">' + val.acronym + '</span></td>',
-                            '<td style="border:1px solid #e9ecef;">' + val.name + '</td></tr></tbody>'
+                            '<td>' + val.acronym + '</td>',
+                            '<td>' + val.name + '</td>',
+                            '<span style="display:none;"><td>' + val.sys_ID + '</td></span></tr></tbody>'
+
                         ]).draw();
 
                     });
