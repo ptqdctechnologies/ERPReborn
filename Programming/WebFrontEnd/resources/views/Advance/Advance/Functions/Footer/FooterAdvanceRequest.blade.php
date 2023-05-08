@@ -4,8 +4,8 @@
         $(".Remark").hide();
         $("#detailTransAvail").hide();
         $("#sitecode2").prop("disabled", true);
-        // $("#request_name2").prop("disabled", true);
-        // $("#beneficiary_name2").prop("disabled", true);
+        $("#request_name2").prop("disabled", true);
+        $("#beneficiary_name2").prop("disabled", true);
         $("#showContentBOQ3").hide();
         $(".tableShowHideBOQ3").hide();
         $(".file-attachment").hide();
@@ -83,7 +83,7 @@
         $(".tableShowHideBOQ3").show();
         $("#request_name2").prop("disabled", false);
         $("#beneficiary_name2").prop("disabled", false);
-        $("#bank_name2").prop("dsitecodeisabled", false);
+        $("#bank_name2").prop("disabled", false);
 
 
         $(".file-attachment").show();

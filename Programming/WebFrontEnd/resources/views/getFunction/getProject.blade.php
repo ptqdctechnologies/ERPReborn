@@ -57,9 +57,6 @@
                             '<td>' + val.name + '</td>',
                             '<span style="display:none;"><td">' + val.sys_ID + '</td></span></tr></tbody>'
                         ]).draw();
-
-
-
                     });
                 }
             });

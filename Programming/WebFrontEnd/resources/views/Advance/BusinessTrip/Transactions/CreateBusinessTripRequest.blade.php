@@ -110,7 +110,7 @@
                             <tr>
                               <td><label>Requester</label></td>
                               <td>
-                                <div class="input-group">
+                                <div class="input-group" style="width: 70%;">
                                   <input name="request_name" id="request_name" style="border-radius:0;" type="text" class="form-control" readonly>
                                   <input name="request_name_id" id="request_name_id" style="border-radius:0;" type="hidden" class="form-control" readonly>
                                   <input name="var_combinedBudget" id="combinedBudget" style="border-radius:0;" type="hidden" class="form-control" readonly>
@@ -122,7 +122,7 @@
                                 </div>
                               </td>
                               <td>
-                                <div class="input-group">
+                                <div class="input-group" style="width: 140%;position:relative;right:38%;">
                                   <input id="request_position" style="border-radius:0;" class="form-control" name="request_position" readonly>
                                 </div>
                               </td>
@@ -131,7 +131,7 @@
                               <td><label>Contact Phone</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="contactPhone" name="contactPhone" style="border-radius:0;" type="text" class="form-control">
+                                  <input id="contactPhone" name="contactPhone" style="border-radius:0;" type="text" class="form-control" disabled>
                                 </div>
                               </td>
                             </tr>
@@ -151,14 +151,6 @@
                                 </div>
                               </td>
                             </tr>
-                            <tr>
-                              <td><label>Head Station Location</label></td>
-                              <td>
-                                <div class="input-group">
-                                  <input id="headStationLocation" name="headStationLocation" style="border-radius:0;" type="text" class="form-control">
-                                </div>
-                              </td>
-                            </tr>
                           </table>
                         </div>
                       </div>
@@ -167,9 +159,19 @@
                         <table>
 
                           <tr>
+                            <td><label>Head Station Location</label></td>
+                            <td>
+                              <div class="input-group">
+                                <input id="headStationLocation" name="headStationLocation" style="border-radius:0;" type="text" class="form-control">
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
                             <td><label>Business Trip Location</label></td>
                             <td>
-                              <textarea id="bussinesLocation" name="bussinesLocation" style="border-radius:0;" cols="30" rows="3" class="form-control"></textarea>
+                              <div class="input-group">
+                                <input id="bussinesLocation" name="bussinesLocation" style="border-radius:0;" type="text" class="form-control">
+                              </div>
                             </td>
                           </tr>
                           <tr>

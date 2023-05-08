@@ -9,7 +9,7 @@
     $(".tableShowHideBOQ3").hide();
     $("#sitecode2").prop("disabled", true);
     $("#request_name2").prop("disabled", true);
-    // $("#saveBrfList").prop("disabled", true);
+    $("#saveBrfList").prop("disabled", true);
     $("#dateEnd").prop("disabled", true);
     $("#dateEnd").css("background-color", "white");
     $("#dateArrival").prop("disabled", true);
@@ -62,7 +62,15 @@
 
 
 <script>
-  function klikProject(sys_ID, code, name) {
+  $('#tableGetProject tbody').on('click', 'tr', function () {
+
+    $("#myProject").modal('toggle');
+
+    var row = $(this).closest("tr");    
+    var sys_ID = row.find("td:nth-child(4)").text();
+    var code = row.find("td:nth-child(2)").text();
+    var name = row.find("td:nth-child(3)").text();
+
     $("#projectcode").val(code);
     $("#projectname").val(name);
     $("#sitecode2").prop("disabled", false);
@@ -84,19 +92,28 @@
         t.clear();
         $.each(data, function(key, val) {
           t.row.add([
-            '<tbody><tr><td><span data-dismiss="modal" onclick="klikSite(\'' + val.sys_ID + '\', \'' + val.code + '\', \'' + val.name + '\');">' + no++ + '</span></td>',
-            '<td><span data-dismiss="modal" onclick="klikSite(\'' + val.sys_ID + '\', \'' + val.code + '\', \'' + val.name + '\');">' + val.code + '</span></td>',
-            '<td><span data-dismiss="modal" onclick="klikSite(\'' + val.sys_ID + '\', \'' + val.code + '\', \'' + val.name + '\');">' + val.name + '</span></td></tr></tbody>'
+            '<tbody><tr><td>' + no++ + '</td>',
+            '<td>' + val.code + '</td>',
+            '<td>' + val.name + '</td>',
+            '<span style="display:none;"><td>' + val.sys_ID + '</td></span></tr></tbody>'
           ]).draw();
         });
       }
     });
-  }
+  });
 </script>
 
 <script>
 
-  function klikSite(sys_ID, code, name) {
+    $('#tableGetSite tbody').on('click', 'tr', function () {
+
+      $("#mySiteCode").modal('toggle');
+
+      var row = $(this).closest("tr");    
+      var sys_ID = row.find("td:nth-child(4)").text();
+      var code = row.find("td:nth-child(2)").text();
+      var name = row.find("td:nth-child(3)").text();
+
       $("#sitecode").val(code);
       $("#sitename").val(name);
       $("#sitecode2").prop("disabled", true);
@@ -182,7 +199,7 @@
                       '<input id="TotalBudget'+ key +'" type="hidden">' +
 
                       '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
-                      '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
+                      '<td style="border:1px solid #e9ecef;">' + '<span>' + 1 + '</span>' + '</td>' +
                       '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.unitPriceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
                       '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.priceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
 
@@ -196,17 +213,19 @@
                   $('table.tableBudgetDetail tbody').append(html);
 
                   //VALIDASI ALLOWANCE
-                  $('#allowance_req'+key).keyup(function() {
+                  $('#allowance_req'+key).keyup(function() {val2.quantity
                       $(this).val(currency($(this).val()));
                       var allowance_req = $(this).val().replace(/,/g, '');
                       var budget_total = $("#budget_total"+key).val();
                       var accomodation_req = $("#accomodation_req"+key).val().replace(/,/g, '');
                       var other_req = $("#other_req"+key).val().replace(/,/g, '');
+                      var total_balance = $("#total_balance"+key).val().replace(/,/g, '');
                       var total = +allowance_req + +accomodation_req + +other_req;
 
                       if (allowance_req == "") {
                           $('#total_req'+key).val("");
                           $("input[name='allowance_req[]']").css("border", "1px solid #ced4da");
+                          $('#total_balance'+key).val(currencyTotal(total_balance));
                       }
                       else if (parseFloat(total) > parseFloat(budget_total)) {
 
@@ -221,11 +240,13 @@
                           $('#total_req'+key).val("");
                           $('#allowance_req'+key).css("border", "1px solid red");
                           $('#allowance_req'+key).focus();
+                          $('#total_balance'+key).val(currencyTotal(total_balance));
                       }
                       else {
 
                           $("input[name='allowance_req[]']").css("border", "1px solid #ced4da");
                           $('#total_req'+key).val(currencyTotal(total));
+                          $('#total_balance'+key).val(currencyTotal(parseFloat(total_balance) - parseFloat(total)));
                       }
 
                       //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED
@@ -239,11 +260,13 @@
                       var budget_total = $("#budget_total"+key).val();
                       var allowance_req = $("#allowance_req"+key).val().replace(/,/g, '');
                       var other_req = $("#other_req"+key).val().replace(/,/g, '');
+                      var total_balance = $("#total_balance"+key).val().replace(/,/g, '');
                       var total = +allowance_req + +accomodation_req + +other_req;
 
                       if (allowance_req == "") {
                           $('#total_req'+key).val("");
                           $("input[name='accomodation_req[]']").css("border", "1px solid #ced4da");
+                          $('#total_balance'+key).val(currencyTotal(total_balance));
                       }
                       else if (parseFloat(total) > parseFloat(budget_total)) {
 
@@ -258,11 +281,13 @@
                           $('#total_req'+key).val("");
                           $('#accomodation_req'+key).css("border", "1px solid red");
                           $('#accomodation_req'+key).focus();
+                          $('#total_balance'+key).val(currencyTotal(total_balance));
                       }
                       else {
 
                           $("input[name='accomodation_req[]']").css("border", "1px solid #ced4da");
                           $('#total_req'+key).val(currencyTotal(total));
+                          $('#total_balance'+key).val(currencyTotal(total_balance - total));
                       }
 
                       //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED
@@ -276,11 +301,13 @@
                       var budget_total = $("#budget_total"+key).val();
                       var allowance_req = $("#allowance_req"+key).val().replace(/,/g, '');
                       var accomodation_req = $("#accomodation_req"+key).val().replace(/,/g, '');
+                      var total_balance = $("#total_balance"+key).val().replace(/,/g, '');
                       var total = +allowance_req + +accomodation_req + +other_req;
 
                       if (allowance_req == "") {
                           $('#total_req'+key).val("");
                           $("input[name='other_req[]']").css("border", "1px solid #ced4da");
+                          $('#total_balance'+key).val(currencyTotal(total_balance));
                       }
                       else if (parseFloat(total) > parseFloat(budget_total)) {
 
@@ -295,11 +322,13 @@
                           $('#total_req'+key).val("");
                           $('#other_req'+key).css("border", "1px solid red");
                           $('#other_req'+key).focus();
+                          $('#total_balance'+key).val(currencyTotal(total_balance));
                       }
                       else {
 
                           $("input[name='other_req[]']").css("border", "1px solid #ced4da");
                           $('#total_req'+key).val(currencyTotal(total));
+                          $('#total_balance'+key).val(currencyTotal(total_balance - total));
                       }
 
                       //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED
@@ -308,7 +337,7 @@
               });
           }
       });
-    }
+    });
 </script>
 
 <script>
@@ -582,64 +611,68 @@
   $(function() {
     $("#FormSubmitBusinessTrip").on("submit", function(e) { //id of form 
       e.preventDefault();
-      // var request_name = $("#request_name").val();
-      // var jobTitle = $("#jobTitle").val();
-      // var department = $("#department").val();
-      // var reasonTravel = $("#reasonTravel").val();
-      // var dateCommance = $("#dateCommance").val();
-      // var dateEnd = $("#dateEnd").val();
-      // var headStationLocation = $("#headStationLocation").val();
-      // var bussinesLocation = $("#bussinesLocation").val();
-      // var contactPhone = $("#contactPhone").val();
-      
-      // $("#request_name").css("border", "1px solid #ced4da");
-      // $("#jobTitle").css("border", "1px solid #ced4da");
-      // $("#department").css("border", "1px solid #ced4da");
-      // $("#reasonTravel").css("border", "1px solid #ced4da");
-      // $("#dateCommance").css("border", "1px solid #ced4da");
-      // $("#dateEnd").css("border", "1px solid #ced4da");
-      // $("#headStationLocation").css("border", "1px solid #ced4da");
-      // $("#bussinesLocation").css("border", "1px solid #ced4da");
-      // $("#contactPhone").css("border", "1px solid #ced4da");
+      var request_name = $("#request_name").val();
+      var projectcode = $("#projectcode").val();
+      var sitecode = $("#sitecode").val();
+      var reasonTravel = $("#reasonTravel").val();
+      var dateCommance = $("#dateCommance").val();
+      var dateEnd = $("#dateEnd").val();
+      var headStationLocation = $("#headStationLocation").val();
+      var bussinesLocation = $("#bussinesLocation").val();
+      var contactPhone = $("#contactPhone").val();
+      var transportApplicable = $(".transportApplicable").val();
+      console.log(transportApplicable);
 
-      // if (request_name === "") {
-      //   $("#request_name").focus();
-      //   $("#request_name").attr('required', true);
-      //   $("#request_name").css("border", "1px solid red");
-      // }  else if (jobTitle === "") {
-      //   $("#jobTitle").focus();
-      //   $("#jobTitle").attr('required', true);
-      //   $("#jobTitle").css("border", "1px solid red");
-      // } else if (department === "") {
-      //   $("#department").focus();
-      //   $("#department").attr('required', true);
-      //   $("#department").css("border", "1px solid red");
-      // } else if (reasonTravel === "") {
-      //   $("#reasonTravel").focus();
-      //   $("#reasonTravel").attr('required', true);
-      //   $("#reasonTravel").css("border", "1px solid red");
-      // }  else if (dateCommance === "") {
-      //   $("#dateCommance").focus();
-      //   $("#dateCommance").attr('required', true);
-      //   $("#dateCommance").css("border", "1px solid red");
-      // }  else if (dateEnd === "") {
-      //   $("#dateEnd").focus();
-      //   $("#dateEnd").attr('required', true);
-      //   $("#dateEnd").css("border", "1px solid red");
-      // }  else if (headStationLocation === "") {
-      //   $("#headStationLocation").focus();
-      //   $("#headStationLocation").attr('required', true);
-      //   $("#headStationLocation").css("border", "1px solid red");
-      // }  else if (bussinesLocation === "") {
-      //   $("#bussinesLocation").focus();
-      //   $("#bussinesLocation").attr('required', true);
-      //   $("#bussinesLocation").css("border", "1px solid red");
-      // }  else if (contactPhone === "") {
-      //   $("#contactPhone").focus();
-      //   $("#contactPhone").attr('required', true);
-      //   $("#contactPhone").css("border", "1px solid red");
-      // } 
-      // else {
+      
+      
+      $("#request_name").css("border", "1px solid #ced4da");
+      $("#projectcode").css("border", "1px solid #ced4da");
+      $("#sitecode").css("border", "1px solid #ced4da");
+      $("#reasonTravel").css("border", "1px solid #ced4da");
+      $("#dateCommance").css("border", "1px solid #ced4da");
+      $("#dateEnd").css("border", "1px solid #ced4da");
+      $("#headStationLocation").css("border", "1px solid #ced4da");
+      $("#bussinesLocation").css("border", "1px solid #ced4da");
+      $("#contactPhone").css("border", "1px solid #ced4da");
+
+      if (projectcode === "") {
+        $("#projectcode").focus();
+        $("#projectcode").attr('required', true);
+        $("#projectcode").css("border", "1px solid red");
+      } else if (sitecode === "") {
+        $("#sitecode").focus();
+        $("#sitecode").attr('required', true);
+        $("#sitecode").css("border", "1px solid red");
+      } else if (request_name === "") {
+        $("#request_name").focus();
+        $("#request_name").attr('required', true);
+        $("#request_name").css("border", "1px solid red");
+      }  else if (contactPhone === "") {
+        $("#contactPhone").focus();
+        $("#contactPhone").attr('required', true);
+        $("#contactPhone").css("border", "1px solid red");
+      }  else if (dateCommance === "") {
+        $("#dateCommance").focus();
+        $("#dateCommance").attr('required', true);
+        $("#dateCommance").css("border", "1px solid red");
+      }  else if (dateEnd === "") {
+        $("#dateEnd").focus();
+        $("#dateEnd").attr('required', true);
+        $("#dateEnd").css("border", "1px solid red");
+      }  else if (headStationLocation === "") {
+        $("#headStationLocation").focus();
+        $("#headStationLocation").attr('required', true);
+        $("#headStationLocation").css("border", "1px solid red");
+      }  else if (bussinesLocation === "") {
+        $("#bussinesLocation").focus();
+        $("#bussinesLocation").attr('required', true);
+        $("#bussinesLocation").css("border", "1px solid red");
+      } else if (reasonTravel === "") {
+        $("#reasonTravel").focus();
+        $("#reasonTravel").attr('required', true);
+        $("#reasonTravel").css("border", "1px solid red");
+      }  
+      else {
 
         var arr = [];
         $.each($("input[name='TransportType']:checked"), function(){
@@ -742,7 +775,7 @@
               })
           }
         })
-      // }
+      }
     });
 
   });

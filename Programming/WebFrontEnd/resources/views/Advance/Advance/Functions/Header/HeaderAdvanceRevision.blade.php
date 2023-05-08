@@ -6,7 +6,7 @@
           <tr>
             <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Budget Code</label></td>
             <td>
-              <div class="input-group">
+              <div class="input-group" style="width: 70%;">
                 <input id="projectcode" style="border-radius:0;" name="projectcode" class="form-control" readonly value="{{$dataAdvance['itemList']['ungrouped'][0]['entities']['combinedBudget_RefID']}}">
                 <div class="input-group-append">
                   <span style="border-radius:0;" class="input-group-text form-control">
@@ -16,7 +16,7 @@
               </div>
             </td>
             <td>
-              <div class="input-group">
+              <div class="input-group" style="width: 140%;position:relative;right:38%;">
                 <input id="projectname" style="border-radius:0;" class="form-control" name="projectname" readonly value="{{$dataAdvance['itemList']['ungrouped'][0]['entities']['combinedBudgetName']}}">
               </div>
             </td>
@@ -30,7 +30,7 @@
           <tr>
             <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Sub Budget Code</label></td>
             <td>
-              <div class="input-group">
+              <div class="input-group" style="width: 70%;">
                 <input id="sitecode" style="border-radius:0;" name="sitecode" class="form-control" readonly value="{{$dataAdvance['itemList']['ungrouped'][0]['entities']['combinedBudgetSection_RefID']}}">
                 <div class="input-group-append">
                   <span style="border-radius:0;" class="input-group-text form-control">
@@ -40,7 +40,7 @@
               </div>
             </td>
             <td>
-              <div class="input-group">
+              <div class="input-group" style="width: 140%;position:relative;right:38%;">
                 <input id="sitename" style="border-radius:0;" class="form-control" name="sitename" readonly value="{{$dataAdvance['itemList']['ungrouped'][0]['entities']['combinedBudgetSectionName']}}">
               </div>
             </td>
