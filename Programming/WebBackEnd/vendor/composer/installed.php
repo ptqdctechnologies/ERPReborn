@@ -975,9 +975,9 @@
             'dev_requirement' => true,
         ),
         'sebastian/diff' => array(
-            'pretty_version' => '4.0.4',
-            'version' => '4.0.4.0',
-            'reference' => '3461e3fccc7cfdfc2720be910d3bd73c69be590d',
+            'pretty_version' => '4.0.5',
+            'version' => '4.0.5.0',
+            'reference' => '74be17022044ebaaecfdf0c5cd504fc9cd5a7131',
             'type' => 'library',
             'install_path' => __DIR__ . '/../sebastian/diff',
             'aliases' => array(),
