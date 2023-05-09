@@ -199,6 +199,8 @@ namespace App\Helpers\ZhtHelper\Database
                                 $varData[] = $row;
                                 $i++;
                                 }
+
+                            pg_close($DBConnection);
                             }
                         $varReturn['Data'] = $varData;
                         $varReturn['Notice'] = $varNotice;
