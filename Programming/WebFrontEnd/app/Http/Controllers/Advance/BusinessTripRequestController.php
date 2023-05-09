@@ -72,7 +72,7 @@ class BusinessTripRequestController extends Controller
         $input = $request->all();
         dd($input);
 
-        $TransportationTypeID = array_map('intval', explode(',', $input['TransportType']));
+        $TransportationTypeID = array_map('intval', explode(',', $input['TransportTypeApplicable']));
 
         $detailBrf = [];
         $sequenceBrf = [];
@@ -179,6 +179,40 @@ class BusinessTripRequestController extends Controller
             ]
         ]
         );
+
+        $varDataAccomodation = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'dataPickList.humanResource.getBusinessTripAccommodationArrangementsType', 
+            'latest',
+            [
+            'parameter' => [
+                ]
+            ]
+            );
+
+        $varDataTransport = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'dataPickList.humanResource.getBusinessTripTransportationType', 
+            'latest',
+            [
+            'parameter' => [
+                ]
+            ]
+            );
+
+        $varDataApplicable = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'dataPickList.master.getPaymentDisbursementMethod', 
+            'latest',
+            [
+            'parameter' => [
+                ]
+            ]
+            );
+
         $compact = [
             'dataAdvanceRevisions' => $varDataAdvanceRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
             'dataRequester' => $varDataAdvanceRevision['data'][0]['document']['content']['involvedPersons']['requester'],
@@ -187,6 +221,9 @@ class BusinessTripRequestController extends Controller
             'spasi' => "<span style='color: white;'>_____</span>",
             'statusBrfRevisi' => 1,
             'statusRevisi' => 1,
+            'varDataAccomodation' => $varDataAccomodation['data']['data'],
+            'varDataTransport' => $varDataTransport['data']['data'],
+            'varDataApplicable' => $varDataApplicable['data'],
         ];
         return view('Advance.BusinessTrip.Transactions.RevisionBusinessTripRequest', $compact);
     }

@@ -213,241 +213,219 @@
                           <tr>
                             <td><label><strong>Transport Type Applicable</strong></label></td>
                           </tr>
-                          <tr>
-                            <div class="form-group clearfix">
-                              <td>
-                                <div class="icheck-primary d-inline">
-                                  <input type="checkbox" id="transportApplicableBus" name="TransportType" value="Bus" checked>
-                                  <label for="transportApplicableBus">Bus
-                                  </label>
-                                </div>
-                              </td>
-                              <td>
-                                <div class="icheck-primary d-inline">
-                                  <input type="checkbox" id="transportApplicableRail" name="TransportType" value="Rail">
-                                  <label for="transportApplicableRail">Rail
-                                  </label>
-                                </div>
-                              </td>
-                              <td>
-                                <div class="icheck-primary d-inline">
-                                  <input type="checkbox" id="transportApplicableAir" name="TransportType" value="Air">
-                                  <label for="transportApplicableAir">Air
-                                  </label>
-                                </div>
-                              </td>
-                              <td>
-                                <div class="icheck-primary d-inline">
-                                  <input type="checkbox" id="transportApplicableSea" name="TransportType" value="Sea">
-                                  <label for="transportApplicableSea">Sea
-                                  </label>
-                                </div>
-                              </td>
-                              <td>
-                                <div class="icheck-primary d-inline">
-                                  <input type="checkbox" id="transportApplicableVehicle" name="TransportType" value="Company Vehicle">
-                                  <label for="transportApplicableVehicle">Company Vehicle
-                                  </label>
-                                </div>
-                              </td>
-                              <!-- <td>
-                                <div class="icheck-primary d-inline">
-                                  <input type="checkbox" id="transportApplicableTrain" name="TransportType" value="Train">
-                                  <label for="transportApplicableTrain">Train
-                                  </label>
-                                </div>
-                              </td> -->
-                            </div>
-                          </tr>
 
-                          <tr>
-                            <td><label><strong> Travel Arragement</strong></label></td>
-                          </tr>
-                          <tr>
-                            <div class="form-group clearfix">
-                              <td>
-                                <div class="icheck-primary d-inline">
-                                  <input type="radio" id="dayTripTravel" name="travelArragement" value="Day Trip Travel" checked>
-                                  <label for="dayTripTravel">Day Trip Travel
-                                  </label>
-                                </div>
-                              </td>
-                              <td>
-                                <div class="icheck-primary d-inline">
-                                  <input type="radio" id="shortTerm" name="travelArragement" value="Short Term">
-                                  <label for="shortTerm">Short Term
-                                  </label>
-                                </div>
-                              </td>
-                              <td>
-                                <div class="icheck-primary d-inline">
-                                  <input type="radio" id="longTerm" name="travelArragement" value="Long Term">
-                                  <label for="longTerm">Long Term
-                                  </label>
-                                </div>
-                              </td>
-                            </div>
-                          </tr>
-                          <tr>
-                            <td><label><strong> Payment Applicable</strong></label></td>
-                          </tr>
-                          <tr>
-                            <div class="form-group clearfix">
-                              <td>
-                                <div class="icheck-primary d-inline">
-                                  <input type="radio" id="lupsum" name="paymentApplicable" value="Lumpsum" checked>
-                                  <label for="lupsum">Lumpsum
-                                  </label>
-                                </div>
-                              </td>
-                              <td>
-                                <div class="icheck-primary d-inline">
-                                  <input type="radio" id="nonLupsum" name="paymentApplicable" value="Non Lumpsum">
-                                  <label for="nonLupsum">Non Lumpsum
-                                  </label>
-                                </div>
-                              </td>
-                            </div>
-                          </tr>
-
-                          <tr>
-                            <td><label><strong> Accomodation</strong></label></td>
-                          </tr>
-                          <tr>
-                            <div class="form-group clearfix">
-                              <td>
-                                <div class="icheck-primary d-inline">
-                                  <input type="radio" id="arrangeCompany" name="accomodation" value="Arrange by Company" checked>
-                                  <label for="arrangeCompany">Arrange by Company
-                                  </label>
-                                </div>
-                              </td>
-                              <td>
-                                <div class="icheck-primary d-inline">
-                                  <input type="radio" id="arrangeEmployee" name="accomodation" value="Arrange by Employee">
-                                  <label for="arrangeEmployee">Arrange by Employee
-                                  </label>
-                                </div>
-                              </td>
-                            </div>
-                          </tr>
-                        </table>
+                          @for($i = 0; $i < 6 ; $i++) <div class="form-group clearfix">
+                            <td>
+                              <div class="icheck-primary d-inline">
+                                <input type="checkbox" class="transportApplicable" name="TransportType" id="{{ $varDataTransport[$i]['sys_ID'] }}" value="{{ $varDataTransport[$i]['sys_ID'] }}">
+                                <label for="transportApplicableBus"> {{ $varDataTransport[$i]['sys_Text'] }}
+                                </label>
+                              </div>
+                            </td>
                       </div>
+                      @endfor
+                      </tr>
+                      <tr>
+                        @for($i = 6; $i < 12 ; $i++) <div class="form-group clearfix">
+                          <td>
+                            <div class="icheck-primary d-inline">
+                              <input type="checkbox" class="transportApplicable" name="TransportType" id="{{ $varDataTransport[$i]['sys_ID'] }}" value="{{ $varDataTransport[$i]['sys_ID'] }}">
+                              <label for="transportApplicableBus"> {{ $varDataTransport[$i]['sys_Text'] }}
+                              </label>
+                            </div>
+                          </td>
                     </div>
+                    @endfor
+                    </tr>
+
+                    <tr>
+                      <td><label><strong> Travel Arragement</strong></label></td>
+                    </tr>
+                    <tr>
+                      <div class="form-group clearfix">
+                        <td>
+                          <div class="icheck-primary d-inline">
+                            <input type="radio" id="dayTripTravel" name="travelArragement" value="Day Trip Travel" checked>
+                            <label for="dayTripTravel">Day Trip Travel
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="icheck-primary d-inline">
+                            <input type="radio" id="shortTerm" name="travelArragement" value="Short Term">
+                            <label for="shortTerm">Short Term
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="icheck-primary d-inline">
+                            <input type="radio" id="longTerm" name="travelArragement" value="Long Term">
+                            <label for="longTerm">Long Term
+                            </label>
+                          </div>
+                        </td>
+                      </div>
+                    </tr>
+                    <tr>
+                      <td><label><strong> Payment Applicable</strong></label></td>
+                    </tr>
+                    <tr>
+                      <div class="form-group clearfix">
+                        <td>
+                          <div class="icheck-primary d-inline">
+                            <input type="radio" id="lupsum" name="paymentApplicable" value="{{ $varDataApplicable['0']['sys_ID'] }}" checked>
+                            <label for="lupsum"> {{ $varDataApplicable['0']['sys_Text'] }}
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="icheck-primary d-inline">
+                            <input type="radio" id="nonLupsum" name="paymentApplicable" value="{{ $varDataApplicable['1']['sys_ID'] }}">
+                            <label for="nonLupsum"> {{ $varDataApplicable['1']['sys_Text'] }}
+                            </label>
+                          </div>
+                        </td>
+                      </div>
+                    </tr>
+
+                    <tr>
+                      <td><label><strong> Accomodation</strong></label></td>
+                    </tr>
+                    <tr>
+                      <div class="form-group clearfix">
+                        <td>
+                          <div class="icheck-primary d-inline">
+                            <input type="radio" id="arrangeCompany" name="accomodation" value="{{ $varDataAccomodation[0]['sys_ID'] }}" checked>
+                            <label for="arrangeCompany"> {{ $varDataAccomodation[0]['sys_Text'] }}
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="icheck-primary d-inline">
+                            <input type="radio" id="arrangeEmployee" name="accomodation" value="{{ $varDataAccomodation[1]['sys_ID'] }}">
+                            <label for="arrangeEmployee"> {{ $varDataAccomodation[1]['sys_Text'] }}
+                            </label>
+                          </div>
+                        </td>
+                      </div>
+                    </tr>
+                    </table>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+      </div>
 
-            <div class="tab-pane fade" id="transportDetails" role="tabpanel" aria-labelledby="product-desc-tab">
-              <div class="row">
-                <div class="col-12">
-                  <div class="card">
-                    <div class="card-header">
-                      <label class="card-title">
-                        Transport Details
-                      </label>
-                      <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                          <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                        </button>
-                      </div>
-                    </div>
-                    <div class="card-body table-responsive p-0 TransportDetails" style="height:200px;">
-                      <table class="table table-head-fixed text-nowrap table-striped table-sm TableTransportDetails" id="TableTransportDetails">
-                        <label>
-                          <a class="btn btn-default btn-sm float-right" onclick="AddFormTransportDetails();" style="position:relative;top:5px;left:5px;">
-                            <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add">
+      <div class="tab-pane fade" id="transportDetails" role="tabpanel" aria-labelledby="product-desc-tab">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <label class="card-title">
+                  Transport Details
+                </label>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body table-responsive p-0 TransportDetails" style="height:200px;">
+                <table class="table table-head-fixed text-nowrap table-striped table-sm TableTransportDetails" id="TableTransportDetails">
+                  <label>
+                    <a class="btn btn-default btn-sm float-right" onclick="AddFormTransportDetails();" style="position:relative;top:5px;left:5px;">
+                      <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add">
+                    </a>
+                  </label>
+                  <thead>
+                    <tr>
+                      <th style="width:10px;"></th>
+                      <th style="border:1px solid #e9ecef;text-align: center;">Transport Type</th>
+                      <th style="border:1px solid #e9ecef;text-align: center;">Transport Booking</th>
+                      <th style="border:1px solid #e9ecef;text-align: center;">Time Of Depart</th>
+                      <th style="border:1px solid #e9ecef;text-align: center;">Time Of Arrival</th>
+                      <th style="border:1px solid #e9ecef;text-align: center;">Quoted Fare (IDR)</th>
+                    </tr>
+                    <tr class="FormTransportDetails">
+                      <td></td>
+                      <td style="border:1px solid #e9ecef;">
+                        <div class="input-group">
+                          <select class="form-control select2bs4" id="transportType" style="width: 100%; border-radius:0;">
+                            <option selected="selected"></option>
+                            <option value="Bus">Bus</option>
+                            <option value="Rail">Rail</option>
+                            <option value="Air">Air</option>
+                            <option value="Sea">Sea</option>
+                            <option value="Company Vehicle">Company Vehicle</option>
+                            <!-- <option value="Train">Train</option> -->
+                          </select>
+                        </div>
+                      </td>
+                      <td style="border:1px solid #e9ecef;">
+                        <div class="input-group">
+                          <input id="transportBooking" name="transportBooking" style="border-radius:0;" type="text" class="form-control">
+                        </div>
+                      </td>
+                      <td style="border:1px solid #e9ecef;">
+                        <div class="input-group">
+                          <input id="dateDepart" name="dateDepart" style="border-radius:0;" type="date" class="form-control">
+                        </div>
+                      </td>
+                      <td style="border:1px solid #e9ecef;">
+                        <div class="input-group">
+                          <input id="dateArrival" name="dateArrival" style="border-radius:0;" type="date" class="form-control">
+                        </div>
+                      </td>
+                      <td style="border:1px solid #e9ecef;">
+                        <div class="input-group">
+                          <input id="qoutedFare" name="contactPhone" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="FormTransportDetails">
+                      <td colspan="3"></td>
+                      <td style="border:1px solid #e9ecef;position:relative;left:30px;">
+                        <div class="input-group">
+                          <a class="btn btn-default btn-sm float-right" onclick="UpdateFormTransportDetails();" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                            <img src="{{ asset('AdminLTE-master/dist/img/edit.png') }}" width="13" alt="" title="Add to Advance List"> Update
                           </a>
-                        </label>
-                        <thead>
-                          <tr>
-                            <th style="width:10px;"></th>
-                            <th style="border:1px solid #e9ecef;text-align: center;">Transport Type</th>
-                            <th style="border:1px solid #e9ecef;text-align: center;">Transport Booking</th>
-                            <th style="border:1px solid #e9ecef;text-align: center;">Time Of Depart</th>
-                            <th style="border:1px solid #e9ecef;text-align: center;">Time Of Arrival</th>
-                            <th style="border:1px solid #e9ecef;text-align: center;">Quoted Fare (IDR)</th>
-                          </tr>
-                          <tr class="FormTransportDetails">
-                            <td></td>
-                            <td style="border:1px solid #e9ecef;">
-                              <div class="input-group">
-                                <select class="form-control select2bs4" id="transportType" style="width: 100%; border-radius:0;">
-                                  <option selected="selected"></option>
-                                  <option value="Bus">Bus</option>
-                                  <option value="Rail">Rail</option>
-                                  <option value="Air">Air</option>
-                                  <option value="Sea">Sea</option>
-                                  <option value="Company Vehicle">Company Vehicle</option>
-                                  <!-- <option value="Train">Train</option> -->
-                                </select>
-                              </div>
-                            </td>
-                            <td style="border:1px solid #e9ecef;">
-                              <div class="input-group">
-                                <input id="transportBooking" name="transportBooking" style="border-radius:0;" type="text" class="form-control">
-                              </div>
-                            </td>
-                            <td style="border:1px solid #e9ecef;">
-                              <div class="input-group">
-                                <input id="dateDepart" name="dateDepart" style="border-radius:0;" type="date" class="form-control">
-                              </div>
-                            </td>
-                            <td style="border:1px solid #e9ecef;">
-                              <div class="input-group">
-                                <input id="dateArrival" name="dateArrival" style="border-radius:0;" type="date" class="form-control">
-                              </div>
-                            </td>
-                            <td style="border:1px solid #e9ecef;">
-                              <div class="input-group">
-                                <input id="qoutedFare" name="contactPhone" style="border-radius:0;" type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
-                              </div>
-                            </td>
-                          </tr>
-                          <tr class="FormTransportDetails">
-                            <td colspan="3"></td>
-                            <td style="border:1px solid #e9ecef;position:relative;left:30px;">
-                              <div class="input-group">
-                                <a class="btn btn-default btn-sm float-right" onclick="UpdateFormTransportDetails();" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                                  <img src="{{ asset('AdminLTE-master/dist/img/edit.png') }}" width="13" alt="" title="Add to Advance List"> Update
-                                </a>
-                                <a class="btn btn-default btn-sm float-right" onclick="CancelFormTransportDetails();" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
-                                  <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel to Add Advance List Cart"> Cancel
-                                </a>
-                              </div>
-                            </td>
-                          </tr>
-                        </thead>
-                        <tbody>
+                          <a class="btn btn-default btn-sm float-right" onclick="CancelFormTransportDetails();" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
+                            <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel to Add Advance List Cart"> Cancel
+                          </a>
+                        </div>
+                      </td>
+                    </tr>
+                  </thead>
+                  <tbody>
 
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
+                  </tbody>
+                </table>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
 
-            <div class="row">
-              <div class="col-12">
-                <div class="card">
-                  <div class="card-header">
-                    <label class="card-title">
-                      Please select your budget for this business trip
-                    </label>
-                    <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                      </button>
-                    </div>
-                  </div>
-                  @include('Advance.BusinessTrip.Functions.Table.getBOQ')
-                </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <label class="card-title">
+                Please select your budget for this business trip
+              </label>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                </button>
               </div>
             </div>
+            @include('Advance.BusinessTrip.Functions.Table.getBOQ')
+          </div>
+        </div>
+      </div>
 
-            <!-- <div class="row">
+      <!-- <div class="row">
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">
@@ -550,47 +528,47 @@
                 </div>
               </div>
             </div> -->
-            <div class="row">
-              <div class="col-12">
-                <div class="card">
-                  <div class="card-header">
-                    <label class="card-title">Business Trip Request Form
-                    </label>
-                    <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="card-body table-responsive p-0" style="height: 180px;">
-                    <table class="table table-head-fixed text-nowrap table-striped TableBusinessTrip" id="TableBusinessTrip">
-                      <thead>
-                        <tr>
-                          <th style="border:1px solid #e9ecef;text-align: center;">Work ID</th>
-                          <th style="border:1px solid #e9ecef;text-align: center;">Work Name</th>
-                          <th style="border:1px solid #e9ecef;text-align: center;">Product ID</th>
-                          <th style="border:1px solid #e9ecef;text-align: center;">Product Name</th>
-                          <th style="border:1px solid #e9ecef;text-align: center;">Allowance</th>
-                          <th style="border:1px solid #e9ecef;text-align: center;">Accomodation</th>
-                          <th style="border:1px solid #e9ecef;text-align: center;">Others</th>
-                          <th style="border:1px solid #e9ecef;text-align: center;">Total</th>
-                        </tr>
-                      </thead>
-                      <tbody>
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <label class="card-title">Business Trip Request Form
+              </label>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body table-responsive p-0" style="height: 180px;">
+              <table class="table table-head-fixed text-nowrap table-striped TableBusinessTrip" id="TableBusinessTrip">
+                <thead>
+                  <tr>
+                    <th style="border:1px solid #e9ecef;text-align: center;">Work ID</th>
+                    <th style="border:1px solid #e9ecef;text-align: center;">Work Name</th>
+                    <th style="border:1px solid #e9ecef;text-align: center;">Product ID</th>
+                    <th style="border:1px solid #e9ecef;text-align: center;">Product Name</th>
+                    <th style="border:1px solid #e9ecef;text-align: center;">Allowance</th>
+                    <th style="border:1px solid #e9ecef;text-align: center;">Accomodation</th>
+                    <th style="border:1px solid #e9ecef;text-align: center;">Others</th>
+                    <th style="border:1px solid #e9ecef;text-align: center;">Total</th>
+                  </tr>
+                </thead>
+                <tbody>
 
-                      </tbody>
-                    </table>
-                  </div>
+                </tbody>
+              </table>
+            </div>
 
-                  <div class="card-body BrfListCart">
-                    <table style="float:right;">
-                      <tr>
-                        <th style="position: relative;right:45px;"> Total Item : <span id="TotalAllowance"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="TotalAccomodation"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="TotalOther"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="GrandTotal"></span></th>
-                      </tr>
-                    </table>
-                  </div>
+            <div class="card-body BrfListCart">
+              <table style="float:right;">
+                <tr>
+                  <th style="position: relative;right:45px;"> Total Item : <span id="TotalAllowance"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="TotalAccomodation"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="TotalOther"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="GrandTotal"></span></th>
+                </tr>
+              </table>
+            </div>
 
-                  <!-- <div class="card-body table-responsive p-0">
+            <!-- <div class="card-body table-responsive p-0">
                     <table class="table table-head-fixed text-nowrap table-striped TableBusinessTrip">
                       <thead>
                         <tr>
@@ -616,22 +594,22 @@
                     </table>
                   </div> -->
 
-                </div>
-                <a onclick="CancelBusinessTrip();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
-                  <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Business Trip List Cart"> Cancel
-                </a>
-                <button class="btn btn-default btn-sm float-right" type="submit" id="saveBrfList" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                  <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Business Trip"> Submit
-                </button>
-
-              </div>
-            </div>
-
           </div>
-        </form>
+          <a onclick="CancelBusinessTrip();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
+            <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Business Trip List Cart"> Cancel
+          </a>
+          <button class="btn btn-default btn-sm float-right" type="submit" id="saveBrfList" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+            <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Business Trip"> Submit
+          </button>
+
+        </div>
       </div>
+
     </div>
-  </section>
+    </form>
+</div>
+</div>
+</section>
 </div>
 
 @include('Partials.footer')
