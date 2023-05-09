@@ -175,6 +175,8 @@
                     }
                 });
 
+                console.log(QuantityExpense);
+
                 if((var_qty_amount * var_price_amount) != 0){
                     var var_total_amount = currencyTotal(var_qty_amount * var_price_amount);
                 }

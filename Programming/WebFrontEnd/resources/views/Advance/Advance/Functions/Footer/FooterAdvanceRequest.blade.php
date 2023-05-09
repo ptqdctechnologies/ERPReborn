@@ -158,14 +158,15 @@
                         '<input id="TotalBudget'+ key +'" type="hidden">' +
 
                         '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance2'+ key +'">' + val2.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.unitPriceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.priceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.unitPriceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
+                        // '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.priceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
 
                         '<td class="sticky-col forth-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
                         '<td class="sticky-col third-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req'+ key +'" style="border-radius:0;" name="price_req[]" class="form-control price_req" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
                         '<td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req'+ key +'" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled>' + '</td>' +
-                        '<td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_balance'+ key +'" style="border-radius:0;width:90px;background-color:white;" name="total_balance[]" class="form-control total_balance" autocomplete="off" disabled value="' + currencyTotal(val2.quantity * val2.unitPriceBaseCurrencyValue) + '">' + '</td>' +
+                        '<td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_balance'+ key +'" style="border-radius:0;width:90px;background-color:white;" name="total_balance[]" class="form-control total_balance" autocomplete="off" disabled value="' + currencyTotal(val2.quantity) + '">' + '</td>' +
 
                         '</tr>';
                     $('table.tableBudgetDetail tbody').append(html);
@@ -205,8 +206,8 @@
                                 $('#total_req'+key).val(currencyTotal(total));
                             }
 
-                            //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED
-                            TotalBudgetSelected();
+                            //MEMANGGIL FUNCTION TOTAL BUDGET AND BALANCE SELECTED
+                            TotalBudgetAndBalanceSelected(key);
                         });
 
                         //VALIDASI PRICE
@@ -256,8 +257,8 @@
 
                             }
 
-                            //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED
-                            TotalBudgetSelected();
+                            //MEMANGGIL FUNCTION TOTAL BUDGET AND BALANCE SELECTED
+                            TotalBudgetAndBalanceSelected(key);
                         });
 
                     }
@@ -296,8 +297,8 @@
                                 $('#total_req'+key).val(currencyTotal(total));
                             }
 
-                            //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED
-                            TotalBudgetSelected();
+                            //MEMANGGIL FUNCTION TOTAL BUDGET AND BALANCE SELECTED
+                            TotalBudgetAndBalanceSelected(key);
                         });
 
                         //VALIDASI PRICE
@@ -328,12 +329,12 @@
                             }
                             else {
 
-                                $("input[name='price_req[]']").css("border", "1px solid #ced4da");
+                                $("input[name='price_rmisaleq[]']").css("border", "1px solid #ced4da");
                                 $('#total_req'+key).val(currencyTotal(total));
                             }
 
-                            //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED
-                            TotalBudgetSelected();
+                            //MEMANGGIL FUNCTION TOTAL BUDGET AND BALANCE SELECTED
+                            TotalBudgetAndBalanceSelected(key);
 
                         });
                     }
@@ -345,18 +346,25 @@
 </script>
 
 <script>
-    function TotalBudgetSelected(){
+    function TotalBudgetAndBalanceSelected(key){
 
+        // TotalBudgetSelected
         var TotalBudgetSelected = 0;
-        var total_req = $("input[name='total_req[]']").map(function(){return $(this).val();}).get();
+        var total_req_all = $("input[name='total_req[]']").map(function(){return $(this).val();}).get();
 
-        $.each(total_req, function(index, data) {
-            if(total_req[index] != "" && total_req[index] > "0.00" && total_req[index] != "NaN.00"){
-                TotalBudgetSelected += parseFloat(total_req[index].replace(/,/g, ''));
+        $.each(total_req_all, function(index, data) {
+            if(total_req_all[index] != "" && total_req_all[index] > "0.00" && total_req_all[index] != "NaN.00"){
+                TotalBudgetSelected += parseFloat(total_req_all[index].replace(/,/g, ''));
             }
         });
-
         $('#TotalBudgetSelected').html(currencyTotal(TotalBudgetSelected));
+
+        // TotalBalanceSelected
+        var qty_req = $('#qty_req'+key).val().replace(/,/g, '');
+        var total_balance2 = $('#total_balance2'+key).html().replace(/,/g, '');
+        console.log(total_balance2);
+
+        $('#total_balance'+key).val(currencyTotal(total_balance2 - qty_req));
         
     }
 </script>

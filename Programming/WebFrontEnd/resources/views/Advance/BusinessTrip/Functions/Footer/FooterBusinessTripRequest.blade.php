@@ -21,42 +21,6 @@
     $(".BrfListCart").hide();
     $(".file-attachment").hide();
 
-    // $('.paymentSequence').attr('colspan', 4);
-
-    // $(".a_airport_tax").hide();
-    // $(".a_extra_baggage_charge").hide();
-    // $(".a_ticket_fare").hide();
-    // $(".b_ticket_fare").hide();
-    // $(".m_ticket_fare").hide();
-    // $(".cc_fuel_charge").hide();
-    // $(".cc_parking_charge").hide();
-    // $(".cc_toll_charge").hide();
-    // $(".cm_fuel_charge").hide();
-    // $(".cm_parking_charge").hide();
-    // $(".cm_toll_charge").hide();
-    // $(".ec_compensation_fee").hide();
-    // $(".ec_fuel_charge").hide();
-    // $(".ec_parking_charge").hide();
-    // $(".ec_toll_charge").hide();
-    // $(".em_compensation_fee").hide();
-    // $(".em_fuel_charge").hide();
-    // $(".em_parking_charge").hide();
-    // $(".em_toll_charge").hide();
-    // $(".ib_ticket_fare").hide();
-    // $(".it_ticket_fare").hide();
-    // $(".it_extra_baggage_charge").hide();
-    // $(".s_ticket_fare").hide();
-    // $(".tb_rental_fee").hide();
-    // $(".tb_fuel_charge").hide();
-    // $(".tb_parking_charge").hide();
-    // $(".tb_toll_charge").hide();
-    // $(".t_driver_fee").hide();
-    // $(".t_rental_fee").hide();
-    // $(".t_fuel_charge").hide();
-    // $(".t_parking_charge").hide();
-    // $(".t_toll_charge").hide();
-
-
   });
 </script>
 

@@ -15,8 +15,8 @@
             <th class="sticky-col fifth-col-brf" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Allowance</th>
             <th class="sticky-col forth-col-brf" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Accomodation</th>
             <th class="sticky-col third-col-brf" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Other</th>
-            <th class="sticky-col second-col-brf" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Total</th>
-            <th class="sticky-col first-col-brf" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Balance</th>
+            <th class="sticky-col second-col-brf" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Total Req</th>
+            <th class="sticky-col first-col-brf" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Balance Value</th>
         </tr>
     </thead>
     <tbody>

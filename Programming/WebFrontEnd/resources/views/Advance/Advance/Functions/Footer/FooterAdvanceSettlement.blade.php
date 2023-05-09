@@ -15,7 +15,15 @@
 
 
 <script>
-    function klikProject(sys_id, code, name) {
+    $('#tableGetProject tbody').on('click', 'tr', function () {
+
+        $("#myProject").modal('toggle');
+
+        var row = $(this).closest("tr");    
+        var sys_id = row.find("td:nth-child(4)").text();
+        var code = row.find("td:nth-child(2)").text();
+        var name = row.find("td:nth-child(3)").text();
+
         $("#projectcode").val(code);
         $("#projectname").val(name);
         $("#advance_number2").prop("disabled", false);
@@ -39,29 +47,37 @@
                 $.each(data.DataAdvanceRequest, function(key, val) {
                     t.row.add([
                         '<tbody><tr><td>' + no++ + '</td>',
-                        '<td><span data-dismiss="modal" onclick="klikAdvanceNumberInAsf(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.documentNumber + '</span></td>',
-                        '<td><span data-dismiss="modal" onclick="klikAdvanceNumberInAsf(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudgetCode + '</span></td>',
-                        '<td><span data-dismiss="modal" onclick="klikAdvanceNumberInAsf(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudgetName + '</span></td>',
-                        '<td><span data-dismiss="modal" onclick="klikAdvanceNumberInAsf(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudgetSection_RefID + '</span></td>',
-                        '<td><span data-dismiss="modal" onclick="klikAdvanceNumberInAsf(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudgetSectionName + '</span></td>',
+                        '<td>' + val.documentNumber + '</td>',
+                        '<td>' + val.combinedBudgetCode + '</td>',
+                        '<td>' + val.combinedBudgetName + '</td>',
+                        '<td>' + val.combinedBudgetSectionCode + '</td>',
+                        '<td>' + val.combinedBudgetSectionName + '</td>',
+                        '<span style="display:none;"><td">' + val.sys_ID + '</td></span>',
+                        '<span style="display:none;"><td">' + val.requesterWorkerJobsPosition_RefID + '</td></span>',
+                        '<span style="display:none;"><td">' + val.requesterWorkerName + '</td></span></tr></tbody>'
                     ]).draw();
 
                 });
             }
         });
-    }
+    });
 </script>
 
 <script>
 
     var keys = 0;
 
-    function klikAdvanceNumberInAsf(id, docNum, reqId, reqName) {
-        var advance_RefID = id;
-        var advance_number = docNum;
-        var requester_RefID = reqId;
-        var requester_name = reqName;
-        $("#advance_number").val(docNum);
+    $('#tableSearchArfinAsf tbody').on('click', 'tr', function () {
+
+        $("#mySearchArf").modal('toggle');
+
+        var row = $(this).closest("tr");    
+        var advance_RefID = row.find("td:nth-child(7)").text();
+        var advance_number = row.find("td:nth-child(2)").text();
+        var requester_RefID = row.find("td:nth-child(8)").text();
+        var requester_name = row.find("td:nth-child(9)").text();
+
+        $("#advance_number").val(advance_number);
         $(".tableShowHideArfDetail").show();
         $("#projectcode2").prop("disabled", true);
 
@@ -140,7 +156,8 @@
                             '<td style="border:1px solid #e9ecef;display:'+ statusDisplay2[keys] +'">' + '<span>' + value.product_RefID + '</span>' + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + '<span id="putProductName'+ keys +'">' + value.productName + '</span>' + '</td>' +
                             
-                            '<td style="border:1px solid #e9ecef;">' + value.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+
+                            '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance2'+ keys +'">' + value.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + 'N/A' + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + value.quantityUnitName + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + value.productUnitPriceCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
@@ -170,7 +187,7 @@
                 }
             },
         });
-    }
+    });
     
     //VALIDASI QTY EXPENSE
 
@@ -220,6 +237,9 @@
             $('#total_expense'+key).val(currencyTotal(total));
         }
 
+        //MEMANGGIL FUNCTION TOTAL BUDGET AND BALANCE SELECTED
+        TotalBudgetAndBalanceSelected(key);
+
     }
 
     //VALIDASI QTY AMOUNT
@@ -267,6 +287,8 @@
             $("input[name='qty_amount[]']").css("border", "1px solid #ced4da");
             $('#total_amount'+key).val(currencyTotal(total));
         }
+        //MEMANGGIL FUNCTION TOTAL BUDGET AND BALANCE SELECTED
+        TotalBudgetAndBalanceSelected(key);
     }
 
     //VALIDASI PRICE EXPENSE
@@ -300,6 +322,8 @@
             $("input[name='price_expense[]']").css("border", "1px solid #ced4da");
             $('#total_expense'+key).val(currencyTotal(total));
         }
+        //MEMANGGIL FUNCTION TOTAL BUDGET AND BALANCE SELECTED
+        TotalBudgetAndBalanceSelected(key);
     }
 
     //VALIDASI PRICE AMOUNT
@@ -332,8 +356,46 @@
             $("input[name='price_amount[]']").css("border", "1px solid #ced4da");
             $('#total_amount'+key).val(currencyTotal(total));
         }
+        //MEMANGGIL FUNCTION TOTAL BUDGET AND BALANCE SELECTED
+        TotalBudgetAndBalanceSelected(key);
     }
         
+</script>
+
+
+<script>
+    function TotalBudgetAndBalanceSelected(key){
+
+        // TotalBudgetSelected
+        var TotalBudgetSelected = 0;
+        var TotalBudgetSelected2 = 0;
+        var total_expense = $("input[name='total_expense[]']").map(function(){return $(this).val();}).get();
+        var total_amount = $("input[name='total_amount[]']").map(function(){return $(this).val();}).get();
+
+        $.each(total_expense, function(index, data) {
+            if(total_expense[index] != "" && total_expense[index] > "0.00" && total_expense[index] != "NaN.00"){
+                TotalBudgetSelected += parseFloat(total_expense[index].replace(/,/g, ''));
+            }
+        });
+        $.each(total_amount, function(index, data) {
+            if(total_amount[index] != "" && total_amount[index] > "0.00" && total_amount[index] != "NaN.00"){
+                TotalBudgetSelected2 += parseFloat(total_amount[index].replace(/,/g, ''));
+            }
+        });
+
+
+        $('#TotalBudgetSelected').html(currencyTotal(TotalBudgetSelected + TotalBudgetSelected2));
+
+        // TotalBalanceSelected
+        var qty_expense = $('#qty_expense'+key).val().replace(/,/g, '');
+        var qty_amount = $('#qty_amount'+key).val().replace(/,/g, '');
+
+        var total_balance2 = $('#total_balance2'+key).html().replace(/,/g, '');
+        console.log(total_balance2);
+
+        $('#total_balance'+key).val(currencyTotal(total_balance2 - qty_expense - qty_amount));
+        
+    }
 </script>
 
 <script>
