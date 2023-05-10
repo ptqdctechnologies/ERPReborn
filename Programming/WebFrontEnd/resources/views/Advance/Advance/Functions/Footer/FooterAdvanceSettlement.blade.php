@@ -157,11 +157,11 @@
                             '<td style="border:1px solid #e9ecef;">' + '<span id="putProductName'+ keys +'">' + value.productName + '</span>' + '</td>' +
                             
 
-                            '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance2'+ keys +'">' + value.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + 'N/A' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_qty2'+ keys +'">' + currencyTotal(value.quantity) + '</span>' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + value.quantity + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + value.quantityUnitName + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + value.productUnitPriceCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + value.priceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.productUnitPriceCurrencyValue) + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.priceBaseCurrencyValue) + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + value.priceCurrencyISOCode + '</td>' +
 
                             '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col third-col-asf-expense-qty">' + '<input onkeyup="qty_expense('+ keys +', this)" id="qty_expense'+ keys +'" style="border-radius:0;width:50px;" name="qty_expense[]" class="form-control qty_expense" autocomplete="off" '+ statusForm[keys] +' value="0">' + '</td>' +
@@ -172,7 +172,7 @@
                             '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col second-col-asf-amount-price">' + '<input onkeyup="price_amount('+ keys +', this)" id="price_amount'+ keys +'" style="border-radius:0;width:90px;" name="price_amount[]" class="form-control price_amount" autocomplete="off" '+ statusForm[keys] +' value="'+ currency(value.productUnitPriceCurrencyValue) +'">' + '</td>' +
                             '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col second-col-asf-amount-total">' + '<input id="total_amount'+ keys +'" style="border-radius:0;width:90px;background-color:white;" name="total_amount[]" class="form-control total_amount" autocomplete="off" disabled value="0">' + '</td>' +
                             
-                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col first-col-asf-balance-total">' + '<input id="total_balance'+ keys +'" style="border-radius:0;width:90px;background-color:white;" name="total_balance[]" class="form-control total_balance" autocomplete="off" disabled value="' + currencyTotal(value.priceBaseCurrencyValue) + '">' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col first-col-asf-balance-total">' + '<input id="total_balance_qty'+ keys +'" style="border-radius:0;width:90px;background-color:white;" name="total_balance_qty[]" class="form-control total_balance_qty" autocomplete="off" disabled value="' + currencyTotal(value.priceBaseCurrencyValue) + '">' + '</td>' +
                             
                             '</tr>';
 
@@ -237,8 +237,10 @@
             $('#total_expense'+key).val(currencyTotal(total));
         }
 
-        //MEMANGGIL FUNCTION TOTAL BUDGET AND BALANCE SELECTED
-        TotalBudgetAndBalanceSelected(key);
+        //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED SETTLEMENT
+        TotalBudgetSettlementSelected();
+        //MEMANGGIL FUNCTION TOTAL BALANCE VALUE SELECTED
+        TotalBalanceQtySettlementSelected(key);
 
     }
 
@@ -287,8 +289,10 @@
             $("input[name='qty_amount[]']").css("border", "1px solid #ced4da");
             $('#total_amount'+key).val(currencyTotal(total));
         }
-        //MEMANGGIL FUNCTION TOTAL BUDGET AND BALANCE SELECTED
-        TotalBudgetAndBalanceSelected(key);
+        //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED SETTLEMENT
+        TotalBudgetSettlementSelected();
+        //MEMANGGIL FUNCTION TOTAL BALANCE VALUE SELECTED
+        TotalBalanceQtySettlementSelected(key);
     }
 
     //VALIDASI PRICE EXPENSE
@@ -322,8 +326,10 @@
             $("input[name='price_expense[]']").css("border", "1px solid #ced4da");
             $('#total_expense'+key).val(currencyTotal(total));
         }
-        //MEMANGGIL FUNCTION TOTAL BUDGET AND BALANCE SELECTED
-        TotalBudgetAndBalanceSelected(key);
+        //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED SETTLEMENT
+        TotalBudgetSettlementSelected();
+        //MEMANGGIL FUNCTION TOTAL BALANCE VALUE SELECTED
+        TotalBalanceQtySettlementSelected(key);
     }
 
     //VALIDASI PRICE AMOUNT
@@ -356,46 +362,12 @@
             $("input[name='price_amount[]']").css("border", "1px solid #ced4da");
             $('#total_amount'+key).val(currencyTotal(total));
         }
-        //MEMANGGIL FUNCTION TOTAL BUDGET AND BALANCE SELECTED
-        TotalBudgetAndBalanceSelected(key);
+        //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED SETTLEMENT
+        TotalBudgetSettlementSelected();
+        //MEMANGGIL FUNCTION TOTAL BALANCE VALUE SELECTED
+        TotalBalanceQtySettlementSelected(key);
     }
         
-</script>
-
-
-<script>
-    function TotalBudgetAndBalanceSelected(key){
-
-        // TotalBudgetSelected
-        var TotalBudgetSelected = 0;
-        var TotalBudgetSelected2 = 0;
-        var total_expense = $("input[name='total_expense[]']").map(function(){return $(this).val();}).get();
-        var total_amount = $("input[name='total_amount[]']").map(function(){return $(this).val();}).get();
-
-        $.each(total_expense, function(index, data) {
-            if(total_expense[index] != "" && total_expense[index] > "0.00" && total_expense[index] != "NaN.00"){
-                TotalBudgetSelected += parseFloat(total_expense[index].replace(/,/g, ''));
-            }
-        });
-        $.each(total_amount, function(index, data) {
-            if(total_amount[index] != "" && total_amount[index] > "0.00" && total_amount[index] != "NaN.00"){
-                TotalBudgetSelected2 += parseFloat(total_amount[index].replace(/,/g, ''));
-            }
-        });
-
-
-        $('#TotalBudgetSelected').html(currencyTotal(TotalBudgetSelected + TotalBudgetSelected2));
-
-        // TotalBalanceSelected
-        var qty_expense = $('#qty_expense'+key).val().replace(/,/g, '');
-        var qty_amount = $('#qty_amount'+key).val().replace(/,/g, '');
-
-        var total_balance2 = $('#total_balance2'+key).html().replace(/,/g, '');
-        console.log(total_balance2);
-
-        $('#total_balance'+key).val(currencyTotal(total_balance2 - qty_expense - qty_amount));
-        
-    }
 </script>
 
 <script>

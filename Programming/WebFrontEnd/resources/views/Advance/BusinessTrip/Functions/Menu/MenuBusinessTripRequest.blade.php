@@ -46,16 +46,17 @@
                 type: 'GET',
                 url: '{!! route("BusinessTripRequest.BusinessTripRequestListData") !!}',
                 success: function(data) {
-                    var no = 1; t = $('#TableSearchBusinessTrip').DataTable();
+                    var no = 1; t = $('#TableSearchBusinessTripRevision').DataTable();
                     t.clear();
                     $.each(data, function(key, val) {
                         t.row.add([
                             '<tbody><tr><td>' + no++ + '</td>',
-                            '<td><span data-dismiss="modal" onclick="klikPopUpBusinessTripRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.documentNumber + '</span></td>',
-                            '<td><span data-dismiss="modal" onclick="klikPopUpBusinessTripRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudget_RefID + '</span></td>',
-                            '<td><span data-dismiss="modal" onclick="klikPopUpBusinessTripRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudgetName + '</span></td>',
-                            '<td><span data-dismiss="modal" onclick="klikPopUpBusinessTripRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudgetSection_RefID + '</span></td>',
-                            '<td><span data-dismiss="modal" onclick="klikPopUpBusinessTripRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudgetSectionName + '</td></tr></tbody>'
+                            '<td>' + val.documentNumber + '</td>',
+                            '<td>' + val.combinedBudgetCode + '</td>',
+                            '<td>' + val.combinedBudgetName + '</td>',
+                            '<td>' + val.combinedBudgetSectionCode + '</td>',
+                            '<td>' + val.combinedBudgetSectionName + '</td>',
+                            '<span style="display:none;"><td">' + val.sys_ID + '</td></span></tr></tbody>'
                         ]).draw();
 
                     });

@@ -225,6 +225,5 @@
   </section>
 </div>
 @include('Partials.footer')
-
 @include('Advance.Advance.Functions.Footer.FooterAdvanceRequest')
 @endsection

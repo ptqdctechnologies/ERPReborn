@@ -49,7 +49,7 @@
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <label class="card-title">Choose BRF</label>
+                <label class="card-title">Choose Bussines Trip Form</label>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
@@ -57,7 +57,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="TableSearchBusinessTrip">
+                                <table class="table table-head-fixed text-nowrap" id="TableSearchBusinessTripRevision">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -66,6 +66,7 @@
                                             <th>Budget Name</th>
                                             <th>Sub Budget Code</th>
                                             <th>Sub Budget Name</th>
+                                            <th style="display: none;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -82,8 +83,18 @@
 </div>
 
 <script>
-    function klikPopUpBusinessTripRevision(id, code) {
-        $("#searchBrfNumberRevisionId").val(id);
+
+    $('#TableSearchBusinessTripRevision tbody').on('click', 'tr', function () {
+
+        $("#PopUpTableBusinessTripRevision").modal('toggle');
+
+        var row = $(this).closest("tr");    
+        var sys_id = row.find("td:nth-child(7)").text();
+        var code = row.find("td:nth-child(2)").text();
+
+        $("#searchBrfNumberRevisionId").val(sys_id);
         $("#searchBrfNumberRevisions").val(code);
-    }
+
+    });
+    
 </script>

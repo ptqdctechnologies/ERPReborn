@@ -102,7 +102,7 @@
                           </button>
                         </div>
                       </div>
-                      @include('Purchase.PurchaseRequisition.Functions.Table.BOQ3')
+                      @include('Purchase.PurchaseRequisition.Functions.Table.getBOQ')
                     </div>
                   </div>
                 </div>

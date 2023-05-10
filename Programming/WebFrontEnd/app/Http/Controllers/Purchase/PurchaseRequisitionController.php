@@ -21,10 +21,7 @@ class PurchaseRequisitionController extends Controller
         $compact = [
             'var' => $var,
             'varAPIWebToken' => $varAPIWebToken,
-            'statusAdvanceRevisi' => 0,
-            'statusPrRevisi' => 0,
-            'statusPr' => 1,
-            'statusRevisi' => 1,
+            'statusRevisi' => 0,
         ];
         return view('Purchase.PurchaseRequisition.Transactions.CreatePurchaseRequisition', $compact);
     }
@@ -210,8 +207,6 @@ class PurchaseRequisitionController extends Controller
             'log_FileUpload_Pointer_RefID' => $varDataProcReqRevision['data'][0]['document']['content']['attachmentFiles']['main']['log_FileUpload_Pointer_RefID'],
             'dataProcReqRevision' => $varDataProcReqRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
             'var_recordID' => $request->searchPrNumberRevisionId,
-            'statusAdvanceRevisi' => 0,
-            'statusPr' => 1,
             'statusRevisi' => 1,
         ];
 

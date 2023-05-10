@@ -55,9 +55,9 @@
                 '<td style="border:1px solid #e9ecef;">' + value.product_RefID + '</td>' +
                 '<td style="border:1px solid #e9ecef;">' + value.productName + '</td>' +
                 '<td style="border:1px solid #e9ecef;">' + value.quantityUnitName + '</td>' +
-                '<td style="border:1px solid #e9ecef;">' + value.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
-                '<td style="border:1px solid #e9ecef;">' + value.productUnitPriceCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
-                '<td style="border:1px solid #e9ecef;">' + value.priceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.quantity) + '</td>' +
+                '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.productUnitPriceCurrencyValue) + '</td>' +
+                '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.priceBaseCurrencyValue) + '</td>' +
                 '</tr>';
 
                 $('table.TableExpenseClaim tbody').append(html);
@@ -88,9 +88,9 @@
                 '<td style="border:1px solid #e9ecef;">' + value.product_RefID + '</td>' +
                 '<td style="border:1px solid #e9ecef;">' + value.productName + '</td>' +
                 '<td style="border:1px solid #e9ecef;">' + value.quantityUnitName + '</td>' +
-                '<td style="border:1px solid #e9ecef;">' + value.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
-                '<td style="border:1px solid #e9ecef;">' + value.productUnitPriceCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
-                '<td style="border:1px solid #e9ecef;">' + value.priceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.quantity) + '</td>' +
+                '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.productUnitPriceCurrencyValue) + '</td>' +
+                '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.priceBaseCurrencyValue) + '</td>' +
                 '</tr>';
 
                 $('table.TableAmountDueto tbody').append(html);
@@ -175,8 +175,6 @@
                     }
                 });
 
-                console.log(QuantityExpense);
-
                 if((var_qty_amount * var_price_amount) != 0){
                     var var_total_amount = currencyTotal(var_qty_amount * var_price_amount);
                 }
@@ -216,11 +214,11 @@
                     '<td style="border:1px solid #e9ecef;display:'+ statusDisplay2[key] +'">' + '<span>' + value.product_RefID + '</span>' + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + '<span id="putProductName'+ key +'">' + value.productName + '</span>' + '</td>' +
                     
-                    '<td style="border:1px solid #e9ecef;">' + value.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_qty2'+ key +'">' + currencyTotal(value.quantity) + '</span>' + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + 'N/A' + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + value.quantityUnitName + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + value.productUnitPriceCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + value.priceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.productUnitPriceCurrencyValue) + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.priceBaseCurrencyValue) + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + value.priceCurrencyISOCode + '</td>' +
 
                     '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col third-col-asf-expense-qty">' + '<input id="qty_expense'+ key +'" style="border-radius:0;width:50px;" name="qty_expense[]" class="form-control qty_expense" autocomplete="off" '+ statusForm[key] +' value="'+ currency(var_qty_expense) +'">' + '</td>' +
@@ -231,7 +229,7 @@
                     '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col second-col-asf-amount-price">' + '<input id="price_amount'+ key +'" style="border-radius:0;width:90px;" name="price_amount[]" class="form-control price_amount" autocomplete="off" '+ statusForm[key] +' value="'+ currency(var_price_amount) +'">' + '</td>' +
                     '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col second-col-asf-amount-total">' + '<input id="total_amount'+ key +'" style="border-radius:0;width:90px;background-color:white;" name="total_amount[]" class="form-control total_amount" autocomplete="off" disabled value="'+ var_total_amount +'">' + '</td>' +
                     
-                    '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col first-col-asf-balance-total">' + '<input id="total_balance'+ key +'" style="border-radius:0;width:90px;background-color:white;" name="total_balance[]" class="form-control total_balance" autocomplete="off" disabled value="' + value.priceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '">' + '</td>' +
+                    '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col first-col-asf-balance-total">' + '<input id="total_balance_qty'+ key +'" style="border-radius:0;width:90px;background-color:white;" name="total_balance_qty[]" class="form-control total_balance_qty" autocomplete="off" disabled value="' + currencyTotal(value.priceBaseCurrencyValue) + '">' + '</td>' +
                     
                     '</tr>';
 
@@ -272,7 +270,7 @@
                             }
                         });
 
-                        $('#qty_expense'+key).val("");
+                        $('#qty_expens11.00e'+key).val("");
                         $('#total_expense'+key).val("");
                         $('#qty_expense'+key).css("border", "1px solid red");
                         $('#qty_expense'+key).focus();
@@ -282,6 +280,11 @@
                         $("input[name='qty_expense[]']").css("border", "1px solid #ced4da");
                         $('#total_expense'+key).val(currencyTotal(total));
                     }
+
+                    //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED SETTLEMENT
+                    TotalBudgetSettlementSelected();
+                    //MEMANGGIL FUNCTION TOTAL BALANCE VALUE SELECTED
+                    TotalBalanceQtySettlementSelected(key);
                 });
 
                 //VALIDASI QTY AMOUNT
@@ -328,6 +331,10 @@
                         $("input[name='qty_amount[]']").css("border", "1px solid #ced4da");
                         $('#total_amount'+key).val(currencyTotal(total));
                     }
+                    //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED SETTLEMENT
+                    TotalBudgetSettlementSelected();
+                    //MEMANGGIL FUNCTION TOTAL BALANCE VALUE SELECTED
+                    TotalBalanceQtySettlementSelected(key);
                 });
 
                 //VALIDASI PRICE EXPENSE
@@ -359,6 +366,10 @@
                         $("input[name='price_expense[]']").css("border", "1px solid #ced4da");
                         $('#total_expense'+key).val(currencyTotal(total));
                     }
+                    //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED SETTLEMENT
+                    TotalBudgetSettlementSelected();
+                    //MEMANGGIL FUNCTION TOTAL BALANCE VALUE SELECTED
+                    TotalBalanceQtySettlementSelected(key);
                 });
 
                 //VALIDASI PRICE AMOUNT
@@ -390,6 +401,10 @@
                         $("input[name='price_amount[]']").css("border", "1px solid #ced4da");
                         $('#total_amount'+key).val(currencyTotal(total));
                     }
+                    //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED SETTLEMENT
+                    TotalBudgetSettlementSelected();
+                    //MEMANGGIL FUNCTION TOTAL BALANCE VALUE SELECTED
+                    TotalBalanceQtySettlementSelected(key);
                 });
             
             });
@@ -434,7 +449,7 @@
         var GrandTotalAmount = 0;
 
         $.each(total_expense, function(index, data) {
-            if(total_expense[index] != "" && total_expense[index] > "0.00" && total_expense[index] != "NaN.00"){
+            // if(total_expense[index] != "" && total_expense[index] > "0.00" && total_expense[index] != "NaN.00"){
 
                 var putProductId = getProductId[index];
                 var putProductName = getProductName[index];
@@ -478,11 +493,11 @@
                 $("#TotalQtyExpense").html(currencyTotal(TotalQtyExpense));
 
                 $("#SaveAsfList").prop("disabled", false);
-            }
+            // }
         });
 
         $.each(total_amount, function(index, data) {
-            if(total_amount[index] != "" && total_amount[index] > "0.00" && total_amount[index] != "NaN.00"){
+            // if(total_amount[index] != "" && total_amount[index] > "0.00" && total_amount[index] != "NaN.00"){
 
                 var putProductId = getProductId[index];
                 var putProductName = getProductName[index];
@@ -526,7 +541,7 @@
                 $("#TotalQtyAmount").html(currencyTotal(TotalQtyAmount));
 
                 $("#SaveAsfList").prop("disabled", false);
-            }
+            // }
         });
         
     }

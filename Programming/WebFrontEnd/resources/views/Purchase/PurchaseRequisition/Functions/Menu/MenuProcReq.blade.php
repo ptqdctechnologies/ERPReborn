@@ -24,19 +24,6 @@
                                 </li>
                                 @endif
                             </ul>
-<!--                             
-                            <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-left" style="padding: 10px;font-size:14px;background-color:#4B586A;margin-top:8px;">
-                                <li class="nav-item">
-                                    <a href="{{ route('PurchaseRequisition.index') }}" class="nav-link" style="color:white;padding-bottom:10px;">
-                                        <i class="far fa-file nav-icon-sm"> Create Purchase Requisitiont</i>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link myPopUpPurchaseRequisitionRevision" data-toggle="modal" data-target="#myPopUpPurchaseRequisitionRevision" style="color:white;padding-bottom:10px;">
-                                        <i class="far fa-file nav-icon-sm"> Revision Purchase Requisitiont</i>
-                                    </a>
-                                </li>
-                            </ul> -->
                         </li>
                     </ul>
                 </label>
@@ -60,16 +47,17 @@
                 type: 'GET',
                 url: '{!! route("PurchaseRequisition.PurchaseRequisitionListData") !!}',
                 success: function(data) {
-                    var no = 1; t = $('#TableSearchProcReq').DataTable();
+                    var no = 1; t = $('#TableSearchProcReqRevision').DataTable();
                     t.clear();
                     $.each(data, function(key, val) {
                         t.row.add([
                             '<tbody><tr><td>' + no++ + '</td>',
-                            '<td><span data-dismiss="modal" onclick="klikPopUpPurchaseRequisition(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.documentNumber + '</span></td>',
-                            '<td><span data-dismiss="modal" onclick="klikPopUpPurchaseRequisition(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudget_RefID + '</span></td>',
-                            '<td><span data-dismiss="modal" onclick="klikPopUpPurchaseRequisition(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudgetName + '</span></td>',
-                            '<td><span data-dismiss="modal" onclick="klikPopUpPurchaseRequisition(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudgetSection_RefID + '</span></td>',
-                            '<td><span data-dismiss="modal" onclick="klikPopUpPurchaseRequisition(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudgetSectionName + '</td></tr></tbody>'
+                            '<td>' + val.documentNumber + '</td>',
+                            '<td>' + val.combinedBudgetCode + '</td>',
+                            '<td>' + val.combinedBudgetName + '</td>',
+                            '<td>' + val.combinedBudgetSectionCode + '</td>',
+                            '<td>' + val.combinedBudgetSectionName + '</td>',
+                            '<span style="display:none;"><td">' + val.sys_ID + '</td></span></tr></tbody>'
                         ]).draw();
 
                     });
