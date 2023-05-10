@@ -37,7 +37,8 @@ var advance_RefID = $("#var_recordID").val();
 
         $.each(data, function(key, value) {
 
-            TotalBudget += +value.priceBaseCurrencyValue.replace(/,/g, '');
+            TotalBudget += +value.productUnitPriceCurrencyValue.replace(/,/g, '');
+            // TotalBudget += +value.priceBaseCurrencyValue.replace(/,/g, '');
             TotalAllowance+= +value.quantity.replace(/,/g, '');
             TotalAccomodation+= +value.quantity.replace(/,/g, '');
             TotalOther+= +value.quantity.replace(/,/g, '');
@@ -133,7 +134,7 @@ $.ajax({
               '<input name="getProductName[]" value="'+ val2.productName +'" type="hidden">' +
               '<input name="getQty[]" id="budget_qty'+ key +'" value="'+ val2.quantity +'" type="hidden">' +
               '<input name="getPrice[]" id="budget_price'+ key +'" value="'+ val2.unitPriceBaseCurrencyValue +'" type="hidden">' +
-              '<input name="getBudgetTotal[]" id="budget_total'+ key +'" value="'+ val2.priceBaseCurrencyValue +'" type="hidden">' +
+              '<input name="getBudgetTotal[]" id="budget_total'+ key +'" value="'+ (val2.quantity * val2.unitPriceBaseCurrencyValue) +'" type="hidden">' +
               '<input name="getUom[]" value="'+ val2.quantityUnitName +'" type="hidden">' +
               '<input name="getCurrency[]" value="'+ val2.priceBaseCurrencyISOCode +'" type="hidden">' +
               '<input name="combinedBudgetSectionDetail_RefID[]" value="'+ val2.sys_ID +'" type="hidden">' +
@@ -158,56 +159,59 @@ $.ajax({
               '<td style="border:1px solid #e9ecef;display:'+ statusDisplay2[key] +'">' + '<span>' + val2.product_RefID + '</span>' + '</td>' +
               
               '<td style="border:1px solid #e9ecef;">' + '<span id="putProductName'+ key +'">' + val2.productName + '</span>' + '</td>' +
-              '<td style="border:1px solid #e9ecef;">' + '<span">' + val2.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
-              '<td style="border:1px solid #e9ecef;">' + '<span">' + val2.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
-              '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.unitPriceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
-              '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.priceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
+              '<td style="border:1px solid #e9ecef;">' + '<span">' + currencyTotal(val2.quantity) + '</span>' + '</td>' +
+              '<td style="border:1px solid #e9ecef;">' + '<span">' + currencyTotal(val2.quantity) + '</span>' + '</td>' +
+              '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.unitPriceBaseCurrencyValue) + '</span>' + '</td>' +
+              '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_value2'+ key +'">' + currencyTotal(val2.quantity * val2.unitPriceBaseCurrencyValue) + '</span>' + '</td>' +
               '<td style="border:1px solid #e9ecef;">' + '<span id="total_payment'+ key +'">' + var_totalPayment + '</span>' + '</td>' +
 
               '<td class="sticky-col fifth-col-brf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="allowance_req'+ key +'" style="border-radius:0;" name="allowance_req[]" class="form-control allowance_req" autocomplete="off" '+ statusForm[key] +'value="'+ currency(var_qtys) +'">' + '</td>' +
               '<td class="sticky-col forth-col-brf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="accomodation_req'+ key +'" style="border-radius:0;" name="accomodation_req[]" class="form-control accomodation_req" autocomplete="off" '+ statusForm[key] +'value="'+ currency(var_qtys) +'">' + '</td>' +
               '<td class="sticky-col third-col-brf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="other_req'+ key +'" style="border-radius:0;" name="other_req[]" class="form-control total_req" autocomplete="off" '+ statusForm[key] +'value="'+ currency(var_qtys) +'">' + '</td>' +
               '<td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req'+ key +'" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled value="'+ currency(var_qtys) +'">' + '</td>' +
-              '<td class="sticky-col first-col-brf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_balance'+ key +'" style="border-radius:0;width:90px;background-color:white;" name="total_balance[]" class="form-control total_balance" autocomplete="off" disabled value="'+ currencyTotal(var_totalBalance) +'">' + '</td>' +
+              '<td class="sticky-col first-col-brf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_balance_value'+ key +'" style="border-radius:0;width:90px;background-color:white;" name="total_balance_value[]" class="form-control total_balance_value" autocomplete="off" disabled value="'+ currencyTotal(val2.quantity * val2.unitPriceBaseCurrencyValue) +'">' + '</td>' +
 
               '</tr>';
           $('table.tableBudgetDetail tbody').append(html);
           
           //VALIDASI ALLOWANCE
-          $('#allowance_req'+key).keyup(function() {
+          $('#allowance_req'+key).keyup(function() {val2.quantity
             $(this).val(currency($(this).val()));
             var allowance_req = $(this).val().replace(/,/g, '');
             var budget_total = $("#budget_total"+key).val();
             var accomodation_req = $("#accomodation_req"+key).val().replace(/,/g, '');
             var other_req = $("#other_req"+key).val().replace(/,/g, '');
-            var total = +allowance_req + +accomodation_req + +other_req;
+            var totalWith = +allowance_req + +accomodation_req + +other_req;
+            var totalWithout = +accomodation_req + +other_req;
 
             if (allowance_req == "") {
-                $('#total_req'+key).val("");
+                $('#total_req'+key).val(currencyTotal(totalWithout));
                 $("input[name='allowance_req[]']").css("border", "1px solid #ced4da");
             }
-            else if (parseFloat(total) > parseFloat(budget_total)) {
+            else if (parseFloat(totalWith) > parseFloat(budget_total)) {
 
                 swal({
                     onOpen: function () {
                         swal.disableConfirmButton();
-                        Swal.fire("Error !", "Qty is over budget !", "error");
+                        Swal.fire("Error !", "Your request is over budget !", "error");
                     }
                 });
 
                 $('#allowance_req'+key).val("");
-                $('#total_req'+key).val("");
+                $('#total_req'+key).val(currencyTotal(totalWithout));
                 $('#allowance_req'+key).css("border", "1px solid red");
                 $('#allowance_req'+key).focus();
             }
             else {
 
                 $("input[name='allowance_req[]']").css("border", "1px solid #ced4da");
-                $('#total_req'+key).val(currencyTotal(total));
+                $('#total_req'+key).val(currencyTotal(totalWith));
             }
 
             //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED
             TotalBudgetSelected();
+            //MEMANGGIL FUNCTION TOTAL BALANCE QTY SELECTED
+            TotalBalanceValueSelected(key);
         });
 
         //VALIDASI ACCOMODATION
@@ -217,34 +221,37 @@ $.ajax({
             var budget_total = $("#budget_total"+key).val();
             var allowance_req = $("#allowance_req"+key).val().replace(/,/g, '');
             var other_req = $("#other_req"+key).val().replace(/,/g, '');
-            var total = +allowance_req + +accomodation_req + +other_req;
+            var totalWith = +allowance_req + +accomodation_req + +other_req;
+            var totalWithout = +allowance_req + +other_req;
 
-            if (allowance_req == "") {
-                $('#total_req'+key).val("");
+            if (accomodation_req == "") {
+                $('#total_req'+key).val(currencyTotal(totalWithout));
                 $("input[name='accomodation_req[]']").css("border", "1px solid #ced4da");
             }
-            else if (parseFloat(total) > parseFloat(budget_total)) {
+            else if (parseFloat(totalWith) > parseFloat(budget_total)) {
 
                 swal({
                     onOpen: function () {
                         swal.disableConfirmButton();
-                        Swal.fire("Error !", "Qty is over budget !", "error");
+                        Swal.fire("Error !", "Your request is over budget !", "error");
                     }
                 });
 
                 $('#accomodation_req'+key).val("");
-                $('#total_req'+key).val("");
+                $('#total_req'+key).val(currencyTotal(totalWithout));
                 $('#accomodation_req'+key).css("border", "1px solid red");
                 $('#accomodation_req'+key).focus();
             }
             else {
 
                 $("input[name='accomodation_req[]']").css("border", "1px solid #ced4da");
-                $('#total_req'+key).val(currencyTotal(total));
+                $('#total_req'+key).val(currencyTotal(totalWith));
             }
 
             //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED
             TotalBudgetSelected();
+            //MEMANGGIL FUNCTION TOTAL BALANCE QTY SELECTED
+            TotalBalanceValueSelected(key);
         });
 
         //VALIDASI OTHER
@@ -254,56 +261,42 @@ $.ajax({
             var budget_total = $("#budget_total"+key).val();
             var allowance_req = $("#allowance_req"+key).val().replace(/,/g, '');
             var accomodation_req = $("#accomodation_req"+key).val().replace(/,/g, '');
-            var total = +allowance_req + +accomodation_req + +other_req;
+            var totalWith = +allowance_req + +accomodation_req + +other_req;
+            var totalWithout = +allowance_req + +accomodation_req;
 
-            if (allowance_req == "") {
-                $('#total_req'+key).val("");
+            if (other_req == "") {
+                $('#total_req'+key).val(currencyTotal(totalWithout));
                 $("input[name='other_req[]']").css("border", "1px solid #ced4da");
             }
-            else if (parseFloat(total) > parseFloat(budget_total)) {
+            else if (parseFloat(totalWith) > parseFloat(budget_total)) {
 
                 swal({
                     onOpen: function () {
                         swal.disableConfirmButton();
-                        Swal.fire("Error !", "Qty is over budget !", "error");
+                        Swal.fire("Error !", "Your request is over budget !", "error");
                     }
                 });
 
                 $('#other_req'+key).val("");
-                $('#total_req'+key).val("");
+                $('#total_req'+key).val(currencyTotal(totalWithout));
                 $('#other_req'+key).css("border", "1px solid red");
                 $('#other_req'+key).focus();
             }
             else {
 
                 $("input[name='other_req[]']").css("border", "1px solid #ced4da");
-                $('#total_req'+key).val(currencyTotal(total));
+                $('#total_req'+key).val(currencyTotal(totalWith));
             }
 
             //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED
             TotalBudgetSelected();
+            //MEMANGGIL FUNCTION TOTAL BALANCE QTY SELECTED
+            TotalBalanceValueSelected(key);
         });
 
       });
   }
   });
-</script>
-
-<script>
-    function TotalBudgetSelected(){
-
-        var TotalBudgetSelected = 0;
-        var total_req = $("input[name='total_req[]']").map(function(){return $(this).val();}).get();
-
-        $.each(total_req, function(index, data) {
-            if(total_req[index] != "" && total_req[index] > "0.00" && total_req[index] != "NaN.00"){
-                TotalBudgetSelected += parseFloat(total_req[index].replace(/,/g, ''));
-            }
-        });
-
-        $('#TotalBudgetSelected').html(currencyTotal(TotalBudgetSelected));
-        
-    }
 </script>
 
 <script>
@@ -333,7 +326,7 @@ $.ajax({
 
         var total_req = $("input[name='total_req[]']").map(function(){return $(this).val();}).get();
         $.each(total_req, function(index, data) {
-            if(total_req[index] != "" && total_req[index] > "0.00" && total_req[index] != "NaN.00"){
+            // if(total_req[index] != "" && total_req[index] > "0.00" && total_req[index] != "NaN.00"){
 
                 var putProductId = getProductId[index];
                 var putProductName = getProductName[index];
@@ -384,7 +377,7 @@ $.ajax({
                 $("#TotalOther").html(currencyTotal(TotalOther));
 
                 $("#saveBrfList").prop("disabled", false);
-            }
+            // }
         });
         
     }

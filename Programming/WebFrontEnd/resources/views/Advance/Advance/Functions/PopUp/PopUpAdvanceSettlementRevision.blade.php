@@ -19,7 +19,7 @@
                                                     <input required="" id="searchAsfNumberRevisions" style="border-radius:0;" name="searchAsfNumberRevisions" type="text" class="form-control" required readonly>
                                                     <div class="input-group-append">
                                                         <span style="border-radius:0;" class="input-group-text form-control">
-                                                            <a data-toggle="modal" data-target="#mySearchAsfRevision"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                            <a data-toggle="modal" data-target="#PopUpTableAdvanceSettlementRevision"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -45,11 +45,11 @@
     </div>
 </div>
 
-<div id="mySearchAsfRevision" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="PopUpTableAdvanceSettlementRevision" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <label class="card-title">Choose ASF</label>
+                <label class="card-title">Choose Advance Settlement</label>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
@@ -66,6 +66,7 @@
                                             <th>Budget Name</th>
                                             <th>Sub Budget Code</th>
                                             <th>Sub Budget Name</th>
+                                            <th style="display: none;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -82,8 +83,18 @@
 </div>
 
 <script>
-    function klikPopUpAdvanceSettlementRevision(id, code) {
-        $("#searchAsfNumberRevisionId").val(id);
+
+    $('#TableSearchAsfRevision tbody').on('click', 'tr', function () {
+
+        $("#PopUpTableAdvanceSettlementRevision").modal('toggle');
+
+        var row = $(this).closest("tr");    
+        var sys_id = row.find("td:nth-child(7)").text();
+        var code = row.find("td:nth-child(2)").text();
+        
+        $("#searchAsfNumberRevisionId").val(sys_id);
         $("#searchAsfNumberRevisions").val(code);
-    }
+
+    });
+    
 </script>

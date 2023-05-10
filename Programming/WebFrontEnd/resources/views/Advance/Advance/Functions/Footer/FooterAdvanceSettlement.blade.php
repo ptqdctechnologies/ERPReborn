@@ -15,7 +15,15 @@
 
 
 <script>
-    function klikProject(sys_id, code, name) {
+    $('#tableGetProject tbody').on('click', 'tr', function () {
+
+        $("#myProject").modal('toggle');
+
+        var row = $(this).closest("tr");    
+        var sys_id = row.find("td:nth-child(4)").text();
+        var code = row.find("td:nth-child(2)").text();
+        var name = row.find("td:nth-child(3)").text();
+
         $("#projectcode").val(code);
         $("#projectname").val(name);
         $("#advance_number2").prop("disabled", false);
@@ -39,29 +47,37 @@
                 $.each(data.DataAdvanceRequest, function(key, val) {
                     t.row.add([
                         '<tbody><tr><td>' + no++ + '</td>',
-                        '<td><span data-dismiss="modal" onclick="klikAdvanceNumberInAsf(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.documentNumber + '</span></td>',
-                        '<td><span data-dismiss="modal" onclick="klikAdvanceNumberInAsf(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudgetCode + '</span></td>',
-                        '<td><span data-dismiss="modal" onclick="klikAdvanceNumberInAsf(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudgetName + '</span></td>',
-                        '<td><span data-dismiss="modal" onclick="klikAdvanceNumberInAsf(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudgetSection_RefID + '</span></td>',
-                        '<td><span data-dismiss="modal" onclick="klikAdvanceNumberInAsf(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudgetSectionName + '</span></td>',
+                        '<td>' + val.documentNumber + '</td>',
+                        '<td>' + val.combinedBudgetCode + '</td>',
+                        '<td>' + val.combinedBudgetName + '</td>',
+                        '<td>' + val.combinedBudgetSectionCode + '</td>',
+                        '<td>' + val.combinedBudgetSectionName + '</td>',
+                        '<span style="display:none;"><td">' + val.sys_ID + '</td></span>',
+                        '<span style="display:none;"><td">' + val.requesterWorkerJobsPosition_RefID + '</td></span>',
+                        '<span style="display:none;"><td">' + val.requesterWorkerName + '</td></span></tr></tbody>'
                     ]).draw();
 
                 });
             }
         });
-    }
+    });
 </script>
 
 <script>
 
     var keys = 0;
 
-    function klikAdvanceNumberInAsf(id, docNum, reqId, reqName) {
-        var advance_RefID = id;
-        var advance_number = docNum;
-        var requester_RefID = reqId;
-        var requester_name = reqName;
-        $("#advance_number").val(docNum);
+    $('#tableSearchArfinAsf tbody').on('click', 'tr', function () {
+
+        $("#mySearchArf").modal('toggle');
+
+        var row = $(this).closest("tr");    
+        var advance_RefID = row.find("td:nth-child(7)").text();
+        var advance_number = row.find("td:nth-child(2)").text();
+        var requester_RefID = row.find("td:nth-child(8)").text();
+        var requester_name = row.find("td:nth-child(9)").text();
+
+        $("#advance_number").val(advance_number);
         $(".tableShowHideArfDetail").show();
         $("#projectcode2").prop("disabled", true);
 
@@ -140,11 +156,12 @@
                             '<td style="border:1px solid #e9ecef;display:'+ statusDisplay2[keys] +'">' + '<span>' + value.product_RefID + '</span>' + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + '<span id="putProductName'+ keys +'">' + value.productName + '</span>' + '</td>' +
                             
-                            '<td style="border:1px solid #e9ecef;">' + value.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + 'N/A' + '</td>' +
+
+                            '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_qty2'+ keys +'">' + currencyTotal(value.quantity) + '</span>' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + value.quantity + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + value.quantityUnitName + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + value.productUnitPriceCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + value.priceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.productUnitPriceCurrencyValue) + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.priceBaseCurrencyValue) + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + value.priceCurrencyISOCode + '</td>' +
 
                             '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col third-col-asf-expense-qty">' + '<input onkeyup="qty_expense('+ keys +', this)" id="qty_expense'+ keys +'" style="border-radius:0;width:50px;" name="qty_expense[]" class="form-control qty_expense" autocomplete="off" '+ statusForm[keys] +' value="0">' + '</td>' +
@@ -155,7 +172,7 @@
                             '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col second-col-asf-amount-price">' + '<input onkeyup="price_amount('+ keys +', this)" id="price_amount'+ keys +'" style="border-radius:0;width:90px;" name="price_amount[]" class="form-control price_amount" autocomplete="off" '+ statusForm[keys] +' value="'+ currency(value.productUnitPriceCurrencyValue) +'">' + '</td>' +
                             '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col second-col-asf-amount-total">' + '<input id="total_amount'+ keys +'" style="border-radius:0;width:90px;background-color:white;" name="total_amount[]" class="form-control total_amount" autocomplete="off" disabled value="0">' + '</td>' +
                             
-                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col first-col-asf-balance-total">' + '<input id="total_balance'+ keys +'" style="border-radius:0;width:90px;background-color:white;" name="total_balance[]" class="form-control total_balance" autocomplete="off" disabled value="' + currencyTotal(value.priceBaseCurrencyValue) + '">' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col first-col-asf-balance-total">' + '<input id="total_balance_qty'+ keys +'" style="border-radius:0;width:90px;background-color:white;" name="total_balance_qty[]" class="form-control total_balance_qty" autocomplete="off" disabled value="' + currencyTotal(value.priceBaseCurrencyValue) + '">' + '</td>' +
                             
                             '</tr>';
 
@@ -170,7 +187,7 @@
                 }
             },
         });
-    }
+    });
     
     //VALIDASI QTY EXPENSE
 
@@ -220,6 +237,11 @@
             $('#total_expense'+key).val(currencyTotal(total));
         }
 
+        //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED SETTLEMENT
+        TotalBudgetSettlementSelected();
+        //MEMANGGIL FUNCTION TOTAL BALANCE VALUE SELECTED
+        TotalBalanceQtySettlementSelected(key);
+
     }
 
     //VALIDASI QTY AMOUNT
@@ -267,6 +289,10 @@
             $("input[name='qty_amount[]']").css("border", "1px solid #ced4da");
             $('#total_amount'+key).val(currencyTotal(total));
         }
+        //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED SETTLEMENT
+        TotalBudgetSettlementSelected();
+        //MEMANGGIL FUNCTION TOTAL BALANCE VALUE SELECTED
+        TotalBalanceQtySettlementSelected(key);
     }
 
     //VALIDASI PRICE EXPENSE
@@ -300,6 +326,10 @@
             $("input[name='price_expense[]']").css("border", "1px solid #ced4da");
             $('#total_expense'+key).val(currencyTotal(total));
         }
+        //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED SETTLEMENT
+        TotalBudgetSettlementSelected();
+        //MEMANGGIL FUNCTION TOTAL BALANCE VALUE SELECTED
+        TotalBalanceQtySettlementSelected(key);
     }
 
     //VALIDASI PRICE AMOUNT
@@ -332,6 +362,10 @@
             $("input[name='price_amount[]']").css("border", "1px solid #ced4da");
             $('#total_amount'+key).val(currencyTotal(total));
         }
+        //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED SETTLEMENT
+        TotalBudgetSettlementSelected();
+        //MEMANGGIL FUNCTION TOTAL BALANCE VALUE SELECTED
+        TotalBalanceQtySettlementSelected(key);
     }
         
 </script>

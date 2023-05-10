@@ -57,7 +57,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="TableSearchProcReq">
+                                <table class="table table-head-fixed text-nowrap" id="TableSearchProcReqRevision">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -66,6 +66,7 @@
                                             <th>Budget Name</th>
                                             <th>Sub Budget Code</th>
                                             <th>Sub Budget Name</th>
+                                            <th style="display: none;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -80,9 +81,20 @@
     </div>
 </div>
 
+
 <script>
-    function klikPopUpPurchaseRequisition(id, code) {
-        $("#searchPrNumberRevisionId").val(id);
+
+    $('#TableSearchProcReqRevision tbody').on('click', 'tr', function () {
+
+        $("#mySearchProcReqRevision").modal('toggle');
+
+        var row = $(this).closest("tr");    
+        var sys_id = row.find("td:nth-child(7)").text();
+        var code = row.find("td:nth-child(2)").text();
+
+        $("#searchPrNumberRevisionId").val(sys_id);
         $("#searchPrNumberRevisions").val(code);
-    }
-</script>`
+
+    });
+    
+</script>

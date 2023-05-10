@@ -324,6 +324,7 @@ class AdvanceSettlementController extends Controller
                 ]
             ]
         );
+        
         // dd($varDataAdvanceSettlementRevision['data'][0]['document']['content']['itemList']['ungrouped'][0]);
         $compact = [
             'dataAdvanceRevisions' => $varDataAdvanceSettlementRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
