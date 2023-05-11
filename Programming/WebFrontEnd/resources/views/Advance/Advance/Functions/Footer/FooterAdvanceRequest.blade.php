@@ -417,10 +417,7 @@
 
                 $("#GrandTotal").html(currencyTotal(TotalBudget));
                 $("#TotalQty").html(currencyTotal(TotalQty));
-
                 $("#submitArf").prop("disabled", false);
-                $(".ActionButton").prop("disabled", false);
-                $(".ActionButtonAll").prop("disabled", false);
             }
         });
         

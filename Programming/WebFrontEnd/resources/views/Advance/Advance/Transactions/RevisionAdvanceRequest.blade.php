@@ -26,7 +26,7 @@
           @csrf
           @method('PUT')
           <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
-          <input id="siteCodeRevArfAfter" style="border-radius:0;" name="siteCodeRevArfAfter" class="form-control" type="hidden" value="{{$dataAdvance['itemList']['ungrouped'][0]['entities']['combinedBudgetSection_RefID']}}">
+          <input id="trano" style="border-radius:0;" name="trano" class="form-control" type="hidden" value="{{ $trano }}">
           <div class="tab-content p-3" id="nav-tabContent">
             <div class="row">
               <div class="col-12">

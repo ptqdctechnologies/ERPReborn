@@ -118,7 +118,6 @@
     function TotalBalanceQtySelected(key){
         var qty_req = $('#qty_req'+key).val().replace(/,/g, '');
         var total_balance_qty2 = $('#total_balance_qty2'+key).html().replace(/,/g, '');
-        
         $('#total_balance_qty'+key).val(currencyTotal(total_balance_qty2 - qty_req));
     }
 
@@ -135,6 +134,7 @@
     function TotalBalanceValueSelected(key){
         var total_req = $('#total_req'+key).val().replace(/,/g, '');
         var total_balance_value2 = $('#total_balance_value2'+key).html().replace(/,/g, '');
+        console.log();
 
         $('#total_balance_value'+key).val(currencyTotal(total_balance_value2 - total_req));
     }
