@@ -125,8 +125,8 @@
                         '<td style="border:1px solid #e9ecef;">' + '<span id="total_budget'+ key +'">' + currencyTotal(value.priceBaseCurrencyValue) + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span id="total_payment'+ key +'">' + currencyTotal(TotalPayment) + '</span>' + '</td>' +
 
-                        '<td class="sticky-col fifth-col-pr" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" '+ statusForm[key] +' value="'+ currencyTotal(value.quantity) +'">' + '</td>' +
-                        '<td class="sticky-col forth-col-pr" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req'+ key +'" style="border-radius:0;" name="price_req[]" class="form-control price_req" autocomplete="off" '+ statusForm[key] +' value="'+ currencyTotal(value.productUnitPriceCurrencyValue) +'">' + '</td>' +
+                        '<td class="sticky-col fifth-col-pr" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" onkeypress="return isNumberKey(this, event);" autocomplete="off" '+ statusForm[key] +' value="'+ currencyTotal(value.quantity) +'">' + '</td>' +
+                        '<td class="sticky-col forth-col-pr" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req'+ key +'" style="border-radius:0;" name="price_req[]" class="form-control price_req" onkeypress="return isNumberKey(this, event);" autocomplete="off" '+ statusForm[key] +' value="'+ currencyTotal(value.productUnitPriceCurrencyValue) +'">' + '</td>' +
                         '<td class="sticky-col third-col-pr" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req'+ key +'" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled value="'+ currencyTotal(value.priceBaseCurrencyValue) +'">' + '</td>' +
                         '<td class="sticky-col second-col-pr" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_balance_qty'+ key +'" style="border-radius:0;background-color:white;" name="total_balance_qty[]" class="form-control total_balance_qty" autocomplete="off" disabled value="'+ currencyTotal(value.quantity) +'">' + '</td>' +
                         '<td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="remark_req'+ key +'" style="border-radius:0;background-color:white;" name="remark_req[]" class="form-control" autocomplete="off" '+ statusForm[key] +' value="'+ value.remarks +'">' + '</td>' +
@@ -140,7 +140,6 @@
                 if(value.productName == "Unspecified Product"){
                     //VALIDASI QTY
                     $('#qty_req'+key).keyup(function() {
-                        $(this).val(currency($(this).val()));
                         var qty_val = $(this).val().replace(/,/g, '');
                         var budget_qty_val = $("#budget_qty"+key).val();
                         var price_req = $("#price_req"+key).val().replace(/,/g, '');
@@ -191,7 +190,6 @@
 
                     //VALIDASI PRICE
                     $('#price_req'+key).keyup(function() {
-                        $(this).val(currency($(this).val()));
                         var price_val = $(this).val().replace(/,/g, '');
                         var budget_price_val = $("#budget_price"+key).val().replace(/,/g, '');
                         var qty_req = $("#qty_req"+key).val();
@@ -254,7 +252,6 @@
                 else{
                     //VALIDASI QTY
                     $('#qty_req'+key).keyup(function() {
-                        $(this).val(currency($(this).val()));
                         var qty_val = $(this).val().replace(/,/g, '');
                         var budget_qty_val = $("#budget_qty"+key).val();
                         var price_req = $("#price_req"+key).val().replace(/,/g, '');
@@ -301,7 +298,6 @@
 
                     //VALIDASI PRICE
                     $('#price_req'+key).keyup(function() {
-                        $(this).val(currency($(this).val()));
                         var price_val = $(this).val().replace(/,/g, '');
                         var budget_price_val = $("#budget_price"+key).val().replace(/,/g, '');
                         var qty_req = $("#qty_req"+key).val();

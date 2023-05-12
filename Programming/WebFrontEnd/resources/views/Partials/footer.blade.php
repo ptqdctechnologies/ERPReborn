@@ -63,6 +63,7 @@
         output = [],
         i = 1,
         formatted = null;
+
       if (str.indexOf(".") > 0) {
         parts = str.split(".");
         str = parts[0];
@@ -77,7 +78,12 @@
           i++;
         }
       }
+
       formatted = output.reverse().join("");
+      if(formatted == ""){
+        formatted = 0;
+      }
+
       return (formatted + ((parts) ? "." + parts[1].substr(0, 2) : ".00"));
     };
 </script>
@@ -171,4 +177,30 @@
 
     }
     
+</script>
+
+<script type="text/javascript">
+  function isNumberKey(txt, evt) {
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    
+    if(txt.value.length === 0 && charCode == 46){
+      return false;
+    }
+    else{
+      if (charCode == 46) {
+        //Check if the text already contains the . character
+        if (txt.value.indexOf('.') === -1) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        if (charCode > 31 && (charCode < 48 || charCode > 57)){
+          return false;
+        }
+      }
+    }
+    
+    return true;
+  }
 </script>

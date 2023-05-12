@@ -24,6 +24,7 @@ $.ajaxSetup({
 });
 
   var advance_RefID = $("#var_recordID").val();
+  var trano = $("#trano").val();
   var TotalBudgetList = 0;
   var TotalAllowance = 0;
   var TotalAccomodation = 0;
@@ -47,6 +48,7 @@ $.ajaxSetup({
 
           var html =
               '<tr>' +
+                '<td style="border:1px solid #e9ecef;">' + trano + '</td>' +
                 '<td style="border:1px solid #e9ecef;">' + value.combinedBudget_SubSectionLevel1_RefID + '</td>' +
                 '<td style="border:1px solid #e9ecef;">' + value.combinedBudget_SubSectionLevel1Name + '</td>' +
                 '<td style="border:1px solid #e9ecef;">' + value.product_RefID + '</td>' +
@@ -116,8 +118,8 @@ $.ajaxSetup({
                   '</div>' +
               '</td>' +
 
+              '<td style="border:1px solid #e9ecef;">' + '<span>' + trano + '</span>' + '</td>' +
               '<td style="border:1px solid #e9ecef;display:'+ statusDisplay2[key] +'">' + '<span>' + value.product_RefID + '</span>' + '</td>' +
-              
               '<td style="border:1px solid #e9ecef;">' + '<span id="putProductName'+ key +'">' + value.productName + '</span>' + '</td>' +
               '<td style="border:1px solid #e9ecef;">' + '<span">' + currencyTotal(value.quantity) + '</span>' + '</td>' +
               '<td style="border:1px solid #e9ecef;">' + '<span">' + currencyTotal(value.quantity) + '</span>' + '</td>' +
@@ -125,9 +127,9 @@ $.ajaxSetup({
               '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_value2'+ key +'">' + currencyTotal(value.quantity * value.productUnitPriceBaseCurrencyValue) + '</span>' + '</td>' +
               '<td style="border:1px solid #e9ecef;">' + '<span id="total_payment'+ key +'">' + currencyTotal(TotalPayment) + '</span>' + '</td>' +
 
-              '<td class="sticky-col fifth-col-brf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="allowance_req'+ key +'" style="border-radius:0;" name="allowance_req[]" class="form-control allowance_req" autocomplete="off" '+ statusForm[key] +'value="'+ currencyTotal(value.productUnitPriceBaseCurrencyValue) +'">' + '</td>' +
-              '<td class="sticky-col forth-col-brf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="accomodation_req'+ key +'" style="border-radius:0;" name="accomodation_req[]" class="form-control accomodation_req" autocomplete="off" '+ statusForm[key] +'value="'+ currencyTotal(value.productUnitPriceBaseCurrencyValue) +'">' + '</td>' +
-              '<td class="sticky-col third-col-brf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="other_req'+ key +'" style="border-radius:0;" name="other_req[]" class="form-control total_req" autocomplete="off" '+ statusForm[key] +'value="'+ currencyTotal(value.productUnitPriceBaseCurrencyValue) +'">' + '</td>' +
+              '<td class="sticky-col fifth-col-brf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="allowance_req'+ key +'" style="border-radius:0;" name="allowance_req[]" class="form-control allowance_req" onkeypress="return isNumberKey(this, event);" autocomplete="off" '+ statusForm[key] +'value="'+ currencyTotal(value.productUnitPriceBaseCurrencyValue) +'">' + '</td>' +
+              '<td class="sticky-col forth-col-brf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="accomodation_req'+ key +'" style="border-radius:0;" name="accomodation_req[]" class="form-control accomodation_req" onkeypress="return isNumberKey(this, event);" autocomplete="off" '+ statusForm[key] +'value="'+ currencyTotal(value.productUnitPriceBaseCurrencyValue) +'">' + '</td>' +
+              '<td class="sticky-col third-col-brf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="other_req'+ key +'" style="border-radius:0;" name="other_req[]" class="form-control total_req" onkeypress="return isNumberKey(this, event);" autocomplete="off" '+ statusForm[key] +'value="'+ currencyTotal(value.productUnitPriceBaseCurrencyValue) +'">' + '</td>' +
               '<td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req'+ key +'" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled value="'+ currencyTotal(value.productUnitPriceBaseCurrencyValue) +'">' + '</td>' +
               '<td class="sticky-col first-col-brf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_balance_value'+ key +'" style="border-radius:0;width:90px;background-color:white;" name="total_balance_value[]" class="form-control total_balance_value" autocomplete="off" disabled value="'+ currencyTotal(value.priceBaseCurrencyValue) +'">' + '</td>' +
 
@@ -326,61 +328,63 @@ $.ajaxSetup({
         var TotalAccomodation = 0;
         var TotalOther = 0;
 
+        var trano = $("#trano").val();
+
         var total_req = $("input[name='total_req[]']").map(function(){return $(this).val();}).get();
         $.each(total_req, function(index, data) {
-            // if(total_req[index] != "" && total_req[index] > "0.00" && total_req[index] != "NaN.00"){
+          // if(total_req[index] != "" && total_req[index] > "0.00" && total_req[index] != "NaN.00"){
+            var putProductId = getProductId[index];
+            var putProductName = getProductName[index];
+            var putUom = getUom[index];
 
-                var putProductId = getProductId[index];
-                var putProductName = getProductName[index];
-                var putUom = getUom[index];
+            if(getProductName[index] == "Unspecified Product"){
+                var putProductId = $("#putProductId"+index).val();
+                var putProductName = $("#putProductName"+index).html();
+                var putUom = $("#putUom"+index).val();
+            }
+            TotalBudgetList += +total_req[index].replace(/,/g, '');
+            TotalAllowance+= +allowance_req[index].replace(/,/g, '');
+            TotalAccomodation+= +accomodation_req[index].replace(/,/g, '');
+            TotalOther+= +other_req[index].replace(/,/g, '');
 
-                if(getProductName[index] == "Unspecified Product"){
-                    var putProductId = $("#putProductId"+index).val();
-                    var putProductName = $("#putProductName"+index).html();
-                    var putUom = $("#putUom"+index).val();
-                }
-                TotalBudgetList += +total_req[index].replace(/,/g, '');
-                TotalAllowance+= +allowance_req[index].replace(/,/g, '');
-                TotalAccomodation+= +accomodation_req[index].replace(/,/g, '');
-                TotalOther+= +other_req[index].replace(/,/g, '');
+            var html = '<tr>' +
 
-                var html = '<tr>' +
+                '<input type="hidden" name="var_product_id[]" value="' + putProductId + '">' +
+                '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
+                '<input type="hidden" name="var_uom[]" value="' + getUom[index] + '">' +
+                '<input type="hidden" name="var_qty_id[]" value="' + getQtyId[index] + '">' +
+                '<input type="hidden" name="var_currency_id[]" value="' + getCurrencyId[index] + '">' +
+                '<input type="hidden" name="var_quantity[]" class="allowance_req2'+ index +'" data-id="'+ index +'" value="' + currencyTotal(allowance_req[index]).replace(/,/g, '') + '">' +
+                '<input type="hidden" name="var_price[]" class="accomodation_req2'+ index +'" value="' + currencyTotal(accomodation_req[index]).replace(/,/g, '') + '">' +
+                '<input type="hidden" name="var_quantity[]" class="other_req2'+ index +'" data-id="'+ index +'" value="' + currencyTotal(other_req[index]).replace(/,/g, '') + '">' +
+                '<input type="hidden" name="var_total[]" class="total_req2'+ index +'" value="' + total_req[index] + '">' +
+                '<input type="hidden" name="var_currency[]" value="' + getCurrency[index] + '">' +
+                '<input type="hidden" name="var_date" value="' + date + '">' +
+                '<input type="hidden" name="var_combinedBudgetSectionDetail_RefID[]" value="' + combinedBudgetSectionDetail_RefID[index] + '">' +
+                '<input type="hidden" name="var_combinedBudget_RefID" value="' + combinedBudget_RefID + '">' +
+                '<input type="hidden" name="var_recordIDDetail[]" value="' + getRecordIDDetail[index] + '">' +
+                
+                '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + trano + '</td>' +
+                '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkId[index] + '</td>' +
+                '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkName[index] + '</td>' +
+                '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductId + '</td>' +
+                '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductName + '</td>' +
+                // '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putUom + '</td>' +
+                // '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getCurrency[index] + '</td>' +
+                '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="accomodation_req2'+ index +'">' + currencyTotal(allowance_req[index]) + '</span>' + '</td>' +
+                '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="allowance_req2'+ index +'">' + currencyTotal( accomodation_req[index]) + '</span>' + '</td>' +
+                '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="other_req2'+ index +'">' + currencyTotal(other_req[index]) + '</span>' + '</td>' +
+                '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="total_req2'+ index +'">' + currencyTotal(total_req[index]) + '</span>' + '</td>' +
+                '</tr>';
+            $('table.TableBusinessTrip tbody').append(html);  
 
-                    '<input type="hidden" name="var_product_id[]" value="' + putProductId + '">' +
-                    '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
-                    '<input type="hidden" name="var_uom[]" value="' + getUom[index] + '">' +
-                    '<input type="hidden" name="var_qty_id[]" value="' + getQtyId[index] + '">' +
-                    '<input type="hidden" name="var_currency_id[]" value="' + getCurrencyId[index] + '">' +
-                    '<input type="hidden" name="var_quantity[]" class="allowance_req2'+ index +'" data-id="'+ index +'" value="' + currencyTotal(allowance_req[index]).replace(/,/g, '') + '">' +
-                    '<input type="hidden" name="var_price[]" class="accomodation_req2'+ index +'" value="' + currencyTotal(accomodation_req[index]).replace(/,/g, '') + '">' +
-                    '<input type="hidden" name="var_quantity[]" class="other_req2'+ index +'" data-id="'+ index +'" value="' + currencyTotal(other_req[index]).replace(/,/g, '') + '">' +
-                    '<input type="hidden" name="var_total[]" class="total_req2'+ index +'" value="' + total_req[index] + '">' +
-                    '<input type="hidden" name="var_currency[]" value="' + getCurrency[index] + '">' +
-                    '<input type="hidden" name="var_date" value="' + date + '">' +
-                    '<input type="hidden" name="var_combinedBudgetSectionDetail_RefID[]" value="' + combinedBudgetSectionDetail_RefID[index] + '">' +
-                    '<input type="hidden" name="var_combinedBudget_RefID" value="' + combinedBudget_RefID + '">' +
-                    '<input type="hidden" name="var_recordIDDetail[]" value="' + getRecordIDDetail[index] + '">' +
-                    
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkId[index] + '</td>' +
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkName[index] + '</td>' +
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductId + '</td>' +
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductName + '</td>' +
-                    // '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putUom + '</td>' +
-                    // '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getCurrency[index] + '</td>' +
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="accomodation_req2'+ index +'">' + currencyTotal(allowance_req[index]) + '</span>' + '</td>' +
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="allowance_req2'+ index +'">' + currencyTotal( accomodation_req[index]) + '</span>' + '</td>' +
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="other_req2'+ index +'">' + currencyTotal(other_req[index]) + '</span>' + '</td>' +
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="total_req2'+ index +'">' + currencyTotal(total_req[index]) + '</span>' + '</td>' +
-                    '</tr>';
-                $('table.TableBusinessTrip tbody').append(html);  
+            $("#GrandTotal").html(currencyTotal(TotalBudgetList));
+            $("#TotalAllowance").html(currencyTotal(TotalAllowance));
+            $("#TotalAccomodation").html(currencyTotal(TotalAccomodation));
+            $("#TotalOther").html(currencyTotal(TotalOther));
 
-                $("#GrandTotal").html(currencyTotal(TotalBudgetList));
-                $("#TotalAllowance").html(currencyTotal(TotalAllowance));
-                $("#TotalAccomodation").html(currencyTotal(TotalAccomodation));
-                $("#TotalOther").html(currencyTotal(TotalOther));
-
-                $("#saveBrfList").prop("disabled", false);
-            // }
+            $("#saveBrfList").prop("disabled", false);
+        // }
         });
         
     }
