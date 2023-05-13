@@ -2642,6 +2642,7 @@ return array(
     'Illuminate\\Queue\\Failed\\DatabaseUuidFailedJobProvider' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Failed/DatabaseUuidFailedJobProvider.php',
     'Illuminate\\Queue\\Failed\\DynamoDbFailedJobProvider' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Failed/DynamoDbFailedJobProvider.php',
     'Illuminate\\Queue\\Failed\\FailedJobProviderInterface' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Failed/FailedJobProviderInterface.php',
+    'Illuminate\\Queue\\Failed\\FileFailedJobProvider' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Failed/FileFailedJobProvider.php',
     'Illuminate\\Queue\\Failed\\NullFailedJobProvider' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Failed/NullFailedJobProvider.php',
     'Illuminate\\Queue\\Failed\\PrunableFailedJobProvider' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Failed/PrunableFailedJobProvider.php',
     'Illuminate\\Queue\\InteractsWithQueue' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/InteractsWithQueue.php',
