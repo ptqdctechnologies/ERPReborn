@@ -17,7 +17,7 @@
       </div>
       @include('Advance.Advance.Functions.Menu.MenuAdvanceSettlement')
       <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
-      <input id="advance_number" style="border-radius:0;" name="advance_number" value="{{ $dataAdvancenumber }}" class="form-control" type="hidden">
+      <input id="trano" style="border-radius:0;" name="trano" value="{{ $trano }}" class="form-control" type="hidden">
       <div class="card" style="position:relative;bottom:10px;">
         <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceSettlement.update', $var_recordID) }}" id="FormStoreAdvanceSettlementRevision">
           @method('PUT')

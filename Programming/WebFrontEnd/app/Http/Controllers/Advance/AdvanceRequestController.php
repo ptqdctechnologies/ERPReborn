@@ -21,9 +21,6 @@ class AdvanceRequestController extends Controller
         $compact = [
             'var' => $var,
             'varAPIWebToken' => $varAPIWebToken,
-            'statusAdvanceRevisi' => 0,
-            'statusPrRevisi' => 0,
-            'statusPr' => 0,
             'statusRevisi' => 0,
         ];
         
@@ -165,10 +162,8 @@ class AdvanceRequestController extends Controller
         $compact = [
             'dataAdvance' => $varDataAdvanceRevision['data'][0]['document']['content'],
             'var_recordID' => $request->searchArfNumberRevisionId,
+            'trano' => $varDataAdvanceRevision['data'][0]['document']['header']['number'],
             'varAPIWebToken' => $varAPIWebToken,
-            'statusAdvanceRevisi' => 1,
-            'statusPrRevisi' => 0,
-            'statusPr' => 0,
             'statusRevisi' => 1,
         ];
 

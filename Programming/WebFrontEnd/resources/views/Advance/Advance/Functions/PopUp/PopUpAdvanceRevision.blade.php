@@ -47,7 +47,7 @@
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <label class="card-title">Choose ARF</label>
+                <label class="card-title">Choose Advance Request</label>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">

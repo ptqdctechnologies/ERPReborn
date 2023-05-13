@@ -110,57 +110,6 @@ class PurchaseRequisitionController extends Controller
         return $this->SelectWorkFlow($varData, $SessionWorkerCareerInternal_RefID, $VarSelectWorkFlow);
     }
 
-    public function StoreValidatePurchaseRequisition(Request $request)
-    {
-        $tamp = 0; $status = 200;
-        $val = $request->input('putWorkId');
-        $val2 = $request->input('putProductId');
-        $data = $request->session()->get("SessionPurchaseRequisition");
-        if($request->session()->has("SessionPurchaseRequisition")){
-            for($i = 0; $i < count($data); $i++){
-                if($data[$i] == $val && $data[$i+1] == $val2){
-                    $tamp = 1;
-                }
-            }
-            if($tamp == 0){
-                $request->session()->push("SessionPurchaseRequisition", $val);
-                $request->session()->push("SessionPurchaseRequisition", $val2);
-            }
-            else{
-                $status = 500;
-            }
-        }
-        else{
-            $request->session()->push("SessionPurchaseRequisition", $val);
-            $request->session()->push("SessionPurchaseRequisition", $val2);
-        }
-
-        return response()->json($status);
-    }
-
-    public function StoreValidatePurchaseRequisition2(Request $request)
-    {
-        $ResetPrList = $request->input('ResetPrList');
-        if($ResetPrList == "Yes"){
-            $request->session()->forget("SessionPurchaseRequisition");
-        }
-        else{
-            $val = $request->input('putWorkId');
-            $val2 = $request->input('putProductId');
-            $data = $request->session()->get("SessionPurchaseRequisition");
-            if($request->session()->has("SessionPurchaseRequisition")){
-                for($i = 0; $i < count($data); $i++){
-                    if($data[$i] == $val && $data[$i+1] == $val2){
-                        unset($data[$i]);
-                        unset($data[$i+1]);
-                        $newClass = array_values($data);
-                        $request->session()->put("SessionPurchaseRequisition", $newClass);
-                    }
-                }
-            }
-        }
-    }
-
     public function PurchaseRequisitionListData(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -206,6 +155,7 @@ class PurchaseRequisitionController extends Controller
             'varAPIWebToken' => $varAPIWebToken,
             'log_FileUpload_Pointer_RefID' => $varDataProcReqRevision['data'][0]['document']['content']['attachmentFiles']['main']['log_FileUpload_Pointer_RefID'],
             'dataProcReqRevision' => $varDataProcReqRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
+            'trano' => $varDataProcReqRevision['data'][0]['document']['header']['number'],
             'var_recordID' => $request->searchPrNumberRevisionId,
             'statusRevisi' => 1,
         ];

@@ -63,6 +63,7 @@
         output = [],
         i = 1,
         formatted = null;
+
       if (str.indexOf(".") > 0) {
         parts = str.split(".");
         str = parts[0];
@@ -77,7 +78,12 @@
           i++;
         }
       }
+
       formatted = output.reverse().join("");
+      if(formatted == ""){
+        formatted = 0;
+      }
+
       return (formatted + ((parts) ? "." + parts[1].substr(0, 2) : ".00"));
     };
 </script>
@@ -118,7 +124,6 @@
     function TotalBalanceQtySelected(key){
         var qty_req = $('#qty_req'+key).val().replace(/,/g, '');
         var total_balance_qty2 = $('#total_balance_qty2'+key).html().replace(/,/g, '');
-        
         $('#total_balance_qty'+key).val(currencyTotal(total_balance_qty2 - qty_req));
     }
 
@@ -135,6 +140,7 @@
     function TotalBalanceValueSelected(key){
         var total_req = $('#total_req'+key).val().replace(/,/g, '');
         var total_balance_value2 = $('#total_balance_value2'+key).html().replace(/,/g, '');
+        console.log();
 
         $('#total_balance_value'+key).val(currencyTotal(total_balance_value2 - total_req));
     }
@@ -171,4 +177,30 @@
 
     }
     
+</script>
+
+<script type="text/javascript">
+  function isNumberKey(txt, evt) {
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    
+    if(txt.value.length === 0 && charCode == 46){
+      return false;
+    }
+    else{
+      if (charCode == 46) {
+        //Check if the text already contains the . character
+        if (txt.value.indexOf('.') === -1) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        if (charCode > 31 && (charCode < 48 || charCode > 57)){
+          return false;
+        }
+      }
+    }
+    
+    return true;
+  }
 </script>

@@ -26,7 +26,7 @@
           @csrf
           @method('PUT')
           <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
-          <input id="siteCodeRevArfAfter" style="border-radius:0;" name="siteCodeRevArfAfter" class="form-control" type="hidden" value="{{$dataAdvance['itemList']['ungrouped'][0]['entities']['combinedBudgetSection_RefID']}}">
+          <input id="trano" style="border-radius:0;" name="trano" class="form-control" type="hidden" value="{{ $trano }}">
           <div class="tab-content p-3" id="nav-tabContent">
             <div class="row">
               <div class="col-12">
@@ -152,6 +152,7 @@
                     <table class="table table-head-fixed table-sm text-nowrap TableAdvance" id="TableAdvance">
                       <thead>
                         <tr>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Trano</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Work Id</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Work Name</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Id</th>

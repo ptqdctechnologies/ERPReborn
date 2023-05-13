@@ -164,12 +164,12 @@
                             '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.priceBaseCurrencyValue) + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + value.priceCurrencyISOCode + '</td>' +
 
-                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col third-col-asf-expense-qty">' + '<input onkeyup="qty_expense('+ keys +', this)" id="qty_expense'+ keys +'" style="border-radius:0;width:50px;" name="qty_expense[]" class="form-control qty_expense" autocomplete="off" '+ statusForm[keys] +' value="0">' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col third-col-asf-expense-price">' + '<input onkeyup="price_expense('+ keys +', this)" id="price_expense'+ keys +'" style="border-radius:0;width:90px;" name="price_expense[]" class="form-control price_expense" autocomplete="off" '+ statusForm[keys] +' value="'+ currency(value.productUnitPriceCurrencyValue) +'">' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col third-col-asf-expense-qty">' + '<input onkeyup="qty_expense('+ keys +', this)" id="qty_expense'+ keys +'" style="border-radius:0;width:50px;" name="qty_expense[]" class="form-control qty_expense" onkeypress="return isNumberKey(this, event);" autocomplete="off" '+ statusForm[keys] +' value="0">' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col third-col-asf-expense-price">' + '<input onkeyup="price_expense('+ keys +', this)" id="price_expense'+ keys +'" style="border-radius:0;width:90px;" name="price_expense[]" class="form-control price_expense" onkeypress="return isNumberKey(this, event);" autocomplete="off" '+ statusForm[keys] +' value="'+ currency(value.productUnitPriceCurrencyValue) +'">' + '</td>' +
                             '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col third-col-asf-expense-total">' + '<input id="total_expense'+ keys +'" style="border-radius:0;width:90px;background-color:white;" name="total_expense[]" class="form-control total_expense" autocomplete="off" disabled value="0">' + '</td>' +
 
-                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col second-col-asf-amount-qty">' + '<input onkeyup="qty_amount('+ keys +', this)" id="qty_amount'+ keys +'" style="border-radius:0;width:50px;" name="qty_amount[]" class="form-control qty_amount" autocomplete="off" '+ statusForm[keys] +' value="0">' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col second-col-asf-amount-price">' + '<input onkeyup="price_amount('+ keys +', this)" id="price_amount'+ keys +'" style="border-radius:0;width:90px;" name="price_amount[]" class="form-control price_amount" autocomplete="off" '+ statusForm[keys] +' value="'+ currency(value.productUnitPriceCurrencyValue) +'">' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col second-col-asf-amount-qty">' + '<input onkeyup="qty_amount('+ keys +', this)" id="qty_amount'+ keys +'" style="border-radius:0;width:50px;" name="qty_amount[]" class="form-control qty_amount" onkeypress="return isNumberKey(this, event);" autocomplete="off" '+ statusForm[keys] +' value="0">' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col second-col-asf-amount-price">' + '<input onkeyup="price_amount('+ keys +', this)" id="price_amount'+ keys +'" style="border-radius:0;width:90px;" name="price_amount[]" class="form-control price_amount" onkeypress="return isNumberKey(this, event);" autocomplete="off" '+ statusForm[keys] +' value="'+ currency(value.productUnitPriceCurrencyValue) +'">' + '</td>' +
                             '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col second-col-asf-amount-total">' + '<input id="total_amount'+ keys +'" style="border-radius:0;width:90px;background-color:white;" name="total_amount[]" class="form-control total_amount" autocomplete="off" disabled value="0">' + '</td>' +
                             
                             '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col first-col-asf-balance-total">' + '<input id="total_balance_qty'+ keys +'" style="border-radius:0;width:90px;background-color:white;" name="total_balance_qty[]" class="form-control total_balance_qty" autocomplete="off" disabled value="' + currencyTotal(value.priceBaseCurrencyValue) + '">' + '</td>' +
@@ -438,9 +438,9 @@
                     '<td style="border:1px solid #e9ecef;">' + putProductId + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + putProductName + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + getUom[index] + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + price_expense[index] + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + qty_expense[index] + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + total_expense[index] + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + currencyTotal(price_expense[index]) + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + currencyTotal(qty_expense[index]) + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + currencyTotal(total_expense[index]) + '</td>' +
                     '</tr>';
 
                 $('table.TableExpenseClaim tbody').append(html);
@@ -486,9 +486,9 @@
                     '<td style="border:1px solid #e9ecef;">' + putProductId + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + putProductName + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + getUom[index] + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + price_amount[index] + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + qty_amount[index] + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + total_amount[index] + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + currencyTotal(price_amount[index]) + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + currencyTotal(qty_amount[index]) + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + currencyTotal(total_amount[index]) + '</td>' +
                     '</tr>';
 
                 $('table.TableAmountDueto tbody').append(html);

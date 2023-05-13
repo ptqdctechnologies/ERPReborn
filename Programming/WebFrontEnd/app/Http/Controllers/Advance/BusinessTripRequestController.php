@@ -60,7 +60,6 @@ class BusinessTripRequestController extends Controller
             'varDataApplicable' => $varDataApplicable['data'],
             'PaymentID' => $PaymentID,
             'spasi' => "<span style='color: white;'>_____</span>",
-            'statusBrfRevisi' => 0,
             'statusRevisi' => 0,
         ];
     
@@ -219,11 +218,11 @@ class BusinessTripRequestController extends Controller
             'var_recordID' => $request->searchBrfNumberRevisionId,
             'varAPIWebToken' => $varAPIWebToken,
             'spasi' => "<span style='color: white;'>_____</span>",
-            'statusBrfRevisi' => 1,
             'statusRevisi' => 1,
             'varDataAccomodation' => $varDataAccomodation['data']['data'],
             'varDataTransport' => $varDataTransport['data']['data'],
             'varDataApplicable' => $varDataApplicable['data'],
+            'trano' => $varDataAdvanceRevision['data'][0]['document']['header']['number'],
         ];
         return view('Advance.BusinessTrip.Transactions.RevisionBusinessTripRequest', $compact);
     }

@@ -127,7 +127,7 @@
                         '<input name="getProductName[]" value="'+ val2.productName +'" type="hidden">' +
                         '<input name="getQtyId[]" value="'+ val2.quantityUnit_RefID +'" type="hidden">' +
                         '<input name="getQty[]" id="budget_qty'+ key +'" value="'+ val2.quantity +'" type="hidden">' +
-                        '<input name="getPrice[]" id="budget_price'+ key +'" value="'+ val2.unitPriceBaseCurrencyValue +'" type="hidden">' +
+                        '<input name="getPrice[]" id="budget_price'+ key +'" value="'+ val2.priceBaseCurrencyValue +'" type="hidden">' +
                         '<input name="getUom[]" value="'+ val2.quantityUnitName +'" type="hidden">' +
                         '<input name="getCurrency[]" value="'+ val2.priceBaseCurrencyISOCode +'" type="hidden">' +
                         '<input name="getCurrencyId[]" value="'+ val2.sys_BaseCurrency_RefID +'" type="hidden">' +
@@ -157,12 +157,12 @@
 
                         '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.quantity) + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_qty2'+ key +'">' + currencyTotal(val2.quantity) + '</span>' + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.unitPriceBaseCurrencyValue) + '</span>' + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + '<span id="total_budget'+ key +'">' + currencyTotal(val2.quantity * val2.unitPriceBaseCurrencyValue) + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.priceBaseCurrencyValue) + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + '<span id="total_budget'+ key +'">' + currencyTotal(val2.quantity * val2.priceBaseCurrencyValue) + '</span>' + '</td>' +
                         // '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.priceBaseCurrencyValue) + '</span>' + '</td>' +
 
-                        '<td class="sticky-col forth-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
-                        '<td class="sticky-col third-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req'+ key +'" style="border-radius:0;" name="price_req[]" class="form-control price_req" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
+                        '<td class="sticky-col forth-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" onkeypress="return isNumberKey(this, event);" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
+                        '<td class="sticky-col third-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req'+ key +'" style="border-radius:0;" name="price_req[]" class="form-control price_req" onkeypress="return isNumberKey(this, event);" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
                         '<td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req'+ key +'" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled>' + '</td>' +
                         '<td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_balance_qty'+ key +'" style="border-radius:0;width:90px;background-color:white;" name="total_balance_qty[]" class="form-control total_balance_qty" autocomplete="off" disabled value="' + currencyTotal(val2.quantity) + '">' + '</td>' +
 
@@ -417,10 +417,7 @@
 
                 $("#GrandTotal").html(currencyTotal(TotalBudget));
                 $("#TotalQty").html(currencyTotal(TotalQty));
-
                 $("#submitArf").prop("disabled", false);
-                $(".ActionButton").prop("disabled", false);
-                $(".ActionButtonAll").prop("disabled", false);
             }
         });
         

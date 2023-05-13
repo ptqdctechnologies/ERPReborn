@@ -22,6 +22,8 @@
           @csrf
           @method('PUT')
           <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
+          <input id="trano" style="border-radius:0;" name="trano" class="form-control" type="hidden" value="{{ $trano }}">
+          
           <div class="tab-content p-3" id="nav-tabContent">
             <div class="row">
               @csrf
@@ -544,6 +546,7 @@
               <table class="table table-head-fixed text-nowrap table-striped TableBusinessTrip" id="TableBusinessTrip">
                 <thead>
                   <tr>
+                    <th style="border:1px solid #e9ecef;text-align: center;">Trano</th>
                     <th style="border:1px solid #e9ecef;text-align: center;">Work ID</th>
                     <th style="border:1px solid #e9ecef;text-align: center;">Work Name</th>
                     <th style="border:1px solid #e9ecef;text-align: center;">Product ID</th>
