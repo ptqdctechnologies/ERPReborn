@@ -282,7 +282,7 @@ connect_timeout
 ---------------
 
 :Summary: Float describing the number of seconds to wait while trying to connect
-        to a server. Use ``0`` to wait indefinitely (the default behavior).
+        to a server. Use ``0`` to wait 300 seconds (the default behavior).
 :Types: float
 :Default: ``0``
 :Constant: ``GuzzleHttp\RequestOptions::CONNECT_TIMEOUT``
@@ -297,6 +297,28 @@ connect_timeout
     This setting must be supported by the HTTP handler used to send a request.
     ``connect_timeout`` is currently only supported by the built-in cURL
     handler.
+
+
+.. _crypto_method-option:
+
+crypto_method
+---------------
+
+:Summary: A value describing the minimum TLS protocol version to use.
+:Types: int
+:Default: None
+:Constant: ``GuzzleHttp\RequestOptions::CRYPTO_METHOD``
+
+.. code-block:: php
+
+    $client->request('GET', '/foo', ['crypto_method' => STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT]);
+
+.. note::
+
+    This setting must be set to one of the ``STREAM_CRYPTO_METHOD_TLS*_CLIENT``
+    constants. PHP 7.4 or higher is required in order to use TLS 1.3, and cURL
+    7.34.0 or higher is required in order to specify a crypto method, with cURL
+    7.52.0 or higher being required to use TLS 1.3.
 
 
 .. _debug-option:
