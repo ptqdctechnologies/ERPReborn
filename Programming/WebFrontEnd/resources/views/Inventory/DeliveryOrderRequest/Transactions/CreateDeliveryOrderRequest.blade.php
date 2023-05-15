@@ -32,8 +32,8 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <label class="card-title">
-                                                Purchase Requisition Detail &nbsp;&nbsp;
-                                                <a id="pr_number2" data-toggle="modal" data-target="#mySearchPurchaseRequistion" title="Select Purchase Requisition"><img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt=""></a>
+                                                Delivery Order Request Detail &nbsp;&nbsp; || &nbsp;&nbsp; Select Purchase Requisition
+                                                <a href="#" id="pr_number2" data-toggle="modal" data-target="#mySearchPurchaseRequistion"><img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></a>
                                             </label>
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">

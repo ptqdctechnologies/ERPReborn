@@ -17,7 +17,16 @@
 </script>
 
 <script>
-    function klikProject(code, name) {
+
+    $('#tableGetProject tbody').on('click', 'tr', function () {
+
+        $("#myProject").modal('toggle');
+
+        var row = $(this).closest("tr");    
+        var sys_id = row.find("td:nth-child(4)").text();
+        var code = row.find("td:nth-child(2)").text();
+        var name = row.find("td:nth-child(3)").text();
+        
         $("#projectcode").val(code);
         $("#projectname").val(name);
         $("#pr_number2").prop("disabled", false);
@@ -33,7 +42,7 @@
 
         $.ajax({
             type: 'GET',
-            url: '{!! route("DeliveryOrderRequest.DeliveryOrderRequestByBudgetID") !!}?projectcode=' + $('#projectcode').val(),
+            url: '{!! route("DeliveryOrderRequest.DeliveryOrderRequestByBudgetID") !!}?projectcode=' + sys_id,
             success: function(data) {
 
                 var no = 1;
@@ -41,27 +50,39 @@
                 $.each(data.DataAdvanceRequest, function(key, val) {
                     t.row.add([
                         '<tbody><tr><td>' + no++ + '</td>',
-                        '<td><span data-dismiss="modal" onclick="klikPrNumberInDor(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.documentNumber + '</span></td>',
-                        '<td><span data-dismiss="modal" onclick="klikPrNumberInDor(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudget_RefID + '</span></td>',
-                        '<td><span data-dismiss="modal" onclick="klikPrNumberInDor(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudgetName + '</span></td>',
-                        '<td><span data-dismiss="modal" onclick="klikPrNumberInDor(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudgetSection_RefID + '</span></td>',
-                        '<td><span data-dismiss="modal" onclick="klikPrNumberInDor(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudgetSectionName + '</span></td>',
+                        '<td>' + val.documentNumber + '</td>',
+                        '<td>' + val.combinedBudgetCode + '</td>',
+                        '<td>' + val.combinedBudgetName + '</td>',
+                        '<td>' + val.combinedBudgetSectionCode + '</td>',
+                        '<td>' + val.combinedBudgetSectionName + '</td>',
+                        '<span style="display:none;"><td">' + val.sys_ID + '</td></span>',
+                        '<span style="display:none;"><td">' + val.requesterWorkerJobsPosition_RefID + '</td></span>',
+                        '<span style="display:none;"><td">' + val.requesterWorkerName + '</td></span></tr></tbody>'
                     ]).draw();
 
                 });
             }
         });
-    }
+    });
 </script>
 
 
 <script>
-    function klikPrNumberInDor(id, docNum, reqId, reqName) {
-        var pr_RefID = id;
-        var pr_number = docNum;
-        var requester_RefID = reqId;
-        var requester_name = reqName;
-        $("#pr_number").val(docNum);
+
+    var keys = 0;
+
+    $('#tableSearchPrInDor tbody').on('click', 'tr', function () {
+
+        $("#mySearchPurchaseRequistion").modal('toggle');
+
+        var row = $(this).closest("tr");    
+        var pr_RefID = row.find("td:nth-child(7)").text();
+        var pr_number = row.find("td:nth-child(2)").text();
+        var requester_RefID = row.find("td:nth-child(8)").text();
+        var requester_name = row.find("td:nth-child(9)").text();
+
+        $("#pr_number").val(pr_number);
+        $("#requester_id").val(requester_RefID);
         $(".tableShowHideDor").show();
         $("#projectcode2").prop("disabled", true);
         $.ajaxSetup({
@@ -72,7 +93,7 @@
 
         $.ajax({
             type: "POST",
-            url: '{!! route("DeliveryOrderRequest.StoreValidateDeliveryOrderRequestRequester") !!}?requester_id=' + requester_RefID + '&requester_name=' + requester_name + '&requester_id2=' + $('#requester_id').val() + '&pr_RefID=' + pr_RefID,
+            url: '{!! route("DeliveryOrderRequest.StoreValidateDeliveryOrderRequestRequester") !!}?requester_id=' + requester_RefID + '&requester_name=' + requester_name + '&requester_id2=' + requester_RefID + '&pr_RefID=' + pr_RefID,
             success: function(data) {
                 var no = 1; applied = 0; TotalBudgetSelected = 0;status = ""; statusDisplay = [];statusDisplay2 = []; statusForm = [];
                 if (data.status == "200") {
@@ -169,7 +190,7 @@
                 }
             },
         });
-    }
+    });
 </script>
 
 <script>

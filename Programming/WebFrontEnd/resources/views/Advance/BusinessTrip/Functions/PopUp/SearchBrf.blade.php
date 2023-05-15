@@ -14,12 +14,14 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>BRF No</th>
-                                            <th>BRFP No</th>
-                                            <th>Project Code</th>
-                                            <th>Project Name</th>
-                                            <th>Site Code</th>
-                                            <th>Site Name</th>
+                                            <th>Trano</th>
+                                            <th>Budget Code</th>
+                                            <th>Budget Name</th>
+                                            <th>Sub Budget Code</th>
+                                            <th>Sub Budget Name</th>
+                                            <th style="display: none;"></th>
+                                            <th style="display: none;"></th>
+                                            <th style="display: none;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>

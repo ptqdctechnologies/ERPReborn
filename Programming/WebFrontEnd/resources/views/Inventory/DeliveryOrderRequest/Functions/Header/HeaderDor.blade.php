@@ -51,20 +51,6 @@
                                         </div>
                                     </td>
                                 </tr>
-
-                                <!-- <tr>
-                                    <td><label>PR Number</label></td>
-                                    <td>
-                                        <div class="input-group" style="width: 70%;">
-                                            <input id="pr_number" style="border-radius:0;" name="var_sub_budget_code" class="form-control" readonly >
-                                            <div class="input-group-append">
-                                                <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a href="#" id="pr_number2" data-toggle="modal" data-target="#mySearchPurchaseRequistion"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr> -->
                             </table>
                         </div>
                     </div>
@@ -82,20 +68,6 @@
                                         </div>
                                     </td>
                                 </tr>
-
-                                <!-- <tr>
-                                    <td><label>PR Number</label></td>
-                                    <td>
-                                        <div class="input-group" style="width: 70%;">
-                                            <input id="pr_number" style="border-radius:0;" name="var_sub_budget_code" class="form-control" readonly >
-                                            <div class="input-group-append">
-                                                <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a href="#" id="pr_number2" data-toggle="modal" data-target="#mySearchPurchaseRequistion"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr> -->
                             </table>
                         </div>
                     </div>
@@ -120,15 +92,6 @@
                     <div class="col-md-8">
                         <div class="form-group">
                             <table>
-                                <!-- <tr>
-                                    <td><label>Requester</label></td>
-                                    <td>
-                                        <div class="input-group">
-                                            <input id="requester_id" style="border-radius:0;" name="requester_id" type="hidden" class="form-control">
-                                            <input id="requester_name" style="border-radius:0;" name="requester_name" type="text" class="form-control" readonly>
-                                        </div>
-                                    </td>
-                                </tr> -->
                                 <tr>
                                     <td><label>Deliver Type</label></td>
                                     <td>
