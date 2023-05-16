@@ -336,7 +336,8 @@ namespace App\Helpers\ZhtHelper\General
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get JSON decode (Array) of JSON data');
                 try {
-                    $varReturn = \GuzzleHttp\json_decode($varEncodedData, true);
+                    //$varReturn = \GuzzleHttp\json_decode($varEncodedData, true);
+                    $varReturn = json_decode($varEncodedData, true, JSON_UNESCAPED_UNICODE);
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
                 catch (\Exception $ex) {
