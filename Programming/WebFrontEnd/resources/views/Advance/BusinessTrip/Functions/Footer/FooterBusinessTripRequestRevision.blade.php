@@ -49,8 +49,8 @@ $.ajaxSetup({
           var html =
               '<tr>' +
                 '<td style="border:1px solid #e9ecef;">' + trano + '</td>' +
-                '<td style="border:1px solid #e9ecef;">' + value.combinedBudget_SubSectionLevel1_RefID + '</td>' +
-                '<td style="border:1px solid #e9ecef;">' + value.combinedBudget_SubSectionLevel1Name + '</td>' +
+                '<td style="border:1px solid #e9ecef;">' + value.combinedBudgetSubSectionLevel1_RefID + '</td>' +
+                '<td style="border:1px solid #e9ecef;">' + value.combinedBudgetSubSectionLevel1Name + '</td>' +
                 '<td style="border:1px solid #e9ecef;">' + value.product_RefID + '</td>' +
                 '<td style="border:1px solid #e9ecef;">' + value.productName + '</td>' +
                 '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ key +'" class="price_req2'+ key +'">' + currencyTotal(value.productUnitPriceBaseCurrencyValue) + '</span>' + '</td>' +
@@ -90,8 +90,8 @@ $.ajaxSetup({
 
           var html = 
             '<tr>' +
-              '<input name="getWorkId[]" value="'+ value.combinedBudget_SubSectionLevel1_RefID +'" type="hidden">' +
-              '<input name="getWorkName[]" value="'+ value.combinedBudget_SubSectionLevel1Name +'" type="hidden">' +
+              '<input name="getWorkId[]" value="'+ value.combinedBudgetSubSectionLevel1_RefID +'" type="hidden">' +
+              '<input name="getWorkName[]" value="'+ value.combinedBudgetSubSectionLevel1Name +'" type="hidden">' +
               '<input name="getProductId[]" value="'+ value.product_RefID +'" type="hidden">' +
               '<input name="getProductName[]" value="'+ value.productName +'" type="hidden">' +
               '<input name="getQty[]" id="budget_qty'+ key +'" value="'+ value.quantity +'" type="hidden">' +

@@ -47,7 +47,7 @@
 
                 var no = 1;
                 t = $('#tableSearchPrInDor').DataTable();
-                $.each(data.DataAdvanceRequest, function(key, val) {
+                $.each(data.DataPurchaseRequisition, function(key, val) {
                     t.row.add([
                         '<tbody><tr><td>' + no++ + '</td>',
                         '<td>' + val.documentNumber + '</td>',

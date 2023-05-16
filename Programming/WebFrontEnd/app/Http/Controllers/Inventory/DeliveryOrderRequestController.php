@@ -162,29 +162,10 @@ class DeliveryOrderRequestController extends Controller
     {
         $projectcode = $request->input('projectcode');
         $varAPIWebToken = $request->session()->get('SessionLogin');
-
-        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        // \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        // $varAPIWebToken, 
-        // 'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail', 
-        // 'latest', 
-        // [
-        // 'parameter' => [
-        //     'purchaseRequisition_RefID' => 83000000000001
-        //     ],
-        // 'SQLStatement' => [
-        //     'pick' => null,
-        //     'sort' => null,
-        //     'filter' => null,
-        //     'paging' => null
-        //     ]
-        // ]
-        // );
-        // dd($varData);
-        $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        $varDataPurchaseRequisition = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
-        'transaction.read.dataList.finance.getAdvance', 
+        'transaction.read.dataList.supplyChain.getPurchaseRequisition', 
         'latest', 
         [
         'parameter' => null,
@@ -196,9 +177,9 @@ class DeliveryOrderRequestController extends Controller
             ]
         ]
         );
-        
+
         $compact = [
-            'DataAdvanceRequest' => $varDataAdvanceRequest['data'],
+            'DataPurchaseRequisition' => $varDataPurchaseRequisition['data'],
         ];
         return response()->json($compact);
     }
