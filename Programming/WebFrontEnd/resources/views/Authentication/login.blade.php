@@ -280,6 +280,9 @@
                     
                     $(".submit_before").prop("disabled", true);
 
+                    $("#loading").show();
+                    $(".loader").show();
+
                     $.ajax({
                         type: 'GET',
                         url: '{!! route("getBranchLogin") !!}?username=' + $('.username').val() + '&password=' + $('.password').val(),
@@ -288,33 +291,19 @@
                             if (data == 'undefined') {
                                 Swal.fire("Cancelled", "Pastikan username dan password and benar", "error");
                                 $(".submit_before").prop("disabled", false);
+
+                                $("#loading").hide();
+                                $(".loader").hide();
                             }
                             else if (data == 200) {
-                                var delay = 1500;
-                                $(document).ready(function() {
-                                    $("#loading").show();
-                                    $(".loader").show();
-
-                                    setTimeout(function() {
-                                        $("#loading").hide();
-                                        $(".loader").hide();
-                                    }, delay);
-                                });
 
                                 window.location.href = '/dashboard';
 
                             }
                             else {
-                                var delay = 500;
-                                $(document).ready(function() {
-                                    $("#loading").show();
-                                    $(".loader").show();
 
-                                    setTimeout(function() {
-                                        $("#loading").hide();
-                                        $(".loader").hide();
-                                    }, delay);
-                                });
+                                $("#loading").hide();
+                                $(".loader").hide();
 
                                 $(".branch_name").empty();
 
@@ -342,6 +331,9 @@
                         error: function(jqXHR, textStatus, errorThrown) {
                             Swal.fire("Cancelled", "Pastikan username dan password and benar", "error");
                             $(".submit_before").prop("disabled", false);
+
+                            $("#loading").hide();
+                            $(".loader").hide();
                         }
                     });
                 });
@@ -362,6 +354,10 @@
 
                     var id = $(this).val();
                     if (id != "") {
+                        
+                        $("#loading").show();
+                        $(".loader").show();
+
                         $.ajax({
                             type: 'GET',
                             url: '{!! route("getRoleLogin") !!}?username=' + $('.username').val() + '&password=' + $('.password').val() + '&branch_name=' + $('.branch_name').val(),
@@ -369,8 +365,15 @@
                                 var len = 0;
                                 if (data == '401') {
                                     Swal.fire("Cancelled", "Pastikan username dan password and benar", "error");
-                                } else {
 
+                                    $("#loading").hide();
+                                    $(".loader").hide();
+
+                                } else {
+                                  
+                                    $("#loading").hide();
+                                    $(".loader").hide();
+                                    
                                     $(".user_role").empty();
 
                                     var option = "<option value='" + '' + "'>" + 'Select User Role' + "</option>";
@@ -387,6 +390,9 @@
                             },
                             error: function(jqXHR, textStatus, errorThrown) {
                                 Swal.fire("Cancelled", "Pastikan username dan password and benar", "error");
+
+                                $("#loading").hide();
+                                $(".loader").hide();
                             }
                         });
                     }
@@ -399,7 +405,6 @@
             $(document).ready(function() {
                 $(".user_role").click(function() {
                     var id = $(this).val();
-                    console.log(id);
                     if (id != "") {
                         $(".submit_after").prop("disabled", false);
                     }
@@ -409,6 +414,25 @@
 
                 });
             });
+        </script>
+
+        <script type="text/javascript">
+
+        $(document).ready(function() {
+            $(".submit_after").click(function() {
+
+                var delay = 15000;
+                $(document).ready(function() {
+                    $("#loading").show();
+                    $(".loader").show();
+
+                    setTimeout(function() {
+                        $("#loading").hide();
+                        $(".loader").hide();
+                    }, delay);
+                });
+            });
+        });
         </script>
     </body>
 </html>

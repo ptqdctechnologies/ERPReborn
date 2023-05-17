@@ -39,13 +39,10 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
     // Dashboard
-    Route::get('dashboard', 'homeController@dashboard')->name('home.dashboard');
-    Route::get('checkDocument', 'homeController@checkDocument')->name('home.checkDocument');
-    Route::get('myDocument', 'homeController@myDocument')->name('home.myDocument');
-    Route::get('submittedDocument', 'homeController@submittedDocument')->name('home.submittedDocument');
-    Route::get('approvedDocument', 'homeController@approvedDocument')->name('home.approvedDocument');
-    Route::get('documentWorkflow', 'homeController@documentWorkflow')->name('home.documentWorkflow');
+    Route::resource('dashboard', 'Dashboard\DashboardController');
 
+    //Document
+    Route::resource('Document', 'Document\DocumentsController');
     
     //MASTER DATA
 
@@ -111,17 +108,17 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('CodeOfBudgeting', 'CodeOfBudgetingController');
 
     //Function
-    Route::get('getProject', 'FunctionController@getProject')->name('getProject');
-    Route::get('getPurchaseRequisitionByBudgetID', 'FunctionController@getPurchaseRequisitionByBudgetID')->name('getPurchaseRequisitionByBudgetID');
-    Route::get('getSite', 'FunctionController@getSite')->name('getSite');
-    Route::get('getBudget', 'FunctionController@getBudget')->name('getBudget');
-    Route::get('getBank', 'FunctionController@getBank')->name('getBank');
-    Route::get('getBankAccount', 'FunctionController@getBankAccount')->name('getBankAccount');
-    Route::get('getProduct', 'FunctionController@getProduct')->name('getProduct');
-    Route::get('getWorker', 'FunctionController@getWorker')->name('getWorker');
-    Route::get('getSupplier', 'FunctionController@getSupplier')->name('getSupplier');
-    Route::get('getDeliverTo', 'FunctionController@getDeliverTo')->name('getDeliverTo');
-    Route::get('getBusinessTripCostComponentEntity', 'FunctionController@getBusinessTripCostComponentEntity')->name('getBusinessTripCostComponentEntity');
+    Route::get('getProject', 'Function\FunctionController@getProject')->name('getProject');
+    Route::get('getPurchaseRequisitionByBudgetID', 'Function\FunctionController@getPurchaseRequisitionByBudgetID')->name('getPurchaseRequisitionByBudgetID');
+    Route::get('getSite', 'Function\FunctionController@getSite')->name('getSite');
+    Route::get('getBudget', 'Function\FunctionController@getBudget')->name('getBudget');
+    Route::get('getBank', 'Function\FunctionController@getBank')->name('getBank');
+    Route::get('getBankAccount', 'Function\FunctionController@getBankAccount')->name('getBankAccount');
+    Route::get('getProduct', 'Function\FunctionController@getProduct')->name('getProduct');
+    Route::get('getWorker', 'Function\FunctionController@getWorker')->name('getWorker');
+    Route::get('getSupplier', 'Function\FunctionController@getSupplier')->name('getSupplier');
+    Route::get('getDeliverTo', 'Function\FunctionController@getDeliverTo')->name('getDeliverTo');
+    Route::get('getBusinessTripCostComponentEntity', 'Function\FunctionController@getBusinessTripCostComponentEntity')->name('getBusinessTripCostComponentEntity');
 
 
     Route::get('StoreWorkFlow', 'Controller@StoreWorkFlow')->name('StoreWorkFlow');
