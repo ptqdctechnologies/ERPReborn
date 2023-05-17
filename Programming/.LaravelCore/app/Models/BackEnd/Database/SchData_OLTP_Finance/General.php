@@ -373,11 +373,13 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         ]
                         )
                     );
+                //dd($varReturn['Data'][0]['Func_GetReport_DocForm_Advance']);
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
                         $varReturn['Data'][0]['Func_GetReport_DocForm_Advance'])
-                    ];
+                    ]
+                    ;
                 }
             catch (\Exception $ex) {
                 return [];

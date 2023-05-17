@@ -611,7 +611,7 @@ parameters:
 			path: src/Faker/ORM/Spot/Populator.php
 
 		-
-			message: "#^Instanceof between array and Traversable will always evaluate to false\\.$#"
+			message: "#^Class UnitEnum not found\\.$#"
 			count: 2
 			path: src/Faker/Provider/Base.php
 
@@ -644,16 +644,6 @@ parameters:
 			path: src/Faker/Provider/Base.php
 
 		-
-			message: "#^Result of && is always false\\.$#"
-			count: 1
-			path: src/Faker/Provider/Base.php
-
-		-
-			message: "#^Ternary operator condition is always false\\.$#"
-			count: 1
-			path: src/Faker/Provider/Base.php
-
-		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: src/Faker/Provider/Base.php
@@ -677,6 +667,16 @@ parameters:
 			message: "#^Method Faker\\\\Provider\\\\File\\:\\:file\\(\\) should return string but returns false\\.$#"
 			count: 1
 			path: src/Faker/Provider/File.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: src/Faker/Provider/Lorem.php
+
+		-
+			message: "#^Variable \\$text in empty\\(\\) always exists and is always falsy\\.$#"
+			count: 1
+			path: src/Faker/Provider/Lorem.php
 
 		-
 			message: "#^Parameter \\#1 \\$str of function md5 expects string, int given\\.$#"
