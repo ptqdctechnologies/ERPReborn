@@ -47,7 +47,7 @@
                 var html =
                     '<tr>' +
                         '<td style="border:1px solid #e9ecef;">' + trano + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + value.combinedBudgetSectionDetail_SubSectionLevel1_RefID + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + value.cmbBudgetSectDtl_SubSectionLevel1_RefID + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + value.combinedBudgetSectionDetail_SubSectionLevel1Name + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + value.product_RefID + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + value.productName + '</td>' +
@@ -89,7 +89,7 @@
 
                 var html2 = 
                     '<tr>' +
-                        '<input name="getWorkId[]" value="'+ value.combinedBudgetSectionDetail_SubSectionLevel1_RefID +'" type="hidden">' +
+                        '<input name="getWorkId[]" value="'+ value.cmbBudgetSectDtl_SubSectionLevel1_RefID +'" type="hidden">' +
                         '<input name="getWorkName[]" value="'+ value.combinedBudgetSectionDetail_SubSectionLevel1Name +'" type="hidden">' +
                         '<input name="getProductId[]" value="'+ value.product_RefID +'" type="hidden">' +
                         '<input name="getProductName[]" value="'+ value.productName +'" type="hidden">' +

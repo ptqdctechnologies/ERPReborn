@@ -240,11 +240,6 @@ class PurchaseRequisitionController extends Controller
                 ]
             ]
         );
-        // dd($varData);
-        foreach ($varData['data'] as $varDatas) {
-            $request->session()->push("SessionPurchaseRequisition", (string)$varDatas['combinedBudgetSectionDetail_SubSectionLevel1_RefID']);
-            $request->session()->push("SessionPurchaseRequisition", (string)$varDatas['product_RefID']);
-        }
         return response()->json($varData['data']);
     }
 }

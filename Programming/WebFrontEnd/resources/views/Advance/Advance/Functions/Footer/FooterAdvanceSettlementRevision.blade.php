@@ -1,7 +1,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $("#addAsfListCart").prop("disabled", true);
-        $("#SaveAsfList").prop("disabled", true);
+        // $("#SaveAsfList").prop("disabled", true);
         $("#projectcode2").prop("disabled", true);
         $("#advance_number2").prop("disabled", true);
         $("#detailASF").hide();

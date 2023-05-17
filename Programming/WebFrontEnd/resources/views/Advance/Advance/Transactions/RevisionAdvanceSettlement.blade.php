@@ -41,25 +41,6 @@
               </div>
             </div>
 
-            <!-- <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
-              <div class="row">
-                <div class="col-12">
-                  <div class="card">
-                    <div class="card-header">
-                      <label class="card-title">
-                        Create New Settlement
-                      </label>
-                      <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                          <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                        </button>
-                      </div>
-                    </div>
-                    include('Advance.Advance.Functions.Header.HeaderAdvanceSettlementRevision2')
-                  </div>
-                </div>
-              </div> -->
-
             <div class="row">
               <div class="col-12">
                 <div class="card">
@@ -245,6 +226,7 @@
             <button class="btn btn-default btn-sm float-right" type="submit" id="SaveAsfList" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
               <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit"> Submit
             </button>
+            <br><br>
           </div>
         </form>
       </div>
