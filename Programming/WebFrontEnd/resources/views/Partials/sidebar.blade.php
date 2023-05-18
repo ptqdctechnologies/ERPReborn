@@ -1,6 +1,6 @@
 <br>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <a href="{{ route('home.dashboard') }}" class="brand-link">
+    <a href="{{ route('dashboard.index') }}" class="brand-link">
         <img src="/AdminLTE-master/dist/img/favicon.ico" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="padding:3px;background-color:white;margin-top:5px;">
         <span class="brand-text font-weight-light"><label for="">ERP QDC</label></span>
     </a>
@@ -24,6 +24,13 @@
                                 <i class="right fas fa-angle-left"></i>
                             </a>
                             <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('Document.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;
+                                        <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
+                                        <label>Check Document</label>
+                                        <i class="right fas fa-angle-left"></i>
+                                    </a>
+                                </li>
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">&nbsp;&nbsp;&nbsp;
                                         <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
@@ -57,19 +64,12 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('home.checkDocument') }}" class="nav-link">&nbsp;&nbsp;&nbsp;
-                                        <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
-                                        <label>Check Document</label>
-                                        <i class="right fas fa-angle-left"></i>
-                                    </a>
-                                </li>
                             </ul>
                         </li>
                     </ul>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('home.dashboard') }}" class="nav-link">&nbsp;
+                            <a href="{{ route('dashboard.index') }}" class="nav-link">&nbsp;
                                 <i class="nav-icon-sm fas fa-file" style="color:#e9ecef;"></i>
                                 <label>Project Dashboard</label>
                                 <i class="right fas fa-angle-left"></i>
