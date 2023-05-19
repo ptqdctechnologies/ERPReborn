@@ -42,7 +42,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('dashboard', 'Dashboard\DashboardController');
 
     //Document
-    Route::resource('Document', 'Document\DocumentsController');
+    Route::post('ShowDocument', 'Document\CheckDocumentController@ShowDocument')->name('CheckDocument.ShowDocument');
+    Route::resource('CheckDocument', 'Document\CheckDocumentController');
     
     //MASTER DATA
 
