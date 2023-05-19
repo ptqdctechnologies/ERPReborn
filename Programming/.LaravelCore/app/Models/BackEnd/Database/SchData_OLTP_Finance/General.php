@@ -385,5 +385,52 @@ namespace App\Models\Database\SchData_OLTP_Finance
                 return [];
                 }
             }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DocumentForm_PaymentInstruction                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-05-19                                                                                           |
+        | ▪ Creation Date   : 2023-05-19                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Instruksi Pembayaran (Payment Instruction)                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ▪ (int)    varSysID ► Record ID                                                                                     |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DocumentForm_PaymentInstruction(
+            $varUserSession, int $varSysBranch_RefID, 
+            int $varSysID)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-Finance.Func_GetReport_DocForm_PaymentInstruction',
+                        [
+                            [$varSysBranch_RefID, 'bigint' ],
+                            [$varSysID, 'bigint' ]
+                        ]
+                        )
+                    );
+                //dd($varReturn['Data'][0]['Func_GetReport_DocForm_Advance']);
+                return [
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession, 
+                        $varReturn['Data'][0]['Func_GetReport_DocForm_PaymentInstruction'])
+                    ]
+                    ;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
         }
     }
