@@ -5,7 +5,7 @@
                 <label class="card-title">
                     <ul class="navbar-nav ml-auto left">
                         <li class="nav-item dropdown user-menu">
-                            <form action="{{ route('PurchaseRequisition.RevisionPrIndex') }}" method="post">
+                            <form action="{{ route('CheckDocument.ShowDocument') }}" method="post">
                                 @csrf
                                 <div class="form-group">
                                     <table>
@@ -13,10 +13,11 @@
                                             <td style="position:relative;top:3px;"><label>Document Number</label></td>
                                             <td>
                                                 <div class="input-group">
+                                                    <input required="" id="sys_id" style="border-radius:0;" name="sys_id" type="text" class="form-control" hidden>
                                                     <input required="" id="document_number" style="border-radius:0;" name="document_number" type="text" class="form-control">
                                                     <div class="input-group-append">
                                                         <span style="border-radius:0;" class="input-group-text form-control">
-                                                            <a class="nav-link mySearchDocument" data-toggle="modal" data-target="#mySearchDocument"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                            <a class="nav-link mySearchCheckDocument" data-toggle="modal" data-target="#mySearchCheckDocument"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -49,7 +50,7 @@
     });
 
     $(function() {
-        $('.mySearchDocument').on('click', function(e) {
+        $('.mySearchCheckDocument').on('click', function(e) {
             e.preventDefault();
             $.ajax({
                 type: 'GET',

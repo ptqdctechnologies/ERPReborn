@@ -11,7 +11,7 @@ class LoginController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         if($varAPIWebToken){
-            return view('Layouts.dashboard');
+            return view('Dashboard.index');
         }
         else{
             return view('Authentication.login');
