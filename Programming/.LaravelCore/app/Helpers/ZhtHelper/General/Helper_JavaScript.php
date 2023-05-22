@@ -2208,8 +2208,9 @@ namespace App\Helpers\ZhtHelper\General
         |      ▪ (mixed)  varUserSession (Mandatory) ► User Session                                                                |
         |      ▪ (string) varAPIWebToken (Mandatory) ► API Web Token                                                               |
         |      ▪ (string) varUniqueID (Mandatory) ► Penanda Unik untuk DOM (Tidak boleh terduplikasi)                              |
-        |      ▪ (string) varDOMReturnID (Mandatory) ► DOMReturnID
-        |      ▪ (string) varDOMReturnIDAction (Mandatory) ► DOMReturnIDAction                                                                 |
+        |      ▪ (string) varDOMReturnID (Mandatory) ► DOMReturnID                                                                 |
+        |      ▪ (string) varDOMReturnIDAction (Mandatory) ► DOMReturnIDAction                                                     |
+        |      ▪ (string) varDOMActionPanel (Mandatory) ► DOMActionPanel                                                           |
         |      ▪ (string) varDOMAction (Mandatory) ► DOMAction                                                                     |
         |      ▪ (string) varAction (Optional) ► Action                                                                            |
         | ▪ Output Variable :                                                                                                      |

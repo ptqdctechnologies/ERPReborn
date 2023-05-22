@@ -100,7 +100,12 @@ namespace App\Models\Database\SchSysAsset
                     ]
                     )
                 );
-            return $varReturn['Data'][0]['Func_GetData_FileUpload_isFileAlreadyExist'];
+
+            return 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBooleanConvertion(
+                    $varUserSession, 
+                    $varReturn['Data'][0]['Func_GetData_FileUpload_isFileAlreadyExist']
+                    );
             }
 
 
