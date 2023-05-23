@@ -14,7 +14,7 @@
         $("#product_id2").prop("disabled", true);
         // $("#bank_name2").prop("disabled", true);
         // $("#bank_account2").prop("disabled", true);
-        $("#submitArf").prop("disabled", true);
+        // $("#submitArf").prop("disabled", true);
         
     });
 </script>
@@ -428,37 +428,37 @@
     $(function() {
         $("#formSubmitArf").on("submit", function(e) { //id of form 
             e.preventDefault();
-            var valRequestName = $("#request_name").val();
-            var valBeneficiaryName = $("#beneficiary_name").val();
-            var valBankName = $("#bank_name").val();
-            var valBankAccount = $("#bank_account").val();
-            var valRemark = $("#putRemark").val();
-            $("#request_name").css("border", "1px solid #ced4da");
-            $("#putRemark").css("border", "1px solid #ced4da");
+            // var valRequestName = $("#request_name").val();
+            // var valBeneficiaryName = $("#beneficiary_name").val();
+            // var valBankName = $("#bank_name").val();
+            // var valBankAccount = $("#bank_account").val();
+            // var valRemark = $("#putRemark").val();
+            // $("#request_name").css("border", "1px solid #ced4da");
+            // $("#putRemark").css("border", "1px solid #ced4da");
 
-            if (valRequestName === "") {
-                $("#request_name").focus();
-                $("#request_name").attr('required', true);
-                $("#request_name").css("border", "1px solid red");
-            } else if (valBeneficiaryName === "") {
-                $("#beneficiary_name").focus();
-                $("#beneficiary_name").attr('required', true);
-                $("#beneficiary_name").css("border", "1px solid red");
-            } else if (valBankName === "") {
-                $("#bank_name").focus();
-                $("#bank_name").attr('required', true);
-                $("#bank_name").css("border", "1px solid red");
-            } else if (valBankAccount === "") {
-                $("#bank_account").focus();
-                $("#bank_account").attr('required', true);
-                $("#bank_account").css("border", "1px solid red");
-            } else if (valRemark === "") {
-                $("#putRemark").focus();
-                $("#putRemark").attr('required', true);
-                $("#putRemark").css("border", "1px solid red");
-            } else {
+            // if (valRequestName === "") {
+            //     $("#request_name").focus();
+            //     $("#request_name").attr('required', true);
+            //     $("#request_name").css("border", "1px solid red");
+            // } else if (valBeneficiaryName === "") {
+            //     $("#beneficiary_name").focus();
+            //     $("#beneficiary_name").attr('required', true);
+            //     $("#beneficiary_name").css("border", "1px solid red");
+            // } else if (valBankName === "") {
+            //     $("#bank_name").focus();
+            //     $("#bank_name").attr('required', true);
+            //     $("#bank_name").css("border", "1px solid red");
+            // } else if (valBankAccount === "") {
+            //     $("#bank_account").focus();
+            //     $("#bank_account").attr('required', true);
+            //     $("#bank_account").css("border", "1px solid red");
+            // } else if (valRemark === "") {
+            //     $("#putRemark").focus();
+            //     $("#putRemark").attr('required', true);
+            //     $("#putRemark").css("border", "1px solid red");
+            // } else {
 
-                $("#submitArf").prop("disabled", true);
+            //     $("#submitArf").prop("disabled", true);
 
                 varFileUpload_UniqueID = "Upload";
                 window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
@@ -595,7 +595,7 @@
                         })
                     }
                 })
-            }
+            // }
         });
 
     });

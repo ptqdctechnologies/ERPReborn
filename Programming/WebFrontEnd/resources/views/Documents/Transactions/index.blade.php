@@ -159,19 +159,19 @@
                         </tr>
                       </thead>
                       <tbody>
-                          @php $no = 1; $grand_total = 0; @endphp
-                          @foreach($data['content']['itemList']['ungrouped'] as $datas)
-                          @php $grand_total += $datas['entities']['priceBaseCurrencyValue']; @endphp
-                          <tr>
-                            <td style="border:1px solid #4B586A;color:#4B586A;">{{ $no++ }}</td>
-                            <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['product_RefID'] }}</td>
-                            <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['productName'] }}</td>
-                            <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['quantity'] }}</td>
-                            <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['quantityUnitName'] }}</td>
-                            <td style="border:1px solid #4B586A;color:#4B586A;">{{ number_format($datas['entities']['productUnitPriceCurrencyValue'],2) }}</td>
-                            <td style="border:1px solid #4B586A;color:#4B586A;">{{ number_format($datas['entities']['priceBaseCurrencyValue'],2) }}</td>
-                          </tr>
-                          @endforeach
+                        @php $no = 1; $grand_total = 0; @endphp
+                        @foreach($data['content']['itemList']['ungrouped'] as $datas)
+                        @php $grand_total += $datas['entities']['priceBaseCurrencyValue']; @endphp
+                        <tr>
+                          <td style="border:1px solid #4B586A;color:#4B586A;">{{ $no++ }}</td>
+                          <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['product_RefID'] }}</td>
+                          <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['productName'] }}</td>
+                          <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['quantity'] }}</td>
+                          <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['quantityUnitName'] }}</td>
+                          <td style="border:1px solid #4B586A;color:#4B586A;">{{ number_format($datas['entities']['productUnitPriceCurrencyValue'],2) }}</td>
+                          <td style="border:1px solid #4B586A;color:#4B586A;">{{ number_format($datas['entities']['priceBaseCurrencyValue'],2) }}</td>
+                        </tr>
+                        @endforeach
                       </tbody>
                       <tfoot>
                         <tr>
@@ -196,14 +196,30 @@
                       </button>
                     </div>
                   </div>
+
+                  <input hidden type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="91000000000364" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID">
+
+
                   <div class="card-body file-attachment">
+
                     <div class="row">
+                      <div class="col-md-12">  
+                        <input hidden type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="91000000000364" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID">
+                        <!-- <input hidden type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="{{ $data['content']['attachmentFiles']['main']['log_FileUpload_Pointer_RefID']}}" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID"> -->
+                        <input hidden type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" name="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" onchange="javascript: @php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataInput_Log_FileUpload_Pointer_RefID_Action', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord'); @endphp;" />
+                      </div>
+                      <br><br>
                       <div class="col-md-12">
-                        <ul>
-                          <li>
-                            <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="{{ $data['content']['attachmentFiles']['main']['log_FileUpload_Pointer_RefID']}}" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID">
-                          </li>
-                        </ul>
+                        <div class="card-body table-responsive p-0" style="height:125px;">
+
+                          <table class="table table-head-fixed table-sm text-nowrap">
+                            <div class="form-group input_fields_wrap">
+                              <div class="input-group control-group">
+                                <div id="dataShow_ActionPanel"></div>
+                              </div>
+                            </div>
+                          </table>
+                        </div>
                       </div>
                     </div>
                   </div>
