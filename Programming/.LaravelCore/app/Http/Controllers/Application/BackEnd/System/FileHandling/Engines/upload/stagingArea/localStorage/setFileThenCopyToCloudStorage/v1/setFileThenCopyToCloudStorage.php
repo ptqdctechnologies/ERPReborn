@@ -155,21 +155,22 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             if($varSignFileAlreadyExist == FALSE)
                 {
                //---> Penyimpanan Record Baru ke TblRotateLog_FileUploadStagingAreaDetail
-                $varRotateLog_FileUploadStagingAreaDetail_RefRPK = (new \App\Models\Database\SchSysConfig\TblRotateLog_FileUploadStagingAreaDetail())->setDataInsert(
-                    $varUserSession, 
-                    null, 
-                    $varRotateLog_FileUploadStagingArea_RefRPK,
-                    $varFileSequence,
-                    $varFileName, 
-                    $varFileSize, 
-                    $varFileMIME, 
-                    $varFileExtension, 
-                    $varFileLastModifiedDateTimeTZ, 
-                    $varFileLastModifiedUnixTimestamp,
-                    $varHashMethod_RefID,
-                    $varFileContentBase64Hash,
-                    ''
-                    )['SignRecordID'];
+                $varRotateLog_FileUploadStagingAreaDetail_RefRPK = 
+                    (new \App\Models\Database\SchSysConfig\TblRotateLog_FileUploadStagingAreaDetail())->setDataInsert(
+                        $varUserSession, 
+                        null, 
+                        $varRotateLog_FileUploadStagingArea_RefRPK,
+                        $varFileSequence,
+                        $varFileName, 
+                        $varFileSize, 
+                        $varFileMIME, 
+                        $varFileExtension, 
+                        $varFileLastModifiedDateTimeTZ, 
+                        $varFileLastModifiedUnixTimestamp,
+                        $varHashMethod_RefID,
+                        $varFileContentBase64Hash,
+                        ''
+                        )['SignRecordID'];
 
                 (new \App\Models\Database\SchSysConfig\TblRotateLog_FileUploadStagingAreaDetail())->setURLDelete(
                     $varUserSession, 

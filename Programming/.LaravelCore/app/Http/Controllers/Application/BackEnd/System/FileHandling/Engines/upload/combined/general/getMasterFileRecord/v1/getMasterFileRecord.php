@@ -127,9 +127,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                     $varRotateLog_FileUploadStagingArea_RefRPK,
                     $varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID
                     );
-            for($i=0, $iMax = count($varData['Data']); $i!=$iMax; $i++)
+            for ($i=0, $iMax=count($varData['Data']); $i!=$iMax; $i++)
                 {
-                if($varData['Data'][$i]['SignExistOnArchive'] == TRUE)
+//                if ((\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBooleanConvertion($varUserSession, $varData['Data'][$i]['SignExistOnArchive'])) == TRUE)
+                if ($varData['Data'][$i]['SignExistOnArchive'] == TRUE)
                     {
                     $varData['Data'][$i]['URLDelete'] = 
                         \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::getURL_APICallByGetMethod(
