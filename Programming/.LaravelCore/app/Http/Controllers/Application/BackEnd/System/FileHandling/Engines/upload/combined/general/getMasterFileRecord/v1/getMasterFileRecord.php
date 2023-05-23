@@ -129,8 +129,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                     );
             for ($i=0, $iMax=count($varData['Data']); $i!=$iMax; $i++)
                 {
-//                if ((\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBooleanConvertion($varUserSession, $varData['Data'][$i]['SignExistOnArchive'])) == TRUE)
-                if ($varData['Data'][$i]['SignExistOnArchive'] == TRUE)
+                if ((\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBooleanConvertion($varUserSession, $varData['Data'][$i]['SignExistOnArchive'])) == TRUE)
                     {
                     $varData['Data'][$i]['URLDelete'] = 
                         \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::getURL_APICallByGetMethod(

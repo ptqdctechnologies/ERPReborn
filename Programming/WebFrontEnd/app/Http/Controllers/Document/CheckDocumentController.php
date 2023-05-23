@@ -31,6 +31,7 @@ class CheckDocumentController extends Controller
         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
         'report.form.documentForm.finance.getAdvance', 
+        // 'report.form.documentForm.supplyChain.getPurchaseRequisition',
         'latest',
         [
         'parameter' => [

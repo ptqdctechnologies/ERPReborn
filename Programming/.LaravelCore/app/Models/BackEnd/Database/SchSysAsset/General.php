@@ -50,12 +50,7 @@ namespace App\Models\Database\SchSysAsset
                 );
             return
                 [
-                //'SignExist' => (boolean) $varReturn['Data'][0]['Func_GetData_APIWebToken_IsExist']                
-                'SignExist' =>
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBooleanConvertion(
-                        $varUserSession,
-                        $varReturn['Data'][0]['Func_GetData_APIWebToken_IsExist']
-                        )
+                'SignExist' => (boolean) $varReturn['Data'][0]['Func_GetData_APIWebToken_IsExist']                
                 ];
             }
 
@@ -105,7 +100,7 @@ namespace App\Models\Database\SchSysAsset
                     ]
                     )
                 );
-            
+
             return 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBooleanConvertion(
                     $varUserSession, 
