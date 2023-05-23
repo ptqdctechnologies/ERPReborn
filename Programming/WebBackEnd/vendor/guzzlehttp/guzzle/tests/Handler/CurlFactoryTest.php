@@ -39,12 +39,12 @@ class CurlFactoryTest extends TestCase
                 'Foo' => 'Bar',
                 'Baz' => 'bam',
                 'Content-Length' => 2,
-            ], 'hi')
+            ], 'hi'),
         ]);
         $stream = Psr7\Utils::streamFor();
         $request = new Psr7\Request('PUT', Server::$url, [
-            'Hi'             => ' 123',
-            'Content-Length' => '7'
+            'Hi' => ' 123',
+            'Content-Length' => '7',
         ], 'testing');
         $f = new Handler\CurlFactory(3);
         $result = $f->create($request, ['sink' => $stream]);
@@ -66,7 +66,7 @@ class CurlFactoryTest extends TestCase
         self::assertSame('testing', $_SERVER['_curl'][\CURLOPT_POSTFIELDS]);
         self::assertEquals(0, $_SERVER['_curl'][\CURLOPT_RETURNTRANSFER]);
         self::assertEquals(0, $_SERVER['_curl'][\CURLOPT_HEADER]);
-        self::assertSame(150, $_SERVER['_curl'][\CURLOPT_CONNECTTIMEOUT]);
+        self::assertSame(300, $_SERVER['_curl'][\CURLOPT_CONNECTTIMEOUT]);
         self::assertInstanceOf('Closure', $_SERVER['_curl'][\CURLOPT_HEADERFUNCTION]);
         if (\defined('CURLOPT_PROTOCOLS')) {
             self::assertSame(
@@ -188,7 +188,7 @@ class CurlFactoryTest extends TestCase
             'proxy' => [
                 'http' => 'http://bar.com',
                 'https' => 'https://t',
-                'no' => $noProxy
+                'no' => $noProxy,
             ],
         ]);
         if ($assertUseProxy) {
@@ -206,19 +206,59 @@ class CurlFactoryTest extends TestCase
                 'Foo' => 'Bar',
                 'Baz' => 'bam',
                 'Content-Length' => 2,
-            ], 'hi')
+            ], 'hi'),
         ]);
 
         $handler = new Handler\CurlMultiHandler();
         $request = new Psr7\Request('GET', 'http://www.example.com', [], null, '1.0');
         $promise = $handler($request, [
-            'proxy' => Server::$url
+            'proxy' => Server::$url,
         ]);
         $response = $promise->wait();
         self::assertSame(200, $response->getStatusCode());
         self::assertSame('Bar', $response->getHeaderLine('Foo'));
         self::assertSame('2', $response->getHeaderLine('Content-Length'));
         self::assertSame('hi', (string) $response->getBody());
+    }
+
+    public function testValidatesCryptoMethodInvalidMethod()
+    {
+        $f = new Handler\CurlFactory(3);
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid crypto_method request option: unknown version provided');
+        $f->create(new Psr7\Request('GET', Server::$url), ['crypto_method' => 123]);
+    }
+
+    public function testAddsCryptoMethodTls10()
+    {
+        $f = new Handler\CurlFactory(3);
+        $f->create(new Psr7\Request('GET', Server::$url), ['crypto_method' => \STREAM_CRYPTO_METHOD_TLSv1_0_CLIENT]);
+        self::assertEquals(\CURL_SSLVERSION_TLSv1_0, $_SERVER['_curl'][\CURLOPT_SSLVERSION]);
+    }
+
+    public function testAddsCryptoMethodTls11()
+    {
+        $f = new Handler\CurlFactory(3);
+        $f->create(new Psr7\Request('GET', Server::$url), ['crypto_method' => \STREAM_CRYPTO_METHOD_TLSv1_1_CLIENT]);
+        self::assertEquals(\CURL_SSLVERSION_TLSv1_1, $_SERVER['_curl'][\CURLOPT_SSLVERSION]);
+    }
+
+    public function testAddsCryptoMethodTls12()
+    {
+        $f = new Handler\CurlFactory(3);
+        $f->create(new Psr7\Request('GET', Server::$url), ['crypto_method' => \STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT]);
+        self::assertEquals(\CURL_SSLVERSION_TLSv1_2, $_SERVER['_curl'][\CURLOPT_SSLVERSION]);
+    }
+
+    /**
+     * @requires PHP >= 7.4
+     */
+    public function testAddsCryptoMethodTls13()
+    {
+        $f = new Handler\CurlFactory(3);
+        $f->create(new Psr7\Request('GET', Server::$url), ['crypto_method' => \STREAM_CRYPTO_METHOD_TLSv1_3_CLIENT]);
+        self::assertEquals(\CURL_SSLVERSION_TLSv1_3, $_SERVER['_curl'][\CURLOPT_SSLVERSION]);
     }
 
     public function testValidatesSslKey()
@@ -279,7 +319,7 @@ class CurlFactoryTest extends TestCase
 
     public function testAddsDerCert()
     {
-        $certFile = tempnam(sys_get_temp_dir(), "mock_test_cert");
+        $certFile = tempnam(sys_get_temp_dir(), 'mock_test_cert');
         rename($certFile, $certFile .= '.der');
         try {
             $f = new Handler\CurlFactory(3);
@@ -293,7 +333,7 @@ class CurlFactoryTest extends TestCase
 
     public function testAddsP12Cert()
     {
-        $certFile = tempnam(sys_get_temp_dir(), "mock_test_cert");
+        $certFile = tempnam(sys_get_temp_dir(), 'mock_test_cert');
         rename($certFile, $certFile .= '.p12');
         try {
             $f = new Handler\CurlFactory(3);
@@ -324,8 +364,8 @@ class CurlFactoryTest extends TestCase
         $response->wait();
         \rewind($res);
         $output = \str_replace("\r", '', \stream_get_contents($res));
-        self::assertStringContainsString("> HEAD / HTTP/1.1", $output);
-        self::assertStringContainsString("< HTTP/1.1 200", $output);
+        self::assertStringContainsString('> HEAD / HTTP/1.1', $output);
+        self::assertStringContainsString('< HTTP/1.1 200', $output);
         \fclose($res);
     }
 
@@ -358,6 +398,7 @@ class CurlFactoryTest extends TestCase
         $response = new Psr7\Response(200, $headers, $content);
         Server::flush();
         Server::enqueue([$response]);
+
         return $content;
     }
 
@@ -460,7 +501,7 @@ class CurlFactoryTest extends TestCase
         $request = new Psr7\Request('GET', Server::$url);
         $response = $handler($request, [
             'decode_content' => true,
-            'sink'           => $stream,
+            'sink' => $stream,
         ]);
         $response->wait();
         \rewind($stream);
@@ -475,7 +516,7 @@ class CurlFactoryTest extends TestCase
         $request = new Psr7\Request('GET', Server::$url);
         $response = $handler($request, [
             'decode_content' => true,
-            'sink'           => $stream,
+            'sink' => $stream,
         ]);
         $response->wait();
         self::assertEquals('test', (string) $stream);
@@ -489,7 +530,7 @@ class CurlFactoryTest extends TestCase
         $request = new Psr7\Request('GET', Server::$url);
         $response = $handler($request, [
             'decode_content' => true,
-            'sink'           => $tmpfile,
+            'sink' => $tmpfile,
         ]);
         $response->wait();
         self::assertStringEqualsFile($tmpfile, 'test');
@@ -532,6 +573,7 @@ class CurlFactoryTest extends TestCase
         $request = new Psr7\Request('PUT', Server::$url, [], $stream);
         $fn = static function ($request, $options) use (&$fn, $factory) {
             $easy = $factory->create($request, $options);
+
             return Handler\CurlFactory::finish($fn, $easy, $factory);
         };
 
@@ -546,16 +588,17 @@ class CurlFactoryTest extends TestCase
 
         $fn = static function ($r, $options) use (&$callHandler) {
             $callHandler = true;
+
             return P\Create::promiseFor(new Psr7\Response());
         };
 
         $bd = Psr7\FnStream::decorate(Psr7\Utils::streamFor('test'), [
-            'tell'   => static function () {
+            'tell' => static function () {
                 return 1;
             },
             'rewind' => static function () use (&$called) {
                 $called = true;
-            }
+            },
         ]);
 
         $factory = new Handler\CurlFactory(1);
@@ -573,8 +616,9 @@ class CurlFactoryTest extends TestCase
         $factory = new Handler\CurlFactory(1);
         $call = 0;
         $fn = static function ($request, $options) use (&$mock, &$call, $factory) {
-            $call++;
+            ++$call;
             $easy = $factory->create($request, $options);
+
             return Handler\CurlFactory::finish($mock, $easy, $factory);
         };
         $mock = new Handler\MockHandler([$fn, $fn, $fn]);
@@ -594,7 +638,7 @@ class CurlFactoryTest extends TestCase
             new Psr7\Response(200, ['Test' => 'Hello', 'Content-Length' => 4], 'test'),
         ]);
         $request = new Psr7\Request('PUT', Server::$url, [
-            'Expect' => '100-Continue'
+            'Expect' => '100-Continue',
         ], 'test');
         $handler = new Handler\CurlMultiHandler();
         $response = $handler($request, [])->wait();
@@ -628,8 +672,8 @@ class CurlFactoryTest extends TestCase
     {
         $f = new Handler\CurlFactory(3);
         $f->create(new Psr7\Request('GET', Server::$url), [
-            'timeout'         => 0.1,
-            'connect_timeout' => 0.2
+            'timeout' => 0.1,
+            'connect_timeout' => 0.2,
         ]);
         self::assertEquals(100, $_SERVER['_curl'][\CURLOPT_TIMEOUT_MS]);
         self::assertEquals(200, $_SERVER['_curl'][\CURLOPT_CONNECTTIMEOUT_MS]);
@@ -641,7 +685,7 @@ class CurlFactoryTest extends TestCase
         $bd = Psr7\FnStream::decorate(Psr7\Utils::streamFor('foo'), [
             'getSize' => static function () {
                 return null;
-            }
+            },
         ]);
         $request = new Psr7\Request('PUT', Server::$url, [], $bd);
         $f->create($request, []);
@@ -656,7 +700,7 @@ class CurlFactoryTest extends TestCase
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Directory /does/not/exist/so does not exist for sink value of /does/not/exist/so/error.txt');
         $f->create(new Psr7\Request('GET', Server::$url), [
-            'sink' => '/does/not/exist/so/error.txt'
+            'sink' => '/does/not/exist/so/error.txt',
         ]);
     }
 
@@ -686,7 +730,7 @@ class CurlFactoryTest extends TestCase
     public function testRejectsPromiseWhenCreateResponseFails()
     {
         Server::flush();
-        Server::enqueueRaw(999, "Incorrect", ['X-Foo' => 'bar'], 'abc 123');
+        Server::enqueueRaw(999, 'Incorrect', ['X-Foo' => 'bar'], 'abc 123');
 
         $req = new Psr7\Request('GET', Server::$url);
         $handler = new Handler\CurlHandler();
@@ -710,14 +754,14 @@ class CurlFactoryTest extends TestCase
     {
         Server::flush();
         Server::enqueue([
-            new Psr7\Response(200, ['X-Foo' => 'bar'], 'abc 123')
+            new Psr7\Response(200, ['X-Foo' => 'bar'], 'abc 123'),
         ]);
         $req = new Psr7\Request('GET', Server::$url);
         $handler = new Handler\CurlHandler();
         $promise = $handler($req, [
             'on_headers' => static function () {
                 throw new \Exception('test');
-            }
+            },
         ]);
 
         $this->expectException(RequestException::class);
@@ -729,7 +773,7 @@ class CurlFactoryTest extends TestCase
     {
         Server::flush();
         Server::enqueue([
-            new Psr7\Response(200, ['X-Foo' => 'bar'], 'abc 123')
+            new Psr7\Response(200, ['X-Foo' => 'bar'], 'abc 123'),
         ]);
         $req = new Psr7\Request('GET', Server::$url);
         $got = null;
@@ -738,17 +782,18 @@ class CurlFactoryTest extends TestCase
         $stream = Psr7\FnStream::decorate($stream, [
             'write' => static function ($data) use ($stream, &$got) {
                 self::assertNotNull($got);
+
                 return $stream->write($data);
-            }
+            },
         ]);
 
         $handler = new Handler\CurlHandler();
         $promise = $handler($req, [
-            'sink'       => $stream,
+            'sink' => $stream,
             'on_headers' => static function (ResponseInterface $res) use (&$got) {
                 $got = $res;
                 self::assertEquals('bar', $res->getHeaderLine('X-Foo'));
-            }
+            },
         ]);
 
         $response = $promise->wait();
@@ -767,7 +812,7 @@ class CurlFactoryTest extends TestCase
         $promise = $handler($req, [
             'on_stats' => static function (TransferStats $stats) use (&$gotStats) {
                 $gotStats = $stats;
-            }
+            },
         ]);
         $response = $promise->wait();
         self::assertSame(200, $response->getStatusCode());
@@ -794,7 +839,7 @@ class CurlFactoryTest extends TestCase
             'timeout' => 0.001,
             'on_stats' => static function (TransferStats $stats) use (&$gotStats) {
                 $gotStats = $stats;
-            }
+            },
         ]);
         $promise->wait(false);
         self::assertFalse($gotStats->hasResponse());
@@ -862,7 +907,7 @@ class CurlFactoryTest extends TestCase
         Server::enqueue([
             new Psr7\Response(200, [
                 'Content-Length' => $expectedLength,
-            ], \str_repeat('x', $expectedLength))
+            ], \str_repeat('x', $expectedLength)),
         ]);
 
         $handler = new Handler\CurlMultiHandler();
@@ -886,7 +931,7 @@ class CurlFactoryTest extends TestCase
         $this->expectException(RequestException::class);
         $this->expectExceptionMessage('cURL error 1: Received HTTP/0.9 when not allowed');
 
-        $a(new Psr7\Request('GET', Server::$url . 'guzzle-server/garbage'), [])->wait();
+        $a(new Psr7\Request('GET', Server::$url.'guzzle-server/garbage'), [])->wait();
     }
 
     public function testHandlesInvalidStatusCodeGracefully()
@@ -896,6 +941,6 @@ class CurlFactoryTest extends TestCase
         $this->expectException(RequestException::class);
         $this->expectExceptionMessage('An error was encountered while creating the response');
 
-        $a(new Psr7\Request('GET', Server::$url . 'guzzle-server/bad-status'), [])->wait();
+        $a(new Psr7\Request('GET', Server::$url.'guzzle-server/bad-status'), [])->wait();
     }
 }

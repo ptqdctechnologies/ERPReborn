@@ -185,7 +185,7 @@ services:
       app-network:
         ipv4_address: '172.28.0.7'
     volumes:
-      - './.ProjectCore/PermanentStorage/Samba/etc/localtime:/etc/localtime:ro'
+      #- './.ProjectCore/PermanentStorage/Samba/etc/localtime:/etc/localtime:ro'
       - './.ProjectCore/PermanentStorage/Samba/data:/var/lib/samba'
       - './.ProjectCore/PermanentStorage/Samba/config/samba:/etc/samba/external'
       - './.ProjectCore/Configuration/Docker/Samba/Script.ServiceRestart.sh:/usr/local/bin/Script.ServiceRestart.sh'

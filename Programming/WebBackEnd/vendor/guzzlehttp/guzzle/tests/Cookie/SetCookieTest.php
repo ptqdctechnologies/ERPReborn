@@ -33,17 +33,17 @@ class SetCookieTest extends TestCase
     {
         $t = \time();
         $data = [
-            'Name'     => 'foo',
-            'Value'    => 'baz',
-            'Path'     => '/bar',
-            'Domain'   => 'baz.com',
-            'Expires'  => $t,
-            'Max-Age'  => 100,
-            'Secure'   => true,
-            'Discard'  => true,
+            'Name' => 'foo',
+            'Value' => 'baz',
+            'Path' => '/bar',
+            'Domain' => 'baz.com',
+            'Expires' => $t,
+            'Max-Age' => 100,
+            'Secure' => true,
+            'Discard' => true,
             'HttpOnly' => true,
-            'foo'      => 'baz',
-            'bar'      => 'bam'
+            'foo' => 'baz',
+            'bar' => 'bam',
         ];
 
         $cookie = new SetCookie($data);
@@ -173,8 +173,8 @@ class SetCookieTest extends TestCase
     public function testValidatesCookies($name, $value, $domain, $result)
     {
         $cookie = new SetCookie([
-            'Name'   => $name,
-            'Value'  => $value,
+            'Name' => $name,
+            'Value' => $value,
             'Domain' => $domain,
         ]);
         self::assertSame($result, $cookie->validate());
@@ -196,7 +196,7 @@ class SetCookieTest extends TestCase
             'Expires' => $t,
             'Path' => '/abc',
             'HttpOnly' => true,
-            'Secure' => true
+            'Secure' => true,
         ]);
         self::assertSame(
             'test=123; Domain=foo.com; Path=/abc; Expires=Sun, 27 Oct 2013 23:20:08 GMT; Secure; HttpOnly',
@@ -224,8 +224,8 @@ class SetCookieTest extends TestCase
                     'Discard' => null,
                     'Name' => 'ASIHTTPRequestTestCookie',
                     'Value' => 'This+is+the+value',
-                    'HttpOnly' => false
-                ]
+                    'HttpOnly' => false,
+                ],
             ],
             ['', []],
             ['foo', []],
@@ -241,12 +241,12 @@ class SetCookieTest extends TestCase
                     'Max-Age' => null,
                     'Path' => '/',
                     'Secure' => null,
-                    'HttpOnly' => false
-                ]
+                    'HttpOnly' => false,
+                ],
             ],
             // Test setting a blank value for a cookie
             [[
-                'foo=', 'foo =', 'foo =;', 'foo= ;', 'foo =', 'foo= '],
+                'foo=', 'foo =', 'foo =;', 'foo= ;', 'foo =', 'foo= ', ],
                 [
                     'Name' => 'foo',
                     'Value' => '',
@@ -256,12 +256,12 @@ class SetCookieTest extends TestCase
                     'Max-Age' => null,
                     'Path' => '/',
                     'Secure' => null,
-                    'HttpOnly' => false
-                ]
+                    'HttpOnly' => false,
+                ],
             ],
             // Test setting a value and removing quotes
             [[
-                'foo=1', 'foo =1', 'foo =1;', 'foo=1 ;', 'foo =1', 'foo= 1', 'foo = 1 ;'],
+                'foo=1', 'foo =1', 'foo =1;', 'foo=1 ;', 'foo =1', 'foo= 1', 'foo = 1 ;', ],
                 [
                     'Name' => 'foo',
                     'Value' => '1',
@@ -271,8 +271,8 @@ class SetCookieTest extends TestCase
                     'Max-Age' => null,
                     'Path' => '/',
                     'Secure' => null,
-                    'HttpOnly' => false
-                ]
+                    'HttpOnly' => false,
+                ],
             ],
             // Some of the following tests are based on https://github.com/zendframework/zf1/blob/master/tests/Zend/Http/CookieTest.php
             [
@@ -286,8 +286,8 @@ class SetCookieTest extends TestCase
                     'Max-Age' => null,
                     'Path' => '/',
                     'Secure' => null,
-                    'HttpOnly' => false
-                ]
+                    'HttpOnly' => false,
+                ],
             ],
             [
                 'expires=tomorrow; secure; path=/Space Out/; expires=Tue, 21-Nov-2006 08:33:44 GMT; domain=.example.com',
@@ -300,8 +300,8 @@ class SetCookieTest extends TestCase
                     'Discard' => null,
                     'Secure' => true,
                     'Max-Age' => null,
-                    'HttpOnly' => false
-                ]
+                    'HttpOnly' => false,
+                ],
             ],
             [
                 'domain=unittests; expires=Tue, 21-Nov-2006 08:33:44 GMT; domain=example.com; path=/some value/',
@@ -314,8 +314,8 @@ class SetCookieTest extends TestCase
                     'Secure' => false,
                     'Discard' => null,
                     'Max-Age' => null,
-                    'HttpOnly' => false
-                ]
+                    'HttpOnly' => false,
+                ],
             ],
             [
                 'path=indexAction; path=/; domain=.foo.com; expires=Tue, 21-Nov-2006 08:33:44 GMT',
@@ -328,8 +328,8 @@ class SetCookieTest extends TestCase
                     'Secure' => false,
                     'Discard' => null,
                     'Max-Age' => null,
-                    'HttpOnly' => false
-                ]
+                    'HttpOnly' => false,
+                ],
             ],
             [
                 'secure=sha1; secure; SECURE; domain=some.really.deep.domain.com; version=1; Max-Age=86400',
@@ -343,8 +343,8 @@ class SetCookieTest extends TestCase
                     'Expires' => \time() + 86400,
                     'Max-Age' => 86400,
                     'HttpOnly' => false,
-                    'version' => '1'
-                ]
+                    'version' => '1',
+                ],
             ],
             [
                 'PHPSESSID=123456789+abcd%2Cef; secure; discard; domain=.localdomain; path=/foo/baz; expires=Tue, 21-Nov-2006 08:33:44 GMT;',
@@ -357,8 +357,53 @@ class SetCookieTest extends TestCase
                     'Secure' => true,
                     'Discard' => true,
                     'Max-Age' => null,
-                    'HttpOnly' => false
-                ]
+                    'HttpOnly' => false,
+                ],
+            ],
+            [
+                'fr=synced; Max-Age=604800 Expires=Mon, 12 Dec 2022 13:27:50 GMT; Domain=.example.com; Path=/; SameSite=None; Secure; HttpOnly',
+                [
+                    'Name' => 'fr',
+                    'Value' => 'synced',
+                    'Domain' => '.example.com',
+                    'Path' => '/',
+                    'Expires' => null,
+                    'Secure' => true,
+                    'Discard' => false,
+                    'Max-Age' => null,
+                    'HttpOnly' => true,
+                    'SameSite' => 'None',
+                ],
+            ],
+            [
+                'SESS3a6f27284c4d8b34b6f4ff98cb87703e=Ts-5YeSyvOCMS%2CzkEb9eDfW4C4ZNFOcRYdu-3JpEAXIm58aH; expires=Wed, 07-Jun-2023 15:56:35 GMT; Max-Age=2000000; path=/; domain=.example.com; HttpOnly; SameSite=Lax',
+                [
+                    'Name' => 'SESS3a6f27284c4d8b34b6f4ff98cb87703e',
+                    'Value' => 'Ts-5YeSyvOCMS%2CzkEb9eDfW4C4ZNFOcRYdu-3JpEAXIm58aH',
+                    'Domain' => '.example.com',
+                    'Path' => '/',
+                    'Expires' => 'Wed, 07-Jun-2023 15:56:35 GMT',
+                    'Secure' => false,
+                    'Discard' => false,
+                    'Max-Age' => 2000000,
+                    'HttpOnly' => true,
+                    'SameSite' => 'Lax',
+                ],
+            ],
+            [
+                'SESS3a6f27284c4d8b34b6f4ff98cb87703e=Ts-5YeSyvOCMS%2CzkEb9eDfW4C4ZNFOcRYdu-3JpEAXIm58aH; expires=Wed, 07-Jun-2023 15:56:35 GMT; Max-Age=qwerty; path=/; domain=.example.com; HttpOnly; SameSite=Lax',
+                [
+                    'Name' => 'SESS3a6f27284c4d8b34b6f4ff98cb87703e',
+                    'Value' => 'Ts-5YeSyvOCMS%2CzkEb9eDfW4C4ZNFOcRYdu-3JpEAXIm58aH',
+                    'Domain' => '.example.com',
+                    'Path' => '/',
+                    'Expires' => 'Wed, 07-Jun-2023 15:56:35 GMT',
+                    'Secure' => false,
+                    'Discard' => false,
+                    'Max-Age' => null,
+                    'HttpOnly' => true,
+                    'SameSite' => 'Lax',
+                ],
             ],
         ];
     }
@@ -375,17 +420,17 @@ class SetCookieTest extends TestCase
             if (isset($p['Expires'])) {
                 $delta = 40;
                 $parsedExpires = \is_numeric($parsed['Expires']) ? $parsed['Expires'] : \strtotime($parsed['Expires']);
-                self::assertLessThan($delta, \abs($p['Expires'] - $parsedExpires), 'Comparing Expires ' . \var_export($p['Expires'], true) . ' : ' . \var_export($parsed, true) . ' | ' . \var_export($p, true));
+                self::assertLessThan($delta, \abs($p['Expires'] - $parsedExpires), 'Comparing Expires '.\var_export($p['Expires'], true).' : '.\var_export($parsed, true).' | '.\var_export($p, true));
                 unset($p['Expires']);
                 unset($parsed['Expires']);
             }
 
             if (!empty($parsed)) {
                 foreach ($parsed as $key => $value) {
-                    self::assertEquals($parsed[$key], $p[$key], 'Comparing ' . $key . ' ' . \var_export($value, true) . ' : ' . \var_export($parsed, true) . ' | ' . \var_export($p, true));
+                    self::assertEquals($parsed[$key], $p[$key], 'Comparing '.$key.' '.\var_export($value, true).' : '.\var_export($parsed, true).' | '.\var_export($p, true));
                 }
                 foreach ($p as $key => $value) {
-                    self::assertEquals($p[$key], $parsed[$key], 'Comparing ' . $key . ' ' . \var_export($value, true) . ' : ' . \var_export($parsed, true) . ' | ' . \var_export($p, true));
+                    self::assertEquals($p[$key], $parsed[$key], 'Comparing '.$key.' '.\var_export($value, true).' : '.\var_export($parsed, true).' | '.\var_export($p, true));
                 }
             } else {
                 self::assertSame([
@@ -420,11 +465,11 @@ class SetCookieTest extends TestCase
                 true,
             ],
             [
-                'FOO=bar; expires=' . \date(\DateTime::RFC1123, \time() + 10) . ';',
+                'FOO=bar; expires='.\date(\DateTime::RFC1123, \time() + 10).';',
                 false,
             ],
             [
-                'FOO=bar; expires=' . \date(\DateTime::RFC1123, \time() - 10) . ';',
+                'FOO=bar; expires='.\date(\DateTime::RFC1123, \time() - 10).';',
                 true,
             ],
             [

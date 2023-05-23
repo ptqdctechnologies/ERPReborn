@@ -298,9 +298,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 $varSysID_Log_FileUpload_PointerHistory
                 );
 
-
-            return ['Log_FileUpload_Pointer_RefID' => $varLogFileUploadPointerRefID];
-                
+            return 
+                ['Log_FileUpload_Pointer_RefID' => (int) $varLogFileUploadPointerRefID];
             }
         }
     }
