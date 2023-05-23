@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GuzzleHttp\Promise\Tests;
 
 use GuzzleHttp\Promise as P;
@@ -8,11 +10,11 @@ use GuzzleHttp\Promise\RejectedPromise;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers GuzzleHttp\Promise\RejectedPromise
+ * @covers \GuzzleHttp\Promise\RejectedPromise
  */
 class RejectedPromiseTest extends TestCase
 {
-    public function testThrowsReasonWhenWaitedUpon()
+    public function testThrowsReasonWhenWaitedUpon(): void
     {
         $p = new RejectedPromise('foo');
         $this->assertTrue(P\Is::rejected($p));
@@ -25,7 +27,7 @@ class RejectedPromiseTest extends TestCase
         }
     }
 
-    public function testCannotCancel()
+    public function testCannotCancel(): void
     {
         $p = new RejectedPromise('foo');
         $p->cancel();
@@ -35,7 +37,7 @@ class RejectedPromiseTest extends TestCase
     /**
      * @exepctedExceptionMessage Cannot resolve a rejected promise
      */
-    public function testCannotResolve()
+    public function testCannotResolve(): void
     {
         $this->expectException(\LogicException::class);
 
@@ -44,9 +46,9 @@ class RejectedPromiseTest extends TestCase
     }
 
     /**
-     * @exepctedExceptionMessage Cannot reject a rejected promise
+     * @expectedExceptionMessage Cannot reject a rejected promise
      */
-    public function testCannotReject()
+    public function testCannotReject(): void
     {
         $this->expectException(\LogicException::class);
 
@@ -54,14 +56,14 @@ class RejectedPromiseTest extends TestCase
         $p->reject('bar');
     }
 
-    public function testCanRejectWithSameValue()
+    public function testCanRejectWithSameValue(): void
     {
         $p = new RejectedPromise('foo');
         $p->reject('foo');
         $this->assertTrue(P\Is::rejected($p));
     }
 
-    public function testThrowsSpecificException()
+    public function testThrowsSpecificException(): void
     {
         $e = new \Exception();
         $p = new RejectedPromise($e);
@@ -73,34 +75,34 @@ class RejectedPromiseTest extends TestCase
         }
     }
 
-    public function testCannotResolveWithPromise()
+    public function testCannotResolveWithPromise(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
         new RejectedPromise(new Promise());
     }
 
-    public function testReturnsSelfWhenNoOnReject()
+    public function testReturnsSelfWhenNoOnReject(): void
     {
         $p = new RejectedPromise('a');
         $this->assertSame($p, $p->then());
     }
 
-    public function testInvokesOnRejectedAsynchronously()
+    public function testInvokesOnRejectedAsynchronously(): void
     {
         $p = new RejectedPromise('a');
         $r = null;
-        $f = function ($reason) use (&$r) { $r = $reason; };
+        $f = function ($reason) use (&$r): void { $r = $reason; };
         $p->then(null, $f);
         $this->assertNull($r);
         P\Utils::queue()->run();
         $this->assertSame('a', $r);
     }
 
-    public function testReturnsNewRejectedWhenOnRejectedFails()
+    public function testReturnsNewRejectedWhenOnRejectedFails(): void
     {
         $p = new RejectedPromise('a');
-        $f = function () { throw new \Exception('b'); };
+        $f = function (): void { throw new \Exception('b'); };
         $p2 = $p->then(null, $f);
         $this->assertNotSame($p, $p2);
         try {
@@ -111,38 +113,38 @@ class RejectedPromiseTest extends TestCase
         }
     }
 
-    public function testWaitingIsNoOp()
+    public function testWaitingIsNoOp(): void
     {
         $p = new RejectedPromise('a');
         $p->wait(false);
         $this->assertTrue(P\Is::rejected($p));
     }
 
-    public function testOtherwiseIsSugarForRejections()
+    public function testOtherwiseIsSugarForRejections(): void
     {
         $p = new RejectedPromise('foo');
-        $p->otherwise(function ($v) use (&$c) { $c = $v; });
+        $p->otherwise(function ($v) use (&$c): void { $c = $v; });
         P\Utils::queue()->run();
         $this->assertSame('foo', $c);
     }
 
-    public function testCanResolveThenWithSuccess()
+    public function testCanResolveThenWithSuccess(): void
     {
         $actual = null;
         $p = new RejectedPromise('foo');
         $p->otherwise(function ($v) {
-            return $v . ' bar';
-        })->then(function ($v) use (&$actual) {
+            return $v.' bar';
+        })->then(function ($v) use (&$actual): void {
             $actual = $v;
         });
         P\Utils::queue()->run();
         $this->assertSame('foo bar', $actual);
     }
 
-    public function testDoesNotTryToRejectTwiceDuringTrampoline()
+    public function testDoesNotTryToRejectTwiceDuringTrampoline(): void
     {
         $fp = new RejectedPromise('a');
-        $t1 = $fp->then(null, function ($v) { return $v . ' b'; });
+        $t1 = $fp->then(null, function ($v) { return $v.' b'; });
         $t1->resolve('why!');
         $this->assertSame('why!', $t1->wait());
     }

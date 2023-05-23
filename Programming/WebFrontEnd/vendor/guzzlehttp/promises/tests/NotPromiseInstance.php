@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GuzzleHttp\Promise\Tests;
 
 use GuzzleHttp\Promise\Promise;
@@ -14,35 +16,35 @@ class NotPromiseInstance extends Thennable implements PromiseInterface
         $this->nextPromise = new Promise();
     }
 
-    public function then(callable $res = null, callable $rej = null)
+    public function then(callable $res = null, callable $rej = null): PromiseInterface
     {
         return $this->nextPromise->then($res, $rej);
     }
 
-    public function otherwise(callable $onRejected)
+    public function otherwise(callable $onRejected): PromiseInterface
     {
         return $this->then($onRejected);
     }
 
-    public function resolve($value)
+    public function resolve($value): void
     {
         $this->nextPromise->resolve($value);
     }
 
-    public function reject($reason)
+    public function reject($reason): void
     {
         $this->nextPromise->reject($reason);
     }
 
-    public function wait($unwrap = true, $defaultResolution = null)
+    public function wait(bool $unwrap = true, bool $defaultResolution = null): void
     {
     }
 
-    public function cancel()
+    public function cancel(): void
     {
     }
 
-    public function getState()
+    public function getState(): string
     {
         return $this->nextPromise->getState();
     }
