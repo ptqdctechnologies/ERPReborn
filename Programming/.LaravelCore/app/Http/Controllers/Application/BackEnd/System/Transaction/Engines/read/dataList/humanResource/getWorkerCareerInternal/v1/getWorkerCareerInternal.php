@@ -3,29 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\server\system\internal\database\system       |
-|                \tableRevacuumAndReanalyze\v1                                                                                     |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\humanResource                  |
+|                \getWorkerCareerInternal\v1                                                                                       |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\server\internal\database\system\tableRevacuumAndReanalyze\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\humanResource\getWorkerCareerInternal\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : tableRevacuumAndReanalyze                                                                                    |
-    | ▪ Description : Menangani API instruction.server.internal.database.system.tableRevacuumAndReanalyze Version 1                |
+    | ▪ Class Name  : getWorkerCareerInternal                                                                                      |
+    | ▪ Description : Menangani API transaction.read.dataList.humanResource.getWorkerCareerInternal Version 1                      |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class tableRevacuumAndReanalyze extends \App\Http\Controllers\Controller
+    class getWorkerCareerInternal extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-10-05                                                                                           |
-        | ▪ Creation Date   : 2022-10-05                                                                                           |
+        | ▪ Last Update     : 2023-05-23                                                                                           |
+        | ▪ Creation Date   : 2023-05-23                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-10-05                                                                                           |
-        | ▪ Creation Date   : 2022-10-05                                                                                           |
+        | ▪ Last Update     : 2023-05-23                                                                                           |
+        | ▪ Creation Date   : 2023-05-23                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -59,15 +59,28 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Revacuum And Reanalyze All Tables (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Worker Career Internal Data List (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try {
-                        $varDataSend = 
-                            \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                                $varUserSession,  
-                                $this->dataProcessing($varUserSession)
-                                );
+                    try{
+                        if(($varData['SQLStatement']['filter']) && (\App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, $varData['SQLStatement']['filter']) == FALSE))
+                            {
+                            throw new \Exception('SQL Injection Threat Prevention');
+                            }
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_HumanResource\General())->getDataList_WorkerCareerInternal(
+                            $varUserSession, 
+                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
+                            $varData['parameter']['worker_RefID'],
+                            $varData['parameter']['dateTimeTZ'],
+
+                            $varData['SQLStatement']['pick'], 
+                            $varData['SQLStatement']['sort'], 
+                            $varData['SQLStatement']['filter'], 
+                            $varData['SQLStatement']['paging']
+                            ))))
+                            {
+                            throw new \Exception();
+                            }
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
@@ -86,21 +99,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
             catch (\Exception $ex) {
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
-            }
-
-
-        private function dataProcessing($varUserSession)
-            {           
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.FuncSys_General_SetRevacuumAndReanalyze',
-                    [
-                    ]
-                    )
-                );
-            return $varReturn['Data'][0]['FuncSys_General_SetRevacuumAndReanalyze'];
             }
         }
     }
