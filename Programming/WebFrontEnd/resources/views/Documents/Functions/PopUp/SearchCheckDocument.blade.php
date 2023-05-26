@@ -16,9 +16,8 @@
                                     <div class="input-group"  style="width: 120px;">
                                         <select name="" id="" class="form-control" onclick="CheckDocument(this)">
                                             <option value=""></option>
-                                            <option value="{!! route('AdvanceRequest.AdvanceListData') !!}">ARF</option>
-                                            <option value="{!! route('PurchaseRequisition.PurchaseRequisitionListData') !!}">PR</option>
-                                            <option value="BRF">BRF</option>
+                                            <option value="{!! route('AdvanceRequest.AdvanceListData') !!}">Advance</option>
+                                            <option value="{!! route('PurchaseRequisition.PurchaseRequisitionListData') !!}">Purchase Requisition</option> -->
                                         </select>
                                     </div>
                                 </td>

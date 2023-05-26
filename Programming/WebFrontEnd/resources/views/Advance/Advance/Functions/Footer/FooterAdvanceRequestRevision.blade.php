@@ -23,6 +23,7 @@
     var TotalBudgetList = 0;
     var TotalQty = 0;
     var TotalPayment = 0;
+    var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
 
     $.ajax({
         type: "POST",
@@ -30,41 +31,38 @@
         success: function(data) {
             var no = 1; applied = 0; status = ""; statusDisplay = [];statusDisplay2 = []; statusForm = [];
             $.each(data, function(key, value) {
-                TotalBudgetList += +(value.quantity * value.productUnitPriceCurrencyValue);
-                TotalQty+= +value.quantity.replace(/,/g, '');
+                TotalBudgetList += +(value.entities.quantity * value.entities.productUnitPriceCurrencyValue);
+                // TotalQty+= +value.entities.quantity.replace(/,/g, '');
 
                 // TABLE LIST 
                 var html =
                     '<tr>' +
                         '<td style="border:1px solid #e9ecef;">' + trano + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + value.combinedBudgetSubSectionLevel1_RefID + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + value.combinedBudgetSubSectionLevel1Name + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + value.product_RefID + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + value.productName + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + value.quantityUnitName + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + value.priceCurrencyISOCode + '</td>' +
-                        '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ key +'" class="price_req2'+ key +'">' + currencyTotal(value.productUnitPriceCurrencyValue) + '</span>' + '</td>' +
-                        '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ key +'" class="qty_req2'+ key +'">' + currencyTotal(value.quantity) + '</span>' + '</td>' +
-                        '<td style="padding-top: 10px;padding-btwottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ key +'" class="total_req2'+ key +'">' + currencyTotal(value.quantity * value.productUnitPriceCurrencyValue) + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + value.entities.combinedBudgetSubSectionLevel1_RefID + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + value.entities.combinedBudgetSubSectionLevel1Name + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + value.entities.product_RefID + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + value.entities.productName + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + value.entities.quantityUnitName + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + value.entities.priceCurrencyISOCode + '</td>' +
+                        '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ key +'" class="price_req2'+ key +'">' + currencyTotal(value.entities.productUnitPriceCurrencyValue) + '</span>' + '</td>' +
+                        '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ key +'" class="qty_req2'+ key +'">' + currencyTotal(value.entities.quantity) + '</span>' + '</td>' +
+                        '<td style="padding-top: 10px;padding-btwottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ key +'" class="total_req2'+ key +'">' + currencyTotal(value.entities.quantity * value.entities.productUnitPriceCurrencyValue) + '</span>' + '</td>' +
                     '</tr>';
 
                 $('table.TableAdvance tbody').append(html);
 
                 $("#GrandTotal").html(currencyTotal(TotalBudgetList));
-                $("#TotalQty").html(currencyTotal(TotalQty));
+                // $("#TotalQty").html(currencyTotal(TotalQty));
 
                 // TABLE BUDGET 
 
-                if(value.quantity == "0.00" && value.quantity == "0.00"){
+                if(value.entities.quantity == "0.00" && value.entities.quantity == "0.00"){
                     var applied = 0;
                 }
                 else{
-                    var applied = Math.round(parseFloat(value.quantity) / parseFloat(value.quantity) * 100);
+                    var applied = Math.round(parseFloat(value.entities.quantity) / parseFloat(value.entities.quantity) * 100);
                 }
-                if(applied >= 100){
-                    var status = "disabled";
-                }
-                if(value.productName == "Unspecified Product"){
+                if(value.entities.productName == "Unspecified Product"){
                     statusDisplay[key] = "";
                     statusDisplay2[key] = "none";
                     statusForm[key] = "disabled";
@@ -77,17 +75,21 @@
 
                 var html2 = 
                     '<tr>' +
-                        '<input name="getWorkId[]" value="'+ value.combinedBudgetSubSectionLevel1_RefID +'" type="hidden">' +
-                        '<input name="getWorkName[]" value="'+ value.combinedBudgetSubSectionLevel1Name +'" type="hidden">' +
-                        '<input name="getProductId[]" value="'+ value.product_RefID +'" type="hidden">' +
-                        '<input name="getProductName[]" value="'+ value.productName +'" type="hidden">' +
-                        '<input name="getQty[]" id="budget_qty'+ key +'" value="'+ value.quantity +'" type="hidden">' +
-                        '<input name="getPrice[]" id="budget_price'+ key +'" value="'+ value.productUnitPriceCurrencyValue +'" type="hidden">' +
-                        '<input name="getUom[]" value="'+ value.quantityUnitName +'" type="hidden">' +
-                        '<input name="getCurrency[]" value="'+ value.priceCurrencyISOCode +'" type="hidden">' +
-                        '<input name="combinedBudgetSectionDetail_RefID[]" value="'+ value.sys_ID +'" type="hidden">' +
-                        '<input name="combinedBudget_RefID" value="'+ value.combinedBudget_RefID +'" type="hidden">' +
-                        '<input name="getRecordIDDetail[]" value="' + value.sys_ID + '"  type="hidden">' +
+                        '<input name="var_date" value="'+ date +'" type="hidden">' +
+                        '<input name="getWorkId[]" value="'+ value.entities.combinedBudgetSubSectionLevel1_RefID +'" type="hidden">' +
+                        '<input name="getWorkName[]" value="'+ value.entities.combinedBudgetSubSectionLevel1Name +'" type="hidden">' +
+                        '<input name="var_product_id[]" value="'+ value.entities.product_RefID +'" type="hidden">' +
+                        '<input name="var_product_name[]" value="'+ value.entities.productName +'" type="hidden">' +
+                        '<input name="var_qty_id[]" value="'+ value.entities.quantityUnit_RefID +'" type="hidden">' +
+                        '<input id="budget_qty'+ key +'" value="'+ value.entities.quantity +'" type="hidden">' +
+                        '<input id="budget_price'+ key +'" value="'+ value.entities.productUnitPriceCurrencyValue +'" type="hidden">' +
+                        '<input name="var_uom[]" value="'+ value.entities.quantityUnitName +'" type="hidden">' +
+                        '<input name="var_currency_id[]" value="'+ value.entities.priceCurrency_RefID +'" type="hidden">' +
+                        '<input name="var_currency[]" value="'+ value.entities.priceCurrencyISOCode +'" type="hidden">' +
+                        '<input name="var_combinedBudgetSectionDetail_RefID[]" value="'+ value.entities.sys_ID +'" type="hidden">' +
+                        '<input name="combinedBudget_RefID" value="'+ value.entities.combinedBudgetProduct_RefID +'" type="hidden">' +
+                        '<input name="var_recordIDDetail[]" value="' + value.entities.sys_ID + '"  type="hidden">' +
+                        '<input name="total_payment[]" value="' + TotalPayment + '"  type="hidden">' +
 
                         '<td style="border:1px solid #e9ecef;">' +
                         '&nbsp;&nbsp;&nbsp;<div class="progress '+ status +' progress-xs" style="height: 14px;border-radius:8px;"> @if('+ applied +' >= '+0+' && '+ applied +' <= '+40+')<div class="progress-bar bg-red" style="width:'+ applied +'%;"></div> @elseif('+ applied +' >= '+41+' && '+ applied +' <= '+89+')<div class="progress-bar bg-blue" style="width:'+ applied +'%;"></div> @elseif('+ applied + ' >= '+ 90 +' && ' + applied + ' <= '+ 100 +')<div class="progress-bar bg-green" style="width:'+ applied +'%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>'+ applied +' %</center></small>' +
@@ -105,25 +107,26 @@
                         '</td>' +
 
                         '<td style="border:1px solid #e9ecef;">' + '<span>' + trano + '</span>' + '</td>' +
-                        '<td style="border:1px solid #e9ecef;display:'+ statusDisplay2[key] +'">' + '<span>' + value.product_RefID + '</span>' + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + '<span id="putProductName'+ key +'">' + value.productName + '</span>' + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_qty2'+ key +'">' + currencyTotal(value.quantity) + '</span>' + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + '<span">' + currencyTotal(value.quantity) + '</span>' + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(value.productUnitPriceCurrencyValue) + '</span>' + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + '<span id="total_budget'+ key +'">' + currencyTotal(value.priceBaseCurrencyValue) + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;display:'+ statusDisplay2[key] +'">' + '<span>' + value.entities.product_RefID + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + '<span id="putProductName'+ key +'">' + value.entities.productName + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_qty2'+ key +'">' + currencyTotal(value.entities.quantity) + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + '<span">' + currencyTotal(value.entities.quantity) + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(value.entities.productUnitPriceCurrencyValue) + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + '<span>' + value.entities.priceCurrencyISOCode + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + '<span id="total_budget'+ key +'">' + currencyTotal(value.entities.priceBaseCurrencyValue) + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span id="total_payment'+ key +'">' + currencyTotal(TotalPayment) + '</span>' + '</td>' +
 
-                        '<td class="sticky-col forth-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" '+ statusForm[key] +' onkeypress="return isNumberKey(this, event);" value="'+ currencyTotal(value.quantity) +'">' + '</td>' +
-                        '<td class="sticky-col third-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req'+ key +'" style="border-radius:0;" name="price_req[]" class="form-control price_req" autocomplete="off" '+ statusForm[key] +' onkeypress="return isNumberKey(this, event);" value="'+ currencyTotal(value.productUnitPriceCurrencyValue) +'">' + '</td>' +
-                        '<td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req'+ key +'" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled value="'+ currencyTotal(value.quantity * value.productUnitPriceCurrencyValue) +'">' + '</td>' +
-                        '<td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_balance_qty'+ key +'" style="border-radius:0;background-color:white;" name="total_balance_qty[]" class="form-control total_balance_qty" autocomplete="off" disabled value="'+ currencyTotal(value.quantity) +'">' + '</td>' +
+                        '<td class="sticky-col forth-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;" name="var_quantity[]" class="form-control qty_req" autocomplete="off" '+ statusForm[key] +' onkeypress="return isNumberKey(this, event);" value="'+ currencyTotal(value.entities.quantity) +'">' + '</td>' +
+                        '<td class="sticky-col third-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req'+ key +'" style="border-radius:0;" name="var_price[]" class="form-control price_req" autocomplete="off" '+ statusForm[key] +' onkeypress="return isNumberKey(this, event);" value="'+ currencyTotal(value.entities.productUnitPriceCurrencyValue) +'">' + '</td>' +
+                        '<td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req'+ key +'" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled value="'+ currencyTotal(value.entities.quantity * value.entities.productUnitPriceCurrencyValue) +'">' + '</td>' +
+                        '<td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_balance_qty'+ key +'" style="border-radius:0;background-color:white;" name="total_balance_qty[]" class="form-control total_balance_qty" autocomplete="off" disabled value="'+ currencyTotal(value.entities.quantity) +'">' + '</td>' +
                     '</tr>';
 
                 $('table.tableBudgetDetail tbody').append(html2);
 
                 $("#TotalBudgetSelected").html(currencyTotal(TotalBudgetList));
                 
-                if(value.productName == "Unspecified Product"){
+                if(value.entities.productName == "Unspecified Product"){
                     //VALIDASI QTY
                     $('#qty_req'+key).keyup(function() {
                         var qty_val = $(this).val().replace(/,/g, '');
@@ -340,35 +343,30 @@
     function addFromDetailtoCartJs() {
 
         $('#TableAdvance').find('tbody').empty();
-
         $(".AdvanceListCart").show();
         $(".Remark").show();
         var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
+
+        var trano = $("#trano").val();
         var getWorkId = $("input[name='getWorkId[]']").map(function(){return $(this).val();}).get();
         var getWorkName = $("input[name='getWorkName[]']").map(function(){return $(this).val();}).get();
-        var getProductId = $("input[name='getProductId[]']").map(function(){return $(this).val();}).get();
-        var getProductName = $("input[name='getProductName[]']").map(function(){return $(this).val();}).get();
-        var getUom = $("input[name='getUom[]']").map(function(){return $(this).val();}).get();
-        var getCurrency = $("input[name='getCurrency[]']").map(function(){return $(this).val();}).get();
-        var getRecordIDDetail = $("input[name='getRecordIDDetail[]']").map(function(){return $(this).val();}).get();
-        var qty_req = $("input[name='qty_req[]']").map(function(){return $(this).val();}).get();
-        var price_req = $("input[name='price_req[]']").map(function(){return $(this).val();}).get();
-
-        var combinedBudgetSectionDetail_RefID = $("input[name='combinedBudgetSectionDetail_RefID[]']").map(function(){return $(this).val();}).get();
-        var combinedBudget_RefID = $("input[name='combinedBudget_RefID']").val();
+        var getProductId = $("input[name='var_product_id[]']").map(function(){return $(this).val();}).get();
+        var getProductName = $("input[name='var_product_name[]']").map(function(){return $(this).val();}).get();
+        var getUom = $("input[name='var_uom[]']").map(function(){return $(this).val();}).get();
+        var getCurrency = $("input[name='var_currency[]']").map(function(){return $(this).val();}).get();
+        var qty_req = $("input[name='var_quantity[]']").map(function(){return $(this).val();}).get();
+        var price_req = $("input[name='var_price[]']").map(function(){return $(this).val();}).get();
+        var total_req = $("input[name='total_req[]']").map(function(){return $(this).val();}).get();
+        var total_payment = $("input[name='total_payment[]']").map(function(){return $(this).val();}).get();
 
         var TotalBudgetList = 0;
         var TotalQty = 0;
 
-
-        var trano = $("#trano").val();
-
-        var total_req = $("input[name='total_req[]']").map(function(){return $(this).val();}).get();
-        // var total_balance_qty = $("input[name='total_balance_qty[]']").map(function(){return $(this).val();}).get();
-        var total_payment = $("input[name='total_payment[]']").map(function(){return $(this).val();}).get();
-        
         $.each(total_req, function(index, data) {
-            if(total_req[index] < total_payment){
+
+            console.log(qty_req[index]);
+
+            if(total_req[index] < total_payment[index]){
                 swal({
                     onOpen: function () {
                         swal.disableConfirmButton();
@@ -377,7 +375,6 @@
                 });
                 $('#qty_req'+index).focus();
             }
-            // else if(total_req[index] != "" && total_req[index] > "0.00" && total_req[index] != "NaN.00"){
             else {
 
                 var putProductId = getProductId[index];
@@ -390,19 +387,6 @@
                 TotalBudgetList += +total_req[index].replace(/,/g, '');
                 TotalQty+= +qty_req[index].replace(/,/g, '');
                 var html = '<tr>' +
-
-                    '<input type="hidden" name="var_product_id[]" value="' + putProductId + '">' +
-                    '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
-                    '<input type="hidden" name="var_quantity[]" class="qty_req2'+ index +'" data-id="'+ index +'" value="' + currencyTotal(qty_req[index]).replace(/,/g, '') + '">' +
-                    '<input type="hidden" name="var_uom[]" value="' + getUom[index] + '">' +
-                    '<input type="hidden" name="var_price[]" class="price_req2'+ index +'" value="' + currencyTotal(price_req[index]).replace(/,/g, '') + '">' +
-                    '<input type="hidden" name="var_total[]" class="total_req2'+ index +'" value="' + total_req[index] + '">' +
-                    '<input type="hidden" name="var_currency[]" value="' + getCurrency[index] + '">' +
-                    '<input type="hidden" name="var_date" value="' + date + '">' +
-                    '<input type="hidden" name="var_combinedBudgetSectionDetail_RefID[]" value="' + combinedBudgetSectionDetail_RefID[index] + '">' +
-                    '<input type="hidden" name="combinedBudget_RefID" value="' + combinedBudget_RefID + '">' +
-                    '<input type="hidden" name="var_recordIDDetail[]" value="' + getRecordIDDetail[index] + '">' +
-                    
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + trano + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkId[index] + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkName[index] + '</td>' +

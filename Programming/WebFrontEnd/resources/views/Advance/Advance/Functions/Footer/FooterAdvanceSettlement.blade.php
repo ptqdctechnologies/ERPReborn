@@ -41,7 +41,7 @@
             type: 'GET',
             url: '{!! route("AdvanceSettlement.AdvanceByBudgetID") !!}?projectcode=' + sys_id,
             success: function(data) {
-
+                console.log(data);
                 var no = 1;
                 t = $('#tableSearchArfinAsf').DataTable();
                 $.each(data.DataAdvanceRequest, function(key, val) {
@@ -81,6 +81,14 @@
         $(".tableShowHideArfDetail").show();
         $("#projectcode2").prop("disabled", true);
 
+
+        $("#bank_code").val(advance_RefID);
+        $("#bank_name").val(advance_number);
+        $("#bank_name_full").val(advance_number);
+        $("#beneficiaryBankAccount_RefID").val(advance_RefID);
+        $("#bank_account").val(advance_number);
+        $("#account_name").val(advance_number);
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -90,6 +98,9 @@
             type: "POST",
             url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlementRequester") !!}?requester_id=' + requester_RefID + '&requester_name=' + requester_name + '&requester_id2=' + $('#requester_id').val() + '&advance_RefID=' + advance_RefID,
             success: function(data) {
+
+                console.log(data.DataAdvanceList);
+                
                 if (data.status == "200") {
 
                     $("#requester_id").val(data.requester_id);

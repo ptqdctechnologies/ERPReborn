@@ -1,6 +1,6 @@
 <div class="card-body">
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-8">
       <div class="form-group">
         <table>
           <tr>
@@ -34,21 +34,6 @@
               <div class="input-group">
                 <input id="requester_id" style="border-radius:0;" name="requester_id" type="hidden" class="form-control">
                 <input id="requester_name" style="border-radius:0;" name="requester_name" type="text" class="form-control" readonly>
-              </div>
-            </td>
-          </tr>
-        </table>
-      </div>
-    </div>
-
-    <div class="col-md-4">
-      <div class="form-group">
-        <table>
-          <tr>
-            <td style="padding-bottom:20px;"><Label>Remark</Label></td>
-            <td>
-              <div class="input-group">
-                <textarea name="remark" id="remark" style="border-radius:0;" cols="30" rows="3" class="form-control"></textarea>
               </div>
             </td>
           </tr>

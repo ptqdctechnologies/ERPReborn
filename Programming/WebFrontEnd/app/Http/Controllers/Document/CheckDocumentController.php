@@ -19,6 +19,7 @@ class CheckDocumentController extends Controller
             'var' => $var,
             'varAPIWebToken' => $varAPIWebToken,
             'statusRevisi' => 0,
+            'document_number' => ''
         ];
         
         return view('Documents.Transactions.index', $compact);
@@ -47,6 +48,7 @@ class CheckDocumentController extends Controller
             'varAPIWebToken' => $varAPIWebToken,
             'statusRevisi' => 0,
             'data' => $varData['data'][0]['document'],
+            'document_number' => $request->document_number
         ];
 
         return view('Documents.Transactions.index', $compact);
