@@ -18,6 +18,7 @@
                                             <th>Product Name</th>
                                             <th>UOM</th>
                                             <th style="display: none;"></th>
+                                            <th style="display: none;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -34,6 +35,11 @@
 
 <script>
     function KeyFunction(key) {
+
+        $("#loading").show();
+        $(".loader").show();
+
+        $("#tableGetProduct").dataTable().fnDestroy();
 
         $.ajaxSetup({
             headers: {
@@ -52,11 +58,14 @@
                         '<td>' + data[i]['sys_ID'] + '</td>',
                         '<td>' + data[i]['name'] + '</td>',
                         '<td>' + data[i]['quantityUnitName'] + '</td>',
-                        '<span style="display:none;"><td">' + key + '</td></span></tr></tbody>'
+                        '<span style="display:none;"><td">' + key + '</td>',
+                        '<span style="display:none;"><td">' + data[i]['quantityUnit_RefID'] + '</td></span></tr></tbody>'
                     ]);
                 }
 
-                $("#tableGetProduct").dataTable().fnDestroy()
+                $("#loading").hide();
+                $(".loader").hide();
+
 
                 $('#tableGetProduct').DataTable( {
                     data:           dataShow,
@@ -81,11 +90,13 @@
         var name = row.find("td:nth-child(3)").text();
         var uom = row.find("td:nth-child(4)").text();
         var key = row.find("td:nth-child(5)").text();
-        console.log(key);
+        var budget_qty_id = row.find("td:nth-child(6)").text();
 
         $("#putProductId"+key).val(sys_id);
         $("#putProductName"+key).html(name);
         $("#putUom"+key).val(uom);
+
+        $("#budget_qty_id"+key).val(budget_qty_id);
 
         $("#qty_req"+key).prop("disabled", false);
         $("#price_req"+key).prop("disabled", false);

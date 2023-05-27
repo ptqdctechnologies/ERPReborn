@@ -5,8 +5,6 @@
         $(".InternalNotes").hide();
         $(".FileAttachment").hide();
         $(".ApprovalHistory").hide();
-        
-        
     });
 </script>
 

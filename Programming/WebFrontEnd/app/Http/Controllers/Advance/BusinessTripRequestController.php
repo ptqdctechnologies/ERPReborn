@@ -9,57 +9,17 @@ use App\Http\Controllers\Controller;
 class BusinessTripRequestController extends Controller
 {
     public function index(Request $request)
-    {
+    {   
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionBusinessTripRequest");
-
-        $varDataAccomodation = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'dataPickList.humanResource.getBusinessTripAccommodationArrangementsType', 
-            'latest',
-            [
-            'parameter' => [
-                ]
-            ]
-            );
-
-        $varDataTransport = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'dataPickList.humanResource.getBusinessTripTransportationType', 
-            'latest',
-            [
-            'parameter' => [
-                ]
-            ]
-            );
-
-        $varDataApplicable = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'dataPickList.master.getPaymentDisbursementMethod', 
-            'latest',
-            [
-            'parameter' => [
-                ]
-            ]
-            );
-        // dd($varDataApplicable);
 
         $var = 0;
         if(!empty($_GET['var'])){
            $var =  $_GET['var'];
         }
-        $PaymentID = [81000000000001, 81000000000003, 221000000000041, 221000000000042, 221000000000040, 221000000000031, 221000000000035, 221000000000016, 221000000000018, 221000000000017, 221000000000002, 221000000000004, 221000000000003, 221000000000029, 221000000000026, 221000000000028, 221000000000027, 221000000000014, 221000000000011, 221000000000013, 221000000000012, 221000000000033, 221000000000037, 221000000000038, 221000000000044, 221000000000006, 221000000000007, 221000000000009, 221000000000008, 221000000000021, 221000000000020, 221000000000022, 221000000000024, 221000000000023, 81000000000004];
         $compact = [
             'var' => $var,
             'varAPIWebToken' => $varAPIWebToken,
-            'varDataAccomodation' => $varDataAccomodation['data']['data'],
-            'varDataTransport' => $varDataTransport['data']['data'],
-            'varDataApplicable' => $varDataApplicable['data'],
-            'PaymentID' => $PaymentID,
-            'spasi' => "<span style='color: white;'>_____</span>",
             'statusRevisi' => 0,
         ];
     
@@ -67,6 +27,7 @@ class BusinessTripRequestController extends Controller
     }
     public function store(Request $request)
     {
+
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $input = $request->all();
         dd($input);

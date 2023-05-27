@@ -94,6 +94,22 @@ class AdvanceSettlementController extends Controller
         $requester_id2 = $request->input('requester_id2');
         $advance_RefID = $request->input('advance_RefID');
 
+
+        // $varDataAdvanceRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varAPIWebToken,
+        //     'report.form.documentForm.finance.getAdvance', 
+        //     'latest',
+        //     [
+        //     'parameter' => [
+        //         'recordID' => (int) $advance_RefID,
+        //         ]
+        //     ]
+        //     );
+    
+        // dd($varDataAdvanceRevision);
+
+
         $data = $request->session()->get("SessionAdvanceSetllementRequester");
         if ($request->session()->has("SessionAdvanceSetllementRequester")) {
             for ($i = 0; $i < count($data); $i++) {
@@ -169,7 +185,7 @@ class AdvanceSettlementController extends Controller
         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
         'transaction.read.dataList.finance.getAdvance', 
-        'latest', 
+        'latest',
         [
         'parameter' => null,
         'SQLStatement' => [
