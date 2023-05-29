@@ -280,29 +280,29 @@
                             var price_req = $("#price_req"+key).val().replace(/,/g, '');
                             var total = qty_val * price_req;
 
-                            // if (qty_val == "") {
-                            //     $('#total_req'+key).val("");
-                            //     $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
-                            // }
-                            // else if (parseFloat(qty_val) > parseFloat(budget_qty_val)) {
+                            if (qty_val == "") {
+                                $('#total_req'+key).val("");
+                                $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
+                            }
+                            else if (parseFloat(qty_val) > parseFloat(budget_qty_val)) {
 
-                            //     swal({
-                            //         onOpen: function () {
-                            //             swal.disableConfirmButton();
-                            //             Swal.fire("Error !", "Qty is over budget !", "error");
-                            //         }
-                            //     });
+                                swal({
+                                    onOpen: function () {
+                                        swal.disableConfirmButton();
+                                        Swal.fire("Error !", "Qty is over budget !", "error");
+                                    }
+                                });
 
-                            //     $('#qty_req'+key).val("");
-                            //     $('#total_req'+key).val("");
-                            //     $('#qty_req'+key).css("border", "1px solid red");
-                            //     $('#qty_req'+key).focus();
-                            // }
-                            // else {
+                                $('#qty_req'+key).val("");
+                                $('#total_req'+key).val("");
+                                $('#qty_req'+key).css("border", "1px solid red");
+                                $('#qty_req'+key).focus();
+                            }
+                            else {
 
-                            //     $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
+                                $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
                                 $('#total_req'+key).val(currencyTotal(total));
-                            // }
+                            }
 
                             //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED
                             TotalBudgetSelected();
@@ -442,7 +442,27 @@
             $("#request_name").css("border", "1px solid #ced4da");
             $("#putRemark").css("border", "1px solid #ced4da");
 
-            iz
+            if (valRequestName === "") {
+                $("#request_name").focus();
+                $("#request_name").attr('required', true);
+                $("#request_name").css("border", "1px solid red");
+            } else if (valBeneficiaryName === "") {
+                $("#beneficiary_name").focus();
+                $("#beneficiary_name").attr('required', true);
+                $("#beneficiary_name").css("border", "1px solid red");
+            } else if (valBankName === "") {
+                $("#bank_name").focus();
+                $("#bank_name").attr('required', true);
+                $("#bank_name").css("border", "1px solid red");
+            } else if (valBankAccount === "") {
+                $("#bank_account").focus();
+                $("#bank_account").attr('required', true);
+                $("#bank_account").css("border", "1px solid red");
+            } else if (valRemark === "") {
+                $("#putRemark").focus();
+                $("#putRemark").attr('required', true);
+                $("#putRemark").css("border", "1px solid red");
+            } else {
 
                 $("#submitArf").prop("disabled", true);
 

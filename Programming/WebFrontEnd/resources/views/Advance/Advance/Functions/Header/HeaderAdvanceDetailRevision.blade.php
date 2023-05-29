@@ -21,7 +21,7 @@
                         </td>
                         <td>
                             <div class="input-group" style="width: 140%;position:relative;right:38%;">
-                                <input id="request_position" style="border-radius:0;" class="form-control" name="request_position" value="{{ $dataAdvance['involvedPersons']['requester']['jobPosition'] }}" readonly>
+                                <input id="request_position" style="border-radius:0;" class="form-control" name="request_position" value="{{ $dataAdvance['involvedPersons']['requester']['jobsPositionName'] }}" readonly>
                             </div>
                         </td>
                     </tr>
@@ -42,7 +42,7 @@
                         </td>
                         <td>
                             <div class="input-group" style="width: 140%;position:relative;right:38%;">
-                                <input id="beneficiary_position" style="border-radius:0;" class="form-control" name="beneficiary_position" value="{{ $dataAdvance['involvedPersons']['beneficiary']['jobPosition'] }}" readonly>
+                                <input id="beneficiary_position" style="border-radius:0;" class="form-control" name="beneficiary_position" value="{{ $dataAdvance['involvedPersons']['beneficiary']['jobsPositionName'] }}" readonly>
                             </div>
                         </td>
                     </tr>
@@ -58,7 +58,7 @@
                         <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Bank Name</label></td>
                         <td>
                             <div class="input-group" style="width: 70%;">
-                                <input id="bank_name" style="border-radius:0;" name="bank_name" class="form-control" readonly value="{{ $dataAdvance['bankAccount']['bankAcronym'] }}">
+                                <input id="bank_name" style="border-radius:0;" name="bank_name" class="form-control" readonly value="{{ $dataAdvance['bankAccount']['bankName'] }}">
                                 <div class="input-group-append">
                                     <span style="border-radius:0;" class="input-group-text form-control">
                                         <a href="#" id="bank_name2" data-toggle="modal" data-target="#myGetBank" class="myGetBank"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
@@ -76,8 +76,8 @@
                         <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Bank Account</label></td>
                         <td>
                             <div class="input-group" style="width: 70%;">
-                                <input id="beneficiaryBankAccount_RefID" style="border-radius:0;" class="form-control" name="beneficiaryBankAccount_RefID" value="{{ $dataAdvance['bankAccount']['beneficiaryBankAccount_RefID'] }}" hidden>
-                                <input id="bank_account" style="border-radius:0;" name="bank_account" class="form-control" readonly value="{{ $dataAdvance['bankAccount']['bankAccount'] }}">
+                                <input id="beneficiaryBankAccount_RefID" style="border-radius:0;" class="form-control" name="beneficiaryBankAccount_RefID" value="{{ $dataAdvance['bankAccount']['bankAccountNumber'] }}" hidden>
+                                <input id="bank_account" style="border-radius:0;" name="bank_account" class="form-control" readonly value="{{ $dataAdvance['bankAccount']['bankAccountNumber'] }}">
                                 <div class="input-group-append">
                                     <span style="border-radius:0;" class="input-group-text form-control">
                                         <a href="#" id="bank_account2" data-toggle="modal" data-target="#myBankAccount" class="myBankAccount"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>

@@ -359,14 +359,14 @@
                             <div class="form-group clearfix">
                               <td>
                                 <div class="icheck-primary d-inline">
-                                  <input type="radio" id="arrangeCompany" name="accomodation" value="219000000000001" checked>
+                                  <input type="radio" id="arrangeCompany" name="accomodationArrange" value="219000000000001" checked>
                                   <label for="arrangeCompany"> Arrange By Company
                                   </label>
                                 </div>
                               </td>
                               <td>
                                 <div class="icheck-primary d-inline">
-                                  <input type="radio" id="arrangeEmployee" name="accomodation" value="219000000000002">
+                                  <input type="radio" id="arrangeEmployee" name="accomodationArrange" value="219000000000002">
                                   <label for="arrangeEmployee"> Arrange By Employee
                                   </label>
                                 </div>
