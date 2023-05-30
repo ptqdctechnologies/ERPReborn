@@ -1,13 +1,11 @@
 <script type="text/javascript">
-    $(document).ready(function() {
-        $("#projectcode2").prop("disabled", true);
-        $("#sitecode2").prop("disabled", true);
-        $("#request_name2").prop("disabled", true);
-        $("#addFromDetailtoCart").prop("disabled", true);
-        $("#showContentBOQ3").hide();
-        $("#product_id2").prop("disabled", true);
-        // $("#submitArf").prop("disabled", true);
-    });
+    $("#projectcode2").prop("disabled", true);
+    $("#sitecode2").prop("disabled", true);
+    $("#request_name2").prop("disabled", true);
+    $("#addFromDetailtoCart").prop("disabled", true);
+    $("#showContentBOQ3").hide();
+    $("#product_id2").prop("disabled", true);
+    // $("#submitArf").prop("disabled", true);
 </script>
 
 <script type="text/javascript">
@@ -363,8 +361,6 @@
         var TotalQty = 0;
 
         $.each(total_req, function(index, data) {
-
-            console.log(qty_req[index]);
 
             if(total_req[index] < total_payment[index]){
                 swal({

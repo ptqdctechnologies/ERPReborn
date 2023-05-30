@@ -3,7 +3,7 @@
 </footer>
 
 <!-- FUNCTION FOR FILE UPLOAD -->
-<script type="text/javascript">
+<script>
     window.onload = function() {
         document.getElementById("dataInput_Log_FileUpload_Pointer_RefID_Action").dispatchEvent(new Event("change"));
     }

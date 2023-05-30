@@ -1,11 +1,8 @@
-<!--  SHOW HIDE AVAILABEL -->
 <script type="text/javascript">
-    $(document).ready(function() {
-        $(".ShowDocumentList").hide();
-        $(".InternalNotes").hide();
-        $(".FileAttachment").hide();
-        $(".ApprovalHistory").hide();
-    });
+    $(".ShowDocumentList").hide();
+    $(".InternalNotes").hide();
+    $(".FileAttachment").hide();
+    $(".ApprovalHistory").hide();
 </script>
 
 <script>
@@ -26,11 +23,13 @@
             success: function(data) {
                 var no = 1; t = $('#TableCheckDocument').DataTable();
                 t.clear();
-                $.each(data, function(key, val) {
+                $.each(data.data, function(key, val) {
                     t.row.add([
                         '<tbody><tr><td><span style="position:relative;left:10px;">' + val.documentNumber + '</span></td>',
                         '<td><span style="position:relative;left:10px;">' + val.combinedBudgetCode + '</span></td>',
                         '<td><span style="position:relative;left:10px;">' + val.combinedBudgetSectionCode + '</span></td>',
+                        '<span style="display:none;"><td">' + data.linkReportTransaction + '</span></td>',
+                        '<span style="display:none;"><td">' + data.TransactionMenu + '</span></td>',
                         '<span style="display:none;"><td">' + val.sys_ID + '</td></span></tr></tbody>'
                     ]).draw();
 
@@ -50,11 +49,15 @@
         $("#mySearchCheckDocument").modal('toggle');
 
         var row = $(this).closest("tr");    
-        var sys_id = row.find("td:nth-child(4)").text();
+        var sys_id = row.find("td:nth-child(6)").text();
         var documentNumber = row.find("td:nth-child(1)").text();
+        var linkReportTransaction = row.find("td:nth-child(4)").text();
+        var TransactionMenu = row.find("td:nth-child(5)").text();
 
         $("#sys_id").val(sys_id);
         $("#document_number").val(documentNumber);
+        $("#linkReportTransaction").val(linkReportTransaction);
+        $("#TransactionMenu").val(TransactionMenu);
     });
     
 </script>
