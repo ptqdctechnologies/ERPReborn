@@ -57,7 +57,7 @@ class CliDumperTest extends TestCase
 
         $this->assertStringMatchesFormat(
             <<<EOTXT
-array:24 [
+array:25 [
   "number" => 1
   0 => &1 null
   "const" => 1.1
@@ -72,6 +72,7 @@ array:24 [
     é\\x01test\\t\\n
     ing
     """
+  "bo\\u{FEFF}m" => "te\\u{FEFF}st"
   "[]" => []
   "res" => stream resource {@{$res}
 %A  wrapper_type: "plainfile"
@@ -453,23 +454,5 @@ EOTXT
         $dumper->dump($cloner->cloneVar($value));
 
         $this->assertSame($expectedOut, $out);
-    }
-
-    private function getSpecialVars()
-    {
-        foreach (array_keys($GLOBALS) as $var) {
-            if ('GLOBALS' !== $var) {
-                unset($GLOBALS[$var]);
-            }
-        }
-
-        $var = function &() {
-            $var = [];
-            $var[] = &$var;
-
-            return $var;
-        };
-
-        return eval('return [$var(), $GLOBALS, &$GLOBALS];');
     }
 }
