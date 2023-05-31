@@ -32,50 +32,7 @@ class AdvanceSettlementController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        // dd($input);
-        $count_product = count($input['var_product_id']);
-
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-
-        // $advanceDetail = [];
-        // for($n =0; $n < $count_product; $n++){
-        //     $advanceDetail[$n] = [
-        //     'entities' => [
-        //             "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
-        //             "product_RefID" => (int) $input['var_product_id'][$n],
-        //             "quantity" => (float) $input['var_quantity'][$n],
-        //             "quantityUnit_RefID" => 73000000000001,
-        //             "productUnitPriceCurrency_RefID" => 62000000000001,
-        //             "productUnitPriceCurrencyValue" => (float) $input['var_price'][$n],
-        //             "productUnitPriceCurrencyExchangeRate" => 1,
-        //             "remarks" => 'test jumat'
-        //         ]
-        //     ];
-        // }
-
-        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        //     $varAPIWebToken, 
-        //     'transaction.create.finance.setAdvance', 
-        //     'latest', 
-        //     [
-        //     'entities' => [
-        //         "documentDateTimeTZ" => $input['var_date'],
-        //         "log_FileUpload_Pointer_RefID" => 91000000000001,
-        //         "requesterWorkerJobsPosition_RefID" => (int)$input['request_name_id'],
-        //         "beneficiaryWorkerJobsPosition_RefID" => 25000000000439,
-        //         "beneficiaryBankAccount_RefID" => 167000000000001,
-        //         "internalNotes" => 'My Internal Notes',
-        //         "remarks" => $input['var_remark'],
-        //         "additionalData" => [
-        //             "itemList" => [
-        //                 "items" => $advanceDetail
-        //                 ]
-        //             ]
-        //         ]
-        //     ]                    
-        //     );
-
+        dd($input);
         $compact = [
             "advnumber" => 'ASF-0000001',
         ];
@@ -93,22 +50,6 @@ class AdvanceSettlementController extends Controller
         $requester_name = $request->input('requester_name');
         $requester_id2 = $request->input('requester_id2');
         $advance_RefID = $request->input('advance_RefID');
-
-
-        // $varDataAdvanceRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        //     $varAPIWebToken,
-        //     'report.form.documentForm.finance.getAdvance', 
-        //     'latest',
-        //     [
-        //     'parameter' => [
-        //         'recordID' => (int) $advance_RefID,
-        //         ]
-        //     ]
-        //     );
-    
-        // dd($varDataAdvanceRevision);
-
 
         $data = $request->session()->get("SessionAdvanceSetllementRequester");
         if ($request->session()->has("SessionAdvanceSetllementRequester")) {
@@ -206,23 +147,28 @@ class AdvanceSettlementController extends Controller
     public function AdvanceSettlementListData(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varDataAdvanceSettlement = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.finance.getAdvance',
-            'latest',
+            $varAPIWebToken, 
+            'transaction.read.dataList.finance.getAdvance', 
+            'latest', 
             [
-                'parameter' => null,
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
+            'parameter' => null,
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
                 ]
             ]
-        );
-
-        return response()->json($varDataAdvanceSettlement['data']);
+            );
+        $compact = [
+            'data' => $varDataAdvanceRequest['data'],
+            'TransactionMenu' => "AdvanceSettlement",
+            'linkReportTransaction' => "report.form.documentForm.finance.getAdvance"
+        ];
+            
+        return response()->json($compact);
     }
 
     public function AdvanceSettlementListDataById(Request $request)

@@ -8,7 +8,7 @@
     $(".budgetDetail").hide();
     $(".tableShowHideBOQ3").hide();
     $("#sitecode2").prop("disabled", true);
-    $("#request_name2").prop("disabled", true);
+    // $("#request_name2").prop("disabled", true);
     // $("#SaveBrfList").prop("disabled", true);
     $("#dateEnd").prop("disabled", true);
     $("#dateEnd").css("background-color", "white");

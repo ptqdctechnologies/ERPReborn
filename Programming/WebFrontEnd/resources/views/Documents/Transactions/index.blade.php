@@ -16,11 +16,30 @@
           <label style="font-size:15px;position:relative;top:7px;color:white;">Check Document on Process</label>
         </div>
       </div>
+      
       @include('Documents.Functions.Menu.MenuCheckDocument')
-      @if($TransactionMenu == "Advance")
-        @include('Documents.Transactions.DocumentAdvance')
-      @elseif($TransactionMenu == "PurchaseRequisition")
-        @include('Documents.Transactions.DocumentPurchaseRequisition')
+      
+      @if($var == 1)
+      <div class="card" style="position:relative;bottom:10px;">
+        <div class="tab-content p-3" id="nav-tabContent">
+          <div class="row">
+            
+
+            @include('Documents.Transactions.DocumentWorkflow')
+
+            @if($TransactionMenu == "Advance")
+              @include('Documents.Transactions.DocumentAdvance')
+            @elseif($TransactionMenu == "AdvanceSettlement")
+              @include('Documents.Transactions.DocumentAdvanceSettlement')
+            @elseif($TransactionMenu == "PurchaseRequisition")
+              @include('Documents.Transactions.DocumentPurchaseRequisition')
+            @endif
+
+            @include('Documents.Transactions.DocumentApprovalHistory')            
+
+          </div>
+        </div>
+      </div>
       @endif
     </div>
   </section>

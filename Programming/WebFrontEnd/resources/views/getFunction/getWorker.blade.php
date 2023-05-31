@@ -53,7 +53,8 @@
                             '<tbody><tr><td>' + no++ + '</td>',
                             '<td>' + val.personName + '</td>',
                             '<td>' + val.organizationalJobPositionName + '</td>',
-                            '<span style="display:none;"><td>' + val.sys_ID + '</td></span></tr></tbody>',
+                            '<span style="display:none;"><td>' + val.sys_ID + '</td></span>',
+                            '<span style="display:none;"><td>' + val.contactNumber + '</td></span></tr></tbody>',
                         ]).draw();
                     });
                 }
@@ -99,12 +100,12 @@
         var row = $(this).closest("tr");    
         var sys_id = row.find("td:nth-child(4)").text();
         var name = row.find("td:nth-child(2)").text();
-        var position = row.find("td:nth-child(3)").text();
+        var contactNumber = row.find("td:nth-child(5)").text();
 
         $("#request_name_id").val(sys_id);
         $("#request_name").val(name);
         $("#request_position").val(position);
-        $("#contactPhone").val(sys_id);
+        $("#contactPhone").val(contactNumber);
 
     });
     

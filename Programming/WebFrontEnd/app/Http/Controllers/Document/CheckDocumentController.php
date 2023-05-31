@@ -10,8 +10,8 @@ class CheckDocumentController extends Controller
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-    
         $compact = [
+            'var' => 0,
             'TransactionMenu' => 0,
             'varAPIWebToken' => $varAPIWebToken,
             'statusRevisi' => 0,
@@ -41,6 +41,7 @@ class CheckDocumentController extends Controller
         // dd($varData['data'][0]['document']);
 
         $compact = [
+            'var' => 1,
             'TransactionMenu' => $request->TransactionMenu,
             'varAPIWebToken' => $varAPIWebToken,
             'statusRevisi' => 0,
@@ -50,10 +51,4 @@ class CheckDocumentController extends Controller
 
         return view('Documents.Transactions.index', $compact);
     }
-        
-
-    //     return redirect()->route('CheckDocument.index', $compact);
-
-    // }
-
 }

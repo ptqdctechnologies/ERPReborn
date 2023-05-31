@@ -64,7 +64,7 @@
 
 <script>
 
-    $('.ShowDocument').on('click', function () {
+    $('.ViewDocument').on('click', function () {
         $(".ShowDocument").hide();
         $(".ShowDocumentList").show();
         $(".InternalNotes").show();
