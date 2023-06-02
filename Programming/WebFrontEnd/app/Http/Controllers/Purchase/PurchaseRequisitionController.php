@@ -128,9 +128,13 @@ class PurchaseRequisitionController extends Controller
                 ]
             ]
         );
-        // dd($varDataPurchaseRequisition);
+        $compact = [
+            'data' => $varDataPurchaseRequisition['data'],
+            'TransactionMenu' => "PurchaseRequisition",
+            'linkReportTransaction' => "report.form.documentForm.supplyChain.getPurchaseRequisition"
+        ];
             
-        return response()->json($varDataPurchaseRequisition['data']);
+        return response()->json($compact);
     }
 
     public function RevisionPrIndex(Request $request)

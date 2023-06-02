@@ -10,15 +10,12 @@ class CheckDocumentController extends Controller
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        
-        $var = 0;
-        if(!empty($_GET['var'])){
-           $var =  $_GET['var'];
-        }
         $compact = [
-            'var' => $var,
+            'var' => 0,
+            'TransactionMenu' => 0,
             'varAPIWebToken' => $varAPIWebToken,
             'statusRevisi' => 0,
+            'document_number' => ''
         ];
         
         return view('Documents.Transactions.index', $compact);
@@ -26,12 +23,13 @@ class CheckDocumentController extends Controller
     public function ShowDocument(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $varLinkReportTransaction = $request->linkReportTransaction;
      
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
-        'report.form.documentForm.finance.getAdvance', 
-        // 'report.form.documentForm.supplyChain.getPurchaseRequisition',
+        $varLinkReportTransaction,
         'latest',
         [
         'parameter' => [
@@ -39,22 +37,18 @@ class CheckDocumentController extends Controller
             ]
         ]
         );
-        
-        // dd($varData);
+
+        // dd($varData['data'][0]['document']);
 
         $compact = [
-            'var' => 0,
+            'var' => 1,
+            'TransactionMenu' => $request->TransactionMenu,
             'varAPIWebToken' => $varAPIWebToken,
             'statusRevisi' => 0,
             'data' => $varData['data'][0]['document'],
+            'document_number' => $request->document_number
         ];
 
         return view('Documents.Transactions.index', $compact);
     }
-        
-
-    //     return redirect()->route('CheckDocument.index', $compact);
-
-    // }
-
 }

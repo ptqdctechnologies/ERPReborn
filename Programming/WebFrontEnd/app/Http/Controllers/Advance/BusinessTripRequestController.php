@@ -9,57 +9,17 @@ use App\Http\Controllers\Controller;
 class BusinessTripRequestController extends Controller
 {
     public function index(Request $request)
-    {
+    {   
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionBusinessTripRequest");
-
-        $varDataAccomodation = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'dataPickList.humanResource.getBusinessTripAccommodationArrangementsType', 
-            'latest',
-            [
-            'parameter' => [
-                ]
-            ]
-            );
-
-        $varDataTransport = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'dataPickList.humanResource.getBusinessTripTransportationType', 
-            'latest',
-            [
-            'parameter' => [
-                ]
-            ]
-            );
-
-        $varDataApplicable = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'dataPickList.master.getPaymentDisbursementMethod', 
-            'latest',
-            [
-            'parameter' => [
-                ]
-            ]
-            );
-        // dd($varDataApplicable);
 
         $var = 0;
         if(!empty($_GET['var'])){
            $var =  $_GET['var'];
         }
-        $PaymentID = [81000000000001, 81000000000003, 221000000000041, 221000000000042, 221000000000040, 221000000000031, 221000000000035, 221000000000016, 221000000000018, 221000000000017, 221000000000002, 221000000000004, 221000000000003, 221000000000029, 221000000000026, 221000000000028, 221000000000027, 221000000000014, 221000000000011, 221000000000013, 221000000000012, 221000000000033, 221000000000037, 221000000000038, 221000000000044, 221000000000006, 221000000000007, 221000000000009, 221000000000008, 221000000000021, 221000000000020, 221000000000022, 221000000000024, 221000000000023, 81000000000004];
         $compact = [
             'var' => $var,
             'varAPIWebToken' => $varAPIWebToken,
-            'varDataAccomodation' => $varDataAccomodation['data']['data'],
-            'varDataTransport' => $varDataTransport['data']['data'],
-            'varDataApplicable' => $varDataApplicable['data'],
-            'PaymentID' => $PaymentID,
-            'spasi' => "<span style='color: white;'>_____</span>",
             'statusRevisi' => 0,
         ];
     
@@ -69,50 +29,47 @@ class BusinessTripRequestController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $input = $request->all();
-        dd($input);
+        // dd($input);
 
         $TransportationTypeID = array_map('intval', explode(',', $input['TransportTypeApplicable']));
-
         $detailBrf = [];
-        $sequenceBrf = [];
 
-        for($m = 0; $m < $input['totalSequence']; $m++){
-
-            $paymentSequenceID = explode(",", $input['paymentSequenceID'][$m]);
-            $paymentSequenceValue = explode(",", $input['paymentSequenceValue'][$m]);
-
-            for($n =0; $n < $input['totalPaymentSequence']; $n++){
-
-                //DETAIL
-                $detailBrf[$n] = [
-                    'entities' => [
-                        'businessTripCostComponentEntity_RefID' => (int) $paymentSequenceID[$n],
-                        'amountCurrency_RefID' => 62000000000001,
-                        'amountCurrencyValue' => (int) $paymentSequenceValue[$n],
-                        'amountCurrencyExchangeRate' => 1,
-                        'remarks' => '5 Des 2022'                                    
-                    ]                                   
-                ];
-            }
-
-            //SEQUENCE
-            $sequenceBrf[$m] = [
+        //DETAIL
+        $count_product = count($input['var_product_id']);
+        for($n =0; $n < $count_product; $n++){
+            $detailBrf[$n] = [
+                [
                 'entities' => [
-                    'sequence' => $m + 1,
-                    'requesterWorkerJobsPosition_RefID' => (int)$input['request_name_id'],
-                    'startDateTimeTZ' => '2022-10-10',
-                    'finishDateTimeTZ' => '2022-10-14',
-                    'businessTripAccommodationArrangementsType_RefID' =>  (int)$input['paymentApplicable'],
-                    'businessTripTransportationType_RefIDArray' => $TransportationTypeID,
-                    'remarks' => 'Catatan',
-                    'additionalData' => [
-                        'itemList' => [
-                            "items" => $detailBrf
-                        ]
+                    'businessTripCostComponentEntity_RefID' => 81000000000001,
+                    'amountCurrency_RefID' => (int)$input['var_currency_id'][$n],
+                    'amountCurrencyValue' => (int)$input['var_allowance'][$n],
+                    'amountCurrencyExchangeRate' => 1,
+                    'remarks' => ''                                    
+                    ]                                   
+                ],
+                [
+                'entities' => [
+                    'businessTripCostComponentEntity_RefID' => 81000000000003,
+                    'amountCurrency_RefID' => (int)$input['var_currency_id'][$n],
+                    'amountCurrencyValue' => (int)$input['var_accomodation'][$n],
+                    'amountCurrencyExchangeRate' => 1,
+                    'remarks' => ''                                    
+                    ]                                   
+                ],
+                [
+                'entities' => [
+                    'businessTripCostComponentEntity_RefID' => 81000000000004,
+                    'amountCurrency_RefID' => (int)$input['var_currency_id'][$n],
+                    'amountCurrencyValue' => (int)$input['var_other'][$n],
+                    'amountCurrencyExchangeRate' => 1,
+                    'remarks' => ''  
                     ]
-                ]
+                ],
             ];
         }
+
+        // dd($detailBrf);
+
         //HEADER
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -120,24 +77,45 @@ class BusinessTripRequestController extends Controller
             'transaction.create.humanResource.setPersonBusinessTrip', 
             'latest', 
             [
-            'entities' => [
-                "documentDateTimeTZ" => '2022-10-10',
-                'combinedBudgetSectionDetail_RefID' => (int) $input['var_combinedBudget'],
-                'paymentDisbursementMethod_RefID' => (int) $input['paymentApplicable'],
-                "additionalData" => [
-                    "itemList" => [
-                        "items" => $sequenceBrf
+                'entities' => 
+                [
+                    "documentDateTimeTZ" => $input['var_date'],
+                    'combinedBudgetSectionDetail_RefID' => (int) $input['var_combinedBudgetSectionDetail_RefID'],
+                    'paymentDisbursementMethod_RefID' => (int) $input['paymentApplicable'],
+                    "additionalData" => [
+                        "itemList" => [
+                            'items' => [
+                                    [
+                                    'entities' => [
+                                        'sequence' => 1,
+                                        'requesterWorkerJobsPosition_RefID' => (int)$input['request_name_id'],
+                                        'startDateTimeTZ' => $input['dateCommance'],
+                                        'finishDateTimeTZ' => $input['dateEnd'],
+                                        'businessTripAccommodationArrangementsType_RefID' =>  (int)$input['accomodationArrange'],
+                                        'businessTripTransportationType_RefIDArray' => $TransportationTypeID,
+                                        'remarks' => 'Catatan',
+                                        'additionalData' => [
+                                            'itemList' => [
+                                                'items' =>  $detailBrf
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ]
                         ]
                     ]
                 ]
             ]                    
         );
 
-        $compact = [
-            "brfnumber"=> $varData['data']['recordID'],
-        ];
+        dd($varData);
 
-        return response()->json($compact); 
+
+        // $compact = [
+        //     "brfnumber"=> $varData['data']['recordID'],
+        // ];
+
+        // return response()->json($compact); 
     }
     
     public function BusinessTripRequestListData(Request $request)
@@ -158,8 +136,13 @@ class BusinessTripRequestController extends Controller
                 ]
             ]
             );
+        $compact = [
+            'data' => $varDataAdvanceRequest['data'],
+            'TransactionMenu' => "BussinesTripRequest",
+            'linkReportTransaction' => "report.form.documentForm.finance.getAdvance"
+        ];
             
-        return response()->json($varDataAdvanceRequest['data']);
+        return response()->json($compact);
     }
     
     public function RevisionBusinessTripRequestIndex(Request $request)

@@ -81,30 +81,21 @@
                     <div class="card-body file-attachment">
                       <div class="row">
                         <div class="col-md-12">
-                          <!-- <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID2" value="" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID"> -->
-                          <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="{{ $dataAdvance['attachmentFiles']['main']['log_FileUpload_Pointer_RefID']}}" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID" hidden>
+                          <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="{{ $dataAdvance['attachmentFiles']['main']['logFileUploadPointer_RefID']}}" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID" hidden>
                           <input type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" name="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" onchange="javascript: @php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataInput_Log_FileUpload_Pointer_RefID_Action', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord'); @endphp;" />
                         </div>
                         <br><br>
                         <div class="col-md-12">
                           <div class="card-body table-responsive p-0" style="height:125px;">
-
                             <table class="table table-head-fixed table-sm text-nowrap">
                               <div class="form-group input_fields_wrap">
-
                                 <div class="input-group control-group">
-
-                                  <!-- <div id="dataShow_MasterFileRecord" style="border-style:solid; border-width:1px;"></div> -->
                                   <div id="dataShow_ActionPanel"></div>
-
                                 </div>
                               </div>
-
                             </table>
-
                           </div>
                         </div>
-
                       </div>
                     </div>
                   </div>
@@ -167,22 +158,16 @@
                       <tbody>
 
                       </tbody>
-
-                      <!-- <tfoot style="border: 1px solid #ced4da;position:relative;top:5px;">
-                        <tr>
-                          <th colspan="6"></th>
-                          <th style="text-align: center;border: 1px solid #ced4da;">Total Item : </th>
-                          <th style="border: 1px solid #ced4da;"><span id="TotalQty"></span></th>
-                          <th style="border: 1px solid #ced4da;"><span id="GrandTotal"></span></th>
-                        </tr>
-                      </tfoot> -->
                     </table>
                   </div>
 
                   <div class="card-body AdvanceListCart">
                     <table style="float:right;">
                       <tr>
-                        <th style="position: relative;right:45px;"> Total Item : <span id="TotalQty"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="GrandTotal"></span></th>
+                        <th> Total Item :
+                          <!-- <span id="TotalQty"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+                          <span id="GrandTotal"></span>
+                        </th>
                       </tr>
                     </table>
                   </div>
@@ -211,7 +196,7 @@
                             <table>
                               <tr>
                                 <td>
-                                  <textarea name="var_remark" id="putRemark" rows="2" cols="1000" class="form-control" required>{{$dataAdvance['remarks']}}</textarea>
+                                  <textarea name="var_remark" id="putRemark" rows="2" cols="1000" class="form-control" required>{{$dataAdvance['advanceRemarks']}}</textarea>
                                 </td>
                               </tr>
                             </table>

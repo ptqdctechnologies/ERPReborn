@@ -18,6 +18,7 @@ class AdvanceRequestController extends Controller
         if(!empty($_GET['var'])){
            $var =  $_GET['var'];
         }
+        
         $compact = [
             'var' => $var,
             'varAPIWebToken' => $varAPIWebToken,
@@ -136,8 +137,13 @@ class AdvanceRequestController extends Controller
                 ]
             ]
             );
+        $compact = [
+            'data' => $varDataAdvanceRequest['data'],
+            'TransactionMenu' => "Advance",
+            'linkReportTransaction' => "report.form.documentForm.finance.getAdvance"
+        ];
             
-        return response()->json($varDataAdvanceRequest['data']);
+        return response()->json($compact);
     }
 
     public function RevisionAdvanceIndex(Request $request)
@@ -186,8 +192,8 @@ class AdvanceRequestController extends Controller
                         "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudgetSectionDetail_RefID'][$n],
                         "product_RefID" => (int) $input['var_product_id'][$n],
                         "quantity" => (float) $input['var_quantity'][$n],
-                        "quantityUnit_RefID" => 73000000000001,
-                        "productUnitPriceCurrency_RefID" => 62000000000001,
+                        "quantityUnit_RefID" => (int) $input['var_qty_id'][$n],
+                        "productUnitPriceCurrency_RefID" => (int) $input['var_currency_id'][$n],
                         "productUnitPriceCurrencyValue" => (float) $input['var_price'][$n],
                         "productUnitPriceCurrencyExchangeRate" => 1,
                         "remarks" => 'Catatan Detail'
@@ -203,20 +209,20 @@ class AdvanceRequestController extends Controller
             [
                 'recordID' => (int)$input['var_recordID'],
                 'entities' => [
-                    "documentDateTimeTZ" => '2022-03-07',
+                    "documentDateTimeTZ" => $input['var_date'],
                     "log_FileUpload_Pointer_RefID" => (int)$input['dataInput_Log_FileUpload_Pointer_RefID'],
                     "requesterWorkerJobsPosition_RefID" => (int)$input['request_name_id'],
-                    "beneficiaryWorkerJobsPosition_RefID" => 25000000000439,
-                    "beneficiaryBankAccount_RefID" => 167000000000001,
+                    "beneficiaryWorkerJobsPosition_RefID" => (int)$input['beneficiary_name_id'],
+                    "beneficiaryBankAccount_RefID" => (int)$input['beneficiaryBankAccount_RefID'],
                     "internalNotes" => 'My Internal Notes',
                     "remarks" => $input['var_remark'],
                     "additionalData" => [
                         "itemList" => [
                             "items" => $advanceDetail
-                            ]
                         ]
                     ]
-                ]                   
+                ]
+            ]                   
         );
         $compact = [
             "status"=>true,
@@ -224,30 +230,26 @@ class AdvanceRequestController extends Controller
 
         return response()->json($compact); 
     }
-    public function AdvanceListCartRevision(Request $request)
-    {
+        public function AdvanceListCartRevision(Request $request)
+        {
 
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $advance_RefID = $request->input('advance_RefID');
+            $varAPIWebToken = $request->session()->get('SessionLogin');
+            $advance_RefID = $request->input('advance_RefID');
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken, 
-        'transaction.read.dataList.finance.getAdvanceDetail', 
-        'latest', 
-        [
-        'parameter' => [
-            'advance_RefID' => (int) $advance_RefID,
-            ],
-        'SQLStatement' => [
-            'pick' => null,
-            'sort' => null,
-            'filter' => null,
-            'paging' => null
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'report.form.documentForm.finance.getAdvance', 
+            'latest',
+            [
+            'parameter' => [
+                'recordID' => (int) $advance_RefID,
+                ]
             ]
-        ]
-        );
-        return response()->json($varData['data']);
-    }
+            );
+            
+            
+            return response()->json($varData['data'][0]['document']['content']['itemList']['ungrouped']);
+        }
     
 }

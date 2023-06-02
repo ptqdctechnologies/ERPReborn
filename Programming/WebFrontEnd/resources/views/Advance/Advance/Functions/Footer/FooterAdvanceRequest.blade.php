@@ -12,9 +12,9 @@
         $(".advance-detail").hide();
         
         $("#product_id2").prop("disabled", true);
-        // $("#bank_name2").prop("disabled", true);
-        // $("#bank_account2").prop("disabled", true);
-        // $("#submitArf").prop("disabled", true);
+        $("#bank_name2").prop("disabled", true);
+        $("#bank_account2").prop("disabled", true);
+        $("#submitArf").prop("disabled", true);
         
     });
 </script>
@@ -100,11 +100,14 @@
             success: function(data) {
                 var no = 1; applied = 0; status = ""; statusDisplay = [];statusDisplay2 = []; statusForm = [];
                 $.each(data, function(key, val2) {
-                    if(val2.quantityAbsorption == "0.00" && val2.quantity == "0.00"){
+
+                    var used = val2.quantityAbsorptionRatio * 100;
+
+                    if(used == "0.00" && val2.quantity == "0.00"){
                         var applied = 0;
                     }
                     else{
-                        var applied = Math.round(parseFloat(val2.quantityAbsorption) / parseFloat(val2.quantity) * 100);
+                        var applied = Math.round(used);
                     }
                     if(applied >= 100){
                         var status = "disabled";
@@ -113,11 +116,13 @@
                         statusDisplay[key] = "";
                         statusDisplay2[key] = "none";
                         statusForm[key] = "disabled";
+                        balance_qty = "-";
                     }
                     else{
                         statusDisplay[key] = "none";
                         statusDisplay2[key] = "";
                         statusForm[key] = "";
+                        balance_qty = currencyTotal(val2.quantityRemain);
                     }
                     
                     var html = '<tr>' +
@@ -125,7 +130,7 @@
                         '<input name="getWorkName[]" value="'+ val2.combinedBudgetSubSectionLevel1Name +'" type="hidden">' +
                         '<input name="getProductId[]" value="'+ val2.product_RefID +'" type="hidden">' +
                         '<input name="getProductName[]" value="'+ val2.productName +'" type="hidden">' +
-                        '<input name="getQtyId[]" value="'+ val2.quantityUnit_RefID +'" type="hidden">' +
+                        '<input name="getQtyId[]" id="budget_qty_id'+ key +'" value="'+ val2.quantityUnit_RefID +'" type="hidden">' +
                         '<input name="getQty[]" id="budget_qty'+ key +'" value="'+ val2.quantity +'" type="hidden">' +
                         '<input name="getPrice[]" id="budget_price'+ key +'" value="'+ val2.priceBaseCurrencyValue +'" type="hidden">' +
                         '<input name="getUom[]" value="'+ val2.quantityUnitName +'" type="hidden">' +
@@ -156,15 +161,16 @@
                         '<input id="TotalBudget'+ key +'" type="hidden">' +
 
                         '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.quantity) + '</span>' + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_qty2'+ key +'">' + currencyTotal(val2.quantity) + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_qty2'+ key +'">' + balance_qty + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.priceBaseCurrencyValue) + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.priceBaseCurrencyISOCode + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span id="total_budget'+ key +'">' + currencyTotal(val2.quantity * val2.priceBaseCurrencyValue) + '</span>' + '</td>' +
                         // '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.priceBaseCurrencyValue) + '</span>' + '</td>' +
 
                         '<td class="sticky-col forth-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" onkeypress="return isNumberKey(this, event);" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
                         '<td class="sticky-col third-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req'+ key +'" style="border-radius:0;" name="price_req[]" class="form-control price_req" onkeypress="return isNumberKey(this, event);" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
                         '<td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req'+ key +'" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled>' + '</td>' +
-                        '<td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_balance_qty'+ key +'" style="border-radius:0;width:90px;background-color:white;" name="total_balance_qty[]" class="form-control total_balance_qty" autocomplete="off" disabled value="' + currencyTotal(val2.quantity) + '">' + '</td>' +
+                        '<td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_balance_qty'+ key +'" style="border-radius:0;width:90px;background-color:white;" name="total_balance_qty[]" class="form-control total_balance_qty" autocomplete="off" disabled value="' + balance_qty + '">' + '</td>' +
 
                         '</tr>';
                     $('table.tableBudgetDetail tbody').append(html);
@@ -175,7 +181,7 @@
                         $('#qty_req'+key).keyup(function() {
                             $(this).val(currency($(this).val()));
                             var qty_val = $(this).val().replace(/,/g, '');
-                            var budget_qty_val = $("#budget_qty"+key).val();
+                            var budget_qty_val = $("#budget_qty"+key).val().replace(/,/g, '');
                             var price_req = $("#price_req"+key).val().replace(/,/g, '');
                             var total_budget = $("#total_budget"+key).html().replace(/,/g, '');
                             var total = qty_val * price_req;
@@ -214,7 +220,7 @@
                             $(this).val(currency($(this).val()));
                             var price_val = $(this).val().replace(/,/g, '');
                             var budget_price_val = $("#budget_price"+key).val().replace(/,/g, '');
-                            var qty_req = $("#qty_req"+key).val();
+                            var qty_req = $("#qty_req"+key).val().replace(/,/g, '');
                             var total_budget = $("#total_budget"+key).html().replace(/,/g, '');
                             var total = price_val * qty_req;
                             
@@ -270,7 +276,7 @@
                         $('#qty_req'+key).keyup(function() {
                             $(this).val(currency($(this).val()));
                             var qty_val = $(this).val().replace(/,/g, '');
-                            var budget_qty_val = $("#budget_qty"+key).val();
+                            var budget_qty_val = $("#budget_qty"+key).val().replace(/,/g, '');
                             var price_req = $("#price_req"+key).val().replace(/,/g, '');
                             var total = qty_val * price_req;
 
@@ -309,7 +315,7 @@
                             $(this).val(currency($(this).val()));
                             var price_val = $(this).val().replace(/,/g, '');
                             var budget_price_val = $("#budget_price"+key).val().replace(/,/g, '');
-                            var qty_req = $("#qty_req"+key).val();
+                            var qty_req = $("#qty_req"+key).val().replace(/,/g, '');
                             var total = price_val * qty_req;
                             
                             if (price_val == "") {
@@ -428,37 +434,37 @@
     $(function() {
         $("#formSubmitArf").on("submit", function(e) { //id of form 
             e.preventDefault();
-            // var valRequestName = $("#request_name").val();
-            // var valBeneficiaryName = $("#beneficiary_name").val();
-            // var valBankName = $("#bank_name").val();
-            // var valBankAccount = $("#bank_account").val();
-            // var valRemark = $("#putRemark").val();
-            // $("#request_name").css("border", "1px solid #ced4da");
-            // $("#putRemark").css("border", "1px solid #ced4da");
+            var valRequestName = $("#request_name").val();
+            var valBeneficiaryName = $("#beneficiary_name").val();
+            var valBankName = $("#bank_name").val();
+            var valBankAccount = $("#bank_account").val();
+            var valRemark = $("#putRemark").val();
+            $("#request_name").css("border", "1px solid #ced4da");
+            $("#putRemark").css("border", "1px solid #ced4da");
 
-            // if (valRequestName === "") {
-            //     $("#request_name").focus();
-            //     $("#request_name").attr('required', true);
-            //     $("#request_name").css("border", "1px solid red");
-            // } else if (valBeneficiaryName === "") {
-            //     $("#beneficiary_name").focus();
-            //     $("#beneficiary_name").attr('required', true);
-            //     $("#beneficiary_name").css("border", "1px solid red");
-            // } else if (valBankName === "") {
-            //     $("#bank_name").focus();
-            //     $("#bank_name").attr('required', true);
-            //     $("#bank_name").css("border", "1px solid red");
-            // } else if (valBankAccount === "") {
-            //     $("#bank_account").focus();
-            //     $("#bank_account").attr('required', true);
-            //     $("#bank_account").css("border", "1px solid red");
-            // } else if (valRemark === "") {
-            //     $("#putRemark").focus();
-            //     $("#putRemark").attr('required', true);
-            //     $("#putRemark").css("border", "1px solid red");
-            // } else {
+            if (valRequestName === "") {
+                $("#request_name").focus();
+                $("#request_name").attr('required', true);
+                $("#request_name").css("border", "1px solid red");
+            } else if (valBeneficiaryName === "") {
+                $("#beneficiary_name").focus();
+                $("#beneficiary_name").attr('required', true);
+                $("#beneficiary_name").css("border", "1px solid red");
+            } else if (valBankName === "") {
+                $("#bank_name").focus();
+                $("#bank_name").attr('required', true);
+                $("#bank_name").css("border", "1px solid red");
+            } else if (valBankAccount === "") {
+                $("#bank_account").focus();
+                $("#bank_account").attr('required', true);
+                $("#bank_account").css("border", "1px solid red");
+            } else if (valRemark === "") {
+                $("#putRemark").focus();
+                $("#putRemark").attr('required', true);
+                $("#putRemark").css("border", "1px solid red");
+            } else {
 
-            //     $("#submitArf").prop("disabled", true);
+                $("#submitArf").prop("disabled", true);
 
                 varFileUpload_UniqueID = "Upload";
                 window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
@@ -595,7 +601,7 @@
                         })
                     }
                 })
-            // }
+            }
         });
 
     });

@@ -8,8 +8,8 @@
     $(".budgetDetail").hide();
     $(".tableShowHideBOQ3").hide();
     $("#sitecode2").prop("disabled", true);
-    $("#request_name2").prop("disabled", true);
-    $("#saveBrfList").prop("disabled", true);
+    // $("#request_name2").prop("disabled", true);
+    // $("#SaveBrfList").prop("disabled", true);
     $("#dateEnd").prop("disabled", true);
     $("#dateEnd").css("background-color", "white");
     $("#dateArrival").prop("disabled", true);
@@ -106,11 +106,13 @@
           success: function(data) {
               var no = 1; applied = 0; status = ""; statusDisplay = [];statusDisplay2 = []; statusForm = [];
               $.each(data, function(key, val2) {
-                  if(val2.quantityAbsorption == "0.00" && val2.quantity == "0.00"){
+                var used = val2.quantityAbsorptionRatio * 100;
+
+                  if(used == "0.00" && val2.quantity == "0.00"){
                       var applied = 0;
                   }
                   else{
-                      var applied = Math.round(parseFloat(val2.quantityAbsorption) / parseFloat(val2.quantity) * 100);
+                      var applied = Math.round(used);
                   }
                   if(applied >= 100){
                       var status = "disabled";
@@ -131,13 +133,13 @@
                       '<input name="getWorkName[]" value="'+ val2.combinedBudgetSubSectionLevel1Name +'" type="hidden">' +
                       '<input name="getProductId[]" value="'+ val2.product_RefID +'" type="hidden">' +
                       '<input name="getProductName[]" value="'+ val2.productName +'" type="hidden">' +
-                      '<input name="getQtyId[]" value="'+ val2.quantityUnit_RefID +'" type="hidden">' +
+                      '<input name="getQtyId[]" id="budget_qty_id'+ key +'" value="'+ val2.quantityUnit_RefID +'" type="hidden">' +
                       '<input name="getQty[]" id="budget_qty'+ key +'" value="'+ val2.quantity +'" type="hidden">' +
-                      '<input name="getPrice[]" id="budget_price'+ key +'" value="'+ val2.unitPriceBaseCurrencyValue +'" type="hidden">' +
-                      '<input name="getBudgetTotal[]" id="budget_total'+ key +'" value="'+ (val2.quantity * val2.unitPriceBaseCurrencyValue) +'" type="hidden">' +
+                      '<input name="getPrice[]" id="budget_price'+ key +'" value="'+ val2.priceBaseCurrencyValue +'" type="hidden">' +
+                      '<input name="getBudgetTotal[]" id="budget_total'+ key +'" value="'+ (val2.quantity * val2.priceBaseCurrencyValue) +'" type="hidden">' +
                       '<input name="getUom[]" value="'+ val2.quantityUnitName +'" type="hidden">' +
                       '<input name="getCurrency[]" value="'+ val2.priceBaseCurrencyISOCode +'" type="hidden">' +
-                      '<input name="getCurrencyId[]" value="'+ val2.sys_BaseCurrency_RefID +'" type="hidden">' +
+                      '<input name="getCurrencyId[]" value="'+ val2.priceCurrency_RefID +'" type="hidden">' +
                       '<input name="combinedBudgetSectionDetail_RefID[]" value="'+ val2.sys_ID +'" type="hidden">' +
                       '<input name="combinedBudget_RefID" value="'+ val2.combinedBudget_RefID +'" type="hidden">' +
 
@@ -163,15 +165,15 @@
                       '<input id="TotalBudget'+ key +'" type="hidden">' +
 
                       '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.quantity) + '</span>' + '</td>' +
-                      '<td style="border:1px solid #e9ecef;">' + '<span>' + 1 + '</span>' + '</td>' +
-                      '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.unitPriceBaseCurrencyValue) + '</span>' + '</td>' +
-                      '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_value2'+ key +'">' + currencyTotal(val2.quantity * val2.unitPriceBaseCurrencyValue) + '</span>' + '</td>' +
+                      '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.quantityRemain) + '</span>' + '</td>' +
+                      '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.priceBaseCurrencyValue) + '</span>' + '</td>' +
+                      '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_value2'+ key +'">' + currencyTotal(val2.quantity * val2.priceBaseCurrencyValue) + '</span>' + '</td>' +
 
                       '<td class="sticky-col fifth-col-brf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="allowance_req'+ key +'" style="border-radius:0;" name="allowance_req[]" class="form-control allowance_req" onkeypress="return isNumberKey(this, event);" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
                       '<td class="sticky-col forth-col-brf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="accomodation_req'+ key +'" style="border-radius:0;" name="accomodation_req[]" class="form-control accomodation_req" onkeypress="return isNumberKey(this, event);" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
                       '<td class="sticky-col third-col-brf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="other_req'+ key +'" style="border-radius:0;" name="other_req[]" class="form-control total_req" onkeypress="return isNumberKey(this, event);" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
                       '<td class="sticky-col second-col-brf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req'+ key +'" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled>' + '</td>' +
-                      '<td class="sticky-col first-col-brf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_balance_value'+ key +'" style="border-radius:0;width:90px;background-color:white;" name="total_balance_value[]" class="form-control total_balance_value" autocomplete="off" disabled value="' + currencyTotal(val2.quantity * val2.unitPriceBaseCurrencyValue) + '">' + '</td>' +
+                      '<td class="sticky-col first-col-brf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_balance_value'+ key +'" style="border-radius:0;width:90px;background-color:white;" name="total_balance_value[]" class="form-control total_balance_value" autocomplete="off" disabled value="' + currencyTotal(val2.quantity * val2.priceBaseCurrencyValue) + '">' + '</td>' +
 
                       '</tr>';
                   $('table.tableBudgetDetail tbody').append(html);
@@ -359,15 +361,18 @@
                     '<input type="hidden" name="var_date" value="' + date + '">' +
                     '<input type="hidden" name="var_combinedBudgetSectionDetail_RefID[]" value="' + combinedBudgetSectionDetail_RefID[index] + '">' +
                     '<input type="hidden" name="var_combinedBudget_RefID" value="' + combinedBudget_RefID + '">' +
+                    '<input type="hidden" name="var_allowance[]" value="' + allowance_req[index] + '">' +
+                    '<input type="hidden" name="var_accomodation[]" value="' + accomodation_req[index] + '">' +
+                    '<input type="hidden" name="var_other[]" value="' + other_req[index] + '">' +
                     
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkId[index] + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkName[index] + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductId + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductName + '</td>' +
-                    // '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putUom + '</td>' +
-                    // '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getCurrency[index] + '</td>' +
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="accomodation_req2'+ index +'">' + currencyTotal(allowance_req[index]) + '</span>' + '</td>' +
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="allowance_req2'+ index +'">' + currencyTotal( accomodation_req[index]) + '</span>' + '</td>' +
+                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putUom + '</td>' +
+                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getCurrency[index] + '</td>' +
+                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="allowance_req2'+ index +'">' + currencyTotal(allowance_req[index]) + '</span>' + '</td>' +
+                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="accomodation_req2'+ index +'">' + currencyTotal( accomodation_req[index]) + '</span>' + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="other_req2'+ index +'">' + currencyTotal(other_req[index]) + '</span>' + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="total_req2'+ index +'">' + currencyTotal(total_req[index]) + '</span>' + '</td>' +
                     '</tr>';
@@ -378,7 +383,7 @@
                 $("#TotalAccomodation").html(currencyTotal(TotalAccomodation));
                 $("#TotalOther").html(currencyTotal(TotalOther));
 
-                $("#saveBrfList").prop("disabled", false);
+                $("#SaveBrfList").prop("disabled", false);
             }
         });
         
@@ -582,47 +587,47 @@
       $("#reasonTravel").css("border", "1px solid #ced4da");
       document.getElementsByClassName("form-group")[5].style.border = '1px solid #ced4da';
       
-      if (projectcode === "") {
-        $("#projectcode").focus();
-        $("#projectcode").attr('required', true);
-        $("#projectcode").css("border", "1px solid red");
-      } else if (sitecode === "") {
-        $("#sitecode").focus();
-        $("#sitecode").attr('required', true);
-        $("#sitecode").css("border", "1px solid red");
-      } else if (request_name === "") {
-        $("#request_name").focus();
-        $("#request_name").attr('required', true);
-        $("#request_name").css("border", "1px solid red");
-      }  else if (contactPhone === "") {
-        $("#contactPhone").focus();
-        $("#contactPhone").attr('required', true);
-        $("#contactPhone").css("border", "1px solid red");
-      }  else if (dateCommance === "") {
-        $("#dateCommance").focus();
-        $("#dateCommance").attr('required', true);
-        $("#dateCommance").css("border", "1px solid red");
-      }  else if (dateEnd === "") {
-        $("#dateEnd").focus();
-        $("#dateEnd").attr('required', true);
-        $("#dateEnd").css("border", "1px solid red");
-      }  else if (headStationLocation === "") {
-        $("#headStationLocation").focus();
-        $("#headStationLocation").attr('required', true);
-        $("#headStationLocation").css("border", "1px solid red");
-      }  else if (bussinesLocation === "") {
-        $("#bussinesLocation").focus();
-        $("#bussinesLocation").attr('required', true);
-        $("#bussinesLocation").css("border", "1px solid red");
-      } else if (reasonTravel === "") {
-        $("#reasonTravel").focus();
-        $("#reasonTravel").attr('required', true);
-        $("#reasonTravel").css("border", "1px solid red");
-      } else if (arrayTransportTypeApplicable.length == 0) {
-        $(".FollowingCondition").show();
-        document.getElementsByClassName("form-group")[5].style.border = '1px solid red';
-      }  
-      else {
+      // if (projectcode === "") {
+      //   $("#projectcode").focus();
+      //   $("#projectcode").attr('required', true);
+      //   $("#projectcode").css("border", "1px solid red");
+      // } else if (sitecode === "") {
+      //   $("#sitecode").focus();
+      //   $("#sitecode").attr('required', true);
+      //   $("#sitecode").css("border", "1px solid red");
+      // } else if (request_name === "") {
+      //   $("#request_name").focus();
+      //   $("#request_name").attr('required', true);
+      //   $("#request_name").css("border", "1px solid red");
+      // }  else if (contactPhone === "") {
+      //   $("#contactPhone").focus();
+      //   $("#contactPhone").attr('required', true);
+      //   $("#contactPhone").css("border", "1px solid red");
+      // }  else if (dateCommance === "") {
+      //   $("#dateCommance").focus();
+      //   $("#dateCommance").attr('required', true);
+      //   $("#dateCommance").css("border", "1px solid red");
+      // }  else if (dateEnd === "") {
+      //   $("#dateEnd").focus();
+      //   $("#dateEnd").attr('required', true);
+      //   $("#dateEnd").css("border", "1px solid red");
+      // }  else if (headStationLocation === "") {
+      //   $("#headStationLocation").focus();
+      //   $("#headStationLocation").attr('required', true);
+      //   $("#headStationLocation").css("border", "1px solid red");
+      // }  else if (bussinesLocation === "") {
+      //   $("#bussinesLocation").focus();
+      //   $("#bussinesLocation").attr('required', true);
+      //   $("#bussinesLocation").css("border", "1px solid red");
+      // } else if (reasonTravel === "") {
+      //   $("#reasonTravel").focus();
+      //   $("#reasonTravel").attr('required', true);
+      //   $("#reasonTravel").css("border", "1px solid red");
+      // } else if (arrayTransportTypeApplicable.length == 0) {
+      //   $(".FollowingCondition").show();
+      //   document.getElementsByClassName("form-group")[5].style.border = '1px solid red';
+      // }  
+      // else {
 
         var arr = [];
         $.each($("input[name='TransportTypeApplicable']:checked"), function(){
@@ -725,7 +730,7 @@
               })
           }
         })
-      }
+      // }
     });
 
   });
