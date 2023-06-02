@@ -31,6 +31,8 @@
               @include('Documents.Transactions.DocumentAdvance')
             @elseif($TransactionMenu == "AdvanceSettlement")
               @include('Documents.Transactions.DocumentAdvanceSettlement')
+            @elseif($TransactionMenu == "BussinesTripRequest")
+              @include('Documents.Transactions.DocumentBussinesTripRequest')
             @elseif($TransactionMenu == "PurchaseRequisition")
               @include('Documents.Transactions.DocumentPurchaseRequisition')
             @endif
