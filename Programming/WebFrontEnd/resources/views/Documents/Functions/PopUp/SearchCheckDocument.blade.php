@@ -18,6 +18,7 @@
                                             <option value=""></option>
                                             <option value="{!! route('AdvanceRequest.AdvanceListData') !!}">Advance</option>
                                             <option value="{!! route('AdvanceSettlement.AdvanceSettlementListData') !!}">Advance Settlement</option>
+                                            <option value="{!! route('BusinessTripRequest.BusinessTripRequestListData') !!}">Bussines Trip Request</option>
                                             <option value="{!! route('PurchaseRequisition.PurchaseRequisitionListData') !!}">Purchase Requisition</option>
                                         </select>
                                     </div>
