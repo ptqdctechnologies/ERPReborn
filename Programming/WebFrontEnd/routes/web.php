@@ -129,25 +129,14 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
 
 
-
-
-
-
-
-
-
     
-    // ARF
-    Route::post('StoreValidateAdvance', 'Advance\AdvanceRequestController@StoreValidateAdvance')->name('AdvanceRequest.StoreValidateAdvance');
-    Route::post('StoreValidateAdvance2', 'Advance\AdvanceRequestController@StoreValidateAdvance2')->name('AdvanceRequest.StoreValidateAdvance2');
+    // ARF 
     Route::post('AdvanceListCartRevision', 'Advance\AdvanceRequestController@AdvanceListCartRevision')->name('AdvanceRequest.AdvanceListCartRevision');
     Route::get('AdvanceListData', 'Advance\AdvanceRequestController@AdvanceListData')->name('AdvanceRequest.AdvanceListData');
     Route::post('RevisionAdvance', 'Advance\AdvanceRequestController@RevisionAdvanceIndex')->name('AdvanceRequest.RevisionAdvance');
     Route::resource('AdvanceRequest', 'Advance\AdvanceRequestController');
 
     // ASF
-    Route::post('StoreValidateAdvanceSettlement', 'Advance\AdvanceSettlementController@StoreValidateAdvanceSettlement')->name('AdvanceSettlement.StoreValidateAdvanceSettlement');
-    Route::post('StoreValidateAdvanceSettlement2', 'Advance\AdvanceSettlementController@StoreValidateAdvanceSettlement2')->name('AdvanceSettlement.StoreValidateAdvanceSettlement2');
     Route::post('StoreValidateAdvanceSettlementRequester', 'Advance\AdvanceSettlementController@StoreValidateAdvanceSettlementRequester')->name('AdvanceSettlement.StoreValidateAdvanceSettlementRequester');
     Route::post('RevisionAdvanceSettlement', 'Advance\AdvanceSettlementController@RevisionAdvanceSettlementIndex')->name('AdvanceSettlement.RevisionAdvanceSettlement');
     Route::get('AdvanceSettlementListData', 'Advance\AdvanceSettlementController@AdvanceSettlementListData')->name('AdvanceSettlement.AdvanceSettlementListData');

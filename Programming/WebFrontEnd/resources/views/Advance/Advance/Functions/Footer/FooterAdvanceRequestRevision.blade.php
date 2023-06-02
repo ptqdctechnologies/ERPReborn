@@ -1,13 +1,11 @@
 <script type="text/javascript">
-    $(document).ready(function() {
-        $("#projectcode2").prop("disabled", true);
-        $("#sitecode2").prop("disabled", true);
-        $("#request_name2").prop("disabled", true);
-        $("#addFromDetailtoCart").prop("disabled", true);
-        $("#showContentBOQ3").hide();
-        $("#product_id2").prop("disabled", true);
-        // $("#submitArf").prop("disabled", true);
-    });
+    $("#projectcode2").prop("disabled", true);
+    $("#sitecode2").prop("disabled", true);
+    $("#request_name2").prop("disabled", true);
+    $("#addFromDetailtoCart").prop("disabled", true);
+    $("#showContentBOQ3").hide();
+    $("#product_id2").prop("disabled", true);
+    // $("#submitArf").prop("disabled", true);
 </script>
 
 <script type="text/javascript">
@@ -31,7 +29,7 @@
         success: function(data) {
             var no = 1; applied = 0; status = ""; statusDisplay = [];statusDisplay2 = []; statusForm = [];
             $.each(data, function(key, value) {
-                TotalBudgetList += +(value.entities.quantity * value.entities.productUnitPriceCurrencyValue);
+                TotalBudgetList += +(value.entities.quantity * value.entities.productUnitPriceBaseCurrencyValue);
                 // TotalQty+= +value.entities.quantity.replace(/,/g, '');
 
                 // TABLE LIST 
@@ -44,9 +42,9 @@
                         '<td style="border:1px solid #e9ecef;">' + value.entities.productName + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + value.entities.quantityUnitName + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + value.entities.priceCurrencyISOCode + '</td>' +
-                        '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ key +'" class="price_req2'+ key +'">' + currencyTotal(value.entities.productUnitPriceCurrencyValue) + '</span>' + '</td>' +
+                        '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ key +'" class="price_req2'+ key +'">' + currencyTotal(value.entities.productUnitPriceBaseCurrencyValue) + '</span>' + '</td>' +
                         '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ key +'" class="qty_req2'+ key +'">' + currencyTotal(value.entities.quantity) + '</span>' + '</td>' +
-                        '<td style="padding-top: 10px;padding-btwottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ key +'" class="total_req2'+ key +'">' + currencyTotal(value.entities.quantity * value.entities.productUnitPriceCurrencyValue) + '</span>' + '</td>' +
+                        '<td style="padding-top: 10px;padding-btwottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ key +'" class="total_req2'+ key +'">' + currencyTotal(value.entities.quantity * value.entities.productUnitPriceBaseCurrencyValue) + '</span>' + '</td>' +
                     '</tr>';
 
                 $('table.TableAdvance tbody').append(html);
@@ -82,7 +80,7 @@
                         '<input name="var_product_name[]" value="'+ value.entities.productName +'" type="hidden">' +
                         '<input name="var_qty_id[]" value="'+ value.entities.quantityUnit_RefID +'" type="hidden">' +
                         '<input id="budget_qty'+ key +'" value="'+ value.entities.quantity +'" type="hidden">' +
-                        '<input id="budget_price'+ key +'" value="'+ value.entities.productUnitPriceCurrencyValue +'" type="hidden">' +
+                        '<input id="budget_price'+ key +'" value="'+ value.entities.productUnitPriceBaseCurrencyValue +'" type="hidden">' +
                         '<input name="var_uom[]" value="'+ value.entities.quantityUnitName +'" type="hidden">' +
                         '<input name="var_currency_id[]" value="'+ value.entities.priceCurrency_RefID +'" type="hidden">' +
                         '<input name="var_currency[]" value="'+ value.entities.priceCurrencyISOCode +'" type="hidden">' +
@@ -111,14 +109,14 @@
                         '<td style="border:1px solid #e9ecef;">' + '<span id="putProductName'+ key +'">' + value.entities.productName + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_qty2'+ key +'">' + currencyTotal(value.entities.quantity) + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span">' + currencyTotal(value.entities.quantity) + '</span>' + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(value.entities.productUnitPriceCurrencyValue) + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(value.entities.productUnitPriceBaseCurrencyValue) + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span>' + value.entities.priceCurrencyISOCode + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span id="total_budget'+ key +'">' + currencyTotal(value.entities.priceBaseCurrencyValue) + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span id="total_payment'+ key +'">' + currencyTotal(TotalPayment) + '</span>' + '</td>' +
 
                         '<td class="sticky-col forth-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;" name="var_quantity[]" class="form-control qty_req" autocomplete="off" '+ statusForm[key] +' onkeypress="return isNumberKey(this, event);" value="'+ currencyTotal(value.entities.quantity) +'">' + '</td>' +
-                        '<td class="sticky-col third-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req'+ key +'" style="border-radius:0;" name="var_price[]" class="form-control price_req" autocomplete="off" '+ statusForm[key] +' onkeypress="return isNumberKey(this, event);" value="'+ currencyTotal(value.entities.productUnitPriceCurrencyValue) +'">' + '</td>' +
-                        '<td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req'+ key +'" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled value="'+ currencyTotal(value.entities.quantity * value.entities.productUnitPriceCurrencyValue) +'">' + '</td>' +
+                        '<td class="sticky-col third-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req'+ key +'" style="border-radius:0;" name="var_price[]" class="form-control price_req" autocomplete="off" '+ statusForm[key] +' onkeypress="return isNumberKey(this, event);" value="'+ currencyTotal(value.entities.productUnitPriceBaseCurrencyValue) +'">' + '</td>' +
+                        '<td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req'+ key +'" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled value="'+ currencyTotal(value.entities.quantity * value.entities.productUnitPriceBaseCurrencyValue) +'">' + '</td>' +
                         '<td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_balance_qty'+ key +'" style="border-radius:0;background-color:white;" name="total_balance_qty[]" class="form-control total_balance_qty" autocomplete="off" disabled value="'+ currencyTotal(value.entities.quantity) +'">' + '</td>' +
                     '</tr>';
 
@@ -363,8 +361,6 @@
         var TotalQty = 0;
 
         $.each(total_req, function(index, data) {
-
-            console.log(qty_req[index]);
 
             if(total_req[index] < total_payment[index]){
                 swal({

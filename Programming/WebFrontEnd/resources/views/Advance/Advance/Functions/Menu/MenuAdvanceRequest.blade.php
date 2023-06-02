@@ -48,7 +48,7 @@
                 success: function(data) {
                     var no = 1; t = $('#TableSearchArfRevision').DataTable();
                     t.clear();
-                    $.each(data, function(key, val) {
+                    $.each(data.data, function(key, val) {
                         t.row.add([
                             '<tbody><tr><td>' + no++ + '</td>',
                             '<td>' + val.documentNumber + '</td>',

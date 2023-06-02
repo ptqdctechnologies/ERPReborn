@@ -14,6 +14,8 @@
                                             <td>
                                                 <div class="input-group">
                                                     <input required="" id="sys_id" style="border-radius:0;" name="sys_id" type="text" class="form-control" hidden>
+                                                    <input required="" id="linkReportTransaction" style="border-radius:0;" name="linkReportTransaction" type="text" class="form-control" hidden>
+                                                    <input required="" id="TransactionMenu" style="border-radius:0;" name="TransactionMenu" type="text" class="form-control" hidden>
                                                     <input required="" id="document_number" style="border-radius:0;" name="document_number" type="text" class="form-control" value="{{ $document_number }}">
                                                     <div class="input-group-append">
                                                         <span style="border-radius:0;" class="input-group-text form-control">
@@ -40,39 +42,3 @@
         </div>
     </div>
 </div>
-
-
-<script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    $(function() {
-        $('.mySearchCheckDocument').on('click', function(e) {
-            e.preventDefault();
-            $.ajax({
-                type: 'GET',
-                url: '{!! route("PurchaseRequisition.PurchaseRequisitionListData") !!}',
-                success: function(data) {
-                    var no = 1; t = $('#TableSearchProcReqRevision').DataTable();
-                    t.clear();
-                    $.each(data, function(key, val) {
-                        t.row.add([
-                            '<tbody><tr><td>' + no++ + '</td>',
-                            '<td>' + val.documentNumber + '</td>',
-                            '<td>' + val.combinedBudgetCode + '</td>',
-                            '<td>' + val.combinedBudgetName + '</td>',
-                            '<td>' + val.combinedBudgetSectionCode + '</td>',
-                            '<td>' + val.combinedBudgetSectionName + '</td>',
-                            '<span style="display:none;"><td">' + val.sys_ID + '</td></span></tr></tbody>'
-                        ]).draw();
-
-                    });
-                }
-            });
-        });
-
-    });
-</script>

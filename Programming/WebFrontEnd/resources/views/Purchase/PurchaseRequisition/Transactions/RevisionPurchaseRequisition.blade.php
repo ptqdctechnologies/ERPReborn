@@ -154,7 +154,7 @@
                     <div class="card-body AdvanceListCart">
                       <table style="float:right;">
                         <tr>
-                          <th style="position: relative;right:45px;"> Total Item : <span id="TotalQty"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="GrandTotal"></span></th>
+                          <th> Total Item : <span id="GrandTotal"></span></th>
                         </tr>
                       </table>
                     </div>

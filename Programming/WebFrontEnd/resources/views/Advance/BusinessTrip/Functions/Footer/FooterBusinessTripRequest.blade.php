@@ -8,7 +8,7 @@
     $(".budgetDetail").hide();
     $(".tableShowHideBOQ3").hide();
     $("#sitecode2").prop("disabled", true);
-    $("#request_name2").prop("disabled", true);
+    // $("#request_name2").prop("disabled", true);
     // $("#SaveBrfList").prop("disabled", true);
     $("#dateEnd").prop("disabled", true);
     $("#dateEnd").css("background-color", "white");
@@ -133,13 +133,13 @@
                       '<input name="getWorkName[]" value="'+ val2.combinedBudgetSubSectionLevel1Name +'" type="hidden">' +
                       '<input name="getProductId[]" value="'+ val2.product_RefID +'" type="hidden">' +
                       '<input name="getProductName[]" value="'+ val2.productName +'" type="hidden">' +
-                      '<input name="getQtyId[]" value="'+ val2.quantityUnit_RefID +'" type="hidden">' +
+                      '<input name="getQtyId[]" id="budget_qty_id'+ key +'" value="'+ val2.quantityUnit_RefID +'" type="hidden">' +
                       '<input name="getQty[]" id="budget_qty'+ key +'" value="'+ val2.quantity +'" type="hidden">' +
                       '<input name="getPrice[]" id="budget_price'+ key +'" value="'+ val2.priceBaseCurrencyValue +'" type="hidden">' +
                       '<input name="getBudgetTotal[]" id="budget_total'+ key +'" value="'+ (val2.quantity * val2.priceBaseCurrencyValue) +'" type="hidden">' +
                       '<input name="getUom[]" value="'+ val2.quantityUnitName +'" type="hidden">' +
                       '<input name="getCurrency[]" value="'+ val2.priceBaseCurrencyISOCode +'" type="hidden">' +
-                      '<input name="getCurrencyId[]" value="'+ val2.sys_BaseCurrency_RefID +'" type="hidden">' +
+                      '<input name="getCurrencyId[]" value="'+ val2.priceCurrency_RefID +'" type="hidden">' +
                       '<input name="combinedBudgetSectionDetail_RefID[]" value="'+ val2.sys_ID +'" type="hidden">' +
                       '<input name="combinedBudget_RefID" value="'+ val2.combinedBudget_RefID +'" type="hidden">' +
 
@@ -361,15 +361,18 @@
                     '<input type="hidden" name="var_date" value="' + date + '">' +
                     '<input type="hidden" name="var_combinedBudgetSectionDetail_RefID[]" value="' + combinedBudgetSectionDetail_RefID[index] + '">' +
                     '<input type="hidden" name="var_combinedBudget_RefID" value="' + combinedBudget_RefID + '">' +
+                    '<input type="hidden" name="var_allowance[]" value="' + allowance_req[index] + '">' +
+                    '<input type="hidden" name="var_accomodation[]" value="' + accomodation_req[index] + '">' +
+                    '<input type="hidden" name="var_other[]" value="' + other_req[index] + '">' +
                     
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkId[index] + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkName[index] + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductId + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductName + '</td>' +
-                    // '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putUom + '</td>' +
-                    // '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getCurrency[index] + '</td>' +
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="accomodation_req2'+ index +'">' + currencyTotal(allowance_req[index]) + '</span>' + '</td>' +
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="allowance_req2'+ index +'">' + currencyTotal( accomodation_req[index]) + '</span>' + '</td>' +
+                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putUom + '</td>' +
+                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getCurrency[index] + '</td>' +
+                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="allowance_req2'+ index +'">' + currencyTotal(allowance_req[index]) + '</span>' + '</td>' +
+                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="accomodation_req2'+ index +'">' + currencyTotal( accomodation_req[index]) + '</span>' + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="other_req2'+ index +'">' + currencyTotal(other_req[index]) + '</span>' + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="total_req2'+ index +'">' + currencyTotal(total_req[index]) + '</span>' + '</td>' +
                     '</tr>';

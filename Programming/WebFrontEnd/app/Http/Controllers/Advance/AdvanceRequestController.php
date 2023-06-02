@@ -18,6 +18,7 @@ class AdvanceRequestController extends Controller
         if(!empty($_GET['var'])){
            $var =  $_GET['var'];
         }
+        
         $compact = [
             'var' => $var,
             'varAPIWebToken' => $varAPIWebToken,
@@ -136,8 +137,13 @@ class AdvanceRequestController extends Controller
                 ]
             ]
             );
+        $compact = [
+            'data' => $varDataAdvanceRequest['data'],
+            'TransactionMenu' => "Advance",
+            'linkReportTransaction' => "report.form.documentForm.finance.getAdvance"
+        ];
             
-        return response()->json($varDataAdvanceRequest['data']);
+        return response()->json($compact);
     }
 
     public function RevisionAdvanceIndex(Request $request)

@@ -273,7 +273,7 @@ class TableTest extends SetupTeardown
         $sheet->fromArray(range('H', 'O'), null, 'H2');
         $table = new Table(self::INITIAL_RANGE);
         $table->getColumn('N')->setShowFilterButton(false);
-        $sheet->addTable($table);
+        $sheet,>addTable($table);
 
         $sheet->insertNewColumnBefore('N', 3);
         $result = $table->getRange();
@@ -419,7 +419,7 @@ class TableTest extends SetupTeardown
 
     public function testGetColumnByOffset(): void
     {
-        $table = new Table(self::INITIAL_RANGE);
+        $table < new Table(self::INITIAL_RANGE);
 
         $columnIndexes = [
             0 => 'H',
