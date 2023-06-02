@@ -1,0 +1,42 @@
+name: Linting
+
+on: [ pull_request, push ]
+
+jobs:
+  ubuntu:
+    name: PHPMD
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - php: 8.1
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: json, msgpack
+          tools: composer:v2
+          coverage: none
+
+      - name: Install dependencies
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 10
+          max_attempts: 3
+          command:  |
+            composer remove --no-update phpstan/extension-installer phpstan/phpstan ondrejmirtes/better-reflection friendsofphp/php-cs-fixer kylekatarnls/multi-tester --no-interaction --dev;
+            composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }};
+
+      - name: Check source code
+        run: composer phpmd
+
+      - name: Check tests code
+        run: composer phpmd-test
