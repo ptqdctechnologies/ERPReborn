@@ -1,6 +1,6 @@
 <div class="card-body ShowDocumentList" style="font-weight: bold;">
   <center>
-    <h3><b><span style="text-transform:uppercase">{{ $data['header']['title'] }}</span></b></h3>
+    <h3><b><span style="text-transform:uppercase">BUSINESS TRIP REQUEST</span></b></h3>
   </center>
   <br>
   <div class="row">
@@ -13,14 +13,9 @@
             <td>{{ $data['header']['number'] }}</td>
           </tr>
           <tr>
-            <td style="padding-top: 5px;"><label>{{ $data['header']['title'] }} Date</label></td>
+            <td style="padding-top: 5px;"><label>Travel Date</label></td>
             <td>:</td>
             <td>{{ $data['header']['date'] }}</td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>Currency</label></td>
-            <td>:</td>
-            <td>{{ $data['content']['itemList']['ungrouped'][0]['entities']['baseCurrencyISOCode'] }}</td>
           </tr>
           <tr>
             <td style="padding-top: 5px;"><label>Budget Code</label></td>
@@ -31,6 +26,26 @@
             <td style="padding-top: 5px;"><label>Sub Budget Code</label></td>
             <td>:</td>
             <td>{{ $data['content']['itemList']['ungrouped'][0]['entities']['combinedBudgetSectionCode'] }} - {{ $data['content']['itemList']['ungrouped'][0]['entities']['combinedBudgetSectionName'] }}</td>
+          </tr>
+          <tr>
+            <td style="padding-top: 5px;"><label>Requester</label></td>
+            <td>:</td>
+            <td>{{ $data['content']['involvedPersons']['requester']['name'] }}</td>
+          </tr>
+          <tr>
+            <td style="padding-top: 5px;"><label>Name of Beneficiary</label></td>
+            <td>:</td>
+            <td>{{ $data['content']['involvedPersons']['beneficiary']['name'] }}</td>
+          </tr>
+          <tr>
+            <td style="padding-top: 5px;"><label>Job Title</label></td>
+            <td>:</td>
+            <td>{{ $data['content']['itemList']['ungrouped'][0]['entities']['baseCurrencyISOCode'] }}</td>
+          </tr>
+          <tr>
+            <td style="padding-top: 5px;"><label>Departement</label></td>
+            <td>:</td>
+            <td>{{ $data['content']['itemList']['ungrouped'][0]['entities']['baseCurrencyISOCode'] }}</td>
           </tr>
           <tr>
             <td style="padding-top: 5px;"><label>File Attachment</label></td>
@@ -53,27 +68,42 @@
             <td>{{ $data['header']['date'] }}</td>
           </tr>
           <tr>
-            <td style="padding-top: 5px;"><label>Requester</label></td>
+            <td style="padding-top: 5px;"><label>Reason to Travel</label></td>
             <td>:</td>
-            <td>{{ $data['content']['involvedPersons']['requester']['name'] }}</td>
+            <td>{{ $data['header']['date'] }}</td>
           </tr>
           <tr>
-            <td style="padding-top: 5px;"><label>Name of Beneficiary</label></td>
-            <td>:</td>
-            <td>{{ $data['content']['involvedPersons']['beneficiary']['name'] }}</td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>Bank Name</label></td>
+            <td style="padding-top: 5px;"><label>Head Station Location</label></td>
             <td>:</td>
             <td>{{ $data['content']['bankAccount']['beneficiary']['bankName'] }}</td>
           </tr>
           <tr>
-            <td style="padding-top: 5px;"><label>Account Name</label></td>
+            <td style="padding-top: 5px;"><label>Business Trip Location</label></td>
             <td>:</td>
             <td>{{ $data['content']['bankAccount']['beneficiary']['bankAccountNumber'] }}</td>
           </tr>
           <tr>
-            <td style="padding-top: 5px;"><label>Account Number</label></td>
+            <td style="padding-top: 5px;"><label>Contact Phone Number</label></td>
+            <td>:</td>
+            <td>{{ $data['content']['bankAccount']['beneficiary']['bankAccountName'] }}</td>
+          </tr>
+          <tr>
+            <td style="padding-top: 5px;"><label>Transport Type</label></td>
+            <td>:</td>
+            <td>{{ $data['content']['bankAccount']['beneficiary']['bankAccountName'] }}</td>
+          </tr>
+          <tr>
+            <td style="padding-top: 5px;"><label>Travel Arrangement</label></td>
+            <td>:</td>
+            <td>{{ $data['content']['bankAccount']['beneficiary']['bankAccountName'] }}</td>
+          </tr>
+          <tr>
+            <td style="padding-top: 5px;"><label>Payment Applicable</label></td>
+            <td>:</td>
+            <td>{{ $data['content']['bankAccount']['beneficiary']['bankAccountName'] }}</td>
+          </tr>
+          <tr>
+            <td style="padding-top: 5px;"><label>Accomodation</label></td>
             <td>:</td>
             <td>{{ $data['content']['bankAccount']['beneficiary']['bankAccountName'] }}</td>
           </tr>
@@ -82,19 +112,22 @@
     </div>
   </div>
 </div>
-
 <div class="col-12 ShowDocumentList">
   <div class="card">
     <div class="card-body table-responsive p-0">
+      <center>
+        <label style="font-size:13px;position:relative;top:7px;font-weight:bold;">Payment Sequence</label>
+      </center>
       <table class="table table-head-fixed text-nowrap TableListDocumentDetail" id="TableListDocumentDetail">
         <thead>
           <tr>
             <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">NO</th>
-            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PRODUCT ID</th>
-            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PRODUCT NAME</th>
-            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">QTY</th>
-            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">UOM</th>
-            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">UNIT PRICE</th>
+            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">BUDGET NAME</th>
+            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">ALLOWANCE</th>
+            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">TRANSPORT</th>
+            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">AIRPORT TAX</th>
+            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">ACCOMODATION</th>
+            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">OTHER</th>
             <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">TOTAL</th>
           </tr>
         </thead>
@@ -104,6 +137,7 @@
           @php $grand_total += $datas['entities']['priceBaseCurrencyValue']; @endphp
           <tr>
             <td style="border:1px solid #4B586A;color:#4B586A;">{{ $no++ }}</td>
+            <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['product_RefID'] }}</td>
             <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['product_RefID'] }}</td>
             <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['productName'] }}</td>
             <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['quantity'] }}</td>
@@ -115,7 +149,7 @@
         </tbody>
         <tfoot>
           <tr>
-            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;" colspan="6">GRAND TOTAL</th>
+            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;" colspan="7">GRAND TOTAL</th>
             <td style="border:1px solid #4B586A;color:#4B586A;"><span id="GrandTotal">{{ number_format($grand_total,2) }}</span></td>
           </tr>
         </tfoot>
@@ -124,24 +158,48 @@
   </div>
 </div>
 
-<div class="col-12 InternalNotes">
+<div class="col-12 ShowDocumentList">
   <div class="card">
-    <div class="card-header">
-      <label class="card-title">
-        Internal Notes
-      </label>
-      <div class="card-tools">
-        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-          <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-        </button>
-      </div>
-    </div>
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-12">
-          <textarea name="" id="" cols="140" rows="3" style="border:1px solid #e9ecef;" readonly> {{ $data['content']['advanceRemarks'] }} </textarea>
-        </div>
-      </div>
+    <div class="card-body table-responsive p-0">
+      <center>
+        <label style="font-size:13px;position:relative;top:7px;font-weight:bold;">Payment Request</label>
+      </center>
+      <table class="table table-head-fixed text-nowrap TableListDocumentDetail" id="TableListDocumentDetail">
+        <thead>
+          <tr>
+            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">NO</th>
+            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">BUDGET NAME</th>
+            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">ALLOWANCE</th>
+            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">TRANSPORT</th>
+            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">AIRPORT TAX</th>
+            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">ACCOMODATION</th>
+            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">OTHER</th>
+            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">TOTAL</th>
+          </tr>
+        </thead>
+        <tbody>
+          @php $no = 1; $grand_total = 0; @endphp
+          @foreach($data['content']['itemList']['ungrouped'] as $datas)
+          @php $grand_total += $datas['entities']['priceBaseCurrencyValue']; @endphp
+          <tr>
+            <td style="border:1px solid #4B586A;color:#4B586A;">{{ $no++ }}</td>
+            <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['product_RefID'] }}</td>
+            <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['product_RefID'] }}</td>
+            <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['productName'] }}</td>
+            <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['quantity'] }}</td>
+            <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['quantityUnitName'] }}</td>
+            <td style="border:1px solid #4B586A;color:#4B586A;">{{ number_format($datas['entities']['productUnitPriceBaseCurrencyValue'],2) }}</td>
+            <td style="border:1px solid #4B586A;color:#4B586A;">{{ number_format($datas['entities']['priceBaseCurrencyValue'],2) }}</td>
+          </tr>
+          @endforeach
+        </tbody>
+        <tfoot>
+          <tr>
+            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;" colspan="7">GRAND TOTAL</th>
+            <td style="border:1px solid #4B586A;color:#4B586A;"><span id="GrandTotal">{{ number_format($grand_total,2) }}</span></td>
+          </tr>
+        </tfoot>
+      </table>
     </div>
   </div>
 </div>

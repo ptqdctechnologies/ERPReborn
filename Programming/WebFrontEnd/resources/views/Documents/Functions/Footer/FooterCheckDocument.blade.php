@@ -6,8 +6,10 @@
 </script>
 
 <script>
-    
-    function CheckDocument(url){
+    function CheckDocument(url) {
+
+        $("#loading").show();
+        $(".loader").show();
 
         $('#TableCheckDocument').find('tbody').empty();
 
@@ -21,7 +23,8 @@
             type: 'GET',
             url: url.value,
             success: function(data) {
-                var no = 1; t = $('#TableCheckDocument').DataTable();
+                var no = 1;
+                t = $('#TableCheckDocument').DataTable();
                 t.clear();
                 $.each(data.data, function(key, val) {
                     t.row.add([
@@ -34,21 +37,21 @@
                     ]).draw();
 
                 });
+                $("#loading").hide();
+                $(".loader").hide();
             }
         });
-
     }
-
 </script>
 
 
 
 <script>
-    $('#TableCheckDocument tbody').on('click', 'tr', function () {
+    $('#TableCheckDocument tbody').on('click', 'tr', function() {
 
         $("#mySearchCheckDocument").modal('toggle');
 
-        var row = $(this).closest("tr");    
+        var row = $(this).closest("tr");
         var sys_id = row.find("td:nth-child(6)").text();
         var documentNumber = row.find("td:nth-child(1)").text();
         var linkReportTransaction = row.find("td:nth-child(4)").text();
@@ -59,18 +62,16 @@
         $("#linkReportTransaction").val(linkReportTransaction);
         $("#TransactionMenu").val(TransactionMenu);
     });
-    
 </script>
 
 <script>
-
-    $('.ViewDocument').on('click', function () {
+    $('.ViewDocument').on('click', function() {
         $(".ShowDocument").hide();
         $(".ShowDocumentList").show();
         $(".InternalNotes").show();
         $(".FileAttachment").show();
         $(".ApprovalHistory").show();
-        
+
     });
 </script>
 
@@ -81,16 +82,36 @@
 
         $(".detailPurchaseRequisitionList").show();
         var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
-        var getWorkId = $("input[name='getWorkId[]']").map(function(){return $(this).val();}).get();
-        var getWorkName = $("input[name='getWorkName[]']").map(function(){return $(this).val();}).get();
-        var getProductId = $("input[name='getProductId[]']").map(function(){return $(this).val();}).get();
-        var getProductName = $("input[name='getProductName[]']").map(function(){return $(this).val();}).get();
-        var getUom = $("input[name='getUom[]']").map(function(){return $(this).val();}).get();
-        var getCurrency = $("input[name='getCurrency[]']").map(function(){return $(this).val();}).get();
-        var getRemark = $("input[name='remark_req[]']").map(function(){return $(this).val();}).get();
-        var qty_req = $("input[name='qty_req[]']").map(function(){return $(this).val();}).get();
-        var price_req = $("input[name='price_req[]']").map(function(){return $(this).val();}).get();
-        var combinedBudgetSectionDetail_RefID = $("input[name='combinedBudgetSectionDetail_RefID[]']").map(function(){return $(this).val();}).get();
+        var getWorkId = $("input[name='getWorkId[]']").map(function() {
+            return $(this).val();
+        }).get();
+        var getWorkName = $("input[name='getWorkName[]']").map(function() {
+            return $(this).val();
+        }).get();
+        var getProductId = $("input[name='getProductId[]']").map(function() {
+            return $(this).val();
+        }).get();
+        var getProductName = $("input[name='getProductName[]']").map(function() {
+            return $(this).val();
+        }).get();
+        var getUom = $("input[name='getUom[]']").map(function() {
+            return $(this).val();
+        }).get();
+        var getCurrency = $("input[name='getCurrency[]']").map(function() {
+            return $(this).val();
+        }).get();
+        var getRemark = $("input[name='remark_req[]']").map(function() {
+            return $(this).val();
+        }).get();
+        var qty_req = $("input[name='qty_req[]']").map(function() {
+            return $(this).val();
+        }).get();
+        var price_req = $("input[name='price_req[]']").map(function() {
+            return $(this).val();
+        }).get();
+        var combinedBudgetSectionDetail_RefID = $("input[name='combinedBudgetSectionDetail_RefID[]']").map(function() {
+            return $(this).val();
+        }).get();
         var combinedBudget_RefID = $("input[name='combinedBudget_RefID']").val();
 
         var combinedBudget = $("input[name='combinedBudget']").val();
@@ -99,28 +120,30 @@
         var TotalQty = 0;
         var TotalPrice = 0;
 
-        var total_req = $("input[name='total_req[]']").map(function(){return $(this).val();}).get();
+        var total_req = $("input[name='total_req[]']").map(function() {
+            return $(this).val();
+        }).get();
         $.each(total_req, function(index, data) {
-            if(total_req[index] != "" && total_req[index] > "0.00" && total_req[index] != "NaN.00"){
+            if (total_req[index] != "" && total_req[index] > "0.00" && total_req[index] != "NaN.00") {
 
                 var putProductId = getProductId[index];
                 var putProductName = getProductName[index];
 
-                if(getProductName[index] == "Unspecified Product"){
-                    var putProductId = $("#putProductId"+index).val();
-                    var putProductName = $("#putProductName"+index).html();
+                if (getProductName[index] == "Unspecified Product") {
+                    var putProductId = $("#putProductId" + index).val();
+                    var putProductName = $("#putProductName" + index).html();
                 }
-                
+
                 TotalBudgetList += +total_req[index].replace(/,/g, '');
-                TotalQty+= +qty_req[index].replace(/,/g, '');
-                TotalPrice+= +price_req[index].replace(/,/g, '');
+                TotalQty += +qty_req[index].replace(/,/g, '');
+                TotalPrice += +price_req[index].replace(/,/g, '');
                 var html = '<tr>' +
                     '<input type="hidden" name="var_product_id[]" value="' + putProductId + '">' +
                     '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
-                    '<input type="hidden" name="var_quantity[]" class="qty_req2'+ index +'" data-id="'+ index +'" value="' + currencyTotal(qty_req[index]).replace(/,/g, '') + '">' +
+                    '<input type="hidden" name="var_quantity[]" class="qty_req2' + index + '" data-id="' + index + '" value="' + currencyTotal(qty_req[index]).replace(/,/g, '') + '">' +
                     '<input type="hidden" name="var_uom[]" value="' + getUom[index] + '">' +
-                    '<input type="hidden" name="var_price[]" class="price_req2'+ index +'" value="' + currencyTotal(price_req[index]).replace(/,/g, '') + '">' +
-                    '<input type="hidden" name="var_total[]" class="total_req2'+ index +'" value="' + total_req[index] + '">' +
+                    '<input type="hidden" name="var_price[]" class="price_req2' + index + '" value="' + currencyTotal(price_req[index]).replace(/,/g, '') + '">' +
+                    '<input type="hidden" name="var_total[]" class="total_req2' + index + '" value="' + total_req[index] + '">' +
                     '<input type="hidden" name="var_currency[]" value="' + getCurrency[index] + '">' +
                     '<input type="hidden" name="var_date" value="' + date + '">' +
                     '<input type="hidden" name="var_remark[]" value="' + getRemark[index] + '">' +
@@ -134,10 +157,10 @@
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getUom[index] + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getCurrency[index] + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getRemark[index] + '</td>' +
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="price_req2'+ index +'">' + currencyTotal(price_req[index]) + '</span>' + '</td>' +
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="qty_req2'+ index +'">' + currencyTotal(qty_req[index]) + '</span>' + '</td>' +
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="'+ index +'" class="total_req2'+ index +'">' + currencyTotal(total_req[index]) + '</span>' + '</td>' +
-                    
+                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="' + index + '" class="price_req2' + index + '">' + currencyTotal(price_req[index]) + '</span>' + '</td>' +
+                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="' + index + '" class="qty_req2' + index + '">' + currencyTotal(qty_req[index]) + '</span>' + '</td>' +
+                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="' + index + '" class="total_req2' + index + '">' + currencyTotal(total_req[index]) + '</span>' + '</td>' +
+
                     '</tr>';
                 $('table.TablePurchaseRequisition tbody').append(html);
 
@@ -148,20 +171,19 @@
 
                 $("#submitPR").prop("disabled", false);
                 $(".ActionButton").prop("disabled", false);
-                $(".ActionButtonAll").prop("disabled", false);        
+                $(".ActionButtonAll").prop("disabled", false);
             }
         });
-        
+
     }
 </script>
 
 <script type="text/javascript">
     function ResetBudget() {
-      $("input[name='qty_req[]']").val("");
-      $("input[name='price_req[]']").val("");
-      $("input[name='total_req[]']").val("");
+        $("input[name='qty_req[]']").val("");
+        $("input[name='price_req[]']").val("");
+        $("input[name='total_req[]']").val("");
     }
-    
 </script>
 
 
@@ -182,7 +204,7 @@
 
             var varFileUpload_UniqueID = "Upload";
             window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
-                
+
             var action = $(this).attr("action"); //get submit action from form
             var method = $(this).attr("method"); // get submit method
             var form_data = new FormData($(this)[0]); // convert form into formdata 
@@ -218,16 +240,16 @@
                         data: form_data,
                         type: method,
                         success: function(response) {
-                            
+
                             console.log(response);
 
-                            if(response.message === "SelectWorkFlow"){
-                                
+                            if (response.message === "SelectWorkFlow") {
+
                                 $("#loading").hide();
                                 $(".loader").hide();
 
                                 $('#getWorkFlow').modal('toggle');
-                                
+
                                 var t = $('#tableGetWorkFlow').DataTable();
                                 t.clear();
                                 $.each(response.data, function(key, val) {
@@ -236,10 +258,9 @@
                                         '<td style="border:1px solid #e9ecef;">' + val.fullApproverPath + '</td></tr></tbody>'
                                     ]).draw();
                                 });
-                                
-                            }
-                            else{
-                                
+
+                            } else {
+
                                 $("#loading").hide();
                                 $(".loader").hide();
 
@@ -272,18 +293,18 @@
 
                             swalWithBootstrapButtons.fire({
 
-                            title: 'Cancelled',
-                            text: "You don't have access",
-                            type: 'error',
-                            confirmButtonColor: '#e9ecef',
-                            confirmButtonText: '<span style="color:black;"> OK </span>',
+                                title: 'Cancelled',
+                                text: "You don't have access",
+                                type: 'error',
+                                confirmButtonColor: '#e9ecef',
+                                confirmButtonText: '<span style="color:black;"> OK </span>',
 
                             }).then((result) => {
-                            if (result.value) {
-                                $("#loading").show();
-                                $(".loader").show();
-                                window.location.href = '/PurchaseRequisition?var=1';
-                            }
+                                if (result.value) {
+                                    $("#loading").show();
+                                    $(".loader").show();
+                                    window.location.href = '/PurchaseRequisition?var=1';
+                                }
                             })
 
                         },
@@ -318,7 +339,6 @@
 
 
 <script>
-
     function SelectWorkFlow(workFlowPath_RefID, businessDocument_RefID, documentNumber, approverEntity_RefID) {
 
         $.ajaxSetup({
@@ -340,7 +360,7 @@
                     cancelButtonClass: 'btn btn-danger btn-sm',
                     buttonsStyling: true,
                 })
-                
+
                 swalWithBootstrapButtons.fire({
 
                     title: 'Successful !',
@@ -361,7 +381,7 @@
                         window.location.href = '/PurchaseRequisition?var=1';
                     }
                 })
-                
+
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 Swal.fire("Cancelled", "Data Cancel Inputed", "error");
