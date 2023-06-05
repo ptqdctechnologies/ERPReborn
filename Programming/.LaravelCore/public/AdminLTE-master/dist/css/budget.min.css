@@ -1,235 +1,257 @@
-wrapper-budget {
-  position: relative;
-  overflow: auto;
-  /* white-space: nowrap; */
-}
+@media only screen and (min-width: 768px) {
+  wrapper-budget {
+    position: relative;
+    overflow: auto;
+    /* white-space: nowrap; */
+  }
 
-.sticky-col {
-  position: -webkit-sticky;
-  position: sticky;
-}
+  .sticky-col {
+    position: -webkit-sticky;
+    position: sticky;
+  }
 
-/* DOR */
+  /* DOR */
 
-.first-col-dor-note {
-  width: 225px;
-  min-width: 225px;
-  max-width: 225px;
-  right: 0px;
-}
+  .first-col-dor-note {
+    width: 225px;
+    min-width: 225px;
+    max-width: 225px;
+    right: 0px;
+  }
 
-.second-col-dor-qty {
-  width: 110px;
-  min-width: 110px;
-  max-width: 110px;
-  right: 226px;
-}
+  .second-col-dor-qty {
+    width: 110px;
+    min-width: 110px;
+    max-width: 110px;
+    right: 226px;
+  }
 
-/* GENERAL */
+  /* GENERAL */
 
-.first-col {
-  width: 225px;
-  min-width: 225px;
-  max-width: 225px;
-  right: 0px;
-}
-.second-col {
-  width: 125px;
-  min-width: 125px;
-  max-width: 125px;
-  right: 226px;
-}
-.third-col {
-  width: 110px;
-  min-width: 110px; 
-  max-width: 110px;
-  right: 352px;
-}
-.forth-col {
-  width: 70px;
-  min-width: 70px;
-  max-width: 70px;
-  right: 463px;
-}
-.five-col {
-  width: 70px;
-  min-width: 70px;
-  max-width: 70px;
-  right: 534px;
-}
-.six-col {
-  width: 70px;
-  min-width: 70px;
-  max-width: 70px;
-  right: 605px;
-}
+  .first-col {
+    width: 225px;
+    min-width: 225px;
+    max-width: 225px;
+    right: 0px;
+  }
 
-/* ADVANCE */
+  .second-col {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+    right: 226px;
+  }
 
-.first-col-arf {
-  width: 125px;
-  min-width: 125px;
-  max-width: 125px;
-  right: 0px;
-}
-.second-col-arf {
-  width: 125px;
-  min-width: 125px;
-  max-width: 125px;
-  right: 126px;
-}
-.third-col-arf {
-  width: 110px;
-  min-width: 110px; 
-  max-width: 110px;
-  right: 252px;
-}
-.forth-col-arf {
-  width: 70px;
-  min-width: 70px;
-  max-width: 70px;
-  right: 363px;
-}
+  .third-col {
+    width: 110px;
+    min-width: 110px;
+    max-width: 110px;
+    right: 352px;
+  }
 
-/* ASF */
+  .forth-col {
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+    right: 463px;
+  }
 
-.first-col-asf-balance {
-  width: 125px;
-  min-width: 125px;
-  max-width: 125px;
-  right: 0px;
-}
-.second-col-asf-amount {
-  width: 260px;
-  min-width: 260px;
-  max-width: 260px;
-  right: 125px;
-}
-.third-col-asf-expense {
-  width: 260px;
-  min-width: 260px; 
-  max-width: 260px;
-  right: 385px;
-}
+  .five-col {
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+    right: 534px;
+  }
 
-.first-col-asf-balance-total {
-  width: 90px;
-  min-width: 90px;
-  max-width: 90px;
-  right: 0px;
-  z-index: 10;
-}
+  .six-col {
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+    right: 605px;
+  }
 
+  /* ADVANCE */
 
-.second-col-asf-amount-qty {
-  width: 54px;
-  min-width: 54px;
-  max-width: 54px;
-  right: 325px;
-  z-index: 10;
-}
-.second-col-asf-amount-price {
-  width: 90px;
-  min-width: 90px;
-  max-width: 90px;
-  right: 225px;
-  z-index: 10;
-}
-.second-col-asf-amount-total {
-  width: 90px;
-  min-width: 90px;
-  max-width: 90px;
-  right: 125px;
-  z-index: 10;
-}
+  .first-col-arf {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+    right: 0px;
+  }
+
+  .second-col-arf {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+    right: 126px;
+  }
+
+  .third-col-arf {
+    width: 110px;
+    min-width: 110px;
+    max-width: 110px;
+    right: 252px;
+  }
+
+  .forth-col-arf {
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+    right: 363px;
+  }
+
+  /* ASF */
+
+  .first-col-asf-balance {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+    right: 0px;
+  }
+
+  .second-col-asf-amount {
+    width: 260px;
+    min-width: 260px;
+    max-width: 260px;
+    right: 125px;
+  }
+
+  .third-col-asf-expense {
+    width: 260px;
+    min-width: 260px;
+    max-width: 260px;
+    right: 385px;
+  }
+
+  .first-col-asf-balance-total {
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+    right: 0px;
+    z-index: 10;
+  }
 
 
-.third-col-asf-expense-qty {
-  width: 54px;
-  min-width: 54px;
-  max-width: 54px;
-  right: 585px;
-  z-index: 10;
-}
-.third-col-asf-expense-price {
-  width: 90px;
-  min-width: 90px;
-  max-width: 90px;
-  right: 485px;
-  z-index: 10;
-}
-.third-col-asf-expense-total {
-  width: 90px;
-  min-width: 90px;
-  max-width: 90px;
-  right: 385px;
-  z-index: 10;
-}
+  .second-col-asf-amount-qty {
+    width: 54px;
+    min-width: 54px;
+    max-width: 54px;
+    right: 325px;
+    z-index: 10;
+  }
 
-/* BRF */
+  .second-col-asf-amount-price {
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+    right: 225px;
+    z-index: 10;
+  }
 
-.first-col-brf {
-  width: 125px;
-  min-width: 125px;
-  max-width: 125px;
-  right: 0px;
-}
-.second-col-brf {
-  width: 125px;
-  min-width: 125px;
-  max-width: 125px;
-  right: 126px;
-}
-.third-col-brf {
-  width: 125px;
-  min-width: 125px; 
-  max-width: 125px;
-  right: 252px;
-}
-.forth-col-brf {
-  width: 125px;
-  min-width: 125px;
-  max-width: 125px;
-  right: 378px;
-}
+  .second-col-asf-amount-total {
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+    right: 125px;
+    z-index: 10;
+  }
 
-.fifth-col-brf {
-  width: 125px;
-  min-width: 125px;
-  max-width: 125px;
-  right: 504px;
-}
 
-/* PR */
+  .third-col-asf-expense-qty {
+    width: 54px;
+    min-width: 54px;
+    max-width: 54px;
+    right: 585px;
+    z-index: 10;
+  }
 
-.first-col-pr {
-  width: 125px;
-  min-width: 125px;
-  max-width: 125px;
-  right: 0px;
-}
-.second-col-pr {
-  width: 125px;
-  min-width: 125px;
-  max-width: 125px;
-  right: 126px;
-}
-.third-col-pr {
-  width: 125px;
-  min-width: 125px; 
-  max-width: 125px;
-  right: 252px;
-}
-.forth-col-pr {
-  width: 125px;
-  min-width: 125px;
-  max-width: 125px;
-  right: 378px;
-}
+  .third-col-asf-expense-price {
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+    right: 485px;
+    z-index: 10;
+  }
 
-.fifth-col-pr {
-  width: 70px;
-  min-width: 70px;
-  max-width: 70px;
-  right: 504px;
+  .third-col-asf-expense-total {
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+    right: 385px;
+    z-index: 10;
+  }
+
+  /* BRF */
+
+  .first-col-brf {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+    right: 0px;
+  }
+
+  .second-col-brf {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+    right: 126px;
+  }
+
+  .third-col-brf {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+    right: 252px;
+  }
+
+  .forth-col-brf {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+    right: 378px;
+  }
+
+  .fifth-col-brf {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+    right: 504px;
+  }
+
+  /* PR */
+
+  .first-col-pr {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+    right: 0px;
+  }
+
+  .second-col-pr {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+    right: 126px;
+  }
+
+  .third-col-pr {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+    right: 252px;
+  }
+
+  .forth-col-pr {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+    right: 378px;
+  }
+
+  .fifth-col-pr {
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+    right: 504px;
+  }
 }
