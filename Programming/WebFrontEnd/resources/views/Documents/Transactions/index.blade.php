@@ -35,6 +35,8 @@
               @include('Documents.Transactions.DocumentBussinesTripRequest')
             @elseif($TransactionMenu == "PurchaseRequisition")
               @include('Documents.Transactions.DocumentPurchaseRequisition')
+            @elseif($TransactionMenu == "PurchaseOrder")
+              @include('Documents.Transactions.DocumentPurchaseOrder')
             @endif
 
             @include('Documents.Transactions.DocumentApprovalHistory')            
