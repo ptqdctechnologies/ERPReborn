@@ -30,50 +30,6 @@ class BusinessTripSettlementController extends Controller
         return view('Advance.BusinessTrip.Transactions.CreateBusinessTripSettlement', $compact);
     }
 
-    public function StoreValidateBusinessTripSettlement(Request $request)
-    {
-        $tamp = 0; $status = 200;
-        $val = $request->input('putWorkId');
-        $val2 = $request->input('putProductId');
-        $data = $request->session()->get("SessionBusinessTripSettllement");
-        if($request->session()->has("SessionBusinessTripSettllement")){
-            for($i = 0; $i < count($data); $i++){
-                if($data[$i] == $val && $data[$i+1] == $val2){
-                    $tamp = 1;
-                }
-            }
-            if($tamp == 0){
-                $request->session()->push("SessionBusinessTripSettllement", $val);
-                $request->session()->push("SessionBusinessTripSettllement", $val2);
-            }
-            else{
-                $status = 500;
-            }
-        }
-        else{
-            $request->session()->push("SessionBusinessTripSettllement", $val);
-            $request->session()->push("SessionBusinessTripSettllement", $val2);
-        }
-
-        return response()->json($status);
-    }
-    public function StoreValidateBusinessTripSettlement2(Request $request)
-    {
-        $val = $request->input('putWorkId');
-        $val2 = $request->input('putProductId');
-        $data = $request->session()->get("SessionBusinessTripSettllement");
-        if($request->session()->has("SessionBusinessTripSettllement")){
-            for($i = 0; $i < count($data); $i++){
-                if($data[$i] == $val && $data[$i+1] == $val2){
-                    unset($data[$i]);
-                    unset($data[$i+1]);
-                    $newClass = array_values($data);
-                    $request->session()->put("SessionBusinessTripSettllement", $newClass);
-                }
-            }
-        }
-    }
-
     public function StoreValidateBusinessTripSettlementRequester(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -251,8 +207,13 @@ class BusinessTripSettlementController extends Controller
                 ]
             ]
             );
+        $compact = [
+            'data' => $varDataAdvanceRequest['data'],
+            'TransactionMenu' => "BussinesTripSettlement",
+            'linkReportTransaction' => "report.form.documentForm.finance.getAdvance"
+        ];
             
-        return response()->json($varDataAdvanceRequest['data']);
+        return response()->json($compact);
     }
 
     public function BusinessTripSettlementListDataById(Request $request)
@@ -325,9 +286,7 @@ class BusinessTripSettlementController extends Controller
         );
         // dd($varDataAdvanceSettlementRevision);
         $compact = [
-            'dataAdvanceRevisions' => $varDataAdvanceSettlementRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
-            'log_FileUpload_Pointer_RefID' => $varDataAdvanceSettlementRevision['data'][0]['document']['content']['attachmentFiles']['main']['log_FileUpload_Pointer_RefID'],
-            'dataRequester' => $varDataAdvanceSettlementRevision['data'][0]['document']['content']['involvedPersons']['requester'],
+            'dataRevisi' => $varDataAdvanceSettlementRevision['data'][0]['document']['content'],
             'trano' => $varDataAdvanceSettlementRevision['data'][0]['document']['header']['number'],
             'var_recordID' => $request->searchBsfNumberRevisionId,
             'varAPIWebToken' => $varAPIWebToken,

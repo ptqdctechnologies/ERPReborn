@@ -81,7 +81,7 @@
                     <div class="card-body file-attachment">
                       <div class="row">
                         <div class="col-md-12">
-                          <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="{{ $dataAdvance['attachmentFiles']['main']['logFileUploadPointer_RefID']}}" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID" hidden>
+                          <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="{{ $dataRevisi['attachmentFiles']['main']['logFileUploadPointer_RefID']}}" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID" hidden>
                           <input type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" name="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" onchange="javascript: @php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataInput_Log_FileUpload_Pointer_RefID_Action', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord'); @endphp;" />
                         </div>
                         <br><br>
@@ -196,7 +196,7 @@
                             <table>
                               <tr>
                                 <td>
-                                  <textarea name="var_remark" id="putRemark" rows="2" cols="1000" class="form-control" required>{{$dataAdvance['advanceRemarks']}}</textarea>
+                                  <textarea name="var_remark" id="putRemark" rows="2" cols="1000" class="form-control" required>{{$dataRevisi['advanceRemarks']}}</textarea>
                                 </td>
                               </tr>
                             </table>

@@ -41,7 +41,6 @@
               </div>
             </div>
 
-
             <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
               <div class="row">
                 <div class="col-12">
@@ -131,7 +130,7 @@
                               <td><label>Date Commance Travel</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="dateCommance" name="dateCommance" style="border-radius:0;" type="date" class="form-control">
+                                  <input id="dateCommance" name="dateCommance" style="border-radius:0;" type="time" class="form-control">
                                 </div>
                               </td>
                             </tr>
