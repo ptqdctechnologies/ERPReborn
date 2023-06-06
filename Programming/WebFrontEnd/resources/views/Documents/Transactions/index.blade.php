@@ -3,10 +3,7 @@
 @include('Partials.navbar')
 @include('Partials.sidebar')
 @include('getFunction.getSite')
-@include('getFunction.getProduct')
 @include('Documents.Functions.PopUp.SearchCheckDocument')
-@include('getFunction.getProject')
-@include('getFunction.getWorkFlow')
 
 <div class="content-wrapper" style="position:relative;bottom:12px;">
   <section class="content">

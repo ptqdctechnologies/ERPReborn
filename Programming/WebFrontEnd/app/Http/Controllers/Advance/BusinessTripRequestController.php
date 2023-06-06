@@ -161,6 +161,7 @@ class BusinessTripRequestController extends Controller
             ]
         ]
         );
+        dd($varDataAdvanceRevision);
         $compact = [
             'dataRevisi' => $varDataAdvanceRevision['data'][0]['document']['content'],
             'var_recordID' => $request->searchBrfNumberRevisionId,

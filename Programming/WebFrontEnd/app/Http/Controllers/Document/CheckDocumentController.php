@@ -28,7 +28,7 @@ class CheckDocumentController extends Controller
      
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken, 
+        $varAPIWebToken,
         $varLinkReportTransaction,
         'latest',
         [
