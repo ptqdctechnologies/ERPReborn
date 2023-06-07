@@ -1,19 +1,17 @@
 <script type="text/javascript">
-    $(document).ready(function() {
-        $(".DetailBsf").hide();
-        $("#detailBrfList").hide();
-        // $("#buttonDetailBsf").prop("disabled", true);
-        $("#saveBsf").prop("disabled", true);
-        $("#ManagerNameId").prop("disabled", true);
-        $("#CurrencyId").prop("disabled", true);
-        $("#FinanceId").prop("disabled", true);
-        $("#brf_number2").prop("disabled", true);
-        $("#amountCompanyCart").hide();
-        $(".amountCompanyCart").hide();
-        $("#expenseCompanyCart").hide();
-        $(".expenseCompanyCart").hide();
-        $(".tableShowHideBrfDetail").hide();
-    });
+    $(".DetailBsf").hide();
+    $("#detailBrfList").hide();
+    // $("#buttonDetailBsf").prop("disabled", true);
+    $("#saveBsf").prop("disabled", true);
+    $("#ManagerNameId").prop("disabled", true);
+    $("#CurrencyId").prop("disabled", true);
+    $("#FinanceId").prop("disabled", true);
+    $("#brf_number2").prop("disabled", true);
+    $("#amountCompanyCart").hide();
+    $(".amountCompanyCart").hide();
+    $("#expenseCompanyCart").hide();
+    $(".expenseCompanyCart").hide();
+    $(".tableShowHideBrfDetail").hide();
 </script>
 
 <script>
