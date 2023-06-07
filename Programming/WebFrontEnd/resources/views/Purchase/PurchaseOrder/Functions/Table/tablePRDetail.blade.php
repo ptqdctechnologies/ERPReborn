@@ -12,17 +12,16 @@
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Unit Price</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Total</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Currency</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Balance</th>
+                <!-- <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Balance</th> -->
 
-                <!-- <th class="sticky-col six-col" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">PPN</th>
-                <th class="sticky-col five-col" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">PPN(%)</th> -->
-                <th class="sticky-col forth-col" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Qty</th>
-                <th class="sticky-col third-col" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Price</th>
-                <th class="sticky-col second-col" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Total Req</th>
-                <th class="sticky-col first-col" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Remark</th>
+                <th class="sticky-col five-col" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Qty</th>
+                <th class="sticky-col forth-col" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Price</th>
+                <th class="sticky-col third-col" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Total Req</th>
+                <!-- <th class="sticky-col second-col" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Remark</th> -->
+                <th class="sticky-col first-col" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Balance</th>
                 
             </tr>
-        </thead>
+        </thead> 
         <tbody>
             
         </tbody>
@@ -40,8 +39,7 @@
                             <select name="ppn" id="ppn" style="border-radius:0;" type="text" class="form-control">
                                 <option value="No">No</option>
                                 <option value="Yes">Yes</option>
-                            </select>
-                        </td>
+                         </td>
                     </tr>
                 </table>
             </div>
@@ -64,7 +62,7 @@
         </div>
     </div>
 </div>
-<div class="card-body tableShowHidePRDetail" >
+<div class="card-body tableShowHidePRDetail">
     <table style="float:right;">
         @if($statusRevisi == 1)
             <tr>

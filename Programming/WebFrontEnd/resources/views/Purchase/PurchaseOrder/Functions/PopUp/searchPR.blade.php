@@ -11,15 +11,16 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="TablesearchPRinPO">
+                                <table class="table table-head-fixed text-nowrap" id="TableSearchPRinPO">
                                     <thead>
                                         <tr>
                                             <th>No</th>
                                             <th>Trano</th>
-                                            <th>Project ID</th>
-                                            <th>Project Name</th>
-                                            <th>Site Code</th>
-                                            <th>Site Name</th>
+                                            <th>Budget Code</th>
+                                            <th>Budget Name</th>
+                                            <th>Sub Budget Code</th>
+                                            <th>Sub Budget Name</th>
+                                            <th style="display: none;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>

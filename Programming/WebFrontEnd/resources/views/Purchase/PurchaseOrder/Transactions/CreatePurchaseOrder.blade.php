@@ -7,7 +7,7 @@
     @include('getFunction.getSupplier')
     @include('getFunction.getDeliverTo')
     @include('getFunction.getProduk')
-    @include('Purchase.PurchaseOrder.Functions.PopUp.searchPO')
+    @include('Purchase.PurchaseOrder.Functions.PopUp.searchPR')
 
 
     <div class="content-wrapper" style="position:relative;bottom:12px;">
