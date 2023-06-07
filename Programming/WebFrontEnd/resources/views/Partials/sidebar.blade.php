@@ -1,4 +1,3 @@
-<br>
 <aside class="main-sidebar sidebar-dark-primary elevation-2">
     <div class="sidebar">
 

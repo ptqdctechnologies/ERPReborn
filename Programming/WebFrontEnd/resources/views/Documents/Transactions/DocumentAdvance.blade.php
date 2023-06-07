@@ -58,7 +58,7 @@
             <td>{{ $data['content']['involvedPersons']['requester']['name'] }}</td>
           </tr>
           <tr>
-            <td style="padding-top: 5px;"><label>Name of Beneficiary</label></td>
+            <td style="padding-top: 5px;"><label>Beneficiary</label></td>
             <td>:</td>
             <td>{{ $data['content']['involvedPersons']['beneficiary']['name'] }}</td>
           </tr>
