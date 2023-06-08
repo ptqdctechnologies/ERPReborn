@@ -1,5 +1,4 @@
 <script type="text/javascript">
-  $(document).ready(function() {
     $("#FollowingCondition").hide();
     $("#brfhide3").hide();
     $("#brfhide4").hide();
@@ -21,7 +20,6 @@
     $(".BrfListCart").hide();
     $(".file-attachment").hide();
 
-  });
 </script>
 
 

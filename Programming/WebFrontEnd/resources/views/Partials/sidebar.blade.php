@@ -1,4 +1,3 @@
-<br>
 <aside class="main-sidebar sidebar-dark-primary elevation-2">
     <div class="sidebar">
 
@@ -1744,7 +1743,7 @@
         </nav>
     </div>
     <!-- Brand Logo -->
-    <div class="row brand-link" style="position: relative;bottom:130px;background-color:#f4f6f9;">
+    <div class="row brand-link" style="position: relative;bottom:120px;background-color:#f4f6f9;">
         <div class="cody" style="padding-top:50px;padding-right:45px;padding-left:40px;background-color:#4B586A;">
             <h1 style="color:white;font-weight:bold;padding-left:37px;">50</h1>
             <h5 style="padding-left:10px;">Document to Process</h5>

@@ -22,7 +22,6 @@
                     '<td><span style="position:relative;left:10px;">' + val.combinedBudgetSectionCode + '</span></td>',
                     '<td><span style="position:relative;left:10px;">' + val.combinedBudgetSectionCode + '</span></td></tr></tbody>'
                 ]).draw();
-
             });
         }
     });
