@@ -3,7 +3,7 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\documentForm\humanResource\getWorker\v1             |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\documentForm\humanResource\getWorker\v1      |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
@@ -13,7 +13,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : getWorker                                                                                                    |
-    | ▪ Description : Menangani API report.form.documentForm.humanResource.getWorker Version 1                                            |
+    | ▪ Description : Menangani API report.form.documentForm.humanResource.getWorker Version 1                                     |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class getWorker extends \App\Http\Controllers\Controller
