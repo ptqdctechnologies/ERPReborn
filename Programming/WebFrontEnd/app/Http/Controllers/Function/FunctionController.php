@@ -156,7 +156,7 @@ class FunctionController extends Controller
         $varDataDeliverTo = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
-            'transaction.read.dataList.supplyChain.getSupplier', 
+            'transaction.read.dataList.supplyChain.getWarehouse', 
             'latest', 
             [
             'parameter' => null,
@@ -168,7 +168,7 @@ class FunctionController extends Controller
                 ]
             ]
             );
-            // dd($varDataSupplier);
+            // dd($varDataDeliverTo);
             
         return response()->json($varDataDeliverTo['data']);
     }

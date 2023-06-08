@@ -275,7 +275,7 @@
                         </div>
                       </div>
                     </div>
-
+ 
                     <div class="tab-pane fade" id="amountdueto" role="tabpanel" aria-labelledby="product-desc-tab">
                       <div class="row">
                         <div class="col-12">
