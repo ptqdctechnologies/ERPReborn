@@ -12,7 +12,7 @@
     <ul class="navbar-nav ml-auto">      
         <li class="nav-item dropdown user-menu">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                <img src="{{ asset('AdminLTE-master/dist/img/user.png')}}" class="user-image img-circle elevation-2" alt="User Image">
+                <img src="{{ asset('AdminLTE-master/dist/img/user.png')}}" class="user-image img-circle elevation-2" alt="User Image" style="width: 23px;height:23px;margin-top:1px;">
                 <span class="d-none d-md-inline">IT PT QDC</span>
             </a>
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
