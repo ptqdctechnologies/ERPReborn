@@ -1212,7 +1212,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [$varPagingStatement, 'varchar']
                         ]
                         )
-                    );                
+                    );
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -2481,6 +2481,90 @@ namespace App\Models\Database\SchData_OLTP_Master
                         'SchData-OLTP-Master.Func_GetDataPickList_BudgetOrigin',
                         [
                             [$varBranchID, 'bigint' ]
+                        ]
+                        )
+                    );
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_EntityBankAccount                                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-06-09                                                                                           |
+        | ▪ Creation Date   : 2023-06-09                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Akun Bank Entitas                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varEntity_RefID ► Entity Reference ID                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_EntityBankAccount(
+            $varUserSession, int $varBranchID, 
+            int $varEntity_RefID = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-Master.Func_GetDataPickList_EntityBankAccount',
+                        [
+                            [$varBranchID, 'bigint' ],
+                            [$varEntity_RefID, 'bigint' ]
+                        ]
+                        )
+                    );
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_EntityContactNumber                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-06-09                                                                                           |
+        | ▪ Creation Date   : 2023-06-09                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Nomor Kontak Entitas                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varEntity_RefID ► Entity Reference ID                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_EntityContactNumber(
+            $varUserSession, int $varBranchID, 
+            int $varEntity_RefID = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-Master.Func_GetDataPickList_EntityContactNumber',
+                        [
+                            [$varBranchID, 'bigint' ],
+                            [$varEntity_RefID, 'bigint' ]
                         ]
                         )
                     );

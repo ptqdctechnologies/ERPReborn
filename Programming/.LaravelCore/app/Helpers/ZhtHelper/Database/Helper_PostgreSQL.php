@@ -195,13 +195,60 @@ namespace App\Helpers\ZhtHelper\Database
                             $varResult = pg_query($DBConnection, $varSQLQuery);
                             $varNotice = pg_last_notice($DBConnection, PGSQL_NOTICE_ALL);
 
+                            /*
                             while ($row = pg_fetch_assoc($varResult)) {
                                 $varData[] = $row;
                                 $i++;
                                 }
+                            */
+                            
+                            while ($row = pg_fetch_assoc($varResult)) {
+                                $varDataContent = null;
+                                $varData[$i] = $row;
+                                foreach($varData[$i] as $key => $value)
+                                    {
+                                    $varData[$i][$key] = $value;
+//                                    echo "<br><br><br>";
+//                                    var_dump($key);
+//                                    var_dump($value);
 
+                                    if(is_null($value) == TRUE)
+                                        {
+                                        $varData[$i][$key] = null;
+                                        }
+                                    else
+                                        {
+                                        if((strlen($value)==1) AND (strcmp($value, 't') == 0))
+                                            {
+                                            $varData[$i][$key] = self::getBooleanConvertion($varUserSession, $value);
+                                            }
+                                        else
+                                            {
+                                            if(is_numeric($value)==TRUE)
+                                                {
+                                                if(is_integer((int) $value) == TRUE)
+                                                    {
+                                                    $varData[$i][$key] = (int) $value;
+                                                    }
+                                                else
+                                                    {
+                                                    $varData[$i][$key] = (float) $value;
+                                                    }
+                                                }
+                                            else
+                                                {
+                                                $varData[$i][$key] = $value;
+                                                }
+                                            }
+                                        }
+                                    }
+                                //var_dump($varDataContent);
+                                //$varData[$i] = $varDataContent;
+                                $i++;
+                                }
                             pg_close($DBConnection);
                             }
+
                         $varReturn['Data'] = $varData;
                         $varReturn['Notice'] = $varNotice;
                         $varReturn['RowCount']=$i;
