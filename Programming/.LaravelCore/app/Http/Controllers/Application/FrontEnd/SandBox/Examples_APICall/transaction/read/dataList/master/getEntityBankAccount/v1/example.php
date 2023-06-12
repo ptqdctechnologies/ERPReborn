@@ -39,7 +39,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 'latest', 
                 [
                 'parameter' => [
-                    'entity_RefID' => 25000000000439
+                    //'entity_RefID' => 25000000000439 //---> By Person ID (25xxx)
+                    //'entity_RefID' => 32000000000439 //---> By Worker ID (32xxx)
+                    'entity_RefID' => 164000000000439 //---> By Worker ID Career Internal (164xxx)
+                    //'entity_RefID' => 124000000000001 //---> By Institution Branch ID (124xxx)
+                    //'entity_RefID' => 164000000000001 //---> By Worker ID Career Internal (164xxx)
                     ],
                 'SQLStatement' => [
                     'pick' => null,
