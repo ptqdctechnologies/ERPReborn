@@ -166,7 +166,7 @@ class AdvanceRequestController extends Controller
         // dd($varDataAdvanceRevision);
 
         $compact = [
-            'dataAdvance' => $varDataAdvanceRevision['data'][0]['document']['content'],
+            'dataRevisi' => $varDataAdvanceRevision['data'][0]['document']['content'],
             'var_recordID' => $request->searchArfNumberRevisionId,
             'trano' => $varDataAdvanceRevision['data'][0]['document']['header']['number'],
             'varAPIWebToken' => $varAPIWebToken,

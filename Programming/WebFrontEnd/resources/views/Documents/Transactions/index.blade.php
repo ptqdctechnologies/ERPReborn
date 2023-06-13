@@ -3,12 +3,9 @@
 @include('Partials.navbar')
 @include('Partials.sidebar')
 @include('getFunction.getSite')
-@include('getFunction.getProduct')
 @include('Documents.Functions.PopUp.SearchCheckDocument')
-@include('getFunction.getProject')
-@include('getFunction.getWorkFlow')
 
-<div class="content-wrapper" style="position:relative;bottom:12px;">
+<div class="content-wrapper">
   <section class="content">
     <div class="container-fluid">
       <div class="row mb-1" style="background-color:#4B586A;">
@@ -33,8 +30,12 @@
               @include('Documents.Transactions.DocumentAdvanceSettlement')
             @elseif($TransactionMenu == "BussinesTripRequest")
               @include('Documents.Transactions.DocumentBussinesTripRequest')
+            @elseif($TransactionMenu == "BussinesTripSettlement")
+              @include('Documents.Transactions.DocumentBussinesTripSettlement')
             @elseif($TransactionMenu == "PurchaseRequisition")
               @include('Documents.Transactions.DocumentPurchaseRequisition')
+            @elseif($TransactionMenu == "PurchaseOrder")
+              @include('Documents.Transactions.DocumentPurchaseOrder')
             @endif
 
             @include('Documents.Transactions.DocumentApprovalHistory')            

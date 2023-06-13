@@ -1,19 +1,17 @@
 <script type="text/javascript">
-    $(document).ready(function() {
-        $("#projectcode2").prop("disabled", true);
-        $("#sitecode2").prop("disabled", true);
-        $("#addFromDetailtoCart").prop("disabled", true);
-        // $("#showContentBOQ3").hide();
-        // $("#tableShowHideBOQ3").hide();
+    $("#projectcode2").prop("disabled", true);
+    $("#sitecode2").prop("disabled", true);
+    $("#addFromDetailtoCart").prop("disabled", true);
+    // $("#showContentBOQ3").hide();
+    // $("#tableShowHideBOQ3").hide();
 
-        $("#iconProductId2").hide();
-        $("#iconQty2").hide();
-        $("#iconUnitPrice2").hide();
-        $("#iconRemark2").hide();
-        $("#product_id2").prop("disabled", true);
+    $("#iconProductId2").hide();
+    $("#iconQty2").hide();
+    $("#iconUnitPrice2").hide();
+    $("#iconRemark2").hide();
+    $("#product_id2").prop("disabled", true);
 
-        // $("#submitPR").prop("disabled", true);
-    });
+    // $("#submitPR").prop("disabled", true);
 </script>
 
 

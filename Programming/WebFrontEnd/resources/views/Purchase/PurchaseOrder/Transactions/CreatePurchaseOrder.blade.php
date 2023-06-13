@@ -10,7 +10,7 @@
     @include('Purchase.PurchaseOrder.Functions.PopUp.searchPO')
 
 
-    <div class="content-wrapper" style="position:relative;bottom:12px;">
+    <div class="content-wrapper">
       <section class="content">
         <div class="container-fluid">
           <div class="row mb-1" style="background-color:#4B586A;">
@@ -275,7 +275,7 @@
                         </div>
                       </div>
                     </div>
-
+ 
                     <div class="tab-pane fade" id="amountdueto" role="tabpanel" aria-labelledby="product-desc-tab">
                       <div class="row">
                         <div class="col-12">

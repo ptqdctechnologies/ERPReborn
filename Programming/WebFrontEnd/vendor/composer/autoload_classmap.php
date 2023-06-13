@@ -931,8 +931,6 @@ return array(
     'Dflydev\\DotAccessData\\Util' => $vendorDir . '/dflydev/dot-access-data/src/Util.php',
     'Doctrine\\Common\\Lexer\\AbstractLexer' => $vendorDir . '/doctrine/lexer/src/AbstractLexer.php',
     'Doctrine\\Common\\Lexer\\Token' => $vendorDir . '/doctrine/lexer/src/Token.php',
-    'Doctrine\\Deprecations\\Deprecation' => $vendorDir . '/doctrine/deprecations/lib/Doctrine/Deprecations/Deprecation.php',
-    'Doctrine\\Deprecations\\PHPUnit\\VerifyDeprecations' => $vendorDir . '/doctrine/deprecations/lib/Doctrine/Deprecations/PHPUnit/VerifyDeprecations.php',
     'Doctrine\\Inflector\\CachedWordInflector' => $vendorDir . '/doctrine/inflector/lib/Doctrine/Inflector/CachedWordInflector.php',
     'Doctrine\\Inflector\\GenericLanguageInflectorFactory' => $vendorDir . '/doctrine/inflector/lib/Doctrine/Inflector/GenericLanguageInflectorFactory.php',
     'Doctrine\\Inflector\\Inflector' => $vendorDir . '/doctrine/inflector/lib/Doctrine/Inflector/Inflector.php',

@@ -238,12 +238,9 @@ class AdvanceSettlementController extends Controller
                 ]
             ]
         );
-        
-        // dd($varDataAdvanceSettlementRevision['data'][0]['document']['content']['itemList']['ungrouped'][0]);
+    
         $compact = [
-            'dataAdvanceRevisions' => $varDataAdvanceSettlementRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
-            'log_FileUpload_Pointer_RefID' => $varDataAdvanceSettlementRevision['data'][0]['document']['content']['attachmentFiles']['main']['log_FileUpload_Pointer_RefID'],
-            'dataRequester' => $varDataAdvanceSettlementRevision['data'][0]['document']['content']['involvedPersons']['requester'],
+            'dataRevisi' => $varDataAdvanceSettlementRevision['data'][0]['document']['content'],
             'trano' => $varDataAdvanceSettlementRevision['data'][0]['document']['header']['number'],
             'var_recordID' => $request->searchAsfNumberRevisionId,
             'varAPIWebToken' => $varAPIWebToken,
