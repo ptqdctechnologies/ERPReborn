@@ -58,53 +58,32 @@
                     });
                 }
             });
-
-            // var dataShow = [];
-            // $.ajax({
-            //     type: 'GET',
-            //     url: '{!! route("getWorker") !!}',
-            //     success: function(data) {
-            //         var no = 1;
-
-            //         for ( var i=0 ; i< Object.keys(data).length ; i++ ) {
-            //             dataShow.push([
-            //                 i+1,
-            //                 '<span data-dismiss="modal" onclick="klikWorker(\'' + data[i]['sys_ID'] + '\', \'' + data[i]['personName'] + '\', \'' + data[i]['organizationalJobPositionName'] + '\');">' + data[i]['personName'] + '</span>',  
-            //                 '<span data-dismiss="modal" onclick="klikWorker(\'' + data[i]['sys_ID'] + '\', \'' + data[i]['personName'] + '\', \'' + data[i]['organizationalJobPositionName'] + '\');">' + data[i]['organizationalJobPositionName'] + '</span>',  
-            //             ]);
-            //         }
-
-            //         $("#tableGetBeneficiary").dataTable().fnDestroy()
-
-            //         $('#tableGetBeneficiary').DataTable( {
-            //             data:           dataShow,
-            //             deferRender:    true,
-            //             // scrollY:        200,
-            //             scrollCollapse: true,
-            //             scroller:       true
-            //         } );
-            //     }
-            // });
-
         });
     });
 </script>
 
 <script>
-
-    $('#tableGetBeneficiary tbody').on('click', 'tr', function () {
+    $('#tableGetBeneficiary tbody').on('click', 'tr', function() {
 
         $("#myBeneficiary").modal('toggle');
 
-        var row = $(this).closest("tr");    
+        var row = $(this).closest("tr");
         var sys_id = row.find("td:nth-child(4)").text();
         var name = row.find("td:nth-child(2)").text();
         var position = row.find("td:nth-child(3)").text();
-        
+
         $("#beneficiary_name_id").val(sys_id);
         $("#beneficiary_name").val(name);
         $("#beneficiary_position").val(position);
 
+        $("#bank_code").val("");
+        $("#bank_name").val("");
+        $("#bank_name_full").val("");
+        $("#bank_account").val("");
+        $("#account_name").val("");
+
+        $('#tableGetBank').find('tbody').empty();
+        $('#tableGetBankAccount').find('tbody').empty();
+
     });
-    
 </script>
