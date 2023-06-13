@@ -32,6 +32,10 @@
                         <th>Date</th>
                         <th>Status</th>
                         <th>Comment</th>
+                        <th style="display:none;"></th>
+                        <th style="display:none;"></th>
+                        <th style="display:none;"></th>
+                        <th style="display: none;"></th>
                       </tr>
                     </thead>
                     <tbody>
