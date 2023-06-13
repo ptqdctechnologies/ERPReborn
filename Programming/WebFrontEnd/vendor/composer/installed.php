@@ -95,9 +95,9 @@
             'dev_requirement' => false,
         ),
         'fakerphp/faker' => array(
-            'pretty_version' => 'v1.22.0',
-            'version' => '1.22.0.0',
-            'reference' => 'f85772abd508bd04e20bb4b1bbe260a68d0066d2',
+            'pretty_version' => 'v1.23.0',
+            'version' => '1.23.0.0',
+            'reference' => 'e3daa170d00fde61ea7719ef47bb09bb8f1d9b01',
             'type' => 'library',
             'install_path' => __DIR__ . '/../fakerphp/faker',
             'aliases' => array(),
