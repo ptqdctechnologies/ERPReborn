@@ -1500,6 +1500,7 @@ return array(
     'Faker\\Provider\\nl_NL\\PhoneNumber' => $vendorDir . '/fakerphp/faker/src/Faker/Provider/nl_NL/PhoneNumber.php',
     'Faker\\Provider\\nl_NL\\Text' => $vendorDir . '/fakerphp/faker/src/Faker/Provider/nl_NL/Text.php',
     'Faker\\Provider\\pl_PL\\Address' => $vendorDir . '/fakerphp/faker/src/Faker/Provider/pl_PL/Address.php',
+    'Faker\\Provider\\pl_PL\\Color' => $vendorDir . '/fakerphp/faker/src/Faker/Provider/pl_PL/Color.php',
     'Faker\\Provider\\pl_PL\\Company' => $vendorDir . '/fakerphp/faker/src/Faker/Provider/pl_PL/Company.php',
     'Faker\\Provider\\pl_PL\\Internet' => $vendorDir . '/fakerphp/faker/src/Faker/Provider/pl_PL/Internet.php',
     'Faker\\Provider\\pl_PL\\LicensePlate' => $vendorDir . '/fakerphp/faker/src/Faker/Provider/pl_PL/LicensePlate.php',
