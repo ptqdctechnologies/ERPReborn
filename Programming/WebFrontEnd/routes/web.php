@@ -43,6 +43,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     //Document
     Route::post('ShowDocument', 'Document\CheckDocumentController@ShowDocument')->name('CheckDocument.ShowDocument');
+    Route::get('ShowDocumentByID', 'Document\CheckDocumentController@ShowDocumentByID')->name('CheckDocument.ShowDocumentByID');
     Route::resource('CheckDocument', 'Document\CheckDocumentController');
 
     
