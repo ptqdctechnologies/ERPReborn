@@ -3,16 +3,16 @@
     $(".Remark").hide();
     $("#detailTransAvail").hide();
     $("#sitecode2").prop("disabled", true);
-    // $("#request_name2").prop("disabled", true);
-    // $("#beneficiary_name2").prop("disabled", true);
+    $("#request_name2").prop("disabled", true);
+    $("#beneficiary_name2").prop("disabled", true);
     $("#showContentBOQ3").hide();
     $(".tableShowHideBOQ3").hide();
     $(".file-attachment").hide();
     $(".advance-detail").hide();
     
     $("#product_id2").prop("disabled", true);
-    // $("#bank_name2").prop("disabled", true);
-    // $("#bank_account2").prop("disabled", true);
+    $("#bank_name2").prop("disabled", true);
+    $("#bank_account2").prop("disabled", true);
     $("#submitArf").prop("disabled", true);
 </script>
 

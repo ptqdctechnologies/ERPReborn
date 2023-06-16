@@ -17,7 +17,7 @@
                     <ul>
                         <li>
                         <span style="text-transform:uppercase;font-weight:bold;">{{ $dataWorkflows['entities']['workFlowPathActionName'] }}</span> {{ date('d/m/Y H:m:s', strtotime($dataWorkflows['entities']['approvalDateTimeTZ'])) }} : {{ $dataWorkflows['entities']['approverEntityName'] }} ({{ $dataWorkflows['entities']['approverEntityDepartmentName'] }}) <br>
-                            Comment : pengajuan makan malem, buah dan minuman dikarenakan setiap hari lembur sampai malam
+                            Comment : {{ $dataWorkflows['entities']['remarks'] }}
                         </li>
                     </ul>
                     @endforeach

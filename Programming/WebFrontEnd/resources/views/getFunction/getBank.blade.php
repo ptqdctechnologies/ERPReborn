@@ -41,7 +41,7 @@
     $(function() {
         $('.myGetBank').on('click', function(e) {
             e.preventDefault();
-            
+
             var sys_ID = $("#beneficiary_name_id").val();
 
             $.ajax({
@@ -49,10 +49,11 @@
                 url: '{!! route("getBank") !!}?sys_ID=' + sys_ID,
                 success: function(data) {
                     console.log(data);
-                    var no = 1; t = $('#tableGetBank').DataTable();
+                    var no = 1;
+                    t = $('#tableGetBank').DataTable();
                     t.clear();
                     $.each(data, function(key, val) {
-                        
+
                         t.row.add([
 
                             '<tbody><tr><td>' + no++ + '</td>',

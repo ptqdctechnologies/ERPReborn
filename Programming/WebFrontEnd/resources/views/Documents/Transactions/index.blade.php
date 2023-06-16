@@ -48,6 +48,5 @@
   </section>
 </div>
 @include('Partials.footer')
-
 @include('Documents.Functions.Footer.FooterCheckDocument')
 @endsection

@@ -45,8 +45,6 @@
     }
 </script>
 
-
-
 <script>
     $('#TableCheckDocument tbody').on('click', 'tr', function() {
 
@@ -58,7 +56,6 @@
         var sys_id = row.find("td:nth-child(5)").text();
         var TransactionMenu = row.find("td:nth-child(6)").text();
         var linkReportTransaction = row.find("td:nth-child(7)").text();
-        console.log(linkReportTransaction);
 
         $("#sys_id").val(sys_id);
         $("#document_number").val(documentNumber);

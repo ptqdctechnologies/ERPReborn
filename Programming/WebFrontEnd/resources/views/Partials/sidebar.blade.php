@@ -11,7 +11,7 @@
             </div>
         </div>
 
-        <hr style="background-color: white;">
+        <!-- <hr style="background-color: white;"> -->
 
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -1743,10 +1743,10 @@
         </nav>
     </div>
     <!-- Brand Logo -->
-    <div class="row brand-link" style="position: relative;bottom:120px;background-color:#f4f6f9;">
-        <div class="cody" style="padding-top:50px;padding-right:45px;padding-left:40px;background-color:#4B586A;">
-            <h1 style="color:white;font-weight:bold;padding-left:37px;">50</h1>
-            <h5 style="padding-left:10px;">Document to Process</h5>
+    <div class="row brand-link" style="position: relative;bottom:120px;right:2px;background-color:#f4f6f9;">
+        <div class="cody" style="padding-top:50px;padding-right:45px;padding-left:40px;background-color:#4B586A;position: relative;bottom:11px;">
+            <h1 style="color:white;font-weight:bold;padding-left:39px;">50</h1>
+            <h5 style="padding-left:12px;">Document to Process</h5>
             <a href="{{ route('MyDocument.index') }}">
                 <span class="btn btn-default btn-sm"> Go to Document</span>
             </a>

@@ -48,6 +48,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     
     Route::get('MyDocumentListData', 'Document\MyDocumentController@MyDocumentListData')->name('MyDocument.MyDocumentListData');
+    Route::post('MyDocumentListDataFilter', 'Document\MyDocumentController@MyDocumentListDataFilter')->name('MyDocument.MyDocumentListDataFilter');
     Route::resource('MyDocument', 'Document\MyDocumentController');
     
     //MASTER DATA
