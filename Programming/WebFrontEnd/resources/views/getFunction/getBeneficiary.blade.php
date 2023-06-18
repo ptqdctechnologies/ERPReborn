@@ -85,5 +85,7 @@
         $('#tableGetBank').find('tbody').empty();
         $('#tableGetBankAccount').find('tbody').empty();
 
+        $("#bank_name2").prop("disabled", false);
+
     });
 </script>

@@ -36,7 +36,7 @@
                     <td style="border:1px solid #4B586A;color:#4B586A;">{{ date('D, d/m/Y H:m:s', strtotime($dataWorkflows['entities']['approvalDateTimeTZ'])) }}</td>
                     <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['entities']['approverEntityName'] }}</td>
                     <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['entities']['workFlowPathActionName'] }}</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['entities']['approvalDateTimeTZ'] }}</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['entities']['remarks'] }}</td>
                 </tr>
                 @endforeach
                 </tbody>

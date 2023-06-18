@@ -15,7 +15,7 @@ class MyDocumentController extends Controller
     public function MyDocumentListData(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.read.dataList.finance.getAdvance',
@@ -31,7 +31,52 @@ class MyDocumentController extends Controller
             ]
         );
         $compact = [
-            'data' => $varDataAdvanceRequest['data'],
+            'data' => $varData['data'],
+        ];
+        return response()->json($compact);
+    }
+
+    public function MyDocumentListDataFilter(Request $request)
+    {
+
+        $filter = "";
+        $trano = $request->trano;
+        $projectid = $request->projectid;
+        $document_type = $request->document_type;
+
+        if($trano != "" && $projectid != ""){
+            $filter = $trano;
+            $filter = $projectid;
+        }
+        else if($trano != ""){
+            $filter = $trano;
+        }
+        else if($projectid != ""){
+            $filter = $projectid;
+        }
+
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.finance.getAdvance',
+            // $document_type,
+            'latest',
+            [
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    // 'filter' => null,
+                    // 'filter' => '"Sys_ID" = '.$filter.'',
+                    'filter' => '"CombinedBudget_RefID" = '.$filter.'',
+                    'paging' => null
+                ]
+            ]
+        );
+        // dd($varData);
+        $compact = [
+            'data' => $varData['data'],
         ];
         return response()->json($compact);
     }

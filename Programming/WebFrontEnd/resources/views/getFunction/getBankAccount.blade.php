@@ -14,6 +14,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>Bank Name</th>
                                             <th>Bank Account</th>
                                             <th>Account Name</th>
                                             <th style="display:none;"></th>
@@ -46,6 +47,7 @@
         $("#bank_code").val(bank_ID);
         $("#bank_name").val(acronym);
         $("#bank_name_full").val(name);
+
         $("#bank_account").val("");
         $("#account_name").val("");
 
@@ -69,6 +71,7 @@
                 $.each(data, function(key, val) {
                     t.row.add([
                         '<tbody><tr><td>' + no++ + '</td>',
+                        '<td>' + val.bankAcronym + '</td>',
                         '<td>' + val.bankAccountNumber + '</td>',
                         '<td>' + val.bankAccountName + '</td>',
                         '<span style="display:none;"><td>' + val.bankAccount_RefID + '</td></span></tr></tbody>'
@@ -87,9 +90,9 @@
         $("#myBankAccount").modal('toggle');
 
         var row = $(this).closest("tr");    
-        var sys_ID = row.find("td:nth-child(4)").text();
-        var accountNumber = row.find("td:nth-child(2)").text();
-        var accountName = row.find("td:nth-child(3)").text();
+        var sys_ID = row.find("td:nth-child(5)").text();
+        var accountNumber = row.find("td:nth-child(3)").text();
+        var accountName = row.find("td:nth-child(4)").text();
 
         $("#beneficiaryBankAccount_RefID").val(sys_ID);
         $("#bank_account").val(accountNumber);
