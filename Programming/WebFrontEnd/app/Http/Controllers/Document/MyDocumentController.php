@@ -39,41 +39,42 @@ class MyDocumentController extends Controller
     public function MyDocumentListDataFilter(Request $request)
     {
 
-        $filter = "";
+        $filter = null;
+        $document_type = "transaction.read.dataList.finance.getAdvance";
         $trano = $request->trano;
         $projectid = $request->projectid;
-        $document_type = $request->document_type;
 
-        if($trano != "" && $projectid != ""){
-            $filter = $trano;
-            $filter = $projectid;
+        if ($request->document_type != "") {
+            $document_type = $request->document_type;
         }
-        else if($trano != ""){
-            $filter = $trano;
-        }
-        else if($projectid != ""){
+
+        if ($trano != "" && $projectid != "") {
+            $filter = trim('"DocumenNumber" = ' . $trano . ' AND "CombinedBudget_RefID" = ' . $projectid . ' ');
             $filter = $projectid;
+        } else if ($trano != "") {
+            $filter = trim('"DocumenNumber" ILIKE \'%' . $trano . '%\' ');
+        } else if ($projectid != "") {
+            $filter = trim('"CombinedBudget_RefID" = ' . $projectid . ' ');
         }
 
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.read.dataList.finance.getAdvance',
-            // $document_type,
+            $document_type,
+            // "transaction.read.dataList.finance.getAdvance",
             'latest',
             [
                 'parameter' => null,
                 'SQLStatement' => [
                     'pick' => null,
                     'sort' => null,
-                    // 'filter' => null,
-                    // 'filter' => '"Sys_ID" = '.$filter.'',
-                    'filter' => '"CombinedBudget_RefID" = '.$filter.'',
+                    'filter' => $filter,
                     'paging' => null
                 ]
             ]
         );
+
         // dd($varData);
         $compact = [
             'data' => $varData['data'],

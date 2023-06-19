@@ -51,7 +51,7 @@
                                 <div class="input-group" style="position:relative;bottom:5px;">
                                   <select name="document_type" id="document_type" class="form-control">
                                     <option value=""></option>
-                                    <option value="transaction.read.dataList.finance.getAdvance">Advance</option>
+                                    <option value="transaction.read.dataList.finance.getAdiyaavance">Advance</option>
                                     <option value="report.form.documentForm.finance.getAdvance">Advance Settlement</option>
                                     <option value="report.form.documentForm.finance.getAdvance">Bussines Trip Request</option>
                                     <option value="report.form.documentForm.finance.getAdvance">Bussines Trip Settlement</option>
