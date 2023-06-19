@@ -47,16 +47,16 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     //'entity_RefID' => 164000000000001 //---> By Worker ID Career Internal (164xxx)
                     ],
                 'SQLStatement' => [
-                    /*
                     'pick' => null,
                     'sort' => null,
                     'filter' => null,
                     'paging' => null
-                    */
+                    /*
                     'pick' => '*',
                     'sort' => null,
                     'filter' => trim('"BankName" ILIKE \'%Rakyat%\' AND "BankAccountName" ILIKE \'%Teguh%\' '),
                     'paging' => null
+                    */
                     ]
                 ]
                 );
