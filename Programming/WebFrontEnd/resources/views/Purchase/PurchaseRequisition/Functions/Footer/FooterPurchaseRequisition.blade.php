@@ -1,14 +1,17 @@
+<!--  SHOW HIDE AVAILABEL -->
 <script type="text/javascript">
-    $(".detailPurchaseRequisitionList").hide();
-    $("#detailTransAvail").hide();
-    $("#sitecode2").prop("disabled", true);
-    $("#request_name2").prop("disabled", true);
-    $("#addFromDetailtoCart").prop("disabled", true);
-    $("#showContentBOQ3").hide();
-    $(".tableShowHideBOQ3").hide();
-    $("#product_id2").prop("disabled", true);
+    $(document).ready(function() {
+        $(".detailPurchaseRequisitionList").hide();
+        $("#detailTransAvail").hide();
+        $("#sitecode2").prop("disabled", true);
+        $("#request_name2").prop("disabled", true);
+        $("#addFromDetailtoCart").prop("disabled", true);
+        $("#showContentBOQ3").hide();
+        $(".tableShowHideBOQ3").hide();
+        $("#product_id2").prop("disabled", true);
 
-    $("#submitPR").prop("disabled", true);
+        $("#submitPR").prop("disabled", true);
+    });
 </script>
 
 <script>

@@ -1,11 +1,13 @@
 <script type="text/javascript">
-    $("#addbsfListCart").prop("disabled", true);
-    $("#SavebsfList").prop("disabled", true);
-    $("#projectcode2").prop("disabled", true);
-    $("#brf_number2").prop("disabled", true);
-    $("#DetailBsf").hide();
-    $("#amountCompanyCart").hide();
-    $(".amountCompanyCart").hide();
+    $(document).ready(function() {
+        $("#addbsfListCart").prop("disabled", true);
+        $("#SavebsfList").prop("disabled", true);
+        $("#projectcode2").prop("disabled", true);
+        $("#brf_number2").prop("disabled", true);
+        $("#DetailBsf").hide();
+        $("#amountCompanyCart").hide();
+        $(".amountCompanyCart").hide();
+    });
 </script>
 
 <script type="text/javascript">

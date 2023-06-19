@@ -315,7 +315,7 @@ class RulesetStandardLibrary
         }
 
         $result = call_user_func_array(
-            [RulesetStandardLibrary::class, $funcName],
+            ['Aws\EndpointV2\Ruleset\RulesetStandardLibrary', $funcName],
             $funcArgs
         );
 

@@ -1,6 +1,6 @@
 <div class="card-body ShowDocumentList" style="font-weight: bold;">
   <center>
-    <h3><b><span style="text-transform:uppercase">ADVANCE SETTLEMENT</span></b></h3>
+    <h3><b><span style="text-transform:uppercase">{{ $data['header']['title'] }}</span></b></h3>
   </center>
   <br>
   <div class="row">

@@ -41,7 +41,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                 'latest',
                 [
                 'parameter' => [
-                    'recordID' => 75000001493195
+                    'recordID' => 74000000000003 // Business Document ID
+                    //'recordID' => 75000001493195 // Business Document Version ID
                     ]
                 ]
                 );

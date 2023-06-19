@@ -7,7 +7,7 @@
             <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Budget &nbsp;&nbsp;Code</label></td>
             <td>
               <div class="input-group">
-                <input id="projectcode" style="border-radius:0;" name="projectcode" class="form-control" readonly value="{{$dataRevisi['itemList']['ungrouped'][0]['entities']['combinedBudgetCode']}}">
+                <input id="projectcode" style="border-radius:0;" name="projectcode" class="form-control" readonly value="{{$dataAdvanceRevisions['entities']['combinedBudgetCode']}}">
                 <div class="input-group-append">
                   <span style="border-radius:0;" class="input-group-text form-control">
                     <a id="projectcode2" data-toggle="modal"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
@@ -17,7 +17,7 @@
             </td>
             <td>
               <div class="input-group">
-                <input id="projectname" style="border-radius:0;" class="form-control" name="projectname" readonly value="{{$dataRevisi['itemList']['ungrouped'][0]['entities']['combinedBudgetName']}}">
+                <input id="projectname" style="border-radius:0;" class="form-control" name="projectname" readonly value="{{$dataAdvanceRevisions['entities']['combinedBudgetName']}}">
               </div>
             </td>
           </tr>
@@ -31,7 +31,7 @@
             <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Sub Budget &nbsp;&nbsp;Code</label></td>
             <td>
               <div class="input-group">
-                <input id="sitecode" style="border-radius:0;" name="sitecode" class="form-control" readonly value="{{$dataRevisi['itemList']['ungrouped'][0]['entities']['combinedBudgetSectionCode']}}">
+                <input id="sitecode" style="border-radius:0;" name="sitecode" class="form-control" readonly value="{{$dataAdvanceRevisions['entities']['combinedBudgetSectionCode']}}">
                 <input name="var_combinedBudget" id="combinedBudget" style="border-radius:0;" type="hidden" class="form-control" readonly>
                 <div class="input-group-append">
                   <span style="border-radius:0;" class="input-group-text form-control">
@@ -42,7 +42,7 @@
             </td>
             <td>
               <div class="input-group">
-                <input id="sitename" style="border-radius:0;" class="form-control" name="sitename" readonly value="{{$dataRevisi['itemList']['ungrouped'][0]['entities']['combinedBudgetSectionName']}}">
+                <input id="sitename" style="border-radius:0;" class="form-control" name="sitename" readonly value="{{$dataAdvanceRevisions['entities']['combinedBudgetSectionName']}}">
               </div>
             </td>
           </tr>

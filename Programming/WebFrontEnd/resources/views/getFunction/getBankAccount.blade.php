@@ -14,7 +14,6 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Bank Name</th>
                                             <th>Bank Account</th>
                                             <th>Account Name</th>
                                             <th style="display:none;"></th>
@@ -40,14 +39,13 @@
         $("#myGetBank").modal('toggle');
 
         var row = $(this).closest("tr");    
-        var bank_ID = row.find("td:nth-child(4)").text();
+        var sys_ID = row.find("td:nth-child(4)").text();
         var acronym = row.find("td:nth-child(2)").text();
         var name = row.find("td:nth-child(3)").text();
 
-        $("#bank_code").val(bank_ID);
+        $("#bank_code").val(sys_ID);
         $("#bank_name").val(acronym);
         $("#bank_name_full").val(name);
-
         $("#bank_account").val("");
         $("#account_name").val("");
 
@@ -59,22 +57,21 @@
             }
         });
 
-        var sys_ID = $("#beneficiary_name_id").val();
-
         $.ajax({
             type: 'GET',
-            url: '{!! route("getEntityBankAccount") !!}?sys_ID=' + sys_ID + '&bank_ID=' + bank_ID,
+            url: '{!! route("getBankAccount") !!}?bank_code=' + sys_ID,
             success: function(data) {
+
                 var no = 1;
+
                 var t = $('#tableGetBankAccount').DataTable();
                 t.clear();
                 $.each(data, function(key, val) {
                     t.row.add([
                         '<tbody><tr><td>' + no++ + '</td>',
-                        '<td>' + val.bankAcronym + '</td>',
-                        '<td>' + val.bankAccountNumber + '</td>',
-                        '<td>' + val.bankAccountName + '</td>',
-                        '<span style="display:none;"><td>' + val.bankAccount_RefID + '</td></span></tr></tbody>'
+                        '<td>' + val.accountNumber + '</td>',
+                        '<td>' + val.accountName + '</td>',
+                        '<span style="display:none;"><td>' + val.sys_ID + '</td></span></tr></tbody>'
                     ]).draw();
                 });
             }
@@ -90,9 +87,9 @@
         $("#myBankAccount").modal('toggle');
 
         var row = $(this).closest("tr");    
-        var sys_ID = row.find("td:nth-child(5)").text();
-        var accountNumber = row.find("td:nth-child(3)").text();
-        var accountName = row.find("td:nth-child(4)").text();
+        var sys_ID = row.find("td:nth-child(4)").text();
+        var accountNumber = row.find("td:nth-child(2)").text();
+        var accountName = row.find("td:nth-child(3)").text();
 
         $("#beneficiaryBankAccount_RefID").val(sys_ID);
         $("#bank_account").val(accountNumber);

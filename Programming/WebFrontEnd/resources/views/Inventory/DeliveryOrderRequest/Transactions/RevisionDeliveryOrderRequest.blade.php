@@ -11,7 +11,7 @@
 @include('getFunction.getWarehouse3')
 @include('getFunction.getSupplier')
 
-<div class="content-wrapper">
+<div class="content-wrapper" style="position:relative;bottom:12px;">
     <section class="content">
         <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
 
