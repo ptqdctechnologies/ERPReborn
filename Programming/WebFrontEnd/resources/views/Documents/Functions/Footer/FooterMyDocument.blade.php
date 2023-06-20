@@ -117,7 +117,12 @@
 
                     $("#loading").hide();
                     $(".loader").hide();
-                }
+                },
+                error: function(response) {
+                    $("#loading").hide();
+                    $(".loader").hide();
+                    Swal.fire("Cancelled", "Data Not Found !", "error");
+                },
             })
         });
     });
