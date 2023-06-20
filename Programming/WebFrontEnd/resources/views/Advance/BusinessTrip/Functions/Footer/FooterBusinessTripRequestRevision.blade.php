@@ -1,5 +1,4 @@
 <script type="text/javascript">
-  $(document).ready(function() {
     $(".FormTransportDetails").hide();
     $("#sitecode2").prop("disabled", true);
     $("#request_name2").prop("disabled", true);
@@ -10,7 +9,6 @@
     $("#dateArrival").css("background-color", "white");
     $("#putProductId2").prop("disabled", true);
     $("#sequenceRequest").prop("disabled", true);
-  });
 </script>
 
 

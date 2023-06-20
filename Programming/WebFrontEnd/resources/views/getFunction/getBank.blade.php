@@ -16,7 +16,6 @@
                                             <th>No</th>
                                             <th>Name</th>
                                             <th>Full Name</th>
-                                            <th style="display:none;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -41,20 +40,26 @@
     $(function() {
         $('.myGetBank').on('click', function(e) {
             e.preventDefault();
-            
+
+            var sys_ID = $("#beneficiary_name_id").val();
+
+            var keys = 0;
+
             $.ajax({
                 type: 'GET',
-                url: '{!! route("getBank") !!}',
+                url: '{!! route("getBank") !!}?sys_ID=' + sys_ID,
                 success: function(data) {
-                    var no = 1; t = $('#tableGetBank').DataTable();
+                    console.log(data);
+                    var no = 1;
+                    t = $('#tableGetBank').DataTable();
                     t.clear();
                     $.each(data, function(key, val) {
+                        keys += 1;
                         t.row.add([
 
-                            '<tbody><tr><td>' + no++ + '</td>',
-                            '<td>' + val.acronym + '</td>',
-                            '<td>' + val.name + '</td>',
-                            '<span style="display:none;"><td>' + val.sys_ID + '</td></span></tr></tbody>'
+                            '<tbody><tr><input id="sys_id_bank' + keys + '" value="' + val.bank_RefID + '" type="hidden"><td>' + no++ + '</td>',
+                            '<td>' + val.bankAcronym + '</td>',
+                            '<td>' + val.bankName + '</td></span></tr></tbody>'
 
                         ]).draw();
 

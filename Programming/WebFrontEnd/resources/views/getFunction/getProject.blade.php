@@ -16,7 +16,6 @@
                                             <th>No</th>
                                             <th>Budget Code</th>
                                             <th>Budget Name</th>
-                                            <th style="display: none;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -32,7 +31,6 @@
 </div>
 
 <script>
-
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -42,27 +40,28 @@
     $(function() {
         $('.myProject').on('click', function(e) {
             e.preventDefault();
-            
+
+            var keys = 0;
+
             $.ajax({
                 type: 'GET',
                 url: '{!! route("getProject") !!}',
                 success: function(data) {
-                    var no = 1; 
+                    var no = 1;
                     var t = $('#tableGetProject').DataTable();
                     t.clear();
                     $.each(data, function(key, val) {
+                        keys += 1;
                         t.row.add([
-                            '<tbody><tr><td>' + no++ + '</td>',
+                            '<tbody><tr><input id="sys_id_budget' + keys + '" value="' + val.sys_ID + '" type="hidden"><td>' + no++ + '</td>',
                             '<td>' + val.code + '</td>',
-                            '<td>' + val.name + '</td>',
-                            '<span style="display:none;"><td">' + val.sys_ID + '</td></span></tr></tbody>'
+                            '<td>' + val.name + '</td></span></tr></tbody>'
                         ]).draw();
                     });
                 }
             });
-            
+
         });
 
     });
-    
 </script>

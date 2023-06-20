@@ -38,7 +38,7 @@
                         </td>
                         <td>
                             <div class="input-group" style="width: 140%;position:relative;right:38%;">
-                                <input id="beneficiary_position" style="border-radius:0;" class="form-control" name="request_position" readonly>
+                                <input id="beneficiary_position" style="border-radius:0;" class="form-control" name="beneficiary_position" readonly>
                             </div>
                         </td>
                     </tr>

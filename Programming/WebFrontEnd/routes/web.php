@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[START]---
 $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2ODcyMzg4MjZ9.NGQ5NmRmMmIwMGJhMDdkYmEwYzAwMjZlYTM5MjEyZTQxOTQzODJmYzFkNjBmNzI3NDU1YjRkOTY2NzU3NWQzMg';
+$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2ODU2ODk4NDR9.MTc2ZmVjYmRlZWRkMzBmMTNjZjkwMzU2YzczODljYjg4N2FhZjVkYTIxMjZkMmQ4MGE5YWM5ZGM3ZjhmZWE0Mg';
 
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
@@ -43,7 +43,13 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     //Document
     Route::post('ShowDocument', 'Document\CheckDocumentController@ShowDocument')->name('CheckDocument.ShowDocument');
+    Route::get('ShowDocumentByID', 'Document\CheckDocumentController@ShowDocumentByID')->name('CheckDocument.ShowDocumentByID');
     Route::resource('CheckDocument', 'Document\CheckDocumentController');
+
+    
+    Route::get('MyDocumentListData', 'Document\MyDocumentController@MyDocumentListData')->name('MyDocument.MyDocumentListData');
+    Route::post('MyDocumentListDataFilter', 'Document\MyDocumentController@MyDocumentListDataFilter')->name('MyDocument.MyDocumentListDataFilter');
+    Route::resource('MyDocument', 'Document\MyDocumentController');
     
     //MASTER DATA
 
@@ -114,7 +120,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getSite', 'Function\FunctionController@getSite')->name('getSite');
     Route::get('getBudget', 'Function\FunctionController@getBudget')->name('getBudget');
     Route::get('getBank', 'Function\FunctionController@getBank')->name('getBank');
-    Route::get('getBankAccount', 'Function\FunctionController@getBankAccount')->name('getBankAccount');
+    Route::get('getEntityBankAccount', 'Function\FunctionController@getEntityBankAccount')->name('getEntityBankAccount');
     Route::get('getProduct', 'Function\FunctionController@getProduct')->name('getProduct');
     Route::get('getWorker', 'Function\FunctionController@getWorker')->name('getWorker');
     Route::get('getSupplier', 'Function\FunctionController@getSupplier')->name('getSupplier');
