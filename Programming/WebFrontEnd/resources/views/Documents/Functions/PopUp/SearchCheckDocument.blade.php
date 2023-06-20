@@ -39,10 +39,6 @@
                                             <th style="position:relative;left:10px;">Trano</th>
                                             <th style="position:relative;left:10px;">Project Code</th>
                                             <th style="position:relative;left:10px;">Site Code</th>
-                                            <th style="display: none;"></th>
-                                            <th style="display: none;"></th>
-                                            <th style="display: none;"></th>
-                                            <th style="display: none;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
