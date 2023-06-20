@@ -366,6 +366,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Call Gateway API');
                 try {
+                    //dd($varData['SQLStatement']['filter']);
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     if(!$varAPIVersion)
                         {

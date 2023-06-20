@@ -2,7 +2,6 @@
 namespace Aws;
 
 use Aws\Api\Parser\Exception\ParserException;
-use Aws\Exception\AwsException;
 use GuzzleHttp\Promise;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -48,7 +47,7 @@ class WrappedHttpHandler
         callable $httpHandler,
         callable $parser,
         callable $errorParser,
-        $exceptionClass = AwsException::class,
+        $exceptionClass = 'Aws\Exception\AwsException',
         $collectStats = false
     ) {
         $this->httpHandler = $httpHandler;

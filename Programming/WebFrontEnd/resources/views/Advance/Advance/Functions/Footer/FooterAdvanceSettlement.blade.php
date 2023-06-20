@@ -1,14 +1,16 @@
 <script type="text/javascript">
-    $("#addAsfListCart").prop("disabled", true);
-    $("#SaveAsfList").prop("disabled", true);
-    $("#advance_number2").prop("disabled", true);
-    $("#detailASF").hide();
-    $(".tableShowHideArfDetail").hide();
-    $("#amountCompanyCart").hide();
-    $(".amountCompanyCart").hide();
-    $("#expenseCompanyCart").hide();
-    $(".expenseCompanyCart").hide();
-    $(".file-attachment").hide();
+    $(document).ready(function() {
+        $("#addAsfListCart").prop("disabled", true);
+        $("#SaveAsfList").prop("disabled", true);
+        $("#advance_number2").prop("disabled", true);
+        $("#detailASF").hide();
+        $(".tableShowHideArfDetail").hide();
+        $("#amountCompanyCart").hide();
+        $(".amountCompanyCart").hide();
+        $("#expenseCompanyCart").hide();
+        $(".expenseCompanyCart").hide();
+        $(".file-attachment").hide();
+    });
 </script>
 
 

@@ -8,7 +8,7 @@
 @include('getFunction.getSite')
 @include('getFunction.getWorker')
 
-<div class="content-wrapper">
+<div class="content-wrapper" style="position:relative;bottom:12px;">
   <section class="content">
     <div class="container-fluid">
       <div class="row mb-1" style="background-color:#4B586A;">
@@ -40,6 +40,7 @@
                 </div>
               </div>
             </div>
+
 
             <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
               <div class="row">
@@ -130,7 +131,7 @@
                               <td><label>Date Commance Travel</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="dateCommance" name="dateCommance" style="border-radius:0;" type="time" class="form-control">
+                                  <input id="dateCommance" name="dateCommance" style="border-radius:0;" type="date" class="form-control">
                                 </div>
                               </td>
                             </tr>

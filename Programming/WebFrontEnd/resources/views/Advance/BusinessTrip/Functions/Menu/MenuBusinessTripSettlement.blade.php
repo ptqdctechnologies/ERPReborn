@@ -45,7 +45,7 @@
                 success: function(data) {
                     var no = 1; t = $('#TableSearchBusinessTripSettlement').DataTable();
                     t.clear();
-                    $.each(data.data, function(key, val) {
+                    $.each(data, function(key, val) {
                         t.row.add([
                             '<tbody><tr><td>' + no++ + '</td>',
                             '<td><span data-dismiss="modal" onclick="klikPopUpBusinessTripSettlementRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.documentNumber + '</span></td>',

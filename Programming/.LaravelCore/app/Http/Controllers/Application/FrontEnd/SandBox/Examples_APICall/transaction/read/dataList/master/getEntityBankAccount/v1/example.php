@@ -39,6 +39,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 'latest', 
                 [
                 'parameter' => [
+                    //'entity_RefID' => null //---> Null --> Show All Data
                     //'entity_RefID' => 25000000000439 //---> By Person ID (25xxx)
                     //'entity_RefID' => 32000000000439 //---> By Worker ID (32xxx)
                     'entity_RefID' => 164000000000439 //---> By Worker ID Career Internal (164xxx)
@@ -50,6 +51,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     'sort' => null,
                     'filter' => null,
                     'paging' => null
+                    /*
+                    'pick' => '*',
+                    'sort' => null,
+                    'filter' => trim('"BankName" ILIKE \'%Rakyat%\' AND "BankAccountName" ILIKE \'%Teguh%\' '),
+                    'paging' => null
+                    */
                     ]
                 ]
                 );

@@ -31,7 +31,7 @@
                 "type": "object",
                 "properties": {
                     "entity_RefID": {
-                        "type": "integer",
+                        "type": [ "integer", "null" ],
                         "minimum": 0
                         }
                     },

@@ -1,6 +1,10 @@
 <?php
 namespace Aws\Api;
 
+use Aws\Api\Serializer\QuerySerializer;
+use Aws\Api\Serializer\Ec2ParamBuilder;
+use Aws\Api\Parser\QueryParser;
+
 /**
  * Represents a web service API model.
  */
@@ -83,10 +87,10 @@ class Service extends AbstractModel
     public static function createSerializer(Service $api, $endpoint)
     {
         static $mapping = [
-            'json'      => Serializer\JsonRpcSerializer::class,
-            'query'     => Serializer\QuerySerializer::class,
-            'rest-json' => Serializer\RestJsonSerializer::class,
-            'rest-xml'  => Serializer\RestXmlSerializer::class
+            'json'      => 'Aws\Api\Serializer\JsonRpcSerializer',
+            'query'     => 'Aws\Api\Serializer\QuerySerializer',
+            'rest-json' => 'Aws\Api\Serializer\RestJsonSerializer',
+            'rest-xml'  => 'Aws\Api\Serializer\RestXmlSerializer'
         ];
 
         $proto = $api->getProtocol();
@@ -96,7 +100,7 @@ class Service extends AbstractModel
         }
 
         if ($proto == 'ec2') {
-            return new Serializer\QuerySerializer($api, $endpoint, new Serializer\Ec2ParamBuilder());
+            return new QuerySerializer($api, $endpoint, new Ec2ParamBuilder());
         }
 
         throw new \UnexpectedValueException(
@@ -117,11 +121,11 @@ class Service extends AbstractModel
     public static function createErrorParser($protocol, Service $api = null)
     {
         static $mapping = [
-            'json'      => ErrorParser\JsonRpcErrorParser::class,
-            'query'     => ErrorParser\XmlErrorParser::class,
-            'rest-json' => ErrorParser\RestJsonErrorParser::class,
-            'rest-xml'  => ErrorParser\XmlErrorParser::class,
-            'ec2'       => ErrorParser\XmlErrorParser::class
+            'json'      => 'Aws\Api\ErrorParser\JsonRpcErrorParser',
+            'query'     => 'Aws\Api\ErrorParser\XmlErrorParser',
+            'rest-json' => 'Aws\Api\ErrorParser\RestJsonErrorParser',
+            'rest-xml'  => 'Aws\Api\ErrorParser\XmlErrorParser',
+            'ec2'       => 'Aws\Api\ErrorParser\XmlErrorParser'
         ];
 
         if (isset($mapping[$protocol])) {
@@ -141,10 +145,10 @@ class Service extends AbstractModel
     public static function createParser(Service $api)
     {
         static $mapping = [
-            'json'      => Parser\JsonRpcParser::class,
-            'query'     => Parser\QueryParser::class,
-            'rest-json' => Parser\RestJsonParser::class,
-            'rest-xml'  => Parser\RestXmlParser::class
+            'json'      => 'Aws\Api\Parser\JsonRpcParser',
+            'query'     => 'Aws\Api\Parser\QueryParser',
+            'rest-json' => 'Aws\Api\Parser\RestJsonParser',
+            'rest-xml'  => 'Aws\Api\Parser\RestXmlParser'
         ];
 
         $proto = $api->getProtocol();
@@ -153,7 +157,7 @@ class Service extends AbstractModel
         }
 
         if ($proto == 'ec2') {
-            return new Parser\QueryParser($api, null, false);
+            return new QueryParser($api, null, false);
         }
 
         throw new \UnexpectedValueException(

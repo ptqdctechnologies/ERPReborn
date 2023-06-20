@@ -161,7 +161,6 @@ class PurchaseOrderController extends Controller
             }
         }
     }
-
     public function PurchaseOrderListData(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -180,13 +179,9 @@ class PurchaseOrderController extends Controller
                 ]
             ]
         );
-        $compact = [
-            'data' => $varDataPurchaseRequisition['data'],
-            'TransactionMenu' => "PurchaseOrder",
-            'linkReportTransaction' => "report.form.documentForm.supplyChain.getPurchaseRequisition"
-        ];
-            
-        return response()->json($compact);
+        // dd($varDataPurchaseRequisition);
+
+        return response()->json($varDataPurchaseRequisition['data']);
     }
     public function PurchaseOrderByPrID(Request $request)
     {

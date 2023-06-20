@@ -161,12 +161,50 @@ class BusinessTripRequestController extends Controller
             ]
         ]
         );
-        // dd($varDataAdvanceRevision);
+
+        $varDataAccomodation = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'dataPickList.humanResource.getBusinessTripAccommodationArrangementsType', 
+            'latest',
+            [
+            'parameter' => [
+                ]
+            ]
+            );
+
+        $varDataTransport = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'dataPickList.humanResource.getBusinessTripTransportationType', 
+            'latest',
+            [
+            'parameter' => [
+                ]
+            ]
+            );
+
+        $varDataApplicable = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'dataPickList.master.getPaymentDisbursementMethod', 
+            'latest',
+            [
+            'parameter' => [
+                ]
+            ]
+            );
+
         $compact = [
-            'dataRevisi' => $varDataAdvanceRevision['data'][0]['document']['content'],
+            'dataAdvanceRevisions' => $varDataAdvanceRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
+            'dataRequester' => $varDataAdvanceRevision['data'][0]['document']['content']['involvedPersons']['requester'],
             'var_recordID' => $request->searchBrfNumberRevisionId,
             'varAPIWebToken' => $varAPIWebToken,
+            'spasi' => "<span style='color: white;'>_____</span>",
             'statusRevisi' => 1,
+            'varDataAccomodation' => $varDataAccomodation['data']['data'],
+            'varDataTransport' => $varDataTransport['data']['data'],
+            'varDataApplicable' => $varDataApplicable['data'],
             'trano' => $varDataAdvanceRevision['data'][0]['document']['header']['number'],
         ];
         return view('Advance.BusinessTrip.Transactions.RevisionBusinessTripRequest', $compact);

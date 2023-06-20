@@ -224,7 +224,7 @@
                             <!-- /.col -->
                             <div class="col-4">
 
-                                <a class="btn btn-primary btn-block btn-sm submit_before" style="color: white;">Login</a>
+                                <button class="btn btn-primary btn-block btn-sm submit_before" style="color: white;">Login</button>
                                 <button class="btn btn-primary btn-block btn-sm submit_after" type="submit" style="color: white;">Login</button>
 
                             </div>

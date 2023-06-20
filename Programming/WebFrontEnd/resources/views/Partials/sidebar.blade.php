@@ -1,18 +1,10 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-2">
+<br>
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <a href="{{ route('dashboard.index') }}" class="brand-link">
+        <img src="/AdminLTE-master/dist/img/favicon.ico" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="padding:3px;background-color:white;margin-top:5px;">
+        <span class="brand-text font-weight-light"><label for="">ERP QDC</label></span>
+    </a>
     <div class="sidebar">
-
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-                <img src="/AdminLTE-master/dist/img/favicon.ico" class="img-circle elevation-2" alt="User Image" style="padding:3px;background-color:white;margin-top:5px;">
-                <!-- <img src="/AdminLTE-master/dist/img/favicon.ico" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="padding:3px;background-color:white;margin-top:5px;"> -->
-            </div>
-            <div class="info">
-                <h3><a href="#" class="d-block" style="position: relative;top:7px;">ERP QDC</a></h3>
-            </div>
-        </div>
-
-        <!-- <hr style="background-color: white;"> -->
-
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item has-treeview">
@@ -1741,16 +1733,5 @@
                 </li>
             </ul>
         </nav>
-    </div>
-    <!-- Brand Logo -->
-    <div class="row brand-link" style="position: relative;bottom:120px;right:2px;background-color:#f4f6f9;">
-        <div class="cody" style="padding-top:50px;padding-right:45px;padding-left:40px;background-color:#4B586A;position: relative;bottom:11px;">
-            <h1 style="color:white;font-weight:bold;padding-left:39px;">50</h1>
-            <h5 style="padding-left:12px;">Document to Process</h5>
-            <a href="{{ route('MyDocument.index') }}">
-                <span class="btn btn-default btn-sm"> Go to Document</span>
-            </a>
-            <br><br>
-        </div>
     </div>
 </aside>

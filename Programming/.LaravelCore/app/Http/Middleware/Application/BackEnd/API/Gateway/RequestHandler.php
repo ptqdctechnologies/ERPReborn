@@ -82,6 +82,19 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
                     }
  */
 
+/*
+//{"metadata":{"API":{"key":"transaction.read.dataList.master.getEntityBankAccount","version":"latest"}},"data":{"parameter":{"entity_RefID":164000000000439},"SQLStatement":{"pick":"*","sort":null,"filter":"\"BankName\" ILIKE '%Rakyat%' AND \"BankAccountName\" ILIKE '%Teguh%' ","paging":null}}}
+                    throw new \Exception(implode($varDataSeparatorTag,
+                        [403, 'Content integrity is invalid ---> '.
+                            "<br>HTTP MD5 Header : ".$varHTTPHeader['x-content-md5'].
+                            "<br>Data Load : ".\GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)).
+                            "<br><br>".
+                            base64_encode(md5('{"metadata":{"API":{"key":"transaction.read.dataList.master.getEntityBankAccount","version":"latest"}},"data":{"parameter":{"entity_RefID":164000000000439},"SQLStatement":{"pick":"*","sort":null,"filter":"\"BankName\" ILIKE \'%Rakyat%\' AND \"BankAccountName\" ILIKE \'%Teguh%\' ","paging":null}}}')).
+                            ''
+                            ]));
+*/
+
+                    
 /*                    throw new \Exception(implode($varDataSeparatorTag,
                         [403, 'Content integrity is invalid ---> '.  
                             "<br>HTTP MD5 Header : ".$varHTTPHeader['x-content-md5'].
@@ -96,7 +109,8 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
 //                                              '{"metadata":{"API":{"key":"environment.general.session.getData","version":"latest"}},"data":[]}'
                             ]));
 */
-                    
+
+
                 //--->---> Check Content Integrity
                 if(strcmp(
                     $varHTTPHeader['x-content-md5'], 
