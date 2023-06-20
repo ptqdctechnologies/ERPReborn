@@ -199,15 +199,13 @@ class FunctionController extends Controller
     public function getBank(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $sys_ID = $request->input('sys_ID');
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
-            'transaction.read.dataList.master.getEntityBankAccount', 
+            'transaction.read.dataList.master.getBank', 
             'latest', 
             [
             'parameter' => [
-                'entity_RefID' => (int)$sys_ID
                 ],
             'SQLStatement' => [
                 'pick' => null,
@@ -218,34 +216,34 @@ class FunctionController extends Controller
             ]
             );
         
-        // dd($varData['data']);
+        // dd($varData);
+        
         return response()->json($varData['data']);
     }
 
-    public function getEntityBankAccount(Request $request)
+    public function getBankAccount(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $sys_ID = $request->input('sys_ID');
-        $bank_ID = $request->input('bank_ID');
+        $bank_code = $request->input('bank_code');
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
-            'transaction.read.dataList.master.getEntityBankAccount', 
+            'transaction.read.dataList.master.getBankAccount', 
             'latest', 
             [
             'parameter' => [
-                'entity_RefID' => (int)$sys_ID
+                'bank_RefID' => (int)$bank_code,
                 ],
             'SQLStatement' => [
                 'pick' => null,
                 'sort' => null,
-                'filter' => '"Bank_RefID" = '.$bank_ID.'',
+                'filter' => null,
                 'paging' => null
                 ]
             ]
             );
-
-        // dd($varData['data']);
+        
+        // dd($varData);
         
         return response()->json($varData['data']);
     }

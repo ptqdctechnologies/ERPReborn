@@ -72,9 +72,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                             
                             $varData['parameter']['entity_RefID'], 
                             
-                            $varData['SQLStatement']['pick'], 
-                            $varData['SQLStatement']['sort'], 
-                            $varData['SQLStatement']['filter'], 
+                            $varData['SQLStatement']['pick'],
+                            $varData['SQLStatement']['sort'],
+                            $varData['SQLStatement']['filter'],
                             $varData['SQLStatement']['paging']
                             ))))
                             {

@@ -11,7 +11,7 @@
 @include('getFunction.getWarehouse3')
 @include('getFunction.getSupplier')
 
-<div class="content-wrapper">
+<div class="content-wrapper" style="position:relative;bottom:12px;">
     <section class="content">
         <div class="container-fluid">
             <div class="row mb-1" style="background-color:#4B586A;">

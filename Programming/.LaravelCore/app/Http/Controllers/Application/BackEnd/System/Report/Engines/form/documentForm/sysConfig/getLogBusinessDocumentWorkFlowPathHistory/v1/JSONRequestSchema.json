@@ -1,46 +1,46 @@
 {
-    "title": "JSON Request Schema",
-    "description": "JSON Request Schema of report.form.documentForm.sysConfig.getLogBusinessDocumentWorkFlowPathHistory (version 1)",
-    "type": "object",
-    "properties": {
-        "metadata": {
-            "type": "object",
-            "properties": {
-                "API": {
-                    "type": "object",
-                    "properties": {
-                        "key": {
-                            "type": "string",
-                            "enum": [ "report.form.documentForm.sysConfig.getLogBusinessDocumentWorkFlowPathHistory" ]
-                            },
-                        "version": {
-                            "type": [ "integer", "string" ],
-                            "minimum": 1,
-                            "minLength": 1
-                            }
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of report.form.documentForm.sysConfig.getLogBusinessDocumentWorkFlowPathHistory (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            "API": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "enum": [ "report.form.documentForm.sysConfig.getLogBusinessDocumentWorkFlowPathHistory" ]
                         },
-                    "required": [ "key", "version" ]
-                    }
-                },
-            "required": [ "API" ]
+                    "version": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1
+                        }
+                    },
+                "required": [ "key", "version" ]
+                }
             },
-        "data": {
-            "type": "object",
-            "properties": {
-                "parameter": {
-                    "type": "object",
-                    "properties": {
-                        "recordID": {
-                            "type": [ "integer", "null" ],
-                            "minimum": 1,
-                            "maximum": 9223372036854775807
-                            }
-                        },
-                    "required": [ "recordID" ]
-                    }
-                },
-            "required": [ "parameter" ]
-            }
+        "required": [ "API" ]
         },
-    "required": [ "metadata", "data" ]
-    }
+    "data": {
+        "type": "object",
+        "properties": {
+            "parameter": {
+                "type": "object",
+                "properties": {
+                    "recordID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        }
+                    },
+                "required": [ "recordID" ]
+                }
+            },
+        "required": [ "parameter" ]
+        }
+    },
+"required": [ "metadata", "data" ]
+}

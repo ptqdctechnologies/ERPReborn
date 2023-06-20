@@ -36,7 +36,7 @@ class TableTest extends SetupTeardown
         self::assertEquals($expected, $table->getName());
     }
 
-    public function validTableNamesProvider(): array
+    public static function validTableNamesProvider(): array
     {
         return [
             ['', ''],
@@ -61,7 +61,7 @@ class TableTest extends SetupTeardown
         $table->setName($name);
     }
 
-    public function invalidTableNamesProvider(): array
+    public static function invalidTableNamesProvider(): array
     {
         return [
             ['C'],
@@ -75,6 +75,7 @@ class TableTest extends SetupTeardown
             ['R11C11'],
             ['123'],
             ['=Table'],
+            ['Name/Slash'],
             ['ிக'], // starting with UTF-8 combined character
             [bin2hex(random_bytes(255))], // random string with length greater than 255
         ];
@@ -152,12 +153,10 @@ class TableTest extends SetupTeardown
     }
 
     /**
-     * @dataProvider validTableRangeProvider
-     *
      * @param AddressRange|array<int>|string $fullRange
      * @param string $fullRange
      */
-    public function testSetRangeValidRange($fullRange, string $actualRange): void
+    public function xtestSetRangeValidRange($fullRange, string $actualRange): void
     {
         $table = new Table(self::INITIAL_RANGE);
 
@@ -166,7 +165,14 @@ class TableTest extends SetupTeardown
         self::assertEquals($actualRange, $table->getRange());
     }
 
-    public function validTableRangeProvider(): array
+    public function testSetRangeValidRange(): void
+    {
+        foreach ($this->validTableRanges() as $arrayEntry) {
+            $this->xtestSetRangeValidRange($arrayEntry[0], $arrayEntry[1]);
+        }
+    }
+
+    public function validTableRanges(): array
     {
         $sheet = $this->getSheet();
         $title = $sheet->getTitle();
@@ -203,7 +209,7 @@ class TableTest extends SetupTeardown
         new Table($range);
     }
 
-    public function invalidTableRangeProvider(): array
+    public static function invalidTableRangeProvider(): array
     {
         return [
             ['A1'],
@@ -273,7 +279,7 @@ class TableTest extends SetupTeardown
         $sheet->fromArray(range('H', 'O'), null, 'H2');
         $table = new Table(self::INITIAL_RANGE);
         $table->getColumn('N')->setShowFilterButton(false);
-        $sheet,>addTable($table);
+        $sheet->addTable($table);
 
         $sheet->insertNewColumnBefore('N', 3);
         $result = $table->getRange();
@@ -419,7 +425,7 @@ class TableTest extends SetupTeardown
 
     public function testGetColumnByOffset(): void
     {
-        $table < new Table(self::INITIAL_RANGE);
+        $table = new Table(self::INITIAL_RANGE);
 
         $columnIndexes = [
             0 => 'H',
