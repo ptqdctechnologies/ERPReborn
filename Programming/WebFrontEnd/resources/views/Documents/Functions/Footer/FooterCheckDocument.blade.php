@@ -6,7 +6,7 @@
 </script>
 
 <script>
-    function CheckDocument(url) {
+    $('#DocumentType').on("select2:select", function(e) {
 
         $("#loading").show();
         $(".loader").show();
@@ -20,28 +20,29 @@
         });
 
         var keys = 0;
-        
+
         $.ajax({
             type: 'GET',
-            url: url.value,
+            url: '{!! route("CheckDocument.ShowDocumentByDocumentType") !!}?DocumentType=' + $('#DocumentType').val(),
             success: function(data) {
+                console.log(data);
                 var no = 1;
                 t = $('#TableCheckDocument').DataTable();
                 t.clear();
                 $.each(data.data, function(key, val) {
                     keys += 1;
                     t.row.add([
-                        '<tbody><tr><input id="sys_id' + keys + '" value="' + val.sys_ID + '" type="hidden"><input id="businessDocument_RefID' + keys + '" value="' + val.businessDocument_RefID + '" type="hidden"><input id="TransactionMenu' + keys + '" value="' + data.TransactionMenu + '" type="hidden"><input id="linkReportTransaction' + keys + '" value="' + data.linkReportTransaction + '" type="hidden"><td><span style="position:relative;left:10px;">' + no++ + '</span></td>',
-                        '<td><span style="position:relative;left:10px;">' + val.documentNumber + '</span></td>',
-                        '<td><span style="position:relative;left:10px;">' + val.combinedBudgetCode + '</span></td>',
-                        '<td><span style="position:relative;left:10px;">' + val.combinedBudgetSectionCode + '</span></td></tr></tbody>',
+                        '<tbody><tr><input id="sys_id' + keys + '" value="' + val.entities.businessDocumentType_RefID + '" type="hidden"><input id="businessDocument_RefID' + keys + '" value="' + val.entities.businessDocumentType_RefID + '" type="hidden"><input id="TransactionMenu' + keys + '" value="Advance" type="hidden"><input id="linkReportTransaction' + keys + '" value="report.form.documentForm.finance.getAdvance" type="hidden"><td><span style="position:relative;left:10px;">' + no++ + '</span></td>',
+                        '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentNumber + '</span></td>',
+                        '<td><span style="position:relative;left:10px;">' + val.entities.businessDocument_RefID + '</span></td>',
+                        '<td><span style="position:relative;left:10px;">' + val.entities.businessDocument_RefID + '</span></td></tr></tbody>',
                     ]).draw();
                 });
                 $("#loading").hide();
                 $(".loader").hide();
             }
         });
-    }
+    });
 </script>
 
 <script>

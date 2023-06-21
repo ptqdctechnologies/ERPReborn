@@ -7,16 +7,37 @@ use App\Http\Controllers\Controller;
 
 class MyDocumentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('Documents.Transactions.MyDocument');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $varBusinessDocumentType = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.master.getBusinessDocumentType',
+            'latest',
+            [
+                'parameter' => [],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ]
+        );
+
+        $compact = [
+            'varBusinessDocumentType' => $varBusinessDocumentType['data'],
+        ];
+        return view('Documents.Transactions.MyDocument', $compact);
     }
 
     public function MyDocumentListData(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
-        
+        // dd($varBusinessDocumentType);
         // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
         //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
         //     $varAPIWebToken, 
@@ -46,7 +67,7 @@ class MyDocumentController extends Controller
             ]
         );
         $compact = [
-            'data' => $varData['data'],
+            'data' => $varData['data']
         ];
         return response()->json($compact);
     }

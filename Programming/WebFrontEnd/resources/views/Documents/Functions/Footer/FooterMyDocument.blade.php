@@ -141,7 +141,8 @@
     $('#tableGetProject tbody').on('click', 'tr', function() {
         $("#myProject").modal('toggle');
         var row = $(this).closest("tr");
-        var sys_id = row.find("td:nth-child(4)").text();
+        var id = row.find("td:nth-child(1)").text();
+        var sys_id = $('#sys_id_budget' + id).val();
         var code = row.find("td:nth-child(2)").text();
         $("#projectid").val(sys_id);
         $("#projectcode").val(code);

@@ -1744,7 +1744,7 @@
     </div>
     <!-- Brand Logo -->
     <div class="row brand-link" style="position: relative;bottom:120px;right:2px;background-color:#f4f6f9;">
-        <div class="cody" style="padding-top:50px;padding-right:45px;padding-left:40px;background-color:#4B586A;position: relative;bottom:11px;">
+        <div class="card-body" style="padding-top:50px;padding-right:45px;padding-left:40px;background-color:#4B586A;position: relative;bottom:11px;">
             <h1 style="color:white;font-weight:bold;padding-left:39px;">50</h1>
             <h5 style="padding-left:12px;">Document to Process</h5>
             <a href="{{ route('MyDocument.index') }}">
