@@ -29,7 +29,16 @@
                     </tr>
                 </thead>
                 <tbody>
-
+                @php $no = 1; $grand_total = 0; @endphp
+                @foreach($dataWorkflow['content']['logBusinessDocumentWorkFlowPathHistory']['itemList']['ungrouped'] as $dataWorkflows)
+                <tr>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">{{ $no++ }}</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">{{ date('D, d/m/Y H:m:s', strtotime($dataWorkflows['entities']['approvalDateTimeTZ'])) }}</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['entities']['approverEntityName'] }}</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['entities']['workFlowPathActionName'] }}</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['entities']['remarks'] }}</td>
+                </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>

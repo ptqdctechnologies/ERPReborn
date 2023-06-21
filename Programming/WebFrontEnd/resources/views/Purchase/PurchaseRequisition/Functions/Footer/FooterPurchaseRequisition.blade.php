@@ -1,17 +1,14 @@
-<!--  SHOW HIDE AVAILABEL -->
 <script type="text/javascript">
-    $(document).ready(function() {
-        $(".detailPurchaseRequisitionList").hide();
-        $("#detailTransAvail").hide();
-        $("#sitecode2").prop("disabled", true);
-        $("#request_name2").prop("disabled", true);
-        $("#addFromDetailtoCart").prop("disabled", true);
-        $("#showContentBOQ3").hide();
-        $(".tableShowHideBOQ3").hide();
-        $("#product_id2").prop("disabled", true);
+    $(".detailPurchaseRequisitionList").hide();
+    $("#detailTransAvail").hide();
+    $("#sitecode2").prop("disabled", true);
+    $("#request_name2").prop("disabled", true);
+    $("#addFromDetailtoCart").prop("disabled", true);
+    $("#showContentBOQ3").hide();
+    $(".tableShowHideBOQ3").hide();
+    $("#product_id2").prop("disabled", true);
 
-        $("#submitPR").prop("disabled", true);
-    });
+    $("#submitPR").prop("disabled", true);
 </script>
 
 <script>
@@ -20,7 +17,8 @@
         $("#myProject").modal('toggle');
 
         var row = $(this).closest("tr");    
-        var sys_id = row.find("td:nth-child(4)").text();
+        var id = row.find("td:nth-child(1)").text();
+        var sys_id = $('#sys_id_budget' + id).val();
         var code = row.find("td:nth-child(2)").text();
         var name = row.find("td:nth-child(3)").text();
 
@@ -34,6 +32,8 @@
             }
         });
 
+        var keys = 0;
+
         $.ajax({
             type: 'GET',
             url: '{!! route("getSite") !!}?projectcode=' + sys_id,
@@ -43,14 +43,12 @@
 
                 var t = $('#tableGetSite').DataTable();
                 $.each(data, function(key, val) {
-
+                    keys += 1;
                     t.row.add([
-                        '<tbody><tr><td>' + no++ + '</td>',
+                        '<tbody><tr><input id="sys_id_site' + keys + '" value="' + val.sys_ID + '" type="hidden"><td>' + no++ + '</td>',
                         '<td>' + val.code + '</td>',
-                        '<td>' + val.name + '</td>',
-                        '<span style="display:none;"><td>' + val.sys_ID + '</td></span></tr></tbody>'
+                        '<td>' + val.name + '</td></tr></tbody>'
                     ]).draw();
-
                 });
             }
         });
@@ -65,7 +63,8 @@
         $("#mySiteCode").modal('toggle');
 
         var row = $(this).closest("tr");    
-        var sys_id = row.find("td:nth-child(4)").text();
+        var id = row.find("td:nth-child(1)").text();
+        var sys_id = $('#sys_id_site' + id).val();
         var code = row.find("td:nth-child(2)").text();
         var name = row.find("td:nth-child(3)").text();
 

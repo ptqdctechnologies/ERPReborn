@@ -15,6 +15,21 @@ class MyDocumentController extends Controller
     public function MyDocumentListData(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        
+        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varAPIWebToken, 
+        //     'report.form.documentForm.master.getBusinessDocumentIssuanceDisposition', 
+        //     'latest',
+        //     [
+        //     'parameter' => [
+        //         'recordID' => 164000000000196
+        //         ]
+        //     ]
+        //     );
+
+        // dd($varData['data'][0]['document']['content']['itemList']['ungrouped']);
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,

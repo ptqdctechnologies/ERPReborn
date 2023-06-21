@@ -19,6 +19,15 @@
                 keys += 1;
                 var html = '<tr>' +
 
+                    // '<td><span style="position:relative;left:10px;">' + no++ + '</span></td>' +
+                    // '<td><span style="position:relative;left:10px;">' + val.businessDocumentNumber + '</span></td>' +
+                    // '<td><span style="position:relative;left:10px;">' + val.combinedBudgetCode + '</span></td>' +
+                    // '<td><span style="position:relative;left:10px;">' + val.combinedBudgetSectionCode + '</span></td>' +
+                    // '<td><span style="position:relative;left:10px;">' + val.combinedBudgetSectionCode + '</span></td>' +
+                    // '<td><span style="position:relative;left:10px;">' + val.combinedBudgetSectionCode + '</span></td>' +
+                    // '<td><span style="position:relative;left:10px;">' + val.combinedBudgetSectionCode + '</span></td>' +
+
+
                     '<td><span style="position:relative;left:10px;">' + no++ + '</span></td>' +
                     '<td><span style="position:relative;left:10px;">' + val.documentNumber + '</span></td>' +
                     '<td><span style="position:relative;left:10px;">' + val.combinedBudgetCode + '</span></td>' +

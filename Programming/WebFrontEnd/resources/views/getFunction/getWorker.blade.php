@@ -16,7 +16,6 @@
                                             <th>No</th>
                                             <th>Name</th>
                                             <th>Position</th>
-                                            <th style="display:none;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -41,6 +40,8 @@
                 }
             });
 
+            var keys = 0;
+
             $.ajax({
                 type: 'GET',
                 url: '{!! route("getWorker") !!}',
@@ -49,43 +50,15 @@
                     var t = $('#tableGetWorker').DataTable();
                     t.clear();
                     $.each(data, function(key, val) {
+                        keys += 1;
                         t.row.add([
-                            '<tbody><tr><td>' + no++ + '</td>',
+                            '<tbody><tr><input id="sys_id_requester' + keys + '" value="' + val.sys_ID + '" type="hidden"><input id="contact_number_requester' + keys + '" value="' + val.sys_ID + '" type="hidden"><td>' + no++ + '</td>',
                             '<td>' + val.personName + '</td>',
-                            '<td>' + val.organizationalJobPositionName + '</td>',
-                            '<span style="display:none;"><td>' + val.sys_ID + '</td></span>',
-                            '<span style="display:none;"><td>' + val.contactNumber + '</td></span></tr></tbody>',
+                            '<td>' + val.organizationalJobPositionName + '</td></tr></tbody>',
                         ]).draw();
                     });
                 }
             });
-
-            // var dataShow = [];
-            // $.ajax({
-            //     type: 'GET',
-            //     url: '{!! route("getWorker") !!}',
-            //     success: function(data) {
-            //         var no = 1;
-
-            //         for ( var i=0 ; i< Object.keys(data).length ; i++ ) {
-            //             dataShow.push([
-            //                 i+1,
-            //                 '<span data-dismiss="modal" onclick="klikWorker(\'' + data[i]['sys_ID'] + '\', \'' + data[i]['personName'] + '\', \'' + data[i]['organizationalJobPositionName'] + '\');">' + data[i]['personName'] + '</span>',  
-            //                 '<span data-dismiss="modal" onclick="klikWorker(\'' + data[i]['sys_ID'] + '\', \'' + data[i]['personName'] + '\', \'' + data[i]['organizationalJobPositionName'] + '\');">' + data[i]['organizationalJobPositionName'] + '</span>',  
-            //             ]);
-            //         }
-
-            //         $("#tableGetWorker").dataTable().fnDestroy()
-
-            //         $('#tableGetWorker').DataTable( {
-            //             data:           dataShow,
-            //             deferRender:    true,
-            //             // scrollY:        200,
-            //             scrollCollapse: true,
-            //             scroller:       true
-            //         } );
-            //     }
-            // });
 
         });
     });
@@ -97,15 +70,17 @@
 
         $("#myWorker").modal('toggle');
 
-        var row = $(this).closest("tr");    
-        var sys_id = row.find("td:nth-child(4)").text();
+        var row = $(this).closest("tr");  
+        var id = row.find("td:nth-child(1)").text();  
+        var sys_id_requester = $('#sys_id_requester' + id).val();
+        var contact_number_requester = $('#contact_number_requester' + id).val();
         var name = row.find("td:nth-child(2)").text();
-        var contactNumber = row.find("td:nth-child(5)").text();
+        var position = row.find("td:nth-child(3)").text();
 
-        $("#request_name_id").val(sys_id);
+        $("#request_name_id").val(sys_id_requester);
         $("#request_name").val(name);
         $("#request_position").val(position);
-        $("#contactPhone").val(contactNumber);
+        $("#contactPhone").val(contact_number_requester);
 
     });
     
