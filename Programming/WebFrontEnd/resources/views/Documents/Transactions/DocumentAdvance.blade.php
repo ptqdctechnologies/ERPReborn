@@ -141,7 +141,7 @@
     <div class="card-body">
       <div class="row">
         <div class="col-md-12">
-          <textarea name="" id="" cols="140" rows="3" style="border:1px solid #e9ecef;" readonly> {{ $data['content']['advanceRemarks'] }} </textarea>
+          <p>{{ $data['content']['advanceRemarks'] }}</p>
         </div>
       </div>
     </div>

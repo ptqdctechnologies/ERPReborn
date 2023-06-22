@@ -49,14 +49,10 @@
                               <th><label>Document Type</label></th>
                               <td>
                                 <div class="input-group" style="position:relative;bottom:5px;">
-                                  <select name="document_type" id="document_type" class="form-control">
-                                    <option value=""></option>
-                                    <option value="transaction.read.dataList.finance.getAdiyaavance">Advance</option>
-                                    <option value="report.form.documentForm.finance.getAdvance">Advance Settlement</option>
-                                    <option value="report.form.documentForm.finance.getAdvance">Bussines Trip Request</option>
-                                    <option value="report.form.documentForm.finance.getAdvance">Bussines Trip Settlement</option>
-                                    <option value="transaction.read.dataList.supplyChain.getPurchaseRequisition">Purchase Requisition</option>
-                                    <option value="report.form.documentForm.supplyChain.getPurchaseRequisition">Purchase Order</option>
+                                  <select name="" id="DocumentType" class="form-control select2">
+                                    @foreach($varBusinessDocumentType as $varBusinessDocumentTypes)
+                                    <option value="{{ $varBusinessDocumentTypes['sys_ID'] }}">{{ $varBusinessDocumentTypes['name'] }}</option>
+                                    @endforeach
                                   </select>
                                 </div>
                               </td>

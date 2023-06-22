@@ -10,6 +10,24 @@ class CheckDocumentController extends Controller
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varBusinessDocumentType = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.master.getBusinessDocumentType',
+            'latest',
+            [
+                'parameter' => [],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ]
+        );
+
+        // dd($varBusinessDocumentType);
+
         $compact = [
             'var' => 0,
             'TransactionMenu' => 0,
@@ -18,47 +36,65 @@ class CheckDocumentController extends Controller
             'document_number' => '',
             'sys_id' => '',
             'businessDocument_RefID' => '',
-            'linkReportTransaction' => ''
-            
+            'linkReportTransaction' => '',
+            'varBusinessDocumentType' => $varBusinessDocumentType['data'],
+
         ];
-        
+
         return view('Documents.Transactions.index', $compact);
     }
-    
+
     public function ShowDocument(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
         $varLinkReportTransaction = $request->input('linkReportTransaction');
-     
-        $varDataWorkflow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+
+        $varBusinessDocumentType = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'report.form.documentForm.sysConfig.getLogBusinessDocumentWorkFlowPathHistory', 
+            $varAPIWebToken,
+            'transaction.read.dataList.master.getBusinessDocumentType',
             'latest',
             [
-            'parameter' => [
-                'recordID' => (int)$request->input('businessDocument_RefID')
+                'parameter' => [],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
                 ]
             ]
-            );
-            
+        );
+
+        $varDataWorkflow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'report.form.documentForm.sysConfig.getLogBusinessDocumentWorkFlowPathHistory',
+            'latest',
+            [
+                'parameter' => [
+                    'recordID' => (int)$request->input('businessDocument_RefID')
+                ]
+            ]
+        );
+
         // dd($varDataWorkflow);
 
 
         $varDataDocument = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken,
-        $varLinkReportTransaction,
-        'latest',
-        [
-        'parameter' => [
-            'recordID' => (int) $request->input('sys_id'),
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            $varLinkReportTransaction,
+            'latest',
+            [
+                'parameter' => [
+                    'recordID' => (int) $request->input('sys_id'),
+                ]
             ]
-        ]
         );
 
         // dd($varDataDocument['data'][0]['document']);
+        
 
         $compact = [
             'var' => 1,
@@ -71,10 +107,9 @@ class CheckDocumentController extends Controller
             'sys_id' => $request->input('sys_id'),
             'businessDocument_RefID' => $request->input('businessDocument_RefID'),
             'linkReportTransaction' => $request->input('linkReportTransaction'),
+            'varBusinessDocumentType' => $varBusinessDocumentType['data'],
         ];
-
         return view('Documents.Transactions.index', $compact);
-        
     }
 
     public function ShowDocumentByID(Request $request)
@@ -82,35 +117,52 @@ class CheckDocumentController extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
         $varLinkReportTransaction = $request->input('linkReportTransaction');
-     
-        $varDataWorkflow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+
+        $varBusinessDocumentType = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'report.form.documentForm.sysConfig.getLogBusinessDocumentWorkFlowPathHistory', 
+            $varAPIWebToken,
+            'transaction.read.dataList.master.getBusinessDocumentType',
             'latest',
             [
-            'parameter' => [
-                'recordID' => (int)$request->input('businessDocument_RefID')
+                'parameter' => [],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
                 ]
             ]
-            );
-            
+        );
+
+        $varDataWorkflow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'report.form.documentForm.sysConfig.getLogBusinessDocumentWorkFlowPathHistory',
+            'latest',
+            [
+                'parameter' => [
+                    'recordID' => (int)$request->input('businessDocument_RefID')
+                ]
+            ]
+        );
+
         // dd($varDataWorkflow);
 
 
         $varDataDocument = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken,
-        $varLinkReportTransaction,
-        'latest',
-        [
-        'parameter' => [
-            'recordID' => (int) $request->input('sys_id'),
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            $varLinkReportTransaction,
+            'latest',
+            [
+                'parameter' => [
+                    'recordID' => (int) $request->input('sys_id'),
+                ]
             ]
-        ]
         );
 
         // dd($varDataDocument['data'][0]['document']);
+        
 
         $compact = [
             'var' => 1,
@@ -123,8 +175,33 @@ class CheckDocumentController extends Controller
             'sys_id' => $request->input('sys_id'),
             'businessDocument_RefID' => $request->input('businessDocument_RefID'),
             'linkReportTransaction' => $request->input('linkReportTransaction'),
+            'varBusinessDocumentType' => $varBusinessDocumentType['data'],
         ];
 
         return view('Documents.Transactions.index', $compact);
+    }
+    public function ShowDocumentByDocumentType(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'report.form.documentForm.master.getBusinessDocumentIssuanceDisposition',
+            'latest',
+            [
+                'parameter' => [
+                    'recordID' => 164000000000196
+                ]
+            ]
+        );
+
+        dd($varData);
+
+        $compact = [
+            'data' => $varData['data'][0]['document']['content']['itemList']['ungrouped'],
+        ];
+            
+        return response()->json($compact);
     }
 }
