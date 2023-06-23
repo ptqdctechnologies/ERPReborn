@@ -44,21 +44,13 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     //Document
     Route::post('ShowDocument', 'Document\CheckDocumentController@ShowDocument')->name('CheckDocument.ShowDocument');
     Route::get('ShowDocumentByID', 'Document\CheckDocumentController@ShowDocumentByID')->name('CheckDocument.ShowDocumentByID');
-    Route::get('ShowDocumentByDocumentType', 'Document\CheckDocumentController@ShowDocumentByDocumentType')->name('CheckDocument.ShowDocumentByDocumentType');
+    Route::get('ShowDocumentListData', 'Document\CheckDocumentController@ShowDocumentListData')->name('CheckDocument.ShowDocumentListData');
     Route::resource('CheckDocument', 'Document\CheckDocumentController');
 
-    
-    Route::get('MyDocumentListData', 'Document\MyDocumentController@MyDocumentListData')->name('MyDocument.MyDocumentListData');
     Route::post('MyDocumentListDataFilter', 'Document\MyDocumentController@MyDocumentListDataFilter')->name('MyDocument.MyDocumentListDataFilter');
     Route::resource('MyDocument', 'Document\MyDocumentController');
     
     //MASTER DATA
-
-    Route::get('tranoType', 'Master\TransactionNumberController@indexTranoType')->name('tranoType.index');
-    Route::post('tranoTypeStore', 'Master\TransactionNumberController@storeTranoType')->name('tranoType.store');
-    Route::get('tranoNumber', 'Master\TransactionNumberController@indexTranoNumber')->name('tranoNumber.index');
-    Route::get('exchangeRate', 'Master\ExchangeRateController@exchangeRate')->name('exchangeRate.index');
-    Route::get('COA', 'Master\CoaController@Coa')->name('COA.index');
     //Periode
     Route::resource('Periode', 'Master\PeriodeController');
     //ProductType
@@ -89,11 +81,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('Supplier', 'Master\SupplierController@supplier')->name('supplier.index');
     Route::get('addSupplier', 'Master\SupplierController@addSupplier')->name('supplier.addSupplier');
     Route::post('revisionSupplier', 'Master\SupplierController@revisionSupplier')->name('supplier.revisionSupplier');
-    // UOM
-    Route::get('UOM', 'Master\UomController@Uom')->name('Uom.index');
-    Route::get('addUom', 'Master\UomController@addUom')->name('addUom.index');
-    Route::get('editUom', 'Master\UomController@editUom')->name('editUom.index');
-    Route::post('revisionUom', 'Master\UomController@revisionUomIndex')->name('Uom.revisionUom');
     // Budget
     Route::resource('Budget', 'BudgetController');
     // Budget Expense
@@ -128,12 +115,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getDeliverTo', 'Function\FunctionController@getDeliverTo')->name('getDeliverTo');
     Route::get('getBusinessTripCostComponentEntity', 'Function\FunctionController@getBusinessTripCostComponentEntity')->name('getBusinessTripCostComponentEntity');
 
-
     Route::get('StoreWorkFlow', 'Controller@StoreWorkFlow')->name('StoreWorkFlow');
 
-
     Route::get('TestApi', 'TestApiController@index')->name('TestApi');
-
 
 
     
@@ -186,7 +170,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('PurchaseRequisition', 'Purchase\PurchaseRequisitionController');
 
     // PO
-    
     Route::post('StoreValidatePurchaseOrder', 'Purchase\PurchaseOrderController@StoreValidatePurchaseOrder')->name('PurchaseOrder.StoreValidatePurchaseOrder');
     Route::post('StoreValidatePurchaseOrder2', 'Purchase\PurchaseOrderController@StoreValidatePurchaseOrder2')->name('PurchaseOrder.StoreValidatePurchaseOrder2');
     Route::post('StoreValidatePurchaseOrderPrNumber', 'Purchase\PurchaseOrderController@StoreValidatePurchaseOrderPrNumber')->name('PurchaseOrder.StoreValidatePurchaseOrderPrNumber');
@@ -197,13 +180,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('addListCartPurchaseOrder', 'Purchase\PurchaseOrderController@addListCartPurchaseOrder')->name('PurchaseOrder.addListCartPurchaseOrder');
     Route::resource('PurchaseOrder', 'Purchase\PurchaseOrderController');
 
-    // Route::post('StoreValidatePurchaseOrder', 'Purchase\PurchaseOrderController@StoreValidatePurchaseOrder')->name('PurchaseOrder.StoreValidatePurchaseOrder');
-    // Route::post('StoreValidatePurchaseOrder2', 'Purchase\PurchaseOrderController@StoreValidatePurchaseOrder2')->name('PurchaseOrder.StoreValidatePurchaseOrder2');
-    // Route::post('StoreValidatePurchaseOrderPrNumber', 'Purchase\PurchaseOrderController@StoreValidatePurchaseOrderPrNumber')->name('PurchaseOrder.StoreValidatePurchaseOrderPrNumber');
-    // Route::post('RevisionPurchaseOrder', 'Purchase\PurchaseOrderController@RevisionPurchaseOrder')->name('PurchaseOrder.RevisionPurchaseOrder');
-    // Route::post('addListCartPurchaseOrder', 'Purchase\PurchaseOrderController@addListCartPurchaseOrder')->name('PurchaseOrder.addListCartPurchaseOrder');
-    // Route::resource('PurchaseOrder', 'Purchase\PurchaseOrderController');
-    
     // PPM
     Route::post('StoreValidatePieceMeal', 'HumanResource\PieceMealController@StoreValidatePieceMeal')->name('PieceMeal.StoreValidatePieceMeal');
     Route::post('StoreValidatePieceMeal2', 'HumanResource\PieceMealController@StoreValidatePieceMeal2')->name('PieceMeal.StoreValidatePieceMeal2');
@@ -259,104 +235,20 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('MaterialReturnByDorID', 'Inventory\MaterialReturnController@MaterialReturnByDorID')->name('MaterialReturn.MaterialReturnByDorID');
     Route::resource('MaterialReturn', 'Inventory\MaterialReturnController');
 
-
     // Workflow
     Route::post('WorkflowRoute/store', 'Admin\Workflow\WorkflowController@WorkflowRouteStore')->name('Workflow.WorkflowRouteStore');
     Route::get('WorkflowRoute', 'Admin\Workflow\WorkflowController@WorkflowRoute')->name('Workflow.WorkflowRoute');
     Route::resource('Workflow', 'Admin\Workflow\WorkflowController');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // PP
-    Route::get('createPP', 'projectManagementPP@createPP')->name('PP.createPP');
-
-    // MEW
-    Route::get('addMEW', 'projectManagementMEW@addMEW')->name('MEW.addMEW');
-    Route::get('editMEW', 'projectManagementMEW@editMEW')->name('MEW.editMEW');
-
-    // MCFS
-    Route::get('createCFSCode', 'projectManagementMCFS@createCFSCode')->name('MCFS.createCFSCode');
-    Route::get('editCFSCode', 'projectManagementMCFS@editCFSCode')->name('MCFS.editCFSCode');
-    Route::get('viewCFSList', 'projectManagementMCFS@viewCFSList')->name('MCFS.viewCFSList');
-
-    // RCPO
-    Route::get('createRegisterCustomerOrder', 'projectManagementRCPO@createRegisterCustomerOrder')->name('RCPO.createRegisterCustomerOrder');
-    Route::get('editExistingCustomerOrder', 'projectManagementRCPO@editExistingCustomerOrder')->name('RCPO.editExistingCustomerOrder');
-
-    // PB
-    Route::get('createProject', 'projectManagementPB@createProject')->name('PB.createProject');
-    Route::get('createSiteProject', 'projectManagementPB@createSiteProject')->name('PB.createSiteProject');
-    Route::get('createProjectBudget', 'projectManagementPB@createProjectBudget')->name('PB.createProjectBudget');
-    Route::get('createNonProjectOverheadBudget', 'projectManagementPB@createNonProjectOverheadBudget')->name('PB.createNonProjectOverheadBudget');
-    Route::get('createBudgetPeriodeNonProject', 'projectManagementPB@createBudgetPeriodeNonProject')->name('PB.createBudgetPeriodeNonProject');
-
-    // AFE
-    Route::get('createAFE', 'projectManagementAFE@createAFE')->name('AFE.createAFE');
-    Route::get('createAFESwitching', 'projectManagementAFE@createAFESwitching')->name('AFE.createAFESwitching');
-
-
-    // CEPS
-    Route::get('openProject', 'projectManagementCEPS@openProject')->name('CEPS.openProject');
-    Route::get('closeProject', 'projectManagementCEPS@closeProject')->name('CEPS.closeProject');
-
     // MAterial Receive
     Route::post('revisionMaterialReceive', 'logisticMaterialReceive@revisionMaterialReceive')->name('MR.revisionMaterialReceive');
     Route::get('createMaterialReceive', 'logisticMaterialReceive@index')->name('MR.createMaterialReceive');
-
-
-    // RPI
-    Route::get('createRPI', 'procurementTransactionRPI@createRPI')->name('RPI.createRPI');
-    Route::get('createRPIOverhead', 'procurementTransactionRPI@createRPIOverhead')->name('RPI.createRPIOverhead');
-    Route::get('createRPISales', 'procurementTransactionRPI@createRPISales')->name('RPI.createRPISales');
-    Route::get('fileUpload', 'procurementTransactionRPI@fileUpload')->name('RPI.fileUpload');
-
-    // RE
-    Route::get('createREtoCustomer', 'procurementTransactionRE@createREtoCustomer')->name('RE.createREtoCustomer');
-    Route::get('createPaymentRE', 'procurementTransactionRE@createPaymentRE')->name('RE.createPaymentRE');
-    Route::get('createDebitNote', 'procurementTransactionRE@createDebitNote')->name('RE.createDebitNote');
-    Route::get('createPaidDebitNote', 'procurementTransactionRE@createPaidDebitNote')->name('RE.createPaidDebitNote');
-
-
-    // URP
-    Route::get('createURP', 'procurementTransactionURP@createURP')->name('URP.createURP');
-
-    // PPNRem
-    Route::get('PPNRem', 'procurementTransactionPPNRem@createPPNRem')->name('PPNRem.createPPNRem');
-    Route::get('PPNRemSet', 'procurementTransactionPPNRem@createPPNRemSet')->name('PPNRem.createPPNRemSet');
-
     
 
     //CO
 
     Route::get('CO', 'controllerSalesCo@index')->name('CO.index');
     Route::get('revisionCo', 'controllerSalesCo@revisionCo')->name('CO.revisionCo');
-
-
-    //Finance
-
-    Route::get('editApNumber', 'finance@editApNumber')->name('editApNumber.index');
-    Route::get('editApJournal', 'finance@editApJournal')->name('editApJournal.index');
-    Route::get('editApBankJournal', 'finance@editApBankJournal')->name('editApBankJournal.index');
-    Route::get('bankReceiveMoney', 'finance@bankReceiveMoney')->name('bankReceiveMoney.index');
-    Route::get('editBankReceiveMoney', 'finance@editBankReceiveMoney')->name('editBankReceiveMoney.index');
-    Route::get('bankSpendMoney', 'finance@bankSpendMoney')->name('bankSpendMoney.index');
-    Route::get('editBankSpendMoney', 'finance@editBankSpendMoney')->name('editBankSpendMoney.index');
-    Route::get('bankChargers', 'finance@bankChargers')->name('bankChargers.index');
-    Route::get('editBankChargers', 'finance@editBankChargers')->name('editBankChargers.index');
 
 });
 

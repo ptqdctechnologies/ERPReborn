@@ -17,44 +17,40 @@ class Controller extends BaseController
     {
         $varAPIWebToken = Session::get('SessionLogin');
 
-        if(count(collect($VarSelectWorkFlow['data'])) > 1){
-            
+        if (count(collect($VarSelectWorkFlow['data'])) > 1) {
+
             $compact = [
-                "data"=> $VarSelectWorkFlow['data'],
-                "businessDocument_RefID"=> $varData['data']['businessDocument']['businessDocument_RefID'],
+                "data" => $VarSelectWorkFlow['data'],
+                "businessDocument_RefID" => $varData['data']['businessDocument']['businessDocument_RefID'],
                 "documentNumber" => $varData['data']['businessDocument']['documentNumber'],
                 "approverEntity_RefID" => $approverEntity_RefID,
                 "message" => "SelectWorkFlow"
             ];
-    
-            return response()->json($compact); 
 
-        }
-        else{
-            
+            return response()->json($compact);
+        } else {
+
             $VarStoreWorkFlow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'userAction.documentWorkFlow.approvalStage.setUserSubmission', 
-            'latest',
-            [
-            'entities' => [
-                "businessDocument_RefID" => (int)$varData['data']['businessDocument']['businessDocument_RefID'],
-                "workFlowPath_RefID" => (int)$VarSelectWorkFlow['data'][0]['sys_ID'],
-                "remarks" => null,
-                "approverEntity_RefID" => (int)$approverEntity_RefID,
+                $varAPIWebToken,
+                'userAction.documentWorkFlow.approvalStage.setUserSubmission',
+                'latest',
+                [
+                    'entities' => [
+                        "businessDocument_RefID" => (int)$varData['data']['businessDocument']['businessDocument_RefID'],
+                        "workFlowPath_RefID" => (int)$VarSelectWorkFlow['data'][0]['sys_ID'],
+                        "remarks" => null,
+                        "approverEntity_RefID" => (int)$approverEntity_RefID,
+                    ]
                 ]
-            ]
             );
-            
+
             $compact = [
-                "documentNumber"=> $varData['data']['businessDocument']['documentNumber'],
+                "documentNumber" => $varData['data']['businessDocument']['documentNumber'],
             ];
 
-            return response()->json($compact); 
-            
+            return response()->json($compact);
         }
-
     }
 
     public function StoreWorkFlow(Request $request)
@@ -65,28 +61,26 @@ class Controller extends BaseController
         $businessDocument_RefID = $request->businessDocument_RefID;
         $documentNumber = $request->documentNumber;
         $approverEntity_RefID = $request->approverEntity_RefID;
-    
+
         $VarStoreWorkFlow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken, 
-        'userAction.documentWorkFlow.approvalStage.setUserSubmission', 
-        'latest',
-        [
-        'entities' => [
-            "businessDocument_RefID" => (int)$businessDocument_RefID,
-            "workFlowPath_RefID" => (int)$workFlowPath_RefID,
-            "remarks" => null,
-            "approverEntity_RefID" => (int)$approverEntity_RefID
+            $varAPIWebToken,
+            'userAction.documentWorkFlow.approvalStage.setUserSubmission',
+            'latest',
+            [
+                'entities' => [
+                    "businessDocument_RefID" => (int)$businessDocument_RefID,
+                    "workFlowPath_RefID" => (int)$workFlowPath_RefID,
+                    "remarks" => null,
+                    "approverEntity_RefID" => (int)$approverEntity_RefID
+                ]
             ]
-        ]
         );
-        
+
         $compact = [
-            "documentNumber"=> $documentNumber,
+            "documentNumber" => $documentNumber,
         ];
 
-        return response()->json($compact); 
-        
+        return response()->json($compact);
     }
-
 }
