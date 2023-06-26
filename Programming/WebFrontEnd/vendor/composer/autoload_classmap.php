@@ -3690,6 +3690,7 @@ return array(
     'Monolog\\Processor\\GitProcessor' => $vendorDir . '/monolog/monolog/src/Monolog/Processor/GitProcessor.php',
     'Monolog\\Processor\\HostnameProcessor' => $vendorDir . '/monolog/monolog/src/Monolog/Processor/HostnameProcessor.php',
     'Monolog\\Processor\\IntrospectionProcessor' => $vendorDir . '/monolog/monolog/src/Monolog/Processor/IntrospectionProcessor.php',
+    'Monolog\\Processor\\LoadAverageProcessor' => $vendorDir . '/monolog/monolog/src/Monolog/Processor/LoadAverageProcessor.php',
     'Monolog\\Processor\\MemoryPeakUsageProcessor' => $vendorDir . '/monolog/monolog/src/Monolog/Processor/MemoryPeakUsageProcessor.php',
     'Monolog\\Processor\\MemoryProcessor' => $vendorDir . '/monolog/monolog/src/Monolog/Processor/MemoryProcessor.php',
     'Monolog\\Processor\\MemoryUsageProcessor' => $vendorDir . '/monolog/monolog/src/Monolog/Processor/MemoryUsageProcessor.php',
