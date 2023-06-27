@@ -249,7 +249,7 @@
 
             $.ajax({
                 type: "POST",
-                url: '{{route("ARF.store")}}',
+                url: '{{route("AdvanceRequest.store")}}',
                 data: json_object,
                 contentType: "application/json",
                 processData: true,

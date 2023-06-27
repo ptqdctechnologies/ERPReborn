@@ -254,7 +254,6 @@ class FunctionController extends Controller
     {
         $banyak = 10;
         $index = 0;
-
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -269,7 +268,8 @@ class FunctionController extends Controller
                 'pick' => null,
                 'sort' => null,
                 'filter' => null,                    
-                'paging' => trim('limit '. $banyak. ' offset '.$index) // // Munuculkan banyak data dimulai dari index sekian
+                'paging' => null
+                // trim('limit '. $banyak. ' offset '.$index) // // Munuculkan banyak data dimulai dari index sekian
                 ]
             ]
             );

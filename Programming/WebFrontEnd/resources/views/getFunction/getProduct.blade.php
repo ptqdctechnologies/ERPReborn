@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Choose Product</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button> 
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -51,8 +51,8 @@
             type: 'GET',
             url: '{!! route("getProduct") !!}',
             success: function(data) {
-                for ( var i=0 ; i< Object.keys(data).length ; i++ ) {
-                    var no = i+1;
+                for (var i = 0; i < Object.keys(data).length; i++) {
+                    var no = i + 1;
                     dataShow.push([
                         '<tbody><tr><td>' + no + '</td>',
                         '<td>' + data[i]['sys_ID'] + '</td>',
@@ -67,46 +67,42 @@
                 $(".loader").hide();
 
 
-                $('#tableGetProduct').DataTable( {
-                    data:           dataShow,
-                    deferRender:    true,
-                    // scrollY:        200,
+                $('#tableGetProduct').DataTable({
+                    data: dataShow,
+                    deferRender: true,
                     scrollCollapse: true,
-                    scroller:       true
-                } );
+                    scroller: true
+                });
             }
         });
     }
 </script>
 
 <script>
-
-    $('#tableGetProduct tbody').on('click', 'tr', function () {
+    $('#tableGetProduct tbody').on('click', 'tr', function() {
 
         $("#myProduct").modal('toggle');
 
-        var row = $(this).closest("tr");    
+        var row = $(this).closest("tr");
         var sys_id = row.find("td:nth-child(2)").text();
         var name = row.find("td:nth-child(3)").text();
         var uom = row.find("td:nth-child(4)").text();
         var key = row.find("td:nth-child(5)").text();
         var budget_qty_id = row.find("td:nth-child(6)").text();
 
-        $("#putProductId"+key).val(sys_id);
-        $("#putProductName"+key).html(name);
-        $("#putUom"+key).val(uom);
+        $("#putProductId" + key).val(sys_id);
+        $("#putProductName" + key).html(name);
+        $("#putUom" + key).val(uom);
 
-        $("#budget_qty_id"+key).val(budget_qty_id);
+        $("#budget_qty_id" + key).val(budget_qty_id);
 
-        $("#qty_req"+key).prop("disabled", false);
-        $("#price_req"+key).prop("disabled", false);
-        $("#remark_req"+key).prop("disabled", false);
+        $("#qty_req" + key).prop("disabled", false);
+        $("#price_req" + key).prop("disabled", false);
+        $("#remark_req" + key).prop("disabled", false);
 
-        $("#allowance_req"+key).prop("disabled", false);
-        $("#accomodation_req"+key).prop("disabled", false);
-        $("#other_req"+key).prop("disabled", false);
+        $("#allowance_req" + key).prop("disabled", false);
+        $("#accomodation_req" + key).prop("disabled", false);
+        $("#other_req" + key).prop("disabled", false);
 
     });
-    
 </script>
-
