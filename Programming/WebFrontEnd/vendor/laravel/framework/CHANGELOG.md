@@ -1,7 +1,22 @@
 # Release Notes for 10.x
 
-## [Unreleased](https://github.com/laravel/framework/compare/v10.13.2...10.x)
+## [Unreleased](https://github.com/laravel/framework/compare/v10.13.5...10.x)
 
+## [v10.13.5](https://github.com/laravel/framework/compare/v10.13.3...v10.13.5) - 2023-06-08
+
+- Revert "[10.x] Update Kernel::load() to use same `classFromFile` logic as events" by @taylorotwell in https://github.com/laravel/framework/pull/47382
+
+## [v10.13.3](https://github.com/laravel/framework/compare/v10.13.2...v10.13.3) - 2023-06-08
+
+### What's Changed
+- Narrow down array type for `$attributes` in `CastsAttributes` by @devfrey in https://github.com/laravel/framework/pull/47365
+- Add test for `assertViewHasAll` method by @milwad-dev in https://github.com/laravel/framework/pull/47366
+- Fix `schedule:list` to display named Jobs by @liamkeily in https://github.com/laravel/framework/pull/47367
+- Support `ConditionalRules` within `NestedRules` by @cosmastech in https://github.com/laravel/framework/pull/47344
+- Small test fixes by @stevebauman in https://github.com/laravel/framework/pull/47369
+- Pluralisation typo in queue:clear command output by @sebsobseb in https://github.com/laravel/framework/pull/47376
+- Add getForeignKeyFrom method by @iamgergo in https://github.com/laravel/framework/pull/47378
+- Add shouldHashKeys to ThrottleRequests middleware by @fosron in https://github.com/laravel/framework/pull/47368
 
 ## [v10.13.2 (2023-06-05)](https://github.com/laravel/framework/compare/v10.13.1...v10.13.2)
 
@@ -21,7 +36,6 @@
 - Update Kernel::load() to use same classFromFile logic as events ([#47327](https://github.com/laravel/framework/pull/47327))
 - Remove redundant 'setAccessible' methods ([#47348](https://github.com/laravel/framework/pull/47348))
 
-
 ## [v10.13.1 (2023-06-02)](https://github.com/laravel/framework/compare/v10.13.0...v10.13.1)
 
 ### Added
@@ -33,7 +47,6 @@
 
 ### Changed
 - Display queue runtime in human readable format ([#47227](https://github.com/laravel/framework/pull/47227))
-
 
 ## [v10.13.0 (2023-05-30)](https://github.com/laravel/framework/compare/v10.12.0...v10.13.0)
 
@@ -59,7 +72,6 @@
 - Add a missing semicolon to CompilesClasses ([#47280](https://github.com/laravel/framework/pull/47280))
 - Send along value to InvalidPayloadException ([#47223](https://github.com/laravel/framework/pull/47223))
 
-
 ## [v10.12.0 (2023-05-23)](https://github.com/laravel/framework/compare/v10.11.0...v10.12.0)
 
 ### Added
@@ -81,7 +93,6 @@
 ### Refactoring
 - Remove useless else statements ([#47161](https://github.com/laravel/framework/pull/47161))
 
-
 ## [v10.11.0 (2023-05-16)](https://github.com/laravel/framework/compare/v10.10.1...v10.11.0)
 
 ### Added
@@ -101,7 +112,6 @@
 - Clears resolved instance of Vite when using withoutVite ([#47091](https://github.com/laravel/framework/pull/47091))
 - Remove workarounds for old Guzzle versions ([#47084](https://github.com/laravel/framework/pull/47084))
 
-
 ## [v10.10.1 (2023-05-11)](https://github.com/laravel/framework/compare/v10.10.0...v10.10.1)
 
 ### Added
@@ -118,7 +128,6 @@
 - Used `Carbon::now()` instead of `now()` ([#47017](https://github.com/laravel/framework/pull/47017))
 - Use file locks when writing failed jobs to disk ([b822d28](https://github.com/laravel/framework/commit/b822d2810d29ab1aedf667abc76ed969d28bbaf5))
 - Raise visibility of Mailable prepareMailableForDelivery() ([#47031](https://github.com/laravel/framework/pull/47031))
-
 
 ## [v10.10.0 (2023-05-09)](https://github.com/laravel/framework/compare/v10.9.0...v10.10.0)
 
@@ -142,7 +151,6 @@
 - Do reconnect when redis throws connection lost error ([#46989](https://github.com/laravel/framework/pull/46989))
 - Throw timeoutException instead of maxAttemptsExceededException when a job times out ([#46968](https://github.com/laravel/framework/pull/46968))
 
-
 ## [v10.9.0 (2023-04-25)](https://github.com/laravel/framework/compare/v10.8.0...v10.9.0)
 
 ### Added
@@ -163,7 +171,6 @@
 - Improve job release method to accept date instance ([#46854](https://github.com/laravel/framework/pull/46854))
 - Use foreignUlid if model uses HasUlids trait when call foreignIdFor ([#46876](https://github.com/laravel/framework/pull/46876))
 
-
 ## [v10.8.0 (2023-04-18)](https://github.com/laravel/framework/compare/v10.7.1...v10.8.0)
 
 ### Added
@@ -182,7 +189,6 @@
 - Add headers to exception in `Illuminate/Foundation/Application::abourd()` ([#46780](https://github.com/laravel/framework/pull/46780))
 - Minor skeleton slimming (framework edition) ([#46786](https://github.com/laravel/framework/pull/46786))
 - Release lock for job implementing ShouldBeUnique that is dispatched afterResponse() ([#46806](https://github.com/laravel/framework/pull/46806))
-
 
 ## [v10.7.1 (2023-04-11)](https://github.com/laravel/framework/compare/v10.7.0...v10.7.1)
 
