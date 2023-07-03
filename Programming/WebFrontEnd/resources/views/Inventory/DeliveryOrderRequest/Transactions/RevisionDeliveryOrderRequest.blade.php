@@ -27,6 +27,7 @@
                     @csrf
                     @method('PUT')
                     <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
+                    <input id="trano" style="border-radius:0;" name="trano" value="{{ $trano }}" class="form-control" type="hidden">
                     <div class="tab-content p-3" id="nav-tabContent">
                         @include('Inventory.DeliveryOrderRequest.Functions.Header.HeaderDorRevision')
                         <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="product-desc-tab">
@@ -68,7 +69,7 @@
                                         <table class="table table-head-fixed text-nowrap TableDorCart" id="TableDorCart">
                                             <thead>
                                                 <tr>
-                                                    <th>Work Id</th>
+                                                    <th>Trano</th>
                                                     <th>Product Id</th>
                                                     <th>Product Name</th>
                                                     <th>PR Price</th>

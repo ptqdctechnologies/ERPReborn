@@ -103,6 +103,8 @@
         $("#allowance_req" + key).prop("disabled", false);
         $("#accomodation_req" + key).prop("disabled", false);
         $("#other_req" + key).prop("disabled", false);
+        $("#note_req" + key).prop("disabled", false);
+        
 
     });
 </script>

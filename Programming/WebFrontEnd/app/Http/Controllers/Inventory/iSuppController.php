@@ -147,7 +147,7 @@ class iSuppController extends Controller
         // dd($varDataAdvanceRevision['data'][0]['document']['content']['itemList']['ungrouped'][0]);
         $compact = [
             'dataAdvanceRevisions' => $varDataAdvanceRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
-            'log_FileUpload_Pointer_RefID' => $varDataAdvanceRevision['data'][0]['document']['content']['attachmentFiles']['main']['log_FileUpload_Pointer_RefID'],
+            'logFileUploadPointer_RefID' => $varDataAdvanceRevision['data'][0]['document']['content']['attachmentFiles']['main']['logFileUploadPointer_RefID'],
             'dataRequester' => $varDataAdvanceRevision['data'][0]['document']['content']['involvedPersons']['requester'],
             'var_recordID' => $request->searchiSuppNumberRevisionId,
             'varAPIWebToken' => $varAPIWebToken,
@@ -193,11 +193,6 @@ class iSuppController extends Controller
             ]
         ]
         );
-        // dd($varData);
-        foreach($varData['data'] as $varDatas){
-            $request->session()->push("SessioniSupp", (string)$varDatas['combinedBudget_SubSectionLevel1_RefID']);
-            $request->session()->push("SessioniSupp", (string)$varDatas['product_RefID']);
-        }
         return response()->json($varData['data']);
     }
 }

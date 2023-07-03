@@ -10,7 +10,7 @@ class DeliveryOrderRequestController extends Controller
 {
     public function index(Request $request)
     {
-        $request->session()->forget("SessionDeliveryOrderRequest");
+        
         $request->session()->forget("SessionDeliveryOrderRequestRequester");
         
         $var = 0;
@@ -187,7 +187,7 @@ class DeliveryOrderRequestController extends Controller
     public function RevisionDeliveryOrderRequestIndex(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionDeliveryOrderRequest");
+        
         $request->session()->forget("SessionDeliveryOrderRequestRequester");
 
         $varDataAdvanceRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
@@ -204,7 +204,7 @@ class DeliveryOrderRequestController extends Controller
         $compact = [
             'dataAdvanceRevisions' => $varDataAdvanceRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
             'dataRequester' => $varDataAdvanceRevision['data'][0]['document']['content']['involvedPersons']['requester'],
-            'dataAdvancenumber' => $varDataAdvanceRevision['data'][0]['document']['header']['number'],
+            'trano' => $varDataAdvanceRevision['data'][0]['document']['header']['number'],
             'var_recordID' => $request->searcDorNumberRevisionId,
             'statusRevisi' => 1,
         ];
@@ -234,11 +234,6 @@ class DeliveryOrderRequestController extends Controller
                 ]
             ]
         );
-        // dd($varData);
-        foreach($varData['data'] as $varDatas){
-            $request->session()->push("SessionDeliveryOrderRequest", (string)$varDatas['combinedBudget_SubSectionLevel1_RefID']);
-            $request->session()->push("SessionDeliveryOrderRequest", (string)$varDatas['product_RefID']);
-        }
         return response()->json($varData['data']);
     }
 

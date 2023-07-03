@@ -22,8 +22,9 @@
 
         $("#myProject").modal('toggle');
 
-        var row = $(this).closest("tr");    
-        var sys_id = row.find("td:nth-child(4)").text();
+        var row = $(this).closest("tr");
+        var id = row.find("td:nth-child(1)").text();
+        var sys_id = $('#sys_id_budget' + id).val();
         var code = row.find("td:nth-child(2)").text();
         var name = row.find("td:nth-child(3)").text();
         
@@ -40,24 +41,24 @@
             }
         });
 
+        var keys = 0;
+
         $.ajax({
             type: 'GET',
             url: '{!! route("DeliveryOrderRequest.DeliveryOrderRequestByBudgetID") !!}?projectcode=' + sys_id,
             success: function(data) {
-
+                console.log(data);
                 var no = 1;
                 t = $('#tableSearchPrInDor').DataTable();
                 $.each(data.DataPurchaseRequisition, function(key, val) {
+                    keys += 1;
                     t.row.add([
-                        '<tbody><tr><td>' + no++ + '</td>',
+                        '<tbody><tr><input id="sys_id' + keys + '" value="' + val.sys_ID + '" type="hidden"><input id="requester_RefID' + keys + '" value="' + val.requesterWorkerJobsPosition_RefID + '" type="hidden"><input id="requester_name' + keys + '" value="' + val.requesterWorkerName + '" type="hidden"><td>' + no++ + '</td>',
                         '<td>' + val.documentNumber + '</td>',
                         '<td>' + val.combinedBudgetCode + '</td>',
                         '<td>' + val.combinedBudgetName + '</td>',
                         '<td>' + val.combinedBudgetSectionCode + '</td>',
-                        '<td>' + val.combinedBudgetSectionName + '</td>',
-                        '<span style="display:none;"><td">' + val.sys_ID + '</td></span>',
-                        '<span style="display:none;"><td">' + val.requesterWorkerJobsPosition_RefID + '</td></span>',
-                        '<span style="display:none;"><td">' + val.requesterWorkerName + '</td></span></tr></tbody>'
+                        '<td>' + val.combinedBudgetSectionName + '</td></tr></tbody>'
                     ]).draw();
 
                 });
@@ -75,12 +76,14 @@
 
         $("#mySearchPurchaseRequistion").modal('toggle');
 
-        var row = $(this).closest("tr");    
-        var pr_RefID = row.find("td:nth-child(7)").text();
+        var row = $(this).closest("tr");
+        var id = row.find("td:nth-child(1)").text();
         var pr_number = row.find("td:nth-child(2)").text();
-        var requester_RefID = row.find("td:nth-child(8)").text();
-        var requester_name = row.find("td:nth-child(9)").text();
+        var pr_RefID = $('#sys_id' + id).val();
+        var requester_RefID = $('#requester_RefID' + id).val();
+        var requester_name = $('#requester_name' + id).val();
 
+        console.log(requester_RefID);
         $("#pr_number").val(pr_number);
         $("#requester_id").val(requester_RefID);
         $(".tableShowHideDor").show();

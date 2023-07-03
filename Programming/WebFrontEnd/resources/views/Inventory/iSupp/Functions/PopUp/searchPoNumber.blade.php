@@ -10,35 +10,15 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="tablePoNumber">
+                                <table class="table table-head-fixed text-nowrap" id="TablePoNumber">
                                     <thead>
                                         <tr>
                                             <th>Trano</th>
-                                            <th>Project Code</th>
+                                            <th>Budget Code</th>
                                             <th>Site Code</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php $no=1; @endphp
-                                        @for($i = 1; $i < 4; $i++)
-                                        <tr>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchPoNumber" data-id="Q00018{{ $i }}">Q00018{{$i}}</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchPoNumber" data-id="project_id {{ $i }}">Project Code {{$i}}</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchPoNumber" data-id="site_code {{ $i }}" data-name="site_name {{ $i }}">Site Code {{$i}}</p>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                        @endfor
                                     </tbody>
                                 </table>
                             </div>
@@ -50,30 +30,39 @@
     </div>
 </div>
 
+
 <script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
     $(function() {
         $('.myPoNumber').on('click', function(e) {
             e.preventDefault();
-            $('#tablePoNumber').DataTable();
-        });
-    });
-</script>
 
-<script>
-    $(function() {
-        $(".klikSearchPoNumber").on('click', function(e) {
-            e.preventDefault(); // in chase you change to a link or button
-            var $this = $(this);
-            var code = $this.data("id");
-            $("#po_number").val(code);
-            $("#sitecode").val("143000000000300");
-            $(".projectcode").val("143000000000300");
-            $("#projectcode2").val("Pengadaan jasa elektrifikasi PI 402 (Kluster KMJ 11, KMJ9, dan KMJ 24) di PT PGE area Kamojang");
-            $("#supplier_code").val("VDR2279");
-            $("#supplier_code2").val("Infra Media Dinamika");
-            $("#netActiSupp").val("");
-            $("#addToPoDetail").prop("disabled", false);
+            var keys = 0;
+
+            $.ajax({
+                type: 'GET',
+                url: '{!! route("getProject") !!}',
+                success: function(data) {
+                    var no = 1;
+                    var t = $('#TablePoNumber').DataTable();
+                    t.clear();
+                    $.each(data, function(key, val) {
+                        keys += 1;
+                        t.row.add([
+                            '<tbody><tr><input id="sys_id_budget' + keys + '" value="' + val.sys_ID + '" type="hidden"><td>' + no++ + '</td>',
+                            '<td>' + val.code + '</td>',
+                            '<td>' + val.name + '</td></span></tr></tbody>'
+                        ]).draw();
+                    });
+                }
+            });
+
         });
+
     });
 </script>
