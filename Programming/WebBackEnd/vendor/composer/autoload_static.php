@@ -7032,6 +7032,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Monolog\\SignalHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/SignalHandler.php',
         'Monolog\\Test\\TestCase' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Test/TestCase.php',
         'Monolog\\Utils' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Utils.php',
+        'NcJoes\\OfficeConverter\\OfficeConverter' => __DIR__ . '/..' . '/ncjoes/office-converter/src/OfficeConverter/OfficeConverter.php',
+        'NcJoes\\OfficeConverter\\OfficeConverterException' => __DIR__ . '/..' . '/ncjoes/office-converter/src/OfficeConverter/OfficeConverterException.php',
         'Nette\\ArgumentOutOfRangeException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
         'Nette\\DeprecatedException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
         'Nette\\DirectoryNotFoundException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',

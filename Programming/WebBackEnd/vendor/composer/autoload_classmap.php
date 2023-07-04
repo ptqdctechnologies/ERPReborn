@@ -6428,6 +6428,8 @@ return array(
     'Monolog\\SignalHandler' => $vendorDir . '/monolog/monolog/src/Monolog/SignalHandler.php',
     'Monolog\\Test\\TestCase' => $vendorDir . '/monolog/monolog/src/Monolog/Test/TestCase.php',
     'Monolog\\Utils' => $vendorDir . '/monolog/monolog/src/Monolog/Utils.php',
+    'NcJoes\\OfficeConverter\\OfficeConverter' => $vendorDir . '/ncjoes/office-converter/src/OfficeConverter/OfficeConverter.php',
+    'NcJoes\\OfficeConverter\\OfficeConverterException' => $vendorDir . '/ncjoes/office-converter/src/OfficeConverter/OfficeConverterException.php',
     'Nette\\ArgumentOutOfRangeException' => $vendorDir . '/nette/utils/src/exceptions.php',
     'Nette\\DeprecatedException' => $vendorDir . '/nette/utils/src/exceptions.php',
     'Nette\\DirectoryNotFoundException' => $vendorDir . '/nette/utils/src/exceptions.php',

@@ -3169,28 +3169,28 @@
         },
         {
             "name": "ncjoes/office-converter",
-            "version": "v1.0.3",
-            "version_normalized": "1.0.3.0",
+            "version": "v1.0.5",
+            "version_normalized": "1.0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ncjoes/office-converter.git",
-                "reference": "b0e549388380572e1cb1864283d83b819578e813"
+                "reference": "292339ae129ce2defdd1a4bf83f399fb3f2183f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ncjoes/office-converter/zipball/b0e549388380572e1cb1864283d83b819578e813",
-                "reference": "b0e549388380572e1cb1864283d83b819578e813",
+                "url": "https://api.github.com/repos/ncjoes/office-converter/zipball/292339ae129ce2defdd1a4bf83f399fb3f2183f7",
+                "reference": "292339ae129ce2defdd1a4bf83f399fb3f2183f7",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.4"
+                "php": "^7.3|^8.0"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.16",
                 "phpstan/phpstan": "^0.12.11",
                 "phpunit/phpunit": "7.*"
             },
-            "time": "2020-05-11T09:45:43+00:00",
+            "time": "2023-07-03T11:38:44+00:00",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -3215,7 +3215,7 @@
             ],
             "support": {
                 "issues": "https://github.com/ncjoes/office-converter/issues",
-                "source": "https://github.com/ncjoes/office-converter/tree/v1.0.3"
+                "source": "https://github.com/ncjoes/office-converter/tree/v1.0.5"
             },
             "install-path": "../ncjoes/office-converter"
         },

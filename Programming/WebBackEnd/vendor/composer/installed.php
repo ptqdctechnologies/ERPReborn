@@ -602,9 +602,9 @@
             'dev_requirement' => true,
         ),
         'ncjoes/office-converter' => array(
-            'pretty_version' => 'v1.0.3',
-            'version' => '1.0.3.0',
-            'reference' => 'b0e549388380572e1cb1864283d83b819578e813',
+            'pretty_version' => 'v1.0.5',
+            'version' => '1.0.5.0',
+            'reference' => '292339ae129ce2defdd1a4bf83f399fb3f2183f7',
             'type' => 'library',
             'install_path' => __DIR__ . '/../ncjoes/office-converter',
             'aliases' => array(),
