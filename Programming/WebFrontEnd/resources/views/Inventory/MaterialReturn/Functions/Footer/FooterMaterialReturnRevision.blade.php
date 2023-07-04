@@ -22,7 +22,6 @@
         }
     });
 
-    var trano = "Adv/QDC/2022/000238";
     var var_recordID = $("#var_recordID").val();
     var TotalBudgetSelected = 0;
     var TotalQty = 0;
@@ -47,8 +46,7 @@
                     '<input type="hidden" name="var_combinedBudget[]" value="' + value.combinedBudgetSectionDetail_RefID + '">' +
                     '<input type="hidden" name="var_recordIDDetail[]" value="' + value.sys_ID + '">' +
                     
-                    '<td style="border:1px solid #e9ecef;">' + trano + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + value.combinedBudget_SubSectionLevel1_RefID + '</td>' +
+                    // '<td style="border:1px solid #e9ecef;">' + value.combinedBudget_SubSectionLevel1_RefID + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + value.product_RefID + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + value.productName + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + value.priceCurrencyISOCode + '</td>' +
@@ -119,7 +117,7 @@
                     '<input name="getAverage[]" value="'+ val2.priceBaseCurrencyValue +'" type="hidden">' +
                     '<input name="combinedBudget" value="'+ val2.sys_ID +'" type="hidden">' +
                     '<input name="getRecordIDDetail[]" value="' + var_recordIDDetail + '"  type="hidden">' +
-                    '<input name="getTrano[]" value="'+ trano +'" type="hidden">' +
+                    '<input name="getTrano[]" value="'+ val2.sys_ID +'" type="hidden">' +
 
 
                     '<td style="border:1px solid #e9ecef;">' +
@@ -127,7 +125,6 @@
                     '</td>' +
 
 
-                    '<td style="border:1px solid #e9ecef;">' + trano + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + val2.product_RefID + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + val2.productName + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + val2.priceCurrencyISOCode + '</td>' +
@@ -221,8 +218,8 @@
                     '<input type="hidden" name="var_combinedBudget[]" value="' + combinedBudget + '">' +
                     
                     
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getTrano[index] + '</td>' +
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkName[index] + '</td>' +
+                    // '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getTrano[index] + '</td>' +
+                    // '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkName[index] + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductId + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductName + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getCurrency[index] + '</td>' +

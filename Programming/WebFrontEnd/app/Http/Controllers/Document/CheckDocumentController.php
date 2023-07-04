@@ -21,7 +21,7 @@ class CheckDocumentController extends Controller
                     'pick' => null,
                     'sort' => null,
                     'filter' => null,
-                    'paging' => null
+                    'paging' => null,
                 ]
             ]
         );
@@ -61,7 +61,7 @@ class CheckDocumentController extends Controller
                     'pick' => null,
                     'sort' => null,
                     'filter' => null,
-                    'paging' => null
+                    'paging' => null,
                 ]
             ]
         );
@@ -78,7 +78,7 @@ class CheckDocumentController extends Controller
             ]
         );
 
-        // dd($varDataWorkflow);
+        dd($varDataWorkflow);
 
 
         $varDataDocument = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
@@ -146,7 +146,7 @@ class CheckDocumentController extends Controller
             ]
         );
 
-        // dd($varDataWorkflow);
+        dd($varDataWorkflow);
 
 
         $varDataDocument = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
@@ -180,10 +180,12 @@ class CheckDocumentController extends Controller
 
         return view('Documents.Transactions.index', $compact);
     }
-    public function ShowDocumentByDocumentType(Request $request)
+    public function ShowDocumentListData(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-
+        $SessionWorkerCareerInternal_RefID = $request->session()->get('SessionWorkerCareerInternal_RefID');
+        $DocumentType = $request->input('DocumentType');
+        
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
@@ -191,12 +193,13 @@ class CheckDocumentController extends Controller
             'latest',
             [
                 'parameter' => [
-                    'recordID' => 164000000000196
+                    'recordID' => (int)$SessionWorkerCareerInternal_RefID
+                    
                 ]
             ]
         );
 
-        dd($varData);
+        // dd($varData);
 
         $compact = [
             'data' => $varData['data'][0]['document']['content']['itemList']['ungrouped'],

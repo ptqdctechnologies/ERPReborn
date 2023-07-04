@@ -6,6 +6,7 @@
 @include('getFunction.getSite')
 @include('getFunction.getDelivery')
 @include('getFunction.getReceive')
+@include('getFunction.getProduct')
 @include('Inventory.MaterialReturn.Functions.PopUp.PopUpMaterialReturnRevision')
 
 <div class="content-wrapper">
@@ -61,13 +62,11 @@
                                         <table class="table text-nowrap table-sm TableMaterialReturn" id="TableMaterialReturn">
                                             <thead>
                                                 <tr>
-                                                    <th>Trano</th>
-                                                    <th>Work Id</th>
-                                                    <th>Product Id</th>
-                                                    <th>Product Name</th>
-                                                    <th>Valuta</th>
-                                                    <th>Note</th>
-                                                    <th>Qty</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Id</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Name</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Valuta</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Note</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

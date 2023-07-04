@@ -252,6 +252,8 @@ class FunctionController extends Controller
 
     public function getProduct(Request $request)
     {
+        $banyak = 10;
+        $index = 0;
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -267,6 +269,7 @@ class FunctionController extends Controller
                 'sort' => null,
                 'filter' => null,                    
                 'paging' => null
+                // trim('limit '. $banyak. ' offset '.$index) // // Munuculkan banyak data dimulai dari index sekian
                 ]
             ]
             );

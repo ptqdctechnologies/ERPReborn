@@ -11,7 +11,8 @@ class DeliveryOrderController extends Controller
     
     public function index(Request $request)
     {
-        $request->session()->forget("SessionDeliveryOrder");
+        
+        $request->session()->forget("SessionDeliveryOrderID");
         $var = 0;
         if (!empty($_GET['var'])) {
             $var =  $_GET['var'];
@@ -22,51 +23,6 @@ class DeliveryOrderController extends Controller
         ];
         
         return view('Inventory.DeliveryOrder.Transactions.CreateDeliveryOrder', $compact);
-    }
-
-    public function StoreValidateDeliveryOrder(Request $request)
-    {
-        $tamp = 0; $status = 200;
-        $val = $request->input('putWorkId');
-        $val2 = $request->input('putProductId');
-        $data = $request->session()->get("SessionDeliveryOrder");
-        if($request->session()->has("SessionDeliveryOrder")){
-            for($i = 0; $i < count($data); $i++){
-                if($data[$i] == $val && $data[$i+1] == $val2){
-                    $tamp = 1;
-                }
-            }
-            if($tamp == 0){
-                $request->session()->push("SessionDeliveryOrder", $val);
-                $request->session()->push("SessionDeliveryOrder", $val2);
-            }
-            else{
-                $status = 500;
-            }
-        }
-        else{
-            $request->session()->push("SessionDeliveryOrder", $val);
-            $request->session()->push("SessionDeliveryOrder", $val2);
-        }
-
-        return response()->json($status);
-    }
-
-    public function StoreValidateDeliveryOrder2(Request $request)
-    {
-        $val = $request->input('putWorkId');
-        $val2 = $request->input('putProductId');
-        $data = $request->session()->get("SessionDeliveryOrder");
-        if($request->session()->has("SessionDeliveryOrder")){
-            for($i = 0; $i < count($data); $i++){
-                if($data[$i] == $val && $data[$i+1] == $val2){
-                    unset($data[$i]);
-                    unset($data[$i+1]);
-                    $newClass = array_values($data);
-                    $request->session()->put("SessionDeliveryOrder", $newClass);
-                }
-            }
-        }
     }
 
     public function store(Request $request)
@@ -147,27 +103,48 @@ class DeliveryOrderController extends Controller
     public function DeliveryOrderByDorID(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $var_recordID = $request->input('var_recordID');
-        $varDataAdvanceList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.finance.getAdvanceDetail',
-            'latest',
-            [
-                'parameter' => [
-                    'advance_RefID' => (int) $var_recordID,
-                ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
+        $tamp = 0;
+        $status = 500;
+        $varDataDorList['data'] = [];
+        $sys_id = $request->input('sys_id');
+
+        $data = $request->session()->get("SessionDeliveryOrderID");
+
+        if ($request->session()->has("SessionDeliveryOrderID")) {
+            for ($i = 0; $i < count($data); $i++) {
+                if ($data[$i] == $sys_id) {
+                    $tamp = 1;
+                }
+            }
+        }
+
+        if ($tamp == 0) {
+
+            $varDataDorList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.finance.getAdvanceDetail',
+                'latest',
+                [
+                    'parameter' => [
+                        'advance_RefID' => (int) $sys_id,
+                    ],
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
                 ]
-            ]
-        );
-        // dd($varDataAdvanceList);
+            );
+            $request->session()->push("SessionDeliveryOrderID", $sys_id);
+            $status = 200;
+        }
+
         $compact = [
-            'DataAdvanceList' => $varDataAdvanceList['data'],
+            'DataDorList' => $varDataDorList['data'],
+            'sys_id' => $sys_id,
+            'status' => $status,
         ];
         return response()->json($compact);
     }
@@ -175,7 +152,7 @@ class DeliveryOrderController extends Controller
     public function RevisionDeliveryOrderIndex(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionDeliveryOrder");
+        
 
         $varDataAdvanceRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -192,7 +169,7 @@ class DeliveryOrderController extends Controller
         $compact = [
             'dataAdvanceRevisions' => $varDataAdvanceRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
             'dataRequester' => $varDataAdvanceRevision['data'][0]['document']['content']['involvedPersons']['requester'],
-            'dataAdvancenumber' => $varDataAdvanceRevision['data'][0]['document']['header']['number'],
+            'trano' => $varDataAdvanceRevision['data'][0]['document']['header']['number'],
             'var_recordID' => $request->searcDoNumberRevisionId,
             'statusRevisi' => 0,
         ];
@@ -229,11 +206,6 @@ class DeliveryOrderController extends Controller
             ]
         ]
         );
-        // dd($varData);
-        foreach($varData['data'] as $varDatas){
-            $request->session()->push("SessionDeliveryOrder", (string)$varDatas['combinedBudget_SubSectionLevel1_RefID']);
-            $request->session()->push("SessionDeliveryOrder", (string)$varDatas['product_RefID']);
-        }
         return response()->json($varData['data']);
     }
 }

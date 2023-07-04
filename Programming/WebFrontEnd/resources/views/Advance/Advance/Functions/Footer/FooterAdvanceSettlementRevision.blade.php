@@ -116,7 +116,7 @@
                         '<input name="getPrice[]" id="budget_price'+ key +'" value="'+ value.productUnitPriceCurrencyValue +'" type="hidden">' +
                         '<input name="getUom[]" value="'+ value.quantityUnitName +'" type="hidden">' +
                         '<input name="getCurrency[]" value="'+ value.priceCurrencyISOCode +'" type="hidden">' +
-                        '<input name="getAdvanceNumber[]" value="'+ trano +'" type="hidden">' +
+                        '<input name="getTrano[]" value="'+ trano +'" type="hidden">' +
                         '<input name="getRemark[]" value="'+ value.remarks +'" type="hidden">' +
                         '<input name="combinedBudget" value="'+ value.sys_ID +'" type="hidden">' +
 
@@ -351,7 +351,7 @@
         $(".expenseCompanyCart").show();
                             
         var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
-        var getAdvanceNumber = $("input[name='getAdvanceNumber[]']").map(function(){return $(this).val();}).get();
+        var getTrano = $("input[name='getTrano[]']").map(function(){return $(this).val();}).get();
         var getWorkId = $("input[name='getWorkId[]']").map(function(){return $(this).val();}).get();
         var getWorkName = $("input[name='getWorkName[]']").map(function(){return $(this).val();}).get();
         var getProductId = $("input[name='getProductId[]']").map(function(){return $(this).val();}).get();
@@ -399,12 +399,12 @@
                     '<input type="hidden" name="var_total_expense[]" class="total_expense2'+ index +'" value="' + total_expense[index] + '">' +
                     '<input type="hidden" name="var_currency_expense[]" value="' + getCurrency[index] + '">' +
                     
-                    '<input type="hidden" name="var_advance_number" value="' + getAdvanceNumber[index] + '">' +
+                    '<input type="hidden" name="var_advance_number" value="' + getTrano[index] + '">' +
                     '<input type="hidden" name="var_date" value="' + date + '">' +
                     '<input type="hidden" name="var_combined_budget" value="' + combinedBudget + '">' +
                     '<input type="hidden" name="var_remark" value="' + getRemark[index] + '">' +
 
-                    '<td style="border:1px solid #e9ecef;">' + getAdvanceNumber[index] + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + getTrano[index] + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + putProductId + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + putProductName + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + getUom[index] + '</td>' +
@@ -447,12 +447,12 @@
                     '<input type="hidden" name="var_total_amount[]" class="total_amount2'+ index +'" value="' + total_amount[index] + '">' +
                     '<input type="hidden" name="var_currency_amount[]" value="' + getCurrency[index] + '">' +
                     
-                    '<input type="hidden" name="var_advance_number" value="' + getAdvanceNumber[index] + '">' +
+                    '<input type="hidden" name="var_advance_number" value="' + getTrano[index] + '">' +
                     '<input type="hidden" name="var_date" value="' + date + '">' +
                     '<input type="hidden" name="var_combined_budget" value="' + combinedBudget + '">' +
                     '<input type="hidden" name="var_remark" value="' + getRemark[index] + '">' +
 
-                    '<td style="border:1px solid #e9ecef;">' + getAdvanceNumber[index] + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + getTrano[index] + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + putProductId + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + putProductName + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + getUom[index] + '</td>' +

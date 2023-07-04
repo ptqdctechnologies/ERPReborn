@@ -25,7 +25,7 @@ class DashboardController extends Controller
         $compact = [
             'privilageMenu' => $varData['data']['keyList']
         ];
-        return view('Dashboard.index', $compact);
+        return view('Dashboard.index');
     }
 
     /**

@@ -20,7 +20,7 @@
         }
     });
 
-    var trano = "Adv/QDC/2022/000238";
+    var trano = $("#trano").val();
     var var_recordID = $("#var_recordID").val();
     var TotalBudgetSelected = 0;
     var TotalQty = 0;
@@ -29,7 +29,7 @@
         type: "POST",
         url: '{!! route("DeliveryOrder.DeliveryOrderListCartRevision") !!}?var_recordID=' + var_recordID,
         success: function(data) {
-
+            var no = 1; applied = 0; TotalBudgetList = 0;status = ""; statusDisplay = [];statusDisplay2 = []; statusForm = [];
             $.each(data, function(key, value) {
                 TotalBudgetSelected += +value.priceBaseCurrencyValue.replace(/,/g, '');
                 TotalQty+= +value.quantity.replace(/,/g, '');
@@ -46,8 +46,8 @@
                     '<input type="hidden" name="var_recordIDDetail[]" value="' + value.sys_ID + '">' +
                     
                     '<td style="border:1px solid #e9ecef;">' + trano + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + value.combinedBudget_SubSectionLevel1_RefID + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + value.combinedBudget_SubSectionLevel1Name + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + value.combinedBudgetSubSectionLevel1_RefID + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + value.combinedBudgetSubSectionLevel1Name + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + value.product_RefID + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + value.productName + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + value.priceCurrencyISOCode + '</td>' +
@@ -60,64 +60,32 @@
                 $("#TotalBudgetSelected").html(currencyTotal(TotalBudgetSelected));
                 // $("#GrandTotal").html(currencyTotal(TotalBudgetSelected));
                 $("#TotalQty").html(currencyTotal(TotalQty));
-            });
-        },
-    });
 
-    //GET DOR DETAIL
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    $.ajax({
-        type: "GET",
-        url: '{!! route("DeliveryOrder.DeliveryOrderByDorID") !!}?var_recordID=' + var_recordID,
-        success: function(data) {
-            var no = 1; applied = 0; TotalBudgetSelected = 0;status = ""; []; statusForm = [];
-            
-            $.each(data.DataAdvanceList, function(key, val2) {  
-                var var_qtys = "";
-                var var_recordIDDetail = "";
-                var var_totalPayment = 0;
-                var var_totalBalance = 0;
-
-                // if(value.quantityAbsorption == "0.00" && value.quantity == "0.00"){
-                if(val2.quantity == "0.00"){
+                //GET DOR DETAIL
+                if(value.quantity == "0.00"){
                     var applied = 0;
                 }
                 else{
-                    // var applied = Math.round(parseFloat(val2.quantityAbsorption) / parseFloat(val2.quantity) * 100);
-                    var applied = Math.round(parseFloat(val2.quantity) * 100);
+                    // var applied = Math.round(parseFloat(value.quantityAbsorption) / parseFloat(value.quantity) * 100);
+                    var applied = Math.round(parseFloat(value.quantity) * 100);
                 }
                 if(applied >= 100){
                     var status = "disabled";
                 }
-                var Product = $("input[name='var_product_id[]']").map(function(){return $(this).val();}).get();
-                var Quantity = $("input[name='var_quantity[]']").map(function(){return $(this).val();}).get();
-                var RecordID = $("input[name='var_recordIDDetail[]']").map(function(){return $(this).val();}).get();
-
-                $.each(Product, function(ProductKey, ProductValue) {
-                    if(ProductValue == val2.product_RefID){
-                        var_qtys = Quantity[ProductKey];
-                        var_recordIDDetail = RecordID[ProductKey];
-                    }
-                });
                 var html = '<tr>' +
 
-                    '<input name="getWorkId[]" value="'+ val2.combinedBudget_SubSectionLevel1_RefID +'" type="hidden">' +
-                    '<input name="getWorkName[]" value="'+ val2.combinedBudget_SubSectionLevel1Name +'" type="hidden">' +
-                    '<input name="getProductId[]" value="'+ val2.product_RefID +'" type="hidden">' +
-                    '<input name="getProductName[]" value="'+ val2.productName +'" type="hidden">' +
-                    '<input name="getQty[]" id="budget_qty'+ key +'" value="'+ val2.quantity +'" type="hidden">' +
-                    '<input name="getPrice[]" id="budget_price'+ key +'" value="'+ val2.productUnitPriceCurrencyValue +'" type="hidden">' +
-                    '<input name="getUom[]" value="'+ val2.quantityUnitName +'" type="hidden">' +
-                    '<input name="getCurrency[]" value="'+ val2.priceCurrencyISOCode +'" type="hidden">' +
-                    '<input name="getAverage[]" value="'+ val2.priceBaseCurrencyValue +'" type="hidden">' +
-                    '<input name="combinedBudget" value="'+ val2.sys_ID +'" type="hidden">' +
-                    '<input name="getRecordIDDetail[]" value="' + var_recordIDDetail + '"  type="hidden">' +
+                    '<input name="getWorkId[]" value="'+ value.combinedBudgetSubSectionLevel1_RefID +'" type="hidden">' +
+                    '<input name="getWorkName[]" value="'+ value.combinedBudgetSubSectionLevel1Name +'" type="hidden">' +
+                    '<input name="getProductId[]" value="'+ value.product_RefID +'" type="hidden">' +
+                    '<input name="getProductName[]" value="'+ value.productName +'" type="hidden">' +
+                    '<input name="getQty[]" id="budget_qty'+ key +'" value="'+ value.quantity +'" type="hidden">' +
+                    '<input name="getPrice[]" id="budget_price'+ key +'" value="'+ value.productUnitPriceCurrencyValue +'" type="hidden">' +
+                    '<input name="getUom[]" value="'+ value.quantityUnitName +'" type="hidden">' +
+                    '<input name="getCurrency[]" value="'+ value.priceCurrencyISOCode +'" type="hidden">' +
+                    '<input name="getAverage[]" value="'+ value.priceBaseCurrencyValue +'" type="hidden">' +
+                    '<input name="combinedBudget" value="'+ value.sys_ID +'" type="hidden">' +
+                    '<input name="getRecordIDDetail[]" value="' + trano + '"  type="hidden">' +
                     '<input name="getTrano[]" value="'+ trano +'" type="hidden">' +
 
 
@@ -127,13 +95,13 @@
 
 
                     '<td style="border:1px solid #e9ecef;">' + trano + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + val2.product_RefID + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + val2.productName + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + val2.priceCurrencyISOCode + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + val2.quantity + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + value.product_RefID + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + value.productName + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + value.priceCurrencyISOCode + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' +  + '</td>' +
 
-                    '<td class="sticky-col second-col-dor-qty" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" '+ statusForm[key] +' value="'+ currency(var_qtys) +'">' + '</td>' +
-                    '<td class="sticky-col first-col-dor-note" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="note_req'+ key +'" style="border-radius:0;" name="note_req[]" class="form-control note_req" autocomplete="off" '+ statusForm[key] +' value="'+ val2.remarks +'">' + '</td>' +
+                    '<td class="sticky-col second-col-dor-qty" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" '+ statusForm[key] +' value="'+ currency(value.quantity) +'">' + '</td>' +
+                    '<td class="sticky-col first-col-dor-note" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="note_req'+ key +'" style="border-radius:0;" name="note_req[]" class="form-control note_req" autocomplete="off" '+ statusForm[key] +' value="'+ value.remarks +'">' + '</td>' +
 
 
                     '</tr>';
@@ -166,10 +134,11 @@
                         $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
                     }
                 });
-
             });
-        }
+        },
     });
+
+    
 
 </script>
 
