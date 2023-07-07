@@ -18,7 +18,7 @@
                                                     <input id="searchBsfNumberRevisions" style="border-radius:0;" name="searchBsfNumberRevisions" type="text" class="form-control" required readonly>
                                                     <div class="input-group-append">
                                                         <span style="border-radius:0;" class="input-group-text form-control">
-                                                            <a data-toggle="modal" data-target="#TableBusinessTripSettlementRevision"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                            <a data-toggle="modal" data-target="#PopUpBusinessTripSettlementRevision"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -44,7 +44,7 @@
     </div>
 </div>
 
-<div id="TableBusinessTripSettlementRevision" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="PopUpBusinessTripSettlementRevision" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -80,9 +80,21 @@
     </div>
 </div>
 
+
 <script>
-    function klikPopUpBusinessTripSettlementRevision(id, code) {
-        $("#searchBsfNumberRevisionId").val(id);
+
+    $('#TableSearchBusinessTripSettlement tbody').on('click', 'tr', function () {
+
+        $("#PopUpBusinessTripSettlementRevision").modal('toggle');
+
+        var row = $(this).closest("tr");
+        var id = row.find("td:nth-child(1)").text();  
+        var sys_id = $('#sys_id_bsf_revision' + id).val();
+        var code = row.find("td:nth-child(2)").text();
+
+        $("#searchBsfNumberRevisionId").val(sys_id);
         $("#searchBsfNumberRevisions").val(code);
-    }
+
+    });
+    
 </script>

@@ -156,7 +156,7 @@ class FunctionController extends Controller
         $varDataDeliverTo = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
-            'transaction.read.dataList.supplyChain.getWarehouse', 
+            'transaction.read.dataList.supplyChain.getSupplier', 
             'latest', 
             [
             'parameter' => null,
@@ -168,7 +168,7 @@ class FunctionController extends Controller
                 ]
             ]
             );
-            // dd($varDataDeliverTo);
+            // dd($varDataSupplier);
             
         return response()->json($varDataDeliverTo['data']);
     }
@@ -199,13 +199,15 @@ class FunctionController extends Controller
     public function getBank(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
+        $sys_ID = $request->input('sys_ID');
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
-            'transaction.read.dataList.master.getBank', 
+            'transaction.read.dataList.master.getEntityBankAccount', 
             'latest', 
             [
             'parameter' => [
+                'entity_RefID' => (int)$sys_ID
                 ],
             'SQLStatement' => [
                 'pick' => null,
@@ -216,40 +218,42 @@ class FunctionController extends Controller
             ]
             );
         
-        // dd($varData);
-        
+        // dd($varData['data']);
         return response()->json($varData['data']);
     }
 
-    public function getBankAccount(Request $request)
+    public function getEntityBankAccount(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $bank_code = $request->input('bank_code');
+        $sys_ID = $request->input('sys_ID');
+        $bank_ID = $request->input('bank_ID');
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
-            'transaction.read.dataList.master.getBankAccount', 
+            'transaction.read.dataList.master.getEntityBankAccount', 
             'latest', 
             [
             'parameter' => [
-                'bank_RefID' => (int)$bank_code,
+                'entity_RefID' => (int)$sys_ID
                 ],
             'SQLStatement' => [
                 'pick' => null,
                 'sort' => null,
-                'filter' => null,
+                'filter' => '"Bank_RefID" = '.$bank_ID.'',
                 'paging' => null
                 ]
             ]
             );
-        
-        // dd($varData);
+
+        // dd($varData['data']);
         
         return response()->json($varData['data']);
     }
 
     public function getProduct(Request $request)
     {
+        $banyak = 10;
+        $index = 0;
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -265,6 +269,7 @@ class FunctionController extends Controller
                 'sort' => null,
                 'filter' => null,                    
                 'paging' => null
+                // trim('limit '. $banyak. ' offset '.$index) // // Munuculkan banyak data dimulai dari index sekian
                 ]
             ]
             );

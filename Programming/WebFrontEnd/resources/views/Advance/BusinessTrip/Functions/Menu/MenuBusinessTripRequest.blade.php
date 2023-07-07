@@ -42,21 +42,23 @@
     $(function() {
         $('.myPopUpBusinessTripRevision').on('click', function(e) {
             e.preventDefault();
+            var keys = 0;
             $.ajax({
                 type: 'GET',
                 url: '{!! route("BusinessTripRequest.BusinessTripRequestListData") !!}',
                 success: function(data) {
-                    var no = 1; t = $('#TableSearchBusinessTripRevision').DataTable();
+                    var no = 1;
+                    t = $('#TableSearchBusinessTripRevision').DataTable();
                     t.clear();
                     $.each(data.data, function(key, val) {
+                        keys += 1;
                         t.row.add([
-                            '<tbody><tr><td>' + no++ + '</td>',
+                            '<tbody><tr><input id="sys_id_brf_revision' + keys + '" value="' + val.sys_ID + '" type="hidden"><td>' + no++ + '</td>',
                             '<td>' + val.documentNumber + '</td>',
                             '<td>' + val.combinedBudgetCode + '</td>',
                             '<td>' + val.combinedBudgetName + '</td>',
                             '<td>' + val.combinedBudgetSectionCode + '</td>',
-                            '<td>' + val.combinedBudgetSectionName + '</td>',
-                            '<span style="display:none;"><td">' + val.sys_ID + '</td></span></tr></tbody>'
+                            '<td>' + val.combinedBudgetSectionName + '</td></tr></tbody>'
                         ]).draw();
 
                     });

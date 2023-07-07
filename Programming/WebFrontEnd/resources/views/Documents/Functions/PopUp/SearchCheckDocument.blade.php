@@ -11,17 +11,13 @@
                         <div class="form-group">
                             <table>
                             <tr>
-                                <td style="padding-top: 5px;"><label>Transaction</label></td>
+                                <td style="padding-top: 10px;"><label>Transaction</label></td>
                                 <td>
                                     <div class="input-group">
-                                        <select name="" id="" class="form-control" onclick="CheckDocument(this)">
-                                            <option value=""></option>
-                                            <option value="{!! route('AdvanceRequest.AdvanceListData') !!}">Advance</option>
-                                            <option value="{!! route('AdvanceSettlement.AdvanceSettlementListData') !!}">Advance Settlement</option>
-                                            <option value="{!! route('BusinessTripRequest.BusinessTripRequestListData') !!}">Bussines Trip Request</option>
-                                            <option value="{!! route('BusinessTripSettlement.BusinessTripSettlementListData') !!}">Bussines Trip Settlement</option>
-                                            <option value="{!! route('PurchaseRequisition.PurchaseRequisitionListData') !!}">Purchase Requisition</option>
-                                            <option value="{!! route('PurchaseOrder.PurchaseOrderListData') !!}">Purchase Order</option>
+                                        <select name="" id="DocumentType" class="form-control select2">
+                                            @foreach($varBusinessDocumentType as $varBusinessDocumentTypes)
+                                                <option value="{{ $varBusinessDocumentTypes['sys_ID'] }}">{{ $varBusinessDocumentTypes['name'] }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </td>
@@ -36,12 +32,10 @@
                                 <table class="table table-head-fixed text-nowrap TableCheckDocument" id="TableCheckDocument">
                                     <thead>
                                         <tr>
+                                            <th style="position:relative;left:10px;">No</th>
                                             <th style="position:relative;left:10px;">Trano</th>
                                             <th style="position:relative;left:10px;">Project Code</th>
                                             <th style="position:relative;left:10px;">Site Code</th>
-                                            <th style="display: none;"></th>
-                                            <th style="display: none;"></th>
-                                            <th style="display: none;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>

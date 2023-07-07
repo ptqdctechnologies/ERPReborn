@@ -1,4 +1,3 @@
-<br>
 <aside class="main-sidebar sidebar-dark-primary elevation-2">
     <div class="sidebar">
 
@@ -12,7 +11,7 @@
             </div>
         </div>
 
-        <hr style="background-color: white;">
+        <!-- <hr style="background-color: white;"> -->
 
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -371,7 +370,7 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('editApNumber.index') }}" class="nav-link">
+                                            <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Edit AP Number</label>
                                             </a>
@@ -379,7 +378,7 @@
                                     </ul>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('editApJournal.index') }}" class="nav-link">
+                                            <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Edit AP Journal</label>
                                             </a>
@@ -387,7 +386,7 @@
                                     </ul>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('editApBankJournal.index') }}" class="nav-link">
+                                            <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Edit AP Bank Journal</label>
                                             </a>
@@ -742,7 +741,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('bankReceiveMoney.index') }}" class="nav-link">
+                                    <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">
                                         <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                         <label>Bank Receive Money</label>
                                     </a>
@@ -750,7 +749,7 @@
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('editBankReceiveMoney.index') }}" class="nav-link">
+                                    <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">
                                         <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                         <label>Edit Bank Receive Money</label>
                                     </a>
@@ -758,7 +757,7 @@
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('bankSpendMoney.index') }}" class="nav-link">
+                                    <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">
                                         <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                         <label>Bank Spend Money</label>
                                     </a>
@@ -766,7 +765,7 @@
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('bankSpendMoney.index') }}" class="nav-link">
+                                    <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">
                                         <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                         <label>Edit Bank Spend Money</label>
                                     </a>
@@ -774,7 +773,7 @@
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('bankChargers.index') }}" class="nav-link">
+                                    <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">
                                         <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                         <label>Bank Chargers Money</label>
                                     </a>
@@ -782,7 +781,7 @@
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('bankChargers.index') }}" class="nav-link">
+                                    <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">
                                         <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                         <label>Edit Bank Chargers Money</label>
                                     </a>
@@ -1744,10 +1743,10 @@
         </nav>
     </div>
     <!-- Brand Logo -->
-    <div class="row brand-link" style="position: relative;bottom:130px;background-color:#f4f6f9;">
-        <div class="cody" style="padding-top:50px;padding-right:45px;padding-left:40px;background-color:#4B586A;">
-            <h1 style="color:white;font-weight:bold;padding-left:37px;">50</h1>
-            <h5 style="padding-left:10px;">Document to Process</h5>
+    <div class="row brand-link" style="position: relative;bottom:120px;right:2px;background-color:#f4f6f9;">
+        <div class="card-body" style="padding-top:50px;padding-right:45px;padding-left:40px;background-color:#4B586A;position: relative;bottom:11px;">
+            <h1 style="color:white;font-weight:bold;padding-left:39px;">{{ $CountDocumentWorkflowComposer }}</h1>
+            <h5 style="padding-left:12px;">Document to Process</h5>
             <a href="{{ route('MyDocument.index') }}">
                 <span class="btn btn-default btn-sm"> Go to Document</span>
             </a>

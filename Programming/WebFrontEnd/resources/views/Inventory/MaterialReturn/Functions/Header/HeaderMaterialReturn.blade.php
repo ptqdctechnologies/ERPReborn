@@ -69,6 +69,7 @@
                                     <td><label>Sub Budget Code</label></td>
                                     <td>
                                         <div class="input-group">
+                                            <input type="hidden" id="siteid" style="border-radius:0;" name="siteid" class="form-control" readonly>
                                             <input id="sitecode" style="border-radius:0;" name="sitecode" class="form-control" readonly>
                                             <div class="input-group-append">
                                                 <span style="border-radius:0;" class="input-group-text form-control">

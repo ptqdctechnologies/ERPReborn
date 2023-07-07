@@ -195,13 +195,61 @@ namespace App\Helpers\ZhtHelper\Database
                             $varResult = pg_query($DBConnection, $varSQLQuery);
                             $varNotice = pg_last_notice($DBConnection, PGSQL_NOTICE_ALL);
 
+                            /*
                             while ($row = pg_fetch_assoc($varResult)) {
                                 $varData[] = $row;
                                 $i++;
                                 }
+                            */
 
+                            //---> Field Type Initializing
+                            unset($varFieldType);
+                            //echo "<br>@@@--->";
+                            for ($j=0, $jMax = pg_num_fields($varResult); $j!=$jMax; $j++)
+                                {
+                                $varFieldType[$j] = pg_field_type($varResult, $j);
+                                //echo $varFieldType[$j];
+                                //echo ",";
+                                }
+
+                            while ($row = pg_fetch_assoc($varResult)) {
+                                $varDataContent = null;
+                                $varData[$i] = $row;
+                                $j = 0;
+                                foreach($varData[$i] as $key => $value)
+                                    {
+                                    $varData[$i][$key] = $value;
+//                                    echo "<br><br><br>";
+//                                    var_dump($key);
+//                                    var_dump($value);
+
+                                    switch($varFieldType[$j++])
+                                        {
+                                        case 'bool':
+                                            $varData[$i][$key] = self::getBooleanConvertion($varUserSession, $value);
+                                            break;
+                                        case 'int2':
+                                        case 'int4':
+                                        case 'int8':
+                                            $varData[$i][$key] = (int) $value;
+                                            break;
+                                        case 'float4':
+                                        case 'float8':
+                                            $varData[$i][$key] = (float) $value;
+                                            break;
+                                        case 'varchar':
+                                        default:
+                                            $varData[$i][$key] = $value;
+                                            break;
+                                        }
+                                    }
+                                //var_dump($varDataContent);
+                                //$varData[$i] = $varDataContent;
+                                $i++;
+                                }
                             pg_close($DBConnection);
                             }
+
                         $varReturn['Data'] = $varData;
                         $varReturn['Notice'] = $varNotice;
                         $varReturn['RowCount']=$i;
@@ -289,7 +337,9 @@ namespace App\Helpers\ZhtHelper\Database
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getBuildStringLiteral_StoredProcedure($varUserSession, string $varStoredProcedureName, array $varData, array $varReturnField = null)
+        public static function getBuildStringLiteral_StoredProcedure(
+            $varUserSession, 
+            string $varStoredProcedureName, array $varData, array $varReturnField = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {

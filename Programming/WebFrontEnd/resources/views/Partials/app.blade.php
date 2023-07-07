@@ -18,6 +18,10 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/adminlte.min.css') }}">
 
+  <!-- Select2 -->
+  <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/select2/css/select2.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+
   <!-- Loading css -->
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/loading.css') }}">
   <!-- Budget css -->
@@ -65,6 +69,8 @@
   <script src="{{ asset('AdminLTE-master/plugins/fullcalendar/customfullcalender.js') }}"></script>
   <!-- Adminlte JS -->
   <script src="{{ asset('AdminLTE-master/dist/js/adminlte.js') }}"></script>
+<!-- Select2 -->
+<script src="{{ asset('AdminLTE-master/plugins/select2/js/select2.full.min.js') }}"></script>
 
 </body>
 

@@ -17,12 +17,24 @@
 </script>
 
 
-
 <script>
-    function klikProject(code, name) {
+
+    $('#tableGetProject tbody').on('click', 'tr', function () {
+
+        $("#myProject").modal('toggle');
+
+        var row = $(this).closest("tr");
+        var id = row.find("td:nth-child(1)").text();
+        var sys_id = $('#sys_id_budget' + id).val();
+        var code = row.find("td:nth-child(2)").text();
+        var name = row.find("td:nth-child(3)").text();
+        
         $("#projectcode").val(code);
         $("#projectname").val(name);
         $("#dor_number2").prop("disabled", false);
+
+
+        $(".dor_detail").show();
 
         $.ajaxSetup({
             headers: {
@@ -30,35 +42,44 @@
             }
         });
 
+        var keys = 0;
+
         $.ajax({
             type: 'GET',
-            url: '{!! route("DeliveryOrder.DeliveryOrderByBudgetID") !!}?projectcode=' + $('#projectcode').val(),
+            url: '{!! route("DeliveryOrder.DeliveryOrderByBudgetID") !!}?projectcode=' + sys_id,
             success: function(data) {
-
                 var no = 1;
                 t = $('#tableSearchDorInDo').DataTable();
                 $.each(data.DataAdvanceRequest, function(key, val) {
+                    keys += 1;
                     t.row.add([
-                        '<tbody><tr><td>' + no++ + '</td>',
-                        '<td><span data-dismiss="modal" onclick="klikDorNumberInDo(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.documentNumber + '</span></td>',
-                        '<td><span data-dismiss="modal" onclick="klikDorNumberInDo(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudget_RefID + '</span></td>',
-                        '<td><span data-dismiss="modal" onclick="klikDorNumberInDo(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudgetName + '</span></td>',
-                        '<td><span data-dismiss="modal" onclick="klikDorNumberInDo(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudgetSection_RefID + '</span></td>',
-                        '<td><span data-dismiss="modal" onclick="klikDorNumberInDo(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\', \'' + val.requesterWorkerJobsPosition_RefID + '\', \'' + val.requesterWorkerName + '\');">' + val.combinedBudgetSectionName + '</span></td>',
+                        '<tbody><tr><input id="sys_id' + keys + '" value="' + val.sys_ID + '" type="hidden"><td>' + no++ + '</td>',
+                        '<td>' + val.documentNumber + '</td>',
+                        '<td>' + val.combinedBudgetCode + '</td>',
+                        '<td>' + val.combinedBudgetName + '</td>',
+                        '<td>' + val.combinedBudgetSectionCode + '</td>',
+                        '<td>' + val.combinedBudgetSectionName + '</td></tr></tbody>'
                     ]).draw();
 
                 });
             }
         });
-    }
+    });
 </script>
 
 <script>
+
     var keys = 0;
-    function klikDorNumberInDo(id, docNum, reqId, reqName) {
-        var var_recordID = id;
-        var trano = docNum;
-        $("#dor_number").val(trano);
+
+    $('#tableSearchDorInDo tbody').on('click', 'tr', function () {
+
+        $("#mySearchDor").modal('toggle');
+
+        var row = $(this).closest("tr");
+        var id = row.find("td:nth-child(1)").text();
+        var sys_id = $('#sys_id' + id).val();
+        var trano = row.find("td:nth-child(2)").text();
+        $("#dor_number").val(sys_id);
         $(".tableShowHideDo").show();
 
         $.ajaxSetup({
@@ -69,69 +90,76 @@
 
         $.ajax({
             type: "GET",
-            url: '{!! route("DeliveryOrder.DeliveryOrderByDorID") !!}?var_recordID=' + var_recordID,
+            url: '{!! route("DeliveryOrder.DeliveryOrderByDorID") !!}?sys_id=' + sys_id,
             success: function(data) {
 
                 var no = 1; applied = 0; TotalBudgetSelected = 0;status = ""; statusDisplay = [];statusDisplay2 = []; statusForm = [];
-                $.each(data.DataAdvanceList, function(key, value) {
+                if (data.status == "200") {
 
-                    keys += 1;
+                    $("#dor_number").val(data.sys_id);
 
-                    // if(value.quantityAbsorption == "0.00" && value.quantity == "0.00"){
-                    if(value.quantity == "0.00"){
-                        var applied = 0;
-                    }
-                    else{
-                        // var applied = Math.round(parseFloat(value.quantityAbsorption) / parseFloat(value.quantity) * 100);
-                        var applied = Math.round(parseFloat(value.quantity) * 100);
-                    }
-                    if(applied >= 100){
-                        var status = "disabled";
-                    }
-                    if(value.productName == "Unspecified Product"){
-                        statusDisplay[keys] = "";
-                        statusDisplay2[keys] = "none";
-                        statusForm[keys] = "disabled";
-                    }
-                    else{
-                        statusDisplay[keys] = "none";
-                        statusDisplay2[keys] = "";
-                        statusForm[keys] = "";
-                    }
+                    $.each(data.DataDorList, function(key, value) {
 
-                    var html = '<tr>' +
-                        '<input name="getWorkId[]" value="'+ value.combinedBudget_SubSectionLevel1_RefID +'" type="hidden">' +
-                        '<input name="getWorkName[]" value="'+ value.combinedBudget_SubSectionLevel1Name +'" type="hidden">' +
-                        '<input name="getProductId[]" value="'+ value.product_RefID +'" type="hidden">' +
-                        '<input name="getProductName[]" value="'+ value.productName +'" type="hidden">' +
-                        '<input name="getQty[]" id="budget_qty'+ keys +'" value="'+ value.quantity +'" type="hidden">' +
-                        '<input name="getPrice[]" id="budget_price'+ keys +'" value="'+ value.productUnitPriceCurrencyValue +'" type="hidden">' +
-                        '<input name="getUom[]" value="'+ value.quantityUnitName +'" type="hidden">' +
-                        '<input name="getCurrency[]" value="'+ value.priceCurrencyISOCode +'" type="hidden">' +
-                        '<input name="getTotal[]" value="'+ value.priceBaseCurrencyValue +'" type="hidden">' +
-                        '<input name="combinedBudget" value="'+ value.sys_ID +'" type="hidden">' +
-                        '<input name="getTrano[]" value="'+ trano +'" type="hidden">' +
+                        keys += 1;
 
-                        '<td style="border:1px solid #e9ecef;">' +
-                        '&nbsp;&nbsp;&nbsp;<div class="progress '+ status +' progress-xs" style="height: 14px;border-radius:8px;"> @if('+ applied +' >= '+0+' && '+ applied +' <= '+40+')<div class="progress-bar bg-red" style="width:'+ applied +'%;"></div> @elseif('+ applied +' >= '+41+' && '+ applied +' <= '+89+')<div class="progress-bar bg-blue" style="width:'+ applied +'%;"></div> @elseif('+ applied + ' >= '+ 90 +' && ' + applied + ' <= '+ 100 +')<div class="progress-bar bg-green" style="width:'+ applied +'%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>'+ applied +' %</center></small>' +
-                        '</td>' +
-                        
-                        '<td style="border:1px solid #e9ecef;">' + '<span>' + trano + '</span>' + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + value.product_RefID + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + value.productName + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + value.priceCurrencyISOCode + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + value.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                        // if(value.quantityAbsorption == "0.00" && value.quantity == "0.00"){
+                        if(value.quantity == "0.00"){
+                            var applied = 0;
+                        }
+                        else{
+                            // var applied = Math.round(parseFloat(value.quantityAbsorption) / parseFloat(value.quantity) * 100);
+                            var applied = Math.round(parseFloat(value.quantity) * 100);
+                        }
+                        if(applied >= 100){
+                            var status = "disabled";
+                        }
+                        if(value.productName == "Unspecified Product"){
+                            statusDisplay[keys] = "";
+                            statusDisplay2[keys] = "none";
+                            statusForm[keys] = "disabled";
+                        }
+                        else{
+                            statusDisplay[keys] = "none";
+                            statusDisplay2[keys] = "";
+                            statusForm[keys] = "";
+                        }
 
-                        '<td class="sticky-col second-col-dor-qty" style="border:1px solid #e9ecef;background-color:white;">' + '<input onkeyup="qty_req('+ keys +', this)" id="qty_req'+ keys +'" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" '+ statusForm[keys] +'>' + '</td>' +
-                        '<td class="sticky-col first-col-dor-note" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="note_req'+ keys +'" style="border-radius:0;" name="note_req[]" class="form-control note_req" autocomplete="off" '+ statusForm[keys] +'>' + '</td>' +
+                        var html = '<tr>' +
+                            '<input name="getWorkId[]" value="'+ value.combinedBudgetSubSectionLevel1_RefID +'" type="hidden">' +
+                            '<input name="getWorkName[]" value="'+ value.combinedBudgetSubSectionLevel1Name +'" type="hidden">' +
+                            '<input name="getProductId[]" value="'+ value.product_RefID +'" type="hidden">' +
+                            '<input name="getProductName[]" value="'+ value.productName +'" type="hidden">' +
+                            '<input name="getQty[]" id="budget_qty'+ keys +'" value="'+ value.quantity +'" type="hidden">' +
+                            '<input name="getPrice[]" id="budget_price'+ keys +'" value="'+ value.productUnitPriceCurrencyValue +'" type="hidden">' +
+                            '<input name="getUom[]" value="'+ value.quantityUnitName +'" type="hidden">' +
+                            '<input name="getCurrency[]" value="'+ value.priceCurrencyISOCode +'" type="hidden">' +
+                            '<input name="getTotal[]" value="'+ value.priceBaseCurrencyValue +'" type="hidden">' +
+                            '<input name="combinedBudget" value="'+ value.sys_ID +'" type="hidden">' +
+                            '<input name="getTrano[]" value="'+ trano +'" type="hidden">' +
 
-                        '</tr>';
+                            '<td style="border:1px solid #e9ecef;">' +
+                            '&nbsp;&nbsp;&nbsp;<div class="progress '+ status +' progress-xs" style="height: 14px;border-radius:8px;"> @if('+ applied +' >= '+0+' && '+ applied +' <= '+40+')<div class="progress-bar bg-red" style="width:'+ applied +'%;"></div> @elseif('+ applied +' >= '+41+' && '+ applied +' <= '+89+')<div class="progress-bar bg-blue" style="width:'+ applied +'%;"></div> @elseif('+ applied + ' >= '+ 90 +' && ' + applied + ' <= '+ 100 +')<div class="progress-bar bg-green" style="width:'+ applied +'%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>'+ applied +' %</center></small>' +
+                            '</td>' +
+                            
+                            '<td style="border:1px solid #e9ecef;">' + '<span>' + trano + '</span>' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + value.product_RefID + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + value.productName + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + value.priceCurrencyISOCode + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + value.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
 
-                    $('table.TableDorDetail tbody').append(html);
-                });
+                            '<td class="sticky-col second-col-dor-qty" style="border:1px solid #e9ecef;background-color:white;">' + '<input onkeyup="qty_req('+ keys +', this)" id="qty_req'+ keys +'" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" '+ statusForm[keys] +'>' + '</td>' +
+                            '<td class="sticky-col first-col-dor-note" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="note_req'+ keys +'" style="border-radius:0;" name="note_req[]" class="form-control note_req" autocomplete="off" '+ statusForm[keys] +'>' + '</td>' +
+
+                            '</tr>';
+
+                        $('table.TableDorDetail tbody').append(html);
+                    });
+                } else if (data.status == "500") {
+                    Swal.fire("Cancelled", "You have chosen this number !", "error");
+                }
             },
         });
-    }
+    });
     //VALIDASI QTY
     function qty_req(key, value) {
         var qty_val = (value.value).replace(/,/g, '');
@@ -182,8 +210,6 @@
 
         var TotalBudgetSelected = 0;
         var TotalQty = 0;
-
-        console.log(qty_req);
 
         $.each(qty_req, function(index, data) {
             if(qty_req[index] != "" && qty_req[index] > "0.00" && qty_req[index] != "NaN.00"){

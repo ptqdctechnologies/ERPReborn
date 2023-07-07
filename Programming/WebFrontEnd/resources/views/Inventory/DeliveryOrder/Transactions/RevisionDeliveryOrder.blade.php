@@ -9,7 +9,7 @@
 @include('Inventory.DeliveryOrder.Functions.PopUp.SearchDor')
 
 
-<div class="content-wrapper" style="position:relative;bottom:12px;">
+<div class="content-wrapper">
     <section class="content">
         <div class="container-fluid">
             <div class="row mb-1" style="background-color:#4B586A;">
@@ -24,6 +24,8 @@
                     @method('PUT')
                     <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
                     <input id="sitecode" style="border-radius:0;" name="sitecode" class="form-control" type="hidden" value="{{$dataAdvanceRevisions['entities']['combinedBudgetSection_RefID']}}">
+                    <input id="trano" style="border-radius:0;" name="trano" value="{{ $trano }}" class="form-control" type="hidden">
+                    
                     <div class="tab-content p-3" id="nav-tabContent">
 
                         <div class="row">

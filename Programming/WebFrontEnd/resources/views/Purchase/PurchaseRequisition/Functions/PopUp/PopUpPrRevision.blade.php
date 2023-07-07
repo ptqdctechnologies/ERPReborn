@@ -66,7 +66,6 @@
                                             <th>Budget Name</th>
                                             <th>Sub Budget Code</th>
                                             <th>Sub Budget Name</th>
-                                            <th style="display: none;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -89,7 +88,8 @@
         $("#mySearchProcReqRevision").modal('toggle');
 
         var row = $(this).closest("tr");    
-        var sys_id = row.find("td:nth-child(7)").text();
+        var id = row.find("td:nth-child(1)").text();  
+        var sys_id = $('#sys_id_pr_revision' + id).val();
         var code = row.find("td:nth-child(2)").text();
 
         $("#searchPrNumberRevisionId").val(sys_id);

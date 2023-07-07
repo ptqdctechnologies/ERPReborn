@@ -10,7 +10,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="tableGetDeliverTo">
+                                <table class="table table-head-fixed text-nowrap table-striped" id="tableGetDeliverTo">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -46,17 +46,16 @@
                 type: 'GET',
                 url: '{!! route("getDeliverTo") !!}',
                 success: function(data) {
-                    var no = 1; t = $('#tableGetDeliverTo').DataTable();
+                    var no = 1; 
+                    t = $('#tableGetDeliverTo').DataTable();
                     t.clear();
+                    console.log(data);
                     $.each(data, function(key, val) {
                         t.row.add([
-
                             '<tbody><tr><td>' + no++ + '</td>',
-                            '<td>' + val.sys_ID+ '</td>',
-                            '<td>' + val.name + '</td>',
-                            '<td>' + val.address + '</td></tr></tbody>',
-                            // '<span style="display:none;"><td>' + val.sys_ID + '</td></span></tr></tbody>'
-
+                            '<td><span data-dismiss="modal" onclick="klikDeliverto(\'' + val.sys_ID + '\', \'' + val.sys_Text + '\');">' + val.sys_ID + '</span></td>',
+                            '<td style="border:1px solid #e9ecef;">' + val.sys_Text + '</td>',
+                            '<td style="border:1px solid #e9ecef;">' + val.sys_Text + '</td></tr></tbody>'
                         ]).draw();
 
                     });
@@ -68,20 +67,7 @@
 </script>
 
 <script>
-
-    $('#tableGetDeliverTo tbody').on('click', 'tr', function () {
-
-        $("#myDeliverTo").modal('toggle');
-
-        var row = $(this).closest("tr");    
-        var sys_ID = row.find("td:nth-child(2)").text();
-        var name = row.find("td:nth-child(3)").text();
-        var address = row.find("td:nth-child(4)").text();
-        
-        $("#deliver_code").val(sys_ID);
-        $("#deliver_name").val(name);
-        $("#address").val(address);
-
-    });
-    
+    function klikDeliverto(id) {
+        $("#deliver_to").val(id);
+    }
 </script>

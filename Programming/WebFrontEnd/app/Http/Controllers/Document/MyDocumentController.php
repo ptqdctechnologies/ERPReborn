@@ -9,19 +9,15 @@ class MyDocumentController extends Controller
 {
     public function index(Request $request)
     {
-        return view('Documents.Transactions.MyDocument');
-    }
-
-    public function MyDocumentListData(Request $request)
-    {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+
+        $varBusinessDocumentType = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.read.dataList.finance.getAdvance',
+            'transaction.read.dataList.master.getBusinessDocumentType',
             'latest',
             [
-                'parameter' => null,
+                'parameter' => [],
                 'SQLStatement' => [
                     'pick' => null,
                     'sort' => null,
@@ -30,8 +26,48 @@ class MyDocumentController extends Controller
                 ]
             ]
         );
+
         $compact = [
-            'data' => $varDataAdvanceRequest['data'],
+            'varBusinessDocumentType' => $varBusinessDocumentType['data'],
+        ];
+        return view('Documents.Transactions.MyDocument', $compact);
+    }
+
+    public function MyDocumentListDataFilter(Request $request)
+    {
+
+        $filter = null;
+        $document_type = "transaction.read.dataList.finance.getAdvance";
+        $trano = $request->trano;
+        $projectid = $request->projectid;
+        $document_type = $request->document_type;
+
+
+        if ($trano != "" && $projectid != "" && $document_type != "") {
+            $filter = trim('"businessDocumentNumber" = ' . $trano . ' AND "CombinedBudget_RefID" = ' . $projectid . ' AND "businessDocumentType_RefID" = ' . $document_type . ' ');
+        } else if ($trano != "") {
+            $filter = trim('"businessDocumentNumber" ILIKE \'%' . $trano . '%\' ');
+        } else if ($projectid != "") {
+            $filter = trim('"CombinedBudget_RefID" = ' . $projectid . ' ');
+        }
+
+        $SessionWorkerCareerInternal_RefID = $request->session()->get('SessionWorkerCareerInternal_RefID');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'report.form.documentForm.master.getBusinessDocumentIssuanceDisposition',
+            'latest',
+            [
+                'parameter' => [
+                    'recordID' => (int)$SessionWorkerCareerInternal_RefID
+                    
+                ]
+            ]
+        );
+
+        $compact = [
+            'data' => $varData['data'],
         ];
         return response()->json($compact);
     }

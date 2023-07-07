@@ -5,11 +5,11 @@
 @include('getFunction.getSite')
 @include('Documents.Functions.PopUp.SearchCheckDocument')
 
-<div class="content-wrapper" style="position:relative;bottom:12px;">
+<div class="content-wrapper">
   <section class="content">
     <div class="container-fluid">
       <div class="row mb-1" style="background-color:#4B586A;">
-        <div class="col-sm-6" style="height:30px;">
+        <div class="col-sm-6">
           <label style="font-size:15px;position:relative;top:7px;color:white;">Check Document on Process</label>
         </div>
       </div>
@@ -48,6 +48,5 @@
   </section>
 </div>
 @include('Partials.footer')
-
 @include('Documents.Functions.Footer.FooterCheckDocument')
 @endsection

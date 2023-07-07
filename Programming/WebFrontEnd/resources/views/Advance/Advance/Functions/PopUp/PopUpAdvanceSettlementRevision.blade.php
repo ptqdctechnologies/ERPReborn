@@ -66,7 +66,6 @@
                                             <th>Budget Name</th>
                                             <th>Sub Budget Code</th>
                                             <th>Sub Budget Name</th>
-                                            <th style="display: none;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -87,12 +86,12 @@
     $('#TableSearchAsfRevision tbody').on('click', 'tr', function () {
 
         $("#PopUpTableAdvanceSettlementRevision").modal('toggle');
-
-        var row = $(this).closest("tr");    
-        var sys_id = row.find("td:nth-child(7)").text();
+        var row = $(this).closest("tr");
+        var id = row.find("td:nth-child(1)").text();  
+        var sys_id_advance_settlemetn_revision = $('#sys_id_advance_settlemetn_revision' + id).val();
         var code = row.find("td:nth-child(2)").text();
         
-        $("#searchAsfNumberRevisionId").val(sys_id);
+        $("#searchAsfNumberRevisionId").val(sys_id_advance_settlemetn_revision);
         $("#searchAsfNumberRevisions").val(code);
 
     });

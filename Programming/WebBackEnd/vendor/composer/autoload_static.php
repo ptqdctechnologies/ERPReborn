@@ -35,6 +35,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'c7a3c339e7e14b60e06a2d7fcce9476b' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Events/functions.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
+        'c72349b1fe8d0deeedd3a52e8aa814d8' => __DIR__ . '/..' . '/mockery/mockery/library/helpers.php',
+        'ce9671a430e4846b44e1c68c7611f9f5' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
         '320163ac6b93aebe3dc25b60a0533d56' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/helpers.php',
         'fe62ba7e10580d903cc46d808b5961a4' => __DIR__ . '/..' . '/tightenco/collect/src/Collect/Support/helpers.php',
@@ -126,8 +128,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         ),
         'M' => 
         array (
-            'MyCLabs\\Enum\\' => 13,
             'Monolog\\' => 8,
+            'Mockery\\' => 8,
             'Matrix\\' => 7,
             'Maatwebsite\\Excel\\' => 18,
         ),
@@ -433,13 +435,13 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         array (
             0 => __DIR__ . '/..' . '/ncjoes/office-converter/src/OfficeConverter',
         ),
-        'MyCLabs\\Enum\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/myclabs/php-enum/src',
-        ),
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'Mockery\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mockery/mockery/library/Mockery',
         ),
         'Matrix\\' => 
         array (
@@ -598,13 +600,6 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
     );
 
     public static $prefixesPsr0 = array (
-        'M' => 
-        array (
-            'Mockery' => 
-            array (
-                0 => __DIR__ . '/..' . '/mockery/mockery/library',
-            ),
-        ),
         'H' => 
         array (
             'HTMLPurifier' => 
@@ -754,6 +749,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\DataPickList\\Engines\\master\\getCountryAdministrativeAreaLevel3\\v1\\getCountryAdministrativeAreaLevel3' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/DataPickList/Engines/master/getCountryAdministrativeAreaLevel3/v1/getCountryAdministrativeAreaLevel3.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\DataPickList\\Engines\\master\\getCountryAdministrativeAreaLevel4\\v1\\getCountryAdministrativeAreaLevel4' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/DataPickList/Engines/master/getCountryAdministrativeAreaLevel4/v1/getCountryAdministrativeAreaLevel4.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\DataPickList\\Engines\\master\\getCountry\\v1\\getCountry' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/DataPickList/Engines/master/getCountry/v1/getCountry.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\DataPickList\\Engines\\master\\getEntityBankAccount\\v1\\getEntityBankAccount' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/DataPickList/Engines/master/getEntityBankAccount/v1/getEntityBankAccount.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\DataPickList\\Engines\\master\\getEntityContactNumber\\v1\\getEntityContactNumber' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/DataPickList/Engines/master/getEntityContactNumber/v1/getEntityContactNumber.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\DataPickList\\Engines\\master\\getInstitutionType\\v1\\getInstitutionType' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/DataPickList/Engines/master/getInstitutionType/v1/getInstitutionType.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\DataPickList\\Engines\\master\\getInstitution\\v1\\getInstitution' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/DataPickList/Engines/master/getInstitution/v1/getInstitution.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\DataPickList\\Engines\\master\\getPaymentDisbursementMethod\\v1\\getPaymentDisbursementMethod' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/DataPickList/Engines/master/getPaymentDisbursementMethod/v1/getPaymentDisbursementMethod.php',
@@ -854,6 +851,10 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\documentForm\\budgeting\\getCombinedBudget\\v1\\getCombinedBudget' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/documentForm/budgeting/getCombinedBudget/v1/getCombinedBudget.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\documentForm\\finance\\getAdvance\\v1\\getAdvance' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/documentForm/finance/getAdvance/v1/getAdvance.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\documentForm\\finance\\getPaymentInstruction\\v1\\getPaymentInstruction' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/documentForm/finance/getPaymentInstruction/v1/getPaymentInstruction.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\documentForm\\humanResource\\getWorkerCareerInternal\\v1\\getWorkerCareerInternal' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/documentForm/humanResource/getWorkerCareerInternal/v1/getWorkerCareerInternal.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\documentForm\\humanResource\\getWorker\\v1\\getWorker' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/documentForm/humanResource/getWorker/v1/getWorker.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\documentForm\\master\\getBusinessDocumentIssuanceDisposition\\v1\\getBusinessDocumentIssuanceDisposition' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/documentForm/master/getBusinessDocumentIssuanceDisposition/v1/getBusinessDocumentIssuanceDisposition.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\documentForm\\master\\getCitizenIdentity\\v1\\getCitizenIdentity' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/documentForm/master/getCitizenIdentity/v1/getCitizenIdentity.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\documentForm\\master\\getPerson\\v1\\getPerson' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/documentForm/master/getPerson/v1/getPerson.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\documentForm\\supplyChain\\getPurchaseOrderAdditionalCost\\v1\\getPurchaseOrderAdditionalCost' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/documentForm/supplyChain/getPurchaseOrderAdditionalCost/v1/getPurchaseOrderAdditionalCost.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\documentForm\\supplyChain\\getPurchaseOrderPaymentTerm\\v1\\getPurchaseOrderPaymentTerm' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/documentForm/supplyChain/getPurchaseOrderPaymentTerm/v1/getPurchaseOrderPaymentTerm.php',
@@ -861,6 +862,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\documentForm\\supplyChain\\getPurchaseRequisition\\v1\\getPurchaseRequisition' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/documentForm/supplyChain/getPurchaseRequisition/v1/getPurchaseRequisition.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\documentForm\\supplyChain\\getWarehouseInboundOrder\\v1\\getWarehouseInboundOrder' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/documentForm/supplyChain/getWarehouseInboundOrder/v1/getWarehouseInboundOrder.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\documentForm\\supplyChain\\getWarehouseOutboundOrder\\v1\\getWarehouseOutboundOrder' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/documentForm/supplyChain/getWarehouseOutboundOrder/v1/getWarehouseOutboundOrder.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\documentForm\\sysConfig\\getLogBusinessDocumentWorkFlowPathHistory\\v1\\getLogBusinessDocumentWorkFlowPathHistory' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/documentForm/sysConfig/getLogBusinessDocumentWorkFlowPathHistory/v1/getLogBusinessDocumentWorkFlowPathHistory.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\documentForm\\taxation\\getTransactionTax\\v1\\getTransactionTax' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/documentForm/taxation/getTransactionTax/v1/getTransactionTax.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\resume\\budgeting\\getCombinedBudgetSectionSegmentedDetail\\v1\\getCombinedBudgetSectionSegmentedDetail' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/resume/budgeting/getCombinedBudgetSectionSegmentedDetail/v1/getCombinedBudgetSectionSegmentedDetail.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\resume\\budgeting\\getCombinedBudgetSectionUnsegmentedDetail\\v1\\getCombinedBudgetSectionUnsegmentedDetail' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/resume/budgeting/getCombinedBudgetSectionUnsegmentedDetail/v1/getCombinedBudgetSectionUnsegmentedDetail.php',
@@ -1179,6 +1181,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\initialize\\sysConfig\\setAppObject_InstitutionBranch\\v1\\setAppObject_InstitutionBranch' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/initialize/sysConfig/setAppObject_InstitutionBranch/v1/setAppObject_InstitutionBranch.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\initialize\\sysConfig\\setAppObject_InstitutionCompany\\v1\\setAppObject_InstitutionCompany' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/initialize/sysConfig/setAppObject_InstitutionCompany/v1/setAppObject_InstitutionCompany.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\initialize\\sysConfig\\setAppObject_InstitutionRegional\\v1\\setAppObject_InstitutionRegional' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/initialize/sysConfig/setAppObject_InstitutionRegional/v1/setAppObject_InstitutionRegional.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\initialize\\sysConfig\\setAppObject_WorkFlowPathAction\\v1\\setAppObject_WorkFlowPathAction' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/initialize/sysConfig/setAppObject_WorkFlowPathAction/v1/setAppObject_WorkFlowPathAction.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\initialize\\sysConfig\\setDBObject_Index\\v1\\setDBObject_Index' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/initialize/sysConfig/setDBObject_Index/v1/setDBObject_Index.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\initialize\\sysConfig\\setDBObject_Schema\\v1\\setDBObject_Schema' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/initialize/sysConfig/setDBObject_Schema/v1/setDBObject_Schema.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\initialize\\sysConfig\\setDBObject_Table\\v1\\setDBObject_Table' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/initialize/sysConfig/setDBObject_Table/v1/setDBObject_Table.php',
@@ -1376,6 +1379,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\read\\dataList\\master\\getCountryAdministrativeAreaLevel4\\v1\\getCountryAdministrativeAreaLevel4' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/read/dataList/master/getCountryAdministrativeAreaLevel4/v1/getCountryAdministrativeAreaLevel4.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\read\\dataList\\master\\getCountry\\v1\\getCountry' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/read/dataList/master/getCountry/v1/getCountry.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\read\\dataList\\master\\getCurrency\\v1\\getCurrency' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/read/dataList/master/getCurrency/v1/getCurrency.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\read\\dataList\\master\\getEntityBankAccount\\v1\\getEntityBankAccount' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/read/dataList/master/getEntityBankAccount/v1/getEntityBankAccount.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\read\\dataList\\master\\getEntityContactNumber\\v1\\getEntityContactNumber' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/read/dataList/master/getEntityContactNumber/v1/getEntityContactNumber.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\read\\dataList\\master\\getGoodsModel\\v1\\getGoodsModel' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/read/dataList/master/getGoodsModel/v1/getGoodsModel.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\read\\dataList\\master\\getInstitutionType\\v1\\getInstitutionType' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/read/dataList/master/getInstitutionType/v1/getInstitutionType.php',
@@ -1828,6 +1832,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\dataPickList\\master\\getCountryAdministrativeAreaLevel3\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/dataPickList/master/getCountryAdministrativeAreaLevel3/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\dataPickList\\master\\getCountryAdministrativeAreaLevel4\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/dataPickList/master/getCountryAdministrativeAreaLevel4/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\dataPickList\\master\\getCountry\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/dataPickList/master/getCountry/v1/example.php',
+        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\dataPickList\\master\\getEntityBankAccount\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/dataPickList/master/getEntityBankAccount/v1/example.php',
+        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\dataPickList\\master\\getEntityContactNumber\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/dataPickList/master/getEntityContactNumber/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\dataPickList\\master\\getEntity\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/dataPickList/master/getEntity/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\dataPickList\\master\\getInstitutionType\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/dataPickList/master/getInstitutionType/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\dataPickList\\master\\getInstitution\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/dataPickList/master/getInstitution/v1/example.php',
@@ -1921,11 +1927,16 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\documentForm\\budgeting\\getCombinedBudget\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/documentForm/budgeting/getCombinedBudget/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\documentForm\\finance\\getAdvance\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/documentForm/finance/getAdvance/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\documentForm\\finance\\getPaymentInstruction\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/documentForm/finance/getPaymentInstruction/v1/example.php',
+        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\documentForm\\humanResource\\getWorkerCareerInternal\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/documentForm/humanResource/getWorkerCareerInternal/v1/example.php',
+        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\documentForm\\humanResource\\getWorker\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/documentForm/humanResource/getWorker/v1/example.php',
+        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\documentForm\\master\\getBusinessDocumentIssuanceDisposition\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/documentForm/master/getBusinessDocumentIssuanceDisposition/v1/example.php',
+        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\documentForm\\master\\getCitizenIdentity\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/documentForm/master/getCitizenIdentity/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\documentForm\\master\\getPerson\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/documentForm/master/getPerson/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\documentForm\\supplyChain\\getPurchaseOrderAdditionalCost\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/documentForm/supplyChain/getPurchaseOrderAdditionalCost/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\documentForm\\supplyChain\\getPurchaseOrderPaymentTerm\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/documentForm/supplyChain/getPurchaseOrderPaymentTerm/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\documentForm\\supplyChain\\getPurchaseOrder\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/documentForm/supplyChain/getPurchaseOrder/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\documentForm\\supplyChain\\getPurchaseRequisition\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/documentForm/supplyChain/getPurchaseRequisition/v1/example.php',
+        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\documentForm\\sysConfig\\getLogBusinessDocumentWorkFlowPathHistory\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/documentForm/sysConfig/getLogBusinessDocumentWorkFlowPathHistory/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\documentForm\\taxation\\getTransactionTax\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/documentForm/taxation/getTransactionTax/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\resume\\budgeting\\getCombinedBudgetSectionSegmentedDetail\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/resume/budgeting/getCombinedBudgetSectionSegmentedDetail/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\resume\\budgeting\\getCombinedBudgetSectionUnsegmentedDetail\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/resume/budgeting/getCombinedBudgetSectionUnsegmentedDetail/v1/example.php',
@@ -2030,6 +2041,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\initialize\\sysConfig\\setAppObject_InstitutionBranch\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/initialize/sysConfig/setAppObject_InstitutionBranch/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\initialize\\sysConfig\\setAppObject_InstitutionCompany\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/initialize/sysConfig/setAppObject_InstitutionCompany/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\initialize\\sysConfig\\setAppObject_InstitutionRegional\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/initialize/sysConfig/setAppObject_InstitutionRegional/v1/example.php',
+        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\initialize\\sysConfig\\setAppObject_WorkFlowPathAction\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/initialize/sysConfig/setAppObject_WorkFlowPathAction/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\initialize\\taxation\\setTaxTariff\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/initialize/taxation/setTaxTariff/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\initialize\\taxation\\setTaxType\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/initialize/taxation/setTaxType/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\read\\dataEntities\\accounting\\getCodeOfAccounting\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/read/dataEntities/accounting/getCodeOfAccounting/v1/example.php',
@@ -2221,6 +2233,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\read\\dataList\\master\\getCountryAdministrativeAreaLevel4\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/read/dataList/master/getCountryAdministrativeAreaLevel4/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\read\\dataList\\master\\getCountry\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/read/dataList/master/getCountry/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\read\\dataList\\master\\getCurrency\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/read/dataList/master/getCurrency/v1/example.php',
+        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\read\\dataList\\master\\getEntityBankAccount\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/read/dataList/master/getEntityBankAccount/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\read\\dataList\\master\\getEntityContactNumber\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/read/dataList/master/getEntityContactNumber/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\read\\dataList\\master\\getGoodsModel\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/read/dataList/master/getGoodsModel/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\read\\dataList\\master\\getInstitutionType\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/read/dataList/master/getInstitutionType/v1/example.php',
@@ -6807,7 +6820,6 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Matrix\\Operators\\Multiplication' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operators/Multiplication.php',
         'Matrix\\Operators\\Operator' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operators/Operator.php',
         'Matrix\\Operators\\Subtraction' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operators/Subtraction.php',
-        'Mockery' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegration' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegration.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegrationAssertPostConditions' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegrationAssertPostConditions.php',
         'Mockery\\Adapter\\Phpunit\\MockeryTestCase' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryTestCase.php',
@@ -7011,8 +7023,6 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Monolog\\SignalHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/SignalHandler.php',
         'Monolog\\Test\\TestCase' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Test/TestCase.php',
         'Monolog\\Utils' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Utils.php',
-        'MyCLabs\\Enum\\Enum' => __DIR__ . '/..' . '/myclabs/php-enum/src/Enum.php',
-        'MyCLabs\\Enum\\PHPUnit\\Comparator' => __DIR__ . '/..' . '/myclabs/php-enum/src/PHPUnit/Comparator.php',
         'Nette\\ArgumentOutOfRangeException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
         'Nette\\DeprecatedException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
         'Nette\\DirectoryNotFoundException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
@@ -7383,7 +7393,6 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'PHPUnit\\TextUI\\XmlConfiguration\\Migrator' => __DIR__ . '/..' . '/phpunit/phpunit/src/TextUI/XmlConfiguration/Migration/Migrator.php',
         'PHPUnit\\TextUI\\XmlConfiguration\\MoveAttributesFromFilterWhitelistToCoverage' => __DIR__ . '/..' . '/phpunit/phpunit/src/TextUI/XmlConfiguration/Migration/Migrations/MoveAttributesFromFilterWhitelistToCoverage.php',
         'PHPUnit\\TextUI\\XmlConfiguration\\MoveAttributesFromRootToCoverage' => __DIR__ . '/..' . '/phpunit/phpunit/src/TextUI/XmlConfiguration/Migration/Migrations/MoveAttributesFromRootToCoverage.php',
-        'PHPUnit\\TextUI\\XmlConfiguration\\MoveWhitelistDirectoriesToCoverage' => __DIR__ . '/..' . '/phpunit/phpunit/src/TextUI/XmlConfiguration/Migration/Migrations/MoveWhitelistDirectoriesToCoverage.php',
         'PHPUnit\\TextUI\\XmlConfiguration\\MoveWhitelistExcludesToCoverage' => __DIR__ . '/..' . '/phpunit/phpunit/src/TextUI/XmlConfiguration/Migration/Migrations/MoveWhitelistExcludesToCoverage.php',
         'PHPUnit\\TextUI\\XmlConfiguration\\PHPUnit' => __DIR__ . '/..' . '/phpunit/phpunit/src/TextUI/XmlConfiguration/PHPUnit/PHPUnit.php',
         'PHPUnit\\TextUI\\XmlConfiguration\\Php' => __DIR__ . '/..' . '/phpunit/phpunit/src/TextUI/XmlConfiguration/PHP/Php.php',
@@ -9269,7 +9278,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Spatie\\LaravelIgnition\\Support\\StringComparator' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Support/StringComparator.php',
         'Spatie\\LaravelIgnition\\Views\\BladeSourceMapCompiler' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Views/BladeSourceMapCompiler.php',
         'Spatie\\LaravelIgnition\\Views\\ViewExceptionMapper' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Views/ViewExceptionMapper.php',
-        'Stringable' => __DIR__ . '/..' . '/myclabs/php-enum/stubs/Stringable.php',
+        'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'Swaggest\\JsonDiff\\Exception' => __DIR__ . '/..' . '/swaggest/json-diff/src/Exception.php',
         'Swaggest\\JsonDiff\\InvalidFieldTypeException' => __DIR__ . '/..' . '/swaggest/json-diff/src/InvalidFieldTypeException.php',
         'Swaggest\\JsonDiff\\JsonDiff' => __DIR__ . '/..' . '/swaggest/json-diff/src/JsonDiff.php',

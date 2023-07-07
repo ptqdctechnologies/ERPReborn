@@ -12,7 +12,6 @@ class AdvanceSettlementController extends Controller
         // $data = $request->session()->get("SessionPurchaseRequisition");
         // dd($data);
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionAdvanceSetllement");
         $request->session()->forget("SessionAdvanceSetllementRequester");
     
         $var = 0;
@@ -105,6 +104,7 @@ class AdvanceSettlementController extends Controller
                     ]
                 ]
             );
+            
 
             $request->session()->push("SessionAdvanceSetllementRequester", $advance_RefID);
         }
@@ -224,7 +224,6 @@ class AdvanceSettlementController extends Controller
     public function RevisionAdvanceSettlementIndex(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionAdvanceSetllement");
         $request->session()->forget("SessionAdvanceSetllementRequester");
 
         $varDataAdvanceSettlementRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(

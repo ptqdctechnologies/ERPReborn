@@ -50,20 +50,6 @@
                                         </div>
                                     </td>
                                 </tr>
-
-                                <!-- <tr>
-                                    <td><label>PR Number</label></td>
-                                    <td>
-                                        <div class="input-group" style="width: 70%;">
-                                            <input id="pr_number" style="border-radius:0;" name="var_sub_budget_code" class="form-control" readonly value="{{ $dataAdvancenumber }}">
-                                            <div class="input-group-append">
-                                                <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a href="#" id="pr_number2" data-toggle="modal" data-target="#mySearchPurchaseRequistion"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr> -->
                             </table>
                         </div>
                     </div>
@@ -82,19 +68,6 @@
                                     </td>
                                 </tr>
 
-                                <!-- <tr>
-                                    <td><label>PR Number</label></td>
-                                    <td>
-                                        <div class="input-group" style="width: 70%;">
-                                            <input id="pr_number" style="border-radius:0;" name="var_sub_budget_code" class="form-control" readonly value="{{ $dataAdvancenumber }}">
-                                            <div class="input-group-append">
-                                                <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a href="#" id="pr_number2" data-toggle="modal" data-target="#mySearchPurchaseRequistion"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr> -->
                             </table>
                         </div>
                     </div>
