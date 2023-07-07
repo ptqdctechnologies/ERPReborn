@@ -45,6 +45,8 @@ RUN apt-get install -y \
 
 #---> Cloning File
 COPY ./.ProjectCore/Configuration/Docker/PHPApacheFrontEnd/vhost.conf /etc/apache2/sites-available/000-default.conf
+COPY ./.ProjectCore/Configuration/Docker/PHPApacheFrontEnd/System/usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini-development
+COPY ./.ProjectCore/Configuration/Docker/PHPApacheFrontEnd/System/usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini-production
 
 #---> Set Ulang Kepemilikan File
 RUN chown -R www-data:www-data /var/www \

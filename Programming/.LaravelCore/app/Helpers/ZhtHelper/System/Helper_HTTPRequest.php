@@ -160,6 +160,7 @@ namespace App\Helpers\ZhtHelper\System
                     $ObjClient = new \GuzzleHttp\Client();
                     try {
 //dd($varURL);
+//dd($varHeaders);
 //dd(json_encode($varData, true));
                         $varResponse = $ObjClient->request(
                             $varMethod,
@@ -172,6 +173,7 @@ namespace App\Helpers\ZhtHelper\System
                             //'connect_timeout' => 2
                             ]
                             );
+//                        dd($varResponse);
 //echo  "@@@";
 //dd($varData);
 
@@ -211,9 +213,9 @@ namespace App\Helpers\ZhtHelper\System
                                             ],
                                         ],
                                     'data' => [
-'message' => 'Data integrity check failed (MD5 Payload Inconsistency)',
-'md5' => $varDataHeaderMD5,
-'Response' =>  ((array) $varResponseData)[0],
+                                        'message' => 'Data integrity check failed (MD5 Payload Inconsistency)',
+                                        'md5' => $varDataHeaderMD5,
+                                        'Response' =>  ((array) $varResponseData)[0],
                                         
                                         
 //'ccc' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, $varResponseData)
@@ -251,6 +253,7 @@ namespace App\Helpers\ZhtHelper\System
                         $response = $ex->getResponse();
                         $responseBodyAsString = $response->getBody()->getContents();
 //echo "Error : ". $responseBodyAsString;
+                        //dd($response);
                         $varHTTPStatusCode = $response->getStatusCode();
                         //$varResponseContents = \App\Helpers\ZhtHelper\System\Helper_APIResponse::getNotification_FailureMessage_v1($varUserSession, $varHTTPStatusCode, $responseBodyAsString);
 

@@ -217,6 +217,8 @@ RUN cd /usr/local/etc/php/conf.d/ \
 #---> Cloning File
 #COPY . /var/www/html/
 COPY ./.ProjectCore/Configuration/Docker/PHPApacheBackEnd/vhost.conf /etc/apache2/sites-available/000-default.conf
+COPY ./.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini-development
+COPY ./.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini-production
 #RUN cd .. && cp ./../.ZhtConf/Docker/PHP/vhost.conf /etc/apache2/sites-available/000-default.conf & cd -
 #---> Imagick Convertion for PDF
 COPY ./.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/ImageMagick-6/policy.xml /etc/ImageMagick-6/policy.xml

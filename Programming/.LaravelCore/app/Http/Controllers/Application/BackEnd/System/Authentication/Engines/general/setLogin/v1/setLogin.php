@@ -72,6 +72,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                     //---> Variable Initializing
                     $varUserName = $varData['userName'];
                     $varUserPassword = $varData['userPassword'];
+
+//dd($varUserName);
                     
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     $varHost = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'LDAP_HOST');
@@ -110,7 +112,7 @@ $varDataSend = [
                             $varAPIWebToken = \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken($varUserSession, $varUserName, \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession), 'HS256', (int) \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentUnixTime($varUserSession));
                             }
                         while((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true);
-                       
+
                         //---> Insert Data to PostgreSQL
                         $varBufferDB = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->setDataInsert(
                             6000000000001, 
