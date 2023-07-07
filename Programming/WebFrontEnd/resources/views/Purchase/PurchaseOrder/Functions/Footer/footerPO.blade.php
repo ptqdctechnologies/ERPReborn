@@ -140,16 +140,12 @@
                         '<td style="border:1px solid #e9ecef;">' + value.productUnitPriceCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + value.priceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + value.priceCurrencyISOCode + '</td>' +
-                        // '<td style="border:1px solid #e9ecef;">' + value.priceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
-
-                        // '<td class="sticky-col six-col" style="border:1px solid #e9ecef;background-color:white;">' + '<select id="ppn' + key + '" class="form-control " style=" border-radius:0;" name="ppn[]"><option value="No"> No </option><option value="Yes"> Yes </option></select>' + '</td>' +
-                        // '<td class="sticky-col five-col" style="border:1px solid #e9ecef;background-color:white;">' + '<select id="ppn_persen' + key + '" class="form-control " style="border-radius:0;" name="ppn_persen[]"><option selected="selected">Select Tax</option><option value="1">1%</option><option value="11">11%</option></select>' + '</td>' +
-                        '<td class="sticky-col five-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +   
-                        '<td class="sticky-col forth-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req'+ key +'" style="border-radius:0;" name="price_req[]" class="form-control price_req" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
-                        '<td class="sticky-col third-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req'+ key +'" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled>' + '</td>' +
-                        // '<td class="sticky-col second-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="remark_req'+ key +'" style="border-radius:0;background-color:white;" name="remark_req[]" class="form-control" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
-                        '<td class="sticky-col first-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="remark_req'+ key +'" style="border-radius:0;background-color:white;" name="remark_req[]" class="form-control" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
-
+                       
+                        '<td class="sticky-col fifth-col-pr" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" onkeypress="return isNumberKey(this, event);" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
+                        '<td class="sticky-col forth-col-pr" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req'+ key +'" style="border-radius:0;" name="price_req[]" class="form-control price_req" onkeypress="return isNumberKey(this, event);" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
+                        '<td class="sticky-col third-col-pr" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req'+ key +'" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled>' + '</td>' +
+                        '<td class="sticky-col second-col-pr" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="remark_req'+ key +'" style="border-radius:0;background-color:white;" name="remark_req[]" class="form-control" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
+                        '<td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_balance_qty'+ key +'" style="border-radius:0;background-color:white;" name="total_balance_qty[]" class="form-control total_balance_qty" autocomplete="off" disabled value="' + currencyTotal(value.quantity) + '">' + '</td>' +
                         '</tr>';
 
                     $('table.TablePRDetail tbody').append(html);
@@ -185,7 +181,8 @@
                         else {
                             $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
                             $('#total_req'+key).val(currencyTotal(total));
-                        }5
+                            
+                        }
                         TotalBudgetSelected();
                     });
 
@@ -235,7 +232,6 @@
 
                     $('#ppn').on('click', function(e) {
                         e.preventDefault();
-
                         var ppn = $(this).val();
                         var ppn_persen = $("#ppn_persen").val();
                         var totalBudget = $("#TotalBudgetSelected").html();
@@ -263,9 +259,8 @@
 
                     $('#ppn_persen').on('click', function(e) {
                         e.preventDefault();
-                        var ppn_persen = $(this).val();
+                        // var ppn_persen = $(this).val();
                         var ppn = $("#ppn").val();
-
                         var totalBudget = $("#TotalBudgetSelected").html();
                         var totalPpn = $("#TotalPpn").html();
 
@@ -275,7 +270,7 @@
                                 var_ppn = 0.01;    
                             }
                             else if(ppn_persen == "11"){
-                                var_ppn = 0.11;    
+                                var_ppn = 0.11;
                             }
                         }
 
