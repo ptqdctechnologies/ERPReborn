@@ -177,11 +177,19 @@ namespace App\Models\Database
             */
             try
                 {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_DataOnly_SpecificWithFacade($varUserSession, $varRecordID);               
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_DataOnly_SpecificWithFacade(
+                        $varUserSession, 
+                        $varRecordID
+                        );
                 return $varReturn['Data'];
                 } 
             catch (\Exception $ex) {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_DataOnly_Specific($varUserSession, $varRecordID);
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_DataOnly_Specific(
+                        $varUserSession,
+                        $varRecordID
+                        );
                 return $varReturn['Data'];
                 }
             }

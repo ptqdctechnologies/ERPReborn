@@ -660,12 +660,11 @@ class CreateTest extends AbstractTestCase
         $this->assertNotSame($period, $period4);
     }
 
+    /**
+     * @requires PHP >= 8.0
+     */
     public function testCreateFromCarbonInstancesNamedParameters()
     {
-        if (version_compare(PHP_VERSION, '8.0.0-dev', '<')) {
-            $this->markTestSkipped('This tests needs PHP 8 named arguments syntax.');
-        }
-
         $periodClass = $this->periodClass;
         $carbonClass = $periodClass === CarbonPeriodImmutable::class
             ? CarbonImmutable::class
@@ -778,5 +777,45 @@ class CreateTest extends AbstractTestCase
 
         $periodClass = $this->periodClass;
         $periodClass::instance(Carbon::now());
+    }
+
+    public function testMutability()
+    {
+        $this->assertSame(
+            [Carbon::class, Carbon::class, Carbon::class],
+            iterator_to_array(
+                CarbonPeriod::between(Carbon::today(), Carbon::today()->addDays(2))->map('get_class')
+            )
+        );
+        $this->assertSame(
+            [Carbon::class, Carbon::class, Carbon::class],
+            iterator_to_array(
+                CarbonPeriod::between(CarbonImmutable::today(), CarbonImmutable::today()->addDays(2))->map('get_class')
+            )
+        );
+        $this->assertSame(
+            [Carbon::class, Carbon::class, Carbon::class],
+            iterator_to_array(
+                CarbonPeriod::between('today', 'today + 2 days')->map('get_class')
+            )
+        );
+        $this->assertSame(
+            [CarbonImmutable::class, CarbonImmutable::class, CarbonImmutable::class],
+            iterator_to_array(
+                CarbonPeriodImmutable::between(Carbon::today(), Carbon::today()->addDays(2))->map('get_class')
+            )
+        );
+        $this->assertSame(
+            [CarbonImmutable::class, CarbonImmutable::class, CarbonImmutable::class],
+            iterator_to_array(
+                CarbonPeriodImmutable::between(CarbonImmutable::today(), CarbonImmutable::today()->addDays(2))->map('get_class')
+            )
+        );
+        $this->assertSame(
+            [CarbonImmutable::class, CarbonImmutable::class, CarbonImmutable::class],
+            iterator_to_array(
+                CarbonPeriodImmutable::between('today', 'today + 2 days')->map('get_class')
+            )
+        );
     }
 }

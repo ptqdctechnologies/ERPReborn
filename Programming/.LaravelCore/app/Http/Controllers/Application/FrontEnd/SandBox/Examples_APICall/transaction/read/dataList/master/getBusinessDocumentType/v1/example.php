@@ -28,22 +28,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         public function throughAPIGateway($varAPIWebToken)
             {
             //---Parameter Set---
-            if (!$varAPIWebToken) {$varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.read.dataList.master.getBusinessDocumentType', 
-                'latest', 
-                [
-                'parameter' => [
-                    ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                    ]
-                ]
-                );
+            if (!$varAPIWebToken) {
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
             //---Core---

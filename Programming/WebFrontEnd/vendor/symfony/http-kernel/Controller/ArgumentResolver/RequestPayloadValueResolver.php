@@ -72,6 +72,10 @@ class RequestPayloadValueResolver implements ValueResolverInterface, EventSubscr
             return [];
         }
 
+        if ($argument->isVariadic()) {
+            throw new \LogicException(sprintf('Mapping variadic argument "$%s" is not supported.', $argument->getName()));
+        }
+
         $attribute->metadata = $argument;
 
         return [$attribute];
@@ -130,8 +134,12 @@ class RequestPayloadValueResolver implements ValueResolverInterface, EventSubscr
                 }
             }
 
-            if (null === $payload && !$argument->metadata->isNullable()) {
-                throw new HttpException($validationFailedCode);
+            if (null === $payload) {
+                $payload = match (true) {
+                    $argument->metadata->hasDefaultValue() => $argument->metadata->getDefaultValue(),
+                    $argument->metadata->isNullable() => null,
+                    default => throw new HttpException($validationFailedCode)
+                };
             }
 
             $arguments[$i] = $payload;

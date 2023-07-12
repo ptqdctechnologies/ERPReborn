@@ -34,10 +34,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication
                     'userName' => $varDataReceive['data']['userName'],
                     'userPassword' => $varDataReceive['data']['userPassword']
                     ];
+                //var_dump($varData);
 
                 //---> Method Call
                 $varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setCallAPIEngine($varUserSession, $varAPIKey, $varAPIVersion, $varData, null, $varDataReceive);
-
+                //var_dump($varDataSend);
+                
                 //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                 return \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::setResponse($varUserSession, $varDataSend);
                 } 

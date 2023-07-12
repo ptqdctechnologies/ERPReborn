@@ -6,6 +6,9 @@ namespace App\Http\Middleware\Application\BackEnd\API\Authentication
         {
         public function handle(\Illuminate\Http\Request $varObjRequest, \Closure $next)
             {
+            //echo "------";
+            //var_dump($next);
+            //return $next($varObjRequest);
             return $this->CheckAllStage($varObjRequest, $next);
             }
 
@@ -22,6 +25,10 @@ namespace App\Http\Middleware\Application\BackEnd\API\Authentication
 //echo "<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
 //var_dump($varHTTPHeader);
 //echo "<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+
+//echo "<br><br>---------------------------------------------------";
+
+                
                 //--->---> Check Date Time on HTTP Header
                 if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'agent-datetime', $varHTTPHeader)==false)
                     {
