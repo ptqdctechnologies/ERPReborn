@@ -247,10 +247,11 @@ namespace App\Helpers\ZhtHelper\System
                                     ]
                                 ];                                
                             }
-                        } 
+                        }
 
                     catch (\GuzzleHttp\Exception\BadResponseException $ex) {
                         $response = $ex->getResponse();
+//var_dump($response);
                         $responseBodyAsString = $response->getBody()->getContents();
 //echo "Error : ". $responseBodyAsString;
                         //dd($response);
