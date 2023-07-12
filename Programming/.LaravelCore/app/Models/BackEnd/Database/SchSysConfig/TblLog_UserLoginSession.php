@@ -72,30 +72,31 @@ namespace App\Models\Database\SchSysConfig
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
             string $varLDAPUserID = null, string $varAPIWebToken = null, string $varOptionsList = null, int $varBranch_RefID = null, int $varUserRole_RefID = null, string $varSessionStartDateTimeTZ = null, string $varSessionFinishDateTimeTZ = null, string $varSessionAutoStartDateTimeTZ = null, string $varSessionAutoFinishDateTimeTZ = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [null, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
-                        
-                        [$varLDAPUserID, 'varchar'],
-                        [$varAPIWebToken, 'varchar'],
-                        [$varOptionsList, 'json'],
-                        [$varBranch_RefID, 'bigint'],
-                        [$varUserRole_RefID, 'bigint'],
-                        [$varSessionStartDateTimeTZ, 'timestamptz'],
-                        [$varSessionFinishDateTimeTZ, 'timestamptz'],
-                        [$varSessionAutoStartDateTimeTZ, 'timestamptz'],
-                        [$varSessionAutoFinishDateTimeTZ, 'timestamptz']
-                    ]
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [null, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranchRefID, 'bigint'],
+
+                            [$varLDAPUserID, 'varchar'],
+                            [$varAPIWebToken, 'varchar'],
+                            [$varOptionsList, 'json'],
+                            [$varBranch_RefID, 'bigint'],
+                            [$varUserRole_RefID, 'bigint'],
+                            [$varSessionStartDateTimeTZ, 'timestamptz'],
+                            [$varSessionFinishDateTimeTZ, 'timestamptz'],
+                            [$varSessionAutoStartDateTimeTZ, 'timestamptz'],
+                            [$varSessionAutoFinishDateTimeTZ, 'timestamptz']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0];
             }
 

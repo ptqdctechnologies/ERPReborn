@@ -803,16 +803,20 @@ trait HasAttributes
      */
     protected function getClassCastableAttributeValue($key, $value)
     {
-        if (isset($this->classCastCache[$key])) {
+        $caster = $this->resolveCasterClass($key);
+
+        $objectCachingDisabled = $caster->withoutObjectCaching ?? false;
+
+        if (isset($this->classCastCache[$key]) && ! $objectCachingDisabled) {
             return $this->classCastCache[$key];
         } else {
-            $caster = $this->resolveCasterClass($key);
-
             $value = $caster instanceof CastsInboundAttributes
                 ? $value
                 : $caster->get($this, $key, $value, $this->attributes);
 
-            if ($caster instanceof CastsInboundAttributes || ! is_object($value)) {
+            if ($caster instanceof CastsInboundAttributes ||
+                ! is_object($value) ||
+                $objectCachingDisabled) {
                 unset($this->classCastCache[$key]);
             } else {
                 $this->classCastCache[$key] = $value;
@@ -1134,7 +1138,9 @@ trait HasAttributes
             ))
         );
 
-        if ($caster instanceof CastsInboundAttributes || ! is_object($value)) {
+        if ($caster instanceof CastsInboundAttributes ||
+            ! is_object($value) ||
+            ($caster->withoutObjectCaching ?? false)) {
             unset($this->classCastCache[$key]);
         } else {
             $this->classCastCache[$key] = $value;
@@ -2119,9 +2125,9 @@ trait HasAttributes
      */
     public function append($attributes)
     {
-        $this->appends = array_unique(
+        $this->appends = array_values(array_unique(
             array_merge($this->appends, is_string($attributes) ? func_get_args() : $attributes)
-        );
+        ));
 
         return $this;
     }
