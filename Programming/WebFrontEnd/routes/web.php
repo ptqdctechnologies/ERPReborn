@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[START]---
 $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2ODU2ODk4NDR9.MTc2ZmVjYmRlZWRkMzBmMTNjZjkwMzU2YzczODljYjg4N2FhZjVkYTIxMjZkMmQ4MGE5YWM5ZGM3ZjhmZWE0Mg';
+$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxkaS5tdWx5YWRpIiwiaWF0IjoxNjg5MDY3Mzk4fQ.ZjUwNGIwMjkzMDliM2E0Zjg2NTBmZDliNGUxYzRiYjhkMzM5MzA2NzM1ODI1M2Y3ZTYzYWU0MjZmNzM5NDhiMw';
 
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
@@ -33,10 +33,11 @@ Route::post('loginStore', 'Auth\LoginController@loginStore')->name('loginStore')
 Route::get('getBranchLogin', 'Auth\LoginController@getBranchLogin')->name('getBranchLogin');
 Route::get('getRoleLogin', 'Auth\LoginController@getRoleLogin')->name('getRoleLogin');
 
-
 Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], function () {
     //logout
     Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+    Route::get('SessionCheckingLogout', 'Auth\LoginController@SessionCheckingLogout')->name('SessionCheckingLogout');
+    Route::get('SessionCheckingEvent', 'Auth\LoginController@SessionCheckingEvent')->name('SessionCheckingEvent');
 
     // Dashboard
     Route::resource('dashboard', 'Dashboard\DashboardController');

@@ -32,7 +32,7 @@
                         <div class="form-group">
                           <table>
                             <tr>
-                              <th style="padding-top: 5px;"><label>Trano</label></th>
+                              <th style="padding-top: 5px;"><label>Transaction Number</label></th>
                               <td>
                                 <div class="input-group">
                                   <input id="trano" style="border-radius:0;" class="form-control" name="trano" type="text">
@@ -104,7 +104,7 @@
                     <thead>
                       <tr>
                         <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
-                        <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Trano</th>
+                        <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Transaction Number</th>
                         <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Budget</th>
                         <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">From</th>
                         <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Date</th>

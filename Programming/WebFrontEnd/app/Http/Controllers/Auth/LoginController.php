@@ -10,10 +10,9 @@ class LoginController extends Controller
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        if($varAPIWebToken){
+        if ($varAPIWebToken) {
             return view('Dashboard.index');
-        }
-        else{
+        } else {
             return view('Authentication.login');
         }
     }
@@ -29,32 +28,30 @@ class LoginController extends Controller
             $password
         );
         // dd($varData);
-        if(count($varData['data']['optionList']) == 1){
-            if(count($varData['data']['optionList'][0]['userRole'])){
+        if (count($varData['data']['optionList']) == 1) {
+            if (count($varData['data']['optionList'][0]['userRole'])) {
 
                 $varBranchID = (int)$varData['data']['optionList']['0']['branch_RefID'];
                 $varUserRoleID = (int)$varData['data']['optionList']['0']['userRole']['0']['userRole_RefID'];
-                
+
                 $varAPIWebToken = $varData['data']['APIWebToken'];
 
                 //---Core---
                 $varDatas = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'authentication.general.setLoginBranchAndUserRole', 
-                    'latest', 
+                    $varAPIWebToken,
+                    'authentication.general.setLoginBranchAndUserRole',
+                    'latest',
                     [
-                    'branchID' => $varBranchID,
-                    'userRoleID' => $varUserRoleID
+                        'branchID' => $varBranchID,
+                        'userRoleID' => $varUserRoleID
                     ]
                 );
-
                 $request->session()->put('SessionLogin', $varAPIWebToken);
                 $request->session()->put('SessionLoginName', $varData['data']['userIdentity']['personName']);
-                
+
                 $request->session()->put('SessionWorkerCareerInternal_RefID', $varData['data']['userIdentity']['workerCareerInternal_RefID']);
                 return response()->json($varDatas['metadata']['HTTPStatusCode']);
-                
             }
         }
 
@@ -102,12 +99,12 @@ class LoginController extends Controller
 
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'authentication.general.setLoginBranchAndUserRole', 
-            'latest', 
+            $varAPIWebToken,
+            'authentication.general.setLoginBranchAndUserRole',
+            'latest',
             [
-            'branchID' => $varBranchID,
-            'userRoleID' => $varUserRoleID
+                'branchID' => $varBranchID,
+                'userRoleID' => $varUserRoleID
             ]
         );
 
@@ -124,4 +121,28 @@ class LoginController extends Controller
         $request->session()->flush();
         return redirect('/')->with(['success' => 'Thank you for your visit']);
     }
+
+    public function SessionCheckingLogout(Request $request)
+    {
+        
+        $varAPIWebToken = $request->session()->has("SessionLogin");
+
+        $compact = [
+            'varAPIWebToken' => $varAPIWebToken,
+        ];
+
+        return response()->json($compact);
+    }
+
+    // public function SessionCheckingEvent(Request $request)
+    // {
+    //     $angka = $request->input('angka');   
+    //     $current_second = $request->input('current_second'); 
+
+    //     $compact = [
+    //         'angka' => $angka,
+    //         'current_second' => $current_second,
+    //     ];
+    //     return response()->json($compact);
+    // }
 }
