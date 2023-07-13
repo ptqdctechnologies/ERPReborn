@@ -27,8 +27,8 @@ RUN apt-get update \
 
 
 RUN apt-get install -y lsb-release \
-    && wget http://repo.mysql.com/mysql-apt-config_0.8.22-1_all.deb \  
-       && dpkg -i mysql-apt-config_0.8.22-1_all.deb \
+    && wget http://repo.mysql.com/mysql-apt-config_0.8.24-1_all.deb \  
+       && dpkg -i mysql-apt-config_0.8.24-1_all.deb \
     && git clone https://github.com/EnterpriseDB/mysql_fdw.git \
        && apt-get install -y mariadb-server \
        && cd /mysql_fdw \
