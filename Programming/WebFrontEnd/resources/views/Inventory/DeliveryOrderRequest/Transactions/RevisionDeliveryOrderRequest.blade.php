@@ -69,7 +69,7 @@
                                         <table class="table table-head-fixed text-nowrap TableDorCart" id="TableDorCart">
                                             <thead>
                                                 <tr>
-                                                    <th>Trano</th>
+                                                    <th>Transaction Number</th>
                                                     <th>Product Id</th>
                                                     <th>Product Name</th>
                                                     <th>PR Price</th>

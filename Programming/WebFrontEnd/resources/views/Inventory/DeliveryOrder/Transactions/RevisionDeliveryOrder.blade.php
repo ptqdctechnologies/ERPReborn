@@ -105,7 +105,7 @@
                                         <table class="table table-head-fixed text-nowrap TableDoCart" id="TableDoCart">
                                             <thead>
                                                 <tr>
-                                                    <th>Trano</th>
+                                                    <th>Transaction Number</th>
                                                     <th>Work Id</th>
                                                     <th>Work Name</th>
                                                     <th>Product Id</th>

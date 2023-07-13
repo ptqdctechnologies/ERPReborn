@@ -13,7 +13,7 @@
     $("#product_id2").prop("disabled", true);
     $("#bank_name2").prop("disabled", true);
     $("#bank_account2").prop("disabled", true);
-    $("#submitArf").prop("disabled", true);
+    // $("#submitArf").prop("disabled", true);
 </script>
 
 <script>
@@ -79,7 +79,6 @@
         $(".tableShowHideBOQ3").show();
         $("#request_name2").prop("disabled", false);
         $("#beneficiary_name2").prop("disabled", false);
-        $("#bank_name2").prop("disabled", false);
 
 
         $(".file-attachment").show();
@@ -479,14 +478,6 @@
 
                 $("#submitArf").prop("disabled", true);
 
-                varFileUpload_UniqueID = "Upload";
-                window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
-
-                var action = $(this).attr("action"); //get submit action from form
-                var method = $(this).attr("method"); // get submit method
-                var form_data = new FormData($(this)[0]); // convert form into formdata 
-                var form = $(this);
-
                 const swalWithBootstrapButtons = Swal.mixin({
                     confirmButtonClass: 'btn btn-success btn-sm',
                     cancelButtonClass: 'btn btn-danger btn-sm',
@@ -509,6 +500,14 @@
 
                     if (result.value) {
 
+                        varFileUpload_UniqueID = "Upload";
+                        window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
+
+                        var action = $(this).attr("action"); //get submit action from form
+                        var method = $(this).attr("method"); // get submit method
+                        var form_data = new FormData($(this)[0]); // convert form into formdata 
+                        var form = $(this);
+
                         $.ajax({
                             url: action,
                             dataType: 'json', // what to expect back from the server
@@ -518,7 +517,6 @@
                             data: form_data,
                             type: method,
                             success: function(response) {
-                                console.log();
                                 if (response.message == "SelectWorkFlow") {
 
                                     $("#loading").hide();
@@ -567,8 +565,6 @@
                             error: function(response) { // handle the error
 
                                 $("#submitArf").prop("disabled", false);
-
-                                // Swal.fire("Cancelled", "You don't have access", "error");
 
                                 swalWithBootstrapButtons.fire({
 
@@ -632,7 +628,7 @@
             type: 'GET',
             url: '{!! route("StoreWorkFlow") !!}?workFlowPath_RefID=' + workFlowPath_RefID + '&businessDocument_RefID=' + businessDocument_RefID + '&documentNumber=' + documentNumber + '&approverEntity_RefID=' + approverEntity_RefID,
             success: function(data) {
-
+                console.log(data.documentNumber);
                 $("#loading").hide();
                 $(".loader").hide();
 
