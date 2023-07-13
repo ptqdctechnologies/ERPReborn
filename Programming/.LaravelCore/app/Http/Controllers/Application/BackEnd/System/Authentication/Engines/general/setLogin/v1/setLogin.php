@@ -72,6 +72,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                     //---> Variable Initializing
                     $varUserName = $varData['userName'];
                     $varUserPassword = $varData['userPassword'];
+
                     
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     $varHost = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'LDAP_HOST');
@@ -85,6 +86,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                         $varSessionIntervalInSeconds = (10*60*60);
                         $varSessionIntervalInSeconds = (24*60*60);
                         
+
                         //---> Penyusunan Option List
                         $varOptionList = 
                             \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_LowerFirstCharacter(
@@ -94,6 +96,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                     (new \App\Models\Database\SchSysConfig\General())->getUserIDByName($varUserSession, $varUserName)
                                     )
                                 );
+
 
 /*
 $varAPIWebToken = \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken($varUserSession, $varUserName, \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession), 'HS256', (int) \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentUnixTime($varUserSession));
@@ -110,72 +113,79 @@ $varDataSend = [
                             $varAPIWebToken = \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken($varUserSession, $varUserName, \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession), 'HS256', (int) \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentUnixTime($varUserSession));
                             }
                         while((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true);
-                       
-                        //---> Insert Data to PostgreSQL
-                        $varBufferDB = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->setDataInsert(
-                            6000000000001, 
-                            null, 
-                            \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentYear($varUserSession),
-                            11000000000001,
 
-                            $varUserName, 
-                            $varAPIWebToken, 
-                            \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varOptionList),
-                            null, 
-                            null, 
-                            'NOW()', 
-                            null, 
-                            'NOW()', 
-                            '(NOW() + \''.$varSessionIntervalInSeconds.' seconds\'::interval)'
-                            );
+                        
+                        //---> Insert Data to PostgreSQL
+                        $varBufferDB = 
+                            (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->setDataInsert(
+                                6000000000001, 
+                                null, 
+                                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentYear($varUserSession),
+                                11000000000001,
+
+                                $varUserName, 
+                                $varAPIWebToken, 
+                                \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varOptionList),
+                                null, 
+                                null, 
+                                'NOW()', 
+                                null, 
+                                'NOW()', 
+                                '(NOW() + \''.$varSessionIntervalInSeconds.' seconds\'::interval)'
+                                );
+                        //var_dump($varUserName);
+                        //var_dump(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentYear($varUserSession));
 
                         $varSysID = $varBufferDB['SignRecordID'];                        
                         $varBufferDB = 
                             (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord(
-                            $varUserSession, 
-                            $varSysID
-                            );
-                        
-                        //---> Data Initailizing Base On Database Record
-                        //---> Get User Identity
-                        $varUserIdentity = 
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserIdentity(
                                 $varUserSession, 
-                                $varBufferDB[0]['LDAPUserID']
+                                $varSysID
                                 );
 
-                        //---> Insert Data to Redis
-                        $varRedisID = 
-                            (new \App\Models\Cache\General\APIWebToken())->setDataInsert(
-                                $varUserSession, 
-                                $varBufferDB[0]['APIWebToken'],
-                                \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
-                                    $varUserSession,
-                                    [
-                                    'userLoginSession_RefID' => $varBufferDB[0]['Sys_ID'],
-                                    'user_RefID' => $varBufferDB[0]['User_RefID'],
-                                    'userRole_RefID' => $varBufferDB[0]['UserRole_RefID'],
-                                    'branch_RefID' => $varBufferDB[0]['Branch_RefID'],
-                                    'sessionStartDateTimeTZ' => $varBufferDB[0]['SessionStartDateTimeTZ'],
-                                    'sessionAutoStartDateTimeTZ' => $varBufferDB[0]['SessionAutoStartDateTimeTZ'],
-                                    'sessionAutoFinishDateTimeTZ' => $varBufferDB[0]['SessionAutoFinishDateTimeTZ'],
-                                    'userIdentity' => $varUserIdentity
-                                    ]
-                                    ),
-                                $varSessionIntervalInSeconds
-                                );
+                        if(count($varBufferDB) > 0)
+                            {
+                            //---> Data Initailizing Base On Database Record
+                            //---> Get User Identity
+                            $varUserIdentity = 
+                                \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserIdentity(
+                                    $varUserSession, 
+                                    $varBufferDB[0]['LDAPUserID']
+                                    );
 
-                        //---> Set Return Value
-                        $varDataSend = [
-                            'APIWebToken' => $varBufferDB[0]['APIWebToken'],
-                            'userIdentity' => $varUserIdentity,
-                            //'LDAPUserID' => $varBufferDB[0]['LDAPUserID'],
-                            'sessionStartDateTimeTZ' => $varBufferDB[0]['SessionStartDateTimeTZ'],
-                            'sessionAutoStartDateTimeTZ' => $varBufferDB[0]['SessionAutoStartDateTimeTZ'],
-                            'sessionAutoFinishDateTimeTZ' => $varBufferDB[0]['SessionAutoFinishDateTimeTZ'],
-                            'redisID' => $varRedisID,
-                            'optionList' => $varOptionList
-                            ];
+                            //---> Insert Data to Redis
+                            $varRedisID = 
+                                (new \App\Models\Cache\General\APIWebToken())->setDataInsert(
+                                    $varUserSession, 
+                                    $varBufferDB[0]['APIWebToken'],
+                                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
+                                        $varUserSession,
+                                        [
+                                        'userLoginSession_RefID' => $varBufferDB[0]['Sys_ID'],
+                                        'user_RefID' => $varBufferDB[0]['User_RefID'],
+                                        'userRole_RefID' => $varBufferDB[0]['UserRole_RefID'],
+                                        'branch_RefID' => $varBufferDB[0]['Branch_RefID'],
+                                        'sessionStartDateTimeTZ' => $varBufferDB[0]['SessionStartDateTimeTZ'],
+                                        'sessionAutoStartDateTimeTZ' => $varBufferDB[0]['SessionAutoStartDateTimeTZ'],
+                                        'sessionAutoFinishDateTimeTZ' => $varBufferDB[0]['SessionAutoFinishDateTimeTZ'],
+                                        'userIdentity' => $varUserIdentity
+                                        ]
+                                        ),
+                                    $varSessionIntervalInSeconds
+                                    );
+
+                            //---> Set Return Value
+                            $varDataSend = [
+                                'APIWebToken' => $varBufferDB[0]['APIWebToken'],
+                                'userIdentity' => $varUserIdentity,
+                                //'LDAPUserID' => $varBufferDB[0]['LDAPUserID'],
+                                'sessionStartDateTimeTZ' => $varBufferDB[0]['SessionStartDateTimeTZ'],
+                                'sessionAutoStartDateTimeTZ' => $varBufferDB[0]['SessionAutoStartDateTimeTZ'],
+                                'sessionAutoFinishDateTimeTZ' => $varBufferDB[0]['SessionAutoFinishDateTimeTZ'],
+                                'redisID' => $varRedisID,
+                                'optionList' => $varOptionList
+                                ];
+                            
 
                         //$varDataSend = ['xxx' => $varBufferDB];
                         //$varDataSend = ['xxx' => $varData];
@@ -196,8 +206,13 @@ $varDataSend = [
                                     )
                             ];
                         */
+                            $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend, $this->varAPIIdentity);
+                            }
+                        else
+                            {
+                            $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, 'User\'s Environment Variable Can\'t be Declared');
+                            }
                         
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend, $this->varAPIIdentity);
                         }
                     //---> Jika Otentikasi gagal
                     else

@@ -564,7 +564,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         public static function setCallAPIEngine($varUserSession, $varAPIKey, $varAPIVersion, array $varData, string $varFunctionName=null, array $varRealDataRequest=null)
             {
             $varErrorMessage = null;
-            
+
             $varAPIKeyData = explode('.', $varAPIKey);
             $varAPIService = \App\Helpers\ZhtHelper\General\Helper_String::getUpperCaseFirstCharacter($varUserSession, array_shift($varAPIKeyData));
             $varAPIStructure = implode('.', $varAPIKeyData);
@@ -641,6 +641,8 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
                     }
                 }
                 
+            //var_dump($varFunctionName);
+            //var_dump($varReturn);
             return $varReturn;
             }
 

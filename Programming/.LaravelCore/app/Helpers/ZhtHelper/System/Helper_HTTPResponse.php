@@ -109,6 +109,7 @@ namespace App\Helpers\ZhtHelper\System
                                     ),
                                 'X-Request-ID' => \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession)
                                 ];                            
+                            //dd($varHeaders);
                             }
                         //---> API selainnya (Via Gateway)
                         else
@@ -157,6 +158,7 @@ namespace App\Helpers\ZhtHelper\System
                     //---> Main process
 //dd($varData);
                     $varReturn = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::setRequest($varUserSession, $varURL, $varMethod, $varData, $varPort, $varHeaders);
+//dd($varReturn);
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 

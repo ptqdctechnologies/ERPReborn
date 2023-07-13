@@ -1937,6 +1937,7 @@ return array(
     'Illuminate\\Console\\Scheduling\\Schedule' => $vendorDir . '/laravel/framework/src/Illuminate/Console/Scheduling/Schedule.php',
     'Illuminate\\Console\\Scheduling\\ScheduleClearCacheCommand' => $vendorDir . '/laravel/framework/src/Illuminate/Console/Scheduling/ScheduleClearCacheCommand.php',
     'Illuminate\\Console\\Scheduling\\ScheduleFinishCommand' => $vendorDir . '/laravel/framework/src/Illuminate/Console/Scheduling/ScheduleFinishCommand.php',
+    'Illuminate\\Console\\Scheduling\\ScheduleInterruptCommand' => $vendorDir . '/laravel/framework/src/Illuminate/Console/Scheduling/ScheduleInterruptCommand.php',
     'Illuminate\\Console\\Scheduling\\ScheduleListCommand' => $vendorDir . '/laravel/framework/src/Illuminate/Console/Scheduling/ScheduleListCommand.php',
     'Illuminate\\Console\\Scheduling\\ScheduleRunCommand' => $vendorDir . '/laravel/framework/src/Illuminate/Console/Scheduling/ScheduleRunCommand.php',
     'Illuminate\\Console\\Scheduling\\ScheduleTestCommand' => $vendorDir . '/laravel/framework/src/Illuminate/Console/Scheduling/ScheduleTestCommand.php',

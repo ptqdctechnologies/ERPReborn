@@ -185,12 +185,20 @@ namespace App\Helpers\ZhtHelper\Database
                             'dbname='.$varConfig['database'].' '.
                             'user='.$varConfig['username'].' '.
                             'password='.$varConfig['password'];
-
+                        //var_dump($varConnectionString);
+                        
                         $i=0;
                         $varData = [];
                         $varNotice = null;
                         if($DBConnection = pg_connect($varConnectionString))
                             {
+                            /*
+                            var_dump($varConnectionString);
+                            echo "<br>";
+                            var_dump($varSQLQuery);
+                            echo "<br><br><br>";
+                            */
+
                             pg_last_notice($DBConnection, PGSQL_NOTICE_CLEAR);
                             $varResult = pg_query($DBConnection, $varSQLQuery);
                             $varNotice = pg_last_notice($DBConnection, PGSQL_NOTICE_ALL);
@@ -764,6 +772,7 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000003                                                                                       |
         | ▪ Last Update     : 2020-10-19                                                                                           |
+        | ▪ Creation Date   : 2020-10-19                                                                                           |
         | ▪ Description     : Mendapatkan data dari database sesuai syntax query (varSQLQuery)                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |

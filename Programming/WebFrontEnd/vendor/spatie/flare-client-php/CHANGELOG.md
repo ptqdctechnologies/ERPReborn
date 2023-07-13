@@ -2,6 +2,14 @@
 
 All notable changes to `flare-client-php` will be documented in this file
 
+## 1.4.0 - 2023-06-28
+
+- Add support for stack trace arguments
+
+## 1.3.6 - 2023-04-12
+
+- recognise AI generated solutions
+
 ## 1.3.5 - 2023-01-23
 
 ### What's Changed
