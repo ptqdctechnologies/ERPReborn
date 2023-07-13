@@ -20,8 +20,8 @@ if [ ! -f /zhtConf/tmp/processSign/.initialized ]; then
    samba-tool user delete teguh.pratama;
    samba-tool user add teguh.pratama teguhpratama1234;
 
-   samba-tool user delete icha.mailinda;
-   samba-tool user add icha.mailinda icha1234;
+   samba-tool user delete icha;
+   samba-tool user add icha icha1234;
 
    samba-tool user delete suyanto;
    samba-tool user add suyanto suyanto1234;
@@ -41,8 +41,8 @@ if [ ! -f /zhtConf/tmp/processSign/.initialized ]; then
    samba-tool user delete eka.purwanti;
    samba-tool user add eka.purwanti eka.purwanti1234;
 
-   samba-tool user delete febri;
-   samba-tool user add febri febri1234;
+   samba-tool user delete febriyanto;
+   samba-tool user add febriyanto febriyanto1234;
 
    samba-tool user delete ferdian;
    samba-tool user add ferdian ferdian1234;
