@@ -32,6 +32,7 @@ services:
         #    command: nohup Script.ServiceRestart.sh & && sleep infinity
     environment:
       TZ: 'Asia/Jakarta'
+      PGDATA: '/var/lib/postgresql/data/pgdata'
       POSTGRES_DB: 'postgres'
       POSTGRES_USER: 'postgres'
       POSTGRES_PASSWORD: '748159263'
