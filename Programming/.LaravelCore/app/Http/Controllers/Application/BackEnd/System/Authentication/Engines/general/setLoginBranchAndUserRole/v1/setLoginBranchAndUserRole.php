@@ -116,6 +116,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
 //$varDataBranchList=333;
 //$varDataUserRoleList=333;
 
+
+var_dump($varUserRoleID);
+var_dump($varDataUserRoleList);
                     if(\App\Helpers\ZhtHelper\General\Helper_Array::isElementExist($varUserSession, $varBranchID, $varDataBranchList) == false)
                         {
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 403, 'Branch ID was not found in the register list');
