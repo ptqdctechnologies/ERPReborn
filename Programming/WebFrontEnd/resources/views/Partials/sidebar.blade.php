@@ -11,7 +11,7 @@
             </div>
         </div>
 
-        <!-- <hr style="background-color: white;"> -->
+        <input type="hidden" id="SessionLogin" value="{{ $varAPIWebToken }}">
 
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">

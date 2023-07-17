@@ -31,7 +31,8 @@ class DocumentWorkflowComposer
         }
 
         $compact = [
-            'CountDocumentWorkflowComposer' => $CountDocumentWorkflowComposer
+            'CountDocumentWorkflowComposer' => $CountDocumentWorkflowComposer,
+            'varAPIWebToken' => Session::has("SessionLogin")
         ];
 
         $view->with($compact);

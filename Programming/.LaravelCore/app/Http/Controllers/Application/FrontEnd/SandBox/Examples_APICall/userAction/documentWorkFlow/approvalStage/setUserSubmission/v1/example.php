@@ -19,8 +19,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\use
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
         |                     userAction.documentWorkFlow.approvalStage.setUserSubmission.v1_throughAPIGateway                     |
-        |                     ► http://172.28.0.4/                                                                                 |
-        |                       userAction.documentWorkFlow.approvalStage.setUserSubmission.v1_throughAPIGateway                   |
+        |                     ► http://172.28.0.4/userAction.documentWorkFlow.approvalStage.setUserSubmission.v1_throughAPIGateway                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2023-03-07                                                                                           |
@@ -41,10 +40,16 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\use
                 'latest',
                 [
                 'entities' => [
+
                     "businessDocument_RefID" => 74000000020323,
                     "workFlowPath_RefID" => 116000000000001,
                     "remarks" => null,
                     "approverEntity_RefID" => 164000000000023
+
+                    // "businessDocument_RefID" => 74000000020456,
+                    // "workFlowPath_RefID" => 116000000000004,
+                    // "remarks" => null,
+                    // "approverEntity_RefID" => 164000000000514
                     ]
                 ]
                 );
