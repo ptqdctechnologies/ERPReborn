@@ -254,11 +254,16 @@ $varDataSend = [
             {
             $varReturn = [];
             $varData = (new \App\Models\Database\SchSysConfig\General())->getDataList_BranchAccess($varUserID);
-            
+            //var_dump($varData);
+
             //$varIndex = 0;
             for($i=0; $i!=count($varData); $i++)
                 {
-                $varDataUserRole = (new \App\Models\Database\SchSysConfig\General())->getDataList_UserRole($varUserID, $varData[$i]['Sys_ID']);
+                $varDataUserRole = 
+                    (new \App\Models\Database\SchSysConfig\General())->getDataList_UserRole(
+                        $varUserID, $varData[$i]['Sys_ID']
+                        );
+
 /*                $varReturnUserRole = null;
                 for($j=0; $j!=count($varDataUserRole); $j++)
                     {
@@ -272,13 +277,13 @@ $varDataSend = [
                         ];  
                     }*/
                 $varReturnUserRole =
-                    (new \App\Models\Database\SchSysConfig\General())
-                        ->getUserRolePrivilege(
-                            $varUserSession, 
-                            //11000000000001,
-                            $varData[$i]['Sys_ID'],
-                            $varUserID
-                            );
+                    (new \App\Models\Database\SchSysConfig\General())->getUserRolePrivilege(
+                        $varUserSession, 
+                        //11000000000001,
+                        $varData[$i]['Sys_ID'],
+                        $varUserID
+                        );
+                //var_dump($varReturnUserRole);
                 
                 if (count($varReturnUserRole)!=0)
                     {
