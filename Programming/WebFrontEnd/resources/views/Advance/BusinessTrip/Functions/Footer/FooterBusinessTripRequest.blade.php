@@ -504,8 +504,7 @@
 
 <script type="text/javascript">
   function CancelBusinessTrip() {
-    $("#loading").show();
-    $(".loader").show();
+    ShowLoading();
     window.location.href = '/BusinessTripRequest?var=1';
   }
 </script>
@@ -684,8 +683,7 @@
       }).then((result) => {
         if (result.value) {
 
-          $("#loading").show();
-          $(".loader").show();
+          ShowLoading();
 
           $.ajax({
             url: action,
@@ -697,8 +695,7 @@
             type: method,
             success: function(response) {
 
-              $("#loading").hide();
-              $(".loader").hide();
+              HideLoading();
 
               swalWithBootstrapButtons.fire({
 
@@ -714,9 +711,7 @@
                 reverseButtons: true
               }).then((result) => {
                 if (result.value) {
-                  $("#loading").show();
-                  $(".loader").show();
-
+                  ShowLoading();
                   window.location.href = '/BusinessTripRequest?var=1';
                 }
               })
@@ -742,9 +737,7 @@
 
           }).then((result) => {
             if (result.value) {
-              $("#loading").show();
-              $(".loader").show();
-
+              ShowLoading();
               window.location.href = '/BusinessTripRequest?var=1';
             }
           })

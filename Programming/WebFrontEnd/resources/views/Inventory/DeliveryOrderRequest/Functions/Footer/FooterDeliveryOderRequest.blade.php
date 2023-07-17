@@ -17,8 +17,7 @@
 </script>
 
 <script>
-
-    $('#tableGetProject tbody').on('click', 'tr', function () {
+    $('#tableGetProject tbody').on('click', 'tr', function() {
 
         $("#myProject").modal('toggle');
 
@@ -27,7 +26,7 @@
         var sys_id = $('#sys_id_budget' + id).val();
         var code = row.find("td:nth-child(2)").text();
         var name = row.find("td:nth-child(3)").text();
-        
+
         $("#projectcode").val(code);
         $("#projectname").val(name);
         $("#pr_number2").prop("disabled", false);
@@ -69,10 +68,9 @@
 
 
 <script>
-
     var keys = 0;
 
-    $('#tableSearchPrInDor tbody').on('click', 'tr', function () {
+    $('#tableSearchPrInDor tbody').on('click', 'tr', function() {
 
         $("#mySearchPurchaseRequistion").modal('toggle');
 
@@ -98,7 +96,13 @@
             type: "POST",
             url: '{!! route("DeliveryOrderRequest.StoreValidateDeliveryOrderRequestRequester") !!}?requester_id=' + requester_RefID + '&requester_name=' + requester_name + '&requester_id2=' + requester_RefID + '&pr_RefID=' + pr_RefID,
             success: function(data) {
-                var no = 1; applied = 0; TotalBudgetSelected = 0;status = ""; statusDisplay = [];statusDisplay2 = []; statusForm = [];
+                var no = 1;
+                applied = 0;
+                TotalBudgetSelected = 0;
+                status = "";
+                statusDisplay = [];
+                statusDisplay2 = [];
+                statusForm = [];
                 if (data.status == "200") {
 
                     $("#requester_id").val(data.requester_id);
@@ -107,80 +111,76 @@
                     $.each(data.DataDorList, function(key, value) {
 
                         // if(value.quantityAbsorption == "0.00" && value.quantity == "0.00"){
-                        if(value.quantity == "0.00"){
+                        if (value.quantity == "0.00") {
                             var applied = 0;
-                        }
-                        else{
+                        } else {
                             // var applied = Math.round(parseFloat(value.quantityAbsorption) / parseFloat(value.quantity) * 100);
                             var applied = Math.round(parseFloat(value.quantity) * 100);
                         }
-                        if(applied >= 100){
+                        if (applied >= 100) {
                             var status = "disabled";
                         }
-                        if(value.productName == "Unspecified Product"){
+                        if (value.productName == "Unspecified Product") {
                             statusDisplay[key] = "";
                             statusDisplay2[key] = "none";
                             statusForm[key] = "disabled";
-                        }
-                        else{
+                        } else {
                             statusDisplay[key] = "none";
                             statusDisplay2[key] = "";
                             statusForm[key] = "";
                         }
-                        
+
                         var html = '<tr>' +
-                            '<input name="getWorkId[]" value="'+ value.combinedBudget_SubSectionLevel1_RefID +'" type="hidden">' +
-                            '<input name="getWorkName[]" value="'+ value.combinedBudget_SubSectionLevel1Name +'" type="hidden">' +
-                            '<input name="getProductId[]" value="'+ value.product_RefID +'" type="hidden">' +
-                            '<input name="getProductName[]" value="'+ value.productName +'" type="hidden">' +
-                            '<input name="getQty[]" id="budget_qty'+ key +'" value="'+ value.quantity +'" type="hidden">' +
-                            '<input name="getPrice[]" id="budget_price'+ key +'" value="'+ value.productUnitPriceCurrencyValue +'" type="hidden">' +
-                            '<input name="getUom[]" value="'+ value.quantityUnitName +'" type="hidden">' +
-                            '<input name="getCurrency[]" value="'+ value.priceBaseCurrencyISOCode +'" type="hidden">' +
-                            '<input name="getTotal[]" value="'+ value.priceBaseCurrencyValue +'" type="hidden">' +
-                            '<input name="combinedBudget" value="'+ value.sys_ID +'" type="hidden">' +
+                            '<input name="getWorkId[]" value="' + value.combinedBudget_SubSectionLevel1_RefID + '" type="hidden">' +
+                            '<input name="getWorkName[]" value="' + value.combinedBudget_SubSectionLevel1Name + '" type="hidden">' +
+                            '<input name="getProductId[]" value="' + value.product_RefID + '" type="hidden">' +
+                            '<input name="getProductName[]" value="' + value.productName + '" type="hidden">' +
+                            '<input name="getQty[]" id="budget_qty' + key + '" value="' + value.quantity + '" type="hidden">' +
+                            '<input name="getPrice[]" id="budget_price' + key + '" value="' + value.productUnitPriceCurrencyValue + '" type="hidden">' +
+                            '<input name="getUom[]" value="' + value.quantityUnitName + '" type="hidden">' +
+                            '<input name="getCurrency[]" value="' + value.priceBaseCurrencyISOCode + '" type="hidden">' +
+                            '<input name="getTotal[]" value="' + value.priceBaseCurrencyValue + '" type="hidden">' +
+                            '<input name="combinedBudget" value="' + value.sys_ID + '" type="hidden">' +
 
                             '<td style="border:1px solid #e9ecef;">' +
-                            '&nbsp;&nbsp;&nbsp;<div class="progress '+ status +' progress-xs" style="height: 14px;border-radius:8px;"> @if('+ applied +' >= '+0+' && '+ applied +' <= '+40+')<div class="progress-bar bg-red" style="width:'+ applied +'%;"></div> @elseif('+ applied +' >= '+41+' && '+ applied +' <= '+89+')<div class="progress-bar bg-blue" style="width:'+ applied +'%;"></div> @elseif('+ applied + ' >= '+ 90 +' && ' + applied + ' <= '+ 100 +')<div class="progress-bar bg-green" style="width:'+ applied +'%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>'+ applied +' %</center></small>' +
+                            '&nbsp;&nbsp;&nbsp;<div class="progress ' + status + ' progress-xs" style="height: 14px;border-radius:8px;"> @if(' + applied + ' >= ' + 0 + ' && ' + applied + ' <= ' + 40 + ')<div class="progress-bar bg-red" style="width:' + applied + '%;"></div> @elseif(' + applied + ' >= ' + 41 + ' && ' + applied + ' <= ' + 89 + ')<div class="progress-bar bg-blue" style="width:' + applied + '%;"></div> @elseif(' + applied + ' >= ' + 90 + ' && ' + applied + ' <= ' + 100 + ')<div class="progress-bar bg-green" style="width:' + applied + '%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>' + applied + ' %</center></small>' +
                             '</td>' +
-                            
+
                             '<td style="border:1px solid #e9ecef;">' + '<span>' + pr_number + '</span>' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + '<span id="putProductId'+ key +'">' + value.product_RefID + '</span>' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + '<span id="putProductName'+ key +'">' + value.productName + '</span>' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + '<span id="putProductId' + key + '">' + value.product_RefID + '</span>' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + '<span id="putProductName' + key + '">' + value.productName + '</span>' + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + '<span">' + value.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + '<span">' + value.productUnitPriceCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + '<span>' + value.priceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>' + '</td>' +
 
-                            '<td class="sticky-col first-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
+                            '<td class="sticky-col first-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req' + key + '" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" ' + statusForm[key] + '>' + '</td>' +
 
                             '</tr>';
 
                         $('table.TablePrDetailDor tbody').append(html);
-                        
+
                         //VALIDASI QTY
-                        $('#qty_req'+key).keyup(function() {
+                        $('#qty_req' + key).keyup(function() {
                             $(this).val(currency($(this).val()));
                             var qty_val = $(this).val().replace(/,/g, '');
-                            var budget_qty_val = $("#budget_qty"+key).val();
+                            var budget_qty_val = $("#budget_qty" + key).val();
 
                             if (qty_val == "") {
-                                $('#total_req'+key).val("");
+                                $('#total_req' + key).val("");
                                 $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
-                            }
-                            else if (parseFloat(qty_val) > parseFloat(budget_qty_val)) {
+                            } else if (parseFloat(qty_val) > parseFloat(budget_qty_val)) {
 
                                 swal({
-                                    onOpen: function () {
+                                    onOpen: function() {
                                         swal.disableConfirmButton();
                                         Swal.fire("Error !", "Qty is over budget !", "error");
                                     }
                                 });
 
-                                $('#qty_req'+key).val("");
-                                $('#qty_req'+key).css("border", "1px solid red");
-                                $('#qty_req'+key).focus();
-                            }
-                            else {
+                                $('#qty_req' + key).val("");
+                                $('#qty_req' + key).css("border", "1px solid red");
+                                $('#qty_req' + key).focus();
+                            } else {
                                 $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
                             }
                         });
@@ -203,16 +203,34 @@
 
         $(".detailDorList").show();
         var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
-        var getWorkId = $("input[name='getWorkId[]']").map(function(){return $(this).val();}).get();
-        var getWorkName = $("input[name='getWorkName[]']").map(function(){return $(this).val();}).get();
-        var getProductId = $("input[name='getProductId[]']").map(function(){return $(this).val();}).get();
-        var getProductName = $("input[name='getProductName[]']").map(function(){return $(this).val();}).get();
-        var getUom = $("input[name='getUom[]']").map(function(){return $(this).val();}).get();
-        var getCurrency = $("input[name='getCurrency[]']").map(function(){return $(this).val();}).get();
-        var getPrice = $("input[name='getPrice[]']").map(function(){return $(this).val();}).get();
-        var getTotal = $("input[name='getTotal[]']").map(function(){return $(this).val();}).get();
-        
-        var qty_req = $("input[name='qty_req[]']").map(function(){return $(this).val();}).get();
+        var getWorkId = $("input[name='getWorkId[]']").map(function() {
+            return $(this).val();
+        }).get();
+        var getWorkName = $("input[name='getWorkName[]']").map(function() {
+            return $(this).val();
+        }).get();
+        var getProductId = $("input[name='getProductId[]']").map(function() {
+            return $(this).val();
+        }).get();
+        var getProductName = $("input[name='getProductName[]']").map(function() {
+            return $(this).val();
+        }).get();
+        var getUom = $("input[name='getUom[]']").map(function() {
+            return $(this).val();
+        }).get();
+        var getCurrency = $("input[name='getCurrency[]']").map(function() {
+            return $(this).val();
+        }).get();
+        var getPrice = $("input[name='getPrice[]']").map(function() {
+            return $(this).val();
+        }).get();
+        var getTotal = $("input[name='getTotal[]']").map(function() {
+            return $(this).val();
+        }).get();
+
+        var qty_req = $("input[name='qty_req[]']").map(function() {
+            return $(this).val();
+        }).get();
 
         var combinedBudget = $("input[name='combinedBudget']").val();
 
@@ -220,28 +238,28 @@
         var TotalQty = 0;
 
         $.each(qty_req, function(index, data) {
-            if(qty_req[index] != "" && qty_req[index] > "0.00" && qty_req[index] != "NaN.00"){
+            if (qty_req[index] != "" && qty_req[index] > "0.00" && qty_req[index] != "NaN.00") {
 
                 var putProductId = getProductId[index];
                 var putProductName = getProductName[index];
 
-                if(getProductName[index] == "Unspecified Product"){
-                    var putProductId = $("#putProductId"+index).val();
-                    var putProductName = $("#putProductName"+index).html();
+                if (getProductName[index] == "Unspecified Product") {
+                    var putProductId = $("#putProductId" + index).val();
+                    var putProductName = $("#putProductName" + index).html();
                 }
                 TotalBudgetSelected += +qty_req[index].replace(/,/g, '');
-                TotalQty+= +qty_req[index].replace(/,/g, '');
+                TotalQty += +qty_req[index].replace(/,/g, '');
                 var html = '<tr>' +
 
                     '<input type="hidden" name="var_product_id[]" value="' + putProductId + '">' +
                     '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
-                    '<input type="hidden" name="var_quantity[]" class="qty_req2'+ index +'" data-id="'+ index +'" value="' + currencyTotal(qty_req[index]).replace(/,/g, '') + '">' +
+                    '<input type="hidden" name="var_quantity[]" class="qty_req2' + index + '" data-id="' + index + '" value="' + currencyTotal(qty_req[index]).replace(/,/g, '') + '">' +
                     '<input type="hidden" name="var_uom[]" value="' + getUom[index] + '">' +
-                    '<input type="hidden" name="var_price[]" class="price_req2'+ index +'" value="' + currencyTotal(getPrice[index]).replace(/,/g, '') + '">' +
+                    '<input type="hidden" name="var_price[]" class="price_req2' + index + '" value="' + currencyTotal(getPrice[index]).replace(/,/g, '') + '">' +
                     '<input type="hidden" name="var_currency[]" value="' + getCurrency[index] + '">' +
                     '<input type="hidden" name="var_date" value="' + date + '">' +
                     '<input type="hidden" name="var_combinedBudget[]" value="' + combinedBudget + '">' +
-                    
+
                     // '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkName[index] + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkId[index] + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductId + '</td>' +
@@ -250,7 +268,7 @@
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + qty_req[index] + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + currencyTotal(getTotal[index]).replace(/,/g, '') + '</td>' +
                     '</tr>';
-                $('table.TableDorCart tbody').append(html);  
+                $('table.TableDorCart tbody').append(html);
 
                 $("#TotalBudgetSelected").html(currencyTotal(TotalBudgetSelected));
                 $("#GrandTotal").html(currencyTotal(TotalBudgetSelected));
@@ -259,80 +277,73 @@
                 $("#SubmitDor").prop("disabled", false);
             }
         });
-        
+
     }
 </script>
 
 <script type="text/javascript">
     $(document).ready(function() {
-      $(".deliverType").on('click', function(e) {
-          e.preventDefault();
-          var valType = $(".deliverType").val();
-          if(valType == "Warehouse to Site"){
-              $(".headerDor1").show();
-              $(".headerDor2").hide();
-              $(".headerDor3").hide();
-              $(".headerDor4").hide();
-          }
-          else if(valType == "Warehouse to Warehouse"){
-              $(".headerDor2").show();
-              $(".headerDor1").hide();
-              $(".headerDor3").hide();
-              $(".headerDor4").hide();
-          }
-          else if(valType == "Supplier to Site"){
-              $(".headerDor3").show();
-              $(".headerDor2").hide();
-              $(".headerDor1").hide();
-              $(".headerDor4").hide();
-          }
-          else if(valType == "Site to Warehouse"){
-              $(".headerDor4").show();
-              $(".headerDor3").hide();
-              $(".headerDor2").hide();
-              $(".headerDor1").hide();
-          }
-      });
+        $(".deliverType").on('click', function(e) {
+            e.preventDefault();
+            var valType = $(".deliverType").val();
+            if (valType == "Warehouse to Site") {
+                $(".headerDor1").show();
+                $(".headerDor2").hide();
+                $(".headerDor3").hide();
+                $(".headerDor4").hide();
+            } else if (valType == "Warehouse to Warehouse") {
+                $(".headerDor2").show();
+                $(".headerDor1").hide();
+                $(".headerDor3").hide();
+                $(".headerDor4").hide();
+            } else if (valType == "Supplier to Site") {
+                $(".headerDor3").show();
+                $(".headerDor2").hide();
+                $(".headerDor1").hide();
+                $(".headerDor4").hide();
+            } else if (valType == "Site to Warehouse") {
+                $(".headerDor4").show();
+                $(".headerDor3").hide();
+                $(".headerDor2").hide();
+                $(".headerDor1").hide();
+            }
+        });
 
-      $(".siteName1").on('click', function(e) {
-          e.preventDefault();
-          var valSite = $(".siteName1").val();
-          if(valSite == "WH-001"){
-              $("#headerAddressSiteName1").val("Jl. Baru Leko. Kode Pos, : 97796. Desa/Kelurahan, : DESA LEKO SULA. Kecamatan/Kota (LN), Kec. Mangoli Barat, Kab. Kepulauan Sula, Prov. Maluku Utara");
-          }
-          else if(valSite == "WH-002"){
-              $("#headerAddressSiteName1").val("Bekasi cyber park, RT.001/RW.009, Kayuringin Jaya, Kec. Bekasi Bar., Kota Bks, Jawa Barat 17415");
-          }
-      });
+        $(".siteName1").on('click', function(e) {
+            e.preventDefault();
+            var valSite = $(".siteName1").val();
+            if (valSite == "WH-001") {
+                $("#headerAddressSiteName1").val("Jl. Baru Leko. Kode Pos, : 97796. Desa/Kelurahan, : DESA LEKO SULA. Kecamatan/Kota (LN), Kec. Mangoli Barat, Kab. Kepulauan Sula, Prov. Maluku Utara");
+            } else if (valSite == "WH-002") {
+                $("#headerAddressSiteName1").val("Bekasi cyber park, RT.001/RW.009, Kayuringin Jaya, Kec. Bekasi Bar., Kota Bks, Jawa Barat 17415");
+            }
+        });
 
-      $(".siteName2").on('click', function(e) {
-          e.preventDefault();
-          var valSite = $(".siteName2").val();
-          if(valSite == "WH-001"){
-              $("#headerAddressSiteName2").val("Jl. Baru Leko. Kode Pos, : 97796. Desa/Kelurahan, : DESA LEKO SULA. Kecamatan/Kota (LN), Kec. Mangoli Barat, Kab. Kepulauan Sula, Prov. Maluku Utara");
-          }
-          else if(valSite == "WH-002"){
-              $("#headerAddressSiteName2").val("Bekasi cyber park, RT.001/RW.009, Kayuringin Jaya, Kec. Bekasi Bar., Kota Bks, Jawa Barat 17415");
-          }
-      });
+        $(".siteName2").on('click', function(e) {
+            e.preventDefault();
+            var valSite = $(".siteName2").val();
+            if (valSite == "WH-001") {
+                $("#headerAddressSiteName2").val("Jl. Baru Leko. Kode Pos, : 97796. Desa/Kelurahan, : DESA LEKO SULA. Kecamatan/Kota (LN), Kec. Mangoli Barat, Kab. Kepulauan Sula, Prov. Maluku Utara");
+            } else if (valSite == "WH-002") {
+                $("#headerAddressSiteName2").val("Bekasi cyber park, RT.001/RW.009, Kayuringin Jaya, Kec. Bekasi Bar., Kota Bks, Jawa Barat 17415");
+            }
+        });
 
-      $(".siteName3").on('click', function(e) {
-          e.preventDefault();
-          var valSite = $(".siteName3").val();
-          if(valSite == "WH-001"){
-              $("#headerAddressSiteName3").val("Jl. Baru Leko. Kode Pos, : 97796. Desa/Kelurahan, : DESA LEKO SULA. Kecamatan/Kota (LN), Kec. Mangoli Barat, Kab. Kepulauan Sula, Prov. Maluku Utara");
-          }
-          else if(valSite == "WH-002"){
-              $("#headerAddressSiteName3").val("Bekasi cyber park, RT.001/RW.009, Kayuringin Jaya, Kec. Bekasi Bar., Kota Bks, Jawa Barat 17415");
-          }
-      });
+        $(".siteName3").on('click', function(e) {
+            e.preventDefault();
+            var valSite = $(".siteName3").val();
+            if (valSite == "WH-001") {
+                $("#headerAddressSiteName3").val("Jl. Baru Leko. Kode Pos, : 97796. Desa/Kelurahan, : DESA LEKO SULA. Kecamatan/Kota (LN), Kec. Mangoli Barat, Kab. Kepulauan Sula, Prov. Maluku Utara");
+            } else if (valSite == "WH-002") {
+                $("#headerAddressSiteName3").val("Bekasi cyber park, RT.001/RW.009, Kayuringin Jaya, Kec. Bekasi Bar., Kota Bks, Jawa Barat 17415");
+            }
+        });
     });
 </script>
 
 <script type="text/javascript">
     function CancelDor() {
-        $("#loading").show();
-        $(".loader").show();
+        ShowLoading();
         window.location.href = '/DeliveryOrderRequest?var=1';
     }
 </script>
@@ -383,9 +394,7 @@
                 }).then((result) => {
                     if (result.value) {
 
-                        $("#loading").show();
-                        $(".loader").show();
-
+                        ShowLoading();
                         $.ajax({
                             url: action,
                             dataType: 'json', // what to expect back from the server
@@ -396,8 +405,7 @@
                             type: method,
                             success: function(response) {
 
-                                $("#loading").hide();
-                                $(".loader").hide();
+                                HideLoading();
 
                                 swalWithBootstrapButtons.fire({
 
@@ -413,9 +421,7 @@
                                     reverseButtons: true
                                 }).then((result) => {
                                     if (result.value) {
-                                        $("#loading").show();
-                                        $(".loader").show();
-
+                                        ShowLoading();
                                         window.location.href = '/DeliveryOrderRequest?var=1';
                                     }
                                 })
@@ -441,9 +447,7 @@
 
                         }).then((result) => {
                             if (result.value) {
-                                $("#loading").show();
-                                $(".loader").show();
-
+                                ShowLoading();
                                 window.location.href = '/DeliveryOrderRequest?var=1';
                             }
                         })

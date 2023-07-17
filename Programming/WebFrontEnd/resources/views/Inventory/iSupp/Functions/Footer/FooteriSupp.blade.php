@@ -55,7 +55,7 @@
         var code = row.find("td:nth-child(2)").text();
         var name = row.find("td:nth-child(3)").text();
 
-        
+
         $("#do_number").val(code);
         $("#sitecode").val("143000000000300");
         $(".projectcode").val("143000000000300");
@@ -291,8 +291,7 @@
 
 <script type="text/javascript">
     function CanceliSupp() {
-        $("#loading").show();
-        $(".loader").show();
+        ShowLoading();
         window.location.href = '/iSupp?var=1';
     }
 </script>
@@ -364,8 +363,7 @@
                 }).then((result) => {
                     if (result.value) {
 
-                        $("#loading").show();
-                        $(".loader").show();
+                        ShowLoading();
 
                         $.ajax({
                             url: action,
@@ -377,8 +375,7 @@
                             type: method,
                             success: function(response) {
 
-                                $("#loading").hide();
-                                $(".loader").hide();
+                                HideLoading();
 
                                 swalWithBootstrapButtons.fire({
 
@@ -394,8 +391,7 @@
                                     reverseButtons: true
                                 }).then((result) => {
                                     if (result.value) {
-                                        $("#loading").show();
-                                        $(".loader").show();
+                                        ShowLoading();
 
                                         window.location.href = '/iSupp?var=1';
                                     }
@@ -422,8 +418,7 @@
 
                         }).then((result) => {
                             if (result.value) {
-                                $("#loading").show();
-                                $(".loader").show();
+                                ShowLoading();
 
                                 window.location.href = '/iSupp?var=1';
                             }
