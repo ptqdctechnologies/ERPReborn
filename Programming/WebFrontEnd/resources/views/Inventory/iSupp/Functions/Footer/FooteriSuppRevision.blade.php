@@ -37,7 +37,12 @@
         type: "POST",
         url: '{!! route("iSupp.IsuppListCartRevision") !!}?var_recordID=' + var_recordID,
         success: function(data) {
-            var no = 1; applied = 0; status = ""; statusDisplay = [];statusDisplay2 = []; statusForm = [];
+            var no = 1;
+            applied = 0;
+            status = "";
+            statusDisplay = [];
+            statusDisplay2 = [];
+            statusForm = [];
 
             $.each(data, function(key, value) {
 
@@ -265,8 +270,7 @@
 
 <script type="text/javascript">
     function CanceliSupp() {
-        $("#loading").show();
-        $(".loader").show();
+        ShowLoading();
         window.location.href = '/iSupp?var=1';
     }
 </script>
@@ -334,9 +338,7 @@
                 }).then((result) => {
                     if (result.value) {
 
-                        $("#loading").show();
-                        $(".loader").show();
-
+                        ShowLoading();
                         $.ajax({
                             url: action,
                             dataType: 'json', // what to expect back from the server
@@ -347,8 +349,7 @@
                             type: method,
                             success: function(response) {
 
-                                $("#loading").hide();
-                                $(".loader").hide();
+                                HideLoading();
 
                                 swalWithBootstrapButtons.fire({
 
@@ -364,9 +365,7 @@
                                     reverseButtons: true
                                 }).then((result) => {
                                     if (result.value) {
-                                        $("#loading").show();
-                                        $(".loader").show();
-
+                                        ShowLoading();
                                         window.location.href = '/iSupp?var=1';
                                     }
                                 })
@@ -392,9 +391,7 @@
 
                         }).then((result) => {
                             if (result.value) {
-                                $("#loading").show();
-                                $(".loader").show();
-
+                                ShowLoading();
                                 window.location.href = '/iSupp?var=1';
                             }
                         })

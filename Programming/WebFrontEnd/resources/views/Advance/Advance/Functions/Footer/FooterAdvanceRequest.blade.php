@@ -13,7 +13,7 @@
     $("#product_id2").prop("disabled", true);
     $("#bank_name2").prop("disabled", true);
     $("#bank_account2").prop("disabled", true);
-    // $("#submitArf").prop("disabled", true);
+    $("#submitArf").prop("disabled", true);
 </script>
 
 <script>
@@ -508,6 +508,8 @@
                         var form_data = new FormData($(this)[0]); // convert form into formdata 
                         var form = $(this);
 
+                        ShowLoading();       
+                        
                         $.ajax({
                             url: action,
                             dataType: 'json', // what to expect back from the server
@@ -519,8 +521,7 @@
                             success: function(response) {
                                 if (response.message == "SelectWorkFlow") {
 
-                                    $("#loading").hide();
-                                    $(".loader").hide();
+                                    HideLoading();                            
 
                                     $('#getWorkFlow').modal('toggle');
 
@@ -535,8 +536,7 @@
 
                                 } else {
 
-                                    $("#loading").hide();
-                                    $(".loader").hide();
+                                    HideLoading();                            
 
                                     swalWithBootstrapButtons.fire({
 
@@ -552,9 +552,7 @@
                                         reverseButtons: true
                                     }).then((result) => {
                                         if (result.value) {
-                                            $("#loading").show();
-                                            $(".loader").show();
-
+                                            ShowLoading();                                
                                             window.location.href = '/AdvanceRequest?var=1';
                                         }
                                     })
@@ -576,9 +574,7 @@
 
                                 }).then((result) => {
                                     if (result.value) {
-                                        $("#loading").show();
-                                        $(".loader").show();
-
+                                        ShowLoading();                                        
                                         window.location.href = '/AdvanceRequest?var=1';
                                     }
                                 })
@@ -601,9 +597,7 @@
 
                         }).then((result) => {
                             if (result.value) {
-                                $("#loading").show();
-                                $(".loader").show();
-
+                                ShowLoading();                                
                                 window.location.href = '/AdvanceRequest?var=1';
                             }
                         })
@@ -611,7 +605,6 @@
                 })
             }
         });
-
     });
 </script>
 
@@ -628,9 +621,8 @@
             type: 'GET',
             url: '{!! route("StoreWorkFlow") !!}?workFlowPath_RefID=' + workFlowPath_RefID + '&businessDocument_RefID=' + businessDocument_RefID + '&documentNumber=' + documentNumber + '&approverEntity_RefID=' + approverEntity_RefID,
             success: function(data) {
-                console.log(data.documentNumber);
-                $("#loading").hide();
-                $(".loader").hide();
+
+                HideLoading();
 
                 const swalWithBootstrapButtons = Swal.mixin({
                     confirmButtonClass: 'btn btn-success btn-sm',
@@ -652,9 +644,7 @@
                     reverseButtons: true
                 }).then((result) => {
                     if (result.value) {
-                        $("#loading").show();
-                        $(".loader").show();
-
+                        ShowLoading();                        
                         window.location.href = '/AdvanceRequest?var=1';
                     }
                 })
@@ -668,19 +658,9 @@
     }
 </script>
 
-
-<script type="text/javascript">
-    function ResetBudget() {
-        $("input[name='qty_req[]']").val("");
-        $("input[name='price_req[]']").val("");
-        $("input[name='total_req[]']").val("");
-    }
-</script>
-
 <script type="text/javascript">
     function CancelAdvance() {
-        $("#loading").show();
-        $(".loader").show();
+        ShowLoading();        
         window.location.href = '/AdvanceRequest?var=1';
     }
 </script>

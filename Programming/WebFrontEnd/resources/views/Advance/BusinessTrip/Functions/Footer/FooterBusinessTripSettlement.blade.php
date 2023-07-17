@@ -565,8 +565,8 @@
                 }).then((result) => {
                     if (result.value) {
 
-                        $("#loading").show();
-                        $(".loader").show();
+                        ShowLoading();
+                        
 
                         $.ajax({
                             url: action,
@@ -578,8 +578,7 @@
                             type: method,
                             success: function(response) {
 
-                                $("#loading").hide();
-                                $(".loader").hide();
+                                HideLoading();
 
                                 swalWithBootstrapButtons.fire({
 
@@ -595,8 +594,8 @@
                                     reverseButtons: true
                                 }).then((result) => {
                                     if (result.value) {
-                                        $("#loading").show();
-                                        $(".loader").show();
+                                        ShowLoading();
+                                        
 
                                         window.location.href = '/BusinessTripSettlement?var=1';
                                     }
@@ -623,8 +622,8 @@
 
                         }).then((result) => {
                             if (result.value) {
-                                $("#loading").show();
-                                $(".loader").show();
+                                ShowLoading();
+                                
 
                                 window.location.href = '/BusinessTripSettlement?var=1';
                             }
@@ -660,8 +659,8 @@
 
 <script type="text/javascript">
     function CancelBusinessTripSettlement() {
-        $("#loading").show();
-        $(".loader").show();
+        ShowLoading();
+        
         location.reload();
     }
 </script>

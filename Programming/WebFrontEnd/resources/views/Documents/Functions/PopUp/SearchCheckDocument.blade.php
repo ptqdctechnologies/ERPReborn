@@ -25,8 +25,7 @@
                             </table>
                         </div>
                     </div>
-                    <br><br><br>
-                    <div class="col-12">
+                    <div class="col-12" style="margin-top:10px;">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 430px;">
                                 <table class="table table-head-fixed text-nowrap TableCheckDocument" id="TableCheckDocument">

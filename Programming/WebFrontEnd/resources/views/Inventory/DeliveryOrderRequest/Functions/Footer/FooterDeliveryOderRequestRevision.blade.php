@@ -32,7 +32,13 @@
         type: "POST",
         url: '{!! route("DeliveryOrderRequest.DeliveryOrderRequestListCartRevision") !!}?var_recordID=' + var_recordID,
         success: function(data) {
-            var no = 1; applied = 0; TotalBudgetList = 0;status = ""; statusDisplay = [];statusDisplay2 = []; statusForm = [];
+            var no = 1;
+            applied = 0;
+            TotalBudgetList = 0;
+            status = "";
+            statusDisplay = [];
+            statusDisplay2 = [];
+            statusForm = [];
             $.each(data, function(key, value) {
                 TotalBudgetSelected += +value.priceBaseCurrencyValue.replace(/,/g, '');
                 TotalQty += +value.quantity.replace(/,/g, '');
@@ -86,7 +92,7 @@
                     '<input name="getAverage[]" value="' + value.priceBaseCurrencyValue + '" type="hidden">' +
                     '<input name="combinedBudget" value="' + value.sys_ID + '" type="hidden">' +
                     '<input name="getRecordIDDetail[]" value="' + value.sys_ID + '"  type="hidden">' +
-                    '<input name="getTrano[]" value="'+ trano +'" type="hidden">' +
+                    '<input name="getTrano[]" value="' + trano + '" type="hidden">' +
 
                     '<td style="border:1px solid #e9ecef;">' +
                     '&nbsp;&nbsp;&nbsp;<div class="progress ' + status + ' progress-xs" style="height: 14px;border-radius:8px;"> @if(' + applied + ' >= ' + 0 + ' && ' + applied + ' <= ' + 40 + ')<div class="progress-bar bg-red" style="width:' + applied + '%;"></div> @elseif(' + applied + ' >= ' + 41 + ' && ' + applied + ' <= ' + 89 + ')<div class="progress-bar bg-blue" style="width:' + applied + '%;"></div> @elseif(' + applied + ' >= ' + 90 + ' && ' + applied + ' <= ' + 100 + ')<div class="progress-bar bg-green" style="width:' + applied + '%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>' + applied + ' %</center></small>' +
@@ -132,7 +138,6 @@
             });
         },
     });
-
 </script>
 
 <script>
@@ -142,7 +147,9 @@
 
         $(".detailDorList").show();
         var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
-        var getTrano = $("input[name='getTrano[]']").map(function(){return $(this).val();}).get();
+        var getTrano = $("input[name='getTrano[]']").map(function() {
+            return $(this).val();
+        }).get();
         var getWorkId = $("input[name='getWorkId[]']").map(function() {
             return $(this).val();
         }).get();
@@ -282,8 +289,7 @@
 
 <script type="text/javascript">
     function CancelDor() {
-        $("#loading").show();
-        $(".loader").show();
+        ShowLoading();
         window.location.href = '/DeliveryOrderRequest?var=1';
     }
 </script>
@@ -338,9 +344,7 @@
                 }).then((result) => {
                     if (result.value) {
 
-                        $("#loading").show();
-                        $(".loader").show();
-
+                        ShowLoading();
                         $.ajax({
                             url: action,
                             dataType: 'json', // what to expect back from the server
@@ -351,8 +355,7 @@
                             type: method,
                             success: function(response) {
 
-                                $("#loading").hide();
-                                $(".loader").hide();
+                                HideLoading();
 
                                 swalWithBootstrapButtons.fire({
 
@@ -368,9 +371,7 @@
                                     reverseButtons: true
                                 }).then((result) => {
                                     if (result.value) {
-                                        $("#loading").show();
-                                        $(".loader").show();
-
+                                        ShowLoading();
                                         window.location.href = '/DeliveryOrderRequest?var=1';
                                     }
                                 })
@@ -396,9 +397,7 @@
 
                         }).then((result) => {
                             if (result.value) {
-                                $("#loading").show();
-                                $(".loader").show();
-
+                                ShowLoading();
                                 window.location.href = '/DeliveryOrderRequest?var=1';
                             }
                         })

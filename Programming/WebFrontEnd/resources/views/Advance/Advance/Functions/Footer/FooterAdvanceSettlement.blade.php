@@ -576,9 +576,8 @@
                 }).then((result) => {
                     if (result.value) {
 
-                        $("#loading").show();
-                        $(".loader").show();
-
+                        ShowLoading();
+                        
                         $.ajax({
                             url: action,
                             dataType: 'json',
@@ -589,9 +588,8 @@
                             type: method,
                             success: function(response) {
 
-                                $("#loading").hide();
-                                $(".loader").hide();
-
+                                HideLoading();
+                                
                                 swalWithBootstrapButtons.fire({
 
                                     title: 'Successful !',
@@ -606,9 +604,7 @@
                                     reverseButtons: true
                                 }).then((result) => {
                                     if (result.value) {
-                                        $("#loading").show();
-                                        $(".loader").show();
-
+                                        ShowLoading();
                                         window.location.href = '/AdvanceSettlement?var=1';
                                     }
                                 })
@@ -634,9 +630,7 @@
 
                         }).then((result) => {
                             if (result.value) {
-                                $("#loading").show();
-                                $(".loader").show();
-
+                                ShowLoading();
                                 window.location.href = '/AdvanceSettlement?var=1';
                             }
                         })
@@ -671,8 +665,7 @@
 
 <script type="text/javascript">
     function CancelAdvanceSettlement() {
-        $("#loading").show();
-        $(".loader").show();
+        ShowLoading();
         location.reload();
     }
 </script>

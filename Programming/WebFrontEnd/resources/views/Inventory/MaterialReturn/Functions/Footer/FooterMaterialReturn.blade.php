@@ -165,8 +165,8 @@
               '<td style="border:1px solid #e9ecef;">' + value.priceBaseCurrencyISOCode + '</td>' +
               '<td style="border:1px solid #e9ecef;">' + value.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
 
-              '<td class="sticky-col second-col-dor-qty" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req'+ key +'" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
-              '<td class="sticky-col first-col-dor-note" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="note_req'+ key +'" style="border-radius:0;" name="note_req[]" class="form-control note_req" autocomplete="off" '+ statusForm[key] +'>' + '</td>' +
+              '<td class="sticky-col second-col-dor-qty" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req' + key + '" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" ' + statusForm[key] + '>' + '</td>' +
+              '<td class="sticky-col first-col-dor-note" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="note_req' + key + '" style="border-radius:0;" name="note_req[]" class="form-control note_req" autocomplete="off" ' + statusForm[key] + '>' + '</td>' +
 
               '</tr>';
             $('table.TableDorDetail tbody').append(html);
@@ -333,8 +333,7 @@
 
 <script type="text/javascript">
   function CancelMatRet() {
-    $("#loading").show();
-    $(".loader").show();
+    ShowLoading();
     window.location.href = '/MaterialReturn?var=1';
   }
 </script>
@@ -415,8 +414,7 @@
         }).then((result) => {
           if (result.value) {
 
-            $("#loading").show();
-            $(".loader").show();
+            ShowLoading();
 
             $.ajax({
               url: action,
@@ -428,8 +426,7 @@
               type: method,
               success: function(response) {
 
-                $("#loading").hide();
-                $(".loader").hide();
+                HideLoading();
 
                 swalWithBootstrapButtons.fire({
 
@@ -445,9 +442,7 @@
                   reverseButtons: true
                 }).then((result) => {
                   if (result.value) {
-                    $("#loading").show();
-                    $(".loader").show();
-
+                    ShowLoading();
                     window.location.href = '/MaterialReturn?var=1';
                   }
                 })
@@ -473,9 +468,7 @@
 
             }).then((result) => {
               if (result.value) {
-                $("#loading").show();
-                $(".loader").show();
-
+                ShowLoading();
                 window.location.href = '/MaterialReturn?var=1';
               }
             })

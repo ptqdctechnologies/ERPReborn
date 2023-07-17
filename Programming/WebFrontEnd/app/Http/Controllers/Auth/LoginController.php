@@ -118,13 +118,19 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
+        $status = "success";
+        $message = 'Thank you for your visit';
+        if ($request->input('message') == "Session_Expired") {
+            $message = 'Your session expired';
+            $status = "error";
+        }
         $request->session()->flush();
-        return redirect('/')->with(['success' => 'Thank you for your visit']);
+        return redirect('/')->with([$status => $message]);
     }
 
     public function SessionCheckingLogout(Request $request)
     {
-        
+
         $varAPIWebToken = $request->session()->has("SessionLogin");
 
         $compact = [
@@ -136,12 +142,14 @@ class LoginController extends Controller
 
     // public function SessionCheckingEvent(Request $request)
     // {
-    //     $angka = $request->input('angka');   
-    //     $current_second = $request->input('current_second'); 
+    //     $status = $request->input('status');
+
+    //     if ($status == "No") {
+    //         $request->session()->forget('SessionLogout');
+    //     }
 
     //     $compact = [
-    //         'angka' => $angka,
-    //         'current_second' => $current_second,
+    //         'session' => $request->session()->has('SessionLogout')
     //     ];
     //     return response()->json($compact);
     // }

@@ -218,6 +218,20 @@
   })
 </script>
 
+<!-- FUNCTION SHOW HIDE -->
+
+<script>
+  function ShowLoading() {
+    $("#loading").show();
+    $(".loader").show();
+  }
+
+  function HideLoading() {
+    $("#loading").hide();
+    $(".loader").hide();
+  }
+</script>
+
 <!-- FUNCTION LOGOUT IN MULTI PAGE -->
 
 <script>
@@ -239,7 +253,7 @@
   }
 </script>
 
-<!-- FUNCTION LOGOUT AFTER 15 MENIT IN ALL PAGE -->
+<!-- FUNCTION LOGOUT AFTER 15 MENIT IN MULTI PAGE -->
 
 <script>
   document.addEventListener('mousedown', SessionCheckingEvent);
@@ -266,12 +280,11 @@
 
     if (!evt) {
       if (angka === 15) {
-        window.location.href = '/logout';
+        window.location.href = '/logout?message= Session_Expired';
       }
     } else {
       current_second = sec;
       angka = 0;
     }
-    
   }
 </script>
