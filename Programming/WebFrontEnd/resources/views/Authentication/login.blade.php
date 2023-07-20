@@ -181,9 +181,9 @@
         <!-- /.login-logo -->
         <div id="cek1">
             <div class="card-body login-card-body" id="dis1">
-                <form action="{{ route('loginStore') }}" method="post" name="formLogin">
+                <form action="{{ route('loginStore') }}" method="post" name="FormLogin" id="FormLogin">
                     @csrf
-                    <div class="input-group mb-4">
+                    <div class=" input-group mb-4">
                         <input type="text" class="form-control username" placeholder="Username" name="username" id="dis2" required="" autocomplete="off" autofocus>
                         <div class="input-group-append">
                             <div class="input-group-text">
@@ -224,8 +224,11 @@
                         <!-- /.col -->
                         <div class="col-4">
 
-                            <a class="btn btn-primary btn-block btn-sm submit_before" style="color: white;">Login</a>
-                            <button class="btn btn-primary btn-block btn-sm submit_after" type="submit" style="color: white;">Login</button>
+                            <!-- <a class="btn btn-primary btn-block btn-sm submit_before" style="color: white;">Login</a>
+                            <button class="btn btn-primary btn-block btn-sm submit_after" type="submit" style="color: white;">Login</button> -->
+
+
+                            <button class="btn btn-primary btn-block btn-sm submit_button" type="submit" style="color: white;">Login</button>
 
                         </div>
                     </div>
@@ -259,6 +262,10 @@
         }
     </script>
 
+
+
+    <!-- END FUNCTION SHOW HIDE -->
+
     <script>
         function ShowHidePass() {
             var x = document.getElementById('login_password');
@@ -276,41 +283,47 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
+
+            HideLoading();
+            
             $(".branch_name").hide();
             $(".user_role").hide();
-            $(".login").hide();
-            $(".submit_after").hide();
-            HideLoading();
         });
     </script>
-    <script type="text/javascript">
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $(document).ready(function() {
-            $(".submit_before").click(function() {
 
-                $(".submit_before").prop("disabled", true);
+    <script>
+        $(function() {
+            $("#FormLogin").on("submit", function(e) { //id of form 
+                e.preventDefault();
+                var action = $(this).attr("action"); //get submit action from form
+                var method = $(this).attr("method"); // get submit method
+                var form_data = new FormData($(this)[0]); // convert form into formdata 
+                var form = $(this);
 
                 ShowLoading();
 
                 $.ajax({
-                    type: 'GET',
-                    url: '{!! route("getBranchLogin") !!}?username=' + $('.username').val() + '&password=' + $('.password').val(),
-                    success: function(data) {
+                    url: action,
+                    dataType: 'json', // what to expect back from the server
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: form_data,
+                    type: method,
+                    success: function(response) {
+
                         var len = 0;
-                        if (data == 'undefined') {
-                            Swal.fire("Cancelled", "Pastikan username dan password and benar", "error");
-                            $(".submit_before").prop("disabled", false);
+
+                        if (response.status_code == 0) {
 
                             HideLoading();
-                        } else if (data == 200) {
+                            Swal.fire("Cancelled", "Pastikan username dan password and benar", "error");
+
+                        } else if (response.status_code == 1) {
 
                             window.location.href = '/dashboard';
 
-                        } else {
+                        } else if (response.status_code == 2) {
 
                             HideLoading();
 
@@ -319,10 +332,10 @@
                             var option = "<option value='" + '' + "'>" + 'Select Company Name' + "</option>";
                             $(".branch_name").append(option);
 
-                            len = data.length;
+                            len = response.data.length;
                             for (var i = 0; i < len; i++) {
-                                var id = data[i].branch_RefID;
-                                var name = data[i].branchName;
+                                var id = response.data[i].branch_RefID;
+                                var name = response.data[i].branchName;
                                 var option2 = "<option value='" + id + "'>" + name + "</option>";
                                 $(".branch_name").append(option2);
                             }
@@ -330,20 +343,18 @@
                             $(".password").prop("readonly", true);
                             $(".branch_name").show();
                             $(".user_role").show();
-                            $(".submit_before").hide();
-                            $(".submit_after").show();
 
-                            $(".submit_before").prop("disabled", true);
-                            $(".submit_after").prop("disabled", true);
+                            $(".submit_button").prop("disabled", true);
                         }
                     },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        Swal.fire("Cancelled", "Pastikan username dan password and benar", "error");
-                        $(".submit_before").prop("disabled", false);
+                    error: function(response) { // handle the error
 
                         HideLoading();
-                    }
-                });
+
+                        Swal.fire("Cancelled", "Pastikan username dan password and benar", "error");
+                    },
+
+                })
             });
         });
     </script>
@@ -357,8 +368,6 @@
 
         $(document).ready(function() {
             $(".branch_name").click(function() {
-
-                $(".submit_after").prop("disabled", true);
 
                 var id = $(this).val();
                 if (id != "") {
@@ -409,29 +418,15 @@
             $(".user_role").click(function() {
                 var id = $(this).val();
                 if (id != "") {
-                    $(".submit_after").prop("disabled", false);
+                    $(".submit_button").prop("disabled", false);
                 } else {
-                    $(".submit_after").prop("disabled", true);
+                    $(".submit_button").prop("disabled", true);
                 }
 
             });
         });
     </script>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $(".submit_after").click(function() {
-
-                var delay = 15000;
-                $(document).ready(function() {
-                    ShowLoading();
-                    setTimeout(function() {
-                        HideLoading();
-                    }, delay);
-                });
-            });
-        });
-    </script>
 </body>
 
 </html>

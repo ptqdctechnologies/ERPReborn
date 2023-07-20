@@ -48,7 +48,7 @@
                     '<td style="border:1px solid #e9ecef;">' + value.entities.priceCurrencyISOCode + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="' + key + '" class="price_req2' + key + '">' + currencyTotal(value.entities.productUnitPriceBaseCurrencyValue) + '</span>' + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="' + key + '" class="qty_req2' + key + '">' + currencyTotal(value.entities.quantity) + '</span>' + '</td>' +
-                    '<td style="padding-top: 10px;padding-btwottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="' + key + '" class="total_req2' + key + '">' + currencyTotal(value.entities.quantity * value.entities.productUnitPriceBaseCurrencyValue) + '</span>' + '</td>' +
+                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="' + key + '" class="total_req2' + key + '">' + currencyTotal(value.entities.quantity * value.entities.productUnitPriceBaseCurrencyValue) + '</span>' + '</td>' +
                     '</tr>';
 
                 $('table.TableAdvance tbody').append(html);
@@ -440,15 +440,8 @@
                 $("#putRemark").css("border", "1px solid red");
             } else {
 
-                var varFileUpload_UniqueID = "Upload";
-                window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
-
-                var action = $(this).attr("action"); //get submit action from form
-                var method = $(this).attr("method"); // get submit method
-                var form_data = new FormData($(this)[0]); // convert form into formdata 
-                var form = $(this);
-
-
+                $("#submitArf").prop("disabled", true);
+               
                 const swalWithBootstrapButtons = Swal.mixin({
                     confirmButtonClass: 'btn btn-sm',
                     cancelButtonClass: 'btn btn-sm',
@@ -470,6 +463,14 @@
 
                 }).then((result) => {
                     if (result.value) {
+
+                        varFileUpload_UniqueID = "Upload";
+                        window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
+
+                        var action = $(this).attr("action"); //get submit action from form
+                        var method = $(this).attr("method"); // get submit method
+                        var form_data = new FormData($(this)[0]); // convert form into formdata 
+                        var form = $(this);
 
                         ShowLoading();
 

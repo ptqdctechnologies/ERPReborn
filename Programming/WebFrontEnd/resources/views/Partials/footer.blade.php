@@ -234,7 +234,7 @@
 
 <!-- FUNCTION LOGOUT IN MULTI PAGE -->
 
-<script>
+<!-- <script>
   setInterval(SessionCheckingLogout, 3000);
 
   function SessionCheckingLogout() {
@@ -251,16 +251,16 @@
       }
     });
   }
-</script>
+</script> -->
 
 <!-- FUNCTION LOGOUT AFTER 15 MENIT IN MULTI PAGE -->
-
+<!-- 
 <script>
-  document.addEventListener('mousedown', SessionCheckingEvent);
-  document.addEventListener('mousemove', SessionCheckingEvent);
-  document.addEventListener('touchstart', SessionCheckingEvent);
-  document.addEventListener('scroll', SessionCheckingEvent);
-  document.addEventListener('keydown', SessionCheckingEvent);
+  window.addEventListener('mousedown', SessionCheckingEvent);
+  window.addEventListener('mousemove', SessionCheckingEvent);
+  window.addEventListener('touchstart', SessionCheckingEvent);
+  window.addEventListener('scroll', SessionCheckingEvent);
+  window.addEventListener('keydown', SessionCheckingEvent);
 
   var time = new Date();
   var second = time.getSeconds();
@@ -286,5 +286,27 @@
       current_second = sec;
       angka = 0;
     }
+  }
+</script> -->
+
+<script>
+  setInterval(SessionCheckingLogout, 1000);
+
+  function SessionCheckingLogout() {
+    
+    var session = "{{ rupiah() }}";
+    console.log(session);
+
+    // $.ajax({
+    // type: 'GET',
+    // url: '{!! route("SessionCheckingLogout") !!}',
+    // success: function(data) {
+
+    // if (data.varAPIWebToken !== true) {
+    // window.location.reload();
+    // }
+
+    // }
+    // });
   }
 </script>

@@ -11,7 +11,7 @@
             </div>
         </div>
 
-        <input type="hidden" id="SessionLogin" value="{{ $varAPIWebToken }}">
+        <input type="hidden" class="SessionLogin" value="{{ $varAPIWebToken }}">
 
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
