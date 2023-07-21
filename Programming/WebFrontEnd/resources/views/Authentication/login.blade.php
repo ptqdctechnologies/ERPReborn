@@ -285,13 +285,19 @@
         $(document).ready(function() {
 
             HideLoading();
-            
+
             $(".branch_name").hide();
             $(".user_role").hide();
         });
     </script>
 
     <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         $(function() {
             $("#FormLogin").on("submit", function(e) { //id of form 
                 e.preventDefault();
