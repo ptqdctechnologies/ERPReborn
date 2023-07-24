@@ -29,10 +29,18 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
             //---Parameter Set---
             $varUserName = 'sysadmin';
             $varUserPassword = 'sysadmin1234';
-            $varUserName = 'aldi.mulyadi';
-            $varUserPassword = 'aldi1234';
+//            $varUserName = 'aldi.mulyadi';
+//            $varUserPassword = 'aldi1234';
 //            $varUserName = 'budianto';
 //            $varUserPassword = 'budianto1234';
+//            $varUserName = 'icha';
+//            $varUserPassword = 'icha1234';
+            $varUserName = 'suyanto';
+            $varUserPassword = 'suyanto1234';
+            $varUserName = 'eka.bagus';
+            $varUserPassword = 'eka.bagus1234';
+            $varUserName = 'eka.purwanti';
+            $varUserPassword = 'eka.purwanti1234';
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),

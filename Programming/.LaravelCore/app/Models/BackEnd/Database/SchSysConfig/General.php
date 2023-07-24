@@ -642,7 +642,7 @@ namespace App\Models\Database\SchSysConfig
                 $varUserSession,
                 'SELECT "SchSysConfig"."Func_General_GetUserRolePrivilege"('.$varBranchID.'::bigint, '.$varUserID.'::bigint);'
                 );
-            //var_dump('SELECT "SchSysConfig"."Func_General_GetUserRolePrivilege"('.$varBranchID.'::bigint, '.$varUserID.'::bigint)');
+            var_dump('SELECT "SchSysConfig"."Func_General_GetUserRolePrivilege"('.$varBranchID.'::bigint, '.$varUserID.'::bigint)');
 
             return
                 \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
