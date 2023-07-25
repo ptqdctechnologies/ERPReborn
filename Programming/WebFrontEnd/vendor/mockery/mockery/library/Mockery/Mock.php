@@ -1,21 +1,11 @@
 <?php
+
 /**
- * Mockery
+ * Mockery (https://docs.mockery.io/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://github.com/padraic/mockery/blob/master/LICENSE
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to padraic@php.net so we can send you a copy immediately.
- *
- * @category   Mockery
- * @package    Mockery
- * @copyright  Copyright (c) 2010 Pádraic Brady (http://blog.astrumfutura.com)
- * @license    http://github.com/padraic/mockery/blob/master/LICENSE New BSD License
+ * @copyright https://github.com/mockery/mockery/blob/HEAD/COPYRIGHT.md
+ * @license   https://github.com/mockery/mockery/blob/HEAD/LICENSE BSD 3-Clause License
+ * @link      https://github.com/mockery/mockery for the canonical source repository
  */
 
 namespace Mockery;
@@ -318,7 +308,7 @@ class Mock implements MockInterface
      * Set mock to ignore unexpected methods and return Undefined class
      * @param mixed $returnValue the default return value for calls to missing functions on this mock
      * @param bool $recursive Specify if returned mocks should also have shouldIgnoreMissing set
-     * @return Mock
+     * @return static
      */
     public function shouldIgnoreMissing($returnValue = null, $recursive = false)
     {
@@ -336,7 +326,7 @@ class Mock implements MockInterface
     }
 
     /**
-     * @return Mock
+     * @return static
      */
     public function shouldAllowMockingProtectedMethods()
     {
@@ -361,7 +351,7 @@ class Mock implements MockInterface
      *
      * @deprecated 2.0.0 Please use makePartial() instead
      *
-     * @return Mock
+     * @return static
      */
     public function shouldDeferMissing()
     {
@@ -374,7 +364,7 @@ class Mock implements MockInterface
      * It was an alias for shouldDeferMissing(), which will be removed
      * in 2.0.0.
      *
-     * @return Mock
+     * @return static
      */
     public function makePartial()
     {
