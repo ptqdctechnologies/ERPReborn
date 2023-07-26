@@ -636,11 +636,11 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getUserRolePrivilege($varUserSession, int $varBranchID, int $varUserID)
+        public function getUserRolePrivilege($varUserSession, int $varUserID, int $varBranchID)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession,
-                'SELECT "SchSysConfig"."Func_General_GetUserRolePrivilege"('.$varBranchID.'::bigint, '.$varUserID.'::bigint);'
+                'SELECT "SchSysConfig"."Func_General_GetUserRolePrivilege"('.$varUserID.'::bigint, '.$varBranchID.'::bigint);'
                 );
             //var_dump('SELECT "SchSysConfig"."Func_General_GetUserRolePrivilege"('.$varBranchID.'::bigint, '.$varUserID.'::bigint)');
 

@@ -280,8 +280,8 @@ $varDataSend = [
                     (new \App\Models\Database\SchSysConfig\General())->getUserRolePrivilege(
                         $varUserSession, 
                         //11000000000001,
-                        $varData[$i]['Sys_ID'],
-                        $varUserID
+                        $varUserID,
+                        $varData[$i]['Sys_ID']
                         );
                 //var_dump($varReturnUserRole);
                 
