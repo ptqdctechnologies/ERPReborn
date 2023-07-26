@@ -32,10 +32,12 @@ Route::get('/', 'Auth\LoginController@index')->name('login');
 Route::post('loginStore', 'Auth\LoginController@loginStore')->name('loginStore');
 Route::get('getRoleLogin', 'Auth\LoginController@getRoleLogin')->name('getRoleLogin');
 
+Route::get('SessionCheckingLogout', 'Auth\LoginController@SessionCheckingLogout')->name('SessionCheckingLogout');
+
 Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], function () {
     //logout
     Route::get('logout', 'Auth\LoginController@logout')->name('logout');
-    Route::get('SessionCheckingLogout', 'Auth\LoginController@SessionCheckingLogout')->name('SessionCheckingLogout');
+    // Route::get('SessionCheckingLogout', 'Auth\LoginController@SessionCheckingLogout')->name('SessionCheckingLogout');
     Route::get('SessionCheckingEvent', 'Auth\LoginController@SessionCheckingEvent')->name('SessionCheckingEvent');
 
     // Dashboard

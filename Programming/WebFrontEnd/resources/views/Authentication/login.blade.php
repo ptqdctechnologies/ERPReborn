@@ -224,10 +224,6 @@
                         <!-- /.col -->
                         <div class="col-4">
 
-                            <!-- <a class="btn btn-primary btn-block btn-sm submit_before" style="color: white;">Login</a>
-                            <button class="btn btn-primary btn-block btn-sm submit_after" type="submit" style="color: white;">Login</button> -->
-
-
                             <button class="btn btn-primary btn-block btn-sm submit_button" type="submit" style="color: white;">Login</button>
 
                         </div>
@@ -394,12 +390,13 @@
 
                                 HideLoading();
 
+                                len = data.length;
                                 $(".user_role").empty();
 
-                                var option = "<option value='" + '' + "'>" + 'Select User Role' + "</option>";
-                                $(".user_role").append(option);
-
-                                len = data.length;
+                                if (len > 1) {
+                                    var option = "<option value='" + '' + "'>" + 'Select User Role' + "</option>";
+                                    $(".user_role").append(option);
+                                }
                                 for (var i = 0; i < len; i++) {
                                     var ids = data[i].userRole_RefID;
                                     var names = data[i].userRoleName;
@@ -432,6 +429,25 @@
             });
         });
     </script>
+
+    <!-- <script>
+        setInterval(SessionCheckingLogout, 5000);
+
+        function SessionCheckingLogout() {
+
+            $.ajax({
+                type: 'GET',
+                url: '{!! route("SessionCheckingLogout") !!}',
+                success: function(data) {
+
+                    if (data.varAPIWebToken == true) {
+                        window.location.reload();
+                    }
+
+                }
+            });
+        }
+    </script> -->
 
 </body>
 

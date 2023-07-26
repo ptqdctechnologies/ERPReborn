@@ -37,6 +37,7 @@
                 $('table.TableMyDocument tbody').append(html);
 
             });
+            $("#TotalData").html(keys);
             $("#loading").hide();
             $(".loader").hide();
         }
