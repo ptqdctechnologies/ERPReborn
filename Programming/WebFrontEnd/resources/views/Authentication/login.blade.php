@@ -430,7 +430,7 @@
         });
     </script>
 
-    <!-- <script>
+    <script>
         setInterval(SessionCheckingLogout, 5000);
 
         function SessionCheckingLogout() {
@@ -447,7 +447,7 @@
                 }
             });
         }
-    </script> -->
+    </script>
 
 </body>
 
