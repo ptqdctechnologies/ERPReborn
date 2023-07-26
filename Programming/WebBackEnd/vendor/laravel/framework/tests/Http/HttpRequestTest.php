@@ -16,6 +16,7 @@ use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\Exception\SessionNotFoundException;
 use Symfony\Component\HttpFoundation\File\UploadedFile as SymfonyUploadedFile;
+use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -723,7 +724,7 @@ class HttpRequestTest extends TestCase
         $this->assertNull($request->date('doesnt_exists'));
 
         $this->assertEquals($current, $request->date('as_datetime'));
-        $this->assertEquals($current, $request->date('as_format', 'U'));
+        $this->assertEquals($current->format('Y-m-d H:i:s P'), $request->date('as_format', 'U')->format('Y-m-d H:i:s P'));
         $this->assertEquals($current, $request->date('as_timezone', null, 'America/Santiago'));
 
         $this->assertTrue($request->date('as_date')->isSameDay($current));
@@ -1555,5 +1556,19 @@ class HttpRequestTest extends TestCase
         $request = Request::create('/', 'GET', ['name' => 'Taylor', 'email' => 'foo']);
         $request->setLaravelSession($session);
         $request->flashExcept(['email']);
+    }
+
+    public function testGeneratingJsonRequestFromParentRequestUsesCorrectType()
+    {
+        if (! method_exists(SymfonyRequest::class, 'getPayload')) {
+            return;
+        }
+
+        $base = SymfonyRequest::create('/', 'POST', server: ['CONTENT_TYPE' => 'application/json'], content: '{"hello":"world"}');
+
+        $request = Request::createFromBase($base);
+
+        $this->assertInstanceOf(InputBag::class, $request->getPayload());
+        $this->assertSame('world', $request->getPayload()->get('hello'));
     }
 }
