@@ -10,7 +10,7 @@
 </script>
 
 <!-- TIME FUNCTION -->
-<!-- <script>
+<script>
   setInterval(customClock, 500);
 
   function customClock() {
@@ -26,7 +26,7 @@
     var month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
     document.getElementById('clock').innerHTML = dow[time.getDay()] + ", " + date + " " + month[time.getMonth()] + " " + year + "  " + hrs + ":" + min + ":" + sec + " " + ampm;
   }
-</script> -->
+</script>
 
 <!-- FUNCTION FOR CURRENCY FORMAT -->
 <script>
@@ -235,7 +235,7 @@
 <!-- FUNCTION LOGOUT IN MULTI PAGE -->
 
 <script>
-  setInterval(SessionCheckingLogout, 3000);
+  setInterval(SessionCheckingLogout, 5000);
 
   function SessionCheckingLogout() {
 
@@ -254,7 +254,7 @@
 </script>
 
 <!-- FUNCTION LOGOUT AFTER 15 MENIT IN MULTI PAGE -->
-<!-- 
+
 <script>
   window.addEventListener('mousedown', SessionCheckingEvent);
   window.addEventListener('mousemove', SessionCheckingEvent);
@@ -287,4 +287,4 @@
       angka = 0;
     }
   }
-</script> -->
+</script>

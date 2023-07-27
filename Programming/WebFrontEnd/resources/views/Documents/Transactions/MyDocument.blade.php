@@ -116,6 +116,15 @@
                     </tbody>
                   </table>
                 </div>
+
+                <div class="card-body">
+                  <table style="float:right;">
+                    <tr>
+                      <th style="position: relative;right:20px;"> Total Data : <span id="TotalData"></span></th>
+                    </tr>
+                  </table>
+                </div>
+
               </div>
             </div>
           </div>
