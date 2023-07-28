@@ -52,19 +52,19 @@ class MyDocumentController extends Controller
         }
 
         $SessionWorkerCareerInternal_RefID = $request->session()->get('SessionWorkerCareerInternal_RefID');
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'report.form.documentForm.master.getBusinessDocumentIssuanceDisposition',
-            'latest',
-            [
-                'parameter' => [
-                    'recordID' => (int)$SessionWorkerCareerInternal_RefID
+        // $varAPIWebToken = $request->session()->get('SessionLogin');
+        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varAPIWebToken,
+        //     'report.form.documentForm.master.getBusinessDocumentIssuanceDisposition',
+        //     'latest',
+        //     [
+        //         'parameter' => [
+        //             'recordID' => (int)$SessionWorkerCareerInternal_RefID
                     
-                ]
-            ]
-        );
+        //         ]
+        //     ]
+        // );
 
         $compact = [
             'data' => $varData['data'],

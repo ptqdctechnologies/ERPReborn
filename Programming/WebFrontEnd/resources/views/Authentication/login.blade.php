@@ -243,7 +243,6 @@
     <!-- sweetalert -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
 
-
     <!-- FUNCTION SHOW HIDE -->
 
     <script>
@@ -257,8 +256,6 @@
             $(".loader").hide();
         }
     </script>
-
-
 
     <!-- END FUNCTION SHOW HIDE -->
 
@@ -396,6 +393,9 @@
                                 if (len > 1) {
                                     var option = "<option value='" + '' + "'>" + 'Select User Role' + "</option>";
                                     $(".user_role").append(option);
+                                    $(".submit_button").prop("disabled", true);
+                                } else {
+                                    $(".submit_button").prop("disabled", false);
                                 }
                                 for (var i = 0; i < len; i++) {
                                     var ids = data[i].userRole_RefID;

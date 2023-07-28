@@ -38,17 +38,18 @@
           </div>
         </div>
       </div> -->
+
     </div>
   </section>
 </div>
 @include('Partials.footer')
 
 <!-- Resources -->
-<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+<!-- <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
 <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
-<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script> -->
 <!-- Chart code -->
-<script>
+<!-- <script>
   am5.ready(function() {
 
     // Create root element
@@ -180,7 +181,7 @@
     chart.appear(1000, 100);
 
   }); // end am5.ready()
-</script>
+</script> -->
 
 
 @endsection

@@ -12,24 +12,27 @@ class DocumentWorkflowComposer
     {
         $varAPIWebToken = Session::get('SessionLogin');
         $SessionWorkerCareerInternal_RefID =  Session::get('SessionWorkerCareerInternal_RefID');
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'report.form.documentForm.master.getBusinessDocumentIssuanceDisposition',
-            'latest',
-            [
-                'parameter' => [
-                    'recordID' => (int)$SessionWorkerCareerInternal_RefID
-                ]
-            ]
-        );
 
-        if ($varData['metadata']['HTTPStatusCode'] != 200) {
-            $CountDocumentWorkflowComposer = 0;
-        } else {
+        if($SessionWorkerCareerInternal_RefID != 0){
+
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'report.form.documentForm.master.getBusinessDocumentIssuanceDisposition',
+                'latest',
+                [
+                    'parameter' => [
+                        'recordID' => (int)$SessionWorkerCareerInternal_RefID
+                    ]
+                ]
+            );
+
             $CountDocumentWorkflowComposer = count($varData['data'][0]['document']['content']['itemList']['ungrouped']);
         }
-
+        else{
+            $CountDocumentWorkflowComposer = 0;
+        }
+             
         $compact = [
             'CountDocumentWorkflowComposer' => $CountDocumentWorkflowComposer,
             'varAPIWebToken' => Session::has("SessionLogin")
