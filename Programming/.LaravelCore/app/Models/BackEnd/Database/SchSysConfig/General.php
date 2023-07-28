@@ -643,7 +643,7 @@ namespace App\Models\Database\SchSysConfig
                 'SELECT "SchSysConfig"."Func_General_GetUserRolePrivilege"('.$varUserID.'::bigint, '.$varBranchID.'::bigint);'
                 );
             //var_dump('SELECT "SchSysConfig"."Func_General_GetUserRolePrivilege"('.$varBranchID.'::bigint, '.$varUserID.'::bigint)');
-
+            
             return
                 \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                     $varUserSession,

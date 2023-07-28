@@ -3,12 +3,12 @@
 use Foo\Bar;
 // Fake
 use Foo\Baz as Qux;
-use function Foo\f1;
+use Laravel\SerializableClosure\Support\ReflectionClosure;
 
 // Dirty CS
 define(Bar::class, Bar::class);
 
-use Laravel\SerializableClosure\Support\ReflectionClosure;
+use function Foo\f1;
 
 test('resolve arguments', function () {
     $f1 = function (Bar $p) {
@@ -149,25 +149,17 @@ test('closure inside closure', function () {
 
 test('anonymous inside closure', function () {
     $f1 = function () {
-        return new class() extends A
-        {
-        };
+        return new class() extends A {};
     };
     $e1 = 'function () {
-        return new class() extends \A
-        {
-        };
+        return new class() extends \A {};
     }';
 
     $f2 = function () {
-        return new class() extends A implements B
-        {
-        };
+        return new class() extends A implements B {};
     };
     $e2 = 'function () {
-        return new class() extends \A implements \B
-        {
-        };
+        return new class() extends \A implements \B {};
     }';
 
     $f3 = function () {
@@ -279,9 +271,7 @@ test('closure resolve traits names in anonymous classes', function () {
         function a(Qux $q): Bar
         {
             f1();
-            $a = new class() extends Bar
-            {
-            };
+            $a = new class() extends Bar {};
         }
     };
     $e7 = 'function () {
@@ -292,9 +282,7 @@ test('closure resolve traits names in anonymous classes', function () {
         function a(\Foo\Baz $q): \Foo\Bar
         {
             \Foo\f1();
-            $a = new class() extends \Foo\Bar
-            {
-            };
+            $a = new class() extends \Foo\Bar {};
         }
     }';
 
