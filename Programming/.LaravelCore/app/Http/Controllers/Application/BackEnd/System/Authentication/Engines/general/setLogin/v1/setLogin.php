@@ -254,7 +254,7 @@ $varDataSend = [
             {
             $varReturn = [];
             $varData = (new \App\Models\Database\SchSysConfig\General())->getDataList_BranchAccess($varUserID);
-            //var_dump($varData);
+            var_dump($varData);
 
             //$varIndex = 0;
             for($i=0; $i!=count($varData); $i++)
@@ -296,6 +296,8 @@ $varDataSend = [
                         ];
                     }
                 }
+                dd($varReturn);
+                
             return $varReturn;
             }
         }

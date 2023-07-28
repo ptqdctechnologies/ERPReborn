@@ -710,9 +710,9 @@
             'dev_requirement' => false,
         ),
         'phpunit/php-code-coverage' => array(
-            'pretty_version' => '9.2.26',
-            'version' => '9.2.26.0',
-            'reference' => '443bc6912c9bd5b409254a40f4b0f4ced7c80ea1',
+            'pretty_version' => '9.2.27',
+            'version' => '9.2.27.0',
+            'reference' => 'b0a88255cb70d52653d80c890bd7f38740ea50d1',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpunit/php-code-coverage',
             'aliases' => array(),
