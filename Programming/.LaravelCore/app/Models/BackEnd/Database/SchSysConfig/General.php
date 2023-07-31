@@ -45,46 +45,185 @@ namespace App\Models\Database\SchSysConfig
                 );
             return $varReturn['Data'][0]['FuncSys_General_GetAPIWebToken_SysEngine'];
             }
-
+            
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getReport_Form_DocumentForm_LogBusinessDocumentWorkFlowPathHistory                                   |
+        | ▪ Method Name     : getUserPrivilege_CombinedBudget                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-06-13                                                                                           |
-        | ▪ Creation Date   : 2023-06-13                                                                                           |
-        | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Log Business Document WorkFlow Path History                  |
+        | ▪ Last Update     : 2023-07-31                                                                                           |
+        | ▪ Creation Date   : 2023-07-31                                                                                           |
+        | ▪ Description     : Mendapatkan User Privilege Combined Budget                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
-        |      ▪ (int)    varSysID ► Record ID                                                                                     |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varUser_RefID ► User Reference ID                                                                        |
+        |      ▪ (int)    varBranch_RefID ► Branch Reference ID                                                                    |
+        |      ▪ (int)    varUserRole_RefID ► User Role Reference ID                                                               |
+        |      ▪ (string) varDateTimeTZ ► DateTimeTZ                                                                               |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getReport_Form_DocumentForm_LogBusinessDocumentWorkFlowPathHistory(
-            $varUserSession, int $varSysBranch_RefID, 
-            int $varSysID)
+        public function getUserPrivilege_CombinedBudget(
+            $varUserSession, 
+            int $varUser_RefID, int $varBranch_RefID, int $varUserRole_RefID, string $varDateTimeTZ = null)
             {
             try {
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        'SchSysConfig.Func_GetReport_DocForm_Log_BusinessDocumentWorkFlowPathHistory',
+                        'SchSysConfig.Func_General_GetUserPrivilege_CombinedBudget',
                         [
-                            [$varSysBranch_RefID, 'bigint' ],
-                            [$varSysID, 'bigint' ]
+                            [$varUser_RefID, 'bigint'],
+                            [$varBranch_RefID, 'bigint'],
+                            [$varUserRole_RefID, 'bigint'],
+                            [$varDateTimeTZ, 'timestamptz']
                         ]
                         )
                     );
-                return [
-                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetReport_DocForm_Log_BusinessDocumentWorkFlowPathHistory'])
-                    ];
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getUserPrivilege_InstitutionBranch                                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-07-31                                                                                           |
+        | ▪ Creation Date   : 2023-07-31                                                                                           |
+        | ▪ Description     : Mendapatkan Privilege Branch                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varUser_RefID ► User Reference ID                                                                    |
+        |      ▪ (string) varDateTimeTZ ► DateTimeTZ                                                                               |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getUserPrivilege_InstitutionBranch(
+            $varUserSession, 
+            int $varUser_RefID, string $varDateTimeTZ = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_General_GetUserPrivilege_InstitutionBranch',
+                        [
+                            [$varUser_RefID, 'bigint'],
+                            [$varDateTimeTZ, 'timestamptz']
+                        ]
+                        )
+                    );
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getUserPrivilege_Menu                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-07-31                                                                                           |
+        | ▪ Creation Date   : 2023-07-31                                                                                           |
+        | ▪ Description     : Mendapatkan User Privilege Menu                                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varUser_RefID ► User Reference ID                                                                        |
+        |      ▪ (int)    varBranch_RefID ► Branch Reference ID                                                                    |
+        |      ▪ (int)    varUserRole_RefID ► User Role Reference ID                                                               |
+        |      ▪ (int)    varCombinedBudget_RefID ► Combined Budget Reference ID                                                   |
+        |      ▪ (string) varDateTimeTZ ► DateTimeTZ                                                                               |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getUserPrivilege_Menu(
+            $varUserSession, 
+            int $varUser_RefID, int $varBranch_RefID, int $varUserRole_RefID, int $varCombinedBudget_RefID, tring $varDateTimeTZ = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_General_GetUserPrivilege_Menu',
+                        [
+                            [$varUser_RefID, 'bigint'],
+                            [$varBranch_RefID, 'bigint'],
+                            [$varUserRole_RefID, 'bigint'],
+                            [$varCombinedBudget_RefID, 'bigint'],
+                            [$varDateTimeTZ, 'timestamptz']
+                        ]
+                        )
+                    );
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getUserPrivilege_Role                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-07-31                                                                                           |
+        | ▪ Creation Date   : 2023-07-31                                                                                           |
+        | ▪ Description     : Mendapatkan Privilege Branch                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varUser_RefID ► User Reference ID                                                                        |
+        |      ▪ (int)    varBranch_RefID ► Branch Reference ID                                                                    |
+        |      ▪ (string) varDateTimeTZ ► DateTimeTZ                                                                               |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getUserPrivilege_Role(
+            $varUserSession, 
+            int $varUser_RefID, int $varBranch_RefID, string $varDateTimeTZ = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_General_GetUserPrivilege_Role',
+                        [
+                            [$varUser_RefID, 'bigint'],
+                            [$varBranch_RefID, 'bigint'],
+                            [$varDateTimeTZ, 'timestamptz']
+                        ]
+                        )
+                    );
+                return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
                 return [];

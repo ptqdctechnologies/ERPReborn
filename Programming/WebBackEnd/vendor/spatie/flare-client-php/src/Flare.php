@@ -2,7 +2,6 @@
 
 namespace Spatie\FlareClient;
 
-use Closure;
 use Error;
 use ErrorException;
 use Exception;
@@ -41,7 +40,7 @@ class Flare
 
     protected ContextProviderDetector $contextDetector;
 
-    protected ?Closure $previousExceptionHandler = null;
+    protected $previousExceptionHandler = null;
 
     /** @var null|callable */
     protected $previousErrorHandler = null;
@@ -278,7 +277,7 @@ class Flare
     {
         $this->report($throwable);
 
-        if ($this->previousExceptionHandler) {
+        if ($this->previousExceptionHandler && is_callable($this->previousExceptionHandler)) {
             call_user_func($this->previousExceptionHandler, $throwable);
         }
     }
