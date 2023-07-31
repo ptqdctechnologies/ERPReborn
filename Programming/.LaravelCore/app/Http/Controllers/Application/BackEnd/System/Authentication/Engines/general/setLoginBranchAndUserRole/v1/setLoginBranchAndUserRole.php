@@ -65,6 +65,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                     $varBranchID = $varData['branchID'];
                     $varUserRoleID = $varData['userRoleID'];
                     
+                    
 //                   $varTemp = (new \App\Models\Database\SchSysConfig\General())->setUserSessionLogout($varUserSession, $varUserSession);        
   //                  $varTemp = (new \App\Models\Cache\General\APIWebToken())->setDataDelete($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['APIWebToken']);                   
 //                    $varDataSend = ['message' => 'User Logout Successfully'];
@@ -117,8 +118,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
 //$varDataUserRoleList=333;
 
 
-var_dump($varUserRoleID);
-var_dump($varDataUserRoleList);
+//var_dump($varUserRoleID);
+//var_dump($varDataUserRoleList);
                     if(\App\Helpers\ZhtHelper\General\Helper_Array::isElementExist($varUserSession, $varBranchID, $varDataBranchList) == false)
                         {
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 403, 'Branch ID was not found in the register list');
