@@ -784,6 +784,12 @@ namespace App\Helpers\ZhtHelper\Database
         */
         public static function getQueryExecution($varUserSession, $varSQLQuery)
             {
+            /*
+            if(stristr($varSQLQuery, 'Func_GetData_APIWebToken_ByUserSessionID'))
+                {
+                dd($varSQLQuery);
+                }
+            */
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Query Execution');
@@ -796,6 +802,26 @@ namespace App\Helpers\ZhtHelper\Database
                     else
                         {
                         $varSQLQuery = ltrim(str_replace("\n", "" , $varSQLQuery));
+if(stristr($varSQLQuery, 'Func_GetData_APIWebToken_ByUserSessionID'))
+    {
+    /*
+    $varDataTemp = 
+        self::getArrayFromQueryExecutionDataFetch_UsingLaravelConnection(
+            $varUserSession, 
+            "SELECT NOW();"
+            );*/
+//    $varDataTemp = self::getArrayFromQueryExecutionDataFetch_UsingPGSQLConnection($varUserSession, "SELECT NOW();");
+    $varDataTemp = 
+        self::getArrayFromQueryExecutionDataFetch_UsingPGSQLConnection(
+            $varUserSession, 
+            "SELECT NOW();"
+            );
+    dd($varUserSession);
+    //$x = self::getStatusAvailability($varUserSession);
+    //dd($x);
+    //dd($varUserSession);
+    //dd($varSQLQuery);
+    }
                         //echo $varSQLQuery."<br><br>";
                         if(self::getStatusAvailability($varUserSession)==true)
                             {

@@ -750,6 +750,7 @@ namespace App\Helpers\ZhtHelper\System
                         ]
                         )
                     );
+                dd($varReturn);
                 return $varReturn['Data'][0]['Func_GetData_APIWebToken_ByUserSessionID'];
                 }
             catch (\Exception $ex) {
