@@ -3,20 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\userPrivilege\getUserRole\v1              |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\userPrivilege\getRole\v1                  |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\userPrivilege\getUserRole\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\userPrivilege\getRole\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getUserRole                                                                                                  |
-    | ▪ Description : Menangani API authentication.userPrivilege.getUserRole Version 1                                             |
+    | ▪ Class Name  : getRole                                                                                                      |
+    | ▪ Description : Menangani API authentication.userPrivilege.getRole Version 1                                                 |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getUserRole extends \App\Http\Controllers\Controller
+    class getRole extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

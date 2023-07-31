@@ -3,21 +3,21 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\authentication\userPrivilege\getUserRole\v1  |
-| ▪ API Key     : authentication.userPrivilege.getUserRole                                                                         |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\authentication\userPrivilege\getRole\v1      |
+| ▪ API Key     : authentication.userPrivilege.getRole                                                                             |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\authentication\userPrivilege\getUserRole\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\authentication\userPrivilege\getRole\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/authentication.userPrivilege.getUserRole.v1_throughAPIAuthentication                |
-        |                     ► http://172.28.0.4/authentication.userPrivilege.getUserRole.v1_throughAPIAuthentication             |
+        | ▪ Call URL        : http(s)://<HOST>/authentication.userPrivilege.getRole.v1_throughAPIAuthentication                    |
+        |                     ► http://172.28.0.4/authentication.userPrivilege.getRole.v1_throughAPIAuthentication                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2023-07-31                                                                                           |
@@ -35,7 +35,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
-                'authentication.userPrivilege.getUserRole', 
+                'authentication.userPrivilege.getRole', 
                 'latest', 
                 [
                 'parameter' => [
@@ -51,8 +51,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/authentication.userPrivilege.getUserRole.v1_throughAPIAuthenticationJQuery          |
-        |                     ► http://172.28.0.4/authentication.userPrivilege.getUserRole.v1_throughAPIAuthenticationJQuery       |
+        | ▪ Call URL        : http(s)://<HOST>/authentication.userPrivilege.getRole.v1_throughAPIAuthenticationJQuery              |
+        |                     ► http://172.28.0.4/authentication.userPrivilege.getRole.v1_throughAPIAuthenticationJQuery           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2023-07-31                                                                                           |
@@ -84,7 +84,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
-                'authentication.userPrivilege.getUserRole', 
+                'authentication.userPrivilege.getRole', 
                 'latest', 
                 '{'.
                     '"parameter" : {'.
