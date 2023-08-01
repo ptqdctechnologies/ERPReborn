@@ -3,20 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\general\getUserPrivilegeCombinedBudget\v1 |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\userPrivilege\getRole\v1                  |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\general\getUserPrivilegeCombinedBudget\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\userPrivilege\getRole\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getUserPrivilegeCombinedBudget                                                                               |
-    | ▪ Description : Menangani API authentication.getUserPrivilegeCombinedBudget Version 1                                        |
+    | ▪ Class Name  : getRole                                                                                                      |
+    | ▪ Description : Menangani API authentication.userPrivilege.getRole Version 1                                                 |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getUserPrivilegeCombinedBudget extends \App\Http\Controllers\Controller
+    class getRole extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -58,16 +58,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get User Privilege Combined Budget (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get User Privilege Role (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchSysConfig\General())->getUserPrivilege_CombinedBudget(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchSysConfig\General())->getUserPrivilege_Role(
                             $varUserSession,
 
                             $varData['parameter']['user_RefID'],
                             $varData['parameter']['branch_RefID'],
-                            $varData['parameter']['userRole_RefID'],
                             $varData['parameter']['dateTimeTZ']
                             ))))
                             {

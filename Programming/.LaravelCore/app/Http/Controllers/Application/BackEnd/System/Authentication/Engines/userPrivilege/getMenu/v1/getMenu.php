@@ -3,20 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\general\getUserPrivilegeMenu\v1           |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\userPrivilege\getMenu\v1                  |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\general\getUserPrivilegeMenu\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\userPrivilege\getMenu\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getUserPrivilegeMenu                                                                                         |
-    | ▪ Description : Menangani API authentication.getUserPrivilegeMenu Version 1                                                  |
+    | ▪ Class Name  : getMenu                                                                                                      |
+    | ▪ Description : Menangani API authentication.userPrivilege.getMenu Version 1                                                 |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getUserPrivilegeMenu extends \App\Http\Controllers\Controller
+    class getMenu extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

@@ -57,6 +57,39 @@ namespace App\Models\Database\SchSysAsset
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getData_APIWebToken_ByUserSessionID                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-08-01                                                                                           |
+        | ▪ Creation Date   : 2023-08-01                                                                                           |
+        | ▪ Description     : Mendapatkan API Web Token berdasarkan ID User Session                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)   varUserSession ► User Session                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string)  varReturn                                                                                               | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getData_APIWebToken_ByUserSessionID($varUserSession)
+            {
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysAsset.Func_GetData_APIWebToken_ByUserSessionID',
+                        [
+                            [$varUserSession, 'bigint']
+                        ]
+                        )
+                    );
+
+            return $varReturn['Data'][0]['Func_GetData_APIWebToken_ByUserSessionID'];
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getData_FileUpload_IsFileAlreadyExist                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |

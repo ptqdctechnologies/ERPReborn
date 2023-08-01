@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of authentication.general.getUserPrivilegeMenu (version 1)",
+"description": "JSON Request Schema of authentication.userPrivilege.getInstitutionBranch (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "authentication.general.getUserPrivilegeMenu" ]
+                        "enum": [ "authentication.userPrivilege.getInstitutionBranch" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -35,16 +35,6 @@
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         },
-                    "branch_RefID": {
-                        "type": [ "integer", "null" ],
-                        "minimum": 1,
-                        "maximum": 9223372036854775807
-                        },
-                    "userRole_RefID": {
-                        "type": [ "integer", "null" ],
-                        "minimum": 1,
-                        "maximum": 9223372036854775807
-                        },
                     "dateTimeTZ": {
                         "type": [ "string", "null" ],
                         "format": "string",
@@ -53,7 +43,7 @@
                         "maxLength": 30
                         }
                     },
-                "required": [ "user_RefID", "branch_RefID", "userRole_RefID", "dateTimeTZ" ]
+                "required": [ "user_RefID", "dateTimeTZ" ]
                 }
             },
         "required": [ "parameter" ]

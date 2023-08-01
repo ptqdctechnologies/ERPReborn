@@ -784,6 +784,12 @@ namespace App\Helpers\ZhtHelper\Database
         */
         public static function getQueryExecution($varUserSession, $varSQLQuery)
             {
+            /*
+            if(stristr($varSQLQuery, 'Func_GetData_APIWebToken_ByUserSessionID'))
+                {
+                dd($varSQLQuery);
+                }
+            */
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Query Execution');
@@ -796,6 +802,7 @@ namespace App\Helpers\ZhtHelper\Database
                     else
                         {
                         $varSQLQuery = ltrim(str_replace("\n", "" , $varSQLQuery));
+
                         //echo $varSQLQuery."<br><br>";
                         if(self::getStatusAvailability($varUserSession)==true)
                             {
@@ -808,6 +815,7 @@ namespace App\Helpers\ZhtHelper\Database
                                 }
                             else
                                 {
+
                                 //---> Inisialisasi [Process][StartDateTime]
                                 $varDataTemp = 
                                     self::getArrayFromQueryExecutionDataFetch_UsingLaravelConnection(

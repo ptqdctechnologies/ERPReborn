@@ -3,29 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\authentication\general\getUserPrivilege_Role |
-|                 \v1                                                                                                              |
-| ▪ API Key     : authentication.general.getUserPrivilege_Role                                                                     |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\authentication\userPrivilege\getRole\v1      |
+| ▪ API Key     : authentication.userPrivilege.getRole                                                                             |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\authentication\general\getUserPrivilegeRole\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\authentication\userPrivilege\getRole\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/authentication.general.getUserPrivilegeRole.v1_throughAPIAuthentication             |
-        |                     ► http://172.28.0.4/authentication.general.getUserPrivilegeRole.v1_throughAPIAuthentication          |
+        | ▪ Call URL        : http(s)://<HOST>/authentication.userPrivilege.getRole.v1_throughAPIGateway                           |
+        |                     ► http://172.28.0.4/authentication.userPrivilege.getRole.v1_throughAPIGateway                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2023-07-31                                                                                           |
         | ▪ Creation Date   : 2023-07-31                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function throughAPIAuthentication($varAPIWebToken)
+        public function throughAPIGateway($varAPIWebToken)
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
@@ -36,7 +35,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
-                'authentication.general.getUserPrivilegeRole', 
+                'authentication.userPrivilege.getRole', 
                 'latest', 
                 [
                 'parameter' => [
@@ -52,15 +51,15 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/authentication.general.getUserPrivilegeRole.v1_throughAPIAuthenticationJQuery       |
-        |                     ► http://172.28.0.4/authentication.general.getUserPrivilegeRole.v1_throughAPIAuthenticationJQuery    |
+        | ▪ Call URL        : http(s)://<HOST>/authentication.userPrivilege.getRole.v1_throughAPIGatewayJQuery                     |
+        |                     ► http://172.28.0.4/authentication.userPrivilege.getRole.v1_throughAPIGatewayJQuery                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2023-07-31                                                                                           |
         | ▪ Creation Date   : 2023-07-31                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function throughAPIAuthenticationJQuery($varAPIWebToken)
+        public function throughAPIGatewayJQuery($varAPIWebToken)
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
@@ -85,7 +84,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
-                'authentication.general.getUserPrivilegeRole', 
+                'authentication.userPrivilege.getRole', 
                 'latest', 
                 '{'.
                     '"parameter" : {'.
