@@ -17,9 +17,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/authentication.userPrivilege.getInstitutionBranch.v1_throughAPIAuthentication       |
-        |                     ► http://172.28.0.4/                                                                                 |
-        |                       authentication.userPrivilege.getInstitutionBranch.v1_throughAPIAuthentication                      |
+        | ▪ Call URL        : http(s)://<HOST>/authentication.userPrivilege.getInstitutionBranch.v1_throughAPIGateway              |
+        |                     ► http://172.28.0.4/authentication.userPrivilege.getInstitutionBranch.v1_throughAPIGateway           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2023-07-31                                                                                           |
@@ -52,9 +51,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/authentication.userPrivilege.getInstitutionBranch.v1_throughAPIAuthenticationJQuery |
-        |                     ► http://172.28.0.4/                                                                                 |
-        |                       authentication.userPrivilege.getInstitutionBranch.v1_throughAPIAuthenticationJQuery                |
+        | ▪ Call URL        : http(s)://<HOST>/authentication.userPrivilege.getInstitutionBranch.v1_throughAPIGatewayJQuery        |
+        |                     ► http://172.28.0.4/authentication.userPrivilege.getInstitutionBranch.v1_throughAPIGatewayJQuery     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2023-07-31                                                                                           |
