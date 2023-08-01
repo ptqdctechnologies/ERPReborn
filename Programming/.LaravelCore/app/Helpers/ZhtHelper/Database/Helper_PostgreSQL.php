@@ -802,26 +802,7 @@ namespace App\Helpers\ZhtHelper\Database
                     else
                         {
                         $varSQLQuery = ltrim(str_replace("\n", "" , $varSQLQuery));
-if(stristr($varSQLQuery, 'Func_GetData_APIWebToken_ByUserSessionID'))
-    {
-    /*
-    $varDataTemp = 
-        self::getArrayFromQueryExecutionDataFetch_UsingLaravelConnection(
-            $varUserSession, 
-            "SELECT NOW();"
-            );*/
-//    $varDataTemp = self::getArrayFromQueryExecutionDataFetch_UsingPGSQLConnection($varUserSession, "SELECT NOW();");
-    $varDataTemp = 
-        self::getArrayFromQueryExecutionDataFetch_UsingPGSQLConnection(
-            $varUserSession, 
-            "SELECT NOW();"
-            );
-    dd($varUserSession);
-    //$x = self::getStatusAvailability($varUserSession);
-    //dd($x);
-    //dd($varUserSession);
-    //dd($varSQLQuery);
-    }
+
                         //echo $varSQLQuery."<br><br>";
                         if(self::getStatusAvailability($varUserSession)==true)
                             {
@@ -834,6 +815,7 @@ if(stristr($varSQLQuery, 'Func_GetData_APIWebToken_ByUserSessionID'))
                                 }
                             else
                                 {
+
                                 //---> Inisialisasi [Process][StartDateTime]
                                 $varDataTemp = 
                                     self::getArrayFromQueryExecutionDataFetch_UsingLaravelConnection(

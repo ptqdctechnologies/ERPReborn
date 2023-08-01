@@ -26,20 +26,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
         | ▪ Creation Date   : 2023-07-31                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function throughAPIAuthentication($varAPIWebToken)
+        public function throughAPIGateway($varAPIWebToken)
             {
             //---Parameter Set---
-            //if (!$varAPIWebToken) {
+            if (!$varAPIWebToken) {
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-            //    }
-            $varAPIWebToken = 
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_ByUserSessionID(
-                    //\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System()
-                    6000000000001
-                    );
-             
-            dd($varAPIWebToken);
-
+                }
 
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
@@ -69,7 +61,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
         | ▪ Creation Date   : 2023-07-31                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function throughAPIAuthenticationJQuery($varAPIWebToken)
+        public function throughAPIGatewayJQuery($varAPIWebToken)
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {

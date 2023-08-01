@@ -35,6 +35,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
         */
         function __construct()
             {
+            $this->varAPIIdentity = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getAPIIdentityFromClassFullName(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), __CLASS__);
             }
 
 
@@ -62,6 +63,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
+                        //$varAPIWebToken = (new \App\Models\Database\SchSysAsset\General())->getData_APIWebToken_ByUserSessionID(6000000000001);
+                        
                         if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchSysConfig\General())->getUserPrivilege_InstitutionBranch(
                             $varUserSession,
 
