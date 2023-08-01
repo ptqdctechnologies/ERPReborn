@@ -73,17 +73,18 @@ namespace App\Models\Database\SchSysAsset
         public function getData_APIWebToken_ByUserSessionID($varUserSession)
             {
             $varReturn = 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
+                //\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                //    $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
                         'SchSysAsset.Func_GetData_APIWebToken_ByUserSessionID',
                         [
                             [$varUserSession, 'bigint']
                         ]
-                        )
+                //        )
                     );
-
+            dd($varReturn);
+            
             return $varReturn['Data'][0]['Func_GetData_APIWebToken_ByUserSessionID'];
             }
 
