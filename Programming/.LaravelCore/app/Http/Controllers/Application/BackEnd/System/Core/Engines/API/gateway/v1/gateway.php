@@ -75,7 +75,18 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\gatew
                     $varAPIVersion = $varData['metadata']['API']['version'];
                     $varData = $varData['data'];
 
-                    if((strcmp($varAPIKey, 'authentication.general.setLoginBranchAndUserRole')!=0) AND (!(\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID']))
+                    if (
+                        (strcmp($varAPIKey, 'authentication.userPrivilege.getInstitutionBranch')!=0) 
+                        AND 
+                        (strcmp($varAPIKey, 'authentication.userPrivilege.getRole')!=0) 
+                        AND 
+                        (strcmp($varAPIKey, 'authentication.userPrivilege.getCombinedBudget')!=0) 
+                        AND 
+                        (strcmp($varAPIKey, 'authentication.userPrivilege.getMenu')!=0) 
+                        AND 
+                        (strcmp($varAPIKey, 'authentication.general.setLoginBranchAndUserRole')!=0) 
+                        AND 
+                        (!(\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID']))
                         {
                         throw new \Exception('Branch ID has not been determined');
                         }

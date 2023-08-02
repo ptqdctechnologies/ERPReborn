@@ -183,6 +183,10 @@
             <div class="card-body login-card-body" id="dis1">
                 <form action="{{ route('loginStore') }}" method="post" name="FormLogin" id="FormLogin">
                     @csrf
+
+                    <input type="hidden" class="user_RefID">
+                    <input type="hidden" class="varAPIWebToken">
+
                     <div class=" input-group mb-4">
                         <input type="text" class="form-control username" placeholder="Username" name="username" id="dis2" required="" autocomplete="off" autofocus>
                         <div class="input-group-append">
@@ -326,6 +330,9 @@
 
                             HideLoading();
 
+                            $(".varAPIWebToken").val(response.varAPIWebToken);
+                            $(".user_RefID").val(response.user_RefID);
+                            
                             $(".branch_name").empty();
 
                             var option = "<option value='" + '' + "'>" + 'Select Company Name' + "</option>";
@@ -333,8 +340,8 @@
 
                             len = response.data.length;
                             for (var i = 0; i < len; i++) {
-                                var id = response.data[i].branch_RefID;
-                                var name = response.data[i].branchName;
+                                var id = response.data[i].sys_ID;
+                                var name = response.data[i].name;
                                 var option2 = "<option value='" + id + "'>" + name + "</option>";
                                 $(".branch_name").append(option2);
                             }
@@ -367,7 +374,7 @@
 
         $(document).ready(function() {
             $(".branch_name").click(function() {
-
+                
                 var id = $(this).val();
                 if (id != "") {
 
@@ -375,12 +382,12 @@
 
                     $.ajax({
                         type: 'GET',
-                        url: '{!! route("getRoleLogin") !!}?username=' + $('.username').val() + '&password=' + $('.password').val() + '&branch_name=' + $('.branch_name').val(),
+                        url: '{!! route("getRoleLogin") !!}?user_RefID=' + $('.user_RefID').val() + '&varAPIWebToken=' + $('.varAPIWebToken').val() + '&branch_name=' + $('.branch_name').val(),
                         success: function(data) {
                             var len = 0;
                             if (data == '401') {
-                                Swal.fire("Cancelled", "Pastikan username dan password and benar", "error");
 
+                                Swal.fire("Cancelled", "Pastikan username dan password and benar", "error");
                                 HideLoading();
 
                             } else {
@@ -398,8 +405,8 @@
                                     $(".submit_button").prop("disabled", false);
                                 }
                                 for (var i = 0; i < len; i++) {
-                                    var ids = data[i].userRole_RefID;
-                                    var names = data[i].userRoleName;
+                                    var ids = data[i].sys_ID;
+                                    var names = data[i].name;
                                     var option = "<option value='" + ids + "'>" + names + "</option>";
                                     $(".user_role").append(option);
                                 }
@@ -430,7 +437,7 @@
         });
     </script>
 
-    <script>
+    <!-- <script>
         setInterval(SessionCheckingLogout, 5000);
 
         function SessionCheckingLogout() {
@@ -447,7 +454,7 @@
                 }
             });
         }
-    </script>
+    </script> -->
 
 </body>
 

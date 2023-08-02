@@ -831,6 +831,7 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
                 )['Data'][0];
             
             $varReturn = [
+                'user_RefID' => $varData['User_RefID'],
                 'LDAPUserID' => $varLDAPUserID,
                 'person_RefID' => $varData['Person_RefID'],
                 'personName' => $varData['PersonName'],

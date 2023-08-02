@@ -86,7 +86,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                         $varSessionIntervalInSeconds = (10*60*60);
                         $varSessionIntervalInSeconds = (24*60*60);
                         
-
+                        /*
                         //---> Penyusunan Option List
                         $varOptionList = 
                             \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_LowerFirstCharacter(
@@ -96,6 +96,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                     (new \App\Models\Database\SchSysConfig\General())->getUserIDByName($varUserSession, $varUserName)
                                     )
                                 );
+                        */
+                        $varOptionList = [];
 
 
 /*
@@ -182,8 +184,8 @@ $varDataSend = [
                                 'sessionStartDateTimeTZ' => $varBufferDB[0]['SessionStartDateTimeTZ'],
                                 'sessionAutoStartDateTimeTZ' => $varBufferDB[0]['SessionAutoStartDateTimeTZ'],
                                 'sessionAutoFinishDateTimeTZ' => $varBufferDB[0]['SessionAutoFinishDateTimeTZ'],
-                                'redisID' => $varRedisID,
-                                'optionList' => $varOptionList
+                                'redisID' => $varRedisID//,
+                                //'optionList' => $varOptionList
                                 ];
                             
 
