@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[START]---
 $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxkaS5tdWx5YWRpIiwiaWF0IjoxNjkwNzk1OTA1fQ.ZGRiOGU1ZDI4ODU4MTAyMDNlY2M0ZDJlODBmN2YwMzRhYTlhMjYyM2RiZTY2NzE4MjZhNWMyNWQ3YWJhZWVmYw';
+$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxkaS5tdWx5YWRpIiwiaWF0IjoxNjkwODcyNjc2fQ.M2FhNjIzNTAzNjA4NzZmNjNjNjY5ODk0NjljODA2ZDMyZTk5MGYxNTRjZGRiM2VmZmUxYzVjM2QyODYwMjVmNA';
 
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
@@ -37,8 +37,8 @@ Route::get('SessionCheckingLogout', 'Auth\LoginController@SessionCheckingLogout'
 Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], function () {
     //logout
     Route::get('logout', 'Auth\LoginController@logout')->name('logout');
-    // Route::get('SessionCheckingLogout', 'Auth\LoginController@SessionCheckingLogout')->name('SessionCheckingLogout');
-    Route::get('SessionCheckingEvent', 'Auth\LoginController@SessionCheckingEvent')->name('SessionCheckingEvent');
+    Route::get('SessionCheckingLogout', 'Auth\LoginController@SessionCheckingLogout')->name('SessionCheckingLogout');
+    // Route::get('SessionCheckingEvent', 'Auth\LoginController@SessionCheckingEvent')->name('SessionCheckingEvent');
 
     // Dashboard
     Route::resource('dashboard', 'Dashboard\DashboardController');
