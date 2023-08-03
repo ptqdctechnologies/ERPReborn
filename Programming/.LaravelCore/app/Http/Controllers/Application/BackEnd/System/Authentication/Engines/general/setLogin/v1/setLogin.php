@@ -87,7 +87,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                         $varSessionIntervalInSeconds = (24*60*60);
                         
                         
+                        
                         //---> Penyusunan Option List
+                        /*
                         $varOptionList = 
                             \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_LowerFirstCharacter(
                                 $varUserSession, 
@@ -99,6 +101,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                          $varOptionList = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varOptionList);
                         var_dump($varOptionList);
                         echo "<br><br><br>";
+                        */
                         $varOptionList = [];
 
 
