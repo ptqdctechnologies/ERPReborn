@@ -63,6 +63,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     $varAPIWebToken = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession)['APIWebToken'];
                     $varBranchID = $varData['branchID'];
+                    $varUserID = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession)['userID'];
                     $varUserRoleID = $varData['userRoleID'];
                     
                     
@@ -74,7 +75,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                     
                     //--->
                     //dd((new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, $varUserSession)[0]['OptionsList']);
-                    $varDataOptionList = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, $varUserSession)[0]['OptionsList']);
+                    //$varDataOptionList = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, $varUserSession)[0]['OptionsList']);
+                    //dd($varDataOptionList);
+                    
+                    $varDataOptionList = $this->getUserPrivilegeMenuAccess($varUserSession, $varUserID, $varBranchID);
+                    //dd($varDataOptionList);
+                    
+                    
+                    /*
                     for($i=0; $i!=count($varDataOptionList); $i++)
                         {
                         $varCachedData = [];
@@ -109,7 +117,41 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
 
                             }
                         }
-                    
+                     
+                     */
+
+                    $varCachedData = [];
+                    for($i=0; $i!=count($varDataOptionList); $i++)
+                        {                        
+                        $varDataBranchList[$i] = $varDataOptionList[$i]['branch_RefID'];
+                        
+                        for($j=0, $jMax = count($varDataOptionList[$i]['userRole']); $j!=$jMax; $j++)
+                            {
+                            $varDataUserRoleList[$varDataOptionList[$i]['branch_RefID']][$j] = $varDataOptionList[$i]['userRole'][$j]['userRole_RefID'];
+                           
+                            //---> Cached Data Combined Budget
+                            for($k=0, $kMax=count($varDataOptionList[$i]['userRole'][$j]['combinedBudget']); $k!=$kMax; $k++)
+                                {
+                                $varCachedData[$varDataBranchList[$i]][($varDataOptionList[$i]['userRole'][$j]['userRole_RefID'])]['combinedBudget']['keyList'][] = $varDataOptionList[$i]['userRole'][$j]['combinedBudget'][$k]['recordID'];
+                                $varCachedData[$varDataBranchList[$i]][($varDataOptionList[$i]['userRole'][$j]['userRole_RefID'])]['combinedBudget']['dataTable'][] = 
+                                    [
+                                    'sys_ID' => $varDataOptionList[$i]['userRole'][$j]['combinedBudget'][$k]['recordID'],
+                                    'sys_TEXT' => $varDataOptionList[$i]['userRole'][$j]['combinedBudget'][$k]['entities']['name']
+                                    ];
+                                }
+
+                            //---> Cached Data Menu
+                            for($k=0, $kMax=count($varDataOptionList[$i]['userRole'][$j]['menu']); $k!=$kMax; $k++)
+                                {
+                                $varCachedData[$varDataBranchList[$i]][($varDataOptionList[$i]['userRole'][$j]['userRole_RefID'])]['menu']['keyList'][] = $varDataOptionList[$i]['userRole'][$j]['menu'][$k]['entities']['key'];
+                                $varCachedData[$varDataBranchList[$i]][($varDataOptionList[$i]['userRole'][$j]['userRole_RefID'])]['menu']['dataTable'][] = 
+                                    [
+                                    'sys_ID' => $varDataOptionList[$i]['userRole'][$j]['menu'][$k]['entities']['key'],
+                                    'sys_TEXT' => $varDataOptionList[$i]['userRole'][$j]['menu'][$k]['entities']['caption']
+                                    ];
+                                }
+                            }
+                        }
                     //dd($varCachedData);
                     //dd($varCachedData[$varUserRoleID]['menu']['index']);
                     //dd($varCachedData_CombinedBudget);
@@ -161,12 +203,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                 );
                         //$varDataRedis['userPrivilegesMenu'] = $varUserPrivilegesMenu;
                         $varDataRedis['environment']['userPrivileges']['menu'] = [
-                            'keyList' => $varCachedData[$varUserRoleID]['menu']['keyList'],
-                            'dataTable' => $varCachedData[$varUserRoleID]['menu']['dataTable']
+                            'keyList' => $varCachedData[$varBranchID][$varUserRoleID]['menu']['keyList'],
+                            'dataTable' => $varCachedData[$varBranchID][$varUserRoleID]['menu']['dataTable']
                             ];
                         $varDataRedis['environment']['userPrivileges']['combinedBudget'] = [
-                            'keyList' => $varCachedData[$varUserRoleID]['combinedBudget']['keyList'],
-                            'dataTable' => $varCachedData[$varUserRoleID]['combinedBudget']['dataTable']
+                            'keyList' => $varCachedData[$varBranchID][$varUserRoleID]['combinedBudget']['keyList'],
+                            'dataTable' => $varCachedData[$varBranchID][$varUserRoleID]['combinedBudget']['dataTable']
                             ];
                         //$varDataRedis['userIdentity'] = $varUserIdentity;
                         (new \App\Models\Cache\General\APIWebToken())->setDataUpdate($varUserSession, $varAPIWebToken, \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varDataRedis));
@@ -206,6 +248,60 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
         private function isSet($varUserSession, string $varAPIWebToken)
             {
             $varReturn = (new \App\Models\Database\SchSysConfig\General())->isSet_UserSessionBranchAndUserRole($varUserSession, $varAPIWebToken);
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getUserPrivilegeMenuAccess                                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-08-03                                                                                           |
+        | ▪ Creation Date   : 2023-08-03                                                                                           |
+        | ▪ Description     : Mendapatkan Akses Menu berdasarkan User Privilege                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varData ► Data                                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        private function getUserPrivilegeMenuAccess($varUserSession, int $varUserID, int $varBranchID)
+            {
+            $varData = 
+                (new \App\Models\Database\SchSysConfig\General())->getUserRolePrivilegeMenuAndBudget(
+                        $varUserSession,
+                        $varUserID,
+                        $varBranchID
+                        );
+
+            for($i=0, $iMax=count($varData); $i!=$iMax; $i++)
+                {
+                $varReturn[$i]['branch_RefID'] = $varData[$i]['branch_RefID'];
+                $varReturn[$i]['branchName'] = $varData[$i]['branchName'];
+                for($j=0, $jMax=count($varData[$i]['userRole']); $j!=$jMax; $j++)
+                    {
+                    $varReturn[$i]['userRole'][$j]['userRole_RefID'] = $varData[$i]['userRole'][$j]['userRole_RefID'];
+                    $varReturn[$i]['userRole'][$j]['userRoleName'] = $varData[$i]['userRole'][$j]['userRoleName'];
+                    $varReturn[$i]['userRole'][$j]['userRoleStatus'] = $varData[$i]['userRole'][$j]['userRoleStatus'];
+                    for($k=0, $kMax=count($varData[$i]['userRole'][$j]['combinedBudget']); $k!=$kMax; $k++)
+                        {
+                        $varReturn[$i]['userRole'][$j]['combinedBudget'][$k]['recordID'] = $varData[$i]['userRole'][$j]['combinedBudget'][$k]['combinedBudget_RefID'];
+                        $varReturn[$i]['userRole'][$j]['combinedBudget'][$k]['entities']['name'] = $varData[$i]['userRole'][$j]['combinedBudget'][$k]['combinedBudgetFullName'];
+                        //dd($varReturn[$i]['userRole'][$j]['combinedBudget'][$k]);
+                        }
+                    for($k=0, $kMax=count($varData[$i]['userRole'][$j]['menu']); $k!=$kMax; $k++)
+                        {
+                        $varReturn[$i]['userRole'][$j]['menu'][$k]['recordID'] = $varData[$i]['userRole'][$j]['menu'][$k]['menu_RefID'];
+                        $varReturn[$i]['userRole'][$j]['menu'][$k]['entities']['key'] = $varData[$i]['userRole'][$j]['menu'][$k]['menuKey'];
+                        $varReturn[$i]['userRole'][$j]['menu'][$k]['entities']['caption'] = $varData[$i]['userRole'][$j]['menu'][$k]['menuCaption'];
+                        //dd($varReturn[$i]['userRole'][$j]['menu'][$k]);
+                        }
+                    }
+                }
+
             return $varReturn;
             }
         }
