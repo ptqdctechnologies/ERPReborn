@@ -1394,7 +1394,7 @@
                                         <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <!-- <ul class="nav nav-treeview">
+                                    <ul class="nav nav-treeview">
                                         @if(in_array("Module.SupplyChain.Procurement.PurchaseRequisition.Transaction.Create", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('PurchaseRequisition.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -1403,7 +1403,7 @@
                                             </a>
                                         </li>
                                         @endif
-                                    </ul> -->
+                                    </ul>
                                 </li>
                             </ul>
                         </li>
@@ -1458,7 +1458,7 @@
                                         <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <!-- <ul class="nav nav-treeview">
+                                    <ul class="nav nav-treeview">
                                         @if(in_array("Module.SupplyChain.Procurement.PurchaseOrder.Transaction.Create", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('PurchaseOrder.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -1467,7 +1467,7 @@
                                             </a>
                                         </li>
                                         @endif
-                                    </ul> -->
+                                    </ul>
                                 </li>
                             </ul>
                         </li>
