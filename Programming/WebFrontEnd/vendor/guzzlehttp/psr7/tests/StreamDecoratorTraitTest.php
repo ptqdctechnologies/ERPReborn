@@ -18,7 +18,7 @@ class Str implements StreamInterface
 }
 
 /**
- * @covers GuzzleHttp\Psr7\StreamDecoratorTrait
+ * @covers \GuzzleHttp\Psr7\StreamDecoratorTrait
  */
 class StreamDecoratorTraitTest extends TestCase
 {

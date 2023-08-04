@@ -9,8 +9,8 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\StreamInterface;
 
 /**
- * @covers GuzzleHttp\Psr7\NoSeekStream
- * @covers GuzzleHttp\Psr7\StreamDecoratorTrait
+ * @covers \GuzzleHttp\Psr7\NoSeekStream
+ * @covers \GuzzleHttp\Psr7\StreamDecoratorTrait
  */
 class NoSeekStreamTest extends TestCase
 {

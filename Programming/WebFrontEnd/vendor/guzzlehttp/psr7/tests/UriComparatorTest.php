@@ -9,7 +9,7 @@ use GuzzleHttp\Psr7\UriComparator;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers GuzzleHttp\Psr7\UriComparator
+ * @covers \GuzzleHttp\Psr7\UriComparator
  */
 class UriComparatorTest extends TestCase
 {

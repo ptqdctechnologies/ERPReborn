@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\UriInterface;
 
 /**
- * @covers GuzzleHttp\Psr7\UriNormalizer
+ * @covers \GuzzleHttp\Psr7\UriNormalizer
  */
 class UriNormalizerTest extends TestCase
 {
@@ -33,10 +33,10 @@ class UriNormalizerTest extends TestCase
      */
     public function testDecodeUnreservedCharacters(string $char): void
     {
-        $percentEncoded = '%' . bin2hex($char);
+        $percentEncoded = '%'.bin2hex($char);
         // Add encoded reserved characters to test that those are not decoded and include the percent-encoded
         // unreserved character both in lower and upper case to test the decoding is case-insensitive.
-        $encodedChars = $percentEncoded . '%2F%5B' . strtoupper($percentEncoded);
+        $encodedChars = $percentEncoded.'%2F%5B'.strtoupper($percentEncoded);
         $uri = (new Uri())->withPath("/$encodedChars")->withQuery($encodedChars);
 
         self::assertSame("/$encodedChars?$encodedChars", (string) $uri, 'Not normalized automatically beforehand');

@@ -105,13 +105,13 @@ class QueryTest extends TestCase
     {
         $data = [
             'true' => true,
-            'false' => false
+            'false' => false,
         ];
         self::assertEquals(http_build_query($data), Psr7\Query::build($data));
 
         $data = [
             'foo' => [true, 'true'],
-            'bar' => [false, 'false']
+            'bar' => [false, 'false'],
         ];
         self::assertEquals('foo=1&foo=true&bar=0&bar=false', Psr7\Query::build($data, PHP_QUERY_RFC1738));
     }

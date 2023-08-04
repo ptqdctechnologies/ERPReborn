@@ -10,7 +10,7 @@ use GuzzleHttp\Psr7\Uri;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers GuzzleHttp\Psr7\ServerRequest
+ * @covers \GuzzleHttp\Psr7\ServerRequest
  */
 class ServerRequestTest extends TestCase
 {
@@ -24,8 +24,8 @@ class ServerRequestTest extends TestCase
                         'type' => 'text/plain',
                         'tmp_name' => '/tmp/php/php1h4j1o',
                         'error' => '0',
-                        'size' => '123'
-                    ]
+                        'size' => '123',
+                    ],
                 ],
                 [
                     'file' => new UploadedFile(
@@ -34,8 +34,8 @@ class ServerRequestTest extends TestCase
                         UPLOAD_ERR_OK,
                         'MyFile.txt',
                         'text/plain'
-                    )
-                ]
+                    ),
+                ],
             ],
             'Empty file' => [
                 [
@@ -44,8 +44,8 @@ class ServerRequestTest extends TestCase
                         'type' => '',
                         'tmp_name' => '',
                         'error' => '4',
-                        'size' => '0'
-                    ]
+                        'size' => '0',
+                    ],
                 ],
                 [
                     'image_file' => new UploadedFile(
@@ -54,8 +54,8 @@ class ServerRequestTest extends TestCase
                         UPLOAD_ERR_NO_FILE,
                         '',
                         ''
-                    )
-                ]
+                    ),
+                ],
             ],
             'Already Converted' => [
                 [
@@ -65,7 +65,7 @@ class ServerRequestTest extends TestCase
                         UPLOAD_ERR_OK,
                         'MyFile.txt',
                         'text/plain'
-                    )
+                    ),
                 ],
                 [
                     'file' => new UploadedFile(
@@ -74,8 +74,8 @@ class ServerRequestTest extends TestCase
                         UPLOAD_ERR_OK,
                         'MyFile.txt',
                         'text/plain'
-                    )
-                ]
+                    ),
+                ],
             ],
             'Already Converted array' => [
                 [
@@ -93,7 +93,7 @@ class ServerRequestTest extends TestCase
                             UPLOAD_ERR_NO_FILE,
                             '',
                             ''
-                        )
+                        ),
                     ],
                 ],
                 [
@@ -111,9 +111,9 @@ class ServerRequestTest extends TestCase
                             UPLOAD_ERR_NO_FILE,
                             '',
                             ''
-                        )
+                        ),
                     ],
-                ]
+                ],
             ],
             'Multiple files' => [
                 [
@@ -122,15 +122,15 @@ class ServerRequestTest extends TestCase
                         'type' => 'text/plain',
                         'tmp_name' => '/tmp/php/php1h4j1o',
                         'error' => '0',
-                        'size' => '123'
+                        'size' => '123',
                     ],
                     'image_file' => [
                         'name' => '',
                         'type' => '',
                         'tmp_name' => '',
                         'error' => '4',
-                        'size' => '0'
-                    ]
+                        'size' => '0',
+                    ],
                 ],
                 [
                     'text_file' => new UploadedFile(
@@ -146,8 +146,8 @@ class ServerRequestTest extends TestCase
                         UPLOAD_ERR_NO_FILE,
                         '',
                         ''
-                    )
-                ]
+                    ),
+                ],
             ],
             'Nested files' => [
                 [
@@ -213,8 +213,8 @@ class ServerRequestTest extends TestCase
                             'test' => [
                                 0 => '32',
                                 1 => '0',
-                            ]
-                        ]
+                            ],
+                        ],
                     ],
                 ],
                 [
@@ -269,10 +269,10 @@ class ServerRequestTest extends TestCase
                                 '',
                                 ''
                             ),
-                        ]
-                    ]
-                ]
-            ]
+                        ],
+                    ],
+                ],
+            ],
         ];
     }
 
@@ -404,7 +404,7 @@ class ServerRequestTest extends TestCase
         ];
 
         $_COOKIE = [
-            'logged-in' => 'yes!'
+            'logged-in' => 'yes!',
         ];
 
         $_POST = [
@@ -424,7 +424,7 @@ class ServerRequestTest extends TestCase
                 'tmp_name' => '/tmp/php/php1h4j1o',
                 'error' => UPLOAD_ERR_OK,
                 'size' => 123,
-            ]
+            ],
         ];
 
         $server = ServerRequest::fromGlobals();
@@ -466,7 +466,7 @@ class ServerRequestTest extends TestCase
         $request1 = new ServerRequest('GET', '/');
 
         $files = [
-            'file' => new UploadedFile('test', 123, UPLOAD_ERR_OK)
+            'file' => new UploadedFile('test', 123, UPLOAD_ERR_OK),
         ];
 
         $request2 = $request1->withUploadedFiles($files);

@@ -12,7 +12,7 @@ use GuzzleHttp\Psr7\Stream;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers GuzzleHttp\Psr7\LimitStream
+ * @covers \GuzzleHttp\Psr7\LimitStream
  */
 class LimitStreamTest extends TestCase
 {
@@ -148,7 +148,7 @@ class LimitStreamTest extends TestCase
             'getSize' => function () {
                 return null;
             },
-            'tell'    => function () {
+            'tell' => function () {
                 return 0;
             },
         ]);

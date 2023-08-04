@@ -52,13 +52,13 @@ class MultipartStreamTest extends TestCase
     {
         $b = new MultipartStream([
             [
-                'name'     => 'foo',
-                'contents' => 'bar'
+                'name' => 'foo',
+                'contents' => 'bar',
             ],
             [
                 'name' => 'baz',
-                'contents' => 'bam'
-            ]
+                'contents' => 'bam',
+            ],
         ], 'boundary');
 
         $expected = \implode('', [
@@ -82,21 +82,21 @@ class MultipartStreamTest extends TestCase
     {
         $b = new MultipartStream([
             [
-                'name'     => 'int',
-                'contents' => (int) 1
+                'name' => 'int',
+                'contents' => (int) 1,
             ],
             [
                 'name' => 'bool',
-                'contents' => (boolean) false
+                'contents' => (bool) false,
             ],
             [
                 'name' => 'bool2',
-                'contents' => (boolean) true
+                'contents' => (bool) true,
             ],
             [
                 'name' => 'float',
-                'contents' => (float) 1.1
-            ]
+                'contents' => (float) 1.1,
+            ],
         ], 'boundary');
 
         $expected = \implode('', [
@@ -109,7 +109,7 @@ class MultipartStreamTest extends TestCase
             "Content-Disposition: form-data; name=\"bool\"\r\n",
             "\r\n",
             "\r\n",
-            "--boundary",
+            '--boundary',
             "\r\n",
             "Content-Disposition: form-data; name=\"bool2\"\r\n",
             "Content-Length: 1\r\n",
@@ -121,7 +121,7 @@ class MultipartStreamTest extends TestCase
             "\r\n",
             "1.1\r\n",
             "--boundary--\r\n",
-            "",
+            '',
         ]);
 
         self::assertSame($expected, (string) $b);
@@ -132,33 +132,33 @@ class MultipartStreamTest extends TestCase
         $f1 = Psr7\FnStream::decorate(Psr7\Utils::streamFor('foo'), [
             'getMetadata' => static function (): string {
                 return '/foo/bar.txt';
-            }
+            },
         ]);
 
         $f2 = Psr7\FnStream::decorate(Psr7\Utils::streamFor('baz'), [
             'getMetadata' => static function (): string {
                 return '/foo/baz.jpg';
-            }
+            },
         ]);
 
         $f3 = Psr7\FnStream::decorate(Psr7\Utils::streamFor('bar'), [
             'getMetadata' => static function (): string {
-                return '/foo/bar.gif';
-            }
+                return '/foo/bar.unknown';
+            },
         ]);
 
         $b = new MultipartStream([
             [
-                'name'     => 'foo',
-                'contents' => $f1
+                'name' => 'foo',
+                'contents' => $f1,
             ],
             [
                 'name' => 'qux',
-                'contents' => $f2
+                'contents' => $f2,
             ],
             [
-                'name'     => 'qux',
-                'contents' => $f3
+                'name' => 'qux',
+                'contents' => $f3,
             ],
         ], 'boundary');
 
@@ -176,9 +176,9 @@ class MultipartStreamTest extends TestCase
             "\r\n",
             "baz\r\n",
             "--boundary\r\n",
-            "Content-Disposition: form-data; name=\"qux\"; filename=\"bar.gif\"\r\n",
+            "Content-Disposition: form-data; name=\"qux\"; filename=\"bar.unknown\"\r\n",
             "Content-Length: 3\r\n",
-            "Content-Type: image/gif\r\n",
+            "Content-Type: application/octet-stream\r\n",
             "\r\n",
             "bar\r\n",
             "--boundary--\r\n",
@@ -195,13 +195,13 @@ class MultipartStreamTest extends TestCase
         $f1 = Psr7\FnStream::decorate(Psr7\Utils::streamFor($content), [
             'getMetadata' => static function (): string {
                 return '/foo/newlines.txt';
-            }
+            },
         ]);
 
         $b = new MultipartStream([
             [
-                'name'     => 'newlines',
-                'contents' => $f1
+                'name' => 'newlines',
+                'contents' => $f1,
             ],
         ], 'boundary');
 
@@ -225,18 +225,18 @@ class MultipartStreamTest extends TestCase
         $f1 = Psr7\FnStream::decorate(Psr7\Utils::streamFor('foo'), [
             'getMetadata' => static function (): string {
                 return '/foo/bar.txt';
-            }
+            },
         ]);
 
         $b = new MultipartStream([
             [
                 'name' => 'foo',
                 'contents' => $f1,
-                'headers'  => [
+                'headers' => [
                     'x-foo' => 'bar',
-                    'content-disposition' => 'custom'
-                ]
-            ]
+                    'content-disposition' => 'custom',
+                ],
+            ],
         ], 'boundary');
 
         $expected = \implode('', [
@@ -258,29 +258,29 @@ class MultipartStreamTest extends TestCase
         $f1 = Psr7\FnStream::decorate(Psr7\Utils::streamFor('foo'), [
             'getMetadata' => static function (): string {
                 return '/foo/bar.txt';
-            }
+            },
         ]);
 
         $f2 = Psr7\FnStream::decorate(Psr7\Utils::streamFor('baz'), [
             'getMetadata' => static function (): string {
                 return '/foo/baz.jpg';
-            }
+            },
         ]);
 
         $b = new MultipartStream([
             [
-                'name'     => 'foo',
+                'name' => 'foo',
                 'contents' => $f1,
-                'headers'  => [
+                'headers' => [
                     'x-foo' => 'bar',
-                    'content-disposition' => 'custom'
-                ]
+                    'content-disposition' => 'custom',
+                ],
             ],
             [
-                'name'     => 'foo',
+                'name' => 'foo',
                 'contents' => $f2,
-                'headers'  => ['cOntenT-Type' => 'custom'],
-            ]
+                'headers' => ['cOntenT-Type' => 'custom'],
+            ],
         ], 'boundary');
 
         $expected = \implode('', [
@@ -312,7 +312,7 @@ class MultipartStreamTest extends TestCase
         $b = new Psr7\LimitStream($a, \strlen($str));
         $c = new MultipartStream([
             [
-                'name'     => 'foo',
+                'name' => 'foo',
                 'contents' => $b,
             ],
         ], 'boundary');
@@ -321,10 +321,10 @@ class MultipartStreamTest extends TestCase
             "--boundary\r\n",
             "Content-Disposition: form-data; name=\"foo\"\r\n",
             "\r\n",
-            $str . "\r\n",
+            $str."\r\n",
             "--boundary--\r\n",
         ]);
 
-        self::assertSame($expected, (string)$c);
+        self::assertSame($expected, (string) $c);
     }
 }

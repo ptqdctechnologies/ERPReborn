@@ -9,7 +9,7 @@ use GuzzleHttp\Psr7\FnStream;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers GuzzleHttp\Psr7\FnStream
+ * @covers \GuzzleHttp\Psr7\FnStream
  */
 class FnStreamTest extends TestCase
 {
@@ -25,8 +25,9 @@ class FnStreamTest extends TestCase
         $s = new FnStream([
             'read' => function ($len) {
                 $this->assertSame(3, $len);
+
                 return 'foo';
-            }
+            },
         ]);
 
         self::assertSame('foo', $s->read(3));
@@ -38,7 +39,7 @@ class FnStreamTest extends TestCase
         $s = new FnStream([
             'close' => function () use (&$called): void {
                 $called = true;
-            }
+            },
         ]);
         unset($s);
         self::assertTrue($called);
@@ -84,8 +85,9 @@ class FnStreamTest extends TestCase
         $b = FnStream::decorate($a, [
             'read' => function ($len) use (&$called, $a) {
                 $called = true;
+
                 return $a->read($len);
-            }
+            },
         ]);
         self::assertSame('foo', $b->read(3));
         self::assertTrue($called);

@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\StreamInterface;
 
 /**
- * @covers GuzzleHttp\Psr7\StreamWrapper
+ * @covers \GuzzleHttp\Psr7\StreamWrapper
  */
 class StreamWrapperTest extends TestCase
 {
@@ -26,35 +26,35 @@ class StreamWrapperTest extends TestCase
         self::assertSame('', fread($handle, 1));
         self::assertTrue(feof($handle));
 
-        $stBlksize  = defined('PHP_WINDOWS_VERSION_BUILD') ? -1 : 0;
+        $stBlksize = defined('PHP_WINDOWS_VERSION_BUILD') ? -1 : 0;
 
         self::assertEquals([
-            'dev'     => 0,
-            'ino'     => 0,
-            'mode'    => 33206,
-            'nlink'   => 0,
-            'uid'     => 0,
-            'gid'     => 0,
-            'rdev'    => 0,
-            'size'    => 6,
-            'atime'   => 0,
-            'mtime'   => 0,
-            'ctime'   => 0,
+            'dev' => 0,
+            'ino' => 0,
+            'mode' => 33206,
+            'nlink' => 0,
+            'uid' => 0,
+            'gid' => 0,
+            'rdev' => 0,
+            'size' => 6,
+            'atime' => 0,
+            'mtime' => 0,
+            'ctime' => 0,
             'blksize' => $stBlksize,
-            'blocks'  => $stBlksize,
-            0         => 0,
-            1         => 0,
-            2         => 33206,
-            3         => 0,
-            4         => 0,
-            5         => 0,
-            6         => 0,
-            7         => 6,
-            8         => 0,
-            9         => 0,
-            10        => 0,
-            11        => $stBlksize,
-            12        => $stBlksize,
+            'blocks' => $stBlksize,
+            0 => 0,
+            1 => 0,
+            2 => 33206,
+            3 => 0,
+            4 => 0,
+            5 => 0,
+            6 => 0,
+            7 => 6,
+            8 => 0,
+            9 => 0,
+            10 => 0,
+            11 => $stBlksize,
+            12 => $stBlksize,
         ], fstat($handle));
 
         self::assertTrue(fclose($handle));
@@ -72,7 +72,7 @@ class StreamWrapperTest extends TestCase
     {
         $streams = [
             StreamWrapper::getResource(Psr7\Utils::streamFor('foo')),
-            StreamWrapper::getResource(Psr7\Utils::streamFor('bar'))
+            StreamWrapper::getResource(Psr7\Utils::streamFor('bar')),
         ];
         $write = null;
         $except = null;
@@ -117,36 +117,36 @@ class StreamWrapperTest extends TestCase
     {
         StreamWrapper::register();
 
-        $stBlksize  = defined('PHP_WINDOWS_VERSION_BUILD') ? -1 : 0;
+        $stBlksize = defined('PHP_WINDOWS_VERSION_BUILD') ? -1 : 0;
 
         self::assertEquals(
             [
-                'dev'     => 0,
-                'ino'     => 0,
-                'mode'    => 0,
-                'nlink'   => 0,
-                'uid'     => 0,
-                'gid'     => 0,
-                'rdev'    => 0,
-                'size'    => 0,
-                'atime'   => 0,
-                'mtime'   => 0,
-                'ctime'   => 0,
+                'dev' => 0,
+                'ino' => 0,
+                'mode' => 0,
+                'nlink' => 0,
+                'uid' => 0,
+                'gid' => 0,
+                'rdev' => 0,
+                'size' => 0,
+                'atime' => 0,
+                'mtime' => 0,
+                'ctime' => 0,
                 'blksize' => $stBlksize,
-                'blocks'  => $stBlksize,
-                0         => 0,
-                1         => 0,
-                2         => 0,
-                3         => 0,
-                4         => 0,
-                5         => 0,
-                6         => 0,
-                7         => 0,
-                8         => 0,
-                9         => 0,
-                10        => 0,
-                11        => $stBlksize,
-                12        => $stBlksize,
+                'blocks' => $stBlksize,
+                0 => 0,
+                1 => 0,
+                2 => 0,
+                3 => 0,
+                4 => 0,
+                5 => 0,
+                6 => 0,
+                7 => 0,
+                8 => 0,
+                9 => 0,
+                10 => 0,
+                11 => $stBlksize,
+                12 => $stBlksize,
             ],
             stat('guzzle://stream')
         );
