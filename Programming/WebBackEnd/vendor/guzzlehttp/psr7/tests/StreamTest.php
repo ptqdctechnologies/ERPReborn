@@ -10,7 +10,7 @@ use GuzzleHttp\Psr7\StreamWrapper;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers GuzzleHttp\Psr7\Stream
+ * @covers \GuzzleHttp\Psr7\Stream
  */
 class StreamTest extends TestCase
 {
@@ -294,7 +294,7 @@ class StreamTest extends TestCase
             },
             'eof' => function (): bool {
                 return false;
-            }
+            },
         ]));
 
         $stream = new Stream($r);
@@ -423,7 +423,7 @@ class StreamTest extends TestCase
         $r = fopen(tempnam(sys_get_temp_dir(), 'guzzle-psr7-'), 'w');
         $stream = new Stream($r);
 
-        $stream->write("Hello world!!");
+        $stream->write('Hello world!!');
 
         $stream->seek(0);
 

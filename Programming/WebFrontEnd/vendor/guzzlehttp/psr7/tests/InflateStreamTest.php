@@ -51,7 +51,7 @@ class InflateStreamTest extends TestCase
         $header .= "\x00\x00\x00\x00"; // MTIME
         $header .= "\x02\x03"; // XFL, OS
         // 4 byte extra data
-        $header .= "\x04\x00" /* XLEN */ . "\x41\x70\x00\x00" /*EXTRA*/;
+        $header .= "\x04\x00\x41\x70\x00\x00"; /* XLEN + EXTRA */
         // file name (2 bytes + terminator)
         $header .= "\x41\x70\x00";
         // file comment (3 bytes + terminator)
@@ -60,7 +60,7 @@ class InflateStreamTest extends TestCase
         // crc16
         $header .= pack('v', crc32($header));
 
-        $a = Psr7\Utils::streamFor($header . $content);
+        $a = Psr7\Utils::streamFor($header.$content);
         $b = new InflateStream($a);
         self::assertSame('test', (string) $b);
     }
@@ -86,12 +86,12 @@ class InflateStreamTest extends TestCase
 
         $header = substr($gzipped, 0, 20);
         // set FNAME flag
-        $header[6]=0;
-        $header[7]=8;
+        $header[6] = 0;
+        $header[7] = 8;
         // make a dummy filename
         $filename = '64756d6d7900';
         $rest = substr($gzipped, 20);
 
-        return hex2bin($header . $filename . $rest);
+        return hex2bin($header.$filename.$rest);
     }
 }

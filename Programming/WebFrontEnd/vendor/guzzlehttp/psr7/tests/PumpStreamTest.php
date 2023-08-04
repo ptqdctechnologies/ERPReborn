@@ -16,7 +16,7 @@ class PumpStreamTest extends TestCase
         $p = new PumpStream(function (): void {
         }, [
             'metadata' => ['foo' => 'bar'],
-            'size'     => 100
+            'size' => 100,
         ]);
 
         self::assertSame('bar', $p->getMetadata('foo'));
@@ -40,6 +40,7 @@ class PumpStreamTest extends TestCase
         $called = [];
         $p = Psr7\Utils::streamFor(function ($size) use (&$called) {
             $called[] = $size;
+
             return 'abcdef';
         });
         self::assertSame('a', $p->read(1));

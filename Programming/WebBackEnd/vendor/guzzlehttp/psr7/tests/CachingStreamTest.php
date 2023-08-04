@@ -10,7 +10,7 @@ use GuzzleHttp\Psr7\Stream;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers GuzzleHttp\Psr7\CachingStream
+ * @covers \GuzzleHttp\Psr7\CachingStream
  */
 class CachingStreamTest extends TestCase
 {
@@ -81,7 +81,7 @@ class CachingStreamTest extends TestCase
         $decorated = Psr7\FnStream::decorate($baseStream, [
             'getSize' => function () {
                 return null;
-            }
+            },
         ]);
         $cached = new CachingStream($decorated);
         $cached->seek(-1, SEEK_END);
@@ -149,7 +149,7 @@ class CachingStreamTest extends TestCase
     {
         $decorated = Psr7\Utils::streamFor(
             implode("\n", array_map(function ($n) {
-                return str_pad((string)$n, 4, '0', STR_PAD_LEFT);
+                return str_pad((string) $n, 4, '0', STR_PAD_LEFT);
             }, range(0, 25)))
         );
 

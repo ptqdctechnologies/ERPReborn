@@ -10,8 +10,8 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\StreamInterface;
 
 /**
- * @covers GuzzleHttp\Psr7\MessageTrait
- * @covers GuzzleHttp\Psr7\Response
+ * @covers \GuzzleHttp\Psr7\MessageTrait
+ * @covers \GuzzleHttp\Psr7\Response
  */
 class ResponseTest extends TestCase
 {
@@ -39,8 +39,9 @@ class ResponseTest extends TestCase
         $body = Psr7\FnStream::decorate(Psr7\Utils::streamFor(''), [
             '__toString' => function () use (&$streamIsRead) {
                 $streamIsRead = true;
+
                 return '';
-            }
+            },
         ]);
 
         $r = new Response(200, [], $body);
@@ -67,7 +68,7 @@ class ResponseTest extends TestCase
     public function testCanConstructWithHeadersAsArray(): void
     {
         $r = new Response(200, [
-            'Foo' => ['baz', 'bar']
+            'Foo' => ['baz', 'bar'],
         ]);
         self::assertSame(['Foo' => ['baz', 'bar']], $r->getHeaders());
         self::assertSame('baz, bar', $r->getHeaderLine('Foo'));
@@ -288,7 +289,7 @@ class ResponseTest extends TestCase
         yield [[], 'foo', 'Header name must be a string but array provided.'];
         yield [false, 'foo', 'Header name must be a string but boolean provided.'];
         yield [new \stdClass(), 'foo', 'Header name must be a string but stdClass provided.'];
-        yield ['', 'foo', "\"\" is not valid header name."];
+        yield ['', 'foo', '"" is not valid header name.'];
         yield ["Content-Type\r\n\r\n", 'foo', "\"Content-Type\r\n\r\n\" is not valid header name."];
         yield ["Content-Type\r\n", 'foo', "\"Content-Type\r\n\" is not valid header name."];
         yield ["Content-Type\n", 'foo', "\"Content-Type\n\" is not valid header name."];

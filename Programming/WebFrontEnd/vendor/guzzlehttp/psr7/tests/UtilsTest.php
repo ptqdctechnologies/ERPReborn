@@ -39,13 +39,13 @@ class UtilsTest extends TestCase
         $s1 = Psr7\Utils::streamFor('foobaz');
         $s2 = Psr7\Utils::streamFor('');
         Psr7\Utils::copyToStream($s1, $s2);
-        self::assertSame('foobaz', (string)$s2);
+        self::assertSame('foobaz', (string) $s2);
         $s2 = Psr7\Utils::streamFor('');
         $s1->seek(0);
         Psr7\Utils::copyToStream($s1, $s2, 3);
-        self::assertSame('foo', (string)$s2);
+        self::assertSame('foo', (string) $s2);
         Psr7\Utils::copyToStream($s1, $s2, 3);
-        self::assertSame('foobaz', (string)$s2);
+        self::assertSame('foobaz', (string) $s2);
     }
 
     public function testStopsCopyToStreamWhenWriteFails(): void
@@ -58,7 +58,7 @@ class UtilsTest extends TestCase
             },
         ]);
         Psr7\Utils::copyToStream($s1, $s2);
-        self::assertSame('', (string)$s2);
+        self::assertSame('', (string) $s2);
     }
 
     public function testStopsCopyToSteamWhenWriteFailsWithMaxLen(): void
@@ -71,7 +71,7 @@ class UtilsTest extends TestCase
             },
         ]);
         Psr7\Utils::copyToStream($s1, $s2, 10);
-        self::assertSame('', (string)$s2);
+        self::assertSame('', (string) $s2);
     }
 
     public function testCopyToStreamReadsInChunksInsteadOfAllInMemory(): void
@@ -83,6 +83,7 @@ class UtilsTest extends TestCase
             },
             'read' => function ($size) use (&$sizes) {
                 $sizes[] = $size;
+
                 return str_repeat('.', $size);
             },
         ]);
@@ -105,7 +106,7 @@ class UtilsTest extends TestCase
         ]);
         $s2 = Psr7\Utils::streamFor('');
         Psr7\Utils::copyToStream($s1, $s2, 10);
-        self::assertSame('', (string)$s2);
+        self::assertSame('', (string) $s2);
     }
 
     public function testReadsLines(): void
@@ -279,7 +280,7 @@ class UtilsTest extends TestCase
         $r = fopen(__FILE__, 'r');
         $s = Psr7\Utils::streamFor($r);
         self::assertInstanceOf('GuzzleHttp\Psr7\Stream', $s);
-        self::assertSame(file_get_contents(__FILE__), (string)$s);
+        self::assertSame(file_get_contents(__FILE__), (string) $s);
     }
 
     public function testFactoryCreatesFromObjectWithToString(): void
@@ -287,7 +288,7 @@ class UtilsTest extends TestCase
         $r = new HasToString();
         $s = Psr7\Utils::streamFor($r);
         self::assertInstanceOf('GuzzleHttp\Psr7\Stream', $s);
-        self::assertSame('foo', (string)$s);
+        self::assertSame('foo', (string) $s);
     }
 
     public function testCreatePassesThrough(): void
@@ -359,7 +360,7 @@ class UtilsTest extends TestCase
     public function testCorrectlyRendersSetCookieHeadersToString(): void
     {
         $response = new Psr7\Response(200, [
-            'Set-Cookie' => ['bar','baz','qux']
+            'Set-Cookie' => ['bar', 'baz', 'qux'],
         ], 'hello', '1.0', 'FOO');
         self::assertSame(
             "HTTP/1.0 200 FOO\r\nSet-Cookie: bar\r\nSet-Cookie: baz\r\nSet-Cookie: qux\r\n\r\nhello",
@@ -373,8 +374,8 @@ class UtilsTest extends TestCase
         $r2 = Psr7\Utils::modifyRequest($r1, [
             'uri' => new Psr7\Uri('http://www.foo.com'),
         ]);
-        self::assertSame('http://www.foo.com', (string)$r2->getUri());
-        self::assertSame('www.foo.com', (string)$r2->getHeaderLine('host'));
+        self::assertSame('http://www.foo.com', (string) $r2->getUri());
+        self::assertSame('www.foo.com', (string) $r2->getHeaderLine('host'));
     }
 
     public function testCanModifyRequestWithUriAndPort(): void
@@ -383,8 +384,8 @@ class UtilsTest extends TestCase
         $r2 = Psr7\Utils::modifyRequest($r1, [
             'uri' => new Psr7\Uri('http://www.foo.com:8000'),
         ]);
-        self::assertSame('http://www.foo.com:8000', (string)$r2->getUri());
-        self::assertSame('www.foo.com:8000', (string)$r2->getHeaderLine('host'));
+        self::assertSame('http://www.foo.com:8000', (string) $r2->getUri());
+        self::assertSame('www.foo.com:8000', (string) $r2->getHeaderLine('host'));
     }
 
     public function testCanModifyRequestWithCaseInsensitiveHeader(): void
@@ -509,12 +510,12 @@ class UtilsTest extends TestCase
             [
                 ['foo-bar'],
                 ['Foo-Bar' => 'hello'],
-                []
+                [],
             ],
             [
                 ['foo-bar'],
                 ['hello'],
-                ['hello']
+                ['hello'],
             ],
             [
                 ['foo-Bar'],

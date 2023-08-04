@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
 
 /**
- * @covers GuzzleHttp\Psr7\UploadedFile
+ * @covers \GuzzleHttp\Psr7\UploadedFile
  */
 class UploadedFileTest extends TestCase
 {
@@ -33,13 +33,13 @@ class UploadedFileTest extends TestCase
     public function invalidStreams()
     {
         return [
-            'null'         => [null],
-            'true'         => [true],
-            'false'        => [false],
-            'int'          => [1],
-            'float'        => [1.1],
-            'array'        => [['filename']],
-            'object'       => [(object) ['filename']],
+            'null' => [null],
+            'true' => [true],
+            'false' => [false],
+            'int' => [1],
+            'float' => [1.1],
+            'array' => [['filename']],
+            'object' => [(object) ['filename']],
         ];
     }
 
@@ -99,13 +99,13 @@ class UploadedFileTest extends TestCase
     public function invalidMovePaths(): iterable
     {
         return [
-            'null'   => [null],
-            'true'   => [true],
-            'false'  => [false],
-            'int'    => [1],
-            'float'  => [1.1],
-            'empty'  => [''],
-            'array'  => [['filename']],
+            'null' => [null],
+            'true' => [true],
+            'false' => [false],
+            'int' => [1],
+            'float' => [1.1],
+            'empty' => [''],
+            'array' => [['filename']],
             'object' => [(object) ['filename']],
         ];
     }
@@ -154,13 +154,13 @@ class UploadedFileTest extends TestCase
     public function nonOkErrorStatus(): iterable
     {
         return [
-            'UPLOAD_ERR_INI_SIZE'   => [ UPLOAD_ERR_INI_SIZE ],
-            'UPLOAD_ERR_FORM_SIZE'  => [ UPLOAD_ERR_FORM_SIZE ],
-            'UPLOAD_ERR_PARTIAL'    => [ UPLOAD_ERR_PARTIAL ],
-            'UPLOAD_ERR_NO_FILE'    => [ UPLOAD_ERR_NO_FILE ],
-            'UPLOAD_ERR_NO_TMP_DIR' => [ UPLOAD_ERR_NO_TMP_DIR ],
-            'UPLOAD_ERR_CANT_WRITE' => [ UPLOAD_ERR_CANT_WRITE ],
-            'UPLOAD_ERR_EXTENSION'  => [ UPLOAD_ERR_EXTENSION ],
+            'UPLOAD_ERR_INI_SIZE' => [UPLOAD_ERR_INI_SIZE],
+            'UPLOAD_ERR_FORM_SIZE' => [UPLOAD_ERR_FORM_SIZE],
+            'UPLOAD_ERR_PARTIAL' => [UPLOAD_ERR_PARTIAL],
+            'UPLOAD_ERR_NO_FILE' => [UPLOAD_ERR_NO_FILE],
+            'UPLOAD_ERR_NO_TMP_DIR' => [UPLOAD_ERR_NO_TMP_DIR],
+            'UPLOAD_ERR_CANT_WRITE' => [UPLOAD_ERR_CANT_WRITE],
+            'UPLOAD_ERR_EXTENSION' => [UPLOAD_ERR_EXTENSION],
         ];
     }
 
@@ -181,7 +181,7 @@ class UploadedFileTest extends TestCase
         $uploadedFile = new UploadedFile('not ok', 0, $status);
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('upload error');
-        $uploadedFile->moveTo(__DIR__ . '/' . bin2hex(random_bytes(20)));
+        $uploadedFile->moveTo(__DIR__.'/'.bin2hex(random_bytes(20)));
     }
 
     /**

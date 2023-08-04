@@ -23,6 +23,7 @@ class HeaderTest extends TestCase
                 'type' => 'image/jpeg',
             ],
         ];
+
         return [
             [
                 '<http:/.../front.jpeg>; rel="front"; type="image/jpeg", <http://.../back.jpeg>; rel=back; type="image/jpeg"',

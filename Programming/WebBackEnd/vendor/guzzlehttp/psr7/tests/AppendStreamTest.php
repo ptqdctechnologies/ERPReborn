@@ -161,7 +161,7 @@ class AppendStreamTest extends TestCase
     {
         $a = new AppendStream([
             Psr7\Utils::streamFor('foo'),
-            Psr7\Utils::streamFor('bar')
+            Psr7\Utils::streamFor('bar'),
         ]);
         self::assertSame(6, $a->getSize());
 
@@ -200,6 +200,7 @@ class AppendStreamTest extends TestCase
         $errors = [];
         set_error_handler(static function (int $errorNumber, string $errorMessage) use (&$errors): bool {
             $errors[] = ['number' => $errorNumber, 'message' => $errorMessage];
+
             return true;
         });
         (string) $a;

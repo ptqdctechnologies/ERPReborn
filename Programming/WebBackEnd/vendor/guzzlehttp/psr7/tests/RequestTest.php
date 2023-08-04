@@ -11,8 +11,8 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\StreamInterface;
 
 /**
- * @covers GuzzleHttp\Psr7\MessageTrait
- * @covers GuzzleHttp\Psr7\Request
+ * @covers \GuzzleHttp\Psr7\MessageTrait
+ * @covers \GuzzleHttp\Psr7\Request
  */
 class RequestTest extends TestCase
 {
@@ -62,8 +62,9 @@ class RequestTest extends TestCase
         $body = Psr7\FnStream::decorate(Psr7\Utils::streamFor(''), [
             '__toString' => function () use (&$streamIsRead) {
                 $streamIsRead = true;
+
                 return '';
-            }
+            },
         ]);
 
         $r = new Request('GET', '/', [], $body);
@@ -172,25 +173,25 @@ class RequestTest extends TestCase
         $r = new Request('GET', 'http://foo.com/baz?bar=bam', ['Foo' => 'Bar']);
         self::assertSame([
             'Host' => ['foo.com'],
-            'Foo'  => ['Bar']
+            'Foo' => ['Bar'],
         ], $r->getHeaders());
     }
 
     public function testHeaderValueWithWhitespace(): void
     {
         $r = new Request('GET', 'https://example.com/', [
-            'User-Agent' => 'Linux f0f489981e90 5.10.104-linuxkit 1 SMP Wed Mar 9 19:05:23 UTC 2022 x86_64'
+            'User-Agent' => 'Linux f0f489981e90 5.10.104-linuxkit 1 SMP Wed Mar 9 19:05:23 UTC 2022 x86_64',
         ]);
         self::assertSame([
             'Host' => ['example.com'],
-            'User-Agent' => ['Linux f0f489981e90 5.10.104-linuxkit 1 SMP Wed Mar 9 19:05:23 UTC 2022 x86_64']
+            'User-Agent' => ['Linux f0f489981e90 5.10.104-linuxkit 1 SMP Wed Mar 9 19:05:23 UTC 2022 x86_64'],
         ], $r->getHeaders());
     }
 
     public function testCanGetHeaderAsCsv(): void
     {
         $r = new Request('GET', 'http://foo.com/baz?bar=bam', [
-            'Foo' => ['a', 'b', 'c']
+            'Foo' => ['a', 'b', 'c'],
         ]);
         self::assertSame('a, b, c', $r->getHeaderLine('Foo'));
         self::assertSame('', $r->getHeaderLine('Bar'));
@@ -211,7 +212,7 @@ class RequestTest extends TestCase
             'GET',
             'http://foo.com/baz?bar=bam',
             [
-                $header => 'value'
+                $header => 'value',
             ]
         );
     }
@@ -230,7 +231,7 @@ class RequestTest extends TestCase
             'GET',
             'http://foo.com/baz?bar=bam',
             [
-                $header => 'value'
+                $header => 'value',
             ]
         );
         self::assertArrayHasKey($header, $r->getHeaders());
@@ -254,7 +255,7 @@ class RequestTest extends TestCase
             ['key!'],
             ['key-'],
             ["key'"],
-            ['key`']
+            ['key`'],
         ];
     }
 
@@ -286,7 +287,7 @@ class RequestTest extends TestCase
     {
         $r = new Request('GET', '', [
             'ZOO' => 'zoobar',
-            'zoo' => ['foobar', 'zoobar']
+            'zoo' => ['foobar', 'zoobar'],
         ]);
         self::assertSame(['ZOO' => ['zoobar', 'foobar', 'zoobar']], $r->getHeaders());
         self::assertSame('zoobar, foobar, zoobar', $r->getHeaderLine('zoo'));
@@ -317,7 +318,7 @@ class RequestTest extends TestCase
             'GET',
             'http://foo.com/baz?bar=bam',
             [
-                'testing' => $value
+                'testing' => $value,
             ]
         );
     }
@@ -338,22 +339,22 @@ class RequestTest extends TestCase
             ["\r\nnewline"],
         ];
 
-        for ($i = 0; $i <= 0xff; $i++) {
+        for ($i = 0; $i <= 0xFF; ++$i) {
             if (\chr($i) == "\t") {
                 continue;
             }
-            if (\chr($i) == " ") {
+            if (\chr($i) == ' ') {
                 continue;
             }
-            if ($i >= 0x21 && $i <= 0x7e) {
+            if ($i >= 0x21 && $i <= 0x7E) {
                 continue;
             }
             if ($i >= 0x80) {
                 continue;
             }
 
-            $tests[] = ["foo" . \chr($i) . "bar"];
-            $tests[] = ["foo" . \chr($i)];
+            $tests[] = ['foo'.\chr($i).'bar'];
+            $tests[] = ['foo'.\chr($i)];
         }
 
         return $tests;

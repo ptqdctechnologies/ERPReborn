@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\UriInterface;
 
 /**
- * @covers GuzzleHttp\Psr7\UriResolver
+ * @covers \GuzzleHttp\Psr7\UriResolver
  */
 class UriResolverTest extends TestCase
 {
