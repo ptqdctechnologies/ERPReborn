@@ -33,7 +33,8 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('CheckDocument.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;
+                                <!-- {{ route('CheckDocument.index') }} -->
+                                    <a href="" class="nav-link">&nbsp;&nbsp;&nbsp;
                                         <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
                                         <label>Check Document</label>
                                         <i class="right fas fa-angle-left"></i>
@@ -45,7 +46,7 @@
                                         <label>My Document</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
+                                    <!-- <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
@@ -70,12 +71,12 @@
                                                 <label>Show My Document History</label>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </li>
                             </ul>
                         </li>
                     </ul>
-                    <ul class="nav nav-treeview">
+                    <!-- <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('dashboard.index') }}" class="nav-link">&nbsp;
                                 <i class="nav-icon-sm fas fa-file" style="color:#e9ecef;"></i>
@@ -83,7 +84,7 @@
                                 <i class="right fas fa-angle-left"></i>
                             </a>
                         </li>
-                    </ul>
+                    </ul> -->
 
 
                     <!-- <li class="nav-item has-treeview">
@@ -471,7 +472,7 @@
                                         <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
+                                    <!-- <ul class="nav nav-treeview">
                                         @if(in_array("Module.Finance.Advance.Report.DataForm", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -510,7 +511,7 @@
                                                 <label>Advance to Settlement Report</label>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </li>
                             </ul>
                             <ul class="nav nav-treeview">
@@ -558,7 +559,7 @@
                                         <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
+                                    <!-- <ul class="nav nav-treeview">
                                         @if(in_array("Module.HumanResource.PersonBusinessTrip.Report.DataForm", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -597,7 +598,7 @@
                                                 <label>Business Trip to Settlement Report</label>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </li>
                             </ul>
                             <ul class="nav nav-treeview">
@@ -607,7 +608,7 @@
                                         <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
+                                    <!-- <ul class="nav nav-treeview">
                                         @if(in_array("Module.HumanResource.PersonBusinessTrip.Transaction.Create", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('BusinessTripRequest.index') }}?var=1"" class=" nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -624,7 +625,7 @@
                                             </a>
                                         </li>
                                         @endif
-                                    </ul>
+                                    </ul> -->
                                 </li>
                             </ul>
                         </li>
@@ -643,7 +644,7 @@
                                         <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
+                                    <!-- <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
@@ -674,7 +675,7 @@
                                                 <label>Reimbursement to Debit Note Report</label>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </li>
                             </ul>
                             <ul class="nav nav-treeview">
@@ -684,7 +685,7 @@
                                         <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
+                                    <!-- <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('ReimbursableExpenditure.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
@@ -709,7 +710,7 @@
                                                 <label>Debit Note Revision</label>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </li>
                             </ul>
                         </li>
@@ -949,7 +950,7 @@
                         <i class="right fas fa-angle-left"></i>
                     </a>
                     @endif
-                    <ul class="nav nav-treeview">
+                    <!-- <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="#" class="nav-link">&nbsp;
                                 <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
@@ -997,7 +998,7 @@
                                 </li>
                             </ul>
                         </li>
-                    </ul>
+                    </ul> -->
 
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
@@ -1006,7 +1007,7 @@
                                 <label>Salary</label>
                                 <i class="right fas fa-angle-left"></i>
                             </a>
-                            <ul class="nav nav-treeview">
+                            <!-- <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">&nbsp;&nbsp;&nbsp;
                                         <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
@@ -1045,7 +1046,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                            </ul>
+                            </ul> -->
                         </li>
                     </ul>
 
@@ -1065,7 +1066,7 @@
                                         <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
+                                    <!-- <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
@@ -1078,7 +1079,7 @@
                                                 <label>Timesheet Summary Report</label>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </li>
                             </ul>
                             <ul class="nav nav-treeview">
@@ -1088,7 +1089,7 @@
                                         <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
+                                    <!-- <ul class="nav nav-treeview">
                                         @if(in_array("Module.HumanResource.Timesheet.Transaction.Create", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('Timesheet.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -1097,7 +1098,7 @@
                                             </a>
                                         </li>
                                         @endif
-                                    </ul>
+                                    </ul> -->
                                 </li>
                             </ul>
                         </li>
@@ -1126,7 +1127,7 @@
                                         <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
+                                    <!-- <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
@@ -1139,7 +1140,7 @@
                                                 <label>PR Reallocation Summary Report</label>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </li>
                             </ul>
                             <ul class="nav nav-treeview">
@@ -1149,14 +1150,14 @@
                                         <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
+                                    <!-- <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('PieceMeal.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>PR Reallocation</label>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </li>
                             </ul>
                         </li>
@@ -1176,7 +1177,7 @@
                                         <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
+                                    <!-- <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
@@ -1189,7 +1190,7 @@
                                                 <label>Delivery Order Request Summary Report</label>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </li>
                             </ul>
                             <ul class="nav nav-treeview">
@@ -1199,14 +1200,14 @@
                                         <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
+                                    <!-- <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('DeliveryOrderRequest.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Delivery Order Request</label>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </li>
                             </ul>
                         </li>
@@ -1226,7 +1227,7 @@
                                         <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
+                                    <!-- <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
@@ -1245,7 +1246,7 @@
                                                 <label>DO to DOR Report</label>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </li>
                             </ul>
                             <ul class="nav nav-treeview">
@@ -1255,14 +1256,14 @@
                                         <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
+                                    <!-- <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('DeliveryOrder.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Delivery Order</label>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </li>
                             </ul>
                         </li>
@@ -1291,14 +1292,14 @@
                                         <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
+                                    <!-- <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('iSupp.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Material Receive</label>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </li>
                             </ul>
                         </li>
@@ -1327,14 +1328,14 @@
                                         <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
+                                    <!-- <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('MaterialReturn.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Material Return</label>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </li>
                             </ul>
                         </li>
@@ -1366,7 +1367,7 @@
                                         <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
+                                    <!-- <ul class="nav nav-treeview">
                                         @if(in_array("Module.SupplyChain.Procurement.PurchaseRequisition.Report.DataForm", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -1383,7 +1384,7 @@
                                             </a>
                                         </li>
                                         @endif
-                                    </ul>
+                                    </ul> -->
                                 </li>
                             </ul>
                             <ul class="nav nav-treeview">
@@ -1393,7 +1394,7 @@
                                         <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
+                                    <!-- <ul class="nav nav-treeview">
                                         @if(in_array("Module.SupplyChain.Procurement.PurchaseRequisition.Transaction.Create", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('PurchaseRequisition.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -1402,7 +1403,7 @@
                                             </a>
                                         </li>
                                         @endif
-                                    </ul>
+                                    </ul> -->
                                 </li>
                             </ul>
                         </li>
@@ -1424,7 +1425,7 @@
                                         <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
+                                    <!-- <ul class="nav nav-treeview">
                                         @if(in_array("Module.SupplyChain.Procurement.PurchaseOrder.Report.DataForm", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -1447,7 +1448,7 @@
                                                 <label>PR to PO Report</label>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </li>
                             </ul>
                             <ul class="nav nav-treeview">
@@ -1457,7 +1458,7 @@
                                         <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
+                                    <!-- <ul class="nav nav-treeview">
                                         @if(in_array("Module.SupplyChain.Procurement.PurchaseOrder.Transaction.Create", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('PurchaseOrder.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -1466,7 +1467,7 @@
                                             </a>
                                         </li>
                                         @endif
-                                    </ul>
+                                    </ul> -->
                                 </li>
                             </ul>
                         </li>
@@ -1486,7 +1487,7 @@
                                         <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
+                                    <!-- <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
@@ -1505,7 +1506,7 @@
                                                 <label>PO to AP Report</label>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </li>
                             </ul>
                             <ul class="nav nav-treeview">
@@ -1515,14 +1516,14 @@
                                         <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
+                                    <!-- <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('PurchaseRequisition.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Account Payable</label>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </li>
                             </ul>
                         </li>
@@ -1542,7 +1543,7 @@
                                         <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
+                                    <!-- <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
@@ -1555,7 +1556,7 @@
                                                 <label>PPN Reimbursement Summary Report</label>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </li>
                             </ul>
                             <ul class="nav nav-treeview">
@@ -1565,14 +1566,14 @@
                                         <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
+                                    <!-- <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('PurchaseRequisition.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>PPN Reimbursement</label>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </li>
                             </ul>
                         </li>
@@ -1602,7 +1603,7 @@
                                         <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
+                                    <!-- <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
@@ -1615,7 +1616,7 @@
                                                 <label>Customer Order Summary Report</label>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </li>
                             </ul>
                             <ul class="nav nav-treeview">
@@ -1625,14 +1626,14 @@
                                         <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
+                                    <!-- <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('CO.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Customer Order</label>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </li>
                             </ul>
                         </li>
@@ -1652,7 +1653,7 @@
                                         <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
+                                    <!-- <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
@@ -1665,7 +1666,7 @@
                                                 <label>Invoice Summary Report</label>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </li>
                             </ul>
                             <ul class="nav nav-treeview">
@@ -1675,14 +1676,14 @@
                                         <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
+                                    <!-- <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('CO.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Invoice</label>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </li>
                             </ul>
                         </li>
@@ -1697,7 +1698,7 @@
                         <i class="right fas fa-angle-left"></i>
                     </a>
 
-                    <ul class="nav nav-treeview">
+                    <!-- <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="#" class="nav-link">&nbsp;
                                 <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
@@ -1737,7 +1738,7 @@
                                 </li>
                             </ul>
                         </li>
-                    </ul>
+                    </ul> -->
                 </li>
             </ul>
         </nav>
