@@ -1,1 +1,0 @@
-My message is: {{ $message }}.

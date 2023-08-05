@@ -1,4 +1,0 @@
-{
-  "type": "object",
-  "required": ["a", "b", "c"]
-}

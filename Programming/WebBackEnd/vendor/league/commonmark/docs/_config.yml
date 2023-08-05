@@ -1,6 +1,0 @@
----
-repository: thephpleague/commonmark
-permalink: pretty
-plugins:
-  - jekyll-github-metadata
-  - jekyll-redirect-from
