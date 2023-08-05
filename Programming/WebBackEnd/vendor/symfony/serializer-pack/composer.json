@@ -1,0 +1,17 @@
+{
+    "name": "symfony/serializer-pack",
+    "type": "symfony-pack",
+    "license": "MIT",
+    "description": "A pack for the Symfony serializer",
+    "require": {
+        "phpdocumentor/reflection-docblock": "*",
+        "phpstan/phpdoc-parser": "*",
+        "symfony/property-access": "*",
+        "symfony/property-info": "*",
+        "symfony/serializer": "*"
+    },
+    "conflict": {
+        "symfony/property-info": "<5.4",
+        "symfony/serializer": "<5.4"
+    }
+}
