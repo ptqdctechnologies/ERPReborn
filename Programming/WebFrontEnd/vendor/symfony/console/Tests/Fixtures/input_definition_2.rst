@@ -1,4 +1,0 @@
-Arguments
-^^^^^^^^^
-
-argument_name

@@ -1,2 +1,0 @@
-controllers:
-    resource: psr4-controllers-redirection/psr4-attributes.yaml

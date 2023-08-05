@@ -1,1 +1,0 @@
-My basic text view
