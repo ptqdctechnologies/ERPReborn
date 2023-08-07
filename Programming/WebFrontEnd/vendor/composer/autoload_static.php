@@ -346,8 +346,8 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -3931,6 +3931,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'League\\Flysystem\\Visibility' => __DIR__ . '/..' . '/league/flysystem/src/Visibility.php',
         'League\\Flysystem\\WhitespacePathNormalizer' => __DIR__ . '/..' . '/league/flysystem/src/WhitespacePathNormalizer.php',
         'League\\MimeTypeDetection\\EmptyExtensionToMimeTypeMap' => __DIR__ . '/..' . '/league/mime-type-detection/src/EmptyExtensionToMimeTypeMap.php',
+        'League\\MimeTypeDetection\\ExtensionLookup' => __DIR__ . '/..' . '/league/mime-type-detection/src/ExtensionLookup.php',
         'League\\MimeTypeDetection\\ExtensionMimeTypeDetector' => __DIR__ . '/..' . '/league/mime-type-detection/src/ExtensionMimeTypeDetector.php',
         'League\\MimeTypeDetection\\ExtensionToMimeTypeMap' => __DIR__ . '/..' . '/league/mime-type-detection/src/ExtensionToMimeTypeMap.php',
         'League\\MimeTypeDetection\\FinfoMimeTypeDetector' => __DIR__ . '/..' . '/league/mime-type-detection/src/FinfoMimeTypeDetector.php',
