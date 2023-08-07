@@ -34,6 +34,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
             $varBranchID = 11000000000004;
             //$varUserRoleID = 95000000000007;
             $varUserRoleID = 95000000000038;
+
+            //$varUserRoleID = 95000000000021;
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
