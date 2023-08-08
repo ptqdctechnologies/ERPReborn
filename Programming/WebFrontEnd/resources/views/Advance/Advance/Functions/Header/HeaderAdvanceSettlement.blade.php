@@ -29,11 +29,11 @@
       <div class="form-group">
         <table>
           <tr>
-            <td style="padding-top:12px;"><label>Requester</label></td>
+            <td style="padding-top:12px;"><label>Beneficiary</label></td>
             <td style="padding-top:8px;">
               <div class="input-group">
-                <input id="requester_id" style="border-radius:0;" name="requester_id" type="hidden" class="form-control">
-                <input id="requester_name" style="border-radius:0;" name="requester_name" type="text" class="form-control" readonly>
+                <input id="beneficiary_id" style="border-radius:0;" name="beneficiary_id" type="hidden" class="form-control">
+                <input id="beneficiary_name" style="border-radius:0;" name="beneficiary_name" type="text" class="form-control" readonly>
               </div>
             </td>
           </tr>

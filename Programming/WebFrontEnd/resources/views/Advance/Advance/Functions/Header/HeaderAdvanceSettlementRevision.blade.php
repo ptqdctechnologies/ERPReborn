@@ -28,11 +28,11 @@
       <div class="form-group">
         <table>
           <tr>
-            <td style="padding-top:12px;"><label>Requester</label></td>
+            <td style="padding-top:12px;"><label>Beneficiary</label></td>
             <td style="padding-top:8px;">
               <div class="input-group">
-                <input name="request_name" id="request_name" style="border-radius:0;" type="text" class="form-control" readonly value="{{ $dataRevisi['involvedPersons']['requester']['name'] }}" required>
-                <input name="request_name_id" id="request_name_id" style="border-radius:0;" type="hidden" class="form-control" value="{{ $dataRevisi['involvedPersons']['requester']['workerJobsPosition_RefID'] }}" readonly required>
+                <input name="beneficiary_name" id="beneficiary_name" style="border-radius:0;" type="text" class="form-control" readonly value="{{ $dataRevisi['involvedPersons']['requester']['name'] }}" required>
+                <input name="beneficiary_id" id="beneficiary_id" style="border-radius:0;" type="hidden" class="form-control" value="{{ $dataRevisi['involvedPersons']['requester']['workerJobsPosition_RefID'] }}" readonly required>
               </div>
             </td>
           </tr>

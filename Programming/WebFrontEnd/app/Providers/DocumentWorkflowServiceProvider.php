@@ -10,9 +10,9 @@ class DocumentWorkflowServiceProvider extends ServiceProvider
     public function boot()
     {
         // Using class based composers...
-        View::composer(
-            ['Partials.sidebar'],
-            'App\Http\ViewComposers\DocumentWorkflowComposer'
-        );
+        // View::composer(
+        //     ['Partials.sidebar'],
+        //     'App\Http\ViewComposers\DocumentWorkflowComposer'
+        // );
     }
 }

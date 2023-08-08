@@ -185,7 +185,9 @@
                     @csrf
 
                     <input type="hidden" class="user_RefID">
-                    <input type="hidden" class="varAPIWebToken">
+                    <input type="hidden" class="varAPIWebToken" name="varAPIWebToken">
+                    <input type="hidden" class="personName" name="personName">
+                    <input type="hidden" class="workerCareerInternal_RefID" name="workerCareerInternal_RefID">
 
                     <div class=" input-group mb-4">
                         <input type="text" class="form-control username" placeholder="Username" name="username" id="dis2" required="" autocomplete="off" autofocus>
@@ -289,12 +291,6 @@
     </script>
 
     <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $(function() {
             $("#FormLogin").on("submit", function(e) { //id of form 
                 e.preventDefault();
@@ -305,6 +301,12 @@
 
                 ShowLoading();
 
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
                 $.ajax({
                     url: action,
                     dataType: 'json', // what to expect back from the server
@@ -314,9 +316,8 @@
                     data: form_data,
                     type: method,
                     success: function(response) {
-
+                        
                         var len = 0;
-
                         if (response.status_code == 0) {
 
                             HideLoading();
@@ -332,7 +333,9 @@
 
                             $(".varAPIWebToken").val(response.varAPIWebToken);
                             $(".user_RefID").val(response.user_RefID);
-                            
+                            $(".personName").val(response.personName);
+                            $(".workerCareerInternal_RefID").val(response.workerCareerInternal_RefID);
+
                             $(".branch_name").empty();
 
                             var option = "<option value='" + '' + "'>" + 'Select Company Name' + "</option>";
@@ -374,7 +377,7 @@
 
         $(document).ready(function() {
             $(".branch_name").click(function() {
-                
+
                 var id = $(this).val();
                 if (id != "") {
 

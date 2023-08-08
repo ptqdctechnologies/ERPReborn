@@ -2,6 +2,9 @@
     $("#projectcode2").prop("disabled", true);
     $("#sitecode2").prop("disabled", true);
     $("#request_name2").prop("disabled", true);
+    $("#beneficiary_name2").prop("disabled", true);
+    $("#bank_name2").prop("disabled", true);
+    $("#bank_account2").prop("disabled", true);
     $("#addFromDetailtoCart").prop("disabled", true);
     $("#showContentBOQ3").hide();
     $("#product_id2").prop("disabled", true);

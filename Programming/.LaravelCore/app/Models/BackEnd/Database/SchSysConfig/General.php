@@ -790,14 +790,19 @@ namespace App\Models\Database\SchSysConfig
                     );
             }
 
-        public function getUserRolePrivilegeMenuAndBudget($varUserSession, int $varUserID, int $varBranchID)
+            public function getUserRolePrivilegeMenuAndBudget($varUserSession, int $varUserID, int $varBranchID)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession,
                 '
-                SELECT "SchSysConfig"."Func_General_GetUserPrivilege_MenuAccess"('.$varBranchID.'::bigint, '.$varUserID.'::bigint)
+                SELECT 
+                    "SchSysConfig"."Func_General_GetUserPrivilege_MenuAccess"(
+                        '.$varUserID.'::bigint,
+                        '.$varBranchID.'::bigint
+                        )
                 '
-                );
+                )
+                ;
             return 
                 \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                     $varUserSession,

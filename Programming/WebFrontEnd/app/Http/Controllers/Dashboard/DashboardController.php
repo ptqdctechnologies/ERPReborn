@@ -12,19 +12,6 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken, 
-        'environment.general.session.keyList.getMenu', 
-        'latest', 
-        [
-        ]
-        );
-
-        $compact = [
-            'privilageMenu' => $varData['data']['keyList']
-        ];
         return view('Dashboard.index');
     }
 

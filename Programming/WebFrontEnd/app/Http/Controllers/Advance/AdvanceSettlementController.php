@@ -12,7 +12,7 @@ class AdvanceSettlementController extends Controller
         // $data = $request->session()->get("SessionPurchaseRequisition");
         // dd($data);
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionAdvanceSetllementRequester");
+        $request->session()->forget("SessionAdvanceSetllementBeneficiary");
     
         $var = 0;
         if (!empty($_GET['var'])) {
@@ -39,26 +39,26 @@ class AdvanceSettlementController extends Controller
         return response()->json($compact);
     }
 
-    public function StoreValidateAdvanceSettlementRequester(Request $request)
+    public function StoreValidateAdvanceSettlementBeneficiary(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $tamp = 0;
         $status = 200;
         $varDataAdvanceList['data'] = [];
-        $requester_id = $request->input('requester_id');
-        $requester_name = $request->input('requester_name');
-        $requester_id2 = $request->input('requester_id2');
+        $beneficiary_id = $request->input('beneficiary_id');
+        $beneficiary_name = $request->input('beneficiary_name');
+        $beneficiary_id2 = $request->input('beneficiary_id2');
         $advance_RefID = $request->input('advance_RefID');
 
-        $data = $request->session()->get("SessionAdvanceSetllementRequester");
-        if ($request->session()->has("SessionAdvanceSetllementRequester")) {
+        $data = $request->session()->get("SessionAdvanceSetllementBeneficiary");
+        if ($request->session()->has("SessionAdvanceSetllementBeneficiary")) {
             for ($i = 0; $i < count($data); $i++) {
                 if ($data[$i] == $advance_RefID) {
                     $tamp = 1;
                 }
             }
             if ($tamp == 0) {
-                if ($requester_id != $requester_id2 && $requester_id2 != "") {
+                if ($beneficiary_id != $beneficiary_id2 && $beneficiary_id2 != "") {
                     $status = 500;
                 } else {
 
@@ -80,7 +80,7 @@ class AdvanceSettlementController extends Controller
                         ]
                     );
 
-                    $request->session()->push("SessionAdvanceSetllementRequester", $advance_RefID);
+                    $request->session()->push("SessionAdvanceSetllementBeneficiary", $advance_RefID);
                 }
             } else {
                 $status = 501;
@@ -106,12 +106,12 @@ class AdvanceSettlementController extends Controller
             );
             
 
-            $request->session()->push("SessionAdvanceSetllementRequester", $advance_RefID);
+            $request->session()->push("SessionAdvanceSetllementBeneficiary", $advance_RefID);
         }
         $compact = [
             'status' => $status,
-            'requester_id' => $requester_id,
-            'requester_name' => $requester_name,
+            'beneficiary_id' => $beneficiary_id,
+            'beneficiary_name' => $beneficiary_name,
             'DataAdvanceList' => $varDataAdvanceList['data'],
         ];
 
@@ -224,7 +224,7 @@ class AdvanceSettlementController extends Controller
     public function RevisionAdvanceSettlementIndex(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionAdvanceSetllementRequester");
+        $request->session()->forget("SessionAdvanceSetllementBeneficiary");
 
         $varDataAdvanceSettlementRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
