@@ -23,8 +23,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Create Date     : 2022-03-10                                                                                           |
         | ▪ Last Update     : 2022-03-10                                                                                           |
+        | ▪ Creation Date   : 2022-03-10                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,8 +43,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000002                                                                                       |
-        | ▪ Create Date     : 2022-09-27                                                                                           |
-        | ▪ Last Update     : 2022-03-11                                                                                           |
+        | ▪ Last Update     : 2022-09-27                                                                                           |
+        | ▪ Creation Date   : 2022-03-11                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -61,7 +61,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Update Purchase Requisition Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try{
+                    try {
                         if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate($varUserSession, (new \App\Models\Database\SchData_OLTP_SupplyChain\TblPurchaseRequisition())->setDataUpdate(
                             $varUserSession,
                             $varData['recordID'],

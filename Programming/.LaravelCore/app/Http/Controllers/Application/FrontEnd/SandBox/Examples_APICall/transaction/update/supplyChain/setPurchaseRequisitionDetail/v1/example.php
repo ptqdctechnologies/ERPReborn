@@ -48,6 +48,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     "productUnitPriceCurrency_RefID" => 62000000000001,
                     "productUnitPriceCurrencyValue" => 30000,
                     "productUnitPriceCurrencyExchangeRate" => 1,
+                    "fulfillmentDeadlineDateTimeTZ" => '2023-03-01',
                     "remarks" => 'Catatan'
                     ]
                 ]

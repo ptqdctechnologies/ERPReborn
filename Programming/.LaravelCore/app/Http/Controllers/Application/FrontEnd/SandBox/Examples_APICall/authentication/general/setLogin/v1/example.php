@@ -33,8 +33,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
             $varUserPassword = 'aldi1234';
 //            $varUserName = 'budianto';
 //            $varUserPassword = 'budianto1234';
-            $varUserName = 'eka.bagus';
-            $varUserPassword = 'eka.bagus1234';
+//            $varUserName = 'eka.bagus';
+//            $varUserPassword = 'eka.bagus1234';
 //            $varUserName = 'eka.purwanti';
 //            $varUserPassword = 'eka.purwanti1234';
 //            $varUserName = 'fabrian.danang';

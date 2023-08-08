@@ -25,6 +25,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-03-10                                                                                           |
+        | ▪ Creation Date   : 2022-03-10                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Creation Date   : 2022-03-10                                                                                           |
         | ▪ Last Update     : 2022-03-24                                                                                           |
+        | ▪ Creation Date   : 2022-03-10                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -78,6 +79,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                             $varData['entities']['productUnitPriceCurrency_RefID'],
                             $varData['entities']['productUnitPriceCurrencyValue'],
                             $varData['entities']['productUnitPriceCurrencyExchangeRate'],
+                            $varData['entities']['fulfillmentDeadlineDateTimeTZ'],
                             $varData['entities']['remarks']
                             ))))
                             {
