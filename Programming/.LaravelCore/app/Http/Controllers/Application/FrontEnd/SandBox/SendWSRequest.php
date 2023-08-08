@@ -4232,51 +4232,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             }
 
 
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ API Key     : transaction.delete.accounting.setJournalDetail                                                           |
-        | ▪ API Version : 1                                                                                                        |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function APIGateway_setDataDeleteJournalDetail()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NjU3MTU3NDJ9.NmE0YTc0YmI3NThjNGUyMmY4NjM3NTgyODU4MTUyMDVmNTYzYzE1ZGEyNzU4ODJmOGY1Y2RjNDcxNmQyY2I0ZA';
-            //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.delete.accounting.setJournalDetail', 
-                'latest', 
-                [
-                'recordID' => 69000000000001
-                ]
-                );
-            var_dump($varData);
-            }
-        public function APIGatewayJQuery_setDataDeleteJournalDetail()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NjU3MTU3NDJ9.NmE0YTc0YmI3NThjNGUyMmY4NjM3NTgyODU4MTUyMDVmNTYzYzE1ZGEyNzU4ODJmOGY1Y2RjNDcxNmQyY2I0ZA';
-            //---Core---
-            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_RecordID" value=69000000000001>';
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'transaction.delete.accounting.setJournalDetail', 
-                'latest', 
-                '{'.
-                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
-                '}'
-                ); 
-            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
-            dd($varJQueryFunction);
-            }
-
-
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ API Key     : transaction.delete.accounting.setLayoutStructure                                                           |
