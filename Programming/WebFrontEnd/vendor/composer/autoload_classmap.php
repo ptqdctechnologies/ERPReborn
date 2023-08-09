@@ -3021,6 +3021,7 @@ return array(
     'Laravel\\Prompts\\Concerns\\Fallback' => $vendorDir . '/laravel/prompts/src/Concerns/Fallback.php',
     'Laravel\\Prompts\\Concerns\\Termwind' => $vendorDir . '/laravel/prompts/src/Concerns/Termwind.php',
     'Laravel\\Prompts\\Concerns\\Themes' => $vendorDir . '/laravel/prompts/src/Concerns/Themes.php',
+    'Laravel\\Prompts\\Concerns\\Truncation' => $vendorDir . '/laravel/prompts/src/Concerns/Truncation.php',
     'Laravel\\Prompts\\Concerns\\TypedValue' => $vendorDir . '/laravel/prompts/src/Concerns/TypedValue.php',
     'Laravel\\Prompts\\ConfirmPrompt' => $vendorDir . '/laravel/prompts/src/ConfirmPrompt.php',
     'Laravel\\Prompts\\Key' => $vendorDir . '/laravel/prompts/src/Key.php',
