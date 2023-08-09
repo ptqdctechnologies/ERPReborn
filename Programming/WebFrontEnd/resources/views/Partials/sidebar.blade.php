@@ -11,8 +11,6 @@
             </div>
         </div>
 
-        <input type="hidden" class="SessionLogin" value="{{ $varAPIWebToken }}">
-
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item has-treeview">
@@ -1746,7 +1744,7 @@
     <!-- Brand Logo -->
     <div class="row brand-link" style="position: relative;bottom:120px;right:2px;background-color:#f4f6f9;">
         <div class="card-body" style="padding-top:50px;padding-right:45px;padding-left:40px;background-color:#4B586A;position: relative;bottom:11px;">
-            <h1 style="color:white;font-weight:bold;padding-left:39px;">{{ $CountDocumentWorkflowComposer }}</h1>
+            <h1 style="color:white;font-weight:bold;padding-left:40px;">{{ $CountDocumentWorkflowComposer }}</h1>
             <h5 style="padding-left:12px;">Document to Process</h5>
             <a href="{{ route('MyDocument.index') }}">
                 <span class="btn btn-default btn-sm"> Go to Document</span>

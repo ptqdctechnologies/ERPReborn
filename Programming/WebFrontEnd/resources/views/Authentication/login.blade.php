@@ -378,7 +378,7 @@
                 var id = $(this).val();
                 if (id != "") {
 
-                    ShowLoading();
+                    ShowLoading();varData
 
                     $.ajax({
                         type: 'GET',

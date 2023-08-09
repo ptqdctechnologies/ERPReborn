@@ -234,7 +234,7 @@
 
 <!-- FUNCTION LOGOUT IN MULTI PAGE -->
 
-<script>
+<!-- <script>
   setInterval(SessionCheckingLogout, 5000);
 
   function SessionCheckingLogout() {
@@ -251,11 +251,11 @@
       }
     });
   }
-</script>
+</script> -->
 
 <!-- FUNCTION LOGOUT AFTER 15 MENIT IN MULTI PAGE -->
 
-<script>
+<!-- <script>
   window.addEventListener('mousedown', SessionCheckingEvent);
   window.addEventListener('mousemove', SessionCheckingEvent);
   window.addEventListener('touchstart', SessionCheckingEvent);
@@ -287,4 +287,4 @@
       angka = 0;
     }
   }
-</script>
+</script> -->
