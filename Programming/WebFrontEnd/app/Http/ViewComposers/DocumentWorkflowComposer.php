@@ -13,29 +13,30 @@ class DocumentWorkflowComposer
         $varAPIWebToken = Session::get('SessionLogin');
         $SessionWorkerCareerInternal_RefID =  Session::get('SessionWorkerCareerInternal_RefID');
 
-        if($SessionWorkerCareerInternal_RefID != 0){
-
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'report.form.documentForm.master.getBusinessDocumentIssuanceDisposition',
-                'latest',
-                [
-                    'parameter' => [
-                        'recordID' => (int)$SessionWorkerCareerInternal_RefID
-                    ]
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'report.form.documentForm.master.getBusinessDocumentIssuanceDisposition',
+            'latest',
+            [
+                'parameter' => [
+                    'recordID' => (int)$SessionWorkerCareerInternal_RefID
                 ]
-            );
+            ]
+        );
 
-            $CountDocumentWorkflowComposer = count($varData['data'][0]['document']['content']['itemList']['ungrouped']);
+        $CountDocumentWorkflowComposer = 0;
+
+        if ($varData['metadata']['HTTPStatusCode'] == 200) {
+            if ($varData['data'][0]['document']['content']['itemList']['ungrouped'] != null) {
+                $CountDocumentWorkflowComposer = count($varData['data'][0]['document']['content']['itemList']['ungrouped']);
+            }
         }
-        else{
-            $CountDocumentWorkflowComposer = 0;
-        }
-             
+
+        // dd($CountDocumentWorkflowComposer);
+
         $compact = [
             'CountDocumentWorkflowComposer' => $CountDocumentWorkflowComposer,
-            'varAPIWebToken' => Session::has("SessionLogin")
         ];
 
         $view->with($compact);

@@ -196,7 +196,7 @@ namespace App\Helpers\ZhtHelper\General
         public static function getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varID, $varParentID, bool $varSignOpen, string $varMessage = null)
             {
             if(!$varMessage) {
-                $varMessage = ' Please wait until the process is complete ';
+                $varMessage = 'Please wait until the process is complete';
                 }
 
             $varReturn = 
@@ -248,30 +248,11 @@ namespace App\Helpers\ZhtHelper\General
                                         'ID' => $varID.'_ProcessLoad_BackMessage',
                                         'ParentID' => $varID.'_ProcessLoad_Back',
                                         'Style' => [
-
-                                            // ['position', 'absolute'],
-                                            // ['top', '50%'],
-                                            // ['left', '50%'],
-                                            // ['background', '#ced4da'],
-                                            // ['fontFamily', '\\\'Helvetica, Verdana, Arial, Tahoma, Serif\\\''],
-                                            // ['fontWeight', 'bold'],
-                                            // ['valign', 'top'],
-                                            // ['color', '#212529'],
-                                            // ['fontSize', '30px'],
-                                            // ['textShadow', '2px 2px 5px #ced4da'],
-                                            // ['border', '5px solid #ced4da'],
-                                            // ['borderColor', 'ced4da'],
-                                            // ['borderSpacing', '2px'],
-                                            // ['padding', '5px'],
-                                            // ['borderRadius', '10px'],
-                                            // ['boxShadow', '10px 20px 30px #333333'],
-                                            // ['transform', 'translate(-50%, -50%)']
-                                            
-                                            ['position', 'fixed'],
+                                            ['position', 'relative'],
                                             ['width', '100px'],
                                             ['height', '100px'],
                                             ['top', '35%'],
-                                            ['left', '50%'],
+                                            ['margin', 'auto'],
                                             ['background', '#fff'],
                                             ['borderRadius', '50%'],
                                             ['borderLeft', '10px solid blue'],
@@ -279,7 +260,6 @@ namespace App\Helpers\ZhtHelper\General
                                             ['borderBottom', '10px solid yellow'],
                                             ['animation', 'spin 2s linear infinite'],
                                             ['transform', 'translate(-50%, -50%)']
-
                                             ]
                                         ], 
                                         ''
@@ -291,13 +271,11 @@ namespace App\Helpers\ZhtHelper\General
                                             'ID' => $varID.'_ProcessLoad_BackMessage',
                                             'ParentID' => $varID.'_ProcessLoad_Back',
                                             'Style' => [
-    
-                                                ['position', 'absolute'],
-                                                ['top', '60%'],
-                                                ['left', '40%'],
+                                                ['position', 'relative'],
+                                                ['top', '45%'],
+                                                ['textAlign', 'center'],
                                                 ['fontFamily', '\\\'Helvetica, Verdana, Arial, Tahoma, Serif\\\''],
                                                 ['fontWeight', 'bold'],
-                                                ['valign', 'top'],
                                                 ['color', '#212529'],
                                                 ['fontSize', '20px'],
                                                 ]
