@@ -4,10 +4,10 @@ namespace Laravel\Prompts;
 
 use Closure;
 use Illuminate\Support\Collection;
-use InvalidArgumentException;
 
 class SuggestPrompt extends Prompt
 {
+    use Concerns\Truncation;
     use Concerns\TypedValue;
 
     /**
@@ -46,10 +46,10 @@ class SuggestPrompt extends Prompt
         $this->options = $options instanceof Collection ? $options->all() : $options;
 
         $this->on('key', fn ($key) => match ($key) {
-            Key::UP, Key::SHIFT_TAB => $this->highlightPrevious(),
-            Key::DOWN, Key::TAB => $this->highlightNext(),
+            Key::UP, Key::UP_ARROW, Key::SHIFT_TAB => $this->highlightPrevious(),
+            Key::DOWN, Key::DOWN_ARROW, Key::TAB => $this->highlightNext(),
             Key::ENTER => $this->selectHighlighted(),
-            Key::LEFT, Key::RIGHT => $this->highlighted = null,
+            Key::LEFT, Key::LEFT_ARROW, Key::RIGHT, Key::RIGHT_ARROW => $this->highlighted = null,
             default => (function () {
                 $this->highlighted = null;
                 $this->matches = null;
@@ -137,17 +137,5 @@ class SuggestPrompt extends Prompt
         }
 
         $this->typedValue = $this->matches()[$this->highlighted];
-    }
-
-    /**
-     * Truncate a value with an ellipsis if it exceeds the given length.
-     */
-    protected function truncate(string $value, int $length): string
-    {
-        if ($length <= 0) {
-            throw new InvalidArgumentException("Length [{$length}] must be greater than zero.");
-        }
-
-        return mb_strlen($value) <= $length ? $value : (mb_substr($value, 0, $length - 1).'…');
     }
 }
