@@ -77,9 +77,9 @@
             'dev_requirement' => false,
         ),
         'dragonmantank/cron-expression' => array(
-            'pretty_version' => 'v3.3.2',
-            'version' => '3.3.2.0',
-            'reference' => '782ca5968ab8b954773518e9e49a6f892a34b2a8',
+            'pretty_version' => 'v3.3.3',
+            'version' => '3.3.3.0',
+            'reference' => 'adfb1f505deb6384dc8b39804c5065dd3c8c8c0a',
             'type' => 'library',
             'install_path' => __DIR__ . '/../dragonmantank/cron-expression',
             'aliases' => array(),
