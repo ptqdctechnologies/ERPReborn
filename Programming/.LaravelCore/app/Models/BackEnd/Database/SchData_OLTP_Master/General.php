@@ -2992,7 +2992,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         */
         public function getReport_Form_DocumentForm_BusinessDocumentIssuanceDisposition(
             $varUserSession, int $varSysBranch_RefID, 
-            int $varSysID)
+            int $varSysID,
+            string $varBusinessDocumentNumber = null, int $varBusinessDocumentType_RefID = null, int $varCombinedBudget_RefID = null)
             {
             try {
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3002,7 +3003,11 @@ namespace App\Models\Database\SchData_OLTP_Master
                         'SchData-OLTP-Master.Func_GetReport_DocForm_BusinessDocumentIssuanceDisposition',
                         [
                             [$varSysBranch_RefID, 'bigint' ],
-                            [$varSysID, 'bigint' ]
+                            [$varSysID, 'bigint' ],
+
+                            [$varBusinessDocumentNumber, 'varchar' ],
+                            [$varBusinessDocumentType_RefID, 'bigint' ],
+                            [$varCombinedBudget_RefID, 'bigint' ]
                         ]
                         )
                     );

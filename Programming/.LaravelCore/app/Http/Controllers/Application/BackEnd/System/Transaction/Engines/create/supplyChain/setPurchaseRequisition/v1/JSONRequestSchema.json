@@ -122,19 +122,29 @@
                                                                 ]
                                                             }
                                                         },
-                                                    "required": [ "entities" ]
+                                                    "required": [
+                                                        "entities"
+                                                        ]
                                                     }
                                                 }
                                             },
-                                        "required": [ "items" ]
+                                        "required": [
+                                            "items"
+                                            ]
                                         }
                                     },
-                                "required": [ "itemList" ]
+                                "required": [
+                                    "itemList"
+                                    ]
                                 }
                             ]
                         }
                     },
-                "required": [ "documentDateTimeTZ", "requesterWorkerJobsPosition_RefID", "remarks" ]    
+                "required": [
+                    "documentDateTimeTZ",
+                    "requesterWorkerJobsPosition_RefID",
+                    "remarks"
+                    ]    
                 }
             },
         "required": [ "entities" ]

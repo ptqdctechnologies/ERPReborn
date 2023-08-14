@@ -34,9 +34,37 @@
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
+                        },
+                    "dataFilter": {
+                        "type": "object",
+                        "properties": {
+                            "businessDocumentNumber": {
+                                "type": [ "string", "null" ],
+                                "minLength": 1,
+                                "maxLength": 32
+                                },
+                            "businessDocumentType_RefID": {
+                                "type": [ "integer", "null" ],
+                                "minimum": 1,
+                                "maximum": 9223372036854775807
+                                },
+                            "combinedBudget_RefID": {
+                                "type": [ "integer", "null" ],
+                                "minimum": 1,
+                                "maximum": 9223372036854775807
+                                }
+                            },
+                        "required": [
+                            "businessDocumentNumber",
+                            "businessDocumentType_RefID",
+                            "combinedBudget_RefID"
+                            ]
                         }
                     },
-                "required": [ "recordID" ]
+                "required": [
+                    "recordID",
+                    "dataFilter"
+                    ]
                 }
             },
         "required": [ "parameter" ]

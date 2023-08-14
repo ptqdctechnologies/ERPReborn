@@ -67,7 +67,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
                             $varUserSession, 
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
 
-                            $varData['parameter']['recordID']
+                            $varData['parameter']['recordID'],
+                                
+                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'businessDocumentNumber', $varData['parameter']['dataFilter']) ? ((!is_null($varData['parameter']['dataFilter']['businessDocumentNumber'])) ? $varData['parameter']['dataFilter']['businessDocumentNumber'] : null) : null),
+                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'businessDocumentType_RefID', $varData['parameter']['dataFilter']) ? ((!is_null($varData['parameter']['dataFilter']['businessDocumentType_RefID'])) ? $varData['parameter']['dataFilter']['businessDocumentType_RefID'] : null) : null),
+                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'combinedBudget_RefID', $varData['parameter']['dataFilter']) ? ((!is_null($varData['parameter']['dataFilter']['combinedBudget_RefID'])) ? $varData['parameter']['dataFilter']['combinedBudget_RefID'] : null) : null)
                             ))))
                             {
                             throw new \Exception();
