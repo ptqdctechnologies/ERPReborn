@@ -3002,12 +3002,12 @@ namespace App\Models\Database\SchData_OLTP_Master
                         $varUserSession,
                         'SchData-OLTP-Master.Func_GetReport_DocForm_BusinessDocumentIssuanceDisposition',
                         [
-                            [$varSysBranch_RefID, 'bigint' ],
-                            [$varSysID, 'bigint' ],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysID, 'bigint'],
 
-                            [$varBusinessDocumentNumber, 'varchar' ],
-                            [$varBusinessDocumentType_RefID, 'bigint' ],
-                            [$varCombinedBudget_RefID, 'bigint' ]
+                            [$varBusinessDocumentNumber, 'varchar'],
+                            [$varBusinessDocumentType_RefID, 'bigint'],
+                            [$varCombinedBudget_RefID, 'bigint']
                         ]
                         )
                     );

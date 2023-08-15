@@ -43,9 +43,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                 'parameter' => [
                     'recordID' => 164000000000196,
                     'dataFilter' => [
+                        'businessDocumentNumber' => 'Adv/QDC/2023/000126',
+                        'businessDocumentType_RefID' => NULL,
+                        'combinedBudget_RefID' => NULL
+/*                        
                         'businessDocumentNumber' => 'Adv/QDC/2023/000098',
                         'businessDocumentType_RefID' => 77000000000057,
                         'combinedBudget_RefID' => 46000000000033
+ */
                         ]                            
                     ]
                 ]
