@@ -12,25 +12,23 @@
 
     $.ajax({
         type: 'GET',
-        url: '{!! route("CheckDocument.ShowDocumentListData") !!}',
+        url: '{!! route("MyDocument.ShowDocumentListData") !!}',
         success: function(data) {
             var no = 1;
             $.each(data.data, function(key, val) {
+                var date = dateFormat(val.entities.businessDocumentDateTimeTZ, 'MM-dd-yyyy');
                 keys += 1;
                 var html = '<tr>' +
 
                     '<td><span style="position:relative;left:10px;">' + no++ + '</span></td>' +
                     '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentNumber + '</span></td>' +
+                    '<td><span style="position:relative;left:10px;">' + val.entities.combinedBudgetCode + '</span></td>' +
                     '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentTypeName + '</span></td>' +
-                    '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentTypeName + '</span></td>' +
-                    '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentTypeName + '</span></td>' +
+                    '<td><span style="position:relative;left:10px;">' + date + '</span></td>' +
                     '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentTypeName + '</span></td>' +
                     '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentTypeName + '</span></td>' +
 
-                    '<input id="sys_ID' + keys + '" value="' + val.recordID + '" type="hidden">' +
-                    '<input id="businessDocument_RefID' + keys + '" value="' + val.entities.businessDocument_RefID + '" type="hidden">' +
-                    '<input id="TransactionMenu' + keys + '" value="' + val.entities.businessDocument_RefID + '" type="hidden">' +
-                    '<input id="linkReportTransaction' + keys + '" value="' + val.entities.businessDocument_RefID + '" type="hidden">' +
+                    '<input id="sys_ID' + keys + '" value="' + val.entities.businessDocument_RefID + '" type="hidden">' +
 
                     '</tr>';
 
@@ -48,16 +46,12 @@
     $('#TableMyDocument tbody').on('click', 'tr', function() {
 
         var id = $(this).find("td:nth-child(1)").text();
-        var documentNumber = $(this).find("td:nth-child(2)").text();
         var sys_ID = $('#sys_ID' + id).val();
-        var businessDocument_RefID = $('#businessDocument_RefID' + id).val();
-        var TransactionMenu = $('#TransactionMenu' + id).val();
-        var linkReportTransaction = $('#linkReportTransaction' + id).val();
 
         $("#loading").show();
         $(".loader").show();
 
-        window.location.href = '/ShowDocumentByID?sys_id=' + sys_ID + '&document_number=' + documentNumber + '&businessDocument_RefID=' + businessDocument_RefID + '&linkReportTransaction=' + "report.form.documentForm.finance.getAdvance" + '&TransactionMenu=' + "Advance";
+        window.location.href = '/ShowDocumentByID?sys_id=' + sys_ID;
 
     });
 </script>
@@ -98,20 +92,13 @@
                     $.each(data.data, function(key, val) {
                         keys += 1;
                         var html = '<tr>' +
-
                             '<td><span style="position:relative;left:10px;">' + no++ + '</span></td>' +
                             '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentNumber + '</span></td>' +
+                            '<td><span style="position:relative;left:10px;">' + val.entities.combinedBudgetCode[0] + '</span></td>' +
+                            '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentTypeName + '</span></td>' +
+                            '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentDateTimeTZ + '</span></td>' +
                             '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentTypeName + '</span></td>' +
                             '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentTypeName + '</span></td>' +
-                            '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentTypeName + '</span></td>' +
-                            '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentTypeName + '</span></td>' +
-                            '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentTypeName + '</span></td>' +
-
-                            '<input id="sys_ID' + keys + '" value="' + val.recordID + '" type="hidden">' +
-                            '<input id="businessDocument_RefID' + keys + '" value="' + val.entities.businessDocument_RefID + '" type="hidden">' +
-                            '<input id="TransactionMenu' + keys + '" value="' + val.entities.businessDocument_RefID + '" type="hidden">' +
-                            '<input id="linkReportTransaction' + keys + '" value="' + val.entities.businessDocument_RefID + '" type="hidden">' +
-
                             '</tr>';
 
                         $('table.TableMyDocument tbody').append(html);

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[START]---
 $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxkaS5tdWx5YWRpIiwiaWF0IjoxNjkxNDY5NTM5fQ.MDQwNDZhODhmZjQ3N2Q2NDVkM2E1OGY1ZjRiMTY5OWEwZGNiMTY3MDI5NjE5MWU2YjlhNmNmZWM3MjA2OTc1Nw';
+$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiaWNoYSIsImlhdCI6MTY5MjAwNzUwOH0.ZTBkOGZkODg2MDU2MDQzOWI3OGQ3NzdlZWM0M2JmNWNhOGVjODgwZjRjMmZlNmZkMTlmNjFiNjI1OGFlZDdmNQ';
 
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
@@ -50,6 +50,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('CheckDocument', 'Document\CheckDocumentController');
 
     Route::post('MyDocumentListDataFilter', 'Document\MyDocumentController@MyDocumentListDataFilter')->name('MyDocument.MyDocumentListDataFilter');
+    Route::get('ShowDocumentListData', 'Document\MyDocumentController@ShowDocumentListData')->name('MyDocument.ShowDocumentListData');
     Route::resource('MyDocument', 'Document\MyDocumentController');
     
     //MASTER DATA

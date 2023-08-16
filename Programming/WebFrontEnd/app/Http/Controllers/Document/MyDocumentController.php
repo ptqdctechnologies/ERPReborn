@@ -35,40 +35,82 @@ class MyDocumentController extends Controller
 
     public function MyDocumentListDataFilter(Request $request)
     {
-
-        $filter = null;
-        $document_type = "transaction.read.dataList.finance.getAdvance";
         $trano = $request->trano;
         $projectid = $request->projectid;
         $document_type = $request->document_type;
 
-
-        if ($trano != "" && $projectid != "" && $document_type != "") {
-            $filter = trim('"businessDocumentNumber" = ' . $trano . ' AND "CombinedBudget_RefID" = ' . $projectid . ' AND "businessDocumentType_RefID" = ' . $document_type . ' ');
-        } else if ($trano != "") {
-            $filter = trim('"businessDocumentNumber" ILIKE \'%' . $trano . '%\' ');
-        } else if ($projectid != "") {
-            $filter = trim('"CombinedBudget_RefID" = ' . $projectid . ' ');
+        if($trano == ""){
+            $trano = null;
+        }
+        else{
+            $trano = $trano;
+        }
+        if($projectid == ""){
+            $projectid = null;
+        }
+        else{
+            $projectid = (int)$projectid;
+        }
+        if($document_type == ""){
+            $document_type = null;
+        }
+        else{
+            $document_type = (int)$document_type;
         }
 
         $SessionWorkerCareerInternal_RefID = $request->session()->get('SessionWorkerCareerInternal_RefID');
-        // $varAPIWebToken = $request->session()->get('SessionLogin');
-        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        //     $varAPIWebToken,
-        //     'report.form.documentForm.master.getBusinessDocumentIssuanceDisposition',
-        //     'latest',
-        //     [
-        //         'parameter' => [
-        //             'recordID' => (int)$SessionWorkerCareerInternal_RefID
-                    
-        //         ]
-        //     ]
-        // );
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'report.form.documentForm.master.getBusinessDocumentIssuanceDisposition',
+            'latest',
+            [
+                'parameter' => [
+                    'recordID' => (int) $SessionWorkerCareerInternal_RefID,
+                    'dataFilter' => [
+                        'businessDocumentNumber' => $trano,
+                        'businessDocumentType_RefID' => $document_type,
+                        'combinedBudget_RefID' => $projectid
+                    ]
+                ]
+            ]
+        );
+        
+        $compact = [
+            'data' => $varData['data'][0]['document']['content']['itemList']['ungrouped'],
+        ];
+        return response()->json($compact);
+    }
+
+    public function ShowDocumentListData(Request $request)
+    {
+        $DocumentType = $request->input('DocumentType');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $SessionWorkerCareerInternal_RefID = $request->session()->get('SessionWorkerCareerInternal_RefID');
+        
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'report.form.documentForm.master.getBusinessDocumentIssuanceDisposition',
+            'latest',
+            [
+                'parameter' => [
+                    'recordID' => (int)$SessionWorkerCareerInternal_RefID,
+                    'dataFilter' => [
+                        'businessDocumentNumber' => null,
+                        'businessDocumentType_RefID' => null,
+                        'combinedBudget_RefID' => null
+                    ]
+                ]
+            ]
+        );
 
         $compact = [
-            'data' => $varData['data'],
+            'data' => $varData['data'][0]['document']['content']['itemList']['ungrouped'],
         ];
+            
         return response()->json($compact);
     }
 }
