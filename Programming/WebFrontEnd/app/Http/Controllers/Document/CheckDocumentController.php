@@ -30,13 +30,6 @@ class CheckDocumentController extends Controller
 
         $compact = [
             'var' => 0,
-            'TransactionMenu' => 0,
-            'varAPIWebToken' => $varAPIWebToken,
-            'statusRevisi' => 0,
-            'document_number' => '',
-            'sys_id' => '',
-            'businessDocument_RefID' => '',
-            'linkReportTransaction' => '',
             'varBusinessDocumentType' => $varBusinessDocumentType['data'],
 
         ];
@@ -50,7 +43,6 @@ class CheckDocumentController extends Controller
         $sys_id = $request->input('sys_id');
 
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        dd($sys_id);
 
         // $varLinkReportTransaction = $request->input('linkReportTransaction');
 

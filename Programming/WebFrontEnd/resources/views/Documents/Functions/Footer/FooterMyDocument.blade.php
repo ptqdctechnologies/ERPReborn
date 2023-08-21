@@ -12,7 +12,7 @@
 
     $.ajax({
         type: 'GET',
-        url: '{!! route("MyDocument.ShowDocumentListData") !!}',
+        url: '{!! route("MyDocument.ShowMyDocumentListData") !!}',
         success: function(data) {
             var no = 1;
             $.each(data.data, function(key, val) {

@@ -164,8 +164,6 @@ class AdvanceSettlementController extends Controller
             );
         $compact = [
             'data' => $varDataAdvanceRequest['data'],
-            'TransactionMenu' => "AdvanceSettlement",
-            'linkReportTransaction' => "report.form.documentForm.finance.getAdvance"
         ];
             
         return response()->json($compact);
