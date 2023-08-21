@@ -22,7 +22,7 @@ class SearchPrompt extends Prompt
     protected ?array $matches = null;
 
     /**
-     * Create a new SuggestPrompt instance.
+     * Create a new SearchPrompt instance.
      *
      * @param  Closure(string): array<int|string, string>  $options
      */
@@ -32,6 +32,7 @@ class SearchPrompt extends Prompt
         public string $placeholder = '',
         public int $scroll = 5,
         public ?Closure $validate = null,
+        public string $hint = ''
     ) {
         $this->trackTypedValue(submit: false);
 
@@ -44,6 +45,9 @@ class SearchPrompt extends Prompt
         });
     }
 
+    /**
+     * Perform the search.
+     */
     protected function search(): void
     {
         $this->state = 'searching';
@@ -115,11 +119,17 @@ class SearchPrompt extends Prompt
         }
     }
 
+    /**
+     * Get the current search query.
+     */
     public function searchValue(): string
     {
         return $this->typedValue;
     }
 
+    /**
+     * Get the selected value.
+     */
     public function value(): int|string|null
     {
         if ($this->matches === null || $this->highlighted === null) {
