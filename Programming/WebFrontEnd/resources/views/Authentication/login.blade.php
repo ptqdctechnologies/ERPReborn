@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/adminlte.min.css') }}">
     <!-- sweetalert -->
     <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/adminltesweatalert.min.css') }}">
+    <!-- Loading css -->
+    <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/loading.css') }}">
     <style>
         #dis1 {
             border-radius: 20px;
@@ -41,121 +43,14 @@
             z-index: 9999;
             background: center no-repeat #fff;
         }
-
-        /*-- css spin --*/
-        @-webkit-keyframes spin {
-            0% {
-                -webkit-transform: rotate(0deg);
-            }
-
-            100% {
-                -webkit-transform: rotate(360deg);
-            }
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        /*-- css loader --*/
-        .no-js #loader {
-            display: none;
-        }
-
-        .js #loader {
-            display: block;
-            position: absolute;
-            left: 100px;
-            top: 0;
-        }
-
-        .loader {
-            border-left: 10px solid blue;
-            border-top: 10px solid red;
-            border-bottom: 10px solid yellow;
-            border-radius: 50%;
-            width: 150px;
-            height: 150px;
-            left: 43.5%;
-            top: 20%;
-            -webkit-animation: spin 2s linear infinite;
-            position: fixed;
-            animation: spin 2s linear infinite;
-        }
-
-        .textLoader {
-            position: fixed;
-            top: 56%;
-            left: 44.5%;
-            color: #34495e;
-            font-size: 17px;
-        }
-
-        /*-- responsive --*/
-        @media screen and (max-width: 1034px) {
-            .textLoader {
-                left: 46.2%;
-            }
-        }
-
-        @media screen and (max-width: 824px) {
-            .textLoader {
-                left: 47.2%;
-            }
-        }
-
-        @media screen and (max-width: 732px) {
-            .textLoader {
-                left: 48.2%;
-            }
-        }
-
-        @media screen and (max-width: 500px) {
-            .loader {
-                left: 36.5%;
-                ;
-            }
-
-            .textLoader {
-                left: 40.5%;
-            }
-        }
-
-        @media screen and (max-height: 432px) {
-            .textLoader {
-                top: 65%;
-            }
-        }
-
-        @media screen and (max-height: 350px) {
-            .textLoader {
-                top: 75%;
-            }
-        }
-
-        @media screen and (max-height: 312px) {
-            .textLoader {
-                display: none;
-            }
-        }
-
-        /*-- responsive --*/
     </style>
 </head>
 
 <body class="hold-transition login-page">
-    <div id="loading">
+    <div id="loading" style="display: none;">
         <span class="loader"></span>
         <div class="textLoader">
-            <center>
-                <b>Please Wait ... </b>
-            </center>
+            <b>Please Wait ...</b>
         </div>
     </div>
 
@@ -332,7 +227,7 @@
 
                             $(".varAPIWebToken").val(response.varAPIWebToken);
                             $(".user_RefID").val(response.user_RefID);
-                            
+
                             $(".branch_name").empty();
 
                             var option = "<option value='" + '' + "'>" + 'Select Company Name' + "</option>";
@@ -374,11 +269,12 @@
 
         $(document).ready(function() {
             $(".branch_name").click(function() {
-                
+
                 var id = $(this).val();
                 if (id != "") {
 
-                    ShowLoading();varData
+                    ShowLoading();
+                    varData
 
                     $.ajax({
                         type: 'GET',

@@ -29,12 +29,13 @@
                 t = $('#TableCheckDocument').DataTable();
                 t.clear();
                 $.each(data.data, function(key, val) {
+                    console.log(val);
                     keys += 1;
                     t.row.add([
-                        '<tbody><tr><input id="sys_id' + keys + '" value="' + val.entities.businessDocumentType_RefID + '" type="hidden"><input id="businessDocument_RefID' + keys + '" value="' + val.entities.businessDocument_RefID + '" type="hidden"><input id="TransactionMenu' + keys + '" value="Advance" type="hidden"><input id="linkReportTransaction' + keys + '" value="report.form.documentForm.finance.getAdvance" type="hidden"><td><span style="position:relative;left:10px;">' + no++ + '</span></td>',
+                        '<tbody><tr><td><input id="sys_id' + keys + '" value="' + val.entities.businessDocument_RefID + '" type="hidden">' + no++ + '</span></td>',
                         '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentNumber + '</span></td>',
-                        '<td><span style="position:relative;left:10px;">' + val.entities.businessDocument_RefID + '</span></td>',
-                        '<td><span style="position:relative;left:10px;">' + val.entities.businessDocument_RefID + '</span></td></tr></tbody>',
+                        '<td><span style="position:relative;left:10px;">' + val.entities.combinedBudgetCode + '</span></td>',
+                        '<td><span style="position:relative;left:10px;">' + val.entities.combinedBudgetSectionCode + '</span></td></tr></tbody>',
                     ]).draw();
                 });
                 $("#loading").hide();
@@ -50,18 +51,11 @@
         $("#mySearchCheckDocument").modal('toggle');
 
         var row = $(this).closest("tr");
-        var id = row.find("td:nth-child(1)").text();
         var documentNumber = row.find("td:nth-child(2)").text();
+        var id = row.find("td:nth-child(1)").text();
         var sys_id = $('#sys_id' + id).val();
-        var businessDocument_RefID = $('#businessDocument_RefID' + id).val();
-        var TransactionMenu = $('#TransactionMenu' + id).val();
-        var linkReportTransaction = $('#linkReportTransaction' + id).val();
-
         $("#sys_id").val(sys_id);
         $("#document_number").val(documentNumber);
-        $("#linkReportTransaction").val(linkReportTransaction);
-        $("#TransactionMenu").val(TransactionMenu);
-        $("#businessDocument_RefID").val(businessDocument_RefID);
     });
 </script>
 

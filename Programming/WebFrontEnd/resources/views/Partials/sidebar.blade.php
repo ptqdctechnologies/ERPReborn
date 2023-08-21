@@ -31,8 +31,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                <!-- {{ route('CheckDocument.index') }} -->
-                                    <a href="" class="nav-link">&nbsp;&nbsp;&nbsp;
+                                    <a href="{{ route('CheckDocument.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;
                                         <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
                                         <label>Check Document</label>
                                         <i class="right fas fa-angle-left"></i>

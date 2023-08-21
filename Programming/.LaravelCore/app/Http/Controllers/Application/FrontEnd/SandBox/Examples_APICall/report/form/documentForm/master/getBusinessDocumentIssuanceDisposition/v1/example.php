@@ -7,7 +7,7 @@
 |                 \getBusinessDocumentIssuanceDisposition\v1                                                                       |
 | ▪ API Key     : report.form.documentForm.master.getBusinessDocumentIssuanceDisposition                                           |
 | ▪ API Version : 1                                                                                                                |
-|                                                                                                                                  |
+|ku|
 | ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
@@ -41,7 +41,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                 'latest',
                 [
                 'parameter' => [
-                    'recordID' => 164000000000196
+                    'recordID' => 164000000000196,
+                    'dataFilter' => [
+                        'businessDocumentNumber' => 'Adv/QDC/2023/000098',
+                        'businessDocumentType_RefID' => 77000000000057,
+                        'combinedBudget_RefID' => 46000000000033
+                        ]                            
                     ]
                 ]
                 );

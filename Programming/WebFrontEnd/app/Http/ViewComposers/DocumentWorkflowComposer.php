@@ -12,7 +12,7 @@ class DocumentWorkflowComposer
     {
         $varAPIWebToken = Session::get('SessionLogin');
         $SessionWorkerCareerInternal_RefID =  Session::get('SessionWorkerCareerInternal_RefID');
-
+        
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
@@ -20,7 +20,12 @@ class DocumentWorkflowComposer
             'latest',
             [
                 'parameter' => [
-                    'recordID' => (int)$SessionWorkerCareerInternal_RefID
+                    'recordID' => (int)$SessionWorkerCareerInternal_RefID,
+                    'dataFilter' => [
+                        'businessDocumentNumber' => null,
+                        'businessDocumentType_RefID' => null,
+                        'combinedBudget_RefID' => null
+                    ]
                 ]
             ]
         );

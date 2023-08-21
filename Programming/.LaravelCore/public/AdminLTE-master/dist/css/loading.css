@@ -1,8 +1,9 @@
-.error{
+.error {
     border: 1px solid red;
     display: block;
     border-radius: 10px;
 }
+
 #loading {
     position: fixed;
     left: 0px;
@@ -42,34 +43,35 @@
 .js #loader {
     display: block;
     position: absolute;
-    left: 100px;
+    left: 0;
     top: 0;
 }
 
 .loader {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15%;
+    width: 150px;
+    height: 150px;
     border-left: 10px solid blue;
     border-top: 10px solid red;
     border-bottom: 10px solid yellow;
     border-radius: 50%;
-    width: 150px;
-    height: 150px;
-    left: 43.5%;
-    top: 20%;
     -webkit-animation: spin 2s linear infinite;
-    position: fixed;
     animation: spin 2s linear infinite;
 }
 
 .textLoader {
-    position: fixed;
-    top: 56%;
-    left: 44.5%;
+    position: relative;
+    top: 15%;
+    text-align: center;
     color: #34495e;
     font-size: 17px;
 }
 
 /*-- responsive --*/
-@media screen and (max-width: 1034px) {
+/* @media screen and (max-width: 1034px) {
     .textLoader {
         left: 46.2%;
     }
@@ -114,4 +116,4 @@
     .textLoader {
         display: none;
     }
-}
+} */

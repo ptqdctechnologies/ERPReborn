@@ -392,7 +392,7 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
                 return varReturn;
                 }
             catch(varError) {
-                alert("ERP Reborn Error Notification\n\nInvalid Data Request\n(" + varError + ")");
+                alert("ERP Reborn Error Notification\n\nInvalid Data Requestx\n(" + varError + ")");
                 }
             }
         else {
