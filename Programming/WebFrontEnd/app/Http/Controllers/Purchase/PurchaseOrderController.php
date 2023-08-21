@@ -182,8 +182,6 @@ class PurchaseOrderController extends Controller
         );
         $compact = [
             'data' => $varDataPurchaseRequisition['data'],
-            'TransactionMenu' => "PurchaseOrder",
-            'linkReportTransaction' => "report.form.documentForm.supplyChain.getPurchaseRequisition"
         ];
             
         return response()->json($compact);

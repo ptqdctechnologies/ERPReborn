@@ -61,6 +61,7 @@ class Controller extends BaseController
         $businessDocument_RefID = $request->businessDocument_RefID;
         $documentNumber = $request->documentNumber;
         $approverEntity_RefID = $request->approverEntity_RefID;
+        $comment = $request->comment;
 
         $VarStoreWorkFlow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -71,7 +72,7 @@ class Controller extends BaseController
                 'entities' => [
                     "businessDocument_RefID" => (int)$businessDocument_RefID,
                     "workFlowPath_RefID" => (int)$workFlowPath_RefID,
-                    "remarks" => null,
+                    "remarks" => $comment,
                     "approverEntity_RefID" => (int)$approverEntity_RefID
                 ]
             ]
