@@ -6,13 +6,14 @@
                 <div class="form-group">
                     <table>
                         <tr>
-                            <td><label>Supplier Code</label></td>
-                            <td style="border:1px solid #e9ecef;">
+                            <td style="padding-top: 5px;"><label>Supplier Code</label></td>
+                            <td>
                                 <div class="input-group" style="width: 70%;">
                                     <input id="supplier_code" style="border-radius:0;" class="form-control" readonly>
                                     <div class="input-group-append">
                                         <span style="border-radius:0;" class="input-group-text form-control">
-                                            <a href="#"><i id="product_id2" data-toggle="modal" data-target="#mySupplier" class="fas fa-gift mySupplier" style="color:grey;"></i></a>
+                                            <!-- <a href="#"><i id="supplier_code2" data-toggle="modal" data-target="#mySupplier" class="fas fa-gift mySupplier"></i></a> -->
+                                            <a href="#" id="supplier_code2" data-toggle="modal" data-target="#mySupplier" class="mySupplier"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                         </span>
                                     </div>
                                 </div>
@@ -24,15 +25,20 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><label>Deliver To</label></td>
-                            <td style="border:1px solid #e9ecef;">
-                                <div class="input-group">
-                                <input id="deliver_to" style="border-radius:0;" class="form-control" readonly>
+                            <td style="padding-top: 5px;"><label>Deliver To</label></td>
+                            <td>
+                                <div class="input-group" style="width: 70%;">
+                                <input id="deliver_code" style="border-radius:0;" class="form-control" readonly>
                                 <div class="input-group-append">
                                     <span style="border-radius:0;" class="input-group-text form-control">
-                                    <a href="#"><i id="product_id2" data-toggle="modal" data-target="#myDeliverTo" class="fas fa-gift myDeliverTo" style="color:grey;"></i></a>
+                                        <a href="#" id="deliver_code2" data-toggle="modal" data-target="#myDeliverTo" class="myDeliverTo"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                     </span>
                                 </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group" style="width: 153%;position:relative;right:38%;">
+                                    <input id="deliver_name" style="border-radius:0;" class="form-control" name="projectname" readonly>
                                 </div>
                             </td>
                         </tr>
