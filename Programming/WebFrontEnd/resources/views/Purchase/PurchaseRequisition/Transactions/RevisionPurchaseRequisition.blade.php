@@ -40,6 +40,23 @@
                 </div>
               </div>
             </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <label class="card-title">
+                      Purchase Requisition Detail
+                    </label>
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                      </button>
+                    </div>
+                  </div>
+                  @include('Purchase.PurchaseRequisition.Functions.Header.HeaderProcReq2')
+                </div>
+              </div>
+            </div>
             <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
               <div class="row">
                 <div class="col-12">

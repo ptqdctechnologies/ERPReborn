@@ -7,6 +7,7 @@
 @include('Purchase.PurchaseRequisition.Functions.PopUp.PopUpPrRevision')
 @include('getFunction.getProject')
 @include('getFunction.getWorkFlow')
+@include('getFunction.getSupplier')
 
 <div class="content-wrapper">
   <section class="content">
@@ -36,6 +37,23 @@
                     </div>
                   </div>
                   @include('Purchase.PurchaseRequisition.Functions.Header.HeaderProcReq')
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <label class="card-title">
+                      Purchase Requisition Detail
+                    </label>
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                      </button>
+                    </div>
+                  </div>
+                  @include('Purchase.PurchaseRequisition.Functions.Header.HeaderProcReq2')
                 </div>
               </div>
             </div>
