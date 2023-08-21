@@ -106,8 +106,9 @@
                         <div class="card">
                           <div class="card-header">
                             <label class="card-title">
-                            Purchase Order Detail &nbsp;&nbsp; || &nbsp;&nbsp; Select PR Number
-                              <a href="#" id="pr_number2" data-toggle="modal" data-target="#mySearchPR"><img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></a>
+                            Purchase Order Detail 
+                            <!-- &nbsp;&nbsp; || &nbsp;&nbsp; Select PR Number
+                              <a href="#" id="pr_number2" data-toggle="modal" data-target="#mySearchPR"><img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></a> -->
                             </label>
                             <div class="card-tools">
                               <button type="button" class="btn btn-tool" data-card-widget="collapse">
