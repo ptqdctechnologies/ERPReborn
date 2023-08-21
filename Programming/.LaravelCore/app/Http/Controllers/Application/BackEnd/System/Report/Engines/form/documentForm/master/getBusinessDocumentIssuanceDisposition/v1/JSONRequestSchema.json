@@ -1,74 +1,74 @@
 {
-    "title": "JSON Request Schema",
-    "description": "JSON Request Schema of report.form.documentForm.master.getBusinessDocumentIssuanceDisposition (version 1)",
-    "type": "object",
-    "properties": {
-        "metadata": {
-            "type": "object",
-            "properties": {
-                "API": {
-                    "type": "object",
-                    "properties": {
-                        "key": {
-                            "type": "string",
-                            "enum": [ "report.form.documentForm.master.getBusinessDocumentIssuanceDisposition" ]
-                            },
-                        "version": {
-                            "type": [ "integer", "string" ],
-                            "minimum": 1,
-                            "minLength": 1
-                            }
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of report.form.documentForm.master.getBusinessDocumentIssuanceDisposition (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            "API": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "enum": [ "report.form.documentForm.master.getBusinessDocumentIssuanceDisposition" ]
                         },
-                    "required": [ "key", "version" ]
-                    }
-                },
-            "required": [ "API" ]
+                    "version": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1
+                        }
+                    },
+                "required": [ "key", "version" ]
+                }
             },
-        "data": {
-            "type": "object",
-            "properties": {
-                "parameter": {
-                    "type": "object",
-                    "properties": {
-                        "recordID": {
-                            "type": [ "integer", "null" ],
-                            "minimum": 1,
-                            "maximum": 9223372036854775807
-                            },
-                        "dataFilter": {
-                            "type": "object",
-                            "properties": {
-                                "businessDocumentNumber": {
-                                    "type": [ "string", "null" ],
-                                    "minLength": 1,
-                                    "maxLength": 32
-                                    },
-                                "businessDocumentType_RefID": {
-                                    "type": [ "integer", "null" ],
-                                    "minimum": 1,
-                                    "maximum": 9223372036854775807
-                                    },
-                                "combinedBudget_RefID": {
-                                    "type": [ "integer", "null" ],
-                                    "minimum": 1,
-                                    "maximum": 9223372036854775807
-                                    }
-                                },
-                            "required": [
-                                "businessDocumentNumber",
-                                "businessDocumentType_RefID",
-                                "combinedBudget_RefID"
-                                ]
-                            }
-                        },
-                    "required": [
-                        "recordID",
-                        "dataFilter"
-                        ]
-                    }
-                },
-            "required": [ "parameter" ]
-            }
+        "required": [ "API" ]
         },
-    "required": [ "metadata", "data" ]
-    }
+    "data": {
+        "type": "object",
+        "properties": {
+            "parameter": {
+                "type": "object",
+                "properties": {
+                    "recordID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                    "dataFilter": {
+                        "type": "object",
+                        "properties": {
+                            "businessDocumentNumber": {
+                                "type": [ "string", "null" ],
+                                "minLength": 1,
+                                "maxLength": 32
+                                },
+                            "businessDocumentType_RefID": {
+                                "type": [ "integer", "null" ],
+                                "minimum": 1,
+                                "maximum": 9223372036854775807
+                                },
+                            "combinedBudget_RefID": {
+                                "type": [ "integer", "null" ],
+                                "minimum": 1,
+                                "maximum": 9223372036854775807
+                                }
+                            },
+                        "required": [
+                            "businessDocumentNumber",
+                            "businessDocumentType_RefID",
+                            "combinedBudget_RefID"
+                            ]
+                        }
+                    },
+                "required": [
+                    "recordID",
+                    "dataFilter"
+                    ]
+                }
+            },
+        "required": [ "parameter" ]
+        }
+    },
+"required": [ "metadata", "data" ]
+}
