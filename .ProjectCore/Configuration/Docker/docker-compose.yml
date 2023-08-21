@@ -432,7 +432,7 @@ services:
         #      RUBY_FIBER_MACHINE_STACK_SIZE: 1048576
 #      DATABASE_URL: 'postgresql://SysEngine:748159263@192.168.0.24:5432/dbERPReborn-Documentation-OpenProject'
 #      DATABASE_URL: "${192.168.0.24:-postgres://SysEngine:748159263@db/openproject?pool=20&encoding=unicode&reconnect=true}"
-      DATABASE_URL: 'postgresql://SysEngine:748159263@192.168.1.27:5432/dbERPReborn-Documentation-OpenProject'
+      DATABASE_URL: 'postgresql://SysEngine:748159263@192.168.0.27:5432/dbERPReborn-Documentation-OpenProject'
 #      DATABASE_URL: "${DATABASE_URL:-postgres://SysEngine:748159263@db/openproject?pool=20&encoding=unicode&reconnect=true}"
     networks:
       app-network:
