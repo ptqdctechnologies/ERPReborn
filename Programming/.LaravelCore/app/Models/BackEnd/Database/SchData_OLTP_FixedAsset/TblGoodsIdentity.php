@@ -24,6 +24,7 @@ namespace App\Models\Database\SchData_OLTP_FixedAsset
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-09-02                                                                                           |
+        | ▪ Creation Date   : 2020-09-02                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,7 +43,8 @@ namespace App\Models\Database\SchData_OLTP_FixedAsset
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Creation Date   : 2023-08-22                                                                                           |
         | ▪ Last Update     : 2020-09-08                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -51,6 +53,8 @@ namespace App\Models\Database\SchData_OLTP_FixedAsset
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varGoodsModel_RefID ► Goods Model Reference ID                                                           |
         |      ▪ (string) varSerialNumber ► Goods Serial Number                                                                    |
         | ▪ Output Variable :                                                                                                      |
@@ -59,7 +63,7 @@ namespace App\Models\Database\SchData_OLTP_FixedAsset
         */
         public function setDataInsert(
             $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
+            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null, int $varSysBaseCurrency_RefID = null,
             int $varGoodsModel_RefID = null, string $varSerialNumber = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -73,6 +77,8 @@ namespace App\Models\Database\SchData_OLTP_FixedAsset
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
+                        [$varSysBaseCurrency_RefID, 'bigint'],
+
                         [$varGoodsModel_RefID, 'bigint'],
                         [$varSerialNumber, 'varchar']
                     ]
@@ -86,7 +92,8 @@ namespace App\Models\Database\SchData_OLTP_FixedAsset
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Creation Date   : 2023-08-22                                                                                           |
         | ▪ Last Update     : 2020-09-08                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -96,6 +103,8 @@ namespace App\Models\Database\SchData_OLTP_FixedAsset
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varGoodsModel_RefID ► Goods Model Reference ID                                                           |
         |      ▪ (string) varSerialNumber ► Goods Serial Number                                                                    |
         | ▪ Output Variable :                                                                                                      |
@@ -104,7 +113,7 @@ namespace App\Models\Database\SchData_OLTP_FixedAsset
         */
         public function setDataUpdate(
             $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
+            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null, int $varSysBaseCurrency_RefID = null,
             int $varGoodsModel_RefID = null, string $varSerialNumber = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -118,6 +127,8 @@ namespace App\Models\Database\SchData_OLTP_FixedAsset
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
+                        [$varSysBaseCurrency_RefID, 'bigint'],
+
                         [$varGoodsModel_RefID, 'bigint'],
                         [$varSerialNumber, 'varchar']
                     ],

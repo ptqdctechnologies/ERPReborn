@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.create.master.setBankAccount (version 1)",
+"description": "JSON Request Schema of transaction.create.fixedAsset.setGoodsIdentity (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.create.master.setBankAccount" ]
+                        "enum": [ "transaction.create.fixedAsset.setGoodsIdentity" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -30,32 +30,20 @@
             "entities" : {
                 "type": "object",
                 "properties": {
-                    "bank_RefID": {
-                        "type": [ "integer" ],
-                        "minimum": 1,
-                        "maximum": 9223372036854775807
-                        },
-                    "accountNumber": {
-                        "type": [ "string" ],
-                        "minLength": 1,
-                        "maxLength": 32
-                        },
-                    "name": {
-                        "type": [ "string" ],
-                        "minLength": 1,
-                        "maxLength": 64
-                        },
-                    "person_RefID": {
+                    "goodsModel_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
+                        },
+                    "serialNumber": {
+                        "type": [ "string", "null"  ],
+                        "minLength": 1,
+                        "maxLength": 256
                         }
                     },
-                "required": [ 
-                    "bank_RefID",
-                    "accountNumber",
-                    "name",
-                    "person_RefID"
+                "required": [
+                    "goodsModel_RefID",
+                    "serialNumber"
                     ]
                 }
             },
