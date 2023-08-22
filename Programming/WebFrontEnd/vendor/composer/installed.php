@@ -945,9 +945,9 @@
             'dev_requirement' => false,
         ),
         'spatie/ignition' => array(
-            'pretty_version' => '1.9.0',
-            'version' => '1.9.0.0',
-            'reference' => 'de24ff1e01814d5043bd6eb4ab36a5a852a04973',
+            'pretty_version' => '1.10.1',
+            'version' => '1.10.1.0',
+            'reference' => 'd92b9a081e99261179b63a858c7a4b01541e7dd1',
             'type' => 'library',
             'install_path' => __DIR__ . '/../spatie/ignition',
             'aliases' => array(),
