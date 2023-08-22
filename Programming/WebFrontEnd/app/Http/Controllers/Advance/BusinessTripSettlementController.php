@@ -209,8 +209,6 @@ class BusinessTripSettlementController extends Controller
             );
         $compact = [
             'data' => $varDataAdvanceRequest['data'],
-            'TransactionMenu' => "BussinesTripSettlement",
-            'linkReportTransaction' => "report.form.documentForm.finance.getAdvance"
         ];
             
         return response()->json($compact);

@@ -84,9 +84,8 @@ class MyDocumentController extends Controller
         return response()->json($compact);
     }
 
-    public function ShowDocumentListData(Request $request)
+    public function ShowMyDocumentListData(Request $request)
     {
-        $DocumentType = $request->input('DocumentType');
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $SessionWorkerCareerInternal_RefID = $request->session()->get('SessionWorkerCareerInternal_RefID');
         

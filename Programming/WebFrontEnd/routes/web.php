@@ -51,7 +51,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('CheckDocument', 'Document\CheckDocumentController');
 
     Route::post('MyDocumentListDataFilter', 'Document\MyDocumentController@MyDocumentListDataFilter')->name('MyDocument.MyDocumentListDataFilter');
-    Route::get('ShowDocumentListData', 'Document\MyDocumentController@ShowDocumentListData')->name('MyDocument.ShowDocumentListData');
+    Route::get('ShowMyDocumentListData', 'Document\MyDocumentController@ShowMyDocumentListData')->name('MyDocument.ShowMyDocumentListData');
     Route::resource('MyDocument', 'Document\MyDocumentController');
     
     //MASTER DATA
