@@ -18,5 +18,99 @@ namespace App\Models\Database\SchData_OLTP_FixedAsset
     */
     class General
         {
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_GoodsIdentity                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-08-22                                                                                           |
+        | ▪ Creation Date   : 2023-08-22                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Cabang Bank                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varGoodsModel_RefID ► Goods Model Reference ID                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_GoodsIdentity(
+            $varUserSession, int $varBranchID, 
+            int $varGoodsModel_RefID = null, 
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-FixedAsset.Func_GetDataList_GoodsIdentity',
+                        [
+                            [$varBranchID, 'bigint' ],
+                            
+                            [$varGoodsModel_RefID, 'bigint' ],
+                            
+                            [$varPickStatement, 'varchar'],
+                            [$varSortStatement, 'varchar'],
+                            [$varFilterStatement, 'varchar'],
+                            [$varPagingStatement, 'varchar']
+                        ]
+                        )
+                    );                
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+        
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_GoodsIdentity                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-08-22                                                                                           |
+        | ▪ Creation Date   : 2023-08-22                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Akun Bank                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varGoodsModel_RefID ► Goods Model Reference ID                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_GoodsIdentity(
+            $varUserSession, int $varBranchID, 
+            int $varGoodsModel_RefID = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-FixedAsset.Func_GetDataPickList_GoodsIdentity',
+                        [
+                            [$varBranchID, 'bigint' ],
+                            [$varGoodsModel_RefID, 'bigint' ]
+                        ]
+                        )
+                    );
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
         }
     }
