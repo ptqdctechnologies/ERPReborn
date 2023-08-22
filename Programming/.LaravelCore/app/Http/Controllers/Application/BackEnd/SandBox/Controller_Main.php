@@ -15,7 +15,11 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
         public function testAja()
             {
             echo "Test Aja";
-            
+
+            $x = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine(123);
+            dd($x);
+
+            /*
             $x = 
             (new \App\Models\Database\SchData_OLTP_Master\TblBusinessDocumentType())->getIDByName(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
@@ -23,7 +27,8 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
                 );
             
             dd($x);
-            
+            */
+
             /*
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             $varAPIWebToken = 'xxx';

@@ -34,7 +34,7 @@ class MultiSelectPrompt extends Prompt
     protected array $values = [];
 
     /**
-     * Create a new SelectPrompt instance.
+     * Create a new MultiSelectPrompt instance.
      *
      * @param  array<int|string, string>|Collection<int|string, string>  $options
      * @param  array<int|string>|Collection<int, int|string>  $default
@@ -46,6 +46,7 @@ class MultiSelectPrompt extends Prompt
         public int $scroll = 5,
         public bool|string $required = false,
         public ?Closure $validate = null,
+        public string $hint = ''
     ) {
         $this->options = $options instanceof Collection ? $options->all() : $options;
         $this->default = $default instanceof Collection ? $default->all() : $default;

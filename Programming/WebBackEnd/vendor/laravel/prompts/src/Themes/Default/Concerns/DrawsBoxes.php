@@ -10,6 +10,8 @@ trait DrawsBoxes
 
     /**
      * Draw a box.
+     *
+     * @return $this
      */
     protected function box(
         string $title,
@@ -80,6 +82,8 @@ trait DrawsBoxes
      */
     protected function stripEscapeSequences(string $text): string
     {
-        return preg_replace("/\e[^m]*m/", '', $text);
+        $text = preg_replace("/\e[^m]*m/", '', $text);
+
+        return preg_replace("/<(?:(?:[fb]g|options)=[a-z,;]+)+>(.*?)<\/>/i", '$1', $text);
     }
 }
