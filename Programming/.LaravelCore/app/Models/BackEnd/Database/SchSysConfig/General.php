@@ -24,6 +24,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-01-25                                                                                           |
+        | ▪ Creation Date   : 2021-01-25                                                                                           |
         | ▪ Description     : Mendapatkan APIWebToken SysEngine                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -754,6 +755,49 @@ namespace App\Models\Database\SchSysConfig
                 'SELECT "SchSysConfig"."FuncSys_General_GetReferenceTEXTByReferenceID"('.$varID.'::bigint);'
                 );
             return $varReturn['Data'][0]['FuncSys_General_GetReferenceTEXTByReferenceID'];
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DocumentForm_LogBusinessDocumentWorkFlowPathHistory                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-08-23                                                                                           |
+        | ▪ Creation Date   : 2023-08-23                                                                                           |
+        | ▪ Description     : Mendapatkan Report - Dokumen Form - LogBusinessDocumentWorkFlowPathHistory                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varBusinessDocument_RefID ► Business Document ID                                                         |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DocumentForm_LogBusinessDocumentWorkFlowPathHistory(
+            $varUserSession, int $varBranchID, 
+            int $varBusinessDocument_RefID = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_GetReport_DocForm_Log_BusinessDocumentWorkFlowPathHistory',
+                        [
+                            [$varBranchID, 'bigint' ],
+                            
+                            [$varBusinessDocument_RefID, 'bigint' ]
+                        ]
+                        )
+                    );                
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
             }
 
 
