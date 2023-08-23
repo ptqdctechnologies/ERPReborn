@@ -519,7 +519,7 @@
                             data: form_data,
                             type: method,
                             success: function(response) {
-                                if (response.message == "SelectWorkFlow") {
+                                if (response.message == "MoreThanOne") {
 
                                     HideLoading();
 
@@ -538,26 +538,9 @@
 
                                     HideLoading();
 
-                                    swalWithBootstrapButtons.fire({
+                                    SelectWorkFlow(response.workFlowPath_RefID, response.businessDocument_RefID, response.documentNumber, response.approverEntity_RefID);
 
-                                        title: 'Successful !',
-                                        type: 'success',
-                                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + response.documentNumber + '</span>',
-                                        showCloseButton: false,
-                                        showCancelButton: false,
-                                        focusConfirm: false,
-                                        confirmButtonText: '<span style="color:black;"> OK </span>',
-                                        confirmButtonColor: '#4B586A',
-                                        confirmButtonColor: '#e9ecef',
-                                        reverseButtons: true
-                                    }).then((result) => {
-                                        if (result.value) {
-                                            ShowLoading();
-                                            window.location.href = '/AdvanceRequest?var=1';
-                                        }
-                                    })
                                 }
-
                             },
 
                             error: function(response) { // handle the error
