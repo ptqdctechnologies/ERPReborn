@@ -16,17 +16,26 @@
         success: function(data) {
             var no = 1;
             $.each(data.data, function(key, val) {
-                var date = dateFormat(val.entities.businessDocumentDateTimeTZ, 'MM-dd-yyyy');
+
+                const date = dateFns.format(
+                dateFns.parse(val.entities.businessDocumentDateTimeTZ, "yyyy-MM-dd hh:mm:ss"),
+                'DD-MM-YYYY HH:mm');
+
+                var remark = val.entities.workFlowPathSubmitterRemarks;
+                if (val.entities.workFlowPathSubmitterRemarks == null) {
+                    remark = "-";
+                }
+                
                 keys += 1;
                 var html = '<tr>' +
 
                     '<td><span style="position:relative;left:10px;">' + no++ + '</span></td>' +
                     '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentNumber + '</span></td>' +
                     '<td><span style="position:relative;left:10px;">' + val.entities.combinedBudgetCode + '</span></td>' +
-                    '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentTypeName + '</span></td>' +
+                    '<td><span style="position:relative;left:10px;">' + val.entities.previousWorkFlowPathApproverName + '</span></td>' +
                     '<td><span style="position:relative;left:10px;">' + date + '</span></td>' +
-                    '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentTypeName + '</span></td>' +
-                    '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentTypeName + '</span></td>' +
+                    '<td><span style="position:relative;left:10px;">' + val.entities.previousWorkFlowPathActionName + '</span></td>' +
+                    '<td><span style="position:relative;left:10px;">' + remark + '</span></td>' +
 
                     '<input id="sys_ID' + keys + '" value="' + val.entities.businessDocument_RefID + '" type="hidden">' +
 
