@@ -760,7 +760,7 @@ namespace App\Models\Database\SchSysConfig
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getReport_Form_DocumentForm_LogBusinessDocumentWorkFlowPathHistory                                   |
+        | ▪ Method Name     : getReport_Form_Resume_LogBusinessDocumentWorkFlowPathHistory                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2023-08-23                                                                                           |
@@ -776,7 +776,7 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getReport_Form_DocumentForm_LogBusinessDocumentWorkFlowPathHistory(
+        public function getReport_Form_Resume_LogBusinessDocumentWorkFlowPathHistory(
             $varUserSession, int $varBranchID, 
             int $varBusinessDocument_RefID = null)
             {
@@ -792,8 +792,9 @@ namespace App\Models\Database\SchSysConfig
                             [$varBusinessDocument_RefID, 'bigint' ]
                         ]
                         )
-                    );                
-                return $varReturn['Data'];
+                    );
+                $varReturn = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varReturn['Data'][0]['Func_GetReport_DocForm_Log_BusinessDocumentWorkFlowPathHistory']);
+                return $varReturn;
                 }
             catch (\Exception $ex) {
                 return [];
