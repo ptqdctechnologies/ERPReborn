@@ -115,7 +115,7 @@ class AdvanceRequestController extends Controller
 
             // Var Data -> Combined Budget -> Submitter Entity -> Var Select WorkFlow
             
-            return $this->SelectWorkFlow($varData, $input['request_name_id'], $VarSelectWorkFlow);
+            return $this->SelectWorkFlow($varData, $SessionWorkerCareerInternal_RefID, $VarSelectWorkFlow);
             
         }
     }

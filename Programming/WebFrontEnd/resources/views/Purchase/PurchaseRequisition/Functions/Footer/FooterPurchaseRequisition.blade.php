@@ -486,7 +486,7 @@
                         type: method,
                         success: function(response) {
 
-                            if (response.message === "SelectWorkFlow") {
+                            if (response.message === "MoreThanOne") {
 
                                 HideLoading();
 
@@ -505,24 +505,8 @@
 
                                 HideLoading();
 
-                                swalWithBootstrapButtons.fire({
+                                SelectWorkFlow(response.workFlowPath_RefID, response.businessDocument_RefID, response.documentNumber, response.approverEntity_RefID);
 
-                                    title: 'Successful !',
-                                    type: 'success',
-                                    html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + response.documentNumber + '</span>',
-                                    showCloseButton: false,
-                                    showCancelButton: false,
-                                    focusConfirm: false,
-                                    confirmButtonText: '<span style="color:black;"> OK </span>',
-                                    confirmButtonColor: '#4B586A',
-                                    confirmButtonColor: '#e9ecef',
-                                    reverseButtons: true
-                                }).then((result) => {
-                                    if (result.value) {
-                                        ShowLoading();
-                                        window.location.href = '/PurchaseRequisition?var=1';
-                                    }
-                                })
                             }
 
                         },
@@ -578,49 +562,68 @@
 <script>
     function SelectWorkFlow(workFlowPath_RefID, businessDocument_RefID, documentNumber, approverEntity_RefID) {
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        })
 
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("StoreWorkFlow") !!}?workFlowPath_RefID=' + workFlowPath_RefID + '&businessDocument_RefID=' + businessDocument_RefID + '&documentNumber=' + documentNumber + '&approverEntity_RefID=' + approverEntity_RefID,
-            success: function(data) {
+        swalWithBootstrapButtons.fire({
 
-                HideLoading();
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'text',
+            showCloseButton: false,
+            showCancelButton: false,
+            focusConfirm: false,
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            confirmButtonColor: '#4B586A',
+            confirmButtonColor: '#e9ecef',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
 
-                const swalWithBootstrapButtons = Swal.mixin({
-                    confirmButtonClass: 'btn btn-success btn-sm',
-                    cancelButtonClass: 'btn btn-danger btn-sm',
-                    buttonsStyling: true,
-                })
-
-                swalWithBootstrapButtons.fire({
-
-                    title: 'Successful !',
-                    type: 'success',
-                    html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + data.documentNumber + '</span>',
-                    showCloseButton: false,
-                    showCancelButton: false,
-                    focusConfirm: false,
-                    confirmButtonText: '<span style="color:black;"> OK </span>',
-                    confirmButtonColor: '#4B586A',
-                    confirmButtonColor: '#e9ecef',
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.value) {
-                        ShowLoading();
-                        window.location.href = '/PurchaseRequisition?var=1';
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
-                })
+                });
 
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                Swal.fire("Cancelled", "Data Cancel Inputed", "error");
+                $.ajax({
+                    type: 'GET',
+                    url: '{!! route("StoreWorkFlow") !!}?workFlowPath_RefID=' + workFlowPath_RefID + '&businessDocument_RefID=' + businessDocument_RefID + '&documentNumber=' + documentNumber + '&approverEntity_RefID=' + approverEntity_RefID + '&comment=' + result.value,
+                    success: function(data) {
+
+                        HideLoading();
+
+                        swalWithBootstrapButtons.fire({
+
+                            title: 'Successful !',
+                            type: 'success',
+                            html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + data.documentNumber + '</span>',
+                            showCloseButton: false,
+                            showCancelButton: false,
+                            focusConfirm: false,
+                            confirmButtonText: '<span style="color:black;"> OK </span>',
+                            confirmButtonColor: '#4B586A',
+                            confirmButtonColor: '#e9ecef',
+                            reverseButtons: true
+                        }).then((result) => {
+                            if (result.value) {
+                                ShowLoading();
+                                window.location.href = '/PurchaseRequisition?var=1';
+                            }
+                        })
+
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        Swal.fire("Cancelled", "Data Cancel Inputed", "error");
+                    }
+                });
+
             }
-        });
+        })
 
     }
 </script>

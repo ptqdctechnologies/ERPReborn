@@ -351,7 +351,12 @@
 
         $(".AdvanceListCart").show();
         $(".Remark").show();
+
         var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
+
+        // var today = new Date();
+        // var date = formatDate(today);
+        
         var getWorkId = $("input[name='getWorkId[]']").map(function() {
             return $(this).val();
         }).get();
