@@ -760,50 +760,6 @@ namespace App\Models\Database\SchSysConfig
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getReport_Form_Resume_LogBusinessDocumentWorkFlowPathHistory                                         |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-08-23                                                                                           |
-        | ▪ Creation Date   : 2023-08-23                                                                                           |
-        | ▪ Description     : Mendapatkan Report - Dokumen Form - LogBusinessDocumentWorkFlowPathHistory                           |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
-        |      ------------------------------                                                                                      |
-        |      ▪ (int)    varBusinessDocument_RefID ► Business Document ID                                                         |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getReport_Form_Resume_LogBusinessDocumentWorkFlowPathHistory(
-            $varUserSession, int $varBranchID, 
-            int $varBusinessDocument_RefID = null)
-            {
-            try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.Func_GetReport_DocForm_Log_BusinessDocumentWorkFlowPathHistory',
-                        [
-                            [$varBranchID, 'bigint' ],
-                            
-                            [$varBusinessDocument_RefID, 'bigint' ]
-                        ]
-                        )
-                    );
-                $varReturn = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varReturn['Data'][0]['Func_GetReport_DocForm_Log_BusinessDocumentWorkFlowPathHistory']);
-                return $varReturn;
-                }
-            catch (\Exception $ex) {
-                return [];
-                }
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getUserRolePrivilege                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
