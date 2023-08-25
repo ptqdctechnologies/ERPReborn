@@ -14,10 +14,8 @@
                                 <td style="padding-top: 10px;"><label>Transaction</label></td>
                                 <td>
                                     <div class="input-group">
-                                        <select name="" id="DocumentType" class="form-control select2">
-                                            @foreach($varBusinessDocumentType as $varBusinessDocumentTypes)
-                                                <option value="{{ $varBusinessDocumentTypes['sys_ID'] }}">{{ $varBusinessDocumentTypes['name'] }}</option>
-                                            @endforeach
+                                        <select id="DocumentType" class="form-control DocumentType select2" name="DocumentType">
+                                            <option selected="selected" value=""> Select Document Type </option>
                                         </select>
                                     </div>
                                 </td>

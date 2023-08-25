@@ -9,35 +9,14 @@ class MyDocumentController extends Controller
 {
     public function index(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-
-        $varBusinessDocumentType = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.master.getBusinessDocumentType',
-            'latest',
-            [
-                'parameter' => [],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
-
-        $compact = [
-            'varBusinessDocumentType' => $varBusinessDocumentType['data'],
-        ];
-        return view('Documents.Transactions.MyDocument', $compact);
+        return view('Documents.Transactions.MyDocument');
     }
 
     public function MyDocumentListDataFilter(Request $request)
     {
         $trano = $request->trano;
         $projectid = $request->projectid;
-        $document_type = $request->document_type;
+        $DocumentType = $request->DocumentType;
 
         if($trano == ""){
             $trano = null;
@@ -51,11 +30,11 @@ class MyDocumentController extends Controller
         else{
             $projectid = (int)$projectid;
         }
-        if($document_type == ""){
-            $document_type = null;
+        if($DocumentType == ""){
+            $DocumentType = null;
         }
         else{
-            $document_type = (int)$document_type;
+            $DocumentType = (int)$DocumentType;
         }
 
         $SessionWorkerCareerInternal_RefID = $request->session()->get('SessionWorkerCareerInternal_RefID');
@@ -71,7 +50,7 @@ class MyDocumentController extends Controller
                     'recordID' => (int) $SessionWorkerCareerInternal_RefID,
                     'dataFilter' => [
                         'businessDocumentNumber' => $trano,
-                        'businessDocumentType_RefID' => $document_type,
+                        'businessDocumentType_RefID' => $DocumentType,
                         'combinedBudget_RefID' => $projectid
                     ]
                 ]
@@ -105,7 +84,7 @@ class MyDocumentController extends Controller
                 ]
             ]
         );
-
+        
         $compact = [
             'data' => $varData['data'][0]['document']['content']['itemList']['ungrouped'],
         ];

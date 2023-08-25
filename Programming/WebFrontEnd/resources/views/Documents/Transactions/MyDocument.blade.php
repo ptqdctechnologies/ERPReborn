@@ -32,9 +32,9 @@
                         <div class="form-group">
                           <table>
                             <tr>
-                              <th style="padding-top: 5px;"><label>Transaction Number</label></th>
+                              <th><label>Transaction Number</label></th>
                               <td>
-                                <div class="input-group">
+                                <div class="input-group" style="padding-bottom: 7px;">
                                   <input id="trano" style="border-radius:0;" class="form-control" name="trano" type="text">
                                 </div>
                               </td>
@@ -46,14 +46,11 @@
                         <div class="form-group">
                           <table>
                             <tr>
-                              <th><label>Document Type</label></th>
+                              <th style="padding-top: 7px;"><label>Document Type</label></th>
                               <td>
-                                <div class="input-group" style="position:relative;bottom:5px;">
-                                  <select name="document_type" id="DocumentType" class="form-control select2">
-                                    <option value="">Select Document Type</option>
-                                    @foreach($varBusinessDocumentType as $varBusinessDocumentTypes)
-                                    <option value="{{ $varBusinessDocumentTypes['sys_ID'] }}">{{ $varBusinessDocumentTypes['name'] }}</option>
-                                    @endforeach
+                                <div class="input-group">
+                                  <select id="DocumentType" class="form-control DocumentType select2" name="DocumentType">
+                                    <option selected="selected" value=""> Select Document Type </option>
                                   </select>
                                 </div>
                               </td>

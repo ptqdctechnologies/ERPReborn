@@ -792,8 +792,9 @@ namespace App\Models\Database\SchSysConfig
                             [$varBusinessDocument_RefID, 'bigint' ]
                         ]
                         )
-                    );                
-                return $varReturn['Data'];
+                    );
+                $varReturn = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varReturn['Data'][0]['Func_GetReport_DocForm_Log_BusinessDocumentWorkFlowPathHistory']);
+                return $varReturn;
                 }
             catch (\Exception $ex) {
                 return [];

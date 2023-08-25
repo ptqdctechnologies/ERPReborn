@@ -1,3 +1,26 @@
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        type: 'GET',
+        url: '{!! route("getDocumentType") !!}',
+        success: function(data) {
+            var len = data.length;
+            $(".DocumentType").empty();
+            for (var i = 0; i < len; i++) {
+                var ids = data[i].sys_ID;
+                var names = data[i].name;
+                var option = "<option value='" + ids + "'>" + names + "</option>";
+                $(".DocumentType").append(option);
+            }
+        }
+    });
+</script>
+
 <script type="text/javascript">
     $("#loading").show();
     $(".loader").show();
@@ -18,14 +41,14 @@
             $.each(data.data, function(key, val) {
 
                 const date = dateFns.format(
-                dateFns.parse(val.entities.businessDocumentDateTimeTZ, "yyyy-MM-dd hh:mm:ss"),
-                'DD-MM-YYYY HH:mm');
+                    dateFns.parse(val.entities.businessDocumentDateTimeTZ, "yyyy-MM-dd hh:mm:ss"),
+                    'DD-MM-YYYY HH:mm');
 
                 var remark = val.entities.workFlowPathSubmitterRemarks;
                 if (val.entities.workFlowPathSubmitterRemarks == null) {
                     remark = "-";
                 }
-                
+
                 keys += 1;
                 var html = '<tr>' +
 
@@ -37,7 +60,7 @@
                     '<td><span style="position:relative;left:10px;">' + val.entities.previousWorkFlowPathActionName + '</span></td>' +
                     '<td><span style="position:relative;left:10px;">' + remark + '</span></td>' +
 
-                    '<input id="sys_ID' + keys + '" value="' + val.entities.businessDocument_RefID + '" type="hidden">' +
+                    '<input id="businessDocument_RefID' + keys + '" value="' + val.entities.businessDocument_RefID + '" type="hidden">' +
 
                     '</tr>';
 
@@ -48,20 +71,6 @@
             $("#loading").hide();
             $(".loader").hide();
         }
-    });
-</script>
-
-<script>
-    $('#TableMyDocument tbody').on('click', 'tr', function() {
-
-        var id = $(this).find("td:nth-child(1)").text();
-        var sys_ID = $('#sys_ID' + id).val();
-
-        $("#loading").show();
-        $(".loader").show();
-
-        window.location.href = '/ShowDocumentByID?sys_id=' + sys_ID;
-
     });
 </script>
 
@@ -99,15 +108,29 @@
                 success: function(data) {
                     var no = 1;
                     $.each(data.data, function(key, val) {
+
+                        const date = dateFns.format(
+                            dateFns.parse(val.entities.businessDocumentDateTimeTZ, "yyyy-MM-dd hh:mm:ss"),
+                            'DD-MM-YYYY HH:mm');
+
+                        var remark = val.entities.workFlowPathSubmitterRemarks;
+                        if (val.entities.workFlowPathSubmitterRemarks == null) {
+                            remark = "-";
+                        }
+
                         keys += 1;
                         var html = '<tr>' +
+
                             '<td><span style="position:relative;left:10px;">' + no++ + '</span></td>' +
                             '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentNumber + '</span></td>' +
-                            '<td><span style="position:relative;left:10px;">' + val.entities.combinedBudgetCode[0] + '</span></td>' +
-                            '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentTypeName + '</span></td>' +
-                            '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentDateTimeTZ + '</span></td>' +
-                            '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentTypeName + '</span></td>' +
-                            '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentTypeName + '</span></td>' +
+                            '<td><span style="position:relative;left:10px;">' + val.entities.combinedBudgetCode + '</span></td>' +
+                            '<td><span style="position:relative;left:10px;">' + val.entities.previousWorkFlowPathApproverName + '</span></td>' +
+                            '<td><span style="position:relative;left:10px;">' + date + '</span></td>' +
+                            '<td><span style="position:relative;left:10px;">' + val.entities.previousWorkFlowPathActionName + '</span></td>' +
+                            '<td><span style="position:relative;left:10px;">' + remark + '</span></td>' +
+
+                            '<input id="businessDocument_RefID' + keys + '" value="' + val.entities.businessDocument_RefID + '" type="hidden">' +
+
                             '</tr>';
 
                         $('table.TableMyDocument tbody').append(html);
@@ -124,6 +147,20 @@
                 },
             })
         });
+    });
+</script>
+
+<script>
+    $('#TableMyDocument tbody').on('click', 'tr', function() {
+
+        var id = $(this).find("td:nth-child(1)").text();
+        var businessDocument_RefID = $('#businessDocument_RefID' + id).val();
+
+        $("#loading").show();
+        $(".loader").show();
+
+        window.location.href = '/ShowDocumentByID?businessDocument_RefID=' + businessDocument_RefID;
+
     });
 </script>
 
