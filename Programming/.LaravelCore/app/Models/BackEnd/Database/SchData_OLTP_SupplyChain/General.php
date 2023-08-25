@@ -1292,5 +1292,55 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                 return [];
                 }
             }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_Resume_PurchaseOrderProductPriceHistory                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-08-25                                                                                           |
+        | ▪ Creation Date   : 2023-08-25                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Riwayat Harga Produk Perintah Pembelian                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ▪ (int)    varSysID ► Record ID                                                                                     |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_Resume_PurchaseOrderProductPriceHistory(
+            $varUserSession, int $varSysBranch_RefID, 
+            int $varSysID,
+            string $varBusinessDocumentNumber = null, int $varBusinessDocumentType_RefID = null, int $varCombinedBudget_RefID = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-SupplyChain.Func_GetReport_Resume_PurchaseOrderProductPriceHistory',
+                        [
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysID, 'bigint'],
+
+                            [$varBusinessDocumentNumber, 'varchar'],
+                            [$varBusinessDocumentType_RefID, 'bigint'],
+                            [$varCombinedBudget_RefID, 'bigint']
+                        ]
+                        )
+                    );
+                return [
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession, 
+                        $varReturn['Data'][0]['Func_GetReport_Resume_PurchaseOrderProductPriceHistory'])
+                    ];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
         }
     }

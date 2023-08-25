@@ -2975,7 +2975,7 @@ namespace App\Models\Database\SchData_OLTP_Master
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getReport_Form_DocumentForm_BusinessDocumentIssuanceDisposition                                      |
+        | ▪ Method Name     : getReport_Form_Resume_BusinessDocumentIssuanceDisposition                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2023-06-20                                                                                           |
@@ -2990,7 +2990,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getReport_Form_DocumentForm_BusinessDocumentIssuanceDisposition(
+        public function getReport_Form_Resume_BusinessDocumentIssuanceDisposition(
             $varUserSession, int $varSysBranch_RefID, 
             int $varSysID,
             string $varBusinessDocumentNumber = null, int $varBusinessDocumentType_RefID = null, int $varCombinedBudget_RefID = null)
