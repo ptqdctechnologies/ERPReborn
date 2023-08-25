@@ -2975,6 +2975,50 @@ namespace App\Models\Database\SchData_OLTP_Master
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_Resume_BusinessDocumentDispositionHistory                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-08-23                                                                                           |
+        | ▪ Creation Date   : 2023-08-23                                                                                           |
+        | ▪ Description     : Mendapatkan Report - Dokumen Form - LogBusinessDocumentWorkFlowPathHistory                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varBusinessDocument_RefID ► Business Document ID                                                         |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_Resume_BusinessDocumentDispositionHistory(
+            $varUserSession, int $varBranchID, 
+            int $varBusinessDocument_RefID = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-Master.Func_GetReport_Resume_BusinessDocumentDispositionHistory',
+                        [
+                            [$varBranchID, 'bigint' ],
+                            
+                            [$varBusinessDocument_RefID, 'bigint' ]
+                        ]
+                        )
+                    );
+                $varReturn = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varReturn['Data'][0]['Func_GetReport_Resume_BusinessDocumentDispositionHistory']);
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getReport_Form_Resume_BusinessDocumentIssuanceDisposition                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -3000,7 +3044,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        'SchData-OLTP-Master.Func_GetReport_DocForm_BusinessDocumentIssuanceDisposition',
+                        'SchData-OLTP-Master.Func_GetReport_Resume_BusinessDocumentIssuanceDisposition',
                         [
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysID, 'bigint'],
@@ -3014,7 +3058,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetReport_DocForm_BusinessDocumentIssuanceDisposition'])
+                        $varReturn['Data'][0]['Func_GetReport_Resume_BusinessDocumentIssuanceDisposition'])
                     ];
                 }
             catch (\Exception $ex) {

@@ -3,21 +3,21 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\resume\sysConfig                             |
-|                \getLogBusinessDocumentWorkFlowPathHistory\v1                                                                     |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\resume\master                             |
+|                \getBusinessDocumentDispositionHistory\v1                                                                     |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\resume\sysConfig\getLogBusinessDocumentWorkFlowPathHistory\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\resume\master\getBusinessDocumentDispositionHistory\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getLogBusinessDocumentWorkFlowPathHistory                                                                    |
-    | ▪ Description : Menangani API report.form.resume.sysConfig.getLogBusinessDocumentWorkFlowPathHistory Version 1               |
+    | ▪ Class Name  : getBusinessDocumentDispositionHistory                                                                    |
+    | ▪ Description : Menangani API report.form.resume.master.getBusinessDocumentDispositionHistory Version 1               |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getLogBusinessDocumentWorkFlowPathHistory extends \App\Http\Controllers\Controller
+    class getBusinessDocumentDispositionHistory extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -62,7 +62,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\re
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchSysConfig\General())->getReport_Form_Resume_LogBusinessDocumentWorkFlowPathHistory(
+                        if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_Resume_BusinessDocumentDispositionHistory(
                             $varUserSession, 
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
 
