@@ -5250,6 +5250,7 @@ return array(
     'Illuminate\\Queue\\Events\\Looping' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Events/Looping.php',
     'Illuminate\\Queue\\Events\\QueueBusy' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Events/QueueBusy.php',
     'Illuminate\\Queue\\Events\\WorkerStopping' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Events/WorkerStopping.php',
+    'Illuminate\\Queue\\Failed\\CountableFailedJobProvider' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Failed/CountableFailedJobProvider.php',
     'Illuminate\\Queue\\Failed\\DatabaseFailedJobProvider' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Failed/DatabaseFailedJobProvider.php',
     'Illuminate\\Queue\\Failed\\DatabaseUuidFailedJobProvider' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Failed/DatabaseUuidFailedJobProvider.php',
     'Illuminate\\Queue\\Failed\\DynamoDbFailedJobProvider' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Failed/DynamoDbFailedJobProvider.php',
