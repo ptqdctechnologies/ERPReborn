@@ -15,42 +15,23 @@ class Controller extends BaseController
 
     public function SelectWorkFlow($varData, $approverEntity_RefID, $VarSelectWorkFlow)
     {
-        $varAPIWebToken = Session::get('SessionLogin');
-
+        
         if (count(collect($VarSelectWorkFlow['data'])) > 1) {
-
-            $compact = [
-                "data" => $VarSelectWorkFlow['data'],
-                "businessDocument_RefID" => $varData['data']['businessDocument']['businessDocument_RefID'],
-                "documentNumber" => $varData['data']['businessDocument']['documentNumber'],
-                "approverEntity_RefID" => $approverEntity_RefID,
-                "message" => "SelectWorkFlow"
-            ];
-
-            return response()->json($compact);
+            $message =  "MoreThanOne";
         } else {
-
-            $VarStoreWorkFlow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'userAction.documentWorkFlow.approvalStage.setUserSubmission',
-                'latest',
-                [
-                    'entities' => [
-                        "businessDocument_RefID" => (int)$varData['data']['businessDocument']['businessDocument_RefID'],
-                        "workFlowPath_RefID" => (int)$VarSelectWorkFlow['data'][0]['sys_ID'],
-                        "remarks" => null,
-                        "approverEntity_RefID" => (int)$approverEntity_RefID,
-                    ]
-                ]
-            );
-
-            $compact = [
-                "documentNumber" => $varData['data']['businessDocument']['documentNumber'],
-            ];
-
-            return response()->json($compact);
+            $message =  "OnlyOne";
         }
+
+        $compact = [
+            "data" => $VarSelectWorkFlow['data'],
+            "workFlowPath_RefID" => (int)$VarSelectWorkFlow['data'][0]['sys_ID'],
+            "businessDocument_RefID" => $varData['data']['businessDocument']['businessDocument_RefID'],
+            "documentNumber" => $varData['data']['businessDocument']['documentNumber'],
+            "approverEntity_RefID" => $approverEntity_RefID,
+            "message" => $message
+        ];
+
+        return response()->json($compact);
     }
 
     public function StoreWorkFlow(Request $request)

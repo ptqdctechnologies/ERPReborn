@@ -288,32 +288,17 @@
     }
   }
 </script> -->
-
-<!-- FORMAT DATE -->
-
+<!-- 
 <script>
-    function dateFormat(inputDate, format) {
-        //parse the input date
-        const date = new Date(inputDate);
-
-        //extract the parts of the date
-        const day = date.getDate();
-        const month = date.getMonth() + 1;
-        const year = date.getFullYear();
-
-        //replace the month
-        format = format.replace("MM", month.toString().padStart(2, "0"));
-
-        //replace the year
-        if (format.indexOf("yyyy") > -1) {
-            format = format.replace("yyyy", year.toString());
-        } else if (format.indexOf("yy") > -1) {
-            format = format.replace("yy", year.toString().substr(2, 2));
-        }
-
-        //replace the day
-        format = format.replace("dd", day.toString().padStart(2, "0"));
-
-        return format;
-    }
-</script>
+  function formatDate(date) {
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var month = date.getMonth() + 1;
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    var strTime = hours + ':' + minutes;
+    return date.getDate() + "-" + month + "-" + date.getFullYear() + " " + strTime;
+  }
+</script> -->

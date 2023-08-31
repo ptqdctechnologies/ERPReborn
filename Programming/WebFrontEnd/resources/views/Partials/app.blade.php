@@ -71,6 +71,8 @@
   <script src="{{ asset('AdminLTE-master/dist/js/adminlte.js') }}"></script>
 <!-- Select2 -->
 <script src="{{ asset('AdminLTE-master/plugins/select2/js/select2.full.min.js') }}"></script>
+<!-- Format Date -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.min.js"></script>
 
 </body>
 

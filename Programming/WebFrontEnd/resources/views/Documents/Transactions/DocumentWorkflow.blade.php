@@ -29,7 +29,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                @php $no = 1; $grand_total = 0; @endphp
+                @php $no = 1; @endphp
                 @foreach($dataWorkflow['content']['logBusinessDocumentWorkFlowPathHistory']['itemList']['ungrouped'] as $dataWorkflows)
                 <tr>
                     <td style="border:1px solid #4B586A;color:#4B586A;">{{ $no++ }}</td>
