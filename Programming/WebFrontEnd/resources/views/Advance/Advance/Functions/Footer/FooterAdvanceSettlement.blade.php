@@ -3,12 +3,12 @@
     $("#SaveAsfList").prop("disabled", true);
     $("#advance_number2").prop("disabled", true);
     $("#detailASF").hide();
-    $(".tableShowHideArfDetail").hide();
-    $("#amountCompanyCart").hide();
-    $(".amountCompanyCart").hide();
-    $("#expenseCompanyCart").hide();
-    $(".expenseCompanyCart").hide();
-    $(".file-attachment").hide();
+    // $(".tableShowHideArfDetail").hide();
+    // $("#amountCompanyCart").hide();
+    // $(".amountCompanyCart").hide();
+    // $("#expenseCompanyCart").hide();
+    // $(".expenseCompanyCart").hide();
+    // $(".file-attachment").hide();
 </script>
 
 <script>

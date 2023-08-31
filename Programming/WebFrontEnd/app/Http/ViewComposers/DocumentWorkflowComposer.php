@@ -16,7 +16,7 @@ class DocumentWorkflowComposer
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'report.form.documentForm.master.getBusinessDocumentIssuanceDisposition',
+            'report.form.resume.master.getBusinessDocumentIssuanceDisposition',
             'latest',
             [
                 'parameter' => [
