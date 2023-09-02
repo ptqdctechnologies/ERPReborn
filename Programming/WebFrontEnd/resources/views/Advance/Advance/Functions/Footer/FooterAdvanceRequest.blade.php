@@ -1,24 +1,32 @@
 <script type="text/javascript">
-    $(".AdvanceListCart").hide();
-    $(".Remark").hide();
-    $("#detailTransAvail").hide();
     $("#sitecode2").prop("disabled", true);
     $("#request_name2").prop("disabled", true);
     $("#beneficiary_name2").prop("disabled", true);
-    $("#showContentBOQ3").hide();
-    $(".tableShowHideBOQ3").hide();
-    $(".file-attachment").hide();
-    $(".advance-detail").hide();
+    // $(".tableShowHideBudget").hide();
+    // $(".file-attachment").hide();
+    // $(".advance-detail").hide();
+    // $(".AdvanceListCart").hide();
+    // $(".Remark").hide();
+    // $("#detailTransAvail").hide();
 
     $("#product_id2").prop("disabled", true);
     $("#bank_name2").prop("disabled", true);
     $("#bank_account2").prop("disabled", true);
-    // $("#submitArf").prop("disabled", true);
+    $("#submitArf").prop("disabled", true);
 </script>
 
 <script>
     $('#tableGetProject tbody').on('click', 'tr', function() {
 
+        //RESET FORM
+        document.getElementById("formSubmitArf").reset();
+        $("#dataInput_Log_FileUpload_Pointer_RefID").val("");
+        $("#dataInput_Log_FileUpload_Pointer_RefID_Action").val("");
+        $('.tableBudgetDetail').find('tbody').empty();
+        $('.TableAdvance').find('tbody').empty();
+        $('#zhtSysObjDOMTable_Upload_ActionPanel').find('tbody').empty();
+        //END RESET FORM
+                
         $("#myProject").modal('toggle');
 
         var row = $(this).closest("tr");
@@ -62,6 +70,9 @@
 <script>
     $('#tableGetSite tbody').on('click', 'tr', function() {
 
+        $('.TableAdvance').find('tbody').empty();
+        $('.tableBudgetDetail').find('tbody').empty();
+
         $("#mySiteCode").modal('toggle');
 
         var row = $(this).closest("tr");
@@ -72,11 +83,12 @@
 
         $("#sitecode").val(code);
         $("#sitename").val(name);
-        $("#sitecode2").prop("disabled", true);
 
-        $("#projectcode2").prop("disabled", true);
+        // $("#sitecode2").prop("disabled", true);
+        // $("#projectcode2").prop("disabled", true);
+
         $("#addToDoDetail").prop("disabled", false);
-        $(".tableShowHideBOQ3").show();
+        $(".tableShowHideBudget").show();
         $("#request_name2").prop("disabled", false);
         $("#beneficiary_name2").prop("disabled", false);
 

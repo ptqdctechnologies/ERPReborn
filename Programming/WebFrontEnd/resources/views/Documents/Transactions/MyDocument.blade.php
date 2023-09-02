@@ -48,7 +48,7 @@
                             <tr>
                               <th style="padding-top: 7px;"><label>Document Type</label></th>
                               <td>
-                                <div class="input-group">
+                                <div class="input-group" style="padding-bottom: 3px;">
                                   <select id="DocumentType" class="form-control DocumentType select2" name="DocumentType">
                                     <option selected="selected" value=""> Select Document Type </option>
                                   </select>
@@ -62,9 +62,9 @@
                         <div class="form-group">
                           <table>
                             <tr>
-                              <th style="padding-top: 5px;"><label>Budget</label></th>
+                              <th style="padding-top: 7px;"><label>Budget</label></th>
                               <td>
-                                <div class="input-group">
+                                <div class="input-group" style="padding-bottom: 3px;">
                                   <input id="projectid" style="border-radius:0;" class="form-control" name="projectid" type="hidden">
                                   <input id="projectcode" style="border-radius:0;background-color:white;" class="form-control myProject" name="projectcode" readonly data-toggle="modal" data-target="#myProject">
                                   <div class="input-group-append">

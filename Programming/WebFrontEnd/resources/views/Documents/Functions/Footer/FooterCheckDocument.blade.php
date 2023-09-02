@@ -17,14 +17,17 @@
         type: 'GET',
         url: '{!! route("getDocumentType") !!}',
         success: function(data) {
-            var len = data.length;
             $(".DocumentType").empty();
 
+            var option = "<option value='" + '' + "'>" + 'Select Document Type' + "</option>";
+            $(".DocumentType").append(option);
+
+            var len = data.length;
             for (var i = 0; i < len; i++) {
                 var ids = data[i].sys_ID;
                 var names = data[i].name;
-                var option = "<option value='" + ids + "'>" + names + "</option>";
-                $(".DocumentType").append(option);
+                var option2 = "<option value='" + ids + "'>" + names + "</option>";
+                $(".DocumentType").append(option2);
             }
         }
     });
