@@ -2173,6 +2173,121 @@ namespace App\Helpers\ZhtHelper\General
             }
 
 
+        public static function getSyntaxFunc_DOMInputFileContentRead(
+            $varUserSession, string $varAPIWebToken,
+            string $varUniqueID, string $varDOMReturnObjectID)
+            {           
+            $varSignAPIWebTokenIsExist = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBooleanConvertion(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                        $varUserSession,
+                        $varAPIWebToken,
+                        'authentication.general.isSessionExist', 
+                        'latest', 
+                        [
+                        'parameter' => [
+                            ]
+                        ]
+                        )['data']['signExist']
+                    );
+            
+            var_dump($varSignAPIWebTokenIsExist);
+            
+            
+            $varReturn =
+                'try {'.
+//                    'alert(\''.$varUserSession.'\'); '.
+                    'varSignExistAPIWebToken = '.($varSignAPIWebTokenIsExist = TRUE ? 'true' : 'false').'; '.
+//                    'alert(varSignExistAPIWebToken); '.
+                    //'alert(\''.$varAPIWebToken.'\'); '.
+                    'if(varSignExistAPIWebToken == false) {'.
+                        'alert(\'ERP Reborn Error Notification\n\nAPI Web Token Is Not Exist\'); '.
+                        '}'.
+                    'else {'.
+                        //'alert(\'API Web Token Is Exist\'); '.
+                        'var varJSONDataBuilder = \'\'; '.
+                        //---> Main Function ( Start )
+                        '(function(varObj, varReturnDOMObject) {'.
+                            //'alert(\'Masuk\'); '.
+                            'if ((typeof varObj != \'undefined\') && (typeof varReturnDOMObject != \'undefined\')) {'.
+                                'var varAccumulatedFiles = 0; '.
+                                'var varObjFileList = varObj.files; '.
+                                'var varReturn = [];'.
+                                'if(varObjFileList.length > 0)'.
+                                    '{'.
+                                    'for(var i = 0; i < varObjFileList.length; i++) '.
+                                        '{'.
+                                        'varAccumulatedFiles++; '.
+                                        'if(varAccumulatedFiles != 1) {'.
+                                            'varJSONDataBuilder = varJSONDataBuilder + \', \'; '.
+                                            '}'.
+                                        '(function(varObjCurrentFile, i) {'.
+                                            'var varObjFileReader = new FileReader(); '.
+                                            'varObjFileReader.onloadend = function(event) {'.
+                                                //'alert( (event.target.result.substr(event.target.result.indexOf(\',\') + 1))  );'.
+                                                'var varJSONDataBuilderNew = \'{\' + '.
+                                                    'String.fromCharCode(34) + \'sequence\' + String.fromCharCode(34) + \' : \' + (parseInt(i)+1) + \', \' + '.
+                                                    'String.fromCharCode(34) + \'name\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name) + String.fromCharCode(34) + \', \' + '.
+                                                    'String.fromCharCode(34) + \'size\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.size) + \', \' + '.
+                                                    'String.fromCharCode(34) + \'MIME\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + ((event.target.result.split(\',\')[0]).match(/[^:\s*]\w+\/[\w-+\d.]+(?=[;| ])/)[0]) + String.fromCharCode(34) + \', \' + '.
+                                                    'String.fromCharCode(34) + \'extension\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name.split(\'.\').pop().toLowerCase()) + String.fromCharCode(34) + \', \' + '.
+                                                    'String.fromCharCode(34) + \'lastModifiedDateTimeTZ\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.lastModifiedDate) + String.fromCharCode(34) + \', \' + '.
+                                                    'String.fromCharCode(34) + \'lastModifiedUnixTimestamp\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.lastModified) + \', \' + '.
+                                                    'String.fromCharCode(34) + \'contentBase64\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (event.target.result.substr(event.target.result.indexOf(\',\') + 1)) + String.fromCharCode(34) + \'\' + '.
+                                                    '\'}\'; '.
+                                                'varJSONDataBuilder = varJSONDataBuilder + varJSONDataBuilderNew; '.
+                                                'varReturn[i] = varJSONDataBuilderNew; '.
+                                    //'alert(varReturn[i]); '.
+                                                '}; '.
+                                            
+                    
+//                                    'alert(varObjFileList.length); '.
+ //                                       'if(varAccumulatedFiles == varObjFileList.length) '.
+  //                                          '{'.
+  //                                  'alert(varJSONDataBuilder); '.
+   //                                         '}'.
+                    
+                                            'varObjFileReader.readAsDataURL(varObjCurrentFile); '.
+                                            '}) (varObjFileList[i], i); '.
+                                        '}'.
+                                    'alert(varReturn); '.
+                                    '}'.
+                                '}'.
+                            'else {'.
+                                'alert(\'ERP Reborn Error Notification\n\nInvalid DOM Objects\'); '.
+                                '}'.
+                            '}) (this, document.getElementById(\''.$varDOMReturnObjectID.'\'))'.
+                        //---> Main Function ( End )
+                        '}'.
+                    '}'.
+                'catch(varError) {'.
+                    '}'.
+                '';
+/*
+                                                            'var varJSONDataBuilderNew = \'{\' + '.
+                                                                'String.fromCharCode(34) + \'log_FileUpload_Pointer_RefID\' + String.fromCharCode(34) + \' : \' + (varReturnDOMObject.getAttribute(\'value\') == \'\' ? \'null\' : parseInt(varReturnDOMObject.getAttribute(\'value\'))) + \', \' + '.
+                                                                'String.fromCharCode(34) + \'rotateLog_FileUploadStagingArea_RefRPK\' + String.fromCharCode(34) + \' : \' + (JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'()) + \', \' + '.
+                                                                'String.fromCharCode(34) + \'sequence\' + String.fromCharCode(34) + \' : \' + (i+1+varLastSequence) + \', \' + '.
+                                                                'String.fromCharCode(34) + \'name\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name) + String.fromCharCode(34) + \', \' + '.
+                                                                'String.fromCharCode(34) + \'size\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.size) + \', \' + '.
+                                                                'String.fromCharCode(34) + \'MIME\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + ((event.target.result.split(\',\')[0]).match(/[^:\s*]\w+\/[\w-+\d.]+(?=[;| ])/)[0]) + String.fromCharCode(34) + \', \' + '.
+                                                                'String.fromCharCode(34) + \'extension\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name.split(\'.\').pop().toLowerCase()) + String.fromCharCode(34) + \', \' + '.
+                                                                'String.fromCharCode(34) + \'lastModifiedDateTimeTZ\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.lastModifiedDate) + String.fromCharCode(34) + \', \' + '.
+                                                                'String.fromCharCode(34) + \'lastModifiedUnixTimestamp\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.lastModified) + \', \' + '.
+                                                                'String.fromCharCode(34) + \'contentBase64\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (event.target.result.substr(event.target.result.indexOf(\',\') + 1)) + String.fromCharCode(34) + \'\' + '.
+                                                                '\'}\'; '.
+                                                            //'alert(varJSONDataBuilderNew); '.
+                                                            'var var'.$varUniqueID.'_ObjDOMInputTemp = document.createElement(\'INPUT\'); '.
+                                                            'var'.$varUniqueID.'_ObjDOMInputTemp.setAttribute(\'type\', \'text\'); '.
+                                                            'var'.$varUniqueID.'_ObjDOMInputTemp.setAttribute(\'value\', varJSONDataBuilderNew);'.
+                                                            'varJSONDataBuilder = varJSONDataBuilder + varJSONDataBuilderNew; '.
+
+ */
+            return $varReturn;
+            }
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getSyntaxFunc_DOMInputFileContent                                                                    |
