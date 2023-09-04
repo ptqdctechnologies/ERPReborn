@@ -3,22 +3,22 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\dataAcquisition           |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\update\dataAcquisition           |
 |                 \setLog_FileContent\v1                                                                                           |
-| ▪ API Key     : transaction.create.dataAcquisition.setLog_FileContent                                                            |
+| ▪ API Key     : transaction.update.dataAcquisition.setLog_FileContent                                                            |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\dataAcquisition\setLog_FileContent\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\update\dataAcquisition\setLog_FileContent\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.create.dataAcquisition.setLog_FileContent.v1_throughAPIGateway          |
-        |                     ► http://172.28.0.4/transaction.create.dataAcquisition.setLog_FileContent.v1_throughAPIGateway       |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.update.dataAcquisition.setLog_FileContent.v1_throughAPIGateway          |
+        |                     ► http://172.28.0.4/transaction.update.dataAcquisition.setLog_FileContent.v1_throughAPIGateway       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2023-09-03                                                                                           |
@@ -35,18 +35,19 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'transaction.create.dataAcquisition.setLog_FileContent', 
+                'transaction.update.dataAcquisition.setLog_FileContent', 
                 'latest', 
                 [
+                'recordID' => 236000000000001,
                 'entities' => [
-                    "additionalData" => [
+                    'additionalData' => [
                         "itemList" => [
                             "items" => [
                                     [
+                                    'recordID' => 237000000000001,
                                     "entities" => [
-                                        "log_FileContent_RefID" => 236000000000001,
                                         "sequence" => 1,
-                                        "name" => 'fileName.csv',
+                                        "name" => 'fileName2.csv',
                                         "size" => 6,
                                         "MIME" => 'text/csv',
                                         "extension" => 'csv',
@@ -68,9 +69,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
-        |                     transaction.create.dataAcquisition.setLog_FileContent.v1_throughAPIGatewayJQuery                     |
+        |                     transaction.update.dataAcquisition.setLog_FileContent.v1_throughAPIGatewayJQuery                     |
         |                     ► http://172.28.0.4/                                                                                 |
-        |                       transaction.create.dataAcquisition.setLog_FileContent.v1_throughAPIGatewayJQuery                   |
+        |                       transaction.update.dataAcquisition.setLog_FileContent.v1_throughAPIGatewayJQuery                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2023-09-03                                                                                           |
