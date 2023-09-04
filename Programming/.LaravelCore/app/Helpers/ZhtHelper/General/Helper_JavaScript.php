@@ -2176,6 +2176,153 @@ namespace App\Helpers\ZhtHelper\General
             }
 
 
+        public static function getSyntaxFunc_DOMInputFileContentRead(
+            $varUserSession, string $varAPIWebToken,
+            string $varUniqueID, string $varDOMReturnObjectID)
+            {           
+            $varSignAPIWebTokenIsExist = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBooleanConvertion(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                        $varUserSession,
+                        $varAPIWebToken,
+                        'authentication.general.isSessionExist', 
+                        'latest', 
+                        [
+                        'parameter' => [
+                            ]
+                        ]
+                        )['data']['signExist']
+                    );
+            
+            //var_dump($varSignAPIWebTokenIsExist);
+            
+            
+            $varReturn =
+                'try {'.
+//                    'alert(\''.$varUserSession.'\'); '.
+                    'varSignExistAPIWebToken = '.($varSignAPIWebTokenIsExist = TRUE ? 'true' : 'false').'; '.
+//                    'alert(varSignExistAPIWebToken); '.
+                    //'alert(\''.$varAPIWebToken.'\'); '.
+                    'if(varSignExistAPIWebToken == false) {'.
+                        'alert(\'ERP Reborn Error Notification\n\nAPI Web Token Is Not Exist\'); '.
+                        '}'.
+                    'else {'.
+                        //'alert(\'API Web Token Is Exist\'); '.
+                        'var varJSONDataBuilder = \'\'; '.
+                        //---> Main Function ( Start )
+                        '(function(varObj, varReturnDOMObject) {'.
+                            //'alert(\'Masuk\'); '.
+                            'if ((typeof varObj != \'undefined\') && (typeof varReturnDOMObject != \'undefined\')) {'.
+                                'var varAccumulatedFiles = 0; '.
+                                'var varObjFileList = varObj.files; '.
+                                'var varReturn = [];'.
+                                'if(varObjFileList.length > 0)'.
+                                    '{'.
+                                    'for(var i = 0; i < varObjFileList.length; i++) '.
+                                        '{'.
+                                        'varAccumulatedFiles++; '.
+                                        '(function(varObjCurrentFile, i) {'.
+                                            'var varObjFileReader = new FileReader(); '.
+                                            'varObjFileReader.onloadend = function(event) {'.
+                                                'var varJSONDataBuilderNew = \'{\' + '.
+                                                    'String.fromCharCode(34) + \'sequence\' + String.fromCharCode(34) + \' : \' + (parseInt(i)+1) + \', \' + '.
+                                                    'String.fromCharCode(34) + \'name\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name) + String.fromCharCode(34) + \', \' + '.
+                                                    'String.fromCharCode(34) + \'size\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.size) + \', \' + '.
+                                                    'String.fromCharCode(34) + \'MIME\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + ((event.target.result.split(\',\')[0]).match(/[^:\s*]\w+\/[\w-+\d.]+(?=[;| ])/)[0]) + String.fromCharCode(34) + \', \' + '.
+                                                    'String.fromCharCode(34) + \'extension\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name.split(\'.\').pop().toLowerCase()) + String.fromCharCode(34) + \', \' + '.
+                                                    'String.fromCharCode(34) + \'lastModifiedDateTimeTZ\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.lastModifiedDate) + String.fromCharCode(34) + \', \' + '.
+                                                    'String.fromCharCode(34) + \'lastModifiedUnixTimestamp\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.lastModified) + \', \' + '.
+                                                    'String.fromCharCode(34) + \'contentBase64\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (event.target.result.substr(event.target.result.indexOf(\',\') + 1)) + String.fromCharCode(34) + \'\' + '.
+                                                    '\'}\'; '.
+                                                //'varReturn[i] = varJSONDataBuilderNew; '.
+                                                'varReturn[i] = \'{\' + String.fromCharCode(34) + \'entities\' + String.fromCharCode(34) + \' : \' + varJSONDataBuilderNew + \'}\';'.
+                                                'if(varAccumulatedFiles == varObjFileList.length) '.
+                                                    '{'.
+                                                    'for(var j = 0; j < varObjFileList.length; j++) '.
+                                                        '{'.
+                                                        'varSignProcess = false;'.
+                                                        'do {'.
+                                                            'if((varReturn[j] === undefined) || (varReturn[j] === null)) {'.
+                                                                'varSignProcess = false; '.                                                                
+                                                                '}'.
+                                                            'else {'.
+                                                                'varSignProcess = true; '.     
+                                                                '}'.
+                                                            'if(varSignProcess == false) {'.
+                                                                'sleep(300); '.
+                                                                '}'.
+                                                            '}'.
+                                                        'while (varSignProcess == false);'.
+                                                        '}'.
+                                                    'for(var j = 0; j < varObjFileList.length; j++) '.
+                                                        '{'.
+                                                        'if(j != 0) {'.
+                                                            'varJSONDataBuilder = varJSONDataBuilder + \', \'; '.
+                                                            '}'.
+                                                        'varJSONDataBuilder = varJSONDataBuilder + varReturn[j]; '.
+                                                        '}'.
+                                                    'varJSONDataBuilder = \'[\' + varJSONDataBuilder + \']\'; '.
+                                                    '}'.
+                                                    //'alert(varJSONDataBuilder); '.
+                                                    'document.getElementById(\''.$varDOMReturnObjectID.'\').value = varJSONDataBuilder; '.
+
+                                                    'varRecordID = (function(varLocalJSONDataBuilder) {'.
+                                                        'try {'.
+                                                            'varReturn = ('.
+                                                                'JSON.parse('.
+                                                                    str_replace(
+                                                                        '"', 
+                                                                        '\'', 
+                                                                        \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                                            $varUserSession, 
+                                                                            $varAPIWebToken, 
+                                                                            'transaction.create.dataAcquisition.setLog_FileContent',
+                                                                            'latest', 
+                                                                            '{'.
+                                                                            '"entities" : {'.
+                                                                                    '"additionalData" : {'.
+                                                                                        '"itemList" : {'.
+                                                                                            '"items" : JSON.parse(varLocalJSONDataBuilder)'.
+                                                                                            '}'.
+                                                                                        '}'.
+                                                                                '}'.
+                                                                            '}'
+                                                                            )
+                                                                        ).
+                                                                    ').data.recordID'.
+                                                                '); '.
+                                                            //'alert(varReturn); '.
+                                                            'return varReturn;'.
+                                                            '}'.
+                                                        'catch(varError) {'.
+                                                            'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                                            '}'.
+                                                        //'alert(varLocalJSONDataBuilder); '.
+                                                        '}) (varJSONDataBuilder); '.
+                                                    'alert(\'Record ID : \' + varRecordID);'.
+
+                                                '}; '.
+                                            'varObjFileReader.readAsDataURL(varObjCurrentFile); '.
+                                            '}) (varObjFileList[i], i); '.
+                                        '}'.
+//                                    'alert(varReturn); '.
+                                    '}'.
+                                '}'.
+                            'else {'.
+                                'alert(\'ERP Reborn Error Notification\n\nInvalid DOM Objects\'); '.
+                                '}'.
+                            '}) (this, document.getElementById(\''.$varDOMReturnObjectID.'\'))'.
+                        //---> Main Function ( End )
+                        '}'.
+                    '}'.
+                'catch(varError) {'.
+                    '}'.
+                '';
+            return $varReturn;
+            }
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getSyntaxFunc_DOMInputFileContent                                                                    |
