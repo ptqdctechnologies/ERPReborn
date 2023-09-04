@@ -2219,13 +2219,9 @@ namespace App\Helpers\ZhtHelper\General
                                     'for(var i = 0; i < varObjFileList.length; i++) '.
                                         '{'.
                                         'varAccumulatedFiles++; '.
-                                        'if(varAccumulatedFiles != 1) {'.
-                                            'varJSONDataBuilder = varJSONDataBuilder + \', \'; '.
-                                            '}'.
                                         '(function(varObjCurrentFile, i) {'.
                                             'var varObjFileReader = new FileReader(); '.
                                             'varObjFileReader.onloadend = function(event) {'.
-                                                //'alert( (event.target.result.substr(event.target.result.indexOf(\',\') + 1))  );'.
                                                 'var varJSONDataBuilderNew = \'{\' + '.
                                                     'String.fromCharCode(34) + \'sequence\' + String.fromCharCode(34) + \' : \' + (parseInt(i)+1) + \', \' + '.
                                                     'String.fromCharCode(34) + \'name\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name) + String.fromCharCode(34) + \', \' + '.
@@ -2236,22 +2232,41 @@ namespace App\Helpers\ZhtHelper\General
                                                     'String.fromCharCode(34) + \'lastModifiedUnixTimestamp\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.lastModified) + \', \' + '.
                                                     'String.fromCharCode(34) + \'contentBase64\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (event.target.result.substr(event.target.result.indexOf(\',\') + 1)) + String.fromCharCode(34) + \'\' + '.
                                                     '\'}\'; '.
-                                                'varJSONDataBuilder = varJSONDataBuilder + varJSONDataBuilderNew; '.
                                                 'varReturn[i] = varJSONDataBuilderNew; '.
-                                    //'alert(varReturn[i]); '.
+                                                'if(varAccumulatedFiles == varObjFileList.length) '.
+                                                    '{'.
+                                                    'for(var j = 0; j < varObjFileList.length; j++) '.
+                                                        '{'.
+                                                        'varSignProcess = false;'.
+                                                        'do {'.
+                                                            'if((varReturn[j] === undefined) || (varReturn[j] === null)) {'.
+                                                                'varSignProcess = false; '.                                                                
+                                                                '}'.
+                                                            'else {'.
+                                                                'varSignProcess = true; '.     
+                                                                '}'.
+                                                            'if(varSignProcess == false) {'.
+                                                                'sleep(300); '.
+                                                                '}'.
+                                                            '}'.
+                                                        'while (varSignProcess == false);'.
+                                                        '}'.
+                                                    'for(var j = 0; j < varObjFileList.length; j++) '.
+                                                        '{'.
+                                                        'if(j != 0) {'.
+                                                            'varJSONDataBuilder = varJSONDataBuilder + \', \'; '.
+                                                            '}'.
+                                                        'varJSONDataBuilder = varJSONDataBuilder + varReturn[j]; '.
+                                                        '}'.
+                                                    'varJSONDataBuilder = \'[\' + varJSONDataBuilder + \']\'; '.
+                                                    '}'.
+                                                    //'alert(varJSONDataBuilder); '.
+                                                    'document.getElementById(\''.$varDOMReturnObjectID.'\').value = varJSONDataBuilder; '.
                                                 '}; '.
-                                            
-                    
-//                                    'alert(varObjFileList.length); '.
- //                                       'if(varAccumulatedFiles == varObjFileList.length) '.
-  //                                          '{'.
-  //                                  'alert(varJSONDataBuilder); '.
-   //                                         '}'.
-                    
                                             'varObjFileReader.readAsDataURL(varObjCurrentFile); '.
                                             '}) (varObjFileList[i], i); '.
                                         '}'.
-                                    'alert(varReturn); '.
+//                                    'alert(varReturn); '.
                                     '}'.
                                 '}'.
                             'else {'.
@@ -2264,26 +2279,6 @@ namespace App\Helpers\ZhtHelper\General
                 'catch(varError) {'.
                     '}'.
                 '';
-/*
-                                                            'var varJSONDataBuilderNew = \'{\' + '.
-                                                                'String.fromCharCode(34) + \'log_FileUpload_Pointer_RefID\' + String.fromCharCode(34) + \' : \' + (varReturnDOMObject.getAttribute(\'value\') == \'\' ? \'null\' : parseInt(varReturnDOMObject.getAttribute(\'value\'))) + \', \' + '.
-                                                                'String.fromCharCode(34) + \'rotateLog_FileUploadStagingArea_RefRPK\' + String.fromCharCode(34) + \' : \' + (JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'()) + \', \' + '.
-                                                                'String.fromCharCode(34) + \'sequence\' + String.fromCharCode(34) + \' : \' + (i+1+varLastSequence) + \', \' + '.
-                                                                'String.fromCharCode(34) + \'name\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name) + String.fromCharCode(34) + \', \' + '.
-                                                                'String.fromCharCode(34) + \'size\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.size) + \', \' + '.
-                                                                'String.fromCharCode(34) + \'MIME\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + ((event.target.result.split(\',\')[0]).match(/[^:\s*]\w+\/[\w-+\d.]+(?=[;| ])/)[0]) + String.fromCharCode(34) + \', \' + '.
-                                                                'String.fromCharCode(34) + \'extension\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name.split(\'.\').pop().toLowerCase()) + String.fromCharCode(34) + \', \' + '.
-                                                                'String.fromCharCode(34) + \'lastModifiedDateTimeTZ\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.lastModifiedDate) + String.fromCharCode(34) + \', \' + '.
-                                                                'String.fromCharCode(34) + \'lastModifiedUnixTimestamp\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.lastModified) + \', \' + '.
-                                                                'String.fromCharCode(34) + \'contentBase64\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (event.target.result.substr(event.target.result.indexOf(\',\') + 1)) + String.fromCharCode(34) + \'\' + '.
-                                                                '\'}\'; '.
-                                                            //'alert(varJSONDataBuilderNew); '.
-                                                            'var var'.$varUniqueID.'_ObjDOMInputTemp = document.createElement(\'INPUT\'); '.
-                                                            'var'.$varUniqueID.'_ObjDOMInputTemp.setAttribute(\'type\', \'text\'); '.
-                                                            'var'.$varUniqueID.'_ObjDOMInputTemp.setAttribute(\'value\', varJSONDataBuilderNew);'.
-                                                            'varJSONDataBuilder = varJSONDataBuilder + varJSONDataBuilderNew; '.
-
- */
             return $varReturn;
             }
 

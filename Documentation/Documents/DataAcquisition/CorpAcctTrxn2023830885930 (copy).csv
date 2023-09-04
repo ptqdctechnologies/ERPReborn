@@ -1,0 +1,15 @@
+"Informasi Rekening - Mutasi Rekening"," "," "," "," ",
+
+"No. rekening : 0068502911"
+"Nama : QDC TECHNOLOGIES PT"
+"Periode : 28/08/2023 - 30/08/2023"
+"Kode Mata Uang : Rp"
+"Tanggal Transaksi","Keterangan","Cabang","Jumlah","Saldo"
+"29/08","BI-FAST CR TANGGAL :28/08 TRANSFER   DR 002  INFRA MEDIA DINAMI   ","0000","5,000,000.00 CR","28,331,220.47"
+"29/08","TRSF E-BANKING DB 2908/FTSCY/WS95051 118000.00  PC-2308/018&020 WULANRANIASIH  ","0000","118,000.00 DB","28,213,220.47"
+"29/08","TRSF E-BANKING DB 2908/FTSCY/WS95051 45500.00  PC-2308/019 DIAN TRI RAHMAWATI  ","0000","45,500.00 DB","28,167,720.47"
+"Saldo Awal : 23,331,220.47"
+"Mutasi Debet : 163,500.00","2"
+"Mutasi Kredit : 5,000,000.00","1"
+"Saldo Akhir : 28,167,720.47"
+
