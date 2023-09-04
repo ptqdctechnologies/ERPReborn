@@ -2192,7 +2192,7 @@ namespace App\Helpers\ZhtHelper\General
                         )['data']['signExist']
                     );
             
-            var_dump($varSignAPIWebTokenIsExist);
+            //var_dump($varSignAPIWebTokenIsExist);
             
             
             $varReturn =
@@ -2232,7 +2232,8 @@ namespace App\Helpers\ZhtHelper\General
                                                     'String.fromCharCode(34) + \'lastModifiedUnixTimestamp\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.lastModified) + \', \' + '.
                                                     'String.fromCharCode(34) + \'contentBase64\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (event.target.result.substr(event.target.result.indexOf(\',\') + 1)) + String.fromCharCode(34) + \'\' + '.
                                                     '\'}\'; '.
-                                                'varReturn[i] = varJSONDataBuilderNew; '.
+                                                //'varReturn[i] = varJSONDataBuilderNew; '.
+                                                'varReturn[i] = \'{\' + String.fromCharCode(34) + \'entities\' + String.fromCharCode(34) + \' : \' + varJSONDataBuilderNew + \'}\';'.
                                                 'if(varAccumulatedFiles == varObjFileList.length) '.
                                                     '{'.
                                                     'for(var j = 0; j < varObjFileList.length; j++) '.
@@ -2262,6 +2263,42 @@ namespace App\Helpers\ZhtHelper\General
                                                     '}'.
                                                     //'alert(varJSONDataBuilder); '.
                                                     'document.getElementById(\''.$varDOMReturnObjectID.'\').value = varJSONDataBuilder; '.
+
+                                                    'varRecordID = (function(varLocalJSONDataBuilder) {'.
+                                                        'try {'.
+                                                            'varReturn = ('.
+                                                                'JSON.parse('.
+                                                                    str_replace(
+                                                                        '"', 
+                                                                        '\'', 
+                                                                        \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                                            $varUserSession, 
+                                                                            $varAPIWebToken, 
+                                                                            'transaction.create.dataAcquisition.setLog_FileContent',
+                                                                            'latest', 
+                                                                            '{'.
+                                                                            '"entities" : {'.
+                                                                                    '"additionalData" : {'.
+                                                                                        '"itemList" : {'.
+                                                                                            '"items" : JSON.parse(varLocalJSONDataBuilder)'.
+                                                                                            '}'.
+                                                                                        '}'.
+                                                                                '}'.
+                                                                            '}'
+                                                                            )
+                                                                        ).
+                                                                    ').data.recordID'.
+                                                                '); '.
+                                                            //'alert(varReturn); '.
+                                                            'return varReturn;'.
+                                                            '}'.
+                                                        'catch(varError) {'.
+                                                            'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                                            '}'.
+                                                        //'alert(varLocalJSONDataBuilder); '.
+                                                        '}) (varJSONDataBuilder); '.
+                                                    'alert(\'Record ID : \' + varRecordID);'.
+
                                                 '}; '.
                                             'varObjFileReader.readAsDataURL(varObjCurrentFile); '.
                                             '}) (varObjFileList[i], i); '.

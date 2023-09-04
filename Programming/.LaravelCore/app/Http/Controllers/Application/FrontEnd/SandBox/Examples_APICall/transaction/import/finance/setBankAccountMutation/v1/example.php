@@ -55,7 +55,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             $varFileUpload_UniqueID = 'FileContentRead';
             echo '<br>Log FileUpload Pointer RefID ► '.
-                '<textarea id="dataInput_Log_FileContent" name="dataInput_Log_FileContent" rows="4" cols="50"></textarea>'.
+                '<textarea id="dataInput_Log_FileContent" name="dataInput_Log_FileContent" rows="14" cols="50"></textarea>'.
                 '<input type="file" id="dataInput_Log_FileContent_Action" multiple="multiple" '.
                     'onChange="javascript:'.
                     \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContentRead(

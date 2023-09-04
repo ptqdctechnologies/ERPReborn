@@ -47,11 +47,6 @@
                                                         "entities": {
                                                             "type": "object",
                                                             "properties": {
-                                                                "log_FileContent_RefID": {
-                                                                    "type": [ "integer", "null" ],
-                                                                    "minimum": 1,
-                                                                    "maximum": 9223372036854775807
-                                                                    },
                                                                 "sequence": {
                                                                     "type": [ "integer", "null" ],
                                                                     "minimum": 1,
@@ -92,7 +87,6 @@
                                                                     }
                                                                 },
                                                             "required": [ 
-                                                                "log_FileContent_RefID", 
                                                                 "sequence", 
                                                                 "name", 
                                                                 "size", 
