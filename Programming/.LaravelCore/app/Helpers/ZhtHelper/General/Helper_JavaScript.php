@@ -10,6 +10,9 @@
 */
 namespace App\Helpers\ZhtHelper\General
     {
+
+    use function Laravel\Prompts\alert;
+
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : Helper_JavaScript                                                                                            |

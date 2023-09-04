@@ -1,4 +1,4 @@
-<div class="wrapper-budget card-body table-responsive p-0 tableShowHideBOQ3" style="height: 230px;" id="tableShowHideBOQ3"">
+<div class="wrapper-budget card-body table-responsive p-0 tableShowHideBudget" style="height: 230px;" id="tableShowHideBudget"">
     <table class=" table table-head-fixed text-nowrap table-sm tableBudgetDetail">
     <thead>
         <tr>
@@ -27,7 +27,7 @@
     </table>
 </div>
 
-<div class="card-body tableShowHideBOQ3">
+<div class="card-body tableShowHideBudget">
     <table style="float:right;">
         <tr>
             <th style="position: relative;right:20px;"> Total : <span id="TotalBudgetSelected"></span></th>

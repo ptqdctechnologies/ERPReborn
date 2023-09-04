@@ -25,7 +25,7 @@ class CheckDocumentController extends Controller
         $varDataWorkflow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'report.form.documentForm.sysConfig.getLogBusinessDocumentWorkFlowPathHistory',
+            'report.form.resume.master.getBusinessDocumentDispositionHistory',
             'latest',
             [
                 'parameter' => [
@@ -51,7 +51,7 @@ class CheckDocumentController extends Controller
         $varDataWorkflow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'report.form.documentForm.sysConfig.getLogBusinessDocumentWorkFlowPathHistory',
+            'report.form.resume.master.getBusinessDocumentDispositionHistory',
             'latest',
             [
                 'parameter' => [
@@ -80,7 +80,7 @@ class CheckDocumentController extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'report.form.documentForm.master.getBusinessDocumentIssuanceDisposition',
+            'report.form.resume.master.getBusinessDocumentIssuanceDisposition',
             'latest',
             [
                 'parameter' => [
