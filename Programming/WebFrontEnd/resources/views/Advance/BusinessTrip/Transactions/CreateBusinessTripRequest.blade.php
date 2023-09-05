@@ -527,9 +527,9 @@
 
                   <div class="card-body BrfListCart">
                     <table style="float:right;">
-                      <tr>
-                        <th style="position: relative;right:45px;"> Total Item : <span id="TotalAllowance"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="TotalAccomodation"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="TotalOther"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="GrandTotal"></span></th>
-                      </tr>
+                      <th> Total Item :
+                        <span id="GrandTotal"></span>
+                      </th>
                     </table>
                   </div>
 

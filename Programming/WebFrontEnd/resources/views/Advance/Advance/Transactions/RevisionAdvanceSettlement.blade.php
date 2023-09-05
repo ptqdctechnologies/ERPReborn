@@ -46,6 +46,89 @@
                 <div class="card">
                   <div class="card-header">
                     <label class="card-title">
+                      Detail Settlement
+                    </label>
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="card-body">
+                    <div class="row">
+
+                      <div class="col-md-8">
+                        <div class="form-group">
+                          <table>
+                            <tr>
+                              <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Bank Name</label></td>
+                              <td>
+                                <div class="input-group" style="width: 70%;">
+                                  <input id="bank_code" style="border-radius:0;" class="form-control" name="bank_code" hidden value="{{$dataRevisi['advanceRemarks']}}">
+                                  <input id="bank_name" style="border-radius:0;" name="bank_name" class="form-control" readonly value="{{$dataRevisi['advanceRemarks']}}">
+                                  <div class="input-group-append">
+                                    <span style="border-radius:0;" class="input-group-text form-control">
+                                      <a href="#" id="bank_name2" data-toggle="modal" data-target="#myGetBank" class="myGetBank"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                    </span>
+                                  </div>
+                                </div>
+                              </td>
+                              <td>
+                                <div class="input-group" style="width: 140%;position:relative;right:38%;">
+                                  <input id="bank_name_full" style="border-radius:0;" class="form-control" name="bank_name_full" readonly value="{{$dataRevisi['advanceRemarks']}}">
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Bank Account</label></td>
+                              <td>
+                                <div class="input-group" style="width: 70%;">
+                                  <input id="bank_code" style="border-radius:0;" class="form-control" name="bank_code" hidden value="{{$dataRevisi['advanceRemarks']}}">
+                                  <input id="bank_account" style="border-radius:0;" name="bank_account" class="form-control" readonly value="{{$dataRevisi['advanceRemarks']}}">
+                                  <div class="input-group-append">
+                                    <span style="border-radius:0;" class="input-group-text form-control">
+                                      <a href="#" id="bank_account2" data-toggle="modal" data-target="#myBankAccount" class="myBankAccount"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                    </span>
+                                  </div>
+                                </div>
+                              </td>
+                              <td>
+                                <div class="input-group" style="width: 140%;position:relative;right:38%;">
+                                  <input id="account_name" style="border-radius:0;" class="form-control" name="account_name" readonly value="hidden{{$dataRevisi['advanceRemarks']}}">
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
+
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <table>
+                            <tr>
+                              <td style="padding-bottom:20px;"><Label>Remark</Label></td>
+                              <td>
+                                <div class="input-group">
+                                  <textarea name="remark" id="remark" style="border-radius:0;" cols="30" rows="3" class="form-control">{{$dataRevisi['advanceRemarks']}}</textarea>
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <label class="card-title">
                       File Attachment
                     </label>
                     <div class="card-tools">
@@ -85,24 +168,6 @@
                 </div>
               </div>
             </div>
-
-
-            <!-- 
-              <div class="row">
-                <div class="col-12">
-                  <div class="card">
-                    <div class="card-header">
-                      <label class="card-title">
-                        <ul class="navbar-nav ml-auto left">
-                          <li class="nav-item dropdown user-menu">
-                            <a id="advance_number2" data-toggle="modal" data-target="#mySearchArf"><img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="">&nbsp;&nbsp;Search Advance</a>
-                          </li>
-                        </ul>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
 
             <div class="row">
               <div class="col-12">

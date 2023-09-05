@@ -2,6 +2,8 @@
     $("#addAsfListCart").prop("disabled", true);
     $("#SaveAsfList").prop("disabled", true);
     $("#advance_number2").prop("disabled", true);
+    $("#bank_name2").prop("disabled", true);
+    $("#bank_account2").prop("disabled", true);
     $("#detailASF").hide();
     // $(".tableShowHideArfDetail").hide();
     // $("#amountCompanyCart").hide();
@@ -13,6 +15,22 @@
 
 <script>
     $('#tableGetProject tbody').on('click', 'tr', function() {
+
+        //RESET FORM
+        document.getElementById("FormStoreAdvanceSettlement").reset();
+        $("#dataInput_Log_FileUpload_Pointer_RefID").val("");
+        $("#dataInput_Log_FileUpload_Pointer_RefID_Action").val("");
+        $('.TableArfDetail').find('tbody').empty();
+        $('.TableExpenseClaim').find('tbody').empty();
+        $('.TableAmountDueto').find('tbody').empty();
+        $('#zhtSysObjDOMTable_Upload_ActionPanel').find('tbody').empty();
+        $('#TotalBudgetSelected').html(0);
+        $('#TotalQtyExpense').html(0);
+        $('#TotalQtyAmount').html(0);
+        $('#GrandTotalExpense').html(0);
+        $('#GrandTotalAmount').html(0);
+        $("#SaveAsfList").prop("disabled", true);
+        //END RESET FORM
 
         $("#myProject").modal('toggle');
 
@@ -41,13 +59,12 @@
             type: 'GET',
             url: '{!! route("AdvanceSettlement.AdvanceByBudgetID") !!}?projectcode=' + sys_id,
             success: function(data) {
-                console.log(data);
                 var no = 1;
                 t = $('#tableSearchArfinAsf').DataTable();
                 $.each(data.DataAdvanceRequest, function(key, val) {
                     keys += 1;
                     t.row.add([
-                        '<tbody><tr><input id="advance_RefID' + keys + '" value="' + val.sys_ID + '" type="hidden"><input id="requester_RefID' + keys + '" value="' + val.requesterWorkerJobsPosition_RefID + '" type="hidden"><input id="requester_name' + keys + '" value="' + val.requesterWorkerName + '" type="hidden"><td>' + no++ + '</td>',
+                        '<tbody><tr><input id="advance_RefID' + keys + '" value="' + val.sys_ID + '" type="hidden"><input id="beneficiary_RefID' + keys + '" value="' + val.requesterWorkerJobsPosition_RefID + '" type="hidden"><input id="beneficiary_name' + keys + '" value="' + val.requesterWorkerName + '" type="hidden"><td>' + no++ + '</td>',
                         '<td>' + val.documentNumber + '</td>',
                         '<td>' + val.combinedBudgetCode + '</td>',
                         '<td>' + val.combinedBudgetName + '</td>',
@@ -71,13 +88,12 @@
         var row = $(this).closest("tr");
         var id = row.find("td:nth-child(1)").text();
         var advance_RefID = $('#advance_RefID' + id).val();
-        var requester_RefID = $('#requester_RefID' + id).val();
-        var requester_name = $('#requester_name' + id).val();
+        var beneficiary_RefID = $('#beneficiary_RefID' + id).val();
+        var beneficiary_name = $('#beneficiary_name' + id).val();
         var advance_number = row.find("td:nth-child(2)").text();
 
         $("#advance_number").val(advance_number);
         $(".tableShowHideArfDetail").show();
-        $("#projectcode2").prop("disabled", true);
 
 
         $("#bank_code").val(advance_RefID);
@@ -94,15 +110,13 @@
         });
         $.ajax({
             type: "POST",
-            url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlementRequester") !!}?requester_id=' + requester_RefID + '&requester_name=' + requester_name + '&requester_id2=' + $('#requester_id').val() + '&advance_RefID=' + advance_RefID,
+            url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlementBeneficiary") !!}?beneficiary_id=' + beneficiary_RefID + '&beneficiary_name=' + beneficiary_name + '&beneficiary_id2=' + $('#beneficiary_id').val() + '&advance_RefID=' + advance_RefID,
             success: function(data) {
-
-                console.log(data.DataAdvanceList);
 
                 if (data.status == "200") {
 
-                    $("#requester_id").val(data.requester_id);
-                    $("#requester_name").val(data.requester_name);
+                    $("#beneficiary_id").val(data.beneficiary_id);
+                    $("#beneficiary_name").val(data.beneficiary_name);
 
                     var no = 1;
                     applied = 0;

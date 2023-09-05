@@ -1,22 +1,38 @@
 <script type="text/javascript">
-    $(".DetailBsf").hide();
-    $("#detailBrfList").hide();
-    // $("#buttonDetailBsf").prop("disabled", true);
-    $("#saveBsf").prop("disabled", true);
+    $("#buttonDetailBsf").prop("disabled", true);
+    $("#SaveBsfList").prop("disabled", true);
     $("#ManagerNameId").prop("disabled", true);
     $("#CurrencyId").prop("disabled", true);
     $("#FinanceId").prop("disabled", true);
     $("#brf_number2").prop("disabled", true);
-    $("#amountCompanyCart").hide();
-    $(".amountCompanyCart").hide();
-    $("#expenseCompanyCart").hide();
-    $(".expenseCompanyCart").hide();
-    $(".tableShowHideBrfDetail").hide();
+    // $("#amountCompanyCart").hide();
+    // $(".amountCompanyCart").hide();
+    // $("#expenseCompanyCart").hide();
+    // $(".expenseCompanyCart").hide();
+    // $(".tableShowHideBrfDetail").hide();
+    // $(".DetailBsf").hide();
+    // $("#detailBrfList").hide();
 </script>
 
 <script>
     $('#tableGetProject tbody').on('click', 'tr', function() {
-
+        
+        //RESET FORM
+        document.getElementById("FormStoreBusinessTripSettlement").reset();
+        $("#dataInput_Log_FileUpload_Pointer_RefID").val("");
+        $("#dataInput_Log_FileUpload_Pointer_RefID_Action").val("");
+        $('.TableBrfDetail').find('tbody').empty();
+        $('.TableExpenseClaim').find('tbody').empty();
+        $('.TableAmountDueto').find('tbody').empty();
+        $('#zhtSysObjDOMTable_Upload_ActionPanel').find('tbody').empty();
+        $('#TotalBudgetSelected').html(0);
+        $('#TotalQtyExpense').html(0);
+        $('#TotalQtyAmount').html(0);
+        $('#GrandTotalExpense').html(0);
+        $('#GrandTotalAmount').html(0);
+        $("#SaveBsfList").prop("disabled", true);
+        //END RESET FORM
+        
         $("#myProject").modal('toggle');
 
         var row = $(this).closest("tr")
@@ -77,7 +93,6 @@
 
         $("#advance_number").val(advance_number);
         $(".tableShowHideBrfDetail").show();
-        $("#projectcode2").prop("disabled", true);
 
         $.ajaxSetup({
             headers: {
@@ -363,6 +378,8 @@
 
 <script>
     function addFromDetailtoCartJs() {
+
+        $("#SaveBsfList").prop("disabled", false);
 
         $('#TableExpenseClaim').find('tbody').empty();
         $('#TableAmountDueto').find('tbody').empty();
