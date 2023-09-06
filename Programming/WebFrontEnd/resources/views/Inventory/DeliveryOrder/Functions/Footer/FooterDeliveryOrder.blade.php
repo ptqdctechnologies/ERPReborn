@@ -6,8 +6,6 @@
         $(".headerDor4").hide();
         $("#detailPR").hide();
         $("#detailDo").hide();
-        $(".detailDoList").hide();
-        $(".tableShowHideDo").hide();
         $("#headerPrNumber2").prop("disabled", true);
         $("#transporter").css("background-color", "white");
         $("#searchDor").prop("disabled", true);
@@ -19,6 +17,15 @@
 
 <script>
     $('#tableGetProject tbody').on('click', 'tr', function() {
+
+        //RESET FORM
+        document.getElementById("FormSubmitDo").reset();
+        $('.TableDorDetail').find('tbody').empty();
+        $('.TableDoCart').find('tbody').empty();
+        $('#TotalBudgetSelected').html(0);
+        $('#TotalQty').html(0);
+        $("#SubmitDo").prop("disabled", true);
+        //END RESET FORM
 
         $("#myProject").modal('toggle');
 
@@ -93,7 +100,7 @@
 
                 var no = 1;
                 applied = 0;
-                TotalBudgetSelected = 0;
+                TotalBudgetSelectedTamp = 0;
                 status = "";
                 statusDisplay = [];
                 statusDisplay2 = [];
@@ -149,7 +156,7 @@
                             '<td style="border:1px solid #e9ecef;">' + value.priceCurrencyISOCode + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + value.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
 
-                            '<td class="sticky-col second-col-dor-qty" style="border:1px solid #e9ecef;background-color:white;">' + '<input onkeyup="qty_req(' + keys + ', this)" id="qty_req' + keys + '" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" ' + statusForm[keys] + '>' + '</td>' +
+                            '<td class="sticky-col second-col-dor-qty" style="border:1px solid #e9ecef;background-color:white;">' + '<input onkeyup="total_req(' + keys + ', this)" onkeypress="return isNumberKey(this, event);" id="total_req' + keys + '" style="border-radius:0;" name="total_req[]" class="form-control total_req" autocomplete="off" ' + statusForm[keys] + '>' + '</td>' +
                             '<td class="sticky-col first-col-dor-note" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="note_req' + keys + '" style="border-radius:0;" name="note_req[]" class="form-control note_req" autocomplete="off" ' + statusForm[keys] + '>' + '</td>' +
 
                             '</tr>';
@@ -163,13 +170,12 @@
         });
     });
     //VALIDASI QTY
-    function qty_req(key, value) {
+    function total_req(key, value) {
         var qty_val = (value.value).replace(/,/g, '');
         var budget_qty_val = $("#budget_qty" + key).val();
 
         if (qty_val == "") {
-            $('#total_req' + key).val("");
-            $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
+            $("input[name='total_req[]']").css("border", "1px solid #ced4da");
         } else if (parseFloat(qty_val) > parseFloat(budget_qty_val)) {
 
             swal({
@@ -179,12 +185,14 @@
                 }
             });
 
-            $('#qty_req' + key).val("");
-            $('#qty_req' + key).css("border", "1px solid red");
-            $('#qty_req' + key).focus();
+            $('#total_req' + key).val("");
+            $('#total_req' + key).css("border", "1px solid red");
+            $('#total_req' + key).focus();
         } else {
-            $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
+            $("input[name='total_req[]']").css("border", "1px solid #ced4da");
         }
+        //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED
+        TotalBudgetSelected();
     }
 </script>
 
@@ -217,7 +225,7 @@
         var getCurrency = $("input[name='getCurrency[]']").map(function() {
             return $(this).val();
         }).get();
-        var qty_req = $("input[name='qty_req[]']").map(function() {
+        var total_req = $("input[name='total_req[]']").map(function() {
             return $(this).val();
         }).get();
         var note_req = $("input[name='note_req[]']").map(function() {
@@ -226,11 +234,11 @@
 
         var combinedBudget = $("input[name='combinedBudget']").val();
 
-        var TotalBudgetSelected = 0;
+        var TotalBudgetSelectedTamp = 0;
         var TotalQty = 0;
 
-        $.each(qty_req, function(index, data) {
-            if (qty_req[index] != "" && qty_req[index] > "0.00" && qty_req[index] != "NaN.00") {
+        $.each(total_req, function(index, data) {
+            if (total_req[index] != "" && total_req[index] > "0.00" && total_req[index] != "NaN.00") {
 
                 var putProductId = getProductId[index];
                 var putProductName = getProductName[index];
@@ -239,13 +247,13 @@
                     var putProductId = $("#putProductId" + index).val();
                     var putProductName = $("#putProductName" + index).html();
                 }
-                TotalBudgetSelected += +qty_req[index].replace(/,/g, '');
-                TotalQty += +qty_req[index].replace(/,/g, '');
+                TotalBudgetSelectedTamp += +total_req[index].replace(/,/g, '');
+                TotalQty += +total_req[index].replace(/,/g, '');
                 var html = '<tr>' +
 
                     '<input type="hidden" name="var_product_id[]" value="' + putProductId + '">' +
                     '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
-                    '<input type="hidden" name="var_quantity[]" class="qty_req2' + index + '" data-id="' + index + '" value="' + currencyTotal(qty_req[index]).replace(/,/g, '') + '">' +
+                    '<input type="hidden" name="var_quantity[]" class="total_req2' + index + '" data-id="' + index + '" value="' + currencyTotal(total_req[index]).replace(/,/g, '') + '">' +
                     '<input type="hidden" name="var_uom[]" value="' + getUom[index] + '">' +
                     '<input type="hidden" name="var_currency[]" value="' + getCurrency[index] + '">' +
                     '<input type="hidden" name="var_date" value="' + date + '">' +
@@ -253,20 +261,18 @@
 
 
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getTrano[index] + '</td>' +
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkId[index] + '</td>' +
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkName[index] + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductId + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductName + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getCurrency[index] + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + note_req[index] + '</td>' +
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + qty_req[index] + '</td>' +
+                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + currencyTotal(total_req[index]) + '</td>' +
 
                     '</tr>';
 
                 $('table.TableDoCart tbody').append(html);
 
-                $("#TotalBudgetSelected").html(currencyTotal(TotalBudgetSelected));
-                // $("#GrandTotal").html(currencyTotal(TotalBudgetSelected));
+                $("#TotalBudgetSelected").html(currencyTotal(TotalBudgetSelectedTamp));
+                // $("#GrandTotal").html(currencyTotal(TotalBudgetSelectedTamp));
                 $("#TotalQty").html(currencyTotal(TotalQty));
 
                 $("#SubmitDo").prop("disabled", false);

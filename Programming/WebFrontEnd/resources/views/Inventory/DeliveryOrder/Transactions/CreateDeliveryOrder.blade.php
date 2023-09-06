@@ -104,8 +104,6 @@
                                             <thead>
                                                 <tr>
                                                     <th>Transaction Number</th>
-                                                    <th>Work Id</th>
-                                                    <th>Work Name</th>
                                                     <th>Product Id</th>
                                                     <th>Product Name</th>
                                                     <th>Valuta</th>

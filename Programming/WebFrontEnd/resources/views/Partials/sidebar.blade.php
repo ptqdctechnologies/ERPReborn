@@ -1253,14 +1253,14 @@
                                         <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <!-- <ul class="nav nav-treeview">
+                                    <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('DeliveryOrder.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Delivery Order</label>
                                             </a>
                                         </li>
-                                    </ul> -->
+                                    </ul>
                                 </li>
                             </ul>
                         </li>
@@ -1289,14 +1289,14 @@
                                         <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <!-- <ul class="nav nav-treeview">
+                                    <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('iSupp.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Material Receive</label>
                                             </a>
                                         </li>
-                                    </ul> -->
+                                    </ul>
                                 </li>
                             </ul>
                         </li>
@@ -1325,14 +1325,14 @@
                                         <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <!-- <ul class="nav nav-treeview">
+                                    <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('MaterialReturn.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Material Return</label>
                                             </a>
                                         </li>
-                                    </ul> -->
+                                    </ul>
                                 </li>
                             </ul>
                         </li>
