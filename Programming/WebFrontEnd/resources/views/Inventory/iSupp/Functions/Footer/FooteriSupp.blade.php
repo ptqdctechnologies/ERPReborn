@@ -6,8 +6,6 @@
         $("#detailPR").hide();
         $("#FileReceipt").hide();
         $("#DetailiSupp").hide();
-        $(".iSuppCart").hide();
-        $(".tableShowHideSupp").hide();
         $("#headerPrNumber2").prop("disabled", true);
         $("#SubmitiSupp").prop("disabled", true);
         $("#addToPoDetail").prop("disabled", true);

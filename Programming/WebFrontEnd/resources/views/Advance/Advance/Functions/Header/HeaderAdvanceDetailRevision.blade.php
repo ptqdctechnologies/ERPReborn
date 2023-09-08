@@ -30,7 +30,7 @@
                         <td>
                             <div class="input-group" style="width: 70%;">
                                 <input name="beneficiary_name" id="beneficiary_name" style="border-radius:0;" type="text" class="form-control" readonly value="{{ $dataRevisi['involvedPersons']['beneficiary']['name'] }}" required>
-                                <input name="beneficiary_name_id" id="beneficiary_name_id" style="border-radius:0;" type="hidden" class="form-control" value="{{ $dataRevisi['involvedPersons']['beneficiary']['workerJobsPosition_RefID'] }}" readonly required>
+                                <input name="beneficiary_id" id="beneficiary_id" style="border-radius:0;" type="hidden" class="form-control" value="{{ $dataRevisi['involvedPersons']['beneficiary']['workerJobsPosition_RefID'] }}" readonly required>
                                 <input name="var_combinedBudget" id="combinedBudget" style="border-radius:0;" type="hidden" class="form-control" readonly required>
                                 <input name="var_recordIDDetail" id="recordIDDetail" style="border-radius:0;" type="hidden" class="form-control" readonly required>
                                 <div class="input-group-append">

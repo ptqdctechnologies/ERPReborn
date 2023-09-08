@@ -74,7 +74,7 @@
         var name = row.find("td:nth-child(2)").text();
         var position = row.find("td:nth-child(3)").text();
 
-        $("#beneficiary_name_id").val(sys_id_beneficiary);
+        $("#beneficiary_id").val(sys_id_beneficiary);
         $("#beneficiary_name").val(name);
         $("#beneficiary_position").val(position);
 

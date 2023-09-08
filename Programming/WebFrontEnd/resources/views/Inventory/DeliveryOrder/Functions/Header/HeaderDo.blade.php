@@ -40,16 +40,6 @@
               </div>
             </td>
           </tr>
-
-          <tr>
-            <td style="padding-top: 5px;"><label>DOR Number</label></td>
-            <td>
-              <div class="input-group" style="width: 108%;">
-                <input id="dor_number" style="border-radius:0;" name="dor_number" class="form-control" readonly type="hidden">
-                </div>
-              </div>
-            </td>
-          </tr>
         </table>
       </div>
     </div>

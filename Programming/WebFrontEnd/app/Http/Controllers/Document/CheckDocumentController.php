@@ -34,6 +34,8 @@ class CheckDocumentController extends Controller
             ]
         );
 
+        dd($varDataWorkflow);
+
         $compact = [
             'var' => 1,
             'dataWorkflow' => $varDataWorkflow['data']['document'],
@@ -59,7 +61,7 @@ class CheckDocumentController extends Controller
                 ]
             ]
         );
-        // dd($varDataWorkflow);
+        dd($varDataWorkflow);
         $compact = [
             'var' => 1,
             'dataWorkflow' => $varDataWorkflow['data']['document'],

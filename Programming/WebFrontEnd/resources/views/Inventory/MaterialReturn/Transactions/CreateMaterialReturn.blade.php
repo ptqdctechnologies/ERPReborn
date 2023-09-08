@@ -20,7 +20,7 @@
             @include('Inventory.MaterialReturn.Functions.Menu.MenuMaterialReturn')
             @if($var == 0)
             <div class="card" style="position:relative;bottom:10px;">
-                <form method="post" enctype="multipart/form-data" action="{{ route('MaterialReturn.store') }}" id="formSubmitMatRet">
+                <form method="post" enctype="multipart/form-data" action="{{ route('MaterialReturn.store') }}" id="FormSubmitMatRet">
                     @csrf
                     <div class="tab-content p-3" id="nav-tabContent">
                         @include('Inventory.MaterialReturn.Functions.Header.HeaderMaterialReturn')

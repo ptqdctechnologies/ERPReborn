@@ -7,8 +7,8 @@
 @include('getFunction.getProduct')
 @include('Advance.Advance.Functions.PopUp.SearchAdvance')
 @include('Advance.Advance.Functions.PopUp.PopUpAdvanceSettlementRevision')
-@include('getFunction.getBank')
-@include('getFunction.getBankAccount')
+<!-- @include('getFunction.getBank')
+@include('getFunction.getBankAccount') -->
 
 <div class="content-wrapper">
   <section class="content">

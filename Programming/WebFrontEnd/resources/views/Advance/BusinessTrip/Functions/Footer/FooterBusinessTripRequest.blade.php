@@ -1,11 +1,9 @@
 <script type="text/javascript">
-  $("#FollowingCondition").hide();
   $("#brfhide3").hide();
   $("#brfhide4").hide();
   $(".FormTransportDetails").hide();
   $(".brfhide6").hide();
   $(".budgetDetail").hide();
-  $(".tableShowHideBOQ3").hide();
   $("#sitecode2").prop("disabled", true);
   $("#request_name2").prop("disabled", true);
   $("#SaveBrfList").prop("disabled", true);
@@ -15,16 +13,30 @@
   $("#dateArrival").css("background-color", "white");
   $("#putProductId2").prop("disabled", true);
   $("#sequenceRequest").prop("disabled", true);
-  $(".FollowingCondition").hide();
+  $("#FollowingCondition").hide();
   $(".TransportDetails").hide();
-  $(".BrfListCart").hide();
-  $(".file-attachment").hide();
+  // $(".BrfListCart").hide();
+  // $(".file-attachment").hide();
+  // $(".tableShowHideBOQ3").hide();
+  // $(".FollowingCondition").hide();
 </script>
 
 
 <script>
   $('#tableGetProject tbody').on('click', 'tr', function() {
 
+    //RESET FORM
+    document.getElementById("FormSubmitBusinessTrip").reset();
+    $("#dataInput_Log_FileUpload_Pointer_RefID").val("");
+    $("#dataInput_Log_FileUpload_Pointer_RefID_Action").val("");
+    $('#zhtSysObjDOMTable_Upload_ActionPanel').find('tbody').empty();
+    $('.tableBudgetDetail').find('tbody').empty();
+    $('.TableBusinessTrip').find('tbody').empty();
+    $('#TotalBudgetSelected').html(0);
+    $('#GrandTotal').html(0);
+    $("#SaveBrfList").prop("disabled", true);
+    //END RESET FORM
+    
     $("#myProject").modal('toggle');
 
     var row = $(this).closest("tr");
@@ -68,6 +80,15 @@
 <script>
   $('#tableGetSite tbody').on('click', 'tr', function() {
 
+    //RESET FORM
+    $('.tableBudgetDetail').find('tbody').empty();
+    $('.TableBusinessTrip').find('tbody').empty();
+    $('#TotalBudgetSelected').html(0);
+    $('#GrandTotal').html(0);
+    $("#SaveBrfList").prop("disabled", true);
+    //END RESET FORM
+
+
     $("#mySiteCode").modal('toggle');
 
     var row = $(this).closest("tr");
@@ -78,9 +99,10 @@
 
     $("#sitecode").val(code);
     $("#sitename").val(name);
-    $("#sitecode2").prop("disabled", true);
 
-    $("#projectcode2").prop("disabled", true);
+    // $("#sitecode2").prop("disabled", true);
+    // $("#projectcode2").prop("disabled", true);
+
     $("#addToDoDetail").prop("disabled", false);
     $(".tableShowHideBOQ3").show();
     $("#request_name2").prop("disabled", false);
@@ -88,7 +110,7 @@
     $("#bank_name2").prop("disabled", false);
 
 
-    $(".file-attachment").show();
+    // $(".file-attachment").show();
     $(".advance-detail").show();
 
     $.ajaxSetup({

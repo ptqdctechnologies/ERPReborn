@@ -26,6 +26,7 @@
                     @csrf
                     <div class="tab-content p-3" id="nav-tabContent">
                         @include('Inventory.DeliveryOrderRequest.Functions.Header.HeaderDor')
+                        @include('Inventory.DeliveryOrderRequest.Functions.Header.HeaderDorDetail')
                         <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="product-desc-tab">
                             <div class="row">
                                 <div class="col-12">
@@ -61,7 +62,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="card-body table-responsive p-0 detailDorList" style="height: 180px;">
+                                    <div class="card-body table-responsive p-0 DetailDorList" style="height: 180px;">
                                         <table class="table table-head-fixed text-nowrap TableDorCart" id="TableDorCart">
                                             <thead>
                                                 <tr>
@@ -79,7 +80,7 @@
                                         </table>
                                     </div>
 
-                                    <div class="card-body detailDorList">
+                                    <div class="card-body DetailDorList">
                                         <table style="float:right;">
                                             <tr>
                                                 <th style="position: relative;right:30px;"> Total Item : <span id="TotalQty">

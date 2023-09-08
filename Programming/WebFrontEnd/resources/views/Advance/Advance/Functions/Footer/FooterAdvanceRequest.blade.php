@@ -25,6 +25,9 @@
         $('.tableBudgetDetail').find('tbody').empty();
         $('.TableAdvance').find('tbody').empty();
         $('#zhtSysObjDOMTable_Upload_ActionPanel').find('tbody').empty();
+        $('#TotalBudgetSelected').html(0);
+        $('#GrandTotal').html(0);
+        $("#submitArf").prop("disabled", true);
         //END RESET FORM
                 
         $("#myProject").modal('toggle');
@@ -70,8 +73,14 @@
 <script>
     $('#tableGetSite tbody').on('click', 'tr', function() {
 
+        //RESET FORM
         $('.TableAdvance').find('tbody').empty();
         $('.tableBudgetDetail').find('tbody').empty();
+        $('#TotalBudgetSelected').html(0);
+        $('#GrandTotal').html(0);
+        $("#submitArf").prop("disabled", true);
+        //END RESET FORM
+
 
         $("#mySiteCode").modal('toggle');
 
