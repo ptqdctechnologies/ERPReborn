@@ -452,6 +452,10 @@ class Str
             return false;
         }
 
+        if (function_exists('json_validate')) {
+            return json_validate($value, 512);
+        }
+
         try {
             json_decode($value, true, 512, JSON_THROW_ON_ERROR);
         } catch (JsonException) {
@@ -516,11 +520,7 @@ class Str
             return false;
         }
 
-        if ($value === '00000000-0000-0000-0000-000000000000') {
-            return true;
-        }
-
-        return preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/iD', $value) > 0;
+        return preg_match('/^[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}$/iD', $value) > 0;
     }
 
     /**
