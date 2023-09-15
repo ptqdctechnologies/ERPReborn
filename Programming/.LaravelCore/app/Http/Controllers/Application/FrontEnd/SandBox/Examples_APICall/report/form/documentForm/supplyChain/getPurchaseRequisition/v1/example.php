@@ -44,7 +44,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                 ]
                 );
             //dd(\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varAPIWebToken, $varData) );
-            dd($varData);
+            //dd($varData);
             var_dump($varData);
             }
         }
