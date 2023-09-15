@@ -43,7 +43,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                     ]
                 ]
                 );
-            //dd($varData);
+            dd($varData);
             var_dump($varData);
             }
         }
