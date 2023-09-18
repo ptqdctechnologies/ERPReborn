@@ -1672,5 +1672,52 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                 return [];
                 }
             }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DocumentForm_PersonBusinessTrip                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2023-09-18                                                                                           |
+        | ▪ Last Update     : 2023-09-18                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Perjalanan Bisnis Personal                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ▪ (int)    varSysID ► Record ID                                                                                     |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DocumentForm_PersonBusinessTrip(
+            $varUserSession, int $varSysBranch_RefID, 
+            int $varSysID)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-HumanResource.Func_GetReport_DocForm_PersonBusinessTrip',
+                        [
+                            [$varSysBranch_RefID, 'bigint' ],
+                            [$varSysID, 'bigint' ]
+                        ]
+                        )
+                    );
+                //dd($varReturn['Data'][0]['Func_GetReport_DocForm_PersonBusinessTrip']);
+                return [
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession, 
+                        $varReturn['Data'][0]['Func_GetReport_DocForm_PersonBusinessTrip'])
+                    ]
+                    ;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
         }
     }
