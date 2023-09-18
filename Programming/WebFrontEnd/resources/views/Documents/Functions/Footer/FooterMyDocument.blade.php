@@ -64,7 +64,7 @@
                     '<td><span style="position:relative;left:10px;">' + val.entities.previousWorkFlowPathActionName + '</span></td>' +
                     '<td><span style="position:relative;left:10px;">' + remark + '</span></td>' +
 
-                    '<input id="businessDocument_RefID' + keys + '" value="' + val.entities.businessDocument_RefID + '" type="hidden">' +
+                    '<input id="businessDocument_RefID' + keys + '" value="' + val.entities.formDocumentNumber_RefID + '" type="hidden">' +
 
                     '</tr>';
 
