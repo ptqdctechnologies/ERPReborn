@@ -50,24 +50,26 @@ class CheckDocumentController extends Controller
     public function ShowDocumentByID(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
+
         $varDataWorkflow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'report.form.resume.master.getBusinessDocumentDispositionHistory',
+            'report.form.documentForm.finance.getAdvance',
             'latest',
             [
                 'parameter' => [
-                    'recordID' => (int)$request->input('businessDocument_RefID')
+                    'recordID' => (int) $request->input('businessDocument_RefID')
                 ]
             ]
         );
         dd($varDataWorkflow);
+
         $compact = [
             'var' => 1,
-            'dataWorkflow' => $varDataWorkflow['data']['document'],
-            'TransactionMenu' => $varDataWorkflow['data']['document']['content']['logBusinessDocumentWorkFlowPathHistory']['itemList']['ungrouped'][0]['entities']['businessDocumentTypeName'],
-            'businessDocument_RefID' => $varDataWorkflow['data']['document']['content']['logBusinessDocumentWorkFlowPathHistory']['itemList']['ungrouped'][0]['entities']['businessDocument_RefID'],
-            'businessDocumentNumber' => $varDataWorkflow['data']['document']['content']['logBusinessDocumentWorkFlowPathHistory']['itemList']['ungrouped'][0]['entities']['businessDocumentNumber'],
+            'dataWorkflow' => $varDataWorkflow['data'][0]['document']['content']['general']['workFlow']['historyList'],
+            'dataTransaction' => $varDataWorkflow['data'][0]['document'],
+            // 'TransactionMenu' => $varDataWorkflow['data'][0]['document']['content']['logBusinessDocumentWorkFlowPathHistory']['itemList']['ungrouped'][0]['entities']['businessDocumentTypeName'],
+            'businessDocument' => $varDataWorkflow['data'][0]['document']['header'],
         ];
 
         return view('Documents.Transactions.index', $compact);

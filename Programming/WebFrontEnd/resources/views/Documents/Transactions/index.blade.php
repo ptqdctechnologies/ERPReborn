@@ -22,6 +22,7 @@
           <div class="row">
             
             @include('Documents.Transactions.DocumentWorkflow')
+            @include('Documents.Transactions.DocumentAdvance')
 
           </div>
         </div>
