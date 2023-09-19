@@ -97,7 +97,7 @@
                   </div>
                   <br>
                 </form>
-                <div class="card-body table-responsive p-0" style="height:280px;">
+                <div class="card-body table-responsive p-0">
                   <table class="table table-head-fixed text-nowrap TableMyDocument" id="TableMyDocument">
                     <thead>
                       <tr>
@@ -114,15 +114,6 @@
                     </tbody>
                   </table>
                 </div>
-
-                <div class="card-body">
-                  <table style="float:right;">
-                    <tr>
-                      <th style="position: relative;right:20px;"> Total Data : <span id="TotalData"></span></th>
-                    </tr>
-                  </table>
-                </div>
-
               </div>
             </div>
           </div>

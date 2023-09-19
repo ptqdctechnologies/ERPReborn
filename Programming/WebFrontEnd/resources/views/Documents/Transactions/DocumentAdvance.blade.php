@@ -61,7 +61,17 @@
           <tr>
             <td style="padding-top: 5px;"><label>Bank Name</label></td>
             <td>:</td>
-            <td>{{ $dataTransaction['content']['general']['bankAccount']['beneficiary']['fullBankAccountNumber'] }}</td>
+            <td>{{ $dataTransaction['content']['general']['bankAccount']['beneficiary']['bankFullName'] }}</td>
+          </tr>
+          <tr>
+            <td style="padding-top: 5px;"><label>Account Name</label></td>
+            <td>:</td>
+            <td>{{ $dataTransaction['content']['general']['bankAccount']['beneficiary']['bankAccountName'] }}</td>
+          </tr>
+          <tr>
+            <td style="padding-top: 5px;"><label>Account Number</label></td>
+            <td>:</td>
+            <td>{{ $dataTransaction['content']['general']['bankAccount']['beneficiary']['bankAccountNumber'] }}</td>
           </tr>
         </table>
       </div>

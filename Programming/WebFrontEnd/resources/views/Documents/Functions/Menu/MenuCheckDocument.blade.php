@@ -13,8 +13,8 @@
                                             <td style="position:relative;top:3px;"><label>Document Number</label></td>
                                             <td>
                                                 <div class="input-group">
-                                                    <input id="businessDocument_RefID" style="border-radius:0;" name="businessDocument_RefID" type="text" class="form-control" hidden value="{{ $businessDocument['recordID'] }}">
-                                                    <input id="businessDocumentNumber" style="border-radius:0;" name="businessDocumentNumber" type="text" class="form-control" value="{{ $businessDocument['number'] }}" autocomplete="off">
+                                                    <input id="businessDocument_RefID" style="border-radius:0;" name="businessDocument_RefID" type="text" class="form-control" hidden value="{{ $businessDocument_RefID }}">
+                                                    <input id="businessDocumentNumber" style="border-radius:0;" name="businessDocumentNumber" type="text" class="form-control" value="{{ $businessDocumentNumber }}" autocomplete="off">
                                                     <div class="input-group-append">
                                                         <span style="border-radius:0;" class="input-group-text form-control">
                                                             <a class="nav-link mySearchCheckDocument" data-toggle="modal" data-target="#mySearchCheckDocument"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
