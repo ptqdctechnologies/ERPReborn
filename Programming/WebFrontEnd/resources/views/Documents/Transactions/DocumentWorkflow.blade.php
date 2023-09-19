@@ -1,14 +1,3 @@
-<div class="card ShowDocument">
-    <table>
-        <tr>
-            <td>
-                <a class="btn btn-default btn-sm float-right ViewDocument" style="background-color:#e9ecef;border:1px solid #ced4da;">
-                    View Document
-                </a>
-            </td>
-        </tr>
-    </table>
-</div>
 <div class="col-12 ShowDocument">
     <div class="card">
         <div class="card-header">
