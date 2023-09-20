@@ -31,13 +31,14 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (string) varFormNumberKeyword ► Form Number Keyword                                                               |
+        |      ▪ (int)    varApproverEntity_RefID ► Approver Entity Reference ID                                                   |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getBusinessDocumentLastVersionByFormNumberKeyword(
             $varUserSession, int $varSysBranch_RefID, 
-            string $varFormNumberKeyword)
+            string $varFormNumberKeyword, int $varApproverEntity_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -45,7 +46,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                     $varUserSession,
                     'SchData-OLTP-Master.Func_General_GetBusinessDocumentLastVersionByFormNumber',
                     [
-                        [$varFormNumberKeyword, 'varchar']
+                        [$varFormNumberKeyword, 'varchar'],
+                        [$varApproverEntity_RefID, 'bigint']
                     ]
                     )
                 );

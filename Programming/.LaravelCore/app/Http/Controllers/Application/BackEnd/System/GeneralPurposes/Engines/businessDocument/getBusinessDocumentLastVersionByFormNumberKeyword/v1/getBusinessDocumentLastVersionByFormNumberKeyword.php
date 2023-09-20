@@ -66,7 +66,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\GeneralPurposes\Engine
                         $varUserSession, 
                         (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
 
-                        $varData['parameter']['keyword']
+                        $varData['parameter']['keyword'],
+                        $varData['parameter']['approverEntity_RefID']
                         ))))
                         {
                         throw new \Exception();
