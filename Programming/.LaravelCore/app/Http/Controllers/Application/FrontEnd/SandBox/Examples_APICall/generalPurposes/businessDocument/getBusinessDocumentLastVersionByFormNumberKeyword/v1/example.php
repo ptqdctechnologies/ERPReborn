@@ -43,7 +43,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\gen
                 'latest',
                 [
                 'parameter' => [
-                    'keyword' => 'PR/QDC/2023'
+                    'keyword' => 'QDC',
+                    'approverEntity_RefID' => 164000000000196
                     ]
                 ]
                 );
@@ -73,7 +74,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\gen
                 }
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_Keyword" value="PR/QDC/2023">';
+            echo '<input type="text" id="dataInput_Keyword" value="QDC">';
+            echo '<input type="text" id="dataInput_ApproverEntity_RefID" value=164000000000196>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -81,7 +83,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\gen
                 'latest', 
                 '{'.
                     '"parameter" : {'.
-                        '"keyword" : document.getElementById("dataInput_Keyword").value'.
+                        '"keyword" : document.getElementById("dataInput_Keyword").value, '.                    
+                        '"approverEntity_RefID" : parseInt(document.getElementById("dataInput_ApproverEntity_RefID").value)'.
                         '}'.
                 '}'
                 );            
