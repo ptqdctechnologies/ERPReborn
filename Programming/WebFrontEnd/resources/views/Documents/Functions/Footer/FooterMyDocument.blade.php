@@ -70,6 +70,7 @@
 <!-- LOADING DATA MY DOCUMENT -->
 <script>
     function SuccessDataMyDocument(data){
+        var keys = 0;
         var no = 1;
         var t = $('.TableMyDocument').DataTable();
         t.clear();
@@ -85,9 +86,8 @@
             }
 
             keys += 1;
-
             t.row.add([
-                '<tbody><tr><input id="businessDocument_RefID' + keys + '" value="' + val.entities.formDocumentNumber_RefID + '" type="hidden"><td><span style="position:relative;left:10px;">' + no++ + '</span></td>',
+                '<tbody><tr><input class="businessDocument_RefID' + keys + '" value="' + val.entities.formDocumentNumber_RefID + '" type="hidden"><td><span style="position:relative;left:10px;">' + no++ + '</span></td>',
                 '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentNumber + '</span></td>',
                 '<td><span style="position:relative;left:10px;">' + val.entities.combinedBudgetCode + '</span></td>',
                 '<td><span style="position:relative;left:10px;">' + val.entities.previousWorkFlowPathApproverName + '</span></td>',
@@ -97,15 +97,14 @@
             ]).draw();
         });
 
-        $("#loading").hide();
-        $(".loader").hide();
+        HideLoading();
     }
 </script>
 
 <!-- SHOW DATA FOR FIRST LOADING  -->
 <script type="text/javascript">
-    $("#loading").show();
-    $(".loader").show();
+    
+    ShowLoading();
 
     $.ajaxSetup({
         headers: {
@@ -122,8 +121,7 @@
             SuccessDataMyDocument(data);
         },
         error: function(response) {
-            $("#loading").hide();
-            $(".loader").hide();
+            HideLoading();
             Swal.fire("Cancelled", "Data Not Found !", "error");
         },
     });
@@ -140,8 +138,7 @@
             var form_data = new FormData($(this)[0]);
             var form = $(this);
 
-            $("#loading").show();
-            $(".loader").show();
+            ShowLoading();
 
             $('.TableMyDocument').find('tbody').empty();
 
@@ -165,8 +162,7 @@
                     SuccessDataMyDocument(data);
                 },
                 error: function(response) {
-                    $("#loading").hide();
-                    $(".loader").hide();
+                    HideLoading();
                     Swal.fire("Cancelled", "Data Not Found !", "error");
                 },
             })
@@ -188,11 +184,10 @@
 <script>
     $('.TableMyDocument tbody').on('click', 'tr', function() {
 
-        var id = $(this).find("td:nth-child(1)").text();
-        var businessDocument_RefID = $('#businessDocument_RefID' + id).val();
-
-        $("#loading").show();
-        $(".loader").show();
+        var row = $(this).closest("tr");  
+        var id = row.find("td:nth-child(1)").text();
+        var businessDocument_RefID = $('.businessDocument_RefID' + id).val();
+        ShowLoading();
 
         window.location.href = '/ShowDocumentByID?businessDocument_RefID=' + businessDocument_RefID;
 
