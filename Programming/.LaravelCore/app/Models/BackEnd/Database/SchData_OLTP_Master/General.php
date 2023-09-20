@@ -20,6 +20,41 @@ namespace App\Models\Database\SchData_OLTP_Master
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getBusinessDocumentLastVersionByFormNumberKeyword                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-09-19                                                                                           |
+        | ▪ Creation Date   : 2023-09-19                                                                                           |
+        | ▪ Description     : Get Business Document Last Version By Form Number Keyword                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ▪ (string) varFormNumberKeyword ► Form Number Keyword                                                               |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getBusinessDocumentLastVersionByFormNumberKeyword(
+            $varUserSession, int $varSysBranch_RefID, 
+            string $varFormNumberKeyword)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    'SchData-OLTP-Master.Func_General_GetBusinessDocumentLastVersionByFormNumber',
+                    [
+                        [$varFormNumberKeyword, 'varchar']
+                    ]
+                    )
+                );
+            return $varReturn['Data'];
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataEntities_CountryAdministrativeArea                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
