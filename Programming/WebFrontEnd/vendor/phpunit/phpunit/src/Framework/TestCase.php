@@ -59,6 +59,8 @@ use function sprintf;
 use function strlen;
 use function strpos;
 use function substr;
+use function sys_get_temp_dir;
+use function tempnam;
 use function trim;
 use function var_export;
 use DeepCopy\DeepCopy;
@@ -127,7 +129,7 @@ abstract class TestCase extends Assert implements SelfDescribing, Test
     protected $backupGlobalsBlacklist = [];
 
     /**
-     * @var bool
+     * @var ?bool
      */
     protected $backupStaticAttributes;
 
@@ -137,7 +139,7 @@ abstract class TestCase extends Assert implements SelfDescribing, Test
     protected $backupStaticAttributesBlacklist = [];
 
     /**
-     * @var bool
+     * @var ?bool
      */
     protected $runTestInSeparateProcess;
 
@@ -147,7 +149,7 @@ abstract class TestCase extends Assert implements SelfDescribing, Test
     protected $preserveGlobalState = true;
 
     /**
-     * @var bool
+     * @var ?bool
      */
     private $runClassInSeparateProcess;
 
@@ -167,17 +169,17 @@ abstract class TestCase extends Assert implements SelfDescribing, Test
     private $dataName;
 
     /**
-     * @var null|string
+     * @var ?string
      */
     private $expectedException;
 
     /**
-     * @var null|string
+     * @var ?string
      */
     private $expectedExceptionMessage;
 
     /**
-     * @var null|string
+     * @var ?string
      */
     private $expectedExceptionMessageRegExp;
 
@@ -801,6 +803,7 @@ abstract class TestCase extends Assert implements SelfDescribing, Test
             $codeCoverageFilter = "'." . $codeCoverageFilter . ".'";
 
             $configurationFilePath = $GLOBALS['__PHPUNIT_CONFIGURATION_FILE'] ?? '';
+            $processResultFile     = tempnam(sys_get_temp_dir(), 'phpunit_');
 
             $var = [
                 'composerAutoload'                           => $composerAutoload,
@@ -824,6 +827,7 @@ abstract class TestCase extends Assert implements SelfDescribing, Test
                 'codeCoverageFilter'                         => $codeCoverageFilter,
                 'configurationFilePath'                      => $configurationFilePath,
                 'name'                                       => $this->getName(false),
+                'processResultFile'                          => $processResultFile,
             ];
 
             if (!$runEntireClass) {
@@ -833,7 +837,7 @@ abstract class TestCase extends Assert implements SelfDescribing, Test
             $template->setVar($var);
 
             $php = AbstractPhpProcess::factory();
-            $php->runTestJob($template->render(), $this, $result);
+            $php->runTestJob($template->render(), $this, $result, $processResultFile);
         } else {
             $result->run($this);
         }
@@ -1682,11 +1686,11 @@ abstract class TestCase extends Assert implements SelfDescribing, Test
         }
 
         return $this->getMockBuilder($originalClassName)
-                    ->disableOriginalConstructor()
-                    ->disableOriginalClone()
-                    ->disableArgumentCloning()
-                    ->disallowMockingUnknownTypes()
-                    ->getMock();
+            ->disableOriginalConstructor()
+            ->disableOriginalClone()
+            ->disableArgumentCloning()
+            ->disallowMockingUnknownTypes()
+            ->getMock();
     }
 
     /**
@@ -1754,12 +1758,12 @@ abstract class TestCase extends Assert implements SelfDescribing, Test
         }
 
         return $this->getMockBuilder($originalClassName)
-                    ->disableOriginalConstructor()
-                    ->disableOriginalClone()
-                    ->disableArgumentCloning()
-                    ->disallowMockingUnknownTypes()
-                    ->setMethods(empty($methods) ? null : $methods)
-                    ->getMock();
+            ->disableOriginalConstructor()
+            ->disableOriginalClone()
+            ->disableArgumentCloning()
+            ->disallowMockingUnknownTypes()
+            ->setMethods(empty($methods) ? null : $methods)
+            ->getMock();
     }
 
     /**
@@ -1774,9 +1778,9 @@ abstract class TestCase extends Assert implements SelfDescribing, Test
     protected function createTestProxy(string $originalClassName, array $constructorArguments = []): MockObject
     {
         return $this->getMockBuilder($originalClassName)
-                    ->setConstructorArgs($constructorArguments)
-                    ->enableProxyingToOriginalMethods()
-                    ->getMock();
+            ->setConstructorArgs($constructorArguments)
+            ->enableProxyingToOriginalMethods()
+            ->getMock();
     }
 
     /**
@@ -1947,7 +1951,7 @@ abstract class TestCase extends Assert implements SelfDescribing, Test
      *
      * @return object
      */
-    protected function getObjectForTrait($traitName, array $arguments = [], $traitClassName = '', $callOriginalConstructor = true, $callOriginalClone = true, $callAutoload = true)/*: object*/
+    protected function getObjectForTrait($traitName, array $arguments = [], $traitClassName = '', $callOriginalConstructor = true, $callOriginalClone = true, $callAutoload = true)/* : object */
     {
         $this->recordDoubledType($traitName);
 
@@ -1961,7 +1965,7 @@ abstract class TestCase extends Assert implements SelfDescribing, Test
     }
 
     /**
-     * @param null|string $classOrInterface
+     * @param ?string $classOrInterface
      *
      * @throws \Prophecy\Exception\Doubler\ClassNotFoundException
      * @throws \Prophecy\Exception\Doubler\DoubleException
