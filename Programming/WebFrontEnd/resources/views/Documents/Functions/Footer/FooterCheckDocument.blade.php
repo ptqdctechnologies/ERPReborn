@@ -36,8 +36,7 @@
 <script>
     $('#DocumentType').on("select2:select", function(e) {
 
-        $("#loading").show();
-        $(".loader").show();
+        ShowLoading();
 
         $('#TableCheckDocument').find('tbody').empty();
 
@@ -65,8 +64,8 @@
                         '<td><span style="position:relative;left:10px;">' + val.entities.combinedBudgetSectionCode + '</span></td></tr></tbody>',
                     ]).draw();
                 });
-                $("#loading").hide();
-                $(".loader").hide();
+
+                HideLoading();
             }
         });
     });

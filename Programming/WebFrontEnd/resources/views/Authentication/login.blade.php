@@ -209,7 +209,7 @@
                     data: form_data,
                     type: method,
                     success: function(response) {
-
+                        
                         var len = 0;
 
                         if (response.status_code == 0) {
@@ -274,7 +274,6 @@
                 if (id != "") {
 
                     ShowLoading();
-                    varData
 
                     $.ajax({
                         type: 'GET',
