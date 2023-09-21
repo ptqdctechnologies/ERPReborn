@@ -40,8 +40,6 @@
                 var html =
                     '<tr>' +
                     '<td style="border:1px solid #e9ecef;">' + trano + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + value.entities.combinedBudgetSubSectionLevel1_RefID + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + value.entities.combinedBudgetSubSectionLevel1Name + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + value.entities.product_RefID + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + value.entities.productName + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + value.entities.quantityUnitName + '</td>' +
@@ -76,8 +74,6 @@
                 var html2 =
                     '<tr>' +
                     '<input name="var_date" value="' + date + '" type="hidden">' +
-                    '<input name="getWorkId[]" value="' + value.entities.combinedBudgetSubSectionLevel1_RefID + '" type="hidden">' +
-                    '<input name="getWorkName[]" value="' + value.entities.combinedBudgetSubSectionLevel1Name + '" type="hidden">' +
                     '<input name="var_product_id[]" value="' + value.entities.product_RefID + '" type="hidden">' +
                     '<input name="var_product_name[]" value="' + value.entities.productName + '" type="hidden">' +
                     '<input name="var_qty_id[]" value="' + value.entities.quantityUnit_RefID + '" type="hidden">' +
@@ -333,12 +329,6 @@
         var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
 
         var trano = $("#trano").val();
-        var getWorkId = $("input[name='getWorkId[]']").map(function() {
-            return $(this).val();
-        }).get();
-        var getWorkName = $("input[name='getWorkName[]']").map(function() {
-            return $(this).val();
-        }).get();
         var getProductId = $("input[name='var_product_id[]']").map(function() {
             return $(this).val();
         }).get();
@@ -390,8 +380,6 @@
                 TotalQty += +qty_req[index].replace(/,/g, '');
                 var html = '<tr>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + trano + '</td>' +
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkId[index] + '</td>' +
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkName[index] + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductId + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductName + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getUom[index] + '</td>' +

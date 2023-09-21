@@ -39,6 +39,12 @@
   <!-- Font Googleapis -->
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/fonts.googleapis.css') }}">
 
+  <!-- Toast Notification  -->
+  
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+  <!-- Core  -->
   <script src="{{ asset('js/zht-js/core.js') }}"></script>
   <script>
     new zht_JSCore(false)
@@ -69,10 +75,10 @@
   <script src="{{ asset('AdminLTE-master/plugins/fullcalendar/customfullcalender.js') }}"></script>
   <!-- Adminlte JS -->
   <script src="{{ asset('AdminLTE-master/dist/js/adminlte.js') }}"></script>
-<!-- Select2 -->
-<script src="{{ asset('AdminLTE-master/plugins/select2/js/select2.full.min.js') }}"></script>
-<!-- Format Date -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.min.js"></script>
+  <!-- Select2 -->
+  <script src="{{ asset('AdminLTE-master/plugins/select2/js/select2.full.min.js') }}"></script>
+  <!-- Format Date -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.min.js"></script>
 
 </body>
 

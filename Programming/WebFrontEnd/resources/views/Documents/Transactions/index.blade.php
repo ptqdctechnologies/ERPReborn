@@ -4,6 +4,7 @@
 @include('Partials.sidebar')
 @include('getFunction.getSite')
 @include('Documents.Functions.PopUp.SearchCheckDocument')
+@include('toastr')
 
 <div class="content-wrapper">
   <section class="content">
@@ -13,7 +14,7 @@
           <label style="font-size:15px;position:relative;top:7px;color:white;">Check Document on Process</label>
         </div>
       </div>
-
+      
       @include('Documents.Functions.Menu.MenuCheckDocument')
 
       @if($var == 1)
@@ -36,13 +37,21 @@
 
           <div class="row">
             @include('Documents.Transactions.DocumentWorkflow')
+
             @if($businessDocumentTitle == "Advance Form")
             @include('Documents.Transactions.DocumentAdvance')
+
+            @elseif($businessDocumentTitle == "Person Business Trip Form")
+            @include('Documents.Transactions.DocumentBussinesTripRequest')
+
             @elseif($businessDocumentTitle == "Purchase Requisition Form")
             @include('Documents.Transactions.DocumentPurchaseRequisition')
+
             @elseif($businessDocumentTitle == "Purchase Order Form")
             @include('Documents.Transactions.DocumentPurchaseRequisition')
+
             @endif
+
           </div>
         </div>
       </div>

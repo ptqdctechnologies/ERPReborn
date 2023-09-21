@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Document;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Alert;
+use Illuminate\Support\Facades\Session;
 
 class CheckDocumentController extends Controller
 {
     public function index(Request $request)
-    {
+    {   
         $compact = [
             'var' => 0,
             'businessDocument_RefID' => "",
@@ -21,6 +23,7 @@ class CheckDocumentController extends Controller
 
     public function ShowDocument(Request $request)
     {
+        
         $SessionWorkerCareerInternal_RefID = $request->session()->get('SessionWorkerCareerInternal_RefID');
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
@@ -45,7 +48,7 @@ class CheckDocumentController extends Controller
             );
             
             if(!isset($varData['data'][0]['document']['content']['itemList']['ungrouped'])){
-                return redirect()->route('CheckDocument.index');
+                return redirect()->route('CheckDocument.index')->with('NotFound','Data Not Found');
             }
             else{
                 $businessDocument_RefID = (int) $varData['data'][0]['document']['content']['itemList']['ungrouped'][0]['entities']['formDocumentNumber_RefID'];
@@ -75,7 +78,7 @@ class CheckDocumentController extends Controller
             }
         }
         else{
-            return redirect()->route('CheckDocument.index');
+            return redirect()->route('CheckDocument.index')->with('NotFound','Data Not Found');
         }
 
         

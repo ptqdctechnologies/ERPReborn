@@ -273,18 +273,19 @@ class BusinessTripSettlementController extends Controller
 
         $varDataAdvanceSettlementRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'report.form.documentForm.finance.getAdvance',
+            $varAPIWebToken, 
+            'report.form.documentForm.finance.getAdvance', 
             'latest',
             [
-                'parameter' => [
-                    'recordID' => (int) $request->searchBsfNumberRevisionId,
+            'parameter' => [
+                'recordID' => (int) $request->searchBsfNumberRevisionId,
                 ]
             ]
-        );
+            );
+
         // dd($varDataAdvanceSettlementRevision);
         $compact = [
-            'dataRevisi' => $varDataAdvanceSettlementRevision['data'][0]['document']['content'],
+            'dataRevisi' => $varDataAdvanceSettlementRevision['data'][0]['document']['content']['general'],
             'trano' => $varDataAdvanceSettlementRevision['data'][0]['document']['header']['number'],
             'var_recordID' => $request->searchBsfNumberRevisionId,
             'varAPIWebToken' => $varAPIWebToken,
