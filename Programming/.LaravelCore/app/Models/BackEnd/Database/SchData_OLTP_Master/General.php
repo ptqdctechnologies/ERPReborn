@@ -57,6 +57,41 @@ namespace App\Models\Database\SchData_OLTP_Master
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getIDTranslation_BusinessDocumentVersionToBusinessDocumentForm                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-09-21                                                                                           |
+        | ▪ Creation Date   : 2023-09-21                                                                                           |
+        | ▪ Description     : Get ID Translation : Busines Document Version ID To Business Document Form ID                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ▪ (int)    varBusinessDocumentVersionID ► Business Document Version ID                                              |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getIDTranslation_BusinessDocumentVersionToBusinessDocumentForm(
+            $varUserSession, int $varSysBranch_RefID, 
+            int $varBusinessDocumentVersionID = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    'SchData-OLTP-Master.Func_GetIDTranslation_BusinessDocVersionToBusinessDocForm',
+                    [
+                        ['{'.$varBusinessDocumentVersionID.'}', 'bigint[]']
+                    ]
+                    )
+                );
+            return $varReturn['Data'];
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataEntities_CountryAdministrativeArea                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |

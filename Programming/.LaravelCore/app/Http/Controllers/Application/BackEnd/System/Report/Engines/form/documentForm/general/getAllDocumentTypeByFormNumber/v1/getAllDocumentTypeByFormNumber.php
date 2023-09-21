@@ -63,25 +63,32 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        $this->dataProcess(
-                            $varUserSession,
-                            $varData['parameter']['formNumber'],
-                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'approverEntity_RefID', $varData['parameter']) ? ((!is_null($varData['parameter']['approverEntity_RefID'])) ? $varData['parameter']['approverEntity_RefID'] : null) : null)
-                            //$varData['parameter']['approverEntity_RefID']
-                            );
-                        /*
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_DocumentForm_AllDocumentType(
-                            $varUserSession, 
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-
-                            $varData['parameter']['recordID']
-                            ))))
+                        $varRecordID = 
+                            $this->dataProcess(
+                                $varUserSession,
+                                $varData['parameter']['formNumber'],
+                                (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'approverEntity_RefID', $varData['parameter']) ? ((!is_null($varData['parameter']['approverEntity_RefID'])) ? $varData['parameter']['approverEntity_RefID'] : null) : null)
+                                //$varData['parameter']['approverEntity_RefID']
+                                );
+                        
+                        if (is_null($varRecordID))
                             {
-                            throw new \Exception();
+                            $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, 'Invalid Form Number');                            
                             }
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
-                         
-                         */
+                        else
+                            {
+                            if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_DocumentForm_AllDocumentType(
+                                $varUserSession, 
+                                (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+
+                                $varRecordID
+                                ))))
+                                {
+                                throw new \Exception();
+                                }
+                            $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
+                            }
+                        
                         }
                     catch (\Exception $ex) {
                         $varErrorMessage = $ex->getMessage();
@@ -101,8 +108,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
+
         private function dataProcess($varUserSession, string $varFormNumber, int $varApproverEntity_RefID = null)
             {
+            $varReturn = null;
             $varBufferDB = 
                 (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentLastVersionByFormNumberKeyword(
                     $varUserSession, 
@@ -110,7 +119,16 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
                     $varFormNumber,
                     $varApproverEntity_RefID
                     );
-            dd($varFormNumber);
+            if (count($varBufferDB) == 1) {
+                $varReturn = 
+                    (new \App\Models\Database\SchData_OLTP_Master\General())->getIDTranslation_BusinessDocumentVersionToBusinessDocumentForm(
+                        $varUserSession, 
+                        (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
+                        $varBufferDB[0]['Sys_ID']
+                        )[0]['BusinessDocumentForm_RefID'];
+//                dd($varBufferDB;
+                }
+            return $varReturn;
             }
         }
     }
