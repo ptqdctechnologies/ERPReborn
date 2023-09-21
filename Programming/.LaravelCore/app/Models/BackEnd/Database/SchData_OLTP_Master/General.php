@@ -57,6 +57,41 @@ namespace App\Models\Database\SchData_OLTP_Master
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getIDTranslation_BusinessDocumentVersionToBusinessDocumentForm                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-09-21                                                                                           |
+        | ▪ Creation Date   : 2023-09-21                                                                                           |
+        | ▪ Description     : Get ID Translation : Busines Document Version ID To Business Document Form ID                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ▪ (int)    varBusinessDocumentVersionID ► Business Document Version ID                                              |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getIDTranslation_BusinessDocumentVersionToBusinessDocumentForm(
+            $varUserSession, int $varSysBranch_RefID, 
+            int $varBusinessDocumentVersionID = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    'SchData-OLTP-Master.Func_GetIDTranslation_BusinessDocVersionToBusinessDocForm',
+                    [
+                        ['{'.$varBusinessDocumentVersionID.'}', 'bigint[]']
+                    ]
+                    )
+                );
+            return $varReturn['Data'];
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataEntities_CountryAdministrativeArea                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -3010,6 +3045,49 @@ namespace App\Models\Database\SchData_OLTP_Master
             }
 
 
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getBusinessDocumentLastVersionByFormNumber                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-09-21                                                                                           |
+        | ▪ Creation Date   : 2023-09-21                                                                                           |
+        | ▪ Description     : Mendapatkan Versi Terakhir Dokumen Bisnis Berdasarkan Form Number                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varFormNumber ► Form Number                                                                              |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getBusinessDocumentLastVersionByFormNumber(
+            $varUserSession, int $varBranchID, 
+            string $varFormNumber = null, int $varApproverEntity_RefID = null)                    
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-Master.Func_General_GetBusinessDocumentLastVersionByFormNumber',
+                        [
+                            [$varFormNumber, 'varchar'],
+                            [$varApproverEntity_RefID, 'bigint']
+                        ]
+                        )
+                    );
+                $varReturn = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varReturn['Data'][0]['Func_GetReport_Resume_BusinessDocumentDispositionHistory']);
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+            
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getReport_Form_Resume_BusinessDocumentDispositionHistory                                             |
