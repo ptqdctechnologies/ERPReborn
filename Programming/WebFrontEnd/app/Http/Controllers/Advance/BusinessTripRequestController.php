@@ -149,19 +149,19 @@ class BusinessTripRequestController extends Controller
         $request->session()->forget("SessionBusinessTripRequest");
 
         $varDataAdvanceRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken, 
-        'report.form.documentForm.finance.getAdvance', 
-        'latest',
-        [
-        'parameter' => [
-            'recordID' => (int) $request->searchBrfNumberRevisionId,
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'report.form.documentForm.finance.getAdvance', 
+            'latest',
+            [
+            'parameter' => [
+                'recordID' => (int) $request->searchBrfNumberRevisionId,
+                ]
             ]
-        ]
-        );
+            );
         // dd($varDataAdvanceRevision);
         $compact = [
-            'dataRevisi' => $varDataAdvanceRevision['data'][0]['document']['content'],
+            'dataRevisi' => $varDataAdvanceRevision['data'][0]['document']['content']['general'],
             'var_recordID' => $request->searchBrfNumberRevisionId,
             'varAPIWebToken' => $varAPIWebToken,
             'statusRevisi' => 1,

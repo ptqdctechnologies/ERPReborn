@@ -1,79 +1,84 @@
-<div class="card-body ShowDocumentList" style="font-weight: bold;">
-  <center>
-    <h3><b><span style="text-transform:uppercase">PURCHASE ORDER</span></b></h3>
-  </center>
-  <br>
-  <div class="row">
-  <div class="col-md-8">
-      <div class="form-group">
-        <table>
-          <tr>
-            <td style="padding-top: 5px;"><label>{{ $dataTransaction['header']['title'] }} Number</label></td>
-            <td>:</td>
-            <td>{{ $dataTransaction['header']['number'] }}</td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>Travel Date</label></td>
-            <td>:</td>
-            <td>{{ $dataTransaction['header']['date'] }}</td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>Budget Code</label></td>
-            <td>:</td>
-            <td>{{ $dataTransaction['content']['general']['budget']['combinedBudgetCodeList'][0] }}</td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>Origin of Budget</label></td>
-            <td>:</td>
-            <td>{{ $dataTransaction['content']['general']['budget']['combinedBudgetCodeList'][0] }}</td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>File Attachment</label></td>
-            <td>:</td>
-            <td>{{ $dataTransaction['content']['general']['budget']['combinedBudgetCodeList'][0] }}</td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>Invoice To</label></td>
-            <td>:</td>
-            <td>{{ $dataTransaction['header']['number'] }}</td>
-          </tr>
-        </table>
-      </div>
+<div class="col-12 ShowDocumentList" style="font-weight: bold;">
+  <div class="card">
+    <div class="card-header">
+      <center>
+        <h3><span style="text-transform:uppercase;font-weight:bold;">{{ $dataTransaction['header']['title'] }}</span></h3>
+      </center>
     </div>
-    <div class="col-md-4">
-      <div class="form-group">
-        <table>
-          <tr>
-            <td style="padding-top: 5px;"><label>Revision</label></td>
-            <td>:</td>
-            <td>{{ $dataTransaction['header']['date'] }}</td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>Vendor</label></td>
-            <td>:</td>
-            <td>{{ $dataTransaction['header']['number'] }}</td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>Vendor Address</label></td>
-            <td>:</td>
-            <td>{{ $dataTransaction['header']['number'] }}</td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>Telp.</label></td>
-            <td>:</td>
-            <td>{{ $dataTransaction['header']['number'] }}</td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>Delivery Travel</label></td>
-            <td>:</td>
-            <td>{{ $dataTransaction['header']['date'] }}</td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>Please Delivery To</label></td>
-            <td>:</td>
-            <td>{{ $dataTransaction['header']['number'] }}</td>
-          </tr>
-        </table>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="form-group">
+            <table>
+              <tr>
+                <td style="padding-top: 5px;"><label>{{ $dataTransaction['header']['title'] }} Number</label></td>
+                <td>:</td>
+                <td>{{ $dataTransaction['header']['number'] }}</td>
+              </tr>
+              <tr>
+                <td style="padding-top: 5px;"><label>Travel Date</label></td>
+                <td>:</td>
+                <td>{{ $dataTransaction['header']['date'] }}</td>
+              </tr>
+              <tr>
+                <td style="padding-top: 5px;"><label>Budget Code</label></td>
+                <td>:</td>
+                <td>{{ $dataTransaction['content']['general']['budget']['combinedBudgetCodeList'][0] }}</td>
+              </tr>
+              <tr>
+                <td style="padding-top: 5px;"><label>Origin of Budget</label></td>
+                <td>:</td>
+                <td>{{ $dataTransaction['content']['general']['budget']['combinedBudgetCodeList'][0] }}</td>
+              </tr>
+              <tr>
+                <td style="padding-top: 5px;"><label>File Attachment</label></td>
+                <td>:</td>
+                <td>{{ $dataTransaction['content']['general']['budget']['combinedBudgetCodeList'][0] }}</td>
+              </tr>
+              <tr>
+                <td style="padding-top: 5px;"><label>Invoice To</label></td>
+                <td>:</td>
+                <td>{{ $dataTransaction['header']['number'] }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <table>
+              <tr>
+                <td style="padding-top: 5px;"><label>Revision</label></td>
+                <td>:</td>
+                <td>{{ $dataTransaction['header']['date'] }}</td>
+              </tr>
+              <tr>
+                <td style="padding-top: 5px;"><label>Vendor</label></td>
+                <td>:</td>
+                <td>{{ $dataTransaction['header']['number'] }}</td>
+              </tr>
+              <tr>
+                <td style="padding-top: 5px;"><label>Vendor Address</label></td>
+                <td>:</td>
+                <td>{{ $dataTransaction['header']['number'] }}</td>
+              </tr>
+              <tr>
+                <td style="padding-top: 5px;"><label>Telp.</label></td>
+                <td>:</td>
+                <td>{{ $dataTransaction['header']['number'] }}</td>
+              </tr>
+              <tr>
+                <td style="padding-top: 5px;"><label>Delivery Travel</label></td>
+                <td>:</td>
+                <td>{{ $dataTransaction['header']['date'] }}</td>
+              </tr>
+              <tr>
+                <td style="padding-top: 5px;"><label>Please Delivery To</label></td>
+                <td>:</td>
+                <td>{{ $dataTransaction['header']['number'] }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>

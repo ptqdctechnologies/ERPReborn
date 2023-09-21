@@ -95,8 +95,12 @@
                       </div>
                     </div>
                   </div>
-                  <br>
                 </form>
+              </div>
+            </div>
+
+            <div class="col-12 ShowDocument">
+              <div class="card">
                 <div class="card-body table-responsive p-0">
                   <table class="table table-head-fixed text-nowrap TableMyDocument" id="TableMyDocument">
                     <thead>
@@ -116,6 +120,7 @@
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </div>

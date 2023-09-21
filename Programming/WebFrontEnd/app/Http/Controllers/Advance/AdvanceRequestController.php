@@ -165,7 +165,7 @@ class AdvanceRequestController extends Controller
         // dd($varDataAdvanceRevision);
 
         $compact = [
-            'dataRevisi' => $varDataAdvanceRevision['data'][0]['document']['content'],
+            'dataRevisi' => $varDataAdvanceRevision['data'][0]['document']['content']['general'],
             'var_recordID' => $request->searchArfNumberRevisionId,
             'trano' => $varDataAdvanceRevision['data'][0]['document']['header']['number'],
             'varAPIWebToken' => $varAPIWebToken,
@@ -247,8 +247,7 @@ class AdvanceRequestController extends Controller
             ]
             );
             
-            
-            return response()->json($varData['data'][0]['document']['content']['itemList']['ungrouped']);
+            return response()->json($varData['data'][0]['document']['content']['details']['itemList']);
         }
     
 }

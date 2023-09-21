@@ -106,8 +106,8 @@
                               <td><label>Requester</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input name="request_name" id="request_name" style="border-radius:0;" type="text" class="form-control" readonly value="{{ $dataRevisi['involvedPersons']['requester']['name'] }}">
-                                  <input name="request_name_id" id="request_name_id" style="border-radius:0;" type="hidden" class="form-control" readonly value="{{ $dataRevisi['involvedPersons']['requester']['workerJobsPosition_RefID'] }}">
+                                  <input name="request_name" id="request_name" style="border-radius:0;" type="text" class="form-control" readonly value="{{ $dataRevisi['involvedPersons'][0]['requesterWorkerJobsPositionName']  }}">
+                                  <input name="request_name_id" id="request_name_id" style="border-radius:0;" type="hidden" class="form-control" readonly value="{{ $dataRevisi['involvedPersons'][0]['requesterWorkerJobsPosition_RefID'] }}">
                                   <input name="var_combinedBudget" id="combinedBudget" style="border-radius:0;" type="hidden" class="form-control" readonly>
                                   <div class="input-group-append">
                                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -118,7 +118,7 @@
                               </td>
                               <td>
                                 <div class="input-group">
-                                  <input id="request_position" style="border-radius:0;" class="form-control" name="request_position" readonly value="{{ $dataRevisi['involvedPersons']['beneficiary']['jobsPositionName'] }}">
+                                  <input id="request_position" style="border-radius:0;" class="form-control" name="request_position" readonly value="{{ $dataRevisi['involvedPersons'][0]['beneficiaryWorkerJobsPositionName']  }}">
                                 </div>
                               </td>
                             </tr>
@@ -126,7 +126,7 @@
                               <td><label>Contact Phone</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="contactPhone" name="contactPhone" style="border-radius:0;" type="text" class="form-control" value="{{ $dataRevisi['involvedPersons']['beneficiary']['jobsPositionName'] }}">
+                                  <input id="contactPhone" name="contactPhone" style="border-radius:0;" type="text" class="form-control" value="{{ $dataRevisi['involvedPersons'][0]['beneficiaryWorkerJobsPosition_RefID'] }}">
                                 </div>
                               </td>
                             </tr>
