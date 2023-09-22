@@ -36,8 +36,7 @@
 <script>
     $('#DocumentType').on("select2:select", function(e) {
 
-        $("#loading").show();
-        $(".loader").show();
+        ShowLoading();
 
         $('#TableCheckDocument').find('tbody').empty();
 
@@ -57,17 +56,16 @@
                 t = $('#TableCheckDocument').DataTable();
                 t.clear();
                 $.each(data.data, function(key, val) {
-                    console.log(val);
                     keys += 1;
                     t.row.add([
-                        '<tbody><tr><td><input id="businessDocument_RefID' + keys + '" value="' + val.entities.businessDocument_RefID + '" type="hidden">' + no++ + '</span></td>',
+                        '<tbody><tr><td><input id="businessDocument_RefID' + keys + '" value="' + val.entities.formDocumentNumber_RefID + '" type="hidden">' + no++ + '</span></td>',
                         '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentNumber + '</span></td>',
                         '<td><span style="position:relative;left:10px;">' + val.entities.combinedBudgetCode + '</span></td>',
                         '<td><span style="position:relative;left:10px;">' + val.entities.combinedBudgetSectionCode + '</span></td></tr></tbody>',
                     ]).draw();
                 });
-                $("#loading").hide();
-                $(".loader").hide();
+
+                HideLoading();
             }
         });
     });
@@ -88,6 +86,9 @@
 </script>
 
 <script>
+
+    $(".ViewWorkflow").hide();
+
     $('.ViewDocument').on('click', function() {
         $(".ShowDocument").hide();
         $(".ShowDocumentList").show();
@@ -95,5 +96,18 @@
         $(".FileAttachment").show();
         $(".ApprovalHistory").show();
 
+        $(".ViewDocument").hide();
+        $(".ViewWorkflow").show();
+    });
+
+    $('.ViewWorkflow').on('click', function() {
+        $(".ShowDocument").show();
+        $(".ShowDocumentList").hide();
+        $(".InternalNotes").hide();
+        $(".FileAttachment").hide();
+        $(".ApprovalHistory").hide();
+
+        $(".ViewDocument").show();
+        $(".ViewWorkflow").hide();
     });
 </script>

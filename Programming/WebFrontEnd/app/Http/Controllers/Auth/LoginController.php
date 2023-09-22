@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -15,6 +16,124 @@ class LoginController extends Controller
         } else {
             return view('Authentication.login');
         }
+    }
+
+    public function UserPrivilageMenuFunction()
+    {
+        $varAPIWebToken = Session::get('SessionLogin');
+        
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'environment.general.session.keyList.getMenu', 
+            'latest', 
+            [
+            ]
+            );        
+
+        $privilageMenu = $varData['data']['keyList'];
+
+        return $privilageMenu;
+    }
+
+    public function SumDocumentWorkflowFunction($varAPIWebToken, $SessionWorkerCareerInternal_RefID)
+    {
+        
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'report.form.resume.master.getBusinessDocumentIssuanceDisposition',
+            'latest',
+            [
+                'parameter' => [
+                    'recordID' => (int)$SessionWorkerCareerInternal_RefID,
+                    'dataFilter' => [
+                        'businessDocumentNumber' => null,
+                        'businessDocumentType_RefID' => null,
+                        'combinedBudget_RefID' => null
+                    ]
+                ]
+            ]
+        );
+
+        $SumDocumentWorkflow = 0;
+
+        if ($varData['metadata']['HTTPStatusCode'] == 200) {
+            if ($varData['data'][0]['document']['content']['itemList']['ungrouped'] != null) {
+                $SumDocumentWorkflow = count($varData['data'][0]['document']['content']['itemList']['ungrouped']);
+            }
+        }
+        
+        return $SumDocumentWorkflow;
+    }
+
+    public function SetLoginBranchAndUserRoleFunction($varAPIWebToken, $varBranchID, $varUserRoleID, $personName, $workerCareerInternal_RefID)
+    {
+        \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'authentication.general.setLoginBranchAndUserRole',
+            'latest',
+            [
+                'branchID' => $varBranchID,
+                'userRoleID' => $varUserRoleID
+            ]
+        );
+
+        Session::put('SessionLogin', $varAPIWebToken);
+        Session::put('SessionLoginName', $personName);
+        Session::put('SessionWorkerCareerInternal_RefID', $workerCareerInternal_RefID);
+
+        // CALL SUM DOCUMENT WORKFLOW FUNCTION 
+        $SumDocumentWorkflow = $this->SumDocumentWorkflowFunction($varAPIWebToken, $workerCareerInternal_RefID);
+        Session::put('SumDocumentWorkflow', $SumDocumentWorkflow);
+
+        // CALL PRIVILAGE MENU FUNCTION 
+        $UserPrivilageMenu = $this->UserPrivilageMenuFunction();
+        Session::put('privilageMenu', $UserPrivilageMenu);
+
+        $compact = [
+            'status_code' => 1,
+        ];
+
+        return response()->json($compact);
+    }
+
+    public function GetRoleFunction($varAPIWebToken, $user_RefID, $branch_RefID)
+    {
+        $varDataRole = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'authentication.userPrivilege.getRole',
+            'latest',
+            [
+                'parameter' => [
+                    'user_RefID' => $user_RefID,
+                    'branch_RefID' => $branch_RefID,
+                    'dateTimeTZ' => null
+                ]
+            ]
+        );
+
+        return $varDataRole;
+    }
+
+    public function GetInstitutionBranchFunction($varAPIWebToken, $user_RefID)
+    {
+        $varDataBranch = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'authentication.userPrivilege.getInstitutionBranch',
+            'latest',
+            [
+                'parameter' => [
+                    'user_RefID' => $user_RefID,
+                    'dateTimeTZ' => null
+                ]
+            ]
+        );
+
+        return $varDataBranch;
     }
 
     public function loginStore(Request $request)
@@ -30,25 +149,7 @@ class LoginController extends Controller
             $personName = $request->input('personName');
             $workerCareerInternal_RefID = $request->input('workerCareerInternal_RefID');
 
-            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'authentication.general.setLoginBranchAndUserRole',
-                'latest',
-                [
-                    'branchID' => $varBranchID,
-                    'userRoleID' => $varUserRoleID
-                ]
-            );
-
-            $request->session()->put('SessionLogin', $varAPIWebToken);
-            $request->session()->put('SessionLoginName', $personName);
-            $request->session()->put('SessionWorkerCareerInternal_RefID', $workerCareerInternal_RefID);
-
-            $compact = [
-                'status_code' => 1,
-            ];
-            return response()->json($compact);
+            return $this->SetLoginBranchAndUserRoleFunction($varAPIWebToken, $varBranchID, $varUserRoleID, $personName, $workerCareerInternal_RefID);
             
         } else {
 
@@ -58,76 +159,29 @@ class LoginController extends Controller
                 $password
             );
 
-            // dd($dataAwal);
-
             if ($dataAwal['metadata']['HTTPStatusCode'] != 200) {
 
                 $compact = [
                     'status_code' => 0,
                 ];
                 return response()->json($compact);
+
             } else {
 
                 $varAPIWebToken = $dataAwal['data']['APIWebToken'];
 
-                $varDataBranch = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken,
-                    'authentication.userPrivilege.getInstitutionBranch',
-                    'latest',
-                    [
-                        'parameter' => [
-                            'user_RefID' => $dataAwal['data']['userIdentity']['user_RefID'],
-                            'dateTimeTZ' => null
-                        ]
-                    ]
-                );
-
-                // dd($varDataBranch['data']);
+                // CALL GET INSTRUCTION BRANCH FUNCTION 
+                $varDataBranch = $this->GetInstitutionBranchFunction($varAPIWebToken,$dataAwal['data']['userIdentity']['user_RefID']);
 
                 if ($varDataBranch['metadata']['HTTPStatusCode'] == 200) {
                     if (count($varDataBranch['data']) == 1) {
+                    
+                        // CALL GET ROLE FUNCTION 
+                        $varDataRole = $this->GetRoleFunction($varAPIWebToken,$dataAwal['data']['userIdentity']['user_RefID'], $varDataBranch['data'][0]['sys_ID']);
 
-                        $varDataRole = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                            $varAPIWebToken,
-                            'authentication.userPrivilege.getRole',
-                            'latest',
-                            [
-                                'parameter' => [
-                                    'user_RefID' => $dataAwal['data']['userIdentity']['user_RefID'],
-                                    'branch_RefID' => $varDataBranch['data'][0]['sys_ID'],
-                                    'dateTimeTZ' => null
-                                ]
-                            ]
-                        );
+                        // CALL SET LOGIN BRANCH AND USER ROLE FUNCTION
+                        return $this->SetLoginBranchAndUserRoleFunction($varAPIWebToken, $varDataBranch['data'][0]['sys_ID'], $varDataRole['data'][0]['sys_ID'], $dataAwal['data']['userIdentity']['personName'], $dataAwal['data']['userIdentity']['workerCareerInternal_RefID']);
 
-                        // dd($varDataRole);
-
-                        $x = 
-
-                        \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                            $varAPIWebToken,
-                            'authentication.general.setLoginBranchAndUserRole',
-                            'latest',
-                            [
-                                'branchID' => (int)$varDataBranch['data'][0]['sys_ID'],
-                                'userRoleID' => (int)$varDataRole['data'][0]['sys_ID']
-                            ]
-                        );
-
-                        // dd($x);
-
-                        $request->session()->put('SessionLogin', $varAPIWebToken);
-                        $request->session()->put('SessionLoginName', $dataAwal['data']['userIdentity']['personName']);
-                        $request->session()->put('SessionWorkerCareerInternal_RefID', $dataAwal['data']['userIdentity']['workerCareerInternal_RefID']);
-
-                        $compact = [
-                            'status_code' => 1,
-                        ];
-
-                        return response()->json($compact);
                     } else {
 
                         if ($varUserRoleID == 0) {
@@ -151,23 +205,12 @@ class LoginController extends Controller
     public function getRoleLogin(Request $request)
     {
 
-        $user_RefID = $request->input('user_RefID');
+        $user_RefID = (int)$request->input('user_RefID');
         $varBranchID = (int)$request->input('branch_name');
         $varAPIWebToken = $request->input('varAPIWebToken');
-
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'authentication.userPrivilege.getRole',
-            'latest',
-            [
-                'parameter' => [
-                    'user_RefID' => 4000000000498,
-                    'branch_RefID' => $varBranchID,
-                    'dateTimeTZ' => null
-                ]
-            ]
-        );
+        
+        // CALL GET ROLE FUNCTION         
+        $varData = $this->GetRoleFunction($varAPIWebToken,$user_RefID, $varBranchID);
 
         $status = $varData['metadata']['HTTPStatusCode'];
 
@@ -176,18 +219,6 @@ class LoginController extends Controller
         } else {
             return response()->json($status);
         }
-    }
-
-    public function SessionCheckingLogout(Request $request)
-    {
-
-        $varAPIWebToken = $request->session()->has("SessionLogin");
-
-        $compact = [
-            'varAPIWebToken' => $varAPIWebToken,
-        ];
-
-        return response()->json($compact);
     }
 
     public function logout(Request $request)
@@ -202,4 +233,17 @@ class LoginController extends Controller
 
         return redirect('/')->with([$status => $message]);
     }
+
+
+    // public function SessionCheckingLogout(Request $request)
+    // {
+
+    //     $varAPIWebToken = $request->session()->has("SessionLogin");
+
+    //     $compact = [
+    //         'varAPIWebToken' => $varAPIWebToken,
+    //     ];
+
+    //     return response()->json($compact);
+    // }
 }

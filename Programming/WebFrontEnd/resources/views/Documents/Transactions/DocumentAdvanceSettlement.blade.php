@@ -1,53 +1,58 @@
-<div class="card-body ShowDocumentList" style="font-weight: bold;">
-  <center>
-    <h3><b><span style="text-transform:uppercase">ADVANCE SETTLEMENT</span></b></h3>
-  </center>
-  <br>
-  <div class="row">
-    <div class="col-md-8">
-      <div class="form-group">
-        <table>
-          <tr>
-            <td style="padding-top: 5px;"><label>{{ $data['header']['title'] }} Number</label></td>
-            <td>:</td>
-            <td>{{ $data['header']['number'] }}</td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>Requester</label></td>
-            <td>:</td>
-            <td>{{ $data['content']['involvedPersons']['requester']['name'] }}</td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>Name of Beneficiary</label></td>
-            <td>:</td>
-            <td>{{ $data['content']['involvedPersons']['beneficiary']['name'] }}</td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>File Attachment</label></td>
-            <td>:</td>
-            <td>
-              <input hidden type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="{{ $data['content']['attachmentFiles']['main']['logFileUploadPointer_RefID']}}" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID">
-              <input hidden type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" name="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" onchange="javascript: @php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataInput_Log_FileUpload_Pointer_RefID_Action', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord'); @endphp;" />
-              <div id="dataShow_ActionPanel"></div>
-            </td>
-          </tr>
-        </table>
-      </div>
+<div class="col-12 ShowDocumentList" style="font-weight: bold;">
+  <div class="card">
+    <div class="card-header">
+      <center>
+        <h3><span style="text-transform:uppercase;font-weight:bold;">{{ $dataTransaction['header']['title'] }}</span></h3>
+      </center>
     </div>
-    <div class="col-md-4">
-      <div class="form-group">
-        <table>
-          <tr>
-            <td style="padding-top: 5px;"><label>Budget Code</label></td>
-            <td>:</td>
-            <td>{{ $data['content']['itemList']['ungrouped'][0]['entities']['combinedBudgetCode'] }} - {{ $data['content']['itemList']['ungrouped'][0]['entities']['combinedBudgetName'] }}</td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>Sub Budget Code</label></td>
-            <td>:</td>
-            <td>{{ $data['content']['itemList']['ungrouped'][0]['entities']['combinedBudgetSectionCode'] }} - {{ $data['content']['itemList']['ungrouped'][0]['entities']['combinedBudgetSectionName'] }}</td>
-          </tr>
-        </table>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="form-group">
+            <table>
+              <tr>
+                <td style="padding-top: 5px;"><label>{{ $data['header']['title'] }} Number</label></td>
+                <td>:</td>
+                <td>{{ $data['header']['number'] }}</td>
+              </tr>
+              <tr>
+                <td style="padding-top: 5px;"><label>Requester</label></td>
+                <td>:</td>
+                <td>{{ $data['content']['involvedPersons']['requester']['name'] }}</td>
+              </tr>
+              <tr>
+                <td style="padding-top: 5px;"><label>Name of Beneficiary</label></td>
+                <td>:</td>
+                <td>{{ $data['content']['involvedPersons']['beneficiary']['name'] }}</td>
+              </tr>
+              <tr>
+                <td style="padding-top: 5px;"><label>File Attachment</label></td>
+                <td>:</td>
+                <td>
+                  <input hidden type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="{{ $data['content']['attachmentFiles']['main']['logFileUploadPointer_RefID']}}" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID">
+                  <input hidden type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" name="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" onchange="javascript: @php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataInput_Log_FileUpload_Pointer_RefID_Action', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord'); @endphp;" />
+                  <div id="dataShow_ActionPanel"></div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <table>
+              <tr>
+                <td style="padding-top: 5px;"><label>Budget Code</label></td>
+                <td>:</td>
+                <td>{{ $data['content']['itemList']['ungrouped'][0]['entities']['combinedBudgetCode'] }} - {{ $data['content']['itemList']['ungrouped'][0]['entities']['combinedBudgetName'] }}</td>
+              </tr>
+              <tr>
+                <td style="padding-top: 5px;"><label>Sub Budget Code</label></td>
+                <td>:</td>
+                <td>{{ $data['content']['itemList']['ungrouped'][0]['entities']['combinedBudgetSectionCode'] }} - {{ $data['content']['itemList']['ungrouped'][0]['entities']['combinedBudgetSectionName'] }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>        
       </div>
     </div>
   </div>

@@ -9,8 +9,6 @@ class AdvanceSettlementController extends Controller
 {
     public function index(Request $request)
     {
-        // $data = $request->session()->get("SessionPurchaseRequisition");
-        // dd($data);
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionAdvanceSetllementRequester");
     
@@ -190,7 +188,6 @@ class AdvanceSettlementController extends Controller
                 ]
             ]
         );
-        // dd($varDataAdvanceList);
         return response()->json($varDataAdvanceList['data']);
     }
 
@@ -226,18 +223,18 @@ class AdvanceSettlementController extends Controller
 
         $varDataAdvanceSettlementRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'report.form.documentForm.finance.getAdvance',
+            $varAPIWebToken, 
+            'report.form.documentForm.finance.getAdvance', 
             'latest',
             [
-                'parameter' => [
-                    'recordID' => (int) $request->searchAsfNumberRevisionId,
+            'parameter' => [
+                'recordID' => (int) $request->searchAsfNumberRevisionId,
                 ]
             ]
-        );
-    
+            );
+
         $compact = [
-            'dataRevisi' => $varDataAdvanceSettlementRevision['data'][0]['document']['content'],
+            'dataRevisi' => $varDataAdvanceSettlementRevision['data'][0]['document']['content']['general'],
             'trano' => $varDataAdvanceSettlementRevision['data'][0]['document']['header']['number'],
             'var_recordID' => $request->searchAsfNumberRevisionId,
             'varAPIWebToken' => $varAPIWebToken,

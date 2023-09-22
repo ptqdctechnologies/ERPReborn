@@ -16,6 +16,6 @@ function rupiah()
   // return $tamp;
   // // config(['session.lifetime' => 2]);
 
-  return Session::get("SessionLogout");
+  return 10;
 
 }

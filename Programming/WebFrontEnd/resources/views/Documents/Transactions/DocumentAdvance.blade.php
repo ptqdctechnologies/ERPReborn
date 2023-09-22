@@ -1,85 +1,84 @@
-<div class="card-body ShowDocumentList" style="font-weight: bold;">
-  <center>
-    <h3><b><span style="text-transform:uppercase">{{ $data['header']['title'] }}</span></b></h3>
-  </center>
-  <br>
-  <div class="row">
-    <div class="col-md-8">
-      <div class="form-group">
-        <table>
-          <tr>
-            <td style="padding-top: 5px;"><label>{{ $data['header']['title'] }} Number</label></td>
-            <td>:</td>
-            <td>{{ $data['header']['number'] }}</td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>{{ $data['header']['title'] }} Date</label></td>
-            <td>:</td>
-            <td>{{ $data['header']['date'] }}</td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>Currency</label></td>
-            <td>:</td>
-            <td>{{ $data['content']['itemList']['ungrouped'][0]['entities']['baseCurrencyISOCode'] }}</td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>Budget Code</label></td>
-            <td>:</td>
-            <td>{{ $data['content']['itemList']['ungrouped'][0]['entities']['combinedBudgetCode'] }} - {{ $data['content']['itemList']['ungrouped'][0]['entities']['combinedBudgetName'] }}</td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>Sub Budget Code</label></td>
-            <td>:</td>
-            <td>{{ $data['content']['itemList']['ungrouped'][0]['entities']['combinedBudgetSectionCode'] }} - {{ $data['content']['itemList']['ungrouped'][0]['entities']['combinedBudgetSectionName'] }}</td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>File Attachment</label></td>
-            <td>:</td>
-            <td>{{ $data['content']['itemList']['ungrouped'][0]['entities']['combinedBudgetSectionCode'] }} - {{ $data['content']['itemList']['ungrouped'][0]['entities']['combinedBudgetSectionName'] }}</td>
-
-            <!-- <td>
-              <input hidden type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="{{ $data['content']['attachmentFiles']['main']['logFileUploadPointer_RefID']}}" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID">
-              <input hidden type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" name="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" onchange="javascript: @php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataInput_Log_FileUpload_Pointer_RefID_Action', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord'); @endphp;" />
-              <div id="dataShow_ActionPanel"></div>
-            </td> -->
-          </tr>
-        </table>
-      </div>
+<div class="col-12 ShowDocumentList" style="font-weight: bold;">
+  <div class="card">
+    <div class="card-header">
+      <center>
+        <h3><span style="text-transform:uppercase;font-weight:bold;">{{ $dataTransaction['header']['title'] }}</span></h3>
+      </center>
     </div>
-    <div class="col-md-4">
-      <div class="form-group">
-        <table>
-          <tr>
-            <td style="padding-top: 5px;"><label>Revision</label></td>
-            <td>:</td>
-            <td>{{ $data['header']['date'] }}</td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>Requester</label></td>
-            <td>:</td>
-            <td>{{ $data['content']['involvedPersons']['requester']['name'] }}</td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>Beneficiary</label></td>
-            <td>:</td>
-            <td>{{ $data['content']['involvedPersons']['beneficiary']['name'] }}</td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>Bank Name</label></td>
-            <td>:</td>
-            <td>{{ $data['content']['bankAccount']['beneficiary']['bankName'] }}</td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>Account Name</label></td>
-            <td>:</td>
-            <td>{{ $data['content']['bankAccount']['beneficiary']['bankAccountNumber'] }}</td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>Account Number</label></td>
-            <td>:</td>
-            <td>{{ $data['content']['bankAccount']['beneficiary']['bankAccountName'] }}</td>
-          </tr>
-        </table>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="form-group">
+            <table>
+              <tr>
+                <td style="padding-top: 5px;"><label>{{ $dataTransaction['header']['title'] }} Number</label></td>
+                <td>:</td>
+                <td>{{ $dataTransaction['header']['number'] }}</td>
+              </tr>
+              <tr>
+                <td style="padding-top: 5px;"><label>{{ $dataTransaction['header']['title'] }} Date</label></td>
+                <td>:</td>
+                <td>{{ $dataTransaction['header']['date'] }}</td>
+              </tr>
+              <tr>
+                <td style="padding-top: 5px;"><label>Currency</label></td>
+                <td>:</td>
+                <td>{{ $dataTransaction['content']['general']['accumulatedValues']['baseCurrencyISOCode'] }}</td>
+              </tr>
+              <tr>
+                <td style="padding-top: 5px;"><label>Budget Code</label></td>
+                <td>:</td>
+                <td>{{ $dataTransaction['content']['general']['budget']['combinedBudgetCodeList'][0] }}</td>
+              </tr>
+              <tr>
+                <td style="padding-top: 5px;"><label>Sub Budget Code</label></td>
+                <td>:</td>
+                <td>{{ $dataTransaction['content']['general']['budget']['combinedBudgetSectionCodeList'][0] }}</td>
+              </tr>
+              <tr>
+                <td style="padding-top: 5px;"><label>File Attachment</label></td>
+                <td>:</td>
+                <td>{{ $dataTransaction['content']['general']['attachmentFiles']['main']['logFileUploadPointer_RefID'] }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <table>
+              <tr>
+                <td style="padding-top: 5px;"><label>Revision</label></td>
+                <td>:</td>
+                <td>{{ $dataTransaction['header']['date'] }}</td>
+              </tr>
+              <tr>
+                <td style="padding-top: 5px;"><label>Requester</label></td>
+                <td>:</td>
+                <td>{{ $dataTransaction['content']['general']['involvedPersons'][0]['requesterWorkerJobsPositionName'] }}</td>
+              </tr>
+              <tr>
+                <td style="padding-top: 5px;"><label>Beneficiary</label></td>
+                <td>:</td>
+                <td>{{ $dataTransaction['content']['general']['involvedPersons'][0]['beneficiaryWorkerJobsPositionName'] }}</td>
+              </tr>
+              <tr>
+                <td style="padding-top: 5px;"><label>Bank Name</label></td>
+                <td>:</td>
+                <td>{{ $dataTransaction['content']['general']['bankAccount']['beneficiary']['bankFullName'] }}</td>
+              </tr>
+              <tr>
+                <td style="padding-top: 5px;"><label>Account Name</label></td>
+                <td>:</td>
+                <td>{{ $dataTransaction['content']['general']['bankAccount']['beneficiary']['bankAccountName'] }}</td>
+              </tr>
+              <tr>
+                <td style="padding-top: 5px;"><label>Account Number</label></td>
+                <td>:</td>
+                <td>{{ $dataTransaction['content']['general']['bankAccount']['beneficiary']['bankAccountNumber'] }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -102,13 +101,13 @@
         </thead>
         <tbody>
           @php $no = 1; $grand_total = 0; @endphp
-          @foreach($data['content']['itemList']['ungrouped'] as $datas)
+          @foreach($dataTransaction['content']['details']['itemList'] as $datas)
           @php $grand_total += $datas['entities']['priceBaseCurrencyValue']; @endphp
           <tr>
             <td style="border:1px solid #4B586A;color:#4B586A;">{{ $no++ }}</td>
             <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['product_RefID'] }}</td>
             <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['productName'] }}</td>
-            <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['quantity'] }}</td>
+            <td style="border:1px solid #4B586A;color:#4B586A;">{{ number_format($datas['entities']['quantity'],2) }}</td>
             <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['quantityUnitName'] }}</td>
             <td style="border:1px solid #4B586A;color:#4B586A;">{{ number_format($datas['entities']['productUnitPriceBaseCurrencyValue'],2) }}</td>
             <td style="border:1px solid #4B586A;color:#4B586A;">{{ number_format($datas['entities']['priceBaseCurrencyValue'],2) }}</td>
@@ -141,7 +140,7 @@
     <div class="card-body">
       <div class="row">
         <div class="col-md-12">
-          <p>{{ $data['content']['advanceRemarks'] }}</p>
+          <p>{{ $dataTransaction['content']['general']['remarks'] }}</p>
         </div>
       </div>
     </div>

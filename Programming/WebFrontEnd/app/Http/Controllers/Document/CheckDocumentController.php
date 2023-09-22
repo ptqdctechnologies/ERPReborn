@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Document;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Alert;
+use Illuminate\Support\Facades\Session;
 
 class CheckDocumentController extends Controller
 {
@@ -16,58 +18,74 @@ class CheckDocumentController extends Controller
 
         ];
 
-        return view('Documents.Transactions.index', $compact);
+        return view('Documents.Transactions.indexCheckDocument', $compact);
     }
 
     public function ShowDocument(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varDataWorkflow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'report.form.resume.master.getBusinessDocumentDispositionHistory',
-            'latest',
-            [
-                'parameter' => [
-                    'recordID' => (int)$request->input('businessDocument_RefID')
-                ]
-            ]
-        );
 
-        dd($varDataWorkflow);
+        $documentNumber = $request->input('businessDocumentNumber');
 
-        $compact = [
-            'var' => 1,
-            'dataWorkflow' => $varDataWorkflow['data']['document'],
-            'TransactionMenu' => $varDataWorkflow['data']['document']['content']['logBusinessDocumentWorkFlowPathHistory']['itemList']['ungrouped'][0]['entities']['businessDocumentTypeName'],
-            'businessDocument_RefID' => $varDataWorkflow['data']['document']['content']['logBusinessDocumentWorkFlowPathHistory']['itemList']['ungrouped'][0]['entities']['businessDocument_RefID'],
-            'businessDocumentNumber' => $varDataWorkflow['data']['document']['content']['logBusinessDocumentWorkFlowPathHistory']['itemList']['ungrouped'][0]['entities']['businessDocumentNumber'],
-        ];
+        if (isset($documentNumber)) {
+            $varDataWorkflow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'report.form.documentForm.general.getAllDocumentTypeByFormNumber',
+                'latest',
+                [
+                    'parameter' => [
+                        'formNumber' => $documentNumber
+                    ]
+                ],
+                false
+            );
+            
+            if ($varDataWorkflow['metadata']['HTTPStatusCode'] != '200') {
+                return redirect()->route('CheckDocument.index')->with('NotFound', 'Data Not Found');
+            } else {
 
-        return view('Documents.Transactions.index', $compact);
+                $compact = [
+                    'var' => 1,
+                    'dataWorkflow' => $varDataWorkflow['data'][0]['document']['content']['general']['workFlow']['historyList'],
+                    'dataTransaction' => $varDataWorkflow['data'][0]['document'],
+                    'businessDocument_RefID' => $varDataWorkflow['data'][0]['document']['header']['recordID'],
+                    'businessDocumentNumber' => $varDataWorkflow['data'][0]['document']['header']['number'],
+                    'businessDocumentTitle' => $varDataWorkflow['data'][0]['document']['header']['title'],
+                ];
+
+                return view('Documents.Transactions.index', $compact);
+            }
+        }
+        else{
+            return redirect()->route('CheckDocument.index')->with('NotFound', 'Data Cannot Empty');
+        }
     }
 
     public function ShowDocumentByID(Request $request)
     {
+        $businessDocument_RefID = (int) $request->input('businessDocument_RefID');
+
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $varDataWorkflow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'report.form.resume.master.getBusinessDocumentDispositionHistory',
+            'report.form.documentForm.general.getAllDocumentTypeByID',
             'latest',
             [
                 'parameter' => [
-                    'recordID' => (int)$request->input('businessDocument_RefID')
+                    'recordID' => $businessDocument_RefID
                 ]
             ]
         );
-        dd($varDataWorkflow);
+
         $compact = [
             'var' => 1,
-            'dataWorkflow' => $varDataWorkflow['data']['document'],
-            'TransactionMenu' => $varDataWorkflow['data']['document']['content']['logBusinessDocumentWorkFlowPathHistory']['itemList']['ungrouped'][0]['entities']['businessDocumentTypeName'],
-            'businessDocument_RefID' => $varDataWorkflow['data']['document']['content']['logBusinessDocumentWorkFlowPathHistory']['itemList']['ungrouped'][0]['entities']['businessDocument_RefID'],
-            'businessDocumentNumber' => $varDataWorkflow['data']['document']['content']['logBusinessDocumentWorkFlowPathHistory']['itemList']['ungrouped'][0]['entities']['businessDocumentNumber'],
+            'dataWorkflow' => $varDataWorkflow['data'][0]['document']['content']['general']['workFlow']['historyList'],
+            'dataTransaction' => $varDataWorkflow['data'][0]['document'],
+            'businessDocument_RefID' => $varDataWorkflow['data'][0]['document']['header']['recordID'],
+            'businessDocumentNumber' => $varDataWorkflow['data'][0]['document']['header']['number'],
+            'businessDocumentTitle' => $varDataWorkflow['data'][0]['document']['header']['title'],
         ];
 
         return view('Documents.Transactions.index', $compact);

@@ -1,14 +1,3 @@
-<div class="card ShowDocument">
-    <table>
-        <tr>
-            <td>
-                <a class="btn btn-default btn-sm float-right ViewDocument" style="background-color:#e9ecef;border:1px solid #ced4da;">
-                    View Document
-                </a>
-            </td>
-        </tr>
-    </table>
-</div>
 <div class="col-12 ShowDocument">
     <div class="card">
         <div class="card-header">
@@ -30,13 +19,13 @@
                 </thead>
                 <tbody>
                 @php $no = 1; @endphp
-                @foreach($dataWorkflow['content']['logBusinessDocumentWorkFlowPathHistory']['itemList']['ungrouped'] as $dataWorkflows)
+                @foreach($dataWorkflow as $dataWorkflows)
                 <tr>
                     <td style="border:1px solid #4B586A;color:#4B586A;">{{ $no++ }}</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">{{ date('D, d/m/Y H:m:s', strtotime($dataWorkflows['entities']['approvalDateTimeTZ'])) }}</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['entities']['approverEntityName'] }}</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['entities']['workFlowPathActionName'] }}</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['entities']['remarks'] }}</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">{{ date('D, d/m/Y H:m:s', strtotime($dataWorkflows['approvalDateTimeTZ'])) }}</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['name'] }}</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['workFlowPathActionName'] }}</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['remarks'] }}</td>
                 </tr>
                 @endforeach
                 </tbody>

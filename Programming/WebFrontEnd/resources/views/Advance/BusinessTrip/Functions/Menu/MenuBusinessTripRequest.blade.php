@@ -9,14 +9,14 @@
                                 <span style="position:relative;bottom:5px;"><img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"> SELECT ACTION </span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-left" style="padding: 10px;font-size:14px;background-color:#4B586A;margin-top:8px;">
-                                @if(in_array("Module.HumanResource.PersonBusinessTrip.Transaction.Create", $privilageMenu, TRUE))
+                                @if(in_array("Module.HumanResource.PersonBusinessTrip.Transaction.Create", Session::get('privilageMenu'), TRUE))
                                 <li class="nav-item">
                                     <a href="{{ route('BusinessTripRequest.index') }}" class="nav-link" style="color:white;padding-bottom:10px;">
                                         <i class="far fa-file nav-icon-sm"> Create Business Trip Request</i>
                                     </a>
                                 </li>
                                 @endif
-                                @if(in_array("Module.HumanResource.PersonBusinessTripSettlement.Transaction.Create", $privilageMenu, TRUE))
+                                @if(in_array("Module.HumanResource.PersonBusinessTripSettlement.Transaction.Create", Session::get('privilageMenu'), TRUE))
                                 <li class="nav-item">
                                     <a class="nav-link myPopUpBusinessTripRevision" data-toggle="modal" data-target="#myPopUpBusinessTripRevision" style="color:white;padding-bottom:10px;">
                                         <i class="far fa-file nav-icon-sm"> Revision Business Trip Request</i>
