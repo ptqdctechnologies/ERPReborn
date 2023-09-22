@@ -58,8 +58,6 @@ class Controller extends BaseController
                 ]
             ]
         );
-        
-        // dd($VarStoreWorkFlow);
 
         $compact = [
             "documentNumber" => $documentNumber,

@@ -5,7 +5,7 @@
                 <label class="card-title">
                     <ul class="navbar-nav ml-auto left">
                         <li class="nav-item dropdown user-menu">
-                            <form action="{{ route('CheckDocument.ShowDocument') }}" method="post">
+                            <form action="{{ route('CheckDocument.ShowDocument') }}" method="post" id="FormSubmitCheckDocument">
                                 @csrf
                                 <div class="form-group">
                                     <table>

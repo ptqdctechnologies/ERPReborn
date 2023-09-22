@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 class CheckDocumentController extends Controller
 {
     public function index(Request $request)
-    {   
+    {
         $compact = [
             'var' => 0,
             'businessDocument_RefID' => "",
@@ -18,53 +18,33 @@ class CheckDocumentController extends Controller
 
         ];
 
-        return view('Documents.Transactions.index', $compact);
+        return view('Documents.Transactions.indexCheckDocument', $compact);
     }
 
     public function ShowDocument(Request $request)
     {
-        
-        $SessionWorkerCareerInternal_RefID = $request->session()->get('SessionWorkerCareerInternal_RefID');
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
         $documentNumber = $request->input('businessDocumentNumber');
 
-        if(isset($documentNumber)){
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        if (isset($documentNumber)) {
+            $varDataWorkflow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
-                'report.form.resume.master.getBusinessDocumentIssuanceDisposition',
+                'report.form.documentForm.general.getAllDocumentTypeByFormNumber',
                 'latest',
                 [
                     'parameter' => [
-                        'recordID' => (int) $SessionWorkerCareerInternal_RefID,
-                        'dataFilter' => [
-                            'businessDocumentNumber' => $documentNumber,
-                            'businessDocumentType_RefID' => null,
-                            'combinedBudget_RefID' => null
-                        ]
+                        'formNumber' => $documentNumber
                     ]
-                ]
+                ],
+                false
             );
             
-            if(!isset($varData['data'][0]['document']['content']['itemList']['ungrouped'])){
-                return redirect()->route('CheckDocument.index')->with('NotFound','Data Not Found');
-            }
-            else{
-                $businessDocument_RefID = (int) $varData['data'][0]['document']['content']['itemList']['ungrouped'][0]['entities']['formDocumentNumber_RefID'];
-    
-                $varDataWorkflow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'report.form.documentForm.general.getAllDocumentType', 
-                    'latest',
-                    [
-                    'parameter' => [
-                        'recordID' => $businessDocument_RefID
-                        ]
-                    ]
-                    );
-    
+            if ($varDataWorkflow['metadata']['HTTPStatusCode'] != '200') {
+                return redirect()->route('CheckDocument.index')->with('NotFound', 'Data Not Found');
+            } else {
+
                 $compact = [
                     'var' => 1,
                     'dataWorkflow' => $varDataWorkflow['data'][0]['document']['content']['general']['workFlow']['historyList'],
@@ -73,15 +53,13 @@ class CheckDocumentController extends Controller
                     'businessDocumentNumber' => $varDataWorkflow['data'][0]['document']['header']['number'],
                     'businessDocumentTitle' => $varDataWorkflow['data'][0]['document']['header']['title'],
                 ];
-    
+
                 return view('Documents.Transactions.index', $compact);
             }
         }
         else{
-            return redirect()->route('CheckDocument.index')->with('NotFound','Data Not Found');
+            return redirect()->route('CheckDocument.index')->with('NotFound', 'Data Cannot Empty');
         }
-
-        
     }
 
     public function ShowDocumentByID(Request $request)
@@ -91,15 +69,15 @@ class CheckDocumentController extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $varDataWorkflow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'report.form.documentForm.general.getAllDocumentType', 
+            $varAPIWebToken,
+            'report.form.documentForm.general.getAllDocumentTypeByID',
             'latest',
             [
-            'parameter' => [
-                'recordID' => $businessDocument_RefID
+                'parameter' => [
+                    'recordID' => $businessDocument_RefID
                 ]
             ]
-            );
+        );
 
         $compact = [
             'var' => 1,

@@ -53,7 +53,7 @@
                       </button>
                     </div>
                   </div>
-                  @include('Purchase.PurchaseRequisition.Functions.Header.HeaderProcReq2')
+                  @include('Purchase.PurchaseRequisition.Functions.Header.HeaderProcReq')
                 </div>
               </div>
             </div>
