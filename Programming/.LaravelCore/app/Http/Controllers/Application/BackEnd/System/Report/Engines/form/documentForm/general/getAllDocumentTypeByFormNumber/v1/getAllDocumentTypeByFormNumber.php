@@ -68,7 +68,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
                                 $varUserSession,
                                 $varData['parameter']['formNumber'],
                                 (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'approverEntity_RefID', $varData['parameter']) ? ((!is_null($varData['parameter']['approverEntity_RefID'])) ? $varData['parameter']['approverEntity_RefID'] : null) : null)
-                                //$varData['parameter']['approverEntity_RefID']
                                 );
                         
                         if (is_null($varRecordID))
@@ -126,7 +125,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
                         (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
                         $varBufferDB[0]['Sys_ID']
                         )[0]['BusinessDocumentForm_RefID'];
-//                dd($varBufferDB;
                 }
             return $varReturn;
             }
