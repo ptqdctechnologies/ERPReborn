@@ -9,8 +9,6 @@ class AdvanceSettlementController extends Controller
 {
     public function index(Request $request)
     {
-        // $data = $request->session()->get("SessionPurchaseRequisition");
-        // dd($data);
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionAdvanceSetllementRequester");
     
@@ -190,7 +188,6 @@ class AdvanceSettlementController extends Controller
                 ]
             ]
         );
-        // dd($varDataAdvanceList);
         return response()->json($varDataAdvanceList['data']);
     }
 

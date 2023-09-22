@@ -9,7 +9,7 @@ class MyDocumentController extends Controller
 {
     public function index(Request $request)
     {
-        return view('Documents.Transactions.MyDocument');
+        return view('Documents.Transactions.IndexMyDocument');
     }
 
     public function MyDocumentListDataFilter(Request $request)
