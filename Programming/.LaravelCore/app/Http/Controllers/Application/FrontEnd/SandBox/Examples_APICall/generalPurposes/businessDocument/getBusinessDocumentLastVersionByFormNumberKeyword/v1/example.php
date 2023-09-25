@@ -48,7 +48,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\gen
                     ]
                 ]
                 );
-            dd($varData);
+            var_dump($varData);
             }
 
 
@@ -89,7 +89,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\gen
                 '}'
                 );            
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
-            dd($varJQueryFunction);
+            var_dump($varJQueryFunction);
             }
         }
     }
