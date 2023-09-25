@@ -40,8 +40,8 @@
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/fonts.googleapis.css') }}">
 
   <!-- Toast Notification  -->
-  
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
   <!-- Core  -->
@@ -63,6 +63,7 @@
       </div>
     </div>
     @yield('main')
+    @include('toastr')
     <aside class="control-sidebar control-sidebar-dark"></aside>
   </div>
 

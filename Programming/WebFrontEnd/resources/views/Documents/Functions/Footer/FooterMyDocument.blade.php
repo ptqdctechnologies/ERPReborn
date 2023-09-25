@@ -187,7 +187,7 @@
         var row = $(this).closest("tr");  
         var id = row.find("td:nth-child(1)").text();
         var businessDocument_RefID = $('.businessDocument_RefID' + id).val();
-        ShowLoading();
+        // ShowLoading();
 
         window.location.href = '/ShowDocumentByID?businessDocument_RefID=' + businessDocument_RefID;
 
