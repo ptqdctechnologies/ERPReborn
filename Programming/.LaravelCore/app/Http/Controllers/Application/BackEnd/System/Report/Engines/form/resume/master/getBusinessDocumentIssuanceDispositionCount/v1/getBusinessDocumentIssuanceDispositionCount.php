@@ -4,28 +4,28 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\resume\master                                |
-|                \getBusinessDocumentIssuanceDisposition\v1                                                                        |
+|                \getBusinessDocumentIssuanceDispositionCount\v1                                                                   |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\resume\master\getBusinessDocumentIssuanceDisposition\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\resume\master\getBusinessDocumentIssuanceDispositionCount\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getBusinessDocumentIssuanceDisposition                                                                       |
-    | ▪ Description : Menangani API report.form.resume.master.getBusinessDocumentIssuanceDisposition Version 1                     |
+    | ▪ Class Name  : getBusinessDocumentIssuanceDispositionCount                                                                  |
+    | ▪ Description : Menangani API report.form.resume.master.getBusinessDocumentIssuanceDispositionCount Version 1                |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getBusinessDocumentIssuanceDisposition extends \App\Http\Controllers\Controller
+    class getBusinessDocumentIssuanceDispositionCount extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-06-20                                                                                           |
-        | ▪ Create date     : 2023-06-20                                                                                           |
+        | ▪ Last Update     : 2023-09-25                                                                                           |
+        | ▪ Creation Date   : 2023-09-25                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\re
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-06-20                                                                                           |
-        | ▪ Create date     : 2023-06-20                                                                                           |
+        | ▪ Last Update     : 2023-09-25                                                                                           |
+        | ▪ Creation Date   : 2023-09-25                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -59,19 +59,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\re
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Report Form - Resume - Business Document Issuance Disposition Form (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Report Form - Resume - Business Document Issuance Disposition Count Form (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_Resume_BusinessDocumentIssuanceDisposition(
+                        if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_Resume_BusinessDocumentIssuanceDispositionCount(
                             $varUserSession, 
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
 
-                            $varData['parameter']['recordID'],
-                                
-                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'businessDocumentNumber', $varData['parameter']['dataFilter']) ? ((!is_null($varData['parameter']['dataFilter']['businessDocumentNumber'])) ? $varData['parameter']['dataFilter']['businessDocumentNumber'] : null) : null),
-                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'businessDocumentType_RefID', $varData['parameter']['dataFilter']) ? ((!is_null($varData['parameter']['dataFilter']['businessDocumentType_RefID'])) ? $varData['parameter']['dataFilter']['businessDocumentType_RefID'] : null) : null),
-                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'combinedBudget_RefID', $varData['parameter']['dataFilter']) ? ((!is_null($varData['parameter']['dataFilter']['combinedBudget_RefID'])) ? $varData['parameter']['dataFilter']['combinedBudget_RefID'] : null) : null)
+                            $varData['parameter']['recordID']
                             ))))
                             {
                             throw new \Exception();
