@@ -39,34 +39,6 @@
     });
 </script>
 
-<!-- SELECT FOR FILTER BY DOCUMENT TYPE  -->
-<script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    $.ajax({
-        type: 'GET',
-        url: '{!! route("getDocumentType") !!}',
-        success: function(data) {
-            $(".DocumentType").empty();
-
-            var option = "<option value='" + '' + "'>" + 'Select Document Type' + "</option>";
-            $(".DocumentType").append(option);
-
-            var len = data.length;
-            for (var i = 0; i < len; i++) {
-                var ids = data[i].sys_ID;
-                var names = data[i].name;
-                var option2 = "<option value='" + ids + "'>" + names + "</option>";
-                $(".DocumentType").append(option2);
-            }
-        }
-    });
-</script>
-
 <!-- LOADING DATA MY DOCUMENT -->
 <script>
     function SuccessDataMyDocument(data){
@@ -104,7 +76,7 @@
 <!-- SHOW DATA FOR FIRST LOADING  -->
 <script type="text/javascript">
     
-    ShowLoading();
+    // ShowLoading();
 
     $.ajaxSetup({
         headers: {
@@ -138,7 +110,7 @@
             var form_data = new FormData($(this)[0]);
             var form = $(this);
 
-            ShowLoading();
+            // ShowLoading();
 
             $('.TableMyDocument').find('tbody').empty();
 

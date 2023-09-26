@@ -17,8 +17,7 @@
         $('.mySearchCheckDocument').on('click', function(e) {
             e.preventDefault();
 
-
-            ShowLoading();
+            // ShowLoading();
 
             var keys = 0;
 
@@ -122,8 +121,6 @@
         var documentNumber = row.find("td:nth-child(2)").text();
         var id = row.find("td:nth-child(1)").text();
         var businessDocument_RefID = $('#businessDocument_RefID' + id).val();
-        console.log(id);
-        console.log(businessDocument_RefID);
         
         $("#businessDocument_RefID").val(businessDocument_RefID);
         $("#businessDocumentNumber").val(documentNumber);

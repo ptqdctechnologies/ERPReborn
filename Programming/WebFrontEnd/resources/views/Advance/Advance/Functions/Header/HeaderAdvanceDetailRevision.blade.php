@@ -8,7 +8,7 @@
                         <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Requester Name</label></td>
                         <td>
                             <div class="input-group" style="width: 70%;">
-                                <input name="request_name" id="request_name" style="border-radius:0;" type="text" class="form-control" readonly value="{{ $dataRevisi['involvedPersons'][0]['requesterWorkerJobsPositionName'] }}" required>
+                                <input name="request_name" id="request_name" style="border-radius:0;" type="text" class="form-control" readonly value="{{ $dataRevisi['involvedPersons'][0]['requesterWorkerName'] }}" required>
                                 <input name="request_name_id" id="request_name_id" style="border-radius:0;" type="hidden" class="form-control" value="{{ $dataRevisi['involvedPersons'][0]['requesterWorkerJobsPosition_RefID'] }}" readonly required>
                                 <input name="var_combinedBudget" id="combinedBudget" style="border-radius:0;" type="hidden" class="form-control" readonly required>
                                 <input name="var_recordIDDetail" id="recordIDDetail" style="border-radius:0;" type="hidden" class="form-control" readonly required>
@@ -29,7 +29,7 @@
                         <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Beneficiary Name</label></td>
                         <td>
                             <div class="input-group" style="width: 70%;">
-                                <input name="beneficiary_name" id="beneficiary_name" style="border-radius:0;" type="text" class="form-control" readonly value="{{ $dataRevisi['involvedPersons'][0]['beneficiaryWorkerJobsPositionName'] }}" required>
+                                <input name="beneficiary_name" id="beneficiary_name" style="border-radius:0;" type="text" class="form-control" readonly value="{{ $dataRevisi['involvedPersons'][0]['beneficiaryWorkerName'] }}" required>
                                 <input name="beneficiary_id" id="beneficiary_id" style="border-radius:0;" type="hidden" class="form-control" value="{{ $dataRevisi['involvedPersons'][0]['beneficiaryWorkerJobsPosition_RefID']}}" readonly required>
                                 <input name="var_combinedBudget" id="combinedBudget" style="border-radius:0;" type="hidden" class="form-control" readonly required>
                                 <input name="var_recordIDDetail" id="recordIDDetail" style="border-radius:0;" type="hidden" class="form-control" readonly required>
