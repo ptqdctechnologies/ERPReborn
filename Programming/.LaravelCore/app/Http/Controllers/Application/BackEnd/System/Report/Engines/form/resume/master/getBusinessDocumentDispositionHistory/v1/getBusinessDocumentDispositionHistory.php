@@ -3,8 +3,8 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\resume\master                             |
-|                \getBusinessDocumentDispositionHistory\v1                                                                     |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\resume\master                                |
+|                \getBusinessDocumentDispositionHistory\v1                                                                         |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
@@ -13,8 +13,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\re
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getBusinessDocumentDispositionHistory                                                                    |
-    | ▪ Description : Menangani API report.form.resume.master.getBusinessDocumentDispositionHistory Version 1               |
+    | ▪ Class Name  : getBusinessDocumentDispositionHistory                                                                        |
+    | ▪ Description : Menangani API report.form.resume.master.getBusinessDocumentDispositionHistory Version 1                      |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class getBusinessDocumentDispositionHistory extends \App\Http\Controllers\Controller
@@ -58,7 +58,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\re
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Report Form - Log Business Document WorkFlow Path History Document Form (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Report Form - Resume - Business Document Disposition History Form (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
