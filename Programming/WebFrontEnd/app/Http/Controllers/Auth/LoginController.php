@@ -38,30 +38,22 @@ class LoginController extends Controller
 
     public function SumDocumentWorkflowFunction($varAPIWebToken, $SessionWorkerCareerInternal_RefID)
     {
-        
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'report.form.resume.master.getBusinessDocumentIssuanceDisposition',
-            'latest',
-            [
-                'parameter' => [
-                    'recordID' => (int)$SessionWorkerCareerInternal_RefID,
-                    'dataFilter' => [
-                        'businessDocumentNumber' => null,
-                        'businessDocumentType_RefID' => null,
-                        'combinedBudget_RefID' => null
-                    ]
-                ]
+        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varAPIWebToken, 
+        'report.form.resume.master.getBusinessDocumentIssuanceDispositionCount', 
+        'latest',
+        [
+        'parameter' => [
+            'recordID' => (int)$SessionWorkerCareerInternal_RefID    
             ]
+        ]
         );
-
+    
         $SumDocumentWorkflow = 0;
 
         if ($varData['metadata']['HTTPStatusCode'] == 200) {
-            if ($varData['data'][0]['document']['content']['itemList']['ungrouped'] != null) {
-                $SumDocumentWorkflow = count($varData['data'][0]['document']['content']['itemList']['ungrouped']);
-            }
+            $SumDocumentWorkflow = $varData['data']['0']['document']['content']['dataCount'];
         }
         
         return $SumDocumentWorkflow;

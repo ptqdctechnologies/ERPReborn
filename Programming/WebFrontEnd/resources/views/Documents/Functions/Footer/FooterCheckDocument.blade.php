@@ -5,8 +5,50 @@
     $(".ApprovalHistory").hide();
 </script>
 
-<script>
 
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $(function() {
+        $('.mySearchCheckDocument').on('click', function(e) {
+            e.preventDefault();
+
+
+            ShowLoading();
+
+            var keys = 0;
+
+            $.ajax({
+                type: 'GET',
+                url: '{!! route("CheckDocument.ShowDocumentListData") !!}?DocumentType=' + "",
+                success: function(data) {
+                    var no = 1;
+                    t = $('#TableCheckDocument').DataTable();
+                    t.clear();
+                    $.each(data.data, function(key, val) {
+                        keys += 1;
+                        t.row.add([
+                            '<tbody><tr><td><input id="businessDocument_RefID' + keys + '" value="' + val.entities.formDocumentNumber_RefID + '" type="hidden">' + no++ + '</span></td>',
+                            '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentNumber + '</span></td>',
+                            '<td><span style="position:relative;left:10px;">' + val.entities.combinedBudgetCode + '</span></td>',
+                            '<td><span style="position:relative;left:10px;">' + val.entities.combinedBudgetSectionCode + '</span></td></tr></tbody>',
+                        ]).draw();
+                    });
+
+                    HideLoading();
+                }
+            });
+
+        });
+
+    });
+</script>
+
+<script>
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -80,13 +122,15 @@
         var documentNumber = row.find("td:nth-child(2)").text();
         var id = row.find("td:nth-child(1)").text();
         var businessDocument_RefID = $('#businessDocument_RefID' + id).val();
+        console.log(id);
+        console.log(businessDocument_RefID);
+        
         $("#businessDocument_RefID").val(businessDocument_RefID);
         $("#businessDocumentNumber").val(documentNumber);
     });
 </script>
 
 <script>
-
     $(".ViewWorkflow").hide();
 
     $('.ViewDocument').on('click', function() {

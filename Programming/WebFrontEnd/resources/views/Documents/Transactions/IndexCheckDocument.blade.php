@@ -4,7 +4,6 @@
 @include('Partials.sidebar')
 @include('getFunction.getSite')
 @include('Documents.Functions.PopUp.SearchCheckDocument')
-@include('toastr')
 
 <div class="content-wrapper">
   <section class="content">
