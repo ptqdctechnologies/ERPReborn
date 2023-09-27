@@ -3,6 +3,7 @@
 namespace Laravel\Prompts;
 
 use Closure;
+use InvalidArgumentException;
 
 class SearchPrompt extends Prompt
 {
@@ -38,8 +39,13 @@ class SearchPrompt extends Prompt
         public string $placeholder = '',
         public int $scroll = 5,
         public ?Closure $validate = null,
-        public string $hint = ''
+        public string $hint = '',
+        public bool|string $required = true,
     ) {
+        if ($this->required === false) {
+            throw new InvalidArgumentException('Argument [required] must be true or a string.');
+        }
+
         $this->trackTypedValue(submit: false);
 
         $this->reduceScrollingToFitTerminal();
@@ -62,6 +68,7 @@ class SearchPrompt extends Prompt
         $this->highlighted = null;
         $this->render();
         $this->matches = null;
+        $this->firstVisible = 0;
         $this->state = 'active';
     }
 
