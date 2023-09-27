@@ -37,7 +37,6 @@ class CheckDocumentController extends Controller
             ],
             false
         );
-
         return $varDataWorkflow;
     }
 
