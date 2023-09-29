@@ -131,6 +131,8 @@ class AdvanceRequestController extends Controller
             ]
         );
 
+        // dd($varDataAdvanceRevision);
+
         $compact = [
             'dataRevisi' => $varDataAdvanceRevision['data'][0]['document']['content']['general'],
             'var_recordID' => $request->searchArfNumberRevisionId,

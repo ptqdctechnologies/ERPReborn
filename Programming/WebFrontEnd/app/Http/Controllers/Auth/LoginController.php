@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
+    // FUNCTION INDEX LOGIN 
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -18,6 +19,7 @@ class LoginController extends Controller
         }
     }
 
+    // FUNCTION FOR PRIVILAGE MENU USER 
     public function UserPrivilageMenuFunction()
     {
         $varAPIWebToken = Session::get('SessionLogin');
@@ -36,37 +38,31 @@ class LoginController extends Controller
         return $privilageMenu;
     }
 
+    // FUNCTION FOR COUNT SUM OF WORKFLOW 
     public function SumDocumentWorkflowFunction($varAPIWebToken, $SessionWorkerCareerInternal_RefID)
     {
-        
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'report.form.resume.master.getBusinessDocumentIssuanceDisposition',
-            'latest',
-            [
-                'parameter' => [
-                    'recordID' => (int)$SessionWorkerCareerInternal_RefID,
-                    'dataFilter' => [
-                        'businessDocumentNumber' => null,
-                        'businessDocumentType_RefID' => null,
-                        'combinedBudget_RefID' => null
-                    ]
-                ]
+        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varAPIWebToken, 
+        'report.form.resume.master.getBusinessDocumentIssuanceDispositionCount', 
+        'latest',
+        [
+        'parameter' => [
+            'recordID' => (int)$SessionWorkerCareerInternal_RefID    
             ]
+        ]
         );
-
+    
         $SumDocumentWorkflow = 0;
 
         if ($varData['metadata']['HTTPStatusCode'] == 200) {
-            if ($varData['data'][0]['document']['content']['itemList']['ungrouped'] != null) {
-                $SumDocumentWorkflow = count($varData['data'][0]['document']['content']['itemList']['ungrouped']);
-            }
+            $SumDocumentWorkflow = $varData['data']['0']['document']['content']['dataCount'];
         }
         
         return $SumDocumentWorkflow;
     }
 
+    // FUNCTION BRANC AND ROLE USER 
     public function SetLoginBranchAndUserRoleFunction($varAPIWebToken, $varBranchID, $varUserRoleID, $personName, $workerCareerInternal_RefID)
     {
         \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
@@ -99,6 +95,8 @@ class LoginController extends Controller
         return response()->json($compact);
     }
 
+
+    // FUNCTION ROLE FUNCTION 
     public function GetRoleFunction($varAPIWebToken, $user_RefID, $branch_RefID)
     {
         $varDataRole = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
@@ -118,6 +116,7 @@ class LoginController extends Controller
         return $varDataRole;
     }
 
+    // FUNCTION GET BRANCH
     public function GetInstitutionBranchFunction($varAPIWebToken, $user_RefID)
     {
         $varDataBranch = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
@@ -136,6 +135,7 @@ class LoginController extends Controller
         return $varDataBranch;
     }
 
+    // FUNCTION STORE WHEN CLICK SUBMIT BUTTON IN PAGE 
     public function loginStore(Request $request)
     {
         $username = $request->input('username');
@@ -202,6 +202,7 @@ class LoginController extends Controller
         }
     }
 
+    // FUNCTION GET ROLE WHEN SELECT ROLE IN LOGIN PAGE 
     public function getRoleLogin(Request $request)
     {
 
@@ -221,6 +222,8 @@ class LoginController extends Controller
         }
     }
 
+
+    // FUNCTION LOGOUT 
     public function logout(Request $request)
     {
         $status = "success";
@@ -234,16 +237,16 @@ class LoginController extends Controller
         return redirect('/')->with([$status => $message]);
     }
 
+    // FUNCTION FOR CHECKING LOGOUT 
+    public function SessionCheckingLogout(Request $request)
+    {
 
-    // public function SessionCheckingLogout(Request $request)
-    // {
+        $varAPIWebToken = $request->session()->has("SessionLogin");
 
-    //     $varAPIWebToken = $request->session()->has("SessionLogin");
+        $compact = [
+            'varAPIWebToken' => $varAPIWebToken,
+        ];
 
-    //     $compact = [
-    //         'varAPIWebToken' => $varAPIWebToken,
-    //     ];
-
-    //     return response()->json($compact);
-    // }
+        return response()->json($compact);
+    }
 }
