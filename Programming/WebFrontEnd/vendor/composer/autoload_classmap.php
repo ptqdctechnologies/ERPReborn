@@ -2508,6 +2508,7 @@ return array(
     'Illuminate\\Foundation\\Testing\\Concerns\\MakesHttpRequests' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php',
     'Illuminate\\Foundation\\Testing\\DatabaseMigrations' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Testing/DatabaseMigrations.php',
     'Illuminate\\Foundation\\Testing\\DatabaseTransactions' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Testing/DatabaseTransactions.php',
+    'Illuminate\\Foundation\\Testing\\DatabaseTransactionsManager' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Testing/DatabaseTransactionsManager.php',
     'Illuminate\\Foundation\\Testing\\DatabaseTruncation' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Testing/DatabaseTruncation.php',
     'Illuminate\\Foundation\\Testing\\LazilyRefreshDatabase' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Testing/LazilyRefreshDatabase.php',
     'Illuminate\\Foundation\\Testing\\RefreshDatabase' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Testing/RefreshDatabase.php',
