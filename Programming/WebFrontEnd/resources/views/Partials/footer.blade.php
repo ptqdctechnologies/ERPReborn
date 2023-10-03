@@ -288,3 +288,79 @@
     }
   }
 </script> -->
+
+<!-- FUNCTION NOTIFICATION  -->
+<script>
+
+  // FUNCTION TOASTR 
+  function ToastrFunction() {
+    toastr.options = {
+      "closeButton": true,
+      "debug": false,
+      "newestOnTop": false,
+      "progressBar": true,
+      "positionClass": "toast-top-right",
+      "preventDuplicates": false,
+      "onclick": null,
+      "showDuration": "1000",
+      "hideDuration": "1000",
+      "timeOut": "5000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
+  }
+
+  // FUNCTION ERROR NOTIFICATION 
+  function ErrorNotif(message) {
+
+    // swal({
+    //   onOpen: function() {
+    //     swal.disableConfirmButton();
+    //     Swal.fire("Error !", message, "error");
+    //   }
+    // });
+
+    ToastrFunction();
+    toastr.error(message);
+  }
+
+  // FUNCTION DO NOT HAVE ACCESS NOTIF
+
+  function DoNotHaveAccessNotif(message, url) {
+
+    ToastrFunction();
+
+    toastr.error('<br /><span style="background-color:white;" id="confirmationButtonYes"> <span style="padding:10px;color:#DC3545;border-radius:5px;"> Back </span> </span>', message, {
+      allowHtml: true,
+      onShown: function(toast) {
+        $("#confirmationButtonYes").click(function() {
+          window.location.href = url;
+        });
+      }
+    });
+
+    // const swalWithBootstrapButtons = Swal.mixin({
+    //   confirmButtonClass: 'btn btn-success btn-sm',
+    //   cancelButtonClass: 'btn btn-danger btn-sm',
+    //   buttonsStyling: true,
+    // })
+
+    // swalWithBootstrapButtons.fire({
+
+    //   title: 'Cancelled',
+    //   text: "You don't have access",
+    //   type: 'error',
+    //   confirmButtonColor: '#e9ecef',
+    //   confirmButtonText: '<span style="color:black;"> OK </span>',
+
+    // }).then((result) => {
+    //   if (result.value) {
+    //     ShowLoading();
+    //     window.location.href = url;
+    //   }
+    // })
+  }
+</script>

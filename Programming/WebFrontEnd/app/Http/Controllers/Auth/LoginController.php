@@ -38,64 +38,6 @@ class LoginController extends Controller
         return $privilageMenu;
     }
 
-    // FUNCTION FOR COUNT SUM OF WORKFLOW 
-    public function SumDocumentWorkflowFunction($varAPIWebToken, $SessionWorkerCareerInternal_RefID)
-    {
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken, 
-        'report.form.resume.master.getBusinessDocumentIssuanceDispositionCount', 
-        'latest',
-        [
-        'parameter' => [
-            'recordID' => (int)$SessionWorkerCareerInternal_RefID    
-            ]
-        ]
-        );
-    
-        $SumDocumentWorkflow = 0;
-
-        if ($varData['metadata']['HTTPStatusCode'] == 200) {
-            $SumDocumentWorkflow = $varData['data']['0']['document']['content']['dataCount'];
-        }
-        
-        return $SumDocumentWorkflow;
-    }
-
-    // FUNCTION BRANC AND ROLE USER 
-    public function SetLoginBranchAndUserRoleFunction($varAPIWebToken, $varBranchID, $varUserRoleID, $personName, $workerCareerInternal_RefID)
-    {
-        \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'authentication.general.setLoginBranchAndUserRole',
-            'latest',
-            [
-                'branchID' => $varBranchID,
-                'userRoleID' => $varUserRoleID
-            ]
-        );
-
-        Session::put('SessionLogin', $varAPIWebToken);
-        Session::put('SessionLoginName', $personName);
-        Session::put('SessionWorkerCareerInternal_RefID', $workerCareerInternal_RefID);
-
-        // CALL SUM DOCUMENT WORKFLOW FUNCTION 
-        $SumDocumentWorkflow = $this->SumDocumentWorkflowFunction($varAPIWebToken, $workerCareerInternal_RefID);
-        Session::put('SumDocumentWorkflow', $SumDocumentWorkflow);
-
-        // CALL PRIVILAGE MENU FUNCTION 
-        $UserPrivilageMenu = $this->UserPrivilageMenuFunction();
-        Session::put('privilageMenu', $UserPrivilageMenu);
-
-        $compact = [
-            'status_code' => 1,
-        ];
-
-        return response()->json($compact);
-    }
-
-
     // FUNCTION ROLE FUNCTION 
     public function GetRoleFunction($varAPIWebToken, $user_RefID, $branch_RefID)
     {
@@ -133,6 +75,69 @@ class LoginController extends Controller
         );
 
         return $varDataBranch;
+    }
+
+    // FUNCTION FOR COUNT SUM OF WORKFLOW 
+    public function SumDocumentWorkflowFunction($varAPIWebToken, $SessionWorkerCareerInternal_RefID)
+    {
+        if(isset($SessionWorkerCareerInternal_RefID)){
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'report.form.resume.master.getBusinessDocumentIssuanceDispositionCount', 
+                'latest',
+                [
+                'parameter' => [
+                    'recordID' => (int)$SessionWorkerCareerInternal_RefID    
+                    ]
+                ]
+                );
+                // $SumDocumentWorkflow = 0;
+        
+                // if ($varData['metadata']['HTTPStatusCode'] == 200) {
+                //     $SumDocumentWorkflow = $varData['data']['0']['document']['content']['dataCount'];
+                // }
+                
+                $SumDocumentWorkflow = $varData['data']['0']['document']['content']['dataCount'];
+
+                return $SumDocumentWorkflow;
+        }
+        else{
+            return 0;
+        }
+    }
+
+    // FUNCTION BRANC AND ROLE USER 
+    public function SetLoginBranchAndUserRoleFunction($varAPIWebToken, $varBranchID, $varUserRoleID, $personName, $workerCareerInternal_RefID)
+    {
+        \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'authentication.general.setLoginBranchAndUserRole',
+            'latest',
+            [
+                'branchID' => $varBranchID,
+                'userRoleID' => $varUserRoleID
+            ]
+        );
+
+        Session::put('SessionLogin', $varAPIWebToken);
+        Session::put('SessionLoginName', $personName);
+        Session::put('SessionWorkerCareerInternal_RefID', $workerCareerInternal_RefID);
+
+        // CALL SUM DOCUMENT WORKFLOW FUNCTION 
+        $SumDocumentWorkflow = $this->SumDocumentWorkflowFunction($varAPIWebToken, $workerCareerInternal_RefID);
+        Session::put('SumDocumentWorkflow', $SumDocumentWorkflow);
+
+        // CALL PRIVILAGE MENU FUNCTION 
+        $UserPrivilageMenu = $this->UserPrivilageMenuFunction();
+        Session::put('privilageMenu', $UserPrivilageMenu);
+
+        $compact = [
+            'status_code' => 1,
+        ];
+
+        return response()->json($compact);
     }
 
     // FUNCTION STORE WHEN CLICK SUBMIT BUTTON IN PAGE 

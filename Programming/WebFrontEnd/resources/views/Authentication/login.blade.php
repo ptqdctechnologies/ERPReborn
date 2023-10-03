@@ -79,8 +79,8 @@
                 <form action="{{ route('loginStore') }}" method="post" name="FormLogin" id="FormLogin">
                     @csrf
 
-                    <input type="hidden" class="user_RefID">
-                    <input type="hidden" class="varAPIWebToken">
+                    <input type="hidden" class="user_RefID" name="user_RefID">
+                    <input type="hidden" class="varAPIWebToken" name="varAPIWebToken">
 
                     <div class=" input-group mb-4">
                         <input type="text" class="form-control username" placeholder="Username" name="username" id="dis2" required="" autocomplete="off" autofocus>
@@ -331,26 +331,6 @@
             });
         });
     </script>
-
-    <!-- <script>
-        setInterval(SessionCheckingLogout, 5000);
-
-        function SessionCheckingLogout() {
-
-            $.ajax({
-                type: 'GET',
-                url: '{!! route("SessionCheckingLogout") !!}',
-                success: function(data) {
-
-                    if (data.varAPIWebToken == true) {
-                        window.location.reload();
-                    }
-
-                }
-            });
-        }
-    </script> -->
-
 </body>
 
 </html>

@@ -2,17 +2,10 @@
     $("#sitecode2").prop("disabled", true);
     $("#request_name2").prop("disabled", true);
     $("#beneficiary_name2").prop("disabled", true);
-    // $(".tableShowHideBudget").hide();
-    // $(".file-attachment").hide();
-    // $(".advance-detail").hide();
-    // $(".AdvanceListCart").hide();
-    // $(".Remark").hide();
-    // $("#detailTransAvail").hide();
-
     $("#product_id2").prop("disabled", true);
     $("#bank_name2").prop("disabled", true);
     $("#bank_account2").prop("disabled", true);
-    $("#submitArf").prop("disabled", true);
+    // $("#submitArf").prop("disabled", true);
 </script>
 
 <script>
@@ -29,7 +22,7 @@
         $('#GrandTotal').html(0);
         $("#submitArf").prop("disabled", true);
         //END RESET FORM
-                
+
         $("#myProject").modal('toggle');
 
         var row = $(this).closest("tr");
@@ -92,9 +85,6 @@
 
         $("#sitecode").val(code);
         $("#sitename").val(name);
-
-        // $("#sitecode2").prop("disabled", true);
-        // $("#projectcode2").prop("disabled", true);
 
         $("#addToDoDetail").prop("disabled", false);
         $(".tableShowHideBudget").show();
@@ -211,12 +201,8 @@
                                 $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
                             } else if (parseFloat(total) > parseFloat(total_budget)) {
 
-                                swal({
-                                    onOpen: function() {
-                                        swal.disableConfirmButton();
-                                        Swal.fire("Error !", "Total request is over budget than Budget!", "error");
-                                    }
-                                });
+                                // CALL FUNCTION ERROR NOTIFICATION 
+                                ErrorNotif("Total request is over budget than Budget!");
 
                                 $('#qty_req' + key).val("");
                                 $('#total_req' + key).val("");
@@ -247,12 +233,8 @@
                                 $("input[name='price_req[]']").css("border", "1px solid #ced4da");
                             } else if (parseFloat(price_val) > parseFloat(budget_price_val)) {
 
-                                swal({
-                                    onOpen: function() {
-                                        swal.disableConfirmButton();
-                                        Swal.fire("Error !", "Price is over budget !", "error");
-                                    }
-                                });
+                                // CALL FUNCTION ERROR NOTIFICATION
+                                ErrorNotif("Price is over budget !");
 
                                 $('#price_req' + key).val("");
                                 $('#total_req' + key).val("");
@@ -260,12 +242,8 @@
                                 $('#price_req' + key).focus();
                             } else if (parseFloat(total) > parseFloat(total_budget)) {
 
-                                swal({
-                                    onOpen: function() {
-                                        swal.disableConfirmButton();
-                                        Swal.fire("Error !", "Total request is over budget than Budget!", "error");
-                                    }
-                                });
+                                // CALL FUNCTION ERROR NOTIFICATION
+                                ErrorNotif("Total request is over budget than Budget !");
 
                                 $('#price_req' + key).val("");
                                 $('#total_req' + key).val("");
@@ -298,12 +276,8 @@
                                 $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
                             } else if (parseFloat(qty_val) > parseFloat(budget_qty_val)) {
 
-                                swal({
-                                    onOpen: function() {
-                                        swal.disableConfirmButton();
-                                        Swal.fire("Error !", "Qty is over budget !", "error");
-                                    }
-                                });
+                                // CALL FUNCTION ERROR NOTIFICATION
+                                ErrorNotif("Qty is over budget !");
 
                                 $('#qty_req' + key).val("");
                                 $('#total_req' + key).val("");
@@ -334,12 +308,8 @@
                                 $("input[name='price_req[]']").css("border", "1px solid #ced4da");
                             } else if (parseFloat(price_val) > parseFloat(budget_price_val)) {
 
-                                swal({
-                                    onOpen: function() {
-                                        swal.disableConfirmButton();
-                                        Swal.fire("Error !", "Price is over budget !", "error");
-                                    }
-                                });
+                                // CALL FUNCTION ERROR NOTIFICATION
+                                ErrorNotif("Price is over budget !");
 
                                 $('#price_req' + key).val("");
                                 $('#total_req' + key).val("");
@@ -377,7 +347,7 @@
 
         // var today = new Date();
         // var date = formatDate(today);
-        
+
         var getWorkId = $("input[name='getWorkId[]']").map(function() {
             return $(this).val();
         }).get();
@@ -570,23 +540,11 @@
                             },
 
                             error: function(response) { // handle the error
-
+                                HideLoading();
                                 $("#submitArf").prop("disabled", false);
+                                // CALL FUNCTION DO NOT HAVE ACCESS NOTIF
+                                DoNotHaveAccessNotif("You don't have access", '/AdvanceRequest?var=1');
 
-                                swalWithBootstrapButtons.fire({
-
-                                    title: 'Cancelled',
-                                    text: "You don't have access",
-                                    type: 'error',
-                                    confirmButtonColor: '#e9ecef',
-                                    confirmButtonText: '<span style="color:black;"> OK </span>',
-
-                                }).then((result) => {
-                                    if (result.value) {
-                                        ShowLoading();
-                                        window.location.href = '/AdvanceRequest?var=1';
-                                    }
-                                })
                             },
 
                         })
@@ -595,21 +553,9 @@
                     } else if (
                         result.dismiss === Swal.DismissReason.cancel
                     ) {
-
-                        swalWithBootstrapButtons.fire({
-
-                            title: 'Cancelled',
-                            text: "Process Canceled",
-                            type: 'error',
-                            confirmButtonColor: '#e9ecef',
-                            confirmButtonText: '<span style="color:black;"> OK </span>',
-
-                        }).then((result) => {
-                            if (result.value) {
-                                ShowLoading();
-                                window.location.href = '/AdvanceRequest?var=1';
-                            }
-                        })
+                        HideLoading();
+                        // FUNCTION ERROR NOTIFICATION 
+                        ErrorNotif("Data Cancel Inputed");
                     }
                 })
             }
@@ -676,7 +622,8 @@
 
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
-                        Swal.fire("Cancelled", "Data Cancel Inputed", "error");
+                        // FUNCTION ERROR NOTIFICATION 
+                        ErrorNotif("Data Cancel Inputed");
                     }
                 });
 

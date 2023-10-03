@@ -41,13 +41,13 @@
 
 <!-- LOADING DATA MY DOCUMENT -->
 <script>
-    function SuccessDataMyDocument(data){
+    function SuccessDataMyDocument(data) {
         var keys = 0;
         var no = 1;
         var t = $('.TableMyDocument').DataTable();
         t.clear();
         $.each(data.data, function(key, val) {
-            
+
             const date = dateFns.format(
                 dateFns.parse(val.entities.businessDocumentDateTimeTZ, "yyyy-MM-dd hh:mm:ss"),
                 'DD-MM-YYYY HH:mm');
@@ -75,8 +75,7 @@
 
 <!-- SHOW DATA FOR FIRST LOADING  -->
 <script type="text/javascript">
-    
-    // ShowLoading();
+    ShowLoading();
 
     $.ajaxSetup({
         headers: {
@@ -94,7 +93,8 @@
         },
         error: function(response) {
             HideLoading();
-            Swal.fire("Cancelled", "Data Not Found !", "error");
+            // CALL FUNCTION ERROR NOTIFICATION
+            ErrorNotif("Data Not Found !");
         },
     });
 </script>
@@ -110,7 +110,7 @@
             var form_data = new FormData($(this)[0]);
             var form = $(this);
 
-            // ShowLoading();
+            ShowLoading();
 
             $('.TableMyDocument').find('tbody').empty();
 
@@ -135,7 +135,8 @@
                 },
                 error: function(response) {
                     HideLoading();
-                    Swal.fire("Cancelled", "Data Not Found !", "error");
+                    // CALL FUNCTION ERROR NOTIFICATION
+                    ErrorNotif("Data Not Found !");
                 },
             })
         });
@@ -156,10 +157,10 @@
 <script>
     $('.TableMyDocument tbody').on('click', 'tr', function() {
 
-        var row = $(this).closest("tr");  
+        var row = $(this).closest("tr");
         var id = row.find("td:nth-child(1)").text();
         var businessDocument_RefID = $('.businessDocument_RefID' + id).val();
-        // ShowLoading();
+        ShowLoading();
 
         window.location.href = '/ShowDocumentByID?businessDocument_RefID=' + businessDocument_RefID;
 

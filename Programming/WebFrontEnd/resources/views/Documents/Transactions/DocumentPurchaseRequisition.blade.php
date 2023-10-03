@@ -18,7 +18,7 @@
               <tr>
                 <td style="padding-top: 5px;"><label>PIC</label></td>
                 <td>:</td>
-                <td>{{ $dataTransaction['content']['general']['involvedPersons'][0]['requesterWorkerJobsPositionName'] }}</td>
+                <td>{{ $dataTransaction['content']['general']['involvedPersons'][0]['requesterWorkerName'] }}</td>
               </tr>
               <tr>
                 <td style="padding-top: 5px;"><label>File Attachment</label></td>
@@ -34,12 +34,12 @@
               <tr>
                 <td style="padding-top: 5px;"><label>Budget Code</label></td>
                 <td>:</td>
-                <td>{{ $dataTransaction['content']['general']['budget']['combinedBudgetCodeList'][0] }}</td>
+                <td>{{ $dataTransaction['content']['general']['budget']['combinedBudgetFullNameList'][0] }}</td>
               </tr>
               <tr>
                 <td style="padding-top: 5px;"><label>Sub Budget Code</label></td>
                 <td>:</td>
-                <td>{{ $dataTransaction['content']['general']['budget']['combinedBudgetSectionCodeList'][0] }}</td>
+                <td>{{ $dataTransaction['content']['general']['budget']['combinedBudgetSectionFullNameList'][0] }}</td>
               </tr>
             </table>
           </div>

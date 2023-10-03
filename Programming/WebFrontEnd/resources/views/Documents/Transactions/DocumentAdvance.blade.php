@@ -54,12 +54,12 @@
               <tr>
                 <td style="padding-top: 5px;"><label>Requester</label></td>
                 <td>:</td>
-                <td>{{ $dataTransaction['content']['general']['involvedPersons'][0]['requesterWorkerJobsPositionName'] }}</td>
+                <td>{{ $dataTransaction['content']['general']['involvedPersons'][0]['requesterWorkerName'] }}</td>
               </tr>
               <tr>
                 <td style="padding-top: 5px;"><label>Beneficiary</label></td>
                 <td>:</td>
-                <td>{{ $dataTransaction['content']['general']['involvedPersons'][0]['beneficiaryWorkerJobsPositionName'] }}</td>
+                <td>{{ $dataTransaction['content']['general']['involvedPersons'][0]['beneficiaryWorkerName'] }}</td>
               </tr>
               <tr>
                 <td style="padding-top: 5px;"><label>Bank Name</label></td>

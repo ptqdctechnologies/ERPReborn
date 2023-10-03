@@ -23,22 +23,22 @@
               <tr>
                 <td style="padding-top: 5px;"><label>Budget Code</label></td>
                 <td>:</td>
-                <td>{{ $dataTransaction['content']['general']['budget']['combinedBudgetCodeList'][0] }}</td>
+                <td>{{ $dataTransaction['content']['general']['budget']['combinedBudgetFullNameList'][0] }}</td>
               </tr>
               <tr>
                 <td style="padding-top: 5px;"><label>Sub Budget Code</label></td>
                 <td>:</td>
-                <td>{{ $dataTransaction['content']['general']['budget']['combinedBudgetSectionCodeList'][0] }}</td>
+                <td>{{ $dataTransaction['content']['general']['budget']['combinedBudgetSectionFullNameList'][0] }}</td>
               </tr>
               <tr>
                 <td style="padding-top: 5px;"><label>Requester</label></td>
                 <td>:</td>
-                <td>{{ $dataTransaction['content']['general']['involvedPersons'][0]['requesterWorkerJobsPositionName'] }}</td>
+                <td>{{ $dataTransaction['content']['general']['involvedPersons'][0]['requesterWorkerName'] }}</td>
               </tr>
               <tr>
                 <td style="padding-top: 5px;"><label>Beneficiary</label></td>
                 <td>:</td>
-                <td>{{ $dataTransaction['content']['general']['involvedPersons'][0]['beneficiaryWorkerJobsPositionName'] }}</td>
+                <td>{{ $dataTransaction['content']['general']['involvedPersons'][0]['beneficiaryWorkerName'] }}</td>
               </tr>
               <tr>
                 <td style="padding-top: 5px;"><label>Job Title</label></td>

@@ -56,8 +56,6 @@ class MyDocumentController extends Controller
                 ]
             ]
         );
-        
-        // dd($varData);
 
         $compact = [
             'data' => $varData['data'][0]['document']['content']['itemList']['ungrouped'],

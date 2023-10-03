@@ -59,7 +59,7 @@
             }
         });
 
-        var sys_ID = $("#beneficiary_name_id").val();
+        var sys_ID = $("#beneficiary_id").val();
 
         var keys = 0;
 
