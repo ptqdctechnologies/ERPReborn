@@ -34,19 +34,19 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 }
 
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'fileHandling.download.archive.general.getFileObject', 
-                'latest', 
-                [
-                'parameter' => [
-                    'filePath' => 'Archive/92000000000296/12000000000345'
-                    ]
-                ]
-                );
+            $varData = 
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayDownloadArchivedFile(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken, 
+                    'fileHandling.download.archive.general.getFileObject', 
+                    'latest', 
+                    [
+                    'parameter' => [
+                        'filePath' => 'Archive/92000000000296/12000000000345'
+                        ]
+                    ]               
+                    );
 
-                
             var_dump($varData);
             }
 

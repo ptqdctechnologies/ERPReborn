@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[START]---
 $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
-$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxkaS5tdWx5YWRpIiwiaWF0IjoxNjk2MjEwNjk4fQ.OWFjODYyYWJhODFmYWVhN2VlMjhlNjQ4ZDZmOTc0NjEzMmJlNWE4NTRlYjM4ZThiOGRmNDNlOTA3OWQ2ZDM2Mg';
+$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxkaS5tdWx5YWRpIiwiaWF0IjoxNjk2MzAwMjg0fQ.YzgyODY1NmNmNjUxYjExZmEzYzc1Nzg5YjIyZWM1MjAwN2U1YjljMDMxZDZlODRkZDdlMTc1ZjU2ZmIwNjMwYQ';
 
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
@@ -23,6 +23,15 @@ $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxk
     $varAPIWebToken
     );
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[ END ]---
+
+//---[ Static Route ]--------------------------------------------------------------------[START]---
+
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('getArchivedFileObjectDownload/{encodedData}', 'get', '\App\Http\Controllers\Application\FrontEnd\System\FileHandling\Controller@getArchivedFileObjectDownload', 'webWithoutCSRF');
+
+
+//---[ Static Route ]--------------------------------------------------------------------[ END ]---
+
+
 
 //Programming/WebBackEnd/app/Http/Controllers/Application/BackEnd/System/FileHandling/Engines/upload/combined/general/deleteFile/v1/
 

@@ -116,14 +116,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             $varDataReturn = 
                 [
                 'contentBase64' => 
-                \App\Helpers\ZhtHelper\General\Helper_Encode::getBase64Encode
-                    (
-                    $varUserSession, 
-                    (new \App\Models\CloudStorage\System\General())->getFileContent(
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getBase64Encode
+                        (
                         $varUserSession, 
-                        $varFilePath
+                        (new \App\Models\CloudStorage\System\General())->getFileContent(
+                            $varUserSession, 
+                            $varFilePath
+                            )
                         )
-                    )
                 ];
             return $varDataReturn;
             }

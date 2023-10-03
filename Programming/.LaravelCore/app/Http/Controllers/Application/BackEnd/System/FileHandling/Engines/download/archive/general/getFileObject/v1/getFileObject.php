@@ -23,8 +23,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\d
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-10-01                                                                                           |
-        | ▪ Creation Date   : 2023-10-01                                                                                           |
+        | ▪ Last Update     : 2023-10-02                                                                                           |
+        | ▪ Creation Date   : 2023-10-02                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,8 +43,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\d
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-10-01                                                                                           |
-        | ▪ Creation Date   : 2023-10-01                                                                                           |
+        | ▪ Last Update     : 2023-10-02                                                                                           |
+        | ▪ Creation Date   : 2023-10-02                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -70,6 +70,31 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\d
                                     $varData['parameter']['filePath']
                                     )
                                 );
+                        
+                        /*
+                        $varJavaScriptSyntaxBase64 =
+                            \App\Helpers\ZhtHelper\General\Helper_Encode::getBase64Encode(
+                                $varUserSession, 
+                                '<script>'.
+                                    '(function () {'.
+                                        'var ObjA = document.createElement(\'a\'); '.                   
+                                        'ObjA.href = \'data:'.$varData['FileMIME'].';base64,'.$varData['FileContentBase64'].'\' ;'.
+                                        'ObjA.download = \''.$varData['FileName'].'\'; '.
+                                        'ObjA.click(); '.
+                                        '}) (); '.
+                                '</script>'
+                                );
+
+                        $varDataSend =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
+                                $varUserSession,
+                                [
+                                'message' => 'File downloaded successfully',
+                                'javaScriptSyntaxBase64' => $varJavaScriptSyntaxBase64
+                                ]
+                                );
+                        */
+
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
@@ -96,26 +121,26 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\d
         | ▪ Method Name     : dataProcessing                                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-08-22                                                                                           |
-        | ▪ Creation Date   : 2022-08-22                                                                                           |
+        | ▪ Last Update     : 2023-10-02                                                                                           |
+        | ▪ Creation Date   : 2023-10-02                                                                                           |
         | ▪ Description     : Fungsi Pemrosesan Data                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
-        |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► Log File Upload Pointer Reference ID (Mandatory)                       |
-        |      ▪ (int)    varRotateLog_FileUploadStagingArea_RefRPK ► Rotate Log File Upload Staging Area Reference Record Primary |
-        |                                                             Key (Mandatory)                                              |
-        |      ▪ (array)  varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID ► Delete Candidate Log File Upload Object      |
-        |                                                                             Detail Reference Array ID                    |
+        |      ▪ (string)  varFilePath ► File Path                                                                                 |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        private function dataProcessing($varUserSession, string $varFilePath = null)
+        private function dataProcessing($varUserSession, string $varFilePath)
             {
-            $varDataReturn = 
-                [
-                'contentBase64' => 
+            $varFileObjectInformation = 
+                (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->getArchivedFileObjectInformation(
+                    $varUserSession, 
+                    ((int) (explode('/', $varFilePath))[2])
+                    );
+
+            $varFileContentBase64 = 
                 \App\Helpers\ZhtHelper\General\Helper_Encode::getBase64Encode
                     (
                     $varUserSession, 
@@ -123,17 +148,16 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\d
                         $varUserSession, 
                         $varFilePath
                         )
-                    )
-                ];
-            
-            $varContent = 
-                (new \App\Models\CloudStorage\System\General())->getFileContent(
-                    $varUserSession, 
-                    $varFilePath
                     );
-            
-            
-            dd($varContent);
+
+            $varDataReturn = [
+                'name' => $varFileObjectInformation['FileName'],
+                'size' => $varFileObjectInformation['FileSize'],
+                'MIME' => $varFileObjectInformation['FileMIME'],
+                'encodeMethod' => 'Base64',
+                'encodedStreamData' => $varFileContentBase64
+                ];
+
             return $varDataReturn;
             }
         }

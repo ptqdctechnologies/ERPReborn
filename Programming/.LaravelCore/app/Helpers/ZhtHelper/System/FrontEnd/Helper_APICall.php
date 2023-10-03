@@ -624,6 +624,66 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 */
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setCallAPIGatewayDownloadArchivedFile                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-01-21                                                                                           |
+        | ▪ Description     : Memanggil API Report Gateway untuk Download Archived File                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varAPIWebToken ► API WebToken                                                                            |
+        |      ▪ (string) varAPIKey ► API Key                                                                                      |
+        |      ▪ (mixed)  varAPIVersion ► API Version                                                                              |
+        |      ▪ (array)  varData ► Data                                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (mixed)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function setCallAPIGatewayDownloadArchivedFile($varUserSession, string $varAPIWebToken, string $varAPIKey, $varAPIVersion = null, array $varData = null)
+            {
+            $varDataReturn = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                $varUserSession,
+                $varAPIWebToken, 
+                $varAPIKey,
+                $varAPIVersion,
+                $varData
+                );
+            
+            try {
+                switch($varDataReturn['data']['encodeMethod'])
+                    {
+                    case 'Base64':
+                        {
+                        $varFileStreamPlain = \App\Helpers\ZhtHelper\General\Helper_Encode::getBase64Decode(
+                            $varUserSession,
+                            $varDataReturn['data']['encodedStreamData']
+                            );
+                        break;
+                        }
+                    default:
+                        {
+                        throw new \Exception('encoding method not recognized');
+                        break;
+                        }
+                    }
+                header('Content-Type: '.$varDataReturn['data']['MIME']);
+                header('Cache-Control: must-revalidate');
+                header('Expires: 0');
+                header('Pragma: public');
+                header('Content-Disposition: attachment; filename="'.$varDataReturn['data']['name'].'"');
+                echo $varFileStreamPlain;
+                die();
+                } 
+            catch (\Exception $ex) {
+                var_dump($varDataReturn);
+                }
+            }
+
+
             
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

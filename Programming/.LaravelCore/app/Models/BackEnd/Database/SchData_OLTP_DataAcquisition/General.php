@@ -18,6 +18,49 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
     */
     class General //extends \Illuminate\Database\Eloquent\Model
         {
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getArchivedFileObjectInformation                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-10-03                                                                                           |
+        | ▪ Creation Date   : 2023-10-03                                                                                           |
+        | ▪ Description     : Mendapatkan Informasi atas Objek File yang berada dalam Archive Cloud                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
+        |      ▪ (int)    varLogFileUploadObjectDetailID ► Log File Upload Object Detail ID                                        |
+        |        ----------------------------------------                                                                          |
+        |        ----------------------------------------                                                                          |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getArchivedFileObjectInformation($varUserSession, int $varLogFileUploadObjectDetailID)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    '
+                    SELECT 
+                            ("JSONData"->\'entities\'->\'processedData\'->\'entities\'->>\'fileName\')::varchar AS "FileName",
+                            ("JSONData"->\'entities\'->\'processedData\'->\'entities\'->>\'fileSize\')::bigint AS "FileSize",
+                            ("JSONData"->\'entities\'->\'processedData\'->\'entities\'->>\'fileMIME\')::varchar AS "FileMIME"
+                    FROM 
+                            "SchData-OLTP-DataAcquisition"."Func_GetDataEntities_Log_FileUpload_ObjectDetail"(
+                                    6000000000001::bigint, 
+                                    \'{'.$varLogFileUploadObjectDetailID.'}\'::bigint[]
+                                    ) AS "JSONData"
+                    '
+                    );
+                return $varReturn['Data'][0];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+        
         public function getJSONAdditionalData_Log_FileUpload_PointerHistory($varUserSession, array $varArrayID = null)
             {
             try {
