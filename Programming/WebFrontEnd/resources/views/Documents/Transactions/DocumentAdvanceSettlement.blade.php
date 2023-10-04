@@ -18,12 +18,12 @@
               <tr>
                 <td style="padding-top: 5px;"><label>Requester</label></td>
                 <td>:</td>
-                <td>{{ $data['content']['involvedPersons']['requester']['name'] }}</td>
+                <td>{{ $dataTransaction['content']['general']['involvedPersons'][0]['requesterWorkerName'] }}</td>
               </tr>
               <tr>
-                <td style="padding-top: 5px;"><label>Name of Beneficiary</label></td>
+                <td style="padding-top: 5px;"><label>Beneficiary</label></td>
                 <td>:</td>
-                <td>{{ $data['content']['involvedPersons']['beneficiary']['name'] }}</td>
+                <td>{{ $dataTransaction['content']['general']['involvedPersons'][0]['beneficiaryWorkerName'] }}</td>
               </tr>
               <tr>
                 <td style="padding-top: 5px;"><label>File Attachment</label></td>
