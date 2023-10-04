@@ -53,6 +53,8 @@
 
         $("#bank_account2").prop("disabled", false);
 
+        MandatoryFormFunctionFalse("#bank_name", "#bank_name_full");
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -98,6 +100,8 @@
         $("#beneficiaryBankAccount_RefID").val(sys_id_bank_account);
         $("#bank_account").val(accountNumber);
         $("#account_name").val(accountName);
+
+        MandatoryFormFunctionFalse("#bank_account", "#account_name");
 
     });
 </script>

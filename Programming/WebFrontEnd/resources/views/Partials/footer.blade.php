@@ -291,7 +291,6 @@
 
 <!-- FUNCTION NOTIFICATION  -->
 <script>
-
   // FUNCTION TOASTR 
   function ToastrFunction() {
     toastr.options = {
@@ -363,4 +362,36 @@
     //   }
     // })
   }
+</script>
+
+
+<!-- FUNCTION VALIDATION MANDATORY -->
+<script>
+
+  // VALIDATION IF FORM EMPTY
+  function MandatoryFormFunctionTrue(FormIdentity, FormIdentityDetail) {
+    $(FormIdentity).focus();
+    $(FormIdentity).attr('required', true);
+    $(FormIdentity).css("border", "2px solid red");
+
+    $(FormIdentityDetail).focus();
+    $(FormIdentityDetail).attr('required', true);
+    $(FormIdentityDetail).css("border", "2px solid red");
+
+    $(FormIdentity + "_icon").show();
+  }
+
+  // VALIDATION IF FORM INPUTED / SELECTED
+  function MandatoryFormFunctionFalse(FormIdentity, FormIdentityDetail) {
+    $(FormIdentity).css("border", "1px solid #ced4da");
+    $(FormIdentityDetail).css("border", "1px solid #ced4da");
+    $(FormIdentity + "_icon").hide();
+  }
+  
+  // VALIDATION FOR REMARK FORM, CHANGE BORDER AND HIDE ERROR ICON WHEN INPUTED
+  $('#remark').keyup(function() {
+    $("#remark").css("border", "1px solid #ced4da");
+    $("#remark_icon").hide();
+  });
+
 </script>

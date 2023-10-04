@@ -82,6 +82,8 @@
         $("#request_position").val(position);
         $("#contactPhone").val(contact_number_requester);
 
+        MandatoryFormFunctionFalse("#request_name", "#request_position");
+
     });
     
 </script>
