@@ -187,6 +187,29 @@ namespace App\Models\Database\SchSysAsset
             return $varReturn;
             }
 
+            
+        public function getDataDecrypt_HTTPGetParameter(
+            $varUserSession,
+            string $varEncryptedData)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession,
+                'SELECT "SchSysAsset"."Func_General_DataDecrypt_HTTPGetParameter"(\''.$varEncryptedData.'\'::varchar)'
+                );
+            return $varReturn['Data'][0]['Func_General_DataDecrypt_HTTPGetParameter'];
+            }
+
+        public function getDataEncrypt_HTTPGetParameter(
+            $varUserSession,
+            string $varPlainData) 
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession,
+                'SELECT "SchSysAsset"."Func_General_DataEncrypt_HTTPGetParameter"(\''.$varPlainData.'\'::varchar)'
+                );
+            return $varReturn['Data'][0]['Func_General_DataEncrypt_HTTPGetParameter'];
+            }
+
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

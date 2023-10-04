@@ -67,33 +67,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\d
                                 $varUserSession,
                                 $this->dataProcessing(
                                     $varUserSession,
-                                    $varData['parameter']['filePath']
+                                    $varData['parameter']['encryptedData']
                                     )
                                 );
-                        
-                        /*
-                        $varJavaScriptSyntaxBase64 =
-                            \App\Helpers\ZhtHelper\General\Helper_Encode::getBase64Encode(
-                                $varUserSession, 
-                                '<script>'.
-                                    '(function () {'.
-                                        'var ObjA = document.createElement(\'a\'); '.                   
-                                        'ObjA.href = \'data:'.$varData['FileMIME'].';base64,'.$varData['FileContentBase64'].'\' ;'.
-                                        'ObjA.download = \''.$varData['FileName'].'\'; '.
-                                        'ObjA.click(); '.
-                                        '}) (); '.
-                                '</script>'
-                                );
-
-                        $varDataSend =
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
-                                $varUserSession,
-                                [
-                                'message' => 'File downloaded successfully',
-                                'javaScriptSyntaxBase64' => $varJavaScriptSyntaxBase64
-                                ]
-                                );
-                        */
 
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
@@ -132,7 +108,40 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\d
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        private function dataProcessing($varUserSession, string $varFilePath)
+        private function dataProcessing($varUserSession, string $varEncryptedData)
+            {
+            $varFilePath = (new \App\Models\Database\SchSysAsset\General())->getDataDecrypt_HTTPGetParameter($varUserSession, $varEncryptedData);
+            $varID = (int) explode('/', $varFilePath)[2];
+            
+            $varFileObjectInformation = 
+                (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->getArchivedFileObjectInformation(
+                    $varUserSession, 
+                    $varID
+                    );
+            $varFileContentBase64 = 
+                \App\Helpers\ZhtHelper\General\Helper_Encode::getBase64Encode
+                    (
+                    $varUserSession, 
+                    (new \App\Models\CloudStorage\System\General())->getFileContent(
+                        $varUserSession, 
+                        $varFilePath
+                        )
+                    );
+
+            $varDataReturn = [
+                'recordID' => $varID,
+                'name' => $varFileObjectInformation['FileName'],
+                'size' => $varFileObjectInformation['FileSize'],
+                'MIME' => $varFileObjectInformation['FileMIME'],
+                'encodeMethod' => 'Base64',
+                'encodedStreamData' => $varFileContentBase64
+                ];
+
+            return $varDataReturn;
+            }
+            
+            
+        private function dataProcessingXXX($varUserSession, string $varFilePath)
             {
             $varFileObjectInformation = 
                 (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->getArchivedFileObjectInformation(

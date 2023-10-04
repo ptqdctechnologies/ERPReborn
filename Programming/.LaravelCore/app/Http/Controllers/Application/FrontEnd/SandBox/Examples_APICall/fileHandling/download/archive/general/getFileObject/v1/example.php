@@ -42,7 +42,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                     'latest', 
                     [
                     'parameter' => [
-                        'filePath' => 'Archive/92000000000296/12000000000345'
+                        'encryptedData' => 'ZXpVeUxEUXpMRE16TERFeUxETTVMREk0TERRMExETTFMRGNzTkRFc01UVXNNemNzTVRnc01qQXNNamNzTVRjc01qTXNNekVzTlRBcwpNalVzTWl3eE1TdzBPU3d4TXl3ME1pd3pNQ3cwT0N3MkxEUXdMREVzTWpZc01qSXNOU3d4Tml3ek5DdzFNU3cwTml3eU1Td3hPU3d5Ck5Dd3pNaXd4TUN3eE5DdzVMRFEzTERNNExETTJMRGdzTWprc05DdzBOU3d6ZlE9PSMjI0pNak4yd0RNWmpTeHdBTUQ9andhRERRd0cwaURNTjhYTVE4QU1Jd0RNQU1sQXc1QTVNQT0='
+//                        'filePath' => 'Archive/92000000000296/12000000000345'
                         ]
                     ]               
                     );
