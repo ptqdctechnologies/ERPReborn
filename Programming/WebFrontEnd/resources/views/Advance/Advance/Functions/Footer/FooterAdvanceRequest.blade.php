@@ -5,7 +5,14 @@
     $("#product_id2").prop("disabled", true);
     $("#bank_name2").prop("disabled", true);
     $("#bank_account2").prop("disabled", true);
-    // $("#submitArf").prop("disabled", true);
+
+    $("#request_name_icon").hide();
+    $("#beneficiary_name_icon").hide();
+    $("#bank_name_icon").hide();
+    $("#bank_account_icon").hide();
+    $("#remark_icon").hide();
+    
+    $("#submitArf").prop("disabled", true);
 </script>
 
 <script>
@@ -317,7 +324,7 @@
                                 $('#price_req' + key).focus();
                             } else {
 
-                                $("input[name='price_rmisaleq[]']").css("border", "1px solid #ced4da");
+                                $("input[name='price_req[]']").css("border", "1px solid #ced4da");
                                 $('#total_req' + key).val(currencyTotal(total));
                             }
 
@@ -442,34 +449,23 @@
     $(function() {
         $("#formSubmitArf").on("submit", function(e) { //id of form 
             e.preventDefault();
+
             var valRequestName = $("#request_name").val();
             var valBeneficiaryName = $("#beneficiary_name").val();
             var valBankName = $("#bank_name").val();
             var valBankAccount = $("#bank_account").val();
-            var valRemark = $("#putRemark").val();
-            $("#request_name").css("border", "1px solid #ced4da");
-            $("#putRemark").css("border", "1px solid #ced4da");
+            var valRemark = $("#remark").val();
 
             if (valRequestName === "") {
-                $("#request_name").focus();
-                $("#request_name").attr('required', true);
-                $("#request_name").css("border", "1px solid red");
-            } else if (valBeneficiaryName === "") {
-                $("#beneficiary_name").focus();
-                $("#beneficiary_name").attr('required', true);
-                $("#beneficiary_name").css("border", "1px solid red");
+                MandatoryFormFunctionTrue("#request_name", "#request_position");
+            }else if (valBeneficiaryName === "") {
+                MandatoryFormFunctionTrue("#beneficiary_name", "#beneficiary_position");
             } else if (valBankName === "") {
-                $("#bank_name").focus();
-                $("#bank_name").attr('required', true);
-                $("#bank_name").css("border", "1px solid red");
+                MandatoryFormFunctionTrue("#bank_name", "#bank_name_full");
             } else if (valBankAccount === "") {
-                $("#bank_account").focus();
-                $("#bank_account").attr('required', true);
-                $("#bank_account").css("border", "1px solid red");
+                MandatoryFormFunctionTrue("#bank_account", "#account_name");
             } else if (valRemark === "") {
-                $("#putRemark").focus();
-                $("#putRemark").attr('required', true);
-                $("#putRemark").css("border", "1px solid red");
+                MandatoryFormFunctionTrue("#remark", "");
             } else {
 
                 $("#submitArf").prop("disabled", true);
@@ -539,7 +535,7 @@
                                 }
                             },
 
-                            error: function(response) { // handle the error
+                            error: function(response) {
                                 HideLoading();
                                 $("#submitArf").prop("disabled", false);
                                 // CALL FUNCTION DO NOT HAVE ACCESS NOTIF

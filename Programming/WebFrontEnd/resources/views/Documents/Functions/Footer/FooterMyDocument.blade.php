@@ -42,10 +42,11 @@
 <!-- LOADING DATA MY DOCUMENT -->
 <script>
     function SuccessDataMyDocument(data) {
+        $('#TableMyDocument').find('tbody').empty();
         var keys = 0;
         var no = 1;
         var t = $('.TableMyDocument').DataTable();
-        t.clear();
+        t.clear().draw();
         $.each(data.data, function(key, val) {
 
             const date = dateFns.format(

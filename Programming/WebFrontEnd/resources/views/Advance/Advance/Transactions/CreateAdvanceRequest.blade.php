@@ -192,8 +192,9 @@
                           <div class="form-group">
                             <table>
                               <tr>
-                                <td>
-                                  <textarea name="var_remark" id="putRemark" rows="2" cols="1000" class="form-control"></textarea>
+                                <td style="display: flex;">
+                                  <textarea name="var_remark" id="remark" rows="2" cols="150" class="form-control"></textarea>
+                                  <span id="remark_icon" title="Please Input Remark" style="position: relative;top:10px;left:5px;"><img src="{{ asset('AdminLTE-master/dist/img/mandatory.png') }}" width="17" alt=""></span>
                                 </td>
                               </tr>
                             </table>

@@ -89,5 +89,8 @@
 
         $("#bank_name2").prop("disabled", false);
 
+
+        MandatoryFormFunctionFalse("#beneficiary_name", "#beneficiary_position");
+
     });
 </script>
