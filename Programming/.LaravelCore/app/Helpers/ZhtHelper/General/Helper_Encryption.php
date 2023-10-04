@@ -84,6 +84,17 @@ namespace App\Helpers\ZhtHelper\General
             }
 
 
+        public static function getHTTPGetParameterDecrypt($varUserSession, $varEncryptedData)
+            {
+            
+            }
+
+
+        public static function getHTTPGetParameterEncrypt($varUserSession, $varPlainData)
+            {
+            }
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getOpenSSLDecrypt                                                                                    |

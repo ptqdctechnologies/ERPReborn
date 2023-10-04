@@ -183,7 +183,7 @@ namespace App\Helpers\ZhtHelper\System
 //echo $varHTTPStatusCode;                        
                         //---> Jika Backend Process Sukses
                         if($varHTTPStatusCode == 200)
-                            {                            
+                            {
                             $varResponseData = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_BodyContent($varUserSession, $varResponse);
                             $varDataHeaderMD5 = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_Header($varUserSession, $varResponse, 'X-Content-MD5');
 //dd($varDataHeaderMD5);
@@ -216,8 +216,8 @@ namespace App\Helpers\ZhtHelper\System
                                         'message' => 'Data integrity check failed (MD5 Payload Inconsistency)',
                                         'md5' => $varDataHeaderMD5,
                                         'Response' =>  ((array) $varResponseData)[0],
-                                        
-                                        
+
+
 //'ccc' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, $varResponseData)
 
 //                                        'message' => 'Data integrity check failed (MD5 Payload Inconsistency)'
