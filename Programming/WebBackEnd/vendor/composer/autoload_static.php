@@ -3113,6 +3113,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Aws\\DataPipeline\\Exception\\DataPipelineException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/DataPipeline/Exception/DataPipelineException.php',
         'Aws\\DataSync\\DataSyncClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/DataSync/DataSyncClient.php',
         'Aws\\DataSync\\Exception\\DataSyncException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/DataSync/Exception/DataSyncException.php',
+        'Aws\\DataZone\\DataZoneClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/DataZone/DataZoneClient.php',
+        'Aws\\DataZone\\Exception\\DataZoneException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/DataZone/Exception/DataZoneException.php',
         'Aws\\DatabaseMigrationService\\DatabaseMigrationServiceClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/DatabaseMigrationService/DatabaseMigrationServiceClient.php',
         'Aws\\DatabaseMigrationService\\Exception\\DatabaseMigrationServiceException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/DatabaseMigrationService/Exception/DatabaseMigrationServiceException.php',
         'Aws\\DefaultsMode\\Configuration' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/DefaultsMode/Configuration.php',

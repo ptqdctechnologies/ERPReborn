@@ -2464,6 +2464,8 @@ return array(
     'Aws\\DataPipeline\\Exception\\DataPipelineException' => $vendorDir . '/aws/aws-sdk-php/src/DataPipeline/Exception/DataPipelineException.php',
     'Aws\\DataSync\\DataSyncClient' => $vendorDir . '/aws/aws-sdk-php/src/DataSync/DataSyncClient.php',
     'Aws\\DataSync\\Exception\\DataSyncException' => $vendorDir . '/aws/aws-sdk-php/src/DataSync/Exception/DataSyncException.php',
+    'Aws\\DataZone\\DataZoneClient' => $vendorDir . '/aws/aws-sdk-php/src/DataZone/DataZoneClient.php',
+    'Aws\\DataZone\\Exception\\DataZoneException' => $vendorDir . '/aws/aws-sdk-php/src/DataZone/Exception/DataZoneException.php',
     'Aws\\DatabaseMigrationService\\DatabaseMigrationServiceClient' => $vendorDir . '/aws/aws-sdk-php/src/DatabaseMigrationService/DatabaseMigrationServiceClient.php',
     'Aws\\DatabaseMigrationService\\Exception\\DatabaseMigrationServiceException' => $vendorDir . '/aws/aws-sdk-php/src/DatabaseMigrationService/Exception/DatabaseMigrationServiceException.php',
     'Aws\\DefaultsMode\\Configuration' => $vendorDir . '/aws/aws-sdk-php/src/DefaultsMode/Configuration.php',
