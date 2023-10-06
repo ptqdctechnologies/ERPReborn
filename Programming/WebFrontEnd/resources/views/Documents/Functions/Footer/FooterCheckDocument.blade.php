@@ -5,7 +5,7 @@
     $(".ApprovalHistory").hide();
 </script>
 
-
+<!-- 
 <script>
     $.ajaxSetup({
         headers: {
@@ -45,7 +45,7 @@
         });
 
     });
-</script>
+</script> -->
 
 <script>
     $.ajaxSetup({

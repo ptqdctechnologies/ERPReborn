@@ -37,6 +37,8 @@ class CheckDocumentController extends Controller
             ],
             false
         );
+
+        // dd($varDataWorkflow);
         return $varDataWorkflow;
     }
 
@@ -148,6 +150,21 @@ class CheckDocumentController extends Controller
                 ]
             ]
         );
+
+        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varAPIWebToken,
+        //     'report.form.documentForm.general.getAllDataFilterByDocumentTypeID',
+        //     'latest',
+        //     [
+        //         'parameter' => [
+        //             'businessDocumentType_RefID' => "Adv/QDC/2023/000137",
+        //             'approverEntity_RefID' => (int) $SessionWorkerCareerInternal_RefID
+        //         ]
+        //     ],
+        //     false
+        // );
+
 
         // dd($varData);
 

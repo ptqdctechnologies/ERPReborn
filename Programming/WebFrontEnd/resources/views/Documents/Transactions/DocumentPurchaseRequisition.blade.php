@@ -23,7 +23,13 @@
               <tr>
                 <td style="padding-top: 5px;"><label>File Attachment</label></td>
                 <td>:</td>
-                <td>{{ $dataTransaction['content']['general']['involvedPersons'][0]['requesterWorkerJobsPositionName'] }}</td>
+                @if($dataTransaction['content']['general']['attachmentFiles']['main']['itemList'] != "")
+                <td>
+                  @foreach($dataTransaction['content']['general']['attachmentFiles']['main']['itemList'] as $data_file)
+                  <a href="{{ $data_file['entities']['downloadURL'] }}" title="Download Attachment">- {{ $data_file['entities']['name'] }} </a> <br>
+                  @endforeach
+                </td>
+                @endif
               </tr>
             </table>
           </div>
