@@ -73,7 +73,6 @@ class CheckDocumentController extends Controller
                     false
                 );
             }
-
             if ($varDataWorkflow['metadata']['HTTPStatusCode'] != '200') {
                 return redirect()->route('CheckDocument.index')->with('NotFound', 'Data Not Found');
             } else {

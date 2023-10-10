@@ -6,10 +6,6 @@
 @include('getFunction.getProduct')
 @include('Advance.Advance.Functions.PopUp.PopUpAdvanceRevision')
 @include('getFunction.getProject')
-@include('getFunction.getWorker')
-@include('getFunction.getBeneficiary')
-@include('getFunction.getBank')
-@include('getFunction.getBankAccount')
 
 <div class="content-wrapper">
   <section class="content">
@@ -194,7 +190,7 @@
                             <table>
                               <tr>
                                 <td>
-                                  <textarea name="var_remark" id="putRemark" rows="2" cols="1000" class="form-control" required>{{$dataRevisi['remarks']}}</textarea>
+                                  <textarea name="var_remark" id="remark" rows="2" cols="150" class="form-control" required>{{$dataRevisi['remarks']}}</textarea>
                                 </td>
                               </tr>
                             </table>

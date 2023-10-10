@@ -33,7 +33,7 @@ class FunctionController extends Controller
     public function getSite(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $projectcode = $request->input('projectcode');
+        $project_code = $request->input('project_code');
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
@@ -41,7 +41,7 @@ class FunctionController extends Controller
             'latest',
             [
                 'parameter' => [
-                    'project_RefID' => (int)$projectcode
+                    'project_RefID' => (int)$project_code
                 ]
             ]
         );
@@ -53,7 +53,7 @@ class FunctionController extends Controller
     public function getBudget(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $sitecode = $request->input('sitecode');
+        $site_code = $request->input('site_code');
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
@@ -61,7 +61,7 @@ class FunctionController extends Controller
             'latest',
             [
                 'parameter' => [
-                    'combinedBudgetSection_RefID' => (int)$sitecode,
+                    'combinedBudgetSection_RefID' => (int)$site_code,
                 ],
                 'SQLStatement' => [
                     'pick' => null,

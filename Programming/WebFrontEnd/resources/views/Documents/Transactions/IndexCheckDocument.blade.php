@@ -21,11 +21,11 @@
         <div class="tab-content p-3" id="nav-tabContent">
 
           <div class="row">
-            <div class="card ViewWorkflow" style="background-color:#e9ecef;border:1px solid #ced4da;margin-left:10px;">
+            <!-- <div class="card ViewWorkflow" style="background-color:#e9ecef;border:1px solid #ced4da;margin-left:10px;">
               <a class="btn btn-default btn-sm">
                 View Workflow History
               </a>
-            </div>
+            </div> -->
 
             <div class="card ViewDocument" style="background-color:#e9ecef;border:1px solid #ced4da;margin-left:10px;">
               <a class="btn btn-default btn-sm">
@@ -50,6 +50,9 @@
             @include('Documents.Transactions.DocumentPurchaseRequisition')
 
             @endif
+
+
+            @include('Documents.Transactions.DocumentApprovalHistory')
 
           </div>
         </div>

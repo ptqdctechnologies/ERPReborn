@@ -46,14 +46,14 @@
 
         $("#bank_code").val(bank_ID);
         $("#bank_name").val(acronym);
-        $("#bank_name_full").val(name);
+        $("#bank_name_detail").val(name);
 
         $("#bank_account").val("");
-        $("#account_name").val("");
+        $("#bank_account_detail").val("");
 
-        $("#bank_account2").prop("disabled", false);
+        $("#bank_account_popup").prop("disabled", false);
 
-        MandatoryFormFunctionFalse("#bank_name", "#bank_name_full");
+        MandatoryFormFunctionFalse("#bank_name", "#bank_name_detail");
 
         $.ajaxSetup({
             headers: {
@@ -99,9 +99,9 @@
 
         $("#beneficiaryBankAccount_RefID").val(sys_id_bank_account);
         $("#bank_account").val(accountNumber);
-        $("#account_name").val(accountName);
+        $("#bank_account_detail").val(accountName);
 
-        MandatoryFormFunctionFalse("#bank_account", "#account_name");
+        MandatoryFormFunctionFalse("#bank_account", "#bank_account_detail");
 
     });
 </script>

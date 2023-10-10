@@ -75,8 +75,8 @@
         var position = row.find("td:nth-child(3)").text();
 
         $("#beneficiary_id").val(sys_id_beneficiary);
-        $("#beneficiary_name").val(name);
-        $("#beneficiary_position").val(position);
+        $("#beneficiary").val(name);
+        $("#beneficiary_detail").val(position);
 
         $("#bank_code").val("");
         $("#bank_name").val("");
@@ -90,7 +90,7 @@
         $("#bank_name2").prop("disabled", false);
 
 
-        MandatoryFormFunctionFalse("#beneficiary_name", "#beneficiary_position");
+        MandatoryFormFunctionFalse("#beneficiary", "#beneficiary_detail");
 
     });
 </script>

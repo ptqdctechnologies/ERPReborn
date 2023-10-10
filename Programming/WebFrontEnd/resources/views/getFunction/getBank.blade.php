@@ -49,7 +49,6 @@
                 type: 'GET',
                 url: '{!! route("getBank") !!}?sys_ID=' + sys_ID,
                 success: function(data) {
-                    console.log(data);
                     var no = 1;
                     t = $('#tableGetBank').DataTable();
                     t.clear();
@@ -66,6 +65,9 @@
                     });
                 }
             });
+
+            MandatoryFormFunctionFalse("#bank_name", "#bank_name_detail");
+
         });
 
     });

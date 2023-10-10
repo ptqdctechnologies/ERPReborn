@@ -22,7 +22,7 @@
                 @foreach($dataWorkflow as $dataWorkflows)
                 <tr>
                     <td style="border:1px solid #4B586A;color:#4B586A;">{{ $no++ }}</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">{{ date('D, d/m/Y H:m:s', strtotime($dataWorkflows['approvalDateTimeTZ'])) }}</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">{{ date('D, m/d/Y H:m:s', strtotime($dataWorkflows['approvalDateTimeTZ'])) }}</td>
                     <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['name'] }}</td>
                     <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['workFlowPathActionName'] }}</td>
                     <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['remarks'] }}</td>

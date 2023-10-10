@@ -298,13 +298,13 @@
       "debug": false,
       "newestOnTop": false,
       "progressBar": true,
-      "positionClass": "toast-top-right",
+      "positionClass": "toast-middle-center",
       "preventDuplicates": false,
       "onclick": null,
-      "showDuration": "1000",
-      "hideDuration": "1000",
-      "timeOut": "5000",
-      "extendedTimeOut": "1000",
+      // "showDuration": "1000",
+      // "hideDuration": "1000",
+      // "timeOut": "5000",
+      // "extendedTimeOut": "1000",
       "showEasing": "swing",
       "hideEasing": "linear",
       "showMethod": "fadeIn",
@@ -314,71 +314,53 @@
 
   // FUNCTION ERROR NOTIFICATION 
   function ErrorNotif(message) {
-
-    // swal({
-    //   onOpen: function() {
-    //     swal.disableConfirmButton();
-    //     Swal.fire("Error !", message, "error");
-    //   }
-    // });
-
     ToastrFunction();
-    toastr.error(message);
+    toastr.error(message, {timeOut: 2000});
   }
 
-  // FUNCTION DO NOT HAVE ACCESS NOTIF
-
-  function DoNotHaveAccessNotif(message, url) {
-
+  function CancelNotif(message, url) {
     ToastrFunction();
 
     toastr.error('<br /><span style="background-color:white;" id="confirmationButtonYes"> <span style="padding:10px;color:#DC3545;border-radius:5px;"> Back </span> </span>', message, {
       allowHtml: true,
+      timeOut: 5000,
       onShown: function(toast) {
-        $("#confirmationButtonYes").click(function() {
+        // $("#confirmationButtonYes").click(function() {
           window.location.href = url;
-        });
-      }
+        // });
+      } 
     });
 
-    // const swalWithBootstrapButtons = Swal.mixin({
-    //   confirmButtonClass: 'btn btn-success btn-sm',
-    //   cancelButtonClass: 'btn btn-danger btn-sm',
-    //   buttonsStyling: true,
-    // })
-
-    // swalWithBootstrapButtons.fire({
-
-    //   title: 'Cancelled',
-    //   text: "You don't have access",
-    //   type: 'error',
-    //   confirmButtonColor: '#e9ecef',
-    //   confirmButtonText: '<span style="color:black;"> OK </span>',
-
-    // }).then((result) => {
-    //   if (result.value) {
-    //     ShowLoading();
-    //     window.location.href = url;
-    //   }
-    // })
   }
+
 </script>
 
 
 <!-- FUNCTION VALIDATION MANDATORY -->
 <script>
+  
+  // MANDATORY LIST 
+  function MandatoryListFunction(MandatoryListVar) {
+    var count = 0;
+    for (var i = 0; i < Object.keys(MandatoryListVar).length; i++) {
+      if (MandatoryListVar[Object.keys(MandatoryListVar)[i]] == "") {
+        MandatoryFormFunctionTrue("#" + Object.keys(MandatoryListVar)[i], "#" + Object.keys(MandatoryListVar)[i] + "_detail");
+        count++;
+      }
+    }
+    return count;
+  }
 
   // VALIDATION IF FORM EMPTY
   function MandatoryFormFunctionTrue(FormIdentity, FormIdentityDetail) {
     $(FormIdentity).focus();
-    $(FormIdentity).attr('required', true);
-    $(FormIdentity).css("border", "2px solid red");
+    $(FormIdentity).css("border", "1px solid red");
 
     $(FormIdentityDetail).focus();
-    $(FormIdentityDetail).attr('required', true);
-    $(FormIdentityDetail).css("border", "2px solid red");
+    $(FormIdentityDetail).css("border", "1px solid red");
 
     $(FormIdentity + "_icon").show();
+
   }
 
   // VALIDATION IF FORM INPUTED / SELECTED
@@ -387,7 +369,7 @@
     $(FormIdentityDetail).css("border", "1px solid #ced4da");
     $(FormIdentity + "_icon").hide();
   }
-  
+
   // VALIDATION FOR REMARK FORM, CHANGE BORDER AND HIDE ERROR ICON WHEN INPUTED
   $('#remark').keyup(function() {
     $("#remark").css("border", "1px solid #ced4da");

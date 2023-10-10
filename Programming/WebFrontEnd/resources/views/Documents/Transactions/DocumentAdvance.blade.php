@@ -33,7 +33,7 @@
               <tr>
                 <td style="padding-top: 5px;"><label>Sub Budget Code</label></td>
                 <td>:</td>
-                <td>{{ $dataTransaction['content']['general']['budget']['combinedBudgetSectionFullNameList'][0] }}</td>
+                <td>{{ $dataTransaction['content']['general']['budget']['combinedBudgetSectionNameList'][0] }}</td>
               </tr>
               <tr>
                 <td style="padding-top: 5px;"><label>File Attachment</label></td>

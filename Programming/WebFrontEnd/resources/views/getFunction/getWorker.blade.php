@@ -77,12 +77,12 @@
         var name = row.find("td:nth-child(2)").text();
         var position = row.find("td:nth-child(3)").text();
 
-        $("#request_name_id").val(sys_id_requester);
-        $("#request_name").val(name);
-        $("#request_position").val(position);
+        $("#requester_id").val(sys_id_requester);
+        $("#requester").val(name);
+        $("#requester_detail").val(position);
         $("#contactPhone").val(contact_number_requester);
 
-        MandatoryFormFunctionFalse("#request_name", "#request_position");
+        MandatoryFormFunctionFalse("#requester", "#requester_detail");
 
     });
     

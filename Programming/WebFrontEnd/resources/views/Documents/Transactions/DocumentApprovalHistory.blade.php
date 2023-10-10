@@ -13,11 +13,11 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-12">
-                    @foreach($dataWorkflow['content']['logBusinessDocumentWorkFlowPathHistory']['itemList']['ungrouped'] as $dataWorkflows)
+                    @foreach($dataWorkflow as $dataWorkflows)
                     <ul>
                         <li>
-                        <span style="text-transform:uppercase;font-weight:bold;">{{ $dataWorkflows['entities']['workFlowPathActionName'] }}</span> {{ date('d/m/Y H:m:s', strtotime($dataWorkflows['entities']['approvalDateTimeTZ'])) }} : {{ $dataWorkflows['entities']['approverEntityName'] }} ({{ $dataWorkflows['entities']['approverEntityDepartmentName'] }}) <br>
-                            Comment : {{ $dataWorkflows['entities']['remarks'] }}
+                        <span style="text-transform:uppercase;font-weight:bold;">{{ $dataWorkflows['workFlowPathActionName'] }}</span> {{ date('D, m/d/Y H:m:s', strtotime($dataWorkflows['approvalDateTimeTZ'])) }} : {{ $dataWorkflows['name'] }} <br>
+                            Comment : {{ $dataWorkflows['remarks'] }}
                         </li>
                     </ul>
                     @endforeach
