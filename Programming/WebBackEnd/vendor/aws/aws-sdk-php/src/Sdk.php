@@ -74,10 +74,6 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionBackupStorage(array $args = [])
  * @method \Aws\Batch\BatchClient createBatch(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionBatch(array $args = [])
- * @method \Aws\Bedrock\BedrockClient createBedrock(array $args = [])
- * @method \Aws\MultiRegionClient createMultiRegionBedrock(array $args = [])
- * @method \Aws\BedrockRuntime\BedrockRuntimeClient createBedrockRuntime(array $args = [])
- * @method \Aws\MultiRegionClient createMultiRegionBedrockRuntime(array $args = [])
  * @method \Aws\BillingConductor\BillingConductorClient createBillingConductor(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionBillingConductor(array $args = [])
  * @method \Aws\Braket\BraketClient createBraket(array $args = [])
@@ -198,8 +194,6 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionDataPipeline(array $args = [])
  * @method \Aws\DataSync\DataSyncClient createDataSync(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionDataSync(array $args = [])
- * @method \Aws\DataZone\DataZoneClient createDataZone(array $args = [])
- * @method \Aws\MultiRegionClient createMultiRegionDataZone(array $args = [])
  * @method \Aws\DatabaseMigrationService\DatabaseMigrationServiceClient createDatabaseMigrationService(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionDatabaseMigrationService(array $args = [])
  * @method \Aws\Detective\DetectiveClient createDetective(array $args = [])
@@ -721,7 +715,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.283.0';
+    const VERSION = '3.281.11';
 
     /** @var array Arguments for creating clients */
     private $args;
