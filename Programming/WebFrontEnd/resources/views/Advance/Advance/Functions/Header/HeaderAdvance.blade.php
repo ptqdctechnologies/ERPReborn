@@ -7,13 +7,13 @@
             <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Budget Code</label></td>
             <td>
               <div class="input-group">
-                <input id="projectcode" style="border-radius:0;" name="projectcode" class="col-4 form-control" readonly>
+                <input id="project_code" style="border-radius:0;" name="project_code" class="col-4 form-control" readonly>
                 <div class="input-group-append">
                   <span style="border-radius:0;" class="input-group-text form-control">
-                    <a href="#" id="projectcode2" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                    <a href="#" id="project_code_popup" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                   </span>
                 </div>
-                <input id="projectname" style="border-radius:0;" class="col-8 form-control" name="projectname" readonly>
+                <input id="project_code_detail" style="border-radius:0;" class="col-8 form-control" name="project_code_detail" readonly>
               </div>
             </td>
           </tr>
@@ -27,13 +27,13 @@
             <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Sub Budget Code</label></td>
             <td>
               <div class="input-group">
-                <input id="sitecode" style="border-radius:0;" name="sitecode" class="col-4 form-control" readonly>
+                <input id="site_code" style="border-radius:0;" name="site_code" class="col-4 form-control" readonly>
                 <div class="input-group-append">
                   <span style="border-radius:0;" class="input-group-text form-control">
-                    <a href="#" id="sitecode2" data-toggle="modal" data-target="#mySiteCode"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                    <a href="#" id="site_code_popup" data-toggle="modal" data-target="#mySiteCode"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                   </span>
                 </div>
-                <input id="sitename" style="border-radius:0;" class="col-8 form-control" name="sitename" readonly>
+                <input id="site_code_detail" style="border-radius:0;" class="col-8 form-control" name="site_code_detail" readonly>
               </div>
             </td>
           </tr>

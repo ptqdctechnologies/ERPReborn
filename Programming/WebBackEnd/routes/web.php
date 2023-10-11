@@ -29,6 +29,11 @@ Route::get('/', function () {
 //---[ Main System ]---(START)---
 //---[ Main System ]---( END )---
 
+
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('testAPi', 'get', '\Application\BackEnd\System\Report\Engines\form\documentForm\general\getAllDataFilterByDocumentTypeID\v1\getAllDataFilterByDocumentTypeID@main');
+
+
+
 Route::get('zhtTestAdminLTE', function () {
     return view('zhtTestAdminLTE');
     })->middleware('web');

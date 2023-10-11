@@ -1,7 +1,6 @@
 <script type="text/javascript">
-    $("#projectcode2").prop("disabled", true);
-    $("#sitecode2").prop("disabled", true);
-    $("#request_name2").prop("disabled", true);
+    $("#project_code_popup").prop("disabled", true);
+    $("#site_code_popup").prop("disabled", true);
     $("#addFromDetailtoCart").prop("disabled", true);
     $("#showContentBOQ3").hide();
     $("#product_id2").prop("disabled", true);
@@ -413,23 +412,21 @@
         $("#formUpdateArf").on("submit", function(e) { //id of form 
             e.preventDefault();
 
-            var valRequestName = $("#request_name").val();
-            var valRemark = $("#putRemark").val();
-            $("#request_name").css("border", "1px solid #ced4da");
-            $("#putRemark").css("border", "1px solid #ced4da");
+            // MANDATORY VALIDATION
+            var MandatoryListVar = new Object();
+            MandatoryListVar['remark'] = $("#remark").val();
+            MandatoryListVar['bank_account'] = $("#bank_account").val();
+            MandatoryListVar['bank_name'] = $("#bank_name").val();
+            MandatoryListVar['beneficiary'] = $("#beneficiary").val();
+            MandatoryListVar['requester'] = $("#requester").val();
 
-            if (valRequestName === "") {
-                $("#request_name").focus();
-                $("#request_name").attr('required', true);
-                $("#request_name").css("border", "1px solid red");
-            } else if (valRemark === "") {
-                $("#putRemark").focus();
-                $("#putRemark").attr('required', true);
-                $("#putRemark").css("border", "1px solid red");
-            } else {
+            var MandatoryListCount = MandatoryListFunction(MandatoryListVar);
+            // END MANDATORY VALIDATION
+
+            if (MandatoryListCount == 0) {
 
                 $("#submitArf").prop("disabled", true);
-               
+
                 const swalWithBootstrapButtons = Swal.mixin({
                     confirmButtonClass: 'btn btn-sm',
                     cancelButtonClass: 'btn btn-sm',

@@ -1,18 +1,18 @@
 <script type="text/javascript">
-    $("#sitecode2").prop("disabled", true);
-    $("#request_name2").prop("disabled", true);
-    $("#beneficiary_name2").prop("disabled", true);
+    $("#site_code_popup").prop("disabled", true);
+    // $("#requester_popup").prop("disabled", true);
+    // $("#beneficiary_popup").prop("disabled", true);
+    // $("#bank_name_popup").prop("disabled", true);
+    // $("#bank_account_popup").prop("disabled", true);
     $("#product_id2").prop("disabled", true);
-    $("#bank_name2").prop("disabled", true);
-    $("#bank_account2").prop("disabled", true);
 
-    $("#request_name_icon").hide();
-    $("#beneficiary_name_icon").hide();
+    $("#requester_icon").hide();
+    $("#beneficiary_icon").hide();
     $("#bank_name_icon").hide();
     $("#bank_account_icon").hide();
     $("#remark_icon").hide();
-    
-    $("#submitArf").prop("disabled", true);
+
+    // $("#submitArf").prop("disabled", true);
 </script>
 
 <script>
@@ -38,9 +38,9 @@
         var code = row.find("td:nth-child(2)").text();
         var name = row.find("td:nth-child(3)").text();
 
-        $("#projectcode").val(code);
-        $("#projectname").val(name);
-        $("#sitecode2").prop("disabled", false);
+        $("#project_code").val(code);
+        $("#project_code_detail").val(name);
+        $("#site_code_popup").prop("disabled", false);
 
         $.ajaxSetup({
             headers: {
@@ -51,7 +51,7 @@
         var keys = 0;
         $.ajax({
             type: 'GET',
-            url: '{!! route("getSite") !!}?projectcode=' + sys_id,
+            url: '{!! route("getSite") !!}?project_code=' + sys_id,
             success: function(data) {
 
                 var no = 1;
@@ -90,13 +90,13 @@
         var code = row.find("td:nth-child(2)").text();
         var name = row.find("td:nth-child(3)").text();
 
-        $("#sitecode").val(code);
-        $("#sitename").val(name);
+        $("#site_code").val(code);
+        $("#site_code_detail").val(name);
 
         $("#addToDoDetail").prop("disabled", false);
         $(".tableShowHideBudget").show();
-        $("#request_name2").prop("disabled", false);
-        $("#beneficiary_name2").prop("disabled", false);
+        $("#requester_popup").prop("disabled", false);
+        $("#beneficiary_popup").prop("disabled", false);
 
 
         $(".file-attachment").show();
@@ -110,7 +110,7 @@
 
         $.ajax({
             type: 'GET',
-            url: '{!! route("getBudget") !!}?sitecode=' + sys_id,
+            url: '{!! route("getBudget") !!}?site_code=' + sys_id,
             success: function(data) {
                 var no = 1;
                 applied = 0;
@@ -449,25 +449,19 @@
     $(function() {
         $("#formSubmitArf").on("submit", function(e) { //id of form 
             e.preventDefault();
+            
+            // MANDATORY VALIDATION
+            // var MandatoryListVar = new Object();
+            // MandatoryListVar['remark'] = $("#remark").val();
+            // MandatoryListVar['bank_account'] = $("#bank_account").val();
+            // MandatoryListVar['bank_name'] = $("#bank_name").val();
+            // MandatoryListVar['beneficiary'] = $("#beneficiary").val();
+            // MandatoryListVar['requester'] = $("#requester").val();
 
-            var valRequestName = $("#request_name").val();
-            var valBeneficiaryName = $("#beneficiary_name").val();
-            var valBankName = $("#bank_name").val();
-            var valBankAccount = $("#bank_account").val();
-            var valRemark = $("#remark").val();
+            // var MandatoryListCount = MandatoryListFunction(MandatoryListVar);
+            // // END MANDATORY VALIDATION
 
-            if (valRequestName === "") {
-                MandatoryFormFunctionTrue("#request_name", "#request_position");
-            }else if (valBeneficiaryName === "") {
-                MandatoryFormFunctionTrue("#beneficiary_name", "#beneficiary_position");
-            } else if (valBankName === "") {
-                MandatoryFormFunctionTrue("#bank_name", "#bank_name_full");
-            } else if (valBankAccount === "") {
-                MandatoryFormFunctionTrue("#bank_account", "#account_name");
-            } else if (valRemark === "") {
-                MandatoryFormFunctionTrue("#remark", "");
-            } else {
-
+            // if (MandatoryListCount == 0) {
                 $("#submitArf").prop("disabled", true);
 
                 const swalWithBootstrapButtons = Swal.mixin({
@@ -539,7 +533,7 @@
                                 HideLoading();
                                 $("#submitArf").prop("disabled", false);
                                 // CALL FUNCTION DO NOT HAVE ACCESS NOTIF
-                                DoNotHaveAccessNotif("You don't have access", '/AdvanceRequest?var=1');
+                                CancelNotif("You don't have access", '/AdvanceRequest?var=1');
 
                             },
 
@@ -551,10 +545,10 @@
                     ) {
                         HideLoading();
                         // FUNCTION ERROR NOTIFICATION 
-                        ErrorNotif("Data Cancel Inputed");
+                        CancelNotif("Data Cancel Inputed", '/AdvanceRequest?var=1');
                     }
                 })
-            }
+            // }
         });
     });
 </script>
