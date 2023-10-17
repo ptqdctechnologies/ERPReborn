@@ -34,47 +34,50 @@
 </div>
 
 <script>
+    var isBodyClicked = false;
     function KeyFunction(key) {
+        // if (isBodyClicked === false) {
+            $("#loading").show();
+            $(".loader").show();
 
-        $("#loading").show();
-        $(".loader").show();
+            $("#tableGetProduct").dataTable().fnDestroy();
 
-        $("#tableGetProduct").dataTable().fnDestroy();
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        var dataShow = [];
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("getProduct") !!}',
-            success: function(data) {
-                for (var i = 0; i < Object.keys(data).length; i++) {
-                    var no = i + 1;
-                    dataShow.push([
-                        '<tbody><tr><td>' + no + '</td>',
-                        '<td>' + data[i]['sys_ID'] + '</td>',
-                        '<td>' + data[i]['name'] + '</td>',
-                        '<td>' + data[i]['quantityUnitName'] + '</td>',
-                        '<span style="display:none;"><td">' + key + '</td>',
-                        '<span style="display:none;"><td">' + data[i]['quantityUnit_RefID'] + '</td></span></tr></tbody>'
-                    ]);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
+            });
+            var dataShow = [];
+            $.ajax({
+                type: 'GET',
+                url: '{!! route("getProduct") !!}',
+                success: function(data) {
+                    for (var i = 0; i < Object.keys(data).length; i++) {
+                        var no = i + 1;
+                        dataShow.push([
+                            '<tbody><tr><td>' + no + '</td>',
+                            '<td>' + data[i]['sys_ID'] + '</td>',
+                            '<td>' + data[i]['name'] + '</td>',
+                            '<td>' + data[i]['quantityUnitName'] + '</td>',
+                            '<span style="display:none;"><td">' + key + '</td>',
+                            '<span style="display:none;"><td">' + data[i]['quantityUnit_RefID'] + '</td></span></tr></tbody>'
+                        ]);
+                    }
 
-                $("#loading").hide();
-                $(".loader").hide();
+                    $("#loading").hide();
+                    $(".loader").hide();
 
 
-                $('#tableGetProduct').DataTable({
-                    data: dataShow,
-                    deferRender: true,
-                    scrollCollapse: true,
-                    scroller: true
-                });
-            }
-        });
+                    $('#tableGetProduct').DataTable({
+                        data: dataShow,
+                        deferRender: true,
+                        scrollCollapse: true,
+                        scroller: true
+                    });
+                }
+            });
+        // }
+        // isBodyClicked = true;
     }
 </script>
 
@@ -90,6 +93,7 @@
         var key = row.find("td:nth-child(5)").text();
         var budget_qty_id = row.find("td:nth-child(6)").text();
 
+        console.log(key);
         $("#putProductId" + key).val(sys_id);
         $("#putProductName" + key).html(name);
         $("#putUom" + key).val(uom);
@@ -104,7 +108,7 @@
         $("#accomodation_req" + key).prop("disabled", false);
         $("#other_req" + key).prop("disabled", false);
         $("#note_req" + key).prop("disabled", false);
-        
+
 
     });
 </script>

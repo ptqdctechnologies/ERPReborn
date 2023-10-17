@@ -64,7 +64,7 @@
                 $.each(data.DataAdvanceRequest, function(key, val) {
                     keys += 1;
                     t.row.add([
-                        '<tbody><tr><input id="advance_RefID' + keys + '" value="' + val.sys_ID + '" type="hidden"><input id="beneficiary_RefID' + keys + '" value="' + val.requesterWorkerJobsPosition_RefID + '" type="hidden"><input id="beneficiary_name' + keys + '" value="' + val.requesterWorkerName + '" type="hidden"><td>' + no++ + '</td>',
+                        '<tbody><tr><input id="advance_RefID' + keys + '" value="' + val.sys_ID + '" type="hidden"><input id="beneficiary_RefID' + keys + '" value="' + val.beneficiaryWorkerJobsPosition_RefID + '" type="hidden"><input id="beneficiary_name' + keys + '" value="' + val.beneficiaryWorkerName + '" type="hidden"><td>' + no++ + '</td>',
                         '<td>' + val.documentNumber + '</td>',
                         '<td>' + val.combinedBudgetCode + '</td>',
                         '<td>' + val.combinedBudgetName + '</td>',

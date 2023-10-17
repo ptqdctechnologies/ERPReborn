@@ -18,16 +18,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                @php $no = 1; @endphp
-                @foreach($dataWorkflow as $dataWorkflows)
-                <tr>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">{{ $no++ }}</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">{{ date('D, m/d/Y H:m:s', strtotime($dataWorkflows['approvalDateTimeTZ'])) }}</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['name'] }}</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['workFlowPathActionName'] }}</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['remarks'] }}</td>
-                </tr>
-                @endforeach
+
+                @if(isset($dataWorkflow))
+                    @php $no = 1; @endphp
+                    @foreach($dataWorkflow as $dataWorkflows)
+                    <tr>
+                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $no++ }}</td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ date('D, m/d/Y H:m:s', strtotime($dataWorkflows['approvalDateTimeTZ'])) }}</td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['name'] }}</td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['workFlowPathActionName'] }}</td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['remarks'] }}</td>
+                    </tr>
+                    @endforeach
+                @endif
                 </tbody>
             </table>
         </div>

@@ -2,7 +2,6 @@
 	var msg = "{{Session::get('NotFound')}}";
 	var exist = "{{Session::has('NotFound')}}";
 	if (exist) {
-		console.log("aaa");
 		toastr.options = {
 			"closeButton": true,
 			"debug": false,

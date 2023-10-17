@@ -179,6 +179,7 @@
   }
 </script>
 
+<!-- VALIDATION FOR INPUT ONLY NUMBER -->
 <script type="text/javascript">
   function isNumberKey(txt, evt) {
     var charCode = (evt.which) ? evt.which : evt.keyCode;
@@ -204,8 +205,7 @@
   }
 </script>
 
-<!-- FUNCTION SELECT 2 -->
-
+<!-- FUNCTION SELECT 2 IN COMBO BOX-->
 <script>
   $(function() {
     //Initialize Select2 Elements
@@ -218,8 +218,7 @@
   })
 </script>
 
-<!-- FUNCTION SHOW HIDE -->
-
+<!-- FUNCTION SHOW HIDE LOADING NOTIFICATION-->
 <script>
   function ShowLoading() {
     $("#loading").show();
@@ -231,6 +230,97 @@
     $(".loader").hide();
   }
 </script>
+
+<!-- FUNCTION NOTIFICATION  -->
+<script>
+  // FUNCTION TOASTR 
+  function ToastrFunction() {
+    toastr.options = {
+      "closeButton": true,
+      "debug": false,
+      "newestOnTop": false,
+      "progressBar": true,
+      "positionClass": "toast-middle-center",
+      "preventDuplicates": false,
+      "onclick": null,
+      // "showDuration": "1000",
+      // "hideDuration": "1000",
+      // "timeOut": "5000",
+      // "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
+  }
+
+  // FUNCTION ERROR NOTIFICATION 
+  function ErrorNotif(message) {
+    ToastrFunction();
+    toastr.error(message, {timeOut: 2000});
+  }
+
+  function CancelNotif(message, url) {
+    ToastrFunction();
+
+    toastr.error('<br /><span style="background-color:white;" id="confirmationButtonYes"> <span style="padding:10px;color:#DC3545;border-radius:5px;"> Back </span> </span>', message, {
+      allowHtml: true,
+      timeOut: 5000,
+      onShown: function(toast) {
+        $("#confirmationButtonYes").click(function() {
+          window.location.href = url;
+        });
+      } 
+    });
+
+  }
+
+</script>
+
+<!-- FUNCTION VALIDATION MANDATORY -->
+<script>
+  
+  // MANDATORY LIST 
+  function MandatoryListFunction(MandatoryListVar) {
+    var count = 0;
+    for (var i = 0; i < Object.keys(MandatoryListVar).length; i++) {
+      if (MandatoryListVar[Object.keys(MandatoryListVar)[i]] == "") {
+        MandatoryFormFunctionTrue("#" + Object.keys(MandatoryListVar)[i], "#" + Object.keys(MandatoryListVar)[i] + "_detail");
+        count++;
+      }
+    }
+    return count;
+  }
+
+  // VALIDATION IF FORM EMPTY
+  function MandatoryFormFunctionTrue(FormIdentity, FormIdentityDetail) {
+    $(FormIdentity).focus();
+    $(FormIdentity).css("border", "1px solid red");
+
+    $(FormIdentityDetail).focus();
+    $(FormIdentityDetail).css("border", "1px solid red");
+
+    $(FormIdentity + "_icon").show();
+
+  }
+
+  // VALIDATION IF FORM INPUTED / SELECTED
+  function MandatoryFormFunctionFalse(FormIdentity, FormIdentityDetail) {
+    $(FormIdentity).css("border", "1px solid #ced4da");
+    $(FormIdentityDetail).css("border", "1px solid #ced4da");
+    $(FormIdentity + "_icon").hide();
+  }
+
+  // VALIDATION FOR REMARK FORM, CHANGE BORDER AND HIDE ERROR ICON WHEN INPUTED
+  $('#remark').keyup(function() {
+    $("#remark").css("border", "1px solid #ced4da");
+    $("#remark_icon").hide();
+  });
+
+</script>
+
+
+
 
 <!-- FUNCTION LOGOUT IN MULTI PAGE -->
 
@@ -288,92 +378,3 @@
     }
   }
 </script> -->
-
-<!-- FUNCTION NOTIFICATION  -->
-<script>
-  // FUNCTION TOASTR 
-  function ToastrFunction() {
-    toastr.options = {
-      "closeButton": true,
-      "debug": false,
-      "newestOnTop": false,
-      "progressBar": true,
-      "positionClass": "toast-middle-center",
-      "preventDuplicates": false,
-      "onclick": null,
-      // "showDuration": "1000",
-      // "hideDuration": "1000",
-      // "timeOut": "5000",
-      // "extendedTimeOut": "1000",
-      "showEasing": "swing",
-      "hideEasing": "linear",
-      "showMethod": "fadeIn",
-      "hideMethod": "fadeOut"
-    }
-  }
-
-  // FUNCTION ERROR NOTIFICATION 
-  function ErrorNotif(message) {
-    ToastrFunction();
-    toastr.error(message, {timeOut: 2000});
-  }
-
-  function CancelNotif(message, url) {
-    ToastrFunction();
-
-    toastr.error('<br /><span style="background-color:white;" id="confirmationButtonYes"> <span style="padding:10px;color:#DC3545;border-radius:5px;"> Back </span> </span>', message, {
-      allowHtml: true,
-      timeOut: 5000,
-      onShown: function(toast) {
-        // $("#confirmationButtonYes").click(function() {
-          window.location.href = url;
-        // });
-      } 
-    });
-
-  }
-
-</script>
-
-
-<!-- FUNCTION VALIDATION MANDATORY -->
-<script>
-  
-  // MANDATORY LIST 
-  function MandatoryListFunction(MandatoryListVar) {
-    var count = 0;
-    for (var i = 0; i < Object.keys(MandatoryListVar).length; i++) {
-      if (MandatoryListVar[Object.keys(MandatoryListVar)[i]] == "") {
-        MandatoryFormFunctionTrue("#" + Object.keys(MandatoryListVar)[i], "#" + Object.keys(MandatoryListVar)[i] + "_detail");
-        count++;
-      }
-    }
-    return count;
-  }
-
-  // VALIDATION IF FORM EMPTY
-  function MandatoryFormFunctionTrue(FormIdentity, FormIdentityDetail) {
-    $(FormIdentity).focus();
-    $(FormIdentity).css("border", "1px solid red");
-
-    $(FormIdentityDetail).focus();
-    $(FormIdentityDetail).css("border", "1px solid red");
-
-    $(FormIdentity + "_icon").show();
-
-  }
-
-  // VALIDATION IF FORM INPUTED / SELECTED
-  function MandatoryFormFunctionFalse(FormIdentity, FormIdentityDetail) {
-    $(FormIdentity).css("border", "1px solid #ced4da");
-    $(FormIdentityDetail).css("border", "1px solid #ced4da");
-    $(FormIdentity + "_icon").hide();
-  }
-
-  // VALIDATION FOR REMARK FORM, CHANGE BORDER AND HIDE ERROR ICON WHEN INPUTED
-  $('#remark').keyup(function() {
-    $("#remark").css("border", "1px solid #ced4da");
-    $("#remark_icon").hide();
-  });
-
-</script>

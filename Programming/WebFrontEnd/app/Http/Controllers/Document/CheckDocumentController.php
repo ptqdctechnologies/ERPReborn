@@ -37,7 +37,6 @@ class CheckDocumentController extends Controller
             ],
             false
         );
-
         // dd($varDataWorkflow);
         return $varDataWorkflow;
     }
@@ -50,7 +49,6 @@ class CheckDocumentController extends Controller
 
         $businessDocumentNumber = $request->input('businessDocumentNumber');
         $businessDocument_RefID = $request->input('businessDocument_RefID');
-
         if (isset($businessDocument_RefID) || isset($businessDocumentNumber)) {
             if (isset($businessDocument_RefID)) {
 
@@ -73,6 +71,7 @@ class CheckDocumentController extends Controller
                     false
                 );
             }
+            
             if ($varDataWorkflow['metadata']['HTTPStatusCode'] != '200') {
                 return redirect()->route('CheckDocument.index')->with('NotFound', 'Data Not Found');
             } else {
@@ -123,52 +122,22 @@ class CheckDocumentController extends Controller
     public function ShowDocumentListData(Request $request)
     {
         $DocumentType = $request->input('DocumentType');
-
-        if ($DocumentType == "") {
-            $DocumentType = null;
-        } else {
-            $DocumentType = (int)$DocumentType;
-        }
-
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $SessionWorkerCareerInternal_RefID = $request->session()->get('SessionWorkerCareerInternal_RefID');
 
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'report.form.resume.master.getBusinessDocumentIssuanceDisposition',
+            'report.form.resume.master.getBusinessDocumentFilterByDocumentTypeID',
             'latest',
             [
                 'parameter' => [
-                    'recordID' => (int)$SessionWorkerCareerInternal_RefID,
-                    'dataFilter' => [
-                        'businessDocumentNumber' => null,
-                        'businessDocumentType_RefID' => $DocumentType,
-                        'combinedBudget_RefID' => null
-                    ]
+                    'recordID' => (int)$DocumentType
                 ]
             ]
         );
 
-        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        //     $varAPIWebToken,
-        //     'report.form.documentForm.general.getAllDataFilterByDocumentTypeID',
-        //     'latest',
-        //     [
-        //         'parameter' => [
-        //             'businessDocumentType_RefID' => "Adv/QDC/2023/000137",
-        //             'approverEntity_RefID' => (int) $SessionWorkerCareerInternal_RefID
-        //         ]
-        //     ],
-        //     false
-        // );
-
-
-        // dd($varData);
-
         $compact = [
-            'data' => $varData['data'][0]['document']['content']['itemList']['ungrouped'],
+            'data' => $varData['data'],
         ];
 
         return response()->json($compact);

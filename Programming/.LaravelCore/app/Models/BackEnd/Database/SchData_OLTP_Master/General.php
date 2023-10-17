@@ -18,6 +18,42 @@ namespace App\Models\Database\SchData_OLTP_Master
     */
     class General //extends \Illuminate\Database\Eloquent\Model
         {
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getBusinessDocumentLastVersionByBusDocType                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-09-19                                                                                           |
+        | ▪ Creation Date   : 2023-09-19                                                                                           |
+        | ▪ Description     : Get Business Document Last Version By Bus Doc Type                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ▪ (string) varFormNumberKeyword ► Form Number Keyword                                                               |
+        |      ▪ (int)    varApproverEntity_RefID ► Approver Entity Reference ID                                                   |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getBusinessDocumentLastVersionByBusDocType(
+            $varUserSession, int $BusinessDocumentTypeID)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    'SchData-OLTP-Master.Func_General_GetBusinessDocumentLastVersionByBusDocType',
+                    [
+                        [$BusinessDocumentTypeID, 'bigint']
+                    ]
+                    )
+                );
+            return $varReturn['Data'];
+            }
+
+            
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getBusinessDocumentLastVersionByFormNumberKeyword                                                    |
@@ -86,6 +122,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                     ]
                     )
                 );
+            // dd($varReturn['Data'][0]['BusinessDocumentForm_RefID']);
             return $varReturn['Data'];
             }
 
@@ -3220,6 +3257,48 @@ namespace App\Models\Database\SchData_OLTP_Master
                         $varUserSession, 
                         $varReturn['Data'][0]['Func_GetReport_Resume_BusinessDocumentIssuanceDispositionCount'])
                     ];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_Resume_BusinessDocumentFilterByDocumentTypeID                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-06-20                                                                                           |
+        | ▪ Creation Date   : 2023-06-20                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Disposisi Penerbitan Dokumen Bisnis                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ▪ (int)    varSysID ► Record ID                                                                                     |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_Resume_BusinessDocumentFilterByDocumentTypeID(
+            $varUserSession, int $varSysBranch_RefID, int $varSysID)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-Master.Func_GetReport_Resume_BusinessDocumentFilterByDocumentTypeID',
+                        [
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysID, 'bigint']
+                        ]
+                        )
+                    );
+                // dd($varReturn['Data']);
+
+                return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
                 return [];

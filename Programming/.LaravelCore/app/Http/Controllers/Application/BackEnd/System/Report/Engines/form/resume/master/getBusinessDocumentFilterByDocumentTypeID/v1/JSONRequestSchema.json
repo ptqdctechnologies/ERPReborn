@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of report.form.documentForm.general.getAllDataFilterByDocumentTypeID (version 1)",
+"description": "JSON Request Schema of report.form.resume.master.getBusinessDocumentFilterByDocumentTypeID (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "report.form.documentForm.general.getAllDataFilterByDocumentTypeID" ]
+                        "enum": [ "report.form.resume.master.getBusinessDocumentFilterByDocumentTypeID" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -30,18 +30,13 @@
             "parameter": {
                 "type": "object",
                 "properties": {
-                    "formNumber": {
-                        "type": [ "string", "null" ],
-                        "minLength": 1,
-                        "maxLength": 64
-                        },
-                    "approverEntity_RefID": {
+                    "recordID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         }
                     },
-                "required": [ "formNumber", "approverEntity_RefID" ]
+                "required": [ "recordID" ]
                 }
             },
         "required": [ "parameter" ]

@@ -15,22 +15,36 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
         public function testAja()
             {
 
-            // $varBufferDB = 
-            // (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentLastVersionByFormNumberKeyword(
-            //     6000000011163, 
-            //     11000000000004,
-            //     "Adv/QDC/2023/000137",
-            //     164000000000196
-            //     );
+            $varBufferDB = 
+            (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentLastVersionByFormNumberKeyword(
+                6000000011163, 
+                11000000000004,
+                "Adv/QDC/2023/000137",
+                164000000000196
+                );
 
-            // dd($varBufferDB);
+            // $varBufferDB = 
+            // (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentLastVersionByBusDocType(
+            // 6000000011163,
+            // 77000000000057
+            // );
+
+            dd($varBufferDB);die;
+
+            $varReturn = 
+            (new \App\Models\Database\SchData_OLTP_Master\General())->getIDTranslation_BusinessDocumentVersionToBusinessDocumentForm(
+                6000000011163, 
+                11000000000004,
+                76000000000151
+                );
 
             // $varReturn = 
             // (new \App\Models\Database\SchData_OLTP_Master\General())->getIDTranslation_BusinessDocumentVersionToBusinessDocumentForm(
             //     6000000011163, 
-            //     11000000000004,
-            //     75000001493382
-            //     )[0]['BusinessDocumentForm_RefID'];
+            //     11000000000004, 
+            //     75000001492838
+            //     );
+
 
             // dd($varReturn);
 

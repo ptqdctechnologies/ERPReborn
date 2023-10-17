@@ -80,14 +80,14 @@
 
         $("#bank_code").val("");
         $("#bank_name").val("");
-        $("#bank_name_full").val("");
+        $("#bank_name_detail").val("");
         $("#bank_account").val("");
-        $("#account_name").val("");
+        $("#bank_account_detail").val("");
 
         $('#tableGetBank').find('tbody').empty();
         $('#tableGetBankAccount').find('tbody').empty();
 
-        $("#bank_name2").prop("disabled", false);
+        $("#bank_name_popup").prop("disabled", false);
 
 
         MandatoryFormFunctionFalse("#beneficiary", "#beneficiary_detail");
