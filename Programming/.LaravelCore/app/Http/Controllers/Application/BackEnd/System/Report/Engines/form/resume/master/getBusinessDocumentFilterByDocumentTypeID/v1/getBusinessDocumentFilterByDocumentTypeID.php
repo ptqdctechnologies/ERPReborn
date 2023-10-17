@@ -3,29 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\documentForm\general                         |
-|                \getAllDataFilterByDocumentTypeID\v1                                                                                |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\resume\master                                |
+|                \getBusinessDocumentFilterByDocumentTypeID\v1                                                                        |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\documentForm\general\getAllDataFilterByDocumentTypeID\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\resume\master\getBusinessDocumentFilterByDocumentTypeID\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getAllDataFilterByDocumentTypeID                                                                               |
-    | ▪ Description : Menangani API report.form.documentForm.general.getAllDataFilterByDocumentTypeID Version 1                      |
+    | ▪ Class Name  : getBusinessDocumentFilterByDocumentTypeID                                                                       |
+    | ▪ Description : Menangani API report.form.resume.master.getBusinessDocumentFilterByDocumentTypeID Version 1                     |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getAllDataFilterByDocumentTypeID extends \App\Http\Controllers\Controller
+    class getBusinessDocumentFilterByDocumentTypeID extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-09-21                                                                                           |
-        | ▪ Creation date   : 2023-09-21                                                                                           |
+        | ▪ Last Update     : 2023-06-20                                                                                           |
+        | ▪ Create date     : 2023-06-20                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,9 +43,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2023-09-21                                                                                           |
-        | ▪ Creation date   : 2023-09-21                                                                                           |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-06-20                                                                                           |
+        | ▪ Create date     : 2023-06-20                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -59,31 +59,34 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Report Form - All Document Type Form By Form Number (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Report Form - Resume - Business Document Filter By Document Type ID (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        $varRecordID = $varData['parameter']['formNumber'];
-                        
-                        if (is_null($varRecordID))
-                            {
-                            $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, 'Invalid Form Number');                            
-                            }
-                        else
-                            {
-                            if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_DocumentForm_AllDocumentType(
-                                $varUserSession, 
-                                (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-
-                                $varRecordID
-                                ))))
-                                {
-                                throw new \Exception();
-                                }
-                            $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
-                            }
-                        
+                        $varRecordID = 
+                            $this->dataProcess(
+                                $varUserSession,
+                                $varData['parameter']['recordID']
+                                );
+                    if (is_null($varRecordID))
+                        {
+                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, 'Invalid Form Number');                            
                         }
+                    else
+                        {
+                        if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_Resume_BusinessDocumentFilterByDocumentTypeID(
+                            $varUserSession, 
+                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+
+                            $varRecordID
+                            
+                            ))))
+                            {
+                            throw new \Exception();
+                            }
+                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
+                        } 
+                    }
                     catch (\Exception $ex) {
                         $varErrorMessage = $ex->getMessage();
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
@@ -101,4 +104,32 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
+
+
+
+            private function dataProcess($varUserSession, int $BusinessDocumentTypeID)
+            {
+                $varReturn = null;
+                $varBufferDB = 
+                    (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentLastVersionByBusDocType(
+                        $varUserSession,
+                        $BusinessDocumentTypeID
+                        );
+                if (count($varBufferDB) > 0) {
+                    for($i = 0; $i < count($varBufferDB); $i++){
+                        $varReturn = 
+                        (new \App\Models\Database\SchData_OLTP_Master\General())->getIDTranslation_BusinessDocumentVersionToBusinessDocumentForm(
+                            $varUserSession, 
+                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
+                            $varBufferDB[$i]['BusinessDocumentVersion_RefID']
+                            );
+                        if($varReturn != []){
+                            $varReturn = $varReturn[0]['BusinessDocumentForm_RefID'];
+                            break;
+                        }
+                    }
+                }
+                return $varReturn;
+            }
+        }   
     }

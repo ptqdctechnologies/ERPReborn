@@ -5,72 +5,32 @@
     $(".ApprovalHistory").hide();
 </script>
 
-<!-- 
 <script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    $(function() {
-        $('.mySearchCheckDocument').on('click', function(e) {
-            e.preventDefault();
-
-            // ShowLoading();
-
-            var keys = 0;
-
-            $.ajax({
-                type: 'GET',
-                url: '{!! route("CheckDocument.ShowDocumentListData") !!}?DocumentType=' + "",
-                success: function(data) {
-                    var no = 1;
-                    t = $('#TableCheckDocument').DataTable();
-                    t.clear();
-                    $.each(data.data, function(key, val) {
-                        keys += 1;
-                        t.row.add([
-                            '<tbody><tr><td><input id="businessDocument_RefID' + keys + '" value="' + val.entities.formDocumentNumber_RefID + '" type="hidden">' + no++ + '</span></td>',
-                            '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentNumber + '</span></td>',
-                            '<td><span style="position:relative;left:10px;">' + val.entities.combinedBudgetCode + '</span></td>',
-                            '<td><span style="position:relative;left:10px;">' + val.entities.combinedBudgetSectionCode + '</span></td></tr></tbody>',
-                        ]).draw();
-                    });
-
-                    HideLoading();
-                }
-            });
-
+    $('.mySearchCheckDocument').one('click', function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
         });
 
-    });
-</script> -->
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getDocumentType") !!}',
+            success: function(data) {
+                $(".DocumentType").empty();
 
-<script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
+                var option = "<option value='" + '' + "'>" + 'Select Document Type' + "</option>";
+                $(".DocumentType").append(option);
 
-    $.ajax({
-        type: 'GET',
-        url: '{!! route("getDocumentType") !!}',
-        success: function(data) {
-            $(".DocumentType").empty();
-
-            var option = "<option value='" + '' + "'>" + 'Select Document Type' + "</option>";
-            $(".DocumentType").append(option);
-
-            var len = data.length;
-            for (var i = 0; i < len; i++) {
-                var ids = data[i].sys_ID;
-                var names = data[i].name;
-                var option2 = "<option value='" + ids + "'>" + names + "</option>";
-                $(".DocumentType").append(option2);
+                var len = data.length;
+                for (var i = 0; i < len; i++) {
+                    var ids = data[i].sys_ID;
+                    var names = data[i].name;
+                    var option2 = "<option value='" + ids + "'>" + names + "</option>";
+                    $(".DocumentType").append(option2);
+                }
             }
-        }
+        });
     });
 </script>
 
@@ -93,16 +53,17 @@
             type: 'GET',
             url: '{!! route("CheckDocument.ShowDocumentListData") !!}?DocumentType=' + $('#DocumentType').val(),
             success: function(data) {
+                console.log(data);
                 var no = 1;
                 t = $('#TableCheckDocument').DataTable();
-                t.clear();
+                t.clear().draw();
                 $.each(data.data, function(key, val) {
                     keys += 1;
                     t.row.add([
-                        '<tbody><tr><td><input id="businessDocument_RefID' + keys + '" value="' + val.entities.formDocumentNumber_RefID + '" type="hidden">' + no++ + '</span></td>',
-                        '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentNumber + '</span></td>',
-                        '<td><span style="position:relative;left:10px;">' + val.entities.combinedBudgetCode + '</span></td>',
-                        '<td><span style="position:relative;left:10px;">' + val.entities.combinedBudgetSectionCode + '</span></td></tr></tbody>',
+                        '<tbody><tr><td><input id="businessDocument_RefID' + keys + '" value="' + val.sys_ID + '" type="hidden">' + no++ + '</span></td>',
+                        '<td><span style="position:relative;left:10px;">' + val.documentNumber + '</span></td>',
+                        '<td><span style="position:relative;left:10px;">' + val.combinedBudgetCode + '-' + val.combinedBudgetName + '</span></td>',
+                        '<td><span style="position:relative;left:10px;">' + val.combinedBudgetSectionCode + '-' + val.combinedBudgetSectionName + '</span></td></tr></tbody>',
                     ]).draw();
                 });
 
@@ -121,7 +82,7 @@
         var documentNumber = row.find("td:nth-child(2)").text();
         var id = row.find("td:nth-child(1)").text();
         var businessDocument_RefID = $('#businessDocument_RefID' + id).val();
-        
+
         $("#businessDocument_RefID").val(businessDocument_RefID);
         $("#businessDocumentNumber").val(documentNumber);
     });
@@ -150,5 +111,20 @@
 
         $(".ViewDocument").show();
         $(".ViewWorkflow").hide();
+    });
+</script>
+
+<script>
+    var triggered = 0;
+    $('#businessDocumentNumber').on('input', function() {
+        if (triggered == 0) {
+            $('#businessDocument_RefID').val("");
+            triggered++;
+        }
+    });
+
+    $('#businessDocumentNumber').on('blur', function() {
+        // reset the triggered value to 0
+        triggered = 0;
     });
 </script>

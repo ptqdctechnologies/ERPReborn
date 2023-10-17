@@ -1,9 +1,9 @@
 <script type="text/javascript">
     $("#site_code_popup").prop("disabled", true);
-    // $("#requester_popup").prop("disabled", true);
-    // $("#beneficiary_popup").prop("disabled", true);
-    // $("#bank_name_popup").prop("disabled", true);
-    // $("#bank_account_popup").prop("disabled", true);
+    $("#requester_popup").prop("disabled", true);
+    $("#beneficiary_popup").prop("disabled", true);
+    $("#bank_name_popup").prop("disabled", true);
+    $("#bank_account_popup").prop("disabled", true);
     $("#product_id2").prop("disabled", true);
 
     $("#requester_icon").hide();
@@ -12,7 +12,7 @@
     $("#bank_account_icon").hide();
     $("#remark_icon").hide();
 
-    // $("#submitArf").prop("disabled", true);
+    $("#submitArf").prop("disabled", true);
 </script>
 
 <script>
@@ -451,17 +451,17 @@
             e.preventDefault();
             
             // MANDATORY VALIDATION
-            // var MandatoryListVar = new Object();
-            // MandatoryListVar['remark'] = $("#remark").val();
-            // MandatoryListVar['bank_account'] = $("#bank_account").val();
-            // MandatoryListVar['bank_name'] = $("#bank_name").val();
-            // MandatoryListVar['beneficiary'] = $("#beneficiary").val();
-            // MandatoryListVar['requester'] = $("#requester").val();
+            var MandatoryListVar = new Object();
+            MandatoryListVar['remark'] = $("#remark").val();
+            MandatoryListVar['bank_account'] = $("#bank_account").val();
+            MandatoryListVar['bank_name'] = $("#bank_name").val();
+            MandatoryListVar['beneficiary'] = $("#beneficiary").val();
+            MandatoryListVar['requester'] = $("#requester").val();
 
-            // var MandatoryListCount = MandatoryListFunction(MandatoryListVar);
+            var MandatoryListCount = MandatoryListFunction(MandatoryListVar);
             // // END MANDATORY VALIDATION
 
-            // if (MandatoryListCount == 0) {
+            if (MandatoryListCount == 0) {
                 $("#submitArf").prop("disabled", true);
 
                 const swalWithBootstrapButtons = Swal.mixin({
@@ -548,7 +548,7 @@
                         CancelNotif("Data Cancel Inputed", '/AdvanceRequest?var=1');
                     }
                 })
-            // }
+            }
         });
     });
 </script>

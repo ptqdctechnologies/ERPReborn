@@ -11,7 +11,7 @@ class AdvanceSettlementController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionAdvanceSetllementRequester");
-    
+
         $var = 0;
         if (!empty($_GET['var'])) {
             $var =  $_GET['var'];
@@ -102,7 +102,7 @@ class AdvanceSettlementController extends Controller
                     ]
                 ]
             );
-            
+
 
             $request->session()->push("SessionAdvanceSetllementRequester", $advance_RefID);
         }
@@ -121,21 +121,21 @@ class AdvanceSettlementController extends Controller
         $projectcode = $request->input('projectcode');
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken, 
-        'transaction.read.dataList.finance.getAdvance', 
-        'latest',
-        [
-        'parameter' => null,
-        'SQLStatement' => [
-            'pick' => null,
-            'sort' => null,
-            'filter' => '"CombinedBudget_RefID" = '.$projectcode.'',
-            'paging' => null
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.finance.getAdvance',
+            'latest',
+            [
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => '"CombinedBudget_RefID" = ' . $projectcode . '',
+                    'paging' => null
+                ]
             ]
-        ]
         );
-        
+
         $compact = [
             'DataAdvanceRequest' => $varDataAdvanceRequest['data'],
         ];
@@ -147,23 +147,23 @@ class AdvanceSettlementController extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.finance.getAdvance', 
-            'latest', 
+            $varAPIWebToken,
+            'transaction.read.dataList.finance.getAdvance',
+            'latest',
             [
-            'parameter' => null,
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
                 ]
             ]
-            );
+        );
         $compact = [
             'data' => $varDataAdvanceRequest['data'],
         ];
-            
+
         return response()->json($compact);
     }
 
@@ -223,15 +223,15 @@ class AdvanceSettlementController extends Controller
 
         $varDataAdvanceSettlementRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'report.form.documentForm.finance.getAdvance', 
+            $varAPIWebToken,
+            'report.form.documentForm.finance.getAdvance',
             'latest',
             [
-            'parameter' => [
-                'recordID' => (int) $request->searchAsfNumberRevisionId,
+                'parameter' => [
+                    'recordID' => (int) $request->searchAsfNumberRevisionId,
                 ]
             ]
-            );
+        );
 
         $compact = [
             'dataRevisi' => $varDataAdvanceSettlementRevision['data'][0]['document']['content']['general'],

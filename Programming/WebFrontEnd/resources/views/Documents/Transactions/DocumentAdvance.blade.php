@@ -39,7 +39,7 @@
                 <td style="padding-top: 5px;"><label>File Attachment</label></td>
                 <td>:</td>
 
-                @if($dataTransaction['content']['general']['attachmentFiles']['main']['itemList'] != "")
+                @if(isset($dataTransaction['content']['general']['attachmentFiles']['main']['itemList']))
                 <td>
                   @foreach($dataTransaction['content']['general']['attachmentFiles']['main']['itemList'] as $data_file)
                   <a href="{{ $data_file['entities']['downloadURL'] }}" title="Download Attachment">- {{ $data_file['entities']['name'] }} </a> <br>

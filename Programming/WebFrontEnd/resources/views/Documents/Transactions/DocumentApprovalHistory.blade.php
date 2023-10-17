@@ -13,14 +13,16 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-12">
+                    @if(isset($dataWorkflow))
                     @foreach($dataWorkflow as $dataWorkflows)
                     <ul>
                         <li>
-                        <span style="text-transform:uppercase;font-weight:bold;">{{ $dataWorkflows['workFlowPathActionName'] }}</span> {{ date('D, m/d/Y H:m:s', strtotime($dataWorkflows['approvalDateTimeTZ'])) }} : {{ $dataWorkflows['name'] }} <br>
+                            <span style="text-transform:uppercase;font-weight:bold;">{{ $dataWorkflows['workFlowPathActionName'] }}</span> {{ date('D, m/d/Y H:m:s', strtotime($dataWorkflows['approvalDateTimeTZ'])) }} : {{ $dataWorkflows['name'] }} <br>
                             Comment : {{ $dataWorkflows['remarks'] }}
                         </li>
                     </ul>
                     @endforeach
+                    @endif
                 </div>
             </div>
         </div>
