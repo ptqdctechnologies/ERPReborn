@@ -1,4 +1,4 @@
-FROM php:8.2.3-apache
+FROM php:8.2.11-apache
 ENV DEBIAN_FRONTEND=noninteractive
 
 #    && add-apt-repository ppa:ondrej/php \
