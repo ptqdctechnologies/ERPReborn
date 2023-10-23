@@ -43,7 +43,7 @@
                                         <label>My Document</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    
+
                                 </li>
                             </ul>
                         </li>
@@ -77,6 +77,16 @@
                                         <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
+                                    <ul class="nav nav-treeview">
+                                        @if(in_array("Module.Finance.AdvanceSettlement.Transaction.Create", Session::get('privilageMenu'), TRUE))
+                                        <li class="nav-item">
+                                            <a href="{{ route('AdvanceRequest.ReportAdvanceSummary') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
+                                                <label>Advance Summary</label>
+                                            </a>
+                                        </li>
+                                        @endif
+                                    </ul>
                                 </li>
                             </ul>
                             <ul class="nav nav-treeview">
@@ -183,7 +193,7 @@
                         </li>
                     </ul>
                 </li>
-                
+
                 <li class="nav-item has-treeview">
                     @if(in_array("Module.HumanResource.Timesheet.Transaction.Create", Session::get('privilageMenu'), TRUE))
                     <a href="#" class="nav-link">
@@ -194,7 +204,7 @@
                         <i class="right fas fa-angle-left"></i>
                     </a>
                     @endif
-                    
+
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="#" class="nav-link">&nbsp;
@@ -202,7 +212,7 @@
                                 <label>Salary</label>
                                 <i class="right fas fa-angle-left"></i>
                             </a>
-                            
+
                         </li>
                     </ul>
 
@@ -222,7 +232,7 @@
                                         <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    
+
                                 </li>
                             </ul>
                             <ul class="nav nav-treeview">
@@ -232,7 +242,7 @@
                                         <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    
+
                                 </li>
                             </ul>
                         </li>
@@ -261,7 +271,7 @@
                                         <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    
+
                                 </li>
                             </ul>
                             <ul class="nav nav-treeview">
@@ -271,7 +281,7 @@
                                         <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    
+
                                 </li>
                             </ul>
                         </li>

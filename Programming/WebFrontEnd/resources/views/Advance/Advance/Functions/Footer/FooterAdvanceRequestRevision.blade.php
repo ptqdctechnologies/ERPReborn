@@ -238,23 +238,18 @@
                             $('#total_req' + key).val("");
                             $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
                         } else if (parseFloat(total) < parseFloat(total_payment)) {
-                            swal({
-                                onOpen: function() {
-                                    swal.disableConfirmButton();
-                                    Swal.fire("Error !", "Total Request cannot less than Total Payment !", "error");
-                                }
-                            });
+
+                            // CALL FUNCTION ERROR NOTIFICATION
+                            ErrorNotif("Total Request cannot less than Total Payment !");
 
                             $('#qty_req' + key).val("");
                             $('#total_req' + key).val("0.00");
                             $('#qty_req' + key).focus();
                         } else if (parseFloat(qty_val) > parseFloat(budget_qty_val)) {
-                            swal({
-                                onOpen: function() {
-                                    swal.disableConfirmButton();
-                                    Swal.fire("Error !", "Qty is over budget !", "error");
-                                }
-                            });
+
+                            // CALL FUNCTION ERROR NOTIFICATION
+                            ErrorNotif("Qty is over budget !");
+
                             $('#qty_req' + key).val("");
                             $('#total_req' + key).val("0.00");
                             $('#qty_req' + key).focus();
@@ -281,23 +276,18 @@
                             $('#total_req' + key).val("");
                             $("input[name='price_req[]']").css("border", "1px solid #ced4da");
                         } else if (parseFloat(total) < parseFloat(total_payment)) {
-                            swal({
-                                onOpen: function() {
-                                    swal.disableConfirmButton();
-                                    Swal.fire("Error !", "Total Request cannot less than Total Payment !", "error");
-                                }
-                            });
+
+                            // CALL FUNCTION ERROR NOTIFICATION
+                            ErrorNotif("Total Request cannot less than Total Payment !");
 
                             $('#price_req' + key).val("");
                             $('#total_req' + key).val("0.00");
                             $('#price_req' + key).focus();
                         } else if (parseFloat(price_val) > parseFloat(budget_price_val)) {
-                            swal({
-                                onOpen: function() {
-                                    swal.disableConfirmButton();
-                                    Swal.fire("Error !", "Price is over budget !", "error");
-                                }
-                            });
+
+                            // CALL FUNCTION ERROR NOTIFICATION
+                            ErrorNotif("Price is over budget !");
+
                             $('#price_req' + key).val("");
                             $('#total_req' + key).val("0.00");
                             $('#price_req' + key).focus();
@@ -359,12 +349,10 @@
         $.each(total_req, function(index, data) {
 
             if (total_req[index] < total_payment[index]) {
-                swal({
-                    onOpen: function() {
-                        swal.disableConfirmButton();
-                        Swal.fire("Error !", "Total Payment is over budget than Total Request !", "error");
-                    }
-                });
+
+                // CALL FUNCTION ERROR NOTIFICATION
+                ErrorNotif("Total Payment is over budget than Total Request !");
+
                 $('#qty_req' + index).focus();
             } else {
 
@@ -482,8 +470,10 @@
                                 }
                             },
 
-                            error: function(response) { // handle the error
-                                Swal.fire("Cancelled", "Data Cancel Inputed", "error");
+                            error: function(response) {
+                                HideLoading();
+                                // FUNCTION ERROR NOTIFICATION 
+                                CancelNotif("Data Cancel Inputed", '/AdvanceRequest?var=1');
                             },
 
                         })
@@ -492,20 +482,12 @@
                     } else if (
                         result.dismiss === Swal.DismissReason.cancel
                     ) {
-                        swalWithBootstrapButtons.fire({
 
-                            title: 'Cancelled',
-                            text: "Process Canceled !",
-                            type: 'error',
-                            confirmButtonColor: '#e9ecef',
-                            confirmButtonText: '<span style="color:black;"> Oke </span>',
 
-                        }).then((result) => {
-                            if (result.value) {
-                                ShowLoading();
-                                window.location.href = '/AdvanceRequest?var=1';
-                            }
-                        })
+                        HideLoading();
+                        // FUNCTION ERROR NOTIFICATION 
+                        CancelNotif("Data Cancel Inputed", '/AdvanceRequest?var=1');
+                        
                     }
                 })
             }

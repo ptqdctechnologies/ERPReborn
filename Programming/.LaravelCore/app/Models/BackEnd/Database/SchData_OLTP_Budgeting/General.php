@@ -31,7 +31,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                          getC                                                      | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataEntities_BudgetOwner($varUserSession, 

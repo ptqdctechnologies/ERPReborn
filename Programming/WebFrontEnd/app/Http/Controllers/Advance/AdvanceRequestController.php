@@ -95,7 +95,7 @@ class AdvanceRequestController extends Controller
                     'entities' => [
                         "documentDateTimeTZ" => $input['var_date'],
                         "log_FileUpload_Pointer_RefID" => (int)$input['dataInput_Log_FileUpload_Pointer_RefID'],
-                        "requesterWorkerJobsPosition_RefID" => (int)$input['request_name_id'],
+                        "requesterWorkerJobsPosition_RefID" => (int)$input['requester_id'],
                         "beneficiaryWorkerJobsPosition_RefID" => (int)$input['beneficiary_id'],
                         "beneficiaryBankAccount_RefID" => (int)$input['beneficiaryBankAccount_RefID'],
                         "internalNotes" => 'My Internal Notes',
@@ -130,9 +130,6 @@ class AdvanceRequestController extends Controller
                 ]
             ]
         );
-
-        // dd($varDataAdvanceRevision);
-
         $compact = [
             'dataRevisi' => $varDataAdvanceRevision['data'][0]['document']['content']['general'],
             'var_recordID' => $request->searchArfNumberRevisionId,
@@ -179,7 +176,7 @@ class AdvanceRequestController extends Controller
                 'entities' => [
                     "documentDateTimeTZ" => $input['var_date'],
                     "log_FileUpload_Pointer_RefID" => (int)$input['dataInput_Log_FileUpload_Pointer_RefID'],
-                    "requesterWorkerJobsPosition_RefID" => (int)$input['request_name_id'],
+                    "requesterWorkerJobsPosition_RefID" => (int)$input['requester_id'],
                     "beneficiaryWorkerJobsPosition_RefID" => (int)$input['beneficiary_id'],
                     "beneficiaryBankAccount_RefID" => (int)$input['beneficiaryBankAccount_RefID'],
                     "internalNotes" => 'My Internal Notes',
@@ -219,6 +216,7 @@ class AdvanceRequestController extends Controller
                 ]
             ]
         );
+
         $compact = [
             'data' => $varDataAdvanceRequest['data'],
         ];
@@ -245,5 +243,74 @@ class AdvanceRequestController extends Controller
         );
 
         return response()->json($varData['data'][0]['document']['content']['details']['itemList']);
+    }
+
+    public function ReportAdvanceSummary(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $request->session()->forget("SessionAdvance");
+
+        $var = 0;
+        if (!empty($_GET['var'])) {
+            $var =  $_GET['var'];
+        }
+
+        $compact = [
+            'var' => $var,
+            'varAPIWebToken' => $varAPIWebToken,
+            'statusRevisi' => 0,
+        ];
+        return view('Advance.Advance.Reports.ReportAdvanceSummary', $compact);
+    }
+    public function ReportAdvanceSummaryStore(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'report.form.documentForm.finance.getReportAdvanceSummary',
+            'latest',
+            [
+                'parameter' => [
+                    'dataFilter' => [
+                        'budgetID' => 46000000000009,
+                        'subBudgetID' => null,
+                        'workID' => null,
+                        'productID' => null,
+                        'beneficiaryID' => null,
+                    ]
+                ]
+            ]
+        );
+
+        $compact = [
+            'data' => $varData['data'],
+        ];
+
+        return response()->json($compact);
+    }
+
+    public function ReportAdvanceSummaryDetail(Request $request, $id)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'report.form.documentForm.finance.getAdvance',
+            'latest',
+            [
+                'parameter' => [
+                    'recordID' => (int) $id
+                ]
+            ]
+        );
+
+        $compact = [
+            'data' => $varData['data'][0]['document']
+        ];
+
+        return view('Advance.Advance.Reports.ReportAdvanceSummaryDetail', $compact);
     }
 }
