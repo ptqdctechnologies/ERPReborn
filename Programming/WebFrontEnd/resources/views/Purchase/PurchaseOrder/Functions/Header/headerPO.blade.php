@@ -55,7 +55,7 @@
                             <td style="border:1px solid #e9ecef;">
                                 <input type="radio" id="yes" name="fav_language" value="HTML">
                                 <label for="html">Yes</label>
-                                <input type="radio" id="no" name="fav_language" value="HTML" checked="checked">
+                                <input type="radio" id="no" name="fav_language" value="HTML" >
                                 <label for="html">No</label>
                             </td>
                         </tr> -->
@@ -75,11 +75,13 @@
                         </tr> -->
                         <tr>
                             <td><label>DP</label></td>
-                            <td style="border:1px solid #e9ecef;">
-                                <select name="" id="" style="border-radius:0;" type="text" class="form-control">
-                                    <option value="">No</option>
-                                    <option value="">Yes</option>
-                                </select>
+                            <td style="solid #e9ecef;">
+                                <input type="radio" id="yes" name="dp" style="border-radius:0;" value="yes" checked="checked">
+                                <label for="yes">Yes</label>
+                                <input type="radio" id="no" name="dp" style="border-radius:0;" value="no" >
+                                <label for="no">No</label>
+                                <p id="dp_section"><input type="text" style="width: 20%;"> <strong>%</strong></p>
+                                <!-- <input id="dp_section" type="text" class="form-control" style="border-radius:0;width: 40%;"> -->
                             </td>
                         </tr>
                         <tr>
