@@ -38,7 +38,7 @@
     });
 
     $(function() {
-        $('.myProject').on('click', function(e) {
+        $('.myProject').one('click', function(e) {
             e.preventDefault();
 
             var keys = 0;

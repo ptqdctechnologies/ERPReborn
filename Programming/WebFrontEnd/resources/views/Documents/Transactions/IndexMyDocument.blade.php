@@ -32,7 +32,7 @@
                         <div class="form-group">
                           <table>
                             <tr>
-                              <th><label>Transaction Number</label></th>
+                              <th><label>Transaction&nbsp;Number</label></th>
                               <td>
                                 <div class="input-group" style="padding-bottom: 7px;">
                                   <input id="trano" style="border-radius:0;" class="form-control" name="trano" type="text">

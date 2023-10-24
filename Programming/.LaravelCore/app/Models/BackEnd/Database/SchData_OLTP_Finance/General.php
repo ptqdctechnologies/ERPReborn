@@ -385,6 +385,54 @@ namespace App\Models\Database\SchData_OLTP_Finance
                 return [];
                 }
             }
+        
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DocumentForm_Advance                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-06-15                                                                                           |
+        | ▪ Creation Date   : 2022-06-15                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Uang Muka (Advance)                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ▪ (int)    varSysID ► Record ID                                                                                     |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DocumentForm_AdvanceSummary(
+            $varUserSession, int $varSysBranch_RefID, 
+            int $budgetID = null, int $subBudgetID = null, int $workID = null, int $productID = null, int $beneficiaryID = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-Finance.Func_GetReport_AdvanceSummary',
+                        [
+                            [$varSysBranch_RefID, 'bigint' ],
+
+                            [$budgetID, 'bigint'],
+                            [$subBudgetID, 'bigint'],
+                            [$workID, 'bigint'],
+                            [$productID, 'bigint'],
+                            [$beneficiaryID, 'bigint']
+                        ]
+                        )
+                    );
+
+                    return ($varReturn['Data']);
+
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
 
 
         /*

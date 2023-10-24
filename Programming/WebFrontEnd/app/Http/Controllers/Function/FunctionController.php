@@ -26,6 +26,8 @@ class FunctionController extends Controller
             ]
         );
 
+        // dd($varDataProject);
+
         return response()->json($varDataProject['data']['data']);
     }
 
