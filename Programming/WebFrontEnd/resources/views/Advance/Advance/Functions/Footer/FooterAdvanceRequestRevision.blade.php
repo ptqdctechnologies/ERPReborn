@@ -92,7 +92,7 @@
 
                     '<td style="border:1px solid #e9ecef;display:' + statusDisplay[key] + '";">' +
                     '<div class="input-group">' +
-                    '<input id="putProductId' + key + '" style="border-radius:0;width:130px;background-color:white;" name="putProductId" class="form-control" readonly>' +
+                    '<input id="product_id' + key + '" style="border-radius:0;width:130px;background-color:white;" name="product_id" class="form-control" readonly>' +
                     '<div class="input-group-append">' +
                     '<span style="border-radius:0;" class="input-group-text form-control" data-id="10">' +
                     '<a id="product_id2" data-toggle="modal" data-target="#myProduct" onclick="KeyFunction(' + key + ')"><img src="{{ asset("AdminLTE-master/dist/img/box.png") }}" width="13" alt=""></a>' +
@@ -103,7 +103,7 @@
 
                     '<td style="border:1px solid #e9ecef;">' + '<span>' + trano + '</span>' + '</td>' +
                     '<td style="border:1px solid #e9ecef;display:' + statusDisplay2[key] + '">' + '<span>' + value.entities.product_RefID + '</span>' + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + '<span id="putProductName' + key + '">' + value.entities.productName + '</span>' + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + '<span id="product_name' + key + '">' + value.entities.productName + '</span>' + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_qty2' + key + '">' + currencyTotal(value.entities.quantity) + '</span>' + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + '<span">' + currencyTotal(value.entities.quantity) + '</span>' + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(value.entities.productUnitPriceBaseCurrencyValue) + '</span>' + '</td>' +
@@ -356,19 +356,19 @@
                 $('#qty_req' + index).focus();
             } else {
 
-                var putProductId = getProductId[index];
-                var putProductName = getProductName[index];
+                var product_id = getProductId[index];
+                var product_name = getProductName[index];
 
                 if (getProductName[index] == "Unspecified Product") {
-                    var putProductId = $("#putProductId" + index).val();
-                    var putProductName = $("#putProductName" + index).html();
+                    var product_id = $("#product_id" + index).val();
+                    var product_name = $("#product_name" + index).html();
                 }
                 TotalBudgetList += +total_req[index].replace(/,/g, '');
                 TotalQty += +qty_req[index].replace(/,/g, '');
                 var html = '<tr>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + trano + '</td>' +
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductId + '</td>' +
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductName + '</td>' +
+                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + product_id + '</td>' +
+                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + product_name + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getUom[index] + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getCurrency[index] + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="' + index + '" class="price_req2' + index + '">' + currencyTotal(price_req[index]) + '</span>' + '</td>' +

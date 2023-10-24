@@ -10,6 +10,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 425px;">
+                                <input type="text" id="key" hidden>
                                 <table class="table table-head-fixed table-sm text-nowrap" id="tableGetProduct">
                                     <thead>
                                         <tr>
@@ -17,7 +18,6 @@
                                             <th>Product Code</th>
                                             <th>Product Name</th>
                                             <th>UOM</th>
-                                            <th style="display: none;"></th>
                                             <th style="display: none;"></th>
                                         </tr>
                                     </thead>
@@ -36,7 +36,8 @@
 <script>
     var isBodyClicked = false;
     function KeyFunction(key) {
-        // if (isBodyClicked === false) {
+        $("#key").val(key);
+        if (isBodyClicked === false) {
             $("#loading").show();
             $(".loader").show();
 
@@ -59,7 +60,6 @@
                             '<td>' + data[i]['sys_ID'] + '</td>',
                             '<td>' + data[i]['name'] + '</td>',
                             '<td>' + data[i]['quantityUnitName'] + '</td>',
-                            '<span style="display:none;"><td">' + key + '</td>',
                             '<span style="display:none;"><td">' + data[i]['quantityUnit_RefID'] + '</td></span></tr></tbody>'
                         ]);
                     }
@@ -76,8 +76,8 @@
                     });
                 }
             });
-        // }
-        // isBodyClicked = true;
+        }
+        isBodyClicked = true;
     }
 </script>
 
@@ -90,12 +90,12 @@
         var sys_id = row.find("td:nth-child(2)").text();
         var name = row.find("td:nth-child(3)").text();
         var uom = row.find("td:nth-child(4)").text();
-        var key = row.find("td:nth-child(5)").text();
-        var budget_qty_id = row.find("td:nth-child(6)").text();
-
-        console.log(key);
-        $("#putProductId" + key).val(sys_id);
-        $("#putProductName" + key).html(name);
+        var budget_qty_id = row.find("td:nth-child(5)").text();
+        var key = $("#key").val();
+        
+        $("#product_id" + key).val(sys_id);
+        $("#product_name" + key).val(name);
+        $("#product_name" + key).html(name);
         $("#putUom" + key).val(uom);
 
         $("#budget_qty_id" + key).val(budget_qty_id);

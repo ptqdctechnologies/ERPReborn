@@ -32,7 +32,7 @@
 
 <script>
     $(function() {
-        $('.myWorker').on('click', function(e) {
+        $('.myWorker').one('click', function(e) {
             e.preventDefault();
             $.ajaxSetup({
                 headers: {

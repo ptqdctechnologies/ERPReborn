@@ -2,7 +2,10 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
+@include('getFunction.getSite')
 @include('getFunction.getProject')
+@include('getFunction.getProduct')
+@include('getFunction.getBeneficiary')
 
 <div class="content-wrapper">
   <section class="content">
@@ -15,8 +18,6 @@
       <div class="card">
         <div class="tab-content p-3" id="nav-tabContent">
           <div class="row">
-
-            @if($var == 1)
 
             @include('Advance.Advance.Functions.Header.HeaderReportAdvanceSummary')
 
@@ -33,6 +34,7 @@
                         <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Currency</th>
                         <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total Advance</th>
                         <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Beneficiary</th>
+                        <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Remark</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -41,7 +43,6 @@
                 </div>
               </div>
             </div>
-            @endif
           </div>
         </div>
       </div>

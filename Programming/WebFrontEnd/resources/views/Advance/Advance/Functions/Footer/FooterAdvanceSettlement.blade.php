@@ -171,7 +171,7 @@
 
                             '<td style="border:1px solid #e9ecef;display:' + statusDisplay[keys] + '";">' +
                             '<div class="input-group">' +
-                            '<input id="putProductId' + keys + '" style="border-radius:0;width:130px;background-color:white;" name="putProductId" class="form-control" readonly>' +
+                            '<input id="product_id' + keys + '" style="border-radius:0;width:130px;background-color:white;" name="product_id" class="form-control" readonly>' +
                             '<div class="input-group-append">' +
                             '<span style="border-radius:0;" class="input-group-text form-control" data-id="10">' +
                             '<a id="product_id2" data-toggle="modal" data-target="#myProduct" onclick="KeyFunction(' + keys + ')"><img src="{{ asset("AdminLTE-master/dist/img/box.png") }}" width="13" alt=""></a>' +
@@ -181,7 +181,7 @@
                             '</td>' +
 
                             '<td style="border:1px solid #e9ecef;display:' + statusDisplay2[keys] + '">' + '<span>' + value.product_RefID + '</span>' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + '<span id="putProductName' + keys + '">' + value.productName + '</span>' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + '<span id="product_name' + keys + '">' + value.productName + '</span>' + '</td>' +
 
 
                             '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_qty2' + keys + '">' + currencyTotal(value.quantity) + '</span>' + '</td>' +
@@ -452,12 +452,12 @@
         $.each(total_expense, function(index, data) {
             if (total_expense[index] != "" && total_expense[index] > "0.00" && total_expense[index] != "NaN.00") {
 
-                var putProductId = getProductId[index];
-                var putProductName = getProductName[index];
+                var product_id = getProductId[index];
+                var product_name = getProductName[index];
 
                 if (getProductName[index] == "Unspecified Product") {
-                    var putProductId = $("#putProductId" + index).val();
-                    var putProductName = $("#putProductName" + index).html();
+                    var product_id = $("#product_id" + index).val();
+                    var product_name = $("#product_name" + index).html();
                 }
                 TotalBudgetSelected += +total_expense[index].replace(/,/g, '');
                 GrandTotalExpense += +total_expense[index].replace(/,/g, '');
@@ -465,8 +465,8 @@
 
                 var html = '<tr>' +
 
-                    '<input type="hidden" name="var_product_id_expense[]" value="' + putProductId + '">' +
-                    '<input type="hidden" name="var_product_name_expense[]" id="var_product_name" value="' + putProductName + '">' +
+                    '<input type="hidden" name="var_product_id_expense[]" value="' + product_id + '">' +
+                    '<input type="hidden" name="var_product_name_expense[]" id="var_product_name" value="' + product_name + '">' +
                     '<input type="hidden" name="var_quantity_expense[]" class="qty_expense2' + index + '" data-id="' + index + '" value="' + currencyTotal(qty_expense[index]).replace(/,/g, '') + '">' +
                     '<input type="hidden" name="var_uom_expense[]" value="' + getUom[index] + '">' +
                     '<input type="hidden" name="var_price_expense[]" class="price_expense2' + index + '" value="' + currencyTotal(price_expense[index]).replace(/,/g, '') + '">' +
@@ -479,8 +479,8 @@
                     '<input type="hidden" name="var_remark" value="' + getRemark[index] + '">' +
 
                     '<td style="border:1px solid #e9ecef;">' + getAdvanceNumber[index] + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + putProductId + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + putProductName + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + product_id + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + product_name + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + getUom[index] + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + currencyTotal(price_expense[index]) + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + currencyTotal(qty_expense[index]) + '</td>' +
@@ -500,12 +500,12 @@
         $.each(total_amount, function(index, data) {
             if (total_amount[index] != "" && total_amount[index] > "0.00" && total_amount[index] != "NaN.00") {
 
-                var putProductId = getProductId[index];
-                var putProductName = getProductName[index];
+                var product_id = getProductId[index];
+                var product_name = getProductName[index];
 
                 if (getProductName[index] == "Unspecified Product") {
-                    var putProductId = $("#putProductId" + index).val();
-                    var putProductName = $("#putProductName" + index).html();
+                    var product_id = $("#product_id" + index).val();
+                    var product_name = $("#product_name" + index).html();
                 }
                 TotalBudgetSelected += +total_amount[index].replace(/,/g, '');
                 GrandTotalAmount += +total_amount[index].replace(/,/g, '');
@@ -513,8 +513,8 @@
 
                 var html = '<tr>' +
 
-                    '<input type="hidden" name="var_product_id_amount[]" value="' + putProductId + '">' +
-                    '<input type="hidden" name="var_product_name_amount[]" id="var_product_name" value="' + putProductName + '">' +
+                    '<input type="hidden" name="var_product_id_amount[]" value="' + product_id + '">' +
+                    '<input type="hidden" name="var_product_name_amount[]" id="var_product_name" value="' + product_name + '">' +
                     '<input type="hidden" name="var_quantity_amount[]" class="qty_amount2' + index + '" data-id="' + index + '" value="' + currencyTotal(qty_amount[index]).replace(/,/g, '') + '">' +
                     '<input type="hidden" name="var_uom_amount[]" value="' + getUom[index] + '">' +
                     '<input type="hidden" name="var_price_amount[]" class="price_amount2' + index + '" value="' + currencyTotal(price_amount[index]).replace(/,/g, '') + '">' +
@@ -527,8 +527,8 @@
                     '<input type="hidden" name="var_remark" value="' + getRemark[index] + '">' +
 
                     '<td style="border:1px solid #e9ecef;">' + getAdvanceNumber[index] + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + putProductId + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + putProductName + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + product_id + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + product_name + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + getUom[index] + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + currencyTotal(price_amount[index]) + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + currencyTotal(qty_amount[index]) + '</td>' +

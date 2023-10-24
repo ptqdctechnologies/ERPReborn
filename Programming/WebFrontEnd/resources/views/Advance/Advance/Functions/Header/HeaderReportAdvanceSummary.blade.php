@@ -11,11 +11,11 @@
                   <th style="padding-top: 7px;"><label>Budget&nbsp;</label></th>
                   <td>
                     <div class="input-group">
-                      <input id="budget_id" style="border-radius:0;" class="form-control" name="budget_id" type="hidden">
-                      <input id="budget" style="border-radius:0;background-color:white;" class="form-control myProject" name="budget" readonly data-toggle="modal" data-target="#myProject">
+                      <input id="project_id" hidden name="project_id">
+                      <input id="project_code" style="border-radius:0;background-color:white;" data-toggle="modal" data-target="#myProject" class="form-control myProject" readonly name="project_code">
                       <div class="input-group-append">
                         <span style="border-radius:0;" class="input-group-text form-control">
-                          <a href="#" id="budget_popup" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                          <a href="#" id="project_code_popup" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                         </span>
                       </div>
                     </div>
@@ -31,11 +31,11 @@
                   <th style="padding-top: 7px;"><label>Sub&nbsp;Budget&nbsp;</label></th>
                   <td>
                     <div class="input-group">
-                      <input id="sub_budget_id" style="border-radius:0;" class="form-control" name="sub_budget_id" type="hidden">
-                      <input id="sub_budget" style="border-radius:0;background-color:white;" class="form-control myProject" name="sub_budget" readonly data-toggle="modal" data-target="#myProject">
+                      <input id="site_id" hidden name="site_id">
+                      <input id="site_code" style="border-radius:0;background-color:white;" data-toggle="modal" data-target="#mySiteCode" class="form-control mySiteCode" readonly name="site_code">
                       <div class="input-group-append">
                         <span style="border-radius:0;" class="input-group-text form-control">
-                          <a href="#" id="sub_budget_popup" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                          <a href="#" id="site_code_popup" data-toggle="modal" data-target="#mySiteCode" class="mySiteCode"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                         </span>
                       </div>
                     </div>
@@ -44,18 +44,18 @@
               </table>
             </div>
           </div>
-          <div class="col-md-2">
+          <!-- <div class="col-md-2">
             <div class="form-group">
               <table>
                 <tr>
                   <th style="padding-top: 7px;"><label>Work&nbsp;ID&nbsp;</label></th>
                   <td>
                     <div class="input-group">
-                      <input id="work_id" style="border-radius:0;" class="form-control" name="work_id" type="hidden">
-                      <input id="work" style="border-radius:0;background-color:white;" class="form-control myProject" name="work_id" readonly data-toggle="modal" data-target="#myProject">
+                      <input id="work_id" hidden name="work_id">
+                      <input id="work_code" style="border-radius:0;background-color:white;" data-toggle="modal" data-target="#myProject" class="form-control" readonly name="work_code">
                       <div class="input-group-append">
                         <span style="border-radius:0;" class="input-group-text form-control">
-                          <a href="#" id="work_popup" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                          <a href="#" id="work_code_popup" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                         </span>
                       </div>
                     </div>
@@ -63,19 +63,19 @@
                 </tr>
               </table>
             </div>
-          </div>
-          <div class="col-md-2">
+          </div> -->
+          <div class="col-md-3">
             <div class="form-group">
               <table>
                 <tr>
                   <th style="padding-top: 7px;"><label>Product&nbsp;</label></th>
                   <td>
                     <div class="input-group">
-                      <input id="product_id" style="border-radius:0;" class="form-control" name="product_id" type="hidden">
-                      <input id="product" style="border-radius:0;background-color:white;" class="form-control myProject" name="product_code" readonly data-toggle="modal" data-target="#myProject">
+                      <input id="product_id" hidden name="product_id">
+                      <input id="product_name" style="border-radius:0;background-color:white;" onclick="KeyFunction('')" class="form-control" readonly name="product_name">
                       <div class="input-group-append">
                         <span style="border-radius:0;" class="input-group-text form-control">
-                          <a href="#" id="product_popup" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                          <a href="#" id="product_id_popup" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction('')"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                         </span>
                       </div>
                     </div>
@@ -84,18 +84,18 @@
               </table>
             </div>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-3">
             <div class="form-group">
               <table>
                 <tr>
                   <th style="padding-top: 7px;"><label>Beneficiary&nbsp;</label></th>
                   <td>
                     <div class="input-group">
-                      <input id="beneficiary_id" style="border-radius:0;" class="form-control" name="beneficiary_id" type="hidden">
-                      <input id="beneficiary" style="border-radius:0;background-color:white;" class="form-control myProject" name="beneficiary_name" readonly data-toggle="modal" data-target="#myProject">
+                      <input id="beneficiary_id" hidden name="beneficiary_id">
+                      <input id="beneficiary" style="border-radius:0;background-color:white;" data-toggle="modal" data-target="#myBeneficiary" class="form-control" readonly name="beneficiary">
                       <div class="input-group-append">
                         <span style="border-radius:0;" class="input-group-text form-control">
-                          <a href="#" id="beneficiary_popup" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                          <a href="#" id="beneficiary_popup" data-toggle="modal" data-target="#myBeneficiary" class="myBeneficiary"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                         </span>
                       </div>
                     </div>

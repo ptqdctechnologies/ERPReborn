@@ -250,13 +250,8 @@ class AdvanceRequestController extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionAdvance");
 
-        $var = 0;
-        if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
-        }
 
         $compact = [
-            'var' => $var,
             'varAPIWebToken' => $varAPIWebToken,
             'statusRevisi' => 0,
         ];
@@ -264,6 +259,44 @@ class AdvanceRequestController extends Controller
     }
     public function ReportAdvanceSummaryStore(Request $request)
     {
+
+        $project_id = $request->project_id;
+        $site_id = $request->site_id;
+        $work_id = $request->work_id;
+        $product_id = $request->product_id;
+        $beneficiary_id = $request->beneficiary_id;
+
+        if($project_id == ""){
+            $project_id = null;
+        }
+        else{
+            $project_id = (int)$project_id;
+        }
+        if($site_id == ""){
+            $site_id = null;
+        }
+        else{
+            $site_id = (int)$site_id;
+        }
+        if($work_id == ""){
+            $work_id = null;
+        }
+        else{
+            $work_id = (int)$work_id;
+        }
+        if($product_id == ""){
+            $product_id = null;
+        }
+        else{
+            $product_id = (int)$product_id;
+        }
+        if($beneficiary_id == ""){
+            $beneficiary_id = null;
+        }
+        else{
+            $beneficiary_id = (int)$beneficiary_id;
+        }
+
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
@@ -274,11 +307,11 @@ class AdvanceRequestController extends Controller
             [
                 'parameter' => [
                     'dataFilter' => [
-                        'budgetID' => 46000000000009,
-                        'subBudgetID' => null,
-                        'workID' => null,
-                        'productID' => null,
-                        'beneficiaryID' => null,
+                        'budgetID' => $project_id,
+                        'subBudgetID' => $site_id,
+                        'workID' => $work_id,
+                        'productID' => $product_id,
+                        'beneficiaryID' => $beneficiary_id,
                     ]
                 ]
             ]
@@ -306,7 +339,6 @@ class AdvanceRequestController extends Controller
                 ]
             ]
         );
-
         $compact = [
             'data' => $varData['data'][0]['document']
         ];
