@@ -31,8 +31,8 @@
 </div>
 
 <script>
-    $(function() {
-        $('.myBeneficiary').on('click', function(e) {
+    $(function() {beneficiary
+        $('.myBeneficiary').one('click', function(e) {
             e.preventDefault();
             $.ajaxSetup({
                 headers: {

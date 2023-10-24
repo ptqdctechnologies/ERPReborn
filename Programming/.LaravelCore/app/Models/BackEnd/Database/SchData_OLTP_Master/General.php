@@ -1862,7 +1862,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [$varPagingStatement, 'varchar']
                         ]
                         )
-                    );                
+                    );  
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {

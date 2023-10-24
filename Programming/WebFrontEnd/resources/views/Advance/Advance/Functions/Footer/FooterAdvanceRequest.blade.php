@@ -162,7 +162,7 @@
 
                         '<td style="border:1px solid #e9ecef;display:' + statusDisplay[key] + '";">' +
                         '<div class="input-group">' +
-                        '<input id="putProductId' + key + '" style="border-radius:0;width:130px;background-color:white;" name="putProductId" class="form-control" readonly>' +
+                        '<input id="product_id' + key + '" style="border-radius:0;width:130px;background-color:white;" name="product_id" class="form-control" readonly>' +
                         '<div class="input-group-append">' +
                         '<span style="border-radius:0;" class="input-group-text form-control" data-id="10">' +
                         '<a id="product_id2" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(' + key + ')"><img src="{{ asset("AdminLTE-master/dist/img/box.png") }}" width="13" alt=""></a>' +
@@ -172,7 +172,7 @@
                         '</td>' +
 
                         '<td style="border:1px solid #e9ecef;display:' + statusDisplay2[key] + '">' + '<span>' + val2.product_RefID + '</span>' + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + '<span id="putProductName' + key + '">' + val2.productName + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + '<span id="product_name' + key + '">' + val2.productName + '</span>' + '</td>' +
                         '<input id="putUom' + key + '" type="hidden">' +
 
                         '<input id="TotalBudget' + key + '" type="hidden">' +
@@ -398,21 +398,21 @@
         $.each(total_req, function(index, data) {
             if (total_req[index] != "" && total_req[index] > "0.00" && total_req[index] != "NaN.00") {
 
-                var putProductId = getProductId[index];
-                var putProductName = getProductName[index];
+                var product_id = getProductId[index];
+                var product_name = getProductName[index];
                 var putUom = getUom[index];
 
                 if (getProductName[index] == "Unspecified Product") {
-                    var putProductId = $("#putProductId" + index).val();
-                    var putProductName = $("#putProductName" + index).html();
+                    var product_id = $("#product_id" + index).val();
+                    var product_name = $("#product_name" + index).html();
                     var putUom = $("#putUom" + index).val();
                 }
                 TotalBudget += +total_req[index].replace(/,/g, '');
                 TotalQty += +qty_req[index].replace(/,/g, '');
                 var html = '<tr>' +
 
-                    '<input type="hidden" name="var_product_id[]" value="' + putProductId + '">' +
-                    '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
+                    '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
+                    '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + product_name + '">' +
                     '<input type="hidden" name="var_quantity[]" class="qty_req2' + index + '" data-id="' + index + '" value="' + currencyTotal(qty_req[index]).replace(/,/g, '') + '">' +
                     '<input type="hidden" name="var_uom[]" value="' + getUom[index] + '">' +
                     '<input type="hidden" name="var_qty_id[]" value="' + getQtyId[index] + '">' +
@@ -426,8 +426,8 @@
 
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkId[index] + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkName[index] + '</td>' +
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductId + '</td>' +
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductName + '</td>' +
+                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + product_id + '</td>' +
+                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + product_name + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putUom + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getCurrency[index] + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="' + index + '" class="price_req2' + index + '">' + currencyTotal(price_req[index]) + '</span>' + '</td>' +
