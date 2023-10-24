@@ -470,3 +470,18 @@
         });
     });
 </script>
+<script>
+    $(document).ready(function() {
+        $("input[name='dp']").on("change", function() {
+            let selectedValue = $(this).val();
+
+           
+            $("#dp_section").hide();
+
+         
+            if (selectedValue === "yes") {
+                $("#dp_section").show();
+            }
+        });
+    });
+</script>

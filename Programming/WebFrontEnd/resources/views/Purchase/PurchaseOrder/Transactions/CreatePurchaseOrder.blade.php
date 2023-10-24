@@ -157,11 +157,22 @@
                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty</th>
                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Total</th>
                                   </tr>
+                                  
                                 </thead>
                                 <tbody>
 
                                 </tbody>
                               </table>
+                              <div class="card-body tableShowHidePRDetail">
+                                <table style="float:right;">
+                                  <tr>
+                                    <th style="position: relative;right:20px;"> Total Request: <span id="TotalBudgetSelected">0.00</span></th>
+                                  </tr>
+                                  <tr>
+                                    <th style="position: relative;right:20px;"> PPN: <span id="TotalPpn">0.00</span></th>
+                                  </tr>
+                                </table>
+                              </div>
                             </div>
                           </div>
                         </div>
