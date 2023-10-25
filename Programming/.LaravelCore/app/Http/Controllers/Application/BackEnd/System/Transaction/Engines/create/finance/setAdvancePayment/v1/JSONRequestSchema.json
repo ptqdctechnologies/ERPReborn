@@ -69,11 +69,6 @@
                                                         "entities": {
                                                             "type": "object",
                                                             "properties": {
-                                                                "advancePayment_RefID": {
-                                                                    "type": [ "integer", "null" ],
-                                                                    "minimum": 1,
-                                                                    "maximum": 9223372036854775807
-                                                                    },
                                                                 "advanceDetail_RefID": {
                                                                     "type": [ "integer", "null" ],
                                                                     "minimum": 1,
@@ -98,7 +93,13 @@
                                                                     "maxLength": 512
                                                                     }
                                                                 },
-                                                            "required": [ "advancePayment_RefID", "advanceDetail_RefID", "amountCurrency_RefID", "amountCurrencyExchangeRate", "amountCurrencyValue", "remarks" ]
+                                                            "required": [ 
+                                                                "advanceDetail_RefID", 
+                                                                "amountCurrency_RefID", 
+                                                                "amountCurrencyExchangeRate", 
+                                                                "amountCurrencyValue", 
+                                                                "remarks" 
+                                                                ]
                                                              }
                                                         },
                                                     "required": [ "entities" ]
@@ -113,7 +114,12 @@
                             ]
                         }
                     },
-                "required": [ "documentDateTimeTZ", "log_FileUpload_Pointer_RefID", "requesterWorkerJobsPosition_RefID", "remarks" ]    
+                "required": [ 
+                    "documentDateTimeTZ", 
+                    "log_FileUpload_Pointer_RefID", 
+                    "requesterWorkerJobsPosition_RefID", 
+                    "remarks" 
+                    ]    
                 }
             },
         "required": [ "entities" ]

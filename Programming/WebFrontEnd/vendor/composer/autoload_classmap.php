@@ -3053,7 +3053,7 @@ return array(
     'Laravel\\Prompts\\Concerns\\FakesInputOutput' => $vendorDir . '/laravel/prompts/src/Concerns/FakesInputOutput.php',
     'Laravel\\Prompts\\Concerns\\Fallback' => $vendorDir . '/laravel/prompts/src/Concerns/Fallback.php',
     'Laravel\\Prompts\\Concerns\\Interactivity' => $vendorDir . '/laravel/prompts/src/Concerns/Interactivity.php',
-    'Laravel\\Prompts\\Concerns\\ReducesScrollingToFitTerminal' => $vendorDir . '/laravel/prompts/src/Concerns/ReducesScrollingToFitTerminal.php',
+    'Laravel\\Prompts\\Concerns\\Scrolling' => $vendorDir . '/laravel/prompts/src/Concerns/Scrolling.php',
     'Laravel\\Prompts\\Concerns\\Termwind' => $vendorDir . '/laravel/prompts/src/Concerns/Termwind.php',
     'Laravel\\Prompts\\Concerns\\Themes' => $vendorDir . '/laravel/prompts/src/Concerns/Themes.php',
     'Laravel\\Prompts\\Concerns\\Truncation' => $vendorDir . '/laravel/prompts/src/Concerns/Truncation.php',
