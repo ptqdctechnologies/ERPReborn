@@ -63,9 +63,6 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varProductUnitPriceCurrency_RefID ► Product Unit Price Currency Reference ID                             |
         |      ▪ (float)  varProductUnitPriceCurrencyValue ► Product Unit Price Currency Value                                     |
         |      ▪ (float)  varProductUnitPriceCurrencyExchangeRate ► Product Unit Price Currency Exchange Rate                      |
-        |      ▪ (int)    varPriceCurrency_RefID ► Price Currency Reference ID                                                     |
-        |      ▪ (float)  varPriceCurrencyValue ► Price Currency Value                                                             |
-        |      ▪ (float)  varPriceCurrencyExchangeRate ► Price Currency Exchange Rate                                              |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
@@ -75,7 +72,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varAdvanceSettlement_RefID = null, int $varAdvancePaymentDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, int $varPriceCurrency_RefID = null, float $varPriceCurrencyValue = null, float $varPriceCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varAdvanceSettlement_RefID = null, int $varAdvancePaymentDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -98,9 +95,6 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         [$varProductUnitPriceCurrency_RefID, 'bigint'],
                         [$varProductUnitPriceCurrencyValue, 'numeric'],
                         [$varProductUnitPriceCurrencyExchangeRate, 'numeric'],
-                        [$varPriceCurrency_RefID, 'bigint'],
-                        [$varPriceCurrencyValue, 'numeric'],
-                        [$varPriceCurrencyExchangeRate, 'numeric'],
                         [$varRemarks, 'varchar']
                     ]
                     )
@@ -134,9 +128,6 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varProductUnitPriceCurrency_RefID ► Product Unit Price Currency Reference ID                             |
         |      ▪ (float)  varProductUnitPriceCurrencyValue ► Product Unit Price Currency Value                                     |
         |      ▪ (float)  varProductUnitPriceCurrencyExchangeRate ► Product Unit Price Currency Exchange Rate                      |
-        |      ▪ (int)    varPriceCurrency_RefID ► Price Currency Reference ID                                                     |
-        |      ▪ (float)  varPriceCurrencyValue ► Price Currency Value                                                             |
-        |      ▪ (float)  varPriceCurrencyExchangeRate ► Price Currency Exchange Rate                                              |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
@@ -146,7 +137,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varAdvanceSettlement_RefID = null, int $varAdvancePaymentDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, int $varPriceCurrency_RefID = null, float $varPriceCurrencyValue = null, float $varPriceCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varAdvanceSettlement_RefID = null, int $varAdvancePaymentDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -169,9 +160,6 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         [$varProductUnitPriceCurrency_RefID, 'bigint'],
                         [$varProductUnitPriceCurrencyValue, 'numeric'],
                         [$varProductUnitPriceCurrencyExchangeRate, 'numeric'],
-                        [$varPriceCurrency_RefID, 'bigint'],
-                        [$varPriceCurrencyValue, 'numeric'],
-                        [$varPriceCurrencyExchangeRate, 'numeric'],
                         [$varRemarks, 'varchar']
                     ],
                     )
