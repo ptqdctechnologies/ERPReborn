@@ -5,26 +5,26 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_Finance                                                                         |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_Finance
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblAdvancePaymentDetail                                                                                      |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Finance ► TblAdvancePaymentDetail                                   |
+    | ▪ Class Name  : TblAdvanceSettlementDetail                                                                                   |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Finance ► TblAdvanceSettlementDetail                                |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblAdvancePaymentDetail extends \App\Models\Database\DefaultClassPrototype
+    class TblAdvanceSettlementDetail extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-13                                                                                           |
-        | ▪ Creation Date   : 2022-07-13                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2023-10-25                                                                                           |
+        | ▪ Creation Date   : 2023-10-25                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,9 +43,9 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-05-17                                                                                           |
-        | ▪ Creation Date   : 2022-05-17                                                                                           |
+        | ▪ Version         : 1.0000.000000                                                                                       |
+        | ▪ Last Update     : 2023-10-25                                                                                           |
+        | ▪ Creation Date   : 2023-10-25                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -55,11 +55,17 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varAdvancePayment_RefID ► Advance Payment Reference ID                                                   |
-        |      ▪ (int)    varAdvanceDetail_RefID ► Advance Detail Reference ID                                                     |
-        |      ▪ (int)    varAmountCurrency_RefID ► Amount Currency Reference ID                                                   |
-        |      ▪ (float)  varAmountCurrencyValue ► Amount Currency Value                                                           |
-        |      ▪ (float)  varAmountCurrencyExchangeRate ► Amount Currency Exchange Rate                                            |
+        |      ▪ (int)    varAdvanceSettlement_RefID ► Advance Settlement Reference ID                                             |
+        |      ▪ (int)    varAdvancePaymentDetail_RefID ► Advance Payment Detail Reference ID                                      |
+        |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
+        |      ▪ (float)  varQuantity ► Quantity                                                                                   |
+        |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
+        |      ▪ (int)    varProductUnitPriceCurrency_RefID ► Product Unit Price Currency Reference ID                             |
+        |      ▪ (float)  varProductUnitPriceCurrencyValue ► Product Unit Price Currency Value                                     |
+        |      ▪ (float)  varProductUnitPriceCurrencyExchangeRate ► Product Unit Price Currency Exchange Rate                      |
+        |      ▪ (int)    varPriceCurrency_RefID ► Price Currency Reference ID                                                     |
+        |      ▪ (float)  varPriceCurrencyValue ► Price Currency Value                                                             |
+        |      ▪ (float)  varPriceCurrencyExchangeRate ► Price Currency Exchange Rate                                              |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
@@ -69,7 +75,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varAdvancePayment_RefID = null, int $varAdvanceDetail_RefID = null, int $varAmountCurrency_RefID = null, float $varAmountCurrencyValue = null, float $varAmountCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varAdvanceSettlement_RefID = null, int $varAdvancePaymentDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, int $varPriceCurrency_RefID = null, float $varPriceCurrencyValue = null, float $varPriceCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -84,11 +90,17 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         [$varSysBranch_RefID, 'bigint'],
                         [$varSysBaseCurrency_RefID, 'bigint'],
                         
-                        [$varAdvancePayment_RefID, 'bigint'],
-                        [$varAdvanceDetail_RefID, 'bigint'],
-                        [$varAmountCurrency_RefID, 'bigint'],
-                        [$varAmountCurrencyValue, 'numeric'],
-                        [$varAmountCurrencyExchangeRate, 'numeric'],
+                        [$varAdvanceSettlement_RefID, 'bigint'],
+                        [$varAdvancePaymentDetail_RefID, 'bigint'],
+                        [$varProduct_RefID, 'bigint'],
+                        [$varQuantity, 'numeric'],
+                        [$varQuantityUnit_RefID, 'bigint'],
+                        [$varProductUnitPriceCurrency_RefID, 'bigint'],
+                        [$varProductUnitPriceCurrencyValue, 'numeric'],
+                        [$varProductUnitPriceCurrencyExchangeRate, 'numeric'],
+                        [$varPriceCurrency_RefID, 'bigint'],
+                        [$varPriceCurrencyValue, 'numeric'],
+                        [$varPriceCurrencyExchangeRate, 'numeric'],
                         [$varRemarks, 'varchar']
                     ]
                     )
@@ -102,8 +114,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-05-17                                                                                           |
-        | ▪ Creation Date   : 2022-05-17                                                                                           |
+        | ▪ Last Update     : 2023-10-25                                                                                           |
+        | ▪ Creation Date   : 2023-10-25                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -114,11 +126,17 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varAdvancePayment_RefID ► Advance Payment Reference ID                                                   |
-        |      ▪ (int)    varAdvanceDetail_RefID ► Advance Detail Reference ID                                                     |
-        |      ▪ (int)    varAmountCurrency_RefID ► Amount Currency Reference ID                                                   |
-        |      ▪ (float)  varAmountCurrencyValue ► Amount Currency Value                                                           |
-        |      ▪ (float)  varAmountCurrencyExchangeRate ► Amount Currency Exchange Rate                                            |
+        |      ▪ (int)    varAdvanceSettlement_RefID ► Advance Settlement Reference ID                                             |
+        |      ▪ (int)    varAdvancePaymentDetail_RefID ► Advance Payment Detail Reference ID                                      |
+        |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
+        |      ▪ (float)  varQuantity ► Quantity                                                                                   |
+        |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
+        |      ▪ (int)    varProductUnitPriceCurrency_RefID ► Product Unit Price Currency Reference ID                             |
+        |      ▪ (float)  varProductUnitPriceCurrencyValue ► Product Unit Price Currency Value                                     |
+        |      ▪ (float)  varProductUnitPriceCurrencyExchangeRate ► Product Unit Price Currency Exchange Rate                      |
+        |      ▪ (int)    varPriceCurrency_RefID ► Price Currency Reference ID                                                     |
+        |      ▪ (float)  varPriceCurrencyValue ► Price Currency Value                                                             |
+        |      ▪ (float)  varPriceCurrencyExchangeRate ► Price Currency Exchange Rate                                              |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
@@ -128,7 +146,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varAdvancePayment_RefID = null, int $varAdvanceDetail_RefID = null, int $varAmountCurrency_RefID = null, float $varAmountCurrencyValue = null, float $varAmountCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varAdvanceSettlement_RefID = null, int $varAdvancePaymentDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, int $varPriceCurrency_RefID = null, float $varPriceCurrencyValue = null, float $varPriceCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -143,11 +161,17 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         [$varSysBranch_RefID, 'bigint'],
                         [$varSysBaseCurrency_RefID, 'bigint'],
                         
-                        [$varAdvancePayment_RefID, 'bigint'],
-                        [$varAdvanceDetail_RefID, 'bigint'],
-                        [$varAmountCurrency_RefID, 'bigint'],
-                        [$varAmountCurrencyValue, 'numeric'],
-                        [$varAmountCurrencyExchangeRate, 'numeric'],
+                        [$varAdvanceSettlement_RefID, 'bigint'],
+                        [$varAdvancePaymentDetail_RefID, 'bigint'],
+                        [$varProduct_RefID, 'bigint'],
+                        [$varQuantity, 'numeric'],
+                        [$varQuantityUnit_RefID, 'bigint'],
+                        [$varProductUnitPriceCurrency_RefID, 'bigint'],
+                        [$varProductUnitPriceCurrencyValue, 'numeric'],
+                        [$varProductUnitPriceCurrencyExchangeRate, 'numeric'],
+                        [$varPriceCurrency_RefID, 'bigint'],
+                        [$varPriceCurrencyValue, 'numeric'],
+                        [$varPriceCurrencyExchangeRate, 'numeric'],
                         [$varRemarks, 'varchar']
                     ],
                     )
