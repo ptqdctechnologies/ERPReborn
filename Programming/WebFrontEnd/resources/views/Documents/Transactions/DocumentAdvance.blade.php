@@ -23,17 +23,17 @@
               <tr>
                 <td style="padding-top: 5px;"><label>Currency</label></td>
                 <td>:</td>
-                <td>{{ $dataTransaction['content']['general']['accumulatedValues']['baseCurrencyISOCode'] }}</td>
+                <td>{{ $dataTransaction['content']['details']['itemList'][0]['entities']['priceCurrencyISOCode'] }}</td>
               </tr>
               <tr>
                 <td style="padding-top: 5px;"><label>Budget Code</label></td>
                 <td>:</td>
-                <td>{{ $dataTransaction['content']['general']['budget']['combinedBudgetFullNameList'][0] }}</td>
+                <td>{{ $dataTransaction['content']['general']['budget']['combinedBudgetCodeList'][0] }} - {{ $dataTransaction['content']['general']['budget']['combinedBudgetNameList'][0] }}</td>
               </tr>
               <tr>
                 <td style="padding-top: 5px;"><label>Sub Budget Code</label></td>
                 <td>:</td>
-                <td>{{ $dataTransaction['content']['general']['budget']['combinedBudgetSectionNameList'][0] }}</td>
+                <td>{{ $dataTransaction['content']['general']['budget']['combinedBudgetSectionCodeList'][0] }} - {{ $dataTransaction['content']['general']['budget']['combinedBudgetSectionNameList'][0] }}</td>
               </tr>
               <tr>
                 <td style="padding-top: 5px;"><label>File Attachment</label></td>
@@ -71,7 +71,7 @@
               <tr>
                 <td style="padding-top: 5px;"><label>Bank Name</label></td>
                 <td>:</td>
-                <td>{{ $dataTransaction['content']['general']['bankAccount']['beneficiary']['bankFullName'] }}</td>
+                <td>{{ $dataTransaction['content']['general']['bankAccount']['beneficiary']['bankName'] }}</td>
               </tr>
               <tr>
                 <td style="padding-top: 5px;"><label>Account Name</label></td>

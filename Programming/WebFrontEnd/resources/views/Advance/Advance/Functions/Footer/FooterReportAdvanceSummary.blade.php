@@ -76,73 +76,88 @@
         $("#FormSubmitReportAdvanceSummary").on("submit", function(e) {
             e.preventDefault();
             
-            $(".ShowTableReportAdvanceSummary").show();
+            var project_code = $("#project_code").val();
+            var site_code = $("#site_code").val();
+            var product_name = $("#product_name").val();
+            var beneficiary = $("#beneficiary").val();
 
-            var action = $(this).attr("action");
-            var method = $(this).attr("method");
-            var form_data = new FormData($(this)[0]);
-            var form = $(this);
+            if(project_code == "" && site_code == "" && product_name == "" && beneficiary == ""){
+                ErrorNotif("Data Cannot Empty !");
+            }
+            else{
 
-            ShowLoading();
+                $(".ShowTableReportAdvanceSummary").show();
 
-            $('.TableReportAdvanceSummary').find('tbody').empty();
+                var action = $(this).attr("action");
+                var method = $(this).attr("method");
+                var form_data = new FormData($(this)[0]);
+                var form = $(this);
 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+                ShowLoading();
 
-            var keys = 0;
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
 
-            $.ajax({
-                url: action,
-                dataType: 'json',
-                cache: false,
-                contentType: false,
-                processData: false,
-                data: form_data,
-                type: method,
+                $('#TableReportAdvanceSummary').find('tbody').empty();
 
-                success: function(data) {
-                    var no = 1; t = $('#TableReportAdvanceSummary').DataTable();
-                    t.clear();
-                    $.each(data.data, function(key, val) {
+                var t = $('#TableReportAdvanceSummary').DataTable();
+                t.clear().draw();
 
-                        if(val.advancePurpose == null){
-                            advancePurpose = "";
-                        }
-                        else{
-                            advancePurpose = val.advancePurpose;
-                        }
-                        if(val.beneficiaryWorkerName == null){
-                            beneficiaryWorkerName = "";
-                        }
-                        else{
-                            beneficiaryWorkerName = val.beneficiaryWorkerName;
-                        }
-                        keys += 1;
-                        t.row.add([
-                            '<tbody><tr><td>' + no++ + '</td>',
-                            '<td><a href="ReportAdvanceSummaryDetail/'+ + val.sys_ID  +'">' + val.documentNumber + '</a></td>',
-                            '<td>' + val.documentDateTimeTZ + '</td>',
-                            '<td>' + advancePurpose + '</td>',
-                            '<td>' + val.currencyName + '</td>',
-                            '<td>' + currencyTotal(val.totalAdvance) + '</td>',
-                            '<td>' + beneficiaryWorkerName + '</td>',
-                            '<td>' + val.remark + '</td></tr></tbody>'
-                        ]).draw();
+                var no = 1; 
+                var keys = 0;
 
-                    });
+                $.ajax({
+                    url: action,
+                    dataType: 'json',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: form_data,
+                    type: method,
 
-                    HideLoading();
-                },
-                error: function(response) {
-                    HideLoading();
-                    // CALL FUNCTION ERROR NOTIFICATION
-                    ErrorNotif("Data Not Found !");
-                },
-            })
+                    success: function(data) {
+
+                        $.each(data.data, function(key, val) {
+
+                            if(val.advancePurpose == null){
+                                advancePurpose = "";
+                            }
+                            else{
+                                advancePurpose = val.advancePurpose;
+                            }
+                            if(val.beneficiaryWorkerName == null){
+                                beneficiaryWorkerName = "";
+                            }
+                            else{
+                                beneficiaryWorkerName = val.beneficiaryWorkerName;
+                            }
+                            
+                            keys += 1;
+                            t.row.add([
+                                '<tbody><tr><td>' + no++ + '</td>',
+                                '<td><a href="ReportAdvanceSummaryDetail/'+ + val.sys_ID  +'">' + val.documentNumber + '</a></td>',
+                                '<td>' + val.documentDateTimeTZ + '</td>',
+                                '<td>' + advancePurpose + '</td>',
+                                '<td>' + val.currencyName + '</td>',
+                                '<td>' + currencyTotal(val.totalAdvance) + '</td>',
+                                '<td>' + beneficiaryWorkerName + '</td>',
+                                '<td>' + val.remark + '</td></tr></tbody>'
+                            ]).draw();
+
+                        });
+
+                        HideLoading();
+                    },
+                    error: function(response) {
+                        HideLoading();
+                        // CALL FUNCTION ERROR NOTIFICATION
+                        ErrorNotif("Data Not Found !");
+                    },
+                })
+            }
         });
     });
 </script>

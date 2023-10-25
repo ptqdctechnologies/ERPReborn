@@ -19,7 +19,6 @@
     var TotalBudgetList = 0;
     var TotalQty = 0;
     var TotalPayment = 0;
-    var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
 
     $.ajax({
         type: "POST",
@@ -31,7 +30,7 @@
             statusDisplay = [];
             statusDisplay2 = [];
             statusForm = [];
-            $.each(data, function(key, value) {
+            $.each(data.data, function(key, value) {
                 TotalBudgetList += +(value.entities.quantity * value.entities.productUnitPriceBaseCurrencyValue);
                 // TotalQty+= +value.entities.quantity.replace(/,/g, '');
 
@@ -72,7 +71,7 @@
 
                 var html2 =
                     '<tr>' +
-                    '<input name="var_date" value="' + date + '" type="hidden">' +
+                    '<input name="var_date" value="' + data.date + '" type="hidden">' +
                     '<input name="var_product_id[]" value="' + value.entities.product_RefID + '" type="hidden">' +
                     '<input name="var_product_name[]" value="' + value.entities.productName + '" type="hidden">' +
                     '<input name="var_qty_id[]" value="' + value.entities.quantityUnit_RefID + '" type="hidden">' +
@@ -315,7 +314,6 @@
         $('#TableAdvance').find('tbody').empty();
         $(".AdvanceListCart").show();
         $(".Remark").show();
-        var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
 
         var trano = $("#trano").val();
         var getProductId = $("input[name='var_product_id[]']").map(function() {

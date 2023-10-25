@@ -31,9 +31,12 @@
 </div>
 
 <script>
-    $(function() {beneficiary
+    $(function() {
         $('.myBeneficiary').one('click', function(e) {
             e.preventDefault();
+
+            // ShowLoading();
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -57,6 +60,8 @@
                             '<td>' + val.organizationalJobPositionName + '</td></tr></tbody>',
                         ]).draw();
                     });
+
+                    // HideLoading();
                 }
             });
         });
