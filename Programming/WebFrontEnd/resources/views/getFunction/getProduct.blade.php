@@ -38,8 +38,8 @@
     function KeyFunction(key) {
         $("#key").val(key);
         if (isBodyClicked === false) {
-            $("#loading").show();
-            $(".loader").show();
+
+            ShowLoading();
 
             $("#tableGetProduct").dataTable().fnDestroy();
 
@@ -64,8 +64,7 @@
                         ]);
                     }
 
-                    $("#loading").hide();
-                    $(".loader").hide();
+                    HideLoading();
 
 
                     $('#tableGetProduct').DataTable({

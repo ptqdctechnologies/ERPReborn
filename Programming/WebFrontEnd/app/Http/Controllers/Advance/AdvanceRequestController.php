@@ -242,7 +242,13 @@ class AdvanceRequestController extends Controller
             ]
         );
 
-        return response()->json($varData['data'][0]['document']['content']['details']['itemList']);
+        $compact = [
+            'data' => $varData['data'][0]['document']['content']['details']['itemList'],
+            'date' =>$varData['data'][0]['document']['header']['date']
+        ];
+
+
+        return response()->json($compact);
     }
 
     public function ReportAdvanceSummary(Request $request)
@@ -331,7 +337,7 @@ class AdvanceRequestController extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'report.form.documentForm.finance.getAdvance',
+            'report.form.documentForm.finance.getReportAdvanceSummaryDetail',
             'latest',
             [
                 'parameter' => [
@@ -339,8 +345,9 @@ class AdvanceRequestController extends Controller
                 ]
             ]
         );
+
         $compact = [
-            'data' => $varData['data'][0]['document']
+            'data' => $varData['data'][0]['document']['content']
         ];
 
         return view('Advance.Advance.Reports.ReportAdvanceSummaryDetail', $compact);

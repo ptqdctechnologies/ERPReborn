@@ -47,14 +47,14 @@
                         <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Bank Name</label></td>
                         <td>
                             <div class="input-group">
-                                <input id="bank_name" style="border-radius:0;" name="bank_name" class="col-4 form-control" value="{{ $dataRevisi['bankAccount']['beneficiary']['bankFullName'] }}" readonly>
+                                <input id="bank_name" style="border-radius:0;" name="bank_name" class="col-4 form-control" value="{{ $dataRevisi['bankAccount']['beneficiary']['bankAcronym'] }}" readonly>
                                 <div class="input-group-append">
                                     <span style="border-radius:0;" class="input-group-text form-control">
                                         <a href="#" id="bank_name_popup" data-toggle="modal" data-target="#myGetBank" class="myGetBank"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                     </span>
                                 </div>
 
-                                <input id="bank_name_detail" style="border-radius:0;" class="col-7 form-control" name="bank_name_detail" readonly value="{{ $dataRevisi['bankAccount']['beneficiary']['bankFullName'] }}">
+                                <input id="bank_name_detail" style="border-radius:0;" class="col-7 form-control" name="bank_name_detail" readonly value="{{ $dataRevisi['bankAccount']['beneficiary']['bankName'] }}">
                             </div>
                         </td>
                     </tr>
