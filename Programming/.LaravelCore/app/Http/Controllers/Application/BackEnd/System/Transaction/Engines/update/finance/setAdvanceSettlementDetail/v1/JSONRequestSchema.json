@@ -59,16 +59,29 @@
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         },
-                    "productUnitPriceCurrency_RefID": {
+                    "expenseClaimProductUnitPriceCurrency_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         },
-                    "productUnitPriceCurrencyValue": {
+                    "expenseClaimProductUnitPriceCurrencyValue": {
                         "type": [ "number", "null" ],
                         "minimum": 0
                         },
-                    "productUnitPriceCurrencyExchangeRate": {
+                    "expenseClaimProductUnitPriceCurrencyExchangeRate": {
+                        "type": [ "number", "null" ],
+                        "minimum": 0
+                        },
+                    "returnProductUnitPriceCurrency_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                    "returnProductUnitPriceCurrencyValue": {
+                        "type": [ "number", "null" ],
+                        "minimum": 0
+                        },
+                    "returnProductUnitPriceCurrencyExchangeRate": {
                         "type": [ "number", "null" ],
                         "minimum": 0
                         },
@@ -84,15 +97,24 @@
                     "product_RefID",
                     "quantity",
                     "quantityUnit_RefID",
-                    "productUnitPriceCurrency_RefID",
-                    "productUnitPriceCurrencyValue",
-                    "productUnitPriceCurrencyExchangeRate",
+                    "expenseClaimProductUnitPriceCurrency_RefID",
+                    "expenseClaimProductUnitPriceCurrencyValue",
+                    "expenseClaimProductUnitPriceCurrencyExchangeRate",
+                    "returnProductUnitPriceCurrency_RefID",
+                    "returnProductUnitPriceCurrencyValue",
+                    "returnProductUnitPriceCurrencyExchangeRate",
                     "remarks"
                     ]
                 }
             },
-        "required": [ "recordID", "entities" ]
+        "required": [
+            "recordID",
+            "entities"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }

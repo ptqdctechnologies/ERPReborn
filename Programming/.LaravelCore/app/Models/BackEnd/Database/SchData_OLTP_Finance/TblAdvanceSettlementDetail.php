@@ -60,9 +60,13 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
         |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
-        |      ▪ (int)    varProductUnitPriceCurrency_RefID ► Product Unit Price Currency Reference ID                             |
-        |      ▪ (float)  varProductUnitPriceCurrencyValue ► Product Unit Price Currency Value                                     |
-        |      ▪ (float)  varProductUnitPriceCurrencyExchangeRate ► Product Unit Price Currency Exchange Rate                      |
+        |      ▪ (int)    varExpenseClaimProductUnitPriceCurrency_RefID ► Expense Claim Product Unit Price Currency Reference ID   |
+        |      ▪ (float)  varExpenseClaimProductUnitPriceCurrencyValue ► Expense Claim Product Unit Price Currency Value           |
+        |      ▪ (float)  varExpenseClaimProductUnitPriceCurrencyExchangeRate ►                                                    |
+        |                       Expense Claim Product Unit Price Currency Exchange Rate                                            |
+        |      ▪ (int)    varReturnProductUnitPriceCurrency_RefID ► Return Product Unit Price Currency Reference ID                |
+        |      ▪ (float)  varReturnProductUnitPriceCurrencyValue ► Return Product Unit Price Currency Value                        |
+        |      ▪ (float)  varReturnProductUnitPriceCurrencyExchangeRate ► Return Product Unit Price Currency Exchange Rate         |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
@@ -72,7 +76,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varAdvanceSettlement_RefID = null, int $varAdvancePaymentDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varAdvanceSettlement_RefID = null, int $varAdvancePaymentDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varExpenseClaimProductUnitPriceCurrency_RefID = null, float $varExpenseClaimProductUnitPriceCurrencyValue = null, float $varExpenseClaimProductUnitPriceCurrencyExchangeRate = null, int $varReturnProductUnitPriceCurrency_RefID = null, float $varReturnProductUnitPriceCurrencyValue = null, float $varReturnProductUnitPriceCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -92,9 +96,12 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         [$varProduct_RefID, 'bigint'],
                         [$varQuantity, 'numeric'],
                         [$varQuantityUnit_RefID, 'bigint'],
-                        [$varProductUnitPriceCurrency_RefID, 'bigint'],
-                        [$varProductUnitPriceCurrencyValue, 'numeric'],
-                        [$varProductUnitPriceCurrencyExchangeRate, 'numeric'],
+                        [$varExpenseClaimProductUnitPriceCurrency_RefID, 'bigint'],
+                        [$varExpenseClaimProductUnitPriceCurrencyValue, 'numeric'],
+                        [$varExpenseClaimProductUnitPriceCurrencyExchangeRate, 'numeric'],
+                        [$varReturnProductUnitPriceCurrency_RefID, 'bigint'],
+                        [$varReturnProductUnitPriceCurrencyValue, 'numeric'],
+                        [$varReturnProductUnitPriceCurrencyExchangeRate, 'numeric'],
                         [$varRemarks, 'varchar']
                     ]
                     )
@@ -125,9 +132,13 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
         |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
-        |      ▪ (int)    varProductUnitPriceCurrency_RefID ► Product Unit Price Currency Reference ID                             |
-        |      ▪ (float)  varProductUnitPriceCurrencyValue ► Product Unit Price Currency Value                                     |
-        |      ▪ (float)  varProductUnitPriceCurrencyExchangeRate ► Product Unit Price Currency Exchange Rate                      |
+        |      ▪ (int)    varExpenseClaimProductUnitPriceCurrency_RefID ► Expense Claim Product Unit Price Currency Reference ID   |
+        |      ▪ (float)  varExpenseClaimProductUnitPriceCurrencyValue ► Expense Claim Product Unit Price Currency Value           |
+        |      ▪ (float)  varExpenseClaimProductUnitPriceCurrencyExchangeRate ►                                                    |
+        |                       Expense Claim Product Unit Price Currency Exchange Rate                                            |
+        |      ▪ (int)    varReturnProductUnitPriceCurrency_RefID ► Return Product Unit Price Currency Reference ID                |
+        |      ▪ (float)  varReturnProductUnitPriceCurrencyValue ► Return Product Unit Price Currency Value                        |
+        |      ▪ (float)  varReturnProductUnitPriceCurrencyExchangeRate ► Return Product Unit Price Currency Exchange Rate         |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
@@ -137,7 +148,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varAdvanceSettlement_RefID = null, int $varAdvancePaymentDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varAdvanceSettlement_RefID = null, int $varAdvancePaymentDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varExpenseClaimProductUnitPriceCurrency_RefID = null, float $varExpenseClaimProductUnitPriceCurrencyValue = null, float $varExpenseClaimProductUnitPriceCurrencyExchangeRate = null, int $varReturnProductUnitPriceCurrency_RefID = null, float $varReturnProductUnitPriceCurrencyValue = null, float $varReturnProductUnitPriceCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -157,9 +168,12 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         [$varProduct_RefID, 'bigint'],
                         [$varQuantity, 'numeric'],
                         [$varQuantityUnit_RefID, 'bigint'],
-                        [$varProductUnitPriceCurrency_RefID, 'bigint'],
-                        [$varProductUnitPriceCurrencyValue, 'numeric'],
-                        [$varProductUnitPriceCurrencyExchangeRate, 'numeric'],
+                        [$varExpenseClaimProductUnitPriceCurrency_RefID, 'bigint'],
+                        [$varExpenseClaimProductUnitPriceCurrencyValue, 'numeric'],
+                        [$varExpenseClaimProductUnitPriceCurrencyExchangeRate, 'numeric'],
+                        [$varReturnProductUnitPriceCurrency_RefID, 'bigint'],
+                        [$varReturnProductUnitPriceCurrencyValue, 'numeric'],
+                        [$varReturnProductUnitPriceCurrencyExchangeRate, 'numeric'],
                         [$varRemarks, 'varchar']
                     ],
                     )

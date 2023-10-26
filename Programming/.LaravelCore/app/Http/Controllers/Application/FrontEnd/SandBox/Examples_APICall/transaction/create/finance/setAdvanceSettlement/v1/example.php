@@ -52,9 +52,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "product_RefID" => 88000000000083,
                                         "quantity" => 0.20,
                                         "quantityUnit_RefID" => 73000000000009,
-                                        "productUnitPriceCurrency_RefID" => 62000000000001,
-                                        "productUnitPriceCurrencyValue" => 235000.00,
-                                        "productUnitPriceCurrencyExchangeRate" => 1,
+                                        "expenseClaimProductUnitPriceCurrency_RefID" => 62000000000001,
+                                        "expenseClaimProductUnitPriceCurrencyValue" => 235000.00,
+                                        "expenseClaimProductUnitPriceCurrencyExchangeRate" => 1,
+                                        "returnProductUnitPriceCurrency_RefID" => 62000000000001,
+                                        "returnProductUnitPriceCurrencyValue" => 1000.00,
+                                        "returnProductUnitPriceCurrencyExchangeRate" => 1,
                                         "remarks" => 'Catatan Pertama'                                    
                                         ]                                   
                                     ],
@@ -64,9 +67,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "product_RefID" => 88000000000084,
                                         "quantity" => 0.12,
                                         "quantityUnit_RefID" => 73000000000009,
-                                        "productUnitPriceCurrency_RefID" => 62000000000001,
-                                        "productUnitPriceCurrencyValue" => 235000.00,
-                                        "productUnitPriceCurrencyExchangeRate" => 1,
+                                        "expenseClaimProductUnitPriceCurrency_RefID" => 62000000000001,
+                                        "expenseClaimProductUnitPriceCurrencyValue" => 235000.00,
+                                        "expenseClaimProductUnitPriceCurrencyExchangeRate" => 1,
+                                        "returnProductUnitPriceCurrency_RefID" => 62000000000001,
+                                        "returnProductUnitPriceCurrencyValue" => 1000.00,
+                                        "returnProductUnitPriceCurrencyExchangeRate" => 1,
                                         "remarks" => 'Catatan Kedua'
                                         ]
                                     ],
@@ -109,18 +115,24 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo        '<tr><td>Product_RefID_1</td><td><input type="text" id="dataInput_Product_RefID_1" value=88000000000083></td></tr>';
             echo        '<tr><td>Quantity_1</td><td><input type="text" id="dataInput_Quantity_1" value=0.20></td></tr>';
             echo        '<tr><td>QuantityUnit_RefID_1</td><td><input type="text" id="dataInput_QuantityUnit_RefID_1" value=73000000000009></td></tr>';
-            echo        '<tr><td>ProductUnitPriceCurrency_RefID_1</td><td><input type="text" id="dataInput_ProductUnitPriceCurrency_RefID_1" value=62000000000001></td></tr>';
-            echo        '<tr><td>ProductUnitPriceCurrencyValue_1</td><td><input type="text" id="dataInput_ProductUnitPriceCurrencyValue_1" value=235000.00></td></tr>';
-            echo        '<tr><td>ProductUnitPriceCurrencyExchangeRate_1</td><td><input type="text" id="dataInput_ProductUnitPriceCurrencyExchangeRate_1" value=1></td></tr>';
+            echo        '<tr><td>ExpenseClaimProductUnitPriceCurrency_RefID_1</td><td><input type="text" id="dataInput_ExpenseClaimProductUnitPriceCurrency_RefID_1" value=62000000000001></td></tr>';
+            echo        '<tr><td>ExpenseClaimProductUnitPriceCurrencyValue_1</td><td><input type="text" id="dataInput_ExpenseClaimProductUnitPriceCurrencyValue_1" value=235000.00></td></tr>';
+            echo        '<tr><td>ExpenseClaimProductUnitPriceCurrencyExchangeRate_1</td><td><input type="text" id="dataInput_ExpenseClaimProductUnitPriceCurrencyExchangeRate_1" value=1></td></tr>';
+            echo        '<tr><td>ReturnProductUnitPriceCurrency_RefID_1</td><td><input type="text" id="dataInput_ReturnProductUnitPriceCurrency_RefID_1" value=62000000000001></td></tr>';
+            echo        '<tr><td>ReturnProductUnitPriceCurrencyValue_1</td><td><input type="text" id="dataInput_ReturnProductUnitPriceCurrencyValue_1" value=1000.00></td></tr>';
+            echo        '<tr><td>ReturnProductUnitPriceCurrencyExchangeRate_1</td><td><input type="text" id="dataInput_ReturnProductUnitPriceCurrencyExchangeRate_1" value=1></td></tr>';
             echo        '<tr><td>Remarks_1</td><td><input type="text" id="dataInput_Remarks_1" value="Catatan Pertama"></td></tr>';
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff"></p></td></tr></tr>';
             echo        '<tr><td>AdvancePaymentDetail_RefID_2</td><td><input type="text" id="dataInput_AdvancePaymentDetail_RefID_2" value=195000000000002></td></tr>';
             echo        '<tr><td>Product_RefID_2</td><td><input type="text" id="dataInput_Product_RefID_2" value=88000000000084></td></tr>';
             echo        '<tr><td>Quantity_2</td><td><input type="text" id="dataInput_Quantity_2" value=0.12></td></tr>';
             echo        '<tr><td>QuantityUnit_RefID_2</td><td><input type="text" id="dataInput_QuantityUnit_RefID_2" value=73000000000009></td></tr>';
-            echo        '<tr><td>ProductUnitPriceCurrency_RefID_2</td><td><input type="text" id="dataInput_ProductUnitPriceCurrency_RefID_2" value=62000000000001></td></tr>';
-            echo        '<tr><td>ProductUnitPriceCurrencyValue_2</td><td><input type="text" id="dataInput_ProductUnitPriceCurrencyValue_2" value=235000.00></td></tr>';
-            echo        '<tr><td>ProductUnitPriceCurrencyExchangeRate_2</td><td><input type="text" id="dataInput_ProductUnitPriceCurrencyExchangeRate_2" value=1></td></tr>';
+            echo        '<tr><td>ExpenseClaimProductUnitPriceCurrency_RefID_2</td><td><input type="text" id="dataInput_ExpenseClaimProductUnitPriceCurrency_RefID_2" value=62000000000001></td></tr>';
+            echo        '<tr><td>ExpenseClaimProductUnitPriceCurrencyValue_2</td><td><input type="text" id="dataInput_ExpenseClaimProductUnitPriceCurrencyValue_2" value=235000.00></td></tr>';
+            echo        '<tr><td>ExpenseClaimProductUnitPriceCurrencyExchangeRate_2</td><td><input type="text" id="dataInput_ExpenseClaimProductUnitPriceCurrencyExchangeRate_2" value=1></td></tr>';
+            echo        '<tr><td>ReturnProductUnitPriceCurrency_RefID_2</td><td><input type="text" id="dataInput_ReturnProductUnitPriceCurrency_RefID_2" value=62000000000001></td></tr>';
+            echo        '<tr><td>ReturnProductUnitPriceCurrencyValue_2</td><td><input type="text" id="dataInput_ReturnProductUnitPriceCurrencyValue_2" value=1000.00></td></tr>';
+            echo        '<tr><td>ReturnProductUnitPriceCurrencyExchangeRate_2</td><td><input type="text" id="dataInput_ReturnProductUnitPriceCurrencyExchangeRate_2" value=1></td></tr>';
             echo        '<tr><td>Remarks_2</td><td><input type="text" id="dataInput_Remarks_2" value="Catatan Kedua"></td></tr>';
             echo '</table><br>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
@@ -144,9 +156,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                             '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_1").value), '.
                                             '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_1").value), '.
                                             '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_1").value),'.
-                                            '"productUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceCurrency_RefID_1").value),'.
-                                            '"productUnitPriceCurrencyValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyValue_1").value),'.
-                                            '"productUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyExchangeRate_1").value),'.
+                                            '"expenseClaimProductUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ExpenseClaimProductUnitPriceCurrency_RefID_1").value),'.
+                                            '"expenseClaimProductUnitPriceCurrencyValue" : parseFloat(document.getElementById("dataInput_ExpenseClaimProductUnitPriceCurrencyValue_1").value),'.
+                                            '"expenseClaimProductUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ExpenseClaimProductUnitPriceCurrencyExchangeRate_1").value),'.
+                                            '"returnProductUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ReturnProductUnitPriceCurrency_RefID_1").value),'.
+                                            '"returnProductUnitPriceCurrencyValue" : parseFloat(document.getElementById("dataInput_ReturnProductUnitPriceCurrencyValue_1").value),'.
+                                            '"returnProductUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ReturnProductUnitPriceCurrencyExchangeRate_1").value),'.
                                             '"remarks" : document.getElementById("dataInput_Remarks_1").value'.
                                             '}'.
                                         '}, '.
@@ -157,9 +172,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                             '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_2").value), '.
                                             '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_2").value), '.
                                             '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_2").value),'.
-                                            '"productUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceCurrency_RefID_2").value),'.
-                                            '"productUnitPriceCurrencyValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyValue_2").value),'.
-                                            '"productUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyExchangeRate_2").value),'.
+                                            '"expenseClaimProductUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ExpenseClaimProductUnitPriceCurrency_RefID_2").value),'.
+                                            '"expenseClaimProductUnitPriceCurrencyValue" : parseFloat(document.getElementById("dataInput_ExpenseClaimProductUnitPriceCurrencyValue_2").value),'.
+                                            '"expenseClaimProductUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ExpenseClaimProductUnitPriceCurrencyExchangeRate_2").value),'.
+                                            '"returnProductUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ReturnProductUnitPriceCurrency_RefID_2").value),'.
+                                            '"returnProductUnitPriceCurrencyValue" : parseFloat(document.getElementById("dataInput_ReturnProductUnitPriceCurrencyValue_2").value),'.
+                                            '"returnProductUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ReturnProductUnitPriceCurrencyExchangeRate_2").value),'.
                                             '"remarks" : document.getElementById("dataInput_Remarks_2").value'.
                                             '}'.
                                         '}'.
