@@ -2,7 +2,9 @@
     <div class="card">
         <div class="card-header">
             <label class="card-title">
-                Last Status : Awaiting
+                @if(isset($dataWorkflow))
+                Last Status : Awaiting approval from {{ $dataWorkflow[count($dataWorkflow)-1]['nextApproverEntityName'] }}
+                @endif
             </label>
         </div>
 
@@ -19,18 +21,18 @@
                 </thead>
                 <tbody>
 
-                @if(isset($dataWorkflow))
+                    @if(isset($dataWorkflow))
                     @php $no = 1; @endphp
                     @foreach($dataWorkflow as $dataWorkflows)
                     <tr>
                         <td style="border:1px solid #4B586A;color:#4B586A;">{{ $no++ }}</td>
                         <td style="border:1px solid #4B586A;color:#4B586A;">{{ date('D, m/d/Y H:m:s', strtotime($dataWorkflows['approvalDateTimeTZ'])) }}</td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['name'] }}</td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['workFlowPathActionName'] }}</td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['remarks'] }}</td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['currentApproverEntityName'] }} ({{ $dataWorkflows['currentApproverEntityFullJobPositionTitle'] }})</td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['currentWorkFlowPathActionName'] }}</td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['currentRemarks'] }}</td>
                     </tr>
                     @endforeach
-                @endif
+                    @endif
                 </tbody>
             </table>
         </div>

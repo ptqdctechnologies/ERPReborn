@@ -92,12 +92,6 @@ class LoginController extends Controller
                     ]
                 ]
                 );
-                // $SumDocumentWorkflow = 0;
-        
-                // if ($varData['metadata']['HTTPStatusCode'] == 200) {
-                //     $SumDocumentWorkflow = $varData['data']['0']['document']['content']['dataCount'];
-                // }
-                
                 $SumDocumentWorkflow = $varData['data']['0']['document']['content']['dataCount'];
 
                 return $SumDocumentWorkflow;

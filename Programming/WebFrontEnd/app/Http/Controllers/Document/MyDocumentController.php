@@ -69,9 +69,26 @@ class MyDocumentController extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $SessionWorkerCareerInternal_RefID = $request->session()->get('SessionWorkerCareerInternal_RefID');
         
+        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varAPIWebToken,
+        //     'report.form.resume.master.getBusinessDocumentIssuanceDisposition',
+        //     'latest',
+        //     [
+        //         'parameter' => [
+        //             'recordID' => (int)$SessionWorkerCareerInternal_RefID,
+        //             'dataFilter' => [
+        //                 'businessDocumentNumber' => null,
+        //                 'businessDocumentType_RefID' => null,
+        //                 'combinedBudget_RefID' => null
+        //             ]
+        //         ]
+        //     ]
+        // );
+
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
+            6000000000001,
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiaWNoYSIsImlhdCI6MTY5ODMwNTI1OX0.MzExZTg0YjRmMWQ4ZjRlMzVmZDZhNGQyMzk5OTIwZGJjZGEwZjk4MWUyMGQyMTNmY2M5MmY3YWQxMGJhMWNiNQ",
             'report.form.resume.master.getBusinessDocumentIssuanceDisposition',
             'latest',
             [
@@ -85,6 +102,7 @@ class MyDocumentController extends Controller
                 ]
             ]
         );
+        dd($varData);
         
         $compact = [
             'data' => $varData['data'][0]['document']['content']['itemList']['ungrouped'],

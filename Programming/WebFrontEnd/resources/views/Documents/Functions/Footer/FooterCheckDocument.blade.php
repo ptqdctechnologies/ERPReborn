@@ -114,6 +114,7 @@
     });
 </script>
 
+<!-- VALIDATION IF FORM DOCUMENT NUMBER INPUTED, PURPOSE FOR DELETE DOCUMENT REF ID -->
 <script>
     var triggered = 0;
     $('#businessDocumentNumber').on('input', function() {
