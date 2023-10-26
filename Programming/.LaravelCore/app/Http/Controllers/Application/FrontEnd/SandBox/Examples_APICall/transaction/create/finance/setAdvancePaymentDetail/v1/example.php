@@ -71,7 +71,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<table border="1" style="border-collapse: collapse;">';
-            echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Advance Detail Main Data</p></td></tr>';
+            echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Advance Payment Detail Main Data</p></td></tr>';
             echo       '<tr><td>AdvancePayment_RefID</td><td><input type="text" id="dataInput_AdvancePayment_RefID" value=194000000000001></td></tr>';
             echo       '<tr><td>AdvanceDetail_RefID</td><td><input type="text" id="dataInput_AdvanceDetail_RefID" value=82000000000001></td></tr>';
             echo       '<tr><td>AmountCurrency_RefID</td><td><input type="text" id="dataInput_AmountCurrency_RefID" value=62000000000001></td></tr>';
