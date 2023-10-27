@@ -48,7 +48,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             "items" => [
                                     [
                                     "entities" => [
-                                        "advanceDetail_RefID" => 88000000000083,
+                                        "advanceDetail_RefID" => 82000000000001,
                                         "amountCurrency_RefID" => 62000000000001,
                                         "amountCurrencyValue" => 235000.00,
                                         "amountCurrencyExchangeRate" => 1,
@@ -57,9 +57,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     ],
                                     [
                                     "entities" => [
-                                        "advanceDetail_RefID" => 88000000000084,
+                                        "advanceDetail_RefID" => 82000000000002,
                                         "amountCurrency_RefID" => 62000000000001,
-                                        "amountCurrencyValue" => 235000.00,
+                                        "amountCurrencyValue" => 500000.00,
                                         "amountCurrencyExchangeRate" => 1,
                                         "remarks" => 'Catatan Kedua'
                                         ]

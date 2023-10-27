@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+Please view https://github.com/SpartnerNL/Laravel-Excel/releases for the most recent changelog
 
 ## [3.1.47] - 2023-02-16
 
