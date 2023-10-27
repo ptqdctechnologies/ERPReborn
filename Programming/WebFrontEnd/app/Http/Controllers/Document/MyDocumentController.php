@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Document;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Session;
 
 class MyDocumentController extends Controller
 {
@@ -19,22 +23,19 @@ class MyDocumentController extends Controller
         $projectid = $request->projectid;
         $DocumentType = $request->DocumentType;
 
-        if($trano == ""){
+        if ($trano == "") {
             $trano = null;
-        }
-        else{
+        } else {
             $trano = $trano;
         }
-        if($projectid == ""){
+        if ($projectid == "") {
             $projectid = null;
-        }
-        else{
+        } else {
             $projectid = (int)$projectid;
         }
-        if($DocumentType == ""){
+        if ($DocumentType == "") {
             $DocumentType = null;
-        }
-        else{
+        } else {
             $DocumentType = (int)$DocumentType;
         }
 
@@ -66,48 +67,35 @@ class MyDocumentController extends Controller
 
     public function ShowMyDocumentListData(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $SessionWorkerCareerInternal_RefID = $request->session()->get('SessionWorkerCareerInternal_RefID');
-        
-        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        //     $varAPIWebToken,
-        //     'report.form.resume.master.getBusinessDocumentIssuanceDisposition',
-        //     'latest',
-        //     [
-        //         'parameter' => [
-        //             'recordID' => (int)$SessionWorkerCareerInternal_RefID,
-        //             'dataFilter' => [
-        //                 'businessDocumentNumber' => null,
-        //                 'businessDocumentType_RefID' => null,
-        //                 'combinedBudget_RefID' => null
-        //             ]
-        //         ]
-        //     ]
-        // );
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            6000000000001,
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiaWNoYSIsImlhdCI6MTY5ODMwNTI1OX0.MzExZTg0YjRmMWQ4ZjRlMzVmZDZhNGQyMzk5OTIwZGJjZGEwZjk4MWUyMGQyMTNmY2M5MmY3YWQxMGJhMWNiNQ",
-            'report.form.resume.master.getBusinessDocumentIssuanceDisposition',
-            'latest',
-            [
-                'parameter' => [
-                    'recordID' => (int)$SessionWorkerCareerInternal_RefID,
-                    'dataFilter' => [
-                        'businessDocumentNumber' => null,
-                        'businessDocumentType_RefID' => null,
-                        'combinedBudget_RefID' => null
+        $varAPIWebToken = Session::get('SessionLogin');
+        $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
+
+        $ShowMyDocumentListData = Cache::remember('ShowMyDocumentListData', 480, function () use ($varAPIWebToken, $SessionWorkerCareerInternal_RefID) {
+
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'report.form.resume.master.getBusinessDocumentIssuanceDisposition',
+                'latest',
+                [
+                    'parameter' => [
+                        'recordID' => (int)$SessionWorkerCareerInternal_RefID,
+                        'dataFilter' => [
+                            'businessDocumentNumber' => null,
+                            'businessDocumentType_RefID' => null,
+                            'combinedBudget_RefID' => null
+                        ]
                     ]
                 ]
-            ]
-        );
-        dd($varData);
-        
-        $compact = [
-            'data' => $varData['data'][0]['document']['content']['itemList']['ungrouped'],
-        ];
-            
-        return response()->json($compact);
+            );
+
+            $compact = [
+                'data' => $varData['data'][0]['document']['content']['itemList']['ungrouped'],
+            ];
+
+            return $compact;
+        });
+        return response()->json($ShowMyDocumentListData);
     }
 }

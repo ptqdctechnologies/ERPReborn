@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Function;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Session;
 
 class FunctionController extends Controller
 {
@@ -15,20 +17,23 @@ class FunctionController extends Controller
     //FUNCTION PROJECT
     public function getProject(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'dataPickList.project.getProject',
-            'latest',
-            [
-                'parameter' => null
-            ]
-        );
+        $DataProject = Cache::remember('DataProject', 480, function(){
 
-        // dd($varDataProject);
+            $varAPIWebToken = Session::get('SessionLogin');
+            $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'dataPickList.project.getProject',
+                'latest',
+                [
+                    'parameter' => null
+                ]
+            );
+            return $varDataProject['data']['data'];
 
-        return response()->json($varDataProject['data']['data']);
+        });
+
+        return response()->json($DataProject);
     }
 
     // FUNCTION SITE PROJECT
@@ -107,26 +112,31 @@ class FunctionController extends Controller
     // FUNCTION WORKER 
     public function getWorker(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varDataWorker = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.humanResource.getWorkerJobsPositionCurrent',
-            'latest',
-            [
-                'parameter' => [
-                    'worker_RefID' => null
-                ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
 
-        return response()->json($varDataWorker['data']['data']);
+        $DataWorker = Cache::remember('DataWorker', 480, function(){
+
+            $varAPIWebToken = Session::get('SessionLogin');
+            $varDataWorker = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.humanResource.getWorkerJobsPositionCurrent',
+                'latest',
+                [
+                    'parameter' => [
+                        'worker_RefID' => null
+                    ],
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ]
+            );
+            return $varDataWorker['data']['data'];
+        });
+
+        return response()->json($DataWorker);
     }
 
     // FUNCTION SUPPLIER
@@ -276,25 +286,29 @@ class FunctionController extends Controller
     }
 
     // FUNCTION DOCUMENT TYPE 
-    public function getDocumentType(Request $request)
+    public function getDocumentType()
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varBusinessDocumentType = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.master.getBusinessDocumentType',
-            'latest',
-            [
-                'parameter' => [],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
+        $DocumentType = Cache::remember('DocumentType', 480, function(){
 
-        return response()->json($varBusinessDocumentType['data']);
+            $varAPIWebToken = Session::get('SessionLogin');
+            $varBusinessDocumentType = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.master.getBusinessDocumentType',
+                'latest',
+                [
+                    'parameter' => [],
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ]
+            );
+            return $varBusinessDocumentType['data'];
+
+        });
+        return response()->json($DocumentType);
     }
 }
