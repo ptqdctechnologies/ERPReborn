@@ -68,6 +68,8 @@ class MyDocumentController extends Controller
     public function ShowMyDocumentListData(Request $request)
     {
 
+        dd(Cache::get("dataAwal_aldi.mulyadialdi1234"));
+        
         $varAPIWebToken = Session::get('SessionLogin');
         $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
 
