@@ -75,7 +75,6 @@
 
 <!-- SHOW DATA FOR FIRST LOADING  -->
 <script type="text/javascript">
-    ShowLoading();
 
     $.ajaxSetup({
         headers: {
@@ -92,7 +91,6 @@
             SuccessDataMyDocument(data);
         },
         error: function(response) {
-            HideLoading();
             // CALL FUNCTION ERROR NOTIFICATION
             ErrorNotif("Data Not Found !");
         },

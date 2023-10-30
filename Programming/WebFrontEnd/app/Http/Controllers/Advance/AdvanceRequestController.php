@@ -12,7 +12,6 @@ class AdvanceRequestController extends Controller
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionAdvance");
 
         $var = 0;
         if (!empty($_GET['var'])) {
@@ -117,7 +116,6 @@ class AdvanceRequestController extends Controller
     public function RevisionAdvanceIndex(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionAdvance");
 
         $varDataAdvanceRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -247,15 +245,12 @@ class AdvanceRequestController extends Controller
             'date' =>$varData['data'][0]['document']['header']['date']
         ];
 
-
         return response()->json($compact);
     }
 
     public function ReportAdvanceSummary(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionAdvance");
-
 
         $compact = [
             'varAPIWebToken' => $varAPIWebToken,

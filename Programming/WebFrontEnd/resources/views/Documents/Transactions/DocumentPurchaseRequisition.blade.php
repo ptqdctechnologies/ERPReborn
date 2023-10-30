@@ -40,12 +40,12 @@
               <tr>
                 <td style="padding-top: 5px;"><label>Budget Code</label></td>
                 <td>:</td>
-                <td>{{ $dataTransaction['content']['general']['budget']['combinedBudgetFullNameList'][0] }}</td>
+                <td>{{ $dataTransaction['content']['general']['budget']['combinedBudgetCodeList'][0] }} - {{ $dataTransaction['content']['general']['budget']['combinedBudgetNameList'][0] }}</td>
               </tr>
               <tr>
                 <td style="padding-top: 5px;"><label>Sub Budget Code</label></td>
                 <td>:</td>
-                <td>{{ $dataTransaction['content']['general']['budget']['combinedBudgetSectionFullNameList'][0] }}</td>
+                <td>{{ $dataTransaction['content']['general']['budget']['combinedBudgetSectionCodeList'][0] }} - {{ $dataTransaction['content']['general']['budget']['combinedBudgetSectionNameList'][0] }}</td>
               </tr>
             </table>
           </div>

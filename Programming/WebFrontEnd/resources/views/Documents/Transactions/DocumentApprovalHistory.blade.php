@@ -17,8 +17,8 @@
                     @foreach($dataWorkflow as $dataWorkflows)
                     <ul>
                         <li>
-                            <span style="text-transform:uppercase;font-weight:bold;">{{ $dataWorkflows['workFlowPathActionName'] }}</span> {{ date('D, m/d/Y H:m:s', strtotime($dataWorkflows['approvalDateTimeTZ'])) }} : {{ $dataWorkflows['name'] }} <br>
-                            Comment : {{ $dataWorkflows['remarks'] }}
+                            <span style="text-transform:uppercase;font-weight:bold;">{{ $dataWorkflows['currentWorkFlowPathActionName'] }}</span> {{ date('D, m/d/Y H:m:s', strtotime($dataWorkflows['approvalDateTimeTZ'])) }} : {{ $dataWorkflows['currentApproverEntityName'] }} ({{ $dataWorkflows['currentApproverEntityFullJobPositionTitle'] }}) <br>
+                            Comment : {{ $dataWorkflows['currentRemarks'] }}
                         </li>
                     </ul>
                     @endforeach

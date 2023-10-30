@@ -75,7 +75,6 @@ class CheckDocumentController extends Controller
             if ($varDataWorkflow['metadata']['HTTPStatusCode'] != '200') {
                 return redirect()->route('CheckDocument.index')->with('NotFound', 'Data Not Found');
             } else {
-
                 $compact = [
                     'var' => 1,
                     'dataWorkflow' => $varDataWorkflow['data'][0]['document']['content']['general']['workFlow']['historyList'],
