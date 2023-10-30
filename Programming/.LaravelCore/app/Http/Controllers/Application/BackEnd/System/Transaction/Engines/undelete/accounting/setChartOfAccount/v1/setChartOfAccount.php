@@ -3,27 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\accounting\setCodeOfAccounting\v1     |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\accounting\setChartOfAccount\v1            |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\accounting\setCodeOfAccounting\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\accounting\setChartOfAccount\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setCodeOfAccounting                                                                                          |
-    | ▪ Description : Menangani API transaction.delete.accounting.setCodeOfAccounting Version 1                                    |
+    | ▪ Class Name  : setChartOfAccount                                                                                            |
+    | ▪ Description : Menangani API transaction.undelete.accounting.setChartOfAccount Version 1                                    |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setCodeOfAccounting extends \App\Http\Controllers\Controller
+    class setChartOfAccount extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-11-19                                                                                           |
+        | ▪ Last Update     : 2023-10-30                                                                                           |
+        | ▪ Creation Date   : 2023-10-30                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,7 +43,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-11-19                                                                                           |
+        | ▪ Last Update     : 2023-10-30                                                                                           |
+        | ▪ Creation Date   : 2023-10-30                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -56,11 +58,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Delete Code Of Accounting Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Undelete Chart Of Account Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataDelete($varUserSession, (new \App\Models\Database\SchData_OLTP_Accounting\TblCodeOfAccounting())->setDataDelete(
+                    try {
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUndelete($varUserSession, (new \App\Models\Database\SchData_OLTP_Accounting\TblChartOfAccount())->unsetDataDelete(
                             $varUserSession,
                             $varData['recordID']
                             ))))

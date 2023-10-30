@@ -42,7 +42,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2023-10-27                                                                                           |
         | ▪ Creation Date   : 2023-10-27                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
