@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Document;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Alert;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 
 class CheckDocumentController extends Controller
@@ -54,7 +55,6 @@ class CheckDocumentController extends Controller
 
                 // CALL FUNCTION SHOW DATA BY ID
                 $varDataWorkflow = $this->GetAllDocumentTypeByID($varAPIWebToken, $businessDocument_RefID);
-                
             } else {
                 // CALL FUNCTION SHOW DATA BY NUMBER
                 $varDataWorkflow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
@@ -71,7 +71,7 @@ class CheckDocumentController extends Controller
                     false
                 );
             }
-            
+
             if ($varDataWorkflow['metadata']['HTTPStatusCode'] != '200') {
                 return redirect()->route('CheckDocument.index')->with('NotFound', 'Data Not Found');
             } else {
@@ -101,10 +101,9 @@ class CheckDocumentController extends Controller
         // CALL FUNCTION SHOW DATA BY ID
         $varDataWorkflow = $this->GetAllDocumentTypeByID($varAPIWebToken, $businessDocument_RefID);
 
-        if($varDataWorkflow['metadata']['HTTPStatusCode'] != 200){
+        if ($varDataWorkflow['metadata']['HTTPStatusCode'] != 200) {
             return redirect()->route('MyDocument.index')->with('NotFound', 'Data Not Found');
-        }
-        else{
+        } else {
             $compact = [
                 'var' => 1,
                 'dataWorkflow' => $varDataWorkflow['data'][0]['document']['content']['general']['workFlow']['historyList'],
@@ -121,24 +120,28 @@ class CheckDocumentController extends Controller
     public function ShowDocumentListData(Request $request)
     {
         $DocumentType = $request->input('DocumentType');
-        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $ShowDocumentListData = Cache::remember('ShowDocumentListData' . $DocumentType, 480, function () use ($DocumentType) {
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'report.form.resume.master.getBusinessDocumentFilterByDocumentTypeID',
-            'latest',
-            [
-                'parameter' => [
-                    'recordID' => (int)$DocumentType
+            $varAPIWebToken = Session::get('SessionLogin');
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'report.form.resume.master.getBusinessDocumentFilterByDocumentTypeID',
+                'latest',
+                [
+                    'parameter' => [
+                        'recordID' => (int)$DocumentType
+                    ]
                 ]
-            ]
-        );
+            );
 
-        $compact = [
-            'data' => $varData['data'],
-        ];
+            $compact = [
+                'data' => $varData['data'],
+            ];
+            return $compact;
 
-        return response()->json($compact);
+        });
+
+        return response()->json($ShowDocumentListData);
     }
 }
