@@ -48,7 +48,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             "items" => [
                                     [
                                     "entities" => [
-                                        "advanceDetail_RefID" => 88000000000083,
+                                        "advanceDetail_RefID" => 82000000000001,
                                         "amountCurrency_RefID" => 62000000000001,
                                         "amountCurrencyValue" => 235000.00,
                                         "amountCurrencyExchangeRate" => 1,
@@ -57,9 +57,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     ],
                                     [
                                     "entities" => [
-                                        "advanceDetail_RefID" => 88000000000084,
+                                        "advanceDetail_RefID" => 82000000000002,
                                         "amountCurrency_RefID" => 62000000000001,
-                                        "amountCurrencyValue" => 235000.00,
+                                        "amountCurrencyValue" => 500000.00,
                                         "amountCurrencyExchangeRate" => 1,
                                         "remarks" => 'Catatan Kedua'
                                         ]
@@ -93,12 +93,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<table border="1" style="border-collapse: collapse;">';
-            echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Advance Main Data</p></td></tr>';
+            echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Advance Payment Main Data</p></td></tr>';
             echo        '<tr><td>DocumentDateTimeTZ</td><td><input type="text" id="dataInput_DocumentDateTimeTZ" value="2023-10-25"></td></tr>';
             echo        '<tr><td>Log_FileUpload_Pointer_RefID</td><td><input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value=></td></tr>';
             echo        '<tr><td>RequesterWorkerJobsPosition_RefID</td><td><input type="text" id="dataInput_RequesterWorkerJobsPosition_RefID" value=164000000000497></td></tr>';
             echo        '<tr><td>Remarks</td><td><input type="text" id="dataInput_Remarks" value="My Remarks"></td></tr>';
-            echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Advance Detail Data</p></td></tr></tr>';
+            echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Advance Payment Detail Data</p></td></tr></tr>';
             echo        '<tr><td>AdvanceDetail_RefID_1</td><td><input type="text" id="dataInput_AdvanceDetail_RefID_1" value=88000000000083></td></tr>';
             echo        '<tr><td>AmountCurrency_RefID_1</td><td><input type="text" id="dataInput_AmountCurrency_RefID_1" value=62000000000001></td></tr>';
             echo        '<tr><td>AmountCurrencyValue_1</td><td><input type="text" id="dataInput_AmountCurrencyValue_1" value=235000.00></td></tr>';

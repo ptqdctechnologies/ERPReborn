@@ -74,9 +74,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                             $varData['entities']['product_RefID'],
                             $varData['entities']['quantity'],
                             $varData['entities']['quantityUnit_RefID'],
-                            $varData['entities']['productUnitPriceCurrency_RefID'],
-                            $varData['entities']['productUnitPriceCurrencyValue'],
-                            $varData['entities']['productUnitPriceCurrencyExchangeRate'],
+                            $varData['entities']['expenseClaimProductUnitPriceCurrency_RefID'],
+                            $varData['entities']['expenseClaimProductUnitPriceCurrencyValue'],
+                            $varData['entities']['expenseClaimProductUnitPriceCurrencyExchangeRate'],
+                            $varData['entities']['returnProductUnitPriceCurrency_RefID'],
+                            $varData['entities']['returnProductUnitPriceCurrencyValue'],
+                            $varData['entities']['returnProductUnitPriceCurrencyExchangeRate'],
                             $varData['entities']['remarks']
                             ))))
                             {

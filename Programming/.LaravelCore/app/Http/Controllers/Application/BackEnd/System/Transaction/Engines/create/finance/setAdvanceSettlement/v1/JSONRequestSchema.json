@@ -88,16 +88,29 @@
                                                                     "minimum": 1,
                                                                     "maximum": 9223372036854775807
                                                                     },
-                                                                "productUnitPriceCurrency_RefID": {
+                                                                "expenseClaimProductUnitPriceCurrency_RefID": {
                                                                     "type": [ "integer", "null" ],
                                                                     "minimum": 1,
                                                                     "maximum": 9223372036854775807
                                                                     },
-                                                                "productUnitPriceCurrencyExchangeRate": {
+                                                                "expenseClaimProductUnitPriceCurrencyValue": {
                                                                     "type": [ "number", "null" ],
                                                                     "minimum": 0
                                                                     },
-                                                                "productUnitPriceCurrencyValue": {
+                                                                "expenseClaimProductUnitPriceCurrencyExchangeRate": {
+                                                                    "type": [ "number", "null" ],
+                                                                    "minimum": 0
+                                                                    },
+                                                                "returnProductUnitPriceCurrency_RefID": {
+                                                                    "type": [ "integer", "null" ],
+                                                                    "minimum": 1,
+                                                                    "maximum": 9223372036854775807
+                                                                    },
+                                                                "returnProductUnitPriceCurrencyValue": {
+                                                                    "type": [ "number", "null" ],
+                                                                    "minimum": 0
+                                                                    },
+                                                                "returnProductUnitPriceCurrencyExchangeRate": {
                                                                     "type": [ "number", "null" ],
                                                                     "minimum": 0
                                                                     },
@@ -108,39 +121,53 @@
                                                                     }
                                                                 },
                                                             "required": [ 
-                                                                "advancePaymentDetail_RefID", 
-                                                                "product_RefID", 
-                                                                "quantity", 
-                                                                "quantityUnit_RefID", 
-                                                                "productUnitPriceCurrency_RefID", 
-                                                                "productUnitPriceCurrencyExchangeRate", 
-                                                                "productUnitPriceCurrencyValue", 
-                                                                "remarks" 
+                                                                "advancePaymentDetail_RefID",
+                                                                "product_RefID",
+                                                                "quantity",
+                                                                "quantityUnit_RefID",
+                                                                "expenseClaimProductUnitPriceCurrency_RefID",
+                                                                "expenseClaimProductUnitPriceCurrencyValue",
+                                                                "expenseClaimProductUnitPriceCurrencyExchangeRate",
+                                                                "returnProductUnitPriceCurrency_RefID",
+                                                                "returnProductUnitPriceCurrencyValue",
+                                                                "returnProductUnitPriceCurrencyExchangeRate",
+                                                                "remarks"
                                                                 ]
                                                              }
                                                         },
-                                                    "required": [ "entities" ]
+                                                    "required": [
+                                                        "entities"
+                                                        ]
                                                     }
                                                 }
                                             },
-                                        "required": [ "items" ]
+                                        "required": [
+                                            "items"
+                                            ]
                                         }
                                     },
-                                "required": [ "itemList" ]
+                                "required": [
+                                    "itemList"
+                                    ]
                                 }
                             ]
                         }
                     },
                 "required": [ 
-                    "documentDateTimeTZ", 
-                    "log_FileUpload_Pointer_RefID", 
-                    "requesterWorkerJobsPosition_RefID", 
-                    "remarks" 
-                    ]    
+                    "documentDateTimeTZ",
+                    "log_FileUpload_Pointer_RefID",
+                    "requesterWorkerJobsPosition_RefID",
+                    "remarks"
+                    ]
                 }
             },
-        "required": [ "entities" ]
+        "required": [
+            "entities"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }
