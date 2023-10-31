@@ -40,6 +40,7 @@ $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxk
 Route::get('/', 'Auth\LoginController@index')->name('login');
 Route::post('loginStore', 'Auth\LoginController@loginStore')->name('loginStore');
 Route::get('getRoleLogin', 'Auth\LoginController@getRoleLogin')->name('getRoleLogin');
+Route::get('FlushCache', 'Auth\LoginController@FlushCache')->name('FlushCache');
 
 Route::get('SessionCheckingLogout', 'Auth\LoginController@SessionCheckingLogout')->name('SessionCheckingLogout');
 

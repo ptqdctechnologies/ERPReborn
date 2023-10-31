@@ -250,9 +250,11 @@ class LoginController extends Controller
     // FUNCTION LOGOUT 
     public function logout(Request $request)
     {
-        Cache::remember('setLogout', 480, function () {
 
-            $varAPIWebToken = Session::get("SessionLogin");
+        $varAPIWebToken = Session::get("SessionLogin");
+
+        Cache::rememberForever('setLogout', function () use ($varAPIWebToken) {
+
             if (!$varAPIWebToken) {
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             }
@@ -288,5 +290,12 @@ class LoginController extends Controller
         ];
 
         return response()->json($compact);
+    }
+
+    public function FlushCache()
+    {
+
+        Cache::flush();
+        return redirect()->back();
     }
 }

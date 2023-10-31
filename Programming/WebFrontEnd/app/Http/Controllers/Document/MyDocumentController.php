@@ -68,13 +68,10 @@ class MyDocumentController extends Controller
     public function ShowMyDocumentListData(Request $request)
     {
 
-        dd(Cache::get("dataAwal_aldi.mulyadialdi1234"));
-        
-        $varAPIWebToken = Session::get('SessionLogin');
         $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
 
-        $ShowMyDocumentListData = Cache::remember('ShowMyDocumentListData', 480, function () use ($varAPIWebToken, $SessionWorkerCareerInternal_RefID) {
-
+        $ShowMyDocumentListData = Cache::remember('ShowMyDocumentListData'. $SessionWorkerCareerInternal_RefID, 480, function () use ($SessionWorkerCareerInternal_RefID) {
+            $varAPIWebToken = Session::get('SessionLogin');
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
