@@ -17,7 +17,7 @@ class FunctionController extends Controller
     //FUNCTION PROJECT
     public function getProject(Request $request)
     {
-        $DataProject = Cache::remember('DataProject', function(){
+        $DataProject = Cache::remember('DataProject', 480, function(){
 
             $varAPIWebToken = Session::get('SessionLogin');
             $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
@@ -32,7 +32,6 @@ class FunctionController extends Controller
             return $varDataProject['data']['data'];
 
         });
-
         return response()->json($DataProject);
     }
 
@@ -113,7 +112,7 @@ class FunctionController extends Controller
     public function getWorker(Request $request)
     {
 
-        $DataWorker = Cache::remember('DataWorker', function(){
+        $DataWorker = Cache::remember('DataWorker', 480, function(){
 
             $varAPIWebToken = Session::get('SessionLogin');
             $varDataWorker = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
@@ -288,7 +287,7 @@ class FunctionController extends Controller
     // FUNCTION DOCUMENT TYPE 
     public function getDocumentType()
     {
-        $DocumentType = Cache::rememberForever('DocumentType', function(){
+        $DocumentType = Cache::remember('DocumentType', 480, function(){
 
             $varAPIWebToken = Session::get('SessionLogin');
             $varBusinessDocumentType = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
