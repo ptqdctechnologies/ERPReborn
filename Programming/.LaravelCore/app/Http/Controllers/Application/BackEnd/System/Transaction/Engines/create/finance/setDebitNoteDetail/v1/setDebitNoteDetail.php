@@ -3,28 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\finance\setAdvanceSettlementDetail\v1 |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\finance\setDebitNoteDetail\v1         |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\finance\setAdvanceSettlementDetail\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\finance\setDebitNoteDetail\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setAdvanceSettlementDetail                                                                                   |
-    | ▪ Description : Menangani API transaction.create.finance.setAdvanceSettlementDetail Version 1                                |
+    | ▪ Class Name  : setDebitNoteDetail                                                                                           |
+    | ▪ Description : Menangani API transaction.create.finance.setDebitNoteDetail Version 1                                        |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setAdvanceSettlementDetail extends \App\Http\Controllers\Controller
+    class setDebitNoteDetail extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-10-24                                                                                           |
-        | ▪ Creation Date   : 2023-10-24                                                                                           |
+        | ▪ Last Update     : 2023-11-01                                                                                           |
+        | ▪ Creation Date   : 2023-11-01                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,8 +43,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-10-24                                                                                           |
-        | ▪ Creation Date   : 2023-10-24                                                                                           |
+        | ▪ Last Update     : 2023-11-01                                                                                           |
+        | ▪ Creation Date   : 2023-11-01                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -58,28 +58,25 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Advance Settlement Detail Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Debit Note Detail Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\TblAdvanceSettlementDetail())->setDataInsert(
+                        if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\TblDebitNoteDetail())->setDataInsert(
                             $varUserSession, 
                             null, 
                             null,
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                             \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
 
-                            $varData['entities']['advanceSettlement_RefID'],
-                            $varData['entities']['advancePaymentDetail_RefID'],
+                            $varData['entities']['debitNote_RefID'],
+                            $varData['entities']['paymentInstruction_RefID'],
                             $varData['entities']['product_RefID'],
                             $varData['entities']['quantity'],
                             $varData['entities']['quantityUnit_RefID'],
-                            $varData['entities']['expenseClaimProductUnitPriceCurrency_RefID'],
-                            $varData['entities']['expenseClaimProductUnitPriceCurrencyValue'],
-                            $varData['entities']['expenseClaimProductUnitPriceCurrencyExchangeRate'],
-                            $varData['entities']['returnProductUnitPriceCurrency_RefID'],
-                            $varData['entities']['returnProductUnitPriceCurrencyValue'],
-                            $varData['entities']['returnProductUnitPriceCurrencyExchangeRate'],
+                            $varData['entities']['productUnitPriceCurrency_RefID'],
+                            $varData['entities']['productUnitPriceCurrencyValue'],
+                            $varData['entities']['productUnitPriceCurrencyExchangeRate'],
                             $varData['entities']['remarks']
                             ))))
                             {
