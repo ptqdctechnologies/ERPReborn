@@ -42,7 +42,8 @@ sudo ./BashScript/Script.System.WatchDog.Docker.ContainerPHPApacheBackEnd.sh &
 sleep 1;
 
 printf "\n▪ ▪ ▪ Docker-Compose Up Start ▪ ▪ ▪\n";
-sudo docker-compose up --remove-orphans;
+#sudo docker-compose up --remove-orphans;
+sudo COMPOSE_HTTP_TIMEOUT=200 docker-compose up --remove-orphans;
 
 ./BashScript/Script.Docker.Reinitializing.LaravelFolderOwnership.sh;
 
