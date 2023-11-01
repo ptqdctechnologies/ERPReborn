@@ -51,7 +51,7 @@
                 </li>
 
                 <li class="nav-item has-treeview">
-                    @if(in_array("Module.Finance.Advance.Transaction.Create", Session::get('privilageMenu'), TRUE) || in_array("Module.Finance.AdvanceSettlement.Transaction.Create", Session::get('privilageMenu'), TRUE) || in_array("Module.HumanResource.PersonBusinessTrip.Transaction.Create", Session::get('privilageMenu'), TRUE) || in_array("Module.HumanResource.PersonBusinessTripSettlement.Transaction.Create", Session::get('privilageMenu'), TRUE))
+                    @if(in_array("Module.Finance.Advance.Transaction.Create", $privilageMenu, TRUE) || in_array("Module.Finance.AdvanceSettlement.Transaction.Create", $privilageMenu, TRUE) || in_array("Module.HumanResource.PersonBusinessTrip.Transaction.Create", $privilageMenu, TRUE) || in_array("Module.HumanResource.PersonBusinessTripSettlement.Transaction.Create", $privilageMenu, TRUE))
                     <a href="#" class="nav-link">
                         <i class="nav-icon-sm fas fa-shopping-basket" style="color:#e9ecef;"></i>
                         <label>
@@ -63,7 +63,7 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
 
-                            @if(in_array("Module.Finance.Advance.Transaction.Create", Session::get('privilageMenu'), TRUE) || in_array("Module.Finance.AdvanceSettlement.Transaction.Create", Session::get('privilageMenu'), TRUE))
+                            @if(in_array("Module.Finance.Advance.Transaction.Create", $privilageMenu, TRUE) || in_array("Module.Finance.AdvanceSettlement.Transaction.Create", $privilageMenu, TRUE))
                             <a href="#" class="nav-link">&nbsp;
                                 <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
                                 <label>Advance</label>
@@ -78,7 +78,7 @@
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
-                                        @if(in_array("Module.Finance.AdvanceSettlement.Transaction.Create", Session::get('privilageMenu'), TRUE))
+                                        @if(in_array("Module.Finance.AdvanceSettlement.Transaction.Create", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceRequest.ReportAdvanceSummary') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
@@ -97,7 +97,7 @@
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
-                                        @if(in_array("Module.Finance.Advance.Transaction.Create", Session::get('privilageMenu'), TRUE))
+                                        @if(in_array("Module.Finance.Advance.Transaction.Create", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceRequest.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
@@ -105,7 +105,7 @@
                                             </a>
                                         </li>
                                         @endif
-                                        @if(in_array("Module.Finance.AdvanceSettlement.Transaction.Create", Session::get('privilageMenu'), TRUE))
+                                        @if(in_array("Module.Finance.AdvanceSettlement.Transaction.Create", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceSettlement.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
@@ -120,7 +120,7 @@
                     </ul>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            @if(in_array("Module.HumanResource.PersonBusinessTrip.Transaction.Create", Session::get('privilageMenu'), TRUE) || in_array("Module.HumanResource.PersonBusinessTripSettlement.Transaction.Create", Session::get('privilageMenu'), TRUE))
+                            @if(in_array("Module.HumanResource.PersonBusinessTrip.Transaction.Create", $privilageMenu, TRUE) || in_array("Module.HumanResource.PersonBusinessTripSettlement.Transaction.Create", $privilageMenu, TRUE))
                             <a href="#" class="nav-link">&nbsp;
                                 <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
                                 <label>Business Trip</label>
@@ -144,7 +144,7 @@
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
-                                        @if(in_array("Module.HumanResource.PersonBusinessTrip.Transaction.Create", Session::get('privilageMenu'), TRUE))
+                                        @if(in_array("Module.HumanResource.PersonBusinessTrip.Transaction.Create", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('BusinessTripRequest.index') }}?var=1"" class=" nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
@@ -152,7 +152,7 @@
                                             </a>
                                         </li>
                                         @endif
-                                        @if(in_array("Module.HumanResource.PersonBusinessTripSettlement.Transaction.Create", Session::get('privilageMenu'), TRUE))
+                                        @if(in_array("Module.HumanResource.PersonBusinessTripSettlement.Transaction.Create", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('BusinessTripSettlement.index') }}?var=1"" class=" nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
@@ -195,7 +195,7 @@
                 </li>
 
                 <li class="nav-item has-treeview">
-                    @if(in_array("Module.HumanResource.Timesheet.Transaction.Create", Session::get('privilageMenu'), TRUE))
+                    @if(in_array("Module.HumanResource.Timesheet.Transaction.Create", $privilageMenu, TRUE))
                     <a href="#" class="nav-link">
                         <i class="nav-icon-sm fas fa-users" style="color:#e9ecef;"></i>
                         <label>
@@ -218,7 +218,7 @@
 
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            @if(in_array("Module.HumanResource.Timesheet.Transaction.Create", Session::get('privilageMenu'), TRUE))
+                            @if(in_array("Module.HumanResource.Timesheet.Transaction.Create", $privilageMenu, TRUE))
                             <a href="#" class="nav-link">&nbsp;
                                 <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
                                 <label>Timesheet</label>
@@ -432,7 +432,7 @@
                     </ul>
                 </li>
                 <li class="nav-item has-treeview">
-                    @if(in_array("Module.SupplyChain.Procurement.PurchaseRequisition.Transaction.Create", Session::get('privilageMenu'), TRUE) || in_array("Module.SupplyChain.Procurement.PurchaseOrder.Transaction.Create", Session::get('privilageMenu'), TRUE))
+                    @if(in_array("Module.SupplyChain.Procurement.PurchaseRequisition.Transaction.Create", $privilageMenu, TRUE) || in_array("Module.SupplyChain.Procurement.PurchaseOrder.Transaction.Create", $privilageMenu, TRUE))
                     <a href="#" class="nav-link">
                         <i class="nav-icon-sm fas fa-cart-arrow-down" style="color:#e9ecef;"></i>
                         <label>
@@ -443,7 +443,7 @@
                     @endif
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            @if(in_array("Module.SupplyChain.Procurement.PurchaseRequisition.Transaction.Create", Session::get('privilageMenu'), TRUE))
+                            @if(in_array("Module.SupplyChain.Procurement.PurchaseRequisition.Transaction.Create", $privilageMenu, TRUE))
                             <a href="#" class="nav-link">&nbsp;
                                 <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
                                 <label>Purchase Requisition</label>
@@ -479,7 +479,7 @@
 
                                     </a>
                                     <ul class="nav nav-treeview">
-                                        @if(in_array("Module.SupplyChain.Procurement.PurchaseRequisition.Transaction.Create", Session::get('privilageMenu'), TRUE))
+                                        @if(in_array("Module.SupplyChain.Procurement.PurchaseRequisition.Transaction.Create", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('PurchaseRequisition.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
@@ -495,7 +495,7 @@
 
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            @if(in_array("Module.SupplyChain.Procurement.PurchaseOrder.Transaction.Create", Session::get('privilageMenu'), TRUE))
+                            @if(in_array("Module.SupplyChain.Procurement.PurchaseOrder.Transaction.Create", $privilageMenu, TRUE))
                             <a href="#" class="nav-link">&nbsp;
                                 <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
                                 <label>Purchase Order</label>
@@ -530,7 +530,7 @@
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
-                                        @if(in_array("Module.SupplyChain.Procurement.PurchaseOrder.Transaction.Create", Session::get('privilageMenu'), TRUE))
+                                        @if(in_array("Module.SupplyChain.Procurement.PurchaseOrder.Transaction.Create", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('PurchaseOrder.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
@@ -682,7 +682,7 @@
 
     <div class="user-panel mt-3 pb-3 mb-3 d-flex" style="position: relative;bottom:130px;background-color:#4B586A;text-align:center;color:white;padding-top:40px;border-top:2px white solid">
         <div class="card-body">
-            <h1><b>{{ Session::get('SumDocumentWorkflow') }}</b></h1>
+            <h1><b>{{ $CountDocumentWorkflowComposer }}</b></h1>
             <h5>Document to Process</h5>
             <a href="{{ route('MyDocument.index') }}">
                 <span class="btn btn-default btn-sm"> Go to Document</span>
