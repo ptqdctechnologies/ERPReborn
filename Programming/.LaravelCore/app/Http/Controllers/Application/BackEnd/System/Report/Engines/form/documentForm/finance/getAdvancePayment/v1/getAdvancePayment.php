@@ -3,28 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\documentForm\finance\getAdvance\v1           |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\documentForm\finance\getAdvancePayment\v1    |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\documentForm\finance\getAdvance\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\documentForm\finance\getAdvancePayment\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getAdvance                                                                                                   |
-    | ▪ Description : Menangani API report.form.documentForm.finance.getAdvance Version 1                                          |
+    | ▪ Class Name  : getAdvancePayment                                                                                            |
+    | ▪ Description : Menangani API report.form.documentForm.finance.getAdvancePayment Version 1                                   |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getAdvance extends \App\Http\Controllers\Controller
+    class getAdvancePayment extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Create date     : 2022-06-15                                                                                           |
-        | ▪ Last Update     : 2022-06-15                                                                                           |
+        | ▪ Create date     : 2023-11-03                                                                                           |
+        | ▪ Last Update     : 2023-11-03                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,9 +42,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Create date     : 2022-06-15                                                                                           |
-        | ▪ Last Update     : 2022-06-15                                                                                           |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Create date     : 2023-11-03                                                                                           |
+        | ▪ Last Update     : 2023-11-03                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -58,11 +58,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Report Form - Advance Document Form (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Report Form - Advance Payment Document Form (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\General())->getReport_Form_DocumentForm_Advance(
+                        if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\General())->getReport_Form_DocumentForm_AdvancePayment(
                             $varUserSession, 
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
 
