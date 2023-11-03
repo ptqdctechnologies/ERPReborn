@@ -71,7 +71,7 @@ class MyDocumentController extends Controller
         $varAPIWebToken = Session::get('SessionLogin');
 
         $ShowMyDocumentListData = Cache::remember('ShowMyDocumentListData', 480, function () use ($SessionWorkerCareerInternal_RefID, $varAPIWebToken) {
-            
+
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
