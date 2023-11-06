@@ -5,7 +5,7 @@
 <!-- FUNCTION FOR FILE UPLOAD -->
 <script>
   window.onload = function() {
-    document.getElementById("dataInput_Log_FileUpload_Pointer_RefID_Action").dispatchEvent(new Event("change"));
+      document.getElementById("dataInput_Log_FileUpload_Pointer_RefID_Action").dispatchEvent(new Event("change"));
   }
 </script>
 
@@ -257,7 +257,9 @@
   // FUNCTION ERROR NOTIFICATION 
   function ErrorNotif(message) {
     ToastrFunction();
-    toastr.error(message, {timeOut: 2000});
+    toastr.error(message, {
+      timeOut: 2000
+    });
   }
 
   function CancelNotif(message, url) {
@@ -270,16 +272,14 @@
         $("#confirmationButtonYes").click(function() {
           window.location.href = url;
         });
-      } 
+      }
     });
 
   }
-
 </script>
 
 <!-- FUNCTION VALIDATION MANDATORY -->
 <script>
-  
   // MANDATORY LIST 
   function MandatoryListFunction(MandatoryListVar) {
     var count = 0;
@@ -316,7 +316,6 @@
     $("#remark").css("border", "1px solid #ced4da");
     $("#remark_icon").hide();
   });
-
 </script>
 
 
