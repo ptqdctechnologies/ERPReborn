@@ -7,7 +7,7 @@
             <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Budget Code</label></td>
             <td>
               <div class="input-group" style="width: 70%;">
-                <input id="project_code" style="border-radius:0;" name="project_code" class="form-control" readonly value="{{$dataRevisi['budget']['combinedBudgetCodeList'][0] }}">
+                <input id="project_code" style="border-radius:0;" name="project_code" class="form-control" readonly value="{{$dataGeneral['budget']['combinedBudgetCodeList'] }}">
                 <div class="input-group-append">
                   <span style="border-radius:0;" class="input-group-text form-control">
                     <a id="project_code_popup" data-toggle="modal" data-target="#myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
@@ -17,7 +17,7 @@
             </td>
             <td>
               <div class="input-group" style="width: 140%;position:relative;right:38%;">
-                <input id="project_code_detail" style="border-radius:0;" class="form-control" name="project_code_detail" readonly value="{{$dataRevisi['budget']['combinedBudgetNameList'][0] }}">
+                <input id="project_code_detail" style="border-radius:0;" class="form-control" name="project_code_detail" readonly value="{{$dataGeneral['budget']['combinedBudgetNameList'] }}">
               </div>
             </td>
           </tr>
@@ -31,7 +31,7 @@
             <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Sub Budget Code</label></td>
             <td>
               <div class="input-group" style="width: 70%;">
-                <input id="site_code" style="border-radius:0;" name="site_code" class="form-control" readonly value="{{$dataRevisi['budget']['combinedBudgetSectionCodeList'][0] }}">
+                <input id="site_code" style="border-radius:0;" name="site_code" class="form-control" readonly value="{{$dataGeneral['budget']['combinedBudgetSectionCodeList'] }}">
                 <div class="input-group-append">
                   <span style="border-radius:0;" class="input-group-text form-control">
                     <a id="site_code_popup" data-toggle="modal" data-target="#mySiteCode"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
@@ -41,7 +41,7 @@
             </td>
             <td>
               <div class="input-group" style="width: 140%;position:relative;right:38%;">
-                <input id="site_code_detail" style="border-radius:0;" class="form-control" name="site_code_detail" readonly value="{{$dataRevisi['budget']['combinedBudgetSectionNameList'][0] }}">
+                <input id="site_code_detail" style="border-radius:0;" class="form-control" name="site_code_detail" readonly value="{{$dataGeneral['budget']['combinedBudgetSectionNameList'] }}">
               </div>
             </td>
           </tr>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Advance;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 
 class AdvanceRequestController extends Controller
@@ -128,10 +129,11 @@ class AdvanceRequestController extends Controller
                 ]
             ]
         );
+        // dd($varDataAdvanceRevision);
         $compact = [
-            'dataRevisi' => $varDataAdvanceRevision['data'][0]['document']['content']['general'],
-            'var_recordID' => $request->searchArfNumberRevisionId,
-            'trano' => $varDataAdvanceRevision['data'][0]['document']['header']['number'],
+            'dataGeneral' => $varDataAdvanceRevision['data'][0]['document']['content']['general'],
+            'dataDetail' => $varDataAdvanceRevision['data'][0]['document']['content']['details']['itemList'],
+            'dataHeader' => $varDataAdvanceRevision['data'][0]['document']['header'],
             'varAPIWebToken' => $varAPIWebToken,
             'statusRevisi' => 1,
         ];
@@ -199,53 +201,33 @@ class AdvanceRequestController extends Controller
     public function AdvanceListData(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.finance.getAdvance',
-            'latest',
-            [
-                'parameter' => null,
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
+
+        $getAdvance = Cache::remember('getAdvance', 480, function () use ($varAPIWebToken) {
+
+            $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.finance.getAdvance',
+                'latest',
+                [
+                    'parameter' => null,
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
                 ]
-            ]
-        );
+            );
 
-        $compact = [
-            'data' => $varDataAdvanceRequest['data'],
-        ];
+            $compact = [
+                'data' => $varDataAdvanceRequest['data'],
+            ];
 
-        return response()->json($compact);
-    }
+            return $compact;
+        });
 
-    // LIST DATA FUNCTION FOR SHOW DATA ADVANCE BY ID
-    public function AdvanceListCartRevision(Request $request)
-    {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $advance_RefID = $request->input('advance_RefID');
-
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'report.form.documentForm.finance.getAdvance',
-            'latest',
-            [
-                'parameter' => [
-                    'recordID' => (int) $advance_RefID,
-                ]
-            ]
-        );
-
-        $compact = [
-            'data' => $varData['data'][0]['document']['content']['details']['itemList'],
-            'date' =>$varData['data'][0]['document']['header']['date']
-        ];
-
-        return response()->json($compact);
+        return response()->json($getAdvance);
     }
 
     public function ReportAdvanceSummary(Request $request)
@@ -267,34 +249,29 @@ class AdvanceRequestController extends Controller
         $product_id = $request->product_id;
         $beneficiary_id = $request->beneficiary_id;
 
-        if($project_id == ""){
+        if ($project_id == "") {
             $project_id = null;
-        }
-        else{
+        } else {
             $project_id = (int)$project_id;
         }
-        if($site_id == ""){
+        if ($site_id == "") {
             $site_id = null;
-        }
-        else{
+        } else {
             $site_id = (int)$site_id;
         }
-        if($work_id == ""){
+        if ($work_id == "") {
             $work_id = null;
-        }
-        else{
+        } else {
             $work_id = (int)$work_id;
         }
-        if($product_id == ""){
+        if ($product_id == "") {
             $product_id = null;
-        }
-        else{
+        } else {
             $product_id = (int)$product_id;
         }
-        if($beneficiary_id == ""){
+        if ($beneficiary_id == "") {
             $beneficiary_id = null;
-        }
-        else{
+        } else {
             $beneficiary_id = (int)$beneficiary_id;
         }
 
