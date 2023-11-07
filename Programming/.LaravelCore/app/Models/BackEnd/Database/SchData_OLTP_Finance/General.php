@@ -373,7 +373,6 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         ]
                         )
                     );
-                //dd($varReturn['Data'][0]['Func_GetReport_DocForm_Advance']);
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
@@ -385,11 +384,149 @@ namespace App\Models\Database\SchData_OLTP_Finance
                 return [];
                 }
             }
-        
+
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getReport_Form_DocumentForm_Advance                                                                  |
+        | ▪ Method Name     : getReport_Form_DocumentForm_AdvancePayment                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-11-03                                                                                           |
+        | ▪ Creation Date   : 2023-11-03                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Pembayaran Uang Muka (Advance Payment)                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ▪ (int)    varSysID ► Record ID                                                                                     |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DocumentForm_AdvancePayment(
+            $varUserSession, int $varSysBranch_RefID, 
+            int $varSysID)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-Finance.Func_GetReport_DocForm_AdvancePayment',
+                        [
+                            [$varSysBranch_RefID, 'bigint' ],
+                            [$varSysID, 'bigint' ]
+                        ]
+                        )
+                    );
+                return [
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession, 
+                        $varReturn['Data'][0]['Func_GetReport_DocForm_AdvancePayment'])
+                    ]
+                    ;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DocumentForm_AdvanceSettlement                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-11-03                                                                                           |
+        | ▪ Creation Date   : 2023-11-03                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Pertanggungjawaban Uang Muka (Advance Settlement)            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ▪ (int)    varSysID ► Record ID                                                                                     |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DocumentForm_AdvanceSettlement(
+            $varUserSession, int $varSysBranch_RefID, 
+            int $varSysID)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-Finance.Func_GetReport_DocForm_AdvanceSettlement',
+                        [
+                            [$varSysBranch_RefID, 'bigint' ],
+                            [$varSysID, 'bigint' ]
+                        ]
+                        )
+                    );
+                return [
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession, 
+                        $varReturn['Data'][0]['Func_GetReport_DocForm_AdvanceSettlement'])
+                    ]
+                    ;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DocumentForm_DebitNote                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-06-15                                                                                           |
+        | ▪ Creation Date   : 2022-06-15                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Nota Debit (Debit Note)                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ▪ (int)    varSysID ► Record ID                                                                                     |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DocumentForm_DebitNote(
+            $varUserSession, int $varSysBranch_RefID, 
+            int $varSysID)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-Finance.Func_GetReport_DocForm_DebitNote',
+                        [
+                            [$varSysBranch_RefID, 'bigint' ],
+                            [$varSysID, 'bigint' ]
+                        ]
+                        )
+                    );
+                return [
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession, 
+                        $varReturn['Data'][0]['Func_GetReport_DocForm_DebitNote'])
+                    ]
+                    ;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DocumentForm_AdvanceSummary                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-06-15                                                                                           |
@@ -471,6 +608,52 @@ namespace App\Models\Database\SchData_OLTP_Finance
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
                         $varReturn['Data'][0]['Func_GetReport_AdvanceSummary_Detail'])
+                    ]
+                    ;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DocumentForm_Payment                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-11-06                                                                                           |
+        | ▪ Creation Date   : 2023-11-06                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Pembayaran (Payment)                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ▪ (int)    varSysID ► Record ID                                                                                     |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DocumentForm_Payment(
+            $varUserSession, int $varSysBranch_RefID, 
+            int $varSysID)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-Finance.Func_GetReport_DocForm_Payment',
+                        [
+                            [$varSysBranch_RefID, 'bigint' ],
+                            [$varSysID, 'bigint' ]
+                        ]
+                        )
+                    );
+                return [
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession, 
+                        $varReturn['Data'][0]['Func_GetReport_DocForm_Payment'])
                     ]
                     ;
                 }
