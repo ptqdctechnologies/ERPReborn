@@ -3673,7 +3673,8 @@ namespace App\Helpers\ZhtHelper\General
             $varUserSession, string $varAPIWebToken, 
             string $varUniqueID, string $varDOMReturnID, string $varDOMReturnIDAction, string $varDOMActionPanel, string $varDOMAction, string $varAction = null)
             {
-                                                          
+                    
+            // dd($varDOMReturnID);
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get DOM Input Files Content');
