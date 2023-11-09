@@ -16,6 +16,88 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             
+            
+            /* ambil data kurs pajak bea cukai
+            * informasi api kurs pajak Bea Cukai bisa diambil di https://www.beacukai.go.id/kurs.html
+            * 
+            * Agung N
+            * 2023-09-02
+            * 
+            */
+
+            $date = date('d-m-Y'); // ambil kurs hari ini
+            // $date = '31-08-2020'; // ambil kurs tanggal tertentu
+
+            $ConnectTimeout = 10;
+            $ExecuteTimemout = 30;
+            $url = "https://www.beacukai.go.id/kurs.html";
+            $postdata = "tglKurs=$date&content=browseKurs";
+            $header = ["Content-Type: application/x-www-form-urlencoded"];
+
+            $file = implode("/", [__DIR__, "kursbeacukai.data.html"]);
+
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url); 
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $ConnectTimeout);
+            curl_setopt($ch, CURLOPT_TIMEOUT, $ExecuteTimemout);
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
+            $htmlcontent = curl_exec ($ch);
+            curl_close ($ch);
+
+            
+            dd($htmlcontent);
+            
+            /*
+            $fp = fopen($file, "w");
+            fwrite($fp, $htmlcontent);
+
+            $fp = fopen($file, "r");
+            $htmlcontent = fread($fp, filesize($file));
+            fclose($fp);
+            */
+
+            /*
+            //echo $output;
+            libxml_use_internal_errors(true);
+            $dom = new DOMDocument;
+            $dom->loadHTML($htmlcontent);
+            $TBODY = $dom->getElementsByTagName('tbody');
+
+            $data = [];
+            foreach ($TBODY as $tbody) {
+            $TR = $tbody->getElementsByTagName('tr');
+            foreach ($TR as $tr) {
+                $currnameraw = trim($tr->childNodes[0]->textContent);
+                $currvalueraw = trim($tr->childNodes[3]->textContent);
+
+                $currnamedata = explode(" ", $currnameraw);
+                $curr_id = $currnamedata[1];
+                $curr_factor = (int) $currnamedata[0];
+
+                $curr_rate = 1;
+                if (!empty($currvalueraw)) {
+                        $curr_rate = (float)str_replace(".", "", explode(",", $currvalueraw)[0]);
+                }
+
+                $curr_rate = (int) ($curr_rate / $curr_factor);
+                $data[$curr_id] = $curr_rate;
+                // echo "$curr_factor $curr_id $curr_rate\r\n";
+            }
+            }
+
+            print_r($data);
+            */
+            
+            
+            
+            
+            
+            /*
+            
             // $date = date('Y-m-d'); // ambil kurs hari ini
             $date = '2023-11-09'; // ambil kurs tanggal tertentu
             
@@ -82,7 +164,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
                     //json_decode($varJSONData);
             dd($varData);
             
-            
+            */
             
             
 

@@ -155,18 +155,19 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
                 }
 
             $varXMLData = implode("\n", $varXMLDataArray);
-            //$varXMLData = implode("", $varXMLDataArray);
-
-
             $varXMLData = 
                 '<?xml version="1.0" encoding="utf-8"?>'.
                 '<NewDataSet>'.
                     $varXMLData.
                 '</NewDataSet>';
 
-            $varXMLObject = simplexml_load_string($varXMLData);
-            $varJSONData = json_encode($varXMLObject);
-            $varData = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varJSONData);
+            $varData = 
+                \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                    $varUserSession, 
+                    json_encode(
+                        simplexml_load_string($varXMLData)
+                        )
+                    );
             
             for($i=0, $iMax=count($varData['Table']); $i != $iMax; $i++)
                 {
