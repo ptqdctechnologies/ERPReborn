@@ -11,10 +11,134 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             {
             //$this->middleware(\App\Http\Middleware\Application\BackEnd\RequestHandler_General::class);
             }
-            
+
         public function testAja()
             {
+            $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+            
+            // $date = date('Y-m-d'); // ambil kurs hari ini
+            $date = '2023-11-09'; // ambil kurs tanggal tertentu
+            
+            $ConnectTimeout = 10;
+            $ExecuteTimemout = 30;
+            $url = "https://www.bi.go.id/biwebservice/wskursbi.asmx/getSubKursLokal4";
+            $postdata = "startdate=$date";
+            $header = ["Content-Type: application/x-www-form-urlencoded"];
 
+            //$file = implode("/", [__DIR__, "kursbi.data.html"]);
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url); 
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $ConnectTimeout);
+            curl_setopt($ch, CURLOPT_TIMEOUT, $ExecuteTimemout);
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
+            $xmlcontent = curl_exec ($ch);
+            curl_close ($ch);
+            
+            //$xml = simplexml_load_string($xmlcontent);
+            //$xml = simplexml_load_string($xmlcontent, "SimpleXMLElement", LIBXML_NOCDATA, 'ns0', true);
+            //$json = json_encode($xml);
+
+
+
+            
+            $varXMLDataArray =
+                explode(
+                    "\r\n", 
+                    explode(
+                        '</NewDataSet>',
+                        explode(
+                            '<NewDataSet xmlns="">', 
+                            $xmlcontent
+                            )[1]
+                        )[0]
+                    );
+            array_shift($varXMLDataArray);
+            
+            for($i=0, $iMax=count($varXMLDataArray); $i != $iMax; $i++)
+                {
+                if (str_contains($varXMLDataArray[$i], '<Table diffgr:id=')) 
+                    {
+                    $varXMLDataArray[$i] = explode('<Table', $varXMLDataArray[$i])[0].'<Table>';
+                    }
+                }
+            
+            $varXMLData = implode("\n", $varXMLDataArray);
+            //$varXMLData = implode("", $varXMLDataArray);
+
+           
+            $varXMLData = 
+                '<?xml version="1.0" encoding="utf-8"?>'.
+                '<NewDataSet>'.
+                    $varXMLData.
+                '</NewDataSet>';
+            
+            $varXMLObject = simplexml_load_string($varXMLData);
+            $varJSONData = json_encode($varXMLObject);
+            $varData = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varJSONData);
+                    //json_decode($varJSONData);
+            dd($varData);
+            
+            
+            
+            
+
+            /*
+            $fp = fopen($file, "w");
+            fwrite($fp, $xmlcontent);
+
+            $fp = fopen($file, "r");
+            $xmlcontent = fread($fp, filesize($file));
+            fclose($fp);
+            */
+
+            /*
+            libxml_use_internal_errors(true);
+            $dom = new DOMDocument;
+            $dom->loadXML($xmlcontent);
+
+            $TABLE = $dom->getElementsByTagName('Table');
+            if (count($TABLE)==0) {
+                die("tidak ada data kurs BI untuk tanggal $date\r\n\r\n");
+                } 
+
+
+            $data = [];
+            foreach ($TABLE as $table) {
+                $curr_id = trim($table->getElementsByTagName('mts_subkurslokal')[0]->textContent);
+                $curr_factor = (int)trim($table->getElementsByTagName('nil_subkurslokal')[0]->textContent);
+
+                $jual = (float)trim($table->getElementsByTagName('jual_subkurslokal')[0]->textContent);
+                $beli = (float)trim($table->getElementsByTagName('beli_subkurslokal')[0]->textContent);
+                $tengah = (float)(($jual+$beli)/2);
+
+                $curr_rate = (int)($tengah/$curr_factor);
+                $curr_factor = 1;
+
+                $data[$curr_id] = $curr_rate;
+                }
+
+            echo "Kurs BI tanggal $date:\r\n";
+            print_r($data);
+            echo "\r\n\r\n";
+            */
+            
+            echo "xxxxxxxxx";
+            }
+
+
+
+
+
+
+            
+        public function testAjaOLD()
+            {
+
+            /*
             $varBufferDB = 
             (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentLastVersionByFormNumberKeyword(
                 6000000011163, 
@@ -30,13 +154,15 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             // );
 
             dd($varBufferDB);die;
-
+*/
+            /*
             $varReturn = 
             (new \App\Models\Database\SchData_OLTP_Master\General())->getIDTranslation_BusinessDocumentVersionToBusinessDocumentForm(
                 6000000011163, 
                 11000000000004,
                 76000000000151
                 );
+            */
 
             // $varReturn = 
             // (new \App\Models\Database\SchData_OLTP_Master\General())->getIDTranslation_BusinessDocumentVersionToBusinessDocumentForm(
@@ -48,13 +174,13 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 
             // dd($varReturn);
 
-
+/*
                 
             echo "Test Aja";
 
             $x = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine(123);
             dd($x);
-
+*/
             /*
             $x = 
             (new \App\Models\Database\SchData_OLTP_Master\TblBusinessDocumentType())->getIDByName(
