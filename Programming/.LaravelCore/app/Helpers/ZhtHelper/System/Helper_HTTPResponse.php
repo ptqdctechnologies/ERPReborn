@@ -10,6 +10,9 @@
 */
 namespace App\Helpers\ZhtHelper\System
     {
+
+    use Exception;
+
     //use Illuminate\Http\Request;
     //use Illuminate\Http\Response;
     

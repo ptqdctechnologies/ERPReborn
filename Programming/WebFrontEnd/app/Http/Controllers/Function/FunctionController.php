@@ -17,6 +17,28 @@ class FunctionController extends Controller
     //FUNCTION PROJECT
     public function getProject(Request $request)
     {
+        // // dd(\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main::setCallAPIGatewayByPass());
+        // // $varAPIWebToken = Session::get('SessionLogin');
+        // // echo $varAPIWebToken;die;
+        // // echo \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();die;
+        // $DataProject = Cache::remember('DataProject', 480, function(){
+
+        //     $varAPIWebToken = Session::get('SessionLogin');
+        //     $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //         $varAPIWebToken,
+        //         'dataPickList.project.getProject',
+        //         'latest',
+        //         [
+        //             'parameter' => null
+        //         ]
+        //     );
+        //     // return $varDataProject['data']['data'];
+        // dd($varDataProject);
+
+        // // });
+        // // return response()->json($DataProject);
+
         $DataProject = Cache::remember('DataProject', 480, function(){
 
             $varAPIWebToken = Session::get('SessionLogin');

@@ -11,32 +11,181 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             {
             //$this->middleware(\App\Http\Middleware\Application\BackEnd\RequestHandler_General::class);
             }
+        
+        public static function setCallAPIGatewayByPass()
+        {
+            $varData = 
+                (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataPickList_Budget(
+                    6000000000001,
+                    11000000000004
+                );
+
+            return $varData;
+        }
+        
             
         public function testAja()
             {
+        $varData = 
+            (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataPickList_Budget(
+                6000000000001,
+                11000000000004
+            );
 
-            $varBufferDB = 
-            (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentLastVersionByFormNumberKeyword(
-                6000000011163, 
-                11000000000004,
-                "Adv/QDC/2023/000137",
-                164000000000196
-                );
+        dd($varData);
 
-            // $varBufferDB = 
-            // (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentLastVersionByBusDocType(
-            // 6000000011163,
-            // 77000000000057
+
+            // dd((\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(11000000000004))['branchID']);
+            // $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+            //     11000000000004, 
+            //     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+            //         11000000000004,
+            //         'SchData-OLTP-DataAcquisition.Func_GetDataPickSet_ArchivedFilesObject',
+            //         [
+            //             [11000000000004, 'bigint'],
+            //             [91000000000247, 'bigint']
+            //         ]
+            //         )
+            //     );
+
+
+
+            // $x =  [
+            //     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+            //         11000000000004, 
+            //         $varReturn['Data'][0]['ProcessedData_JSON'])
+            //     ];
+            
+            // dd($x[0]['details']);
+
+            // $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+            //     11000000000004, 
+            //     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+            //         11000000000004,
+            //         'SchSysAsset.Func_GetData_FileUpload_MasterFileRecord',
+            //         [
+            //             [91000000000247, 'bigint'],
+            //             [NULL, 'bigint'],
+            //             [
+            //                 [],
+            //                 'bigint[]'
+            //             ]
+            //         ]
+            //         )
+            //     );
+
+            // dd($varReturn);
+
+            // $varData = 
+            // ( new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_FileUpload_ObjectDetail())->setDataDelete(
+            //     11000000000004,
+            //     12000000000412
             // );
 
-            dd($varBufferDB);die;
+            //  $varData = 
+            //     (new \App\Models\Database\SchSysAsset\General())->getData_FileUpload_MasterFileRecord(
+            //         11000000000004,
+            //         91000000000247,
+            //         NULL,
+            //         []
+            //         );
+            
+            
+              $varData = 
+                (new \App\Models\Database\SchSysAsset\General())->getDataPickList_Budget(
+                    11000000000004,
+                    91000000000247,
+                    NULL,
+                    []
+                    );
 
-            $varReturn = 
-            (new \App\Models\Database\SchData_OLTP_Master\General())->getIDTranslation_BusinessDocumentVersionToBusinessDocumentForm(
-                6000000011163, 
-                11000000000004,
-                76000000000151
-                );
+            dd($varData);
+                
+                    
+            // $varDataSend = 
+            // \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
+            //     11000000000004,
+            //     $varData
+            // );
+
+
+            // $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(11000000000004, $varDataSend);
+            // dd($varData);
+
+            // $varData = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+            //     11000000000004, 
+            //     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+            //         11000000000004,
+            //         'SchSysAsset.Func_GetData_FileUpload_MasterFileRecord',
+            //         [
+            //             [91000000000247, 'bigint'],
+            //             [2018, 'bigint'],
+            //             [
+            //                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getSQLSyntax_Source_NumberArrayToBigIntArray(
+            //                     11000000000004, 
+            //                     []
+            //                     ),
+            //                 'bigint[]'
+            //             ]
+            //         ]
+            //     )
+            // );
+            
+            // $varReturn = [];
+            // $x = 0;
+            // for ($i=0; $i < count($varData['Data']); $i++){
+            //     if($varData['Data'][$i]['RecordReference'] != 0){
+            //         $varReturn['Process'] = $varData['Process'];
+            //         $varReturn['Data'][$x] = $varData['Data'][$i];
+            //         $varReturn['RowCount'] = $varData['RowCount'];
+            //         $varReturn['Notice'] = $varData['Notice'];
+            //         $varReturn['Data'][$x]['Sequence'] = $x + 1;
+            //         $x++;
+            //     }
+            // }
+
+
+            // $varReturn['RowCount'] = $x;
+            
+            // dd($varReturn);
+            die;
+            // $varDataSend = 
+            // \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
+            //     11000000000004,
+            //     $varData
+            // );
+
+
+            // $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(11000000000004, $varDataSend);
+            
+            
+        // // // $varReturn = \App\Help  ers\ZhtHelper\General\Helper_Array::getArrayKeyRename_CamelCase(11000000000004, $varDataSend);
+        // // dd($varReturn);
+        //     dd($varReturn);
+
+
+        //     $varBufferDB = 
+        //     (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentLastVersionByFormNumberKeyword(
+        //         6000000011163, 
+        //         11000000000004,
+        //         "Adv/QDC/2023/000137",
+        //         164000000000196
+        //         );
+
+        //     // $varBufferDB = 
+        //     // (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentLastVersionByBusDocType(
+        //     // 6000000011163,
+        //     // 77000000000057
+        //     // );
+
+        //     dd($varBufferDB);die;
+
+        //     $varReturn = 
+        //     (new \App\Models\Database\SchData_OLTP_Master\General())->getIDTranslation_BusinessDocumentVersionToBusinessDocumentForm(
+        //         6000000011163, 
+        //         11000000000004,
+        //         76000000000151
+        //         );
 
             // $varReturn = 
             // (new \App\Models\Database\SchData_OLTP_Master\General())->getIDTranslation_BusinessDocumentVersionToBusinessDocumentForm(
@@ -50,10 +199,10 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 
 
                 
-            echo "Test Aja";
+            // echo "Test Aja";
 
-            $x = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine(123);
-            dd($x);
+            // $x = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine(123);
+            // dd($x);
 
             /*
             $x = 

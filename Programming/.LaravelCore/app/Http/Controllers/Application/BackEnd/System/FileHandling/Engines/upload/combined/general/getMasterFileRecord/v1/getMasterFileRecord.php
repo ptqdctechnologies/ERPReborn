@@ -73,6 +73,22 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                                     $varData['parameter']['deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID']
                                     )
                                 );
+                                
+                       // $varData = 
+                        // (new \App\Models\Database\SchSysAsset\General())->getData_FileUpload_MasterFileRecord(
+                        //     $varUserSession,
+                        //     $varData['parameter']['log_FileUpload_Pointer_RefID'],
+                        //     $varData['parameter']['rotateLog_FileUploadStagingArea_RefRPK'],
+                        //     $varData['parameter']['deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID']
+                        // );
+                            
+                        // $varDataSend = 
+                        //     \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
+                        //         $varUserSession,
+                        //         $varData            
+                        // );
+
+
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
@@ -114,6 +130,40 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
+
+        // private function dataProcessing($varUserSession, int $varLog_FileUpload_Pointer_RefID = null)
+        //     {
+
+        //     $varData = 
+        //         (new \App\Models\Database\SchSysAsset\General())->Func_GetDataPickSet_ArchivedFilesObject(
+        //             $varUserSession,
+        //             $varLog_FileUpload_Pointer_RefID
+        //             );
+
+        //     // for ($i=0, $iMax=count($varData['data']); $i!=$iMax; $i++)
+        //     //     {
+        //     //     if ((\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBooleanConvertion($varUserSession, $varData['data'][$i]['signExistOnArchive'])) == TRUE)
+        //     //         {
+        //     //         $varData['data'][$i]['URLDelete'] = 
+        //     //             \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::getURL_APICallByGetMethod(
+        //     //                 $varUserSession, 
+        //     //                 \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_ByUserSessionID($varUserSession),
+        //     //                 'transaction.delete.dataAcquisition.setLog_FileUpload_ObjectDetail', 
+        //     //                 'latest', 
+        //     //                 [
+        //     //                 'recordID' => $varData['data'][$i]['recordReference']
+        //     //                 ],
+        //     //                 NULL,
+        //     //                 TRUE
+        //     //                 );                    
+        //     //         }
+        //     //     }
+        //     // //dd($varData['Data']);
+        //     $varDataReturn = $varData;
+        //     return $varDataReturn;
+        //     }
+        // }
+
         private function dataProcessing($varUserSession, int $varLog_FileUpload_Pointer_RefID = null, int $varRotateLog_FileUploadStagingArea_RefRPK = null, array $varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID = null)
             {
             if(!$varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID) {
@@ -127,24 +177,30 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                     $varRotateLog_FileUploadStagingArea_RefRPK,
                     $varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID
                     );
-            for ($i=0, $iMax=count($varData['Data']); $i!=$iMax; $i++)
-                {
+            
+
+            // for ($i=0, $iMax=count($varData['Data']); $i!=$iMax; $i++)
+            //     {
+            //     if ((\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBooleanConvertion($varUserSession, $varData['Data'][$i]['SignExistOnArchive'])) == TRUE)
+                    
+            for ($i=0; $i < count($varData['Data']); $i++)
+            {
                 if ((\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBooleanConvertion($varUserSession, $varData['Data'][$i]['SignExistOnArchive'])) == TRUE)
-                    {
+                {
                     $varData['Data'][$i]['URLDelete'] = 
-                        \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::getURL_APICallByGetMethod(
-                            $varUserSession, 
-                            \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_ByUserSessionID($varUserSession),
-                            'transaction.delete.dataAcquisition.setLog_FileUpload_ObjectDetail', 
-                            'latest', 
-                            [
-                            'recordID' => $varData['Data'][$i]['RecordReference']
-                            ],
-                            NULL,
-                            TRUE
-                            );                    
-                    }
+                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::getURL_APICallByGetMethod(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_ByUserSessionID($varUserSession),
+                        'transaction.delete.dataAcquisition.setLog_FileUpload_ObjectDetail', 
+                        'latest', 
+                        [
+                        'recordID' => $varData['Data'][$i]['RecordReference']
+                        ],
+                        NULL,
+                        TRUE
+                        );
                 }
+            }
             //dd($varData['Data']);
             $varDataReturn = $varData;
             return $varDataReturn;

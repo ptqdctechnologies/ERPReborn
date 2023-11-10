@@ -166,7 +166,7 @@ namespace App\Models\Database\SchSysAsset
                 $varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID = [];
                 }
             
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+            $varData = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                     $varUserSession,
@@ -184,7 +184,71 @@ namespace App\Models\Database\SchSysAsset
                     ]
                     )
                 );
+            
+
+            $varReturn = [];
+            $x = 0;
+            for ($i=0; $i < count($varData['Data']); $i++){
+                if($varData['Data'][$i]['RecordReference'] != 0){
+                    // $varReturn['Process'] = $varData['Process'];
+                    $varReturn['Data'][$x] = $varData['Data'][$i];
+                    // $varReturn['RowCount'] = $varData['RowCount'];
+                    // $varReturn['Notice'] = $varData['Notice'];
+                    $varReturn['Data'][$x]['Sequence'] = $x + 1;
+                    $x++;
+                }
+            }
+
+            $varReturn['RowCount'] = $x;
+                
             return $varReturn;
+            }
+
+        
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : Func_GetDataPickSet_ArchivedFilesObject                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-08-03                                                                                           |
+        | ▪ Creation Date   : 2022-08-03                                                                                           |
+        | ▪ Description     : Mendapatkan Master File Record Upload                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varArchiveRecordID ► Archive Record ID                                                                   |
+        |      ▪ (int)    varStagingAreaRecordPK ► Staging Area Record Primary Key                                                 |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function Func_GetDataPickSet_ArchivedFilesObject($varUserSession, int $varLog_FileUpload_Pointer_RefID = null, int $varRotateLog_FileUploadStagingArea_RefRPK = null, array $varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID = null)
+            {
+            if(!$varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID) {
+                $varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID = [];
+                }
+            
+            $varData = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    'SchData-OLTP-DataAcquisition.Func_GetDataPickSet_ArchivedFilesObject',
+                    [
+
+                        [$varUserSession, 'bigint'],
+                        [$varLog_FileUpload_Pointer_RefID, 'bigint'],
+                    ]
+                    )
+                );
+
+            $varReturn =  [
+                \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                    $varUserSession, 
+                    $varData['Data'][0]['ProcessedData_JSON'])
+                ];
+            
+
+            return $varReturn[0]['details'];
             }
 
             

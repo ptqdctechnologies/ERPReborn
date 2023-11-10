@@ -3901,9 +3901,13 @@ namespace App\Helpers\ZhtHelper\General
                                                         'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(JSON.parse(varJSONData))); '.
                                                         //---> Update MasterFileRecord From Database
                                                         'varDataJSONMasterFileRecord = null;'.
-                                                        'if(document.getElementById(\''.$varDOMReturnIDAction.'\').value != \'\' || document.getElementById(\''.$varDOMReturnID.'\').value != \'\') {'.
-                                                            'varDataJSONMasterFileRecord = JSFunc_MainData_GetDataFromDatabase_MasterFileRecord_'.$varUniqueID.'(); '.
-                                                        '}'.
+                                                        // 'if(document.getElementById(\''.$varDOMReturnIDAction.'\').value != \'\' || document.getElementById(\''.$varDOMReturnID.'\').value != \'\') {'.
+                                                        //     'varDataJSONMasterFileRecord = JSFunc_MainData_GetDataFromDatabase_MasterFileRecord_'.$varUniqueID.'(); '.
+                                                        // '}'.
+
+
+
+                                                        // 'console.log(varDataJSONMasterFileRecord); '.
                                                         
                                                         'JSFunc_MainData_SetData_MasterFileRecord_'.$varUniqueID.'(varDataJSONMasterFileRecord); '.
                                                         '}'.
@@ -4031,6 +4035,7 @@ namespace App\Helpers\ZhtHelper\General
                                             //---> JSFunc_MainData_SetData_DeleteCandidateFileUploadObjectDetailRefArrayID_...
                                             'function JSFunc_MainData_SetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'(varDataArrayID) {'.
                                                 'try {'.
+                                                    // 'console.log(varDataArrayID);'.
                                                     'varDataJSON = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
                                                     'varDataJSONDeleteCandidate = varDataJSON.header.deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID; '.
                                                     'if (varDataArrayID === undefined || varDataArrayID.length == 0) {'.
@@ -4170,6 +4175,8 @@ namespace App\Helpers\ZhtHelper\General
                                                 'catch(varError) {'.
                                                     'alert(\'ERP Reborn Error Notification\n\n Invalid Process\n(\' + varError + \')\'); '.
                                                     '}'.
+
+                                                // 'console.log(varReturn); '.
                                                 'return varReturn; '.
                                             '}'.
 
@@ -4183,7 +4190,7 @@ namespace App\Helpers\ZhtHelper\General
                                                         'varDataJSONMasterFileRecord = JSFunc_MainData_GetDataFromDatabase_MasterFileRecord_'.$varUniqueID.'(); '.
                                                     '}'.
         //                                            'varDataJSONMasterFileRecord = JSFunc_MainData_GetData_MasterFileRecord_'.$varUniqueID.'(); '.
-                                                    // 'alert(JSON.stringify(varDataJSONMasterFileRecord)); '.
+                                                    // 'console.log(varDataJSONMasterFileRecord); '.
 
                                                     //---> Update varDataJSONMasterFileRecord di Main Data
                                                     'JSFunc_MainData_SetData_MasterFileRecord_'.$varUniqueID.'(varDataJSONMasterFileRecord); '.
@@ -4723,10 +4730,13 @@ namespace App\Helpers\ZhtHelper\General
                                                                     '}'
                                                                     )).';'.
                                                                 //'alert(varNothing); '.
-                                                                'var'.$varUniqueID.'_ObjJSONMasterFileRecord = null;'.
-                                                                'if(document.getElementById(\''.$varDOMReturnIDAction.'\').value != \'\' || document.getElementById(\''.$varDOMReturnID.'\').value != \'\') {'.
-                                                                    'var'.$varUniqueID.'_ObjJSONMasterFileRecord = JSFunc_MainData_GetDataFromDatabase_MasterFileRecord_'.$varUniqueID.'();'.
-                                                                '}'.
+                                                                // 'var'.$varUniqueID.'_ObjJSONMasterFileRecord = null;'.
+                                                                // 'if(document.getElementById(\''.$varDOMReturnIDAction.'\').value != \'\' || document.getElementById(\''.$varDOMReturnID.'\').value != \'\') {'.
+                                                                //     'var'.$varUniqueID.'_ObjJSONMasterFileRecord = JSFunc_MainData_GetDataFromDatabase_MasterFileRecord_'.$varUniqueID.'();'.
+                                                                // '}'.
+
+
+                                                                // 'console.log(var'.$varUniqueID.'_ObjJSONMasterFileRecord); '.
                                                                 
 
                                                                 // 'alert(var'.$varUniqueID.'_ObjJSONMasterFileRecord); '.
