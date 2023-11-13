@@ -11,240 +11,181 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             {
             //$this->middleware(\App\Http\Middleware\Application\BackEnd\RequestHandler_General::class);
             }
+        
+        public static function setCallAPIGatewayByPass()
+        {
+            $varData = 
+                (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataPickList_Budget(
+                    6000000000001,
+                    11000000000004
+                );
 
+            return $varData;
+        }
+        
+            
         public function testAja()
             {
-            $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+        $varData = 
+            (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataPickList_Budget(
+                6000000000001,
+                11000000000004
+            );
+
+        dd($varData);
+
+
+            // dd((\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(11000000000004))['branchID']);
+            // $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+            //     11000000000004, 
+            //     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+            //         11000000000004,
+            //         'SchData-OLTP-DataAcquisition.Func_GetDataPickSet_ArchivedFilesObject',
+            //         [
+            //             [11000000000004, 'bigint'],
+            //             [91000000000247, 'bigint']
+            //         ]
+            //         )
+            //     );
+
+
+
+            // $x =  [
+            //     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+            //         11000000000004, 
+            //         $varReturn['Data'][0]['ProcessedData_JSON'])
+            //     ];
             
-            
-            /* ambil data kurs pajak bea cukai
-            * informasi api kurs pajak Bea Cukai bisa diambil di https://www.beacukai.go.id/kurs.html
-            * 
-            * Agung N
-            * 2023-09-02
-            * 
-            */
+            // dd($x[0]['details']);
 
-            $date = date('d-m-Y'); // ambil kurs hari ini
-            // $date = '31-08-2020'; // ambil kurs tanggal tertentu
+            // $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+            //     11000000000004, 
+            //     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+            //         11000000000004,
+            //         'SchSysAsset.Func_GetData_FileUpload_MasterFileRecord',
+            //         [
+            //             [91000000000247, 'bigint'],
+            //             [NULL, 'bigint'],
+            //             [
+            //                 [],
+            //                 'bigint[]'
+            //             ]
+            //         ]
+            //         )
+            //     );
 
-            $ConnectTimeout = 10;
-            $ExecuteTimemout = 30;
-            $url = "https://www.beacukai.go.id/kurs.html";
-            $postdata = "tglKurs=$date&content=browseKurs";
-            $header = ["Content-Type: application/x-www-form-urlencoded"];
+            // dd($varReturn);
 
-            $file = implode("/", [__DIR__, "kursbeacukai.data.html"]);
-
-
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url); 
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $ConnectTimeout);
-            curl_setopt($ch, CURLOPT_TIMEOUT, $ExecuteTimemout);
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
-            $htmlcontent = curl_exec ($ch);
-            curl_close ($ch);
-
-            
-            dd($htmlcontent);
-            
-            /*
-            $fp = fopen($file, "w");
-            fwrite($fp, $htmlcontent);
-
-            $fp = fopen($file, "r");
-            $htmlcontent = fread($fp, filesize($file));
-            fclose($fp);
-            */
-
-            /*
-            //echo $output;
-            libxml_use_internal_errors(true);
-            $dom = new DOMDocument;
-            $dom->loadHTML($htmlcontent);
-            $TBODY = $dom->getElementsByTagName('tbody');
-
-            $data = [];
-            foreach ($TBODY as $tbody) {
-            $TR = $tbody->getElementsByTagName('tr');
-            foreach ($TR as $tr) {
-                $currnameraw = trim($tr->childNodes[0]->textContent);
-                $currvalueraw = trim($tr->childNodes[3]->textContent);
-
-                $currnamedata = explode(" ", $currnameraw);
-                $curr_id = $currnamedata[1];
-                $curr_factor = (int) $currnamedata[0];
-
-                $curr_rate = 1;
-                if (!empty($currvalueraw)) {
-                        $curr_rate = (float)str_replace(".", "", explode(",", $currvalueraw)[0]);
-                }
-
-                $curr_rate = (int) ($curr_rate / $curr_factor);
-                $data[$curr_id] = $curr_rate;
-                // echo "$curr_factor $curr_id $curr_rate\r\n";
-            }
-            }
-
-            print_r($data);
-            */
-            
-            
-            
-            
-            
-            /*
-            
-            // $date = date('Y-m-d'); // ambil kurs hari ini
-            $date = '2023-11-09'; // ambil kurs tanggal tertentu
-            
-            $ConnectTimeout = 10;
-            $ExecuteTimemout = 30;
-            $url = "https://www.bi.go.id/biwebservice/wskursbi.asmx/getSubKursLokal4";
-            $postdata = "startdate=$date";
-            $header = ["Content-Type: application/x-www-form-urlencoded"];
-
-            //$file = implode("/", [__DIR__, "kursbi.data.html"]);
-
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url); 
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $ConnectTimeout);
-            curl_setopt($ch, CURLOPT_TIMEOUT, $ExecuteTimemout);
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
-            $xmlcontent = curl_exec ($ch);
-            curl_close ($ch);
-            
-            //$xml = simplexml_load_string($xmlcontent);
-            //$xml = simplexml_load_string($xmlcontent, "SimpleXMLElement", LIBXML_NOCDATA, 'ns0', true);
-            //$json = json_encode($xml);
-
-
-
-            
-            $varXMLDataArray =
-                explode(
-                    "\r\n", 
-                    explode(
-                        '</NewDataSet>',
-                        explode(
-                            '<NewDataSet xmlns="">', 
-                            $xmlcontent
-                            )[1]
-                        )[0]
-                    );
-            array_shift($varXMLDataArray);
-            
-            for($i=0, $iMax=count($varXMLDataArray); $i != $iMax; $i++)
-                {
-                if (str_contains($varXMLDataArray[$i], '<Table diffgr:id=')) 
-                    {
-                    $varXMLDataArray[$i] = explode('<Table', $varXMLDataArray[$i])[0].'<Table>';
-                    }
-                }
-            
-            $varXMLData = implode("\n", $varXMLDataArray);
-            //$varXMLData = implode("", $varXMLDataArray);
-
-           
-            $varXMLData = 
-                '<?xml version="1.0" encoding="utf-8"?>'.
-                '<NewDataSet>'.
-                    $varXMLData.
-                '</NewDataSet>';
-            
-            $varXMLObject = simplexml_load_string($varXMLData);
-            $varJSONData = json_encode($varXMLObject);
-            $varData = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varJSONData);
-                    //json_decode($varJSONData);
-            dd($varData);
-            
-            */
-            
-            
-
-            /*
-            $fp = fopen($file, "w");
-            fwrite($fp, $xmlcontent);
-
-            $fp = fopen($file, "r");
-            $xmlcontent = fread($fp, filesize($file));
-            fclose($fp);
-            */
-
-            /*
-            libxml_use_internal_errors(true);
-            $dom = new DOMDocument;
-            $dom->loadXML($xmlcontent);
-
-            $TABLE = $dom->getElementsByTagName('Table');
-            if (count($TABLE)==0) {
-                die("tidak ada data kurs BI untuk tanggal $date\r\n\r\n");
-                } 
-
-
-            $data = [];
-            foreach ($TABLE as $table) {
-                $curr_id = trim($table->getElementsByTagName('mts_subkurslokal')[0]->textContent);
-                $curr_factor = (int)trim($table->getElementsByTagName('nil_subkurslokal')[0]->textContent);
-
-                $jual = (float)trim($table->getElementsByTagName('jual_subkurslokal')[0]->textContent);
-                $beli = (float)trim($table->getElementsByTagName('beli_subkurslokal')[0]->textContent);
-                $tengah = (float)(($jual+$beli)/2);
-
-                $curr_rate = (int)($tengah/$curr_factor);
-                $curr_factor = 1;
-
-                $data[$curr_id] = $curr_rate;
-                }
-
-            echo "Kurs BI tanggal $date:\r\n";
-            print_r($data);
-            echo "\r\n\r\n";
-            */
-            
-            echo "xxxxxxxxx";
-            }
-
-
-
-
-
-
-            
-        public function testAjaOLD()
-            {
-
-            /*
-            $varBufferDB = 
-            (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentLastVersionByFormNumberKeyword(
-                6000000011163, 
-                11000000000004,
-                "Adv/QDC/2023/000137",
-                164000000000196
-                );
-
-            // $varBufferDB = 
-            // (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentLastVersionByBusDocType(
-            // 6000000011163,
-            // 77000000000057
+            // $varData = 
+            // ( new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_FileUpload_ObjectDetail())->setDataDelete(
+            //     11000000000004,
+            //     12000000000412
             // );
 
-            dd($varBufferDB);die;
-*/
-            /*
-            $varReturn = 
-            (new \App\Models\Database\SchData_OLTP_Master\General())->getIDTranslation_BusinessDocumentVersionToBusinessDocumentForm(
-                6000000011163, 
-                11000000000004,
-                76000000000151
-                );
-            */
+            //  $varData = 
+            //     (new \App\Models\Database\SchSysAsset\General())->getData_FileUpload_MasterFileRecord(
+            //         11000000000004,
+            //         91000000000247,
+            //         NULL,
+            //         []
+            //         );
+            
+            
+              $varData = 
+                (new \App\Models\Database\SchSysAsset\General())->getDataPickList_Budget(
+                    11000000000004,
+                    91000000000247,
+                    NULL,
+                    []
+                    );
+
+            dd($varData);
+                
+                    
+            // $varDataSend = 
+            // \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
+            //     11000000000004,
+            //     $varData
+            // );
+
+
+            // $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(11000000000004, $varDataSend);
+            // dd($varData);
+
+            // $varData = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+            //     11000000000004, 
+            //     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+            //         11000000000004,
+            //         'SchSysAsset.Func_GetData_FileUpload_MasterFileRecord',
+            //         [
+            //             [91000000000247, 'bigint'],
+            //             [2018, 'bigint'],
+            //             [
+            //                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getSQLSyntax_Source_NumberArrayToBigIntArray(
+            //                     11000000000004, 
+            //                     []
+            //                     ),
+            //                 'bigint[]'
+            //             ]
+            //         ]
+            //     )
+            // );
+            
+            // $varReturn = [];
+            // $x = 0;
+            // for ($i=0; $i < count($varData['Data']); $i++){
+            //     if($varData['Data'][$i]['RecordReference'] != 0){
+            //         $varReturn['Process'] = $varData['Process'];
+            //         $varReturn['Data'][$x] = $varData['Data'][$i];
+            //         $varReturn['RowCount'] = $varData['RowCount'];
+            //         $varReturn['Notice'] = $varData['Notice'];
+            //         $varReturn['Data'][$x]['Sequence'] = $x + 1;
+            //         $x++;
+            //     }
+            // }
+
+
+            // $varReturn['RowCount'] = $x;
+            
+            // dd($varReturn);
+            die;
+            // $varDataSend = 
+            // \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
+            //     11000000000004,
+            //     $varData
+            // );
+
+
+            // $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(11000000000004, $varDataSend);
+            
+            
+        // // // $varReturn = \App\Help  ers\ZhtHelper\General\Helper_Array::getArrayKeyRename_CamelCase(11000000000004, $varDataSend);
+        // // dd($varReturn);
+        //     dd($varReturn);
+
+
+        //     $varBufferDB = 
+        //     (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentLastVersionByFormNumberKeyword(
+        //         6000000011163, 
+        //         11000000000004,
+        //         "Adv/QDC/2023/000137",
+        //         164000000000196
+        //         );
+
+        //     // $varBufferDB = 
+        //     // (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentLastVersionByBusDocType(
+        //     // 6000000011163,
+        //     // 77000000000057
+        //     // );
+
+        //     dd($varBufferDB);die;
+
+        //     $varReturn = 
+        //     (new \App\Models\Database\SchData_OLTP_Master\General())->getIDTranslation_BusinessDocumentVersionToBusinessDocumentForm(
+        //         6000000011163, 
+        //         11000000000004,
+        //         76000000000151
+        //         );
 
             // $varReturn = 
             // (new \App\Models\Database\SchData_OLTP_Master\General())->getIDTranslation_BusinessDocumentVersionToBusinessDocumentForm(
@@ -258,11 +199,11 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 
 /*
                 
-            echo "Test Aja";
+            // echo "Test Aja";
 
-            $x = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine(123);
-            dd($x);
-*/
+            // $x = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine(123);
+            // dd($x);
+
             /*
             $x = 
             (new \App\Models\Database\SchData_OLTP_Master\TblBusinessDocumentType())->getIDByName(

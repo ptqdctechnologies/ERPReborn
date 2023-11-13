@@ -6,6 +6,8 @@
 @include('getFunction.getProduct')
 @include('Advance.Advance.Functions.PopUp.PopUpAdvanceRevision')
 @include('getFunction.getProject')
+<!-- @include('getFunction.getBank')
+@include('getFunction.getBankAccount') -->
 
 <div class="content-wrapper">
   <section class="content">
@@ -74,42 +76,12 @@
                     </div>
                     <div class="card-body file-attachment">
                       <div class="row">
-                        
-                        <br><br>
-
-                        <div class="card-body table-responsive p-0" style="height: 135px;" id="detailArfList">
-                          <table class="table table-head-fixed table-sm text-nowrap">
-                            <thead>
-                              <tr>
-                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">No</th>
-                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">File Name</th>
-                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Size</th>
-                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Action</th>
-                              </tr>
-                            </thead>
-                            @if(isset($dataGeneral['attachmentFiles']['main']['itemList']))
-                            @php $no = 1; @endphp
-                            @foreach($dataGeneral['attachmentFiles']['main']['itemList'] as $dataGenerals)
-                            <tbody>
-                              <tr>
-                                <td style="border:1px solid #e9ecef;">{{ $no++ }}</td>
-                                <td style="border:1px solid #e9ecef;">{{ $dataGenerals['entities']['name'] }}</td>
-                                <td style="border:1px solid #e9ecef;">{{ $dataGenerals['entities']['size'] }}</td>
-                                <td style="border:1px solid #e9ecef;">
-                                  <a href="{{ $dataGenerals['entities']['downloadURL'] }}" target="_blank">Download</a>
-                                </td>
-                              </tr>
-                            </tbody>
-                            @endforeach
-                            @endif
-                          </table>
-                        </div>
-
-                        <!-- <div class="col-md-12">
+                        <div class="col-md-12">
                           <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="{{ $dataGeneral['attachmentFiles']['main']['log_FileUpload_Pointer_RefID']}}" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID" hidden>
                           <input type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" name="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" onchange="javascript: @php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataInput_Log_FileUpload_Pointer_RefID_Action', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord'); @endphp;" />
-                        </div> -->
-                        <!-- <div class="col-md-12">
+                        </div>
+                        <br><br>
+                        <div class="col-md-12">
                           <div class="card-body table-responsive p-0" style="height:125px;">
                             <table class="table table-head-fixed table-sm text-nowrap">
                               <div class="form-group input_fields_wrap">
@@ -119,7 +91,7 @@
                               </div>
                             </table>
                           </div>
-                        </div> -->
+                        </div>
                       </div>
                     </div>
                   </div>

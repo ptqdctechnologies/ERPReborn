@@ -175,16 +175,16 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
 
-        $varAPIWebToken = Session::get("SessionLogin");
+        // $varAPIWebToken = Session::get("SessionLogin");
 
-        \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'authentication.general.setLogout',
-            'latest',
-            [],
-            false
-        );
+        // \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varAPIWebToken,
+        //     'authentication.general.setLogout',
+        //     'latest',
+        //     [],
+        //     false
+        // );
         
         $status = "success";
         $message = 'Thank you for your visit';

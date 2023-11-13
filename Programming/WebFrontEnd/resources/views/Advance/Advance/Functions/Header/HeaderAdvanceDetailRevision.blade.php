@@ -9,7 +9,6 @@
                             <div class="input-group">
                                 <input name="requester" id="requester" style="border-radius:0;" type="text" class="col-4 form-control" readonly value="{{ $dataGeneral['involvedPersons'][0]['requesterWorkerName'] }}">
                                 <input name="requester_id" id="requester_id" style="border-radius:0;" type="hidden" class="form-control" readonly value="{{ $dataGeneral['involvedPersons'][0]['requesterWorkerJobsPosition_RefID'] }}">
-                                <input name="var_combinedBudget" id="combinedBudget" style="border-radius:0;" type="hidden" class="form-control" readonly>
                                 <div class="input-group-append">
                                     <span style="border-radius:0;" class="input-group-text form-control">
                                         <a href="#" id="requester_popup" data-toggle="modal" data-target="#myWorker" class="myWorker"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
@@ -62,7 +61,7 @@
                         <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Bank Account</label></td>
                         <td>
                             <div class="input-group">
-                                <input id="beneficiaryBankAccount_RefID" style="border-radius:0;" class="form-control" name="beneficiaryBankAccount_RefID"  value="{{ $dataGeneral['bankAccount']['beneficiary']['bankAccountNumber'] }}" hidden>
+                                <input id="beneficiaryBankAccount_RefID" style="border-radius:0;" class="form-control" name="beneficiaryBankAccount_RefID"  value="{{ $dataGeneral['bankAccount']['beneficiary']['bankAccount_RefID'] }}" hidden>
                                 <input id="bank_account" style="border-radius:0;" name="bank_account" class="col-4 form-control" readonly value="{{ $dataGeneral['bankAccount']['beneficiary']['bankAccountNumber'] }}">
                                 <div class="input-group-append">
                                     <span style="border-radius:0;" class="input-group-text form-control">

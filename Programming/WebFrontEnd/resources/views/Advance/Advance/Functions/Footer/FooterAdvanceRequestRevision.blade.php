@@ -8,12 +8,12 @@
 </script>
 
 <script type="text/javascript">
-
     var TotalBudgetList = 0;
     var TotalQty = 0;
     var TotalPayment = 0;
     var trano = $.parseJSON('<?= json_encode($dataHeader['number']) ?>');
     var date = $.parseJSON('<?= json_encode($dataHeader['date']) ?>');
+    var recordID = $.parseJSON('<?= json_encode($dataHeader['recordID']) ?>');
     var dataDetail = $.parseJSON('<?= json_encode($dataDetail) ?>');
 
     dataDetail.forEach((dataDetails, key) => {
@@ -36,7 +36,7 @@
         $('table.TableAdvance tbody').append(html);
 
         $("#GrandTotal").html(currencyTotal(TotalBudgetList));
-    
+
 
         // TABLE BUDGET 
 
@@ -72,9 +72,10 @@
             '<input name="var_uom[]" value="' + dataDetails['entities']['quantityUnitName'] + '" type="hidden">' +
             '<input name="var_currency_id[]" value="' + dataDetails['entities']['priceCurrency_RefID'] + '" type="hidden">' +
             '<input name="var_currency[]" value="' + dataDetails['entities']['priceCurrencyISOCode'] + '" type="hidden">' +
-            '<input name="var_combinedBudgetSectionDetail_RefID[]" value="' + dataDetails['entities']['sys_ID'] + '" type="hidden">' +
-            '<input name="combinedBudget_RefID" value="' + dataDetails['entities']['combinedBudgetProduct_RefID'] + '" type="hidden">' +
-            '<input name="var_recordIDDetail[]" value="' + dataDetails['entities']['sys_ID'] + '"  type="hidden">' +
+            '<input name="var_combinedBudgetSectionDetail_RefID[]" value="' + dataDetails['entities']['combinedBudgetSectionDetail_RefID'] + '" type="hidden">' +
+            '<input name="var_recordIDDetail[]" value="' + dataDetails['recordID'] + '"  type="hidden">' +
+            '<input name="var_combinedBudget_RefID" value="' + dataDetails['entities']['combinedBudget_RefID'] + '" type="hidden">' +
+            '<input name="var_recordID" value="' + recordID + '"  type="hidden">' +
             '<input name="total_payment[]" value="' + TotalPayment + '"  type="hidden">' +
 
             '<td style="border:1px solid #e9ecef;">' +
@@ -219,7 +220,6 @@
         } else {
             //VALIDASI QTY
             $('#qty_req' + key).keyup(function() {
-                console.log(key);
                 var qty_val = $(this).val().replace(/,/g, '');
                 var budget_qty_val = $("#budget_qty" + key).val();
                 var price_req = $("#price_req" + key).val().replace(/,/g, '');
@@ -476,7 +476,7 @@
                         HideLoading();
                         // FUNCTION ERROR NOTIFICATION 
                         CancelNotif("Data Cancel Inputed", '/AdvanceRequest?var=1');
-                        
+
                     }
                 })
             }
