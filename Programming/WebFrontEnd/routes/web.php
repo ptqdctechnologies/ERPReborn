@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[START]---
 $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
-$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxkaS5tdWx5YWRpIiwiaWF0IjoxNjk2NDc1ODU3fQ.MjlkZGFhZmNlY2Q3NDZmNDk4MjMxNTU2ODM3NDI3ODQ0OWFmNmI1YzkxZDkwMGJhOWM3OTFmOWQ1ZTdlOTk1NA';
+$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxkaS5tdWx5YWRpIiwiaWF0IjoxNjk5NDk1NDY2fQ.ZWEyOTljYzhmZTBiYTdkZjA5ODVlOGRjY2E2ZTA2ZDkxMmY2ZmQ1ZmYyYmM3ZmIyNWE4ZjFjYTZhYTY1N2UwNw';
 
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
@@ -27,7 +27,6 @@ $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxk
 //---[ Static Route ]--------------------------------------------------------------------[START]---
 
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('getArchivedFileObjectDownload/{encodedData}', 'get', '\App\Http\Controllers\Application\FrontEnd\System\FileHandling\Controller@getArchivedFileObjectDownload', 'webWithoutCSRF');
-
 
 //---[ Static Route ]--------------------------------------------------------------------[ END ]---
 
@@ -152,7 +151,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('AdvanceByBudgetID', 'Advance\AdvanceSettlementController@AdvanceByBudgetID')->name('AdvanceSettlement.AdvanceByBudgetID');
     Route::get('AdvanceSettlementListCartRevision', 'Advance\AdvanceSettlementController@AdvanceSettlementListCartRevision')->name('AdvanceSettlement.AdvanceSettlementListCartRevision');
     Route::resource('AdvanceSettlement', 'Advance\AdvanceSettlementController');
-
+    
     // BSF
     Route::post('StoreValidateBusinessTripSettlement', 'Advance\BusinessTripSettlementController@StoreValidateBusinessTripSettlement')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlement');
     Route::post('StoreValidateBusinessTripSettlement2', 'Advance\BusinessTripSettlementController@StoreValidateBusinessTripSettlement2')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlement2');
@@ -182,6 +181,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('StoreValidatePurchaseRequisition', 'Purchase\PurchaseRequisitionController@StoreValidatePurchaseRequisition')->name('PurchaseRequisition.StoreValidatePurchaseRequisition');
     Route::post('StoreValidatePurchaseRequisition2', 'Purchase\PurchaseRequisitionController@StoreValidatePurchaseRequisition2')->name('PurchaseRequisition.StoreValidatePurchaseRequisition2');
     Route::post('RevisionPrIndex', 'Purchase\PurchaseRequisitionController@RevisionPrIndex')->name('PurchaseRequisition.RevisionPrIndex');
+    Route::get('ReportPurchaseRequisitionSummary', 'Purchase\PurchaseRequisitionController@Reports')->name('PurchaseRequisition.ReportPurchaseRequisitionSummary');
     Route::get('PurchaseRequisitionListData', 'Purchase\PurchaseRequisitionController@PurchaseRequisitionListData')->name('PurchaseRequisition.PurchaseRequisitionListData');
     Route::post('ProcReqListCartRevision', 'Purchase\PurchaseRequisitionController@ProcReqListCartRevision')->name('PurchaseRequisition.ProcReqListCartRevision');
     Route::resource('PurchaseRequisition', 'Purchase\PurchaseRequisitionController');
@@ -191,6 +191,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('StoreValidatePurchaseOrder2', 'Purchase\PurchaseOrderController@StoreValidatePurchaseOrder2')->name('PurchaseOrder.StoreValidatePurchaseOrder2');
     Route::post('StoreValidatePurchaseOrderPrNumber', 'Purchase\PurchaseOrderController@StoreValidatePurchaseOrderPrNumber')->name('PurchaseOrder.StoreValidatePurchaseOrderPrNumber');
     Route::post('RevisionPurchaseOrder', 'Purchase\PurchaseOrderController@RevisionPurchaseOrderIndex')->name('PurchaseOrder.RevisionPurchaseOrder');
+    Route::get('ReportPurchaseOrderSummary', 'Purchase\PurchaseOrderController@Reports')->name('PurchaseOrder.ReportPurchaseOrderSummary');
     Route::get('PurchaseOrderListData', 'Purchase\PurchaseOrderController@PurchaseOrderListData')->name('PurchaseOrder.PurchaseOrderListData');
     // Route::post('RevisionPurchaseOrder', 'Purchase\PurchaseOrderController@RevisionPurchaseOrder')->name('PurchaseOrder.RevisionPurchaseOrder');
     Route::get('PurchaseOrderByPrID', 'Purchase\PurchaseOrderController@PurchaseOrderByPrID')->name('PurchaseOrder.PurchaseOrderByPrID');

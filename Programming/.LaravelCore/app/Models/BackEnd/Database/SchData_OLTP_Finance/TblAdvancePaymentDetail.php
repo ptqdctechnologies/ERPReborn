@@ -61,6 +61,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (float)  varAmountCurrencyValue ► Amount Currency Value                                                           |
         |      ▪ (float)  varAmountCurrencyExchangeRate ► Amount Currency Exchange Rate                                            |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -119,6 +120,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (float)  varAmountCurrencyValue ► Amount Currency Value                                                           |
         |      ▪ (float)  varAmountCurrencyExchangeRate ► Amount Currency Exchange Rate                                            |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
