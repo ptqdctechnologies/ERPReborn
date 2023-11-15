@@ -86,7 +86,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranch_RefID, 'bigint'],
                         [$varSysBaseCurrency_RefID, 'bigint'],
-                        
+
                         [$varDocumentDateTimeTZ, 'timestamptz'],
                         [$varLog_FileUpload_Pointer_RefID, 'bigint'],
                         [$varRequesterWorkerJobsPosition_RefID, 'bigint'],

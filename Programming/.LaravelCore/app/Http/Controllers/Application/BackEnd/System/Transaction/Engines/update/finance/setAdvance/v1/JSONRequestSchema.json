@@ -171,7 +171,7 @@
                     "beneficiaryBankAccount_RefID",
                     "internalNotes",
                     "remarks"
-                    ]    
+                    ]
                 }
             },
         "required": [ 
