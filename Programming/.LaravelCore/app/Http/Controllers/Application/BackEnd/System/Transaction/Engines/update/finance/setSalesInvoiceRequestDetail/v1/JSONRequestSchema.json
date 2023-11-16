@@ -45,6 +45,11 @@
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         },
+                    "salesOrderDetail_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
                     "product_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
@@ -80,6 +85,7 @@
                     },
                 "required": [
                     "salesInvoiceRequest_RefID",
+                    "salesOrderDetail_RefID",
                     "product_RefID",
                     "quantity",
                     "quantityUnit_RefID",
