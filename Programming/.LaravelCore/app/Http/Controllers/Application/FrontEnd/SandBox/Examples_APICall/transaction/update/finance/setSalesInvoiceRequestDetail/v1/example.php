@@ -3,9 +3,9 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\update\finance\setAdvanceDetail  |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\update\finance                   |
 |                 \setSalesInvoiceRequestDetail\v1                                                                                 |
-| ▪ API Key     : transaction.update.finance.setAdvanceDetail                                                                      |
+| ▪ API Key     : transaction.update.finance.setSalesInvoiceRequestDetail                                                          |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
@@ -41,6 +41,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 'recordID' => 245000000000001,
                 'entities' => [
                     'salesInvoiceRequest_RefID' => 244000000000001,
+                    'salesOrderDetail_RefID' => 130000000000001,
                     'product_RefID' => 88000000000002,
                     'quantity' => 10,
                     'quantityUnit_RefID' => 73000000000001,
@@ -78,6 +79,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Sales Invoice Request Detail Main Data</p></td></tr>';
             echo        '<tr><td>RecordID</td><td><input type="text" id="dataInput_RecordID" value=245000000000001></td></tr>';
             echo        '<tr><td>SalesInvoiceRequest_RefID</td><td><input type="text" id="dataInput_SalesInvoiceRequest_RefID" value=244000000000001></td></tr>';
+            echo        '<tr><td>SalesOrderDetail_RefID</td><td><input type="text" id="dataInput_SalesOrderDetail_RefID" value=130000000000001></td></tr>';
             echo        '<tr><td>Product_RefID</td><td><input type="text" id="dataInput_Product_RefID" value=88000000000002></td></tr>';
             echo        '<tr><td>Quantity</td><td><input type="text" id="dataInput_Quantity" value=10></td></tr>';
             echo        '<tr><td>QuantityUnit_RefID</td><td><input type="text" id="dataInput_QuantityUnit_RefID" value=73000000000001></td></tr>';
@@ -95,6 +97,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
                     '"entities" : {'.
                         '"salesInvoiceRequest_RefID" : parseInt(document.getElementById("dataInput_SalesInvoiceRequest_RefID").value), '.
+                        '"salesOrderDetail_RefID" : parseInt(document.getElementById("dataInput_SalesOrderDetail_RefID").value), '.
                         '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID").value), '.
                         '"quantity" : parseFloat(document.getElementById("dataInput_Quantity").value), '.
                         '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID").value), '.

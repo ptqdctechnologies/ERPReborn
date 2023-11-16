@@ -38,37 +38,39 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 'transaction.update.finance.setSalesInvoiceRequest', 
                 'latest', 
                 [
-                'recordID' => 244000000000001,
-                'entities' => [
-                    'documentDateTimeTZ' => '2022-03-07',
-                    'log_FileUpload_Pointer_RefID' => 91000000000001,
-                    'requesterWorkerJobsPosition_RefID' => 164000000000497,
-                    'remarks' => 'My Remarks',
-                    'additionalData' => [
-                        'itemList' => [
-                            'items' => [
+                "recordID" => 244000000000001,
+                "entities" => [
+                    "documentDateTimeTZ" => '2022-03-07',
+                    "log_FileUpload_Pointer_RefID" => 91000000000001,
+                    "requesterWorkerJobsPosition_RefID" => 164000000000497,
+                    "remarks" => 'My Remarks',
+                    "additionalData" => [
+                        "itemList" => [
+                            "items" => [
                                     [
-                                    'recordID' => 245000000000001,
-                                    'entities' => [
-                                        'product_RefID' => 88000000000002,
-                                        'quantity' => 10,
-                                        'quantityUnit_RefID' => 73000000000001,
-                                        'productUnitPriceCurrency_RefID' => 62000000000001,
-                                        'productUnitPriceCurrencyExchangeRate' => 1,
-                                        'productUnitPriceCurrencyValue' => 30000,
-                                        'remarks' => 'Catatan Pertama Revisi'                                    
+                                    "recordID" => 245000000000001,
+                                    "entities" => [
+                                        "salesOrderDetail_RefID" => 130000000000001,
+                                        "product_RefID" => 88000000000002,
+                                        "quantity" => 10,
+                                        "quantityUnit_RefID" => 73000000000001,
+                                        "productUnitPriceCurrency_RefID" => 62000000000001,
+                                        "productUnitPriceCurrencyValue" => 30000,
+                                        "productUnitPriceCurrencyExchangeRate" => 1,
+                                        "remarks" => 'Catatan Pertama Revisi'                                    
                                         ]                                   
                                     ],
                                     [
-                                    'recordID' => 245000000000002,
-                                    'entities' => [
-                                        'product_RefID' => 88000000000003,
-                                        'quantity' => 5,
-                                        'quantityUnit_RefID' => 73000000000001,
-                                        'productUnitPriceCurrency_RefID' => 62000000000001,
-                                        'productUnitPriceCurrencyExchangeRate' => 1,
-                                        'productUnitPriceCurrencyValue' => 40000,
-                                        'remarks' => 'Catatan Kedua Revisi'
+                                    "recordID" => 245000000000002,
+                                    "entities" => [
+                                        "salesOrderDetail_RefID" => 130000000000002,
+                                        "product_RefID" => 88000000000003,
+                                        "quantity" => 5,
+                                        "quantityUnit_RefID" => 73000000000001,
+                                        "productUnitPriceCurrency_RefID" => 62000000000001,
+                                        "productUnitPriceCurrencyValue" => 40000,
+                                        "productUnitPriceCurrencyExchangeRate" => 1,
+                                        "remarks" => 'Catatan Kedua Revisi'
                                         ]
                                     ],
                                 ]
@@ -108,6 +110,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo        '<tr><td>Remarks</td><td><input type="text" id="dataInput_Remarks" value="My Remarks"></td></tr>';
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Advance Detail Data</p></td></tr></tr>';
             echo        '<tr><td>RecordIDDetail_RefID_1</td><td><input type="text" id="dataInput_RecordIDDetail_RefID_1" value=245000000000001></td></tr>';
+            echo        '<tr><td>SalesOrderDetail_RefID_1</td><td><input type="text" id="dataInput_SalesOrderDetail_RefID_1" value=130000000000001></td></tr>';
             echo        '<tr><td>Product_RefID_1</td><td><input type="text" id="dataInput_Product_RefID_1" value=88000000000002></td></tr>';
             echo        '<tr><td>Quantity_1</td><td><input type="text" id="dataInput_Quantity_1" value=10></td></tr>';
             echo        '<tr><td>QuantityUnit_RefID_1</td><td><input type="text" id="dataInput_QuantityUnit_RefID_1" value=73000000000001></td></tr>';
@@ -117,6 +120,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo        '<tr><td>Remarks_1</td><td><input type="text" id="dataInput_Remarks_1" value="Catatan Pertama Revisi"></td></tr>';
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff"></p></td></tr></tr>';
             echo        '<tr><td>RecordIDDetail_RefID_2</td><td><input type="text" id="dataInput_RecordIDDetail_RefID_2" value=245000000000002></td></tr>';
+            echo        '<tr><td>SalesOrderDetail_RefID_2</td><td><input type="text" id="dataInput_SalesOrderDetail_RefID_2" value=130000000000002></td></tr>';
             echo        '<tr><td>Product_RefID_2</td><td><input type="text" id="dataInput_Product_RefID_2" value=88000000000003></td></tr>';
             echo        '<tr><td>Quantity_2</td><td><input type="text" id="dataInput_Quantity_2" value=5></td></tr>';
             echo        '<tr><td>QuantityUnit_RefID_2</td><td><input type="text" id="dataInput_QuantityUnit_RefID_2" value=73000000000001></td></tr>';
@@ -144,6 +148,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         '"recordID" : parseInt(document.getElementById("dataInput_RecordIDDetail_RefID_1").value), '.
                                         '"entities" : '.
                                             '{'.
+                                            '"salesOrderDetail_RefID" : parseInt(document.getElementById("dataInput_SalesOrderDetail_RefID_1").value), '.
                                             '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_1").value), '.
                                             '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_1").value), '.
                                             '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_1").value),'.
@@ -157,6 +162,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         '"recordID" : parseInt(document.getElementById("dataInput_RecordIDDetail_RefID_2").value), '.
                                         '"entities" : '.
                                             '{'.
+                                            '"salesOrderDetail_RefID" : parseInt(document.getElementById("dataInput_SalesOrderDetail_RefID_2").value), '.
                                             '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_2").value), '.
                                             '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_2").value), '.
                                             '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_2").value),'.

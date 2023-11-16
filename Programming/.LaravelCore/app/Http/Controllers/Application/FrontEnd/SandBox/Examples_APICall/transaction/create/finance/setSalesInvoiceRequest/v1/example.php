@@ -38,7 +38,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 'transaction.create.finance.setSalesInvoiceRequest', 
                 'latest', 
                 [
-                'entities' => [
+                "entities" => [
                     "documentDateTimeTZ" => '2022-03-07',
                     "log_FileUpload_Pointer_RefID" => NULL,
                     "requesterWorkerJobsPosition_RefID" => 164000000000497,
@@ -48,6 +48,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             "items" => [
                                     [
                                     "entities" => [
+                                        "salesOrderDetail_RefID" => 130000000000001,
                                         "product_RefID" => 88000000000002,
                                         "quantity" => 10,
                                         "quantityUnit_RefID" => 73000000000001,
@@ -59,6 +60,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     ],
                                     [
                                     "entities" => [
+                                        "salesOrderDetail_RefID" => 130000000000002,
                                         "product_RefID" => 88000000000003,
                                         "quantity" => 5,
                                         "quantityUnit_RefID" => 73000000000001,
@@ -103,6 +105,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo        '<tr><td>RequesterWorkerJobsPosition_RefID</td><td><input type="text" id="dataInput_RequesterWorkerJobsPosition_RefID" value=164000000000497></td></tr>';
             echo        '<tr><td>Remarks</td><td><input type="text" id="dataInput_Remarks" value="My Remarks"></td></tr>';
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Advance Detail Data</p></td></tr></tr>';
+            echo        '<tr><td>SalesOrderDetail_RefID_1</td><td><input type="text" id="dataInput_SalesOrderDetail_RefID_1" value=130000000000001></td></tr>';
             echo        '<tr><td>Product_RefID_1</td><td><input type="text" id="dataInput_Product_RefID_1" value=88000000000002></td></tr>';
             echo        '<tr><td>Quantity_1</td><td><input type="text" id="dataInput_Quantity_1" value=10></td></tr>';
             echo        '<tr><td>QuantityUnit_RefID_1</td><td><input type="text" id="dataInput_QuantityUnit_RefID_1" value=73000000000001></td></tr>';
@@ -111,6 +114,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo        '<tr><td>ProductUnitPriceCurrencyExchangeRate_1</td><td><input type="text" id="dataInput_ProductUnitPriceCurrencyExchangeRate_1" value=1></td></tr>';
             echo        '<tr><td>Remarks_1</td><td><input type="text" id="dataInput_Remarks_1" value="Catatan Pertama"></td></tr>';
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff"></p></td></tr></tr>';
+            echo        '<tr><td>SalesOrderDetail_RefID_2</td><td><input type="text" id="dataInput_SalesOrderDetail_RefID_2" value=130000000000002></td></tr>';
             echo        '<tr><td>Product_RefID_2</td><td><input type="text" id="dataInput_Product_RefID_2" value=88000000000003></td></tr>';
             echo        '<tr><td>Quantity_2</td><td><input type="text" id="dataInput_Quantity_2" value=5></td></tr>';
             echo        '<tr><td>QuantityUnit_RefID_2</td><td><input type="text" id="dataInput_QuantityUnit_RefID_2" value=73000000000001></td></tr>';
@@ -122,7 +126,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
-                'transaction.create.finance.setAdvance', 
+                'transaction.create.finance.setSalesInvoiceRequest', 
                 'latest', 
                 '{'.
                     '"entities" : {'.
@@ -136,6 +140,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         '{'.
                                         '"entities" : '.
                                             '{'.
+                                            '"salesOrderDetail_RefID" : parseInt(document.getElementById("dataInput_SalesOrderDetail_RefID_1").value), '.
                                             '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_1").value), '.
                                             '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_1").value), '.
                                             '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_1").value),'.
@@ -148,6 +153,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         '{'.
                                         '"entities" : '.
                                             '{'.
+                                            '"salesOrderDetail_RefID" : parseInt(document.getElementById("dataInput_SalesOrderDetail_RefID_2").value), '.
                                             '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_2").value), '.
                                             '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_2").value), '.
                                             '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_2").value),'.
