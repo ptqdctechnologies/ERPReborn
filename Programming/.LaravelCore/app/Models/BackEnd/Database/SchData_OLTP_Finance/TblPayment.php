@@ -44,8 +44,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-13                                                                                           |
-        | ▪ Creation Date   : 2022-07-13                                                                                           |
+        | ▪ Last Update     : 2023-11-01                                                                                           |
+        | ▪ Creation Date   : 2023-11-01                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -58,9 +58,6 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
         |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► File Attachments Reference ID                                                 |
         |      ▪ (int)    varRequesterPerson_RefID ► Requester Person Reference ID                                                 |
-        |      ▪ (int)    varBeneficiaryPerson_RefID ► Beneficiary Person Reference ID                                             |
-        |      ▪ (int)    varBeneficiaryBankAccount_RefID ► Beneficiary Bank Account Reference ID                                  |
-        |      ▪ (string) varInternalNotes ► InternalNotes                                                                         |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
@@ -68,10 +65,10 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        /*public function setDataInsert(
+        public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterPerson_RefID = null, int $varBeneficiaryPerson_RefID = null, int $varBeneficiaryBankAccount_RefID = null, string $varInternalNotes = null, string $varRemarks = null,
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterPerson_RefID = null, string $varRemarks = null,
             array $varAdditionalData = [])
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -90,9 +87,6 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         [$varDocumentDateTimeTZ, 'timestamptz'],
                         [$varLog_FileUpload_Pointer_RefID, 'bigint'],
                         [$varRequesterPerson_RefID, 'bigint'],
-                        [$varBeneficiaryPerson_RefID, 'bigint'],
-                        [$varBeneficiaryBankAccount_RefID, 'bigint'],
-                        [$varInternalNotes, 'varchar'],
                         [$varRemarks, 'varchar'],
 
                         [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
@@ -100,7 +94,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                     )
                 );
             return $varReturn['Data'][0];
-            }*/
+            }
 
 
         /*
@@ -108,8 +102,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-13                                                                                           |
-        | ▪ Creation Date   : 2022-07-13                                                                                           |
+        | ▪ Last Update     : 2023-11-01                                                                                           |
+        | ▪ Creation Date   : 2023-11-01                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -123,9 +117,6 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
         |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► File Attachments Reference ID                                                 |
         |      ▪ (int)    varRequesterPerson_RefID ► Requester Person Reference ID                                                 |
-        |      ▪ (int)    varBeneficiaryPerson_RefID ► Beneficiary Person Reference ID                                             |
-        |      ▪ (int)    varBeneficiaryBankAccount_RefID ► Beneficiary Bank Account Reference ID                                  |
-        |      ▪ (string) varInternalNotes ► InternalNotes                                                                         |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
@@ -133,10 +124,10 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        /*public function setDataUpdate(
+        public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterPerson_RefID = null, int $varBeneficiaryPerson_RefID = null, int $varBeneficiaryBankAccount_RefID = null, string $varInternalNotes = null, string $varRemarks = null,
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterPerson_RefID = null, string $varRemarks = null,
             array $varAdditionalData = [])
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -155,9 +146,6 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         [$varDocumentDateTimeTZ, 'timestamptz'],
                         [$varLog_FileUpload_Pointer_RefID, 'bigint'],
                         [$varRequesterPerson_RefID, 'bigint'],
-                        [$varBeneficiaryPerson_RefID, 'bigint'],
-                        [$varBeneficiaryBankAccount_RefID, 'bigint'],
-                        [$varInternalNotes, 'varchar'],
                         [$varRemarks, 'varchar'],
 
                         [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
@@ -165,6 +153,6 @@ namespace App\Models\Database\SchData_OLTP_Finance
                     )
                 );
             return $varReturn['Data'][0];
-            }*/
+            }
         }
     }

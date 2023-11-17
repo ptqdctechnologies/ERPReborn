@@ -454,9 +454,20 @@
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">&nbsp;&nbsp;&nbsp;
                                         <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
-                                        <label>Report</label>
+                                            <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
+                                    <ul class="nav nav-treeview">
+                                        @if(in_array("Module.SupplyChain.Procurement.PurchaseRequisition.Transaction.Create", Session::get('privilageMenu'), TRUE))
+                                        <li class="nav-item">
+                                        <li class="nav-item">
+                                            <a href="{{ route('PurchaseRequisition.ReportPurchaseRequisitionSummary') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
+                                                <label>Purchase Order Summary</label>
+                                            </a>
+                                        </li>
+                                        @endif
+                                    </ul>
                                 </li>
                             </ul>
                             <ul class="nav nav-treeview">
@@ -465,6 +476,7 @@
                                         <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
                                         <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
+
                                     </a>
                                     <ul class="nav nav-treeview">
                                         @if(in_array("Module.SupplyChain.Procurement.PurchaseRequisition.Transaction.Create", $privilageMenu, TRUE))
@@ -494,9 +506,20 @@
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">&nbsp;&nbsp;&nbsp;
                                         <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
-                                        <label>Report</label>
+                                            <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
+                                    <ul class="nav nav-treeview">
+                                        @if(in_array("Module.SupplyChain.Procurement.PurchaseOrder.Transaction.Create", Session::get('privilageMenu'), TRUE))
+                                        <li class="nav-item">
+                                        <li class="nav-item">
+                                            <a href="{{ route('PurchaseOrder.ReportPurchaseOrderSummary') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
+                                                <label>Purchase Order Summary</label>
+                                            </a>
+                                        </li>
+                                        @endif
+                                    </ul>
                                 </li>
                             </ul>
                             <ul class="nav nav-treeview">

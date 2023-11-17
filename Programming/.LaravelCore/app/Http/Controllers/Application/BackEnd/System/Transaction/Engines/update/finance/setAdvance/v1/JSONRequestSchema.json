@@ -132,26 +132,56 @@
                                                                     "maxLength": 512
                                                                     }
                                                                 },
-                                                            "required": [ "combinedBudgetSectionDetail_RefID", "product_RefID", "quantity", "quantityUnit_RefID", "productUnitPriceCurrency_RefID", "productUnitPriceCurrencyExchangeRate", "productUnitPriceCurrencyValue", "remarks" ]
+                                                            "required": [ 
+                                                                "combinedBudgetSectionDetail_RefID", 
+                                                                "product_RefID", 
+                                                                "quantity", 
+                                                                "quantityUnit_RefID", 
+                                                                "productUnitPriceCurrency_RefID", 
+                                                                "productUnitPriceCurrencyExchangeRate", 
+                                                                "productUnitPriceCurrencyValue", 
+                                                                "remarks" 
+                                                                ]
                                                              }
                                                         },
-                                                    "required": [ "recordID", "entities" ]
+                                                    "required": [ 
+                                                        "recordID",
+                                                        "entities"
+                                                        ]
                                                     }
                                                 }
                                             },
-                                        "required": [ "items" ]
+                                        "required": [ 
+                                            "items"
+                                            ]
                                         }
                                     },
-                                "required": [ "itemList" ]
+                                "required": [ 
+                                    "itemList"
+                                    ]
                                 }
                             ]
                         }
                     },
-                "required": [ "documentDateTimeTZ", "log_FileUpload_Pointer_RefID", "requesterWorkerJobsPosition_RefID", "beneficiaryWorkerJobsPosition_RefID", "beneficiaryBankAccount_RefID", "internalNotes", "remarks" ]    
+                "required": [ 
+                    "documentDateTimeTZ",
+                    "log_FileUpload_Pointer_RefID",
+                    "requesterWorkerJobsPosition_RefID",
+                    "beneficiaryWorkerJobsPosition_RefID",
+                    "beneficiaryBankAccount_RefID",
+                    "internalNotes",
+                    "remarks"
+                    ]
                 }
             },
-        "required": [ "recordID", "entities" ]
+        "required": [ 
+            "recordID",
+            "entities"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [ 
+    "metadata", 
+    "data" 
+    ]
 }

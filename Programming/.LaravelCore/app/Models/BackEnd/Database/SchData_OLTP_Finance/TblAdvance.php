@@ -57,8 +57,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |        ----------------------------------------                                                                          |
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
         |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► File Attachments Reference ID                                          |
-        |      ▪ (int)    varRequesterPerson_RefID ► Requester Person Reference ID                                                 |
-        |      ▪ (int)    varBeneficiaryPerson_RefID ► Beneficiary Person Reference ID                                             |
+        |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Worker Jobs Position Reference ID                       |
+        |      ▪ (int)    varBeneficiaryWorkerJobsPosition_RefID ► Beneficiary Worker Jobs Position Reference ID                   |
         |      ▪ (int)    varBeneficiaryBankAccount_RefID ► Beneficiary Bank Account Reference ID                                  |
         |      ▪ (string) varInternalNotes ► InternalNotes                                                                         |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
@@ -71,7 +71,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterPerson_RefID = null, int $varBeneficiaryPerson_RefID = null, int $varBeneficiaryBankAccount_RefID = null, string $varInternalNotes = null, string $varRemarks = null,
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, int $varBeneficiaryWorkerJobsPosition_RefID = null, int $varBeneficiaryBankAccount_RefID = null, string $varInternalNotes = null, string $varRemarks = null,
             array $varAdditionalData = [])
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -86,11 +86,11 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranch_RefID, 'bigint'],
                         [$varSysBaseCurrency_RefID, 'bigint'],
-                        
+
                         [$varDocumentDateTimeTZ, 'timestamptz'],
                         [$varLog_FileUpload_Pointer_RefID, 'bigint'],
-                        [$varRequesterPerson_RefID, 'bigint'],
-                        [$varBeneficiaryPerson_RefID, 'bigint'],
+                        [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
+                        [$varBeneficiaryWorkerJobsPosition_RefID, 'bigint'],
                         [$varBeneficiaryBankAccount_RefID, 'bigint'],
                         [$varInternalNotes, 'varchar'],
                         [$varRemarks, 'varchar'],
@@ -122,8 +122,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |        ----------------------------------------                                                                          |
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
         |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► File Attachments Reference ID                                          |
-        |      ▪ (int)    varRequesterPerson_RefID ► Requester Person Reference ID                                                 |
-        |      ▪ (int)    varBeneficiaryPerson_RefID ► Beneficiary Person Reference ID                                             |
+        |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Worker Jobs Position Reference ID                       |
+        |      ▪ (int)    varBeneficiaryWorkerJobsPosition_RefID ► Beneficiary Worker Jobs Position Reference ID                   |
         |      ▪ (int)    varBeneficiaryBankAccount_RefID ► Beneficiary Bank Account Reference ID                                  |
         |      ▪ (string) varInternalNotes ► InternalNotes                                                                         |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
@@ -136,7 +136,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterPerson_RefID = null, int $varBeneficiaryPerson_RefID = null, int $varBeneficiaryBankAccount_RefID = null, string $varInternalNotes = null, string $varRemarks = null,
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, int $varBeneficiaryWorkerJobsPosition_RefID = null, int $varBeneficiaryBankAccount_RefID = null, string $varInternalNotes = null, string $varRemarks = null,
             array $varAdditionalData = [])
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -154,8 +154,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
 
                         [$varDocumentDateTimeTZ, 'timestamptz'],
                         [$varLog_FileUpload_Pointer_RefID, 'bigint'],
-                        [$varRequesterPerson_RefID, 'bigint'],
-                        [$varBeneficiaryPerson_RefID, 'bigint'],
+                        [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
+                        [$varBeneficiaryWorkerJobsPosition_RefID, 'bigint'],
                         [$varBeneficiaryBankAccount_RefID, 'bigint'],
                         [$varInternalNotes, 'varchar'],
                         [$varRemarks, 'varchar'],
