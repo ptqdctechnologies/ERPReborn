@@ -4176,7 +4176,7 @@ namespace App\Helpers\ZhtHelper\General
                                                     'alert(\'ERP Reborn Error Notification\n\n Invalid Process\n(\' + varError + \')\'); '.
                                                     '}'.
 
-                                                // 'console.log(varReturn); '.
+                                                'console.log(varReturn); '.
                                                 'return varReturn; '.
                                             '}'.
 

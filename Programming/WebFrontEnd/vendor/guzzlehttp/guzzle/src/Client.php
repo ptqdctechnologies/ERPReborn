@@ -165,7 +165,6 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
         $request = new Psr7\Request($method, $uri, $headers, $body, $version);
         // Remove the option so that they are not doubly-applied.
         unset($options['headers'], $options['body'], $options['version']);
-
         return $this->transfer($request, $options);
     }
 

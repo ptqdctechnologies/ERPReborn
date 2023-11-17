@@ -312,7 +312,7 @@
                             HideLoading();
                         }
                     });
-                }
+                }dashboard
             });
         });
     </script>
