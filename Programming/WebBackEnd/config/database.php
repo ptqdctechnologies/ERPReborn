@@ -127,7 +127,9 @@ return [
         ],
 
         'default' => [
-            'url' => env('REDIS_URL'),
+            // 'url' => env('REDIS_URL'),
+
+            'url' => 'tcp://172.28.0.5:6379?database=0',
             'host' => env('REDIS_HOST', '127.0.0.1'),
             'password' => env('REDIS_PASSWORD', null),
             'port' => env('REDIS_PORT', '6379'),

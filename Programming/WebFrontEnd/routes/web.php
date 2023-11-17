@@ -44,6 +44,7 @@ Route::get('getRoleLogin', 'Auth\LoginController@getRoleLogin')->name('getRoleLo
 Route::get('FlushCache', 'Auth\LoginController@FlushCache')->name('FlushCache');
 
 Route::get('SessionCheckingLogout', 'Auth\LoginController@SessionCheckingLogout')->name('SessionCheckingLogout');
+Route::get('SessionCheckingRedis', 'Auth\LoginController@SessionCheckingRedis')->name('SessionCheckingRedis');
 
 Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], function () {
     //logout

@@ -44,6 +44,7 @@ Route::get('zhtTestAdminLTE2', function () {
 
 
 
+Route::get('testAja2', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@testAja2')->name('testAja2');
 
 
 
