@@ -29,44 +29,6 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
 
             // $project = Cache::get('Project');
 
-            // foreach($project as $projects){
-            //     var_dump($projects['Sys_ID']);
-            // }
-
-            // $type = 46000000000033;
-            // $filteredArray = Arr::where($project, function ($value, $key) use($type) {
-            //     return $value['Sys_ID'] == $type;
-            // });
-
-            // dd($filteredArray);
-
-            // dd(Cache::get('Project'));
-
-            // $DataProject = Cache::remember('Project', 480, function () {
-
-            //     $varData =
-            //         (new \App\Models\Database\SchData_OLTP_Project\General())->getDataPickList_Project(
-            //             6000000000001,
-            //             11000000000004
-            //         );
-
-            //     return $varData['Data'];
-            // });
-
-            // $type = 46000000000009;
-            // $filteredArray = Arr::where($DataProject, function ($value, $key) use ($type) {
-            //     return $value['Sys_ID'] == $type;
-            // });
-
-            // dd($filteredArray);
-
-            // // dd($DataProject);
-
-            // return response()->json(Cache::get('Project'));
-
-
-            // dd($varData['Data']);
-
             // dd(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(6000000000001, "Test"));
         }
         public function testAja()
@@ -229,7 +191,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
             // $varReturn['RowCount'] = $x;
 
             // dd($varReturn);
-            die;
+            // die;
             // $varDataSend = 
             // \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
             //     11000000000004,
@@ -278,13 +240,6 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
 
             // dd($varReturn);
 
-<<<<<<< HEAD
-/*
-                
-=======
-
-
->>>>>>> 1e96ed9bd (17 november  2023)
             // echo "Test Aja";
 
             // $x = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine(123);
