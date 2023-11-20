@@ -53,9 +53,9 @@
                     $.each(data, function(key, val) {
                         keys += 1;
                         t.row.add([
-                            '<tbody><tr><input id="sys_id_budget' + keys + '" value="' + val.sys_ID + '" type="hidden"><td>' + no++ + '</td>',
-                            '<td>' + val.code + '</td>',
-                            '<td>' + val.name + '</td></span></tr></tbody>'
+                            '<tbody><tr><input id="sys_id_budget' + keys + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
+                            '<td>' + val.Code + '</td>',
+                            '<td>' + val.Name + '</td></span></tr></tbody>'
                         ]).draw();
                     });
                 }

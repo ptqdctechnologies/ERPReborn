@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Document;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
@@ -67,6 +68,14 @@ class MyDocumentController extends Controller
 
     public function ShowMyDocumentListData(Request $request)
     {
+
+        // dd(Redis::get("RedisDataMaster"));
+        // dd(Redis::command('TTL', ['Testing']));
+        // dd(Redis::flushDB());    
+        // dd(Redis::keys("*"));
+        // dd(Redis::get('Pro'));
+        // dd(json_decode(Redis::get("Product"), true));
+
         $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
         $varAPIWebToken = Session::get('SessionLogin');
 

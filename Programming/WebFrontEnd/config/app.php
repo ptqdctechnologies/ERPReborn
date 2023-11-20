@@ -67,7 +67,8 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Jakarta',
+    // 'timezone' => 'UTC',
 
     /*
     |--------------------------------------------------------------------------
@@ -176,6 +177,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\DocumentWorkflowServiceProvider::class,
         App\Providers\KeyMenuServiceProvider::class,
+        App\Providers\RedisDataMasterServiceProvider::class,
         
 
     ],

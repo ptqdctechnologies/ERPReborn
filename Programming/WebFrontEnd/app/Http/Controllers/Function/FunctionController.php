@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Function;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 
 class FunctionController extends Controller
@@ -17,10 +18,6 @@ class FunctionController extends Controller
     //FUNCTION PROJECT
     public function getProject(Request $request)
     {
-        // // dd(\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main::setCallAPIGatewayByPass());
-        // // $varAPIWebToken = Session::get('SessionLogin');
-        // // echo $varAPIWebToken;die;
-        // // echo \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();die;
         // $DataProject = Cache::remember('DataProject', 480, function(){
 
         //     $varAPIWebToken = Session::get('SessionLogin');
@@ -33,27 +30,17 @@ class FunctionController extends Controller
         //             'parameter' => null
         //         ]
         //     );
-        //     // return $varDataProject['data']['data'];
-        // dd($varDataProject);
+        //     return $varDataProject['data']['data'];
 
-        // // });
-        // // return response()->json($DataProject);
+        // });
 
-        $DataProject = Cache::remember('DataProject', 480, function(){
+        $DataProject = json_decode(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+            "Project"
+            ),
+            true
+        );
 
-            $varAPIWebToken = Session::get('SessionLogin');
-            $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'dataPickList.project.getProject',
-                'latest',
-                [
-                    'parameter' => null
-                ]
-            );
-            return $varDataProject['data']['data'];
-
-        });
         return response()->json($DataProject);
     }
 
@@ -134,30 +121,44 @@ class FunctionController extends Controller
     public function getWorker(Request $request)
     {
 
-        $DataWorker = Cache::remember('DataWorker', 480, function(){
 
-            $varAPIWebToken = Session::get('SessionLogin');
-            $varDataWorker = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.humanResource.getWorkerJobsPositionCurrent',
-                'latest',
-                [
-                    'parameter' => [
-                        'worker_RefID' => null
-                    ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ]
-            );
-            return $varDataWorker['data']['data'];
-        });
+        // $DataWorker = Cache::remember('DataWorker', 480, function () {
 
+            // $varAPIWebToken = Session::get('SessionLogin');
+            // $varDataWorker = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            //     $varAPIWebToken,
+            //     'transaction.read.dataList.humanResource.getWorkerJobsPositionCurrent',
+            //     'latest',
+            //     [
+            //         'parameter' => [
+            //             'worker_RefID' => null
+            //         ],
+            //         'SQLStatement' => [
+            //             'pick' => null,
+            //             'sort' => null,
+            //             'filter' => null,
+            //             'paging' => null
+            //         ]
+            //     ]
+            // );
+
+        //     return $varDataWorker['data']['data'];
+        // });
+
+        // return response()->json($DataWorker);
+
+
+        $DataWorker = json_decode(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+            "Worker"
+            ),
+            true
+        );
+
+        // dd($DataWorker);
         return response()->json($DataWorker);
+
     }
 
     // FUNCTION SUPPLIER
@@ -304,12 +305,22 @@ class FunctionController extends Controller
         );
 
         return response()->json($varData['data']);
+
+        // $DataProduct = json_decode(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+        //     "Product"
+        //     ),
+        //     true
+        // );
+        
+
+        // return response()->json($DataProduct);
     }
 
     // FUNCTION DOCUMENT TYPE 
     public function getDocumentType()
     {
-        $DocumentType = Cache::remember('DocumentType', 480, function(){
+        $DocumentType = Cache::remember('DocumentType', 480, function () {
 
             $varAPIWebToken = Session::get('SessionLogin');
             $varBusinessDocumentType = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
@@ -328,7 +339,6 @@ class FunctionController extends Controller
                 ]
             );
             return $varBusinessDocumentType['data'];
-
         });
         return response()->json($DocumentType);
     }

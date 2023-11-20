@@ -5,14 +5,15 @@ namespace App\Http\ViewComposers;
 use Illuminate\View\View;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 
 class KeyMenuComposer
 {
     public function compose(View $view)
     {
-        $getMenu = Cache::remember('getMenu', 480, function () {
-
+        if(Redis::get("RedisGetMenu") == null){
+            $varTTL = 43200; // 12 Jam
             $varAPIWebToken = Session::get('SessionLogin');
 
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
@@ -23,13 +24,33 @@ class KeyMenuComposer
                 []
             );
 
+            //SET VALUE REDIS
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                "RedisGetMenu", 
+                json_encode($varData['data']['keyList']), 
+                 $varTTL
+            );
+
             $compact = [
                 'privilageMenu' => $varData['data']['keyList']
             ];
 
-            return $compact;
-        });
+            $view->with($compact);
+        }
+        else{
 
-        $view->with($getMenu);
+            $privilageMenu = json_decode(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                    "RedisGetMenu"
+                    ),
+                    true
+                );
+
+            $compact = [
+                'privilageMenu' => $privilageMenu
+            ];
+            $view->with($compact);
+        }
     }
 }

@@ -1,39 +1,120 @@
 <?php
 
-namespace App\Http\Controllers\Application\BackEnd\SandBox
-    {
+namespace App\Http\Controllers\Application\BackEnd\SandBox {
+
+    use Carbon\Carbon;
     use Illuminate\Http\Request;
     use Illuminate\Http\Response;
- 
+    use Illuminate\Support\Arr;
+    use Illuminate\Support\Facades\Cache;
+    use Illuminate\Support\Facades\Redis;
+
     class Controller_Main extends \App\Http\Controllers\Controller
-        {
+    {
         public function __construct()
-            {
-            //$this->middleware(\App\Http\Middleware\Application\BackEnd\RequestHandler_General::class);
-            }
-        
-        public static function setCallAPIGatewayByPass()
         {
-            $varData = 
-                (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataPickList_Budget(
+            //$this->middleware(\App\Http\Middleware\Application\BackEnd\RequestHandler_General::class);
+        }
+
+
+
+        public function testAja2()
+        {
+
+            // $c = (json_decode(Redis::get("Product"), true));
+            // dd($c[11626]);
+            dd(json_decode(Redis::get("Product"), true));
+
+            // dd(Redis::get('cek'));
+
+            // $project = Cache::get('Project');
+
+            // foreach($project as $projects){
+            //     var_dump($projects['Sys_ID']);
+            // }
+
+            // $type = 46000000000033;
+            // $filteredArray = Arr::where($project, function ($value, $key) use($type) {
+            //     return $value['Sys_ID'] == $type;
+            // });
+
+            // dd($filteredArray);
+
+            // dd(Cache::get('Project'));
+
+            // $DataProject = Cache::remember('Project', 480, function () {
+
+            //     $varData =
+            //         (new \App\Models\Database\SchData_OLTP_Project\General())->getDataPickList_Project(
+            //             6000000000001,
+            //             11000000000004
+            //         );
+
+            //     return $varData['Data'];
+            // });
+
+            // $type = 46000000000009;
+            // $filteredArray = Arr::where($DataProject, function ($value, $key) use ($type) {
+            //     return $value['Sys_ID'] == $type;
+            // });
+
+            // dd($filteredArray);
+
+            // // dd($DataProject);
+
+            // return response()->json(Cache::get('Project'));
+
+
+            // dd($varData['Data']);
+
+            // dd(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(6000000000001, "Test"));
+        }
+        public function testAja()
+        {
+
+            $varData =
+                (new \App\Models\Database\SchData_OLTP_Master\General())->getDataList_Product(
                     6000000000001,
                     11000000000004
                 );
 
-            return $varData;
-        }
-        
-            
-        public function testAja()
-            {
-        $varData = 
-            (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataPickList_Budget(
-                6000000000001,
-                11000000000004
-            );
+            // dd(json_encode($varData));
 
-        dd($varData);
+            dd(\App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(6000000000001, "Product", json_encode($varData)));
+            dd($varData);
 
+            // $varWorker =
+            //     (new \App\Models\Database\SchData_OLTP_HumanResource\General())->getDataPickList_Worker(
+            //         6000000000001,
+            //         11000000000004
+            //     );
+
+            // dd($varWorker);
+
+            // dd((\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(6000000000001)));
+
+            // dd(Redis::set('name'.[0], 'Taylor'));
+
+            // $time = date('H:i:s');
+
+            // if($time == "11:40:00"){
+            //     Redis::set("cheking", "Aldi");
+            // }
+
+            // dd($time);
+            // dd(Redis::connection());
+
+
+            // dd(\App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(6000000000001, "Test", json_encode($varData['Data'])));
+            // die;
+            // $varData = 
+            //     (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataPickList_Budget(
+            //         6000000000001,
+            //         11000000000004
+            //     );
+            // return view('testAja', compact('varData'));
+
+            // dd($varData);
 
             // dd((\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(11000000000004))['branchID']);
             // $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -55,7 +136,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             //         11000000000004, 
             //         $varReturn['Data'][0]['ProcessedData_JSON'])
             //     ];
-            
+
             // dd($x[0]['details']);
 
             // $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -89,19 +170,19 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             //         NULL,
             //         []
             //         );
-            
-            
-              $varData = 
-                (new \App\Models\Database\SchSysAsset\General())->getDataPickList_Budget(
-                    11000000000004,
-                    91000000000247,
-                    NULL,
-                    []
-                    );
 
-            dd($varData);
-                
-                    
+
+            // $varData =
+            //     (new \App\Models\Database\SchSysAsset\General())->getDataPickList_Budget(
+            //         11000000000004,
+            //         91000000000247,
+            //         NULL,
+            //         []
+            //     );
+
+            // dd($varData);
+
+
             // $varDataSend = 
             // \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
             //     11000000000004,
@@ -130,7 +211,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             //         ]
             //     )
             // );
-            
+
             // $varReturn = [];
             // $x = 0;
             // for ($i=0; $i < count($varData['Data']); $i++){
@@ -146,7 +227,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 
 
             // $varReturn['RowCount'] = $x;
-            
+
             // dd($varReturn);
             die;
             // $varDataSend = 
@@ -157,35 +238,35 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 
 
             // $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(11000000000004, $varDataSend);
-            
-            
-        // // // $varReturn = \App\Help  ers\ZhtHelper\General\Helper_Array::getArrayKeyRename_CamelCase(11000000000004, $varDataSend);
-        // // dd($varReturn);
-        //     dd($varReturn);
 
 
-        //     $varBufferDB = 
-        //     (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentLastVersionByFormNumberKeyword(
-        //         6000000011163, 
-        //         11000000000004,
-        //         "Adv/QDC/2023/000137",
-        //         164000000000196
-        //         );
+            // // // $varReturn = \App\Help  ers\ZhtHelper\General\Helper_Array::getArrayKeyRename_CamelCase(11000000000004, $varDataSend);
+            // // dd($varReturn);
+            //     dd($varReturn);
 
-        //     // $varBufferDB = 
-        //     // (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentLastVersionByBusDocType(
-        //     // 6000000011163,
-        //     // 77000000000057
-        //     // );
 
-        //     dd($varBufferDB);die;
+            //     $varBufferDB = 
+            //     (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentLastVersionByFormNumberKeyword(
+            //         6000000011163, 
+            //         11000000000004,
+            //         "Adv/QDC/2023/000137",
+            //         164000000000196
+            //         );
 
-        //     $varReturn = 
-        //     (new \App\Models\Database\SchData_OLTP_Master\General())->getIDTranslation_BusinessDocumentVersionToBusinessDocumentForm(
-        //         6000000011163, 
-        //         11000000000004,
-        //         76000000000151
-        //         );
+            //     // $varBufferDB = 
+            //     // (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentLastVersionByBusDocType(
+            //     // 6000000011163,
+            //     // 77000000000057
+            //     // );
+
+            //     dd($varBufferDB);die;
+
+            //     $varReturn = 
+            //     (new \App\Models\Database\SchData_OLTP_Master\General())->getIDTranslation_BusinessDocumentVersionToBusinessDocumentForm(
+            //         6000000011163, 
+            //         11000000000004,
+            //         76000000000151
+            //         );
 
             // $varReturn = 
             // (new \App\Models\Database\SchData_OLTP_Master\General())->getIDTranslation_BusinessDocumentVersionToBusinessDocumentForm(
@@ -197,8 +278,6 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 
             // dd($varReturn);
 
-/*
-                
             // echo "Test Aja";
 
             // $x = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine(123);
@@ -226,8 +305,8 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
                 dd($varData);
              */
 
-            
-/*            
+
+            /*            
                 $varData = 
                     (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->getList_LogFileUploadObjectByExistantion(
                         $varUserSession, 
@@ -238,8 +317,8 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
                         );
                 dd($varData);
 */
-                
-/*
+
+            /*
 //            $x = is_file('TestPDF.pdf');
             $filename = 'TestPDF.pdf';
             $handle = fopen($filename, "r");
@@ -250,14 +329,14 @@ if (stristr($contents, "/Encrypt"))
 {echo " (Suspected Enrypted PDF File !)";}
 else
 {echo " OK ";}  
-*/            
+*/
             //dd($contents);
-            
-            
-            
- //           echo phpinfo();
 
-/*
+
+
+            //           echo phpinfo();
+
+            /*
             \App\Helpers\ZhtHelper\General\Helper_ImageProcessing::getConvertDataContent_ImageToPNG(
                     $varUserSession, 
                     (new \App\Models\CloudStorage\System\General())->getFileContent(
@@ -270,8 +349,8 @@ else
                     300
                     );
 */
-            
-/*
+
+            /*
             \App\Helpers\ZhtHelper\General\Helper_ImageProcessing::getConvertDataContent_PDFToPNG(
                     $varUserSession, 
                     (new \App\Models\CloudStorage\System\General())->getFileContent(
@@ -285,7 +364,7 @@ else
                     );
 */
 
-/*
+            /*
 $x = \App\Helpers\ZhtHelper\General\Helper_FileConvert::getConvertDataContent_OfficeToPDF(
     $varUserSession,
     (new \App\Models\CloudStorage\System\General())->getFileContent(
@@ -296,7 +375,7 @@ $x = \App\Helpers\ZhtHelper\General\Helper_FileConvert::getConvertDataContent_Of
 //dd();
 */
 
-/*
+            /*
 $varDataBAse64 = (new \App\Models\CloudStorage\System\General())->getFileContent(
     $varUserSession, 
     'Archive/92000000000097/12000000000108'
@@ -305,7 +384,7 @@ dd($varDataBAse64);
 */
 
 
-/*
+            /*
             $MyObjMinIOClient = new \Aws\S3\S3Client([
                 'version' => 'latest',
                 'region' => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_REGION'),
@@ -323,10 +402,10 @@ dd($varDataBAse64);
             $x = (string) $varResult['Body'];
             //$x = $varResult['Body'];
 */
-            
+
             //dd($x);
 
-/*        $x = str_replace(
+            /*        $x = str_replace(
             '"', 
             '\\\\\\\'', 
             \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
@@ -341,8 +420,8 @@ dd($varDataBAse64);
                 '}'
                 )
             );*/
-            
-/*
+
+            /*
 $x1 = 
 \App\Helpers\ZhtHelper\General\Helper_JavaScript::setEscapeForEscapeSequenceOnSyntaxLiteral(
     $varUserSession, 
@@ -390,7 +469,7 @@ $x =
 
         dd($x);
 */
-/*            
+            /*            
  $curl= curl_init();
  curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
  curl_setopt($curl, CURLOPT_URL, 'http://172.28.0.3/gatewayOfGetMethod/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NjAyNjY4MTF9.ZTQ3YTYxNjhlNDRiNmU5OGNiMzZlMGFhOTEwODRmNTcwZDM2NDI3YjAzYjQwZGFmNTEwNDY3NzIyZTgxYTAyYg/b09e77b311561ea265086901ef99d01a5c65cba369b6d210a67b569b8066a116/eyJoZWFkZXIiOnsiYXV0aG9yaXphdGlvbiI6IkJlYXJlciBleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKc2IyZG5aV1JKYmtGeklqb2ljM2x6WVdSdGFXNGlMQ0pwWVhRaU9qRTJOakF5TmpZNE1URjkuWlRRM1lUWXhOamhsTkRSaU5tVTVPR05pTXpabE1HRmhPVEV3T0RSbU5UY3daRE0yTkRJM1lqQXpZalF3WkdGbU5URXdORFkzTnpJeVpUZ3hZVEF5WWcifSwibWV0YWRhdGEiOnsiQVBJIjp7ImtleSI6InRyYW5zYWN0aW9uLmRlbGV0ZS5zeXNDb25maWcuc2V0Um90YXRlTG9nX0ZpbGVVcGxvYWRTdGFnaW5nQXJlYURldGFpbCIsInZlcnNpb24iOiJsYXRlc3QifX0sImRhdGEiOnsicmVjb3JkUEsiOjY2M319');
@@ -402,7 +481,7 @@ $x =
  echo $jo;
 */
 
-/*
+            /*
 var xhttp = new XMLHttpRequest();
 xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -412,15 +491,15 @@ xhttp.onreadystatechange = function() {
 };
 xhttp.open("GET", "filename", true);
 xhttp.send();            
-*/          
-            
-            
-            
-            
-            
-            
-           // \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_ByUserSessionID($varUserSession);
-/*            
+*/
+
+
+
+
+
+
+            // \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_ByUserSessionID($varUserSession);
+            /*            
             $x = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::getURL_APICallByGetMethod(
                 $varUserSession, 
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_ByUserSessionID($varUserSession),
@@ -438,8 +517,8 @@ xhttp.send();
                 );
 */
 
-            
-/*            
+
+            /*            
             $x = 
                 (new \App\Models\Database\SchSysConfig\TblRotateLog_APIRequestByGet_Signature())->setDataInsert(
                     $varUserSession, 
@@ -449,9 +528,9 @@ xhttp.send();
                     );
  * 
  */
-//            dd($x);
+            //            dd($x);
 
-/*
+            /*
             $varSignFileAlreadyExist = 
                 (new \App\Models\Database\SchSysAsset\General())->getData_FileUpload_IsFileAlreadyExist(
                     $varUserSession, 
@@ -466,10 +545,10 @@ xhttp.send();
             '7a72456de33e0238bf52ae01fd13c068722eb557980350b0ec9c0526fa5608ae'
             );
             dd($varSignFileAlreadyExist);
-*/            
-            
-//            (new \App\Models\Database\SchSysConfig\TblRotateLog_FileUploadStagingAreaDetail())->setDataInsert($varUserSession, $varSysDataAnnotation)
-            
+*/
+
+            //            (new \App\Models\Database\SchSysConfig\TblRotateLog_FileUploadStagingAreaDetail())->setDataInsert($varUserSession, $varSysDataAnnotation)
+
             /*
             
             $x = \App\Helpers\ZhtHelper\General\Helper_Hash::getSHA256($varUserSession, 
@@ -478,49 +557,49 @@ xhttp.send();
                     base64_encode('test aja')
                     )
                 );*/
-//            $x = (new \App\Models\Database\SchSysAsset\General())->getHash_SHA256($varUserSession, 'test aja');
-//            dd($x);
-            
+            //            $x = (new \App\Models\Database\SchSysAsset\General())->getHash_SHA256($varUserSession, 'test aja');
+            //            dd($x);
+
             //$varTempArray = \Illuminate\Support\Facades\Storage::disk('local')->files('Application/Upload/StagingArea/69');
             //var_dump($varTempArray);
-            
-            
-//            $varFilePath = 'Application/Upload/StagingArea';
-//            $varFilePath = 'Application';
-//            $x = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getSubDirectoriesListOnDirectory($varUserSession, $varFilePath);
-/*            $x = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getFilesListOnDirectory($varUserSession, $varFilePath);
+
+
+            //            $varFilePath = 'Application/Upload/StagingArea';
+            //            $varFilePath = 'Application';
+            //            $x = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getSubDirectoriesListOnDirectory($varUserSession, $varFilePath);
+            /*            $x = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getFilesListOnDirectory($varUserSession, $varFilePath);
  */
-            
-//            $x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFilesList($varUserSession, 'StagingArea/1');
+
+            //            $x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFilesList($varUserSession, 'StagingArea/1');
             //$x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getSubDirectoriesListOnDirectory($varUserSession, 'StagingArea');
-          
+
             //var_dump($x);
-            
+
             //$x = (new \App\Models\LocalStorage\DefaultClassPrototype())->;
 
             //echo \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession);
             //echo "<br><br>";
             //echo \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession).'Application/Upload/StagingArea/';
-            
-            
+
+
             //$varCheck = null;
             //$varCheck = 456;
-            
+
             //$NewValue = ((!$varCheck) ? NULL : (int) 123);
-            
+
             //echo $NewValue;
-            
+
             //var_dump(\App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System());
- //           echo "~~~~~~~~~~~~~~~~~~~";
-            }
+            //           echo "~~~~~~~~~~~~~~~~~~~";
+        }
 
         public function testHTMLDOM()
-            {
+        {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
-            
+
             echo
-                "<style>
+            "<style>
 datalist {
   position: absolute;
   background-color: white;
@@ -585,20 +664,20 @@ option:hover, .active{
 
 
                 </style>";
-*/            
+*/
             echo "Test HTML DOM<br>";
-/*
+            /*
                 option:hover, .active{
                     background-color: lightblue;
                     font-size: 5px;
                     }
- */            
-            
-            
-//            echo \App\Helpers\ZhtHelper\General\Helper_HTMLDOM::setLabel($varUserSession, 'MyLabel', 'MyLabelValue');
-//            echo \App\Helpers\ZhtHelper\General\Helper_HTMLDOM::setInputText($varUserSession, 'MyID', 'MyValue');
-            
-            
+ */
+
+
+            //            echo \App\Helpers\ZhtHelper\General\Helper_HTMLDOM::setLabel($varUserSession, 'MyLabel', 'MyLabelValue');
+            //            echo \App\Helpers\ZhtHelper\General\Helper_HTMLDOM::setInputText($varUserSession, 'MyID', 'MyValue');
+
+
             /*
             echo \App\Helpers\ZhtHelper\General\Helper_HTMLDOM::setSelect($varUserSession, 'MyListID', '001',
                 [
@@ -612,7 +691,9 @@ option:hover, .active{
             echo "<br>-----------------------------------------<br>";
           */
 
-            echo \App\Helpers\ZhtHelper\General\Helper_HTMLDOM::setInputTextWithBoundedSuggestion($varUserSession, 'MyInputTextWithListID', 
+            echo \App\Helpers\ZhtHelper\General\Helper_HTMLDOM::setInputTextWithBoundedSuggestion(
+                $varUserSession,
+                'MyInputTextWithListID',
                 'xxx',
                 [
                     ['ID' => '001', 'Text' => '001 Name'],
@@ -620,42 +701,42 @@ option:hover, .active{
                     ['ID' => '003', 'Text' => '003 Name'],
                     ['ID' => '004', 'Text' => '004 Name']
                 ]
-                );
+            );
 
             echo "Done";
-            }
-            
-            
+        }
+
+
         public function testTelegramBot()
-            {
+        {
             \BotMan\BotMan\Drivers\DriverManager::loadDriver(\BotMan\Drivers\Telegram\TelegramDriver::class);
-            
+
             $config = [
                 // Your driver-specific configuration
                 "telegram" => [
                     "token" => "TOKEN_TELEGRAM_KAMU"
-                    ]
-                ];
+                ]
+            ];
             $botman = \BotMan\BotMan\BotManFactory::create($config, new \BotMan\BotMan\Cache\LaravelCache());
-            
+
             $botman->hears(
-                '/start|start|mulai', 
+                '/start|start|mulai',
                 function (\BotMan\BotMan\Messages\Conversations\Conve $bot) {
                     $user = $bot->getUser();
                     $bot->reply('Assalamualaikum , Selamat datang di Hadits Telegram Bot!. ');
                     $bot->startConversation(new  ExampleConversation());
-                    }
-                )->stopsConversation();
-            
-//            $botman->listen();
+                }
+            )->stopsConversation();
 
-           
-            
+            //            $botman->listen();
+
+
+
             echo "OK";
-            }
+        }
 
         public function testEMail()
-            {
+        {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             $varBranchID = 11000000000004;
 
@@ -665,33 +746,31 @@ option:hover, .active{
                 'SystemParameter' => [
                     'DSN' => 'gmail+smtp://zhtfw.mail.exchange:Pr4tr14n4@default',
                     'HTMLContent' => true
-                    ],
+                ],
                 'Header' => [
                     'From' => [
                         'zhtfw.mail.exchange@gmail.com'
-                        ],
+                    ],
                     'To' => [
                         'teguhpjs@gmail.com',
                         'teguh.pratama@qdc.co.id'
-                        ],
-                    'CC' => [
-                        ],
-                    'BCC' => [
-                        ],
-                    'Subject' => 'Test aja ya'
                     ],
+                    'CC' => [],
+                    'BCC' => [],
+                    'Subject' => 'Test aja ya'
+                ],
                 'Body' => [
                     'Content' => base64_encode($template)
-                    ]
-                ];
+                ]
+            ];
 
 
             \App\Helpers\ZhtHelper\System\BackEnd\Helper_EMail::Send(
-                $varUserSession, 
+                $varUserSession,
                 $varData
-                );
-            
-/*
+            );
+
+            /*
             $varGoogleDSN = 'gmail+smtp://zhtfw.mail.exchange:Pr4tr14n4@default';
             
                       
@@ -706,27 +785,27 @@ option:hover, .active{
             
             //$ObjMailer->send($ObjEMail);
 */
-            }
+        }
 
-            
+
         public function testExcel()
-            {
+        {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             $varBranchID = 11000000000004;
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjk0MjM5NzF9.J1D3Jwk-50BXUEHg6nmxLcgHqZnntx6ENMOcaXnzsOY';
             $varTimeZoneOffset = '+07';
-            
+
             $varJSON = '{"sys_ID" : 48000000000001, "sys_Branch_RefID" : 11000000000004, "documentNumber" : "Timesheet/QDC/2026/000007", "documentDateTimeTZ" : "2026-01-01T00:00:00.012345", "startDateTimeTZ" : "2026-01-01T00:00:00+07:00", "finishDateTimeTZ" : "2026-01-14T00:00:00+07:00", "minActivitiesStartDateTimeTZ" : "2026-01-01T07:00:00+07:00", "maxActivitiesFinishateTimeTZ" : "2026-01-08T13:00:00+07:00", "person_RefID" : 25000000000439, "personName" : "Teguh Pratama Januzir Sukin", "details" : [{"sys_ID" : 50000000000002, "sys_Branch_RefID" : 11000000000004, "startDateTimeTZ" : "2026-01-01T07:00:00+07:00", "finishDateTimeTZ" : "2026-01-03T13:00:00+07:00", "activity" : "Kegiatan ABCD dan EFGH", "projectSectionItem_RefID" : null},{"sys_ID" : 50000000000003, "sys_Branch_RefID" : 11000000000004, "startDateTimeTZ" : "2026-01-04T07:00:00+07:00", "finishDateTimeTZ" : "2026-01-08T13:00:00+07:00", "activity" : "Kegiatan PQR dan XYZ", "projectSectionItem_RefID" : null}]}';
 
             var_dump(
-                    \App\Helpers\ZhtHelper\General\Helper_JSON::setDateTimeTZNormalizationFromArray($varUserSession, json_decode($varJSON, true))
-                );
-            
-            echo "OK";
-            
-            
+                \App\Helpers\ZhtHelper\General\Helper_JSON::setDateTimeTZNormalizationFromArray($varUserSession, json_decode($varJSON, true))
+            );
 
-/*           
+            echo "OK";
+
+
+
+            /*           
             
 //            ob_start();
             $x = (new \zhtSDK\Software\Excel\Maatwebsite\zhtSDK($varUserSession))->exportFromArray(
@@ -752,32 +831,32 @@ option:hover, .active{
             echo base64_decode(base64_encode($x), TRUE);
 
  */
-/*            if (ob_get_contents() || ob_get_length()) {
+            /*            if (ob_get_contents() || ob_get_length()) {
               ob_end_clean(); //or ob_end_flush();
             }
 	exit();
-  */          
+  */
             //return $x;
-            
-            }
+
+        }
 
         public function testUpload()
-            {
+        {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             $varBranchID = 11000000000004;
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjk0MjM5NzF9.J1D3Jwk-50BXUEHg6nmxLcgHqZnntx6ENMOcaXnzsOY';
             $varTimeZoneOffset = '+07';
-        
+
 
             $x = (new \zhtSDK\Device\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK(
-                    $varUserSession,
-                    ))->getDataAttendanceFromLocalDatabase(
-                        '/zhtConf/tmp/download/SwingBarrierGate.mdb',
-                        '"SchData-OLTP-DataAcquisition"."TblTemp_Device_SwingGateBarrier_CheckInOut"',
-                        '+07',
-                        '2021-01-01 00:00:00'
-                        );
-/*
+                $varUserSession,
+            ))->getDataAttendanceFromLocalDatabase(
+                '/zhtConf/tmp/download/SwingBarrierGate.mdb',
+                '"SchData-OLTP-DataAcquisition"."TblTemp_Device_SwingGateBarrier_CheckInOut"',
+                '+07',
+                '2021-01-01 00:00:00'
+            );
+            /*
             $x = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
@@ -791,7 +870,7 @@ option:hover, .active{
                 ]
                 )['data'];*/
             var_dump($x);
-            
+
             /*
             $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -822,19 +901,19 @@ option:hover, .active{
                 );
             dd($x);
             */
-            }
-            
+        }
+
         public function testUploadx()
-            {
+        {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
             //$x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::isBucketExist($varUserSession, 'erp-reborn');
-            
+
             //$x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::createBucket($varUserSession, 'xxx');
             $x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::deleteBucket($varUserSession, 'xxx');
             dd($x);
-            
-            
+
+
             /*
             $ObjMinIO = new \Aws\S3\S3Client([
                 'version' => 'latest',
@@ -847,7 +926,7 @@ option:hover, .active{
                     ],
                 'bucket' => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_BUCKET')
                 ]);*/
-/*            $varRemoteFilePath = '/StagingArea';
+            /*            $varRemoteFilePath = '/StagingArea';
             
             $ObjMinIO = \Illuminate\Support\Facades\Storage::createS3Driver([
                 'driver' => 's3',
@@ -861,33 +940,33 @@ option:hover, .active{
             
             $varRotateLog_FileUploadStagingArea_RefRPK = 8;
             $varSignRecordID = 8;*/
-/*            (new \App\Models\CloudStorage\DefaultClassPrototype())->copyFileToCloud(
+            /*            (new \App\Models\CloudStorage\DefaultClassPrototype())->copyFileToCloud(
                 $varUserSession, 
                 \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession).'Application/Upload/StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varSignRecordID, 
                 'StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varSignRecordID
                 );
 */
-            
-            $varLocalFilePath = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession).'Application/Upload/StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varSignRecordID;
-            $varRemoteFilePath = 'StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varSignRecordID;
+
+            $varLocalFilePath = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession) . 'Application/Upload/StagingArea/' . $varRotateLog_FileUploadStagingArea_RefRPK . '/' . $varSignRecordID;
+            $varRemoteFilePath = 'StagingArea/' . $varRotateLog_FileUploadStagingArea_RefRPK . '/' . $varSignRecordID;
 
             //dd(file_get_contents($varLocalFilePath));
 
             $x = $ObjMinIO->put($varRemoteFilePath, file_get_contents($varLocalFilePath));
             dd($x);
-            
-            
+
+
             //\Illuminate\Support\Facades\Storage::directories()
             //dd($ObjMinIO->);            
             dd($ObjMinIO->exists($varRemoteFilePath));
-            
-            
-            
-   //         dd($ObjMinIO->ex  ($varRemoteFilePath));
+
+
+
+            //         dd($ObjMinIO->ex  ($varRemoteFilePath));
             //dd($ObjMinIO->getConfig());
-            
-            
-/*            $ObjMinIO = \Illuminate\Support\Facades\Storage::createS3Driver([
+
+
+            /*            $ObjMinIO = \Illuminate\Support\Facades\Storage::createS3Driver([
                 'driver' => 's3',
                 'endpoint' => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_ENDPOINT'),
                 'key'    => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_KEY'),
@@ -901,14 +980,14 @@ option:hover, .active{
             dd($ObjMinIO);
 */
 
-            
+
             /*$x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::moveFile(
                 $varUserSession, 
                 'StagingArea/'.'1'.'/'.'1', 
                 'Archive/'.'1'.'/'.'1'
                 );*/
             //$x = (new \App\Models\Database\SchSysConfig\General)->getDataList_RotateLog_FileUploadStagingAreaDetail($varUserSession, 6);
-/*            
+            /*            
             $x = (new \App\Models\Database\SchData_OLTP_Master\TblCitizenFamilyCard())->setDataInsert(
                 $varUserSession, 
                 null, 
@@ -923,9 +1002,9 @@ option:hover, .active{
             
             dd($x);
             
-*/            
-            
-            
+*/
+
+
             /*
             $varBufferData = (new \App\Models\Database\SchSysConfig\General())->getDataList_RotateLog_FileUploadStagingAreaDetail(
                     $varUserSession, 
@@ -954,11 +1033,11 @@ option:hover, .active{
                     }
             */
             //dd($x);
-            
-            
+
+
             //echo (new \App\Models\Database\SchSysConfig\General())->getYearByDate($varUserSession, '2021-01-01');
             echo "<br><br>";
-            
+
             /*
             $varPointer_RefID = (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_FileUpload_Object)->setDataInsert(
                     $varUserSession, 
@@ -968,43 +1047,43 @@ option:hover, .active{
                     111
                     )['SignRecordID'];
             dd($varPointer_RefID);*/
-  
-//            echo (new \App\Models\Database\SchSysConfig\General())->getCurrentYear($varUserSession);
-            
-            
-//            $x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFileList($varUserSession, 'StagingFiles');
-            
-//            $x = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::isFileExist($varUserSession, 'Upload/StagingFiles/32', 'Application/');
-//            $x = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::isFileExist($varUserSession, 'Application/Upload/StagingFiles/32');
 
-//            $x = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession);
-                       
-//            $x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::putFile($varUserSession, \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession).'Application/Upload/StagingFiles/999.txt', 'StagingFiles/999.txt');
+            //            echo (new \App\Models\Database\SchSysConfig\General())->getCurrentYear($varUserSession);
 
-//            $x = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::isFileExist($varUserSession, 'Upload/StagingFiles/32');
 
-            
+            //            $x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFileList($varUserSession, 'StagingFiles');
+
+            //            $x = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::isFileExist($varUserSession, 'Upload/StagingFiles/32', 'Application/');
+            //            $x = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::isFileExist($varUserSession, 'Application/Upload/StagingFiles/32');
+
+            //            $x = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession);
+
+            //            $x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::putFile($varUserSession, \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession).'Application/Upload/StagingFiles/999.txt', 'StagingFiles/999.txt');
+
+            //            $x = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::isFileExist($varUserSession, 'Upload/StagingFiles/32');
+
+
             //$x = \Illuminate\Support\Facades\Storage::disk('local')->exists('Application/Upload/StagingFiles/32');
-            
+
             //$x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::putFile($varUserSession, , 'StagingFiles')
-            
+
             //\Illuminate\Support\Facades\Storage::disk('local')->put('Upload\StagingFiles\file.txt', 'Contents');
-            
+
             //\App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::createFile($varUserSession, 'xxx', 'Upload/StagingFiles/999.txt');
-            
+
             //$x = \App\Models\CloudStorage\DefaultClassPrototype::createFile($varUserSession, '', 'StagingFiles');
             //dd($x);
-  
-            
+
+
             //(new \App\Models\CloudStorage\DefaultClassPrototype())->createFile($varUserSession, '', 'xxx', 'erp-reborn');
-            
-            
-            $PathFile = getcwd().'/../../Project/ERPReborn-PermanentStorage/MinIO/StagingFiles/ContohTextFile.txt';
+
+
+            $PathFile = getcwd() . '/../../Project/ERPReborn-PermanentStorage/MinIO/StagingFiles/ContohTextFile.txt';
             echo $PathFile;
             echo "<br>";
             echo is_file($PathFile);
-            
-            
+
+
             /*
             echo '<script language="javascript">'.
                     'function xxx(varObj)'.
@@ -1045,73 +1124,73 @@ option:hover, .active{
             echo '</form>';
             
              */
-            }
+        }
 
 
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
         public function testPDF()
-            {
+        {
             //echo is_file(getcwd().'/fonts/arial-unicode-ms.ttf');
-            
-//            \TCPDF_FONTS::addTTFfont(getcwd().'/fonts/arial-unicode-ms.ttf', 'TrueTypeUnicode', '', 32);           
-            
+
+            //            \TCPDF_FONTS::addTTFfont(getcwd().'/fonts/arial-unicode-ms.ttf', 'TrueTypeUnicode', '', 32);           
+
             $pdf = new \TCPDF();
-            
+
             $pdf->setFontSubsetting(true);
-            \TCPDF_FONTS::addTTFfont(getcwd().'/fonts/ARIALUNI.TTF', 'TrueTypeUnicode', '', 32);            
+            \TCPDF_FONTS::addTTFfont(getcwd() . '/fonts/ARIALUNI.TTF', 'TrueTypeUnicode', '', 32);
 
-$pdf->SetFont('dejavusans', '', 12); // several fonts in TCPDF/fonts work
-$pdf->SetFont('freeserif', '', 12); // several fonts in TCPDF/fonts work
-$pdf->AddPage();
-//$txt = <<<EOD
-//$txt
-//EOD;
+            $pdf->SetFont('dejavusans', '', 12); // several fonts in TCPDF/fonts work
+            $pdf->SetFont('freeserif', '', 12); // several fonts in TCPDF/fonts work
+            $pdf->AddPage();
+            //$txt = <<<EOD
+            //$txt
+            //EOD;
 
 
 
-$txt = <<<EOD
+            $txt = <<<EOD
 ﷼
 مرحبا يا عالم
 hello world
 EOD;
 
-$txt = '﷼';
-$txt = <<<EOD
+            $txt = '﷼';
+            $txt = <<<EOD
 $txt
 
 EOD;
 
 
-//$pdf->setRTL(true); // optional here, depends on the desired BASE direction
-//$pdf->Write(0, $txt, '', 0, 'C', true, 0, false, false, 0); // 'C' for centered
-$pdf->MultiCell(100, 100, $txt, 1);
-$pdf->Output('hello_world_in_Arabic.pdf', 'I');
-            
-            
+            //$pdf->setRTL(true); // optional here, depends on the desired BASE direction
+            //$pdf->Write(0, $txt, '', 0, 'C', true, 0, false, false, 0); // 'C' for centered
+            $pdf->MultiCell(100, 100, $txt, 1);
+            $pdf->Output('hello_world_in_Arabic.pdf', 'I');
 
-/*            
+
+
+            /*            
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             
             
@@ -1123,39 +1202,39 @@ $pdf->Output('hello_world_in_Arabic.pdf', 'I');
             $ObjPDF->SetAuthor('Our Code World');
             $ObjPDF->AddPage();
             $ObjPDF->Write(0, \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('APP_NAME'));
-  */              
+  */
 
             //echo is_file(getcwd().'/../vendor/elibyy/tcpdf-laravel/src/TCPDF.php');
-            
+
             //$ObjPDF = \App\Helpers\ZhtHelper\Report\Helper_PDF::init($varUserSession);
-            
+
             //$ObjPDF->SetTitle('Hello World');
             //$ObjPDF->AddPage();
-           // $ObjPDF->Write(0, 'Hello World');
-            
+            // $ObjPDF->Write(0, 'Hello World');
+
             //echo $varReturn = \App\Helpers\ZhtHelper\Report\Helper_PDF::getDataStream($varUserSession, $ObjPDF);
-            
+
             //$varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APIReport::getJSONEncode_PDFData($varUserSession, $ObjPDF);
-            
+
             //echo $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APIReport::getJSONDecode_PDFData($varUserSession, $varReturn);
-            
-            
+
+
             //$varReturn = \App\Helpers\ZhtHelper\Report\Helper_PDF::getDataStream($varUserSession, $ObjPDF);
             //\App\Helpers\ZhtHelper\Report\Helper_PDF::setDataStreamToDisplay($varUserSession, $varReturn, 'xxx.pdf');
-            }
-            
-            
+        }
+
+
         public function testClass()
-            {
+        {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             $varBranchID = 11000000000004;
-            
+
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjQ1ODQyMjZ9.YKkMFb_cTmXXPhEPd2ZdvlyGMs3_wHcMAgIpRb1kZoY';
 
             $x = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_DataOnly_Specific($varUserSession, 4000000000001);
 
             //$x = (new \App\Models\Database\SchSysConfig\General())->isSet_UserSessionBranchAndUserRole($varUserSession, $varAPIWebToken);
-            
+
             //$x = (new \App\Models\Database\SchData_OLTP_Master\TblCountry())->getDataRecord($varUserSession, $varBranchID);
             //$x = (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataList_Budget($varUserSession, $varBranchID);
             //$x = (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataList_BudgetExpenseCeilingObjects($varUserSession, $varBranchID, 106000000000001);
@@ -1170,9 +1249,9 @@ $pdf->Output('hello_world_in_Arabic.pdf', 'I');
                 );*/
 
             var_dump($x);
-            
-            
-            
+
+
+
             /*          
             $x = (new \zhtSDK\Device\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK(
                     $varUserSession,
@@ -1183,63 +1262,63 @@ $pdf->Output('hello_world_in_Arabic.pdf', 'I');
                         '2021-01-01 00:00:00'
                         );
             var_dump($x);*/
-            }
+        }
 
-            
-           
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public function webServices()
-            {           
+        {
             $varDataReceive = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest(000000);
-            
+
             //\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getHeader(000000);
-            
-            
+
+
             //echo "<br>Data Masuk : ";
             //var_dump($varDataReceive);
             //echo "<br>";
-            
+
             $varDataSend = ['message' => 'Sukses alhamdulillah'];
-            
+
             //\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::setResponse(000000, $varDataSend);
-            
+
             //return response()->json(['name' => 'Virat Gandhi', 'state' => 'Gujarat']);
             return \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::setResponse(000000, $varDataSend);
-            }
+        }
 
-            
+
 
         public function testSDK()
-            {
+        {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
             $x = (new \App\Models\Database\SchData_OLTP_Master\General())->getData_CentralBankCurrencyExchangtMiddleRateByCurrencyISOCode($varUserSession, '2021-01-01', 'AUD', 'ID2');
             dd($x);
-            
-            
-            
-                $varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
-                $varCurrentDateTimeTZ = (new \App\Models\Database\SchSysConfig\General())->getCurrentDateTimeTZ($varUserSession);
 
-/*
+
+
+            $varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
+            $varCurrentDateTimeTZ = (new \App\Models\Database\SchSysConfig\General())->getCurrentDateTimeTZ($varUserSession);
+
+            /*
                 //---> Pengambilan Data dari Online
                 $varDataOnline = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -1269,12 +1348,12 @@ $pdf->Output('hello_world_in_Arabic.pdf', 'I');
                     }
 
 */
-            
-//$x = (new \App\Models\Database\SchData_OLTP_Master\TblCurrency())->getCurrencyIDByISOCode($varUserSession, 'USD');
-//var_dump($x);
+
+            //$x = (new \App\Models\Database\SchData_OLTP_Master\TblCurrency())->getCurrencyIDByISOCode($varUserSession, 'USD');
+            //var_dump($x);
             //$x = (new \App\Models\Cache\General\APIWebToken())->getAllDataRecord($varUserSession);
             //dd($x);
-            
+
             /*
                         $varURL = 'https://www.bi.go.id/id/statistik/informasi-kurs/transaksi-bi/Default.aspx';
                         $ch = curl_init($varURL);
@@ -1302,7 +1381,7 @@ $pdf->Output('hello_world_in_Arabic.pdf', 'I');
                             }
             */
 
-/*
+            /*
                         $varPathFile = '/zhtConf/tmp/download/Kurs-BI-20130102-20200203/Kurs-BI-USD.html';
                         if(is_file($varPathFile)==true)
                             {
@@ -1350,22 +1429,22 @@ $pdf->Output('hello_world_in_Arabic.pdf', 'I');
                         //dd($varData);
             
             
-*/            
-            
-            
-            
-            
-            
-            
-            
-//var_dump(openssl_get_cert_locations());
-            
-//$client = new \GuzzleHttp\Client();
-//$res = $client->request('GET', 'https://fiskal.kemenkeu.go.id/informasi-publik/kurs-pajak?date=02-01-2013');
-//echo $res->getStatusCode();
+*/
 
-//CURLOPT_SSL_VERIFYPEER => 0,
-/*
+
+
+
+
+
+
+            //var_dump(openssl_get_cert_locations());
+
+            //$client = new \GuzzleHttp\Client();
+            //$res = $client->request('GET', 'https://fiskal.kemenkeu.go.id/informasi-publik/kurs-pajak?date=02-01-2013');
+            //echo $res->getStatusCode();
+
+            //CURLOPT_SSL_VERIFYPEER => 0,
+            /*
 $varDate =  '02-01-2013'; 
 $varDate =  '02-12-2013'; 
 $varURL = 'https://fiskal.kemenkeu.go.id/informasi-publik/kurs-pajak?date='.$varDate;
@@ -1421,10 +1500,10 @@ $varReturn['ExchangeRate']['CNY'] = number_format((float) str_replace(',', '.', 
 $varReturn['ExchangeRate']['KRW'] = number_format((float) str_replace(',', '.', str_replace('.', '', explode('>', explode('</', explode('div', $varResponse[25])[1])[0])[1])), 2, '.', '');
 */
 
-// do anything you want with your response
-//
+            // do anything you want with your response
+            //
 
-//dd($varReturn);
+            //dd($varReturn);
 
 
 
@@ -1432,31 +1511,31 @@ $varReturn['ExchangeRate']['KRW'] = number_format((float) str_replace(',', '.', 
 
             //---Parameter Set---
             //\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::
-//            (new \App\Models\Database\SchSysConfig\General::class)->
-            
-  //          SELECT "SchSysConfig"."FuncSys_General_GetAPIWebToken_SysEngine"()
+            //            (new \App\Models\Database\SchSysConfig\General::class)->
+
+            //          SELECT "SchSysConfig"."FuncSys_General_GetAPIWebToken_SysEngine"()
             //---Core---
-            
- 
- //           $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(0, 'USER_SESSION_ID_SYSTEM');
-  //          $varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
-            
-            
-            
-//            dd((new \App\Models\Cache\General\APIWebToken())->getAllDataRecord($varUserSession));
-//            (new \App\Models\Cache\General\APIWebToken())->setDataExpireAt($varUserSession, $varAPIWebToken, '2021-01-25 14:10:00');
 
-//$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMTY0OTg4MH0.b8sC25pQR8WIebqTxKUIvP4WATtKMJwGA81yh1DZhsg';
-//dd((new \App\Models\Cache\General\APIWebToken())->getAllDataRecord($varUserSession));
 
-            
+            //           $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(0, 'USER_SESSION_ID_SYSTEM');
+            //          $varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
+
+
+
+            //            dd((new \App\Models\Cache\General\APIWebToken())->getAllDataRecord($varUserSession));
+            //            (new \App\Models\Cache\General\APIWebToken())->setDataExpireAt($varUserSession, $varAPIWebToken, '2021-01-25 14:10:00');
+
+            //$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMTY0OTg4MH0.b8sC25pQR8WIebqTxKUIvP4WATtKMJwGA81yh1DZhsg';
+            //dd((new \App\Models\Cache\General\APIWebToken())->getAllDataRecord($varUserSession));
+
+
             //(new \App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\everyMinute\system\setJobs\v1\setJobs())->setAPIWebTokenSysEngine(000);
-            
-            
-//            $x = \App\Helpers\ZhtHelper\Cache\Helper_Redis::getAllRecord(0, 'ERPReborn::APIWebToken::');
-//            dd($x);
-            
-/*
+
+
+            //            $x = \App\Helpers\ZhtHelper\Cache\Helper_Redis::getAllRecord(0, 'ERPReborn::APIWebToken::');
+            //            dd($x);
+
+            /*
             $x = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 //(new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession),
@@ -1469,8 +1548,8 @@ $varReturn['ExchangeRate']['KRW'] = number_format((float) str_replace(',', '.', 
             dd($x);
 */
 
-//            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMTY0OTg4MH0.b8sC25pQR8WIebqTxKUIvP4WATtKMJwGA81yh1DZhsg';
-/*
+            //            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMTY0OTg4MH0.b8sC25pQR8WIebqTxKUIvP4WATtKMJwGA81yh1DZhsg';
+            /*
 $x = (new \App\Models\Database\SchSysConfig\General())->getCurrentYear($varUserSession);
 //$x = (new \App\Models\Database\SchSysConfig\General())->getCurrentDateTimeTZ($varUserSession);
 dd($x);
@@ -1499,9 +1578,9 @@ dd($x);
 //echo "xxx";
             var_dump(json_encode($varData));
             
-*/            
-            
-/*    
+*/
+
+            /*    
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMTY1NTkwN30.YAzgSdGcWbh10uJufmVbjyO2J3bhBoMg7ZDVkqxqD1Q';
             $varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
@@ -1522,15 +1601,15 @@ dd($x);
                 );
             var_dump($varData);
             
-*/            
-            
-            
-            
-            
-            
-            
-            
-/*
+*/
+
+
+
+
+
+
+
+            /*
         echo "Contacting Machine...\n";
 
     $KEY='';
@@ -1555,40 +1634,40 @@ dd($x);
 
 
 */
-            
-            
-            
-            
-            
-            
-//            $x = new \zhtSDK\Device\Solution\FingerprintAttendance\x601\zhtSDK($varUserSession, '192.168.1.203', 4370, 'AEYU202860040');
-//            $x = new \zhtSDK\Device\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.10.225', 4370, '0011142201014');
-//            $x = new \zhtSDK\Device\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.1.204', 4370, '2065682450035');
-//            $y = $x->getDataAttendance('+07', '2020-01-01');
-//            var_dump($y);
-//            $y = $x->getDeviceSerialNumber();
 
-//            $x = new \zhtSDK\Device\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK($varUserSession, '192.168.16.111', 4370);
-//            $x = new \zhtSDK\Device\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK($varUserSession, '192.168.16.112', 14370);
-//            echo  $x->getDeviceSerialNumber()."<br><br>";
-//            echo  $x->getDeviceTime()."<br><br>";
-            
-            
-//$x = new \zhtSDK\Device\Solution\FingerprintAttendance\x601\zhtSDK($varUserSession, '192.168.16.111', 4370, 'AEYU202860040');   
-//$x = new \zhtSDK\Device\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.16.111', 4370, '0011142201014');
-//$y = $x->getDeviceSerialNumber();
 
-//            $y = $x->getDataAttendance();
-//            var_dump($y);
+
+
+
+
+            //            $x = new \zhtSDK\Device\Solution\FingerprintAttendance\x601\zhtSDK($varUserSession, '192.168.1.203', 4370, 'AEYU202860040');
+            //            $x = new \zhtSDK\Device\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.10.225', 4370, '0011142201014');
+            //            $x = new \zhtSDK\Device\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.1.204', 4370, '2065682450035');
+            //            $y = $x->getDataAttendance('+07', '2020-01-01');
+            //            var_dump($y);
+            //            $y = $x->getDeviceSerialNumber();
+
+            //            $x = new \zhtSDK\Device\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK($varUserSession, '192.168.16.111', 4370);
+            //            $x = new \zhtSDK\Device\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK($varUserSession, '192.168.16.112', 14370);
+            //            echo  $x->getDeviceSerialNumber()."<br><br>";
+            //            echo  $x->getDeviceTime()."<br><br>";
+
+
+            //$x = new \zhtSDK\Device\Solution\FingerprintAttendance\x601\zhtSDK($varUserSession, '192.168.16.111', 4370, 'AEYU202860040');   
+            //$x = new \zhtSDK\Device\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.16.111', 4370, '0011142201014');
+            //$y = $x->getDeviceSerialNumber();
+
+            //            $y = $x->getDataAttendance();
+            //            var_dump($y);
 
             echo "Done";
-            }
+        }
 
         public function testMinIO()
-            {
+        {
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
-            $varUserSession=0;
-            
+            $varUserSession = 0;
+
             //\App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::test();
             $x = (new \App\Models\CloudStorage\DefaultClassPrototype())->getBucketName($varUserSession);
             var_dump($x);
@@ -1597,60 +1676,60 @@ dd($x);
             //echo \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::deleteFile($varUserSession, 'MyImages/Logo-Application.png');
             //echo \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFileURL($varUserSession, 'MyImages/Logo-Application.png');
             //\App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::isFileExist($varUserSession, 'MyImages/Logo-Application.png');
-//            $x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFileInfo($varUserSession, 'MyImages/Logo-Application.png');
+            //            $x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFileInfo($varUserSession, 'MyImages/Logo-Application.png');
 
-/*            echo \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::putFile($varUserSession, './../public/images/Logo-Application.png', 'MyImages/Logo-Application.png');
+            /*            echo \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::putFile($varUserSession, './../public/images/Logo-Application.png', 'MyImages/Logo-Application.png');
             echo \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::putFile($varUserSession, './../public/images/Logo-Application.png', 'MyImages2/Logo-Application2.png');
             echo \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::putFile($varUserSession, './../public/images/Logo-Application.png', 'MyImages2/MyImages2B/Logo-Application2B.png');
             $x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFileList($varUserSession);
             var_dump($x);*/
-            
+
             //$x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getAllDataRecord($varUserSession);
             //$x = \Illuminate\Support\Facades\DB::select('SELECT 1;');
             //$x = \Illuminate\Support\Facades\DB::
-            
+
             //$x = (new \App\Models\Database\SchData_OLTP_Master\TblCitizenIdentity())->getAllDataRecord($varUserSession);
             //$x = (new \App\Models\Database\SchData_OLTP_Master\TblCountry())->getAllDataRecord($varUserSession);
             //$x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession)->getAllDataRecord($varUserSession);
-            
+
             //$x = (new \App\Models\CloudStorage\DefaultClassPrototype())->getDataRecord($varUserSession, 'MyImages/Logo-Application.png');
-            
+
             //$x = (new \App\Models\Database\SchSysConfig\TblDBObject_Schema())->setEmptyTableAndResetSequence($varUserSession);
             //$x = (new \App\Models\Database\SchSysConfig\TblDBObject_Schema())->getAllDataRecord($varUserSession);
             //$x = (new \App\Models\Database\SchSysConfig\TblDBObject_Table())->getAllDataRecord($varUserSession);
             $x = (new \App\Models\Database\SchData_OLTP_Budgeting\TblBudget())->getAllDataRecord($varUserSession, false);
             var_dump($x);
-            }
-            
-            
-            
-            
-            
+        }
+
+
+
+
+
         public function testModelDatabase()
-            {
+        {
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
-            $varUserSession=4000000000399;
-            $varUserSession=4000000000016;
-//            $x = (new \App\Models\Database\SchData_OLTP_Master\TblBloodAglutinogenType())->getTableName($varUserSession);            
-//            echo $x."<br>";
-//            $x = (new \App\Models\Database\SchData_OLTP_Master\TblBloodAglutinogenType())->getSchemaName($varUserSession);            
-//            echo $x."<br>";
-//            echo '<br>~~~~~~~~<br>';
+            $varUserSession = 4000000000399;
+            $varUserSession = 4000000000016;
+            //            $x = (new \App\Models\Database\SchData_OLTP_Master\TblBloodAglutinogenType())->getTableName($varUserSession);            
+            //            echo $x."<br>";
+            //            $x = (new \App\Models\Database\SchData_OLTP_Master\TblBloodAglutinogenType())->getSchemaName($varUserSession);            
+            //            echo $x."<br>";
+            //            echo '<br>~~~~~~~~<br>';
 
-//            $x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, 6000000000001);
-//            var_dump($x);
-            
-//            echo '<br>~~~~~~~~<br>';
+            //            $x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, 6000000000001);
+            //            var_dump($x);
+
+            //            echo '<br>~~~~~~~~<br>';
             //$x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getAllDataRecord($varUserSession);
-//            $x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, 6000000000120);
-//            var_dump($x);
+            //            $x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, 6000000000120);
+            //            var_dump($x);
 
-//$x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getAllFilteredDataRecord($varUserSession, '"APIWebToken" = \'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMTg4MTQ4Mn0.0KJAcBDlk57gHYwRo69GCsxxZtqTpv5tU2emJdS-y-4\'');
+            //$x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getAllFilteredDataRecord($varUserSession, '"APIWebToken" = \'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMTg4MTQ4Mn0.0KJAcBDlk57gHYwRo69GCsxxZtqTpv5tU2emJdS-y-4\'');
 
             //$x = (new \App\Models\Database\SchSysConfig\General())->setUserSessionLogout($varUserSession, 6000000000141);
 
-//SELECT * FROM "SchSysConfig"."FuncSys_General_GetBranchAccessListByUserID"(1::bigint)            
-/*            $varData = (new \App\Models\Database\SchSysConfig\General())->getDataList_BranchAccess($varUserSession);
+            //SELECT * FROM "SchSysConfig"."FuncSys_General_GetBranchAccessListByUserID"(1::bigint)            
+            /*            $varData = (new \App\Models\Database\SchSysConfig\General())->getDataList_BranchAccess($varUserSession);
             
             for($i=0; $i!=count($varData); $i++)
                 {
@@ -1691,21 +1770,21 @@ dd($x);
             var_dump($varReturn);*/
             //var_dump($varData);
 
-//            $x = ((new \App\Models\Database\SchSysConfig\General())->getUserIDByName($varUserSession, 'teguh.pratama'));
+            //            $x = ((new \App\Models\Database\SchSysConfig\General())->getUserIDByName($varUserSession, 'teguh.pratama'));
             //
-            
+
             //$x = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::isValid_SQLSyntax($varUserSession, 'SELECT NOW();');
             //$x = (new \App\Models\Database\SchSysConfig\General())->isValid_SQLSyntax($varUserSession, 'SELECT NOW();');
-            
+
             //$x= (new \App\Models\Database\SchData_OLTP_Master\General())->getDataListCountry($varUserSession, 11000000000004, NULL, NULL, 'DROP ');
-            
-            
+
+
             //$x = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution($varUserSession, 'SELECT NOW();');
-            
-            
+
+
             //$x = \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_LowerFirstCharacter($varUserSession, ['AAA' => 'aaa', 'BBB' => 'bbb']);
             //$x = \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_LowerFirstCharacter($varUserSession, $x);
-//            $x = \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_CamelCase($varUserSession, $x);
+            //            $x = \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_CamelCase($varUserSession, $x);
             //$x = \App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, 'WHERE (3 < (3+1)) OR "dfg" = "dfg" OR (\'fff = 123\') = (\'fff = 123\') OR ( "xxx" ILIKE \'myWord\' OR "xxx" ILIKE \'myWord123%\' OR "xxx" ILIKE \'%myWord456\' OR "xxx" LIKE \'%myWord789%\' OR \'zzz\' ILIKE \'ZZZ\' OR "AAA" ILIKE "AAA" OR "BBB" LIKE "BBB") OR 1=1 OR 3 = (1+2) OR "x"=89 OR (("x" > 2) AND ("x" < 25))');
             //$x = \App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, 'WHERE "dfg" = "dfg" OR (\'fff = 123\') = (\'fff = 123\') OR ( "xxx" ILIKE \'myWord\' OR "xxx" ILIKE \'myWord123%\' OR "xxx" ILIKE \'%myWord456\' OR "xxx" LIKE \'%myWord789%\' OR \'zzz\' ILIKE \'ZZZ\' OR "AAA" ILIKE "AAA" OR "BBB" LIKE "BBB")');
             //$x = \App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, 'WHERE "zzz2" NOT   LIKE "xxxx2" AND \'zzz\' NOT   LIKE \'xxxx\' AND "xxx" ILIKE "xxx" OR \'1234\' ILIKE (\'12\' || \'34\') OR "AAA" || \'xxx\' LIKE "AAA"');
@@ -1713,46 +1792,45 @@ dd($x);
             //$x = \App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, '"xxx" = 105');
             //$x= (new \App\Models\Database\SchData_OLTP_Master\General())->getDataListCurrency($varUserSession, 11000000000004, NULL, NULL, 'DROP ');
             //$x= (new \App\Models\Database\SchData_OLTP_Master\General())->getDataList_PersonAccountEMail($varUserSession, 11000000000004, 25000000000241, NULL, NULL, NULL);
-            
+
             //$x= (new \App\Models\Database\SchSysConfig\General())->setDataDelete($varUserSession, 27000000000028);
-            
+
             //$x= (new \App\Models\Database\SchData_OLTP_Master\TblBloodAglutinogenType())->setDataInitialize($varUserSession);
-            
+
             //$x= (new \App\Models\Database\SchData_OLTP_Project\TblProject())->setDataSynchronize($varUserSession);
-            
+
             //
             //$varBuffer= (new \App\Models\Database\SchSysConfig\General())->getMenuByUserRoleIDAndBranchID($varUserSession, 95000000000003, 11000000000004);
-//            $x = \App\Helpers\ZhtHelper\System\Helper_Environment::setApplicationUserRolePrivilegesMenu($varUserSession, 95000000000003, 11000000000004);
+            //            $x = \App\Helpers\ZhtHelper\System\Helper_Environment::setApplicationUserRolePrivilegesMenu($varUserSession, 95000000000003, 11000000000004);
             $x = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
-                $varUserSession, 
+                $varUserSession,
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationUserRolePrivilegesMenu($varUserSession, 95000000000003, 11000000000004)
-                );
-            
-            //$x= (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, 6000000000316);
-            
-            var_dump($x);
+            );
 
-            }
-            
-            
+            //$x= (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, 6000000000316);
+
+            var_dump($x);
+        }
+
+
         public function testJQuery()
-            {
-            $varUserSession=4000000000016;
+        {
+            $varUserSession = 4000000000016;
             echo \App\Helpers\ZhtHelper\General\Helper_JQuery::setCallAPI($varUserSession);
-            }
-            
-            
+        }
+
+
         public function testRedis()
-            {
+        {
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
-            $varUserSession=0;
+            $varUserSession = 0;
 
             $varKey = 'ERPReborn::APIWebToken::eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NzQwMjk4NTF9.ZmMwOTQ3ZTUyYTBmMjJlOGMyNTY1MDExMGYzNWNlYzc0ZjdkNjgyNDFjZTE3MjBiYmY3ZjA1ZjNmYzJkNDc1ZA';
-            echo "<br>~~~~~~~<br>".\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue($varUserSession, $varKey);
+            echo "<br>~~~~~~~<br>" . \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue($varUserSession, $varKey);
 
 
-            
-/*            
+
+            /*            
 $varAPIWebToken='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMjczMDUxMH0.nVXe1M51rpPxH8zkOvA7kW-R9ADkVVRDK_OFRJJCrVw';
 $varData = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue($varUserSession, 'ERPReborn::APIWebToken::'.$varAPIWebToken));
 var_dump($varData);
@@ -1773,7 +1851,7 @@ echo "<br>";
 $x = \App\Helpers\ZhtHelper\Cache\Helper_Redis::getTTL($varUserSession, 'ERPReborn::APIWebToken::'.$varAPIWebToken);
 var_dump($x);
 */
-/*
+            /*
 $varAPIWebToken='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMjczMDUxMH0.nVXe1M51rpPxH8zkOvA7kW-R9ADkVVRDK_OFRJJCrVw';
 $varData = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, (new \App\Models\Cache\General\APIWebToken())->getDataRecord($varUserSession, $varAPIWebToken));
 var_dump($varData);
@@ -1798,43 +1876,43 @@ var_dump($x);
 
 
 
-//echo "<br>";
-//$x = \App\Helpers\ZhtHelper\Cache\Helper_Redis::getTTL($varUserSession, 'ERPReborn::APIWebToken::'.$varAPIWebToken);
-//var_dump($x);
-            
-            
-            
+            //echo "<br>";
+            //$x = \App\Helpers\ZhtHelper\Cache\Helper_Redis::getTTL($varUserSession, 'ERPReborn::APIWebToken::'.$varAPIWebToken);
+            //var_dump($x);
 
-            
-//            $x = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_DataOnly_Specific($varUserSession, 6000000000001);
-//            $x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, 6000000000001);
+
+
+
+
+            //            $x = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_DataOnly_Specific($varUserSession, 6000000000001);
+            //            $x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, 6000000000001);
             //$x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getAllDataRecord($varUserSession);            
             //$x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getTableName($varUserSession);            
 
-//            $x = \App\Helpers\ZhtHelper\Cache\Helper_Redis::getKeyList($varUserSession, 'ERPReborn::*');
-//            
-//            $x = (new \App\Models\Cache\General\APIWebToken())->getAllDataRecord($varUserSession);
-//            var_dump($x);
-            
+            //            $x = \App\Helpers\ZhtHelper\Cache\Helper_Redis::getKeyList($varUserSession, 'ERPReborn::*');
+            //            
+            //            $x = (new \App\Models\Cache\General\APIWebToken())->getAllDataRecord($varUserSession);
+            //            var_dump($x);
+
             //echo (new \App\Models\Database\SchSysConfig\TblRotateLog_API())->getSchemaTableName($varUserSession);
-            
-//            echo '<br>~~~~~~~~<br>';
-//            echo \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue($varUserSession, 'ERPReborn::APIWebToken::eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5OTAyMjUyN30.u2Re2mLnb8XhmJmxTseNOtWzTv2vwM5lySIg0KB1BS0');
-            
-//            $x = new \App\Models\Cache\General\APIWebToken();
-//            $x->setDataInsert($varUserSession, 'xxxx', 'varValue', 10);
-            
-//$x = new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession();
-//$y = $x->getDataRecord(000000, 6000000000013);
-//var_dump($y);
-//            $x = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_RecordDataOnly($varUserSession, 6000000000013);
-//            var_dump($x);
 
-//            $varKey = 'ERPReborn::APIWebToken::eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5ODg1NTk2NH0.BHiM9jFqxX_wUegqcdDin3sDjEJjAwg9df0oM0GhtF8';
-    //                    echo "<br>~~~~~~~<br>".\App\Helpers\ZhtHelper\Cache\Helper_Redis::getTTL($varUserSession, $varKey);
+            //            echo '<br>~~~~~~~~<br>';
+            //            echo \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue($varUserSession, 'ERPReborn::APIWebToken::eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5OTAyMjUyN30.u2Re2mLnb8XhmJmxTseNOtWzTv2vwM5lySIg0KB1BS0');
 
-            
-/*$x = new \App\Models\Cache\General\APIWebToken();
+            //            $x = new \App\Models\Cache\General\APIWebToken();
+            //            $x->setDataInsert($varUserSession, 'xxxx', 'varValue', 10);
+
+            //$x = new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession();
+            //$y = $x->getDataRecord(000000, 6000000000013);
+            //var_dump($y);
+            //            $x = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_RecordDataOnly($varUserSession, 6000000000013);
+            //            var_dump($x);
+
+            //            $varKey = 'ERPReborn::APIWebToken::eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5ODg1NTk2NH0.BHiM9jFqxX_wUegqcdDin3sDjEJjAwg9df0oM0GhtF8';
+            //                    echo "<br>~~~~~~~<br>".\App\Helpers\ZhtHelper\Cache\Helper_Redis::getTTL($varUserSession, $varKey);
+
+
+            /*$x = new \App\Models\Cache\General\APIWebToken();
 $x->setDataInsert($varUserSession, 'xxx', 'xxxValue', 10);
 echo "<br>~~~~~~~~~~~~~~~~~~~~~<br>";
 echo $x->getDataRecord($varUserSession, 'xxx');
@@ -1853,35 +1931,35 @@ for($i=0; $i!=2; $i++)
     }
 */
 
-//$x->setKeyHeader($varUserSession, $varClassName)
+            //$x->setKeyHeader($varUserSession, $varClassName)
 
-            
-//            $ObjModel = new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession();
-//            $user = $ObjModel->   ->hydrate(
-//            $user = DB::select(
-//                "SELECT * FROM \"SchSysConfig\".\"FuncSys_General_GetUnixTime\"('2019-01-01 00:00:00 +07')"
-//                );
-//                );
-/*            $x = 
+
+            //            $ObjModel = new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession();
+            //            $user = $ObjModel->   ->hydrate(
+            //            $user = DB::select(
+            //                "SELECT * FROM \"SchSysConfig\".\"FuncSys_General_GetUnixTime\"('2019-01-01 00:00:00 +07')"
+            //                );
+            //                );
+            /*            $x = 
                 $ObjModel->hydrate(
                     \Illuminate\Support\Facades\DB::select('SELECT NOW();')
                     );
             var_dump($x);
 */
-/*            $varUserSession=0;
+            /*            $varUserSession=0;
             echo \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                 $varUserSession, 
                 'SchSysConfig.Func_TblLog_UserLoginSession_SET', 
                 [111, null, null, null, 222, 'SysEngine', 'eyJhbGciOiJIUzI1NiIsI', null, 444, 95000000000001, '2018-01-01 00:00:00+07', '9999-12-31 23:59:59+07', null, null],
                 ['bigint', 'bigint', 'character varying', 'character varying', 'bigint', 'character varying', 'character varying', 'json', 'bigint', 'bigint', 'timestamp with time zone', 'timestamp with time zone', 'timestamp with time zone', 'timestamp with time zone']
                 );
-*/            
-  
+*/
+
             //echo \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentYear(000);
-            
-//            echo substr('(NOW() + \'5 minutes\'::interval)', 0, 1); 
-//            echo substr('(NOW() + \'5 minutes\'::interval)', strlen('(NOW() + \'5 minutes\'::interval)')-1, 1); 
-/*            $varSQLQuery = '
+
+            //            echo substr('(NOW() + \'5 minutes\'::interval)', 0, 1); 
+            //            echo substr('(NOW() + \'5 minutes\'::interval)', strlen('(NOW() + \'5 minutes\'::interval)')-1, 1); 
+            /*            $varSQLQuery = '
             SELECT
                 CASE
                     WHEN (COUNT("Sys_RPK") = 0) THEN 
@@ -1909,18 +1987,18 @@ for($i=0; $i!=2; $i++)
                 {
                 echo "ulang";
                 }*/
-            
-            
-            
-/*
+
+
+
+            /*
 --                "SessionStartDateTimeTZ" <= NOW()
   --              AND
     --            "SessionFinishDateTimeTZ" >= NOW()
       --          AND
 */
-            
-            
-/*            echo "TEST REDIS<br><br>";
+
+
+            /*            echo "TEST REDIS<br><br>";
             $varUserSession = 000000;
             
 //            echo \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken($varUserSession, 'SysAdmin', '10006000000000002');
@@ -1940,95 +2018,95 @@ for($i=0; $i!=2; $i++)
                 echo "<br>".\App\Helpers\ZhtHelper\Cache\Helper_Redis::getTTL($varUserSession, 'MyKey')."-->".\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue($varUserSession, 'MyKey');
                 }
 */
- 
+
             //echo "<br>". \App\Helpers\ZhtHelper\Cache\Helper_Redis::getStatusAvailability($varUserSession);
             //echo "<br>".\Illuminate\Support\Facades\Redis::ttl('MyKey');
             //echo \App\Helpers\ZhtHelper\Cache\Helper_Redis::getTTL($varUserSession, 'MyKey');
             //var_dump(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getInfo($varUserSession));
-            }
-            
+        }
+
 
         public function test()
-            {
-//---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-$varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+        {
+            //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+            $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
-$varDataReceive = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession);
+            $varDataReceive = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession);
 
-$varAPIKey = 'authentication.general.setLogin';
-//$varAPIVersion = $varDataReceive['metadata']['API']['version'];
-$varAPIVersion = 'latest';
+            $varAPIKey = 'authentication.general.setLogin';
+            //$varAPIVersion = $varDataReceive['metadata']['API']['version'];
+            $varAPIVersion = 'latest';
 
-$varData = [
-    'userName' => 'teguh.pratama',
-    'userPassword' => 'teguhpratama789'
-    ];
+            $varData = [
+                'userName' => 'teguh.pratama',
+                'userPassword' => 'teguhpratama789'
+            ];
 
-//---> Method Call
-$varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setCallAPIEngine($varUserSession, $varAPIKey, $varAPIVersion, $varData, 'setLogin');
+            //---> Method Call
+            $varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setCallAPIEngine($varUserSession, $varAPIKey, $varAPIVersion, $varData, 'setLogin');
 
-var_dump($varDataSend);
+            var_dump($varDataSend);
 
             //\App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());            
             //echo \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID(000000);
-            
+
             //echo \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::getGMTDateTime();
             //\App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchFilePath(000000, getcwd().'/', '/config/Application/BackEnd/environment.txt');
             //echo "xxx : ".\App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment(000000, 'LDAP_BASEDN');
             //echo "yyy";
             //echo \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken(000000, 'Teguh Pratama', 'secret');
-            }
+        }
 
 
 
-            
+
 
         public function testWS()
-            {
+        {
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
 
-         
-            
-            
-            
+
+
+
+
             // create digest auth
-//            $auth = \Intervention\HttpAuth\HttpAuth::make();
-  //          $auth->digest();
-    //        $auth->realm('Secure');
-  //          $auth->username('admin');
-//            $auth->password('secret');
-            
-//            var_dump($auth);
-            
-//            $auth->secure();
-            
+            //            $auth = \Intervention\HttpAuth\HttpAuth::make();
+            //          $auth->digest();
+            //        $auth->realm('Secure');
+            //          $auth->username('admin');
+            //            $auth->password('secret');
+
+            //            var_dump($auth);
+
+            //            $auth->secure();
+
             $varDataArray = [
                 'System' => [],
                 'Data' => []
-                ];
+            ];
             //$x = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(000000, $varDataArray);
             $x = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(000000, \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(000000, $varDataArray));
             var_dump($x);
-            
+
             echo "<br>--------------------------------------------<br>";
             $x = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getResponse(
-                000000, 
-                'http://172.28.0.3/api/webservices', 
-                'POST', 
+                000000,
+                'http://172.28.0.3/api/webservices',
+                'POST',
                 $varDataArray,
                 80
-                );
-            
-            
-           
+            );
+
+
+
             echo "<br>--------------------------------------------<br>";
             echo "<br>Tunggu data masuk<br>";
             var_dump($x);
             echo "<br>Finish";
-            
+
             //$x = \App\Helpers\ZhtHelper\General\Helper_LDAP::getAuthenticationBySAMAccountName(000000, '192.168.1.23', 389, 'DC=qdc-files,DC=qdc,DC=co,DC=id', 'teguh.pratama', 'teguhpratama789');
             \App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTimeByJavaScript(000000);
-            }
+        }
 
 
 
@@ -2057,83 +2135,83 @@ var_dump($varDataSend);
 
 
 
-            
+
         public function testEncrypt()
-            {
+        {
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
-            
+
             \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getEncryptedURLParameter([]);
-            
-//            $x = \App\Helpers\ZhtHelper\General\Helper_Compression::getBZip2Decompress(00000, \App\Helpers\ZhtHelper\General\Helper_Compression::getBZip2Compress(00000, 'Ini contoh datanya'));
-//            $x = \App\Helpers\ZhtHelper\General\Helper_Compression::getZLibDecompress(00000, \App\Helpers\ZhtHelper\General\Helper_Compression::getZLibCompress(00000, 'Ini contoh datanya'));
-//            echo $x;
-//            echo \App\Helpers\ZhtHelper\General\Helper_Array::isSequentialArray(000000, [1,2,3]);
-            
+
+            //            $x = \App\Helpers\ZhtHelper\General\Helper_Compression::getBZip2Decompress(00000, \App\Helpers\ZhtHelper\General\Helper_Compression::getBZip2Compress(00000, 'Ini contoh datanya'));
+            //            $x = \App\Helpers\ZhtHelper\General\Helper_Compression::getZLibDecompress(00000, \App\Helpers\ZhtHelper\General\Helper_Compression::getZLibCompress(00000, 'Ini contoh datanya'));
+            //            echo $x;
+            //            echo \App\Helpers\ZhtHelper\General\Helper_Array::isSequentialArray(000000, [1,2,3]);
+
             $ServiceName = 'service.core.userAuthentication';
             $ServiceAction = 'get';
-            
-            $dll='Lorem ipsum dolor sit amet, enim non in erat in diam leo, ligula nec odio nibh sit rhoncus viverra, vitae et arcu massa et molestie leo, erat massa. Error nonummy, et adipiscing lectus malesuada integer cursus dignissim, ut dolor tincidunt volutpat interdum arcu eget. Et cras, dolor mauris amet consequat pulvinar erat. Magnis id ad hac lacus amet vulputate, laoreet imperdiet sed quam, eros accumsan lobortis, tempor libero commodo odio non. Aliquam curabitur sit enim vivamus est a, ac ac dapibus lectus nisl quisque nisl, rutrum turpis vel felis eleifend, metus nunc ac leo. Sit eleifend amet libero commodo, elit tellus sed mollis venenatis feugiat, pede ut vel quaerat mauris. Mi quis nulla vel, neque nisl bibendum, quis odio est sem amet, nulla sed, urna wisi. Sagittis donec condimentum. Fames aliquet sunt, nonummy nulla doloribus, nam nullam gravida, vitae exercitation malesuada faucibus pellentesque donec. Taciti magna, non non vel, at sollicitudin congue enim suspendisse. Pede ut tellus adipiscing duis non fusce, lobortis mi consequat purus, quis non felis velit, etiam tellus non ipsum vitae lorem lorem, et metus mauris. Nec felis. Volutpat dui dignissim quisque quis eu, curae suscipit, commodo ultrices, sed parturient lacinia justo wisi totam, orci nam. Nisl excepturi sit dolor viverra suscipit asperiores. Morbi ut lacus proin viverra posuere, sociis ultrices, odio nullam quis, egestas suscipit eros. Mauris dignissim nulla nonummy. Diam ultrices adipiscing nibh mi dui, aliquam libero pulvinar dapibus, sociosqu aut sodales, ultricies elementum, ut inceptos. Odio ullamcorper tincidunt aenean rhoncus, ut aliquet interdum sint tortor vestibulum adipisicing, cursus eum, facilisis nibh varius magna a. Praesent odio, sit purus est, nam justo sed. Id lorem tempor, tristique amet commodo lectus lorem dictum natoque, augue suscipit eros vel turpis, habitant consectetuer eros. Vestibulum magna, proin blandit mauris mauris fames nibh, in aliquam lectus semper ipsum, justo cursus laoreet dui turpis in. Dolor ultricies sit, placerat per imperdiet nisl eget lacinia sit, amet vestibulum delectus nisl odio, aliquam mi, non quisque. Lorem vehicula amet dictumst, orci lorem. Laoreet enim, quam et aliquam, rutrum in beatae nullam, eget arcu mattis vitae vestibulum neque. Molestie tincidunt, libero convallis quis sodales, aenean lacus lobortis erat id amet sapien. Dolor cursus, auctor augue cursus. Quibusdam mauris augue, eleifend massa nulla sollicitudin sed lacus. Felis dui viverra nulla totam risus, fermentum magna natoque vel fusce augue erat, pretium ut enim ipsum in cursus, massa diam arcu eu. Pellentesque cras egestas et pede morbi nec, pellentesque dolor sollicitudin, orci bibendum quam scelerisque tincidunt mi, metus in. Ante duis turpis et, pulvinar duis. Faucibus est, aut ligula mauris congue. Pede non odio. Aliquam vivamus dapibus sed, elit posuere integer eros, quis sit consequuntur in. Nulla scelerisque.';
-            
-            
+
+            $dll = 'Lorem ipsum dolor sit amet, enim non in erat in diam leo, ligula nec odio nibh sit rhoncus viverra, vitae et arcu massa et molestie leo, erat massa. Error nonummy, et adipiscing lectus malesuada integer cursus dignissim, ut dolor tincidunt volutpat interdum arcu eget. Et cras, dolor mauris amet consequat pulvinar erat. Magnis id ad hac lacus amet vulputate, laoreet imperdiet sed quam, eros accumsan lobortis, tempor libero commodo odio non. Aliquam curabitur sit enim vivamus est a, ac ac dapibus lectus nisl quisque nisl, rutrum turpis vel felis eleifend, metus nunc ac leo. Sit eleifend amet libero commodo, elit tellus sed mollis venenatis feugiat, pede ut vel quaerat mauris. Mi quis nulla vel, neque nisl bibendum, quis odio est sem amet, nulla sed, urna wisi. Sagittis donec condimentum. Fames aliquet sunt, nonummy nulla doloribus, nam nullam gravida, vitae exercitation malesuada faucibus pellentesque donec. Taciti magna, non non vel, at sollicitudin congue enim suspendisse. Pede ut tellus adipiscing duis non fusce, lobortis mi consequat purus, quis non felis velit, etiam tellus non ipsum vitae lorem lorem, et metus mauris. Nec felis. Volutpat dui dignissim quisque quis eu, curae suscipit, commodo ultrices, sed parturient lacinia justo wisi totam, orci nam. Nisl excepturi sit dolor viverra suscipit asperiores. Morbi ut lacus proin viverra posuere, sociis ultrices, odio nullam quis, egestas suscipit eros. Mauris dignissim nulla nonummy. Diam ultrices adipiscing nibh mi dui, aliquam libero pulvinar dapibus, sociosqu aut sodales, ultricies elementum, ut inceptos. Odio ullamcorper tincidunt aenean rhoncus, ut aliquet interdum sint tortor vestibulum adipisicing, cursus eum, facilisis nibh varius magna a. Praesent odio, sit purus est, nam justo sed. Id lorem tempor, tristique amet commodo lectus lorem dictum natoque, augue suscipit eros vel turpis, habitant consectetuer eros. Vestibulum magna, proin blandit mauris mauris fames nibh, in aliquam lectus semper ipsum, justo cursus laoreet dui turpis in. Dolor ultricies sit, placerat per imperdiet nisl eget lacinia sit, amet vestibulum delectus nisl odio, aliquam mi, non quisque. Lorem vehicula amet dictumst, orci lorem. Laoreet enim, quam et aliquam, rutrum in beatae nullam, eget arcu mattis vitae vestibulum neque. Molestie tincidunt, libero convallis quis sodales, aenean lacus lobortis erat id amet sapien. Dolor cursus, auctor augue cursus. Quibusdam mauris augue, eleifend massa nulla sollicitudin sed lacus. Felis dui viverra nulla totam risus, fermentum magna natoque vel fusce augue erat, pretium ut enim ipsum in cursus, massa diam arcu eu. Pellentesque cras egestas et pede morbi nec, pellentesque dolor sollicitudin, orci bibendum quam scelerisque tincidunt mi, metus in. Ante duis turpis et, pulvinar duis. Faucibus est, aut ligula mauris congue. Pede non odio. Aliquam vivamus dapibus sed, elit posuere integer eros, quis sit consequuntur in. Nulla scelerisque.';
+
+
             //$varURLParameterPlain = '/'.$ServiceName.'/'.$ServiceAction.'/teguhpratama789';
-            $varURLParameterPlain = $ServiceName.'/'.$ServiceAction.'/teguhpratama789/'.$dll;
-            echo '<br>URL Parameter Plain : <br>'.$varURLParameterPlain;
+            $varURLParameterPlain = $ServiceName . '/' . $ServiceAction . '/teguhpratama789/' . $dll;
+            echo '<br>URL Parameter Plain : <br>' . $varURLParameterPlain;
             echo "<br>-------------------------------------------------------------------------------------------";
             $varURLParameterPlainEncapsulated = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getURLEncapsulation(000000, $varURLParameterPlain);
-            echo '<br>URL Parameter Encapsulation : <br>'.$varURLParameterPlainEncapsulated;
+            echo '<br>URL Parameter Encapsulation : <br>' . $varURLParameterPlainEncapsulated;
             echo "<br>-------------------------------------------------------------------------------------------";
             $varURLParameterPlainDecapsulated = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getURLDecapsulation(000000, $varURLParameterPlainEncapsulated);
-            echo '<br>URL Parameter Decapsulation : <br>'.$varURLParameterPlainDecapsulated;
-            }
+            echo '<br>URL Parameter Decapsulation : <br>' . $varURLParameterPlainDecapsulated;
+        }
 
 
 
 
 
         public function testNEW()
-            {
+        {
 
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
-//            \App\Helpers\ZhtHelper\System\Helper_Registry::init();
+            //            \App\Helpers\ZhtHelper\System\Helper_Registry::init();
             echo "<br>xxxxxxxxxxxxxxxxxxxxx<br>";
-            echo \App\Helpers\ZhtHelper\General\Helper_Array::isSequentialArray(000000, [1,2,3]);
+            echo \App\Helpers\ZhtHelper\General\Helper_Array::isSequentialArray(000000, [1, 2, 3]);
             echo "<br>xxxxxxxxxxxxxxxxxxxxx<br>";
-            echo \App\Helpers\ZhtHelper\General\Helper_Array::isSequentialArray(000000, ['a'=>1, 'b'=>2, 'c'=>3]);
+            echo \App\Helpers\ZhtHelper\General\Helper_Array::isSequentialArray(000000, ['a' => 1, 'b' => 2, 'c' => 3]);
             echo "<br>xxxxxxxxxxxxxxxxxxxxx<br>";
-            $x=\App\Helpers\ZhtHelper\General\Helper_Array::getOnlyArrayValueWithoutKey(000000, ['a'=>1, 'b'=>2, 'c'=>3]);
+            $x = \App\Helpers\ZhtHelper\General\Helper_Array::getOnlyArrayValueWithoutKey(000000, ['a' => 1, 'b' => 2, 'c' => 3]);
             echo "<br>xxxxxxxxxxxxxxxxxxxxx<br>";
             echo \App\Helpers\ZhtHelper\General\Helper_Encryption::getBase64Decode(000000, \App\Helpers\ZhtHelper\General\Helper_Encryption::getBase64Encode(000000, 'Pesan Rahasia'));
             echo "<br>xxxxxxxxxxxxxxxxxxxxx<br>";
-//            echo \App\Helpers\ZhtHelper\General\Helper_Encryption::getOpenSSLEncode(000000, 'Ini data rahasianya', 'AES-128-CTR', 'Kunci Enkripsiku', 0, '1234567891011121');
+            //            echo \App\Helpers\ZhtHelper\General\Helper_Encryption::getOpenSSLEncode(000000, 'Ini data rahasianya', 'AES-128-CTR', 'Kunci Enkripsiku', 0, '1234567891011121');
             echo \App\Helpers\ZhtHelper\General\Helper_Encryption::getOpenSSLDecode(000000, \App\Helpers\ZhtHelper\General\Helper_Encryption::getOpenSSLEncode(000000, 'Ini data rahasianya', 'AES-128-CTR', 'Kunci Enkripsiku', 0, '1234567891011121'), 'AES-128-CTR', 'Kunci Enkripsiku', 0, '1234567891011121');
-            }
+        }
 
 
 
 
 
         public function testxxx()
-            {
-            echo "<br>".time()."<br>";
+        {
+            echo "<br>" . time() . "<br>";
 
-            
-            
-            
+
+
+
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
-            
 
-            echo \App\Helpers\ZhtHelper\General\Helper_Array::isAssociativeArray(000000, [1,2,3]);
-            
-            
-            
+
+            echo \App\Helpers\ZhtHelper\General\Helper_Array::isAssociativeArray(000000, [1, 2, 3]);
+
+
+
             //$varDataSession = \App\Helpers\ZhtHelper\General\Session::get(\App\Helpers\ZhtHelper\System\Environment::getApplicationID());         
 
-            
-//            echo \App\Helpers\ZhtHelper\General\ArrayHandler::getArrayValue($varDataSession, 'Registry::Global::Environment::Application::Name');
+
+            //            echo \App\Helpers\ZhtHelper\General\ArrayHandler::getArrayValue($varDataSession, 'Registry::Global::Environment::Application::Name');
 
             echo "<br>----------------<br>";
 
-//            var_dump($varDataSession);
+            //            var_dump($varDataSession);
             echo "<br>----------------<br>";
 
 
@@ -2142,14 +2220,14 @@ var_dump($varDataSend);
 
 
 
-//            \App\Helpers\ZhtHelper\System\Registry::setSpecificRegistry(0, 'Zzz::Xxx', '$varValue');
-//            echo \App\Helpers\ZhtHelper\System\Registry::getSpecificRegistry(0, 'Zzz::Xxx');
-            
-            
-//            \App\Helpers\ZhtHelper\Logger\SystemLog::setLogOutut(000000, 'Helper::ZhtHelper', 'xxxx');
-//            \App\Helpers\ZhtHelper\Logger\SystemLog::setLogOutput(000000, 'Helper::ZhtHelper', 'yyyy');
-            
-//            \App\Helpers\ZhtHelper\Logger\SystemLog::setLogError(000000, 'Helper::ZhtHelper', 'Error yyyy');
+            //            \App\Helpers\ZhtHelper\System\Registry::setSpecificRegistry(0, 'Zzz::Xxx', '$varValue');
+            //            echo \App\Helpers\ZhtHelper\System\Registry::getSpecificRegistry(0, 'Zzz::Xxx');
+
+
+            //            \App\Helpers\ZhtHelper\Logger\SystemLog::setLogOutut(000000, 'Helper::ZhtHelper', 'xxxx');
+            //            \App\Helpers\ZhtHelper\Logger\SystemLog::setLogOutput(000000, 'Helper::ZhtHelper', 'yyyy');
+
+            //            \App\Helpers\ZhtHelper\Logger\SystemLog::setLogError(000000, 'Helper::ZhtHelper', 'Error yyyy');
 
 
 
@@ -2157,14 +2235,14 @@ var_dump($varDataSend);
             //echo "<br>-----------";
             //echo \App\Helpers\ZhtHelper\General\Session::isExist(\App\Helpers\ZhtHelper\System\Environment::getApplicationID());
             //echo "-----------";
-            
-            
-            
-            
-            
-            
-//            \App\Helpers\ZhtHelper\Logger\SystemLog::setLogOutput('Helper::ZhtHelper', 000000, 'xxxx');
-//            echo \App\Helpers\ZhtHelper\Logger\SystemLog::getLogOutput('Log::Helper::ZhtHelper', 000000);
+
+
+
+
+
+
+            //            \App\Helpers\ZhtHelper\Logger\SystemLog::setLogOutput('Helper::ZhtHelper', 000000, 'xxxx');
+            //            echo \App\Helpers\ZhtHelper\Logger\SystemLog::getLogOutput('Log::Helper::ZhtHelper', 000000);
 
 
 
@@ -2176,16 +2254,16 @@ var_dump($varDataSend);
             //$varRegistry['Registry']['Global']['Environment']['Database']['Type']='PostgreSQL';
 
             echo \App\Helpers\ZhtHelper\General\Helper_Hash::getMD5(000000, 'xxxxxxxxxxxxxx');
-            
+
             \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::init(000000);
             \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStatusAvailability(000000);
             $x = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(000000, "SELECT 1 AS xxx");
             echo \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getDateTimeTZ(000000);
 
 
-            
 
-            
+
+
             //var_dump(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getDateTimeTZ());
             var_dump(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(000000, 'myKey2'));
             \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(000000, 'myKey2', 'myValue', 1);
@@ -2201,27 +2279,25 @@ var_dump($varDataSend);
             echo "<br><br>Info:";
             var_dump(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getInfo(000000));
             //var_dump($x);
-            
+
             //phpinfo();
-            
-            
-            
-            echo "<br>"; echo "<br>"; echo "<br>";
+
+
+
+            echo "<br>";
+            echo "<br>";
+            echo "<br>";
             echo "weleh";
 
             echo "weleh";
-            
-            
-            
-//            var_dump(\App\Helpers\ZhtHelper\General\Session::get('ERPReborn'));
-  //          echo \App\Helpers\ZhtHelper\General\Session::delete('ERPReborn');
-    //        echo "Terhapuskah";
-      //      var_dump(\App\Helpers\ZhtHelper\General\Session::get('ERPReborn'));     
-            echo "<br>".time()."<br>";
 
-            
-            }
+
+
+            //            var_dump(\App\Helpers\ZhtHelper\General\Session::get('ERPReborn'));
+            //          echo \App\Helpers\ZhtHelper\General\Session::delete('ERPReborn');
+            //        echo "Terhapuskah";
+            //      var_dump(\App\Helpers\ZhtHelper\General\Session::get('ERPReborn'));     
+            echo "<br>" . time() . "<br>";
         }
     }
- 
-?>
+}
