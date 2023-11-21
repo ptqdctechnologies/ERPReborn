@@ -18,7 +18,6 @@
                                             <th>Product Code</th>
                                             <th>Product Name</th>
                                             <th>UOM</th>
-                                            <th style="display: none;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -39,8 +38,6 @@
         $("#key").val(key);
         if (isBodyClicked === false) {
 
-            ShowLoading();
-
             $("#tableGetProduct").dataTable().fnDestroy();
 
             $.ajaxSetup({
@@ -49,23 +46,22 @@
                 }
             });
             var dataShow = [];
+
             $.ajax({
                 type: 'GET',
                 url: '{!! route("getProduct") !!}',
                 success: function(data) {
+                    console.log(data);
                     for (var i = 0; i < Object.keys(data).length; i++) {
                         var no = i + 1;
                         dataShow.push([
                             '<tbody><tr><td>' + no + '</td>',
-                            '<td>' + data[i]['sys_ID'] + '</td>',
-                            '<td>' + data[i]['name'] + '</td>',
-                            '<td>' + data[i]['quantityUnitName'] + '</td>',
-                            '<span style="display:none;"><td">' + data[i]['quantityUnit_RefID'] + '</td></span></tr></tbody>'
+                            '<td>' + data[i]['Sys_ID'] + '</td>',
+                            '<td>' + data[i]['Name'] + '</td>',
+                            '<td>' + data[i]['QuantityUnitName'] + '</td>',
+                            '<span style="display:none;"><td">' + data[i]['QuantityUnit_RefID'] + '</td></span></tr></tbody>'
                         ]);
                     }
-
-                    HideLoading();
-
 
                     $('#tableGetProduct').DataTable({
                         data: dataShow,

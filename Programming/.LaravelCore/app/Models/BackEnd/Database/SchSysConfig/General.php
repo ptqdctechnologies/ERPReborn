@@ -230,8 +230,6 @@ namespace App\Models\Database\SchSysConfig
                 return [];
                 }
             }
-
-
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getWorkFlowPathOfBusinessDocument                                                                    |
@@ -1648,7 +1646,7 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_UserRole($varUserSession, int $varBranchID)
+        public function getDataList_UserRole($varUserSession, int $varUserID, int $varBranchID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -1656,7 +1654,7 @@ namespace App\Models\Database\SchSysConfig
                     $varUserSession,
                     'SchSysConfig.FuncSys_GetDataList_UserRole',
                     [
-                        [$varUserSession, 'bigint'],
+                        [$varUserID, 'bigint'],
                         [$varBranchID, 'bigint']
                     ]
                     )

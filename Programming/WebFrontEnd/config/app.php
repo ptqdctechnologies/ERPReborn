@@ -175,9 +175,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\RedisDataMasterServiceProvider::class,
         App\Providers\DocumentWorkflowServiceProvider::class,
         App\Providers\KeyMenuServiceProvider::class,
-        App\Providers\RedisDataMasterServiceProvider::class,
         
 
     ],

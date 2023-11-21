@@ -63,6 +63,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\RedisDataMaster\Engine
 
                 $varTTL = 43200; // 12 Jam
 
+            // 1
                 // GET DATA MASTER PROJECT
                 $varProject =
                     (new \App\Models\Database\SchData_OLTP_Project\General())->getDataPickList_Project(
@@ -78,6 +79,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\RedisDataMaster\Engine
                     json_encode($varProject['Data']), 
                     $varTTL
                 );
+
+            // 2
 
                 // DATA MASTER WORKER
 
@@ -96,22 +99,41 @@ namespace App\Http\Controllers\Application\BackEnd\System\RedisDataMaster\Engine
                     $varTTL
                 );
 
+            // 3
                 // DATA MASTER PRODUCT
 
-                // $varProduct =
-                //     (new \App\Models\Database\SchData_OLTP_Master\General())->getDataList_Product(
-                //         $userSessionID,
-                //         $branchID
-                //     );
+                $varProduct =
+                    (new \App\Models\Database\SchData_OLTP_Master\General())->getDataList_Product(
+                        $userSessionID,
+                        $branchID
+                    );
 
-                // //SET REDIS PRODUCT
+                //SET REDIS PRODUCT
 
-                // \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                //     $userSessionID, 
-                //     "Product", 
-                //     json_encode($varProduct), 
-                //     $varTTL
-                // );
+                \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+                    $userSessionID, 
+                    "Product", 
+                    json_encode($varProduct), 
+                    $varTTL
+                );
+            
+            // 4
+                // DATA MASTER DOCUMENT TYPE
+
+                $varDocumentType =
+                    (new \App\Models\Database\SchData_OLTP_Master\General())->getDataList_BusinessDocumentType(
+                        $userSessionID,
+                        $branchID
+                    );
+
+                //SET REDIS DOCUMENT TYPE
+
+                \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+                    $userSessionID, 
+                    "DocumentType", 
+                    json_encode($varDocumentType), 
+                    $varTTL
+                );
 
                 return [];
             }
