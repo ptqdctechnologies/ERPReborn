@@ -19,10 +19,15 @@
                         "minLength": 1
                         }
                     },
-                "required": [ "key", "version" ]
+                "required": [
+                    "key",
+                    "version"
+                    ]
                 }
             },
-        "required": [ "API" ]
+        "required": [
+            "API"
+            ]
         },
     "data": {
         "type": "object",
@@ -68,24 +73,42 @@
                                                             "maxLength": 256
                                                             }
                                                         },
-                                                    "required": [ "taxType_RefID", "tariffCurrency_RefID", "tariffCurrencyValue", "tariffCurrencyExchangeRate", "remarks" ]
+                                                    "required": [
+                                                        "taxType_RefID",
+                                                        "tariffCurrency_RefID",
+                                                        "tariffCurrencyValue",
+                                                        "tariffCurrencyExchangeRate",
+                                                        "remarks"
+                                                        ]
                                                     }
                                                 },
-                                            "required": [ "entities" ]
+                                            "required": [
+                                                "entities"
+                                                ]
                                             }
                                         }
                                     },
-                                "required": [ "items" ]
+                                "required": [
+                                    "items"
+                                    ]
                                 }
                             },
-                        "required": [ "itemList" ]
+                        "required": [
+                            "itemList"
+                            ]
                         }
                     },
-                "required": [ ]    
+                "required": [
+                    ]    
                 }
             },
-        "required": [ "entities" ]
+        "required": [
+            "entities"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }
