@@ -64,6 +64,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\RedisDataMaster\Engine
                 $varTTL = 43200; // 12 Jam
 
             // 1
+          
                 // GET DATA MASTER PROJECT
                 $varProject =
                     (new \App\Models\Database\SchData_OLTP_Project\General())->getDataPickList_Project(
@@ -79,7 +80,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\RedisDataMaster\Engine
                     json_encode($varProject['Data']), 
                     $varTTL
                 );
-
+          
             // 2
 
                 // DATA MASTER WORKER
