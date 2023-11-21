@@ -18,22 +18,6 @@ class FunctionController extends Controller
     //FUNCTION PROJECT
     public function getProject(Request $request)
     {
-        // $DataProject = Cache::remember('DataProject', 480, function(){
-
-        //     $varAPIWebToken = Session::get('SessionLogin');
-        //     $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        //         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        //         $varAPIWebToken,
-        //         'dataPickList.project.getProject',
-        //         'latest',
-        //         [
-        //             'parameter' => null
-        //         ]
-        //     );
-        //     return $varDataProject['data']['data'];
-
-        // });
-
         $DataProject = json_decode(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
             "Project"
@@ -120,35 +104,6 @@ class FunctionController extends Controller
     // FUNCTION WORKER 
     public function getWorker(Request $request)
     {
-
-
-        // $DataWorker = Cache::remember('DataWorker', 480, function () {
-
-            // $varAPIWebToken = Session::get('SessionLogin');
-            // $varDataWorker = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            //     $varAPIWebToken,
-            //     'transaction.read.dataList.humanResource.getWorkerJobsPositionCurrent',
-            //     'latest',
-            //     [
-            //         'parameter' => [
-            //             'worker_RefID' => null
-            //         ],
-            //         'SQLStatement' => [
-            //             'pick' => null,
-            //             'sort' => null,
-            //             'filter' => null,
-            //             'paging' => null
-            //         ]
-            //     ]
-            // );
-
-        //     return $varDataWorker['data']['data'];
-        // });
-
-        // return response()->json($DataWorker);
-
-
         $DataWorker = json_decode(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
             "Worker"
@@ -285,61 +240,24 @@ class FunctionController extends Controller
     // FUNCTION PRODUCT 
     public function getProduct(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.master.getProduct',
-            'latest',
-            [
-                'parameter' => [
-                    'dateTime' => null
-                ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
+        $DataProduct = json_decode(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+            "Product"
+            ),
+            true
+        );        
 
-        return response()->json($varData['data']);
-
-        // $DataProduct = json_decode(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-        //     "Product"
-        //     ),
-        //     true
-        // );
-        
-
-        // return response()->json($DataProduct);
+        return response()->json($DataProduct);
     }
 
     // FUNCTION DOCUMENT TYPE 
     public function getDocumentType()
     {
-        $DocumentType = Cache::remember('DocumentType', 480, function () {
-
-            $varAPIWebToken = Session::get('SessionLogin');
-            $varBusinessDocumentType = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.master.getBusinessDocumentType',
-                'latest',
-                [
-                    'parameter' => [],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ]
-            );
-            return $varBusinessDocumentType['data'];
-        });
-        return response()->json($DocumentType);
+        $DocumentType = json_decode(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+            "DocumentType"
+            ),
+            true
+        );       
     }
 }

@@ -68,7 +68,6 @@ class MyDocumentController extends Controller
 
     public function ShowMyDocumentListData(Request $request)
     {
-
         // dd(Redis::get("RedisDataMaster"));
         // dd(Redis::command('TTL', ['Testing']));
         // dd(Redis::flushDB());    

@@ -12,7 +12,9 @@ class KeyMenuComposer
 {
     public function compose(View $view)
     {
-        if(Redis::get("RedisGetMenu") == null){
+        $SessionWorkerCareerInternal_RefID =  Session::get('SessionWorkerCareerInternal_RefID');
+
+        if(Redis::get("RedisGetMenu".$SessionWorkerCareerInternal_RefID) == null){
             $varTTL = 43200; // 12 Jam
             $varAPIWebToken = Session::get('SessionLogin');
 
@@ -26,8 +28,8 @@ class KeyMenuComposer
 
             //SET VALUE REDIS
             \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                "RedisGetMenu", 
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "RedisGetMenu".$SessionWorkerCareerInternal_RefID,
                 json_encode($varData['data']['keyList']), 
                  $varTTL
             );
@@ -42,11 +44,11 @@ class KeyMenuComposer
 
             $privilageMenu = json_decode(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                    "RedisGetMenu"
+                    "RedisGetMenu".$SessionWorkerCareerInternal_RefID
                     ),
                     true
                 );
-
+          
             $compact = [
                 'privilageMenu' => $privilageMenu
             ];

@@ -234,8 +234,8 @@
 
                             len = response.data.length;
                             for (var i = 0; i < len; i++) {
-                                var id = response.data[i].sys_ID;
-                                var name = response.data[i].name;
+                                var id = response.data[i].Sys_ID;
+                                var name = response.data[i].Name;
                                 var option2 = "<option value='" + id + "'>" + name + "</option>";
                                 $(".branch_name").append(option2);
                             }
@@ -278,17 +278,17 @@
                         type: 'GET',
                         url: '{!! route("getRoleLogin") !!}?user_RefID=' + $('.user_RefID').val() + '&varAPIWebToken=' + $('.varAPIWebToken').val() + '&branch_name=' + $('.branch_name').val(),
                         success: function(data) {
+
                             var len = 0;
-                            if (data == '401') {
+                            if (data.status == '401') {
 
                                 Swal.fire("Cancelled", "Pastikan username dan password and benar", "error");
                                 HideLoading();
 
                             } else {
-
                                 HideLoading();
-
                                 len = data.length;
+                                arrData = data.data;
                                 $(".user_role").empty();
 
                                 if (len > 1) {
@@ -299,8 +299,8 @@
                                     $(".submit_button").prop("disabled", false);
                                 }
                                 for (var i = 0; i < len; i++) {
-                                    var ids = data[i].sys_ID;
-                                    var names = data[i].name;
+                                    var ids = arrData[i].Sys_ID;
+                                    var names = arrData[i].UserRoleName;
                                     var option = "<option value='" + ids + "'>" + names + "</option>";
                                     $(".user_role").append(option);
                                 }

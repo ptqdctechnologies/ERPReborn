@@ -30,8 +30,8 @@
 
             var len = data.length;
             for (var i = 0; i < len; i++) {
-                var ids = data[i].sys_ID;
-                var names = data[i].name;
+                var ids = data[i].Sys_ID;
+                var names = data[i].Name;
                 var option2 = "<option value='" + ids + "'>" + names + "</option>";
                 $(".DocumentType").append(option2);
             }

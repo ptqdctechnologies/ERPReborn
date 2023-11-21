@@ -458,7 +458,7 @@
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
-                                        @if(in_array("Module.SupplyChain.Procurement.PurchaseRequisition.Transaction.Create", Session::get('privilageMenu'), TRUE))
+                                        @if(in_array("Module.SupplyChain.Procurement.PurchaseRequisition.Transaction.Create", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                         <li class="nav-item">
                                             <a href="{{ route('PurchaseRequisition.ReportPurchaseRequisitionSummary') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -510,7 +510,7 @@
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
-                                        @if(in_array("Module.SupplyChain.Procurement.PurchaseOrder.Transaction.Create", Session::get('privilageMenu'), TRUE))
+                                        @if(in_array("Module.SupplyChain.Procurement.PurchaseOrder.Transaction.Create", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                         <li class="nav-item">
                                             <a href="{{ route('PurchaseOrder.ReportPurchaseOrderSummary') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

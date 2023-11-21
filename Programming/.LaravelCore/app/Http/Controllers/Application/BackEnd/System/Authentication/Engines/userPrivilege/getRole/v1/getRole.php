@@ -56,40 +56,81 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
         */          
         function main($varUserSession, $varData)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
-            try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get User Privilege Role (version 1)');
-                try {
-                    //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try {
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchSysConfig\General())->getUserPrivilege_Role(
-                            $varUserSession,
 
-                            $varData['parameter']['user_RefID'],
-                            $varData['parameter']['branch_RefID'],
-                            $varData['parameter']['dateTimeTZ']
-                            ))))
-                            {
-                            throw new \Exception();
-                            }
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
-                        } 
-                    catch (\Exception $ex) {
-                        $varErrorMessage = $ex->getMessage();
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
-                        }
-                    //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $ex->getMessage());
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
-            catch (\Exception $ex) {
+                $user_RefID = $varData['parameter']['user_RefID'];
+                $branch_RefID = $varData['parameter']['branch_RefID'];
+
+                $varTTL = 60; // 60 Detik
+
+            // 1
+                //DATA BRANCH
+
+                $varBranch =
+                    (new \App\Models\Database\SchSysConfig\General())->getUserPrivilege_InstitutionBranch(
+                        $varUserSession,
+                        $user_RefID
+                    );
+
+                //SET REDIS BRANCH
+    
+                \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+                    $varUserSession, 
+                    "Branch", 
+                    json_encode($varBranch), 
+                    $varTTL
+                );
+
+            // 2
+                //GET REDIS BRANCH
+
+                $varDataBranch = json_decode(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                    "Branch"
+                    ),
+                    true
+                );
+
+                //DATA ROLE
+
+                if(count($varDataBranch) > 1)
+                {
+                    $varRole =
+                    (new \App\Models\Database\SchSysConfig\General())->getDataList_UserRole(
+                        $varUserSession,
+                        $user_RefID,
+                        null
+                    );
+
+                    $compactRole = [
+                        'CountBranch' => count($varDataBranch),
+                        'Data' => $varRole
+                    ];
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+                else{
+                    $varRole =
+                    (new \App\Models\Database\SchSysConfig\General())->getUserPrivilege_Role(
+                        $varUserSession,
+                        $user_RefID,
+                        $varDataBranch[0]['Sys_ID'],
+                        null,
+                    );
+
+                    $compactRole = [
+                        'CountBranch' => count($varDataBranch),
+                        'Data' => $varRole
+                    ];
+                }
+
+                // //SET REDIS ROLE
+    
+                \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+                    $varUserSession, 
+                    "Role", 
+                    json_encode($compactRole), 
+                    $varTTL
+                );
+                return [];
+
             }
         }
     }

@@ -15,8 +15,6 @@ class KeyMenuServiceProvider extends ServiceProvider
                 'Advance.Advance.Functions.Menu.MenuAdvanceRequest', 
                 'Advance.Advance.Functions.Menu.MenuAdvanceSettlement', 
                 'Advance.BusinessTrip.Functions.Menu.MenuBusinessTripRequest', 
-                // 'Advance.BusinessTrip.Functions.Menu.MenuBusinessTripSettlement', 
-                // 'Purchase.PurchaseOrder.Functions.Menu.MenuPurchaseOrder', 
                 'Purchase.PurchaseRequisition.Functions.Menu.MenuProcReq', 
                 'Documents.Functions.Menu.MenuMyDocument'
             ],
