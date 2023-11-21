@@ -39,7 +39,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 'latest', 
                 [
                 'entities' => [
-                    "transactionTax_RefID" => 85000000000001,
+                    "transactionTax_RefID" => 184000000000001,
                     "taxType_RefID" => 182000000000001,                    
                     "tariffCurrency_RefID" => 62000000000001,
                     "tariffCurrencyValue" => 30000,
@@ -72,7 +72,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<table border="1" style="border-collapse: collapse;">';
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Transaction Tax Detail Main Data</p></td></tr>';
-            echo       '<tr><td>TransactionTax_RefID</td><td><input type="text" id="dataInput_TransactionTax_RefID" value=85000000000001></td></tr>';
+            echo       '<tr><td>TransactionTax_RefID</td><td><input type="text" id="dataInput_TransactionTax_RefID" value=184000000000001></td></tr>';
             echo       '<tr><td>TaxType_RefID</td><td><input type="text" id="dataInput_TaxType_RefID" value=182000000000001></td></tr>';
             echo       '<tr><td>TariffCurrency_RefID</td><td><input type="text" id="dataInput_TariffCurrency_RefID" value=62000000000001></td></tr>';
             echo       '<tr><td>TariffCurrencyValue</td><td><input type="text" id="dataInput_TariffCurrencyValue" value=30000></td></tr>';

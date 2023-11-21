@@ -74,7 +74,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo '<table border="1" style="border-collapse: collapse;">';
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Transaction Tax Detail Main Data</p></td></tr>';
             echo        '<tr><td>RecordID</td><td><input type="text" id="dataInput_RecordID" value=185000000000001></td></tr>';
-            echo        '<tr><td>TransactionTax_RefID</td><td><input type="text" id="dataInput_TransactionTax_RefID" value=85000000000001></td></tr>';
+            echo        '<tr><td>TransactionTax_RefID</td><td><input type="text" id="dataInput_TransactionTax_RefID" value=184000000000001></td></tr>';
             echo        '<tr><td>TaxType_RefID</td><td><input type="text" id="dataInput_TaxType_RefID" value=182000000000001></td></tr>';
             echo        '<tr><td>TariffCurrency_RefID</td><td><input type="text" id="dataInput_Tariff_Currency_RefID" value=62000000000001></td></tr>';
             echo        '<tr><td>TariffCurrencyValue</td><td><input type="text" id="dataInput_Tariff_CurrencyValue" value=30000></td></tr>';
