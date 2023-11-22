@@ -12,11 +12,11 @@ namespace App\Models\Database\SchData_OLTP_Finance
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblSalesInvoiceRequest                                                                                       |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Finance ► TblSalesInvoiceRequest                                    |
+    | ▪ Class Name  : TblSalesInvoice                                                                                              |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Finance ► TblSalesInvoice                                           |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblSalesInvoiceRequest extends \App\Models\Database\DefaultClassPrototype
+    class TblSalesInvoice extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -70,7 +70,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varRemarks = null, int $varCustomer_RefID = null, string $varTermAndConditions = null,
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, int $varCustomer_RefID = null, string $varTermAndConditions = null, string $varRemarks = null,
             array $varAdditionalData = [])
             {
             $varReturn = 
@@ -134,7 +134,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varRemarks = null, int $varCustomer_RefID = null, string $varTermAndConditions = null,
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, int $varCustomer_RefID = null, string $varTermAndConditions = null, string $varRemarks = null,
             array $varAdditionalData = [])
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
