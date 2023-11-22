@@ -137,6 +137,7 @@ class FunctionController extends Controller
             true
         );
 
+        // dd($DataWorker);
         return response()->json($DataWorker);
 
     }
@@ -278,9 +279,5 @@ class FunctionController extends Controller
             ),
             true
         );       
-        
-        return response()->json($DocumentType);
-
-        
     }
 }
