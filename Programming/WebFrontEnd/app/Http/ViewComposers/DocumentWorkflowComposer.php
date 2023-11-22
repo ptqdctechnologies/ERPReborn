@@ -12,7 +12,6 @@ class DocumentWorkflowComposer
 {
     public function compose(View $view)
     {
-
         $SessionWorkerCareerInternal_RefID =  Session::get('SessionWorkerCareerInternal_RefID');
 
         if (Redis::get("RedisGetMyDocument". $SessionWorkerCareerInternal_RefID) == null) {

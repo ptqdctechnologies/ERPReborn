@@ -55,7 +55,7 @@
                     $.each(data, function(key, val) {
                         keys += 1;
                         t.row.add([
-                            '<tbody><tr><input id="sys_id_beneficiary' + keys + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
+                            '<tbody><tr><input id="sys_id_beneficiary' + keys + '" value="' + val.Sys_ID + '" type="hidden"><input id="person_refID' + keys + '" value="' + val.Person_RefID + '" type="hidden"><td>' + no++ + '</td>',
                             '<td>' + val.PersonName + '</td>',
                             '<td>' + val.OrganizationalJobPositionName + '</td></tr></tbody>',
                         ]).draw();
@@ -76,12 +76,15 @@
         var row = $(this).closest("tr");  
         var id = row.find("td:nth-child(1)").text();  
         var sys_id_beneficiary = $('#sys_id_beneficiary' + id).val();
+        var person_refID = $('#person_refID' + id).val();
         var name = row.find("td:nth-child(2)").text();
         var position = row.find("td:nth-child(3)").text();
 
         $("#beneficiary_id").val(sys_id_beneficiary);
         $("#beneficiary").val(name);
         $("#beneficiary_detail").val(position);
+
+        $("#person_refID").val(person_refID);
 
         $("#bank_code").val("");
         $("#bank_name").val("");

@@ -14,6 +14,7 @@ class LoginController extends Controller
     // FUNCTION INDEX LOGIN 
     public function index(Request $request)
     {
+        // dd(Redis::keys("*"));
         $varAPIWebToken = $request->session()->get('SessionLogin');
         if ($varAPIWebToken) {
             return view('Dashboard.index');
@@ -128,6 +129,9 @@ class LoginController extends Controller
                 $password
             );
 
+            // dd(Redis::keys("*"));
+            // dd(json_decode(Redis::get("nama"), true));
+            // dd(Redis::get("nama"));
             // dd($dataAwal);
 
             if ($dataAwal['metadata']['HTTPStatusCode'] != 200) {
@@ -137,24 +141,7 @@ class LoginController extends Controller
                 ];
                 return response()->json($compact);
 
-            } else {
-
-                //CALL REDIS FOR LOGIN DATA
-                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $dataAwal['data']['APIWebToken'],
-                    'authentication.userPrivilege.getRole',
-                    'latest',
-                    [
-                        'parameter' => [
-                            'user_RefID' => $dataAwal['data']['userIdentity']['user_RefID'],
-                            'branch_RefID' => $dataAwal['data']['userIdentity']['workerCareerInternal_RefID'], // NAMANYA BRANCH ID TAPI ISINYA WORKER ID
-                            'dateTimeTZ' => null
-                        ]
-                    ],
-                    false
-                );
-                
+            } else {    
 
                 $varAPIWebToken = $dataAwal['data']['APIWebToken'];
 
@@ -217,7 +204,10 @@ class LoginController extends Controller
     // FUNCTION LOGOUT 
     public function logout(Request $request)
     {
-        
+        // DELETE API WEB TOKEN FROM REDIS
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        Redis::del("ERPReborn::APIWebToken::".$varAPIWebToken);
+
         $status = "success";
         $message = 'Thank you for your visit';
         if ($request->input('message') == "Session_Expired") {
@@ -249,6 +239,7 @@ class LoginController extends Controller
 
         Cache::flush();
         Session::flush();
+        Redis::flushDB();
         return redirect()->back();
     }
 }

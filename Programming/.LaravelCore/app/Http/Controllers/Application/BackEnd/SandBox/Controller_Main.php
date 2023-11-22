@@ -34,21 +34,36 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
         public function testAja()
         {
             $varData =
-                (new \App\Models\Database\SchData_OLTP_Master\General())->getDataList_BusinessDocumentType(
+                (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataList_CombinedBudgetSectionDetail(
                     6000000000001,
-                    11000000000004
+                    11000000000004,
+                    0
                 );
 
             dd($varData);
 
-            $varData = json_decode(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                "Product"
-                ),
-                true
-            );
+            // $num = 0;
+            // $filteredArray = [];
+            // for($i = 0; $i < count($varData); $i++){
+            //     if($varData[$i]['entities']['processedData']['entities']['combinedBudgetSection_RefID'] == 143000000000308){
+            //         $filteredArray[$num] = $varData[$i]['entities']['processedData']['entities'];
+            //         $filteredArray[$num]['sys_ID'] = $varData[$i]['recordID'];
+            //         $filteredArray[$num]['sys_Branch_RefID'] = $varData[$i]['branchID'];
+            //         $num++;
+            //     }
+            // }
+            // dd($filteredArray);
 
-            dd($varData);
+
+
+            // $varData = json_decode(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+            //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+            //     "SubBudget"
+            //     ),
+            //     true
+            // );
+
+            // dd($varData);
             // // $varData =
             // //     (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_Resume_BusinessDocumentIssuanceDispositionCount(
             // //         6000000000001,

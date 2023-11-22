@@ -10,6 +10,9 @@
 */
 namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\general\setLogin\v1
     {
+
+    use Illuminate\Support\Facades\Redis;
+
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : setLogin                                                                                                     |
@@ -193,6 +196,86 @@ $varDataSend = [
                                 //'optionList' => $varOptionList
                                 ];
                             
+                            
+                            // START REDIS HELPER LOGIN 
+                            // Redis::set("nama", json_encode($varDataSend['APIWebToken']));
+
+                                $user_RefID = $varDataSend['userIdentity']['user_RefID'];
+
+                                $varTTL = 60; // 60 Detik
+
+                            // 1
+                                //DATA BRANCH
+
+                                $varBranch =
+                                    (new \App\Models\Database\SchSysConfig\General())->getUserPrivilege_InstitutionBranch(
+                                        $varUserSession,
+                                        $user_RefID
+                                    );
+
+                                //SET REDIS BRANCH
+                    
+                                \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+                                    $varUserSession, 
+                                    "Branch", 
+                                    json_encode($varBranch), 
+                                    $varTTL
+                                );
+
+                            // 2
+                                //GET REDIS BRANCH
+
+                                $varDataBranch = json_decode(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                                    "Branch"
+                                    ),
+                                    true
+                                );
+
+                                //DATA ROLE
+
+                                if(count($varDataBranch) > 1)
+                                {
+                                    $varRole =
+                                    (new \App\Models\Database\SchSysConfig\General())->getDataList_UserRole(
+                                        $varUserSession,
+                                        $user_RefID,
+                                        null
+                                    );
+
+                                    $compactRole = [
+                                        'CountBranch' => count($varDataBranch),
+                                        'Data' => $varRole
+                                    ];
+                                }
+                                else{
+                                    $varRole =
+                                    (new \App\Models\Database\SchSysConfig\General())->getUserPrivilege_Role(
+                                        $varUserSession,
+                                        $user_RefID,
+                                        $varDataBranch[0]['Sys_ID'],
+                                        null,
+                                    );
+
+                                    $compactRole = [
+                                        'CountBranch' => count($varDataBranch),
+                                        'Data' => $varRole
+                                    ];
+                                }
+
+                                // //SET REDIS ROLE
+                    
+                                \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+                                    $varUserSession, 
+                                    "Role", 
+                                    json_encode($compactRole), 
+                                    $varTTL
+                                );
+
+                            // END REDIS HELPER LOGIN 
+                            
+
+
 
                         //$varDataSend = ['xxx' => $varBufferDB];
                         //$varDataSend = ['xxx' => $varData];

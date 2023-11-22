@@ -18,60 +18,86 @@ class FunctionController extends Controller
     //FUNCTION PROJECT
     public function getProject(Request $request)
     {
-        $DataProject = json_decode(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+        $DataBudget = json_decode(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-            "Project"
+            "Budget"
             ),
             true
         );
 
-        return response()->json($DataProject);
+        return response()->json($DataBudget);
     }
 
     // FUNCTION SITE PROJECT
     public function getSite(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
         $project_code = $request->input('project_code');
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'dataPickList.project.getProjectSectionItem',
-            'latest',
-            [
-                'parameter' => [
-                    'project_RefID' => (int)$project_code
-                ]
-            ]
-        );
+        $DataSubBudget = json_decode(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+            "SubBudget"
+            ),
+            true
+        );       
 
-        return response()->json($varData['data']['data']);
+        $num = 0;
+        $filteredArray = [];
+        for($i = 0; $i < count($DataSubBudget); $i++){
+            if($DataSubBudget[$i]['Project_RefID'] == $project_code){
+                $filteredArray[$num] = $DataSubBudget[$i];
+                $num++;
+            }
+        }
+
+        return response()->json($filteredArray);
     }
 
     // FUNCTION BUDGET 
     public function getBudget(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $site_code = $request->input('site_code');
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.budgeting.getCombinedBudgetSectionDetail',
-            'latest',
-            [
-                'parameter' => [
-                    'combinedBudgetSection_RefID' => (int)$site_code,
-                ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
+        // $varAPIWebToken = $request->session()->get('SessionLogin');
+        // $site_code = $request->input('site_code');
+        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varAPIWebToken,
+        //     'transaction.read.dataList.budgeting.getCombinedBudgetSectionDetail',
+        //     'latest',
+        //     [
+        //         'parameter' => [
+        //             'combinedBudgetSection_RefID' => (int)$site_code,
+        //         ],
+        //         'SQLStatement' => [
+        //             'pick' => null,
+        //             'sort' => null,
+        //             'filter' => null,
+        //             'paging' => null
+        //         ]
+        //     ]
+        // );
 
-        return response()->json($varData['data']);
+        // dd($varData);
+
+        // return response()->json($varData['data']);
+
+        $site_code = $request->input('site_code');
+        $varDataBudget = json_decode(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+            "DataBudget"
+            ),
+            true
+        );      
+
+        $num = 0;
+        $filteredArray = [];
+        for($i = 0; $i < count($varDataBudget); $i++){
+            if($varDataBudget[$i]['entities']['processedData']['entities']['combinedBudgetSection_RefID'] == $site_code){
+                $filteredArray[$num] = $varDataBudget[$i]['entities']['processedData']['entities'];
+                $filteredArray[$num]['sys_ID'] = $varDataBudget[$i]['recordID'];
+                $filteredArray[$num]['sys_Branch_RefID'] = $varDataBudget[$i]['branchID'];
+                $num++;
+            }
+        }
+        return response()->json($filteredArray);
+        
     }
 
     // FUNCTION PURCHASE REQUISTION 
@@ -186,54 +212,48 @@ class FunctionController extends Controller
     // FUNCTION BANK 
     public function getBank(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $sys_ID = $request->input('sys_ID');
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.master.getEntityBankAccount',
-            'latest',
-            [
-                'parameter' => [
-                    'entity_RefID' => (int)$sys_ID
-                ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
+        $person_refID = $request->input('person_refID');
+        $DataBank = json_decode(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+            "Bank"
+            ),
+            true
+        );       
 
-        return response()->json($varData['data']);
+        $num = 0;
+        $filteredArray = [];
+        for($i = 0; $i < count($DataBank); $i++){
+            if($DataBank[$i]['Entity_RefID'] == $person_refID){
+                $filteredArray[$num] = $DataBank[$i];
+                $num++;
+            }
+        }
+
+        return response()->json($filteredArray);
     }
 
     // FUNCTION BANK ACCOUNT 
     public function getEntityBankAccount(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $sys_ID = $request->input('sys_ID');
-        $bank_ID = $request->input('bank_ID');
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.master.getEntityBankAccount',
-            'latest',
-            [
-                'parameter' => [
-                    'entity_RefID' => (int)$sys_ID
-                ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => '"Bank_RefID" = ' . $bank_ID . '',
-                    'paging' => null
-                ]
-            ]
-        );
+        $person_refID = $request->input('person_refID');
+        $Bank_RefID = $request->input('Bank_RefID');
+        $DataBank = json_decode(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+            "Bank"
+            ),
+            true
+        );       
 
-        return response()->json($varData['data']);
+        $num = 0;
+        $filteredArray = [];
+        for($i = 0; $i < count($DataBank); $i++){
+            if($DataBank[$i]['Entity_RefID'] == $person_refID && $DataBank[$i]['Bank_RefID'] == $Bank_RefID ){
+                $filteredArray[$num] = $DataBank[$i];
+                $num++;
+            }
+        }
+
+        return response()->json($filteredArray);
     }
 
     // FUNCTION PRODUCT 
