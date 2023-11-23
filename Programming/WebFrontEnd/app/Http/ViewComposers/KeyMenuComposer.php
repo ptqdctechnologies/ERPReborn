@@ -28,7 +28,7 @@ class KeyMenuComposer
 
             //SET VALUE REDIS
             \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 "RedisGetMenu".$SessionWorkerCareerInternal_RefID,
                 json_encode($varData['data']['keyList']), 
                  $varTTL
@@ -48,7 +48,7 @@ class KeyMenuComposer
                     ),
                     true
                 );
-
+          
             $compact = [
                 'privilageMenu' => $privilageMenu
             ];

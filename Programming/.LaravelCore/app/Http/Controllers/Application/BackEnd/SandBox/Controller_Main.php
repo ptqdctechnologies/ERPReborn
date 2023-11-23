@@ -28,112 +28,18 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
             // dd(Redis::get('cek'));
 
             // $project = Cache::get('Project');
-
-            // dd(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(6000000000001, "Test"));
-        }
-        public function testAja()
-        {
-            dd(Redis::get("nama"));
-            // $varData =
-            //     (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataList_CombinedBudgetSectionDetail(
-            //         6000000000001,
-            //         11000000000004
-            //     );
-
-            
-
-            dd(\App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(6000000000001, "Testing", json_encode((new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataList_CombinedBudgetSectionDetail(
-                6000000000001,
-                11000000000004
-            ))));
-
-            die;
-            // $num = 0;
-            // $filteredArray = [];
-            // for($i = 0; $i < count($varData); $i++){
-            //     if($varData[$i]['entities']['processedData']['entities']['combinedBudgetSection_RefID'] == 143000000000308){
-            //         $filteredArray[$num] = $varData[$i]['entities']['processedData']['entities'];
-            //         $filteredArray[$num]['sys_ID'] = $varData[$i]['recordID'];
-            //         $filteredArray[$num]['sys_Branch_RefID'] = $varData[$i]['branchID'];
-            //         $num++;
-            //     }
-            // }
-            // dd($filteredArray);
-
-
-
-            // $varData = json_decode(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-            //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-            //     "SubBudget"
-            //     ),
-            //     true
-            // );
-
-            // dd($varData);
-            // // $varData =
-            // //     (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_Resume_BusinessDocumentIssuanceDispositionCount(
-            // //         6000000000001,
-            // //         11000000000004,
-            // //         164000000000196
-            // //     );
-
-            // // dd($varData[0]['document']['content']['dataCount']);
-
-
-            // $varDataRole =
-            //     (new \App\Models\Database\SchSysConfig\General())->getDataList_UserRole(
-            //         6000000000001,
-            //         4000000000002,
-            //         null
-            //     );
-
-            // dd($varDataRole);
-
-            // for($i = 0; $i < count($varDataRole); $i++){
-
-            //     if($varDataRole[$i]['Parameter_Branch_RefPID'] == 11000000000004){
-            //         $DataRole [] = $varDataRole[$i];
-            //     }
-            // }
-    
-            // dd($DataRole);
-
-
-
-            // dd($varData->groupBy("UserRole_RefPID"));
-
-            // $varData =
-            //     (new \App\Models\Database\SchData_OLTP_Master\General())->getDataList_Product(
-            //         6000000000001,
-            //         11000000000004
-            //     );
-
-            // // dd(json_encode($varData));
-
-            // dd(\App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(6000000000001, "Product", json_encode($varData)));
-            // dd($varData);
-
-            // $varWorker =
-            //     (new \App\Models\Database\SchData_OLTP_HumanResource\General())->getDataPickList_Worker(
-            //         6000000000001,
-            //         11000000000004
-            //     );
-
-            // dd($varWorker);
-
-            // dd((\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(6000000000001)));
-
-            // dd(Redis::set('name'.[0], 'Taylor'));
-
             // $time = date('H:i:s');
 
-            // if($time == "11:40:00"){
-            //     Redis::set("cheking", "Aldi");
-            // }
+            // dd(\App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(6000000000001, "Test", json_encode($varData['Data'])));
+            // die;
+            // $varData = 
+            //     (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataPickList_Budget(
+            //         6000000000001,
+            //         11000000000004
+            //     );
+            // return view('testAja', compact('varData'));
 
-            // dd($time);
-            // dd(Redis::connection());
-
+            // dd($varData);
 
             // dd(\App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(6000000000001, "Test", json_encode($varData['Data'])));
             // die;
