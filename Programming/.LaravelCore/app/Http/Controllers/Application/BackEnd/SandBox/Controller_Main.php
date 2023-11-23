@@ -30,10 +30,6 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
             // $project = Cache::get('Project');
             // $time = date('H:i:s');
 
-            // dd($time);
-            // dd(Redis::connection());
-
-
             // dd(\App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(6000000000001, "Test", json_encode($varData['Data'])));
             // die;
             // $varData = 

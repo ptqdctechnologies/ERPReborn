@@ -187,8 +187,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\RedisDataMaster\Engine
                 // DATA BUDGET
 
                 $varBudget =
-                    (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataEntities_CombinedBudgetSectionDetail(
-                        $userSessionID
+                    (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataList_CombinedBudgetSectionDetail(
+                        $userSessionID,
+                        $branchID
                     );
 
                 //SET REDIS BUDGET

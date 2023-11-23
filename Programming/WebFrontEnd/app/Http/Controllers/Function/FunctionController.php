@@ -58,21 +58,21 @@ class FunctionController extends Controller
         // $site_code = $request->input('site_code');
         // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
         //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        //     $varAPIWebToken,
-        //     'transaction.read.dataList.budgeting.getCombinedBudgetSectionDetail',
-        //     'latest',
+        //     $varAPIWebToken, 
+        //     'transaction.read.dataList.budgeting.getCombinedBudgetSectionDetail', 
+        //     'latest', 
         //     [
-        //         'parameter' => [
-        //             'combinedBudgetSection_RefID' => (int)$site_code,
+        //     'parameter' => [
+        //         'combinedBudgetSection_RefID' => null
         //         ],
-        //         'SQLStatement' => [
-        //             'pick' => null,
-        //             'sort' => null,
-        //             'filter' => null,
-        //             'paging' => null
+        //     'SQLStatement' => [
+        //         'pick' => null,
+        //         'sort' => null,
+        //         'filter' => null,
+        //         'paging' => null
         //         ]
         //     ]
-        // );
+        //     );
 
         // dd($varData);
 
@@ -85,14 +85,11 @@ class FunctionController extends Controller
             ),
             true
         );      
-
         $num = 0;
         $filteredArray = [];
         for($i = 0; $i < count($varDataBudget); $i++){
-            if($varDataBudget[$i]['entities']['processedData']['entities']['combinedBudgetSection_RefID'] == $site_code){
-                $filteredArray[$num] = $varDataBudget[$i]['entities']['processedData']['entities'];
-                $filteredArray[$num]['sys_ID'] = $varDataBudget[$i]['recordID'];
-                $filteredArray[$num]['sys_Branch_RefID'] = $varDataBudget[$i]['branchID'];
+            if($varDataBudget[$i]['CombinedBudgetSection_RefID'] == $site_code){
+                $filteredArray[$num] = $varDataBudget[$i];
                 $num++;
             }
         }
