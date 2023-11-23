@@ -717,7 +717,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_CombinedBudgetSectionDetail($varUserSession, int $varBranchID,
-            int $varCombinedBudgetSection_RefID,
+            int $varCombinedBudgetSection_RefID = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
