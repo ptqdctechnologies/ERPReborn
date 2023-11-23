@@ -717,7 +717,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_CombinedBudgetSectionDetail($varUserSession, int $varBranchID,
-            int $varCombinedBudgetSection_RefID,
+            int $varCombinedBudgetSection_RefID = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -738,39 +738,6 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         )
                     );
                 return $varReturn['Data'];
-                }
-            catch (\Exception $ex) {
-                return [];
-                }
-            }
-
-
-
-        public function getDataEntities_CombinedBudgetSectionDetail($varUserSession)
-            {
-
-            try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetDataEntities_CombinedBudgetSectionDetail',
-                        [
-                            [$varUserSession, 'bigint']
-                        ]
-                        )
-                    );
-
-
-                for($i = 0; $i < count($varReturn['Data']); $i++){
-
-                    $varData[] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
-                        $varReturn['Data'][$i]['Func_GetDataEntities_CombinedBudgetSectionDetail']);
-                    
-                }
-        
-                return $varData;
                 }
             catch (\Exception $ex) {
                 return [];

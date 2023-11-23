@@ -33,15 +33,21 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
         }
         public function testAja()
         {
-            $varData =
-                (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataList_CombinedBudgetSectionDetail(
-                    6000000000001,
-                    11000000000004,
-                    0
-                );
+            dd(Redis::get("nama"));
+            // $varData =
+            //     (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataList_CombinedBudgetSectionDetail(
+            //         6000000000001,
+            //         11000000000004
+            //     );
 
-            dd($varData);
+            
 
+            dd(\App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(6000000000001, "Testing", json_encode((new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataList_CombinedBudgetSectionDetail(
+                6000000000001,
+                11000000000004
+            ))));
+
+            die;
             // $num = 0;
             // $filteredArray = [];
             // for($i = 0; $i < count($varData); $i++){
