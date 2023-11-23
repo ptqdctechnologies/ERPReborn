@@ -30,10 +30,6 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
             // $project = Cache::get('Project');
             // $time = date('H:i:s');
 
-            // if($time == "11:40:00"){
-            //     Redis::set("cheking", "Aldi");
-            // }
-
             // dd($time);
             // dd(Redis::connection());
 

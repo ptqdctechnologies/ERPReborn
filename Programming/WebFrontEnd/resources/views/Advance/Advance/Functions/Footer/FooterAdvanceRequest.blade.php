@@ -60,9 +60,9 @@
                 $.each(data, function(key, val) {
                     keys += 1;
                     t.row.add([
-                        '<tbody><tr><input id="sys_id_site' + keys + '" value="' + val.sys_ID + '" type="hidden"><td>' + no++ + '</td>',
-                        '<td>' + val.code + '</td>',
-                        '<td>' + val.name + '</td></tr></tbody>'
+                        '<tbody><tr><input id="sys_id_site' + keys + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
+                        '<td>' + val.Code + '</td>',
+                        '<td>' + val.Name + '</td></tr></tbody>'
                     ]).draw();
                 });
             }
@@ -112,6 +112,7 @@
             type: 'GET',
             url: '{!! route("getBudget") !!}?site_code=' + sys_id,
             success: function(data) {
+
                 var no = 1;
                 applied = 0;
                 status = "";
@@ -120,6 +121,7 @@
                 statusForm = [];
                 $.each(data, function(key, val2) {
 
+                    console.log(val2.quantityAbsorptionRatio);
                     var used = val2.quantityAbsorptionRatio * 100;
 
                     if (used == "0.00" && val2.quantity == "0.00") {
