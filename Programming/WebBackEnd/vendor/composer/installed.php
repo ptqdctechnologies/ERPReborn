@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'aws/aws-crt-php' => array(
-            'pretty_version' => 'v1.2.3',
-            'version' => '1.2.3.0',
-            'reference' => '5545a4fa310aec39f54279fdacebcce33b3ff382',
+            'pretty_version' => 'v1.2.4',
+            'version' => '1.2.4.0',
+            'reference' => 'eb0c6e4e142224a10b08f49ebf87f32611d162b2',
             'type' => 'library',
             'install_path' => __DIR__ . '/../aws/aws-crt-php',
             'aliases' => array(),
