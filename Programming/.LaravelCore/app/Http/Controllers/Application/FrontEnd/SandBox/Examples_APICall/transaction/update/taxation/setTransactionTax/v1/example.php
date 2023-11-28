@@ -91,52 +91,60 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 }
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_RecordID" value=184000000000001>';
-            echo '<hr>';
-            echo '<input type="text" id="dataInput_Dtl1_RecordID" value=185000000000001>';
-            echo '<input type="text" id="dataInput_Dtl1_TaxType_RefID" value=182000000000001>';
-            echo '<input type="text" id="dataInput_Dtl1_Tarif_Currency_RefID" value=62000000000001>';
-            echo '<input type="text" id="dataInput_Dtl1_Tarif_CurrencyValue" value=30000>';
-            echo '<input type="text" id="dataInput_Dtl1_Tarif_CurrencyExchangeRate" value=1>';
-            echo '<input type="text" id="dataInput_Dtl1_Remarks" value="Catatan 1 Update">';
-            echo '<hr>';
-            echo '<input type="text" id="dataInput_Dtl2_RecordID" value=185000000000002>';
-            echo '<input type="text" id="dataInput_Dtl2_TaxType_RefID" value=182000000000002>';
-            echo '<input type="text" id="dataInput_Dtl2_Tarif_Currency_RefID" value=62000000000001>';
-            echo '<input type="text" id="dataInput_Dtl2_Tarif_CurrencyValue" value=30000>';
-            echo '<input type="text" id="dataInput_Dtl2_Tarif_CurrencyExchangeRate" value=1>';
-            echo '<input type="text" id="dataInput_Dtl2_Remarks" value="Catatan 2 Update">';
-            echo '<hr>';
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Transaction Tax Main Data</p></td></tr>';
+            echo        '<tr><td>RecordID</td><td><input type="text" id="dataInput_RecordID" value=184000000000001></td></tr>';
+            echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Transaction Tax Detail Data</p></td></tr></tr>';
+            echo        '<tr><td>RecordIDDetail_RefID_1</td><td><input type="text" id="dataInput_RecordIDDetail_RefID_1" value=185000000000001></td></tr>';
+            echo        '<tr><td>TaxType_RefID_1</td><td><input type="text" id="dataInput_TaxType_RefID_1" value=182000000000001></td></tr>';
+            echo        '<tr><td>TariffCurrency_RefID_1</td><td><input type="text" id="dataInput_TariffCurrency_RefID_1" value=62000000000001></td></tr>';
+            echo        '<tr><td>TariffCurrencyValue_1</td><td><input type="text" id="dataInput_TariffCurrencyValue_1" value=30000></td></tr>';
+            echo        '<tr><td>TariffCurrencyExchangeRate_1</td><td><input type="text" id="dataInput_TariffCurrencyExchangeRate_1" value=1></td></tr>';
+            echo        '<tr><td>Remarks_1</td><td><input type="text" id="dataInput_Remarks_1" value="Catatan Pertama Update"></td></tr>';
+            echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff"></p></td></tr></tr>';
+            echo        '<tr><td>RecordIDDetail_RefID_2</td><td><input type="text" id="dataInput_RecordIDDetail_RefID_2" value=185000000000002></td></tr>';
+            echo        '<tr><td>TaxType_RefID_2</td><td><input type="text" id="dataInput_TaxType_RefID_2" value=182000000000002></td></tr>';
+            echo        '<tr><td>TariffCurrency_RefID_2</td><td><input type="text" id="dataInput_TariffCurrency_RefID_2" value=62000000000001></td></tr>';
+            echo        '<tr><td>TariffCurrencyValue_2</td><td><input type="text" id="dataInput_TariffCurrencyValue_2" value=40000></td></tr>';
+            echo        '<tr><td>TariffCurrencyExchangeRate_2</td><td><input type="text" id="dataInput_TariffCurrencyExchangeRate_2" value=1></td></tr>';
+            echo        '<tr><td>Remarks_2</td><td><input type="text" id="dataInput_Remarks_2" value="Catatan Kedua Update"></td></tr>';
+            echo '</table><br>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
                 'transaction.update.taxation.setTransactionTax', 
-                'latest', 
+                'latest',
                 '{'.
                     '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
-                    '"entities": {'.
-                        '"additionalData": ['.
-                            '{'.
-                            '"recordID": parseInt(document.getElementById("dataInput_Dtl1_RecordID").value), '.
-                            '"entities": {'.
-                                '"taxType_RefID": parseInt(document.getElementById("dataInput_Dtl1_TaxType_RefID").value), '.
-                                '"tariffCurrency_RefID": parseInt(document.getElementById("dataInput_Dtl1_Tarif_Currency_RefID").value), '.
-                                '"tariffCurrencyValue": parseFloat(document.getElementById("dataInput_Dtl1_Tarif_CurrencyValue").value), '.
-                                '"tariffCurrencyExchangeRate": parseFloat(document.getElementById("dataInput_Dtl1_Tarif_CurrencyExchangeRate").value), '.
-                                '"remarks": document.getElementById("dataInput_Dtl1_Remarks").value'.
+                    '"entities" : {'.
+                        '"additionalData" : {'.
+                            '"itemList" : {'.
+                                '"items" : ['.
+                                        '{'.
+                                        '"recordID" : parseInt(document.getElementById("dataInput_RecordIDDetail_RefID_1").value), '.
+                                        '"entities" : '.
+                                            '{'.
+                                            '"taxType_RefID" : parseInt(document.getElementById("dataInput_TaxType_RefID_1").value), '.
+                                            '"tariffCurrency_RefID" : parseInt(document.getElementById("dataInput_TariffCurrency_RefID_1").value),'.
+                                            '"tariffCurrencyValue" : parseFloat(document.getElementById("dataInput_TariffCurrencyValue_1").value),'.
+                                            '"tariffCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_TariffCurrencyExchangeRate_1").value),'.
+                                            '"remarks" : document.getElementById("dataInput_Remarks_1").value'.
+                                            '}'.
+                                        '}, '.
+                                        '{'.
+                                        '"recordID" : parseInt(document.getElementById("dataInput_RecordIDDetail_RefID_2").value), '.
+                                        '"entities" : '.
+                                            '{'.
+                                            '"taxType_RefID" : parseInt(document.getElementById("dataInput_TaxType_RefID_2").value), '.
+                                            '"tariffCurrency_RefID" : parseInt(document.getElementById("dataInput_TariffCurrency_RefID_2").value),'.
+                                            '"tariffCurrencyValue" : parseFloat(document.getElementById("dataInput_TariffCurrencyValue_2").value),'.
+                                            '"tariffCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_TariffCurrencyExchangeRate_2").value),'.
+                                            '"remarks" : document.getElementById("dataInput_Remarks_2").value'.
+                                            '}'.
+                                        '}'.
+                                    ']'.
                                 '}'.
-                            '}, '.
-                            '{'.
-                            '"recordID": parseInt(document.getElementById("dataInput_Dtl2_RecordID").value), '.
-                            '"entities": {'.
-                                '"taxType_RefID": parseInt(document.getElementById("dataInput_Dtl2_TaxType_RefID").value), '.
-                                '"tariffCurrency_RefID": parseInt(document.getElementById("dataInput_Dtl2_Tarif_Currency_RefID").value), '.
-                                '"tariffCurrencyValue": parseFloat(document.getElementById("dataInput_Dtl2_Tarif_CurrencyValue").value), '.
-                                '"tariffCurrencyExchangeRate": parseFloat(document.getElementById("dataInput_Dtl2_Tarif_CurrencyExchangeRate").value), '.
-                                '"remarks": document.getElementById("dataInput_Dtl2_Remarks").value'.
-                                '}'.
-                            '} '.
-                            ']'.
+                            '}'.
                         '}'.
                 '}'
                 );

@@ -179,6 +179,7 @@ return [
         App\Providers\RedisDataTransactionServiceProvider::class,
         App\Providers\DocumentWorkflowServiceProvider::class,
         App\Providers\KeyMenuServiceProvider::class,
+        App\Providers\RedisDataMasterServiceProvider::class,
         
 
     ],

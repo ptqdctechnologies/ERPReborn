@@ -319,7 +319,7 @@
                             HideLoading();
                         }
                     });
-                }
+                }dashboard
             });
         });
     </script>
