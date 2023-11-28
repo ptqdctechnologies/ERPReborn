@@ -4,20 +4,20 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\finance                    |
-|                \getInvoiceSupplierAdditionalCost\v1                                                                              |
+|                \getPurchaseInvoiceAdditionalCost\v1                                                                              |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\finance\getInvoiceSupplierAdditionalCost\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\finance\getPurchaseInvoiceAdditionalCost\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getInvoiceSupplierAdditionalCost                                                                             |
-    | ▪ Description : Menangani API transaction.read.dataEntities.finance.getInvoiceSupplierAdditionalCost Version 1               |
+    | ▪ Class Name  : getPurchaseInvoiceAdditionalCost                                                                             |
+    | ▪ Description : Menangani API transaction.read.dataEntities.finance.getPurchaseInvoiceAdditionalCost Version 1               |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getInvoiceSupplierAdditionalCost extends \App\Http\Controllers\Controller
+    class getPurchaseInvoiceAdditionalCost extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -62,8 +62,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Invoice Customer Additional Cost Data Entities (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\TblInvoiceSupplierAdditionalCost())->getDataEntities(
+                    try {
+                        if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\TblPurchaseInvoiceAdditionalCost())->getDataEntities(
                             $varUserSession, 
                             
                             $varData['parameter']['recordIDSet'],
