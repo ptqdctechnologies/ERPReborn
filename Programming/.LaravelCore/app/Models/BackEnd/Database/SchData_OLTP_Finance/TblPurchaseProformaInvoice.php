@@ -12,11 +12,11 @@ namespace App\Models\Database\SchData_OLTP_Finance
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblProformaInvoiceSupplier                                                                                   |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Finance ► TblProformaInvoiceSupplier                                |
+    | ▪ Class Name  : TblPurchaseProformaInvoice                                                                                   |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Finance ► TblPurchaseProformaInvoice                                |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblProformaInvoiceSupplier extends \App\Models\Database\DefaultClassPrototype
+    class TblPurchaseProformaInvoice extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

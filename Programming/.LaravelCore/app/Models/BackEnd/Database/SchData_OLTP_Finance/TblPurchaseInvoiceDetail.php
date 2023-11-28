@@ -12,11 +12,11 @@ namespace App\Models\Database\SchData_OLTP_Finance
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblProformaInvoiceSupplierDetail                                                                             |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Finance ► TblProformaInvoiceSupplierDetail                          |
+    | ▪ Class Name  : TblPurchaseInvoiceDetail                                                                                     |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Finance ► TblPurchaseInvoiceDetail                                  |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblProformaInvoiceSupplierDetail extends \App\Models\Database\DefaultClassPrototype
+    class TblPurchaseInvoiceDetail extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -44,8 +44,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-28                                                                                           |
-        | ▪ Creation Date   : 2022-09-28                                                                                           |
+        | ▪ Last Update     : 2022-09-16                                                                                           |
+        | ▪ Creation Date   : 2022-09-16                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -55,7 +55,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varProformaInvoiceSupplier_RefID ► Proforma Invoice Supplier Detail Reference ID                         |
+        |      ▪ (int)    varPurchaseInvoice_RefID ► Invoice Supplier Reference ID                                                 |
         |      ▪ (int)    varPurchaseOrderDetail_RefID ► Purchase Order Detail Reference ID                                        |
         |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
@@ -71,7 +71,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varProformaInvoiceSupplier_RefID = null, int $varPurchaseOrderDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantity_RefID = null, int $varPriceCurrency_RefID = null, int $varPriceCurrencyValue = null, float $varPriceCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varPurchaseInvoice_RefID = null, int $varPurchaseOrderDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantity_RefID = null, int $varPriceCurrency_RefID = null, int $varPriceCurrencyValue = null, float $varPriceCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -86,7 +86,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         [$varSysBranch_RefID, 'bigint'],
                         [$varSysBaseCurrency_RefID, 'bigint'],
                         
-                        [$varProformaInvoiceSupplier_RefID, 'bigint'],
+                        [$varPurchaseInvoice_RefID, 'bigint'],
                         [$varPurchaseOrderDetail_RefID, 'bigint'],
                         [$varProduct_RefID, 'bigint'],
                         [$varQuantity, 'numeric'],
@@ -107,8 +107,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-28                                                                                           |
-        | ▪ Creation Date   : 2022-09-28                                                                                           |
+        | ▪ Last Update     : 2022-05-17                                                                                           |
+        | ▪ Creation Date   : 2022-05-17                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -119,7 +119,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varProformaInvoiceSupplier_RefID ► Proforma Invoice Supplier Detail Reference ID                         |
+        |      ▪ (int)    varPurchaseInvoice_RefID ► Invoice Supplier Reference ID                                                 |
         |      ▪ (int)    varPurchaseOrderDetail_RefID ► Purchase Order Detail Reference ID                                        |
         |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
@@ -135,7 +135,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varProformaInvoiceSupplier_RefID = null, int $varPurchaseOrderDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantity_RefID = null, int $varPriceCurrency_RefID = null, int $varPriceCurrencyValue = null, float $varPriceCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varPurchaseInvoice_RefID = null, int $varPurchaseOrderDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantity_RefID = null, int $varPriceCurrency_RefID = null, int $varPriceCurrencyValue = null, float $varPriceCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -150,7 +150,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         [$varSysBranch_RefID, 'bigint'],
                         [$varSysBaseCurrency_RefID, 'bigint'],
                         
-                        [$varProformaInvoiceSupplier_RefID, 'bigint'],
+                        [$varPurchaseInvoice_RefID, 'bigint'],
                         [$varPurchaseOrderDetail_RefID, 'bigint'],
                         [$varProduct_RefID, 'bigint'],
                         [$varQuantity, 'numeric'],

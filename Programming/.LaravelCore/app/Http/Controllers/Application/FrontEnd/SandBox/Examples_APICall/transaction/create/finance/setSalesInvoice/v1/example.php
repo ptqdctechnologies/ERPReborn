@@ -42,7 +42,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     "documentDateTimeTZ" => '2022-03-07',
                     "log_FileUpload_Pointer_RefID" => NULL,
                     "requesterWorkerJobsPosition_RefID" => 164000000000497,
-                    "customer_RefID" => 125000000000001,
                     "termAndConditions" => 'My Term & Condition',
                     "remarks" => 'My Remarks',
                     "additionalData" => [
@@ -117,7 +116,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo        '<tr><td>DocumentDateTimeTZ</td><td><input type="text" id="dataInput_DocumentDateTimeTZ" value="2022-03-07"></td></tr>';
             echo        '<tr><td>Log_FileUpload_Pointer_RefID</td><td><input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value=91000000000001></td></tr>';
             echo        '<tr><td>RequesterWorkerJobsPosition_RefID</td><td><input type="text" id="dataInput_RequesterWorkerJobsPosition_RefID" value=164000000000497></td></tr>';
-            echo        '<tr><td>Customer_RefID</td><td><input type="text" id="dataInput_Customer_RefID" value=125000000000001></td></tr>';
             echo        '<tr><td>TermAndConditions</td><td><input type="text" id="dataInput_TermAndConditions" value="My Term & Condition"></td></tr>';
             echo        '<tr><td>Remarks</td><td><input type="text" id="dataInput_Remarks" value="My Remarks"></td></tr>';
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Sales Invoice Detail Data</p></td></tr></tr>';
@@ -152,7 +150,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
                         '"log_FileUpload_Pointer_RefID" : parseInt(document.getElementById("dataInput_Log_FileUpload_Pointer_RefID").value), '.
                         '"requesterWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_RequesterWorkerJobsPosition_RefID").value), '.
-                        '"customer_RefID" : parseInt(document.getElementById("dataInput_Customer_RefID").value), '.
                         '"termAndConditions" : document.getElementById("dataInput_TermAndConditions").value, '.
                         '"remarks" : document.getElementById("dataInput_Remarks").value, '.
                         '"additionalData" : {'.

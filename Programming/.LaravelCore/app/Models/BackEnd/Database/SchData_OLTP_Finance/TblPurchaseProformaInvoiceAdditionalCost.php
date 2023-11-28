@@ -12,11 +12,11 @@ namespace App\Models\Database\SchData_OLTP_Finance
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblProformaInvoiceSupplierAdditionalCost                                                                     |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Finance ► TblProformaInvoiceSupplierAdditionalCost                  |
+    | ▪ Class Name  : TblPurchaseProformaInvoiceAdditionalCost                                                                     |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Finance ► TblPurchaseProformaInvoiceAdditionalCost                  |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblProformaInvoiceSupplierAdditionalCost extends \App\Models\Database\DefaultClassPrototype
+    class TblPurchaseProformaInvoiceAdditionalCost extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -55,7 +55,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varProformaInvoiceSupplier_RefID ► Proforma Invoice Supplier Reference ID                                |
+        |      ▪ (int)    varPurchaseProformaInvoice_RefID ► Proforma Invoice Supplier Reference ID                                |
         |      ▪ (int)    varTransactionAdditionalCostType_RefID ► Transaction Additional Cost Type Reference ID                   |
         |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
         |      ▪ (float)  varCurrencyValue ► Currency Value                                                                        |
@@ -69,7 +69,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varProformaInvoiceSupplier_RefID = null, int $varTransactionAdditionalCostType_RefID = null, int $varCurrency_RefID = null, float $varCurrencyValue = null, float $varCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varPurchaseProformaInvoice_RefID = null, int $varTransactionAdditionalCostType_RefID = null, int $varCurrency_RefID = null, float $varCurrencyValue = null, float $varCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -84,7 +84,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         [$varSysBranch_RefID, 'bigint'],
                         [$varSysBaseCurrency_RefID, 'bigint'],
                         
-                        [$varProformaInvoiceSupplier_RefID, 'bigint'],
+                        [$varPurchaseProformaInvoice_RefID, 'bigint'],
                         [$varTransactionAdditionalCostType_RefID, 'bigint'],
                         [$varCurrency_RefID, 'bigint'],
                         [$varCurrencyValue, 'numeric'],
@@ -114,7 +114,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varProformaInvoiceSupplier_RefID ► Proforma Invoice Supplier Reference ID                                |
+        |      ▪ (int)    varPurchaseProformaInvoice_RefID ► Proforma Invoice Supplier Reference ID                                |
         |      ▪ (int)    varTransactionAdditionalCostType_RefID ► Transaction Additional Cost Type Reference ID                   |
         |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
         |      ▪ (float)  varCurrencyValue ► Currency Value                                                                        |
@@ -128,7 +128,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varProformaInvoiceSupplier_RefID = null, int $varTransactionAdditionalCostType_RefID = null, int $varCurrency_RefID = null, float $varCurrencyValue = null, float $varCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varPurchaseProformaInvoice_RefID = null, int $varTransactionAdditionalCostType_RefID = null, int $varCurrency_RefID = null, float $varCurrencyValue = null, float $varCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -143,7 +143,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         [$varSysBranch_RefID, 'bigint'],
                         [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [$varProformaInvoiceSupplier_RefID, 'bigint'],
+                        [$varPurchaseProformaInvoice_RefID, 'bigint'],
                         [$varTransactionAdditionalCostType_RefID, 'bigint'],
                         [$varCurrency_RefID, 'bigint'],
                         [$varCurrencyValue, 'numeric'],

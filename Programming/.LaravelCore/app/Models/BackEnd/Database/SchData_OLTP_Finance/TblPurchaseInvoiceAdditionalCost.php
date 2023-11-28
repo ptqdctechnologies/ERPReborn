@@ -12,19 +12,19 @@ namespace App\Models\Database\SchData_OLTP_Finance
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblInvoiceSupplierDetail                                                                                     |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Finance ► TblInvoiceSupplierDetail                                  |
+    | ▪ Class Name  : TblPurchaseInvoiceAdditionalCost                                                                             |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Finance ► TblPurchaseInvoiceAdditionalCost                          |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblInvoiceSupplierDetail extends \App\Models\Database\DefaultClassPrototype
+    class TblPurchaseInvoiceAdditionalCost extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-16                                                                                           |
-        | ▪ Creation Date   : 2022-09-16                                                                                           |
+        | ▪ Last Update     : 2022-09-21                                                                                           |
+        | ▪ Creation Date   : 2022-09-21                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,25 +44,23 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-16                                                                                           |
-        | ▪ Creation Date   : 2022-09-16                                                                                           |
+        | ▪ Last Update     : 2022-09-21                                                                                           |
+        | ▪ Creation Date   : 2022-09-21                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varInvoiceSupplier_RefID ► Invoice Supplier Reference ID                                                 |
-        |      ▪ (int)    varPurchaseOrderDetail_RefID ► Purchase Order Detail Reference ID                                        |
-        |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
-        |      ▪ (float)  varQuantity ► Quantity                                                                                   |
-        |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
-        |      ▪ (int)    varPriceCurrency_RefID ► Price Currency Reference ID                                                     |
-        |      ▪ (float)  varPriceCurrencyValue ► Price Currency Value                                                             |
-        |      ▪ (float)  varPriceCurrencyExchangeRate ► Price Currency Exchange Rate                                              |
+        |      ▪ (int)    varPurchaseInvoice_RefID ► Invoice Supplier Reference ID                                                 |
+        |      ▪ (int)    varTransactionAdditionalCostType_RefID ► Transaction Additional Cost Type Reference ID                   |
+        |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
+        |      ▪ (float)  varCurrencyValue ► Currency Value                                                                        |
+        |      ▪ (float)  varCurrencyExchangeRate ► Currency Exchange Rate                                                         |
+        |      ▪ (float)  varBaseCurrencyValue ► Base Currency Value                                                               |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -71,7 +69,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varInvoiceSupplier_RefID = null, int $varPurchaseOrderDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantity_RefID = null, int $varPriceCurrency_RefID = null, int $varPriceCurrencyValue = null, float $varPriceCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varPurchaseInvoice_RefID = null, int $varTransactionAdditionalCostType_RefID = null, int $varCurrency_RefID = null, float $varCurrencyValue = null, float $varCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -86,14 +84,11 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         [$varSysBranch_RefID, 'bigint'],
                         [$varSysBaseCurrency_RefID, 'bigint'],
                         
-                        [$varInvoiceSupplier_RefID, 'bigint'],
-                        [$varPurchaseOrderDetail_RefID, 'bigint'],
-                        [$varProduct_RefID, 'bigint'],
-                        [$varQuantity, 'numeric'],
-                        [$varQuantity_RefID, 'bigint'],
-                        [$varPriceCurrency_RefID, 'bigint'],
-                        [$varPriceCurrencyValue, 'numeric'],
-                        [$varPriceCurrencyExchangeRate, 'numeric'],
+                        [$varPurchaseInvoice_RefID, 'bigint'],
+                        [$varTransactionAdditionalCostType_RefID, 'bigint'],
+                        [$varCurrency_RefID, 'bigint'],
+                        [$varCurrencyValue, 'numeric'],
+                        [$varCurrencyExchangeRate, 'numeric'],
                         [$varRemarks, 'varchar']
                     ]
                     )
@@ -107,8 +102,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-05-17                                                                                           |
-        | ▪ Creation Date   : 2022-05-17                                                                                           |
+        | ▪ Last Update     : 2022-09-21                                                                                           |
+        | ▪ Creation Date   : 2022-09-21                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -116,17 +111,15 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varInvoiceSupplier_RefID ► Invoice Supplier Reference ID                                                 |
-        |      ▪ (int)    varPurchaseOrderDetail_RefID ► Purchase Order Detail Reference ID                                        |
-        |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
-        |      ▪ (float)  varQuantity ► Quantity                                                                                   |
-        |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
-        |      ▪ (int)    varPriceCurrency_RefID ► Price Currency Reference ID                                                     |
-        |      ▪ (float)  varPriceCurrencyValue ► Price Currency Value                                                             |
-        |      ▪ (float)  varPriceCurrencyExchangeRate ► Price Currency Exchange Rate                                              |
+        |      ▪ (int)    varPurchaseInvoice_RefID ► Invoice Supplier Reference ID                                                 |
+        |      ▪ (int)    varTransactionAdditionalCostType_RefID ► Transaction Additional Cost Type Reference ID                   |
+        |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
+        |      ▪ (float)  varCurrencyValue ► Currency Value                                                                        |
+        |      ▪ (float)  varCurrencyExchangeRate ► Currency Exchange Rate                                                         |
+        |      ▪ (float)  varBaseCurrencyValue ► Base Currency Value                                                               |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -135,7 +128,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varInvoiceSupplier_RefID = null, int $varPurchaseOrderDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantity_RefID = null, int $varPriceCurrency_RefID = null, int $varPriceCurrencyValue = null, float $varPriceCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varPurchaseInvoice_RefID = null, int $varTransactionAdditionalCostType_RefID = null, int $varCurrency_RefID = null, float $varCurrencyValue = null, float $varCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -149,15 +142,12 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranch_RefID, 'bigint'],
                         [$varSysBaseCurrency_RefID, 'bigint'],
-                        
-                        [$varInvoiceSupplier_RefID, 'bigint'],
-                        [$varPurchaseOrderDetail_RefID, 'bigint'],
-                        [$varProduct_RefID, 'bigint'],
-                        [$varQuantity, 'numeric'],
-                        [$varQuantity_RefID, 'bigint'],
-                        [$varPriceCurrency_RefID, 'bigint'],
-                        [$varPriceCurrencyValue, 'numeric'],
-                        [$varPriceCurrencyExchangeRate, 'numeric'],
+
+                        [$varPurchaseInvoice_RefID, 'bigint'],
+                        [$varTransactionAdditionalCostType_RefID, 'bigint'],
+                        [$varCurrency_RefID, 'bigint'],
+                        [$varCurrencyValue, 'numeric'],
+                        [$varCurrencyExchangeRate, 'numeric'],
                         [$varRemarks, 'varchar']
                     ],
                     )
