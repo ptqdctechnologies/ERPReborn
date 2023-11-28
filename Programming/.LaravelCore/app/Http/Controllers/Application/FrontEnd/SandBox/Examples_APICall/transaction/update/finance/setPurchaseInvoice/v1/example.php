@@ -4,21 +4,21 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\update\finance                   |
-|                 \setInvoiceSupplier\v1                                                                                           |
-| ▪ API Key     : transaction.update.finance.setInvoiceSupplier                                                                    |
+|                 \setPurchaseInvoice\v1                                                                                           |
+| ▪ API Key     : transaction.update.finance.setPurchaseInvoice                                                                    |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\update\finance\setInvoiceSupplier\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\update\finance\setPurchaseInvoice\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.update.finance.setInvoiceSupplier.v1_throughAPIGateway                  |
-        |                     ► http://172.28.0.4/transaction.update.finance.setInvoiceSupplier.v1_throughAPIGateway               |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.update.finance.setPurchaseInvoice.v1_throughAPIGateway                  |
+        |                     ► http://172.28.0.4/transaction.update.finance.setPurchaseInvoice.v1_throughAPIGateway               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-09-19                                                                                           |
@@ -35,7 +35,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'transaction.update.finance.setInvoiceSupplier', 
+                'transaction.update.finance.setPurchaseInvoice', 
                 'latest', 
                 [
                 'recordID' => 208000000000001,
@@ -54,6 +54,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         "itemList" => [
                             "items" => [
                                     [
+                                    "recordID" => 209000000000001,
                                     "entities" => [
                                         "purchaseOrderDetail_RefID" => 86000000000001,
                                         "product_RefID" => 88000000000689,
@@ -63,6 +64,44 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "priceCurrencyValue" => 30000.00,
                                         "priceCurrencyExchangeRate" => 1,
                                         "remarks" => 'My Remarks'
+                                        ]
+                                    ]
+                                ]
+                            ],
+                        "transactionTaxItemList" => [
+                            "items" => [
+                                    [
+                                    "recordID" => 185000000000001,
+                                    "entities" => [
+                                        "taxType_RefID" => 182000000000001,
+                                        "tariffCurrency_RefID" => 62000000000001,
+                                        "tariffCurrencyValue" => 30000,
+                                        "tariffCurrencyExchangeRate" => 1,
+                                        "remarks" => 'Catatan 1'                                
+                                        ]
+                                    ],
+                                    [
+                                    "recordID" => 185000000000002,
+                                    "entities" => [
+                                        "taxType_RefID" => 182000000000002,
+                                        "tariffCurrency_RefID" => 62000000000001,
+                                        "tariffCurrencyValue" => 30000,
+                                        "tariffCurrencyExchangeRate" => 1,
+                                        "remarks" => 'Catatan 2'
+                                        ]
+                                    ]                            
+                                ]
+                            ],
+                        "additionalCostItemList" => [
+                            "items" => [
+                                    [
+                                    "recordID" => 210000000000001,
+                                    "entities" => [
+                                        "transactionAdditionalCostType_RefID" => 190000000000002,
+                                        "priceCurrency_RefID" => 62000000000001,
+                                        "priceCurrencyValue" => 30000,
+                                        "priceCurrencyExchangeRate" => 1,
+                                        "remarks" => 'Catatan Additional Cost'
                                         ]
                                     ]
                                 ]
@@ -77,8 +116,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.update.finance.setInvoiceSupplier.v1_throughAPIGatewayJQuery            |
-        |                     ► http://172.28.0.4/transaction.update.finance.setInvoiceSupplier.v1_throughAPIGatewayJQuery         |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.update.finance.setPurchaseInvoice.v1_throughAPIGatewayJQuery            |
+        |                     ► http://172.28.0.4/transaction.update.finance.setPurchaseInvoice.v1_throughAPIGatewayJQuery         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-09-19                                                                                           |
@@ -92,6 +131,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
             //---Core---
+            /*
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<table border="1" style="border-collapse: collapse;">';
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Invoice Supplier Main Data</p></td></tr>';
@@ -128,7 +168,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
-                'transaction.update.finance.setInvoiceSupplier', 
+                'transaction.update.finance.setPurchaseInvoice', 
                 'latest', 
                 '{'.
                     '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
@@ -180,6 +220,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 ); 
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);
+            */
             }
         }
     }
