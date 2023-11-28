@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.update.finance.setInvoiceSupplierDetail (version 1)",
+"description": "JSON Request Schema of transaction.update.finance.setPurchaseInvoiceDetail (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.update.finance.setInvoiceSupplierDetail" ]
+                        "enum": [ "transaction.update.finance.setPurchaseInvoiceDetail" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -19,10 +19,15 @@
                         "minLength": 1
                         }
                     },
-                "required": [ "key", "version" ]
+                "required": [
+                    "key",
+                    "version"
+                    ]
                 }
             },
-        "required": [ "API" ]
+        "required": [
+            "API"
+            ]
         },
     "data": {
         "type": "object",
@@ -35,7 +40,7 @@
             "entities" : {
                 "type": "object",
                 "properties": {
-                    "invoiceSupplier_RefID": {
+                    "purchaseInvoice_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
@@ -79,7 +84,7 @@
                         }
                     },
                 "required": [ 
-                    "invoiceSupplier_RefID", 
+                    "purchaseInvoice_RefID", 
                     "purchaseOrderDetail_RefID", 
                     "product_RefID", 
                     "quantity", 
@@ -91,8 +96,14 @@
                     ]
                 }
             },
-        "required": [ "recordID", "entities" ]
+        "required": [
+            "recordID",
+            "entities"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }
