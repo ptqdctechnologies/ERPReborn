@@ -33,21 +33,18 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
         }
         public function testAja()
         {
-            dd(Redis::get("nama"));
+
+        dd($branchID = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(6000000000001)['branchID']);
             // $varData =
-            //     (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataList_CombinedBudgetSectionDetail(
+            //     (new \App\Models\Database\SchSysConfig\General())->getUserRolePrivilegeMenuAndBudget(
             //         6000000000001,
-            //         11000000000004
+            //         4000000000002,
+            //         11000000000004,
+            //         95000000000038
             //     );
 
-            
+            // dd($varData);
 
-            dd(\App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(6000000000001, "Testing", json_encode((new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataList_CombinedBudgetSectionDetail(
-                6000000000001,
-                11000000000004
-            ))));
-
-            die;
             // $num = 0;
             // $filteredArray = [];
             // for($i = 0; $i < count($varData); $i++){
@@ -64,20 +61,20 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
 
             // $varData = json_decode(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
             //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-            //     "SubBudget"
+            //     "Branch"
             //     ),
             //     true
             // );
 
             // dd($varData);
-            // // $varData =
-            // //     (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_Resume_BusinessDocumentIssuanceDispositionCount(
-            // //         6000000000001,
-            // //         11000000000004,
-            // //         164000000000196
-            // //     );
+            $varData =
+                (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_Resume_BusinessDocumentIssuanceDispositionCount(
+                    6000000000001,
+                    11000000000004,
+                    164000000000002
+                );
 
-            // // dd($varData[0]['document']['content']['dataCount']);
+            dd($varData[0]['document']['content']['dataCount']);
 
 
             // $varDataRole =

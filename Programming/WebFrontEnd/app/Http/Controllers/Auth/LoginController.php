@@ -23,39 +23,24 @@ class LoginController extends Controller
         }
     }
 
-    // // FUNCTION COUNT DOCUMENT FUNCTION 
-    // public function GetCountMyDocument()
-    // {
-
-    //     $varDataCountMyDocument = json_decode(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-    //         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-    //         "CountMyDocument"
-    //         ),
-    //         true
-    //     );
-
-    //     return $varDataCountMyDocument;
-    // }
-
-
     // FUNCTION ROLE FUNCTION 
-    public function GetRoleFunction($varBranchID)
+    public function GetRoleFunction($varBranchID, $user_RefID)
     {
 
-        $varDataRole = json_decode(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-            "Role"
+        $varDataRole = json_decode(
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "Role" . $user_RefID
             ),
             true
         );
-        if($varDataRole['CountBranch'] == 1){
+        if ($varDataRole['CountBranch'] == 1) {
             return $varDataRole['Data'];
-        }
-        else{
+        } else {
             $num = 0;
             $filteredArray = [];
-            for($i = 0; $i < count($varDataRole['Data']); $i++){
-                if($varDataRole['Data'][$i]['Branch_ID'] == $varBranchID){
+            for ($i = 0; $i < count($varDataRole['Data']); $i++) {
+                if ($varDataRole['Data'][$i]['Branch_ID'] == $varBranchID) {
                     $filteredArray[$num] = $varDataRole['Data'][$i];
                     $num++;
                 }
@@ -65,11 +50,12 @@ class LoginController extends Controller
     }
 
     // FUNCTION GET BRANCH
-    public function GetInstitutionBranchFunction()
+    public function GetInstitutionBranchFunction($user_RefID)
     {
-        $varDataBranch = json_decode(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-            "Branch"
+        $varDataBranch = json_decode(
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "Branch" . $user_RefID
             ),
             true
         );
@@ -77,7 +63,7 @@ class LoginController extends Controller
     }
 
     // FUNCTION BRANC AND ROLE USER 
-    public function SetLoginBranchAndUserRoleFunction($varAPIWebToken, $varBranchID, $varUserRoleID, $personName, $workerCareerInternal_RefID)
+    public function SetLoginBranchAndUserRoleFunction($varAPIWebToken, $varBranchID, $varUserRoleID, $personName, $workerCareerInternal_RefID, $user_RefID)
     {
 
         \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
@@ -94,9 +80,12 @@ class LoginController extends Controller
         Session::put('SessionLogin', $varAPIWebToken);
         Session::put('SessionLoginName', $personName);
         Session::put('SessionWorkerCareerInternal_RefID', $workerCareerInternal_RefID);
+        Session::put('SessionUser_RefID', $user_RefID);
+        Session::put('SessionBranchID', $varBranchID);
+        Session::put('SessionUserRoleID', $varUserRoleID);
         // Session::put('SessionCountMyDocument', $this->GetCountMyDocument());
 
-      
+
         $compact = [
             'status_code' => 1,
         ];
@@ -117,10 +106,10 @@ class LoginController extends Controller
 
             $varAPIWebToken = $request->input('varAPIWebToken');
             $personName = $request->input('personName');
+            $user_RefID = $request->input('user_RefID');
             $workerCareerInternal_RefID = $request->input('workerCareerInternal_RefID');
 
-            return $this->SetLoginBranchAndUserRoleFunction($varAPIWebToken, $varBranchID, $varUserRoleID, $personName, $workerCareerInternal_RefID);
-
+            return $this->SetLoginBranchAndUserRoleFunction($varAPIWebToken, $varBranchID, $varUserRoleID, $personName, $workerCareerInternal_RefID, $user_RefID);
         } else {
 
             $dataAwal = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
@@ -140,21 +129,20 @@ class LoginController extends Controller
                     'status_code' => 0,
                 ];
                 return response()->json($compact);
-
-            } else {    
+            } else {
 
                 $varAPIWebToken = $dataAwal['data']['APIWebToken'];
 
                 // CALL GET INSTRUCTION BRANCH FUNCTION 
-                $varDataBranch = $this->GetInstitutionBranchFunction();
+                $varDataBranch = $this->GetInstitutionBranchFunction($dataAwal['data']['userIdentity']['user_RefID']);
 
                 if (count($varDataBranch) == 1) {
 
                     // CALL GET ROLE FUNCTION 
-                    $varDataRole = $this->GetRoleFunction($varDataBranch[0]['Sys_ID']);
+                    $varDataRole = $this->GetRoleFunction($varDataBranch[0]['Sys_ID'], $dataAwal['data']['userIdentity']['user_RefID']);
 
                     // CALL SET LOGIN BRANCH AND USER ROLE FUNCTION
-                    return $this->SetLoginBranchAndUserRoleFunction($varAPIWebToken, $varDataBranch[0]['Sys_ID'], $varDataRole[0]['Sys_ID'], $dataAwal['data']['userIdentity']['personName'], $dataAwal['data']['userIdentity']['workerCareerInternal_RefID']);
+                    return $this->SetLoginBranchAndUserRoleFunction($varAPIWebToken, $varDataBranch[0]['Sys_ID'], $varDataRole[0]['Sys_ID'], $dataAwal['data']['userIdentity']['personName'], $dataAwal['data']['userIdentity']['workerCareerInternal_RefID'], $dataAwal['data']['userIdentity']['user_RefID']);
                 } else {
 
                     if ($varUserRoleID == 0) {
@@ -178,9 +166,10 @@ class LoginController extends Controller
     public function getRoleLogin(Request $request)
     {
         $varBranchID = (int)$request->input('branch_name');
+        $user_RefID = (int)$request->input('user_RefID');
 
         // CALL GET ROLE FUNCTION         
-        $varData = $this->GetRoleFunction($varBranchID);
+        $varData = $this->GetRoleFunction($varBranchID, $user_RefID);
 
         if (count($varData) > 0) {
 
@@ -206,7 +195,7 @@ class LoginController extends Controller
     {
         // DELETE API WEB TOKEN FROM REDIS
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        Redis::del("ERPReborn::APIWebToken::".$varAPIWebToken);
+        Redis::del("ERPReborn::APIWebToken::" . $varAPIWebToken);
 
         $status = "success";
         $message = 'Thank you for your visit';

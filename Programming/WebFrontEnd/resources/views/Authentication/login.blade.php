@@ -81,6 +81,9 @@
 
                     <input type="hidden" class="user_RefID" name="user_RefID">
                     <input type="hidden" class="varAPIWebToken" name="varAPIWebToken">
+                    <input type="hidden" class="personName" name="personName">
+                    <input type="hidden" class="workerCareerInternal_RefID" name="workerCareerInternal_RefID">
+                    
 
                     <div class=" input-group mb-4">
                         <input type="text" class="form-control username" placeholder="Username" name="username" id="dis2" required="" autocomplete="off" autofocus>
@@ -226,6 +229,10 @@
 
                             $(".varAPIWebToken").val(response.varAPIWebToken);
                             $(".user_RefID").val(response.user_RefID);
+                            $(".personName").val(response.personName);
+                            $(".workerCareerInternal_RefID").val(response.workerCareerInternal_RefID);
+
+                            
 
                             $(".branch_name").empty();
 
