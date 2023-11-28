@@ -8,8 +8,8 @@
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\RedisDataMaster\Engines\redisMaster\getRedisDataMaster\v1
-    {
+
+namespace App\Http\Controllers\Application\BackEnd\System\RedisDataMaster\Engines\redisMaster\getRedisDataMaster\v1 {
 
     use Illuminate\Support\Facades\Redis;
     use Illuminate\Support\Facades\Session;
@@ -20,8 +20,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\RedisDataMaster\Engine
     | ▪ Description : Menangani API dataPickList.project.getRedisDataMaster Version 1                                                      |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
+
     class getRedisDataMaster extends \App\Http\Controllers\Controller
-        {
+    {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
@@ -37,8 +38,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\RedisDataMaster\Engine
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         function __construct()
-            {
-            }
+        {
+        }
 
 
         /*
@@ -57,14 +58,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\RedisDataMaster\Engine
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         function main($varUserSession, $varData)
-            {
-                $userSessionID = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-                $branchID = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($userSessionID)['branchID'];
+        {
+            $userSessionID = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+            $branchID = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($userSessionID)['branchID'];
+            $workerCareerInternal_RefID = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($userSessionID)['userIdentity']['workerCareerInternal_RefID'];
 
-                $varTTL = 43200; // 12 Jam
+            $varTTL = 86400; // 24 Jam
 
             // 1
-            if(Redis::get("Budget") == null){
+            if (Redis::get("Budget") == null) {
                 // GET DATA MASTER BUDGET 
                 $varBudget =
                     (new \App\Models\Database\SchData_OLTP_Project\General())->getDataPickList_Project(
@@ -73,17 +75,17 @@ namespace App\Http\Controllers\Application\BackEnd\System\RedisDataMaster\Engine
                     );
 
                 //SET REDIS BUDGET
-    
+
                 \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                    $userSessionID, 
-                    "Budget", 
-                    json_encode($varBudget['Data']), 
+                    $userSessionID,
+                    "Budget",
+                    json_encode($varBudget['Data']),
                     $varTTL
                 );
             }
           
             // 2
-            if(Redis::get("SubBudget") == null){
+            if (Redis::get("SubBudget") == null) {
                 // GET DATA MASTER SUB BUDGET
                 $varSubBudget =
                     (new \App\Models\Database\SchData_OLTP_Project\General())->getDataPickList_ProjectSectionItem(
@@ -93,18 +95,18 @@ namespace App\Http\Controllers\Application\BackEnd\System\RedisDataMaster\Engine
                     );
 
                 //SET REDIS SUB BUDGET
-    
+
                 \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                    $userSessionID, 
-                    "SubBudget", 
-                    json_encode($varSubBudget['Data']), 
+                    $userSessionID,
+                    "SubBudget",
+                    json_encode($varSubBudget['Data']),
                     $varTTL
                 );
             }
             // 3
-                // DATA MASTER WORKER
+            // DATA MASTER WORKER
 
-            if(Redis::get("Worker") == null){
+            if (Redis::get("Worker") == null) {
                 $varWorker =
                     (new \App\Models\Database\SchData_OLTP_HumanResource\General())->getDataPickList_WorkerJobsPositionCurrent(
                         $userSessionID,
@@ -114,15 +116,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\RedisDataMaster\Engine
                 //SET REDIS WORKER
 
                 \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                    $userSessionID, 
-                    "Worker", 
-                    json_encode($varWorker['Data']), 
+                    $userSessionID,
+                    "Worker",
+                    json_encode($varWorker['Data']),
                     $varTTL
                 );
             }
             // 4
 
-            if(Redis::get("Product") == null){
+            if (Redis::get("Product") == null) {
                 // DATA MASTER PRODUCT
 
                 $varProduct =
@@ -134,16 +136,16 @@ namespace App\Http\Controllers\Application\BackEnd\System\RedisDataMaster\Engine
                 //SET REDIS PRODUCT
 
                 \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                    $userSessionID, 
-                    "Product", 
-                    json_encode($varProduct), 
+                    $userSessionID,
+                    "Product",
+                    json_encode($varProduct),
                     $varTTL
                 );
             }
-            
+
             // 5
 
-            if(Redis::get("DocumentType") == null){
+            if (Redis::get("DocumentType") == null) {
                 // DATA MASTER DOCUMENT TYPE
 
                 $varDocumentType =
@@ -155,15 +157,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\RedisDataMaster\Engine
                 //SET REDIS DOCUMENT TYPE
 
                 \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                    $userSessionID, 
-                    "DocumentType", 
-                    json_encode($varDocumentType), 
+                    $userSessionID,
+                    "DocumentType",
+                    json_encode($varDocumentType),
                     $varTTL
                 );
             }
-            
+
             // 6
-            if(Redis::get("Bank") == null){
+            if (Redis::get("Bank") == null) {
                 // DATA MASTER BANK
 
                 $varBank =
@@ -175,15 +177,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\RedisDataMaster\Engine
                 //SET REDIS BANK
 
                 \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                    $userSessionID, 
-                    "Bank", 
-                    json_encode($varBank), 
+                    $userSessionID,
+                    "Bank",
+                    json_encode($varBank),
                     $varTTL
                 );
             }
-            
+
             // 7
-            if(Redis::get("DataBudget") == null){
+            if (Redis::get("DataBudget") == null) {
                 // DATA BUDGET
 
                 $varBudget =
@@ -195,14 +197,41 @@ namespace App\Http\Controllers\Application\BackEnd\System\RedisDataMaster\Engine
                 //SET REDIS BUDGET
 
                 \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                    $userSessionID, 
-                    "DataBudget", 
-                    json_encode($varBudget), 
+                    $userSessionID,
+                    "DataBudget",
+                    json_encode($varBudget),
                     $varTTL
                 );
             }
 
-                return [];
+            // 8
+            if (Redis::get("RedisGetMyDocument" . $workerCareerInternal_RefID) == null) {
+                //REDIS COUNT DOCUMENT
+                if ($workerCareerInternal_RefID != 0) {
+                    $varDataCount =
+                        (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_Resume_BusinessDocumentIssuanceDispositionCount(
+                            $userSessionID,
+                            $branchID,
+                            $workerCareerInternal_RefID
+                        );
+
+                    \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+                        $userSessionID,
+                        "RedisGetMyDocument" . $workerCareerInternal_RefID,
+                        json_encode($varDataCount[0]['document']['content']['dataCount']),
+                        $varTTL
+                    );
+                } else {
+                    \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+                        $userSessionID,
+                        "RedisGetMyDocument" . $workerCareerInternal_RefID,
+                        json_encode(0),
+                        $varTTL
+                    );
+                }
             }
+
+            return [];
         }
     }
+}

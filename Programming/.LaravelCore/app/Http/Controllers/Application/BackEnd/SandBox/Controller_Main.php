@@ -30,6 +30,78 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
             // $project = Cache::get('Project');
             // $time = date('H:i:s');
 
+            // dd(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(6000000000001, "Test"));
+        }
+        public function testAja()
+        {
+
+        dd($branchID = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(6000000000001)['branchID']);
+            // $varData =
+            //     (new \App\Models\Database\SchSysConfig\General())->getUserRolePrivilegeMenuAndBudget(
+            //         6000000000001,
+            //         4000000000002,
+            //         11000000000004,
+            //         95000000000038
+            //     );
+
+            // dd($varData);
+
+            // $num = 0;
+            // $filteredArray = [];
+            // for($i = 0; $i < count($varData); $i++){
+            //     if($varData[$i]['entities']['processedData']['entities']['combinedBudgetSection_RefID'] == 143000000000308){
+            //         $filteredArray[$num] = $varData[$i]['entities']['processedData']['entities'];
+            //         $filteredArray[$num]['sys_ID'] = $varData[$i]['recordID'];
+            //         $filteredArray[$num]['sys_Branch_RefID'] = $varData[$i]['branchID'];
+            //         $num++;
+            //     }
+            // }
+            // dd($filteredArray);
+
+
+
+            // $varData = json_decode(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+            //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+            //     "Branch"
+            //     ),
+            //     true
+            // );
+
+            // dd($varData);
+            $varData =
+                (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_Resume_BusinessDocumentIssuanceDispositionCount(
+                    6000000000001,
+                    11000000000004,
+                    164000000000002
+                );
+
+            dd($varData[0]['document']['content']['dataCount']);
+
+
+            // $varDataRole =
+            //     (new \App\Models\Database\SchSysConfig\General())->getDataList_UserRole(
+            //         6000000000001,
+            //         4000000000002,
+            //         null
+            //     );
+
+            // dd($varDataRole);
+
+            // for($i = 0; $i < count($varDataRole); $i++){
+
+            //     if($varDataRole[$i]['Parameter_Branch_RefPID'] == 11000000000004){
+            //         $DataRole [] = $varDataRole[$i];
+            //     }
+            // }
+    
+            // dd($DataRole);
+
+
+
+            // dd($varData->groupBy("UserRole_RefPID"));
+
+            // $varData =
+            //     (new \App\Models\Database\SchData_OLTP_Master\General())->getDataList_Product(
             // dd(\App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(6000000000001, "Test", json_encode($varData['Data'])));
             // die;
             // $varData = 

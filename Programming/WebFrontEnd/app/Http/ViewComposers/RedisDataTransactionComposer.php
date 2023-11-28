@@ -11,7 +11,7 @@ class RedisDataTransactionComposer
     public function compose(View $view)
     {
         if(Redis::get("RedisDataTransaction") == null){
-            $varTTL = 43200; // 12 Jam
+            $varTTL = 86400; // 24 Jam
             $varAPIWebToken = Session::get('SessionLogin');
 
             \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
