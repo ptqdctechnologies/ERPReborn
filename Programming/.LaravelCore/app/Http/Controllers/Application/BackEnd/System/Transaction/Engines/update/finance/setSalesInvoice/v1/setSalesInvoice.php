@@ -73,7 +73,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                             $varData['entities']['documentDateTimeTZ'],
                             $varData['entities']['log_FileUpload_Pointer_RefID'],
                             $varData['entities']['requesterWorkerJobsPosition_RefID'],
-                            $varData['entities']['customer_RefID'],
                             $varData['entities']['termAndConditions'],
                             $varData['entities']['remarks'],
 
