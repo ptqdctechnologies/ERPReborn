@@ -15,6 +15,7 @@ class LoginController extends Controller
     public function index(Request $request)
     {
         // dd(Redis::keys("*"));
+        // dd(Redis::flushDB());
         $varAPIWebToken = $request->session()->get('SessionLogin');
         if ($varAPIWebToken) {
             return view('Dashboard.index');
@@ -45,6 +46,10 @@ class LoginController extends Controller
                     $num++;
                 }
             }
+            if ($filteredArray != []) {
+                Session::put("SessionCompanyName", $filteredArray[0]['BranchName']);
+            }
+
             return $filteredArray;
         }
     }
@@ -63,9 +68,9 @@ class LoginController extends Controller
     }
 
     // FUNCTION BRANC AND ROLE USER 
-    public function SetLoginBranchAndUserRoleFunction($varAPIWebToken, $varBranchID, $varUserRoleID, $personName, $workerCareerInternal_RefID, $user_RefID)
+    public function SetLoginBranchAndUserRoleFunction($varAPIWebToken, $varBranchID, $varUserRoleID, $personName, $workerCareerInternal_RefID, $user_RefID, $organizationalDepartmentName)
     {
-
+        // if (Redis::get("KeyMenu" . $user_RefID . $varBranchID . $varUserRoleID) == null) {
         \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
@@ -76,8 +81,10 @@ class LoginController extends Controller
                 'userRoleID' => $varUserRoleID
             ]
         );
+        // }
 
         Session::put('SessionLogin', $varAPIWebToken);
+        Session::put('SessionOrganizationalDepartmentName', $organizationalDepartmentName);
         Session::put('SessionLoginName', $personName);
         Session::put('SessionWorkerCareerInternal_RefID', $workerCareerInternal_RefID);
         Session::put('SessionUser_RefID', $user_RefID);
@@ -96,11 +103,11 @@ class LoginController extends Controller
     // FUNCTION STORE WHEN CLICK SUBMIT BUTTON IN PAGE 
     public function loginStore(Request $request)
     {
-        // dd(Redis::flushDB());
         $username = $request->input('username');
         $password = $request->input('password');
-        $varBranchID = (int)$request->input('branch_name');
-        $varUserRoleID = (int)$request->input('user_role');
+        $varBranchID = (int)$request->input('branch_id');
+        $varUserRoleID = (int)$request->input('role_id');
+
 
         if ($varUserRoleID != 0) {
 
@@ -108,8 +115,9 @@ class LoginController extends Controller
             $personName = $request->input('personName');
             $user_RefID = $request->input('user_RefID');
             $workerCareerInternal_RefID = $request->input('workerCareerInternal_RefID');
+            $organizationalDepartmentName = $request->input('organizationalDepartmentName');
 
-            return $this->SetLoginBranchAndUserRoleFunction($varAPIWebToken, $varBranchID, $varUserRoleID, $personName, $workerCareerInternal_RefID, $user_RefID);
+            return $this->SetLoginBranchAndUserRoleFunction($varAPIWebToken, $varBranchID, $varUserRoleID, $personName, $workerCareerInternal_RefID, $user_RefID, $organizationalDepartmentName);
         } else {
 
             $dataAwal = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
@@ -121,6 +129,7 @@ class LoginController extends Controller
             // dd(Redis::keys("*"));
             // dd(json_decode(Redis::get("nama"), true));
             // dd(Redis::get("nama"));
+            // dd(Redis::keys("*"));
             // dd($dataAwal);
 
             if ($dataAwal['metadata']['HTTPStatusCode'] != 200) {
@@ -142,7 +151,7 @@ class LoginController extends Controller
                     $varDataRole = $this->GetRoleFunction($varDataBranch[0]['Sys_ID'], $dataAwal['data']['userIdentity']['user_RefID']);
 
                     // CALL SET LOGIN BRANCH AND USER ROLE FUNCTION
-                    return $this->SetLoginBranchAndUserRoleFunction($varAPIWebToken, $varDataBranch[0]['Sys_ID'], $varDataRole[0]['Sys_ID'], $dataAwal['data']['userIdentity']['personName'], $dataAwal['data']['userIdentity']['workerCareerInternal_RefID'], $dataAwal['data']['userIdentity']['user_RefID']);
+                    return $this->SetLoginBranchAndUserRoleFunction($varAPIWebToken, $varDataBranch[0]['Sys_ID'], $varDataRole[0]['Sys_ID'], $dataAwal['data']['userIdentity']['personName'], $dataAwal['data']['userIdentity']['workerCareerInternal_RefID'], $dataAwal['data']['userIdentity']['user_RefID'], $dataAwal['data']['userIdentity']['organizationalDepartmentName']);
                 } else {
 
                     if ($varUserRoleID == 0) {
@@ -154,6 +163,7 @@ class LoginController extends Controller
                             'varAPIWebToken' => $varAPIWebToken,
                             'personName' => $dataAwal['data']['userIdentity']['personName'],
                             'workerCareerInternal_RefID' => $dataAwal['data']['userIdentity']['workerCareerInternal_RefID'],
+                            'organizationalDepartmentName' => $dataAwal['data']['userIdentity']['organizationalDepartmentName']
                         ];
                         return response()->json($compact);
                     }
@@ -165,7 +175,7 @@ class LoginController extends Controller
     // FUNCTION GET ROLE WHEN SELECT ROLE IN LOGIN PAGE 
     public function getRoleLogin(Request $request)
     {
-        $varBranchID = (int)$request->input('branch_name');
+        $varBranchID = (int)$request->input('branch_id');
         $user_RefID = (int)$request->input('user_RefID');
 
         // CALL GET ROLE FUNCTION         
@@ -206,6 +216,7 @@ class LoginController extends Controller
 
         Cache::flush();
         Session::flush();
+        // Redis::flushDB();
 
         return redirect('/')->with([$status => $message]);
     }

@@ -10,6 +10,9 @@
 */
 
 namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\general\setLoginBranchAndUserRole\v1 {
+
+    use Illuminate\Support\Facades\Redis;
+
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : setLoginBranchAndUserRole                                                                                    |
@@ -176,36 +179,42 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             $varDataSend = ['message' => 'Chosen Branch ID and User Role ID have been saved'];
 
                             $varTTL = 86400; // 24 Jam
+
                             // REDIS KEY MENU
-                            \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                                $varUserSession,
-                                "KeyMenu" . $varUserIdentity['user_RefID'] . $varBranchID . $varUserRoleID,
-                                json_encode($varDataRedis['environment']['userPrivileges']['menu']['keyList']),
-                                $varTTL
-                            );
+                            if (Redis::get("KeyMenu" . $varUserIdentity['user_RefID'] . $varBranchID . $varUserRoleID) == null) {
+                                \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+                                    $varUserSession,
+                                    "KeyMenu" . $varUserIdentity['user_RefID'] . $varBranchID . $varUserRoleID,
+                                    json_encode($varDataRedis['environment']['userPrivileges']['menu']['keyList']),
+                                    $varTTL
+                                );
+                            }
 
-                            // REDIS GET MY DOCUMENT 
-                            if ($varUserIdentity['workerCareerInternal_RefID'] != 0) {
-                                $varDataCount =
-                                    (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_Resume_BusinessDocumentIssuanceDispositionCount(
+                            // REDIS GET COUNT MY DOCUMENT
+
+                            if (Redis::get("RedisGetMyDocument" . $varUserIdentity['workerCareerInternal_RefID']) == null) {
+                                if ($varUserIdentity['workerCareerInternal_RefID'] != 0) {
+                                    $varDataCount =
+                                        (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_Resume_BusinessDocumentIssuanceDispositionCount(
+                                            $varUserSession,
+                                            $varBranchID,
+                                            $varUserIdentity['workerCareerInternal_RefID']
+                                        );
+
+                                    \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
                                         $varUserSession,
-                                        $varBranchID,
-                                        $varUserIdentity['workerCareerInternal_RefID']
+                                        "RedisGetMyDocument" . $varUserIdentity['workerCareerInternal_RefID'],
+                                        json_encode($varDataCount[0]['document']['content']['dataCount']),
+                                        $varTTL
                                     );
-
-                                \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                                    $varUserSession,
-                                    "RedisGetMyDocument" . $varUserIdentity['workerCareerInternal_RefID'],
-                                    json_encode($varDataCount[0]['document']['content']['dataCount']),
-                                    $varTTL
-                                );
-                            } else {
-                                \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                                    $varUserSession,
-                                    "RedisGetMyDocument" . $varUserIdentity['workerCareerInternal_RefID'],
-                                    json_encode(0),
-                                    $varTTL
-                                );
+                                } else {
+                                    \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+                                        $varUserSession,
+                                        "RedisGetMyDocument" . $varUserIdentity['workerCareerInternal_RefID'],
+                                        json_encode(0),
+                                        $varTTL
+                                    );
+                                }
                             }
                             
                             $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
