@@ -230,7 +230,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\RedisDataMaster\Engine
                     );
                 }
             }
-
             return [];
         }
     }

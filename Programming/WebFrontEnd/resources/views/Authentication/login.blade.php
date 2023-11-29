@@ -83,6 +83,7 @@
                     <input type="hidden" class="varAPIWebToken" name="varAPIWebToken">
                     <input type="hidden" class="personName" name="personName">
                     <input type="hidden" class="workerCareerInternal_RefID" name="workerCareerInternal_RefID">
+                    <input type="hidden" class="organizationalDepartmentName" name="organizationalDepartmentName">
                     
 
                     <div class=" input-group mb-4">
@@ -111,12 +112,12 @@
                     </div>
 
                     <div class="input-group mb-4">
-                        <select class="form-control branch_name" name="branch_name" id="dis2">
+                        <select class="form-control branch_id" name="branch_id" id="dis2">
                             <option selected="selected" value=""> Select Company Name </option>
                         </select>
                     </div>
                     <div class="input-group mb-4">
-                        <select class="form-control user_role" name="user_role" id="dis2">
+                        <select class="form-control role_id" name="role_id" id="dis2">
                             <option selected="selected" value=""> Select User Role </option>
                         </select>
                     </div>
@@ -181,8 +182,8 @@
 
             HideLoading();
 
-            $(".branch_name").hide();
-            $(".user_role").hide();
+            $(".branch_id").hide();
+            $(".role_id").hide();
         });
     </script>
 
@@ -213,7 +214,6 @@
                     type: method,
                     success: function(response) {
                         var len = 0;
-
                         if (response.status_code == 0) {
 
                             HideLoading();
@@ -231,25 +231,24 @@
                             $(".user_RefID").val(response.user_RefID);
                             $(".personName").val(response.personName);
                             $(".workerCareerInternal_RefID").val(response.workerCareerInternal_RefID);
+                            $(".organizationalDepartmentName").val(response.organizationalDepartmentName);
 
+                            $(".branch_id").empty();
                             
-
-                            $(".branch_name").empty();
-
                             var option = "<option value='" + '' + "'>" + 'Select Company Name' + "</option>";
-                            $(".branch_name").append(option);
+                            $(".branch_id").append(option);
 
                             len = response.data.length;
                             for (var i = 0; i < len; i++) {
                                 var id = response.data[i].Sys_ID;
                                 var name = response.data[i].Name;
                                 var option2 = "<option value='" + id + "'>" + name + "</option>";
-                                $(".branch_name").append(option2);
+                                $(".branch_id").append(option2);
                             }
                             $(".username").prop("readonly", true);
                             $(".password").prop("readonly", true);
-                            $(".branch_name").show();
-                            $(".user_role").show();
+                            $(".branch_id").show();
+                            $(".role_id").show();
 
                             $(".submit_button").prop("disabled", true);
                         }
@@ -274,7 +273,7 @@
         });
 
         $(document).ready(function() {
-            $(".branch_name").click(function() {
+            $(".branch_id").change(function() {
 
                 var id = $(this).val();
                 if (id != "") {
@@ -283,7 +282,7 @@
 
                     $.ajax({
                         type: 'GET',
-                        url: '{!! route("getRoleLogin") !!}?user_RefID=' + $('.user_RefID').val() + '&varAPIWebToken=' + $('.varAPIWebToken').val() + '&branch_name=' + $('.branch_name').val(),
+                        url: '{!! route("getRoleLogin") !!}?user_RefID=' + $('.user_RefID').val() + '&varAPIWebToken=' + $('.varAPIWebToken').val() + '&branch_id=' + $('.branch_id').val()+ '&organizationalDepartmentName=' + $('.organizationalDepartmentName').val(),
                         success: function(data) {
 
                             var len = 0;
@@ -296,11 +295,11 @@
                                 HideLoading();
                                 len = data.length;
                                 arrData = data.data;
-                                $(".user_role").empty();
+                                $(".role_id").empty();
 
                                 if (len > 1) {
                                     var option = "<option value='" + '' + "'>" + 'Select User Role' + "</option>";
-                                    $(".user_role").append(option);
+                                    $(".role_id").append(option);
                                     $(".submit_button").prop("disabled", true);
                                 } else {
                                     $(".submit_button").prop("disabled", false);
@@ -309,7 +308,7 @@
                                     var ids = arrData[i].Sys_ID;
                                     var names = arrData[i].UserRoleName;
                                     var option = "<option value='" + ids + "'>" + names + "</option>";
-                                    $(".user_role").append(option);
+                                    $(".role_id").append(option);
                                 }
                             }
                         },
@@ -319,14 +318,20 @@
                             HideLoading();
                         }
                     });
-                }dashboard
+                }
+                else{
+                    $(".role_id").empty();
+                    var option = "<option value='" + '' + "'>" + 'Select User Role' + "</option>";
+                    $(".role_id").append(option);
+                    $(".submit_button").prop("disabled", true);
+                }
             });
         });
     </script>
 
     <script type="text/javascript">
         $(document).ready(function() {
-            $(".user_role").click(function() {
+            $(".role_id").change(function() {
                 var id = $(this).val();
                 if (id != "") {
                     $(".submit_button").prop("disabled", false);

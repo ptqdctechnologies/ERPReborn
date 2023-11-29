@@ -186,10 +186,10 @@ $varDataSend = [
                                 'APIWebToken' => $varBufferDB[0]['APIWebToken'],
                                 'userIdentity' => $varUserIdentity,
                                 //'LDAPUserID' => $varBufferDB[0]['LDAPUserID'],
-                                'sessionStartDateTimeTZ' => $varBufferDB[0]['SessionStartDateTimeTZ'],
-                                'sessionAutoStartDateTimeTZ' => $varBufferDB[0]['SessionAutoStartDateTimeTZ'],
-                                'sessionAutoFinishDateTimeTZ' => $varBufferDB[0]['SessionAutoFinishDateTimeTZ'],
-                                'redisID' => $varRedisID //,
+                                // 'sessionStartDateTimeTZ' => $varBufferDB[0]['SessionStartDateTimeTZ'],
+                                // 'sessionAutoStartDateTimeTZ' => $varBufferDB[0]['SessionAutoStartDateTimeTZ'],
+                                // 'sessionAutoFinishDateTimeTZ' => $varBufferDB[0]['SessionAutoFinishDateTimeTZ'],
+                                // 'redisID' => $varRedisID //,
                                 //'optionList' => $varOptionList
                             ];
 

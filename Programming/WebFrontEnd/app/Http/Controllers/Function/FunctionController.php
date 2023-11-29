@@ -254,5 +254,7 @@ class FunctionController extends Controller
             ),
             true
         );       
+
+        return response()->json($DocumentType);
     }
 }
