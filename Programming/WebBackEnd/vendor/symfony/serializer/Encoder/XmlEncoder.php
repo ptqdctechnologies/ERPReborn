@@ -58,6 +58,7 @@ class XmlEncoder implements EncoderInterface, DecoderInterface, NormalizationAwa
     public const STANDALONE = 'xml_standalone';
     public const TYPE_CAST_ATTRIBUTES = 'xml_type_cast_attributes';
     public const VERSION = 'xml_version';
+    public const CDATA_WRAPPING = 'cdata_wrapping';
 
     private array $defaultContext = [
         self::AS_COLLECTION => false,
@@ -68,6 +69,7 @@ class XmlEncoder implements EncoderInterface, DecoderInterface, NormalizationAwa
         self::REMOVE_EMPTY_TAGS => false,
         self::ROOT_NODE_NAME => 'response',
         self::TYPE_CAST_ATTRIBUTES => true,
+        self::CDATA_WRAPPING => true,
     ];
 
     public function __construct(array $defaultContext = [])
@@ -135,26 +137,22 @@ class XmlEncoder implements EncoderInterface, DecoderInterface, NormalizationAwa
         // todo: throw an exception if the root node name is not correctly configured (bc)
 
         if ($rootNode->hasChildNodes()) {
-            $xpath = new \DOMXPath($dom);
-            $data = [];
-            foreach ($xpath->query('namespace::*', $dom->documentElement) as $nsNode) {
-                $data['@'.$nsNode->nodeName] = $nsNode->nodeValue;
+            $data = $this->parseXml($rootNode, $context);
+            if (\is_array($data)) {
+                $data = $this->addXmlNamespaces($data, $rootNode, $dom);
             }
 
-            unset($data['@xmlns:xml']);
-
-            if (empty($data)) {
-                return $this->parseXml($rootNode, $context);
-            }
-
-            return array_merge($data, (array) $this->parseXml($rootNode, $context));
+            return $data;
         }
 
         if (!$rootNode->hasAttributes()) {
             return $rootNode->nodeValue;
         }
 
-        return array_merge($this->parseXmlAttributes($rootNode, $context), ['#' => $rootNode->nodeValue]);
+        $data = array_merge($this->parseXmlAttributes($rootNode, $context), ['#' => $rootNode->nodeValue]);
+        $data = $this->addXmlNamespaces($data, $rootNode, $dom);
+
+        return $data;
     }
 
     public function supportsEncoding(string $format): bool
@@ -326,6 +324,19 @@ class XmlEncoder implements EncoderInterface, DecoderInterface, NormalizationAwa
         return $value;
     }
 
+    private function addXmlNamespaces(array $data, \DOMNode $node, \DOMDocument $document): array
+    {
+        $xpath = new \DOMXPath($document);
+
+        foreach ($xpath->query('namespace::*', $node) as $nsNode) {
+            $data['@'.$nsNode->nodeName] = $nsNode->nodeValue;
+        }
+
+        unset($data['@xmlns:xml']);
+
+        return $data;
+    }
+
     /**
      * Parse the data and convert it to DOMElements.
      *
@@ -424,9 +435,9 @@ class XmlEncoder implements EncoderInterface, DecoderInterface, NormalizationAwa
     /**
      * Checks if a value contains any characters which would require CDATA wrapping.
      */
-    private function needsCdataWrapping(string $val): bool
+    private function needsCdataWrapping(string $val, array $context): bool
     {
-        return preg_match('/[<>&]/', $val);
+        return ($context[self::CDATA_WRAPPING] ?? $this->defaultContext[self::CDATA_WRAPPING]) && preg_match('/[<>&]/', $val);
     }
 
     /**
@@ -454,7 +465,7 @@ class XmlEncoder implements EncoderInterface, DecoderInterface, NormalizationAwa
             return $this->selectNodeType($node, $this->serializer->normalize($val, $format, $context), $format, $context);
         } elseif (is_numeric($val)) {
             return $this->appendText($node, (string) $val);
-        } elseif (\is_string($val) && $this->needsCdataWrapping($val)) {
+        } elseif (\is_string($val) && $this->needsCdataWrapping($val, $context)) {
             return $this->appendCData($node, $val);
         } elseif (\is_string($val)) {
             return $this->appendText($node, $val);
