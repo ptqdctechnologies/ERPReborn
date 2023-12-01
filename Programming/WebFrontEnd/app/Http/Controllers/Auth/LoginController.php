@@ -15,8 +15,8 @@ class LoginController extends Controller
     public function index(Request $request)
     {
         // dd(Redis::keys("*"));
-        // dd(Redis::flushDB());
-        $varAPIWebToken = $request->session()->get('SessionLogin');
+        // dd(Redis::flushDB());    
+        $varAPIWebToken = Session::get('SessionLogin');
         if ($varAPIWebToken) {
             return view('Dashboard.index');
         } else {
@@ -87,9 +87,6 @@ class LoginController extends Controller
         Session::put('SessionOrganizationalDepartmentName', $organizationalDepartmentName);
         Session::put('SessionLoginName', $personName);
         Session::put('SessionWorkerCareerInternal_RefID', $workerCareerInternal_RefID);
-        Session::put('SessionUser_RefID', $user_RefID);
-        Session::put('SessionBranchID', $varBranchID);
-        Session::put('SessionUserRoleID', $varUserRoleID);
         // Session::put('SessionCountMyDocument', $this->GetCountMyDocument());
 
 
@@ -204,7 +201,7 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         // DELETE API WEB TOKEN FROM REDIS
-        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varAPIWebToken = Session::get('SessionLogin');
         Redis::del("ERPReborn::APIWebToken::" . $varAPIWebToken);
 
         $status = "success";

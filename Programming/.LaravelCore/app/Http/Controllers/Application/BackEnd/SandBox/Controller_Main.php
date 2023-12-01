@@ -23,7 +23,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
 
             // $c = (json_decode(Redis::get("Product"), true));
             // dd($c[11626]);
-            dd(json_decode(Redis::get("Product"), true));
+            dd(json_decode(Redis::get("CheckDocumentTypeID"), true));
 
             // dd(Redis::get('cek'));
 
@@ -34,8 +34,31 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
         }
         public function testAja()
         {
+            
+            $varBudget =
 
-        dd($branchID = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(6000000000001)['branchID']);
+            (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_Resume_BusinessDocumentFilterByDocumentTypeID(
+                6000000000001,
+                11000000000004,
+                76000000000162
+
+            );
+
+            // (new \App\Models\Database\SchData_OLTP_Finance\General())->getDataList_Advance(
+            //     6000000000001,
+            //         11000000000004
+            // );
+
+            // $varBudget =
+            //     (new \App\Models\Database\SchData_OLTP_Project\General())->getDataPickList_Project(
+            //         6000000000001,
+            //         11000000000004
+            //     );
+
+            dd($varBudget);
+
+
+            dd($branchID = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(6000000000001)['branchID']);
             // $varData =
             //     (new \App\Models\Database\SchSysConfig\General())->getUserRolePrivilegeMenuAndBudget(
             //         6000000000001,
@@ -93,7 +116,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
             //         $DataRole [] = $varDataRole[$i];
             //     }
             // }
-    
+
             // dd($DataRole);
 
 

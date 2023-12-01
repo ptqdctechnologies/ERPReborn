@@ -120,28 +120,24 @@ class CheckDocumentController extends Controller
     public function ShowDocumentListData(Request $request)
     {
         $DocumentType = $request->input('DocumentType');
-        $ShowDocumentListData = Cache::remember('ShowDocumentListData' . $DocumentType, 480, function () use ($DocumentType) {
 
-            $varAPIWebToken = Session::get('SessionLogin');
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'report.form.resume.master.getBusinessDocumentFilterByDocumentTypeID',
-                'latest',
-                [
-                    'parameter' => [
-                        'recordID' => (int)$DocumentType
-                    ]
+        $varAPIWebToken = Session::get('SessionLogin');
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'report.form.resume.master.getBusinessDocumentFilterByDocumentTypeID',
+            'latest',
+            [
+                'parameter' => [
+                    'recordID' => (int)$DocumentType
                 ]
-            );
+            ],
+            false
+        );
 
-            $compact = [
-                'data' => $varData['data'],
-            ];
-            return $compact;
-
-        });
-
-        return response()->json($ShowDocumentListData);
+        $compact = [
+            'data' => $varData['data'],
+        ];
+        return response()->json($compact);
     }
 }

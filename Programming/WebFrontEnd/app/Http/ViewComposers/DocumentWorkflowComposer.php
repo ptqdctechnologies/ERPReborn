@@ -14,9 +14,27 @@ class DocumentWorkflowComposer
     {
         $SessionWorkerCareerInternal_RefID =  Session::get('SessionWorkerCareerInternal_RefID');
 
+        if (Redis::get("RedisGetMyDocument" . $SessionWorkerCareerInternal_RefID) == null) {
+            $varTTL = 86400; // 24 Jam
+
+            $varAPIWebToken = Session::get('SessionLogin');
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'report.form.resume.master.getBusinessDocumentIssuanceDispositionCount',
+                'latest',
+                [
+                    'parameter' => [
+                        'recordID' => 0
+                    ]
+                ],
+                false
+            );
+        }
+
         $CountDocumentWorkflowComposer = \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            "RedisGetMyDocument". $SessionWorkerCareerInternal_RefID
+            "RedisGetMyDocument" . $SessionWorkerCareerInternal_RefID
         );
 
         $compact = [
@@ -24,54 +42,5 @@ class DocumentWorkflowComposer
         ];
 
         $view->with($compact);
-
-
-        // if (Redis::get("RedisGetMyDocument". $SessionWorkerCareerInternal_RefID) == null) {
-        //     $varTTL = 86400; // 24 Jam
-
-        //     $varAPIWebToken = Session::get('SessionLogin');
-        //     if ($SessionWorkerCareerInternal_RefID != 0) {
-        //         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        //             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        //             $varAPIWebToken,
-        //             'report.form.resume.master.getBusinessDocumentIssuanceDispositionCount',
-        //             'latest',
-        //             [
-        //                 'parameter' => [
-        //                     'recordID' => (int)$SessionWorkerCareerInternal_RefID
-        //                 ]
-        //             ]
-        //         );
-        //         $CountDocumentWorkflowComposer =  $varData['data']['0']['document']['content']['dataCount'];
-        //     } else {
-        //         $CountDocumentWorkflowComposer = 0;
-        //     }
-
-        //     //SET VALUE REDIS
-        //     \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-        //         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        //         "RedisGetMyDocument". $SessionWorkerCareerInternal_RefID,
-        //         $CountDocumentWorkflowComposer,
-        //         $varTTL
-        //     );
-
-        //     $compact = [
-        //         'CountDocumentWorkflowComposer' => $CountDocumentWorkflowComposer
-        //     ];
-
-        //     $view->with($compact);
-        // } else {
-
-        //     $CountDocumentWorkflowComposer = \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-        //         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        //         "RedisGetMyDocument". $SessionWorkerCareerInternal_RefID
-        //     );
-
-        //     $compact = [
-        //         'CountDocumentWorkflowComposer' => $CountDocumentWorkflowComposer
-        //     ];
-
-        //     $view->with($compact);
-        // }
     }
 }

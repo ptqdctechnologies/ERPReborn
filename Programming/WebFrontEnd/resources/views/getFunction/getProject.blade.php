@@ -58,6 +58,15 @@
                             '<td>' + val.Name + '</td></span></tr></tbody>'
                         ]).draw();
                     });
+
+                    // $.ajax({
+                    //     type: 'GET',
+                    //     url: '{!! route("getDocumentType") !!}',
+                    //     success: function(data) {
+                    //         console.log(data);
+                    //     }
+                    // });
+
                 }
             });
 

@@ -51,15 +51,15 @@
                 success: function(data) {
                     var no = 1; t = $('#TableSearchArfRevision').DataTable();
                     t.clear();
-                    $.each(data.data, function(key, val) {
+                    $.each(data, function(key, val) {
                         keys += 1;
                         t.row.add([
-                            '<tbody><tr><input id="sys_id_advance_revision' + keys + '" value="' + val.sys_ID + '" type="hidden"><td>' + no++ + '</td>',
-                            '<td>' + val.documentNumber + '</td>',
-                            '<td>' + val.combinedBudgetCode + '</td>',
-                            '<td>' + val.combinedBudgetName + '</td>',
-                            '<td>' + val.combinedBudgetSectionCode + '</td>',
-                            '<td>' + val.combinedBudgetSectionName + '</td></tr></tbody>'
+                            '<tbody><tr><input id="sys_id_advance_revision' + keys + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
+                            '<td>' + val.DocumentNumber + '</td>',
+                            '<td>' + val.CombinedBudgetCode + '</td>',
+                            '<td>' + val.CombinedBudgetName + '</td>',
+                            '<td>' + val.CombinedBudgetSectionCode + '</td>',
+                            '<td>' + val.CombinedBudgetSectionName + '</td></tr></tbody>'
                         ]).draw();
 
                     });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Advance;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 
 class AdvanceRequestController extends Controller
@@ -201,11 +202,9 @@ class AdvanceRequestController extends Controller
     // LIST DATA FUNCTION FOR SHOW DATA ADVANCE 
     public function AdvanceListData(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-
-        $getAdvance = Cache::remember('getAdvance', 480, function () use ($varAPIWebToken) {
-
-            $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        if (Redis::get("DataListAdvance") == null) {
+            $varAPIWebToken = $request->session()->get('SessionLogin');
+            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'transaction.read.dataList.finance.getAdvance',
@@ -218,17 +217,20 @@ class AdvanceRequestController extends Controller
                         'filter' => null,
                         'paging' => null
                     ]
-                ]
+                ],
+                false
             );
+        }
 
-            $compact = [
-                'data' => $varDataAdvanceRequest['data'],
-            ];
+        $DataListAdvance = json_decode(
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "DataListAdvance"
+            ),
+            true
+        );
 
-            return $compact;
-        });
-
-        return response()->json($getAdvance);
+        return response()->json($DataListAdvance);
     }
 
     public function ReportAdvanceSummary(Request $request)

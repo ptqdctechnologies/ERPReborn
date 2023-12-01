@@ -65,172 +65,172 @@ namespace App\Http\Controllers\Application\BackEnd\System\RedisDataMaster\Engine
 
             $varTTL = 86400; // 24 Jam
 
-            // 1
-            if (Redis::get("Budget") == null) {
-                // GET DATA MASTER BUDGET 
-                $varBudget =
-                    (new \App\Models\Database\SchData_OLTP_Project\General())->getDataPickList_Project(
-                        $userSessionID,
-                        $branchID
-                    );
+            // // 1
+            // if (Redis::get("Budget") == null) {
+            //     // GET DATA MASTER BUDGET 
+            //     $varBudget =
+            //         (new \App\Models\Database\SchData_OLTP_Project\General())->getDataPickList_Project(
+            //             $userSessionID,
+            //             $branchID
+            //         );
 
-                //SET REDIS BUDGET
+            //     //SET REDIS BUDGET
 
-                \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                    $userSessionID,
-                    "Budget",
-                    json_encode($varBudget['Data']),
-                    $varTTL
-                );
-            }
+            //     \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+            //         $userSessionID,
+            //         "Budget",
+            //         json_encode($varBudget['Data']),
+            //         $varTTL
+            //     );
+            // }
           
-            // 2
-            if (Redis::get("SubBudget") == null) {
-                // GET DATA MASTER SUB BUDGET
-                $varSubBudget =
-                    (new \App\Models\Database\SchData_OLTP_Project\General())->getDataPickList_ProjectSectionItem(
-                        $userSessionID,
-                        $branchID,
-                        0
-                    );
+            // // 2
+            // if (Redis::get("SubBudget") == null) {
+            //     // GET DATA MASTER SUB BUDGET
+            //     $varSubBudget =
+            //         (new \App\Models\Database\SchData_OLTP_Project\General())->getDataPickList_ProjectSectionItem(
+            //             $userSessionID,
+            //             $branchID,
+            //             0
+            //         );
 
-                //SET REDIS SUB BUDGET
+            //     //SET REDIS SUB BUDGET
 
-                \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                    $userSessionID,
-                    "SubBudget",
-                    json_encode($varSubBudget['Data']),
-                    $varTTL
-                );
-            }
-            // 3
-            // DATA MASTER WORKER
+            //     \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+            //         $userSessionID,
+            //         "SubBudget",
+            //         json_encode($varSubBudget['Data']),
+            //         $varTTL
+            //     );
+            // }
+            // // 3
+            // // DATA MASTER WORKER
 
-            if (Redis::get("Worker") == null) {
-                $varWorker =
-                    (new \App\Models\Database\SchData_OLTP_HumanResource\General())->getDataPickList_WorkerJobsPositionCurrent(
-                        $userSessionID,
-                        $branchID
-                    );
+            // if (Redis::get("Worker") == null) {
+            //     $varWorker =
+            //         (new \App\Models\Database\SchData_OLTP_HumanResource\General())->getDataPickList_WorkerJobsPositionCurrent(
+            //             $userSessionID,
+            //             $branchID
+            //         );
 
-                //SET REDIS WORKER
+            //     //SET REDIS WORKER
 
-                \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                    $userSessionID,
-                    "Worker",
-                    json_encode($varWorker['Data']),
-                    $varTTL
-                );
-            }
-            // 4
+            //     \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+            //         $userSessionID,
+            //         "Worker",
+            //         json_encode($varWorker['Data']),
+            //         $varTTL
+            //     );
+            // }
+            // // 4
 
-            if (Redis::get("Product") == null) {
-                // DATA MASTER PRODUCT
+            // if (Redis::get("Product") == null) {
+            //     // DATA MASTER PRODUCT
 
-                $varProduct =
-                    (new \App\Models\Database\SchData_OLTP_Master\General())->getDataList_Product(
-                        $userSessionID,
-                        $branchID
-                    );
+            //     $varProduct =
+            //         (new \App\Models\Database\SchData_OLTP_Master\General())->getDataList_Product(
+            //             $userSessionID,
+            //             $branchID
+            //         );
 
-                //SET REDIS PRODUCT
+            //     //SET REDIS PRODUCT
 
-                \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                    $userSessionID,
-                    "Product",
-                    json_encode($varProduct),
-                    $varTTL
-                );
-            }
+            //     \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+            //         $userSessionID,
+            //         "Product",
+            //         json_encode($varProduct),
+            //         $varTTL
+            //     );
+            // }
 
-            // 5
+            // // 5
 
-            if (Redis::get("DocumentType") == null) {
-                // DATA MASTER DOCUMENT TYPE
+            // if (Redis::get("DocumentType") == null) {
+            //     // DATA MASTER DOCUMENT TYPE
 
-                $varDocumentType =
-                    (new \App\Models\Database\SchData_OLTP_Master\General())->getDataList_BusinessDocumentType(
-                        $userSessionID,
-                        $branchID
-                    );
+            //     $varDocumentType =
+            //         (new \App\Models\Database\SchData_OLTP_Master\General())->getDataList_BusinessDocumentType(
+            //             $userSessionID,
+            //             $branchID
+            //         );
 
-                //SET REDIS DOCUMENT TYPE
+            //     //SET REDIS DOCUMENT TYPE
 
-                \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                    $userSessionID,
-                    "DocumentType",
-                    json_encode($varDocumentType),
-                    $varTTL
-                );
-            }
+            //     \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+            //         $userSessionID,
+            //         "DocumentType",
+            //         json_encode($varDocumentType),
+            //         $varTTL
+            //     );
+            // }
 
-            // 6
-            if (Redis::get("Bank") == null) {
-                // DATA MASTER BANK
+            // // 6
+            // if (Redis::get("Bank") == null) {
+            //     // DATA MASTER BANK
 
-                $varBank =
-                    (new \App\Models\Database\SchData_OLTP_Master\General())->getDataList_BankAccount(
-                        $userSessionID,
-                        $branchID
-                    );
+            //     $varBank =
+            //         (new \App\Models\Database\SchData_OLTP_Master\General())->getDataList_BankAccount(
+            //             $userSessionID,
+            //             $branchID
+            //         );
 
-                //SET REDIS BANK
+            //     //SET REDIS BANK
 
-                \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                    $userSessionID,
-                    "Bank",
-                    json_encode($varBank),
-                    $varTTL
-                );
-            }
+            //     \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+            //         $userSessionID,
+            //         "Bank",
+            //         json_encode($varBank),
+            //         $varTTL
+            //     );
+            // }
 
-            // 7
-            if (Redis::get("DataBudget") == null) {
-                // DATA BUDGET
+            // // 7
+            // if (Redis::get("DataBudget") == null) {
+            //     // DATA BUDGET
 
-                $varBudget =
-                    (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataList_CombinedBudgetSectionDetail(
-                        $userSessionID,
-                        $branchID
-                    );
+            //     $varBudget =
+            //         (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataList_CombinedBudgetSectionDetail(
+            //             $userSessionID,
+            //             $branchID
+            //         );
 
-                //SET REDIS BUDGET
+            //     //SET REDIS BUDGET
 
-                \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                    $userSessionID,
-                    "DataBudget",
-                    json_encode($varBudget),
-                    $varTTL
-                );
-            }
+            //     \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+            //         $userSessionID,
+            //         "DataBudget",
+            //         json_encode($varBudget),
+            //         $varTTL
+            //     );
+            // }
 
             // 8
-            if (Redis::get("RedisGetMyDocument" . $workerCareerInternal_RefID) == null) {
-                //REDIS COUNT DOCUMENT
-                if ($workerCareerInternal_RefID != 0) {
-                    $varDataCount =
-                        (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_Resume_BusinessDocumentIssuanceDispositionCount(
-                            $userSessionID,
-                            $branchID,
-                            $workerCareerInternal_RefID
-                        );
+            // if (Redis::get("RedisGetMyDocument" . $workerCareerInternal_RefID) == null) {
+            //     //REDIS COUNT DOCUMENT
+            //     if ($workerCareerInternal_RefID != 0) {
+            //         $varDataCount =
+            //             (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_Resume_BusinessDocumentIssuanceDispositionCount(
+            //                 $userSessionID,
+            //                 $branchID,
+            //                 $workerCareerInternal_RefID
+            //             );
 
-                    \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                        $userSessionID,
-                        "RedisGetMyDocument" . $workerCareerInternal_RefID,
-                        json_encode($varDataCount[0]['document']['content']['dataCount']),
-                        $varTTL
-                    );
-                } else {
-                    \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                        $userSessionID,
-                        "RedisGetMyDocument" . $workerCareerInternal_RefID,
-                        json_encode(0),
-                        $varTTL
-                    );
-                }
-            }
-            return [];
+            //         \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+            //             $userSessionID,
+            //             "RedisGetMyDocument" . $workerCareerInternal_RefID,
+            //             json_encode($varDataCount[0]['document']['content']['dataCount']),
+            //             $varTTL
+            //         );
+            //     } else {
+            //         \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+            //             $userSessionID,
+            //             "RedisGetMyDocument" . $workerCareerInternal_RefID,
+            //             json_encode(0),
+            //             $varTTL
+            //         );
+            //     }
+            // }
+            // return [];
         }
     }
 }

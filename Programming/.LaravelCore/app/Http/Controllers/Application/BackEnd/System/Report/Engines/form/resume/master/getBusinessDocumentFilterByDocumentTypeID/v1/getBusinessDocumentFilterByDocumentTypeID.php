@@ -11,6 +11,9 @@
 */
 namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\resume\master\getBusinessDocumentFilterByDocumentTypeID\v1
     {
+
+    use Illuminate\Support\Facades\Redis;
+
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : getBusinessDocumentFilterByDocumentTypeID                                                                       |
@@ -57,6 +60,55 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\re
         */
         function main($varUserSession, $varData)
             {
+            // // $varReturn = null;
+            // // $varBufferDB = 
+            // //     (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentLastVersionByBusDocType(
+            // //         $varUserSession,
+            // //         $varData['parameter']['recordID']
+            // //         );
+            // // if (count($varBufferDB) > 0) {
+            // //     for($i = 0; $i < count($varBufferDB); $i++){
+            // //         $varReturn = 
+            // //         (new \App\Models\Database\SchData_OLTP_Master\General())->getIDTranslation_BusinessDocumentVersionToBusinessDocumentForm(
+            // //             $varUserSession, 
+            // //             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
+            // //             $varBufferDB[$i]['BusinessDocumentVersion_RefID']
+            // //             );
+            // //         if($varReturn != []){
+            // //             $varReturn = $varReturn[0]['BusinessDocumentForm_RefID'];
+            // //             break;
+            // //         }
+            // //     }
+            // // }
+
+
+            // $userSessionID = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+            // $branchID = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($userSessionID)['branchID'];
+            
+            // $varTTL = 86400; // 24 Jam
+            // // GET DATA MASTER BUDGET 
+            // $varCheckDocumentTypeID =
+            //     (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_Resume_BusinessDocumentFilterByDocumentTypeID(
+            //         $userSessionID,
+            //         $branchID,
+            //         76000000000162
+
+            //     );
+
+            // //SET REDIS BUDGET
+
+            // \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+            //     $userSessionID,
+            //     "CheckDocumentTypeID",
+            //     json_encode($varCheckDocumentTypeID),
+            //     $varTTL
+            // );
+
+
+            // return [];
+            
+                
+
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Report Form - Resume - Business Document Filter By Document Type ID (version 1)');

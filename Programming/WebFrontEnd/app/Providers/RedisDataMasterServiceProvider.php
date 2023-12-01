@@ -9,11 +9,11 @@ class RedisDataMasterServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        View::composer(
-            [
-                'Partials.app'
-            ],
-            'App\Http\ViewComposers\RedisDataMasterComposer'
-        );
+        // View::composer(
+        //     [
+        //         'Partials.app'
+        //     ],
+        //     'App\Http\ViewComposers\RedisDataMasterComposer'
+        // );
     }
 }
