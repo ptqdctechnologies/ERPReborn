@@ -41,7 +41,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 'recordID' => 204000000000001,
                 'entities' => [
                     'advanceSettlement_RefID' => 203000000000001,
-                    'advancePaymentDetail_RefID' => 195000000000001,
+                    'advanceDetail_RefID' => 82000000000001,
                     'product_RefID' => 88000000000083,
                     'quantity' => 0.32,
                     'quantityUnit_RefID' => 73000000000009,
@@ -81,7 +81,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Advance Settlement Detail Main Data</p></td></tr>';
             echo        '<tr><td>RecordID</td><td><input type="text" id="dataInput_RecordID" value=204000000000001></td></tr>';
             echo        '<tr><td>AdvanceSettlement_RefID</td><td><input type="text" id="dataInput_AdvanceSettlement_RefID" value=203000000000001></td></tr>';
-            echo        '<tr><td>AdvancePaymentDetail_RefID</td><td><input type="text" id="dataInput_AdvancePaymentDetail_RefID" value=195000000000001></td></tr>';
+            echo        '<tr><td>AdvanceDetail_RefID</td><td><input type="text" id="dataInput_AdvanceDetail_RefID" value=82000000000001></td></tr>';
             echo        '<tr><td>Product_RefID</td><td><input type="text" id="dataInput_Product_RefID" value=88000000000083></td></tr>';
             echo        '<tr><td>Quantity</td><td><input type="text" id="dataInput_Quantity" value=0.32></td></tr>';
             echo        '<tr><td>QuantityUnit_RefID</td><td><input type="text" id="dataInput_QuantityUnit_RefID" value=73000000000009></td></tr>';
@@ -102,7 +102,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
                     '"entities" : {'.
                         '"advanceSettlement_RefID" : parseInt(document.getElementById("dataInput_AdvanceSettlement_RefID").value), '.
-                        '"advancePaymentDetail_RefID" : parseInt(document.getElementById("dataInput_AdvancePaymentDetail_RefID").value), '.
+                        '"advanceDetail_RefID" : parseInt(document.getElementById("dataInput_AdvanceDetail_RefID").value), '.
                         '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID").value), '.
                         '"quantity" : parseFloat(document.getElementById("dataInput_Quantity").value), '.
                         '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID").value), '.

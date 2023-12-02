@@ -56,7 +56,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varAdvanceSettlement_RefID ► Advance Settlement Reference ID                                             |
-        |      ▪ (int)    varAdvancePaymentDetail_RefID ► Advance Payment Detail Reference ID                                      |
+        |      ▪ (int)    varAdvanceDetail_RefID ► Advance Detail Reference ID                                                     |
         |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
         |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
@@ -76,7 +76,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varAdvanceSettlement_RefID = null, int $varAdvancePaymentDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varExpenseClaimProductUnitPriceCurrency_RefID = null, float $varExpenseClaimProductUnitPriceCurrencyValue = null, float $varExpenseClaimProductUnitPriceCurrencyExchangeRate = null, int $varReturnProductUnitPriceCurrency_RefID = null, float $varReturnProductUnitPriceCurrencyValue = null, float $varReturnProductUnitPriceCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varAdvanceSettlement_RefID = null, int $varAdvanceDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varExpenseClaimProductUnitPriceCurrency_RefID = null, float $varExpenseClaimProductUnitPriceCurrencyValue = null, float $varExpenseClaimProductUnitPriceCurrencyExchangeRate = null, int $varReturnProductUnitPriceCurrency_RefID = null, float $varReturnProductUnitPriceCurrencyValue = null, float $varReturnProductUnitPriceCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -92,7 +92,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         [$varSysBaseCurrency_RefID, 'bigint'],
                         
                         [$varAdvanceSettlement_RefID, 'bigint'],
-                        [$varAdvancePaymentDetail_RefID, 'bigint'],
+                        [$varAdvanceDetail_RefID, 'bigint'],
                         [$varProduct_RefID, 'bigint'],
                         [$varQuantity, 'numeric'],
                         [$varQuantityUnit_RefID, 'bigint'],
@@ -128,7 +128,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varAdvanceSettlement_RefID ► Advance Settlement Reference ID                                             |
-        |      ▪ (int)    varAdvancePaymentDetail_RefID ► Advance Payment Detail Reference ID                                      |
+        |      ▪ (int)    varAdvanceDetail_RefID ► Advance Detail Reference ID                                                     |
         |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
         |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
@@ -148,7 +148,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varAdvanceSettlement_RefID = null, int $varAdvancePaymentDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varExpenseClaimProductUnitPriceCurrency_RefID = null, float $varExpenseClaimProductUnitPriceCurrencyValue = null, float $varExpenseClaimProductUnitPriceCurrencyExchangeRate = null, int $varReturnProductUnitPriceCurrency_RefID = null, float $varReturnProductUnitPriceCurrencyValue = null, float $varReturnProductUnitPriceCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varAdvanceSettlement_RefID = null, int $varAdvanceDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varExpenseClaimProductUnitPriceCurrency_RefID = null, float $varExpenseClaimProductUnitPriceCurrencyValue = null, float $varExpenseClaimProductUnitPriceCurrencyExchangeRate = null, int $varReturnProductUnitPriceCurrency_RefID = null, float $varReturnProductUnitPriceCurrencyValue = null, float $varReturnProductUnitPriceCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -164,7 +164,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         [$varSysBaseCurrency_RefID, 'bigint'],
                         
                         [$varAdvanceSettlement_RefID, 'bigint'],
-                        [$varAdvancePaymentDetail_RefID, 'bigint'],
+                        [$varAdvanceDetail_RefID, 'bigint'],
                         [$varProduct_RefID, 'bigint'],
                         [$varQuantity, 'numeric'],
                         [$varQuantityUnit_RefID, 'bigint'],
