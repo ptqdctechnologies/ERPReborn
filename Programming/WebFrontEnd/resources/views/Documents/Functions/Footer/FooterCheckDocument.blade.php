@@ -53,17 +53,16 @@
             type: 'GET',
             url: '{!! route("CheckDocument.ShowDocumentListData") !!}?DocumentType=' + $('#DocumentType').val(),
             success: function(data) {
-                console.log(data);
                 var no = 1;
                 t = $('#TableCheckDocument').DataTable();
                 t.clear().draw();
-                $.each(data.data, function(key, val) {
+                $.each(data, function(key, val) {
                     keys += 1;
                     t.row.add([
-                        '<tbody><tr><td><input id="businessDocument_RefID' + keys + '" value="' + val.sys_ID + '" type="hidden">' + no++ + '</span></td>',
-                        '<td><span style="position:relative;left:10px;">' + val.documentNumber + '</span></td>',
-                        '<td><span style="position:relative;left:10px;">' + val.combinedBudgetCode + '-' + val.combinedBudgetName + '</span></td>',
-                        '<td><span style="position:relative;left:10px;">' + val.combinedBudgetSectionCode + '-' + val.combinedBudgetSectionName + '</span></td></tr></tbody>',
+                        '<tbody><tr><td><input id="businessDocument_RefID' + keys + '" value="' + val.Sys_ID + '" type="hidden">' + no++ + '</span></td>',
+                        '<td><span style="position:relative;left:10px;">' + val.DocumentNumber + '</span></td>',
+                        '<td><span style="position:relative;left:10px;">' + val.CombinedBudgetCode + '-' + val.CombinedBudgetSectionCode + '</span></td>',
+                        '<td><span style="position:relative;left:10px;">' + val.CombinedBudgetSectionCode + '-' + val.CombinedBudgetSectionName + '</span></td></tr></tbody>',
                     ]).draw();
                 });
 
@@ -128,4 +127,12 @@
         // reset the triggered value to 0
         triggered = 0;
     });
+</script>
+
+<script>
+
+    $('#submit').on('click', function() {
+        ShowLoading();
+    });
+
 </script>

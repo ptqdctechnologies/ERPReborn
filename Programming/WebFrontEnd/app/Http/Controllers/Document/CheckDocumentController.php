@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Alert;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 
 class CheckDocumentController extends Controller
@@ -26,7 +27,8 @@ class CheckDocumentController extends Controller
     // FUNCTION FOR SHOW DOCUMENT BY ID 
     public function GetAllDocumentTypeByID($varAPIWebToken, $businessDocument_RefID)
     {
-        $varDataWorkflow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        $varAPIWebToken = Session::get('SessionLogin');
+        \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'report.form.documentForm.general.getAllDocumentTypeByID',
@@ -38,8 +40,16 @@ class CheckDocumentController extends Controller
             ],
             false
         );
-        // dd($varDataWorkflow);
-        return $varDataWorkflow;
+
+        $varData = json_decode(
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "ShowCheckDocumentTypeID"
+            ),
+            true
+        );
+
+        return $varData;
     }
 
     // FUNCTION FOR SHOW DOCUMENT FORM SUBMIT IN CHECK DOCUMENT 
@@ -57,7 +67,7 @@ class CheckDocumentController extends Controller
                 $varDataWorkflow = $this->GetAllDocumentTypeByID($varAPIWebToken, $businessDocument_RefID);
             } else {
                 // CALL FUNCTION SHOW DATA BY NUMBER
-                $varDataWorkflow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken,
                     'report.form.documentForm.general.getAllDocumentTypeByFormNumber',
@@ -70,21 +80,29 @@ class CheckDocumentController extends Controller
                     ],
                     false
                 );
+
+                $varDataWorkflow = json_decode(
+                    \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        "ShowCheckDocumentTypeID"
+                    ),
+                    true
+                );
             }
 
-            if ($varDataWorkflow['metadata']['HTTPStatusCode'] != '200') {
-                return redirect()->route('CheckDocument.index')->with('NotFound', 'Data Not Found');
-            } else {
+            if (count($varDataWorkflow) > 0) {
                 $compact = [
                     'var' => 1,
-                    'dataWorkflow' => $varDataWorkflow['data'][0]['document']['content']['general']['workFlow']['historyList'],
-                    'dataTransaction' => $varDataWorkflow['data'][0]['document'],
-                    'businessDocument_RefID' => $varDataWorkflow['data'][0]['document']['header']['recordID'],
-                    'businessDocumentNumber' => $varDataWorkflow['data'][0]['document']['header']['number'],
-                    'businessDocumentTitle' => $varDataWorkflow['data'][0]['document']['header']['title'],
+                    'dataWorkflow' => $varDataWorkflow[0]['document']['content']['general']['workFlow']['historyList'],
+                    'dataTransaction' => $varDataWorkflow[0]['document'],
+                    'businessDocument_RefID' => $varDataWorkflow[0]['document']['header']['recordID'],
+                    'businessDocumentNumber' => $varDataWorkflow[0]['document']['header']['number'],
+                    'businessDocumentTitle' => $varDataWorkflow[0]['document']['header']['title'],
                 ];
 
                 return view('Documents.Transactions.IndexCheckDocument', $compact);
+            } else {
+                return redirect()->route('CheckDocument.index')->with('NotFound', 'Data Not Found');
             }
         } else {
             return redirect()->route('CheckDocument.index')->with('NotFound', 'Data Cannot Empty');
@@ -101,18 +119,18 @@ class CheckDocumentController extends Controller
         // CALL FUNCTION SHOW DATA BY ID
         $varDataWorkflow = $this->GetAllDocumentTypeByID($varAPIWebToken, $businessDocument_RefID);
 
-        if ($varDataWorkflow['metadata']['HTTPStatusCode'] != 200) {
-            return redirect()->route('MyDocument.index')->with('NotFound', 'Data Not Found');
-        } else {
+        if (count($varDataWorkflow) > 0) {
             $compact = [
                 'var' => 1,
-                'dataWorkflow' => $varDataWorkflow['data'][0]['document']['content']['general']['workFlow']['historyList'],
-                'dataTransaction' => $varDataWorkflow['data'][0]['document'],
-                'businessDocument_RefID' => $varDataWorkflow['data'][0]['document']['header']['recordID'],
-                'businessDocumentNumber' => $varDataWorkflow['data'][0]['document']['header']['number'],
-                'businessDocumentTitle' => $varDataWorkflow['data'][0]['document']['header']['title'],
+                'dataWorkflow' => $varDataWorkflow[0]['document']['content']['general']['workFlow']['historyList'],
+                'dataTransaction' => $varDataWorkflow[0]['document'],
+                'businessDocument_RefID' => $varDataWorkflow[0]['document']['header']['recordID'],
+                'businessDocumentNumber' => $varDataWorkflow[0]['document']['header']['number'],
+                'businessDocumentTitle' => $varDataWorkflow[0]['document']['header']['title'],
             ];
             return view('Documents.Transactions.IndexCheckDocument', $compact);
+        } else {
+            return redirect()->route('MyDocument.index')->with('NotFound', 'Data Not Found');
         }
     }
 
@@ -121,23 +139,31 @@ class CheckDocumentController extends Controller
     {
         $DocumentType = $request->input('DocumentType');
 
-        $varAPIWebToken = Session::get('SessionLogin');
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'report.form.resume.master.getBusinessDocumentFilterByDocumentTypeID',
-            'latest',
-            [
-                'parameter' => [
-                    'recordID' => (int)$DocumentType
-                ]
-            ],
-            false
+        if (Redis::get("CheckDocumentTypeID" . $DocumentType) == null) {
+            $varAPIWebToken = Session::get('SessionLogin');
+            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'report.form.resume.master.getBusinessDocumentFilterByDocumentTypeID',
+                'latest',
+                [
+                    'parameter' => [
+                        'recordID' => (int)$DocumentType
+                    ]
+                ],
+                false
+            );
+        }
+
+
+        $varData = json_decode(
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "CheckDocumentTypeID" . $DocumentType
+            ),
+            true
         );
 
-        $compact = [
-            'data' => $varData['data'],
-        ];
-        return response()->json($compact);
+        return response()->json($varData);
     }
 }
