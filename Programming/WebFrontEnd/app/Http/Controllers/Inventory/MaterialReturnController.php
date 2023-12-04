@@ -23,6 +23,36 @@ class MaterialReturnController extends Controller
 
         return view('Inventory.MaterialReturn.Transactions.CreateMaterialReturn', $compact);
     }
+    public function ReportMatReturnSummary(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $var = 0;
+        if (!empty($_GET['var'])) {
+            $var =  $_GET['var'];
+        }
+        $compact = [
+            'varAPIWebToken' => $varAPIWebToken,
+            'var' => $var,
+            'statusRevisi' => 1,
+        ];
+
+        return view('Inventory.MaterialReturn.Reports.ReportMatReturnSummary', $compact);
+    }
+    public function ReportMatReturnDetail(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $var = 0;
+        if (!empty($_GET['var'])) {
+            $var =  $_GET['var'];
+        }
+        $compact = [
+            'varAPIWebToken' => $varAPIWebToken,
+            'var' => $var,
+            'statusRevisi' => 1,
+        ];
+
+        return view('Inventory.MaterialReturn.Reports.ReportMatReturnDetail', $compact);
+    }
     
     public function StoreValidateiMaterialReturn(Request $request)
     {

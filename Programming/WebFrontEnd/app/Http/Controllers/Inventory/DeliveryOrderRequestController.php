@@ -25,6 +25,54 @@ class DeliveryOrderRequestController extends Controller
         return view('Inventory.DeliveryOrderRequest.Transactions.CreateDeliveryOrderRequest', $compact);
 
     }
+    public function ReportDORSummary(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $var = 0;
+        if (!empty($_GET['var'])) {
+            $var =  $_GET['var'];
+        }
+        $compact = [
+            'varAPIWebToken' => $varAPIWebToken,
+            'var' => $var,
+            'statusRevisi' => 1,
+        ];
+
+        return view('Inventory.DeliveryOrderRequest.Reports.ReportDORSummary', $compact);
+    }
+
+    public function ReportDORDetail(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $var = 0;
+        if (!empty($_GET['var'])) {
+            $var =  $_GET['var'];
+        }
+        $compact = [
+            'varAPIWebToken' => $varAPIWebToken,
+            'var' => $var,
+            'statusRevisi' => 1,
+        ];
+
+        return view('Inventory.DeliveryOrderRequest.Reports.ReportDORDetail', $compact);
+    }
+
+    public function ReportDORtoDO(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $var = 0;
+        if (!empty($_GET['var'])) {
+            $var =  $_GET['var'];
+        }
+        $compact = [
+            'varAPIWebToken' => $varAPIWebToken,
+            'var' => $var,
+            'statusRevisi' => 1,
+        ];
+
+        return view('Inventory.DeliveryOrderRequest.Reports.ReportDORequestToDO', $compact);
+    }
+
 
     public function StoreValidateDeliveryOrderRequestRequester(Request $request)
     {
