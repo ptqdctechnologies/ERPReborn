@@ -2,6 +2,18 @@
 
 All notable changes of the PHPUnit 8.5 release series are documented in this file using the [Keep a CHANGELOG](https://keepachangelog.com/) principles.
 
+## [8.5.36] - 2023-12-01
+
+### Fixed
+
+* [#5596](https://github.com/sebastianbergmann/phpunit/issues/5596): `PHPUnit\Framework\TestCase` has `@internal` annotation in PHAR
+
+## [8.5.35] - 2023-12-01
+
+### Added
+
+* [#5577](https://github.com/sebastianbergmann/phpunit/issues/5577): `--composer-lock` CLI option for PHAR binary that displays the `composer.lock` used to build the PHAR
+
 ## [8.5.34] - 2023-09-19
 
 ### Changed
@@ -274,6 +286,8 @@ All notable changes of the PHPUnit 8.5 release series are documented in this fil
 * [#3967](https://github.com/sebastianbergmann/phpunit/issues/3967): Cannot double interface that extends interface that extends `\Throwable`
 * [#3968](https://github.com/sebastianbergmann/phpunit/pull/3968): Test class run in a separate PHP process are passing when `exit` called inside
 
+[8.5.36]: https://github.com/sebastianbergmann/phpunit/compare/8.5.35...8.5.36
+[8.5.35]: https://github.com/sebastianbergmann/phpunit/compare/8.5.34...8.5.35
 [8.5.34]: https://github.com/sebastianbergmann/phpunit/compare/8.5.33...8.5.34
 [8.5.33]: https://github.com/sebastianbergmann/phpunit/compare/8.5.32...8.5.33
 [8.5.32]: https://github.com/sebastianbergmann/phpunit/compare/8.5.31...8.5.32
