@@ -24,6 +24,36 @@ class DeliveryOrderController extends Controller
         
         return view('Inventory.DeliveryOrder.Transactions.CreateDeliveryOrder', $compact);
     }
+    public function ReportDOSummary(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $var = 0;
+        if (!empty($_GET['var'])) {
+            $var =  $_GET['var'];
+        }
+        $compact = [
+            'varAPIWebToken' => $varAPIWebToken,
+            'var' => $var,
+            'statusRevisi' => 1,
+        ];
+
+        return view('Inventory.DeliveryOrder.Reports.ReportDOSummary', $compact);
+    }
+    public function ReportDODetail(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $var = 0;
+        if (!empty($_GET['var'])) {
+            $var =  $_GET['var'];
+        }
+        $compact = [
+            'varAPIWebToken' => $varAPIWebToken,
+            'var' => $var,
+            'statusRevisi' => 1,
+        ];
+
+        return view('Inventory.DeliveryOrder.Reports.ReportDODetail', $compact);
+    }
 
     public function store(Request $request)
     {

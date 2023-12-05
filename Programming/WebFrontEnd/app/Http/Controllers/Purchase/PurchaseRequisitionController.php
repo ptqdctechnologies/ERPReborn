@@ -25,6 +25,57 @@ class PurchaseRequisitionController extends Controller
         ];
         return view('Purchase.PurchaseRequisition.Transactions.CreatePurchaseRequisition', $compact);
     }
+    public function Reports(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $request->session()->forget("SessionPurchaseOrderPrNumber");
+        $request->session()->forget("SessionPurchaseOrder");
+        $var = 0;
+        if (!empty($_GET['var'])) {
+            $var =  $_GET['var'];
+        }
+        $compact = [
+            'varAPIWebToken' => $varAPIWebToken,
+            'var' => $var,
+            'statusRevisi' => 1,
+        ];
+
+        return view('Purchase.PurchaseRequisition.Reports.ReportPurchaseRequisitionSummary', $compact);
+    }
+    public function ReportsPrtoPo(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $request->session()->forget("SessionPurchaseOrderPrNumber");
+        $request->session()->forget("SessionPurchaseOrder");
+        $var = 0;
+        if (!empty($_GET['var'])) {
+            $var =  $_GET['var'];
+        }
+        $compact = [
+            'varAPIWebToken' => $varAPIWebToken,
+            'var' => $var,
+            'statusRevisi' => 1,
+        ];
+
+        return view('Purchase.PurchaseRequisition.Reports.ReportPurchaseRequisitionToPurchaseOrder', $compact);
+    }
+    public function ReportsDetail(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $request->session()->forget("SessionPurchaseOrderPrNumber");
+        $request->session()->forget("SessionPurchaseOrder");
+        $var = 0;
+        if (!empty($_GET['var'])) {
+            $var =  $_GET['var'];
+        }
+        $compact = [
+            'varAPIWebToken' => $varAPIWebToken,
+            'var' => $var,
+            'statusRevisi' => 1,
+        ];
+
+        return view('Purchase.PurchaseRequisition.Reports.ReportPurchaseRequisitionDetail', $compact);
+    }
 
     public function store(Request $request)
     {
@@ -109,6 +160,7 @@ class PurchaseRequisitionController extends Controller
         // Var Data -> Combined Budget -> Approver Entity -> Submitter Entity
         return $this->SelectWorkFlow($varData, $SessionWorkerCareerInternal_RefID, $VarSelectWorkFlow);
     }
+
 
     public function PurchaseRequisitionListData(Request $request)
     {

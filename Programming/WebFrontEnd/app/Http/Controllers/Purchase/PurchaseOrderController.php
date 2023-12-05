@@ -29,7 +29,7 @@ class PurchaseOrderController extends Controller
 
         return view('Purchase.PurchaseOrder.Transactions.CreatePurchaseOrder', $compact);
     }
-    public function Reports(Request $request)
+    public function ReportPoSummary(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionPurchaseOrderPrNumber");
@@ -45,6 +45,23 @@ class PurchaseOrderController extends Controller
         ];
 
         return view('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderSummary', $compact);
+    }
+    public function ReportPoDetail(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $request->session()->forget("SessionPurchaseOrderPrNumber");
+        $request->session()->forget("SessionPurchaseOrder");
+        $var = 0;
+        if (!empty($_GET['var'])) {
+            $var =  $_GET['var'];
+        }
+        $compact = [
+            'varAPIWebToken' => $varAPIWebToken,
+            'var' => $var,
+            'statusRevisi' => 1,
+        ];
+
+        return view('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderDetail', $compact);
     }
     public function StoreValidatePurchaseOrderPrNumber(Request $request)
     {
