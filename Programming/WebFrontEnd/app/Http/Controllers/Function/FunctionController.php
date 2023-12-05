@@ -94,47 +94,72 @@ class FunctionController extends Controller
 
         $site_code = $request->input('site_code');
 
-        if (Redis::get("DataBudget") == null) {
-
-            $varAPIWebToken = Session::get('SessionLogin');
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.budgeting.getCombinedBudgetSectionDetail',
-                'latest',
-                [
-                    'parameter' => [
-                        'combinedBudgetSection_RefID' => (int)$site_code,
-                    ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
+        $varAPIWebToken = Session::get('SessionLogin');
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.budgeting.getCombinedBudgetSectionDetail',
+            'latest',
+            [
+                'parameter' => [
+                    'combinedBudgetSection_RefID' => (int)$site_code,
                 ],
-                false
-            );
-        }
-
-        $varDataBudget = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                "DataBudget"
-            ),
-            true
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ],
+            false
         );
 
-        $num = 0;
-        $filteredArray = [];
-        for ($i = 0; $i < count($varDataBudget); $i++) {
-            if ($varDataBudget[$i]['CombinedBudgetSection_RefID'] == $site_code) {
-                $filteredArray[$num] = $varDataBudget[$i];
-                $num++;
-            }
-        }
+        return response()->json($varData['data']);
 
-        return response()->json($filteredArray);
+
+        // $site_code = $request->input('site_code');
+
+        // if (Redis::get("DataBudget") == null) {
+
+        //     $varAPIWebToken = Session::get('SessionLogin');
+        //     $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //         $varAPIWebToken,
+        //         'transaction.read.dataList.budgeting.getCombinedBudgetSectionDetail',
+        //         'latest',
+        //         [
+        //             'parameter' => [
+        //                 'combinedBudgetSection_RefID' => (int)$site_code,
+        //             ],
+        //             'SQLStatement' => [
+        //                 'pick' => null,
+        //                 'sort' => null,
+        //                 'filter' => null,
+        //                 'paging' => null
+        //             ]
+        //         ],
+        //         false
+        //     );
+        // }
+
+        // $varDataBudget = json_decode(
+        //     \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+        //         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //         "DataBudget"
+        //     ),
+        //     true
+        // );
+
+        // $num = 0;
+        // $filteredArray = [];
+        // for ($i = 0; $i < count($varDataBudget); $i++) {
+        //     if ($varDataBudget[$i]['CombinedBudgetSection_RefID'] == $site_code) {
+        //         $filteredArray[$num] = $varDataBudget[$i];
+        //         $num++;
+        //     }
+        // }
+
+        // return response()->json($filteredArray);
     }
 
     // FUNCTION PURCHASE REQUISTION 

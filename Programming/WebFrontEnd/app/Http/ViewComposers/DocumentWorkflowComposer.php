@@ -18,7 +18,7 @@ class DocumentWorkflowComposer
             $varTTL = 86400; // 24 Jam
 
             $varAPIWebToken = Session::get('SessionLogin');
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'report.form.resume.master.getBusinessDocumentIssuanceDispositionCount',
