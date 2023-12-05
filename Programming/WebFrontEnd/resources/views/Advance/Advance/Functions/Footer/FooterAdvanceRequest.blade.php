@@ -112,7 +112,6 @@
             type: 'GET',
             url: '{!! route("getBudget") !!}?site_code=' + sys_id,
             success: function(data) {
-
                 var no = 1;
                 applied = 0;
                 status = "";
@@ -121,9 +120,9 @@
                 statusForm = [];
                 $.each(data, function(key, val2) {
 
-                    var used = val2.QuantityAbsorptionRatio * 100;
+                    var used = val2.quantityAbsorptionRatio * 100;
 
-                    if (used == "0.00" && val2.Quantity == "0.00") {
+                    if (used == "0.00" && val2.quantity == "0.00") {
                         var applied = 0;
                     } else {
                         var applied = Math.round(used);
@@ -131,7 +130,7 @@
                     if (applied >= 100) {
                         var status = "disabled";
                     }
-                    if (val2.ProductName == "Unspecified Product") {
+                    if (val2.productName == "Unspecified Product") {
                         statusDisplay[key] = "";
                         statusDisplay2[key] = "none";
                         statusForm[key] = "disabled";
@@ -140,22 +139,22 @@
                         statusDisplay[key] = "none";
                         statusDisplay2[key] = "";
                         statusForm[key] = "";
-                        balance_qty = currencyTotal(val2.QuantityRemaining);
+                        balance_qty = currencyTotal(val2.quantityRemaining);
                     }
 
                     var html = '<tr>' +
-                        '<input name="getWorkId[]" value="' + val2.CombinedBudgetSubSectionLevel1_RefID + '" type="hidden">' +
-                        '<input name="getWorkName[]" value="' + val2.CombinedBudgetSubSectionLevel1Name + '" type="hidden">' +
-                        '<input name="getProductId[]" value="' + val2.Product_RefID + '" type="hidden">' +
-                        '<input name="getProductName[]" value="' + val2.ProductName + '" type="hidden">' +
-                        '<input name="getQtyId[]" id="budget_qty_id' + key + '" value="' + val2.QuantityUnit_RefID + '" type="hidden">' +
-                        '<input name="getQty[]" id="budget_qty' + key + '" value="' + val2.QuantityRemaining + '" type="hidden">' +
-                        '<input name="getPrice[]" id="budget_price' + key + '" value="' + val2.PriceBaseCurrencyValue + '" type="hidden">' +
-                        '<input name="getUom[]" value="' + val2.QuantityUnitName + '" type="hidden">' +
-                        '<input name="getCurrency[]" value="' + val2.PriceBaseCurrencyISOCode + '" type="hidden">' +
-                        '<input name="getCurrencyId[]" value="' + val2.Sys_BaseCurrency_RefID + '" type="hidden">' +
-                        '<input name="combinedBudgetSectionDetail_RefID[]" value="' + val2.Sys_ID + '" type="hidden">' +
-                        '<input name="combinedBudget_RefID" value="' + val2.CombinedBudget_RefID + '" type="hidden">' +
+                        '<input name="getWorkId[]" value="' + val2.combinedBudgetSubSectionLevel1_RefID + '" type="hidden">' +
+                        '<input name="getWorkName[]" value="' + val2.combinedBudgetSubSectionLevel1Name + '" type="hidden">' +
+                        '<input name="getProductId[]" value="' + val2.product_RefID + '" type="hidden">' +
+                        '<input name="getProductName[]" value="' + val2.productName + '" type="hidden">' +
+                        '<input name="getQtyId[]" id="budget_qty_id' + key + '" value="' + val2.quantityUnit_RefID + '" type="hidden">' +
+                        '<input name="getQty[]" id="budget_qty' + key + '" value="' + val2.quantity + '" type="hidden">' +
+                        '<input name="getPrice[]" id="budget_price' + key + '" value="' + val2.priceBaseCurrencyValue + '" type="hidden">' +
+                        '<input name="getUom[]" value="' + val2.quantityUnitName + '" type="hidden">' +
+                        '<input name="getCurrency[]" value="' + val2.priceBaseCurrencyISOCode + '" type="hidden">' +
+                        '<input name="getCurrencyId[]" value="' + val2.sys_BaseCurrency_RefID + '" type="hidden">' +
+                        '<input name="combinedBudgetSectionDetail_RefID[]" value="' + val2.sys_ID + '" type="hidden">' +
+                        '<input name="combinedBudget_RefID" value="' + val2.combinedBudget_RefID + '" type="hidden">' +
 
                         '<td style="border:1px solid #e9ecef;">' +
                         '&nbsp;&nbsp;&nbsp;<div class="progress ' + status + ' progress-xs" style="height: 14px;border-radius:8px;"> @if(' + applied + ' >= ' + 0 + ' && ' + applied + ' <= ' + 40 + ')<div class="progress-bar bg-red" style="width:' + applied + '%;"></div> @elseif(' + applied + ' >= ' + 41 + ' && ' + applied + ' <= ' + 89 + ')<div class="progress-bar bg-blue" style="width:' + applied + '%;"></div> @elseif(' + applied + ' >= ' + 90 + ' && ' + applied + ' <= ' + 100 + ')<div class="progress-bar bg-green" style="width:' + applied + '%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>' + applied + ' %</center></small>' +
@@ -163,7 +162,7 @@
 
                         '<td style="border:1px solid #e9ecef;display:' + statusDisplay[key] + '";">' +
                         '<div class="input-group">' +
-                        '<input id="product_id' + key + '" style="border-radius:0;width:130px;background-color:white;" name="product_id" class="form-control" readonly>' +
+                        '<input id="putProductId' + key + '" style="border-radius:0;width:130px;background-color:white;" name="putProductId" class="form-control" readonly>' +
                         '<div class="input-group-append">' +
                         '<span style="border-radius:0;" class="input-group-text form-control" data-id="10">' +
                         '<a id="product_id2" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(' + key + ')"><img src="{{ asset("AdminLTE-master/dist/img/box.png") }}" width="13" alt=""></a>' +
@@ -172,18 +171,18 @@
                         '</div>' +
                         '</td>' +
 
-                        '<td style="border:1px solid #e9ecef;display:' + statusDisplay2[key] + '">' + '<span>' + val2.Product_RefID + '</span>' + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + '<span id="product_name' + key + '">' + val2.ProductName + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;display:' + statusDisplay2[key] + '">' + '<span>' + val2.product_RefID + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + '<span id="putProductName' + key + '">' + val2.productName + '</span>' + '</td>' +
                         '<input id="putUom' + key + '" type="hidden">' +
 
                         '<input id="TotalBudget' + key + '" type="hidden">' +
 
-                        '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.Quantity) + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.quantity) + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_qty2' + key + '">' + balance_qty + '</span>' + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.PriceBaseCurrencyValue) + '</span>' + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.PriceBaseCurrencyISOCode + '</span>' + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + '<span id="total_budget' + key + '">' + currencyTotal(val2.Quantity * val2.PriceBaseCurrencyValue) + '</span>' + '</td>' +
-                        // '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.PriceBaseCurrencyValue) + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.priceBaseCurrencyValue) + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + '<span>' + val2.priceBaseCurrencyISOCode + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + '<span id="total_budget' + key + '">' + currencyTotal(val2.quantity * val2.priceBaseCurrencyValue) + '</span>' + '</td>' +
+                        // '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.priceBaseCurrencyValue) + '</span>' + '</td>' +
 
                         '<td class="sticky-col forth-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req' + key + '" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[key] + '>' + '</td>' +
                         '<td class="sticky-col third-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req' + key + '" style="border-radius:0;" name="price_req[]" class="form-control price_req" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[key] + '>' + '</td>' +
@@ -193,7 +192,7 @@
                         '</tr>';
                     $('table.tableBudgetDetail tbody').append(html);
 
-                    if (val2.ProductName == "Unspecified Product") {
+                    if (val2.productName == "Unspecified Product") {
 
                         //VALIDASI QTY
                         $('#qty_req' + key).keyup(function() {
@@ -450,7 +449,7 @@
     $(function() {
         $("#formSubmitArf").on("submit", function(e) { //id of form 
             e.preventDefault();
-            
+
             // MANDATORY VALIDATION
             var MandatoryListVar = new Object();
             MandatoryListVar['remark'] = $("#remark").val();

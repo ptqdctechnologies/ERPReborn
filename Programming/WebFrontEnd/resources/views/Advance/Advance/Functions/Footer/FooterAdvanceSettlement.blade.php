@@ -40,8 +40,9 @@
         var code = row.find("td:nth-child(2)").text();
         var name = row.find("td:nth-child(3)").text();
 
-        $("#projectcode").val(code);
-        $("#projectname").val(name);
+        $("#project_code").val(code);
+        $("#project_code_detail").val(name);
+
         $("#advance_number2").prop("disabled", false);
 
 
@@ -57,19 +58,20 @@
 
         $.ajax({
             type: 'GET',
-            url: '{!! route("AdvanceSettlement.AdvanceByBudgetID") !!}?projectcode=' + sys_id,
+            url: '{!! route("AdvanceSettlement.AdvanceByBudgetID") !!}?project_code=' + sys_id,
             success: function(data) {
+                console.log(data);
                 var no = 1;
                 t = $('#tableSearchArfinAsf').DataTable();
-                $.each(data.DataAdvanceRequest, function(key, val) {
+                $.each(data, function(key, val) {
                     keys += 1;
                     t.row.add([
-                        '<tbody><tr><input id="advance_RefID' + keys + '" value="' + val.sys_ID + '" type="hidden"><input id="beneficiary_RefID' + keys + '" value="' + val.beneficiaryWorkerJobsPosition_RefID + '" type="hidden"><input id="beneficiary_name' + keys + '" value="' + val.beneficiaryWorkerName + '" type="hidden"><td>' + no++ + '</td>',
-                        '<td>' + val.documentNumber + '</td>',
-                        '<td>' + val.combinedBudgetCode + '</td>',
-                        '<td>' + val.combinedBudgetName + '</td>',
-                        '<td>' + val.combinedBudgetSectionCode + '</td>',
-                        '<td>' + val.combinedBudgetSectionName + '</td></tr></tbody>'
+                        '<tbody><tr><input id="advance_RefID' + keys + '" value="' + val.Sys_ID + '" type="hidden"><input id="beneficiary_RefID' + keys + '" value="' + val.BeneficiaryWorkerJobsPosition_RefID + '" type="hidden"><input id="beneficiary_name' + keys + '" value="' + val.BeneficiaryWorkerName + '" type="hidden"><td>' + no++ + '</td>',
+                        '<td>' + val.DocumentNumber + '</td>',
+                        '<td>' + val.CombinedBudgetCode + '</td>',
+                        '<td>' + val.CombinedBudgetName + '</td>',
+                        '<td>' + val.CombinedBudgetSectionCode + '</td>',
+                        '<td>' + val.CombinedBudgetSectionName + '</td></tr></tbody>'
                     ]).draw();
 
                 });

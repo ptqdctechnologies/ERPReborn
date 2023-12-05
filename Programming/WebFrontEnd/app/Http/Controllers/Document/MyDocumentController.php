@@ -78,24 +78,6 @@ class MyDocumentController extends Controller
         $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
         $varAPIWebToken = Session::get('SessionLogin');
         
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'report.form.resume.master.getBusinessDocumentIssuanceDisposition',
-            'latest',
-            [
-                'parameter' => [
-                    'recordID' => (int)$SessionWorkerCareerInternal_RefID,
-                    'dataFilter' => [
-                        'businessDocumentNumber' => null,
-                        'businessDocumentType_RefID' => null,
-                        'combinedBudget_RefID' => null
-                    ]
-                ]
-            ]
-        );
-
-        dd($varData);
         $ShowMyDocumentListData = Cache::remember('ShowMyDocumentListData', 480, function () use ($SessionWorkerCareerInternal_RefID, $varAPIWebToken) {
 
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(

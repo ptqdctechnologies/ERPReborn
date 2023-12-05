@@ -3,7 +3,7 @@
         <div class="card-header">
             <label class="card-title">
                 @if(isset($dataWorkflow))
-                Last Status : Awaiting approval from {{ $dataWorkflow[count($dataWorkflow)-1]['nextApproverEntityName'] }}
+                Last Status : Awaiting approval from {{ $dataWorkflow[count($dataWorkflow)-1]['NextApproverEntityName'] }}
                 @endif
             </label>
         </div>
@@ -26,10 +26,10 @@
                     @foreach($dataWorkflow as $dataWorkflows)
                     <tr>
                         <td style="border:1px solid #4B586A;color:#4B586A;">{{ $no++ }}</td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ date('D, m/d/Y H:m:s', strtotime($dataWorkflows['approvalDateTimeTZ'])) }}</td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['currentApproverEntityName'] }} ({{ $dataWorkflows['currentApproverEntityFullJobPositionTitle'] }})</td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['currentWorkFlowPathActionName'] }}</td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['currentRemarks'] }}</td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ date('D, m/d/Y H:m:s', strtotime($dataWorkflows['ApprovalDateTimeTZ'])) }}</td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['CurrentApproverEntityName'] }} ({{ $dataWorkflows['CurrentApproverEntityFullJobPositionTitle'] }})</td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['CurrentWorkFlowPathActionName'] }}</td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['CurrentRemarks'] }}</td>
                     </tr>
                     @endforeach
                     @endif

@@ -8,6 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class Controller extends BaseController
 {
@@ -62,6 +63,10 @@ class Controller extends BaseController
         $compact = [
             "documentNumber" => $documentNumber,
         ];
+
+        //RESET REDIS DATA BUDGET AND DATA MASTER
+        Redis::del("DataBudget");
+        Redis::del("RedisDataMaster");
 
         return response()->json($compact);
     }

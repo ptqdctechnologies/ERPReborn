@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Advance;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redis;
 
 class AdvanceSettlementController extends Controller
 {
@@ -118,28 +119,46 @@ class AdvanceSettlementController extends Controller
 
     public function AdvanceByBudgetID(Request $request)
     {
-        $projectcode = $request->input('projectcode');
+        $project_code = $request->input('project_code');
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.finance.getAdvance',
-            'latest',
-            [
-                'parameter' => null,
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => '"CombinedBudget_RefID" = ' . $projectcode . '',
-                    'paging' => null
-                ]
-            ]
+        if (Redis::get("DataListAdvance") == null) {
+            $varAPIWebToken = $request->session()->get('SessionLogin');
+            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.finance.getAdvance',
+                'latest',
+                [
+                    'parameter' => null,
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
+            );
+        }
+
+        $DataListAdvance = json_decode(
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "DataListAdvance"
+            ),
+            true
         );
 
-        $compact = [
-            'DataAdvanceRequest' => $varDataAdvanceRequest['data'],
-        ];
-        return response()->json($compact);
+        $num = 0;
+        $filteredArray = [];
+        for ($i = 0; $i < count($DataListAdvance); $i++) {
+            if ($DataListAdvance[$i]['CombinedBudget_RefID'] == $project_code) {
+                $filteredArray[$num] = $DataListAdvance[$i];
+                $num++;
+            }
+        }
+
+        return response()->json($filteredArray);
     }
 
     public function AdvanceSettlementListData(Request $request)

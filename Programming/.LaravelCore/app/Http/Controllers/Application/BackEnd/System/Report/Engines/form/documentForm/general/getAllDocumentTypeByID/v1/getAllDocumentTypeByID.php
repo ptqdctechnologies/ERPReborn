@@ -9,16 +9,20 @@
 | ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\documentForm\general\getAllDocumentTypeByID\v1
-    {
+
+namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\documentForm\general\getAllDocumentTypeByID\v1 {
+
+    use Illuminate\Support\Facades\Redis;
+
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : getAllDocumentTypeByID                                                                                       |
     | ▪ Description : Menangani API report.form.documentForm.general.getAllDocumentTypeByID Version 1                              |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
+
     class getAllDocumentTypeByID extends \App\Http\Controllers\Controller
-        {
+    {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
@@ -35,8 +39,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         function __construct()
-            {
-            }
+        {
+        }
 
 
         /*
@@ -56,40 +60,64 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         function main($varUserSession, $varData)
-            {
-            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
-            try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Report Form - All Document Type Form By ID (version 1)');
-                try {
-                    //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try {
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_DocumentForm_AllDocumentType(
-                            $varUserSession, 
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+        {
+            $userSessionID = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+            $branchID = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($userSessionID)['branchID'];
 
-                            $varData['parameter']['recordID']
-                            ))))
-                            {
-                            throw new \Exception();
-                            }
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
-                        } 
-                    catch (\Exception $ex) {
-                        $varErrorMessage = $ex->getMessage();
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
-                        }
-                    //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $ex->getMessage());
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
-            catch (\Exception $ex) {
-                }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
-            }
+            $varTTL = 86400; // 24 Jam
+            // GET DATA 
+            $varCheckDocumentTypeID =
+                (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_DocumentForm_AllDocumentType(
+                    $userSessionID,
+                    $branchID,
+                    $varData['parameter']['recordID']
+
+                );
+
+            //SET REDIS
+
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+                $userSessionID,
+                "ShowCheckDocumentTypeID",
+                json_encode($varCheckDocumentTypeID),
+                $varTTL
+            );
+
+
+            return [];
+            // $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            // try {
+            //     $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Report Form - All Document Type Form By ID (version 1)');
+            //     try {
+            //         //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
+            //         try {
+            //             if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_DocumentForm_AllDocumentType(
+            //                 $varUserSession, 
+            //                 (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+
+            //                 $varData['parameter']['recordID']
+            //                 ))))
+            //                 {
+            //                 throw new \Exception();
+            //                 }
+            //             $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
+            //             } 
+            //         catch (\Exception $ex) {
+            //             $varErrorMessage = $ex->getMessage();
+            //             $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
+            //             }
+            //         //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
+            //         \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+            //         } 
+            //     catch (\Exception $ex) {
+            //         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $ex->getMessage());
+            //         \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+            //         }
+            //     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+            //     } 
+            // catch (\Exception $ex) {
+            //     }
+            // return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
         }
     }
+}

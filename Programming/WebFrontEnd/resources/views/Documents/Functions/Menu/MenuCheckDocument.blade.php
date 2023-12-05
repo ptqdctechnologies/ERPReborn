@@ -24,7 +24,7 @@
                                             </td>
                                             <td style="padding-left: 20px;;">
                                                 <div class="input-group">
-                                                    <button class="btn btn-default btn-sm float-right" type="submit">
+                                                    <button class="btn btn-default btn-sm float-right" type="submit" id="submit">
                                                         <img src="{{ asset('AdminLTE-master/dist/img/backwards.png') }}" width="13" alt="" title="Show"> &nbsp; Show
                                                     </button>
                                                 </div>

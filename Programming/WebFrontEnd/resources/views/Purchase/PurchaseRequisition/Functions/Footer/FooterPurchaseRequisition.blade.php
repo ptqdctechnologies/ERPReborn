@@ -36,7 +36,7 @@
 
         $.ajax({
             type: 'GET',
-            url: '{!! route("getSite") !!}?projectcode=' + sys_id,
+            url: '{!! route("getSite") !!}?project_code=' + sys_id,
             success: function(data) {
 
                 var no = 1;
@@ -45,9 +45,9 @@
                 $.each(data, function(key, val) {
                     keys += 1;
                     t.row.add([
-                        '<tbody><tr><input id="sys_id_site' + keys + '" value="' + val.sys_ID + '" type="hidden"><td>' + no++ + '</td>',
-                        '<td>' + val.code + '</td>',
-                        '<td>' + val.name + '</td></tr></tbody>'
+                        '<tbody><tr><input id="sys_id_site' + keys + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
+                        '<td>' + val.Code + '</td>',
+                        '<td>' + val.Name + '</td></tr></tbody>'
                     ]).draw();
                 });
             }
