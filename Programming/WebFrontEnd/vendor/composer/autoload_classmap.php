@@ -3106,6 +3106,7 @@ return array(
     'Illuminate\\View\\Compilers\\Concerns\\CompilesStacks' => $vendorDir . '/laravel/framework/src/Illuminate/View/Compilers/Concerns/CompilesStacks.php',
     'Illuminate\\View\\Compilers\\Concerns\\CompilesStyles' => $vendorDir . '/laravel/framework/src/Illuminate/View/Compilers/Concerns/CompilesStyles.php',
     'Illuminate\\View\\Compilers\\Concerns\\CompilesTranslations' => $vendorDir . '/laravel/framework/src/Illuminate/View/Compilers/Concerns/CompilesTranslations.php',
+    'Illuminate\\View\\Compilers\\Concerns\\CompilesUseStatements' => $vendorDir . '/laravel/framework/src/Illuminate/View/Compilers/Concerns/CompilesUseStatements.php',
     'Illuminate\\View\\Component' => $vendorDir . '/laravel/framework/src/Illuminate/View/Component.php',
     'Illuminate\\View\\ComponentAttributeBag' => $vendorDir . '/laravel/framework/src/Illuminate/View/ComponentAttributeBag.php',
     'Illuminate\\View\\ComponentSlot' => $vendorDir . '/laravel/framework/src/Illuminate/View/ComponentSlot.php',

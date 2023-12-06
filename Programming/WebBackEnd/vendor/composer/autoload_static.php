@@ -6438,6 +6438,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Illuminate\\View\\Compilers\\Concerns\\CompilesStacks' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/Compilers/Concerns/CompilesStacks.php',
         'Illuminate\\View\\Compilers\\Concerns\\CompilesStyles' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/Compilers/Concerns/CompilesStyles.php',
         'Illuminate\\View\\Compilers\\Concerns\\CompilesTranslations' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/Compilers/Concerns/CompilesTranslations.php',
+        'Illuminate\\View\\Compilers\\Concerns\\CompilesUseStatements' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/Compilers/Concerns/CompilesUseStatements.php',
         'Illuminate\\View\\Component' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/Component.php',
         'Illuminate\\View\\ComponentAttributeBag' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ComponentAttributeBag.php',
         'Illuminate\\View\\ComponentSlot' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ComponentSlot.php',
