@@ -74,7 +74,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                 $userSessionID,
                 "DocumentType",
                 json_encode($varDocumentType),
-                $varTTL
+                // $varTTL
             );
 
             return [];

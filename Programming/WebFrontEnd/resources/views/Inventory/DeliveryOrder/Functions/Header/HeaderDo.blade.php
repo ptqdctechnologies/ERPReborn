@@ -31,6 +31,7 @@
             <td style="padding-top:8px;"><label>Transporter</label></td>
             <td>
               <div class="input-group">
+                <input name="transporter_id" id="transporter_id" style="border-radius:0;" type="text" class="form-control" disabled hidden>
                 <input name="transporter" id="transporter" style="border-radius:0;" type="text" class="form-control" disabled>
                 <div class="input-group-append">
                   <span style="border-radius:0;" class="input-group-text form-control">

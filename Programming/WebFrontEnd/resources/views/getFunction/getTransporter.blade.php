@@ -30,7 +30,7 @@
     </div>
 </div>
 
-<script>
+<!-- <script>
     $(function() {
         $('.myTransporter').on('click', function(e) {
             e.preventDefault();
@@ -58,4 +58,64 @@
             });
         });
     });
+</script> -->
+
+
+<script>
+    $(function() {
+        $('.myTransporter').one('click', function(e) {
+            e.preventDefault();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            var keys = 0;
+
+            $.ajax({
+                type: 'GET',
+                url: '{!! route("getWorker") !!}',
+                success: function(data) {
+                    var no = 1;
+                    var t = $('#tableGetTransporter').DataTable();
+                    t.clear();
+                    $.each(data, function(key, val) {
+                        keys += 1;
+                        t.row.add([
+                            '<tbody><tr><input id="sys_id_transporter' + keys + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
+                            '<td>' + val.PersonName + '</td>',
+                            '<td>' + val.OrganizationalJobPositionName + '</td></tr></tbody>',
+                        ]).draw();
+                    });
+                }
+            });
+
+        });
+    });
+</script>
+
+<script>
+
+    $('#tableGetTransporter tbody').on('click', 'tr', function () {
+
+        $("#myTransporter").modal('toggle');
+
+        var row = $(this).closest("tr");  
+        var id = row.find("td:nth-child(1)").text();  
+        var sys_id_transporter = $('#sys_id_transporter' + id).val();
+        var name = row.find("td:nth-child(2)").text();
+
+        $("#transporter_id").val(sys_id_transporter);
+        $("#transporter").val(name);
+        $("#trans_phone").val(sys_id_transporter);
+        $("#trans_fax").val(sys_id_transporter);
+        $("#trans_contact_person").val(sys_id_transporter);
+        $("#trans_handphone").val(sys_id_transporter);
+        $("#trans_address").val(name);
+
+        MandatoryFormFunctionFalse("#transporter", "#transporter_detail");
+
+    });
+    
 </script>

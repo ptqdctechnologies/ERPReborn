@@ -42,9 +42,9 @@
                 $.each(data, function(key, val) {
                     keys += 1;
                     t.row.add([
-                        '<tbody><tr><input id="sys_id_site' + keys + '" value="' + val.sys_ID + '" type="hidden"><td>' + no++ + '</td>',
-                        '<td>' + val.code + '</td>',
-                        '<td>' + val.name + '</td></tr></tbody>'
+                        '<tbody><tr><input id="sys_id_site' + keys + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
+                        '<td>' + val.Code + '</td>',
+                        '<td>' + val.Name + '</td></tr></tbody>'
                     ]).draw();
                 });
             }
@@ -75,16 +75,15 @@
     $(function() {
         $("#FormSubmitReportAdvanceSummary").on("submit", function(e) {
             e.preventDefault();
-            
+
             var project_code = $("#project_code").val();
             var site_code = $("#site_code").val();
             var product_name = $("#product_name").val();
             var beneficiary = $("#beneficiary").val();
 
-            if(project_code == "" && site_code == "" && product_name == "" && beneficiary == ""){
+            if (project_code == "" && site_code == "" && product_name == "" && beneficiary == "") {
                 ErrorNotif("Data Cannot Empty !");
-            }
-            else{
+            } else {
 
                 $(".ShowTableReportAdvanceSummary").show();
 
@@ -106,7 +105,7 @@
                 var t = $('#TableReportAdvanceSummary').DataTable();
                 t.clear().draw();
 
-                var no = 1; 
+                var no = 1;
                 var keys = 0;
 
                 $.ajax({
@@ -122,25 +121,22 @@
 
                         $.each(data.data, function(key, val) {
 
-                            if(val.advancePurpose == null){
-                                advancePurpose = "";
-                            }
-                            else{
-                                advancePurpose = val.advancePurpose;
-                            }
-                            if(val.beneficiaryWorkerName == null){
+                            if (val.beneficiaryWorkerName == null) {
                                 beneficiaryWorkerName = "";
-                            }
-                            else{
+                            } else {
                                 beneficiaryWorkerName = val.beneficiaryWorkerName;
                             }
-                            
+
+                            const date = dateFns.format(
+                                dateFns.parse(val.documentDateTimeTZ, "yyyy-MM-dd hh:mm:ss"),
+                                'DD-MM-YYYY');
+
+
                             keys += 1;
                             t.row.add([
                                 '<tbody><tr><td>' + no++ + '</td>',
-                                '<td><a href="ReportAdvanceSummaryDetail/'+ + val.sys_ID  +'">' + val.documentNumber + '</a></td>',
-                                '<td>' + val.documentDateTimeTZ + '</td>',
-                                '<td>' + advancePurpose + '</td>',
+                                '<td><a href="ReportAdvanceSummaryDetail/' + +val.sys_ID + '">' + val.documentNumber + '</a></td>',
+                                '<td>' + date + '</td>',
                                 '<td>' + val.currencyName + '</td>',
                                 '<td>' + currencyTotal(val.totalAdvance) + '</td>',
                                 '<td>' + beneficiaryWorkerName + '</td>',
