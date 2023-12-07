@@ -1,4 +1,4 @@
-FROM php:8.2.11-apache
+FROM php:8.2.13-apache
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN printf "deb http://kambing.ui.ac.id/debian/ buster main contrib non-free" >> /etc/apt/sources.list \
@@ -41,6 +41,20 @@ RUN apt-get install -y \
    zlib1g-dev \
    && docker-php-ext-install -j$(nproc) \
       zip
+
+
+#---> PHP Extension : GD
+RUN apt-get install -y \
+   libfreetype6-dev \
+   libjpeg62-turbo-dev \ 
+   libpng-dev \ 
+   libxpm-dev \
+   libwebp-dev \
+   zlib1g-dev \
+   && docker-php-ext-configure \
+      gd --with-jpeg --with-freetype --with-webp \
+   && docker-php-ext-install -j$(nproc) \
+      gd
 
 
 #---> Cloning File
