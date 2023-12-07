@@ -20,10 +20,10 @@ class JsonEncoder implements EncoderInterface, DecoderInterface
 {
     public const FORMAT = 'json';
 
-    protected $encodingImpl;
-    protected $decodingImpl;
+    protected JsonEncode $encodingImpl;
+    protected JsonDecode $decodingImpl;
 
-    private $defaultContext = [
+    private array $defaultContext = [
         JsonDecode::ASSOCIATIVE => true,
     ];
 
