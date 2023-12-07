@@ -20,6 +20,15 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
 
         public function testAja2()
         {
+            $varReturn =
+                (new \App\Models\Database\SchData_OLTP_Finance\General())->getReport_Form_DocumentForm_AdvanceSummary(
+                    6000000000001,
+                    11000000000004
+                );
+
+
+            dd($varReturn);
+
 
             // dd(json_decode(Redis::get("CheckDocumentTypeID"), true));
             dd(Redis::get("aa"));
@@ -49,15 +58,15 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
 
             // dd($varReturn);
 
-            $varReturn =
-                (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_DocumentForm_AllDocumentType(
-                    6000000000001,
-                    11000000000004,
-                    76000000000157
-                );
+            // $varReturn =
+            //     (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_DocumentForm_AllDocumentType(
+            //         6000000000001,
+            //         11000000000004,
+            //         76000000000157
+            //     );
 
 
-            dd($varReturn);
+            // dd($varReturn);
 
 
 

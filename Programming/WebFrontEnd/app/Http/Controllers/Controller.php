@@ -64,9 +64,8 @@ class Controller extends BaseController
             "documentNumber" => $documentNumber,
         ];
 
-        //RESET REDIS DATA BUDGET AND DATA MASTER
-        Redis::del("DataBudget");
-        Redis::del("RedisDataMaster");
+        //RESET REDIS DATA LIST ADVANCE
+        Redis::del("DataListAdvance");
 
         return response()->json($compact);
     }

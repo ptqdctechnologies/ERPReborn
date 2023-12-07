@@ -19,6 +19,12 @@
           <div class="row">
             <div class="col-12 ShowDocumentList" style="font-weight: bold;">
               <div class="card">
+                <div class="card-header">
+                  <center>
+                    <h3><span style="text-transform:uppercase;font-weight:bold;">Advance Summary Report Detail</span></h3>
+                  </center>
+                </div>
+
                 <div class="card-body">
                   <div class="row">
                     <div class="col-md-8">
@@ -86,17 +92,17 @@
                     @foreach($data['details']['itemList'] as $datas)
                     @php $total += $datas['entities']['priceBaseCurrencyValue'] @endphp
                     <tbody>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $no++ }}</td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['product_RefID'] }}</td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['productName'] }}</td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['quantity'] }}</td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ number_format($datas['entities']['productUnitPriceCurrencyValue'],2) }}</td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ number_format($datas['entities']['priceBaseCurrencyValue'],2) }}</td>
+                      <td style="border:1px solid #4B586A;color:#4B586A;">{{ $no++ }}</td>
+                      <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['product_RefID'] }}</td>
+                      <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['productName'] }}</td>
+                      <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['quantity'] }}</td>
+                      <td style="border:1px solid #4B586A;color:#4B586A;">{{ number_format($datas['entities']['productUnitPriceCurrencyValue'],2) }}</td>
+                      <td style="border:1px solid #4B586A;color:#4B586A;">{{ number_format($datas['entities']['priceBaseCurrencyValue'],2) }}</td>
                     </tbody>
                     @endforeach
                     <tfoot>
                       <tr>
-                        <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;" colspan="6">GRAND TOTAL ADVANCE</th>
+                        <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;" colspan="5">GRAND TOTAL ADVANCE</th>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><span id="GrandTotal">{{ number_format($total,2) }}</span></td>
                       </tr>
                     </tfoot>
