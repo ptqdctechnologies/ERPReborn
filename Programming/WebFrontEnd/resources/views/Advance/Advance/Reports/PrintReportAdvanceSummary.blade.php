@@ -1,14 +1,23 @@
 @extends('Partials.app')
 @section('main')
 
+<style>
+  table,
+  th,
+  td {
+    border: 1px solid #ced4da;
+    border-collapse: collapse;
+  }
+</style>
+
 <div class="content-wrapper">
   <section class="content">
     <div class="container-fluid">
       <div class="row mb-1">
         <div class="col-sm-12">
           <center>
-            <b><label style="font-size:18px;">{{ $title }}</label></b>
-            <p style="font-size:16px;">Date : {{ $date }} <br> </p>
+            <b><label style="font-size:17px;">{{ $title }}</label></b>
+            <p style="font-size:15px;">Print Date : {{ $date }} <br> </p>
           </center>
         </div>
       </div>
@@ -19,32 +28,30 @@
             <div class="col-12 ShowTableReportAdvanceSummary">
               <div class="card">
                 <div class="card-body table-responsive p-0">
-                  <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="TableReportAdvanceSummary" style="font-size: 14px;">
-                    <thead style="border: 1px solid black;">
+                  <table class="TableReportAdvanceSummary" id="TableReportAdvanceSummary" style="font-size: 14px;">
+                    <thead>
                       <tr>
-                        <th style="border-right: 1px solid black;text-align: center;background-color:#4B586A;color:white;">No</th>
-                        <th style="border-right: 1px solid black;text-align: center;background-color:#4B586A;color:white;">Transaction Number</th>
-                        <th style="border-right: 1px solid black;text-align: center;background-color:#4B586A;color:white;">Date</th>
-                        <th style="border-right: 1px solid black;text-align: center;background-color:#4B586A;color:white;">Currency</th>
-                        <th style="border-right: 1px solid black;text-align: center;background-color:#4B586A;color:white;">Advance Total</th>
-                        <th style="border-right: 1px solid black;text-align: center;background-color:#4B586A;color:white;">Beneficiary</th>
+                        <th style="text-align: center;background-color:#4B586A;color:white;">No</th>
+                        <th style="text-align: center;background-color:#4B586A;color:white;">Transaction Number</th>
+                        <th style="text-align: center;background-color:#4B586A;color:white;">Date</th>
+                        <th style="text-align: center;background-color:#4B586A;color:white;">Currency</th>
+                        <th style="text-align: center;background-color:#4B586A;color:white;">Advance Total</th>
+                        <th style="text-align: center;background-color:#4B586A;color:white;">Beneficiary</th>
                         <th style="text-align: center;background-color:#4B586A;color:white;">Remark</th>
                       </tr>
                     </thead>
-                    @php $no = 1; @endphp
+                    @php $no = 1; @endphp 
                     @foreach($data['data'] as $datas)
-                    <tbody style="border: 1px solid black;">
-                      <td style="border-right: 1px solid black;padding:4px;">{{ $no++ }}</td>
-                      <td style="border-right: 1px solid black;padding:4px;">{{ $datas['documentNumber'] }}</td>
-                      <td style="border-right: 1px solid black;padding:4px;">{{ date('d-m-Y', strtotime($datas['documentDateTimeTZ'])) }}</td>
-                      <td style="border-right: 1px solid black;padding:4px;">{{ $datas['currencyName'] }}</td>
-                      <td style="border-right: 1px solid black;padding:4px;">{{ number_format($datas['totalAdvance'],2) }}</td>
-                      <td style="border-right: 1px solid black;padding:4px;">{{ $datas['beneficiaryWorkerName'] }}</td>
-                      <td> {{ $datas['remark'] }}</td>
+                    <tbody>
+                      <td style="padding:4px;">{{ $no++ }}</td>
+                      <td style="padding:4px;">{{ $datas['documentNumber'] }}</td>
+                      <td style="padding:4px;">{{ date('d-m-Y', strtotime($datas['documentDateTimeTZ'])) }}</td>
+                      <td style="padding:4px;">{{ $datas['currencyName'] }}</td>
+                      <td style="padding:4px;">{{ number_format($datas['totalAdvance'],2) }}</td>
+                      <td style="padding:4px;">{{ $datas['beneficiaryWorkerName'] }}</td>
+                      <td style="padding:4px;">{{ $datas['remark'] }}</td>
                     </tbody>
                     @endforeach
-                    <tfoot>
-                    </tfoot>
                   </table>
                 </div>
               </div>

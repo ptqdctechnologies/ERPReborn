@@ -305,8 +305,8 @@ class AdvanceRequestController extends Controller
         );
 
         $varDataExcel = [];
-        for($i = 0; $i < count($varData['data']); $i++){
-            $varDataExcel[$i]['no'] = $i+1;
+        for ($i = 0; $i < count($varData['data']); $i++) {
+            $varDataExcel[$i]['no'] = $i + 1;
             $varDataExcel[$i]['documentNumber'] = $varData['data'][$i]['documentNumber'];
             $varDataExcel[$i]['date'] = date('d-m-Y', strtotime($varData['data'][$i]['documentDateTimeTZ']));
             $varDataExcel[$i]['currencyName'] = $varData['data'][$i]['currencyName'];
@@ -343,6 +343,8 @@ class AdvanceRequestController extends Controller
             ]
         );
 
+        // dd($varData);
+
         $compact = [
             'data' => $varData['data'][0]['document']['content']
         ];
@@ -366,12 +368,10 @@ class AdvanceRequestController extends Controller
 
                 $pdf = Pdf::loadView('Advance.Advance.Reports.PrintReportAdvanceSummary', $data)->setOptions(['defaultFont' => 'sans-serif']);
                 return $pdf->download('Print Report Advance Summary.pdf');
-
             } else if ($print_type == "Excel") {
 
                 return Excel::download(new ExportReportAdvanceSummary, 'Export Report Advance Summary.xlsx');
             }
-
         } else {
             return redirect()->route('AdvanceRequest.ReportAdvanceSummary')->with('NotFound', 'Data Cannot Empty');
         }
