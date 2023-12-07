@@ -4,16 +4,19 @@ namespace App\Http\Controllers\Advance;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ExportExcel\AdvanceRequest\ExportReportAdvanceSummary;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdvanceRequestController extends Controller
 {
     // INDEX FUNCTION
     public function index(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varAPIWebToken = Session::get('SessionLogin');
 
         $var = 0;
         if (!empty($_GET['var'])) {
@@ -32,7 +35,7 @@ class AdvanceRequestController extends Controller
     // STORE FUNCTION FOR INSERT DATA 
     public function store(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varAPIWebToken = Session::get('SessionLogin');
         $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
         $input = $request->all();
         $GetBusinessDoc = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
@@ -117,7 +120,7 @@ class AdvanceRequestController extends Controller
     // REVISION FUNCTION FOR SHOW LIST DATA FILTER BY ID 
     public function RevisionAdvanceIndex(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varAPIWebToken = Session::get('SessionLogin');
 
         $varDataAdvanceRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -148,7 +151,7 @@ class AdvanceRequestController extends Controller
         $input = $request->all();
         // dd($input);
         $count_product = count($input['var_product_id']);
-        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varAPIWebToken = Session::get('SessionLogin');
 
         $advanceDetail = [];
         if ($count_product > 0 && isset($count_product)) {
@@ -203,7 +206,7 @@ class AdvanceRequestController extends Controller
     public function AdvanceListData(Request $request)
     {
         if (Redis::get("DataListAdvance") == null) {
-            $varAPIWebToken = $request->session()->get('SessionLogin');
+            $varAPIWebToken = Session::get('SessionLogin');
             \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
@@ -235,17 +238,20 @@ class AdvanceRequestController extends Controller
 
     public function ReportAdvanceSummary(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        Session::put("AdvanceSummaryReportIsSubmit", "No");
+
+        $varAPIWebToken = Session::get('SessionLogin');
 
         $compact = [
             'varAPIWebToken' => $varAPIWebToken,
             'statusRevisi' => 0,
         ];
+
         return view('Advance.Advance.Reports.ReportAdvanceSummary', $compact);
     }
     public function ReportAdvanceSummaryStore(Request $request)
     {
-
         $project_id = $request->project_id;
         $site_id = $request->site_id;
         $work_id = $request->work_id;
@@ -278,7 +284,7 @@ class AdvanceRequestController extends Controller
             $beneficiary_id = (int)$beneficiary_id;
         }
 
-        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varAPIWebToken = Session::get('SessionLogin');
 
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -298,16 +304,32 @@ class AdvanceRequestController extends Controller
             ]
         );
 
+        $varDataExcel = [];
+        for($i = 0; $i < count($varData['data']); $i++){
+            $varDataExcel[$i]['no'] = $i+1;
+            $varDataExcel[$i]['documentNumber'] = $varData['data'][$i]['documentNumber'];
+            $varDataExcel[$i]['date'] = date('d-m-Y', strtotime($varData['data'][$i]['documentDateTimeTZ']));
+            $varDataExcel[$i]['currencyName'] = $varData['data'][$i]['currencyName'];
+            $varDataExcel[$i]['totalAdvance'] = $varData['data'][$i]['totalAdvance'];
+            $varDataExcel[$i]['beneficiaryWorkerName'] = $varData['data'][$i]['beneficiaryWorkerName'];
+            $varDataExcel[$i]['remark'] = $varData['data'][$i]['remark'];
+        }
+
         $compact = [
             'data' => $varData['data'],
+            'varDataExcel' => $varDataExcel
         ];
+
+        Session::put("AdvanceSummaryReportDataPDF", $compact);
+        Session::put("AdvanceSummaryReportDataExcel", $compact['varDataExcel']);
+        Session::put("AdvanceSummaryReportIsSubmit", "Yes");
 
         return response()->json($compact);
     }
 
     public function ReportAdvanceSummaryDetail(Request $request, $id)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varAPIWebToken = Session::get('SessionLogin');
 
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -326,5 +348,32 @@ class AdvanceRequestController extends Controller
         ];
 
         return view('Advance.Advance.Reports.ReportAdvanceSummaryDetail', $compact);
+    }
+
+    public function PrintExportReportAdvanceSummary(Request $request)
+    {
+        $isSubmit = Session::get("AdvanceSummaryReportIsSubmit");
+        if ($isSubmit == "Yes") {
+            $print_type = $request->print_type;
+            if ($print_type == "PDF") {
+
+                $dataAdvance = Session::get("AdvanceSummaryReportDataPDF");
+                $data = [
+                    'title' => 'Advance Summary Report',
+                    'date' => date('d/m/Y'),
+                    'data' => $dataAdvance
+                ];
+
+                $pdf = Pdf::loadView('Advance.Advance.Reports.PrintReportAdvanceSummary', $data)->setOptions(['defaultFont' => 'sans-serif']);
+                return $pdf->download('Print Report Advance Summary.pdf');
+
+            } else if ($print_type == "Excel") {
+
+                return Excel::download(new ExportReportAdvanceSummary, 'Export Report Advance Summary.xlsx');
+            }
+
+        } else {
+            return redirect()->route('AdvanceRequest.ReportAdvanceSummary')->with('NotFound', 'Data Cannot Empty');
+        }
     }
 }

@@ -113,21 +113,30 @@
                       <img src="{{ asset('AdminLTE-master/dist/img/backwards.png') }}" width="12" alt="" title="Show"> Show
                     </button>
                   </td>
-                  <td>
-                    <select name="" id="" class="form-control">
-                      <option value="PDF">PDF</option>
-                      <option value="Excel">Excel</option>
-                    </select>
-                  </td>
-                  <td>
-                    &nbsp;&nbsp;<span><img src="{{ asset('AdminLTE-master/dist/img/printer.png') }}" width="17" alt=""></span>
-                  </td>
+                 </form>
+
+                  <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceRequest.PrintExportReportAdvanceSummary') }}" id="FormSubmitReportAdvanceSummary">
+                    @csrf
+                    <td>
+                      <select name="print_type" id="print_type" class="form-control">
+                        <option value="PDF">PDF</option>
+                        <option value="Excel">Excel</option>
+                      </select>
+                    </td>
+                    <td>
+
+                      <button class="btn btn-default btn-sm" type="submit">
+                        <img src="{{ asset('AdminLTE-master/dist/img/printer.png') }}" width="17" alt="" title="Print">
+                      </button>
+                    </td>
+
+                  </form>
                 </tr>
               </table>
             </div>
           </div>
+
         </div>
       </div>
-    </form>
   </div>
 </div>

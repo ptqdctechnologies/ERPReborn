@@ -424,7 +424,7 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('iSupp.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="{{ route('MaterialReceive.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Material Receive</label>
                                             </a>

@@ -76,7 +76,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                 $userSessionID,
                 "Product",
                 json_encode($varProduct),
-                $varTTL
+                // $varTTL
             );
 
 

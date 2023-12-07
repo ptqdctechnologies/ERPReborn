@@ -51,7 +51,6 @@
                 type: 'GET',
                 url: '{!! route("getProduct") !!}',
                 success: function(data) {
-                    console.log(data);
                     for (var i = 0; i < Object.keys(data).length; i++) {
                         var no = i + 1;
                         dataShow.push([
@@ -83,6 +82,7 @@
 
         var row = $(this).closest("tr");
         var sys_id = row.find("td:nth-child(2)").text();
+        console.log(sys_id);
         var name = row.find("td:nth-child(3)").text();
         var uom = row.find("td:nth-child(4)").text();
         var budget_qty_id = row.find("td:nth-child(5)").text();

@@ -21,7 +21,7 @@
                       <td><label>Trans. Phone</label></td>
                       <td>
                           <div class="input-group">
-                              <input id="phone" name="phone" style="border-radius:0;" type="number" class="form-control">
+                              <input id="trans_phone" name="trans_phone" style="border-radius:0;" type="number" class="form-control">
                           </div>
                       </td>
                   </tr>
@@ -29,7 +29,7 @@
                       <td><label>Trans. Fax</label></td>
                       <td>
                           <div class="input-group">
-                              <input id="fax" name="fax" style="border-radius:0;" type="number" class="form-control">
+                              <input id="trans_fax" name="trans_fax" style="border-radius:0;" type="number" class="form-control">
                           </div>
                       </td>
                   </tr>
@@ -37,7 +37,7 @@
                       <td><label>Trans. Contact Person</label></td>
                       <td>
                           <div class="input-group">
-                              <input id="contact_person" name="contact_person" style="border-radius:0;" type="number" class="form-control">
+                              <input id="trans_contact_person" name="trans_contact_person" style="border-radius:0;" type="number" class="form-control">
                           </div>
                       </td>
                   </tr>
@@ -52,7 +52,7 @@
                       <td><label>Trans. Handphone</label></td>
                       <td>
                           <div class="input-group">
-                              <input id="handphone" name="handphone" style="border-radius:0;" type="number" class="form-control">
+                              <input id="trans_handphone" name="trans_handphone" style="border-radius:0;" type="number" class="form-control">
                           </div>
                       </td>
                   </tr>
@@ -60,7 +60,7 @@
                       <td><label>Trans. Address</label></td>
                       <td>
                           <div class="input-group">
-                              <textarea id="address" rows="3" name="address" style="border-radius:0;" class="form-control"></textarea>
+                              <textarea id="trans_address" rows="3" name="trans_address" style="border-radius:0;" class="form-control"></textarea>
                           </div>
                       </td>
                   </tr>

@@ -97,7 +97,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                 $userSessionID,
                 "Worker",
                 json_encode($varWorker['Data']),
-                $varTTL
+                // $varTTL
             );
 
 

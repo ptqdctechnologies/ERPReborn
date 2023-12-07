@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\UserController;
+  
+Route::resource('users', UserController::class);
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -137,11 +141,13 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     
     // ARF 
+    
     Route::get('AdvanceListData', 'Advance\AdvanceRequestController@AdvanceListData')->name('AdvanceRequest.AdvanceListData');
     Route::get('ReportAdvanceSummary', 'Advance\AdvanceRequestController@ReportAdvanceSummary')->name('AdvanceRequest.ReportAdvanceSummary');
     Route::post('ReportAdvanceSummaryStore', 'Advance\AdvanceRequestController@ReportAdvanceSummaryStore')->name('AdvanceRequest.ReportAdvanceSummaryStore');
     Route::get('ReportAdvanceSummaryDetail/{id}', 'Advance\AdvanceRequestController@ReportAdvanceSummaryDetail')->name('AdvanceRequest.ReportAdvanceSummaryDetail');
     Route::post('RevisionAdvance', 'Advance\AdvanceRequestController@RevisionAdvanceIndex')->name('AdvanceRequest.RevisionAdvance');
+    Route::post('PrintExportReportAdvanceSummary', 'Advance\AdvanceRequestController@PrintExportReportAdvanceSummary')->name('AdvanceRequest.PrintExportReportAdvanceSummary');
     Route::resource('AdvanceRequest', 'Advance\AdvanceRequestController');
 
     // ASF
@@ -242,14 +248,14 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('ReportDODetail', 'Inventory\DeliveryOrderController@ReportDODetail')->name('Inventory.ReportDODetail');
     Route::resource('DeliveryOrder', 'Inventory\DeliveryOrderController');
 
-    //iSupp
-    Route::post('StoreValidateiSupp', 'Inventory\iSuppController@StoreValidateiSupp')->name('iSupp.StoreValidateiSupp');
-    Route::post('StoreValidateiSupp2', 'Inventory\iSuppController@StoreValidateiSupp2')->name('iSupp.StoreValidateiSupp2');
-    Route::post('IsuppListCartRevision', 'Inventory\iSuppController@IsuppListCartRevision')->name('iSupp.IsuppListCartRevision');
-    Route::get('IsuppListDataByID', 'Inventory\iSuppController@IsuppListDataByID')->name('iSupp.IsuppListDataByID');
-    Route::post('RevisioniSuppIndex', 'Inventory\iSuppController@RevisioniSuppIndex')->name('iSupp.RevisioniSuppIndex');
-    Route::get('ISuppListData', 'Inventory\iSuppController@ISuppListData')->name('iSupp.ISuppListData');
-    Route::resource('iSupp', 'Inventory\iSuppController');
+    //MaterialReceive
+    Route::post('StoreValidateMaterialReceive', 'Inventory\MaterialReceiveController@StoreValidateMaterialReceive')->name('MaterialReceive.StoreValidateMaterialReceive');
+    Route::post('StoreValidateMaterialReceive2', 'Inventory\MaterialReceiveController@StoreValidateMaterialReceive2')->name('MaterialReceive.StoreValidateMaterialReceive2');
+    Route::post('MaterialReceiveListCartRevision', 'Inventory\MaterialReceiveController@MaterialReceiveListCartRevision')->name('MaterialReceive.MaterialReceiveListCartRevision');
+    Route::get('MaterialReceiveListDataByID', 'Inventory\MaterialReceiveController@MaterialReceiveListDataByID')->name('MaterialReceive.MaterialReceiveListDataByID');
+    Route::post('RevisionMaterialReceiveIndex', 'Inventory\MaterialReceiveController@RevisionMaterialReceiveIndex')->name('MaterialReceive.RevisionMaterialReceiveIndex');
+    Route::get('MaterialReceiveListData', 'Inventory\MaterialReceiveController@MaterialReceiveListData')->name('MaterialReceive.MaterialReceiveListData');
+    Route::resource('MaterialReceive', 'Inventory\MaterialReceiveController');
 
     // MRET
     Route::post('StoreValidateiMaterialReturn', 'Inventory\MaterialReturnController@StoreValidateiMaterialReturn')->name('MaterialReturn.StoreValidateiMaterialReturn');

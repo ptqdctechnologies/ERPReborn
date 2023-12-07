@@ -162,7 +162,7 @@
 
                         '<td style="border:1px solid #e9ecef;display:' + statusDisplay[key] + '";">' +
                         '<div class="input-group">' +
-                        '<input id="putProductId' + key + '" style="border-radius:0;width:130px;background-color:white;" name="putProductId" class="form-control" readonly>' +
+                        '<input id="product_id' + key + '" style="border-radius:0;width:130px;background-color:white;" name="product_id" class="form-control" readonly>' +
                         '<div class="input-group-append">' +
                         '<span style="border-radius:0;" class="input-group-text form-control" data-id="10">' +
                         '<a id="product_id2" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(' + key + ')"><img src="{{ asset("AdminLTE-master/dist/img/box.png") }}" width="13" alt=""></a>' +
@@ -172,7 +172,7 @@
                         '</td>' +
 
                         '<td style="border:1px solid #e9ecef;display:' + statusDisplay2[key] + '">' + '<span>' + val2.product_RefID + '</span>' + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + '<span id="putProductName' + key + '">' + val2.productName + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + '<span id="product_name' + key + '">' + val2.productName + '</span>' + '</td>' +
                         '<input id="putUom' + key + '" type="hidden">' +
 
                         '<input id="TotalBudget' + key + '" type="hidden">' +

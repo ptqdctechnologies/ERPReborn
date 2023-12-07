@@ -79,7 +79,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                 $userSessionID,
                 "Bank",
                 json_encode($varBank),
-                $varTTL
+                // $varTTL
             );
 
 
