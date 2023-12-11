@@ -145,14 +145,14 @@ namespace App\Helpers\ZhtHelper\General
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get authentication by SAM Account Name `'.$varSAMAccountName.'` with password `'.$varPassword.'`');
                 try {
                     $ObjLDAPConnection = ldap_connect($varLDAPHost, $varLDAPPort);
-                    if(!$ObjLDAPConnection)
+                    if (!$ObjLDAPConnection)
                         {
                         throw new \Exception("Connection Failed");
                         }
                     else
                         {
                         $varUserPrincipalName = self::getUserPrincipalNameFromSAMAccountName($varUserSession, $varBaseDN, $varSAMAccountName);
-                        if(!$ObjLDAPBind = ldap_bind($ObjLDAPConnection, $varUserPrincipalName, $varPassword))
+                        if (!$ObjLDAPBind = ldap_bind($ObjLDAPConnection, $varUserPrincipalName, $varPassword))
                             {
                             throw new \Exception("LDAP Bind Failed");
                             }
