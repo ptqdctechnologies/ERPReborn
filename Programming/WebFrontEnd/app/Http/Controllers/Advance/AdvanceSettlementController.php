@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Advance;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Session;
 
 class AdvanceSettlementController extends Controller
 {
     public function index(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionAdvanceSetllementRequester");
+        $varAPIWebToken = Session::get('SessionLogin');
+        Session::forget("SessionAdvanceSetllementRequester");
 
         $var = 0;
         if (!empty($_GET['var'])) {
@@ -29,28 +30,102 @@ class AdvanceSettlementController extends Controller
 
     public function store(Request $request)
     {
+        $varAPIWebToken = Session::get('SessionLogin');
+        $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
         $input = $request->all();
         dd($input);
-        $compact = [
-            "advnumber" => 'ASF-0000001',
-        ];
+        // $GetBusinessDoc = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varAPIWebToken,
+        //     'generalPurposes.businessDocument.getBusinessDocumentTypeIDByName',
+        //     'latest',
+        //     [
+        //         'parameter' => [
+        //             'name' => 'Advance Form'
+        //         ]
+        //     ]
+        // ); 
 
-        return response()->json($compact);
+        // $VarSelectWorkFlow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varAPIWebToken,
+        //     'userAction.documentWorkFlow.general.getBusinessDocumentTypeWorkFlowPathBySubmitterEntityIDAndCombinedBudgetID',
+        //     'latest',
+        //     [
+        //         'parameter' => [
+        //             'businessDocumentType_RefID' => (int)$GetBusinessDoc['data']['businessDocumentType_RefID'],
+        //             'submitterEntity_RefID' => (int)$SessionWorkerCareerInternal_RefID,
+        //             'combinedBudget_RefID' => (int)$input['var_combinedBudget_RefID']
+        //         ]
+        //     ]
+        // );
+
+
+        // if ($VarSelectWorkFlow['metadata']['HTTPStatusCode'] != "200" || count($VarSelectWorkFlow['data']) == 0) {
+
+        //     $compact = [
+        //         "message" => "WorkflowError"
+        //     ];
+
+        //     return response()->json($compact);
+        // } else {
+
+        $count_product = count($input['var_product_id']);
+        $advanceDetail = [];
+        for ($n = 0; $n < $count_product; $n++) {
+            $advanceDetail[$n] = [
+                'entities' => [
+                    "advancePaymentDetail_RefID" => 195000000000001,
+                    "product_RefID" => (int) $input['var_product_id'][$n],
+                    "quantity" => (float) $input['var_quantity'][$n],
+                    "quantityUnit_RefID" => (int) $input['var_qty_id'][$n],
+                    "expenseClaimProductUnitPriceCurrency_RefID" => 62000000000001,
+                    "expenseClaimProductUnitPriceCurrencyValue" => 235000.00,
+                    "expenseClaimProductUnitPriceCurrencyExchangeRate" => 1,
+                    "returnProductUnitPriceCurrency_RefID" => 62000000000001,
+                    "returnProductUnitPriceCurrencyValue" => 1000.00,
+                    "returnProductUnitPriceCurrencyExchangeRate" => 1,
+                    "remarks" => 'Catatan Pertama'
+                ]
+            ];
+        }
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.create.finance.setAdvance',
+            'latest',
+            [
+                'entities' => [
+                    "documentDateTimeTZ" => '2023-10-25',
+                    "log_FileUpload_Pointer_RefID" => (int)$input['dataInput_Log_FileUpload_Pointer_RefID'],
+                    "requesterWorkerJobsPosition_RefID" => (int)$input['beneficiary_id'],
+                    "remarks" => $input['var_remark'],
+                    "additionalData" => [
+                        "itemList" => [
+                            "items" => $advanceDetail
+                        ]
+                    ]
+                ]
+            ]
+        );
+
+        // return $this->SelectWorkFlow($varData, $SessionWorkerCareerInternal_RefID, $VarSelectWorkFlow);
+        // }
     }
 
     public function StoreValidateAdvanceSettlementBeneficiary(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varAPIWebToken = Session::get('SessionLogin');
         $tamp = 0;
         $status = 200;
         $varDataAdvanceList['data'] = [];
         $beneficiary_id = $request->input('beneficiary_id');
-        $beneficiary_name = $request->input('beneficiary_name');
+        $beneficiary = $request->input('beneficiary');
         $beneficiary_id2 = $request->input('beneficiary_id2');
         $advance_RefID = $request->input('advance_RefID');
 
-        $data = $request->session()->get("SessionAdvanceSetllementRequester");
-        if ($request->session()->has("SessionAdvanceSetllementRequester")) {
+        $data = Session::get("SessionAdvanceSetllementRequester");
+        if (Session::has("SessionAdvanceSetllementRequester")) {
             for ($i = 0; $i < count($data); $i++) {
                 if ($data[$i] == $advance_RefID) {
                     $tamp = 1;
@@ -79,7 +154,7 @@ class AdvanceSettlementController extends Controller
                         ]
                     );
 
-                    $request->session()->push("SessionAdvanceSetllementRequester", $advance_RefID);
+                    Session::push("SessionAdvanceSetllementRequester", $advance_RefID);
                 }
             } else {
                 $status = 501;
@@ -105,12 +180,12 @@ class AdvanceSettlementController extends Controller
             );
 
 
-            $request->session()->push("SessionAdvanceSetllementRequester", $advance_RefID);
+            Session::push("SessionAdvanceSetllementRequester", $advance_RefID);
         }
         $compact = [
             'status' => $status,
             'beneficiary_id' => $beneficiary_id,
-            'beneficiary_name' => $beneficiary_name,
+            'beneficiary' => $beneficiary,
             'DataAdvanceList' => $varDataAdvanceList['data'],
         ];
 
@@ -120,9 +195,9 @@ class AdvanceSettlementController extends Controller
     public function AdvanceByBudgetID(Request $request)
     {
         $project_code = $request->input('project_code');
-        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varAPIWebToken = Session::get('SessionLogin');
         if (Redis::get("DataListAdvance") == null) {
-            $varAPIWebToken = $request->session()->get('SessionLogin');
+            $varAPIWebToken = Session::get('SessionLogin');
             \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
@@ -163,7 +238,7 @@ class AdvanceSettlementController extends Controller
 
     public function AdvanceSettlementListData(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varAPIWebToken = Session::get('SessionLogin');
         $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
@@ -189,7 +264,7 @@ class AdvanceSettlementController extends Controller
     public function AdvanceSettlementListDataById(Request $request)
     {
         $advance_RefID = $request->input('var_recordID');
-        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varAPIWebToken = Session::get('SessionLogin');
         $varDataAdvanceList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
@@ -213,7 +288,7 @@ class AdvanceSettlementController extends Controller
     public function AdvanceSettlementListCartRevision(Request $request)
     {
         $var_recordID = $request->input('var_recordID');
-        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varAPIWebToken = Session::get('SessionLogin');
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
@@ -237,8 +312,8 @@ class AdvanceSettlementController extends Controller
 
     public function RevisionAdvanceSettlementIndex(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionAdvanceSetllementRequester");
+        $varAPIWebToken = Session::get('SessionLogin');
+        Session::forget("SessionAdvanceSetllementRequester");
 
         $varDataAdvanceSettlementRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
