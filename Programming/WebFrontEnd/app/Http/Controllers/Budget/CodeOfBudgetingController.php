@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Budget;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use DB;
 use PDO;
 
-class BudgetExpenseGroupController extends Controller
+class CodeOfBudgetingController extends Controller
 {
     /**
      * Display a listing of the resource.

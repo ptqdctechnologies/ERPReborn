@@ -1,6 +1,6 @@
 <?php
 
-namespace App\ImportExcel;
+namespace App\Http\Controllers\ImportExcel;
 
 use App\User;
 use Maatwebsite\Excel\Concerns\ToModel;
