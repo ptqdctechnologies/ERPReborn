@@ -6528,6 +6528,7 @@ return array(
     'Mockery\\Matcher\\IsEqual' => $vendorDir . '/mockery/mockery/library/Mockery/Matcher/IsEqual.php',
     'Mockery\\Matcher\\IsSame' => $vendorDir . '/mockery/mockery/library/Mockery/Matcher/IsSame.php',
     'Mockery\\Matcher\\MatcherAbstract' => $vendorDir . '/mockery/mockery/library/Mockery/Matcher/MatcherAbstract.php',
+    'Mockery\\Matcher\\MatcherInterface' => $vendorDir . '/mockery/mockery/library/Mockery/Matcher/MatcherInterface.php',
     'Mockery\\Matcher\\MultiArgumentClosure' => $vendorDir . '/mockery/mockery/library/Mockery/Matcher/MultiArgumentClosure.php',
     'Mockery\\Matcher\\MustBe' => $vendorDir . '/mockery/mockery/library/Mockery/Matcher/MustBe.php',
     'Mockery\\Matcher\\NoArgs' => $vendorDir . '/mockery/mockery/library/Mockery/Matcher/NoArgs.php',
