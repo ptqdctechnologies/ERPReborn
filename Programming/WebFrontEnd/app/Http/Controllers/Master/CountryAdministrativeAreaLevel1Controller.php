@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 
-class CountryAdministrativeAreaLevel1Controllers extends Controller
+class CountryAdministrativeAreaLevel1Controller extends Controller
 {
     /**
      * Display a listing of the resource.
