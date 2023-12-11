@@ -66,6 +66,7 @@ class Controller extends BaseController
 
         //RESET REDIS DATA LIST ADVANCE
         Redis::del("DataListAdvance");
+        Redis::del("DataListAdvanceDetailComplex");
 
         return response()->json($compact);
     }

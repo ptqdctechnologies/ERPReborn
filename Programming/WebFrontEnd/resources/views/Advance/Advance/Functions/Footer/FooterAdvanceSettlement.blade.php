@@ -66,7 +66,7 @@
                 $.each(data, function(key, val) {
                     keys += 1;
                     t.row.add([
-                        '<tbody><tr><input id="advance_RefID' + keys + '" value="' + val.Sys_ID + '" type="hidden"><input id="beneficiary_RefID' + keys + '" value="' + val.BeneficiaryWorkerJobsPosition_RefID + '" type="hidden"><input id="beneficiary_name' + keys + '" value="' + val.BeneficiaryWorkerName + '" type="hidden"><td>' + no++ + '</td>',
+                        '<tbody><tr><input id="advance_RefID' + keys + '" value="' + val.Sys_ID + '" type="hidden"><input id="beneficiary_RefID' + keys + '" value="' + val.BeneficiaryWorkerJobsPosition_RefID + '" type="hidden"><input id="beneficiary' + keys + '" value="' + val.BeneficiaryWorkerName + '" type="hidden"><td>' + no++ + '</td>',
                         '<td>' + val.DocumentNumber + '</td>',
                         '<td>' + val.CombinedBudgetCode + '</td>',
                         '<td>' + val.CombinedBudgetName + '</td>',
@@ -91,7 +91,7 @@
         var id = row.find("td:nth-child(1)").text();
         var advance_RefID = $('#advance_RefID' + id).val();
         var beneficiary_RefID = $('#beneficiary_RefID' + id).val();
-        var beneficiary_name = $('#beneficiary_name' + id).val();
+        var beneficiary = $('#beneficiary' + id).val();
         var advance_number = row.find("td:nth-child(2)").text();
 
         $("#advance_number").val(advance_number);
@@ -112,13 +112,13 @@
         });
         $.ajax({
             type: "POST",
-            url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlementBeneficiary") !!}?beneficiary_id=' + beneficiary_RefID + '&beneficiary_name=' + beneficiary_name + '&beneficiary_id2=' + $('#beneficiary_id').val() + '&advance_RefID=' + advance_RefID,
+            url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlementBeneficiary") !!}?beneficiary_id=' + beneficiary_RefID + '&beneficiary=' + beneficiary + '&beneficiary_id2=' + $('#beneficiary_id').val() + '&advance_RefID=' + advance_RefID,
             success: function(data) {
 
                 if (data.status == "200") {
 
                     $("#beneficiary_id").val(data.beneficiary_id);
-                    $("#beneficiary_name").val(data.beneficiary_name);
+                    $("#beneficiary").val(data.beneficiary);
 
                     var no = 1;
                     applied = 0;

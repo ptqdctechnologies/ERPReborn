@@ -120,29 +120,66 @@ class AdvanceRequestController extends Controller
     // REVISION FUNCTION FOR SHOW LIST DATA FILTER BY ID 
     public function RevisionAdvanceIndex(Request $request)
     {
+
+        $advance_RefID = $request->searchArfNumberRevisionId;
         $varAPIWebToken = Session::get('SessionLogin');
 
-        $varDataAdvanceRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'report.form.documentForm.finance.getAdvance',
-            'latest',
-            [
-                'parameter' => [
-                    'recordID' => (int) $request->searchArfNumberRevisionId,
-                ]
-            ]
+        if (Redis::get("DataListAdvanceDetailComplex") == null) {
+            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.finance.getAdvanceDetailComplex',
+                'latest',
+                [
+                    'parameter' => [
+                        'advance_RefID' => (int) $advance_RefID,
+                    ],
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                    ],
+                    false
+            );
+        }
+
+        $DataAdvanceDetailComplex = json_decode(
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "DataListAdvanceDetailComplex"
+            ),
+            true
         );
-        // dd($varDataAdvanceRevision);
+
+        $num = 0;
+        $filteredArray = [];
+        for ($i = 0; $i < count($DataAdvanceDetailComplex); $i++) {
+            if ($DataAdvanceDetailComplex[$i]['Sys_ID_Advance'] == $advance_RefID) {
+                $filteredArray[$num] = $DataAdvanceDetailComplex[$i];
+                $num++;
+                break;
+            }
+        }
+
+        if($filteredArray[0]['Log_FileUpload_Pointer_RefID'] == 0){
+            $dataDetailFileAttachment = null;
+        }
+        else{
+            $dataDetailFileAttachment = $filteredArray[0]['Log_FileUpload_Pointer_RefID'];
+        }
+
         $compact = [
-            'dataGeneral' => $varDataAdvanceRevision['data'][0]['document']['content']['general'],
-            'dataDetail' => $varDataAdvanceRevision['data'][0]['document']['content']['details']['itemList'],
-            'dataHeader' => $varDataAdvanceRevision['data'][0]['document']['header'],
+            'dataHeader' => $filteredArray[0],
+            'dataDetail' => $filteredArray,
+            'dataFileAttachment' => $dataDetailFileAttachment,
             'varAPIWebToken' => $varAPIWebToken,
             'statusRevisi' => 1,
         ];
 
         return view('Advance.Advance.Transactions.RevisionAdvanceRequest', $compact);
+
     }
 
     // UPDATE FUNCTION
@@ -232,7 +269,6 @@ class AdvanceRequestController extends Controller
             ),
             true
         );
-
         return response()->json($DataListAdvance);
     }
 

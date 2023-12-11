@@ -19,9 +19,10 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
 
 
         public function testAja2()
+
         {
             $varReturn =
-                (new \App\Models\Database\SchData_OLTP_Finance\General())->getReport_Form_DocumentForm_AdvanceSummary(
+                (new \App\Models\Database\SchData_OLTP_Finance\General())->getDataList_AdvanceDetailComplex(
                     6000000000001,
                     11000000000004
                 );

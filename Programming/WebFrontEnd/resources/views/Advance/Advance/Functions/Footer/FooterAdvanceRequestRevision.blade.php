@@ -11,26 +11,24 @@
     var TotalBudgetList = 0;
     var TotalQty = 0;
     var TotalPayment = 0;
-    var trano = $.parseJSON('<?= json_encode($dataHeader['number']) ?>');
-    var date = $.parseJSON('<?= json_encode($dataHeader['date']) ?>');
-    var recordID = $.parseJSON('<?= json_encode($dataHeader['recordID']) ?>');
     var dataDetail = $.parseJSON('<?= json_encode($dataDetail) ?>');
 
     dataDetail.forEach((dataDetails, key) => {
 
-        TotalBudgetList += +(dataDetails['entities']['quantity'] * dataDetails['entities']['productUnitPriceBaseCurrencyValue']);
+        console.log(dataDetails);
+        TotalBudgetList += +(dataDetails['Quantity'] * dataDetails['PriceBaseCurrencyValue']);
 
         // TABLE LIST 
         var html =
             '<tr>' +
-            '<td style="border:1px solid #e9ecef;">' + trano + '</td>' +
-            '<td style="border:1px solid #e9ecef;">' + dataDetails['entities']['product_RefID'] + '</td>' +
-            '<td style="border:1px solid #e9ecef;">' + dataDetails['entities']['productName'] + '</td>' +
-            '<td style="border:1px solid #e9ecef;">' + dataDetails['entities']['quantityUnitName'] + '</td>' +
-            '<td style="border:1px solid #e9ecef;">' + dataDetails['entities']['priceCurrencyISOCode'] + '</td>' +
-            '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="' + key + '" class="price_req2' + key + '">' + currencyTotal(dataDetails['entities']['productUnitPriceBaseCurrencyValue']) + '</span>' + '</td>' +
-            '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="' + key + '" class="qty_req2' + key + '">' + currencyTotal(dataDetails['entities']['quantity']) + '</span>' + '</td>' +
-            '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="' + key + '" class="total_req2' + key + '">' + currencyTotal(dataDetails['entities']['quantity'] * dataDetails['entities']['productUnitPriceBaseCurrencyValue']) + '</span>' + '</td>' +
+            '<td style="border:1px solid #e9ecef;">' + dataDetails['DocumentNumber'] + '</td>' +
+            '<td style="border:1px solid #e9ecef;">' + dataDetails['Product_RefID'] + '</td>' +
+            '<td style="border:1px solid #e9ecef;">' + dataDetails['ProductName'] + '</td>' +
+            '<td style="border:1px solid #e9ecef;">' + dataDetails['QuantityUnitName'] + '</td>' +
+            '<td style="border:1px solid #e9ecef;">' + dataDetails['ProductUnitPriceCurrencyISOCode'] + '</td>' +
+            '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="' + key + '" class="price_req2' + key + '">' + currencyTotal(dataDetails['PriceBaseCurrencyValue']) + '</span>' + '</td>' +
+            '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="' + key + '" class="qty_req2' + key + '">' + currencyTotal(dataDetails['Quantity']) + '</span>' + '</td>' +
+            '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="' + key + '" class="total_req2' + key + '">' + currencyTotal(dataDetails['Quantity'] * dataDetails['PriceBaseCurrencyValue']) + '</span>' + '</td>' +
             '</tr>';
 
         $('table.TableAdvance tbody').append(html);
@@ -46,12 +44,12 @@
         statusDisplay2 = [];
         statusForm = [];
 
-        if (dataDetails['entities']['quantity'] == "0.00" && dataDetails['entities']['quantity'] == "0.00") {
+        if (dataDetails['Quantity'] == "0.00" && dataDetails['Quantity'] == "0.00") {
             var applied = 0;
         } else {
-            var applied = Math.round(parseFloat(dataDetails['entities']['quantity']) / parseFloat(dataDetails['entities']['quantity']) * 100);
+            var applied = Math.round(parseFloat(dataDetails['Quantity']) / parseFloat(dataDetails['Quantity']) * 100);
         }
-        if (dataDetails['entities']['productName'] == "Unspecified Product") {
+        if (dataDetails['ProductName'] == "Unspecified Product") {
             statusDisplay[key] = "";
             statusDisplay2[key] = "none";
             statusForm[key] = "disabled";
@@ -63,19 +61,18 @@
 
         var html2 =
             '<tr>' +
-            '<input name="var_date" value="' + date + '" type="hidden">' +
-            '<input name="var_product_id[]" value="' + dataDetails['entities']['product_RefID'] + '" type="hidden">' +
-            '<input name="var_product_name[]" value="' + dataDetails['entities']['productName'] + '" type="hidden">' +
-            '<input name="var_qty_id[]" value="' + dataDetails['entities']['quantityUnit_RefID'] + '" type="hidden">' +
-            '<input id="budget_qty' + key + '" value="' + dataDetails['entities']['quantity'] + '" type="hidden">' +
-            '<input id="budget_price' + key + '" value="' + dataDetails['entities']['productUnitPriceBaseCurrencyValue'] + '" type="hidden">' +
-            '<input name="var_uom[]" value="' + dataDetails['entities']['quantityUnitName'] + '" type="hidden">' +
-            '<input name="var_currency_id[]" value="' + dataDetails['entities']['priceCurrency_RefID'] + '" type="hidden">' +
-            '<input name="var_currency[]" value="' + dataDetails['entities']['priceCurrencyISOCode'] + '" type="hidden">' +
-            '<input name="var_combinedBudgetSectionDetail_RefID[]" value="' + dataDetails['entities']['combinedBudgetSectionDetail_RefID'] + '" type="hidden">' +
-            '<input name="var_recordIDDetail[]" value="' + dataDetails['recordID'] + '"  type="hidden">' +
-            '<input name="var_combinedBudget_RefID" value="' + dataDetails['entities']['combinedBudget_RefID'] + '" type="hidden">' +
-            '<input name="var_recordID" value="' + recordID + '"  type="hidden">' +
+            '<input name="var_product_id[]" value="' + dataDetails['Product_RefID'] + '" type="hidden">' +
+            '<input name="var_product_name[]" value="' + dataDetails['ProductName'] + '" type="hidden">' +
+            '<input name="var_qty_id[]" value="' + dataDetails['QuantityUnit_RefID'] + '" type="hidden">' +
+            '<input id="budget_qty' + key + '" value="' + dataDetails['Quantity'] + '" type="hidden">' +
+            '<input id="budget_price' + key + '" value="' + dataDetails['PriceBaseCurrencyValue'] + '" type="hidden">' +
+            '<input name="var_uom[]" value="' + dataDetails['QuantityUnitName'] + '" type="hidden">' +
+            '<input name="var_currency_id[]" value="' + dataDetails['priceCurrency_RefID'] + '" type="hidden">' +
+            '<input name="var_currency[]" value="' + dataDetails['ProductUnitPriceCurrencyISOCode'] + '" type="hidden">' +
+            '<input name="var_combinedBudgetSectionDetail_RefID[]" value="' + dataDetails['CombinedBudgetSectionDetail_RefID'] + '" type="hidden">' +
+            '<input name="var_recordIDDetail[]" value="' + dataDetails['Sys_ID_AdvanceDetail'] + '"  type="hidden">' +
+            '<input name="var_combinedBudget_RefID" value="' + dataDetails['CombinedBudget_RefID'] + '" type="hidden">' +
+            '<input name="var_recordID" value="' + dataDetails['Sys_ID_Advance'] + '"  type="hidden">' +
             '<input name="total_payment[]" value="' + TotalPayment + '"  type="hidden">' +
 
             '<td style="border:1px solid #e9ecef;">' +
@@ -93,27 +90,27 @@
             '</div>' +
             '</td>' +
 
-            '<td style="border:1px solid #e9ecef;">' + '<span>' + trano + '</span>' + '</td>' +
-            '<td style="border:1px solid #e9ecef;display:' + statusDisplay2[key] + '">' + '<span>' + dataDetails['entities']['product_RefID'] + '</span>' + '</td>' +
-            '<td style="border:1px solid #e9ecef;">' + '<span id="product_name' + key + '">' + dataDetails['entities']['productName'] + '</span>' + '</td>' +
-            '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_qty2' + key + '">' + currencyTotal(dataDetails['entities']['quantity']) + '</span>' + '</td>' +
-            '<td style="border:1px solid #e9ecef;">' + '<span">' + currencyTotal(dataDetails['entities']['quantity']) + '</span>' + '</td>' +
-            '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(dataDetails['entities']['productUnitPriceBaseCurrencyValue']) + '</span>' + '</td>' +
-            '<td style="border:1px solid #e9ecef;">' + '<span>' + dataDetails['entities']['priceCurrencyISOCode'] + '</span>' + '</td>' +
-            '<td style="border:1px solid #e9ecef;">' + '<span id="total_budget' + key + '">' + currencyTotal(dataDetails['entities']['priceBaseCurrencyValue']) + '</span>' + '</td>' +
+            '<td style="border:1px solid #e9ecef;">' + '<span>' + dataDetails['DocumentNumber'] + '</span>' + '</td>' +
+            '<td style="border:1px solid #e9ecef;display:' + statusDisplay2[key] + '">' + '<span>' + dataDetails['Product_RefID'] + '</span>' + '</td>' +
+            '<td style="border:1px solid #e9ecef;">' + '<span id="product_name' + key + '">' + dataDetails['ProductName'] + '</span>' + '</td>' +
+            '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_qty2' + key + '">' + currencyTotal(dataDetails['Quantity']) + '</span>' + '</td>' +
+            '<td style="border:1px solid #e9ecef;">' + '<span">' + currencyTotal(dataDetails['Quantity']) + '</span>' + '</td>' +
+            '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(dataDetails['PriceBaseCurrencyValue']) + '</span>' + '</td>' +
+            '<td style="border:1px solid #e9ecef;">' + '<span>' + dataDetails['ProductUnitPriceCurrencyISOCode'] + '</span>' + '</td>' +
+            '<td style="border:1px solid #e9ecef;">' + '<span id="total_budget' + key + '">' + currencyTotal(dataDetails['PriceBaseCurrencyValue']) + '</span>' + '</td>' +
             '<td style="border:1px solid #e9ecef;">' + '<span id="total_payment' + key + '">' + currencyTotal(TotalPayment) + '</span>' + '</td>' +
 
-            '<td class="sticky-col forth-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req' + key + '" style="border-radius:0;" name="var_quantity[]" class="form-control qty_req" autocomplete="off" ' + statusForm[key] + ' onkeypress="return isNumberKey(this, event);" value="' + currencyTotal(dataDetails['entities']['quantity']) + '">' + '</td>' +
-            '<td class="sticky-col third-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req' + key + '" style="border-radius:0;" name="var_price[]" class="form-control price_req" autocomplete="off" ' + statusForm[key] + ' onkeypress="return isNumberKey(this, event);" value="' + currencyTotal(dataDetails['entities']['productUnitPriceBaseCurrencyValue']) + '">' + '</td>' +
-            '<td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req' + key + '" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled value="' + currencyTotal(dataDetails['entities']['quantity'] * dataDetails['entities']['productUnitPriceBaseCurrencyValue']) + '">' + '</td>' +
-            '<td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_balance_qty' + key + '" style="border-radius:0;background-color:white;" name="total_balance_qty[]" class="form-control total_balance_qty" autocomplete="off" disabled value="' + currencyTotal(dataDetails['entities']['quantity']) + '">' + '</td>' +
+            '<td class="sticky-col forth-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req' + key + '" style="border-radius:0;" name="var_quantity[]" class="form-control qty_req" autocomplete="off" ' + statusForm[key] + ' onkeypress="return isNumberKey(this, event);" value="' + currencyTotal(dataDetails['Quantity']) + '">' + '</td>' +
+            '<td class="sticky-col third-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req' + key + '" style="border-radius:0;" name="var_price[]" class="form-control price_req" autocomplete="off" ' + statusForm[key] + ' onkeypress="return isNumberKey(this, event);" value="' + currencyTotal(dataDetails['PriceBaseCurrencyValue']) + '">' + '</td>' +
+            '<td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req' + key + '" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled value="' + currencyTotal(dataDetails['Quantity'] * dataDetails['PriceBaseCurrencyValue']) + '">' + '</td>' +
+            '<td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_balance_qty' + key + '" style="border-radius:0;background-color:white;" name="total_balance_qty[]" class="form-control total_balance_qty" autocomplete="off" disabled value="' + currencyTotal(dataDetails['Quantity']) + '">' + '</td>' +
             '</tr>';
 
         $('table.tableBudgetDetail tbody').append(html2);
 
         $("#TotalBudgetSelected").html(currencyTotal(TotalBudgetList));
 
-        if (dataDetails['entities']['productName'] == "Unspecified Product") {
+        if (dataDetails['ProductName'] == "Unspecified Product") {
             //VALIDASI QTY
             $('#qty_req' + key).keyup(function() {
                 var qty_val = $(this).val().replace(/,/g, '');
@@ -306,7 +303,8 @@
         $(".AdvanceListCart").show();
         $(".Remark").show();
 
-        var trano = $.parseJSON('<?= json_encode($dataHeader['number']) ?>');
+        var trano = $.parseJSON('<?= json_encode($dataDetail[0]['DocumentNumber']) ?>');
+
         var getProductId = $("input[name='var_product_id[]']").map(function() {
             return $(this).val();
         }).get();
