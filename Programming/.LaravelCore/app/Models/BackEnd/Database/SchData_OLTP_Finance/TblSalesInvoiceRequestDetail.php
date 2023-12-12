@@ -175,7 +175,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varProductUnitPriceDiscountCurrencyValue, 'numeric'],
                             [$varProductUnitPriceDiscountCurrencyExchangeRate, 'numeric'],
                             [$varRemarks, 'varchar']
-                        ],
+                        ]
                         )
                     );
             return $varReturn['Data'][0];

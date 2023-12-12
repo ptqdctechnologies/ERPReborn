@@ -121,6 +121,19 @@
                                                                     "type": [ "number", "null" ],
                                                                     "minimum": 0
                                                                     },
+                                                                "productUnitPriceDiscountCurrency_RefID": {
+                                                                    "type": [ "integer", "null" ],
+                                                                    "minimum": 1,
+                                                                    "maximum": 9223372036854775807
+                                                                    },
+                                                                "productUnitPriceDiscountCurrencyExchangeRate": {
+                                                                    "type": [ "number", "null" ],
+                                                                    "minimum": 0
+                                                                    },
+                                                                "productUnitPriceDiscountCurrencyValue": {
+                                                                    "type": [ "number", "null" ],
+                                                                    "minimum": 0
+                                                                    },
                                                                 "remarks": {
                                                                     "type": [ "string", "null" ],
                                                                     "minLength": 1,
@@ -208,6 +221,9 @@
                                                                 "productUnitPriceCurrency_RefID",
                                                                 "productUnitPriceCurrencyExchangeRate",
                                                                 "productUnitPriceCurrencyValue",
+                                                                "productUnitPriceDiscountCurrency_RefID",
+                                                                "productUnitPriceDiscountCurrencyExchangeRate",
+                                                                "productUnitPriceDiscountCurrencyValue",
                                                                 "remarks"
                                                                 ]
                                                             }

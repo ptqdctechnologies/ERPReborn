@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.update.finance.setProformaInvoiceSupplier (version 1)",
+"description": "JSON Request Schema of transaction.update.finance.setPurchaseProformaInvoice (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.update.finance.setProformaInvoiceSupplier" ]
+                        "enum": [ "transaction.update.finance.setPurchaseProformaInvoice" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -127,16 +127,29 @@
                                                                     "minimum": 1,
                                                                     "maximum": 9223372036854775807
                                                                     },
-                                                                "priceCurrency_RefID": {
+                                                                "productUnitPriceCurrency_RefID": {
                                                                     "type": [ "integer", "null" ],
                                                                     "minimum": 1,
                                                                     "maximum": 9223372036854775807
                                                                     },
-                                                                "priceCurrencyValue": {
+                                                                "productUnitPriceCurrencyExchangeRate": {
                                                                     "type": [ "number", "null" ],
                                                                     "minimum": 0
                                                                     },
-                                                                "priceCurrencyExchangeRate": {
+                                                                "productUnitPriceCurrencyValue": {
+                                                                    "type": [ "number", "null" ],
+                                                                    "minimum": 0
+                                                                    },
+                                                                "productUnitPriceDiscountCurrency_RefID": {
+                                                                    "type": [ "integer", "null" ],
+                                                                    "minimum": 1,
+                                                                    "maximum": 9223372036854775807
+                                                                    },
+                                                                "productUnitPriceDiscountCurrencyExchangeRate": {
+                                                                    "type": [ "number", "null" ],
+                                                                    "minimum": 0
+                                                                    },
+                                                                "productUnitPriceDiscountCurrencyValue": {
                                                                     "type": [ "number", "null" ],
                                                                     "minimum": 0
                                                                     },
@@ -151,9 +164,12 @@
                                                                 "product_RefID", 
                                                                 "quantity", 
                                                                 "quantityUnit_RefID", 
-                                                                "priceCurrency_RefID", 
-                                                                "priceCurrencyValue", 
-                                                                "priceCurrencyExchangeRate", 
+                                                                "productUnitPriceCurrency_RefID",
+                                                                "productUnitPriceCurrencyExchangeRate",
+                                                                "productUnitPriceCurrencyValue",
+                                                                "productUnitPriceDiscountCurrency_RefID",
+                                                                "productUnitPriceDiscountCurrencyExchangeRate",
+                                                                "productUnitPriceDiscountCurrencyValue",
                                                                 "remarks" 
                                                                 ]
                                                              }

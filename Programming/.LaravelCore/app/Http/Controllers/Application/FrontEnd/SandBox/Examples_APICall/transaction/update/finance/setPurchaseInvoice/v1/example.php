@@ -20,8 +20,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         | ▪ Call URL        : http(s)://<HOST>/transaction.update.finance.setPurchaseInvoice.v1_throughAPIGateway                  |
         |                     ► http://172.28.0.4/transaction.update.finance.setPurchaseInvoice.v1_throughAPIGateway               |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-19                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2023-12-12                                                                                           |
         | ▪ Creation Date   : 2022-09-19                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -60,9 +60,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "product_RefID" => 88000000000689,
                                         "quantity" => 10.00,
                                         "quantityUnit_RefID" => 73000000000001,
-                                        "priceCurrency_RefID" => 62000000000001,
-                                        "priceCurrencyValue" => 30000.00,
-                                        "priceCurrencyExchangeRate" => 1,
+                                        "productUnitPriceCurrency_RefID" => 62000000000001,
+                                        "productUnitPriceCurrencyValue" => 30000,
+                                        "productUnitPriceCurrencyExchangeRate" => 1,
+                                        "productUnitPriceDiscountCurrency_RefID" => 62000000000001,
+                                        "productUnitPriceDiscountCurrencyValue" => 5000,
+                                        "productUnitPriceDiscountCurrencyExchangeRate" => 1,
                                         "remarks" => 'My Remarks'
                                         ]
                                     ]
@@ -119,8 +122,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         | ▪ Call URL        : http(s)://<HOST>/transaction.update.finance.setPurchaseInvoice.v1_throughAPIGatewayJQuery            |
         |                     ► http://172.28.0.4/transaction.update.finance.setPurchaseInvoice.v1_throughAPIGatewayJQuery         |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-19                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2023-12-12                                                                                           |
         | ▪ Creation Date   : 2022-09-19                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
