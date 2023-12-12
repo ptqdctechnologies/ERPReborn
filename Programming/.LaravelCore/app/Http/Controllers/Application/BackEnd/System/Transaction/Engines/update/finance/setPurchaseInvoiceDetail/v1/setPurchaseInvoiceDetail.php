@@ -42,8 +42,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-19                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2023-12-12                                                                                           |
         | ▪ Creation Date   : 2022-09-19                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -75,9 +75,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                             $varData['entities']['product_RefID'],
                             $varData['entities']['quantity'],
                             $varData['entities']['quantityUnit_RefID'],
-                            $varData['entities']['priceCurrency_RefID'],
-                            $varData['entities']['priceCurrencyValue'],
-                            $varData['entities']['priceCurrencyExchangeRate'],
+                            $varData['entities']['productUnitPriceCurrency_RefID'],
+                            $varData['entities']['productUnitPriceCurrencyValue'],
+                            $varData['entities']['productUnitPriceCurrencyExchangeRate'],
+                            $varData['entities']['productUnitPriceDiscountCurrency_RefID'],
+                            $varData['entities']['productUnitPriceDiscountCurrencyValue'],
+                            $varData['entities']['productUnitPriceDiscountCurrencyExchangeRate'],
                             $varData['entities']['remarks']
                             ))))
                             {

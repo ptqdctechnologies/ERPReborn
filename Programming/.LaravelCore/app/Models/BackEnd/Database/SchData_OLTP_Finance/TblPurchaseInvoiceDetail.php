@@ -43,8 +43,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-16                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2023-12-12                                                                                           |
         | ▪ Creation Date   : 2022-09-16                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -60,9 +60,12 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
         |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
-        |      ▪ (int)    varPriceCurrency_RefID ► Price Currency Reference ID                                                     |
-        |      ▪ (float)  varPriceCurrencyValue ► Price Currency Value                                                             |
-        |      ▪ (float)  varPriceCurrencyExchangeRate ► Price Currency Exchange Rate                                              |
+        |      ▪ (int)    varProductUnitPriceCurrency_RefID ► Product Unit Price Currency Reference ID                             |
+        |      ▪ (float)  varProductUnitPriceCurrencyValue ► Product Unit Price Currency Value                                     |
+        |      ▪ (float)  varProductUnitPriceCurrencyExchangeRate ► Product Unit Price Currency Exchange Rate                      |
+        |      ▪ (int)    varProductUnitPriceDiscountCurrency_RefID ► Product Unit Price Discount Currency Reference ID            |
+        |      ▪ (float)  varProductUnitPriceDiscountCurrencyValue ► Product Unit Price Discount Currency Value                    |
+        |      ▪ (float)  varProductUnitPriceDiscountCurrencyExchangeRate ► Product Unit Price Discount Currency Exchange Rate     |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -71,33 +74,37 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varPurchaseInvoice_RefID = null, int $varPurchaseOrderDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantity_RefID = null, int $varPriceCurrency_RefID = null, int $varPriceCurrencyValue = null, float $varPriceCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varPurchaseInvoice_RefID = null, int $varPurchaseOrderDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantity_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, int $varProductUnitPriceDiscountCurrency_RefID = null, float $varProductUnitPriceDiscountCurrencyValue = null, float $varProductUnitPriceDiscountCurrencyExchangeRate = null, string $varRemarks = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [null, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
-                        
-                        [$varPurchaseInvoice_RefID, 'bigint'],
-                        [$varPurchaseOrderDetail_RefID, 'bigint'],
-                        [$varProduct_RefID, 'bigint'],
-                        [$varQuantity, 'numeric'],
-                        [$varQuantity_RefID, 'bigint'],
-                        [$varPriceCurrency_RefID, 'bigint'],
-                        [$varPriceCurrencyValue, 'numeric'],
-                        [$varPriceCurrencyExchangeRate, 'numeric'],
-                        [$varRemarks, 'varchar']
-                    ]
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [null, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
+
+                            [$varPurchaseInvoice_RefID, 'bigint'],
+                            [$varPurchaseOrderDetail_RefID, 'bigint'],
+                            [$varProduct_RefID, 'bigint'],
+                            [$varQuantity, 'numeric'],
+                            [$varQuantity_RefID, 'bigint'],
+                            [$varProductUnitPriceCurrency_RefID, 'bigint'],
+                            [$varProductUnitPriceCurrencyValue, 'numeric'],
+                            [$varProductUnitPriceCurrencyExchangeRate, 'numeric'],
+                            [$varProductUnitPriceDiscountCurrency_RefID, 'bigint'],
+                            [$varProductUnitPriceDiscountCurrencyValue, 'numeric'],
+                            [$varProductUnitPriceDiscountCurrencyExchangeRate, 'numeric'],
+                            [$varRemarks, 'varchar']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0];
             }
 
@@ -106,8 +113,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-05-17                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2023-12-12                                                                                           |
         | ▪ Creation Date   : 2022-05-17                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -124,9 +131,12 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
         |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
-        |      ▪ (int)    varPriceCurrency_RefID ► Price Currency Reference ID                                                     |
-        |      ▪ (float)  varPriceCurrencyValue ► Price Currency Value                                                             |
-        |      ▪ (float)  varPriceCurrencyExchangeRate ► Price Currency Exchange Rate                                              |
+        |      ▪ (int)    varProductUnitPriceCurrency_RefID ► Product Unit Price Currency Reference ID                             |
+        |      ▪ (float)  varProductUnitPriceCurrencyValue ► Product Unit Price Currency Value                                     |
+        |      ▪ (float)  varProductUnitPriceCurrencyExchangeRate ► Product Unit Price Currency Exchange Rate                      |
+        |      ▪ (int)    varProductUnitPriceDiscountCurrency_RefID ► Product Unit Price Discount Currency Reference ID            |
+        |      ▪ (float)  varProductUnitPriceDiscountCurrencyValue ► Product Unit Price Discount Currency Value                    |
+        |      ▪ (float)  varProductUnitPriceDiscountCurrencyExchangeRate ► Product Unit Price Discount Currency Exchange Rate     |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -135,33 +145,37 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varPurchaseInvoice_RefID = null, int $varPurchaseOrderDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantity_RefID = null, int $varPriceCurrency_RefID = null, int $varPriceCurrencyValue = null, float $varPriceCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varPurchaseInvoice_RefID = null, int $varPurchaseOrderDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantity_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, int $varProductUnitPriceDiscountCurrency_RefID = null, float $varProductUnitPriceDiscountCurrencyValue = null, float $varProductUnitPriceDiscountCurrencyExchangeRate = null, string $varRemarks = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varSysID, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
-                        
-                        [$varPurchaseInvoice_RefID, 'bigint'],
-                        [$varPurchaseOrderDetail_RefID, 'bigint'],
-                        [$varProduct_RefID, 'bigint'],
-                        [$varQuantity, 'numeric'],
-                        [$varQuantity_RefID, 'bigint'],
-                        [$varPriceCurrency_RefID, 'bigint'],
-                        [$varPriceCurrencyValue, 'numeric'],
-                        [$varPriceCurrencyExchangeRate, 'numeric'],
-                        [$varRemarks, 'varchar']
-                    ],
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varSysID, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
+
+                            [$varPurchaseInvoice_RefID, 'bigint'],
+                            [$varPurchaseOrderDetail_RefID, 'bigint'],
+                            [$varProduct_RefID, 'bigint'],
+                            [$varQuantity, 'numeric'],
+                            [$varQuantity_RefID, 'bigint'],
+                            [$varProductUnitPriceCurrency_RefID, 'bigint'],
+                            [$varProductUnitPriceCurrencyValue, 'numeric'],
+                            [$varProductUnitPriceCurrencyExchangeRate, 'numeric'],
+                            [$varProductUnitPriceDiscountCurrency_RefID, 'bigint'],
+                            [$varProductUnitPriceDiscountCurrencyValue, 'numeric'],
+                            [$varProductUnitPriceDiscountCurrencyExchangeRate, 'numeric'],
+                            [$varRemarks, 'varchar']
+                        ],
+                        )
+                    );
             return $varReturn['Data'][0];
             }
         }

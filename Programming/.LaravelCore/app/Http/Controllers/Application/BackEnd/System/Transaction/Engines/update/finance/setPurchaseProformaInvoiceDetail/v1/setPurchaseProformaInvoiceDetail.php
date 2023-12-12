@@ -3,20 +3,21 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setProformaInvoiceSupplier\v1 |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance                               |
+|                \setPurchaseProformaInvoiceDetail\v1                                                                              |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setProformaInvoiceSupplier\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setPurchaseProformaInvoiceDetail\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setProformaInvoiceSupplier                                                                                   |
-    | ▪ Description : Menangani API transaction.update.finance.setProformaInvoiceSupplier Version 1                                |
+    | ▪ Class Name  : setPurchaseProformaInvoiceDetail                                                                             |
+    | ▪ Description : Menangani API transaction.update.finance.setPurchaseProformaInvoiceDetail Version 1                          |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setProformaInvoiceSupplier extends \App\Http\Controllers\Controller
+    class setPurchaseProformaInvoiceDetail extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -42,8 +43,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-28                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2023-12-12                                                                                           |
         | ▪ Creation Date   : 2022-09-28                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -58,11 +59,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Update Proforma Invoice Supplier Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Update Purchase Proforma Invoice Detail Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\TblProformaInvoiceSupplier())->setDataUpdate(
+                        if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\TblPurchaseProformaInvoiceDetail())->setDataUpdate(
                             $varUserSession,
                             $varData['recordID'],
                             null,
@@ -70,23 +71,22 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                             \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
 
-                            $varData['entities']['log_FileUpload_Pointer_RefID'],
-                            $varData['entities']['supplier_RefID'],
-                            $varData['entities']['documentNumber'],
-                            $varData['entities']['documentDateTimeTZ'],
-                            $varData['entities']['salesOrderNumber'],
-                            $varData['entities']['paymentDueDateTimeTZ'],
-                            $varData['entities']['preferredPaymentMethod_RefID'],
-                            $varData['entities']['preferredBankAccount_RefID'],
-                            $varData['entities']['receivedDateTimeTZ'],
-                            $varData['entities']['remarks'],
-
-                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'additionalData', $varData['entities']) ? $varData['entities']['additionalData'] : [])
-                            ))))                            
+                            $varData['entities']['proformaInvoiceSupplier_RefID'],
+                            $varData['entities']['purchaseOrderDetail_RefID'],
+                            $varData['entities']['product_RefID'],
+                            $varData['entities']['quantity'],
+                            $varData['entities']['quantityUnit_RefID'],
+                            $varData['entities']['productUnitPriceCurrency_RefID'],
+                            $varData['entities']['productUnitPriceCurrencyValue'],
+                            $varData['entities']['productUnitPriceCurrencyExchangeRate'],
+                            $varData['entities']['productUnitPriceDiscountCurrency_RefID'],
+                            $varData['entities']['productUnitPriceDiscountCurrencyValue'],
+                            $varData['entities']['productUnitPriceDiscountCurrencyExchangeRate'],
+                            $varData['entities']['remarks']
+                            ))))
                             {
                             throw new \Exception();
                             }
-
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
