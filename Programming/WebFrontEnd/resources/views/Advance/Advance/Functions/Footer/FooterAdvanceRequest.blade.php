@@ -486,8 +486,11 @@
 
                     if (result.value) {
 
-                        varFileUpload_UniqueID = "Upload";
-                        window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
+                        var fileAttachment = $("#dataInput_Log_FileUpload_Pointer_RefID_Action").val();
+                        if (fileAttachment) {
+                            varFileUpload_UniqueID = "Upload";
+                            window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
+                        }
 
                         var action = $(this).attr("action"); //get submit action from form
                         var method = $(this).attr("method"); // get submit method
@@ -515,7 +518,7 @@
                                     t.clear();
                                     $.each(response.data, function(key, val) {
                                         t.row.add([
-                                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.sys_ID + '\', \'' + response.businessDocument_RefID + '\', \'' + response.documentNumber + '\', \'' + response.approverEntity_RefID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.sys_ID + '\', \'' + val.nextApprover_RefID + '\', \'' + response.businessDocument_RefID + '\', \'' + response.documentNumber + '\', \'' + response.approverEntity_RefID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
                                             '<td style="border:1px solid #e9ecef;">' + val.fullApproverPath + '</td></tr></tbody>'
                                         ]).draw();
                                     });
@@ -524,7 +527,7 @@
 
                                     HideLoading();
 
-                                    SelectWorkFlow(response.workFlowPath_RefID, response.businessDocument_RefID, response.documentNumber, response.approverEntity_RefID);
+                                    SelectWorkFlow(response.workFlowPath_RefID, response.nextApprover_RefID, response.businessDocument_RefID, response.documentNumber, response.approverEntity_RefID);
 
                                 }
                             },
@@ -554,7 +557,7 @@
 </script>
 
 <script>
-    function SelectWorkFlow(workFlowPath_RefID, businessDocument_RefID, documentNumber, approverEntity_RefID) {
+    function SelectWorkFlow(workFlowPath_RefID, nextApprover_RefID, businessDocument_RefID, documentNumber, approverEntity_RefID) {
 
         const swalWithBootstrapButtons = Swal.mixin({
             confirmButtonClass: 'btn btn-success btn-sm',
@@ -586,7 +589,7 @@
 
                 $.ajax({
                     type: 'GET',
-                    url: '{!! route("StoreWorkFlow") !!}?workFlowPath_RefID=' + workFlowPath_RefID + '&businessDocument_RefID=' + businessDocument_RefID + '&documentNumber=' + documentNumber + '&approverEntity_RefID=' + approverEntity_RefID + '&comment=' + result.value,
+                    url: '{!! route("StoreWorkFlow") !!}?workFlowPath_RefID=' + workFlowPath_RefID + '&nextApprover_RefID=' + nextApprover_RefID + '&businessDocument_RefID=' + businessDocument_RefID + '&documentNumber=' + documentNumber + '&approverEntity_RefID=' + approverEntity_RefID + '&comment=' + result.value,
                     success: function(data) {
 
                         HideLoading();

@@ -22,13 +22,23 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
 
         {
             $varReturn =
-                (new \App\Models\Database\SchData_OLTP_Finance\General())->getDataList_AdvanceDetailComplex(
+                (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_Resume_BusinessDocumentIssuanceDisposition(
                     6000000000001,
-                    11000000000004
+                    11000000000004,
+                    164000000000196
                 );
+            dd($varReturn[0]['document']['content']['itemList']['ungrouped']);
 
+
+
+            $collection = collect($varReturn);
+            $collection = $collection->where('CombinedBudget_RefID', '46000000000009');
+            $collection = $collection->where('CombinedBudgetSection_RefID', '143000000000029');
+            $collection = $collection->where('Product_ID', '88000000001473');
+            $collection = $collection->where('BeneficiaryWorkerJobsPosition_RefID', '164000000000023');
 
             dd($varReturn);
+            dd($collection->all());
 
 
             // dd(json_decode(Redis::get("CheckDocumentTypeID"), true));

@@ -31,19 +31,19 @@
                       <div class="form-group">
                         <table>
                           <tr>
+                            <td style="padding-top: 5px;"><label>Transaction Number</label></td>
+                            <td>:</td>
+                            <td>{{ $dataHeader['DocumentNumber'] }}</td>
+                          </tr>
+                          <tr>
                             <td style="padding-top: 5px;"><label>Budget Code</label></td>
                             <td>:</td>
-                            <td>{{ $data['header']['combinedBudgetCode'][0] }} - {{ $data['header']['combinedBudgetName'][0] }}</td>
+                            <td>{{ $dataHeader['CombinedBudgetCode'] }} - {{ $dataHeader['CombinedBudgetName'] }}</td>
                           </tr>
                           <tr>
                             <td style="padding-top: 5px;"><label>Sub Budget Code</label></td>
                             <td>:</td>
-                            <td>{{ $data['header']['combinedBudgetSectionCode'][0] }} - {{ $data['header']['combinedBudgetSectionName'][0] }}</td>
-                          </tr>
-                          <tr>
-                            <td style="padding-top: 5px;"><label>Transaction Number</label></td>
-                            <td>:</td>
-                            <td>{{ $data['header']['documentNumber'] }}</td>
+                            <td>{{ $dataHeader['CombinedBudgetSectionCode'] }} - {{ $dataHeader['CombinedBudgetSectionName'] }}</td>
                           </tr>
                         </table>
                       </div>
@@ -54,17 +54,17 @@
                           <tr>
                             <td style="padding-top: 5px;"><label>Date</label></td>
                             <td>:</td>
-                            <td>{{ $data['header']['date'] }}</td>
+                            <td>{{ date("d-m-Y", strtotime($dataHeader['Date'])) }}</td>
                           </tr>
                           <tr>
                             <td style="padding-top: 5px;"><label>Requester</label></td>
                             <td>:</td>
-                            <td>{{ $data['involvedPersons'][0]['requesterWorkerName'] }}</td>
+                            <td>{{ $dataHeader['RequesterWorkerName'] }}</td>
                           </tr>
                           <tr>
                             <td style="padding-top: 5px;"><label>Beneficiary</label></td>
                             <td>:</td>
-                            <td>{{ $data['involvedPersons'][0]['beneficiaryWorkerName'] }}</td>
+                            <td>{{ $dataHeader['BeneficiaryWorkerName'] }}</td>
                           </tr>
                         </table>
                       </div>
@@ -89,15 +89,15 @@
                       </tr>
                     </thead>
                     @php $no = 1; $total = 0; @endphp
-                    @foreach($data['details']['itemList'] as $datas)
-                    @php $total += $datas['entities']['priceBaseCurrencyValue'] @endphp
+                    @foreach($dataDetail as $dataDetails)
+                    @php $total += $dataDetails['PriceBaseCurrencyValue'] @endphp
                     <tbody>
                       <td style="border:1px solid #4B586A;color:#4B586A;">{{ $no++ }}</td>
-                      <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['product_RefID'] }}</td>
-                      <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['productName'] }}</td>
-                      <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['quantity'] }}</td>
-                      <td style="border:1px solid #4B586A;color:#4B586A;">{{ number_format($datas['entities']['productUnitPriceCurrencyValue'],2) }}</td>
-                      <td style="border:1px solid #4B586A;color:#4B586A;">{{ number_format($datas['entities']['priceBaseCurrencyValue'],2) }}</td>
+                      <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataDetails['Product_RefID'] }}</td>
+                      <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataDetails['ProductName'] }}</td>
+                      <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataDetails['Quantity'] }}</td>
+                      <td style="border:1px solid #4B586A;color:#4B586A;">{{ number_format($dataDetails['ProductUnitPriceBaseCurrencyValue'],2) }}</td>
+                      <td style="border:1px solid #4B586A;color:#4B586A;">{{ number_format($dataDetails['PriceBaseCurrencyValue'],2) }}</td>
                     </tbody>
                     @endforeach
                     <tfoot>

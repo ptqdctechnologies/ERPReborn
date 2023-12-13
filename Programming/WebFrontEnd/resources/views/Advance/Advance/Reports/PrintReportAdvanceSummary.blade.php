@@ -44,11 +44,11 @@
                     @foreach($data['data'] as $datas)
                     <tbody>
                       <td style="padding:4px;">{{ $no++ }}</td>
-                      <td style="padding:4px;">{{ $datas['documentNumber'] }}</td>
-                      <td style="padding:4px;">{{ date('d-m-Y', strtotime($datas['documentDateTimeTZ'])) }}</td>
-                      <td style="padding:4px;">{{ $datas['currencyName'] }}</td>
-                      <td style="padding:4px;">{{ number_format($datas['totalAdvance'],2) }}</td>
-                      <td style="padding:4px;">{{ $datas['beneficiaryWorkerName'] }}</td>
+                      <td style="padding:4px;">{{ $datas['DocumentNumber'] }}</td>
+                      <td style="padding:4px;">{{ date('d-m-Y', strtotime($datas['DocumentDateTimeTZ'])) }}</td>
+                      <td style="padding:4px;">{{ $datas['CurrencyName'] }}</td>
+                      <td style="padding:4px;">{{ number_format($datas['TotalAdvance'],2) }}</td>
+                      <td style="padding:4px;">{{ $datas['BeneficiaryWorkerName'] }}</td>
                       <td style="padding:4px;">{{ $datas['remark'] }}</td>
                     </tbody>
                     @endforeach
