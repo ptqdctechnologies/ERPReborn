@@ -15,8 +15,7 @@
 
     dataDetail.forEach((dataDetails, key) => {
 
-        console.log(dataDetails);
-        TotalBudgetList += +(dataDetails['Quantity'] * dataDetails['PriceBaseCurrencyValue']);
+        TotalBudgetList += +(dataDetails['PriceBaseCurrencyValue']);
 
         // TABLE LIST 
         var html =
@@ -26,9 +25,9 @@
             '<td style="border:1px solid #e9ecef;">' + dataDetails['ProductName'] + '</td>' +
             '<td style="border:1px solid #e9ecef;">' + dataDetails['QuantityUnitName'] + '</td>' +
             '<td style="border:1px solid #e9ecef;">' + dataDetails['ProductUnitPriceCurrencyISOCode'] + '</td>' +
-            '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="' + key + '" class="price_req2' + key + '">' + currencyTotal(dataDetails['PriceBaseCurrencyValue']) + '</span>' + '</td>' +
+            '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="' + key + '" class="price_req2' + key + '">' + currencyTotal(dataDetails['ProductUnitPriceBaseCurrencyValue']) + '</span>' + '</td>' +
             '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="' + key + '" class="qty_req2' + key + '">' + currencyTotal(dataDetails['Quantity']) + '</span>' + '</td>' +
-            '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="' + key + '" class="total_req2' + key + '">' + currencyTotal(dataDetails['Quantity'] * dataDetails['PriceBaseCurrencyValue']) + '</span>' + '</td>' +
+            '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="' + key + '" class="total_req2' + key + '">' + currencyTotal(dataDetails['PriceBaseCurrencyValue']) + '</span>' + '</td>' +
             '</tr>';
 
         $('table.TableAdvance tbody').append(html);
@@ -95,14 +94,14 @@
             '<td style="border:1px solid #e9ecef;">' + '<span id="product_name' + key + '">' + dataDetails['ProductName'] + '</span>' + '</td>' +
             '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_qty2' + key + '">' + currencyTotal(dataDetails['Quantity']) + '</span>' + '</td>' +
             '<td style="border:1px solid #e9ecef;">' + '<span">' + currencyTotal(dataDetails['Quantity']) + '</span>' + '</td>' +
-            '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(dataDetails['PriceBaseCurrencyValue']) + '</span>' + '</td>' +
+            '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(dataDetails['ProductUnitPriceBaseCurrencyValue']) + '</span>' + '</td>' +
             '<td style="border:1px solid #e9ecef;">' + '<span>' + dataDetails['ProductUnitPriceCurrencyISOCode'] + '</span>' + '</td>' +
             '<td style="border:1px solid #e9ecef;">' + '<span id="total_budget' + key + '">' + currencyTotal(dataDetails['PriceBaseCurrencyValue']) + '</span>' + '</td>' +
             '<td style="border:1px solid #e9ecef;">' + '<span id="total_payment' + key + '">' + currencyTotal(TotalPayment) + '</span>' + '</td>' +
 
             '<td class="sticky-col forth-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req' + key + '" style="border-radius:0;" name="var_quantity[]" class="form-control qty_req" autocomplete="off" ' + statusForm[key] + ' onkeypress="return isNumberKey(this, event);" value="' + currencyTotal(dataDetails['Quantity']) + '">' + '</td>' +
-            '<td class="sticky-col third-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req' + key + '" style="border-radius:0;" name="var_price[]" class="form-control price_req" autocomplete="off" ' + statusForm[key] + ' onkeypress="return isNumberKey(this, event);" value="' + currencyTotal(dataDetails['PriceBaseCurrencyValue']) + '">' + '</td>' +
-            '<td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req' + key + '" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled value="' + currencyTotal(dataDetails['Quantity'] * dataDetails['PriceBaseCurrencyValue']) + '">' + '</td>' +
+            '<td class="sticky-col third-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req' + key + '" style="border-radius:0;" name="var_price[]" class="form-control price_req" autocomplete="off" ' + statusForm[key] + ' onkeypress="return isNumberKey(this, event);" value="' + currencyTotal(dataDetails['ProductUnitPriceBaseCurrencyValue']) + '">' + '</td>' +
+            '<td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req' + key + '" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled value="' + currencyTotal(dataDetails['PriceBaseCurrencyValue']) + '">' + '</td>' +
             '<td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_balance_qty' + key + '" style="border-radius:0;background-color:white;" name="total_balance_qty[]" class="form-control total_balance_qty" autocomplete="off" disabled value="' + currencyTotal(dataDetails['Quantity']) + '">' + '</td>' +
             '</tr>';
 

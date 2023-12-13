@@ -18,69 +18,74 @@ class MyDocumentController extends Controller
         return view('Documents.Transactions.IndexMyDocument');
     }
 
+    public function CustomeFormatData()
+    {
+        $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
+        $ShowMyDocumentListData = json_decode(
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "ShowMyDocumentListData" . $SessionWorkerCareerInternal_RefID
+            ),
+            true
+        );
+
+        $filteredArray = [];
+        for ($i = 0; $i < count($ShowMyDocumentListData); $i++) {
+            $filteredArray[$i]['businessDocumentNumber'] = $ShowMyDocumentListData[$i]['entities']['businessDocumentNumber'];
+            $filteredArray[$i]['businessDocumentDateTimeTZ'] = $ShowMyDocumentListData[$i]['entities']['businessDocumentDateTimeTZ'];
+            $filteredArray[$i]['formDocumentNumber_RefID'] = $ShowMyDocumentListData[$i]['entities']['formDocumentNumber_RefID'];
+            $filteredArray[$i]['BusinessDocumentType_RefID'] = $ShowMyDocumentListData[$i]['entities']['BusinessDocumentType_RefID'];
+            if ($ShowMyDocumentListData[$i]['entities']['CombinedBudgetID'] != []) {
+                $filteredArray[$i]['CombinedBudgetID'] = $ShowMyDocumentListData[$i]['entities']['CombinedBudgetID'][0];
+            } else {
+                $filteredArray[$i]['CombinedBudgetID'] = $ShowMyDocumentListData[$i]['entities']['CombinedBudgetID'];
+            }
+            if ($ShowMyDocumentListData[$i]['entities']['combinedBudgetCode'] != []) {
+                $filteredArray[$i]['combinedBudgetCode'] = $ShowMyDocumentListData[$i]['entities']['combinedBudgetCode'][0];
+            } else {
+                $filteredArray[$i]['combinedBudgetCode'] = $ShowMyDocumentListData[$i]['entities']['combinedBudgetCode'];
+            }
+            $filteredArray[$i]['workFlowPathSubmitterRemarks'] = $ShowMyDocumentListData[$i]['entities']['workFlowPathSubmitterRemarks'];
+            $filteredArray[$i]['previousWorkFlowPathApproverName'] = $ShowMyDocumentListData[$i]['entities']['previousWorkFlowPathApproverName'];
+            $filteredArray[$i]['previousWorkFlowPathActionName'] = $ShowMyDocumentListData[$i]['entities']['previousWorkFlowPathActionName'];
+        }
+
+        return $filteredArray;
+    }
+
     public function MyDocumentListDataFilter(Request $request)
     {
+
+        $filteredArray = $this->CustomeFormatData();
+
         $trano = $request->trano;
         $projectid = $request->projectid;
         $DocumentType = $request->DocumentType;
 
-        if ($trano == "") {
-            $trano = null;
-        } else {
-            $trano = $trano;
+        $collection = collect($filteredArray);
+
+        if ($trano != "") {
+            $collection = $collection->where('businessDocumentNumber', $trano);
         }
-        if ($projectid == "") {
-            $projectid = null;
-        } else {
-            $projectid = (int)$projectid;
+        if ($projectid != "") {
+            $collection = $collection->where('CombinedBudgetID', $projectid);
         }
-        if ($DocumentType == "") {
-            $DocumentType = null;
-        } else {
-            $DocumentType = (int)$DocumentType;
+        if ($DocumentType != "") {
+            $collection = $collection->where('BusinessDocumentType_RefID', $DocumentType);
         }
 
-        $SessionWorkerCareerInternal_RefID = $request->session()->get('SessionWorkerCareerInternal_RefID');
-        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $collection = $collection->all();
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'report.form.resume.master.getBusinessDocumentIssuanceDisposition',
-            'latest',
-            [
-                'parameter' => [
-                    'recordID' => (int) $SessionWorkerCareerInternal_RefID,
-                    'dataFilter' => [
-                        'businessDocumentNumber' => $trano,
-                        'businessDocumentType_RefID' => $DocumentType,
-                        'combinedBudget_RefID' => $projectid
-                    ]
-                ]
-            ]
-        );
-
-        $compact = [
-            'data' => $varData['data'][0]['document']['content']['itemList']['ungrouped'],
-        ];
-        return response()->json($compact);
+        return response()->json($collection);
     }
 
     public function ShowMyDocumentListData(Request $request)
     {
-        // dd(Redis::get("RedisDataMaster"));
-        // dd(Redis::command('TTL', ['Testing']));
-        // dd(Redis::flushDB());    
-        // dd(Redis::keys("*"));
-        // dd(Redis::get('Pro'));
-        // dd(json_decode(Redis::get("Product"), true));
-
         $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
         $varAPIWebToken = Session::get('SessionLogin');
-        
-        $ShowMyDocumentListData = Cache::remember('ShowMyDocumentListData', 480, function () use ($SessionWorkerCareerInternal_RefID, $varAPIWebToken) {
 
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        if (Redis::get("ShowMyDocumentListData" . $SessionWorkerCareerInternal_RefID) == null) {
+            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'report.form.resume.master.getBusinessDocumentIssuanceDisposition',
@@ -94,15 +99,13 @@ class MyDocumentController extends Controller
                             'combinedBudget_RefID' => null
                         ]
                     ]
-                ]
+                ],
+                false
             );
+        }
 
-            $compact = [
-                'data' => $varData['data'][0]['document']['content']['itemList']['ungrouped'],
-            ];
+        $filteredArray = $this->CustomeFormatData();
 
-            return $compact;
-        });
-        return response()->json($ShowMyDocumentListData);
+        return response()->json($filteredArray);
     }
 }

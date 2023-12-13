@@ -58,7 +58,10 @@ class ExportReportAdvanceSummary implements FromCollection, WithHeadings, Should
                 'allBorders' => [
                     'borderStyle' => Border::BORDER_THIN,
                 ],
-            ]
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_LEFT,
+            ],
         ];
 
         $totalCell = count(Session::get("AdvanceSummaryReportDataExcel"));

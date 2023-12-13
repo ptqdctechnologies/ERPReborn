@@ -16,7 +16,7 @@ class Controller extends BaseController
 
     public function SelectWorkFlow($varData, $approverEntity_RefID, $VarSelectWorkFlow)
     {
-        
+
         if (count(collect($VarSelectWorkFlow['data'])) > 1) {
             $message =  "MoreThanOne";
         } else {
@@ -25,7 +25,8 @@ class Controller extends BaseController
 
         $compact = [
             "data" => $VarSelectWorkFlow['data'],
-            "workFlowPath_RefID" => (int)$VarSelectWorkFlow['data'][0]['sys_ID'],
+            "workFlowPath_RefID" => $VarSelectWorkFlow['data'][0]['sys_ID'],
+            "nextApprover_RefID" => $VarSelectWorkFlow['data'][0]['nextApprover_RefID'],
             "businessDocument_RefID" => $varData['data']['businessDocument']['businessDocument_RefID'],
             "documentNumber" => $varData['data']['businessDocument']['documentNumber'],
             "approverEntity_RefID" => $approverEntity_RefID,
@@ -40,6 +41,7 @@ class Controller extends BaseController
         $varAPIWebToken = Session::get('SessionLogin');
 
         $workFlowPath_RefID = $request->workFlowPath_RefID;
+        $nextApprover_RefID = $request->nextApprover_RefID;
         $businessDocument_RefID = $request->businessDocument_RefID;
         $documentNumber = $request->documentNumber;
         $approverEntity_RefID = $request->approverEntity_RefID;
@@ -64,11 +66,31 @@ class Controller extends BaseController
             "documentNumber" => $documentNumber,
         ];
 
+
         //RESET REDIS DATA LIST ADVANCE
-        Redis::del("DataListAdvance");
-        Redis::del("DataListAdvanceDetailComplex");
+        $this->FunctionResetRedisAdvance();
+
+        //RESET REDIS SHOW DOCUMENT APPROVAL
+        $this->FunctionResetRedisDocumentApproval($nextApprover_RefID);
 
         return response()->json($compact);
     }
 
+    public function FunctionResetRedisAdvance()
+    {
+
+        Redis::del("DataListAdvance");
+        Redis::del("DataListAdvanceDetailComplex");
+        Redis::del("ReportAdvanceSummary");
+
+        return true;
+    }
+
+    public function FunctionResetRedisDocumentApproval($nextApprover_RefID)
+    {
+        Redis::del("RedisGetMyDocument" . $nextApprover_RefID);
+        Redis::del("ShowMyDocumentListData" . $nextApprover_RefID);
+
+        return true;
+    }
 }
