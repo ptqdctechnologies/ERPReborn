@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of dataWarehouse.log.getTransactionHistory (version 1)",
+"description": "JSON Request Schema of dataWarehouse.read.dataList.log.getTransactionHistory (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "dataWarehouse.log.getTransactionHistory" ]
+                        "enum": [ "dataWarehouse.read.dataList.log.getTransactionHistory" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],

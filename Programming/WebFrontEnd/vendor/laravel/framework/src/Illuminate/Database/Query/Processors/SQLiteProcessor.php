@@ -46,4 +46,60 @@ class SQLiteProcessor extends Processor
             ];
         }, $results);
     }
+
+    /**
+     * Process the results of an indexes query.
+     *
+     * @param  array  $results
+     * @return array
+     */
+    public function processIndexes($results)
+    {
+        $primaryCount = 0;
+
+        $indexes = array_map(function ($result) use (&$primaryCount) {
+            $result = (object) $result;
+
+            if ($isPrimary = (bool) $result->primary) {
+                $primaryCount += 1;
+            }
+
+            return [
+                'name' => strtolower($result->name),
+                'columns' => explode(',', $result->columns),
+                'type' => null,
+                'unique' => (bool) $result->unique,
+                'primary' => $isPrimary,
+            ];
+        }, $results);
+
+        if ($primaryCount > 1) {
+            $indexes = array_filter($indexes, fn ($index) => $index['name'] !== 'primary');
+        }
+
+        return $indexes;
+    }
+
+    /**
+     * Process the results of a foreign keys query.
+     *
+     * @param  array  $results
+     * @return array
+     */
+    public function processForeignKeys($results)
+    {
+        return array_map(function ($result) {
+            $result = (object) $result;
+
+            return [
+                'name' => null,
+                'columns' => explode(',', $result->columns),
+                'foreign_schema' => null,
+                'foreign_table' => $result->foreign_table,
+                'foreign_columns' => explode(',', $result->foreign_columns),
+                'on_update' => strtolower($result->on_update),
+                'on_delete' => strtolower($result->on_delete),
+            ];
+        }, $results);
+    }
 }

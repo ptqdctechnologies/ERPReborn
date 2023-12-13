@@ -168,6 +168,57 @@ class SqlServerGrammar extends Grammar
     }
 
     /**
+     * Compile the query to determine the indexes.
+     *
+     * @param  string  $table
+     * @return string
+     */
+    public function compileIndexes($table)
+    {
+        return sprintf(
+            "select idx.name as name, string_agg(col.name, ',') within group (order by idxcol.key_ordinal) as columns, "
+            .'idx.type_desc as [type], idx.is_unique as [unique], idx.is_primary_key as [primary] '
+            .'from sys.indexes as idx '
+            .'join sys.tables as tbl on idx.object_id = tbl.object_id '
+            .'join sys.schemas as scm on tbl.schema_id = scm.schema_id '
+            .'join sys.index_columns as idxcol on idx.object_id = idxcol.object_id and idx.index_id = idxcol.index_id '
+            .'join sys.columns as col on idxcol.object_id = col.object_id and idxcol.column_id = col.column_id '
+            .'where tbl.name = %s and scm.name = SCHEMA_NAME() '
+            .'group by idx.name, idx.type_desc, idx.is_unique, idx.is_primary_key',
+            $this->quoteString($table),
+        );
+    }
+
+    /**
+     * Compile the query to determine the foreign keys.
+     *
+     * @param  string  $table
+     * @return string
+     */
+    public function compileForeignKeys($table)
+    {
+        return sprintf(
+            'select fk.name as name, '
+            ."string_agg(lc.name, ',') within group (order by fkc.constraint_column_id) as columns, "
+            .'fs.name as foreign_schema, ft.name as foreign_table, '
+            ."string_agg(fc.name, ',') within group (order by fkc.constraint_column_id) as foreign_columns, "
+            .'fk.update_referential_action_desc as on_update, '
+            .'fk.delete_referential_action_desc as on_delete '
+            .'from sys.foreign_keys as fk '
+            .'join sys.foreign_key_columns as fkc on fkc.constraint_object_id = fk.object_id '
+            .'join sys.tables as lt on lt.object_id = fk.parent_object_id '
+            .'join sys.schemas as ls on lt.schema_id = ls.schema_id '
+            .'join sys.columns as lc on fkc.parent_object_id = lc.object_id and fkc.parent_column_id = lc.column_id '
+            .'join sys.tables as ft on ft.object_id = fk.referenced_object_id '
+            .'join sys.schemas as fs on ft.schema_id = fs.schema_id '
+            .'join sys.columns as fc on fkc.referenced_object_id = fc.object_id and fkc.referenced_column_id = fc.column_id '
+            .'where lt.name = %s and ls.name = SCHEMA_NAME() '
+            .'group by fk.name, fs.name, ft.name, fk.update_referential_action_desc, fk.delete_referential_action_desc',
+            $this->quoteString($table)
+        );
+    }
+
+    /**
      * Compile a create table command.
      *
      * @param  \Illuminate\Database\Schema\Blueprint  $blueprint
