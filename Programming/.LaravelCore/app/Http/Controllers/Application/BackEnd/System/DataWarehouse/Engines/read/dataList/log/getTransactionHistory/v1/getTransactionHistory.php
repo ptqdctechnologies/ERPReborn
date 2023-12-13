@@ -3,17 +3,17 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\log\getTransactionHistory\v1               |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\read\dataList\log\getTransactionHistory\v1 |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\log\getTransactionHistory\v1
+namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\read\dataList\log\getTransactionHistory\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : getTransactionHistory                                                                                        |
-    | ▪ Description : Menangani API dataWarehouse.log.getTransactionHistory Version 1                                              |
+    | ▪ Description : Menangani API dataWarehouse.read.dataList.log.getTransactionHistory Version 1                                |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class getTransactionHistory extends \App\Http\Controllers\Controller
