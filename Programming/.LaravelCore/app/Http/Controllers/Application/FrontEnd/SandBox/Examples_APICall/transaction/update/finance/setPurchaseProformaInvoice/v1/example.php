@@ -54,6 +54,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         "itemList" => [
                             "items" => [
                                     [
+                                    'recordID' => 206000000000001,
                                     "entities" => [
                                         "purchaseOrderDetail_RefID" => 86000000000001,
                                         "product_RefID" => 88000000000689,
@@ -66,6 +67,44 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "productUnitPriceDiscountCurrencyValue" => 5000,
                                         "productUnitPriceDiscountCurrencyExchangeRate" => 1,
                                         "remarks" => 'My Remarks'
+                                        ]
+                                    ]
+                                ]
+                            ],
+                        "transactionTaxItemList" => [
+                            "items" => [
+                                    [
+                                    "recordID" => 185000000000001,
+                                    "entities" => [
+                                        "taxType_RefID" => 182000000000001,
+                                        "tariffCurrency_RefID" => 62000000000001,
+                                        "tariffCurrencyValue" => 3000,
+                                        "tariffCurrencyExchangeRate" => 1,
+                                        "remarks" => 'Catatan 1'                                
+                                        ]
+                                    ],
+                                    [
+                                    "recordID" => 185000000000002,
+                                    "entities" => [
+                                        "taxType_RefID" => 182000000000002,
+                                        "tariffCurrency_RefID" => 62000000000001,
+                                        "tariffCurrencyValue" => 2000,
+                                        "tariffCurrencyExchangeRate" => 1,
+                                        "remarks" => 'Catatan 2'
+                                        ]
+                                    ]                            
+                                ]
+                            ],
+                        "additionalCostItemList" => [
+                            "items" => [
+                                    [
+                                    "recordID" => 207000000000001,
+                                    "entities" => [
+                                        "transactionAdditionalCostType_RefID" => 190000000000002,
+                                        "priceCurrency_RefID" => 62000000000001,
+                                        "priceCurrencyValue" => 12300,
+                                        "priceCurrencyExchangeRate" => 1,
+                                        "remarks" => 'Catatan Additional Cost'
                                         ]
                                     ]
                                 ]

@@ -78,7 +78,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     "entities" => [
                                         "taxType_RefID" => 182000000000001,
                                         "tariffCurrency_RefID" => 62000000000001,
-                                        "tariffCurrencyValue" => 30000,
+                                        "tariffCurrencyValue" => 3000,
                                         "tariffCurrencyExchangeRate" => 1,
                                         "remarks" => 'Catatan 1'                                
                                         ]
@@ -88,7 +88,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     "entities" => [
                                         "taxType_RefID" => 182000000000002,
                                         "tariffCurrency_RefID" => 62000000000001,
-                                        "tariffCurrencyValue" => 30000,
+                                        "tariffCurrencyValue" => 2000,
                                         "tariffCurrencyExchangeRate" => 1,
                                         "remarks" => 'Catatan 2'
                                         ]
@@ -102,7 +102,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     "entities" => [
                                         "transactionAdditionalCostType_RefID" => 190000000000002,
                                         "priceCurrency_RefID" => 62000000000001,
-                                        "priceCurrencyValue" => 30000,
+                                        "priceCurrencyValue" => 12300,
                                         "priceCurrencyExchangeRate" => 1,
                                         "remarks" => 'Catatan Additional Cost'
                                         ]

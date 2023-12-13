@@ -4,20 +4,20 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\finance                               |
-|                \setProformaInvoiceSupplierAdditionalCost\v1                                                                      |
+|                \setPurchaseProformaInvoiceAdditionalCost\v1                                                                      |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\finance\setProformaInvoiceSupplierAdditionalCost\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\finance\setPurchaseProformaInvoiceAdditionalCost\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setProformaInvoiceSupplierAdditionalCost                                                                     |
-    | ▪ Description : Menangani API transaction.create.finance.setProformaInvoiceSupplierAdditionalCost Version 1                  |
+    | ▪ Class Name  : setPurchaseProformaInvoiceAdditionalCost                                                                     |
+    | ▪ Description : Menangani API transaction.create.finance.setPurchaseProformaInvoiceAdditionalCost Version 1                  |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setProformaInvoiceSupplierAdditionalCost extends \App\Http\Controllers\Controller
+    class setPurchaseProformaInvoiceAdditionalCost extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -43,8 +43,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2022-09-28                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2023-12-13                                                                                           |
         | ▪ Creation Date   : 2022-09-28                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -59,11 +59,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Supplier Proforma Invoice Additional Cost Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Purchase Proforma Invoice Additional Cost Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\TblProformaInvoiceSupplierAdditionalCost())->setDataInsert(
+                        if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\TblPurchaseProformaInvoiceAdditionalCost())->setDataInsert(
                             $varUserSession, 
                             null, 
                             null,

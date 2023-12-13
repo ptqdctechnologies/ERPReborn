@@ -20,8 +20,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         | ▪ Call URL        : http(s)://<HOST>/transaction.create.finance.setSalesInvoiceDetail.v1_throughAPIGateway               |
         |                     ► http://172.28.0.4/transaction.create.finance.setSalesInvoiceDetail.v1_throughAPIGateway            |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-11-13                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2023-12-13                                                                                           |
         | ▪ Creation Date   : 2023-11-13                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -47,6 +47,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     "productUnitPriceCurrency_RefID" => 62000000000001,
                     "productUnitPriceCurrencyValue" => 30000,
                     "productUnitPriceCurrencyExchangeRate" => 1,
+                    "productUnitPriceDiscountCurrency_RefID" => 62000000000001,
+                    "productUnitPriceDiscountCurrencyValue" => 5000,
+                    "productUnitPriceDiscountCurrencyExchangeRate" => 1,
                     "remarks" => 'Catatan',
                     "additionalData" => [
                         "transactionTaxItemList" => [
@@ -84,8 +87,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         | ▪ Call URL        : http(s)://<HOST>/transaction.create.finance.setSalesInvoiceDetail.v1_throughAPIGatewayJQuery         |
         |                     ► http://172.28.0.4/transaction.create.finance.setSalesInvoiceDetail.v1_throughAPIGatewayJQuery      |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-11-13                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2023-12-13                                                                                           |
         | ▪ Creation Date   : 2023-11-13                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -107,6 +110,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo        '<tr><td>ProductUnitPriceCurrency_RefID</td><td><input type="text" id="dataInput_ProductUnitPriceCurrency_RefID" value=62000000000001></td></tr>';
             echo        '<tr><td>ProductUnitPriceCurrencyValue</td><td><input type="text" id="dataInput_ProductUnitPriceCurrencyValue" value=30000></td></tr>';
             echo        '<tr><td>ProductUnitPriceCurrencyExchangeRate</td><td><input type="text" id="dataInput_ProductUnitPriceCurrencyExchangeRate" value=1></td></tr>';
+            echo        '<tr><td>ProductUnitPriceDiscountCurrency_RefID</td><td><input type="text" id="dataInput_ProductUnitPriceDiscountCurrency_RefID" value=62000000000001></td></tr>';
+            echo        '<tr><td>ProductUnitPriceDiscountCurrencyValue</td><td><input type="text" id="dataInput_ProductUnitPriceDiscountCurrencyValue" value=5000></td></tr>';
+            echo        '<tr><td>ProductUnitPriceDiscountCurrencyExchangeRate</td><td><input type="text" id="dataInput_ProductUnitPriceDiscountCurrencyExchangeRate" value=1></td></tr>';
             echo        '<tr><td>Remarks</td><td><input type="text" id="dataInput_Remarks" value="Catatan"></td></tr>';
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Sales Invoice Detail Detail Data</p></td></tr></tr>';
             echo        '<tr><td>TaxType_RefID_1</td><td><input type="text" id="dataInput_TaxType_RefID_1" value=182000000000001></td></tr>';
@@ -137,6 +143,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         '"productUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceCurrency_RefID").value), '.
                         '"productUnitPriceCurrencyValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyValue").value), '.
                         '"productUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyExchangeRate").value), '.
+                        '"productUnitPriceDiscountCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceDiscountCurrency_RefID").value), '.
+                        '"productUnitPriceDiscountCurrencyValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceDiscountCurrencyValue").value), '.
+                        '"productUnitPriceDiscountCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceDiscountCurrencyExchangeRate").value), '.
                         '"remarks" : document.getElementById("dataInput_Remarks").value, '.
                         '"additionalData" : {'.
                             '"transactionTaxItemList" : {'.

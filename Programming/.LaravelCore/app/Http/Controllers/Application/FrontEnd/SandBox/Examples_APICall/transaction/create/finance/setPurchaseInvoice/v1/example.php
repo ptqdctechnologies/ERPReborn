@@ -20,8 +20,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         | ▪ Call URL        : http(s)://<HOST>/transaction.create.finance.setPurchaseInvoice.v1_throughAPIGateway                  |
         |                     ► http://172.28.0.4/transaction.create.finance.setPurchaseInvoice.v1_throughAPIGateway               |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-21                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2023-12-13                                                                                           |
         | ▪ Creation Date   : 2022-07-21                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -58,9 +58,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "product_RefID" => 88000000000689,
                                         "quantity" => 10.00,
                                         "quantityUnit_RefID" => 73000000000001,
-                                        "priceCurrency_RefID" => 62000000000001,
-                                        "priceCurrencyValue" => 30000.00,
-                                        "priceCurrencyExchangeRate" => 1,
+                                        "productUnitPriceCurrency_RefID" => 62000000000001,
+                                        "productUnitPriceCurrencyValue" => 30000,
+                                        "productUnitPriceCurrencyExchangeRate" => 1,
+                                        "productUnitPriceDiscountCurrency_RefID" => 62000000000001,
+                                        "productUnitPriceDiscountCurrencyValue" => 5000,
+                                        "productUnitPriceDiscountCurrencyExchangeRate" => 1,
                                         "remarks" => 'My Remarks'
                                         ]
                                     ]
@@ -72,7 +75,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     "entities" => [
                                         "taxType_RefID" => 182000000000001,
                                         "tariffCurrency_RefID" => 62000000000001,
-                                        "tariffCurrencyValue" => 30000,
+                                        "tariffCurrencyValue" => 3000,
                                         "tariffCurrencyExchangeRate" => 1,
                                         "remarks" => 'Catatan 1'                                
                                         ]
@@ -81,7 +84,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     "entities" => [
                                         "taxType_RefID" => 182000000000002,
                                         "tariffCurrency_RefID" => 62000000000001,
-                                        "tariffCurrencyValue" => 30000,
+                                        "tariffCurrencyValue" => 2000,
                                         "tariffCurrencyExchangeRate" => 1,
                                         "remarks" => 'Catatan 2'
                                         ]
@@ -94,7 +97,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     "entities" => [
                                         "transactionAdditionalCostType_RefID" => 190000000000002,
                                         "priceCurrency_RefID" => 62000000000001,
-                                        "priceCurrencyValue" => 30000,
+                                        "priceCurrencyValue" => 10000,
                                         "priceCurrencyExchangeRate" => 1,
                                         "remarks" => 'Catatan Additional Cost'
                                         ]

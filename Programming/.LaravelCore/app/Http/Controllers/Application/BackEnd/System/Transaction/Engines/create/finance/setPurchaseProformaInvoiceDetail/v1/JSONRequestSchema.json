@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.create.finance.setProformaInvoiceSupplierDetail (version 1)",
+"description": "JSON Request Schema of transaction.create.finance.setPurchaseProformaInvoiceDetail (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.create.finance.setProformaInvoiceSupplierDetail" ]
+                        "enum": [ "transaction.create.finance.setPurchaseProformaInvoiceDetail" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -19,10 +19,15 @@
                         "minLength": 1
                         }
                     },
-                "required": [ "key", "version" ]
+                "required": [ 
+                    "key",
+                    "version"
+                    ]
                 }
             },
-        "required": [ "API" ]
+        "required": [
+            "API"
+            ]
         },
     "data": {
         "type": "object",
@@ -54,16 +59,29 @@
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         },
-                    "priceCurrency_RefID": {
+                    "productUnitPriceCurrency_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         },
-                    "priceCurrencyValue": {
+                    "productUnitPriceCurrencyValue": {
                         "type": [ "number", "null" ],
                         "minimum": 0
                         },
-                    "priceCurrencyExchangeRate": {
+                    "productUnitPriceCurrencyExchangeRate": {
+                        "type": [ "number", "null" ],
+                        "minimum": 0
+                        },
+                    "productUnitPriceDiscountCurrency_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                    "productUnitPriceDiscountCurrencyValue": {
+                        "type": [ "number", "null" ],
+                        "minimum": 0
+                        },
+                    "productUnitPriceDiscountCurrencyExchangeRate": {
                         "type": [ "number", "null" ],
                         "minimum": 0
                         },
@@ -79,15 +97,23 @@
                     "product_RefID", 
                     "quantity", 
                     "quantityUnit_RefID", 
-                    "priceCurrency_RefID", 
-                    "priceCurrencyValue", 
-                    "priceCurrencyExchangeRate", 
+                    "productUnitPriceCurrency_RefID",
+                    "productUnitPriceCurrencyValue",
+                    "productUnitPriceCurrencyExchangeRate",
+                    "productUnitPriceDiscountCurrency_RefID",
+                    "productUnitPriceDiscountCurrencyValue",
+                    "productUnitPriceDiscountCurrencyExchangeRate",
                     "remarks" 
                     ]
                 }
             },
-        "required": [ "entities" ]
+        "required": [
+            "entities"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }
