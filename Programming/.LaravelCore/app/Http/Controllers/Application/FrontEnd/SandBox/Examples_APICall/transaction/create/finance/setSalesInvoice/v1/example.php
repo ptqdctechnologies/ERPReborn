@@ -42,6 +42,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     "documentDateTimeTZ" => '2022-03-07',
                     "log_FileUpload_Pointer_RefID" => NULL,
                     "requesterWorkerJobsPosition_RefID" => 164000000000497,
+                    "amountRoundOff" => 0.00,
                     "termAndConditions" => 'My Term & Condition',
                     "remarks" => 'My Remarks',
                     "additionalData" => [
@@ -119,6 +120,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo        '<tr><td>DocumentDateTimeTZ</td><td><input type="text" id="dataInput_DocumentDateTimeTZ" value="2022-03-07"></td></tr>';
             echo        '<tr><td>Log_FileUpload_Pointer_RefID</td><td><input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value=91000000000001></td></tr>';
             echo        '<tr><td>RequesterWorkerJobsPosition_RefID</td><td><input type="text" id="dataInput_RequesterWorkerJobsPosition_RefID" value=164000000000497></td></tr>';
+            echo        '<tr><td>AmountRoundOff</td><td><input type="text" id="dataInput_AmountRoundOff" value=0.00></td></tr>';
             echo        '<tr><td>TermAndConditions</td><td><input type="text" id="dataInput_TermAndConditions" value="My Term & Condition"></td></tr>';
             echo        '<tr><td>Remarks</td><td><input type="text" id="dataInput_Remarks" value="My Remarks"></td></tr>';
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Sales Invoice Detail Data</p></td></tr></tr>';
@@ -133,7 +135,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo        '<tr><td>ProductUnitPriceDiscountCurrencyValue_1</td><td><input type="text" id="dataInput_ProductUnitPriceDiscountCurrencyValue_1" value=5000></td></tr>';
             echo        '<tr><td>ProductUnitPriceDiscountCurrencyExchangeRate_1</td><td><input type="text" id="dataInput_ProductUnitPriceDiscountCurrencyExchangeRate_1" value=1></td></tr>';
             echo        '<tr><td>Remarks_1</td><td><input type="text" id="dataInput_Remarks_1" value="Catatan Pertama"></td></tr>';
-            echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Transaction Tax Data</p></td></tr></tr>';
+            echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Transaction Tax of Main Data</p></td></tr></tr>';
+            echo        '<tr><td>TaxType_RefID_01</td><td><input type="text" id="dataInput_TaxType_RefID_01" value=182000000000001></td></tr>';
+            echo        '<tr><td>TariffCurrency_RefID_01</td><td><input type="text" id="dataInput_TariffCurrency_RefID_01" value=62000000000001></td></tr>';
+            echo        '<tr><td>TariffCurrencyValue_01</td><td><input type="text" id="dataInput_TariffCurrencyValue_01" value=30000></td></tr>';
+            echo        '<tr><td>TariffCurrencyExchangeRate_01</td><td><input type="text" id="dataInput_TariffCurrencyExchangeRate_01" value=1></td></tr>';
+            echo        '<tr><td>Remarks_01</td><td><input type="text" id="dataInput_Remarks_01" value="Catatan Pertama"></td></tr>';
+            echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Transaction Tax of Detail Data</p></td></tr></tr>';
             echo        '<tr><td>TaxType_RefID_11</td><td><input type="text" id="dataInput_TaxType_RefID_11" value=182000000000001></td></tr>';
             echo        '<tr><td>TariffCurrency_RefID_11</td><td><input type="text" id="dataInput_TariffCurrency_RefID_11" value=62000000000001></td></tr>';
             echo        '<tr><td>TariffCurrencyValue_11</td><td><input type="text" id="dataInput_TariffCurrencyValue_11" value=30000></td></tr>';
@@ -156,6 +164,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
                         '"log_FileUpload_Pointer_RefID" : parseInt(document.getElementById("dataInput_Log_FileUpload_Pointer_RefID").value), '.
                         '"requesterWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_RequesterWorkerJobsPosition_RefID").value), '.
+                        '"amountRoundOff" : parseFloat(document.getElementById("dataInput_AmountRoundOff").value), '.
                         '"termAndConditions" : document.getElementById("dataInput_TermAndConditions").value, '.
                         '"remarks" : document.getElementById("dataInput_Remarks").value, '.
                         '"additionalData" : {'.
@@ -198,6 +207,19 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                         ']'.
                                                     '}'.
                                                 '}'.
+                                            '}'.
+                                        '}'.
+                                    ']'.
+                                '}, '.
+                            '"transactionTaxItemList" : {'.
+                                '"items" : ['.
+                                        '{'.
+                                        '"entities" : {'.
+                                            '"taxType_RefID" : parseInt(document.getElementById("dataInput_TaxType_RefID_01").value), '.
+                                            '"tariffCurrency_RefID" : parseInt(document.getElementById("dataInput_TariffCurrency_RefID_01").value), '.
+                                            '"tariffCurrencyValue" : parseFloat(document.getElementById("dataInput_TariffCurrencyValue_01").value), '.
+                                            '"tariffCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_TariffCurrencyExchangeRate_01").value), '.
+                                            '"remarks" : document.getElementById("dataInput_Remarks_01").value'.
                                             '}'.
                                         '}'.
                                     ']'.

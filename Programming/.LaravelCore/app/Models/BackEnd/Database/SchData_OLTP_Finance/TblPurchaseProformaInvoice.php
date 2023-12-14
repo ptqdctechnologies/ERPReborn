@@ -64,6 +64,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varPreferredPaymentMethod_RefID ► Preferred Payment Method Reference ID                                  |
         |      ▪ (int)    varPreferredBankAccount_RefID ► Preferred Bank Account Reference ID                                      |
         |      ▪ (string) varReceivedDateTimeTZ ► Received DateTimeTZ                                                              |
+        |      ▪ (float)  varAmountRoundOff ► Amount Round Off                                                                     |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
@@ -74,7 +75,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varLog_FileUpload_Pointer_RefID = null, int $varSupplier_RefID = null, string $varDocumentNumber = null, string $varDocumentDateTimeTZ = null, string $varSalesOrderNumber = null, string $varPaymentDueDateTimeTZ = null, int $varPreferredPaymentMethod_RefID = null, int $varPreferredBankAccount_RefID = null, string $varReceivedDateTimeTZ = null, string $varRemarks = null,
+            int $varLog_FileUpload_Pointer_RefID = null, int $varSupplier_RefID = null, string $varDocumentNumber = null, string $varDocumentDateTimeTZ = null, string $varSalesOrderNumber = null, string $varPaymentDueDateTimeTZ = null, int $varPreferredPaymentMethod_RefID = null, int $varPreferredBankAccount_RefID = null, string $varReceivedDateTimeTZ = null, float $varAmountRoundOff = null, string $varRemarks = null,
             array $varAdditionalData = [])
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -99,6 +100,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         [$varPreferredPaymentMethod_RefID, 'bigint'],
                         [$varPreferredBankAccount_RefID, 'bigint'],
                         [$varReceivedDateTimeTZ, 'timestamptz'],
+                        [$varAmountRoundOff, 'numeric'],
                         [$varRemarks, 'varchar'],
                         
                         [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
@@ -135,6 +137,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varPreferredPaymentMethod_RefID ► Preferred Payment Method Reference ID                                  |
         |      ▪ (int)    varPreferredBankAccount_RefID ► Preferred Bank Account Reference ID                                      |
         |      ▪ (string) varReceivedDateTimeTZ ► Received DateTimeTZ                                                              |
+        |      ▪ (float)  varAmountRoundOff ► Amount Round Off                                                                     |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
@@ -145,7 +148,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varLog_FileUpload_Pointer_RefID = null, int $varSupplier_RefID = null, string $varDocumentNumber = null, string $varDocumentDateTimeTZ = null, string $varSalesOrderNumber = null, string $varPaymentDueDateTimeTZ = null, int $varPreferredPaymentMethod_RefID = null, int $varPreferredBankAccount_RefID = null, string $varReceivedDateTimeTZ = null, string $varRemarks = null,
+            int $varLog_FileUpload_Pointer_RefID = null, int $varSupplier_RefID = null, string $varDocumentNumber = null, string $varDocumentDateTimeTZ = null, string $varSalesOrderNumber = null, string $varPaymentDueDateTimeTZ = null, int $varPreferredPaymentMethod_RefID = null, int $varPreferredBankAccount_RefID = null, string $varReceivedDateTimeTZ = null, float $varAmountRoundOff = null, string $varRemarks = null,
             array $varAdditionalData = [])
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -170,6 +173,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         [$varPreferredPaymentMethod_RefID, 'bigint'],
                         [$varPreferredBankAccount_RefID, 'bigint'],
                         [$varReceivedDateTimeTZ, 'timestamptz'],
+                        [$varAmountRoundOff, 'numeric'],
                         [$varRemarks, 'varchar'],
                         
                         [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']

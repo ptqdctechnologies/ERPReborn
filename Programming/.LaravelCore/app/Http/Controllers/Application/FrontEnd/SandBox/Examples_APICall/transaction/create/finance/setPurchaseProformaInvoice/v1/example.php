@@ -48,6 +48,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     "preferredPaymentMethod_RefID" => 175000000000001,
                     "preferredBankAccount_RefID" => 167000000000001,
                     "receivedDateTimeTZ" => '2022-09-15',
+                    "amountRoundOff" => 0.00,
                     "remarks" => 'My Remarks',
                     "additionalData" => [
                         "itemList" => [
@@ -129,6 +130,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
             //---Core---
+            /*
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<table border="1" style="border-collapse: collapse;">';
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Proforma Invoice Supplier Main Data</p></td></tr>';
@@ -141,6 +143,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo        '<tr><td>PreferredPaymentMethod_RefID</td><td><input type="text" id="dataInput_PreferredPaymentMethod_RefID" value=175000000000001></td></tr>';
             echo        '<tr><td>PreferredBankAccount_RefID</td><td><input type="text" id="dataInput_PreferredBankAccount_RefID" value=167000000000001></td></tr>';
             echo        '<tr><td>ReceivedDateTimeTZ</td><td><input type="text" id="dataInput_ReceivedDateTimeTZ" value="2022-09-15"></td></tr>';
+            echo        '<tr><td>AmountRoundOff</td><td><input type="text" id="dataInput_AmountRoundOff" value=0.00></td></tr>';
             echo        '<tr><td>Remarks</td><td><input type="text" id="dataInput_Remarks" value="My Remarks"></td></tr>';
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Advance Detail Data</p></td></tr></tr>';
             echo        '<tr><td>PurchaseOrderDetail_RefID_1</td><td><input type="text" id="dataInput_PurchaseOrderDetail_RefID_1" value=86000000000001></td></tr>';
@@ -177,6 +180,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         '"preferredPaymentMethod_RefID" : parseInt(document.getElementById("dataInput_PreferredPaymentMethod_RefID").value), '.
                         '"preferredBankAccount_RefID" : parseInt(document.getElementById("dataInput_PreferredBankAccount_RefID").value), '.
                         '"receivedDateTimeTZ" : document.getElementById("dataInput_ReceivedDateTimeTZ").value, '.
+                        '"amountRoundOff" : parseFloat(document.getElementById("dataInput_AmountRoundOff").value), '.
                         '"remarks" : document.getElementById("dataInput_Remarks").value, '.
                         '"additionalData" : {'.
                             '"itemList" : {'.
@@ -215,6 +219,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 ); 
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);
+            */
             }
         }
     }

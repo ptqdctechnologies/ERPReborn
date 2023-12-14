@@ -86,6 +86,9 @@
                         "minLength": 10,
                         "maxLength": 30
                         },
+                    "amountRoundOff": {
+                        "type": [ "number", "null" ]
+                        },
                     "remarks": {
                         "type": [ "string", "null" ],
                         "minLength": 1,
@@ -314,6 +317,7 @@
                     "preferredPaymentMethod_RefID",
                     "preferredBankAccount_RefID",
                     "receivedDateTimeTZ",
+                    "amountRoundOff",
                     "remarks" 
                     ]
                 }
