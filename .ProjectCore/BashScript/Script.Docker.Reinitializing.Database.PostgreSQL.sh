@@ -1,15 +1,16 @@
 #----------------------------------------------------------------------------------------------------
-# ▪ Nama               : Script.Docker.Reinitializing.Database.PostgreSQL.sh
-# ▪ Versi              : 1.00.0000
-# ▪ Tanggal            : 2020-06-11
-# ▪ Input              : -
-# ▪ Output             : -
-# ▪ Deskripsi          : Script ini digunakan untuk menginisialisasi ulang (Cloning) Database dari 
-#                        Production Server kedalam volume database (volume-postgresql) pada Container
-#                        PostgreSQL
-# ▪ Execution Syntax   : ./BashScript/Script.Docker.Reinitializing.Database.PostgreSQL.sh
-#                        <FullPathFromRoot>/BashScript/Script.Docker.Reinitializing.Database.PostgreSQL.sh
-# ▪ Copyright          : Zheta © 2020
+# ▪ Nama                 : Script.Docker.Reinitializing.Database.PostgreSQL.sh
+# ▪ Versi                : 1.00.0001
+# ▪ Tanggal Pemutakhiran : 2023-12-15
+# ▪ Tanggal Pembuatan    : 2020-06-11
+# ▪ Input                : -
+# ▪ Output               : -
+# ▪ Deskripsi            : Script ini digunakan untuk menginisialisasi ulang (Cloning) Database dari 
+#                          Production Server kedalam volume database (volume-postgresql) pada Container
+#                          PostgreSQL
+# ▪ Execution Syntax     : ./BashScript/Script.Docker.Reinitializing.Database.PostgreSQL.sh
+#                          <FullPathFromRoot>/BashScript/Script.Docker.Reinitializing.Database.PostgreSQL.sh
+# ▪ Copyright            : Zheta © 2020 - 2023
 #----------------------------------------------------------------------------------------------------
 
 #!/bin/bash
@@ -105,6 +106,25 @@ echo "";
 
 
 #+-------------------------------------------------------------------------------------------------+
+#| Database : dbERPReborn-Data-Warehouse                                                           |
+#+-------------------------------------------------------------------------------------------------+
+varDBName='dbERPReborn-Data-Warehouse';
+varFileName='/var/lib/postgresql/temp/dump.sql';
+varDBMasterHost='192.168.0.27';
+varDBMasterPort='5432';
+echo "---> Reinitializing Database : "$varDBName;
+varCmdContainer='psql -U postgres -d postgres -c';
+$varCmd "$varCmdContainer \"DROP DATABASE IF EXISTS \\\""$varDBName"\\\";\"";
+$varCmd "$varCmdContainer \"CREATE DATABASE \\\""$varDBName"\\\" OWNER \\\""$varRoleName"\\\";\"";
+echo "   ---> Database Cloning : "$varDBName;
+$varCmd "PGPASSWORD=\""$varRolePassword"\" pg_dump -h "$varDBMasterHost" -p "$varDBMasterPort" -U \""$varRoleName"\" --format plain --encoding UTF8 \""$varDBName"\" > "$varFileName;
+$varCmd "psql -U \""$varRoleName"\" -d \""$varDBName"\" < "$varFileName";";
+$varCmd "rm -rf "$varFileName;
+echo "";
+
+
+
+#+-------------------------------------------------------------------------------------------------+
 #| Database : dbERPReborn-Data-BinaryObject                                                        |
 #+-------------------------------------------------------------------------------------------------+
 varDBName='dbERPReborn-Data-BinaryObject';
@@ -165,5 +185,4 @@ $varCmd "$varCmdContainer \"SELECT * FROM \\\"SchSysConfig\\\".\\\"FuncSys_KickS
 #| Others Script                                                                                   |
 #+-------------------------------------------------------------------------------------------------+
 ./BashScript/Script.Docker.Backup.PostgreSQL.StructureOnly.sh;
-
 

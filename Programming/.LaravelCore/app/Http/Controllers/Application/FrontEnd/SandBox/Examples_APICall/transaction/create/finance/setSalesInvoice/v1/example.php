@@ -88,6 +88,19 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                          ]
                                     ]
                                 ]
+                            ],
+                        "transactionTaxItemList" => [
+                            "items" => [
+                                    [
+                                    "entities" => [
+                                        "taxType_RefID" => 182000000000005,
+                                        "tariffCurrency_RefID" => 62000000000001,
+                                        "tariffCurrencyValue" => 4000,
+                                        "tariffCurrencyExchangeRate" => 1,
+                                        "remarks" => null
+                                        ]
+                                    ]
+                                ]
                             ]
                         ]
                     ]
@@ -114,6 +127,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
             //---Core---
+/*
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<table border="1" style="border-collapse: collapse;">';
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Sales Invoice Main Data</p></td></tr>';
@@ -230,6 +244,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 ); 
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);
+ */
             }
         }
     }

@@ -1,14 +1,15 @@
 #----------------------------------------------------------------------------------------------------
-# ▪ Nama               : Script.Docker.Backup.PostgreSQL.StructureOnly.sh
-# ▪ Versi              : 1.00.0000
-# ▪ Tanggal            : 2021-09-01
-# ▪ Input              : -
-# ▪ Output             : -
-# ▪ Deskripsi          : Script ini digunakan untuk men-dump Struktur Database dari Local Database
-#                        pada Container PostgreSQL
-# ▪ Execution Syntax   : ./BashScript/Script.Docker.Backup.PostgreSQL.StructureOnly.sh
-#                        <FullPathFromRoot>/BashScript/Script.Docker.Backup.PostgreSQL.StructureOnly.sh
-# ▪ Copyright          : Zheta © 2021
+# ▪ Nama                 : Script.Docker.Backup.PostgreSQL.StructureOnly.sh
+# ▪ Versi                : 1.00.0001
+# ▪ Tanggal Pemutakhiran : 2023-12-15
+# ▪ Tanggal Pembuatan    : 2021-09-01
+# ▪ Input                : -
+# ▪ Output               : -
+# ▪ Deskripsi            : Script ini digunakan untuk men-dump Struktur Database dari Local Database
+#                          pada Container PostgreSQL
+# ▪ Execution Syntax     : ./BashScript/Script.Docker.Backup.PostgreSQL.StructureOnly.sh
+#                          <FullPathFromRoot>/BashScript/Script.Docker.Backup.PostgreSQL.StructureOnly.sh
+# ▪ Copyright            : Zheta © 2021 - 2023
 #----------------------------------------------------------------------------------------------------
 
 #!/bin/bash
@@ -46,6 +47,14 @@ $varCmd "$varCmdContainer";
 
 
 #+-------------------------------------------------------------------------------------------------+
+#| Database : dbERPReborn-Data-Warehouse                                                           |
+#+-------------------------------------------------------------------------------------------------+
+varDBName='dbERPReborn-Data-Warehouse';
+varCmdContainer='pg_dump --username "SysEngine" --schema-only --format plain --encoding UTF8 --verbose --file "/zhtConf/databaseStructure/'$varDBName'.sql" "'$varDBName'";';
+$varCmd "$varCmdContainer";
+
+
+#+-------------------------------------------------------------------------------------------------+
 #| Database : dbERPReborn-Data-BinaryObject                                                        |
 #+-------------------------------------------------------------------------------------------------+
 varDBName='dbERPReborn-Data-BinaryObject';
@@ -68,7 +77,7 @@ sudo chown -R zheta:zheta .git/objects/ ;
 
 cd ./Database/Structure/PostgreSQL/;
 rm -rf ./dbERPReborn.tgz;
-tar czvf dbERPReborn.tgz ./dbERPReborn-Data-BinaryObject.sql ./dbERPReborn-Data-OLAP.sql ./dbERPReborn-Data-OLTP.sql ./dbERPReborn-SysConfig.sql ./dbERPReborn.sql;
+tar czvf dbERPReborn.tgz ./dbERPReborn-Data-BinaryObject.sql ./dbERPReborn-Data-OLAP.sql ./dbERPReborn-Data-OLTP.sql ./dbERPReborn-Data-Warehouse.sql ./dbERPReborn-SysConfig.sql ./dbERPReborn.sql;
 rm -rf ./*.sql;
 cd -;
 
