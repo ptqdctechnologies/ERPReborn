@@ -35,6 +35,24 @@
             "entities" : {
                 "type": "object",
                 "properties": {
+                    "taxBaseCurrency_RefID": {
+                        "type": [ "integer" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                    "taxBaseCurrencyValue": {
+                        "type": [ "number", "null" ],
+                        "minimum": 0
+                        },
+                    "taxBaseCurrencyExchangeRate": {
+                        "type": [ "number", "null" ],
+                        "minimum": 0
+                        },
+                    "remarks": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 256
+                        },
                     "additionalData": {
                         "type": "object",
                         "properties": {
@@ -78,24 +96,48 @@
                                                             "maxLength": 256
                                                             }
                                                         },
-                                                    "required": [ "taxType_RefID", "tariffCurrency_RefID", "tariffCurrencyValue", "tariffCurrencyExchangeRate", "remarks" ]
+                                                    "required": [
+                                                        "taxType_RefID",
+                                                        "tariffCurrency_RefID",
+                                                        "tariffCurrencyValue",
+                                                        "tariffCurrencyExchangeRate",
+                                                        "remarks"
+                                                        ]
                                                     }
                                                 },
-                                            "required": [ "recordID", "entities" ]
+                                            "required": [
+                                                "recordID",
+                                                "entities"
+                                                ]
                                             }
                                         }
                                     },
-                                "required": [ "items" ]
+                                "required": [
+                                    "items"
+                                    ]
                                 }
                             },
-                        "required": [ "itemList" ]
+                        "required": [
+                            "itemList"
+                            ]
                         }
                     },
-                "required": [ ]    
+                "required": [
+                    "taxBaseCurrency_RefID",
+                    "taxBaseCurrencyValue",
+                    "taxBaseCurrencyExchangeRate",
+                    "remarks"
+                    ]    
                 }
             },
-        "required": [ "recordID", "entities" ]
+        "required": [
+            "recordID",
+            "entities"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }

@@ -4,23 +4,23 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\finance                   |
-|                 \setProformaInvoiceSupplierAdditionalCost\v1                                                                     |
-| ▪ API Key     : transaction.create.finance.setProformaInvoiceSupplierAdditionalCost                                              |
+|                 \setPurchaseProformaInvoiceAdditionalCost\v1                                                                     |
+| ▪ API Key     : transaction.create.finance.setPurchaseProformaInvoiceAdditionalCost                                              |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\finance\setProformaInvoiceSupplierAdditionalCost\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\finance\setPurchaseProformaInvoiceAdditionalCost\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
-        |                     transaction.create.finance.setProformaInvoiceSupplierAdditionalCost.v1_throughAPIGateway             |
+        |                     transaction.create.finance.setPurchaseProformaInvoiceAdditionalCost.v1_throughAPIGateway             |
         |                     ► http://172.28.0.4/                                                                                 |
-        |                       transaction.create.finance.setProformaInvoiceSupplierAdditionalCost.v1_throughAPIGateway           |
+        |                       transaction.create.finance.setPurchaseProformaInvoiceAdditionalCost.v1_throughAPIGateway           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-09-28                                                                                           |
@@ -57,9 +57,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
-        |                     transaction.create.finance.setProformaInvoiceSupplierAdditionalCost.v1_throughAPIGatewayJQuery       |
+        |                     transaction.create.finance.setPurchaseProformaInvoiceAdditionalCost.v1_throughAPIGatewayJQuery       |
         |                     ► http://172.28.0.4/                                                                                 |
-        |                       transaction.create.finance.setProformaInvoiceSupplierAdditionalCost.v1_throughAPIGatewayJQuery     |
+        |                       transaction.create.finance.setPurchaseProformaInvoiceAdditionalCost.v1_throughAPIGatewayJQuery     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-09-28                                                                                           |

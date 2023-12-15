@@ -57,9 +57,9 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varTransactionTax_RefID ► Transaction Tax Reference ID                                                   |
         |      ▪ (int)    varTaxType_RefID ► Tax Type Reference ID                                                                 |
-        |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
-        |      ▪ (float)  varCurrencyValue ► Currency Value                                                                        |
-        |      ▪ (float)  varCurrencyExchangeRate ► Currency Exchange Rate                                                         |
+        |      ▪ (int)    varTariffCurrency_RefID ► Tariff Currency Reference ID                                                   |
+        |      ▪ (float)  varTariffCurrencyValue ► Tariff Currency Value                                                           |
+        |      ▪ (float)  varTariffCurrencyExchangeRate ► Tariff Currency Exchange Rate                                            |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -68,7 +68,7 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varTransactionTax_RefID = null, int $varTaxType_RefID = null, int $varCurrency_RefID = null, float $varCurrencyValue = null, float $varCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varTransactionTax_RefID = null, int $varTaxType_RefID = null, int $varTariffCurrency_RefID = null, float $varTariffCurrencyValue = null, float $varTariffCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -85,9 +85,9 @@ namespace App\Models\Database\SchData_OLTP_Taxation
 
                         [$varTransactionTax_RefID, 'bigint'],
                         [$varTaxType_RefID, 'bigint'],
-                        [$varCurrency_RefID, 'bigint'],
-                        [$varCurrencyValue, 'numeric'],
-                        [$varCurrencyExchangeRate, 'numeric'],
+                        [$varTariffCurrency_RefID, 'bigint'],
+                        [$varTariffCurrencyValue, 'numeric'],
+                        [$varTariffCurrencyExchangeRate, 'numeric'],
                         [$varRemarks, 'varchar']
                     ]
                     )
@@ -115,9 +115,9 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varTransactionTax_RefID ► Transaction Tax Reference ID                                                   |
         |      ▪ (int)    varTaxType_RefID ► Tax Type Reference ID                                                                 |
-        |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
-        |      ▪ (float)  varCurrencyValue ► Currency Value                                                                        |
-        |      ▪ (float)  varCurrencyExchangeRate ► Currency Exchange Rate                                                         |
+        |      ▪ (int)    varTariffCurrency_RefID ► Tariff Currency Reference ID                                                   |
+        |      ▪ (float)  varTariffCurrencyValue ► Tariff Currency Value                                                           |
+        |      ▪ (float)  varTariffCurrencyExchangeRate ► Tariff Currency Exchange Rate                                            |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -126,7 +126,7 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varTransactionTax_RefID = null, int $varTaxType_RefID = null, int $varCurrency_RefID = null, float $varCurrencyValue = null, float $varCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varTransactionTax_RefID = null, int $varTaxType_RefID = null, int $varTariffCurrency_RefID = null, float $varTariffCurrencyValue = null, float $varTariffCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -143,9 +143,9 @@ namespace App\Models\Database\SchData_OLTP_Taxation
 
                         [$varTransactionTax_RefID, 'bigint'],
                         [$varTaxType_RefID, 'bigint'],
-                        [$varCurrency_RefID, 'bigint'],
-                        [$varCurrencyValue, 'numeric'],
-                        [$varCurrencyExchangeRate, 'numeric'],
+                        [$varTariffCurrency_RefID, 'bigint'],
+                        [$varTariffCurrencyValue, 'numeric'],
+                        [$varTariffCurrencyExchangeRate, 'numeric'],
                         [$varRemarks, 'varchar']
                     ],
                     )

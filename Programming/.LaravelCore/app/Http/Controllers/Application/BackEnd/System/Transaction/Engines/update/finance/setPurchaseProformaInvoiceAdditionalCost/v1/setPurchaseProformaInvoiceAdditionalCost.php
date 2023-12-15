@@ -4,20 +4,20 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance                               |
-|                \setProformaInvoiceSupplierAdditionalCost\v1                                                                      |
+|                \setPurchaseProformaInvoiceAdditionalCost\v1                                                                      |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setProformaInvoiceSupplierAdditionalCost\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setPurchaseProformaInvoiceAdditionalCost\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setProformaInvoiceSupplierAdditionalCost                                                                     |
-    | ▪ Description : Menangani API transaction.update.finance.setProformaInvoiceSupplierAdditionalCost Version 1                  |
+    | ▪ Class Name  : setPurchaseProformaInvoiceAdditionalCost                                                                     |
+    | ▪ Description : Menangani API transaction.update.finance.setPurchaseProformaInvoiceAdditionalCost Version 1                  |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setProformaInvoiceSupplierAdditionalCost extends \App\Http\Controllers\Controller
+    class setPurchaseProformaInvoiceAdditionalCost extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
