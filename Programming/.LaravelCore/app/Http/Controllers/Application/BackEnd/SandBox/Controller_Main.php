@@ -21,13 +21,13 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
         public function testAja2()
 
         {
+            dd(Redis::get("a"));
             $varReturn =
-                (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_Resume_BusinessDocumentIssuanceDisposition(
+                (new \App\Models\Database\SchData_OLTP_Finance\General())->getReport_Form_DocumentForm_AdvanceSummary(
                     6000000000001,
-                    11000000000004,
-                    164000000000196
+                    11000000000004
                 );
-            dd($varReturn[0]['document']['content']['itemList']['ungrouped']);
+            dd($varReturn);
 
 
 

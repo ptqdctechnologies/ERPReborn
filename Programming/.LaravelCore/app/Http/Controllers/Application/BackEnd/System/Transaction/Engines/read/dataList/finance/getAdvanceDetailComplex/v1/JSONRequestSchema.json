@@ -37,7 +37,7 @@
                 "properties": {
                     "advance_RefID": {
                         "type": "integer",
-                        "minimum": 0
+                        "minimum": 1
                         }
                     },
                 "required": [ "advance_RefID" ]

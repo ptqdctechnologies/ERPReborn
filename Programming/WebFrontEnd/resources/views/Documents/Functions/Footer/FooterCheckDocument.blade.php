@@ -6,7 +6,7 @@
 </script>
 
 <script>
-    $('.mySearchCheckDocument').one('click', function () {
+    $('.mySearchCheckDocument').one('click', function() {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -130,9 +130,32 @@
 </script>
 
 <script>
-
     $('#submit').on('click', function() {
         ShowLoading();
     });
+</script>
 
+
+<script type="text/javascript">
+    function ApproveButton(businessDocument_ID) {
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("ApprovalDocument.ApprovalAccepted") !!}?businessDocument_ID=' + businessDocument_ID,
+            success: function(data) {
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                Swal.fire("Cancelled", "Pastikan username dan password and benar", "error");
+
+                HideLoading();
+            }
+        });
+    }
 </script>

@@ -69,7 +69,7 @@
                                                         "entities": {
                                                             "type": "object",
                                                             "properties": {
-                                                                "advancePaymentDetail_RefID": {
+                                                                "advanceDetail_RefID": {
                                                                     "type": [ "integer", "null" ],
                                                                     "minimum": 1,
                                                                     "maximum": 9223372036854775807
@@ -121,7 +121,7 @@
                                                                     }
                                                                 },
                                                             "required": [ 
-                                                                "advancePaymentDetail_RefID",
+                                                                "advanceDetail_RefID",
                                                                 "product_RefID",
                                                                 "quantity",
                                                                 "quantityUnit_RefID",

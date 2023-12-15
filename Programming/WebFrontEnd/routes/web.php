@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UserController;
-  
+
 Route::resource('users', UserController::class);
 
 /*
@@ -25,7 +25,7 @@ $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxk
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
     $varAPIWebToken
-    );
+);
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[ END ]---
 
 //---[ Static Route ]--------------------------------------------------------------------[START]---
@@ -58,6 +58,10 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // Dashboard
     Route::resource('dashboard', 'Dashboard\DashboardController');
 
+    //Approval Document
+
+    Route::get('ApprovalAccepted', 'Document\ApprovalDocumentController@ApprovalAccepted')->name('ApprovalDocument.ApprovalAccepted');
+
     //Document
     Route::post('ShowDocument', 'Document\CheckDocumentController@ShowDocument')->name('CheckDocument.ShowDocument');
     Route::get('ShowDocumentByID', 'Document\CheckDocumentController@ShowDocumentByID')->name('CheckDocument.ShowDocumentByID');
@@ -67,7 +71,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('MyDocumentListDataFilter', 'Document\MyDocumentController@MyDocumentListDataFilter')->name('MyDocument.MyDocumentListDataFilter');
     Route::get('ShowMyDocumentListData', 'Document\MyDocumentController@ShowMyDocumentListData')->name('MyDocument.ShowMyDocumentListData');
     Route::resource('MyDocument', 'Document\MyDocumentController');
-    
+
     //MASTER DATA
     //Periode
     Route::resource('Periode', 'Master\PeriodeController');
@@ -139,9 +143,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('TestApi', 'TestApiController@index')->name('TestApi');
 
 
-    
+
     // ARF 
-    
+
     Route::get('AdvanceListData', 'Advance\AdvanceRequestController@AdvanceListData')->name('AdvanceRequest.AdvanceListData');
     Route::get('ReportAdvanceSummary', 'Advance\AdvanceRequestController@ReportAdvanceSummary')->name('AdvanceRequest.ReportAdvanceSummary');
     Route::post('ReportAdvanceSummaryStore', 'Advance\AdvanceRequestController@ReportAdvanceSummaryStore')->name('AdvanceRequest.ReportAdvanceSummaryStore');
@@ -155,10 +159,10 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('RevisionAdvanceSettlement', 'Advance\AdvanceSettlementController@RevisionAdvanceSettlementIndex')->name('AdvanceSettlement.RevisionAdvanceSettlement');
     Route::get('AdvanceSettlementListData', 'Advance\AdvanceSettlementController@AdvanceSettlementListData')->name('AdvanceSettlement.AdvanceSettlementListData');
     Route::get('AdvanceSettlementListDataById', 'Advance\AdvanceSettlementController@AdvanceSettlementListDataById')->name('AdvanceSettlement.AdvanceSettlementListDataById');
-    Route::get('AdvanceByBudgetID', 'Advance\AdvanceSettlementController@AdvanceByBudgetID')->name('AdvanceSettlement.AdvanceByBudgetID');
+    Route::get('AdvanceListDataByBudgetCode', 'Advance\AdvanceSettlementController@AdvanceListDataByBudgetCode')->name('AdvanceSettlement.AdvanceListDataByBudgetCode');
     Route::get('AdvanceSettlementListCartRevision', 'Advance\AdvanceSettlementController@AdvanceSettlementListCartRevision')->name('AdvanceSettlement.AdvanceSettlementListCartRevision');
     Route::resource('AdvanceSettlement', 'Advance\AdvanceSettlementController');
-    
+
     // BSF
     Route::post('StoreValidateBusinessTripSettlement', 'Advance\BusinessTripSettlementController@StoreValidateBusinessTripSettlement')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlement');
     Route::post('StoreValidateBusinessTripSettlement2', 'Advance\BusinessTripSettlementController@StoreValidateBusinessTripSettlement2')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlement2');
@@ -276,13 +280,12 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // MAterial Receive
     Route::post('revisionMaterialReceive', 'logisticMaterialReceive@revisionMaterialReceive')->name('MR.revisionMaterialReceive');
     Route::get('createMaterialReceive', 'logisticMaterialReceive@index')->name('MR.createMaterialReceive');
-    
+
 
     //CO
 
     Route::get('CO', 'controllerSalesCo@index')->name('CO.index');
     Route::get('revisionCo', 'controllerSalesCo@revisionCo')->name('CO.revisionCo');
-
 });
 
 
@@ -302,19 +305,19 @@ Route::get('showLogError', function () {
 
 
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

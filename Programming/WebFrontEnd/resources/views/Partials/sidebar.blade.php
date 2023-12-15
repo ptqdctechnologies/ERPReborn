@@ -301,30 +301,6 @@
                                         <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('Inventory.ReportDORequestSummary') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>DOR Summary</label>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('Inventory.ReportDORequestDetail') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>DOR Detail</label>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('Inventory.ReportDORtoDO') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>DOR to DO</label>
-                                            </a>
-                                        </li>
-                                    </ul>
                                 </li>
                             </ul>
                             <ul class="nav nav-treeview">
@@ -361,22 +337,6 @@
                                         <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('Inventory.ReportDOSummary') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>DO Summary</label>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('Inventory.ReportDODetail') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>DO Detail</label>
-                                            </a>
-                                        </li>
-                                    </ul>
                                 </li>
                             </ul>
                             <ul class="nav nav-treeview">
@@ -449,22 +409,6 @@
                                         <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('Inventory.ReportMatReturnSummary') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>Mat Return Summary</label>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('Inventory.ReportMatReturnDetail') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>Mat Return Detail</label>
-                                            </a>
-                                        </li>
-                                    </ul>
                                 </li>
                             </ul>
                             <ul class="nav nav-treeview">
@@ -514,30 +458,15 @@
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
+                                        @if(in_array("Module.SupplyChain.Procurement.PurchaseRequisition.Transaction.Create", $privilageMenu, TRUE))
+                                        <li class="nav-item">
                                         <li class="nav-item">
                                             <a href="{{ route('PurchaseRequisition.ReportPurchaseRequisitionSummary') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Purchase Order Summary</label>
                                             </a>
                                         </li>
-                                    </ul>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('PurchaseRequisition.ReportPurchaseRequisitionToPurchaseOrder') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>PR To PO</label>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('PurchaseRequisition.ReportPurchaseRequisitionDetail') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>PR Detail</label>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                        </li>
+                                        @endif
                                     </ul>
                                 </li>
                             </ul>
@@ -581,20 +510,15 @@
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
+                                        @if(in_array("Module.SupplyChain.Procurement.PurchaseOrder.Transaction.Create", $privilageMenu, TRUE))
+                                        <li class="nav-item">
                                         <li class="nav-item">
                                             <a href="{{ route('PurchaseOrder.ReportPurchaseOrderSummary') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Purchase Order Summary</label>
                                             </a>
                                         </li>
-                                    </ul>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('PurchaseOrder.ReportPurchaseOrderDetail') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>Purchase Order Detail</label>
-                                            </a>
-                                        </li>
+                                        @endif
                                     </ul>
                                 </li>
                             </ul>
