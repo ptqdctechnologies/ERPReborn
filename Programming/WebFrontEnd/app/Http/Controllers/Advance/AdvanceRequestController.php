@@ -13,6 +13,11 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class AdvanceRequestController extends Controller
 {
+
+    // +--------------------------------------------------------------------------------------------------------------------------+
+    // |                                        TRANSACTIONS                                                                      |
+    // +--------------------------------------------------------------------------------------------------------------------------+
+
     // INDEX FUNCTION
     public function index(Request $request)
     {
@@ -101,7 +106,7 @@ class AdvanceRequestController extends Controller
                         "log_FileUpload_Pointer_RefID" => (int)$input['dataInput_Log_FileUpload_Pointer_RefID'],
                         "requesterWorkerJobsPosition_RefID" => (int)$input['requester_id'],
                         "beneficiaryWorkerJobsPosition_RefID" => (int)$input['beneficiary_id'],
-                        "beneficiaryBankAccount_RefID" => (int)$input['beneficiaryBankAccount_RefID'],
+                        "beneficiaryBankAccount_RefID" => (int)$input['bank_account_id'],
                         "internalNotes" => 'My Internal Notes',
                         "remarks" => $input['var_remark'],
                         "additionalData" => [
@@ -218,7 +223,7 @@ class AdvanceRequestController extends Controller
                     "log_FileUpload_Pointer_RefID" => (int)$input['dataInput_Log_FileUpload_Pointer_RefID'],
                     "requesterWorkerJobsPosition_RefID" => (int)$input['requester_id'],
                     "beneficiaryWorkerJobsPosition_RefID" => (int)$input['beneficiary_id'],
-                    "beneficiaryBankAccount_RefID" => (int)$input['beneficiaryBankAccount_RefID'],
+                    "beneficiaryBankAccount_RefID" => (int)$input['bank_account_id'],
                     "internalNotes" => 'My Internal Notes',
                     "remarks" => $input['var_remark'],
                     "additionalData" => [
@@ -273,6 +278,12 @@ class AdvanceRequestController extends Controller
         return response()->json($DataListAdvance);
     }
 
+
+    // +--------------------------------------------------------------------------------------------------------------------------+
+    // |                                        REPORTS                                                                           |
+    // +--------------------------------------------------------------------------------------------------------------------------+
+
+
     public function ReportAdvanceSummary(Request $request)
     {
 
@@ -299,11 +310,11 @@ class AdvanceRequestController extends Controller
                 [
                     'parameter' => [
                         'dataFilter' => [
-                            'budgetID' => "",
-                            'subBudgetID' => "",
-                            'workID' => "",
-                            'productID' => "",
-                            'beneficiaryID' => "",
+                            'budgetID' => 1,
+                            'subBudgetID' => 1,
+                            'workID' => 1,
+                            'productID' => 1,
+                            'beneficiaryID' => 1,
                         ]
                     ]
                 ],

@@ -49,7 +49,22 @@ class CheckDocumentController extends Controller
             true
         );
 
-        return $varData;
+        $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
+        $nextApprover = $varData[0]['document']['content']['general']['workFlow']['historyList'][0]['NextApproverEntity_RefID'];
+        $businessDocument_ID = $varData[0]['document']['content']['general']['businessDocument']['businessDocumentList']['recordID'];
+
+        $statusApprover = "No";
+        if($SessionWorkerCareerInternal_RefID == $nextApprover){
+            $statusApprover = "Yes";
+        }
+
+        $compact = [
+            'data' => $varData,
+            'statusApprover' => $statusApprover,
+            'businessDocument_ID' => $businessDocument_ID
+        ];
+
+        return $compact;
     }
 
     // FUNCTION FOR SHOW DOCUMENT FORM SUBMIT IN CHECK DOCUMENT 
@@ -93,11 +108,13 @@ class CheckDocumentController extends Controller
             if (count($varDataWorkflow) > 0) {
                 $compact = [
                     'var' => 1,
-                    'dataWorkflow' => $varDataWorkflow[0]['document']['content']['general']['workFlow']['historyList'],
-                    'dataTransaction' => $varDataWorkflow[0]['document'],
-                    'businessDocument_RefID' => $varDataWorkflow[0]['document']['header']['recordID'],
-                    'businessDocumentNumber' => $varDataWorkflow[0]['document']['header']['number'],
-                    'businessDocumentTitle' => $varDataWorkflow[0]['document']['header']['title'],
+                    'dataWorkflow' => $varDataWorkflow['data'][0]['document']['content']['general']['workFlow']['historyList'],
+                    'dataTransaction' => $varDataWorkflow['data'][0]['document'],
+                    'businessDocument_RefID' => $varDataWorkflow['data'][0]['document']['header']['recordID'],
+                    'businessDocumentNumber' => $varDataWorkflow['data'][0]['document']['header']['number'],
+                    'businessDocumentTitle' => $varDataWorkflow['data'][0]['document']['header']['title'],
+                    'statusApprover' => $varDataWorkflow['statusApprover'],
+                    'businessDocument_ID' => $varDataWorkflow['businessDocument_ID'],
                 ];
 
                 return view('Documents.Transactions.IndexCheckDocument', $compact);
@@ -122,11 +139,13 @@ class CheckDocumentController extends Controller
         if (count($varDataWorkflow) > 0) {
             $compact = [
                 'var' => 1,
-                'dataWorkflow' => $varDataWorkflow[0]['document']['content']['general']['workFlow']['historyList'],
-                'dataTransaction' => $varDataWorkflow[0]['document'],
-                'businessDocument_RefID' => $varDataWorkflow[0]['document']['header']['recordID'],
-                'businessDocumentNumber' => $varDataWorkflow[0]['document']['header']['number'],
-                'businessDocumentTitle' => $varDataWorkflow[0]['document']['header']['title'],
+                'dataWorkflow' => $varDataWorkflow['data'][0]['document']['content']['general']['workFlow']['historyList'],
+                'dataTransaction' => $varDataWorkflow['data'][0]['document'],
+                'businessDocument_RefID' => $varDataWorkflow['data'][0]['document']['header']['recordID'],
+                'businessDocumentNumber' => $varDataWorkflow['data'][0]['document']['header']['number'],
+                'businessDocumentTitle' => $varDataWorkflow['data'][0]['document']['header']['title'],
+                'statusApprover' => $varDataWorkflow['statusApprover'],
+                'businessDocument_ID' => $varDataWorkflow['businessDocument_ID'],
             ];
             return view('Documents.Transactions.IndexCheckDocument', $compact);
         } else {

@@ -13,7 +13,7 @@
           <label style="font-size:15px;position:relative;top:7px;color:white;">Check Document on Process</label>
         </div>
       </div>
-      
+
       @include('Documents.Functions.Menu.MenuCheckDocument')
 
       @if($var == 1)
@@ -55,6 +55,15 @@
             @include('Documents.Transactions.DocumentApprovalHistory')
 
           </div>
+
+          @if($statusApprover == "Yes")
+          <a onclick="RejectButton()" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
+            <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Reject"> Reject
+          </a>
+          <a onclick="ApproveButton({{ $businessDocument_ID }})" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right:10px;">
+            <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Approve"> Approve 
+          </a>
+          @endif
         </div>
       </div>
       @endif

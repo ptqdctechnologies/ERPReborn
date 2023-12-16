@@ -47,7 +47,6 @@
         var t = $('.TableMyDocument').DataTable();
         t.clear().draw();
         $.each(data, function(key, val) {
-            console.log(data);
             const date = dateFns.format(
                 dateFns.parse(val.businessDocumentDateTimeTZ, "yyyy-MM-dd hh:mm:ss"),
                 'DD-MM-YYYY HH:mm');
