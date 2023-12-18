@@ -6420,6 +6420,7 @@ return array(
     'Maatwebsite\\Excel\\Imports\\ModelManager' => $vendorDir . '/maatwebsite/excel/src/Imports/ModelManager.php',
     'Maatwebsite\\Excel\\Jobs\\AfterImportJob' => $vendorDir . '/maatwebsite/excel/src/Jobs/AfterImportJob.php',
     'Maatwebsite\\Excel\\Jobs\\AppendDataToSheet' => $vendorDir . '/maatwebsite/excel/src/Jobs/AppendDataToSheet.php',
+    'Maatwebsite\\Excel\\Jobs\\AppendPaginatedToSheet' => $vendorDir . '/maatwebsite/excel/src/Jobs/AppendPaginatedToSheet.php',
     'Maatwebsite\\Excel\\Jobs\\AppendQueryToSheet' => $vendorDir . '/maatwebsite/excel/src/Jobs/AppendQueryToSheet.php',
     'Maatwebsite\\Excel\\Jobs\\AppendViewToSheet' => $vendorDir . '/maatwebsite/excel/src/Jobs/AppendViewToSheet.php',
     'Maatwebsite\\Excel\\Jobs\\CloseSheet' => $vendorDir . '/maatwebsite/excel/src/Jobs/CloseSheet.php',
