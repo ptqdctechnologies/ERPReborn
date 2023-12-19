@@ -1,8 +1,19 @@
 <script type="text/javascript">
-    $(".ShowDocumentList").hide();
-    $(".InternalNotes").hide();
-    $(".FileAttachment").hide();
-    $(".ApprovalHistory").hide();
+    var sourceData = <?= $sourceData ?>;
+
+    if (sourceData == 1) {
+        $(".ShowDocumentList").show();
+        $(".InternalNotes").show();
+        $(".FileAttachment").show();
+        $(".ApprovalHistory").show();
+        $(".ViewDocument").hide();
+        $(".DocumentWorkflow").hide();
+    } else {
+        $(".ShowDocumentList").hide();
+        $(".InternalNotes").hide();
+        $(".FileAttachment").hide();
+        $(".ApprovalHistory").hide();
+    }
 </script>
 
 <script>
@@ -91,7 +102,7 @@
     $(".ViewWorkflow").hide();
 
     $('.ViewDocument').on('click', function() {
-        $(".ShowDocument").hide();
+        $(".DocumentWorkflow").hide();
         $(".ShowDocumentList").show();
         $(".InternalNotes").show();
         $(".FileAttachment").show();
@@ -102,7 +113,7 @@
     });
 
     $('.ViewWorkflow').on('click', function() {
-        $(".ShowDocument").show();
+        $(".DocumentWorkflow").show();
         $(".ShowDocumentList").hide();
         $(".InternalNotes").hide();
         $(".FileAttachment").hide();
@@ -122,7 +133,6 @@
             triggered++;
         }
     });
-
     $('#businessDocumentNumber').on('blur', function() {
         // reset the triggered value to 0
         triggered = 0;
@@ -139,23 +149,96 @@
 <script type="text/javascript">
     function ApproveButton(businessDocument_ID) {
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        })
+
+        swalWithBootstrapButtons.fire({
+
+            title: 'Are you sure?',
+            text: "Send this data?",
+            type: 'question',
+
+            showCancelButton: true,
+            confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
+            cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
+            confirmButtonColor: '#e9ecef',
+            cancelButtonColor: '#e9ecef',
+            reverseButtons: true
+        }).then((result) => {
+
+            if (result.value) {
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    confirmButtonClass: 'btn btn-success btn-sm',
+                    cancelButtonClass: 'btn btn-danger btn-sm',
+                    buttonsStyling: true,
+                })
+
+                swalWithBootstrapButtons.fire({
+
+                    title: 'Comment',
+                    text: "Please write your comment here",
+                    type: 'question',
+                    input: 'text',
+                    showCloseButton: false,
+                    showCancelButton: false,
+                    focusConfirm: false,
+                    confirmButtonText: '<span style="color:black;"> OK </span>',
+                    confirmButtonColor: '#4B586A',
+                    confirmButtonColor: '#e9ecef',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+
+                        $.ajax({
+                            type: 'GET',
+                            url: '{!! route("ApprovalDocument.ApprovalAccepted") !!}?businessDocument_ID=' + businessDocument_ID + '&comment=' + result.value,
+                            success: function(data) {
+
+                                if (data.status == "200") {
+                                    swalWithBootstrapButtons.fire({
+
+                                        title: 'Successful !',
+                                        type: 'success',
+                                        html: 'Document has been approved',
+                                        showCloseButton: false,
+                                        showCancelButton: false,
+                                        focusConfirm: false,
+                                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                                        confirmButtonColor: '#4B586A',
+                                        confirmButtonColor: '#e9ecef',
+                                        reverseButtons: true
+                                    }).then((result) => {
+                                        if (result.value) {
+                                            window.location.href = '/MyDocument';
+                                        }
+                                    })
+                                } else {
+                                    Swal.fire("Error", "Data Error", "error");
+                                }
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                Swal.fire("Error", "Data Error", "error");
+                            }
+                        });
+
+                    }
+                })
+
+            } else if (
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                ErrorNotif("Data Cancel Approved");
             }
-        });
-
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("ApprovalDocument.ApprovalAccepted") !!}?businessDocument_ID=' + businessDocument_ID,
-            success: function(data) {
-
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                Swal.fire("Cancelled", "Pastikan username dan password and benar", "error");
-
-                HideLoading();
-            }
-        });
+        })
     }
 </script>

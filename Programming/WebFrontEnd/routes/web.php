@@ -149,7 +149,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('AdvanceListData', 'Advance\AdvanceRequestController@AdvanceListData')->name('AdvanceRequest.AdvanceListData');
     Route::get('ReportAdvanceSummary', 'Advance\AdvanceRequestController@ReportAdvanceSummary')->name('AdvanceRequest.ReportAdvanceSummary');
     Route::post('ReportAdvanceSummaryStore', 'Advance\AdvanceRequestController@ReportAdvanceSummaryStore')->name('AdvanceRequest.ReportAdvanceSummaryStore');
-    Route::get('ReportAdvanceSummaryDetail/{id}', 'Advance\AdvanceRequestController@ReportAdvanceSummaryDetail')->name('AdvanceRequest.ReportAdvanceSummaryDetail');
+    Route::get('ReportAdvanceSummaryDetailID/{id}', 'Advance\AdvanceRequestController@ReportAdvanceSummaryDetailID')->name('AdvanceRequest.ReportAdvanceSummaryDetailID');
+    Route::get('ReportAdvanceSummaryDetail', 'Advance\AdvanceRequestController@ReportAdvanceSummaryDetail')->name('AdvanceRequest.ReportAdvanceSummaryDetail');
+    Route::post('ReportAdvanceSummaryDetailStore', 'Advance\AdvanceRequestController@ReportAdvanceSummaryDetailStore')->name('AdvanceRequest.ReportAdvanceSummaryDetailStore');
     Route::post('RevisionAdvance', 'Advance\AdvanceRequestController@RevisionAdvanceIndex')->name('AdvanceRequest.RevisionAdvance');
     Route::post('PrintExportReportAdvanceSummary', 'Advance\AdvanceRequestController@PrintExportReportAdvanceSummary')->name('AdvanceRequest.PrintExportReportAdvanceSummary');
     Route::resource('AdvanceRequest', 'Advance\AdvanceRequestController');

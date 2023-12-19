@@ -1,4 +1,4 @@
-<div class="col-12 ShowDocument">
+<div class="col-12 DocumentWorkflow">
     <div class="card">
         <div class="card-header">
             <label class="card-title">

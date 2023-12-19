@@ -107,6 +107,8 @@
 
                 var no = 1;
                 var keys = 0;
+                var TotalIdr = 0;
+                var TotalOtherCyrrency = 0;
 
                 $.ajax({
                     url: action,
@@ -126,23 +128,38 @@
                                 BeneficiaryWorkerName = val.BeneficiaryWorkerName;
                             }
 
+                            var TotalAdvance = 0;
+                            var OtherCurrency = 0;
+
+                            if (val.CurrencyName == "IDR") {
+                                TotalAdvance = val.TotalAdvance;
+                            } else {
+                                OtherCurrency = val.TotalAdvance;
+                            }
+
+                            TotalIdr += +TotalAdvance;
+                            TotalOtherCyrrency += +OtherCurrency;
+
                             const date = dateFns.format(
                                 dateFns.parse(val.DocumentDateTimeTZ, "yyyy-MM-dd hh:mm:ss"),
                                 'DD-MM-YYYY');
 
-
                             keys += 1;
+
                             t.row.add([
                                 '<tbody><tr><td>' + no++ + '</td>',
-                                '<td><a href="ReportAdvanceSummaryDetail/' + +val.Sys_ID + '">' + val.DocumentNumber + '</a></td>',
+                                '<td><a href="ReportAdvanceSummaryDetailID/' + +val.Sys_ID + '">' + val.DocumentNumber + '</a></td>',
                                 '<td>' + date + '</td>',
-                                '<td>' + val.CurrencyName + '</td>',
-                                '<td>' + currencyTotal(val.TotalAdvance) + '</td>',
+                                '<td>' + currencyTotal(TotalAdvance) + '</td>',
+                                '<td>' + currencyTotal(OtherCurrency) + '</td>',
                                 '<td>' + BeneficiaryWorkerName + '</td>',
-                                '<td>' + val.remark + '</td></tr></tbody>'
+                                '<td>' + val.remark.charAt(0).toUpperCase() + val.remark.slice(1) + '</td></tr></tbody>'
                             ]).draw();
 
                         });
+
+                        $('#TotalIdr').html(currencyTotal(TotalIdr));
+                        $('#TotalOtherCyrrency').html(currencyTotal(TotalOtherCyrrency));
 
                         HideLoading();
                     },

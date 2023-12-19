@@ -15,9 +15,11 @@ class ApprovalDocumentController extends Controller
     {
         $businessDocument_ID = (int)$request->input('businessDocument_ID');
         $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
+        $remarks = $request->input('comment');
+
 
         $varAPIWebToken = Session::get('SessionLogin');
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        $varDataApprovalAcceptation = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'userAction.documentWorkFlow.approvalStage.setUserApprovalAcceptation',
@@ -25,10 +27,33 @@ class ApprovalDocumentController extends Controller
             [
                 'entities' => [
                     "businessDocument_RefID" => (int) $businessDocument_ID,
-                    "remarks" => "test",
+                    "remarks" => $remarks,
                     "approverEntity_RefID" => (int) $SessionWorkerCareerInternal_RefID
                 ]
             ]
         );
+
+        $varDataNextApprover = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'userAction.documentWorkFlow.approvalStage.getCurrentAndNextStage',
+            'latest',
+            [
+                'parameter' => [
+                    'businessDocument_RefID' => (int) $businessDocument_ID
+                ]
+            ]
+        );
+        $nextApprover = $varDataNextApprover['data'][0]['nextApproverEntity_RefID'];
+
+        $compact = [
+            "status" => $varDataApprovalAcceptation['metadata']['HTTPStatusCode'],
+        ];
+
+        //RESET REDIS SHOW DOCUMENT APPROVAL
+        $this->FunctionResetRedisDocumentCurrentApproval($SessionWorkerCareerInternal_RefID);
+        $this->FunctionResetRedisDocumentNextApproval($nextApprover);
+
+        return response()->json($compact);
     }
 }

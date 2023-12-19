@@ -18,6 +18,7 @@ class CheckDocumentController extends Controller
             'var' => 0,
             'businessDocument_RefID' => "",
             'businessDocumentNumber' => "",
+            'sourceData' => 0,
 
         ];
 
@@ -49,19 +50,29 @@ class CheckDocumentController extends Controller
             true
         );
 
-        $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
-        $nextApprover = $varData[0]['document']['content']['general']['workFlow']['historyList'][0]['NextApproverEntity_RefID'];
-        $businessDocument_ID = $varData[0]['document']['content']['general']['businessDocument']['businessDocumentList']['recordID'];
+        // dd($varData);
 
+        $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
         $statusApprover = "No";
-        if($SessionWorkerCareerInternal_RefID == $nextApprover){
-            $statusApprover = "Yes";
+        $nextApprover = 0;
+        $prevApprover = 0;
+        $businessDocument_ID = 0;
+        if (count($varData) != 0) {
+            $prevApprover = $varData[0]['document']['content']['general']['workFlow']['historyList'][0]['CurrentApproverEntity_RefID'];
+            $nextApprover = $varData[0]['document']['content']['general']['workFlow']['historyList'][0]['NextApproverEntity_RefID'];
+            $businessDocument_ID = $varData[0]['document']['content']['general']['businessDocument']['businessDocumentList']['recordID'];
+
+            if ($SessionWorkerCareerInternal_RefID == $nextApprover) {
+                $statusApprover = "Yes";
+            }
         }
 
         $compact = [
             'data' => $varData,
             'statusApprover' => $statusApprover,
-            'businessDocument_ID' => $businessDocument_ID
+            'businessDocument_ID' => $businessDocument_ID,
+            'prevApprover' => $prevApprover
+
         ];
 
         return $compact;
@@ -96,16 +107,39 @@ class CheckDocumentController extends Controller
                     false
                 );
 
-                $varDataWorkflow = json_decode(
+                $varData = json_decode(
                     \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                         "ShowCheckDocumentTypeID"
                     ),
                     true
                 );
+
+                $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
+                $statusApprover = "No";
+                $nextApprover = 0;
+                $prevApprover = 0;
+                $businessDocument_ID = 0;
+                if (count($varData) != 0) {
+                    $prevApprover = $varData[0]['document']['content']['general']['workFlow']['historyList'][0]['CurrentApproverEntity_RefID'];
+                    $nextApprover = $varData[0]['document']['content']['general']['workFlow']['historyList'][0]['NextApproverEntity_RefID'];
+                    $businessDocument_ID = $varData[0]['document']['content']['general']['businessDocument']['businessDocumentList']['recordID'];
+
+                    if ($SessionWorkerCareerInternal_RefID == $nextApprover) {
+                        $statusApprover = "Yes";
+                    }
+                }
+
+                $compact = [
+                    'data' => $varData,
+                    'statusApprover' => $statusApprover,
+                    'businessDocument_ID' => $businessDocument_ID,
+                    'prevApprover' => $prevApprover
+
+                ];
             }
 
-            if (count($varDataWorkflow) > 0) {
+            if (count($varDataWorkflow['data']) > 0) {
                 $compact = [
                     'var' => 1,
                     'dataWorkflow' => $varDataWorkflow['data'][0]['document']['content']['general']['workFlow']['historyList'],
@@ -115,6 +149,8 @@ class CheckDocumentController extends Controller
                     'businessDocumentTitle' => $varDataWorkflow['data'][0]['document']['header']['title'],
                     'statusApprover' => $varDataWorkflow['statusApprover'],
                     'businessDocument_ID' => $varDataWorkflow['businessDocument_ID'],
+                    'prevApprover' => $varDataWorkflow['prevApprover'],
+                    'sourceData' => 0,
                 ];
 
                 return view('Documents.Transactions.IndexCheckDocument', $compact);
@@ -136,7 +172,7 @@ class CheckDocumentController extends Controller
         // CALL FUNCTION SHOW DATA BY ID
         $varDataWorkflow = $this->GetAllDocumentTypeByID($varAPIWebToken, $businessDocument_RefID);
 
-        if (count($varDataWorkflow) > 0) {
+        if (count($varDataWorkflow['data']) > 0) {
             $compact = [
                 'var' => 1,
                 'dataWorkflow' => $varDataWorkflow['data'][0]['document']['content']['general']['workFlow']['historyList'],
@@ -146,6 +182,8 @@ class CheckDocumentController extends Controller
                 'businessDocumentTitle' => $varDataWorkflow['data'][0]['document']['header']['title'],
                 'statusApprover' => $varDataWorkflow['statusApprover'],
                 'businessDocument_ID' => $varDataWorkflow['businessDocument_ID'],
+                'prevApprover' => $varDataWorkflow['prevApprover'],
+                'sourceData' => 1,
             ];
             return view('Documents.Transactions.IndexCheckDocument', $compact);
         } else {
