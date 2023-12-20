@@ -3471,6 +3471,7 @@ return array(
     'Illuminate\\View\\Compilers\\Concerns\\CompilesLayouts' => $vendorDir . '/laravel/framework/src/Illuminate/View/Compilers/Concerns/CompilesLayouts.php',
     'Illuminate\\View\\Compilers\\Concerns\\CompilesLoops' => $vendorDir . '/laravel/framework/src/Illuminate/View/Compilers/Concerns/CompilesLoops.php',
     'Illuminate\\View\\Compilers\\Concerns\\CompilesRawPhp' => $vendorDir . '/laravel/framework/src/Illuminate/View/Compilers/Concerns/CompilesRawPhp.php',
+    'Illuminate\\View\\Compilers\\Concerns\\CompilesSessions' => $vendorDir . '/laravel/framework/src/Illuminate/View/Compilers/Concerns/CompilesSessions.php',
     'Illuminate\\View\\Compilers\\Concerns\\CompilesStacks' => $vendorDir . '/laravel/framework/src/Illuminate/View/Compilers/Concerns/CompilesStacks.php',
     'Illuminate\\View\\Compilers\\Concerns\\CompilesStyles' => $vendorDir . '/laravel/framework/src/Illuminate/View/Compilers/Concerns/CompilesStyles.php',
     'Illuminate\\View\\Compilers\\Concerns\\CompilesTranslations' => $vendorDir . '/laravel/framework/src/Illuminate/View/Compilers/Concerns/CompilesTranslations.php',

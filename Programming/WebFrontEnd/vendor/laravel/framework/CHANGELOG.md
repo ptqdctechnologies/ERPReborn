@@ -1,6 +1,19 @@
 # Release Notes for 10.x
 
-## [Unreleased](https://github.com/laravel/framework/compare/v10.37.1...10.x)
+## [Unreleased](https://github.com/laravel/framework/compare/v10.37.3...10.x)
+
+## [v10.37.3](https://github.com/laravel/framework/compare/v10.37.2...v10.37.3) - 2023-12-13
+
+* Flush middleware callbacks by [@taylorotwell](https://github.com/taylorotwell) in https://github.com/laravel/framework/commit/bb49a72c1a839b2b19d0fcea4e8b203a122454ef
+
+## [v10.37.2](https://github.com/laravel/framework/compare/v10.37.1...v10.37.2) - 2023-12-13
+
+* Ability to test chained job via closure by [@jasonmccreary](https://github.com/jasonmccreary) in https://github.com/laravel/framework/pull/49337
+* [10.x] Add `progress` option to `PendingBatch` by [@orkhanahmadov](https://github.com/orkhanahmadov) in https://github.com/laravel/framework/pull/49273
+* [10.x] Test Improvements by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/framework/pull/49338
+* [10.x] Avoid using `rescue()` in standalone `illuminate/database` component. by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/framework/pull/49355
+* [10.x] Exclude extension types on PostgreSQL when retrieving types by [@hafezdivandari](https://github.com/hafezdivandari) in https://github.com/laravel/framework/pull/49358
+* [10.x] Revert "[10.x] Disconnecting the database connection after testing" by [@driesvints](https://github.com/driesvints) in https://github.com/laravel/framework/pull/49361
 
 ## [v10.37.1](https://github.com/laravel/framework/compare/v10.37.0...v10.37.1) - 2023-12-12
 
