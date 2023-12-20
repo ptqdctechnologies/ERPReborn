@@ -2,8 +2,13 @@
     <div class="card">
         <div class="card-header">
             <label class="card-title">
-                @if(isset($dataWorkflow))
-                Last Status : Awaiting approval from {{ $dataWorkflow[count($dataWorkflow)-1]['NextApproverEntityName'] }}
+                Last Status : 
+                @if(isset($DataWorkflowHistory))
+                    @if($statusDocument == 0)
+                        Awaiting {{ $DataWorkflowHistory[count($DataWorkflowHistory)-1]['workFlowPathActionName'] }} from {{ $DataWorkflowHistory[count($DataWorkflowHistory)-1]['nextApproverEntityName'] }}
+                    @else
+                        Final Approved
+                    @endif
                 @endif
             </label>
         </div>
@@ -21,15 +26,15 @@
                 </thead>
                 <tbody>
 
-                    @if(isset($dataWorkflow))
+                    @if(isset($DataWorkflowHistory))
                     @php $no = 1; @endphp
-                    @foreach($dataWorkflow as $dataWorkflows)
+                    @foreach($DataWorkflowHistory as $DataWorkflowHistorys)
                     <tr>
                         <td style="border:1px solid #4B586A;color:#4B586A;">{{ $no++ }}</td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ date('D, m/d/Y H:m:s', strtotime($dataWorkflows['ApprovalDateTimeTZ'])) }}</td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['CurrentApproverEntityName'] }} ({{ $dataWorkflows['CurrentApproverEntityFullJobPositionTitle'] }})</td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['CurrentWorkFlowPathActionName'] }}</td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataWorkflows['CurrentRemarks'] }}</td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ date('D, m/d/Y H:m:s', strtotime($DataWorkflowHistorys['approvalDateTimeTZ'])) }}</td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $DataWorkflowHistorys['approverEntityName'] }} ({{ $DataWorkflowHistorys['approverEntityFullJobPositionTitle'] }})</td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $DataWorkflowHistorys['workFlowPathActionName'] }}</td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $DataWorkflowHistorys['remarks'] }}</td>
                     </tr>
                     @endforeach
                     @endif

@@ -44,15 +44,23 @@ class ApprovalDocumentController extends Controller
                 ]
             ]
         );
+
         $nextApprover = $varDataNextApprover['data'][0]['nextApproverEntity_RefID'];
+        if($nextApprover == 0){
+            $status = "Final";
+        }
+        else{
+            $status = $varDataApprovalAcceptation['metadata']['HTTPStatusCode'];
+        }
 
         $compact = [
-            "status" => $varDataApprovalAcceptation['metadata']['HTTPStatusCode'],
+            "status" => $status
         ];
 
         //RESET REDIS SHOW DOCUMENT APPROVAL
-        $this->FunctionResetRedisDocumentCurrentApproval($SessionWorkerCareerInternal_RefID);
-        $this->FunctionResetRedisDocumentNextApproval($nextApprover);
+        $this->FunctionResetRedisDocumentApproval($SessionWorkerCareerInternal_RefID);
+        $this->FunctionResetRedisDocumentApproval($nextApprover);     
+
 
         return response()->json($compact);
     }

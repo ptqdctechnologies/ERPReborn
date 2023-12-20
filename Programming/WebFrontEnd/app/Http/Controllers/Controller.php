@@ -71,7 +71,7 @@ class Controller extends BaseController
         $this->FunctionResetRedisAdvance();
 
         //RESET REDIS SHOW DOCUMENT APPROVAL
-        $this->FunctionResetRedisDocumentNextApproval($nextApprover_RefID);
+        $this->FunctionResetRedisDocumentApproval($nextApprover_RefID);
 
         return response()->json($compact);
     }
@@ -86,7 +86,7 @@ class Controller extends BaseController
         return true;
     }
 
-    public function FunctionResetRedisDocumentNextApproval($nextApprover_RefID)
+    public function FunctionResetRedisDocumentApproval($nextApprover_RefID)
     {
         Redis::del("RedisGetMyDocument" . $nextApprover_RefID);
         Redis::del("ShowMyDocumentListData" . $nextApprover_RefID);
@@ -94,19 +94,4 @@ class Controller extends BaseController
         return true;
     }
 
-    public function FunctionResetRedisDocumentCurrentApproval($SessionWorkerCareerInternal_RefID)
-    {
-        Redis::del("RedisGetMyDocument" . $SessionWorkerCareerInternal_RefID);
-        Redis::del("ShowMyDocumentListData" . $SessionWorkerCareerInternal_RefID);
-
-        return true;
-    }
-
-    public function FunctionResetRedisDocumentPrevApproval($SessionWorkerCareerInternal_RefID)
-    {
-        Redis::del("RedisGetMyDocument" . $SessionWorkerCareerInternal_RefID);
-        Redis::del("ShowMyDocumentListData" . $SessionWorkerCareerInternal_RefID);
-
-        return true;
-    }
 }

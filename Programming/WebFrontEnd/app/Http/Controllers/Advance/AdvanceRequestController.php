@@ -158,14 +158,15 @@ class AdvanceRequestController extends Controller
             true
         );
 
+        $collection = collect($DataAdvanceDetailComplex);
+        $collection = $collection->where('Sys_ID_Advance', $advance_RefID);
+
         $num = 0;
         $filteredArray = [];
-        for ($i = 0; $i < count($DataAdvanceDetailComplex); $i++) {
-            if ($DataAdvanceDetailComplex[$i]['Sys_ID_Advance'] == $advance_RefID) {
-                $filteredArray[$num] = $DataAdvanceDetailComplex[$i];
-                $num++;
-                break;
-            }
+
+        foreach ($collection as $collections) {
+            $filteredArray[$num] = $collections;
+            $num++;
         }
 
         if ($filteredArray[0]['Log_FileUpload_Pointer_RefID'] == 0) {

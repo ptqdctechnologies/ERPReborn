@@ -193,6 +193,8 @@
                 }).then((result) => {
                     if (result.value) {
 
+                        ShowLoading();
+
                         $.ajaxSetup({
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -209,7 +211,25 @@
 
                                         title: 'Successful !',
                                         type: 'success',
-                                        html: 'Document has been approved',
+                                        html: 'Document Has Been Approved',
+                                        showCloseButton: false,
+                                        showCancelButton: false,
+                                        focusConfirm: false,
+                                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                                        confirmButtonColor: '#4B586A',
+                                        confirmButtonColor: '#e9ecef',
+                                        reverseButtons: true
+                                    }).then((result) => {
+                                        if (result.value) {
+                                            window.location.href = '/MyDocument';
+                                        }
+                                    })
+                                } else if (data.status == "Final") {
+                                    swalWithBootstrapButtons.fire({
+
+                                        title: 'Successful !',
+                                        type: 'success',
+                                        html: 'Docunent Has Been Final Approved',
                                         showCloseButton: false,
                                         showCancelButton: false,
                                         focusConfirm: false,
@@ -225,8 +245,13 @@
                                 } else {
                                     Swal.fire("Error", "Data Error", "error");
                                 }
+
+                                HideLoading();
                             },
                             error: function(jqXHR, textStatus, errorThrown) {
+
+                                HideLoading();
+
                                 Swal.fire("Error", "Data Error", "error");
                             }
                         });
@@ -237,6 +262,7 @@
             } else if (
                 result.dismiss === Swal.DismissReason.cancel
             ) {
+                HideLoading();
                 ErrorNotif("Data Cancel Approved");
             }
         })
