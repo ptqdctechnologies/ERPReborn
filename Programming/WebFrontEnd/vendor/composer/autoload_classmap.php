@@ -855,6 +855,7 @@ return array(
     'App\\Http\\Controllers\\Budget\\CodeOfBudgetingController' => $baseDir . '/app/Http/Controllers/Budget/CodeOfBudgetingController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\Dashboard\\DashboardController' => $baseDir . '/app/Http/Controllers/Dashboard/DashboardController.php',
+    'App\\Http\\Controllers\\Document\\ApprovalDocumentController' => $baseDir . '/app/Http/Controllers/Document/ApprovalDocumentController.php',
     'App\\Http\\Controllers\\Document\\CheckDocumentController' => $baseDir . '/app/Http/Controllers/Document/CheckDocumentController.php',
     'App\\Http\\Controllers\\Document\\MyDocumentController' => $baseDir . '/app/Http/Controllers/Document/MyDocumentController.php',
     'App\\Http\\Controllers\\ExportExcel\\AdvanceRequest\\ExportReportAdvanceSummary' => $baseDir . '/app/Http/Controllers/ExportExcel/AdvanceRequest/ExportReportAdvanceSummary.php',

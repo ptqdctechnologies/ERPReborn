@@ -1453,6 +1453,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Http\\Controllers\\Budget\\CodeOfBudgetingController' => __DIR__ . '/../..' . '/app/Http/Controllers/Budget/CodeOfBudgetingController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\Dashboard\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/DashboardController.php',
+        'App\\Http\\Controllers\\Document\\ApprovalDocumentController' => __DIR__ . '/../..' . '/app/Http/Controllers/Document/ApprovalDocumentController.php',
         'App\\Http\\Controllers\\Document\\CheckDocumentController' => __DIR__ . '/../..' . '/app/Http/Controllers/Document/CheckDocumentController.php',
         'App\\Http\\Controllers\\Document\\MyDocumentController' => __DIR__ . '/../..' . '/app/Http/Controllers/Document/MyDocumentController.php',
         'App\\Http\\Controllers\\ExportExcel\\AdvanceRequest\\ExportReportAdvanceSummary' => __DIR__ . '/../..' . '/app/Http/Controllers/ExportExcel/AdvanceRequest/ExportReportAdvanceSummary.php',

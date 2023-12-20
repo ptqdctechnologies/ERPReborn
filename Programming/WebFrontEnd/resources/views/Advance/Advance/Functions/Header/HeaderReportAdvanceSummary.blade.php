@@ -4,7 +4,7 @@
       @csrf
       <div class="card-body">
         <div class="row">
-          <div class="col-md-2">
+          <div class="col-md-3">
             <div class="form-group">
               <table>
                 <tr>
@@ -24,7 +24,7 @@
               </table>
             </div>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-4">
             <div class="form-group">
               <table>
                 <tr>
@@ -64,7 +64,7 @@
               </table>
             </div>
           </div> -->
-          <div class="col-md-3">
+          <!-- <div class="col-md-3">
             <div class="form-group">
               <table>
                 <tr>
@@ -83,7 +83,7 @@
                 </tr>
               </table>
             </div>
-          </div>
+          </div> -->
           <div class="col-md-3">
             <div class="form-group">
               <table>

@@ -78,11 +78,19 @@
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
-                                        @if(in_array("Module.Finance.AdvanceSettlement.Transaction.Create", $privilageMenu, TRUE))
+                                        @if(in_array("Module.Finance.Advance.Report.DataList.AllDocuments", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceRequest.ReportAdvanceSummary') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Advance Summary</label>
+                                            </a>
+                                        </li>
+                                        @endif
+                                        @if(in_array("Module.Finance.Advance.Report.DataList.AllDocuments", $privilageMenu, TRUE))
+                                        <li class="nav-item">
+                                            <a href="{{ route('AdvanceRequest.ReportAdvanceSummaryDetail') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
+                                                <label>Advance Summary Detail</label>
                                             </a>
                                         </li>
                                         @endif
