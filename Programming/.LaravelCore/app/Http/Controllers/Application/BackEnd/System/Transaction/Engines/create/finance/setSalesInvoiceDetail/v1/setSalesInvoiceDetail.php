@@ -42,8 +42,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-11-22                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2023-12-13                                                                                           |
         | ▪ Creation Date   : 2023-11-22                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -77,6 +77,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                             $varData['entities']['productUnitPriceCurrency_RefID'],
                             $varData['entities']['productUnitPriceCurrencyValue'],
                             $varData['entities']['productUnitPriceCurrencyExchangeRate'],
+                            $varData['entities']['productUnitPriceDiscountCurrency_RefID'],
+                            $varData['entities']['productUnitPriceDiscountCurrencyValue'],
+                            $varData['entities']['productUnitPriceDiscountCurrencyExchangeRate'],
                             $varData['entities']['remarks'],
 
                             (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'additionalData', $varData['entities']) ? ((!is_null($varData['entities']['additionalData'])) ? $varData['entities']['additionalData'] : []) : [])

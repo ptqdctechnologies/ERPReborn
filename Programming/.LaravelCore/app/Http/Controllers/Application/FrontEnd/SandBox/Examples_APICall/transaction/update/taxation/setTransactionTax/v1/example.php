@@ -40,6 +40,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 [
                 'recordID' => 184000000000001,
                 'entities' => [
+                    "taxBaseCurrency_RefID" => 62000000000001,
+                    "taxBaseCurrencyValue" => 30000,
+                    "taxBaseCurrencyExchangeRate" => 1,
+                    "remarks" => 'Catatan 1',
                     "additionalData" => [
                         "itemList" => [
                             "items" => [

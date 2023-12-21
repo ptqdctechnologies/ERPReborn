@@ -79,6 +79,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                             $varData['entities']['preferredPaymentMethod_RefID'],
                             $varData['entities']['preferredBankAccount_RefID'],
                             $varData['entities']['receivedDateTimeTZ'],
+                            $varData['entities']['amountRoundOff'],
                             $varData['entities']['remarks'],
 
                             (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'additionalData', $varData['entities']) ? $varData['entities']['additionalData'] : [])

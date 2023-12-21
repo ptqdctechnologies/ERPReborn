@@ -58,6 +58,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
         |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► File Attachments Reference ID                                          |
         |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Worker Jobs Position Reference ID                       |
+        |      ▪ (float)  varAmountRoundOff ► Amount Round Off                                                                     |
         |      ▪ (string) varTermAndConditions ► Term And Conditions                                                               |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
@@ -69,7 +70,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varTermAndConditions = null, string $varRemarks = null,
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, float $varAmountRoundOff = null, string $varTermAndConditions = null, string $varRemarks = null,
             array $varAdditionalData = [])
             {
             $varReturn = 
@@ -89,6 +90,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varDocumentDateTimeTZ, 'timestamptz'],
                             [$varLog_FileUpload_Pointer_RefID, 'bigint'],
                             [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
+                            [$varAmountRoundOff, 'numeric'],
                             [$varTermAndConditions, 'varchar'],
                             [$varRemarks, 'varchar'],
 
@@ -120,6 +122,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
         |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► File Attachments Reference ID                                          |
         |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Worker Jobs Position Reference ID                       |
+        |      ▪ (float)  varAmountRoundOff ► Amount Round Off                                                                     |
         |      ▪ (string) varTermAndConditions ► Term And Conditions                                                               |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
@@ -131,32 +134,34 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varTermAndConditions = null, string $varRemarks = null,
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, float $varAmountRoundOff = null, string $varTermAndConditions = null, string $varRemarks = null,
             array $varAdditionalData = [])
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varSysID, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varSysID, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [$varDocumentDateTimeTZ, 'timestamptz'],
-                        [$varLog_FileUpload_Pointer_RefID, 'bigint'],
-                        [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
-                        [$varTermAndConditions, 'varchar'],
-                        [$varRemarks, 'varchar'],
+                            [$varDocumentDateTimeTZ, 'timestamptz'],
+                            [$varLog_FileUpload_Pointer_RefID, 'bigint'],
+                            [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
+                            [$varAmountRoundOff, 'numeric'],
+                            [$varTermAndConditions, 'varchar'],
+                            [$varRemarks, 'varchar'],
 
-                        [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
-                    ]
-                    )
-                );
+                            [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0];
             }
         }

@@ -43,8 +43,8 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-03-16                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2023-12-15                                                                                           |
         | ▪ Creation Date   : 2022-03-16                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -55,6 +55,10 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
+        |      ▪ (int)    varTaxBaseCurrency_RefID ► Tax Base Currency Reference ID                                                |
+        |      ▪ (float)  varTaxBaseCurrencyValue ► Tax Base Currency Value                                                        |
+        |      ▪ (float)  varTaxBaseCurrencyExchangeRate ► Tax Base Currency Exchange Rate                                         |
+        |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
@@ -64,6 +68,7 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
+            int $varTaxBaseCurrency_RefID = null, float $varTaxBaseCurrencyValue = null, float $varTaxBaseCurrencyExchangeRate = null, string $varRemarks = null, 
             array $varAdditionalData = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -79,6 +84,11 @@ namespace App\Models\Database\SchData_OLTP_Taxation
                         [$varSysBranch_RefID, 'bigint'],
                         [$varSysBaseCurrency_RefID, 'bigint'],
 
+                        [$varTaxBaseCurrency_RefID, 'bigint'],
+                        [$varTaxBaseCurrencyValue, 'numeric'],
+                        [$varTaxBaseCurrencyExchangeRate, 'numeric'],
+                        [$varRemarks, 'varchar'],
+
                         [\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData), 'json']
                     ]
                    )
@@ -91,8 +101,8 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-03-16                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2023-12-15                                                                                           |
         | ▪ Creation Date   : 2022-03-16                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -104,6 +114,10 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
+        |      ▪ (int)    varTaxBaseCurrency_RefID ► Tax Base Currency Reference ID                                                |
+        |      ▪ (float)  varTaxBaseCurrencyValue ► Tax Base Currency Value                                                        |
+        |      ▪ (float)  varTaxBaseCurrencyExchangeRate ► Tax Base Currency Exchange Rate                                         |
+        |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
@@ -113,6 +127,7 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
+            int $varTaxBaseCurrency_RefID = null, float $varTaxBaseCurrencyValue = null, float $varTaxBaseCurrencyExchangeRate = null, string $varRemarks = null, 
             array $varAdditionalData = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -127,7 +142,12 @@ namespace App\Models\Database\SchData_OLTP_Taxation
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranch_RefID, 'bigint'],
                         [$varSysBaseCurrency_RefID, 'bigint'],
-                                                
+
+                        [$varTaxBaseCurrency_RefID, 'bigint'],
+                        [$varTaxBaseCurrencyValue, 'numeric'],
+                        [$varTaxBaseCurrencyExchangeRate, 'numeric'],
+                        [$varRemarks, 'varchar'],
+
                         [\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData), 'json']
                     ],
                     )

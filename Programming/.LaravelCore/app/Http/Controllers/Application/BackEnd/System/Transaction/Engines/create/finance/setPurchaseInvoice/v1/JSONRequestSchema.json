@@ -86,6 +86,9 @@
                         "minLength": 10,
                         "maxLength": 30
                         },
+                    "amountRoundOff": {
+                        "type": [ "number", "null" ]
+                        },
                     "remarks": {
                         "type": [ "string", "null" ],
                         "minLength": 1,
@@ -127,16 +130,29 @@
                                                                     "minimum": 1,
                                                                     "maximum": 9223372036854775807
                                                                     },
-                                                                "priceCurrency_RefID": {
+                                                                "productUnitPriceCurrency_RefID": {
                                                                     "type": [ "integer", "null" ],
                                                                     "minimum": 1,
                                                                     "maximum": 9223372036854775807
                                                                     },
-                                                                "priceCurrencyValue": {
+                                                                "productUnitPriceCurrencyValue": {
                                                                     "type": [ "number", "null" ],
                                                                     "minimum": 0
                                                                     },
-                                                                "priceCurrencyExchangeRate": {
+                                                                "productUnitPriceCurrencyExchangeRate": {
+                                                                    "type": [ "number", "null" ],
+                                                                    "minimum": 0
+                                                                    },
+                                                                "productUnitPriceDiscountCurrency_RefID": {
+                                                                    "type": [ "integer", "null" ],
+                                                                    "minimum": 1,
+                                                                    "maximum": 9223372036854775807
+                                                                    },
+                                                                "productUnitPriceDiscountCurrencyValue": {
+                                                                    "type": [ "number", "null" ],
+                                                                    "minimum": 0
+                                                                    },
+                                                                "productUnitPriceDiscountCurrencyExchangeRate": {
                                                                     "type": [ "number", "null" ],
                                                                     "minimum": 0
                                                                     },
@@ -151,9 +167,12 @@
                                                                 "product_RefID", 
                                                                 "quantity", 
                                                                 "quantityUnit_RefID", 
-                                                                "priceCurrency_RefID", 
-                                                                "priceCurrencyValue", 
-                                                                "priceCurrencyExchangeRate", 
+                                                                "productUnitPriceCurrency_RefID",
+                                                                "productUnitPriceCurrencyValue",
+                                                                "productUnitPriceCurrencyExchangeRate",
+                                                                "productUnitPriceDiscountCurrency_RefID",
+                                                                "productUnitPriceDiscountCurrencyValue",
+                                                                "productUnitPriceDiscountCurrencyExchangeRate",
                                                                 "remarks" 
                                                                 ]
                                                              }
@@ -168,7 +187,7 @@
                                             "items"
                                             ]
                                         },
-                                    
+
                                     "transactionTaxItemList": {
                                         "type": "object",
                                         "properties": {
@@ -223,7 +242,7 @@
                                             "items"
                                             ]
                                         },
-                                    
+
                                     "additionalCostItemList": {
                                         "type": "object",
                                         "properties": {
@@ -298,6 +317,7 @@
                     "preferredPaymentMethod_RefID",
                     "preferredBankAccount_RefID",
                     "receivedDateTimeTZ",
+                    "amountRoundOff",
                     "remarks" 
                     ]
                 }

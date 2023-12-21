@@ -86,6 +86,9 @@
                         "minLength": 10,
                         "maxLength": 30
                         },
+                    "amountRoundOff": {
+                        "type": [ "number", "null" ]
+                        },
                     "remarks": {
                         "type": [ "string", "null" ],
                         "minLength": 1,
@@ -174,14 +177,20 @@
                                                                 ]
                                                              }
                                                         },
-                                                    "required": [ "entities" ]
+                                                    "required": [
+                                                        "entities"
+                                                        ]
                                                     }
                                                 }
                                             },
-                                        "required": [ "items" ]
+                                        "required": [
+                                            "items"
+                                            ]
                                         }
                                     },
-                                "required": [ "itemList" ]
+                                "required": [
+                                    "itemList"
+                                    ]
                                 }
                             ]
                         }
@@ -196,12 +205,19 @@
                     "preferredPaymentMethod_RefID",
                     "preferredBankAccount_RefID",
                     "receivedDateTimeTZ",
+                    "amountRoundOff",
                     "remarks" 
                     ]
                 }
             },
-        "required": [ "recordID", "entities" ]
+        "required": [
+            "recordID",
+            "entities"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }

@@ -62,12 +62,17 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_Taxation\TblTransactionTax())->setDataInsert(
+                        if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_Taxation\TblTransactionTax())->setDataInsert(
                             $varUserSession, 
                             null, 
                             null,
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                             \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
+
+                            $varData['entities']['taxBaseCurrency_RefID'],
+                            $varData['entities']['taxBaseCurrencyValue'],
+                            $varData['entities']['taxBaseCurrencyExchangeRate'],
+                            $varData['entities']['remarks'],
 
                             (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'additionalData', $varData['entities']) ? $varData['entities']['additionalData'] : [])
                             ))))
