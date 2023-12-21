@@ -26,7 +26,7 @@
       <div class="card" style="position:relative;bottom:10px;">
         <form method="post" enctype="multipart/form-data" action="{{ route('SelectWorkFlow') }}" id="formSubmitArf">
           @csrf
-          <input type="hidden" name="DocumentTypeID" value="{{ $DocumentTypeID }}">
+          <input type="hidden" name="DocumentTypeID" value="{{ $DocumentTypeID }}" id="DocumentTypeID">
           <div class="tab-content p-3" id="nav-tabContent">
             <div class="row">
               <div class="col-12">

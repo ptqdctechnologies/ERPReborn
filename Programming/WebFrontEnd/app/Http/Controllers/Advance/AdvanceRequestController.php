@@ -21,9 +21,8 @@ class AdvanceRequestController extends Controller
     // INDEX FUNCTION
     public function index(Request $request)
     {
-        // dd(Redis::keys("*"));
-        $varAPIWebToken = Session::get('SessionLogin');
 
+        $varAPIWebToken = Session::get('SessionLogin');
         $DocumentType = json_decode(
             \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -33,7 +32,7 @@ class AdvanceRequestController extends Controller
         );
         $collection = collect($DocumentType);
         $collection = $collection->where('Name', "Advance Form");
-        foreach($collection->all() as $collections){
+        foreach ($collection->all() as $collections) {
             $DocumentTypeID = $collections['Sys_ID'];
         }
 
@@ -163,11 +162,11 @@ class AdvanceRequestController extends Controller
             $dataDetailFileAttachment = $filteredArray[0]['Log_FileUpload_Pointer_RefID'];
         }
 
-        for($i = 0; $i < count($filteredArray); $i++){
+        for ($i = 0; $i < count($filteredArray); $i++) {
             unset($filteredArray[$i]['FileAttachment']);
             unset($filteredArray[$i]['FileAttachment']);
         }
-        
+
         $compact = [
             'dataHeader' => $filteredArray[0],
             'dataDetail' => $filteredArray,

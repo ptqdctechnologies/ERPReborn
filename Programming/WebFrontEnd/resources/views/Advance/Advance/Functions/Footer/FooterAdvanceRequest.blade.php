@@ -42,29 +42,51 @@
         $("#project_code_detail").val(name);
         $("#site_code_popup").prop("disabled", false);
 
+
+        var documentTypeID = $("#DocumentTypeID").val();
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
 
-        var keys = 0;
         $.ajax({
             type: 'GET',
-            url: '{!! route("getSite") !!}?project_code=' + sys_id,
+            url: '{!! route("CheckingWorkflow") !!}?combinedBudget_RefID=' + sys_id + '&documentTypeID=' + documentTypeID,
             success: function(data) {
+                console.log(data);
 
-                var no = 1;
-                var t = $('#tableGetSite').DataTable();
-                t.clear();
-                $.each(data, function(key, val) {
-                    keys += 1;
-                    t.row.add([
-                        '<tbody><tr><input id="sys_id_site' + keys + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
-                        '<td>' + val.Code + '</td>',
-                        '<td>' + val.Name + '</td></tr></tbody>'
-                    ]).draw();
-                });
+                if (data == "200") {
+
+                    var keys = 0;
+                    $.ajax({
+                        type: 'GET',
+                        url: '{!! route("getSite") !!}?project_code=' + sys_id,
+                        success: function(data) {
+
+                            var no = 1;
+                            var t = $('#tableGetSite').DataTable();
+                            t.clear();
+                            $.each(data, function(key, val) {
+                                keys += 1;
+                                t.row.add([
+                                    '<tbody><tr><input id="sys_id_site' + keys + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
+                                    '<td>' + val.Code + '</td>',
+                                    '<td>' + val.Name + '</td></tr></tbody>'
+                                ]).draw();
+                            });
+                        }
+                    });
+
+                } else {
+                    $("#project_code").val("");
+                    $("#project_code_detail").val("");
+                    Swal.fire("Error", "User Has Not Workflow", "error");
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                Swal.fire("Error", "Data Error", "error");
             }
         });
     });

@@ -25,7 +25,7 @@ class Controller extends BaseController
         }
 
         $DocumentTypeID = $dataInput['DocumentTypeID'];
-        
+
         Session::put('dataInput' . $DocumentTypeID, $dataInput);
 
         $VarSelectWorkFlow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
@@ -121,5 +121,31 @@ class Controller extends BaseController
         Redis::del("ShowMyDocumentListData" . $nextApprover_RefID);
 
         return true;
+    }
+
+    public function CheckingWorkflow(Request $request)
+    {
+        $varAPIWebToken = Session::get('SessionLogin');
+        $documentTypeID = $request->documentTypeID;
+        $combinedBudget_RefID = $request->combinedBudget_RefID;
+        
+        $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
+
+        $VarSelectWorkFlow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'userAction.documentWorkFlow.general.getBusinessDocumentTypeWorkFlowPathBySubmitterEntityIDAndCombinedBudgetID',
+            'latest',
+            [
+                'parameter' => [
+                    'businessDocumentType_RefID' => (int)$documentTypeID,
+                    'submitterEntity_RefID' => (int)$SessionWorkerCareerInternal_RefID,
+                    'combinedBudget_RefID' => (int)$combinedBudget_RefID
+                ]
+            ],
+            false
+        );
+
+        return response()->json($VarSelectWorkFlow['metadata']['HTTPStatusCode']);
     }
 }
