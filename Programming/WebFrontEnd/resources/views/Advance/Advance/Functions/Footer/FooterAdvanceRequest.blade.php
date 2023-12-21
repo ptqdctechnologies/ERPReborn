@@ -486,12 +486,6 @@
 
                     if (result.value) {
 
-                        var fileAttachment = $("#dataInput_Log_FileUpload_Pointer_RefID_Action").val();
-                        if (fileAttachment) {
-                            varFileUpload_UniqueID = "Upload";
-                            window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
-                        }
-
                         var action = $(this).attr("action"); //get submit action from form
                         var method = $(this).attr("method"); // get submit method
                         var form_data = new FormData($(this)[0]); // convert form into formdata 
@@ -518,7 +512,7 @@
                                     t.clear();
                                     $.each(response.data, function(key, val) {
                                         t.row.add([
-                                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.sys_ID + '\', \'' + val.nextApprover_RefID + '\', \'' + response.businessDocument_RefID + '\', \'' + response.documentNumber + '\', \'' + response.approverEntity_RefID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.sys_ID + '\', \'' + val.nextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
                                             '<td style="border:1px solid #e9ecef;">' + val.fullApproverPath + '</td></tr></tbody>'
                                         ]).draw();
                                     });
@@ -527,7 +521,7 @@
 
                                     HideLoading();
 
-                                    SelectWorkFlow(response.workFlowPath_RefID, response.nextApprover_RefID, response.businessDocument_RefID, response.documentNumber, response.approverEntity_RefID);
+                                    SelectWorkFlow(response.workFlowPath_RefID, response.nextApprover_RefID, response.approverEntity_RefID, response.documentTypeID);
 
                                 }
                             },
@@ -557,7 +551,7 @@
 </script>
 
 <script>
-    function SelectWorkFlow(workFlowPath_RefID, nextApprover_RefID, businessDocument_RefID, documentNumber, approverEntity_RefID) {
+    function SelectWorkFlow(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, documentTypeID) {
 
         const swalWithBootstrapButtons = Swal.mixin({
             confirmButtonClass: 'btn btn-success btn-sm',
@@ -581,6 +575,16 @@
         }).then((result) => {
             if (result.value) {
 
+                var fileAttachment = null;
+                var file = $("#dataInput_Log_FileUpload_Pointer_RefID_Action").val();
+                console.log(file);
+                if (file) {
+                    varFileUpload_UniqueID = "Upload";
+                    window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
+
+                    var fileAttachment = $("#dataInput_Log_FileUpload_Pointer_RefID").val();
+                }
+
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -588,8 +592,8 @@
                 });
 
                 $.ajax({
-                    type: 'GET',
-                    url: '{!! route("StoreWorkFlow") !!}?workFlowPath_RefID=' + workFlowPath_RefID + '&nextApprover_RefID=' + nextApprover_RefID + '&businessDocument_RefID=' + businessDocument_RefID + '&documentNumber=' + documentNumber + '&approverEntity_RefID=' + approverEntity_RefID + '&comment=' + result.value,
+                    type: 'POST',
+                    url: '{!! route("AdvanceRequest.store") !!}?workFlowPath_RefID=' + workFlowPath_RefID + '&nextApprover_RefID=' + nextApprover_RefID + '&approverEntity_RefID=' + approverEntity_RefID + '&fileAttachment=' + fileAttachment + '&documentTypeID=' + documentTypeID + '&comment=' + result.value,
                     success: function(data) {
 
                         HideLoading();

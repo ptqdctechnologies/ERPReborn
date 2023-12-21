@@ -13,15 +13,15 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-12">
-                    @if(isset($DataWorkflowHistory))
-                    @foreach($DataWorkflowHistory as $DataWorkflowHistorys)
-                    <ul>
-                        <li>
-                            <span style="text-transform:uppercase;font-weight:bold;">{{ $DataWorkflowHistorys['workFlowPathActionName'] }}</span> {{ date('D, m/d/Y H:m:s', strtotime($DataWorkflowHistorys['approvalDateTimeTZ'])) }} : {{ $DataWorkflowHistorys['approverEntityName'] }} ({{ $DataWorkflowHistorys['approverEntityFullJobPositionTitle'] }}) <br>
-                            Comment : {{ $DataWorkflowHistorys['remarks'] }}
-                        </li>
-                    </ul>
-                    @endforeach
+                    @if($DataWorkflowHistory['metadata']['HTTPStatusCode'] == 200)
+                        @foreach($DataWorkflowHistory['data'] as $DataWorkflowHistorys)
+                        <ul>
+                            <li>
+                                <span style="text-transform:uppercase;font-weight:bold;">{{ $DataWorkflowHistorys['workFlowPathActionName'] }}</span> {{ date('D, m/d/Y H:m:s', strtotime($DataWorkflowHistorys['approvalDateTimeTZ'])) }} : {{ $DataWorkflowHistorys['approverEntityName'] }} ({{ $DataWorkflowHistorys['approverEntityFullJobPositionTitle'] }}) <br>
+                                Comment : {{ $DataWorkflowHistorys['remarks'] }}
+                            </li>
+                        </ul>
+                        @endforeach
                     @endif
                 </div>
             </div>

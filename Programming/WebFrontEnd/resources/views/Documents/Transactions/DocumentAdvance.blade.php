@@ -38,15 +38,16 @@
               <tr>
                 <td style="padding-top: 5px;"><label>File Attachment</label></td>
                 <td>:</td>
-                <td></td>
-
-                <!-- /*@if(isset($dataHeader['content']['general']['attachmentFiles']['main']['itemList']))
+                @if(isset($dataDetail))
                 <td>
-                  @foreach($dataHeader['content']['general']['attachmentFiles']['main']['itemList'] as $data_file)
-                  <a href="{{ $data_file['entities']['downloadURL'] }}" title="Download Attachment">- {{ $data_file['entities']['name'] }} </a> <br>
-                  @endforeach
+                  @php $tamp = json_decode($dataDetail[0]['FileAttachment'], true); @endphp
+                  @if(isset($tamp['data']))
+                    @for($i=0; $i< count($tamp['data']); $i++)
+                      <a href="{{ $tamp['data'][$i]['downloadURL'] }}" title="Download Attachment">- {{ $tamp['data'][$i]['name'] }} </a> <br>
+                    @endfor
+                  @endif
                 </td>
-                @endif*/ -->
+                @endif
               </tr>
             </table>
           </div>

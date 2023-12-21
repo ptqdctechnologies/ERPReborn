@@ -13,6 +13,8 @@
     var TotalPayment = 0;
     var dataDetail = $.parseJSON('<?= json_encode($dataDetail) ?>');
 
+    console.log(dataDetail);
+
     dataDetail.forEach((dataDetails, key) => {
 
         TotalBudgetList += +(dataDetails['PriceBaseCurrencyValue']);

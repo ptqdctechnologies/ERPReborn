@@ -19,6 +19,7 @@ class CheckDocumentController extends Controller
             'businessDocument_RefID' => "",
             'businessDocumentNumber' => "",
             'sourceData' => 0,
+            'submitter_ID' => 0,
             'statusDocument' => 0
 
         ];
@@ -80,13 +81,14 @@ class CheckDocumentController extends Controller
         $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
         $statusApprover = "No";
         $nextApprover = 0;
-        $prevApprover = 0;
+        $submitter_ID = 0;
         $businessDocument_ID = 0;
         $statusDocument = 0;
         $DataWorkflowHistory = [];
 
         if (count($filteredArray) != 0) {
             $businessDocument_ID = $filteredArray[0]['BusinessDocument_RefID'];
+
             $DataWorkflowHistory = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
@@ -96,29 +98,39 @@ class CheckDocumentController extends Controller
                 'parameter' => [
                     'businessDocument_RefID' => (int) $businessDocument_ID
                     ]
-                ]
+                ],
+                false
             );
-            $prevApprover = $DataWorkflowHistory['data'][count($DataWorkflowHistory['data']) - 1]['approverEntity_RefID'];
-            $nextApprover = $DataWorkflowHistory['data'][count($DataWorkflowHistory['data']) - 1]['nextApproverEntity_RefID'];
+
+            if($DataWorkflowHistory['metadata']['HTTPStatusCode'] == 200){
+                $submitter_ID = $DataWorkflowHistory['data'][0]['approverEntity_RefID'];
+                $nextApprover = $DataWorkflowHistory['data'][count($DataWorkflowHistory['data']) - 1]['nextApproverEntity_RefID'];
+                $cek = 0;
+            }
+            else{
+                $cek = 1;
+            }
 
             if ($SessionWorkerCareerInternal_RefID == $nextApprover) {
                 $statusApprover = "Yes";
             }
-            if($nextApprover == 0){
+            if($nextApprover == 0 && $cek == 0){
                 $statusDocument = 1;
+            }
+            else if($nextApprover == 0 && $cek == 1){
+                $statusDocument = 2;
             }
         }
 
-        // dd($filteredArray);
         $compact = [
             'dataHeader' => $filteredArray[0],
             'dataDetail' => $filteredArray,
             'businessDocument_RefID' => $filteredArray[0]['Sys_ID_Advance'],
             'businessDocumentNumber' => $filteredArray[0]['DocumentNumber'],
-            'DataWorkflowHistory' => $DataWorkflowHistory['data'],
+            'DataWorkflowHistory' => $DataWorkflowHistory,
             'statusApprover' => $statusApprover,
             'businessDocument_ID' => $businessDocument_ID,
-            'prevApprover' => $prevApprover,
+            'submitter_ID' => $submitter_ID,
             'sourceData' => $souceData,
             'var' => 1,
             'statusDocument' => $statusDocument
