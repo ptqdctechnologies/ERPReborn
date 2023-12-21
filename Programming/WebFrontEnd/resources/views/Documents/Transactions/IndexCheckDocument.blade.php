@@ -66,4 +66,5 @@
 </div>
 @include('Partials.footer')
 @include('Documents.Functions.Footer.FooterCheckDocument')
+@include('Documents.Functions.Footer.FooterApprovalDocument')
 @endsection

@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UserController;
 
-Route::resource('users', UserController::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -55,12 +54,19 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('SessionCheckingLogout', 'Auth\LoginController@SessionCheckingLogout')->name('SessionCheckingLogout');
     // Route::get('SessionCheckingEvent', 'Auth\LoginController@SessionCheckingEvent')->name('SessionCheckingEvent');
 
+    // Workflow
+    
+    Route::get('CheckingWorkflow', 'Controller@CheckingWorkflow')->name('CheckingWorkflow');
+    Route::post('SelectWorkFlow', 'Controller@SelectWorkFlow')->name('SelectWorkFlow');
+    Route::get('StoreWorkFlow', 'Controller@StoreWorkFlow')->name('StoreWorkFlow');
+
     // Dashboard
     Route::resource('dashboard', 'Dashboard\DashboardController');
 
     //Approval Document
 
     Route::get('ApprovalAccepted', 'Document\ApprovalDocumentController@ApprovalAccepted')->name('ApprovalDocument.ApprovalAccepted');
+    Route::get('ApprovalRejected', 'Document\ApprovalDocumentController@ApprovalRejected')->name('ApprovalDocument.ApprovalRejected');
 
     //Document
     Route::post('ShowDocument', 'Document\CheckDocumentController@ShowDocument')->name('CheckDocument.ShowDocument');
@@ -137,8 +143,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getDeliverTo', 'Function\FunctionController@getDeliverTo')->name('getDeliverTo');
     Route::get('getBusinessTripCostComponentEntity', 'Function\FunctionController@getBusinessTripCostComponentEntity')->name('getBusinessTripCostComponentEntity');
     Route::get('getDocumentType', 'Function\FunctionController@getDocumentType')->name('getDocumentType');
-
-    Route::get('StoreWorkFlow', 'Controller@StoreWorkFlow')->name('StoreWorkFlow');
 
     Route::get('TestApi', 'TestApiController@index')->name('TestApi');
 

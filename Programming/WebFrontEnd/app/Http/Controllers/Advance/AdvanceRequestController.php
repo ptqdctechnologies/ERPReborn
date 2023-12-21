@@ -21,8 +21,20 @@ class AdvanceRequestController extends Controller
     // INDEX FUNCTION
     public function index(Request $request)
     {
-        // dd(Redis::keys("*"));
+
         $varAPIWebToken = Session::get('SessionLogin');
+        $DocumentType = json_decode(
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "DocumentType"
+            ),
+            true
+        );
+        $collection = collect($DocumentType);
+        $collection = $collection->where('Name', "Advance Form");
+        foreach ($collection->all() as $collections) {
+            $DocumentTypeID = $collections['Sys_ID'];
+        }
 
         $var = 0;
         if (!empty($_GET['var'])) {
@@ -32,7 +44,9 @@ class AdvanceRequestController extends Controller
         $compact = [
             'var' => $var,
             'varAPIWebToken' => $varAPIWebToken,
+            'DocumentTypeID' => $DocumentTypeID,
             'statusRevisi' => 0,
+
         ];
 
         return view('Advance.Advance.Transactions.CreateAdvanceRequest', $compact);
@@ -42,90 +56,63 @@ class AdvanceRequestController extends Controller
     public function store(Request $request)
     {
         $varAPIWebToken = Session::get('SessionLogin');
-        $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
-        $input = $request->all();
-        $GetBusinessDoc = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'generalPurposes.businessDocument.getBusinessDocumentTypeIDByName',
-            'latest',
-            [
-                'parameter' => [
-                    'name' => 'Advance Form'
+
+        $documentTypeID = $request->documentTypeID;
+        $input = Session::get('dataInput' . $documentTypeID);
+        $input['dataInput_Log_FileUpload_Pointer_RefID'] = $request->fileAttachment;
+
+        $count_product = count($input['var_product_id']);
+        $advanceDetail = [];
+        for ($n = 0; $n < $count_product; $n++) {
+            $advanceDetail[$n] = [
+                'entities' => [
+                    "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudgetSectionDetail_RefID'][$n],
+                    "product_RefID" => (int) $input['var_product_id'][$n],
+                    "quantity" => (float) $input['var_quantity'][$n],
+                    "quantityUnit_RefID" => (int) $input['var_qty_id'][$n],
+                    "productUnitPriceCurrency_RefID" => (int) $input['var_currency_id'][$n],
+                    "productUnitPriceCurrencyValue" => (float) $input['var_price'][$n],
+                    "productUnitPriceCurrencyExchangeRate" => 1,
+                    "remarks" => 'Catatan Detail'
                 ]
-            ]
-        );
-
-        $VarSelectWorkFlow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'userAction.documentWorkFlow.general.getBusinessDocumentTypeWorkFlowPathBySubmitterEntityIDAndCombinedBudgetID',
-            'latest',
-            [
-                'parameter' => [
-                    'businessDocumentType_RefID' => (int)$GetBusinessDoc['data']['businessDocumentType_RefID'],
-                    'submitterEntity_RefID' => (int)$SessionWorkerCareerInternal_RefID,
-                    'combinedBudget_RefID' => (int)$input['var_combinedBudget_RefID']
-                ]
-            ]
-        );
-
-        if ($VarSelectWorkFlow['metadata']['HTTPStatusCode'] != "200" || count($VarSelectWorkFlow['data']) == 0) {
-
-            $compact = [
-                "message" => "WorkflowError"
             ];
-
-            return response()->json($compact);
-        } else {
-
-            $count_product = count($input['var_product_id']);
-            $advanceDetail = [];
-            for ($n = 0; $n < $count_product; $n++) {
-                $advanceDetail[$n] = [
-                    'entities' => [
-                        "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudgetSectionDetail_RefID'][$n],
-                        "product_RefID" => (int) $input['var_product_id'][$n],
-                        "quantity" => (float) $input['var_quantity'][$n],
-                        "quantityUnit_RefID" => (int) $input['var_qty_id'][$n],
-                        "productUnitPriceCurrency_RefID" => (int) $input['var_currency_id'][$n],
-                        "productUnitPriceCurrencyValue" => (float) $input['var_price'][$n],
-                        "productUnitPriceCurrencyExchangeRate" => 1,
-                        "remarks" => 'Catatan Detail'
-                    ]
-                ];
-            }
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.create.finance.setAdvance',
-                'latest',
-                [
-                    'entities' => [
-                        "documentDateTimeTZ" => $input['var_date'],
-                        "log_FileUpload_Pointer_RefID" => (int)$input['dataInput_Log_FileUpload_Pointer_RefID'],
-                        "requesterWorkerJobsPosition_RefID" => (int)$input['requester_id'],
-                        "beneficiaryWorkerJobsPosition_RefID" => (int)$input['beneficiary_id'],
-                        "beneficiaryBankAccount_RefID" => (int)$input['bank_account_id'],
-                        "internalNotes" => 'My Internal Notes',
-                        "remarks" => $input['var_remark'],
-                        "additionalData" => [
-                            "itemList" => [
-                                "items" => $advanceDetail
-                            ]
+        }
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.create.finance.setAdvance',
+            'latest',
+            [
+                'entities' => [
+                    "documentDateTimeTZ" => $input['var_date'],
+                    "log_FileUpload_Pointer_RefID" => (int)$input['dataInput_Log_FileUpload_Pointer_RefID'],
+                    "requesterWorkerJobsPosition_RefID" => (int)$input['requester_id'],
+                    "beneficiaryWorkerJobsPosition_RefID" => (int)$input['beneficiary_id'],
+                    "beneficiaryBankAccount_RefID" => (int)$input['bank_account_id'],
+                    "internalNotes" => 'My Internal Notes',
+                    "remarks" => $input['var_remark'],
+                    "additionalData" => [
+                        "itemList" => [
+                            "items" => $advanceDetail
                         ]
                     ]
                 ]
-            );
+            ]
+        );
 
-            return $this->SelectWorkFlow($varData, $SessionWorkerCareerInternal_RefID, $VarSelectWorkFlow);
-        }
+        $businessDocument_RefID = $varData['data']['businessDocument']['businessDocument_RefID'];
+        $workFlowPath_RefID = $request->workFlowPath_RefID;
+        $comment = $request->comment;
+        $approverEntity_RefID = $request->approverEntity_RefID;
+        $nextApprover_RefID = $request->nextApprover_RefID;
+        $documentNumber = $varData['data']['businessDocument']['documentNumber'];
+
+        return $this->StoreWorkFlow($businessDocument_RefID, $workFlowPath_RefID, $comment, $approverEntity_RefID, $nextApprover_RefID, $documentNumber);
     }
 
     // REVISION FUNCTION FOR SHOW LIST DATA FILTER BY ID 
     public function RevisionAdvanceIndex(Request $request)
     {
-
         $advance_RefID = $request->advance_RefID;
         $varAPIWebToken = Session::get('SessionLogin');
 
@@ -173,6 +160,11 @@ class AdvanceRequestController extends Controller
             $dataDetailFileAttachment = null;
         } else {
             $dataDetailFileAttachment = $filteredArray[0]['Log_FileUpload_Pointer_RefID'];
+        }
+
+        for ($i = 0; $i < count($filteredArray); $i++) {
+            unset($filteredArray[$i]['FileAttachment']);
+            unset($filteredArray[$i]['FileAttachment']);
         }
 
         $compact = [
@@ -365,11 +357,10 @@ class AdvanceRequestController extends Controller
 
             $totalIdr = 0;
             $otherCurrency = 0;
-            
-            if($collections['CurrencyName'] == "IDR"){
+
+            if ($collections['CurrencyName'] == "IDR") {
                 $totalIdr = $collections['TotalAdvance'];
-            }
-            else{
+            } else {
                 $otherCurrency = $collections['TotalAdvance'];
             }
 
@@ -383,10 +374,10 @@ class AdvanceRequestController extends Controller
             $varDataExcel[$i]['no'] = $i + 1;
             $varDataExcel[$i]['documentNumber'] = $collections['DocumentNumber'];
             $varDataExcel[$i]['date'] = date('d-m-Y', strtotime($collections['DocumentDateTimeTZ']));
-            $varDataExcel[$i]['totalIdr'] = number_format($totalIdr,2);
-            $varDataExcel[$i]['otherCurrency'] = number_format($otherCurrency,2);
+            $varDataExcel[$i]['totalIdr'] = number_format($totalIdr, 2);
+            $varDataExcel[$i]['otherCurrency'] = number_format($otherCurrency, 2);
             $varDataExcel[$i]['beneficiaryWorkerName'] = $collections['BeneficiaryWorkerName'];
-            $varDataExcel[$i]['remark'] = ucfirst(trans($collections['remark'])) ;
+            $varDataExcel[$i]['remark'] = ucfirst(trans($collections['remark']));
             $i++;
         }
         $compact = [
@@ -397,8 +388,8 @@ class AdvanceRequestController extends Controller
 
         Session::put("AdvanceSummaryReportDataPDF", $compact);
         Session::put("AdvanceSummaryReportDataExcel", $compact['varDataExcel']);
-        Session::put("AdvanceSummaryReportSumIDR", number_format($sum_idr,2));
-        Session::put("AdvanceSummaryReportSumOtherCurrency", number_format($sum_other,2));
+        Session::put("AdvanceSummaryReportSumIDR", number_format($sum_idr, 2));
+        Session::put("AdvanceSummaryReportSumOtherCurrency", number_format($sum_other, 2));
         Session::put("AdvanceSummaryReportIsSubmit", "Yes");
 
         return response()->json($compact);
@@ -520,7 +511,7 @@ class AdvanceRequestController extends Controller
 
                 $data = [
                     'title' => 'Advance Summary Report',
-                    'date' => date('d/m/Y H:m:s' ),
+                    'date' => date('d/m/Y H:m:s'),
                     'projectCode' => $dataAdvance['varDataProject'][0]['projectCode'],
                     'projectName' => $dataAdvance['varDataProject'][0]['projectName'],
                     'printedBy' => Session::get('SessionLoginName'),
