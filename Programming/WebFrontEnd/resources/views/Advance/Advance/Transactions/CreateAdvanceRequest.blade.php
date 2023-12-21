@@ -5,6 +5,7 @@
 @include('getFunction.getSite')
 @include('getFunction.getProduct')
 @include('Advance.Advance.Functions.PopUp.PopUpAdvanceRevision')
+@include('Advance.Advance.Functions.Table.TableAdvanceRevision')
 @include('getFunction.getProject')
 @include('getFunction.getWorker')
 @include('getFunction.getBeneficiary')

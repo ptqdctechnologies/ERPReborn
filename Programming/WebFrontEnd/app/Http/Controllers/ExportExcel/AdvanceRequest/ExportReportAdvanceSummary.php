@@ -21,7 +21,7 @@ class ExportReportAdvanceSummary implements FromCollection, WithHeadings, Should
 
     public function headings(): array
     {
-        return ["No", "Transaction Number", "Date", "Currency", "Advance Total", "Beneficiary", "Remark"];
+        return ["No", "Transaction Number", "Date", "Total IDR", "Other Currency", "Beneficiary", "Remark"];
     }
 
     public function styles(Worksheet $sheet)
@@ -30,7 +30,7 @@ class ExportReportAdvanceSummary implements FromCollection, WithHeadings, Should
             'font' => [
                 'bold' => true,
                 'color' => [
-                    'rgb' => 'FFFFFF',
+                    'rgb' => '000000',
                 ],
             ],
             'alignment' => [
@@ -45,7 +45,7 @@ class ExportReportAdvanceSummary implements FromCollection, WithHeadings, Should
                 'fillType' => 'solid',
                 'rotation' => 0,
                 'color' => [
-                    'rgb' => '4B586A',
+                    'rgb' => 'E9ECEF',
                 ],
             ],
         ];
@@ -58,11 +58,45 @@ class ExportReportAdvanceSummary implements FromCollection, WithHeadings, Should
                 'allBorders' => [
                     'borderStyle' => Border::BORDER_THIN,
                 ],
-            ]
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_LEFT,
+            ],
         ];
 
         $totalCell = count(Session::get("AdvanceSummaryReportDataExcel"));
-        $lastCell = 'A2:G'. $totalCell+1;
+        $lastCell = 'A2:G' . $totalCell + 1;
         $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
+
+        $sum_idr = Session::get("AdvanceSummaryReportSumIDR");
+        $sum_other = Session::get("AdvanceSummaryReportSumOtherCurrency");
+
+        $sheet->insertNewRowBefore($totalCell + 2, 1);
+        $sheet->setCellValue('A' . $totalCell + 2, "GRAND TOTAL");
+        $sheet->setCellValue('D' . $totalCell + 2, $sum_idr);
+        $sheet->setCellValue('E' . $totalCell + 2, $sum_other);
+        $sheet->mergeCells('A' . $totalCell + 2 . ':' . 'C' . $totalCell + 2);
+
+        $styleArrayFooter = [
+            'font' => [
+                'bold' => true,
+                'color' => [
+                    'rgb' => '000000',
+                ],
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_CENTER,
+            ],
+            'fill' => [
+                'fillType' => 'solid',
+                'rotation' => 0,
+                'color' => [
+                    'rgb' => 'E9ECEF',
+                ],
+            ],
+        ];
+
+        $sheet->getStyle('A' . $totalCell + 2 . ':' . 'G' . $totalCell + 2)->applyFromArray($styleArrayFooter);
+
     }
 }

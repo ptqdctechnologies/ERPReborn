@@ -4,7 +4,7 @@
       @csrf
       <div class="card-body">
         <div class="row">
-          <div class="col-md-2">
+          <div class="col-md-3">
             <div class="form-group">
               <table>
                 <tr>
@@ -24,7 +24,7 @@
               </table>
             </div>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-4">
             <div class="form-group">
               <table>
                 <tr>
@@ -64,7 +64,7 @@
               </table>
             </div>
           </div> -->
-          <div class="col-md-3">
+          <!-- <div class="col-md-3">
             <div class="form-group">
               <table>
                 <tr>
@@ -83,7 +83,7 @@
                 </tr>
               </table>
             </div>
-          </div>
+          </div> -->
           <div class="col-md-3">
             <div class="form-group">
               <table>
@@ -92,7 +92,7 @@
                   <td>
                     <div class="input-group">
                       <input id="beneficiary_id" hidden name="beneficiary_id">
-                      <input id="beneficiary" style="border-radius:0;background-color:white;" data-toggle="modal" data-target="#myBeneficiary" class="form-control" readonly name="beneficiary">
+                      <input id="beneficiary" style="border-radius:0;background-color:white;" data-toggle="modal" data-target="#myBeneficiary" class="form-control myBeneficiary" readonly name="beneficiary">
                       <div class="input-group-append">
                         <span style="border-radius:0;" class="input-group-text form-control">
                           <a href="#" id="beneficiary_popup" data-toggle="modal" data-target="#myBeneficiary" class="myBeneficiary"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>

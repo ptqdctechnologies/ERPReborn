@@ -25,8 +25,8 @@
                         <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Beneficiary</label></td>
                         <td>
                             <div class="input-group">
-                                <input name="beneficiary" id="beneficiary" style="border-radius:0;" type="text" class="col-4 form-control" readonly>
                                 <input name="beneficiary_id" id="beneficiary_id" style="border-radius:0;" type="hidden" class="form-control" readonly>
+                                <input name="beneficiary" id="beneficiary" style="border-radius:0;" type="text" class="col-4 form-control" readonly>
                                 <input name="person_refID" id="person_refID" style="border-radius:0;" type="hidden" class="form-control" readonly>
                                 <div class="input-group-append">
                                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -67,7 +67,7 @@
                         <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Bank Account</label></td>
                         <td>
                             <div class="input-group">
-                                <input id="beneficiaryBankAccount_RefID" style="border-radius:0;" class="form-control" name="beneficiaryBankAccount_RefID" hidden>
+                                <input id="bank_account_id" style="border-radius:0;" class="form-control" name="bank_account_id" hidden>
                                 <input id="bank_account" style="border-radius:0;" name="bank_account" class="col-4 form-control" readonly>
                                 <div class="input-group-append">
                                     <span style="border-radius:0;" class="input-group-text form-control">

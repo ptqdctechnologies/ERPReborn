@@ -70,14 +70,14 @@
                                   <input id="bank_name" style="border-radius:0;" name="bank_name" class="form-control" readonly>
                                   <div class="input-group-append">
                                     <span style="border-radius:0;" class="input-group-text form-control">
-                                      <a href="#" id="bank_name2" data-toggle="modal" data-target="#myGetBank" class="myGetBank"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                      <a href="#" id="bank_name_popup" data-toggle="modal" data-target="#myGetBank" class="myGetBank"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                     </span>
                                   </div>
                                 </div>
                               </td>
                               <td>
                                 <div class="input-group" style="width: 140%;position:relative;right:38%;">
-                                  <input id="bank_name_full" style="border-radius:0;" class="form-control" name="bank_name_full" readonly>
+                                  <input id="bank_name_detail" style="border-radius:0;" class="form-control" name="bank_name_full" readonly>
                                 </div>
                               </td>
                             </tr>
@@ -85,18 +85,18 @@
                               <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Bank Account</label></td>
                               <td>
                                 <div class="input-group" style="width: 70%;">
-                                  <input id="beneficiaryBankAccount_RefID" style="border-radius:0;" class="form-control" name="beneficiaryBankAccount_RefID" hidden>
+                                  <input id="bank_account_id" style="border-radius:0;" class="form-control" name="bank_account_id" hidden>
                                   <input id="bank_account" style="border-radius:0;" name="bank_account" class="form-control" readonly>
                                   <div class="input-group-append">
                                     <span style="border-radius:0;" class="input-group-text form-control">
-                                      <a href="#" id="bank_account2" data-toggle="modal" data-target="#myBankAccount" class="myBankAccount"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                      <a href="#" id="bank_account_popup" data-toggle="modal" data-target="#myBankAccount" class="myBankAccount"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                     </span>
                                   </div>
                                 </div>
                               </td>
                               <td>
                                 <div class="input-group" style="width: 140%;position:relative;right:38%;">
-                                  <input id="account_name" style="border-radius:0;" class="form-control" name="account_name" readonly>
+                                  <input id="bank_account_detail" style="border-radius:0;" class="form-control" name="bank_account_detail" readonly>
                                 </div>
                               </td>
                             </tr>

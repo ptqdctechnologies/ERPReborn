@@ -97,7 +97,7 @@
         var accountNumber = row.find("td:nth-child(3)").text();
         var accountName = row.find("td:nth-child(4)").text();
 
-        $("#beneficiaryBankAccount_RefID").val(sys_id_bank_account);
+        $("#bank_account_id").val(sys_id_bank_account);
         $("#bank_account").val(accountNumber);
         $("#bank_account_detail").val(accountName);
 

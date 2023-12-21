@@ -13,7 +13,7 @@
           <label style="font-size:15px;position:relative;top:7px;color:white;">Check Document on Process</label>
         </div>
       </div>
-      
+
       @include('Documents.Functions.Menu.MenuCheckDocument')
 
       @if($var == 1)
@@ -35,26 +35,29 @@
           </div>
 
           <div class="row">
+
             @include('Documents.Transactions.DocumentWorkflow')
 
-            @if($businessDocumentTitle == "Advance Form")
+            @if($dataHeader['BusinessDocumentType_Name'] == "Advance Form")
             @include('Documents.Transactions.DocumentAdvance')
 
-            @elseif($businessDocumentTitle == "Person Business Trip Form")
+            @elseif($dataHeader['BusinessDocumentType_Name'] == "Person Business Trip Form")
             @include('Documents.Transactions.DocumentBussinesTripRequest')
 
-            @elseif($businessDocumentTitle == "Purchase Requisition Form")
+            @elseif($dataHeader['BusinessDocumentType_Name'] == "Purchase Requisition Form")
             @include('Documents.Transactions.DocumentPurchaseRequisition')
 
-            @elseif($businessDocumentTitle == "Purchase Order Form")
+            @elseif($dataHeader['BusinessDocumentType_Name'] == "Purchase Order Form")
             @include('Documents.Transactions.DocumentPurchaseRequisition')
 
             @endif
 
+            @include('Documents.Transactions.ButtonApproval')
 
             @include('Documents.Transactions.DocumentApprovalHistory')
 
           </div>
+
         </div>
       </div>
       @endif
