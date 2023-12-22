@@ -164,7 +164,6 @@ class AdvanceRequestController extends Controller
 
         for ($i = 0; $i < count($filteredArray); $i++) {
             unset($filteredArray[$i]['FileAttachment']);
-            unset($filteredArray[$i]['FileAttachment']);
         }
 
         $compact = [
@@ -227,6 +226,9 @@ class AdvanceRequestController extends Controller
                 ]
             ]
         );
+
+        // dd($varData);
+        
         $compact = [
             "status" => true,
         ];

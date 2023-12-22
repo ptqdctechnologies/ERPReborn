@@ -62,7 +62,7 @@
                         <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Bank Account</label></td>
                         <td>
                             <div class="input-group">
-                                <input id="BankAccount_RefID" style="border-radius:0;" class="form-control" name="BankAccount_RefID"  value="{{ $dataHeader['BankAccount_RefID'] }}" hidden>
+                                <input id="bank_account_id" style="border-radius:0;" class="form-control" name="bank_account_id"  value="{{ $dataHeader['BankAccount_RefID'] }}" hidden>
                                 <input id="bank_account" style="border-radius:0;" name="bank_account" class="col-4 form-control" readonly value="{{ $dataHeader['BankAccountNumber'] }}">
                                 <div class="input-group-append">
                                     <span style="border-radius:0;" class="input-group-text form-control">

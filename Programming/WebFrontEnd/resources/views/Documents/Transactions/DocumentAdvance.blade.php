@@ -42,10 +42,9 @@
                 <td>
                   @php $tamp = json_decode($dataDetail[0]['FileAttachment'], true); @endphp
                   @if(isset($tamp['data']))
-                    @for($i=0; $i< count($tamp['data']); $i++)
-                      <a href="{{ $tamp['data'][$i]['downloadURL'] }}" title="Download Attachment">- {{ $tamp['data'][$i]['name'] }} </a> <br>
+                  @for($i=0; $i< count($tamp['data']); $i++) <a href="{{ $tamp['data'][$i]['downloadURL'] }}" title="Download Attachment">- {{ $tamp['data'][$i]['name'] }} </a> <br>
                     @endfor
-                  @endif
+                    @endif
                 </td>
                 @endif
               </tr>
@@ -58,7 +57,13 @@
               <tr>
                 <td style="padding-top: 5px;"><label>Revision</label></td>
                 <td>:</td>
-                <td>{{ $dataHeader['CombinedBudgetSectionCode'] }}</td>
+                <td>
+                  <div class="input-group">
+                    <a class="btn btn-default btn-sm" href="#" onclick="ShowRevisionHistory();">
+                      Show Revision History
+                    </a>
+                  </div>
+                </td>
               </tr>
               <tr>
                 <td style="padding-top: 5px;"><label>Requester</label></td>

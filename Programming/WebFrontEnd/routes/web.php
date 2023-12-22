@@ -143,6 +143,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getDeliverTo', 'Function\FunctionController@getDeliverTo')->name('getDeliverTo');
     Route::get('getBusinessTripCostComponentEntity', 'Function\FunctionController@getBusinessTripCostComponentEntity')->name('getBusinessTripCostComponentEntity');
     Route::get('getDocumentType', 'Function\FunctionController@getDocumentType')->name('getDocumentType');
+    Route::get('ShowRevisionHistory/{id}', 'Function\FunctionController@ShowRevisionHistory')->name('ShowRevisionHistory');
 
     Route::get('TestApi', 'TestApiController@index')->name('TestApi');
 

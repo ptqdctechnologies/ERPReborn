@@ -144,3 +144,12 @@
         ShowLoading();
     });
 </script>
+
+
+<script>
+    function ShowRevisionHistory() {
+        var page = 'http://localhost:20080/ShowRevisionHistory/1';
+        var myWindow = window.open(page, "_blank", "scrollbars=yes,width=400,height=500,top=300");
+
+    }
+</script>
