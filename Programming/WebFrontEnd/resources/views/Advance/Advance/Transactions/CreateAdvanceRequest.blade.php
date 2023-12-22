@@ -5,6 +5,7 @@
 @include('getFunction.getSite')
 @include('getFunction.getProduct')
 @include('Advance.Advance.Functions.PopUp.PopUpAdvanceRevision')
+@include('Advance.Advance.Functions.Table.TableAdvanceRevision')
 @include('getFunction.getProject')
 @include('getFunction.getWorker')
 @include('getFunction.getBeneficiary')
@@ -23,8 +24,9 @@
       @include('Advance.Advance.Functions.Menu.MenuAdvanceRequest')
       @if($var == 0)
       <div class="card" style="position:relative;bottom:10px;">
-        <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceRequest.store') }}" id="formSubmitArf">
+        <form method="post" enctype="multipart/form-data" action="{{ route('SelectWorkFlow') }}" id="formSubmitArf">
           @csrf
+          <input type="hidden" name="DocumentTypeID" value="{{ $DocumentTypeID }}" id="DocumentTypeID">
           <div class="tab-content p-3" id="nav-tabContent">
             <div class="row">
               <div class="col-12">

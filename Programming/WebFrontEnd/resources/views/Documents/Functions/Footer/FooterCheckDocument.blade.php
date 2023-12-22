@@ -1,12 +1,23 @@
 <script type="text/javascript">
-    $(".ShowDocumentList").hide();
-    $(".InternalNotes").hide();
-    $(".FileAttachment").hide();
-    $(".ApprovalHistory").hide();
+    var sourceData = <?= $sourceData ?>;
+
+    if (sourceData == 1) {
+        $(".ShowDocumentList").show();
+        $(".InternalNotes").show();
+        $(".FileAttachment").show();
+        $(".ApprovalHistory").show();
+        $(".ViewDocument").hide();
+        $(".DocumentWorkflow").hide();
+    } else {
+        $(".ShowDocumentList").hide();
+        $(".InternalNotes").hide();
+        $(".FileAttachment").hide();
+        $(".ApprovalHistory").hide();
+    }
 </script>
 
 <script>
-    $('.mySearchCheckDocument').one('click', function () {
+    $('.mySearchCheckDocument').one('click', function() {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -91,7 +102,7 @@
     $(".ViewWorkflow").hide();
 
     $('.ViewDocument').on('click', function() {
-        $(".ShowDocument").hide();
+        $(".DocumentWorkflow").hide();
         $(".ShowDocumentList").show();
         $(".InternalNotes").show();
         $(".FileAttachment").show();
@@ -102,7 +113,7 @@
     });
 
     $('.ViewWorkflow').on('click', function() {
-        $(".ShowDocument").show();
+        $(".DocumentWorkflow").show();
         $(".ShowDocumentList").hide();
         $(".InternalNotes").hide();
         $(".FileAttachment").hide();
@@ -122,7 +133,6 @@
             triggered++;
         }
     });
-
     $('#businessDocumentNumber').on('blur', function() {
         // reset the triggered value to 0
         triggered = 0;
@@ -130,9 +140,7 @@
 </script>
 
 <script>
-
     $('#submit').on('click', function() {
         ShowLoading();
     });
-
 </script>

@@ -3,29 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\resume\master                                |
-|                \getBusinessDocumentIssuanceDisposition\v1                                                                        |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\finance\getAdvanceDetailComplex\v1    |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 
-namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\resume\master\getBusinessDocumentIssuanceDisposition\v1 {
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\finance\getAdvanceDetailComplex\v1 {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getBusinessDocumentIssuanceDisposition                                                                       |
-    | ▪ Description : Menangani API report.form.resume.master.getBusinessDocumentIssuanceDisposition Version 1                     |
+    | ▪ Class Name  : getAdvanceDetailComplex                                                                                             |
+    | ▪ Description : Menangani API transaction.read.dataList.finance.getAdvanceDetailComplex Version 1                                   |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getBusinessDocumentIssuanceDisposition extends \App\Http\Controllers\Controller
+    class getAdvanceDetailComplex extends \App\Http\Controllers\Controller
     {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-06-20                                                                                           |
-        | ▪ Create date     : 2023-06-20                                                                                           |
+        | ▪ Last Update     : 2022-06-02                                                                                           |
+        | ▪ Creation Date   : 2022-06-02                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +43,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\re
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-06-20                                                                                           |
-        | ▪ Create date     : 2023-06-20                                                                                           |
+        | ▪ Last Update     : 2022-06-02                                                                                           |
+        | ▪ Creation Date   : 2022-06-02                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -59,43 +58,47 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\re
         {
             $userSessionID = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             $branchID = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($userSessionID)['branchID'];
-            $workerCareerInternal_RefID = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($userSessionID)['userIdentity']['workerCareerInternal_RefID'];
 
             $varTTL = 86400; // 24 Jam
-            // GET DATA MASTER ShowMyDocumentListData 
-            $varShowMyDocumentListData =
-                (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_Resume_BusinessDocumentIssuanceDisposition(
+            // GET DATA MASTER AdvanceDetailComplex 
+            $varAdvanceDetailComplex =
+                (new \App\Models\Database\SchData_OLTP_Finance\General())->getDataList_AdvanceDetailComplex(
                     $userSessionID,
-                    $branchID,
-                    $workerCareerInternal_RefID
+                    $branchID
                 );
 
-            //SET REDIS ShowMyDocumentListData
+            //SET REDIS AdvanceDetailComplex
 
             \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
                 $userSessionID,
-                "ShowMyDocumentListData" . $workerCareerInternal_RefID,
-                json_encode($varShowMyDocumentListData[0]['document']['content']['itemList']['ungrouped']),
+                "DataListAdvanceDetailComplex",
+                json_encode($varAdvanceDetailComplex),
                 // $varTTL
             );
+
 
             return [];
 
             // $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             // try {
-            //     $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Report Form - Resume - Business Document Issuance Disposition Form (version 1)');
+            //     $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Advance Detail Data List (version 1)');
             //     try {
             //         //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-            //         try {
-            //             if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_Resume_BusinessDocumentIssuanceDisposition(
+            //         try{
+            //             if(($varData['SQLStatement']['filter']) && (\App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, $varData['SQLStatement']['filter']) == FALSE))
+            //                 {
+            //                 throw new \Exception('SQL Injection Threat Prevention');
+            //                 }
+            //             if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\General())->getDataList_AdvanceDetailComplex(
             //                 $varUserSession, 
-            //                 (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+            //                 (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
 
-            //                 $varData['parameter']['recordID'],
+            //                 $varData['parameter']['advance_RefID'],
 
-            //                 (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'businessDocumentNumber', $varData['parameter']['dataFilter']) ? ((!is_null($varData['parameter']['dataFilter']['businessDocumentNumber'])) ? $varData['parameter']['dataFilter']['businessDocumentNumber'] : null) : null),
-            //                 (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'businessDocumentType_RefID', $varData['parameter']['dataFilter']) ? ((!is_null($varData['parameter']['dataFilter']['businessDocumentType_RefID'])) ? $varData['parameter']['dataFilter']['businessDocumentType_RefID'] : null) : null),
-            //                 (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'combinedBudget_RefID', $varData['parameter']['dataFilter']) ? ((!is_null($varData['parameter']['dataFilter']['combinedBudget_RefID'])) ? $varData['parameter']['dataFilter']['combinedBudget_RefID'] : null) : null)
+            //                 $varData['SQLStatement']['pick'], 
+            //                 $varData['SQLStatement']['sort'], 
+            //                 $varData['SQLStatement']['filter'], 
+            //                 $varData['SQLStatement']['paging']
             //                 ))))
             //                 {
             //                 throw new \Exception();

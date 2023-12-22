@@ -19,15 +19,26 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
 
 
         public function testAja2()
+
         {
+            dd(Redis::get("a"));
             $varReturn =
                 (new \App\Models\Database\SchData_OLTP_Finance\General())->getReport_Form_DocumentForm_AdvanceSummary(
                     6000000000001,
                     11000000000004
                 );
+            dd($varReturn);
 
+
+
+            $collection = collect($varReturn);
+            $collection = $collection->where('CombinedBudget_RefID', '46000000000009');
+            $collection = $collection->where('CombinedBudgetSection_RefID', '143000000000029');
+            $collection = $collection->where('Product_ID', '88000000001473');
+            $collection = $collection->where('BeneficiaryWorkerJobsPosition_RefID', '164000000000023');
 
             dd($varReturn);
+            dd($collection->all());
 
 
             // dd(json_decode(Redis::get("CheckDocumentTypeID"), true));

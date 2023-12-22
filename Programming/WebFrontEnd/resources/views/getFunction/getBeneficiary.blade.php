@@ -34,7 +34,6 @@
     $(function() {
         $('.myBeneficiary').one('click', function(e) {
             e.preventDefault();
-
             // ShowLoading();
 
             $.ajaxSetup({

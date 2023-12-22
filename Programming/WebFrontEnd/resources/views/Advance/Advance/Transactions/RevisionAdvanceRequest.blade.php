@@ -5,6 +5,7 @@
 @include('getFunction.getSite')
 @include('getFunction.getProduct')
 @include('Advance.Advance.Functions.PopUp.PopUpAdvanceRevision')
+@include('Advance.Advance.Functions.Table.TableAdvanceRevision')
 @include('getFunction.getProject')
 <!-- @include('getFunction.getBank')
 @include('getFunction.getBankAccount') -->
@@ -20,7 +21,7 @@
       @include('Advance.Advance.Functions.Menu.MenuAdvanceRequest')
 
       <div class="card" style="position:relative;bottom:10px;">
-        <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceRequest.update', $dataHeader['recordID']) }}" id="formUpdateArf">
+        <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceRequest.update', $dataHeader['Sys_ID_Advance']) }}" id="formUpdateArf">
           @csrf
           @method('PUT')
           <div class="tab-content p-3" id="nav-tabContent">
@@ -77,7 +78,7 @@
                     <div class="card-body file-attachment">
                       <div class="row">
                         <div class="col-md-12">
-                          <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="{{ $dataGeneral['attachmentFiles']['main']['log_FileUpload_Pointer_RefID']}}" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID" hidden>
+                          <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="{{ $dataFileAttachment }}" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID" hidden>
                           <input type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" name="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" onchange="javascript: @php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataInput_Log_FileUpload_Pointer_RefID_Action', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord'); @endphp;" />
                         </div>
                         <br><br>
@@ -190,7 +191,7 @@
                             <table>
                               <tr>
                                 <td>
-                                  <textarea name="var_remark" id="remark" rows="2" cols="150" class="form-control" required>{{$dataGeneral['remarks']}}</textarea>
+                                  <textarea name="var_remark" id="remark" rows="2" cols="150" class="form-control" required>{{$dataHeader['Remarks']}}</textarea>
                                 </td>
                               </tr>
                             </table>

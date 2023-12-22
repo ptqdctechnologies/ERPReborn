@@ -46,25 +46,24 @@
         var no = 1;
         var t = $('.TableMyDocument').DataTable();
         t.clear().draw();
-        $.each(data.data, function(key, val) {
-
+        $.each(data, function(key, val) {
             const date = dateFns.format(
-                dateFns.parse(val.entities.businessDocumentDateTimeTZ, "yyyy-MM-dd hh:mm:ss"),
+                dateFns.parse(val.businessDocumentDateTimeTZ, "yyyy-MM-dd hh:mm:ss"),
                 'DD-MM-YYYY HH:mm');
 
-            var remark = val.entities.workFlowPathSubmitterRemarks;
-            if (val.entities.workFlowPathSubmitterRemarks == null) {
+            var remark = val.workFlowPathSubmitterRemarks;
+            if (val.workFlowPathSubmitterRemarks == null) {
                 remark = "-";
             }
 
             keys += 1;
             t.row.add([
-                '<tbody><tr><input class="businessDocument_RefID' + keys + '" value="' + val.entities.formDocumentNumber_RefID + '" type="hidden"><td><span style="position:relative;left:10px;">' + no++ + '</span></td>',
-                '<td><span style="position:relative;left:10px;">' + val.entities.businessDocumentNumber + '</span></td>',
-                '<td><span style="position:relative;left:10px;">' + val.entities.combinedBudgetCode + '</span></td>',
-                '<td><span style="position:relative;left:10px;">' + val.entities.previousWorkFlowPathApproverName + '</span></td>',
+                '<tbody><tr><input class="businessDocument_RefID' + keys + '" value="' + val.formDocumentNumber_RefID + '" type="hidden"><td><span style="position:relative;left:10px;">' + no++ + '</span></td>',
+                '<td><span style="position:relative;left:10px;">' + val.businessDocumentNumber + '</span></td>',
+                '<td><span style="position:relative;left:10px;">' + val.combinedBudgetCode + '</span></td>',
+                '<td><span style="position:relative;left:10px;">' + val.previousWorkFlowPathApproverName + '</span></td>',
                 '<td><span style="position:relative;left:10px;">' + date + '</span></td>',
-                '<td><span style="position:relative;left:10px;">' + val.entities.previousWorkFlowPathActionName + '</span></td>',
+                '<td><span style="position:relative;left:10px;">' + val.previousWorkFlowPathActionName + '</span></td>',
                 '<td><span style="position:relative;left:10px;">' + remark + '</span></td></tr></tbody>',
             ]).draw();
         });
@@ -145,7 +144,7 @@
 <script type="text/javascript">
     function ResetFilter() {
         $("#trano").val("");
-        $(".DocumentType").empty();
+        // $(".DocumentType").empty();
         $("#projectid").val("");
         $("#projectcode").val("");
     }

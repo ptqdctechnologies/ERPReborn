@@ -107,6 +107,8 @@
 
                 var no = 1;
                 var keys = 0;
+                var TotalIdr = 0;
+                var TotalOtherCyrrency = 0;
 
                 $.ajax({
                     url: action,
@@ -118,32 +120,46 @@
                     type: method,
 
                     success: function(data) {
-
                         $.each(data.data, function(key, val) {
 
-                            if (val.beneficiaryWorkerName == null) {
-                                beneficiaryWorkerName = "";
+                            if (val.BeneficiaryWorkerName == null) {
+                                BeneficiaryWorkerName = "";
                             } else {
-                                beneficiaryWorkerName = val.beneficiaryWorkerName;
+                                BeneficiaryWorkerName = val.BeneficiaryWorkerName;
                             }
 
+                            var TotalAdvance = 0;
+                            var OtherCurrency = 0;
+
+                            if (val.CurrencyName == "IDR") {
+                                TotalAdvance = val.TotalAdvance;
+                            } else {
+                                OtherCurrency = val.TotalAdvance;
+                            }
+
+                            TotalIdr += +TotalAdvance;
+                            TotalOtherCyrrency += +OtherCurrency;
+
                             const date = dateFns.format(
-                                dateFns.parse(val.documentDateTimeTZ, "yyyy-MM-dd hh:mm:ss"),
+                                dateFns.parse(val.DocumentDateTimeTZ, "yyyy-MM-dd hh:mm:ss"),
                                 'DD-MM-YYYY');
 
-
                             keys += 1;
+
                             t.row.add([
                                 '<tbody><tr><td>' + no++ + '</td>',
-                                '<td><a href="ReportAdvanceSummaryDetail/' + +val.sys_ID + '">' + val.documentNumber + '</a></td>',
+                                '<td><a href="ReportAdvanceSummaryDetailID/' + +val.Sys_ID + '">' + val.DocumentNumber + '</a></td>',
                                 '<td>' + date + '</td>',
-                                '<td>' + val.currencyName + '</td>',
-                                '<td>' + currencyTotal(val.totalAdvance) + '</td>',
-                                '<td>' + beneficiaryWorkerName + '</td>',
-                                '<td>' + val.remark + '</td></tr></tbody>'
+                                '<td>' + currencyTotal(TotalAdvance) + '</td>',
+                                '<td>' + currencyTotal(OtherCurrency) + '</td>',
+                                '<td>' + BeneficiaryWorkerName + '</td>',
+                                '<td>' + val.remark.charAt(0).toUpperCase() + val.remark.slice(1) + '</td></tr></tbody>'
                             ]).draw();
 
                         });
+
+                        $('#TotalIdr').html(currencyTotal(TotalIdr));
+                        $('#TotalOtherCyrrency').html(currencyTotal(TotalOtherCyrrency));
 
                         HideLoading();
                     },

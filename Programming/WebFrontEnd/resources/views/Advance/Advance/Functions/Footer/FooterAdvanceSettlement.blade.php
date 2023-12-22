@@ -58,15 +58,15 @@
 
         $.ajax({
             type: 'GET',
-            url: '{!! route("AdvanceSettlement.AdvanceByBudgetID") !!}?project_code=' + sys_id,
+            url: '{!! route("AdvanceSettlement.AdvanceListDataByBudgetCode") !!}?sys_id=' + sys_id,
             success: function(data) {
-                console.log(data);
                 var no = 1;
                 t = $('#tableSearchArfinAsf').DataTable();
+                t.clear();
                 $.each(data, function(key, val) {
                     keys += 1;
                     t.row.add([
-                        '<tbody><tr><input id="advance_RefID' + keys + '" value="' + val.Sys_ID + '" type="hidden"><input id="beneficiary_RefID' + keys + '" value="' + val.BeneficiaryWorkerJobsPosition_RefID + '" type="hidden"><input id="beneficiary_name' + keys + '" value="' + val.BeneficiaryWorkerName + '" type="hidden"><td>' + no++ + '</td>',
+                        '<tbody><tr><input id="advance_RefID' + keys + '" value="' + val.Sys_ID + '" type="hidden"><input id="beneficiary_RefID' + keys + '" value="' + val.BeneficiaryWorkerJobsPosition_RefID + '" type="hidden"><input id="beneficiary' + keys + '" value="' + val.BeneficiaryWorkerName + '" type="hidden"><td>' + no++ + '</td>',
                         '<td>' + val.DocumentNumber + '</td>',
                         '<td>' + val.CombinedBudgetCode + '</td>',
                         '<td>' + val.CombinedBudgetName + '</td>',
@@ -91,19 +91,11 @@
         var id = row.find("td:nth-child(1)").text();
         var advance_RefID = $('#advance_RefID' + id).val();
         var beneficiary_RefID = $('#beneficiary_RefID' + id).val();
-        var beneficiary_name = $('#beneficiary_name' + id).val();
+        var beneficiary = $('#beneficiary' + id).val();
         var advance_number = row.find("td:nth-child(2)").text();
 
         $("#advance_number").val(advance_number);
         $(".tableShowHideArfDetail").show();
-
-
-        $("#bank_code").val(advance_RefID);
-        $("#bank_name").val(advance_number);
-        $("#bank_name_full").val(advance_number);
-        $("#beneficiaryBankAccount_RefID").val(advance_RefID);
-        $("#bank_account").val(advance_number);
-        $("#account_name").val(advance_number);
 
         $.ajaxSetup({
             headers: {
@@ -112,13 +104,21 @@
         });
         $.ajax({
             type: "POST",
-            url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlementBeneficiary") !!}?beneficiary_id=' + beneficiary_RefID + '&beneficiary_name=' + beneficiary_name + '&beneficiary_id2=' + $('#beneficiary_id').val() + '&advance_RefID=' + advance_RefID,
+            url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlementBeneficiary") !!}?beneficiary_id=' + beneficiary_RefID + '&beneficiary=' + beneficiary + '&beneficiary_id2=' + $('#beneficiary_id').val() + '&advance_RefID=' + advance_RefID,
             success: function(data) {
 
                 if (data.status == "200") {
 
-                    $("#beneficiary_id").val(data.beneficiary_id);
-                    $("#beneficiary_name").val(data.beneficiary_name);
+                    $("#beneficiary_id").val(data.data[0]['BeneficiaryWorkerJobsPosition_RefID']);
+                    $("#beneficiary").val(data.data[0]['BeneficiaryWorkerName']);
+
+                    $("#bank_code").val(data.data[0]['Bank_RefID']);
+                    $("#bank_name").val(data.data[0]['BankAcronym']);
+                    $("#bank_name_detail").val(data.data[0]['BankName']);
+                    $("#bank_account_id").val(data.data[0]['BankAccount_RefID']);
+                    $("#bank_account").val(data.data[0]['BankAccountNumber']);
+                    $("#bank_account_detail").val(data.data[0]['BankAccountName']);
+
 
                     var no = 1;
                     applied = 0;
@@ -127,21 +127,21 @@
                     statusDisplay = [];
                     statusDisplay2 = [];
                     statusForm = [];
-                    $.each(data.DataAdvanceList, function(key, value) {
+                    $.each(data.data, function(key, value) {
 
                         keys += 1;
 
-                        // if(value.quantityAbsorption == "0.00" && value.quantity == "0.00"){
-                        if (value.quantity == "0.00") {
+                        // if(value.QuantityAbsorption == "0.00" && value.Quantity == "0.00"){
+                        if (value.Quantity == "0.00") {
                             var applied = 0;
                         } else {
-                            // var applied = Math.round(parseFloat(value.quantityAbsorption) / parseFloat(value.quantity) * 100);
-                            var applied = Math.round(parseFloat(value.quantity) * 100);
+                            // var applied = Math.round(parseFloat(value.QuantityAbsorption) / parseFloat(value.Quantity) * 100);
+                            var applied = Math.round(parseFloat(value.Quantity) * 100);
                         }
                         if (applied >= 100) {
                             var status = "disabled";
                         }
-                        if (value.productName == "Unspecified Product") {
+                        if (value.ProductName == "Unspecified Product") {
                             statusDisplay[keys] = "";
                             statusDisplay2[keys] = "none";
                             statusForm[keys] = "disabled";
@@ -152,24 +152,28 @@
                         }
                         var html =
                             '<tr>' +
-
-                            '<input name="getWorkId[]" value="' + value.combinedBudgetSubSectionLevel1_RefID + '" type="hidden">' +
-                            '<input name="getWorkName[]" value="' + value.combinedBudgetSubSectionLevel1Name + '" type="hidden">' +
-                            '<input name="getProductId[]" value="' + value.product_RefID + '" type="hidden">' +
-                            '<input name="getProductName[]" value="' + value.productName + '" type="hidden">' +
-                            '<input name="getQty[]" id="budget_qty' + keys + '" value="' + value.quantity + '" type="hidden">' +
-                            '<input name="getPrice[]" id="budget_price' + keys + '" value="' + value.productUnitPriceCurrencyValue + '" type="hidden">' +
-                            '<input name="getUom[]" value="' + value.quantityUnitName + '" type="hidden">' +
-                            '<input name="getCurrency[]" value="' + value.priceCurrencyISOCode + '" type="hidden">' +
-                            '<input name="getAdvanceNumber[]" value="' + advance_number + '" type="hidden">' +
-                            '<input name="getRemark[]" value="' + value.remarks + '" type="hidden">' +
-                            '<input name="combinedBudget" value="' + value.sys_ID + '" type="hidden">' +
+                            '<input name="getProductId[]" value="' + value.Product_RefID + '" type="hidden">' +
+                            '<input name="getProductName[]" value="' + value.ProductName + '" type="hidden">' +
+                            '<input name="getQty[]" id="budget_qty' + keys + '" value="' + value.Quantity + '" type="hidden">' +
+                            '<input name="getQtyExpenseID[]" value="' + value.QuantityUnit_RefID + '" type="hidden">' +
+                            '<input name="getQtyAmountID[]" value="' + value.QuantityUnit_RefID + '" type="hidden">' +
+                            '<input name="getCurrencyExpenseID[]" value="' + value.PriceCurrency_RefID + '" type="hidden">' +
+                            '<input name="getCurrencyAmountID[]" value="' + value.PriceCurrency_RefID + '" type="hidden">' +
+                            '<input name="getExchangeRateExpenseID[]" value="' + value.ProductUnitPriceCurrency_RefID + '" type="hidden">' +
+                            '<input name="getExchangeRateAmountID[]" value="' + value.ProductUnitPriceCurrency_RefID + '" type="hidden">' +
+                            '<input name="getPrice[]" id="budget_price' + keys + '" value="' + value.ProductUnitPriceBaseCurrencyValue + '" type="hidden">' +
+                            '<input name="getUom[]" value="' + value.QuantityUnitName + '" type="hidden">' +
+                            '<input name="getCurrency[]" value="' + value.ProductUnitPriceCurrencyISOCode + '" type="hidden">' +
+                            '<input name="getAdvanceNumber[]" value="' + value.DocumentNumber + '" type="hidden">' +
+                            '<input name="getRemark[]" value="' + value.Remarks + '" type="hidden">' +
+                            '<input name="getAdvanceDetail_RefID[]" value="' + value.Sys_ID_AdvanceDetail + '" type="hidden">' +
+                            '<input name="combinedBudget" value="' + value.CombinedBudget_RefID + '" type="hidden">' +
 
                             '<td style="border:1px solid #e9ecef;">' +
                             '&nbsp;&nbsp;&nbsp;<div class="progress ' + status + ' progress-xs" style="height: 14px;border-radius:8px;"> @if(' + applied + ' >= ' + 0 + ' && ' + applied + ' <= ' + 40 + ')<div class="progress-bar bg-red" style="width:' + applied + '%;"></div> @elseif(' + applied + ' >= ' + 41 + ' && ' + applied + ' <= ' + 89 + ')<div class="progress-bar bg-blue" style="width:' + applied + '%;"></div> @elseif(' + applied + ' >= ' + 90 + ' && ' + applied + ' <= ' + 100 + ')<div class="progress-bar bg-green" style="width:' + applied + '%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>' + applied + ' %</center></small>' +
                             '</td>' +
 
-                            '<td style="border:1px solid #e9ecef;">' + advance_number + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + value.DocumentNumber + '</td>' +
 
                             '<td style="border:1px solid #e9ecef;display:' + statusDisplay[keys] + '";">' +
                             '<div class="input-group">' +
@@ -182,26 +186,26 @@
                             '</div>' +
                             '</td>' +
 
-                            '<td style="border:1px solid #e9ecef;display:' + statusDisplay2[keys] + '">' + '<span>' + value.product_RefID + '</span>' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + '<span id="product_name' + keys + '">' + value.productName + '</span>' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;display:' + statusDisplay2[keys] + '">' + '<span>' + value.Product_RefID + '</span>' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + '<span id="product_name' + keys + '">' + value.ProductName + '</span>' + '</td>' +
 
 
-                            '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_qty2' + keys + '">' + currencyTotal(value.quantity) + '</span>' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + value.quantity + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + value.quantityUnitName + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.productUnitPriceCurrencyValue) + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.priceBaseCurrencyValue) + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + value.priceCurrencyISOCode + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_qty2' + keys + '">' + currencyTotal(value.Quantity) + '</span>' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + value.Quantity + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + value.QuantityUnitName + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.ProductUnitPriceBaseCurrencyValue) + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.PriceBaseCurrencyValue) + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + value.ProductUnitPriceCurrencyISOCode + '</td>' +
 
                             '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col third-col-asf-expense-qty">' + '<input onkeyup="qty_expense(' + keys + ', this)" id="qty_expense' + keys + '" style="border-radius:0;width:50px;" name="qty_expense[]" class="form-control qty_expense" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[keys] + ' value="0">' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col third-col-asf-expense-price">' + '<input onkeyup="price_expense(' + keys + ', this)" id="price_expense' + keys + '" style="border-radius:0;width:90px;" name="price_expense[]" class="form-control price_expense" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[keys] + ' value="' + currency(value.productUnitPriceCurrencyValue) + '">' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col third-col-asf-expense-price">' + '<input onkeyup="price_expense(' + keys + ', this)" id="price_expense' + keys + '" style="border-radius:0;width:90px;" name="price_expense[]" class="form-control price_expense" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[keys] + ' value="' + currency(value.ProductUnitPriceBaseCurrencyValue) + '">' + '</td>' +
                             '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col third-col-asf-expense-total">' + '<input id="total_expense' + keys + '" style="border-radius:0;width:90px;background-color:white;" name="total_expense[]" class="form-control total_expense" autocomplete="off" disabled value="0">' + '</td>' +
 
                             '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col second-col-asf-amount-qty">' + '<input onkeyup="qty_amount(' + keys + ', this)" id="qty_amount' + keys + '" style="border-radius:0;width:50px;" name="qty_amount[]" class="form-control qty_amount" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[keys] + ' value="0">' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col second-col-asf-amount-price">' + '<input onkeyup="price_amount(' + keys + ', this)" id="price_amount' + keys + '" style="border-radius:0;width:90px;" name="price_amount[]" class="form-control price_amount" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[keys] + ' value="' + currency(value.productUnitPriceCurrencyValue) + '">' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col second-col-asf-amount-price">' + '<input onkeyup="price_amount(' + keys + ', this)" id="price_amount' + keys + '" style="border-radius:0;width:90px;" name="price_amount[]" class="form-control price_amount" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[keys] + ' value="' + currency(value.ProductUnitPriceBaseCurrencyValue) + '">' + '</td>' +
                             '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col second-col-asf-amount-total">' + '<input id="total_amount' + keys + '" style="border-radius:0;width:90px;background-color:white;" name="total_amount[]" class="form-control total_amount" autocomplete="off" disabled value="0">' + '</td>' +
 
-                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col first-col-asf-balance-total">' + '<input id="total_balance_qty' + keys + '" style="border-radius:0;width:90px;background-color:white;" name="total_balance_qty[]" class="form-control total_balance_qty" autocomplete="off" disabled value="' + currencyTotal(value.priceBaseCurrencyValue) + '">' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col first-col-asf-balance-total">' + '<input id="total_balance_qty' + keys + '" style="border-radius:0;width:90px;background-color:white;" name="total_balance_qty[]" class="form-control total_balance_qty" autocomplete="off" disabled value="' + currencyTotal(value.Quantity) + '">' + '</td>' +
 
                             '</tr>';
 
@@ -398,13 +402,9 @@
         $(".expenseCompanyCart").show();
 
         var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
+
+        var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
         var getAdvanceNumber = $("input[name='getAdvanceNumber[]']").map(function() {
-            return $(this).val();
-        }).get();
-        var getWorkId = $("input[name='getWorkId[]']").map(function() {
-            return $(this).val();
-        }).get();
-        var getWorkName = $("input[name='getWorkName[]']").map(function() {
             return $(this).val();
         }).get();
         var getProductId = $("input[name='getProductId[]']").map(function() {
@@ -422,7 +422,33 @@
         var getRemark = $("input[name='getRemark[]']").map(function() {
             return $(this).val();
         }).get();
+        var getAdvanceDetail_RefID = $("input[name='getAdvanceDetail_RefID[]']").map(function() {
+            return $(this).val();
+        }).get();
 
+        var getQtyExpenseID = $("input[name='getQtyExpenseID[]']").map(function() {
+            return $(this).val();
+        }).get();
+
+        var getCurrencyExpenseID = $("input[name='getCurrencyExpenseID[]']").map(function() {
+            return $(this).val();
+        }).get();
+
+        var getExchangeRateExpenseID = $("input[name='getExchangeRateExpenseID[]']").map(function() {
+            return $(this).val();
+        }).get();
+
+        var getQtyAmountID = $("input[name='getQtyAmountID[]']").map(function() {
+            return $(this).val();
+        }).get();
+
+        var getCurrencyAmountID = $("input[name='getCurrencyAmountID[]']").map(function() {
+            return $(this).val();
+        }).get();
+
+        var getExchangeRateAmountID = $("input[name='getExchangeRateAmountID[]']").map(function() {
+            return $(this).val();
+        }).get();
         var qty_expense = $("input[name='qty_expense[]']").map(function() {
             return $(this).val();
         }).get();
@@ -467,6 +493,10 @@
 
                 var html = '<tr>' +
 
+                    '<input type="hidden" name="var_qty_id_expense[]" value="' + getQtyExpenseID[index] + '">' +
+                    '<input type="hidden" name="var_currency_id_expense[]" value="' + getCurrencyExpenseID[index] + '">' +
+                    '<input type="hidden" name="var_exchange_rate_id_expense[]" value="' + getExchangeRateExpenseID[index] + '">' +
+
                     '<input type="hidden" name="var_product_id_expense[]" value="' + product_id + '">' +
                     '<input type="hidden" name="var_product_name_expense[]" id="var_product_name" value="' + product_name + '">' +
                     '<input type="hidden" name="var_quantity_expense[]" class="qty_expense2' + index + '" data-id="' + index + '" value="' + currencyTotal(qty_expense[index]).replace(/,/g, '') + '">' +
@@ -479,6 +509,7 @@
                     '<input type="hidden" name="var_date" value="' + date + '">' +
                     '<input type="hidden" name="var_combined_budget" value="' + combinedBudget + '">' +
                     '<input type="hidden" name="var_remark" value="' + getRemark[index] + '">' +
+                    '<input type="hidden" name="var_advance_detail_id" value="' + getAdvanceDetail_RefID[index] + '">' +
 
                     '<td style="border:1px solid #e9ecef;">' + getAdvanceNumber[index] + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + product_id + '</td>' +
@@ -515,6 +546,10 @@
 
                 var html = '<tr>' +
 
+                    '<input type="hidden" name="var_quantity_id_amount[]" value="' + getQtyAmountID[index] + '">' +
+                    '<input type="hidden" name="var_currency_id_amount[]" value="' + getCurrencyAmountID[index] + '">' +
+                    '<input type="hidden" name="var_exchange_rate_id_amount[]" value="' + getExchangeRateAmountID[index] + '">' +
+
                     '<input type="hidden" name="var_product_id_amount[]" value="' + product_id + '">' +
                     '<input type="hidden" name="var_product_name_amount[]" id="var_product_name" value="' + product_name + '">' +
                     '<input type="hidden" name="var_quantity_amount[]" class="qty_amount2' + index + '" data-id="' + index + '" value="' + currencyTotal(qty_amount[index]).replace(/,/g, '') + '">' +
@@ -527,6 +562,7 @@
                     '<input type="hidden" name="var_date" value="' + date + '">' +
                     '<input type="hidden" name="var_combined_budget" value="' + combinedBudget + '">' +
                     '<input type="hidden" name="var_remark" value="' + getRemark[index] + '">' +
+                    '<input type="hidden" name="var_advance_detail_id" value="' + getAdvanceDetail_RefID[index] + '">' +
 
                     '<td style="border:1px solid #e9ecef;">' + getAdvanceNumber[index] + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + product_id + '</td>' +
@@ -562,8 +598,11 @@
                 $("#remark").css("border", "1px solid red");
             } else {
 
-                var varFileUpload_UniqueID = "Upload";
-                window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
+                var fileAttachment = $("#dataInput_Log_FileUpload_Pointer_RefID_Action").val();
+                if (fileAttachment) {
+                    varFileUpload_UniqueID = "Upload";
+                    window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
+                }
 
                 var action = $(this).attr("action");
                 var method = $(this).attr("method");
@@ -592,8 +631,8 @@
                 }).then((result) => {
                     if (result.value) {
 
-                        ShowLoading();
-                        
+                        // ShowLoading();
+
                         $.ajax({
                             url: action,
                             dataType: 'json',
@@ -605,7 +644,7 @@
                             success: function(response) {
 
                                 HideLoading();
-                                
+
                                 swalWithBootstrapButtons.fire({
 
                                     title: 'Successful !',
