@@ -3148,18 +3148,19 @@ namespace App\Models\Database\SchData_OLTP_Master
             int $varBusinessDocument_RefID = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Master.Func_GetReport_Resume_BusinessDocumentDispositionHistory',
-                        [
-                            [$varBranchID, 'bigint' ],
-                            
-                            [$varBusinessDocument_RefID, 'bigint' ]
-                        ]
-                        )
-                    );
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Master.Func_GetReport_Resume_BusinessDocumentDispositionHistory',
+                            [
+                                [$varBranchID, 'bigint' ],
+
+                                [$varBusinessDocument_RefID, 'bigint' ]
+                            ]
+                            )
+                        );
                 $varReturn = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varReturn['Data'][0]['Func_GetReport_Resume_BusinessDocumentDispositionHistory']);
                 return $varReturn;
                 }
