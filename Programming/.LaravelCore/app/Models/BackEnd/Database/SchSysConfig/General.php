@@ -35,15 +35,16 @@ namespace App\Models\Database\SchSysConfig
         */
         public function getAPIWebToken_SysEngine($varUserSession)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.FuncSys_General_GetAPIWebToken_SysEngine',
-                    [
-                    ]
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.FuncSys_General_GetAPIWebToken_SysEngine',
+                        [
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0]['FuncSys_General_GetAPIWebToken_SysEngine'];
             }
             
@@ -74,19 +75,20 @@ namespace App\Models\Database\SchSysConfig
             int $varUser_RefID, int $varBranch_RefID, int $varUserRole_RefID, string $varDateTimeTZ = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.Func_General_GetUserPrivilege_CombinedBudget',
-                        [
-                            [$varUser_RefID, 'bigint'],
-                            [$varBranch_RefID, 'bigint'],
-                            [$varUserRole_RefID, 'bigint'],
-                            [$varDateTimeTZ, 'timestamptz']
-                        ]
-                        )
-                    );
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_General_GetUserPrivilege_CombinedBudget',
+                            [
+                                [$varUser_RefID, 'bigint'],
+                                [$varBranch_RefID, 'bigint'],
+                                [$varUserRole_RefID, 'bigint'],
+                                [$varDateTimeTZ, 'timestamptz']
+                            ]
+                            )
+                        );
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -119,17 +121,18 @@ namespace App\Models\Database\SchSysConfig
             int $varUser_RefID, string $varDateTimeTZ = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.Func_General_GetUserPrivilege_InstitutionBranch',
-                        [
-                            [$varUser_RefID, 'bigint'],
-                            [$varDateTimeTZ, 'timestamptz']
-                        ]
-                        )
-                    );
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_General_GetUserPrivilege_InstitutionBranch',
+                            [
+                                [$varUser_RefID, 'bigint'],
+                                [$varDateTimeTZ, 'timestamptz']
+                            ]
+                            )
+                        );
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -165,20 +168,21 @@ namespace App\Models\Database\SchSysConfig
             int $varUser_RefID, int $varBranch_RefID, int $varUserRole_RefID, int $varCombinedBudget_RefID, tring $varDateTimeTZ = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.Func_General_GetUserPrivilege_Menu',
-                        [
-                            [$varUser_RefID, 'bigint'],
-                            [$varBranch_RefID, 'bigint'],
-                            [$varUserRole_RefID, 'bigint'],
-                            [$varCombinedBudget_RefID, 'bigint'],
-                            [$varDateTimeTZ, 'timestamptz']
-                        ]
-                        )
-                    );
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_General_GetUserPrivilege_Menu',
+                            [
+                                [$varUser_RefID, 'bigint'],
+                                [$varBranch_RefID, 'bigint'],
+                                [$varUserRole_RefID, 'bigint'],
+                                [$varCombinedBudget_RefID, 'bigint'],
+                                [$varDateTimeTZ, 'timestamptz']
+                            ]
+                            )
+                        );
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -212,18 +216,19 @@ namespace App\Models\Database\SchSysConfig
             int $varUser_RefID, int $varBranch_RefID, string $varDateTimeTZ = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.Func_General_GetUserPrivilege_Role',
-                        [
-                            [$varUser_RefID, 'bigint'],
-                            [$varBranch_RefID, 'bigint'],
-                            [$varDateTimeTZ, 'timestamptz']
-                        ]
-                        )
-                    );
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_General_GetUserPrivilege_Role',
+                            [
+                                [$varUser_RefID, 'bigint'],
+                                [$varBranch_RefID, 'bigint'],
+                                [$varDateTimeTZ, 'timestamptz']
+                            ]
+                            )
+                        );
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -251,12 +256,13 @@ namespace App\Models\Database\SchSysConfig
             $varUserSession, 
             int $varBusinessDocument_RefID = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession,
-                'SELECT "SchSysConfig"."Func_General_GetWorkFlowPathOfBusinessDocument"('.
-                    $varBusinessDocument_RefID.'::bigint'.
-                    ');'
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession,
+                    'SELECT "SchSysConfig"."Func_General_GetWorkFlowPathOfBusinessDocument"('.
+                        $varBusinessDocument_RefID.'::bigint'.
+                        ');'
+                    );
             return (int) $varReturn['Data'][0]['Func_General_GetWorkFlowPathOfBusinessDocument'];   
             }
 
@@ -281,13 +287,14 @@ namespace App\Models\Database\SchSysConfig
         */
         public function getApplicationParameter_BaseCurrencyID($varUserSession, int $varBranchID, string $varKey)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession,
-                'SELECT "SchSysConfig"."FuncSys_General_GetParameterValue_App"('.
-                    '\''.$varKey.'\'::varchar, '.
-                    $varBranchID.'::bigint'.
-                    ');'
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession,
+                    'SELECT "SchSysConfig"."FuncSys_General_GetParameterValue_App"('.
+                        '\''.$varKey.'\'::varchar, '.
+                        $varBranchID.'::bigint'.
+                        ');'
+                    );
             return (int) $varReturn['Data'][0]['FuncSys_General_GetParameterValue_App'];            
             }
 
@@ -317,20 +324,21 @@ namespace App\Models\Database\SchSysConfig
             int $varBusinessDocumentType_RefID = null, int $varSubmitterEntity_RefID = null, int $varCombinedBudget_RefID = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.Func_GetDataList_BusinessDocumentTypeWorkFlowPath',
-                        [
-                            [$varBranchID, 'bigint'],
-                            
-                            [$varBusinessDocumentType_RefID, 'bigint'],
-                            [$varSubmitterEntity_RefID, 'bigint'],
-                            [$varCombinedBudget_RefID, 'bigint']
-                        ]
-                        )
-                    );                
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_GetDataList_BusinessDocumentTypeWorkFlowPath',
+                            [
+                                [$varBranchID, 'bigint'],
+
+                                [$varBusinessDocumentType_RefID, 'bigint'],
+                                [$varSubmitterEntity_RefID, 'bigint'],
+                                [$varCombinedBudget_RefID, 'bigint']
+                            ]
+                            )
+                        );                
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -363,18 +371,19 @@ namespace App\Models\Database\SchSysConfig
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.Func_General_GetBusDocWorkFlowPathApprovementHistory',
-                        [
-                            [$varBranchID, 'bigint' ],
-                            
-                            [$varBusinessDocument_RefID, 'bigint' ]
-                        ]
-                        )
-                    );                
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_General_GetBusDocWorkFlowPathApprovementHistory',
+                            [
+                                [$varBranchID, 'bigint' ],
+
+                                [$varBusinessDocument_RefID, 'bigint' ]
+                            ]
+                            )
+                        );                
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -406,18 +415,19 @@ namespace App\Models\Database\SchSysConfig
             int $varBusinessDocument_RefID = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.Func_General_GetBusDocCurrentAndNextWorkFlowPathStage',
-                        [
-                            [$varBranchID, 'bigint' ],
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_General_GetBusDocCurrentAndNextWorkFlowPathStage',
+                            [
+                                [$varBranchID, 'bigint' ],
 
-                            [$varBusinessDocument_RefID, 'bigint' ]
-                        ]
-                        )
-                    );
+                                [$varBusinessDocument_RefID, 'bigint' ]
+                            ]
+                            )
+                        );
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -433,17 +443,18 @@ namespace App\Models\Database\SchSysConfig
                 $varTimeZoneOffset = 'UTC';                
                 }
 
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.Func_Device_PersonAccess_GetLastRecordDateTimeTZ',
-                    [
-                        [$varGoodsIdentityID, 'bigint'],
-                        [$varTimeZoneOffset, 'varchar']
-                    ]
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_Device_PersonAccess_GetLastRecordDateTimeTZ',
+                        [
+                            [$varGoodsIdentityID, 'bigint'],
+                            [$varTimeZoneOffset, 'varchar']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0]['Func_Device_PersonAccess_GetLastRecordDateTimeTZ'];
             }
 
@@ -468,10 +479,11 @@ namespace App\Models\Database\SchSysConfig
             {
             $varTimeZoneNames = 'Asia/Jakarta';
             
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession,            
-                'SELECT EXTRACT(hour FROM (SELECT utc_offset FROM "pg_timezone_names" WHERE "name" ILIKE \''.$varTimeZoneNames.'\')::time)::smallint AS "UTCOffset";'
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession,            
+                    'SELECT EXTRACT(hour FROM (SELECT utc_offset FROM "pg_timezone_names" WHERE "name" ILIKE \''.$varTimeZoneNames.'\')::time)::smallint AS "UTCOffset";'
+                    );
             $varUTCOffset = $varReturn['Data'][0]['UTCOffset'];
             $varUTCOffset = ($varUTCOffset > 0 ? '+' : '-').(strlen($varUTCOffset) == 2 ? '' : '0').$varUTCOffset;
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -501,12 +513,13 @@ namespace App\Models\Database\SchSysConfig
         */
         public function getCurrentYear($varUserSession)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession,
-                'SELECT DATE_PART(\'YEAR\', \''.$this->getCurrentDateTimeTZ($varUserSession).'\'::timestamptz);'
-                //'SELECT DATE_PART(\'YEAR\', (SELECT NOW() AT TIME ZONE \'Asia/Jakarta\')::timestamptz);'
-                //'SET TIMEZONE=\'Asia/Jakarta\'; SELECT DATE_PART(\'YEAR\', NOW());'
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession,
+                    'SELECT DATE_PART(\'YEAR\', \''.$this->getCurrentDateTimeTZ($varUserSession).'\'::timestamptz);'
+                    //'SELECT DATE_PART(\'YEAR\', (SELECT NOW() AT TIME ZONE \'Asia/Jakarta\')::timestamptz);'
+                    //'SET TIMEZONE=\'Asia/Jakarta\'; SELECT DATE_PART(\'YEAR\', NOW());'
+                    );
             return (int) $varReturn['Data'][0]['date_part'];
             }
 
@@ -532,17 +545,18 @@ namespace App\Models\Database\SchSysConfig
             {
             try {
                 $varFunctionName='SchSysConfig.Func_GetDataEntities_ApproverEntity';
-                $varTemp = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        $varFunctionName,
-                        [
-                            [$varUserSession, 'bigint'],
-                            [$varIDSet, 'bigint[]']
-                        ]
-                        )
-                    );
+                $varTemp = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            $varFunctionName,
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varIDSet, 'bigint[]']
+                            ]
+                            )
+                        );
 
                 for ($i=0; $i!=count($varTemp['Data']); $i++)
                     {
@@ -580,18 +594,19 @@ namespace App\Models\Database\SchSysConfig
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.Func_GetDataPickList_AppObject_WorkFlowPath',
-                        [
-                            [$varBranchID, 'bigint' ],
-                            
-                            [$varWorkFlowVersion_RefID, 'bigint' ]
-                        ]
-                        )
-                    );                
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_GetDataPickList_AppObject_WorkFlowPath',
+                            [
+                                [$varBranchID, 'bigint' ],
+
+                                [$varWorkFlowVersion_RefID, 'bigint' ]
+                            ]
+                            )
+                        );                
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -622,19 +637,20 @@ namespace App\Models\Database\SchSysConfig
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.Func_GetDataPickList_BusinessDocumentTypeWorkFlowPath',
-                        [
-                            [$varBranchID, 'bigint'],
-                            
-                            [$varBusinessDocumentType_RefID, 'bigint'],
-                            [$varSubmitterEntity_RefID, 'bigint']
-                        ]
-                        )
-                    );                
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_GetDataPickList_BusinessDocumentTypeWorkFlowPath',
+                            [
+                                [$varBranchID, 'bigint'],
+
+                                [$varBusinessDocumentType_RefID, 'bigint'],
+                                [$varSubmitterEntity_RefID, 'bigint']
+                            ]
+                            )
+                        );                
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -666,18 +682,19 @@ namespace App\Models\Database\SchSysConfig
             int $varWorkFlow_RefID = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.Func_General_GetWorkFlowPathSequenceManualRemapping_DstList',
-                        [
-                            [$varUserSession, 'bigint'],
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_General_GetWorkFlowPathSequenceManualRemapping_DstList',
+                            [
+                                [$varUserSession, 'bigint'],
 
-                            [$varWorkFlow_RefID, 'bigint']
-                        ]
-                        )
-                    );
+                                [$varWorkFlow_RefID, 'bigint']
+                            ]
+                            )
+                        );
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -709,18 +726,19 @@ namespace App\Models\Database\SchSysConfig
             int $varWorkFlow_RefID = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.Func_General_GetWorkFlowPathSequenceManualRemapping_SrcList',
-                        [
-                            [$varUserSession, 'bigint'],
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_General_GetWorkFlowPathSequenceManualRemapping_SrcList',
+                            [
+                                [$varUserSession, 'bigint'],
 
-                            [$varWorkFlow_RefID, 'bigint']
-                        ]
-                        )
-                    );
+                                [$varWorkFlow_RefID, 'bigint']
+                            ]
+                            )
+                        );
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -748,10 +766,11 @@ namespace App\Models\Database\SchSysConfig
         */
         public function getReferenceTextByReferenceID($varUserSession, int $varID)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession,
-                'SELECT "SchSysConfig"."FuncSys_General_GetReferenceTEXTByReferenceID"('.$varID.'::bigint);'
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession,
+                    'SELECT "SchSysConfig"."FuncSys_General_GetReferenceTEXTByReferenceID"('.$varID.'::bigint);'
+                    );
             return $varReturn['Data'][0]['FuncSys_General_GetReferenceTEXTByReferenceID'];
             }
 
@@ -776,10 +795,11 @@ namespace App\Models\Database\SchSysConfig
         */
         public function getUserRolePrivilege($varUserSession, int $varUserID, int $varBranchID)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession,
-                'SELECT "SchSysConfig"."Func_General_GetUserRolePrivilege"('.$varUserID.'::bigint, '.$varBranchID.'::bigint);'
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession,
+                    'SELECT "SchSysConfig"."Func_General_GetUserRolePrivilege"('.$varUserID.'::bigint, '.$varBranchID.'::bigint);'
+                    );
             //var_dump('SELECT "SchSysConfig"."Func_General_GetUserRolePrivilege"('.$varBranchID.'::bigint, '.$varUserID.'::bigint)');
             
             return
@@ -811,17 +831,18 @@ namespace App\Models\Database\SchSysConfig
         */
         public function getUserRolePrivilegeMenuAndBudget($varUserSession, int $varUserID, int $varBranchID, int $varUserRoleID = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession,
-                '
-                SELECT 
-                    "SchSysConfig"."Func_General_GetUserPrivilege_MenuAccess"(
-                        '.$varUserID.'::bigint,
-                        '.$varBranchID.'::bigint,
-                        '.$varUserRoleID.'::bigint
-                        )
-                '
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession,
+                    '
+                    SELECT 
+                        "SchSysConfig"."Func_General_GetUserPrivilege_MenuAccess"(
+                            '.$varUserID.'::bigint,
+                            '.$varBranchID.'::bigint,
+                            '.$varUserRoleID.'::bigint
+                            )
+                    '
+                    );
             
             return
                 \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
@@ -849,10 +870,11 @@ namespace App\Models\Database\SchSysConfig
         */
         public function getYearByDate($varUserSession, string $varDate = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession,
-                'SELECT DATE_PART(\'YEAR\', \''.($varDate ? $varDate : $this->getCurrentDateTimeTZ($varUserSession)).'\'::timestamptz);'
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession,
+                    'SELECT DATE_PART(\'YEAR\', \''.($varDate ? $varDate : $this->getCurrentDateTimeTZ($varUserSession)).'\'::timestamptz);'
+                    );
             return (int) $varReturn['Data'][0]['date_part'];
             }
 
@@ -880,16 +902,17 @@ namespace App\Models\Database\SchSysConfig
             int $varWorkFlowPath_RefID = null)
             {
             try {
-                $varReturnTemp = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.Func_General_GetWorkFlowVersionByWorkFlowPathID',
-                        [                           
-                            [$varWorkFlowPath_RefID, 'bigint']
-                        ]
-                        )
-                    );
+                $varReturnTemp = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_General_GetWorkFlowVersionByWorkFlowPathID',
+                            [                           
+                                [$varWorkFlowPath_RefID, 'bigint']
+                            ]
+                            )
+                        );
                 $varReturn = [
                     'workFlowVersion_SysID' => $varReturnTemp['Data'][0]['BaseWorkFlowVersion_SysID'],
                     'version' => $varReturnTemp['Data'][0]['BaseVersion']
@@ -920,16 +943,17 @@ namespace App\Models\Database\SchSysConfig
         */
         public function isExist_APIWebToken($varUserSession, string $varAPIWebToken)
             {
-            $varData = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.FuncSys_General_GetExistantionOnSystem_APIWebToken',
-                    [
-                        [$varAPIWebToken, 'varchar']
-                    ]
-                    )
-                );
+            $varData = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.FuncSys_General_GetExistantionOnSystem_APIWebToken',
+                        [
+                            [$varAPIWebToken, 'varchar']
+                        ]
+                        )
+                    );
 
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBooleanConvertion($varUserSession, $varData['Data'][0]['FuncSys_General_GetExistantionOnSystem_APIWebToken']);
             return $varReturn;
@@ -974,10 +998,11 @@ namespace App\Models\Database\SchSysConfig
                         )
                 ';
             
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                $varSQLQuery
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    $varSQLQuery
+                    );
 
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBooleanConvertion($varUserSession, $varReturn['Data'][0]['Sign']);
             return $varReturn;
@@ -1011,22 +1036,23 @@ namespace App\Models\Database\SchSysConfig
             int $varBusinessDocument_RefID = null, int $varWorkFlowPath_RefID = null, int $varWorkFlowPathAction_RefID = null, string $varRemarks = null, int $varApproverEntity_RefID = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                         $varUserSession,
-                        'SchSysConfig.Func_General_SetActionForBusinessDocumentWorkFlowPath',
-                        [
-                            [$varUserSession, 'bigint'],
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_General_SetActionForBusinessDocumentWorkFlowPath',
+                            [
+                                [$varUserSession, 'bigint'],
 
-                            [$varBusinessDocument_RefID, 'bigint'],
-                            [$varWorkFlowPath_RefID, 'bigint'],
-                            [$varWorkFlowPathAction_RefID, 'bigint'],
-                            [$varRemarks, 'varchar'],
-                            [$varApproverEntity_RefID, 'bigint']
-                        ]
-                        )
-                    );
+                                [$varBusinessDocument_RefID, 'bigint'],
+                                [$varWorkFlowPath_RefID, 'bigint'],
+                                [$varWorkFlowPathAction_RefID, 'bigint'],
+                                [$varRemarks, 'varchar'],
+                                [$varApproverEntity_RefID, 'bigint']
+                            ]
+                            )
+                        );
                 return $varReturn['Data'][0];
                 }
             catch (\Exception $ex) {
@@ -1056,20 +1082,20 @@ namespace App\Models\Database\SchSysConfig
         */
         public function setUserSessionBranchAndUserRole($varUserSession, int $varRecordID, int $varBranchID, int $varUserRoleID)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.FuncSys_General_SetUserSessionBranchAndUserRole',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varRecordID, 'bigint'],
-                        [$varBranchID, 'bigint'],
-                        [$varUserRoleID, 'bigint']
-                    ]
-                    )
-                );
-            //dd($varReturn);
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.FuncSys_General_SetUserSessionBranchAndUserRole',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varRecordID, 'bigint'],
+                            [$varBranchID, 'bigint'],
+                            [$varUserRoleID, 'bigint']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0]['FuncSys_General_SetUserSessionBranchAndUserRole'];
             }
 
@@ -1098,21 +1124,22 @@ namespace App\Models\Database\SchSysConfig
             $varUserSession, int $varBranchID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.Func_GetDataList_AppObject_Menu',
-                    [
-                        [$varBranchID, 'bigint' ],
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_GetDataList_AppObject_Menu',
+                        [
+                            [$varBranchID, 'bigint' ],
 
-                        [$varPickStatement, 'varchar'],
-                        [$varSortStatement, 'varchar'],
-                        [$varFilterStatement, 'varchar'],
-                        [$varPagingStatement, 'varchar']
-                    ]
-                    )
-                );
+                            [$varPickStatement, 'varchar'],
+                            [$varSortStatement, 'varchar'],
+                            [$varFilterStatement, 'varchar'],
+                            [$varPagingStatement, 'varchar']
+                        ]
+                        )
+                    );
             return $varReturn['Data'];
             }
 
@@ -1141,21 +1168,22 @@ namespace App\Models\Database\SchSysConfig
             $varUserSession, int $varBranchID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.Func_GetDataList_AppObject_UserRole',
-                    [
-                        [$varBranchID, 'bigint' ],
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_GetDataList_AppObject_UserRole',
+                        [
+                            [$varBranchID, 'bigint' ],
 
-                        [$varPickStatement, 'varchar'],
-                        [$varSortStatement, 'varchar'],
-                        [$varFilterStatement, 'varchar'],
-                        [$varPagingStatement, 'varchar']
-                    ]
-                    )
-                );
+                            [$varPickStatement, 'varchar'],
+                            [$varSortStatement, 'varchar'],
+                            [$varFilterStatement, 'varchar'],
+                            [$varPagingStatement, 'varchar']
+                        ]
+                        )
+                    );
             return $varReturn['Data'];
             }
 
@@ -1184,21 +1212,22 @@ namespace App\Models\Database\SchSysConfig
             $varUserSession, int $varBranchID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.Func_GetDataList_AppObject_WorkFlow',
-                    [
-                        [$varBranchID, 'bigint' ],
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_GetDataList_AppObject_WorkFlow',
+                        [
+                            [$varBranchID, 'bigint' ],
 
-                        [$varPickStatement, 'varchar'],
-                        [$varSortStatement, 'varchar'],
-                        [$varFilterStatement, 'varchar'],
-                        [$varPagingStatement, 'varchar']
-                    ]
-                    )
-                );
+                            [$varPickStatement, 'varchar'],
+                            [$varSortStatement, 'varchar'],
+                            [$varFilterStatement, 'varchar'],
+                            [$varPagingStatement, 'varchar']
+                        ]
+                        )
+                    );
             return $varReturn['Data'];
             }
 
@@ -1230,23 +1259,24 @@ namespace App\Models\Database\SchSysConfig
             int $varWorkFlowVersion_RefID = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.Func_GetDataList_AppObject_WorkFlowPath',
-                    [
-                        [$varBranchID, 'bigint' ],
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_GetDataList_AppObject_WorkFlowPath',
+                        [
+                            [$varBranchID, 'bigint' ],
 
-                        [$varWorkFlowVersion_RefID, 'bigint' ],
+                            [$varWorkFlowVersion_RefID, 'bigint' ],
 
-                        [$varPickStatement, 'varchar'],
-                        [$varSortStatement, 'varchar'],
-                        [$varFilterStatement, 'varchar'],
-                        [$varPagingStatement, 'varchar']
-                    ]
-                    )
-                );
+                            [$varPickStatement, 'varchar'],
+                            [$varSortStatement, 'varchar'],
+                            [$varFilterStatement, 'varchar'],
+                            [$varPagingStatement, 'varchar']
+                        ]
+                        )
+                    );
             for($i=0, $iMax=count($varReturn['Data']); $i!=$iMax; $i++)
                 {
                 $varReturn['Data'][$i]['AlternativeItemList'] = 
@@ -1291,23 +1321,24 @@ namespace App\Models\Database\SchSysConfig
             int $varWorkFlowPath_RefID = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.Func_GetDataList_AppObject_WorkFlowPathSequence',
-                    [
-                        [$varBranchID, 'bigint' ],
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_GetDataList_AppObject_WorkFlowPathSequence',
+                        [
+                            [$varBranchID, 'bigint' ],
 
-                        [$varWorkFlowPath_RefID, 'bigint' ],
+                            [$varWorkFlowPath_RefID, 'bigint' ],
 
-                        [$varPickStatement, 'varchar'],
-                        [$varSortStatement, 'varchar'],
-                        [$varFilterStatement, 'varchar'],
-                        [$varPagingStatement, 'varchar']
-                    ]
-                    )
-                );
+                            [$varPickStatement, 'varchar'],
+                            [$varSortStatement, 'varchar'],
+                            [$varFilterStatement, 'varchar'],
+                            [$varPagingStatement, 'varchar']
+                        ]
+                        )
+                    );
             return $varReturn['Data'];
             }
 
@@ -1339,23 +1370,24 @@ namespace App\Models\Database\SchSysConfig
             int $varWorkFlow_RefID = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.Func_GetDataList_AppObject_WorkFlowVersion',
-                    [
-                        [$varBranchID, 'bigint' ],
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_GetDataList_AppObject_WorkFlowVersion',
+                        [
+                            [$varBranchID, 'bigint' ],
 
-                        [$varWorkFlow_RefID, 'bigint' ],
+                            [$varWorkFlow_RefID, 'bigint' ],
 
-                        [$varPickStatement, 'varchar'],
-                        [$varSortStatement, 'varchar'],
-                        [$varFilterStatement, 'varchar'],
-                        [$varPagingStatement, 'varchar']
-                    ]
-                    )
-                );
+                            [$varPickStatement, 'varchar'],
+                            [$varSortStatement, 'varchar'],
+                            [$varFilterStatement, 'varchar'],
+                            [$varPagingStatement, 'varchar']
+                        ]
+                        )
+                    );
             return $varReturn['Data'];
             }
 
@@ -1388,24 +1420,25 @@ namespace App\Models\Database\SchSysConfig
             int $varBusinessDocumentType_RefID = null, int $varSubmitterEntity_RefID = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.Func_GetDataList_BusinessDocumentTypeWorkFlowPath',
-                    [
-                        [$varBranchID, 'bigint'],
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_GetDataList_BusinessDocumentTypeWorkFlowPath',
+                        [
+                            [$varBranchID, 'bigint'],
 
-                        [$varBusinessDocumentType_RefID, 'bigint'],
-                        [$varSubmitterEntity_RefID, 'bigint'],
+                            [$varBusinessDocumentType_RefID, 'bigint'],
+                            [$varSubmitterEntity_RefID, 'bigint'],
 
-                        [$varPickStatement, 'varchar'],
-                        [$varSortStatement, 'varchar'],
-                        [$varFilterStatement, 'varchar'],
-                        [$varPagingStatement, 'varchar']
-                    ]
-                    )
-                );
+                            [$varPickStatement, 'varchar'],
+                            [$varSortStatement, 'varchar'],
+                            [$varFilterStatement, 'varchar'],
+                            [$varPagingStatement, 'varchar']
+                        ]
+                        )
+                    );
             for($i=0, $iMax=count($varReturn['Data']); $i!=$iMax; $i++)
                 {
                 $varReturn['Data'][$i]['AlternativeItemList'] = 
@@ -1447,21 +1480,22 @@ namespace App\Models\Database\SchSysConfig
             $varUserSession, int $varBranchID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.Func_GetDataList_DBObject_Schema',
-                    [
-                        [$varBranchID, 'bigint' ],
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_GetDataList_DBObject_Schema',
+                        [
+                            [$varBranchID, 'bigint' ],
 
-                        [$varPickStatement, 'varchar'],
-                        [$varSortStatement, 'varchar'],
-                        [$varFilterStatement, 'varchar'],
-                        [$varPagingStatement, 'varchar']
-                    ]
-                    )
-                );
+                            [$varPickStatement, 'varchar'],
+                            [$varSortStatement, 'varchar'],
+                            [$varFilterStatement, 'varchar'],
+                            [$varPagingStatement, 'varchar']
+                        ]
+                        )
+                    );
             return $varReturn['Data'];
             }
 
@@ -1482,16 +1516,17 @@ namespace App\Models\Database\SchSysConfig
         */
         public function getDataList_BranchAccess($varUserSession)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.FuncSys_GetDataList_BranchAccess',
-                    [
-                        [$varUserSession, 'bigint']
-                    ]
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.FuncSys_GetDataList_BranchAccess',
+                        [
+                            [$varUserSession, 'bigint']
+                        ]
+                        )
+                    );
             return $varReturn['Data'];
             }
 
@@ -1524,24 +1559,24 @@ namespace App\Models\Database\SchSysConfig
             int $varLog_BusinessDocumentWorkFlowPathHistory_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.Func_GetDataList_Log_BusinessDocumentWorkFlowPathHistory',
-                    [
-                        [$varBranchID, 'bigint'],
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_GetDataList_Log_BusinessDocumentWorkFlowPathHistory',
+                        [
+                            [$varBranchID, 'bigint'],
 
-                        [$varLog_BusinessDocumentWorkFlowPathHistory_RefID, 'bigint'],
+                            [$varLog_BusinessDocumentWorkFlowPathHistory_RefID, 'bigint'],
 
-                        [$varPickStatement, 'varchar'],
-                        [$varSortStatement, 'varchar'],
-                        [$varFilterStatement, 'varchar'],
-                        [$varPagingStatement, 'varchar']
-                    ]
-                    )
-                );
-//            dd($varReturn);
+                            [$varPickStatement, 'varchar'],
+                            [$varSortStatement, 'varchar'],
+                            [$varFilterStatement, 'varchar'],
+                            [$varPagingStatement, 'varchar']
+                        ]
+                        )
+                    );
             return $varReturn['Data'];
             }
 
@@ -1569,19 +1604,20 @@ namespace App\Models\Database\SchSysConfig
         public function getDataList_RotateLog_FileUploadStagingArea($varUserSession, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.Func_GetDataList_RotateLog_FileUploadStagingArea',
-                    [
-                        [$varPickStatement, 'varchar'],
-                        [$varSortStatement, 'varchar'],
-                        [$varFilterStatement, 'varchar'],
-                        [$varPagingStatement, 'varchar']
-                    ]
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_GetDataList_RotateLog_FileUploadStagingArea',
+                        [
+                            [$varPickStatement, 'varchar'],
+                            [$varSortStatement, 'varchar'],
+                            [$varFilterStatement, 'varchar'],
+                            [$varPagingStatement, 'varchar']
+                        ]
+                        )
+                    );
             return $varReturn['Data'];
             }
 
@@ -1612,20 +1648,21 @@ namespace App\Models\Database\SchSysConfig
             int $varRotateLog_FileUploadStagingArea_RefRPK, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.Func_GetDataList_RotateLog_FileUploadStagingAreaDetail',
-                    [
-                        [$varRotateLog_FileUploadStagingArea_RefRPK, 'bigint' ],
-                        [$varPickStatement, 'varchar'],
-                        [$varSortStatement, 'varchar'],
-                        [$varFilterStatement, 'varchar'],
-                        [$varPagingStatement, 'varchar']
-                    ]
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_GetDataList_RotateLog_FileUploadStagingAreaDetail',
+                        [
+                            [$varRotateLog_FileUploadStagingArea_RefRPK, 'bigint' ],
+                            [$varPickStatement, 'varchar'],
+                            [$varSortStatement, 'varchar'],
+                            [$varFilterStatement, 'varchar'],
+                            [$varPagingStatement, 'varchar']
+                        ]
+                        )
+                    );
             return $varReturn['Data'];
             }
 
@@ -1648,17 +1685,18 @@ namespace App\Models\Database\SchSysConfig
         */
         public function getDataList_UserRole($varUserSession, int $varUserID, int $varBranchID = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.FuncSys_GetDataList_UserRole',
-                    [
-                        [$varUserID, 'bigint'],
-                        [$varBranchID, 'bigint']
-                    ]
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.FuncSys_GetDataList_UserRole',
+                        [
+                            [$varUserID, 'bigint'],
+                            [$varBranchID, 'bigint']
+                        ]
+                        )
+                    );
             return $varReturn['Data'];
             }
 
@@ -1680,16 +1718,17 @@ namespace App\Models\Database\SchSysConfig
         */
         public function getUserIDByName($varUserSession, string $varName)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.FuncSys_General_GetUserIDByName',
-                    [
-                        [$varName, 'varchar']
-                    ]
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.FuncSys_General_GetUserIDByName',
+                        [
+                            [$varName, 'varchar']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0]['FuncSys_General_GetUserIDByName'];
             }
 
@@ -1712,17 +1751,18 @@ namespace App\Models\Database\SchSysConfig
         */
         public function getMenuByUserRoleIDAndBranchID($varUserSession, int $varUserRoleID, int $varBranchID)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.FuncSys_General_GetUserRolePrivilegesMenu',
-                    [
-                        [$varUserRoleID, 'bigint'],
-                        [$varBranchID, 'bigint']
-                    ]
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.FuncSys_General_GetUserRolePrivilegesMenu',
+                        [
+                            [$varUserRoleID, 'bigint'],
+                            [$varBranchID, 'bigint']
+                        ]
+                        )
+                    );
             return $varReturn['Data'];
             }
 
@@ -1745,17 +1785,18 @@ namespace App\Models\Database\SchSysConfig
         */
         public function getUserMainEntitiesByLDAPUserID($varUserSessionID, string $varLDAPUserID = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.FuncSys_General_GetUserMainEntitiesByLDAPUserID',
-                    [
-                        [$varUserSessionID, 'bigint'],
-                        [$varLDAPUserID, 'varchar']
-                    ]
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.FuncSys_General_GetUserMainEntitiesByLDAPUserID',
+                        [
+                            [$varUserSessionID, 'bigint'],
+                            [$varLDAPUserID, 'varchar']
+                        ]
+                        )
+                    );
             return $varReturn['Data'];            
             }
 
@@ -1777,7 +1818,11 @@ namespace App\Models\Database\SchSysConfig
         */
         public function isValid_SQLSyntax($varUserSession, string $varSQL)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::isValid_SQLSyntax($varUserSession, $varSQL);
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::isValid_SQLSyntax(
+                    $varUserSession, 
+                    $varSQL
+                    );
             return $varReturn;
             }
 
@@ -1799,17 +1844,18 @@ namespace App\Models\Database\SchSysConfig
         */
         public function setDataDelete($varUserSession, int $varRecordID)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.FuncSys_General_SetRecordDelete',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varRecordID, 'bigint']
-                    ]
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.FuncSys_General_SetRecordDelete',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varRecordID, 'bigint']
+                        ]
+                        )
+                    );
             return $varReturn;
             }
 
@@ -1834,20 +1880,20 @@ namespace App\Models\Database\SchSysConfig
         */
         public function setDataDeleteByRPK($varUserSession, string $varSchemaName, string $varTableName, int $varRecordPK)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.FuncSys_General_SetRecordDeleteByRPK',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varSchemaName, 'varchar'],
-                        [$varTableName, 'varchar'],
-                        [$varRecordPK, 'bigint']
-                    ]
-                    )
-                );
-            //dd($varReturn);
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.FuncSys_General_SetRecordDeleteByRPK',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varSchemaName, 'varchar'],
+                            [$varTableName, 'varchar'],
+                            [$varRecordPK, 'bigint']
+                        ]
+                        )
+                    );
             return $varReturn;
             }
 
@@ -1869,17 +1915,18 @@ namespace App\Models\Database\SchSysConfig
         */
         public function setDataHide($varUserSession, int $varRecordID)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.FuncSys_General_SetRecordHide',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varRecordID, 'bigint']
-                    ]
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.FuncSys_General_SetRecordHide',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varRecordID, 'bigint']
+                        ]
+                        )
+                    );
             return $varReturn;
             }
 
@@ -1901,17 +1948,18 @@ namespace App\Models\Database\SchSysConfig
         */
         public function setUserSessionLogout($varUserSession, int $varUserSessionID)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.FuncSys_General_SetUserSessionLogout',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varUserSessionID, 'bigint']
-                    ]
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.FuncSys_General_SetUserSessionLogout',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varUserSessionID, 'bigint']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0]['FuncSys_General_SetUserSessionLogout'];
             }
 
@@ -1933,17 +1981,18 @@ namespace App\Models\Database\SchSysConfig
         */
         public function unsetDataDelete($varUserSession, int $varRecordID)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.FuncSys_General_UnsetRecordDelete',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varRecordID, 'bigint']
-                    ]
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.FuncSys_General_UnsetRecordDelete',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varRecordID, 'bigint']
+                        ]
+                        )
+                    );
             return $varReturn;
             }
 
@@ -1968,19 +2017,20 @@ namespace App\Models\Database\SchSysConfig
         */
         public function unsetDataDeleteByRPK($varUserSession, string $varSchemaName, string $varTableName, int $varRecordRPK)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.FuncSys_General_UnsetRecordDeleteByRPK',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varSchemaName, 'varchar'],
-                        [$varTableName, 'varchar'],
-                        [$varRecordRPK, 'bigint']
-                    ]
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.FuncSys_General_UnsetRecordDeleteByRPK',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varSchemaName, 'varchar'],
+                            [$varTableName, 'varchar'],
+                            [$varRecordRPK, 'bigint']
+                        ]
+                        )
+                    );
             return $varReturn;
             }
             
@@ -2002,17 +2052,18 @@ namespace App\Models\Database\SchSysConfig
         */
         public function unsetDataHide($varUserSession, int $varRecordID)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.FuncSys_General_UnsetRecordHide',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varRecordID, 'bigint']
-                    ]
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.FuncSys_General_UnsetRecordHide',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varRecordID, 'bigint']
+                        ]
+                        )
+                    );
             return $varReturn;
             }
         }
