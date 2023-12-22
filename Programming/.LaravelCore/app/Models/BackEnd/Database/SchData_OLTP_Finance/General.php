@@ -214,57 +214,6 @@ namespace App\Models\Database\SchData_OLTP_Finance
                 }
             }
 
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataList_AdvanceDetailComplex                                                                            |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-06-02                                                                                           |
-        | ▪ Creation Date   : 2022-06-02                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Advance                                                                           |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
-        |      ------------------------------                                                                                      |
-        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
-        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
-        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
-        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDataList_AdvanceDetailComplex(
-            $varUserSession, int $varSysBranch_RefID, 
-            int $varAdvance_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
-            try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Finance.Func_GetDataList_AdvanceDetailComplex',
-                        [
-                            [$varSysBranch_RefID, 'bigint' ],
-
-                            [$varAdvance_RefID, 'bigint'],
-
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );
-                return $varReturn['Data'];
-                }
-            catch (\Exception $ex) {
-                return [];
-                }
-            }
-
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

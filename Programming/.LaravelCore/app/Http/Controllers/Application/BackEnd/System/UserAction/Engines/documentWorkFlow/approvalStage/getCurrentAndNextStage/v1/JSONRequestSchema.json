@@ -39,12 +39,20 @@
                                 "maximum": 9223372036854775807
                                 }
                             },
-                        "required": [ "businessDocument_RefID" ]
+                        "required": [
+                            "businessDocument_RefID"
+                            ]
                         }
-                    ]                }    
+                    ]
+                }
             },
-        "required": [ "parameter" ]
+        "required": [
+            "parameter"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }
