@@ -5,6 +5,8 @@
     $("#showContentBOQ3").hide();
     $("#product_id2").prop("disabled", true);
     // $("#submitArf").prop("disabled", true);
+    var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
+        console.log(date);
 </script>
 
 <script type="text/javascript">
@@ -68,7 +70,7 @@
             '<input id="budget_qty' + key + '" value="' + dataDetails['Quantity'] + '" type="hidden">' +
             '<input id="budget_price' + key + '" value="' + dataDetails['PriceBaseCurrencyValue'] + '" type="hidden">' +
             '<input name="var_uom[]" value="' + dataDetails['QuantityUnitName'] + '" type="hidden">' +
-            '<input name="var_currency_id[]" value="' + dataDetails['priceCurrency_RefID'] + '" type="hidden">' +
+            '<input name="var_currency_id[]" value="' + dataDetails['PriceCurrency_RefID'] + '" type="hidden">' +
             '<input name="var_currency[]" value="' + dataDetails['ProductUnitPriceCurrencyISOCode'] + '" type="hidden">' +
             '<input name="var_combinedBudgetSectionDetail_RefID[]" value="' + dataDetails['CombinedBudgetSectionDetail_RefID'] + '" type="hidden">' +
             '<input name="var_recordIDDetail[]" value="' + dataDetails['Sys_ID_AdvanceDetail'] + '"  type="hidden">' +

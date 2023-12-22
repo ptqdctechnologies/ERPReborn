@@ -29,6 +29,8 @@ class MyDocumentController extends Controller
             true
         );
 
+        dd($ShowMyDocumentListData);
+
         $filteredArray = [];
         for ($i = 0; $i < count($ShowMyDocumentListData); $i++) {
             $filteredArray[$i]['businessDocumentNumber'] = $ShowMyDocumentListData[$i]['entities']['businessDocumentNumber'];
@@ -85,7 +87,7 @@ class MyDocumentController extends Controller
         $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
         $varAPIWebToken = Session::get('SessionLogin');
 
-        if (Redis::get("ShowMyDocumentListData" . $SessionWorkerCareerInternal_RefID) == null) {
+        // if (Redis::get("ShowMyDocumentListData" . $SessionWorkerCareerInternal_RefID) == null) {
             \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
@@ -103,7 +105,7 @@ class MyDocumentController extends Controller
                 ],
                 false
             );
-        }
+        // }
 
         $filteredArray = $this->CustomeFormatData();
 
