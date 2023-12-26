@@ -476,7 +476,7 @@ class FunctionController extends Controller
             'latest',
             [
                 'parameter' => [
-                    'source_RefID' => 82000000000207
+                    'source_RefID' => (int) $id
                 ],
                 'SQLStatement' => [
                     'pick' => null,

@@ -19,7 +19,7 @@
     $('#tableGetProject tbody').on('click', 'tr', function() {
 
         //RESET FORM
-        document.getElementById("formSubmitArf").reset();
+        document.getElementById("FormSubmitAdvance").reset();
         $("#dataInput_Log_FileUpload_Pointer_RefID").val("");
         $("#dataInput_Log_FileUpload_Pointer_RefID_Action").val("");
         $('.tableBudgetDetail').find('tbody').empty();
@@ -469,7 +469,7 @@
 
 <script>
     $(function() {
-        $("#formSubmitArf").on("submit", function(e) { //id of form 
+        $("#FormSubmitAdvance").on("submit", function(e) { //id of form 
             e.preventDefault();
 
             // MANDATORY VALIDATION
@@ -534,7 +534,7 @@
                                     t.clear();
                                     $.each(response.data, function(key, val) {
                                         t.row.add([
-                                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.sys_ID + '\', \'' + val.nextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                                            '<td><span data-dismiss="modal" onclick="SelectWorkFlowStore(\'' + val.sys_ID + '\', \'' + val.nextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
                                             '<td style="border:1px solid #e9ecef;">' + val.fullApproverPath + '</td></tr></tbody>'
                                         ]).draw();
                                     });
@@ -543,7 +543,7 @@
 
                                     HideLoading();
 
-                                    SelectWorkFlow(response.workFlowPath_RefID, response.nextApprover_RefID, response.approverEntity_RefID, response.documentTypeID);
+                                    SelectWorkFlowStore(response.workFlowPath_RefID, response.nextApprover_RefID, response.approverEntity_RefID, response.documentTypeID);
 
                                 }
                             },
@@ -573,7 +573,7 @@
 </script>
 
 <script>
-    function SelectWorkFlow(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, documentTypeID) {
+    function SelectWorkFlowStore(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, documentTypeID) {
 
         const swalWithBootstrapButtons = Swal.mixin({
             confirmButtonClass: 'btn btn-success btn-sm',
@@ -599,7 +599,6 @@
 
                 var fileAttachment = null;
                 var file = $("#dataInput_Log_FileUpload_Pointer_RefID_Action").val();
-                console.log(file);
                 if (file) {
                     varFileUpload_UniqueID = "Upload";
                     window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();

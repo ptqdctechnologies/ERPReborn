@@ -5,8 +5,6 @@
     $("#showContentBOQ3").hide();
     $("#product_id2").prop("disabled", true);
     // $("#submitArf").prop("disabled", true);
-    var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
-        console.log(date);
 </script>
 
 <script type="text/javascript">
@@ -14,9 +12,6 @@
     var TotalQty = 0;
     var TotalPayment = 0;
     var dataDetail = $.parseJSON('<?= json_encode($dataDetail) ?>');
-
-    console.log(dataDetail);
-
     dataDetail.forEach((dataDetails, key) => {
 
         TotalBudgetList += +(dataDetails['PriceBaseCurrencyValue']);
@@ -387,8 +382,9 @@
 
 <script>
     $(function() {
-        $("#formUpdateArf").on("submit", function(e) { //id of form 
+        $("#FormUpdateAdvance").on("submit", function(e) { //id of form 
             e.preventDefault();
+
 
             // MANDATORY VALIDATION
             var MandatoryListVar = new Object();
@@ -427,9 +423,13 @@
                 }).then((result) => {
                     if (result.value) {
 
-                        varFileUpload_UniqueID = "Upload";
-                        window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
-
+                        var fileAttachment = null;
+                        var file = $("#dataInput_Log_FileUpload_Pointer_RefID_Action").val();
+                        if (file) {
+                            varFileUpload_UniqueID = "Upload";
+                            window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
+                        }
+                        
                         var action = $(this).attr("action"); //get submit action from form
                         var method = $(this).attr("method"); // get submit method
                         var form_data = new FormData($(this)[0]); // convert form into formdata 

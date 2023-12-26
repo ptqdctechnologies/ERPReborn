@@ -29,28 +29,29 @@ class MyDocumentController extends Controller
             true
         );
 
-        dd($ShowMyDocumentListData);
 
         $filteredArray = [];
-        for ($i = 0; $i < count($ShowMyDocumentListData); $i++) {
-            $filteredArray[$i]['businessDocumentNumber'] = $ShowMyDocumentListData[$i]['entities']['businessDocumentNumber'];
-            $filteredArray[$i]['businessDocumentDateTimeTZ'] = $ShowMyDocumentListData[$i]['entities']['businessDocumentDateTimeTZ'];
-            $filteredArray[$i]['formDocumentNumber_RefID'] = $ShowMyDocumentListData[$i]['entities']['formDocumentNumber_RefID'];
-            $filteredArray[$i]['businessDocument_RefID'] = $ShowMyDocumentListData[$i]['entities']['businessDocument_RefID'];
-            $filteredArray[$i]['BusinessDocumentType_RefID'] = $ShowMyDocumentListData[$i]['entities']['BusinessDocumentType_RefID'];
-            if ($ShowMyDocumentListData[$i]['entities']['CombinedBudgetID'] != []) {
-                $filteredArray[$i]['CombinedBudgetID'] = $ShowMyDocumentListData[$i]['entities']['CombinedBudgetID'][0];
-            } else {
-                $filteredArray[$i]['CombinedBudgetID'] = $ShowMyDocumentListData[$i]['entities']['CombinedBudgetID'];
+        if (isset($ShowMyDocumentListData)) {
+            for ($i = 0; $i < count($ShowMyDocumentListData); $i++) {
+                $filteredArray[$i]['businessDocumentNumber'] = $ShowMyDocumentListData[$i]['entities']['businessDocumentNumber'];
+                $filteredArray[$i]['businessDocumentDateTimeTZ'] = $ShowMyDocumentListData[$i]['entities']['businessDocumentDateTimeTZ'];
+                $filteredArray[$i]['formDocumentNumber_RefID'] = $ShowMyDocumentListData[$i]['entities']['formDocumentNumber_RefID'];
+                $filteredArray[$i]['businessDocument_RefID'] = $ShowMyDocumentListData[$i]['entities']['businessDocument_RefID'];
+                $filteredArray[$i]['BusinessDocumentType_RefID'] = $ShowMyDocumentListData[$i]['entities']['BusinessDocumentType_RefID'];
+                if ($ShowMyDocumentListData[$i]['entities']['CombinedBudgetID'] != []) {
+                    $filteredArray[$i]['CombinedBudgetID'] = $ShowMyDocumentListData[$i]['entities']['CombinedBudgetID'][0];
+                } else {
+                    $filteredArray[$i]['CombinedBudgetID'] = $ShowMyDocumentListData[$i]['entities']['CombinedBudgetID'];
+                }
+                if ($ShowMyDocumentListData[$i]['entities']['combinedBudgetCode'] != []) {
+                    $filteredArray[$i]['combinedBudgetCode'] = $ShowMyDocumentListData[$i]['entities']['combinedBudgetCode'][0];
+                } else {
+                    $filteredArray[$i]['combinedBudgetCode'] = $ShowMyDocumentListData[$i]['entities']['combinedBudgetCode'];
+                }
+                $filteredArray[$i]['workFlowPathSubmitterRemarks'] = $ShowMyDocumentListData[$i]['entities']['workFlowPathSubmitterRemarks'];
+                $filteredArray[$i]['previousWorkFlowPathApproverName'] = $ShowMyDocumentListData[$i]['entities']['previousWorkFlowPathApproverName'];
+                $filteredArray[$i]['previousWorkFlowPathActionName'] = $ShowMyDocumentListData[$i]['entities']['previousWorkFlowPathActionName'];
             }
-            if ($ShowMyDocumentListData[$i]['entities']['combinedBudgetCode'] != []) {
-                $filteredArray[$i]['combinedBudgetCode'] = $ShowMyDocumentListData[$i]['entities']['combinedBudgetCode'][0];
-            } else {
-                $filteredArray[$i]['combinedBudgetCode'] = $ShowMyDocumentListData[$i]['entities']['combinedBudgetCode'];
-            }
-            $filteredArray[$i]['workFlowPathSubmitterRemarks'] = $ShowMyDocumentListData[$i]['entities']['workFlowPathSubmitterRemarks'];
-            $filteredArray[$i]['previousWorkFlowPathApproverName'] = $ShowMyDocumentListData[$i]['entities']['previousWorkFlowPathApproverName'];
-            $filteredArray[$i]['previousWorkFlowPathActionName'] = $ShowMyDocumentListData[$i]['entities']['previousWorkFlowPathActionName'];
         }
 
         return $filteredArray;
@@ -83,11 +84,11 @@ class MyDocumentController extends Controller
     }
 
     public function ShowMyDocumentListData(Request $request)
-    {        
+    {
         $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
         $varAPIWebToken = Session::get('SessionLogin');
 
-        // if (Redis::get("ShowMyDocumentListData" . $SessionWorkerCareerInternal_RefID) == null) {
+        if (Redis::get("ShowMyDocumentListData" . $SessionWorkerCareerInternal_RefID) == null) {
             \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
@@ -105,7 +106,7 @@ class MyDocumentController extends Controller
                 ],
                 false
             );
-        // }
+        }
 
         $filteredArray = $this->CustomeFormatData();
 

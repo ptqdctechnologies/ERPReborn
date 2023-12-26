@@ -57,8 +57,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // Workflow
     
     Route::get('CheckingWorkflow', 'Controller@CheckingWorkflow')->name('CheckingWorkflow');
-    Route::post('SelectWorkFlow', 'Controller@SelectWorkFlow')->name('SelectWorkFlow');
-    Route::get('StoreWorkFlow', 'Controller@StoreWorkFlow')->name('StoreWorkFlow');
+    Route::post('SelectWorkFlowStore', 'Controller@SelectWorkFlowStore')->name('SelectWorkFlowStore');
+    Route::get('SubmitWorkflow', 'Controller@SubmitWorkflow')->name('SubmitWorkflow');
 
     // Dashboard
     Route::resource('dashboard', 'Dashboard\DashboardController');
