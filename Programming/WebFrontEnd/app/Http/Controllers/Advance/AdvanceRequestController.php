@@ -58,7 +58,7 @@ class AdvanceRequestController extends Controller
         $varAPIWebToken = Session::get('SessionLogin');
 
         $documentTypeID = $request->documentTypeID;
-        $input = Session::get('dataInput' . $documentTypeID);
+        $input = Session::get('dataInputStore' . $documentTypeID);
         $input['dataInput_Log_FileUpload_Pointer_RefID'] = $request->fileAttachment;
 
         $count_product = count($input['var_product_id']);
@@ -107,7 +107,7 @@ class AdvanceRequestController extends Controller
         $nextApprover_RefID = $request->nextApprover_RefID;
         $documentNumber = $varData['data']['businessDocument']['documentNumber'];
 
-        return $this->StoreWorkFlow($businessDocument_RefID, $workFlowPath_RefID, $comment, $approverEntity_RefID, $nextApprover_RefID, $documentNumber);
+        return $this->SubmitWorkflow($businessDocument_RefID, $workFlowPath_RefID, $comment, $approverEntity_RefID, $nextApprover_RefID, $documentNumber);
     }
 
     // REVISION FUNCTION FOR SHOW LIST DATA FILTER BY ID 
@@ -226,8 +226,6 @@ class AdvanceRequestController extends Controller
                 ]
             ]
         );
-
-        // dd($varData);
         
         $compact = [
             "status" => true,

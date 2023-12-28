@@ -14,19 +14,19 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function SelectWorkFlow(Request $request)
+    public function SelectWorkFlowStore(Request $request)
     {
         $varAPIWebToken = Session::get('SessionLogin');
         $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
 
-        $dataInput = $request->all();
-        if (isset($dataInput['dataInput_Log_FileUpload_Pointer_RefID_Action'])) {
-            unset($dataInput['dataInput_Log_FileUpload_Pointer_RefID_Action']);
+        $dataInputStore = $request->all();
+        if (isset($dataInputStore['dataInput_Log_FileUpload_Pointer_RefID_Action'])) {
+            unset($dataInputStore['dataInput_Log_FileUpload_Pointer_RefID_Action']);
         }
 
-        $DocumentTypeID = $dataInput['DocumentTypeID'];
+        $DocumentTypeID = $dataInputStore['DocumentTypeID'];
 
-        Session::put('dataInput' . $DocumentTypeID, $dataInput);
+        Session::put('dataInputStore' . $DocumentTypeID, $dataInputStore);
 
         $VarSelectWorkFlow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -37,7 +37,7 @@ class Controller extends BaseController
                 'parameter' => [
                     'businessDocumentType_RefID' => (int)$DocumentTypeID,
                     'submitterEntity_RefID' => (int)$SessionWorkerCareerInternal_RefID,
-                    'combinedBudget_RefID' => (int)$dataInput['var_combinedBudget_RefID']
+                    'combinedBudget_RefID' => (int)$dataInputStore['var_combinedBudget_RefID']
                 ]
             ]
         );
@@ -72,11 +72,11 @@ class Controller extends BaseController
         }
     }
 
-    public function StoreWorkFlow($businessDocument_RefID, $workFlowPath_RefID, $comment, $approverEntity_RefID, $nextApprover_RefID, $documentNumber)
+    public function SubmitWorkflow($businessDocument_RefID, $workFlowPath_RefID, $comment, $approverEntity_RefID, $nextApprover_RefID, $documentNumber)
     {
         $varAPIWebToken = Session::get('SessionLogin');
 
-        $VarStoreWorkFlow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        $VarSubmitWorkflow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'userAction.documentWorkFlow.approvalStage.setUserSubmission',

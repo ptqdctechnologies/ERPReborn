@@ -59,7 +59,7 @@
                 <td>:</td>
                 <td>
                   <div class="input-group">
-                    <a class="btn btn-default btn-sm" href="#" onclick="ShowRevisionHistory();">
+                    <a class="btn btn-default btn-sm" href="#" onclick="ShowRevisionHistory({{ $dataHeader['Sys_ID_AdvanceDetail'] }});">
                       Show Revision History
                     </a>
                   </div>
