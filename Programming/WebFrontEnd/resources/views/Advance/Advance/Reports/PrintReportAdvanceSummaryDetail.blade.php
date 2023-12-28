@@ -84,7 +84,7 @@
                       <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $no++ }}</td>
                       <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetails['Product_RefID'] }}</td>
                       <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetails['ProductName'] }}</td>
-                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetails['Quantity'] }}</td>
+                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ number_format($dataDetails['Quantity'],2) }}</td>
                       <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ number_format($dataDetails['ProductUnitPriceBaseCurrencyValue'],2) }}</td>
                       <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ number_format($dataDetails['PriceBaseCurrencyValue'],2) }}</td>
                     </tbody>
