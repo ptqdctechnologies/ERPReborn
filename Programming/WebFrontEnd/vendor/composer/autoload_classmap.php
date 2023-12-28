@@ -2421,6 +2421,7 @@ return array(
     'Illuminate\\Console\\MigrationGeneratorCommand' => $vendorDir . '/laravel/framework/src/Illuminate/Console/MigrationGeneratorCommand.php',
     'Illuminate\\Console\\OutputStyle' => $vendorDir . '/laravel/framework/src/Illuminate/Console/OutputStyle.php',
     'Illuminate\\Console\\Parser' => $vendorDir . '/laravel/framework/src/Illuminate/Console/Parser.php',
+    'Illuminate\\Console\\PromptValidationException' => $vendorDir . '/laravel/framework/src/Illuminate/Console/PromptValidationException.php',
     'Illuminate\\Console\\QuestionHelper' => $vendorDir . '/laravel/framework/src/Illuminate/Console/QuestionHelper.php',
     'Illuminate\\Console\\Scheduling\\CacheAware' => $vendorDir . '/laravel/framework/src/Illuminate/Console/Scheduling/CacheAware.php',
     'Illuminate\\Console\\Scheduling\\CacheEventMutex' => $vendorDir . '/laravel/framework/src/Illuminate/Console/Scheduling/CacheEventMutex.php',

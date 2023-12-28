@@ -1,1 +1,0 @@
-echo "{{ $scriptMessage }}" > output.log
