@@ -12,7 +12,7 @@
                   <td>
                     <div class="input-group">
                       <input id="advance_RefID" hidden name="advance_RefID" value="{{ $advance_RefID }}">
-                      <input id="advance_number" style="border-radius:0;background-color:white;" class="form-control" name="advance_number" value="{{ $advance_number }}" readonly>
+                      <input id="advance_number" style="border-radius:0;background-color:white;" data-toggle="modal" data-target="#PopUpTableAdvanceRevision" class="PopUpTableAdvanceRevision form-control" name="advance_number" value="{{ $advance_number }}" readonly>
                       <div class="input-group-append">
                         <span style="border-radius:0;" class="input-group-text form-control">
                           <a href="#" id="advance_popup" data-toggle="modal" data-target="#PopUpTableAdvanceRevision" class="PopUpTableAdvanceRevision"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
@@ -35,7 +35,7 @@
             <div class="form-group">
               <table style="float:right;">
                 <tr>
-                  <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceRequest.PrintExportReportAdvanceSummary') }}" id="FormSubmitReportAdvanceSummary">
+                  <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceRequest.PrintExportReportAdvanceSummaryDetail') }}" id="FormSubmitReportAdvanceSummaryDetail">
                     @csrf
                     <td>
                       <select name="print_type" id="print_type" class="form-control">

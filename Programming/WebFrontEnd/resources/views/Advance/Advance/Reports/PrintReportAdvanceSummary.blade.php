@@ -1,14 +1,14 @@
 @extends('Partials.app')
 @section('main')
 
-<style>
+<!-- <style>
   table,
   th,
   td {
     border: 1px solid #ced4da;
     border-collapse: collapse;
   }
-</style>
+</style> -->
 
 <div class="content-wrapper">
   <section class="content">
@@ -16,13 +16,33 @@
       <div class="row mb-1">
         <div class="col-sm-12">
           <center>
-            <b><label style="font-size:17px;">{{ $title}} <br><br> </label></b>
+            <b><label style="font-size:20px;">{{ $title}} <br><br> </label></b>
           </center>
-
-          <span style="font-size:13px;float:left;">Project Code &nbsp;: {{ $projectCode }} <br> Project Name : {{ $projectName }}</span>
-          <span style="font-size:13px;float:right;">Printed By &nbsp;&nbsp;&nbsp; : {{ $printedBy }} <br> Date & Time : {{ $date }}</span>
-
-          <br><br><br>
+          <table style="float:left;">
+            <tr>
+              <td>Project</td>
+              <td>:</td>
+              <td>{{ $projectCode }} - {{ $projectName }}</td>
+            </tr>
+            <tr>
+              <td>Printed By</td>
+              <td>:</td>
+              <td>{{ $printedBy }}</td>
+            </tr>
+            <tr>
+              <td>Date & Time</td>
+              <td>:</td>
+              <td>{{ $date }}</td>
+            </tr>
+            </tr>
+          </table>
+          <table style="float:right;">
+            <tr>
+              <td><img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('/AdminLTE-master/dist/img/qdc.png'))) }}" width="180"></td>
+            </tr>
+            </tr>
+          </table>
+          <br><br><br><br><br><br>
         </div>
       </div>
       <div class="card">
@@ -32,16 +52,16 @@
             <div class="col-12 ShowTableReportAdvanceSummary">
               <div class="card">
                 <div class="card-body table-responsive p-0">
-                  <table class="TableReportAdvanceSummary" id="TableReportAdvanceSummary" style="font-size: 13px;width:100%;">
+                  <table class="TableReportAdvanceSummary" id="TableReportAdvanceSummary" style="font-size: 13px;width:100%;border: 1px solid #ced4da;border-collapse: collapse;">
                     <thead>
-                      <tr>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;">No</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;">Transaction Number</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;">Date</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;">Total IDR</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;">Other Currency</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;">Beneficiary</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;">Remark</th>
+                      <tr style="border: 1px solid #ced4da;border-collapse: collapse;">
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">No</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Transaction Number</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Date</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Total IDR</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Other Currency</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Beneficiary</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Remark</th>
                       </tr>
                     </thead>
                     @php $no = 1; $TotalAdvance = 0; $OtherCurrency = 0; $TotalIDR = 0; $TotalOtherCurrency = 0; @endphp
@@ -57,22 +77,22 @@
                     @php $TotalOtherCurrency += $OtherCurrency @endphp
 
                     <tbody>
-                      <td style="padding:4px;">{{ $no++ }}</td>
-                      <td style="padding:4px;">{{ $datas['DocumentNumber'] }}</td>
-                      <td style="padding:4px;">{{ date('d-m-Y', strtotime($datas['DocumentDateTimeTZ'])) }}</td>
-                      <td style="padding:4px;">{{ number_format($TotalAdvance,2) }}</td>
-                      <td style="padding:4px;">{{ number_format($OtherCurrency,2) }}</td>
-                      <td style="padding:4px;">{{ $datas['BeneficiaryWorkerName'] }}</td>
-                      <td style="padding:4px;"> {{ucfirst(trans($datas['remark']))}} </td>
+                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $no++ }}</td>
+                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $datas['DocumentNumber'] }}</td>
+                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ date('d-m-Y', strtotime($datas['DocumentDateTimeTZ'])) }}</td>
+                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ number_format($TotalAdvance,2) }}</td>
+                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ number_format($OtherCurrency,2) }}</td>
+                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $datas['BeneficiaryWorkerName'] }}</td>
+                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"> {{ucfirst(trans($datas['remark']))}} </td>
                     </tbody>
                     @endforeach
 
                     <tfoot>
-                      <tr style="font-weight:bolder;">
-                        <td style="padding: 5px;text-align:center;" colspan="3">GRAND TOTAL</td>
-                        <td style="padding: 5px;">{{ number_format($TotalIDR,2) }}</td>
-                        <td style="padding: 5px;">{{ number_format($TotalOtherCurrency,2) }} </td>
-                        <td style="padding: 5px;" colspan="2"></td>
+                      <tr style="font-weight:bolder;border: 1px solid #ced4da;border-collapse: collapse;">
+                        <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;text-align:center;" colspan="3">GRAND TOTAL</td>
+                        <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;">{{ number_format($TotalIDR,2) }}</td>
+                        <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;">{{ number_format($TotalOtherCurrency,2) }} </td>
+                        <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;" colspan="2"></td>
                       </tr>
                     </tfoot>
 
