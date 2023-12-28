@@ -123,12 +123,6 @@ class LoginController extends Controller
                 $password
             );
 
-            // dd(Redis::keys("*"));
-            // dd(json_decode(Redis::get("nama"), true));
-            // dd(Redis::get("nama"));
-            // dd(Redis::keys("*"));
-            // dd($dataAwal);
-
             if ($dataAwal['metadata']['HTTPStatusCode'] != 200) {
 
                 $compact = [

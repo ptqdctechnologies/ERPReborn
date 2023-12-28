@@ -57,6 +57,7 @@
               <tr>
                 <td style="padding-top: 5px;"><label>Revision</label></td>
                 <td>:</td>
+                @if(isset($dataHeader['DateUpdate']))
                 <td>
                   <div class="input-group">
                     <a class="btn btn-default btn-sm" href="#" onclick="ShowRevisionHistory({{ $dataHeader['Sys_ID_AdvanceDetail'] }});">
@@ -64,6 +65,7 @@
                     </a>
                   </div>
                 </td>
+                @endif
               </tr>
               <tr>
                 <td style="padding-top: 5px;"><label>Requester</label></td>

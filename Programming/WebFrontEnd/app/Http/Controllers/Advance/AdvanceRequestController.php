@@ -226,7 +226,7 @@ class AdvanceRequestController extends Controller
                 ]
             ]
         );
-        
+
         $compact = [
             "status" => true,
         ];
@@ -395,9 +395,38 @@ class AdvanceRequestController extends Controller
         return response()->json($compact);
     }
 
+    public function PrintExportReportAdvanceSummary(Request $request)
+    {
+        $isSubmit = Session::get("AdvanceSummaryReportIsSubmit");
+        if ($isSubmit == "Yes") {
+            $print_type = $request->print_type;
+            if ($print_type == "PDF") {
+
+                $dataAdvance = Session::get("AdvanceSummaryReportDataPDF");
+
+                $data = [
+                    'title' => 'ADVANCE SUMMARY REPORT',
+                    'date' => date('d/m/Y H:m:s'),
+                    'projectCode' => $dataAdvance['varDataProject'][0]['projectCode'],
+                    'projectName' => $dataAdvance['varDataProject'][0]['projectName'],
+                    'printedBy' => Session::get('SessionLoginName'),
+                    'data' => $dataAdvance
+                ];
+
+                $pdf = Pdf::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->setPaper('a4', 'landscape')->loadView('Advance.Advance.Reports.PrintReportAdvanceSummary', $data);
+                return $pdf->download('Print Report Advance Summary.pdf');
+            } else if ($print_type == "Excel") {
+
+                return Excel::download(new ExportReportAdvanceSummary, 'Export Report Advance Summary.xlsx');
+            }
+        } else {
+            return redirect()->route('AdvanceRequest.ReportAdvanceSummary')->with('NotFound', 'Data Cannot Empty');
+        }
+    }
+
     public function ReportAdvanceSummaryDetail(Request $request)
     {
-        Session::put("AdvanceSummaryDetailReportIsSubmit", "No");
+        Session::put("AdvanceSummaryReportDetailIsSubmit", "No");
         $varAPIWebToken = Session::get('SessionLogin');
         $compact = [
             'varAPIWebToken' => $varAPIWebToken,
@@ -409,6 +438,16 @@ class AdvanceRequestController extends Controller
         return view('Advance.Advance.Reports.ReportAdvanceSummaryDetail', $compact);
     }
 
+    public function ReportAdvanceSummaryDetailID(Request $request, $id)
+    {
+        Session::put("AdvanceSummaryReportDetailIsSubmit", "Yes");
+        $advance_RefID = $id;
+        $advance_number = "";
+
+        $compact = $this->ReportAdvanceSummaryDetailData($advance_RefID, $advance_number);
+
+        return view('Advance.Advance.Reports.ReportAdvanceSummaryDetail', $compact);
+    }
 
     public function ReportAdvanceSummaryDetailData($id, $number)
     {
@@ -469,6 +508,9 @@ class AdvanceRequestController extends Controller
 
         ];
 
+        Session::put("AdvanceSummaryReportDetailIsSubmit", "Yes");
+        Session::put("AdvanceSummaryReportDetailDataPDF", $compact);
+
         return $compact;
     }
 
@@ -478,7 +520,7 @@ class AdvanceRequestController extends Controller
         $advance_number = $request->advance_number;
 
         if ($advance_RefID == "" && $advance_number == "") {
-            return redirect()->back()->with('NotFound', 'Data Not Found');
+            return redirect()->back()->with('NotFound', 'Data Cannot Empty');
         }
 
         $compact = $this->ReportAdvanceSummaryDetailData($advance_RefID, $advance_number);
@@ -490,42 +532,34 @@ class AdvanceRequestController extends Controller
         return view('Advance.Advance.Reports.ReportAdvanceSummaryDetail', $compact);
     }
 
-    public function ReportAdvanceSummaryDetailID(Request $request, $id)
+
+    public function PrintExportReportAdvanceSummaryDetail(Request $request)
     {
-        $advance_RefID = $id;
-        $advance_number = "";
-
-        $compact = $this->ReportAdvanceSummaryDetailData($advance_RefID, $advance_number);
-
-        return view('Advance.Advance.Reports.ReportAdvanceSummaryDetail', $compact);
-    }
-
-    public function PrintExportReportAdvanceSummary(Request $request)
-    {
-        $isSubmit = Session::get("AdvanceSummaryReportIsSubmit");
+        $isSubmit = Session::get("AdvanceSummaryReportDetailIsSubmit");
         if ($isSubmit == "Yes") {
             $print_type = $request->print_type;
             if ($print_type == "PDF") {
 
-                $dataAdvance = Session::get("AdvanceSummaryReportDataPDF");
+                $dataAdvance = Session::get("AdvanceSummaryReportDetailDataPDF");
 
                 $data = [
-                    'title' => 'Advance Summary Report',
+                    'title' => 'ADVANCE SUMMARY REPORT DETAIL',
                     'date' => date('d/m/Y H:m:s'),
-                    'projectCode' => $dataAdvance['varDataProject'][0]['projectCode'],
-                    'projectName' => $dataAdvance['varDataProject'][0]['projectName'],
+                    'projectCode' => $dataAdvance['dataHeader']['CombinedBudgetCode'],
+                    'projectName' => $dataAdvance['dataHeader']['CombinedBudgetName'],
                     'printedBy' => Session::get('SessionLoginName'),
                     'data' => $dataAdvance
                 ];
+                // dd($data);
 
-                $pdf = Pdf::setOptions(['isRemoteEnabled' => true])->setPaper('a4', 'landscape')->loadView('Advance.Advance.Reports.PrintReportAdvanceSummary', $data);
-                return $pdf->download('Print Report Advance Summary.pdf');
+                $pdf = Pdf::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->setPaper('a4', 'landscape')->loadView('Advance.Advance.Reports.PrintReportAdvanceSummaryDetail', $data);
+                return $pdf->download('Print Report Advance Summary Detail.pdf');
             } else if ($print_type == "Excel") {
 
                 return Excel::download(new ExportReportAdvanceSummary, 'Export Report Advance Summary.xlsx');
             }
         } else {
-            return redirect()->route('AdvanceRequest.ReportAdvanceSummary')->with('NotFound', 'Data Cannot Empty');
+            return redirect()->route('AdvanceRequest.ReportAdvanceSummaryDetail')->with('NotFound', 'Data Cannot Empty');
         }
     }
 }
