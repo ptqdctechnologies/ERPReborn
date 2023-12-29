@@ -37,7 +37,7 @@ class Controller extends BaseController
                 'parameter' => [
                     'businessDocumentType_RefID' => (int)$DocumentTypeID,
                     'submitterEntity_RefID' => (int)$SessionWorkerCareerInternal_RefID,
-                    'combinedBudget_RefID' => (int)$dataInputStore['var_combinedBudget_RefID']
+                    'combinedBudget_RefID' => (int) $dataInputStore['var_combinedBudget_RefID']
                 ]
             ]
         );
@@ -87,6 +87,38 @@ class Controller extends BaseController
                     "workFlowPath_RefID" => (int)$workFlowPath_RefID,
                     "remarks" => $comment,
                     "approverEntity_RefID" => (int)$approverEntity_RefID
+                ]
+            ]
+        );
+
+        $compact = [
+            "documentNumber" => $documentNumber,
+        ];
+
+
+        //RESET REDIS DATA LIST ADVANCE
+        $this->FunctionResetRedisAdvance();
+
+        //RESET REDIS SHOW DOCUMENT APPROVAL
+        $this->FunctionResetRedisDocumentApproval($nextApprover_RefID);
+
+        return response()->json($compact);
+    }
+
+    public function ResubmitWorkflow($businessDocument_RefID, $comment, $approverEntity_RefID, $nextApprover_RefID, $documentNumber)
+    {
+        $varAPIWebToken = Session::get('SessionLogin');
+
+        $VarSubmitWorkflow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'userAction.documentWorkFlow.approvalStage.setUserResubmission', 
+            'latest',
+            [
+            'entities' => [
+                "businessDocument_RefID" => (int) $businessDocument_RefID,
+                "remarks" => $comment,
+                "approverEntity_RefID" => (int) $approverEntity_RefID
                 ]
             ]
         );

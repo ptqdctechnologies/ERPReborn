@@ -61,7 +61,7 @@ class AdvanceRequestController extends Controller
         $documentTypeID = $request->documentTypeID;
         $input = Session::get('dataInputStore' . $documentTypeID);
         $input['dataInput_Log_FileUpload_Pointer_RefID'] = $request->fileAttachment;
-
+        
         $count_product = count($input['var_product_id']);
         $advanceDetail = [];
         for ($n = 0; $n < $count_product; $n++) {
@@ -156,7 +156,7 @@ class AdvanceRequestController extends Controller
             $filteredArray[$num] = $collections;
             $num++;
         }
-
+        
         if ($filteredArray[0]['Log_FileUpload_Pointer_RefID'] == 0) {
             $dataDetailFileAttachment = null;
         } else {
@@ -228,14 +228,13 @@ class AdvanceRequestController extends Controller
             ]
         );
 
-        $compact = [
-            "status" => true,
-        ];
+        $businessDocument_RefID = $varData['data']['businessDocument']['businessDocument_RefID'];
+        $comment = $request->comment;
+        $approverEntity_RefID = Session::get('SessionWorkerCareerInternal_RefID');
+        $nextApprover_RefID = Session::get('SessionWorkerCareerInternal_RefID');
+        $documentNumber = $varData['data']['businessDocument']['documentNumber'];
 
-        //RESET REDIS DATA LIST ADVANCE
-        $this->FunctionResetRedisAdvance();
-
-        return response()->json($compact);
+        return $this->ResubmitWorkflow($businessDocument_RefID, $comment, $approverEntity_RefID, $nextApprover_RefID, $documentNumber);
     }
 
 
@@ -502,7 +501,10 @@ class AdvanceRequestController extends Controller
 
         $varDataExcel = [];
         $i = 0;
+        $totalAdvance = 0;
         foreach ($collection->all() as $collections) {
+
+            $totalAdvance += $collections['PriceBaseCurrencyValue'];
 
             $varDataExcel[$i]['no'] = $i + 1;
             $varDataExcel[$i]['Product_RefID'] = $collections['Product_RefID'];
@@ -510,9 +512,6 @@ class AdvanceRequestController extends Controller
             $varDataExcel[$i]['Quantity'] = number_format($collections['Quantity'], 2);
             $varDataExcel[$i]['ProductUnitPriceBaseCurrencyValue'] = number_format($collections['ProductUnitPriceBaseCurrencyValue'], 2);
             $varDataExcel[$i]['PriceBaseCurrencyValue'] = number_format($collections['PriceBaseCurrencyValue'], 2);
-            // $varDataExcel[$i]['beneficiaryWorkerName'] = $collections['BeneficiaryWorkerName'];
-            // $varDataExcel[$i]['beneficiaryWorkerName'] = $collections['BeneficiaryWorkerName'];
-            // $varDataExcel[$i]['beneficiaryWorkerName'] = $collections['BeneficiaryWorkerName'];
 
             $i++;
         }
@@ -529,7 +528,8 @@ class AdvanceRequestController extends Controller
 
         Session::put("AdvanceSummaryReportDetailIsSubmit", "Yes");
         Session::put("AdvanceSummaryReportDetailDataPDF", $compact);
-        Session::put("AdvanceSummaryReportDataExcel", $compact['dataExcel']);
+        Session::put("AdvanceSummaryReportDetailDataExcel", $compact['dataExcel']);
+        Session::put("AdvanceSummaryReportDetailTotalAdvance", number_format($totalAdvance, 2));
 
         return $compact;
     }

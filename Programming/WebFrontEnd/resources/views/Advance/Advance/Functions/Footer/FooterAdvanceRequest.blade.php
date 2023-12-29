@@ -600,50 +600,26 @@
                 var fileAttachment = null;
                 var file = $("#dataInput_Log_FileUpload_Pointer_RefID_Action").val();
                 if (file) {
-                    varFileUpload_UniqueID = "Upload";
-                    window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
 
-                    var fileAttachment = $("#dataInput_Log_FileUpload_Pointer_RefID").val();
+                    ShowLoading();
+                    setTimeout(function(){
+
+                        varFileUpload_UniqueID = "Upload";
+                        window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
+                        fileAttachment = $("#dataInput_Log_FileUpload_Pointer_RefID").val();
+                        if(fileAttachment != null){
+                            
+                            AdvanceRequestStore(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, fileAttachment, documentTypeID, result.value);
+
+                        }
+                    }, 20);
                 }
+                else{
 
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-
-                $.ajax({
-                    type: 'POST',
-                    url: '{!! route("AdvanceRequest.store") !!}?workFlowPath_RefID=' + workFlowPath_RefID + '&nextApprover_RefID=' + nextApprover_RefID + '&approverEntity_RefID=' + approverEntity_RefID + '&fileAttachment=' + fileAttachment + '&documentTypeID=' + documentTypeID + '&comment=' + result.value,
-                    success: function(data) {
-
-                        HideLoading();
-
-                        swalWithBootstrapButtons.fire({
-
-                            title: 'Successful !',
-                            type: 'success',
-                            html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + data.documentNumber + '</span>',
-                            showCloseButton: false,
-                            showCancelButton: false,
-                            focusConfirm: false,
-                            confirmButtonText: '<span style="color:black;"> OK </span>',
-                            confirmButtonColor: '#4B586A',
-                            confirmButtonColor: '#e9ecef',
-                            reverseButtons: true
-                        }).then((result) => {
-                            if (result.value) {
-                                ShowLoading();
-                                window.location.href = '/AdvanceRequest?var=1';
-                            }
-                        })
-
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        // FUNCTION ERROR NOTIFICATION 
-                        ErrorNotif("Data Cancel Inputed");
-                    }
-                });
+                    AdvanceRequestStore(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, fileAttachment, documentTypeID, result.value);
+                    
+                }
+                
 
             }
         })
@@ -652,8 +628,60 @@
 </script>
 
 <script type="text/javascript">
+    function AdvanceRequestStore(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, fileAttachment, documentTypeID, comment) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("AdvanceRequest.store") !!}?workFlowPath_RefID=' + workFlowPath_RefID + '&nextApprover_RefID=' + nextApprover_RefID + '&approverEntity_RefID=' + approverEntity_RefID + '&fileAttachment=' + fileAttachment + '&documentTypeID=' + documentTypeID + '&comment=' + comment,
+            success: function(data) {
+
+                HideLoading();
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    confirmButtonClass: 'btn btn-success btn-sm',
+                    cancelButtonClass: 'btn btn-danger btn-sm',
+                    buttonsStyling: true,
+                })
+
+                swalWithBootstrapButtons.fire({
+
+                    title: 'Successful !',
+                    type: 'success',
+                    html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + data.documentNumber + '</span>',
+                    showCloseButton: false,
+                    showCancelButton: false,
+                    focusConfirm: false,
+                    confirmButtonText: '<span style="color:black;"> OK </span>',
+                    confirmButtonColor: '#4B586A',
+                    confirmButtonColor: '#e9ecef',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+                        ShowLoading();
+                        window.location.href = '/AdvanceRequest?var=1';
+                    }
+                })
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                // FUNCTION ERROR NOTIFICATION 
+                ErrorNotif("Data Cancel Inputed");
+            }
+        });
+    }
+    
+</script>
+
+
+<script type="text/javascript">
     function CancelAdvance() {
         ShowLoading();
         window.location.href = '/AdvanceRequest?var=1';
     }
+    
 </script>
