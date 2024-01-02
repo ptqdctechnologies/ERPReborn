@@ -57,8 +57,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // Workflow
     
     Route::get('CheckingWorkflow', 'Controller@CheckingWorkflow')->name('CheckingWorkflow');
-    Route::post('SelectWorkFlow', 'Controller@SelectWorkFlow')->name('SelectWorkFlow');
-    Route::get('StoreWorkFlow', 'Controller@StoreWorkFlow')->name('StoreWorkFlow');
+    Route::post('SelectWorkFlowStore', 'Controller@SelectWorkFlowStore')->name('SelectWorkFlowStore');
+    Route::get('SubmitWorkflow', 'Controller@SubmitWorkflow')->name('SubmitWorkflow');
 
     // Dashboard
     Route::resource('dashboard', 'Dashboard\DashboardController');
@@ -143,6 +143,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getDeliverTo', 'Function\FunctionController@getDeliverTo')->name('getDeliverTo');
     Route::get('getBusinessTripCostComponentEntity', 'Function\FunctionController@getBusinessTripCostComponentEntity')->name('getBusinessTripCostComponentEntity');
     Route::get('getDocumentType', 'Function\FunctionController@getDocumentType')->name('getDocumentType');
+    Route::get('ShowRevisionHistory/{id}', 'Function\FunctionController@ShowRevisionHistory')->name('ShowRevisionHistory');
 
     Route::get('TestApi', 'TestApiController@index')->name('TestApi');
 
@@ -158,6 +159,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('ReportAdvanceSummaryDetailStore', 'Advance\AdvanceRequestController@ReportAdvanceSummaryDetailStore')->name('AdvanceRequest.ReportAdvanceSummaryDetailStore');
     Route::post('RevisionAdvance', 'Advance\AdvanceRequestController@RevisionAdvanceIndex')->name('AdvanceRequest.RevisionAdvance');
     Route::post('PrintExportReportAdvanceSummary', 'Advance\AdvanceRequestController@PrintExportReportAdvanceSummary')->name('AdvanceRequest.PrintExportReportAdvanceSummary');
+    Route::post('PrintExportReportAdvanceSummaryDetail', 'Advance\AdvanceRequestController@PrintExportReportAdvanceSummaryDetail')->name('AdvanceRequest.PrintExportReportAdvanceSummaryDetail');
     Route::resource('AdvanceRequest', 'Advance\AdvanceRequestController');
 
     // ASF

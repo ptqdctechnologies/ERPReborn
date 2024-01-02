@@ -465,4 +465,32 @@ class FunctionController extends Controller
 
         return response()->json($DocumentType);
     }
+
+    public function ShowRevisionHistory($id)
+    {
+        $varAPIWebToken = Session::get('SessionLogin');
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'dataWarehouse.read.dataList.log.getTransactionHistory',
+            'latest',
+            [
+                'parameter' => [
+                    'source_RefID' => (int) $id
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ]
+        );
+
+        // dd($varData);
+        $compact = [
+            'data' => $varData['data']
+        ];
+        return view('getFunction.ShowRevisionHistory', $compact);
+    }
 }

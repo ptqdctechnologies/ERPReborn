@@ -19,7 +19,7 @@
     $('#tableGetProject tbody').on('click', 'tr', function() {
 
         //RESET FORM
-        document.getElementById("formSubmitArf").reset();
+        document.getElementById("FormSubmitAdvance").reset();
         $("#dataInput_Log_FileUpload_Pointer_RefID").val("");
         $("#dataInput_Log_FileUpload_Pointer_RefID_Action").val("");
         $('.tableBudgetDetail').find('tbody').empty();
@@ -469,7 +469,7 @@
 
 <script>
     $(function() {
-        $("#formSubmitArf").on("submit", function(e) { //id of form 
+        $("#FormSubmitAdvance").on("submit", function(e) { //id of form 
             e.preventDefault();
 
             // MANDATORY VALIDATION
@@ -534,7 +534,7 @@
                                     t.clear();
                                     $.each(response.data, function(key, val) {
                                         t.row.add([
-                                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.sys_ID + '\', \'' + val.nextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                                            '<td><span data-dismiss="modal" onclick="SelectWorkFlowStore(\'' + val.sys_ID + '\', \'' + val.nextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
                                             '<td style="border:1px solid #e9ecef;">' + val.fullApproverPath + '</td></tr></tbody>'
                                         ]).draw();
                                     });
@@ -543,7 +543,7 @@
 
                                     HideLoading();
 
-                                    SelectWorkFlow(response.workFlowPath_RefID, response.nextApprover_RefID, response.approverEntity_RefID, response.documentTypeID);
+                                    SelectWorkFlowStore(response.workFlowPath_RefID, response.nextApprover_RefID, response.approverEntity_RefID, response.documentTypeID);
 
                                 }
                             },
@@ -573,7 +573,7 @@
 </script>
 
 <script>
-    function SelectWorkFlow(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, documentTypeID) {
+    function SelectWorkFlowStore(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, documentTypeID) {
 
         const swalWithBootstrapButtons = Swal.mixin({
             confirmButtonClass: 'btn btn-success btn-sm',
@@ -599,52 +599,27 @@
 
                 var fileAttachment = null;
                 var file = $("#dataInput_Log_FileUpload_Pointer_RefID_Action").val();
-                console.log(file);
                 if (file) {
-                    varFileUpload_UniqueID = "Upload";
-                    window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
 
-                    var fileAttachment = $("#dataInput_Log_FileUpload_Pointer_RefID").val();
+                    ShowLoading();
+                    setTimeout(function(){
+
+                        varFileUpload_UniqueID = "Upload";
+                        window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
+                        fileAttachment = $("#dataInput_Log_FileUpload_Pointer_RefID").val();
+                        if(fileAttachment != null){
+                            
+                            AdvanceRequestStore(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, fileAttachment, documentTypeID, result.value);
+
+                        }
+                    }, 20);
                 }
+                else{
 
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-
-                $.ajax({
-                    type: 'POST',
-                    url: '{!! route("AdvanceRequest.store") !!}?workFlowPath_RefID=' + workFlowPath_RefID + '&nextApprover_RefID=' + nextApprover_RefID + '&approverEntity_RefID=' + approverEntity_RefID + '&fileAttachment=' + fileAttachment + '&documentTypeID=' + documentTypeID + '&comment=' + result.value,
-                    success: function(data) {
-
-                        HideLoading();
-
-                        swalWithBootstrapButtons.fire({
-
-                            title: 'Successful !',
-                            type: 'success',
-                            html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + data.documentNumber + '</span>',
-                            showCloseButton: false,
-                            showCancelButton: false,
-                            focusConfirm: false,
-                            confirmButtonText: '<span style="color:black;"> OK </span>',
-                            confirmButtonColor: '#4B586A',
-                            confirmButtonColor: '#e9ecef',
-                            reverseButtons: true
-                        }).then((result) => {
-                            if (result.value) {
-                                ShowLoading();
-                                window.location.href = '/AdvanceRequest?var=1';
-                            }
-                        })
-
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        // FUNCTION ERROR NOTIFICATION 
-                        ErrorNotif("Data Cancel Inputed");
-                    }
-                });
+                    AdvanceRequestStore(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, fileAttachment, documentTypeID, result.value);
+                    
+                }
+                
 
             }
         })
@@ -653,8 +628,60 @@
 </script>
 
 <script type="text/javascript">
+    function AdvanceRequestStore(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, fileAttachment, documentTypeID, comment) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("AdvanceRequest.store") !!}?workFlowPath_RefID=' + workFlowPath_RefID + '&nextApprover_RefID=' + nextApprover_RefID + '&approverEntity_RefID=' + approverEntity_RefID + '&fileAttachment=' + fileAttachment + '&documentTypeID=' + documentTypeID + '&comment=' + comment,
+            success: function(data) {
+
+                HideLoading();
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    confirmButtonClass: 'btn btn-success btn-sm',
+                    cancelButtonClass: 'btn btn-danger btn-sm',
+                    buttonsStyling: true,
+                })
+
+                swalWithBootstrapButtons.fire({
+
+                    title: 'Successful !',
+                    type: 'success',
+                    html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + data.documentNumber + '</span>',
+                    showCloseButton: false,
+                    showCancelButton: false,
+                    focusConfirm: false,
+                    confirmButtonText: '<span style="color:black;"> OK </span>',
+                    confirmButtonColor: '#4B586A',
+                    confirmButtonColor: '#e9ecef',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+                        ShowLoading();
+                        window.location.href = '/AdvanceRequest?var=1';
+                    }
+                })
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                // FUNCTION ERROR NOTIFICATION 
+                ErrorNotif("Data Cancel Inputed");
+            }
+        });
+    }
+    
+</script>
+
+
+<script type="text/javascript">
     function CancelAdvance() {
         ShowLoading();
         window.location.href = '/AdvanceRequest?var=1';
     }
+    
 </script>

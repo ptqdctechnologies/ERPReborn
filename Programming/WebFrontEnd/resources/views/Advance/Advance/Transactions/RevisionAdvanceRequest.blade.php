@@ -21,7 +21,7 @@
       @include('Advance.Advance.Functions.Menu.MenuAdvanceRequest')
 
       <div class="card" style="position:relative;bottom:10px;">
-        <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceRequest.update', $dataHeader['Sys_ID_Advance']) }}" id="formUpdateArf">
+        <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceRequest.update', $dataHeader['Sys_ID_Advance']) }}" id="FormUpdateAdvance">
           @csrf
           @method('PUT')
           <div class="tab-content p-3" id="nav-tabContent">
