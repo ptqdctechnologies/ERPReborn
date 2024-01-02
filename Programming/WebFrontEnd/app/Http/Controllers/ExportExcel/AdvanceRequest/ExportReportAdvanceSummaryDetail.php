@@ -11,20 +11,20 @@ use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class ExportReportAdvanceSummary implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
+class ExportReportAdvanceSummaryDetail implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
     public function collection()
     {
-        $data = Session::get("AdvanceSummaryReportDataExcel");
+        $data = Session::get("AdvanceSummaryReportDetailDataExcel");
         return collect($data);
     }
 
     public function headings(): array
     {
         return [
-            ["ADVANCE SUMMARY REPORT", " ", " ", " ", " ", " ", " "],
-            ["", "", "", "", "", "", ""],
-            ["No", "Transaction Number", "Date", "Total IDR", "Other Currency", "Beneficiary", "Remark"]
+            ["ADVANCE SUMMARY REPORT DETAIL", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " "],
+            ["No", "Product ID", "Description & Spesifications", "Qty", "Unit Price", "Total Advance"]
         ];
     }
 
@@ -42,9 +42,8 @@ class ExportReportAdvanceSummary implements FromCollection, WithHeadings, Should
             ]
         ];
 
-        $sheet->getStyle('A1:G1')->applyFromArray($styleArrayHeader1);
-        $sheet->mergeCells('A1:G1');
-
+        $sheet->getStyle('A1:F1')->applyFromArray($styleArrayHeader1);
+        $sheet->mergeCells('A1:F1');
 
         $styleArrayHeader2 = [
             'font' => [
@@ -70,7 +69,8 @@ class ExportReportAdvanceSummary implements FromCollection, WithHeadings, Should
             ],
         ];
 
-        $sheet->getStyle('A3:G3')->applyFromArray($styleArrayHeader2);
+        $sheet->getStyle('A3:F3')->applyFromArray($styleArrayHeader2);
+
 
         $styleArrayContent = [
             'borders' => [
@@ -83,18 +83,16 @@ class ExportReportAdvanceSummary implements FromCollection, WithHeadings, Should
             ],
         ];
 
-        $totalCell = count(Session::get("AdvanceSummaryReportDataExcel"));
-        $lastCell = 'A4:G' . $totalCell + 3;
+        $totalCell = count(Session::get("AdvanceSummaryReportDetailDataExcel"));
+        $lastCell = 'A4:F' . $totalCell + 3;
         $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
 
-        $sum_idr = Session::get("AdvanceSummaryReportSumIDR");
-        $sum_other = Session::get("AdvanceSummaryReportSumOtherCurrency");
-
+        $totalAdvance = Session::get("AdvanceSummaryReportDetailTotalAdvance");
+        
         $sheet->insertNewRowBefore($totalCell + 4, 1);
         $sheet->setCellValue('A' . $totalCell + 4, "GRAND TOTAL");
-        $sheet->setCellValue('D' . $totalCell + 4, $sum_idr);
-        $sheet->setCellValue('E' . $totalCell + 4, $sum_other);
-        $sheet->mergeCells('A' . $totalCell + 4 . ':' . 'C' . $totalCell + 4);
+        $sheet->setCellValue('F' . $totalCell + 4, $totalAdvance);
+        $sheet->mergeCells('A' . $totalCell + 4 . ':' . 'E' . $totalCell + 4);
 
         $styleArrayFooter = [
             'font' => [
@@ -115,7 +113,7 @@ class ExportReportAdvanceSummary implements FromCollection, WithHeadings, Should
             ],
         ];
 
-        $sheet->getStyle('A' . $totalCell + 4 . ':' . 'G' . $totalCell + 4)->applyFromArray($styleArrayFooter);
+        $sheet->getStyle('A' . $totalCell + 4 . ':' . 'F' . $totalCell + 4)->applyFromArray($styleArrayFooter);
 
     }
 }
