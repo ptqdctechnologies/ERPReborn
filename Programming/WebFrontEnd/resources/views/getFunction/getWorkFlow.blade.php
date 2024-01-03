@@ -1,4 +1,4 @@
-<div id="getWorkFlow" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="getWorkFlow" class="modal fade getWorkFlow" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -10,7 +10,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="tableGetWorkFlow">
+                                <table class="table table-head-fixed text-nowrap tableGetWorkFlow" id="tableGetWorkFlow">
 
                                     <thead>
                                         <tr>

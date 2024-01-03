@@ -57,8 +57,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // Workflow
     
     Route::get('CheckingWorkflow', 'Controller@CheckingWorkflow')->name('CheckingWorkflow');
-    Route::post('SelectWorkFlowStore', 'Controller@SelectWorkFlowStore')->name('SelectWorkFlowStore');
-    Route::get('SubmitWorkflow', 'Controller@SubmitWorkflow')->name('SubmitWorkflow');
+    Route::post('SelectWorkFlow', 'Controller@SelectWorkFlow')->name('SelectWorkFlow');
 
     // Dashboard
     Route::resource('dashboard', 'Dashboard\DashboardController');
@@ -160,6 +159,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('RevisionAdvance', 'Advance\AdvanceRequestController@RevisionAdvanceIndex')->name('AdvanceRequest.RevisionAdvance');
     Route::post('PrintExportReportAdvanceSummary', 'Advance\AdvanceRequestController@PrintExportReportAdvanceSummary')->name('AdvanceRequest.PrintExportReportAdvanceSummary');
     Route::post('PrintExportReportAdvanceSummaryDetail', 'Advance\AdvanceRequestController@PrintExportReportAdvanceSummaryDetail')->name('AdvanceRequest.PrintExportReportAdvanceSummaryDetail');
+    Route::post('updates', 'Advance\AdvanceRequestController@updates')->name('AdvanceRequest.updates');
     Route::resource('AdvanceRequest', 'Advance\AdvanceRequestController');
 
     // ASF

@@ -7,6 +7,7 @@
 @include('Advance.Advance.Functions.PopUp.PopUpAdvanceRevision')
 @include('Advance.Advance.Functions.Table.TableAdvanceRevision')
 @include('getFunction.getProject')
+@include('getFunction.getWorkFlow')
 <!-- @include('getFunction.getBank')
 @include('getFunction.getBankAccount') -->
 
@@ -21,9 +22,12 @@
       @include('Advance.Advance.Functions.Menu.MenuAdvanceRequest')
 
       <div class="card" style="position:relative;bottom:10px;">
-        <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceRequest.update', $dataHeader['Sys_ID_Advance']) }}" id="FormUpdateAdvance">
+        <form method="post" enctype="multipart/form-data" action="{{ route('SelectWorkFlow') }}" id="FormUpdateAdvance">
           @csrf
-          @method('PUT')
+
+          <input type="hidden" name="DocumentTypeID" value="{{ $DocumentTypeID }}" id="DocumentTypeID">
+          <input type="hidden" name="Sys_ID_Advance" value="{{ $dataHeader['Sys_ID_Advance'] }}" id="Sys_ID_Advance">
+        
           <div class="tab-content p-3" id="nav-tabContent">
             <div class="row">
               <div class="col-12">

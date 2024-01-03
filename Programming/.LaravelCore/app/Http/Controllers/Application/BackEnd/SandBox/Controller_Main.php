@@ -21,6 +21,14 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
         public function testAja2()
 
         {
+
+            $x = (new \App\Models\Database\SchSysConfig\General())->getWorkFlowPathOfBusinessDocument(
+                6000000000001, 
+                74000000020636
+            );
+
+            dd($x);
+
             dd(Redis::get("a"));
             $varReturn =
                 (new \App\Models\Database\SchData_OLTP_Finance\General())->getReport_Form_DocumentForm_AdvanceSummary(

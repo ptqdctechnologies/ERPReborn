@@ -373,6 +373,218 @@
 </script>
 
 
+
+<script>
+    $(function() {
+        $("#FormUpdateAdvance").on("submit", function(e) { //id of form 
+            e.preventDefault();
+
+            // MANDATORY VALIDATION
+            var MandatoryListVar = new Object();
+            MandatoryListVar['remark'] = $("#remark").val();
+            MandatoryListVar['bank_account'] = $("#bank_account").val();
+            MandatoryListVar['bank_name'] = $("#bank_name").val();
+            MandatoryListVar['beneficiary'] = $("#beneficiary").val();
+            MandatoryListVar['requester'] = $("#requester").val();
+
+            var MandatoryListCount = MandatoryListFunction(MandatoryListVar);
+            // // END MANDATORY VALIDATION
+
+            if (MandatoryListCount == 0) {
+                $("#submitArf").prop("disabled", true);
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    confirmButtonClass: 'btn btn-success btn-sm',
+                    cancelButtonClass: 'btn btn-danger btn-sm',
+                    buttonsStyling: true,
+                })
+
+                swalWithBootstrapButtons.fire({
+
+                    title: 'Are you sure?',
+                    text: "Save this data?",
+                    type: 'question',
+
+                    showCancelButton: true,
+                    confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
+                    cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
+                    confirmButtonColor: '#e9ecef',
+                    cancelButtonColor: '#e9ecef',
+                    reverseButtons: true
+                }).then((result) => {
+
+                    if (result.value) {
+                        
+                        var action = $(this).attr("action"); //get submit action from form
+                        var method = $(this).attr("method"); // get submit method
+                        var form_data = new FormData($(this)[0]); // convert form into formdata 
+                        var form = $(this);
+
+                        ShowLoading();
+
+                        $.ajax({
+                            url: action,
+                            dataType: 'json', // what to expect back from the server
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            data: form_data,
+                            type: method,
+                            success: function(response) {
+                                if (response.message == "MoreThanOne") {
+
+                                    HideLoading();
+
+                                    $('#getWorkFlow').modal('toggle');
+
+                                    var t = $('#tableGetWorkFlow').DataTable();
+                                    t.clear();
+                                    $.each(response.data, function(key, val) {
+                                        t.row.add([
+                                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.sys_ID + '\', \'' + val.nextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\', \'' + response.Sys_ID_Advance + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                                            '<td style="border:1px solid #e9ecef;">' + val.fullApproverPath + '</td></tr></tbody>'
+                                        ]).draw();
+                                    });
+
+                                } else {
+
+                                    HideLoading();
+
+                                    SelectWorkFlow(response.workFlowPath_RefID, response.nextApprover_RefID, response.approverEntity_RefID, response.documentTypeID, response.Sys_ID_Advance);
+
+                                }
+                            },
+
+                            error: function(response) {
+                                HideLoading();
+                                $("#submitArf").prop("disabled", false);
+                                // CALL FUNCTION DO NOT HAVE ACCESS NOTIF
+                                CancelNotif("You don't have access", '/AdvanceRequest?var=1');
+
+                            },
+
+                        })
+
+
+                    } else if (
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                        HideLoading();
+                        // FUNCTION ERROR NOTIFICATION 
+                        CancelNotif("Data Cancel Inputed", '/AdvanceRequest?var=1');
+                    }
+                })
+            }
+        });
+    });
+</script>
+
+<script>
+    function SelectWorkFlow(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, documentTypeID, Sys_ID_Advance) {
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        })
+
+        swalWithBootstrapButtons.fire({
+
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'text',
+            showCloseButton: false,
+            showCancelButton: false,
+            focusConfirm: false,
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            confirmButtonColor: '#4B586A',
+            confirmButtonColor: '#e9ecef',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+
+                ShowLoading();
+
+                var fileAttachment = "";
+                var file = $("#dataInput_Log_FileUpload_Pointer_RefID_Action").val();
+                if (file) {
+
+                    setTimeout(function(){
+
+                        varFileUpload_UniqueID = "Upload";
+                        window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
+                        fileAttachment = $("#dataInput_Log_FileUpload_Pointer_RefID").val();
+                        if(fileAttachment != ""){
+                            
+                            AdvanceRequestStore(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, fileAttachment, documentTypeID, result.value, Sys_ID_Advance);
+
+                        }
+                    }, 20);
+                }
+                else{
+
+                    AdvanceRequestStore(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, fileAttachment, documentTypeID, result.value, Sys_ID_Advance);
+                    
+                }
+                
+
+            }
+        })
+
+    }
+</script>
+
+<script type="text/javascript">
+    function AdvanceRequestStore(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, fileAttachment, documentTypeID, comment, Sys_ID_Advance) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("AdvanceRequest.updates") !!}?workFlowPath_RefID=' + workFlowPath_RefID + '&nextApprover_RefID=' + nextApprover_RefID + '&approverEntity_RefID=' + approverEntity_RefID + '&fileAttachment=' + fileAttachment + '&documentTypeID=' + documentTypeID + '&comment=' + comment + '&Sys_ID_Advance=' + Sys_ID_Advance,
+            success: function(data) {
+
+                HideLoading();
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    confirmButtonClass: 'btn btn-success btn-sm',
+                    cancelButtonClass: 'btn btn-danger btn-sm',
+                    buttonsStyling: true,
+                })
+
+                swalWithBootstrapButtons.fire({
+
+                    title: 'Successful !',
+                    type: 'success',
+                    html: 'Data has been updated',
+                    showCloseButton: false,
+                    showCancelButton: false,
+                    focusConfirm: false,
+                    confirmButtonText: '<span style="color:black;"> OK </span>',
+                    confirmButtonColor: '#4B586A',
+                    confirmButtonColor: '#e9ecef',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+                        ShowLoading();
+                        window.location.href = '/AdvanceRequest?var=1';
+                    }
+                })
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                // FUNCTION ERROR NOTIFICATION 
+                ErrorNotif("Data Cancel Inputed");
+            }
+        });
+    }
+    
+</script>
+
 <script type="text/javascript">
     function CancelAdvance() {
         ShowLoading();
@@ -380,7 +592,7 @@
     }
 </script>
 
-<script>
+<!-- <script>
     $(function() {
         $("#FormUpdateAdvance").on("submit", function(e) { //id of form 
             e.preventDefault();
@@ -484,4 +696,4 @@
         });
 
     });
-</script>
+</script> -->
