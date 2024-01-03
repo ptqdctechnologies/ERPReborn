@@ -860,6 +860,7 @@ return array(
     'App\\Http\\Controllers\\Document\\CheckDocumentController' => $baseDir . '/app/Http/Controllers/Document/CheckDocumentController.php',
     'App\\Http\\Controllers\\Document\\MyDocumentController' => $baseDir . '/app/Http/Controllers/Document/MyDocumentController.php',
     'App\\Http\\Controllers\\ExportExcel\\AdvanceRequest\\ExportReportAdvanceSummary' => $baseDir . '/app/Http/Controllers/ExportExcel/AdvanceRequest/ExportReportAdvanceSummary.php',
+    'App\\Http\\Controllers\\ExportExcel\\AdvanceRequest\\ExportReportAdvanceSummaryDetail' => $baseDir . '/app/Http/Controllers/ExportExcel/AdvanceRequest/ExportReportAdvanceSummaryDetail.php',
     'App\\Http\\Controllers\\Function\\FunctionController' => $baseDir . '/app/Http/Controllers/Function/FunctionController.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\HumanResource\\PieceMealController' => $baseDir . '/app/Http/Controllers/HumanResource/PieceMealController.php',

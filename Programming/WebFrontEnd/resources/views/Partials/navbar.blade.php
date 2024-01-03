@@ -21,7 +21,7 @@
                     @if(Session::get('SessionLoginName'))
                     <p>
                         {{Session::get('SessionLoginName')}}
-                        <small>{{Session::get('SessionOrganizationalDepartmentName')}}</small>
+                        <small><br> {{Session::get('SessionOrganizationalDepartmentName')}}</small>
                     </p>
                     @else
                     <p>

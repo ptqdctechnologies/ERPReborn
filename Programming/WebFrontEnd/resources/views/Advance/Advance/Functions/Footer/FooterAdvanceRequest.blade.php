@@ -534,7 +534,7 @@
                                     t.clear();
                                     $.each(response.data, function(key, val) {
                                         t.row.add([
-                                            '<td><span data-dismiss="modal" onclick="SelectWorkFlowStore(\'' + val.sys_ID + '\', \'' + val.nextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.sys_ID + '\', \'' + val.nextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
                                             '<td style="border:1px solid #e9ecef;">' + val.fullApproverPath + '</td></tr></tbody>'
                                         ]).draw();
                                     });
@@ -543,7 +543,7 @@
 
                                     HideLoading();
 
-                                    SelectWorkFlowStore(response.workFlowPath_RefID, response.nextApprover_RefID, response.approverEntity_RefID, response.documentTypeID);
+                                    SelectWorkFlow(response.workFlowPath_RefID, response.nextApprover_RefID, response.approverEntity_RefID, response.documentTypeID);
 
                                 }
                             },
@@ -573,7 +573,7 @@
 </script>
 
 <script>
-    function SelectWorkFlowStore(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, documentTypeID) {
+    function SelectWorkFlow(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, documentTypeID) {
 
         const swalWithBootstrapButtons = Swal.mixin({
             confirmButtonClass: 'btn btn-success btn-sm',
@@ -597,11 +597,11 @@
         }).then((result) => {
             if (result.value) {
 
+                ShowLoading();
                 var fileAttachment = null;
                 var file = $("#dataInput_Log_FileUpload_Pointer_RefID_Action").val();
                 if (file) {
 
-                    ShowLoading();
                     setTimeout(function(){
 
                         varFileUpload_UniqueID = "Upload";
