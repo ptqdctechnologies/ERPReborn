@@ -65,4 +65,7 @@ if [ ! -f /zhtConf/tmp/processSign/.initialized ]; then
    samba-tool user delete zainudin.anwar;
    samba-tool user add zainudin.anwar anwar1234;
 
+   samba-tool user delete faiz;
+   samba-tool user add faiz faiz1234;
+
 fi
