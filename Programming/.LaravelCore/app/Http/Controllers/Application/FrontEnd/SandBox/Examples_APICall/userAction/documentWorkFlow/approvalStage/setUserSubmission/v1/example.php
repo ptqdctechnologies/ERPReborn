@@ -40,10 +40,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\use
                 'latest',
                 [
                 'entities' => [
-
                     "businessDocument_RefID" => 74000000020323,
                     "workFlowPath_RefID" => 116000000000001,
-                    "remarks" => null,
+                    "remarks" => "xxx'xxx",
+                    // "remarks" => null,
                     "approverEntity_RefID" => 164000000000023
 
                     // "businessDocument_RefID" => 74000000020456,
