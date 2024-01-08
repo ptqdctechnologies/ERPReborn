@@ -5,26 +5,26 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_SupplyChain                                                                     |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_SupplyChain
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblPurchaseRequisition                                                                                       |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-SupplyChain ► TblPurchaseRequisition                                |
+    | ▪ Class Name  : TblOrderPickingRequisition                                                                                   |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-SupplyChain ► TblOrderPickingRequisition                            |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblPurchaseRequisition extends \App\Models\Database\DefaultClassPrototype
+    class TblOrderPickingRequisition extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-14                                                                                           |
-        | ▪ Creation Date   : 2020-09-14                                                                                           |
+        | ▪ Last Update     : 2024-01-08                                                                                           |
+        | ▪ Creation Date   : 2024-01-08                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,9 +43,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000003                                                                                       |
-        | ▪ Last Update     : 2022-05-25                                                                                           |
-        | ▪ Creation Date   : 2020-09-14                                                                                           |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-01-08                                                                                           |
+        | ▪ Creation Date   : 2024-01-08                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -102,9 +102,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000003                                                                                       |
-        | ▪ Last Update     : 2022-05-25                                                                                           |
-        | ▪ Creation Date   : 2020-09-14                                                                                           |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-01-08                                                                                           |
+        | ▪ Creation Date   : 2024-01-08                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |

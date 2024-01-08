@@ -5,26 +5,26 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_SupplyChain                                                                     |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_SupplyChain
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblPurchaseRequisition                                                                                       |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-SupplyChain ► TblPurchaseRequisition                                |
+    | ▪ Class Name  : TblOrderPicking                                                                                              |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-SupplyChain ► TblOrderPicking                                       |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblPurchaseRequisition extends \App\Models\Database\DefaultClassPrototype
+    class TblOrderPicking extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-14                                                                                           |
-        | ▪ Creation Date   : 2020-09-14                                                                                           |
+        | ▪ Last Update     : 2024-01-08                                                                                           |
+        | ▪ Creation Date   : 2024-01-08                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,9 +43,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000003                                                                                       |
-        | ▪ Last Update     : 2022-05-25                                                                                           |
-        | ▪ Creation Date   : 2020-09-14                                                                                           |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-01-08                                                                                           |
+        | ▪ Creation Date   : 2024-01-08                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -58,6 +58,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
         |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► Log File Upload Pointer Reference ID                                   |
         |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Worker Jobs Position Reference ID                       |
+        |      ▪ (int)    varWarehouse_RefID ► Warehouse Reference ID                                                              |
+        |      ▪ (string) varDeliveryDateTimeTZ ► Delivery DateTimeTZ                                                              |
+        |      ▪ (int)    varDeliveryDestination_RefID ► Delivery Destination Reference ID                                         |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
@@ -68,7 +71,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varRemarks = null,
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, int $varWarehouse_RefID = null, string $varDeliveryDateTimeTZ = null, int $varDeliveryDestination_RefID = null, string $varRemarks = null,
             array $varAdditionalData = [])
             {
             $varReturn = 
@@ -88,6 +91,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [$varDocumentDateTimeTZ, 'timestamptz'],
                             [$varLog_FileUpload_Pointer_RefID, 'bigint'],
                             [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
+                            [$varWarehouse_RefID, 'bigint'],
+                            [$varDeliveryDateTimeTZ, 'timestamptz'],
+                            [$varDeliveryDestination_RefID, 'bigint'],
                             [$varRemarks, 'varchar'],
 
                             [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
@@ -102,9 +108,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000003                                                                                       |
-        | ▪ Last Update     : 2022-05-25                                                                                           |
-        | ▪ Creation Date   : 2020-09-14                                                                                           |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-01-08                                                                                           |
+        | ▪ Creation Date   : 2024-01-08                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -118,6 +124,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
         |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► Log File Upload Pointer Reference ID                                   |
         |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Worker Jobs Position Reference ID                       |
+        |      ▪ (int)    varWarehouse_RefID ► Warehouse Reference ID                                                              |
+        |      ▪ (string) varDeliveryDateTimeTZ ► Delivery DateTimeTZ                                                              |
+        |      ▪ (int)    varDeliveryDestination_RefID ► Delivery Destination Reference ID                                         |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
@@ -128,7 +137,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varRemarks = null, 
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, int $varWarehouse_RefID = null, string $varDeliveryDateTimeTZ = null, int $varDeliveryDestination_RefID = null, string $varRemarks = null,
             array $varAdditionalData = [])
             {
             $varReturn = 
@@ -148,6 +157,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [$varDocumentDateTimeTZ, 'timestamptz'],
                             [$varLog_FileUpload_Pointer_RefID, 'bigint'],
                             [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
+                            [$varWarehouse_RefID, 'bigint'],
+                            [$varDeliveryDateTimeTZ, 'timestamptz'],
+                            [$varDeliveryDestination_RefID, 'bigint'],
                             [$varRemarks, 'varchar'],
 
                             [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
