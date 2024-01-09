@@ -1,5 +1,5 @@
 <!-- SHOW DATA FOR FIRST LOADING  -->
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -46,4 +46,4 @@
             ErrorNotif("Data Not Found !");
         },
     });
-</script>
+</script> -->

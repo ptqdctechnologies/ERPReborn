@@ -707,7 +707,7 @@
 
     </div>
 
-    <div class="user-panel mt-3 pb-3 mb-3 d-flex" style="background-color:#4B586A;text-align:center;color:white;padding-top:40px;border-top:2px white solid;height:20%;">
+    <div class="user-panel mt-0 pb-0 mb-0 d-flex" style="background-color:#4B586A;text-align:center;color:white;padding-top:10px;border-top:2px white solid;height:20%;">
         <div class="card-body">
             <h1><b>{{ $CountDocumentWorkflowComposer }}</b></h1>
             <h5>Document to Process</h5>

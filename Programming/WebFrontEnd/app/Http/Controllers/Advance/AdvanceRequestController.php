@@ -25,6 +25,28 @@ class AdvanceRequestController extends Controller
     {
         try {
             $varAPIWebToken = Session::get('SessionLogin');
+
+            if (Redis::get("DocumentType") == null) {
+
+                $varAPIWebToken = Session::get('SessionLogin');
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken,
+                    'transaction.read.dataList.master.getBusinessDocumentType',
+                    'latest',
+                    [
+                        'parameter' => [],
+                        'SQLStatement' => [
+                            'pick' => null,
+                            'sort' => null,
+                            'filter' => null,
+                            'paging' => null
+                        ]
+                    ],
+                    false
+                );
+            }
+
             $DocumentType = json_decode(
                 \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),

@@ -532,4 +532,40 @@ class FunctionController extends Controller
         ];
         return view('getFunction.ShowRevisionHistory', $compact);
     }
+
+    //DEPARTEMENT
+
+    public function getDepartement()
+    {
+        if (Redis::get("Departement") == null) {
+
+            $varAPIWebToken = Session::get('SessionLogin');
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.humanResource.getOrganizationalDepartment',
+                'latest',
+                [
+                    'parameter' => [],
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
+            );
+        }
+
+        $Departement = json_decode(
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "Departement"
+            ),
+            true
+        );
+        
+        return response()->json($Departement);
+    }
 }
