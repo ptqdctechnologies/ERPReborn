@@ -156,7 +156,7 @@
     <div class="card-body">
       <div class="row">
         <div class="col-md-12">
-          <p>{{ $dataHeader['Remarks'] }}</p>
+          <p>{!! nl2br(e($dataHeader['Remarks'])) !!}</p>
         </div>
       </div>
     </div>

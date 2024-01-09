@@ -466,6 +466,45 @@ class FunctionController extends Controller
         return response()->json($DocumentType);
     }
 
+    // FUNCTION DOCUMENT TYPE 
+    public function getPrivilageMenu()
+    {
+        if (Redis::get("DocumentType") == null) {
+
+            $varAPIWebToken = Session::get('SessionLogin');
+            $varBusinessDocumentType = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.master.getBusinessDocumentType',
+                'latest',
+                [
+                    'parameter' => [],
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
+            );
+        }
+
+        $DocumentType = json_decode(
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "DocumentType"
+            ),
+            true
+        );
+
+        dd($DocumentType);
+
+        return response()->json($DocumentType);
+    }
+
+    //LOG TRANSACTION
+
     public function ShowRevisionHistory($id)
     {
         $varAPIWebToken = Session::get('SessionLogin');

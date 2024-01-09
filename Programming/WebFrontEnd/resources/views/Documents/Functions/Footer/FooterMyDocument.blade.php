@@ -64,7 +64,7 @@
                 '<td><span style="position:relative;left:10px;">' + val.previousWorkFlowPathApproverName + '</span></td>',
                 '<td><span style="position:relative;left:10px;">' + date + '</span></td>',
                 '<td><span style="position:relative;left:10px;">' + val.previousWorkFlowPathActionName + '</span></td>',
-                '<td><span style="position:relative;left:10px;">' + remark + '</span></td></tr></tbody>',
+                '<td><span style="position:relative;left:10px;white-space: pre-line">' + remark + '</span></td></tr></tbody>',
             ]).draw();
         });
 

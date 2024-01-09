@@ -64,6 +64,7 @@ class AdvanceRequestController extends Controller
     {
         try {
 
+            // dd($request->all());
             $varAPIWebToken = Session::get('SessionLogin');
 
             $documentTypeID = $request->documentTypeID;
@@ -172,6 +173,8 @@ class AdvanceRequestController extends Controller
                 $num++;
             }
 
+            // dd($filteredArray);
+
             if ($filteredArray[0]['Log_FileUpload_Pointer_RefID'] == 0) {
                 $dataDetailFileAttachment = null;
             } else {
@@ -196,15 +199,18 @@ class AdvanceRequestController extends Controller
                 $DocumentTypeID = $collections['Sys_ID'];
             }
 
+            $remark = $filteredArray[0]['Remarks'];
+            $filteredArray[0]['Remarks'] = "";
+
             $compact = [
                 'dataHeader' => $filteredArray[0],
                 'dataDetail' => $filteredArray,
+                'remark' => $remark,
                 'dataFileAttachment' => $dataDetailFileAttachment,
                 'DocumentTypeID' => $DocumentTypeID,
                 'varAPIWebToken' => $varAPIWebToken,
                 'statusRevisi' => 1,
             ];
-
             return view('Advance.Advance.Transactions.RevisionAdvanceRequest', $compact);
         } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());
@@ -216,18 +222,13 @@ class AdvanceRequestController extends Controller
     public function updates(Request $request)
     {
         try {
-            // $input = $request->all();
             $varAPIWebToken = Session::get('SessionLogin');
-
             $documentTypeID = $request->documentTypeID;
-
             $Sys_ID_Advance = $request->Sys_ID_Advance;
             $input = Session::get('dataInputUpdate' . $documentTypeID . $Sys_ID_Advance);
-
             if (isset($request->fileAttachment)) {
                 $input['dataInput_Log_FileUpload_Pointer_RefID'] = $request->fileAttachment;
             }
-
             $count_product = count($input['var_product_id']);
 
             $advanceDetail = [];
@@ -283,7 +284,12 @@ class AdvanceRequestController extends Controller
             return $this->ResubmitWorkflow($businessDocument_RefID, $comment, $approverEntity_RefID, $nextApprover_RefID, $documentNumber);
         } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+
+            $compact = [
+                "status" => 500
+            ];
+            
+            return response()->json($compact);
         }
     }
 
@@ -471,7 +477,7 @@ class AdvanceRequestController extends Controller
                     $dataAdvance = Session::get("AdvanceSummaryReportDataPDF");
 
                     $data = [
-                        'title' => 'ADVANCE SUMMARY REPORT',
+                        'title' => 'ADVANCE REQUEST SUMMARY',
                         'date' => date('d/m/Y H:m:s'),
                         'projectCode' => $dataAdvance['varDataProject'][0]['projectCode'],
                         'projectName' => $dataAdvance['varDataProject'][0]['projectName'],
@@ -504,7 +510,8 @@ class AdvanceRequestController extends Controller
                 'varAPIWebToken' => $varAPIWebToken,
                 'statusDetail' => 0,
                 'advance_RefID' => "",
-                'advance_number' => ""
+                'advance_number' => "",
+                'statusHeader' => "Yes"
             ];
 
             return view('Advance.Advance.Reports.ReportAdvanceSummaryDetail', $compact);
@@ -521,8 +528,9 @@ class AdvanceRequestController extends Controller
             Session::put("AdvanceSummaryReportDetailIsSubmit", "Yes");
             $advance_RefID = $id;
             $advance_number = "";
+            $statusHeader = "No";
 
-            $compact = $this->ReportAdvanceSummaryDetailData($advance_RefID, $advance_number);
+            $compact = $this->ReportAdvanceSummaryDetailData($advance_RefID, $advance_number, $statusHeader);
 
             return view('Advance.Advance.Reports.ReportAdvanceSummaryDetail', $compact);
         } catch (\Throwable $th) {
@@ -531,7 +539,7 @@ class AdvanceRequestController extends Controller
         }
     }
 
-    public function ReportAdvanceSummaryDetailData($id, $number)
+    public function ReportAdvanceSummaryDetailData($id, $number, $statusHeader)
     {
         try {
             $varAPIWebToken = Session::get('SessionLogin');
@@ -605,7 +613,8 @@ class AdvanceRequestController extends Controller
                 'dataExcel' => $varDataExcel,
                 'statusDetail' => 1,
                 'advance_RefID' => $advance_RefID,
-                'advance_number' => $advance_number
+                'advance_number' => $advance_number,
+                'statusHeader' => $statusHeader
 
             ];
 
@@ -627,12 +636,13 @@ class AdvanceRequestController extends Controller
 
             $advance_RefID = $request->advance_RefID;
             $advance_number = $request->advance_number;
+            $statusHeader = "Yes";
 
             if ($advance_RefID == "" && $advance_number == "") {
                 return redirect()->back()->with('NotFound', 'Data Cannot Empty');
             }
 
-            $compact = $this->ReportAdvanceSummaryDetailData($advance_RefID, $advance_number);
+            $compact = $this->ReportAdvanceSummaryDetailData($advance_RefID, $advance_number, $statusHeader);
 
             if ($compact['dataHeader'] == []) {
                 return redirect()->back()->with('NotFound', 'Data Not Found');
@@ -658,7 +668,7 @@ class AdvanceRequestController extends Controller
                     $dataAdvance = Session::get("AdvanceSummaryReportDetailDataPDF");
 
                     $data = [
-                        'title' => 'ADVANCE SUMMARY REPORT DETAIL',
+                        'title' => 'ADVANCE REQUEST',
                         'date' => date('d/m/Y H:m:s'),
                         'projectCode' => $dataAdvance['dataHeader']['CombinedBudgetCode'],
                         'projectName' => $dataAdvance['dataHeader']['CombinedBudgetName'],

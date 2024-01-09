@@ -20,7 +20,8 @@ class CheckDocumentController extends Controller
             'businessDocumentNumber' => "",
             'sourceData' => 0,
             'submitter_ID' => 0,
-            'statusDocument' => 0
+            'statusDocument' => 0,
+            'statusHeader' => "Yes",
 
         ];
 
@@ -28,7 +29,7 @@ class CheckDocumentController extends Controller
     }
 
     // FUNCTION FOR SHOW DOCUMENT BY ID 
-    public function GetAllDocumentType($varAPIWebToken, $Document, $filterType, $souceData)
+    public function GetAllDocumentType($varAPIWebToken, $Document, $filterType, $souceData, $statusHeader)
     {
         $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
         $varAPIWebToken = Session::get('SessionLogin');
@@ -79,6 +80,8 @@ class CheckDocumentController extends Controller
             $num++;
         }
 
+        // dd($filteredArray);
+
         $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
         $statusApprover = "No";
         $nextApprover = 0;
@@ -103,8 +106,6 @@ class CheckDocumentController extends Controller
                 false
             );
 
-            // dd($DataWorkflowHistory);
-
             if($DataWorkflowHistory['metadata']['HTTPStatusCode'] == 200){
                 $submitter_ID = $DataWorkflowHistory['data'][0]['approverEntity_RefID'];
                 $nextApprover = $DataWorkflowHistory['data'][count($DataWorkflowHistory['data']) - 1]['nextApproverEntity_RefID'];
@@ -117,6 +118,10 @@ class CheckDocumentController extends Controller
             if ($SessionWorkerCareerInternal_RefID == $nextApprover && $SessionWorkerCareerInternal_RefID != $submitter_ID) {
                 $statusApprover = "Yes";
             }
+            else if ($SessionWorkerCareerInternal_RefID == $submitter_ID && $nextApprover == 0) {
+                $statusApprover = "Resubmit";
+            }
+
             if($nextApprover == 0 && $cek == 0){
                 $statusDocument = 1;
             }
@@ -135,6 +140,7 @@ class CheckDocumentController extends Controller
             'businessDocument_ID' => $businessDocument_ID,
             'submitter_ID' => $submitter_ID,
             'sourceData' => $souceData,
+            'statusHeader' => $statusHeader,
             'var' => 1,
             'statusDocument' => $statusDocument
         ];
@@ -146,22 +152,22 @@ class CheckDocumentController extends Controller
     public function ShowDocument(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
 
         $businessDocumentNumber = $request->input('businessDocumentNumber');
         $businessDocument_RefID = $request->input('businessDocument_RefID');
         $souceData = 0;
+        $statusHeader = "Yes";
         if (isset($businessDocument_RefID) || isset($businessDocumentNumber)) {
             if (isset($businessDocument_RefID)) {
 
                 // CALL FUNCTION SHOW DATA BY ID
                 $filterType = "ID";
-                $varDataWorkflow = $this->GetAllDocumentType($varAPIWebToken, $businessDocument_RefID, $filterType, $souceData);
+                $varDataWorkflow = $this->GetAllDocumentType($varAPIWebToken, $businessDocument_RefID, $filterType, $souceData, $statusHeader);
             } else {
 
                 // // CALL FUNCTION SHOW DATA BY NUMBER
                 $filterType = "Number";
-                $varDataWorkflow = $this->GetAllDocumentType($varAPIWebToken, $businessDocumentNumber, $filterType, $souceData);
+                $varDataWorkflow = $this->GetAllDocumentType($varAPIWebToken, $businessDocumentNumber, $filterType, $souceData, $statusHeader);
 
             }
 
@@ -184,8 +190,9 @@ class CheckDocumentController extends Controller
 
         $filterType = "ID";
         $souceData = 1;
+        $statusHeader = "No";
         // CALL FUNCTION SHOW DATA BY ID
-        $varDataWorkflow = $this->GetAllDocumentType($varAPIWebToken, $businessDocument_RefID, $filterType, $souceData);
+        $varDataWorkflow = $this->GetAllDocumentType($varAPIWebToken, $businessDocument_RefID, $filterType, $souceData, $statusHeader);
 
         if (count($varDataWorkflow['dataDetail']) > 0) {
             return view('Documents.Transactions.IndexCheckDocument', $varDataWorkflow);

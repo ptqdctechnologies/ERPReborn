@@ -34,21 +34,47 @@ class Controller extends BaseController
                 Session::put('dataInputStore' . $DocumentTypeID, $dataInput);
             }
 
-            $VarSelectWorkFlow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'userAction.documentWorkFlow.general.getBusinessDocumentTypeWorkFlowPathBySubmitterEntityIDAndCombinedBudgetID',
-                'latest',
-                [
-                    'parameter' => [
-                        'businessDocumentType_RefID' => (int)$DocumentTypeID,
-                        'submitterEntity_RefID' => (int)$SessionWorkerCareerInternal_RefID,
-                        'combinedBudget_RefID' => (int) $dataInput['var_combinedBudget_RefID']
-                    ]
-                ]
+            if (Redis::get("BusinessDocumentTypeWorkFlowPath" . $DocumentTypeID) == null) {
+                $varAPIWebToken = Session::get('SessionLogin');
+                $VarSelectWorkFlow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken,
+                    'userAction.documentWorkFlow.general.getBusinessDocumentTypeWorkFlowPathBySubmitterEntityIDAndCombinedBudgetID',
+                    'latest',
+                    [
+                        'parameter' => [
+                            'businessDocumentType_RefID' => (int)$DocumentTypeID,
+                            'submitterEntity_RefID' => (int)$SessionWorkerCareerInternal_RefID,
+                            'combinedBudget_RefID' => (int)$dataInput['var_combinedBudget_RefID']
+                        ]
+                    ],
+                    false
+                );
+            }
+
+            $BusinessDocumentTypeWorkFlowPath = json_decode(
+                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    "BusinessDocumentTypeWorkFlowPath" . $DocumentTypeID
+                ),
+                true
             );
 
-            if ($VarSelectWorkFlow['metadata']['HTTPStatusCode'] != "200" || count($VarSelectWorkFlow['data']) == 0) {
+            $collection = collect($BusinessDocumentTypeWorkFlowPath);
+
+            $collection = $collection->where('CombinedBudget_RefID', $dataInput['var_combinedBudget_RefID']);
+            $collection = $collection->where('SubmitterEntity_RefID', $SessionWorkerCareerInternal_RefID);
+
+            $VarSelectWorkFlow = [];
+            $i = 0;
+            foreach ($collection->all() as $collections) {
+                $VarSelectWorkFlow[$i] = $collections;
+                $tamp = json_decode($collections['NextApproverPath'], true);
+                $VarSelectWorkFlow[$i]['NextApprover_RefID'] = $tamp[0]['entities']['approverEntity_RefID'];
+                $i++;
+            }
+
+            if (count($VarSelectWorkFlow) == 0) {
 
                 $compact = [
                     "message" => "WorkflowError"
@@ -57,16 +83,16 @@ class Controller extends BaseController
                 return response()->json($compact);
             } else {
 
-                if (count(collect($VarSelectWorkFlow['data'])) > 1) {
+                if (count($VarSelectWorkFlow) > 1) {
                     $message =  "MoreThanOne";
                 } else {
                     $message =  "OnlyOne";
                 }
 
                 $compact = [
-                    "data" => $VarSelectWorkFlow['data'],
-                    "workFlowPath_RefID" => $VarSelectWorkFlow['data'][0]['sys_ID'],
-                    "nextApprover_RefID" => $VarSelectWorkFlow['data'][0]['nextApprover_RefID'],
+                    "data" => $VarSelectWorkFlow,
+                    "workFlowPath_RefID" => $VarSelectWorkFlow[0]['Sys_ID'],
+                    "nextApprover_RefID" => $VarSelectWorkFlow[0]['NextApprover_RefID'],
                     "approverEntity_RefID" => $SessionWorkerCareerInternal_RefID,
                     "documentTypeID" => $DocumentTypeID,
                     "Sys_ID_Advance" => $Sys_ID_Advance,
@@ -103,13 +129,18 @@ class Controller extends BaseController
 
             $compact = [
                 "documentNumber" => $documentNumber,
+                "status" => $VarSubmitWorkflow['metadata']['HTTPStatusCode'],
             ];
 
-            //RESET REDIS DATA LIST ADVANCE
-            $this->FunctionResetRedisAdvance();
+            if ($compact['status'] == 200) {
 
-            //RESET REDIS SHOW DOCUMENT APPROVAL
-            $this->FunctionResetRedisDocumentApproval($nextApprover_RefID);
+
+                //RESET REDIS DATA LIST ADVANCE
+                $this->FunctionResetRedisAdvance();
+
+                //RESET REDIS SHOW DOCUMENT APPROVAL
+                $this->FunctionResetRedisDocumentApproval($nextApprover_RefID);
+            }
 
             return response()->json($compact);
         } catch (\Throwable $th) {
@@ -123,7 +154,7 @@ class Controller extends BaseController
         try {
             $varAPIWebToken = Session::get('SessionLogin');
 
-            $VarSubmitWorkflow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            $VarResubmitWorkflow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'userAction.documentWorkFlow.approvalStage.setUserResubmission',
@@ -139,15 +170,18 @@ class Controller extends BaseController
 
             $compact = [
                 "documentNumber" => $documentNumber,
+                "status" => $VarResubmitWorkflow['metadata']['HTTPStatusCode'],
             ];
 
+            if ($compact['status'] == 200) {
 
-            //RESET REDIS DATA LIST ADVANCE
-            $this->FunctionResetRedisAdvance();
+                //RESET REDIS DATA LIST ADVANCE
+                $this->FunctionResetRedisAdvance();
 
-            //RESET REDIS SHOW DOCUMENT APPROVAL
-            $this->FunctionResetRedisDocumentApproval($approverEntity_RefID);
-            $this->FunctionResetRedisDocumentApproval($nextApprover_RefID);
+                //RESET REDIS SHOW DOCUMENT APPROVAL
+                $this->FunctionResetRedisDocumentApproval($approverEntity_RefID);
+                $this->FunctionResetRedisDocumentApproval($nextApprover_RefID);
+            }
 
             return response()->json($compact);
         } catch (\Throwable $th) {
@@ -193,22 +227,40 @@ class Controller extends BaseController
 
             $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
 
-            $VarSelectWorkFlow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'userAction.documentWorkFlow.general.getBusinessDocumentTypeWorkFlowPathBySubmitterEntityIDAndCombinedBudgetID',
-                'latest',
-                [
-                    'parameter' => [
-                        'businessDocumentType_RefID' => (int)$documentTypeID,
-                        'submitterEntity_RefID' => (int)$SessionWorkerCareerInternal_RefID,
-                        'combinedBudget_RefID' => (int)$combinedBudget_RefID
-                    ]
-                ],
-                false
+            if (Redis::get("BusinessDocumentTypeWorkFlowPath" . $documentTypeID) == null) {
+                $varAPIWebToken = Session::get('SessionLogin');
+                $VarSelectWorkFlow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken,
+                    'userAction.documentWorkFlow.general.getBusinessDocumentTypeWorkFlowPathBySubmitterEntityIDAndCombinedBudgetID',
+                    'latest',
+                    [
+                        'parameter' => [
+                            'businessDocumentType_RefID' => (int)$documentTypeID,
+                            'submitterEntity_RefID' => (int)$SessionWorkerCareerInternal_RefID,
+                            'combinedBudget_RefID' => (int)$combinedBudget_RefID
+                        ]
+                    ],
+                    false
+                );
+            }
+
+            $BusinessDocumentTypeWorkFlowPath = json_decode(
+                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    "BusinessDocumentTypeWorkFlowPath" . $documentTypeID
+                ),
+                true
             );
 
-            return response()->json($VarSelectWorkFlow['metadata']['HTTPStatusCode']);
+            $collection = collect($BusinessDocumentTypeWorkFlowPath);
+
+            $collection = $collection->where('CombinedBudget_RefID', $combinedBudget_RefID);
+            $collection = $collection->where('SubmitterEntity_RefID', $SessionWorkerCareerInternal_RefID);
+
+            $countWorkflow = count($collection);
+
+            return response()->json($countWorkflow);
         } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');

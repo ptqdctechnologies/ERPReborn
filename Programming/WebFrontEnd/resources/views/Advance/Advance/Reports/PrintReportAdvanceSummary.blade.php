@@ -24,17 +24,6 @@
               <td>:</td>
               <td>{{ $projectCode }} - {{ $projectName }}</td>
             </tr>
-            <tr>
-              <td>Printed By</td>
-              <td>:</td>
-              <td>{{ $printedBy }}</td>
-            </tr>
-            <tr>
-              <td>Date & Time</td>
-              <td>:</td>
-              <td>{{ $date }}</td>
-            </tr>
-            </tr>
           </table>
           <table style="float:right;">
             <tr>
@@ -103,6 +92,19 @@
           </div>
         </div>
       </div>
+
+      <div class="row mb-1">
+        <div class="col-sm-12">
+          <table style="position: fixed;bottom: 0;left: 0;right: 0;height: 50px;float:right;">
+            <tr>
+              <td>Printed By</td>
+              <td>:</td>
+              <td>{{ $printedBy }} - {{ $date }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
     </div>
   </section>
 </div>
