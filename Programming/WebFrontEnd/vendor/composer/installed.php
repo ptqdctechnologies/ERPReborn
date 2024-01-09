@@ -674,9 +674,9 @@
             'dev_requirement' => true,
         ),
         'phenx/php-font-lib' => array(
-            'pretty_version' => '0.5.4',
-            'version' => '0.5.4.0',
-            'reference' => 'dd448ad1ce34c63d09baccd05415e361300c35b4',
+            'pretty_version' => '0.5.5',
+            'version' => '0.5.5.0',
+            'reference' => '671df0f3516252011aa94f9e8e3b3b66199339f8',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phenx/php-font-lib',
             'aliases' => array(),
