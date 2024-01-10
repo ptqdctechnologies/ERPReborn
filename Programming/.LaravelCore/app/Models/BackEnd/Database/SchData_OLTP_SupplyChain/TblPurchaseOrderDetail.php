@@ -77,33 +77,34 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
             int $varPurchaseOrder_RefID = null, int $varPurchaseRequisitionDetail_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceValue_Currency_RefID = null, float $varProductUnitPriceValue_CurrencyeValue = null, float $varProductUnitPriceValue_CurrencyExchangeRate = null, int $varProductUnitPriceValueDiscount_Currency_RefID = null, float $varProductUnitPriceValueDiscount_CurrencyeValue = null, float $varProductUnitPriceValueDiscount_CurrencyExchangeRate = null, string $varRemarks = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [null, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [null, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [$varPurchaseOrder_RefID, 'bigint'],
-                        [$varPurchaseRequisitionDetail_RefID, 'bigint'],
-                        [$varQuantity, 'numeric'],
-                        [$varQuantityUnit_RefID, 'bigint'],
-                        [$varProductUnitPriceValue_Currency_RefID, 'bigint'],
-                        [$varProductUnitPriceValue_CurrencyExchangeRate, 'numeric'],
-                        [$varProductUnitPriceValue_CurrencyeValue, 'numeric'],
-                        [$varProductUnitPriceValueDiscount_Currency_RefID, 'bigint'],
-                        [$varProductUnitPriceValueDiscount_CurrencyExchangeRate, 'numeric'],
-                        [$varProductUnitPriceValueDiscount_CurrencyeValue, 'numeric'],
-                        [$varRemarks, 'varchar']
-                    ]
-                    )
-                );
+                            [$varPurchaseOrder_RefID, 'bigint'],
+                            [$varPurchaseRequisitionDetail_RefID, 'bigint'],
+                            [$varQuantity, 'numeric'],
+                            [$varQuantityUnit_RefID, 'bigint'],
+                            [$varProductUnitPriceValue_Currency_RefID, 'bigint'],
+                            [$varProductUnitPriceValue_CurrencyExchangeRate, 'numeric'],
+                            [$varProductUnitPriceValue_CurrencyeValue, 'numeric'],
+                            [$varProductUnitPriceValueDiscount_Currency_RefID, 'bigint'],
+                            [$varProductUnitPriceValueDiscount_CurrencyExchangeRate, 'numeric'],
+                            [$varProductUnitPriceValueDiscount_CurrencyeValue, 'numeric'],
+                            [$varRemarks, 'varchar']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0];
             }
 
@@ -147,33 +148,34 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
             int $varPurchaseOrder_RefID = null, int $varPurchaseRequisitionDetail_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceValue_Currency_RefID = null, float $varProductUnitPriceValue_CurrencyeValue = null, float $varProductUnitPriceValue_CurrencyExchangeRate = null, int $varProductUnitPriceValueDiscount_Currency_RefID = null, float $varProductUnitPriceValueDiscount_CurrencyeValue = null, float $varProductUnitPriceValueDiscount_CurrencyExchangeRate = null, string $varRemarks = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varSysID, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varSysID, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [$varPurchaseOrder_RefID, 'bigint'],
-                        [$varPurchaseRequisitionDetail_RefID, 'bigint'],
-                        [$varQuantity, 'numeric'],
-                        [$varQuantityUnit_RefID, 'bigint'],
-                        [$varProductUnitPriceValue_Currency_RefID, 'bigint'],
-                        [$varProductUnitPriceValue_CurrencyExchangeRate, 'numeric'],
-                        [$varProductUnitPriceValue_CurrencyeValue, 'numeric'],
-                        [$varProductUnitPriceValueDiscount_Currency_RefID, 'bigint'],
-                        [$varProductUnitPriceValueDiscount_CurrencyExchangeRate, 'numeric'],
-                        [$varProductUnitPriceValueDiscount_CurrencyeValue, 'numeric'],
-                        [$varRemarks, 'varchar']
-                    ]
-                    )
-                );
+                            [$varPurchaseOrder_RefID, 'bigint'],
+                            [$varPurchaseRequisitionDetail_RefID, 'bigint'],
+                            [$varQuantity, 'numeric'],
+                            [$varQuantityUnit_RefID, 'bigint'],
+                            [$varProductUnitPriceValue_Currency_RefID, 'bigint'],
+                            [$varProductUnitPriceValue_CurrencyExchangeRate, 'numeric'],
+                            [$varProductUnitPriceValue_CurrencyeValue, 'numeric'],
+                            [$varProductUnitPriceValueDiscount_Currency_RefID, 'bigint'],
+                            [$varProductUnitPriceValueDiscount_CurrencyExchangeRate, 'numeric'],
+                            [$varProductUnitPriceValueDiscount_CurrencyeValue, 'numeric'],
+                            [$varRemarks, 'varchar']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0];
             }
         }

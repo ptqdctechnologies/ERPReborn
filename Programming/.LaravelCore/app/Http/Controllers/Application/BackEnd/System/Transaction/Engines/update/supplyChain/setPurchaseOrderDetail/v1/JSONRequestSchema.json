@@ -19,10 +19,15 @@
                         "minLength": 1
                         }
                     },
-                "required": [ "key", "version" ]
+                "required": [
+                    "key",
+                    "version"
+                    ]
                 }
             },
-        "required": [ "API" ]
+        "required": [
+            "API"
+            ]
         },
     "data": {
         "type": "object",
@@ -86,11 +91,29 @@
                         "maxLength": 256
                         }
                     },
-                "required": [ "purchaseOrder_RefID", "purchaseRequisitionDetail_RefID", "quantity", "quantityUnit_RefID", "productUnitPriceCurrency_RefID", "productUnitPriceCurrencyeValue", "productUnitPriceCurrencyExchangeRate", "productUnitPriceDiscountCurrency_RefID", "productUnitPriceDiscountCurrencyeValue", "productUnitPriceDiscountCurrencyExchangeRate", "remarks" ]
+                "required": [
+                    "purchaseOrder_RefID",
+                    "purchaseRequisitionDetail_RefID",
+                    "quantity",
+                    "quantityUnit_RefID",
+                    "productUnitPriceCurrency_RefID",
+                    "productUnitPriceCurrencyeValue",
+                    "productUnitPriceCurrencyExchangeRate",
+                    "productUnitPriceDiscountCurrency_RefID",
+                    "productUnitPriceDiscountCurrencyeValue",
+                    "productUnitPriceDiscountCurrencyExchangeRate",
+                    "remarks"
+                    ]
                 }
             },
-        "required": [ "recordID", "entities" ]
+        "required": [
+            "recordID",
+            "entities"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }
