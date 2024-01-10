@@ -27,17 +27,15 @@ RUN apt-get update \
 
 
 RUN apt-get install -y lsb-release \
-    && wget http://repo.mysql.com/mysql-apt-config_0.8.24-1_all.deb \  
-       && dpkg -i mysql-apt-config_0.8.24-1_all.deb \
+    && wget http://repo.mysql.com/mysql-apt-config_0.8.29-1_all.deb \  
+       && dpkg -i mysql-apt-config_0.8.29-1_all.deb \
     && git clone https://github.com/EnterpriseDB/mysql_fdw.git \
        && apt-get install -y mariadb-server \
        && cd /mysql_fdw \
           && export PATH=/usr/lib/postgresql/16/bin/:/usr/bin/mysql:$PATH make USE_PGXS=1 \
           && PATH=/usr/lib/postgresql/16/bin/:/usr/bin/mysql:$PATH make USE_PGXS=1 install \
           && cd / \
-          && rm -rf /mysql_fdw \
-          && rm -rf ./mysql-apt-config_0.8.24-1_all.deb
-
+          && rm -rf /mysql_fdw
 
 #RUN apt-get install -y lsb-release \
 #    && wget http://repo.mysql.com/mysql-apt-config_0.8.22-1_all.deb \  
