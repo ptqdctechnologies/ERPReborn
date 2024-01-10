@@ -30,7 +30,7 @@ RUN apt-get install -y lsb-release \
     && wget http://repo.mysql.com/mysql-apt-config_0.8.29-1_all.deb \  
        && dpkg -i mysql-apt-config_0.8.29-1_all.deb \
     && git clone https://github.com/EnterpriseDB/mysql_fdw.git \
-       && apt-get install -y mariadb-server \
+       && apt-get install -y mariadb-server mariadb-client \
        && cd /mysql_fdw \
           && export PATH=/usr/lib/postgresql/16/bin/:/usr/bin/mysql:$PATH make USE_PGXS=1 \
           && PATH=/usr/lib/postgresql/16/bin/:/usr/bin/mysql:$PATH make USE_PGXS=1 install \

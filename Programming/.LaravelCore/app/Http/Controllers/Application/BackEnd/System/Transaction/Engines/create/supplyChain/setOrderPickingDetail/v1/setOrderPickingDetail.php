@@ -3,29 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\supplyChain                           |
-|                \setOrderPickingRequisitionDetail\v1                                                                              |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\supplyChain\setOrderPickingDetail\v1  |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\supplyChain\setOrderPickingRequisitionDetail\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\supplyChain\setOrderPickingDetail\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setOrderPickingRequisitionDetail                                                                             |
-    | ▪ Description : Menangani API transaction.update.supplyChain.setOrderPickingRequisitionDetail Version 1                      |
+    | ▪ Class Name  : setOrderPickingDetail                                                                                        |
+    | ▪ Description : Menangani API transaction.create.supplyChain.setOrderPickingDetail Version 1                                 |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setOrderPickingRequisitionDetail extends \App\Http\Controllers\Controller
+    class setOrderPickingDetail extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-01-02                                                                                           |
-        | ▪ Creation Date   : 2024-01-02                                                                                           |
+        | ▪ Last Update     : 2024-01-10                                                                                           |
+        | ▪ Creation Date   : 2024-01-10                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +43,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-01-02                                                                                           |
-        | ▪ Creation Date   : 2024-01-02                                                                                           |
+        | ▪ Last Update     : 2024-01-10                                                                                           |
+        | ▪ Creation Date   : 2024-01-10                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -59,27 +58,27 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Update Order Picking Requisition Detail Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Order Picking Detail Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate($varUserSession, (new \App\Models\Database\SchData_OLTP_SupplyChain\TblOrderPickingRequisitionDetail())->setDataUpdate(
-                            $varUserSession,
-                            $varData['recordID'],
-                            null,
+                        if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_SupplyChain\TblOrderPickingDetail())->setDataInsert(
+                            $varUserSession, 
+                            null, 
                             null,
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                             \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
 
-                            $varData['entities']['orderPickingRequisition_RefID'],
-                            $varData['entities']['purchaseRequisitionDetail_RefID'],
-                            $varData['entities']['product_RefID'],
+                            $varData['entities']['orderPicking_RefID'],
+                            $varData['entities']['orderPickingRequisitionDetail_RefID'],
                             $varData['entities']['quantity'],
                             $varData['entities']['quantityUnit_RefID'],
                             $varData['entities']['productUnitPriceCurrency_RefID'],
                             $varData['entities']['productUnitPriceCurrencyValue'],
                             $varData['entities']['productUnitPriceCurrencyExchangeRate'],
-                            $varData['entities']['fulfillmentDeadlineDateTimeTZ'],
+                            $varData['entities']['productUnitPriceDiscountCurrency_RefID'],
+                            $varData['entities']['productUnitPriceDiscountCurrencyeValue'],
+                            $varData['entities']['productUnitPriceDiscountCurrencyExchangeRate'],
                             $varData['entities']['remarks']
                             ))))
                             {
@@ -88,7 +87,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdateException($varUserSession, $ex);
+                        $varErrorMessage = $ex->getMessage();
+                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');

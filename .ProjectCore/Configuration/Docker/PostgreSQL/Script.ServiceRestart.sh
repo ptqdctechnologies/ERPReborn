@@ -6,7 +6,12 @@ if [ ! -f /zhtConf/tmp/processSign/.initialized ]; then
    #sleep 30;
    echo -e "\e[1;33m"$varTitle" ► MariaDB (MySQL) Service Initialization...\e[0m";
    #service postgresql restart;
-   service mysql restart;
+   #service mysql restart;
+   
+   if [ ! -f /var/lib/mysql/mysql/servers.frm ]; then
+      mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+   fi
+   /etc/init.d/mariadb restart;
    touch /zhtConf/tmp/processSign/.initialized;
 fi
 
