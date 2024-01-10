@@ -16,8 +16,11 @@
         <div class="tab-content p-3" id="nav-tabContent">
           <div class="row">
 
-            @include('Advance.Advance.Functions.Header.HeaderReportAdvanceSummaryDetail')
 
+            @if($statusHeader == "Yes")
+              @include('Advance.Advance.Functions.Header.HeaderReportAdvanceSummaryDetail')
+            @endif
+            
             @if($statusDetail == 1 && $dataHeader != [])
             <div class="card">
               <div class="tab-content p-3" id="nav-tabContent">
@@ -27,7 +30,7 @@
                     <div class="card">
                       <div class="card-header">
                         <center>
-                          <h3><span style="text-transform:uppercase;font-weight:bold;">Advance Summary Report Detail</span></h3>
+                          <h3><span style="text-transform:uppercase;font-weight:bold;">Advance Request</span></h3>
                         </center>
                       </div>
 
@@ -40,6 +43,11 @@
                                   <td style="padding-top: 5px;"><label>Transaction Number</label></td>
                                   <td>:</td>
                                   <td>{{ $dataHeader['DocumentNumber'] }}</td>
+                                </tr>
+                                <tr>
+                                  <td style="padding-top: 5px;"><label>Date</label></td>
+                                  <td>:</td>
+                                  <td>{{ date("d-m-Y", strtotime($dataHeader['Date'])) }}</td>
                                 </tr>
                                 <tr>
                                   <td style="padding-top: 5px;"><label>Budget Code</label></td>
@@ -58,11 +66,6 @@
                             <div class="form-group">
                               <table>
                                 <tr>
-                                  <td style="padding-top: 5px;"><label>Date</label></td>
-                                  <td>:</td>
-                                  <td>{{ date("d-m-Y", strtotime($dataHeader['Date'])) }}</td>
-                                </tr>
-                                <tr>
                                   <td style="padding-top: 5px;"><label>Requester</label></td>
                                   <td>:</td>
                                   <td>{{ $dataHeader['RequesterWorkerName'] }}</td>
@@ -71,6 +74,16 @@
                                   <td style="padding-top: 5px;"><label>Beneficiary</label></td>
                                   <td>:</td>
                                   <td>{{ $dataHeader['BeneficiaryWorkerName'] }}</td>
+                                </tr>
+                                <tr>
+                                  <td style="padding-top: 5px;"><label>Bank Name</label></td>
+                                  <td>:</td>
+                                  <td>{{ $dataHeader['BankAcronym'] }} - {{ $dataHeader['BankName'] }}</td>
+                                </tr>
+                                <tr>
+                                  <td style="padding-top: 5px;"><label>Bank Account</label></td>
+                                  <td>:</td>
+                                  <td>{{ $dataHeader['BankAccountNumber'] }} - {{ $dataHeader['BankAccountName'] }}</td>
                                 </tr>
                               </table>
                             </div>

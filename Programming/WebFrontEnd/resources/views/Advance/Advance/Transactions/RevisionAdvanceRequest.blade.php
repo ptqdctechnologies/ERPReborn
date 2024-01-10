@@ -195,7 +195,7 @@
                             <table>
                               <tr>
                                 <td>
-                                  <textarea name="var_remark" id="remark" rows="2" cols="150" class="form-control" required>{{$dataHeader['Remarks']}}</textarea>
+                                  <textarea name="var_remark" id="remark" rows="2" cols="150" class="form-control" required>{!! $remark !!}</textarea>
                                 </td>
                               </tr>
                             </table>

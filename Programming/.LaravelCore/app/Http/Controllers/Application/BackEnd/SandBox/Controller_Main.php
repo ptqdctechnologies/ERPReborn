@@ -22,9 +22,9 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
 
         {
 
-            $x = (new \App\Models\Database\SchSysConfig\General())->getWorkFlowPathOfBusinessDocument(
+            $x = (new \App\Models\Database\SchData_OLTP_HumanResource\General())->getDataList_OrganizationalDepartment(
                 6000000000001, 
-                74000000020636
+                11000000000004
             );
 
             dd($x);

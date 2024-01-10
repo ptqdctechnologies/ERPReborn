@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-2">
 
-    <div class="sidebar">
+    <div class="sidebar" style="height: 80%;">
 
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
@@ -683,12 +683,31 @@
                         <i class="right fas fa-angle-left"></i>
                     </a>
                 </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon-sm fas fa-chart-line" style="color:#e9ecef;"></i>
+                        <label>
+                            Register
+                        </label>
+                        <i class="right fas fa-angle-left"></i>
+                    </a>
+
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('PrivilageMenu.index') }}" class="nav-link">&nbsp;
+                                <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
+                                <label>Privilage Menu</label>
+                                <i class="right fas fa-angle-left"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
 
     </div>
 
-    <div class="user-panel mt-3 pb-3 mb-3 d-flex" style="position: relative;bottom:130px;background-color:#4B586A;text-align:center;color:white;padding-top:40px;border-top:2px white solid">
+    <div class="user-panel mt-0 pb-0 mb-0 d-flex" style="background-color:#4B586A;text-align:center;color:white;padding-top:10px;border-top:2px white solid;height:20%;">
         <div class="card-body">
             <h1><b>{{ $CountDocumentWorkflowComposer }}</b></h1>
             <h5>Document to Process</h5>

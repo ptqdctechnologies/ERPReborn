@@ -18,7 +18,7 @@
                         <ul>
                             <li>
                                 <span style="text-transform:uppercase;font-weight:bold;">{{ $DataWorkflowHistorys['workFlowPathActionName'] }}</span> {{ date('D, m/d/Y H:m:s', strtotime($DataWorkflowHistorys['approvalDateTimeTZ'])) }} : {{ $DataWorkflowHistorys['approverEntityName'] }} ({{ $DataWorkflowHistorys['approverEntityFullJobPositionTitle'] }}) <br>
-                                Comment : {{ $DataWorkflowHistorys['remarks'] }}
+                                Comment : {!! nl2br(e($DataWorkflowHistorys['remarks'])) !!}
                             </li>
                         </ul>
                         @endforeach

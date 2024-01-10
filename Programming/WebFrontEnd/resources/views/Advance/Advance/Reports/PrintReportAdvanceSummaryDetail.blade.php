@@ -16,7 +16,7 @@
       <div class="row mb-1">
         <div class="col-sm-12">
           <center>
-            <b><label style="font-size:20px;">{{ $title}} <br><br> </label></b>
+            <b><label style="font-size:20px;">{{ $title}} <br><br><br> </label></b>
           </center>
           <table style="float:left;">
             <tr>
@@ -50,13 +50,28 @@
               <td>{{ $data['dataHeader']['BeneficiaryWorkerName'] }}</td>
             </tr>
           </table>
+
           <table style="float:right;">
             <tr>
-              <td><img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('/AdminLTE-master/dist/img/qdc.png'))) }}" width="180"></td>
-            </tr>
+              <td><img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('/AdminLTE-master/dist/img/qdc.png'))) }}" width="190"></td>
             </tr>
           </table>
-          <br><br><br><br><br><br><br><br>
+          <br><br><br><br><br>
+
+          <table style="float:right;">
+            <tr>
+              <td>Bank Name</td>
+              <td>:</td>
+              <td>{{ $data['dataHeader']['BankAcronym'] }} - {{ $data['dataHeader']['BankName'] }}</td>
+            </tr>
+            <tr>
+              <td>Bank Account</td>
+              <td>:</td>
+              <td>{{ $data['dataHeader']['BankAccountNumber'] }} - {{ $data['dataHeader']['BankAccountName'] }}</td>
+            </tr>
+          </table>
+
+          <br><br><br><br>
         </div>
       </div>
       <div class="card">
@@ -102,6 +117,19 @@
           </div>
         </div>
       </div>
+
+      <div class="row mb-1">
+        <div class="col-sm-12">
+          <table style="position: fixed;bottom: 0;left: 0;right: 0;height: 50px;float:right;">
+            <tr>
+              <td>Printed By</td>
+              <td>:</td>
+              <td>{{ $printedBy }} - {{ $date }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
     </div>
   </section>
 </div>
