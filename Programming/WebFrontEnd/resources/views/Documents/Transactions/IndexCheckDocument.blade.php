@@ -13,20 +13,21 @@
           <label style="font-size:15px;position:relative;top:7px;color:white;">Check Document on Process</label>
         </div>
       </div>
-
+      
+      @if($statusHeader == "Yes")
       @include('Documents.Functions.Menu.MenuCheckDocument')
+      @endif
 
       @if($var == 1)
+      
+      @if($statusHeader == "No")
+      <div class="card">
+      @elseif($statusHeader == "Yes")
       <div class="card" style="position:relative;bottom:10px;">
+      @endif
+
         <div class="tab-content p-3" id="nav-tabContent">
-
           <div class="row">
-            <!-- <div class="card ViewWorkflow" style="background-color:#e9ecef;border:1px solid #ced4da;margin-left:10px;">
-              <a class="btn btn-default btn-sm">
-                View Workflow History
-              </a>
-            </div> -->
-
             <div class="card ViewDocument" style="background-color:#e9ecef;border:1px solid #ced4da;margin-left:10px;">
               <a class="btn btn-default btn-sm">
                 View Document Transaction

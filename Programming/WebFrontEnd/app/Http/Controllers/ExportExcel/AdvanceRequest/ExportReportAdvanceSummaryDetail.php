@@ -22,7 +22,7 @@ class ExportReportAdvanceSummaryDetail implements FromCollection, WithHeadings, 
     public function headings(): array
     {
         return [
-            ["ADVANCE SUMMARY REPORT DETAIL", " ", " ", " ", " ", " "],
+            ["ADVANCE REQUEST", " ", " ", " ", " ", " "],
             [" ", " ", " ", " ", " ", " "],
             ["No", "Product ID", "Description & Spesifications", "Qty", "Unit Price", "Total Advance"]
         ];

@@ -55,9 +55,7 @@
             type: 'GET',
             url: '{!! route("CheckingWorkflow") !!}?combinedBudget_RefID=' + sys_id + '&documentTypeID=' + documentTypeID,
             success: function(data) {
-                console.log(data);
-
-                if (data == "200") {
+                if (data > 0) {
 
                     var keys = 0;
                     $.ajax({
@@ -82,7 +80,7 @@
                 } else {
                     $("#project_code").val("");
                     $("#project_code_detail").val("");
-                    Swal.fire("Error", "User Has Not Workflow", "error");
+                    Swal.fire("Error", "User Has Not Workflow For This Project", "error");
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
@@ -524,7 +522,12 @@
                             data: form_data,
                             type: method,
                             success: function(response) {
-                                if (response.message == "MoreThanOne") {
+                                if (response.message == "WorkflowError") {
+                                    HideLoading();
+                                    $("#submitArf").prop("disabled", false);
+                                    // CALL FUNCTION DO NOT HAVE ACCESS NOTIF
+                                    CancelNotif("You don't have access", '/AdvanceRequest?var=1');
+                                } else if (response.message == "MoreThanOne") {
 
                                     HideLoading();
 
@@ -534,8 +537,8 @@
                                     t.clear();
                                     $.each(response.data, function(key, val) {
                                         t.row.add([
-                                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.sys_ID + '\', \'' + val.nextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-                                            '<td style="border:1px solid #e9ecef;">' + val.fullApproverPath + '</td></tr></tbody>'
+                                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                                            '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
                                         ]).draw();
                                     });
 
@@ -586,7 +589,7 @@
             title: 'Comment',
             text: "Please write your comment here",
             type: 'question',
-            input: 'text',
+            input: 'textarea',
             showCloseButton: false,
             showCancelButton: false,
             focusConfirm: false,
@@ -602,24 +605,23 @@
                 var file = $("#dataInput_Log_FileUpload_Pointer_RefID_Action").val();
                 if (file) {
 
-                    setTimeout(function(){
+                    setTimeout(function() {
 
                         varFileUpload_UniqueID = "Upload";
                         window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
                         fileAttachment = $("#dataInput_Log_FileUpload_Pointer_RefID").val();
-                        if(fileAttachment != null){
-                            
+                        if (fileAttachment != null) {
+
                             AdvanceRequestStore(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, fileAttachment, documentTypeID, result.value);
 
                         }
                     }, 20);
-                }
-                else{
+                } else {
 
                     AdvanceRequestStore(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, fileAttachment, documentTypeID, result.value);
-                    
+
                 }
-                
+
 
             }
         })
@@ -635,37 +637,53 @@
             }
         });
 
+        var data = {
+            workFlowPath_RefID: workFlowPath_RefID,
+            nextApprover_RefID: nextApprover_RefID,
+            approverEntity_RefID: approverEntity_RefID,
+            fileAttachment: fileAttachment,
+            documentTypeID: documentTypeID,
+            comment: comment
+
+        };
+
         $.ajax({
             type: 'POST',
-            url: '{!! route("AdvanceRequest.store") !!}?workFlowPath_RefID=' + workFlowPath_RefID + '&nextApprover_RefID=' + nextApprover_RefID + '&approverEntity_RefID=' + approverEntity_RefID + '&fileAttachment=' + fileAttachment + '&documentTypeID=' + documentTypeID + '&comment=' + comment,
+            data: data,
+            url: '{!! route("AdvanceRequest.store") !!}',
             success: function(data) {
 
                 HideLoading();
+                if (data.status == 200) {
 
-                const swalWithBootstrapButtons = Swal.mixin({
-                    confirmButtonClass: 'btn btn-success btn-sm',
-                    cancelButtonClass: 'btn btn-danger btn-sm',
-                    buttonsStyling: true,
-                })
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    })
 
-                swalWithBootstrapButtons.fire({
+                    swalWithBootstrapButtons.fire({
 
-                    title: 'Successful !',
-                    type: 'success',
-                    html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + data.documentNumber + '</span>',
-                    showCloseButton: false,
-                    showCancelButton: false,
-                    focusConfirm: false,
-                    confirmButtonText: '<span style="color:black;"> OK </span>',
-                    confirmButtonColor: '#4B586A',
-                    confirmButtonColor: '#e9ecef',
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.value) {
-                        ShowLoading();
-                        window.location.href = '/AdvanceRequest?var=1';
-                    }
-                })
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + data.documentNumber + '</span>',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.value) {
+                            ShowLoading();
+                            window.location.href = '/AdvanceRequest?var=1';
+                        }
+                    })
+                } else {
+                    ErrorNotif("Data Cancel Inputed");
+                }
+
 
             },
             error: function(jqXHR, textStatus, errorThrown) {
@@ -674,7 +692,6 @@
             }
         });
     }
-    
 </script>
 
 
@@ -683,5 +700,4 @@
         ShowLoading();
         window.location.href = '/AdvanceRequest?var=1';
     }
-    
 </script>

@@ -243,10 +243,6 @@ $varDataSend = [
                                             null
                                         );
 
-                                    $compactRole = [
-                                        'CountBranch' => count($varDataBranch),
-                                        'Data' => $varRole
-                                    ];
                                 } else {
                                     $varRole =
                                         (new \App\Models\Database\SchSysConfig\General())->getUserPrivilege_Role(
@@ -255,11 +251,6 @@ $varDataSend = [
                                             $varDataBranch[0]['Sys_ID'],
                                             null,
                                         );
-
-                                    $compactRole = [
-                                        'CountBranch' => count($varDataBranch),
-                                        'Data' => $varRole
-                                    ];
                                 }
 
                                 // //SET REDIS ROLE
@@ -267,7 +258,7 @@ $varDataSend = [
                                 \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
                                     $varUserSession,
                                     "Role" . $user_RefID,
-                                    json_encode($compactRole),
+                                    json_encode($varRole),
                                     $varTTL
                                 );
                             }
