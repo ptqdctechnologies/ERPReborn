@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.create.supplyChain.setPurchaseRequisition (version 1)",
+"description": "JSON Request Schema of transaction.update.supplyChain.setOrderPicking (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.create.supplyChain.setPurchaseRequisition" ]
+                        "enum": [ "transaction.update.supplyChain.setOrderPicking" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -32,6 +32,11 @@
     "data": {
         "type": "object",
         "properties": {
+            "recordID" : {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9223372036854775807
+                },
             "entities" : {
                 "type": "object",
                 "properties": {
@@ -46,6 +51,23 @@
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807 
+                        },
+                    "warehouse_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                    "deliveryDateTimeTZ": {
+                        "type": [ "string", "null" ],
+                        "format": "string",
+                        "pattern": "^((([0-9]{1,4})((-){1})(0[1-9]|1[0-2])((-){1})(0[1-9]|1[0-9]|2[0-9]|3[0-1]))(([ ]{1,})(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]))(([.]{1}[0-9]{1,6}){0,1})((([ ]{0,})([+|-]{1})(([0-9]|0[0-9]|1[0-5]){1})){0,1})){0,1})$",
+                        "minLength": 10,
+                        "maxLength": 30
+                        },
+                    "deliveryDestination_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
                         },
                     "remarks": {
                         "type": [ "string", "null" ],
@@ -69,12 +91,7 @@
                                                         "entities": {
                                                             "type": "object",
                                                             "properties": {
-                                                                "combinedBudgetSectionDetail_RefID": {
-                                                                    "type": [ "integer", "null" ],
-                                                                    "minimum": 1,
-                                                                    "maximum": 9223372036854775807
-                                                                    },
-                                                                "product_RefID": {
+                                                                "orderPickingRequisitionDetail_RefID": {
                                                                     "type": [ "integer", "null" ],
                                                                     "minimum": 1,
                                                                     "maximum": 9223372036854775807
@@ -97,32 +114,39 @@
                                                                     "type": [ "number", "null" ],
                                                                     "minimum": 0
                                                                     },
-                                                                "productUnitPriceCurrencyValue": {
+                                                                "productUnitPriceCurrencyeValue": {
                                                                     "type": [ "number", "null" ],
                                                                     "minimum": 0
                                                                     },
-                                                                "fulfillmentDeadlineDateTimeTZ": {
-                                                                    "type": [ "string" ],
-                                                                    "format": "string",
-                                                                    "pattern": "^((([0-9]{1,4})((-){1})(0[1-9]|1[0-2])((-){1})(0[1-9]|1[0-9]|2[0-9]|3[0-1]))(([ ]{1,})(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]))(([.]{1}[0-9]{1,6}){0,1})((([ ]{0,})([+|-]{1})(([0-9]|0[0-9]|1[0-5]){1})){0,1})){0,1})$",
-                                                                    "minLength": 10,
-                                                                    "maxLength": 30
+                                                                "productUnitPriceDiscountCurrency_RefID": {
+                                                                    "type": [ "integer", "null" ],
+                                                                    "minimum": 1,
+                                                                    "maximum": 9223372036854775807
+                                                                    },
+                                                                "productUnitPriceDiscountCurrencyExchangeRate": {
+                                                                    "type": [ "number", "null" ],
+                                                                    "minimum": 0
+                                                                    },
+                                                                "productUnitPriceDiscountCurrencyeValue": {
+                                                                    "type": [ "number", "null" ],
+                                                                    "minimum": 0
                                                                     },
                                                                 "remarks": {
                                                                     "type": [ "string", "null" ],
                                                                     "minLength": 1,
-                                                                    "maxLength": 512
+                                                                    "maxLength": 256
                                                                     }
                                                                 },
                                                             "required": [
-                                                                "combinedBudgetSectionDetail_RefID",
-                                                                "product_RefID",
+                                                                "orderPickingRequisitionDetail_RefID",
                                                                 "quantity",
                                                                 "quantityUnit_RefID",
                                                                 "productUnitPriceCurrency_RefID",
                                                                 "productUnitPriceCurrencyExchangeRate",
-                                                                "productUnitPriceCurrencyValue",
-                                                                "fulfillmentDeadlineDateTimeTZ",
+                                                                "productUnitPriceCurrencyeValue",
+                                                                "productUnitPriceDiscountCurrency_RefID",
+                                                                "productUnitPriceDiscountCurrencyExchangeRate",
+                                                                "productUnitPriceDiscountCurrencyeValue",
                                                                 "remarks"
                                                                 ]
                                                             }
@@ -136,7 +160,7 @@
                                         "required": [
                                             "items"
                                             ]
-                                        }
+                                        }                                  
                                     },
                                 "required": [
                                     "itemList"
@@ -148,11 +172,15 @@
                 "required": [
                     "documentDateTimeTZ",
                     "requesterWorkerJobsPosition_RefID",
+                    "warehouse_RefID",
+                    "deliveryDateTimeTZ",
+                    "deliveryDestination_RefID",
                     "remarks"
-                    ]    
+                    ]
                 }
             },
         "required": [
+            "recordID",
             "entities"
             ]
         }
