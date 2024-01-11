@@ -20,7 +20,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <label class="card-title">
-                                        Employee
+                                        Role
                                     </label>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -38,7 +38,7 @@
                                                         <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Departement</label></td>
                                                         <td>
                                                             <div class="input-group">
-                                                                <input type="hidden" id="departement_id" style="border-radius:0;background-color:white;" name="departement" class="form-control">
+                                                                <input type="hidden" id="departement_id" style="border-radius:0;background-color:white;" name="departement_id" class="form-control">
                                                                 <input id="departement" style="border-radius:0;background-color:white;" name="departement" class="form-control" readonly>
                                                                 <div class="input-group-append">
                                                                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -49,13 +49,14 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Search Username</label></td>
+                                                        <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Role</label></td>
                                                         <td>
                                                             <div class="input-group">
-                                                                <input id="project_code" style="border-radius:0;background-color:white;" name="project_code" class="form-control" readonly>
+                                                                <input type="hidden" id="user_role_id" style="border-radius:0;background-color:white;" name="user_role_id" class="form-control">
+                                                                <input id="user_role" style="border-radius:0;background-color:white;" name="user_role" class="form-control" readonly>
                                                                 <div class="input-group-append">
                                                                     <span style="border-radius:0;" class="input-group-text form-control">
-                                                                        <a href="#" id="project_code_popup" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                                        <a href="#" id="user_role_popup" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -94,8 +95,8 @@
                                                         <td style="padding-top: 7px;"><label>Modul &nbsp;&nbsp;&nbsp;</label></td>
                                                         <td>
                                                             <div class="input-group" style="padding-bottom: 3px;">
-                                                                <select id="DocumentType" class="form-control DocumentType select2" name="DocumentType">
-                                                                    <option selected="selected" value=""> Select Modul</option>
+                                                                <select id="Modul" class="form-control Modul select2" name="Modul">
+                                                                    <option selected="selected" value=""> Select Modul </option>
                                                                 </select>
                                                             </div>
                                                         </td>
@@ -112,7 +113,7 @@
                                                                 <div class="col-lg-6">
                                                                     <div class="input-group">
                                                                         <span class="input-group-text">
-                                                                            <input type="checkbox" checked>
+                                                                            <input type="checkbox" id="SelectAll">
                                                                         </span>
                                                                     </div>
                                                                 </div>
@@ -132,7 +133,7 @@
                                                                 <div class="col-lg-6">
                                                                     <div class="input-group">
                                                                         <span class="input-group-text">
-                                                                            <input type="checkbox">
+                                                                            <input type="checkbox" id="UnSelectAll">
                                                                         </span>
                                                                     </div>
                                                                 </div>
@@ -144,10 +145,87 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <br><br>
+                                    <div class="row">
+                                        <div class="col-12 ShowDocument">
+                                            <div class="card">
+                                                <div class="card-body table-responsive p-0" style="max-height:370px;">
+                                                    <table class="table table-sm table-head-fixed text-nowrap TableSubMenu table-md" id="TableSubMenu">
+                                                        <tbody>
+                                                            <!-- @foreach($Departement as $Departements)
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="input-group">
+                                                                        &nbsp;&nbsp;
+                                                                        <span class="input-group-text">
+                                                                            <input type="checkbox" name="Sub_Menu" id="Sub_Menu" class="Sub_Menu" value="{{ $Departements['Sys_ID'] }}">
+                                                                        </span>
+                                                                        <span style="position: relative;top:7px;left:15px;">{{ $Departements['Name'] }}</span>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            @endforeach -->
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="{{ route('PrivilageMenu.index') }}" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                                        <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Back"> Back
+                                    </a>
+
+                                    <button class="btn btn-default btn-sm float-right" id="SavePrivilageMenu" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                                        <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Save"> Save
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!-- <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <label class="card-title">
+                                        Privilage List (Cart)
+                                    </label>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="card-body table-responsive p-0 AdvanceListCart" style="height:135px;">
+                                    <table class="table table-head-fixed table-sm text-nowrap TableAdvance" id="TableAdvance">
+                                        <thead>
+                                            <tr>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Work Id</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Work Name</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Id</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Name</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Uom</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Currency</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Price</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <a href="{{ route('PrivilageMenu.index') }}" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                                <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Back"> Back
+                            </a>
+
+                            <button class="btn btn-default btn-sm float-right" id="SavePrivilageMenu" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                                <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Save"> Save
+                            </button>
+                        </div>
+                    </div> -->
                 </div>
             </div>
         </div>
