@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.update.finance.setSalesInvoiceRequestDetail (version 1)",
+"description": "JSON Request Schema of transaction.create.finance.setSalesInvoiceRequesitionDetail (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.update.finance.setSalesInvoiceRequestDetail" ]
+                        "enum": [ "transaction.create.finance.setSalesInvoiceRequesitionDetail" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -32,15 +32,10 @@
     "data": {
         "type": "object",
         "properties": {
-            "recordID" : {
-                "type": "integer",
-                "minimum": 1,
-                "maximum": 9223372036854775807
-                },
             "entities" : {
                 "type": "object",
                 "properties": {
-                    "salesInvoiceRequest_RefID": {
+                    "salesInvoiceRequesition_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
@@ -93,11 +88,11 @@
                     "remarks": {
                         "type": [ "string", "null" ],
                         "minLength": 1,
-                        "maxLength": 512
+                        "maxLength": 256
                         }
                     },
-                "required": [
-                    "salesInvoiceRequest_RefID",
+                "required": [ 
+                    "salesInvoiceRequesition_RefID",
                     "salesOrderDetail_RefID",
                     "product_RefID",
                     "quantity",
@@ -113,7 +108,6 @@
                 }
             },
         "required": [
-            "recordID",
             "entities"
             ]
         }

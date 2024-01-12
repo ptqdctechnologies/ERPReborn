@@ -12,11 +12,11 @@ namespace App\Models\Database\SchData_OLTP_Finance
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblSalesInvoiceRequest                                                                                       |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Finance ► TblSalesInvoiceRequest                                    |
+    | ▪ Class Name  : TblSalesInvoiceRequesition                                                                                   |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Finance ► TblSalesInvoiceRequesition                                |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblSalesInvoiceRequest extends \App\Models\Database\DefaultClassPrototype
+    class TblSalesInvoiceRequesition extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -57,7 +57,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |        ----------------------------------------                                                                          |
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
         |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► File Attachments Reference ID                                          |
-        |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Worker Jobs Position Reference ID                       |
+        |      ▪ (int)    varRequesitionerWorkerJobsPosition_RefID ► Requesitioner Worker Jobs Position Reference ID                       |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
@@ -68,7 +68,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varRemarks = null,
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesitionerWorkerJobsPosition_RefID = null, string $varRemarks = null,
             array $varAdditionalData = [])
             {
             $varReturn = 
@@ -87,7 +87,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
 
                             [$varDocumentDateTimeTZ, 'timestamptz'],
                             [$varLog_FileUpload_Pointer_RefID, 'bigint'],
-                            [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
+                            [$varRequesitionerWorkerJobsPosition_RefID, 'bigint'],
                             [$varRemarks, 'varchar'],
 
                             [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
@@ -117,7 +117,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |        ----------------------------------------                                                                          |
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
         |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► File Attachments Reference ID                                          |
-        |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Worker Jobs Position Reference ID                       |
+        |      ▪ (int)    varRequesitionerWorkerJobsPosition_RefID ► Requesitioner Worker Jobs Position Reference ID                       |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
@@ -128,7 +128,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varRemarks = null,
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesitionerWorkerJobsPosition_RefID = null, string $varRemarks = null,
             array $varAdditionalData = [])
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -146,7 +146,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
 
                         [$varDocumentDateTimeTZ, 'timestamptz'],
                         [$varLog_FileUpload_Pointer_RefID, 'bigint'],
-                        [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
+                        [$varRequesitionerWorkerJobsPosition_RefID, 'bigint'],
                         [$varRemarks, 'varchar'],
 
                         [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
