@@ -3,21 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setSalesInvoiceRequestDetail  |
-|                \v1                                                                                                               |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\finance\setSalesInvoiceRequesition\v1 |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setSalesInvoiceRequestDetail\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\finance\setSalesInvoiceRequesition\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setSalesInvoiceRequestDetail                                                                                 |
-    | ▪ Description : Menangani API transaction.update.finance.setSalesInvoiceRequestDetail Version 1                              |
+    | ▪ Class Name  : setSalesInvoiceRequesition                                                                                   |
+    | ▪ Description : Menangani API transaction.create.finance.setSalesInvoiceRequesition Version 1                                |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setSalesInvoiceRequestDetail extends \App\Http\Controllers\Controller
+    class setSalesInvoiceRequesition extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -43,8 +42,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2023-12-12                                                                                           |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-11-13                                                                                           |
         | ▪ Creation Date   : 2023-11-13                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -59,38 +58,38 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Update Sales Invoice Request Detail Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Sales Invoice Requesition Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\TblSalesInvoiceRequestDetail())->setDataUpdate(
-                            $varUserSession,
-                            $varData['recordID'],
-                            null,
+                        if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\TblSalesInvoiceRequesition())->setDataInsert(
+                            $varUserSession, 
+                            null, 
                             null,
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                             \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
 
-                            $varData['entities']['salesInvoiceRequest_RefID'],
-                            $varData['entities']['salesOrderDetail_RefID'],
-                            $varData['entities']['product_RefID'],
-                            $varData['entities']['quantity'],
-                            $varData['entities']['quantityUnit_RefID'],
-                            $varData['entities']['productUnitPriceCurrency_RefID'],
-                            $varData['entities']['productUnitPriceCurrencyValue'],
-                            $varData['entities']['productUnitPriceCurrencyExchangeRate'],
-                            $varData['entities']['productUnitPriceDiscountCurrency_RefID'],
-                            $varData['entities']['productUnitPriceDiscountCurrencyValue'],
-                            $varData['entities']['productUnitPriceDiscountCurrencyExchangeRate'],
-                            $varData['entities']['remarks']
+                            $varData['entities']['documentDateTimeTZ'],
+                            $varData['entities']['log_FileUpload_Pointer_RefID'],
+                            $varData['entities']['requesterWorkerJobsPosition_RefID'],
+                            $varData['entities']['remarks'],
+                            
+                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'additionalData', $varData['entities']) ? ((!is_null($varData['entities']['additionalData'])) ? $varData['entities']['additionalData'] : []) : [])
                             ))))
                             {
                             throw new \Exception();
                             }
+                        //---> Set Business Document Data Into varDataSend
+                        $varDataSend['businessDocument'] = 
+                            (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentByRecordID(
+                                $varUserSession, 
+                                $varDataSend['recordID']
+                                );
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdateException($varUserSession, $ex);
+                        $varErrorMessage = $ex->getMessage();
+                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');

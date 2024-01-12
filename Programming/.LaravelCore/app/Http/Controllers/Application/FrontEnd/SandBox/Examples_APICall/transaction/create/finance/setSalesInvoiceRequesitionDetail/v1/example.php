@@ -4,21 +4,21 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\finance                   |
-|                 \setSalesInvoiceRequestDetail\v1                                                                                 |
-| ▪ API Key     : transaction.create.finance.setSalesInvoiceRequestDetail                                                          |
+|                 \setSalesInvoiceRequesitionDetail\v1                                                                             |
+| ▪ API Key     : transaction.create.finance.setSalesInvoiceRequesitionDetail                                                      |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\finance\setSalesInvoiceRequestDetail\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\finance\setSalesInvoiceRequesitionDetail\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.create.finance.setSalesInvoiceRequestDetail.v1_throughAPIGateway        |
-        |                     ► http://172.28.0.4/transaction.create.finance.setSalesInvoiceRequestDetail.v1_throughAPIGateway     |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.create.finance.setSalesInvoiceRequesitionDetail.v1_throughAPIGateway    |
+        |                     ► http://172.28.0.4/transaction.create.finance.setSalesInvoiceRequesitionDetail.v1_throughAPIGateway |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
         | ▪ Last Update     : 2023-12-13                                                                                           |
@@ -35,11 +35,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'transaction.create.finance.setSalesInvoiceRequestDetail', 
+                'transaction.create.finance.setSalesInvoiceRequesitionDetail', 
                 'latest',
                 [
                 'entities' => [
-                    "salesInvoiceRequest_RefID" => 244000000000001,
+                    "salesInvoiceRequesition_RefID" => 244000000000001,
                     'salesOrderDetail_RefID' => 130000000000001,
                     "product_RefID" => 88000000000002,
                     "quantity" => 10,
@@ -60,9 +60,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.create.finance.setSalesInvoiceRequestDetail.v1_throughAPIGatewayJQuery  |
+        | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
+        |                     transaction.create.finance.setSalesInvoiceRequesitionDetail.v1_throughAPIGatewayJQuery               |
         |                     ► http://172.28.0.4/                                                                                 |
-        |                       transaction.create.finance.setSalesInvoiceRequestDetail.v1_throughAPIGatewayJQuery                 |
+        |                       transaction.create.finance.setSalesInvoiceRequesitionDetail.v1_throughAPIGatewayJQuery             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
         | ▪ Last Update     : 2023-12-13                                                                                           |
@@ -78,8 +79,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<table border="1" style="border-collapse: collapse;">';
-            echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Sales Invoice Request Detail Main Data</p></td></tr>';
-            echo       '<tr><td>SalesInvoiceRequest_RefID</td><td><input type="text" id="dataInput_SalesInvoiceRequest_RefID" value=244000000000001></td></tr>';
+            echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Sales Invoice Requesition Detail Main Data</p></td></tr>';
+            echo       '<tr><td>SalesInvoiceRequesition_RefID</td><td><input type="text" id="dataInput_SalesInvoiceRequesition_RefID" value=244000000000001></td></tr>';
             echo       '<tr><td>SalesOrderDetail_RefID</td><td><input type="text" id="dataInput_SalesOrderDetail_RefID" value=130000000000001></td></tr>';
             echo       '<tr><td>Product_RefID</td><td><input type="text" id="dataInput_Product_RefID" value=88000000000002></td></tr>';
             echo       '<tr><td>Quantity</td><td><input type="text" id="dataInput_Quantity" value=10></td></tr>';
@@ -95,11 +96,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
-                'transaction.create.finance.setSalesInvoiceRequestDetail', 
+                'transaction.create.finance.setSalesInvoiceRequesitionDetail', 
                 'latest', 
                 '{'.
                     '"entities" : {'.
-                        '"salesInvoiceRequest_RefID" : parseInt(document.getElementById("dataInput_SalesInvoiceRequest_RefID").value), '.
+                        '"salesInvoiceRequesition_RefID" : parseInt(document.getElementById("dataInput_SalesInvoiceRequesition_RefID").value), '.
                         '"salesOrderDetail_RefID" : parseInt(document.getElementById("dataInput_SalesOrderDetail_RefID").value), '.
                         '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID").value), '.
                         '"quantity" : parseFloat(document.getElementById("dataInput_Quantity").value), '.

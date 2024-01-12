@@ -12,11 +12,11 @@ namespace App\Models\Database\SchData_OLTP_Finance
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblSalesInvoiceRequestDetail                                                                                 |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Finance ► TblSalesInvoiceRequestDetail                              |
+    | ▪ Class Name  : TblSalesInvoiceRequesitionDetail                                                                             |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Finance ► TblSalesInvoiceRequesitionDetail                          |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblSalesInvoiceRequestDetail extends \App\Models\Database\DefaultClassPrototype
+    class TblSalesInvoiceRequesitionDetail extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -55,7 +55,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varSalesInvoiceRequest_RefID ► Sales Invoice Request Reference ID                                        |
+        |      ▪ (int)    varSalesInvoiceRequesition_RefID ► Sales Invoice Requesition Reference ID                                |
         |      ▪ (int)    varSalesOrderDetail_RefID ► Sales Order Detail Reference ID                                              |
         |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
@@ -75,7 +75,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varSalesInvoiceRequest_RefID = null, int $varSalesOrderDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, int $varProductUnitPriceDiscountCurrency_RefID = null, float $varProductUnitPriceDiscountCurrencyValue = null, float $varProductUnitPriceDiscountCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varSalesInvoiceRequesition_RefID = null, int $varSalesOrderDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, int $varProductUnitPriceDiscountCurrency_RefID = null, float $varProductUnitPriceDiscountCurrencyValue = null, float $varProductUnitPriceDiscountCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -91,7 +91,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
-                            [$varSalesInvoiceRequest_RefID, 'bigint'],
+                            [$varSalesInvoiceRequesition_RefID, 'bigint'],
                             [$varSalesOrderDetail_RefID, 'bigint'],
                             [$varProduct_RefID, 'bigint'],
                             [$varQuantity, 'numeric'],
@@ -127,7 +127,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varSalesInvoiceRequest_RefID ► Sales Invoice Request Reference ID                                        |
+        |      ▪ (int)    varSalesInvoiceRequesition_RefID ► Sales Invoice Requesition Reference ID                                        |
         |      ▪ (int)    varSalesOrderDetail_RefID ► Sales Order Detail Reference ID                                              |
         |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
@@ -147,7 +147,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varSalesInvoiceRequest_RefID = null, int $varSalesOrderDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, int $varProductUnitPriceDiscountCurrency_RefID = null, float $varProductUnitPriceDiscountCurrencyValue = null, float $varProductUnitPriceDiscountCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varSalesInvoiceRequesition_RefID = null, int $varSalesOrderDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, int $varProductUnitPriceDiscountCurrency_RefID = null, float $varProductUnitPriceDiscountCurrencyValue = null, float $varProductUnitPriceDiscountCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -163,7 +163,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
-                            [$varSalesInvoiceRequest_RefID, 'bigint'],
+                            [$varSalesInvoiceRequesition_RefID, 'bigint'],
                             [$varSalesOrderDetail_RefID, 'bigint'],
                             [$varProduct_RefID, 'bigint'],
                             [$varQuantity, 'numeric'],
