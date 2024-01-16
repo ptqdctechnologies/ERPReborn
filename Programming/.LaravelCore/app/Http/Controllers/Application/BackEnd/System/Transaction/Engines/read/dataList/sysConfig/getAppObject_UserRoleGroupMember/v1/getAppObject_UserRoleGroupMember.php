@@ -4,28 +4,28 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\sysConfig                      |
-|                \getAppObject_UserRole\v1                                                                                         |
+|                \getAppObject_UserRoleGroupMember\v1                                                                              |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\sysConfig\getAppObject_UserRole\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\sysConfig\getAppObject_UserRoleGroupMember\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getAppObject_UserRole                                                                                        |
-    | ▪ Description : Menangani API transaction.read.dataList.sysConfig.getAppObject_UserRole Version 1                            |
+    | ▪ Class Name  : getAppObject_UserRoleGroupMember                                                                             |
+    | ▪ Description : Menangani API transaction.read.dataList.sysConfig.getAppObject_UserRoleGroupMember Version 1                 |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getAppObject_UserRole extends \App\Http\Controllers\Controller
+    class getAppObject_UserRoleGroupMember extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-12-30                                                                                           |
-        | ▪ Creation Date   : 2022-12-30                                                                                           |
+        | ▪ Last Update     : 2024-01-16                                                                                           |
+        | ▪ Creation Date   : 2024-01-16                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-12-30                                                                                           |
-        | ▪ Creation Date   : 2022-12-30                                                                                           |
+        | ▪ Last Update     : 2024-01-16                                                                                           |
+        | ▪ Creation Date   : 2024-01-16                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -62,20 +62,20 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Work Flow Data List (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try{
-                        if(($varData['SQLStatement']['filter']) && (\App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, $varData['SQLStatement']['filter']) == FALSE))
+                    try {
+                        if (($varData['SQLStatement']['filter']) && (\App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, $varData['SQLStatement']['filter']) == FALSE))
                             {
                             throw new \Exception('SQL Injection Threat Prevention');
                             }
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchSysConfig\General())->getDataList_AppObject_UserRole(
+                        if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchSysConfig\General())->getDataList_AppObject_UserRole(
                             $varUserSession,
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
 
                             $varData['parameter']['userRoleGroup_RefID'],
 
-                            $varData['SQLStatement']['pick'],
-                            $varData['SQLStatement']['sort'],
-                            $varData['SQLStatement']['filter'],
+                            $varData['SQLStatement']['pick'], 
+                            $varData['SQLStatement']['sort'], 
+                            $varData['SQLStatement']['filter'], 
                             $varData['SQLStatement']['paging']
                             ))))
                             {
