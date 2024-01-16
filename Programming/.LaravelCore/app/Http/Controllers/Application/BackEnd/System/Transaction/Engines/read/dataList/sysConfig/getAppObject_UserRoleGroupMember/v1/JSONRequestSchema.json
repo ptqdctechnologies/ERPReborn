@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.read.dataList.sysConfig.getRotateLog_FileUploadStagingAreaDetail (version 1)",
+"description": "JSON Request Schema of transaction.read.dataList.sysConfig.getAppObject_UserRoleGroupMember (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.read.dataList.sysConfig.getRotateLog_FileUploadStagingAreaDetail" ]
+                        "enum": [ "transaction.read.dataList.sysConfig.getAppObject_UserRoleGroupMember" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -35,14 +35,14 @@
             "parameter": {
                 "type": "object",
                 "properties": {
-                    "DBObject_Schema_RefID": {
+                    "userRoleGroup_RefID": {
                         "type": "integer",
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         }
                     },
                 "required": [
-                    "DBObject_Schema_RefID"
+                    "userRoleGroup_RefID"
                     ]
                 },
             "SQLStatement": {
