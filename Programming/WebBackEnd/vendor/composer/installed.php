@@ -86,9 +86,9 @@
             'dev_requirement' => false,
         ),
         'doctrine/inflector' => array(
-            'pretty_version' => '2.0.8',
-            'version' => '2.0.8.0',
-            'reference' => 'f9301a5b2fb1216b2b08f02ba04dc45423db6bff',
+            'pretty_version' => '2.0.9',
+            'version' => '2.0.9.0',
+            'reference' => '2930cd5ef353871c821d5c43ed030d39ac8cfe65',
             'type' => 'library',
             'install_path' => __DIR__ . '/../doctrine/inflector',
             'aliases' => array(),
