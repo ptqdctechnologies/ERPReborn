@@ -19,10 +19,15 @@
                         "minLength": 1
                         }
                     },
-                "required": [ "key", "version" ]
+                "required": [
+                    "key",
+                    "version"
+                    ]
                 }
             },
-        "required": [ "API" ]
+        "required": [
+            "API"
+            ]
         },
     "data": {
         "type": "object",
@@ -137,14 +142,29 @@
                                                                     "maxLength": 256
                                                                     }
                                                                 },
-                                                            "required": [ "purchaseRequisitionDetail_RefID", "quantity", "quantityUnit_RefID", "productUnitPriceCurrency_RefID", "productUnitPriceCurrencyExchangeRate", "productUnitPriceCurrencyeValue", "productUnitPriceDiscountCurrency_RefID", "productUnitPriceDiscountCurrencyExchangeRate", "productUnitPriceDiscountCurrencyeValue", "remarks" ]
+                                                            "required": [
+                                                                "purchaseRequisitionDetail_RefID",
+                                                                "quantity",
+                                                                "quantityUnit_RefID",
+                                                                "productUnitPriceCurrency_RefID",
+                                                                "productUnitPriceCurrencyExchangeRate",
+                                                                "productUnitPriceCurrencyeValue",
+                                                                "productUnitPriceDiscountCurrency_RefID",
+                                                                "productUnitPriceDiscountCurrencyExchangeRate",
+                                                                "productUnitPriceDiscountCurrencyeValue",
+                                                                "remarks"
+                                                                ]
                                                             }
                                                         },
-                                                    "required": [ "entities" ]
+                                                    "required": [
+                                                        "entities"
+                                                        ]
                                                     }
                                                 }
                                             },
-                                        "required": [ "items" ]
+                                        "required": [
+                                            "items"
+                                            ]
                                         },
                                     "taxes": {
                                         "type": "object",
@@ -186,14 +206,25 @@
                                                                      "maxLength": 256
                                                                      }
                                                                 },
-                                                            "required": [ "taxType_RefID", "tariffCurrency_RefID", "tariffCurrencyExchangeRate", "tariffCurrencyValue", "remarks" ]
+                                                            "required": [
+                                                                "taxType_RefID",
+                                                                "tariffCurrency_RefID",
+                                                                "tariffCurrencyExchangeRate",
+                                                                "tariffCurrencyValue",
+                                                                "remarks"
+                                                                ]
                                                             }
                                                         },
-                                                    "required": [ "recordID", "entities" ]
+                                                    "required": [
+                                                        "recordID",
+                                                        "entities"
+                                                        ]
                                                     }
                                                 }   
                                             },
-                                        "required": [ "items" ]
+                                        "required": [
+                                            "items"
+                                            ]
                                         },
                                     "paymentTerm": {
                                         "type": "object",
@@ -249,26 +280,57 @@
                                                                     "maxLength": 256
                                                                      }
                                                                 },
-                                                            "required": [ "paymentTerm_RefID", "dueDays", "priceCurrency_RefID", "priceCurrencyValue", "priceCurrencyExchangeRate", "discountDueDays", "discountPercentageRate", "remarks" ]
+                                                            "required": [
+                                                                "paymentTerm_RefID",
+                                                                "dueDays",
+                                                                "priceCurrency_RefID",
+                                                                "priceCurrencyValue",
+                                                                "priceCurrencyExchangeRate",
+                                                                "discountDueDays",
+                                                                "discountPercentageRate",
+                                                                "remarks"
+                                                                ]
                                                             }
                                                         },
-                                                    "required": [ "entities" ]
+                                                    "required": [
+                                                        "entities"
+                                                        ]
                                                     }
                                                 }   
                                             },
-                                        "required": [ "items" ]
+                                        "required": [
+                                            "items"
+                                            ]
                                         }
                                     },
-                                "required": [ "itemList", "taxes", "paymentTerm" ]
+                                "required": [
+                                    "itemList",
+                                    "taxes",
+                                    "paymentTerm"
+                                    ]
                                 }
                             ]
                         }
                     },
-                "required": [ "documentDateTimeTZ", "requesterWorkerJobsPosition_RefID", "supplier_RefID", "deliveryDateTimeTZ", "deliveryDestination_RefID", "supplierInvoiceBillingPurpose_RefID", "remarks" ]
+                "required": [
+                    "documentDateTimeTZ",
+                    "requesterWorkerJobsPosition_RefID",
+                    "supplier_RefID",
+                    "deliveryDateTimeTZ",
+                    "deliveryDestination_RefID",
+                    "supplierInvoiceBillingPurpose_RefID",
+                    "remarks"
+                    ]
                 }
             },
-        "required": [ "recordID", "entities" ]
+        "required": [
+            "recordID",
+            "entities"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }

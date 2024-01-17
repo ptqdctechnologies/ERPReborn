@@ -71,9 +71,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                             $varUserSession,
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
 
-                            $varData['SQLStatement']['pick'], 
-                            $varData['SQLStatement']['sort'], 
-                            $varData['SQLStatement']['filter'], 
+                            $varData['parameter']['userRoleGroup_RefID'],
+
+                            $varData['SQLStatement']['pick'],
+                            $varData['SQLStatement']['sort'],
+                            $varData['SQLStatement']['filter'],
                             $varData['SQLStatement']['paging']
                             ))))
                             {

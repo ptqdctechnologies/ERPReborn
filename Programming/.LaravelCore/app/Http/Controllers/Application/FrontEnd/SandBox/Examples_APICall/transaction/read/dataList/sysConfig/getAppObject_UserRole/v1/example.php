@@ -20,8 +20,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataList.sysConfig.getAppObject_UserRole.v1_throughAPIGateway      |
         |                     ► http://172.28.0.4/transaction.read.dataList.sysConfig.getAppObject_UserRole.v1_throughAPIGateway   |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-12-30                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2024-01-16                                                                                           |
         | ▪ Creation Date   : 2022-12-30                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -38,7 +38,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 'transaction.read.dataList.sysConfig.getAppObject_UserRole', 
                 'latest', 
                 [
-                'parameter' => null,
+                'parameter' => [
+                    'userRoleGroup_RefID' => 252000000000008
+                    ],
                 'SQLStatement' => [
                     'pick' => null,
                     'sort' => null,
@@ -58,8 +60,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/                                                                                 |
         |                       transaction.read.dataList.sysConfig.getAppObject_UserRole.v1_throughAPIGatewayJQuery               |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-12-30                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2024-01-16                                                                                           |
         | ▪ Creation Date   : 2022-12-30                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -73,6 +75,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<table border="1" style="border-collapse: collapse;">';
             echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Parameter</p></td></tr>';
+            echo '<tr><td>UserRoleGroup&nbsp;RefID</td><td><input type="text" id="dataInput_UserRoleGroup_RefID" value=252000000000008></td></tr>';
             echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
             echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
             echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
@@ -85,7 +88,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 'transaction.read.dataList.sysConfig.getAppObject_UserRole', 
                 'latest', 
                 '{'.
-                    '"parameter" : null, '.
+                    '"parameter" : {'.
+                        '"userRoleGroup_RefID" : parseInt(document.getElementById("dataInput_UserRoleGroup_RefID").value), '.
+                        '}, '.
                     '"SQLStatement" : {'.
                         '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
                         '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.

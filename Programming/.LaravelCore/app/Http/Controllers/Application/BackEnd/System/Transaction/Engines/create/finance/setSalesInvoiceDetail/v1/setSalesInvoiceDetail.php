@@ -70,7 +70,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                             \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
 
                             $varData['entities']['salesInvoice_RefID'],
-                            $varData['entities']['salesInvoiceRequestDetail_RefID'],
+                            $varData['entities']['salesInvoiceRequesitionDetail_RefID'],
                             $varData['entities']['product_RefID'],
                             $varData['entities']['quantity'],
                             $varData['entities']['quantityUnit_RefID'],

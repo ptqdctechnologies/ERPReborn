@@ -74,32 +74,33 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
             int $varPurchaseRequisition_RefID = null, int $varCombinedBudgetSectionDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, string $varFulfillmentDeadlineDateTimeTZ = null, string $varRemarks = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [null, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
-                        
-                        [$varPurchaseRequisition_RefID, 'bigint'],
-                        [$varCombinedBudgetSectionDetail_RefID, 'bigint'],
-                        [$varProduct_RefID, 'bigint'],
-                        [$varQuantity, 'numeric'],
-                        [$varQuantityUnit_RefID, 'bigint'],
-                        [$varProductUnitPriceCurrency_RefID, 'bigint'],
-                        [$varProductUnitPriceCurrencyValue, 'numeric'],
-                        [$varProductUnitPriceCurrencyExchangeRate, 'numeric'],
-                        [$varFulfillmentDeadlineDateTimeTZ, 'timestamptz'],
-                        [$varRemarks, 'varchar']
-                    ]
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [null, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
+
+                            [$varPurchaseRequisition_RefID, 'bigint'],
+                            [$varCombinedBudgetSectionDetail_RefID, 'bigint'],
+                            [$varProduct_RefID, 'bigint'],
+                            [$varQuantity, 'numeric'],
+                            [$varQuantityUnit_RefID, 'bigint'],
+                            [$varProductUnitPriceCurrency_RefID, 'bigint'],
+                            [$varProductUnitPriceCurrencyValue, 'numeric'],
+                            [$varProductUnitPriceCurrencyExchangeRate, 'numeric'],
+                            [$varFulfillmentDeadlineDateTimeTZ, 'timestamptz'],
+                            [$varRemarks, 'varchar']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0];
             }
 
@@ -140,32 +141,33 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
             int $varPurchaseRequisition_RefID = null, int $varCombinedBudgetSectionDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, string $varFulfillmentDeadlineDateTimeTZ = null, string $varRemarks = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varSysID, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
-                        
-                        [$varPurchaseRequisition_RefID, 'bigint'],
-                        [$varCombinedBudgetSectionDetail_RefID, 'bigint'],
-                        [$varProduct_RefID, 'bigint'],
-                        [$varQuantity, 'numeric'],
-                        [$varQuantityUnit_RefID, 'bigint'],
-                        [$varProductUnitPriceCurrency_RefID, 'bigint'],
-                        [$varProductUnitPriceCurrencyValue, 'numeric'],
-                        [$varProductUnitPriceCurrencyExchangeRate, 'numeric'],
-                        [$varFulfillmentDeadlineDateTimeTZ, 'timestamptz'],
-                        [$varRemarks, 'varchar']
-                    ],
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varSysID, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
+
+                            [$varPurchaseRequisition_RefID, 'bigint'],
+                            [$varCombinedBudgetSectionDetail_RefID, 'bigint'],
+                            [$varProduct_RefID, 'bigint'],
+                            [$varQuantity, 'numeric'],
+                            [$varQuantityUnit_RefID, 'bigint'],
+                            [$varProductUnitPriceCurrency_RefID, 'bigint'],
+                            [$varProductUnitPriceCurrencyValue, 'numeric'],
+                            [$varProductUnitPriceCurrencyExchangeRate, 'numeric'],
+                            [$varFulfillmentDeadlineDateTimeTZ, 'timestamptz'],
+                            [$varRemarks, 'varchar']
+                        ],
+                        )
+                    );
             return $varReturn['Data'][0];
             }
         }
