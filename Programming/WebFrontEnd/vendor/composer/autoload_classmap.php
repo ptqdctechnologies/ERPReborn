@@ -884,6 +884,7 @@ return array(
     'App\\Http\\Controllers\\Master\\CurrencyController' => $baseDir . '/app/Http/Controllers/Master/CurrencyController.php',
     'App\\Http\\Controllers\\Master\\ExchangeRateController' => $baseDir . '/app/Http/Controllers/Master/ExchangeRateController.php',
     'App\\Http\\Controllers\\Master\\PeriodeController' => $baseDir . '/app/Http/Controllers/Master/PeriodeController.php',
+    'App\\Http\\Controllers\\Master\\PrivilageMenu\\PrivilageMenuController' => $baseDir . '/app/Http/Controllers/Master/PrivilageMenu/PrivilageMenuController.php',
     'App\\Http\\Controllers\\Master\\ProductTypeController' => $baseDir . '/app/Http/Controllers/Master/ProductTypeController.php',
     'App\\Http\\Controllers\\Master\\ReligionController' => $baseDir . '/app/Http/Controllers/Master/ReligionController.php',
     'App\\Http\\Controllers\\Master\\SupplierController' => $baseDir . '/app/Http/Controllers/Master/SupplierController.php',

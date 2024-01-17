@@ -1483,6 +1483,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Http\\Controllers\\Master\\CurrencyController' => __DIR__ . '/../..' . '/app/Http/Controllers/Master/CurrencyController.php',
         'App\\Http\\Controllers\\Master\\ExchangeRateController' => __DIR__ . '/../..' . '/app/Http/Controllers/Master/ExchangeRateController.php',
         'App\\Http\\Controllers\\Master\\PeriodeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Master/PeriodeController.php',
+        'App\\Http\\Controllers\\Master\\PrivilageMenu\\PrivilageMenuController' => __DIR__ . '/../..' . '/app/Http/Controllers/Master/PrivilageMenu/PrivilageMenuController.php',
         'App\\Http\\Controllers\\Master\\ProductTypeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Master/ProductTypeController.php',
         'App\\Http\\Controllers\\Master\\ReligionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Master/ReligionController.php',
         'App\\Http\\Controllers\\Master\\SupplierController' => __DIR__ . '/../..' . '/app/Http/Controllers/Master/SupplierController.php',
