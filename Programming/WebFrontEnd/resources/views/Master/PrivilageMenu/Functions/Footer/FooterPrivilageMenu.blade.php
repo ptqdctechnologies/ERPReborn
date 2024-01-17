@@ -1,6 +1,9 @@
 <!-- SELECT FOR FILTER BY DOCUMENT TYPE  -->
 <script>
+    $(".ShowSubMenu").hide();
+
     var checkedValue = [];
+    var checkedValue2 = [];
 </script>
 
 <script>
@@ -46,32 +49,32 @@
             url: '{!! route("CheckDocument.ShowDocumentListData") !!}?DocumentType=' + $('#Modul').val(),
             success: function(data) {
                 $.each(data, function(key, val) {
-                    
+
+                    $('#SelectAll').prop("checked", false);
+                    $('#UnSelectAll').prop("checked", false);
 
                     var checked = "";
-                    var result = checkedValue.filter(function(elem) {
-                        if(elem == val.Sys_ID){
-                            console.log(val.Sys_ID);
-                            checked = "checked";
-                        }
-                        else{
-                            checked = "";
-                        }
-                    });
 
-                    // console.log(checked);
+                    for (var i = 0; i < checkedValue.length; i++) {
+                        if (checkedValue[i] == val.Sys_ID) {
+                            checked = "checked";
+                            break;
+                        }
+                    }
 
                     var html = '<tr>' +
                         '<td>' +
-                            '<div class="input-group">&nbsp;&nbsp;' +
-                                '<span class="input-group-text">' +
-                                    '<input type="checkbox" ' + checked + ' name="Sub_Menu" id="Sub_Menu" class="Sub_Menu" value="' + val.Sys_ID +'">' +
-                                '</span>' +
-                                '<span style="position: relative;top:7px;left:15px;">' + val.DocumentNumber +'</span>' +
-                            '</div>' +
+                        '<div class="input-group">&nbsp;&nbsp;' +
+                        '<span class="input-group-text">' +
+                        '<input type="checkbox" ' + checked + ' name="Sub_Menu" id="Sub_Menu" class="Sub_Menu" value="' + val.Sys_ID + '">' +
+                        '</span>' +
+                        '<span style="position: relative;top:7px;left:15px;">' + val.DocumentNumber + '</span>' +
+                        '</div>' +
                         '</td>' +
                         '</tr>';
                     $('table.TableSubMenu tbody').append(html);
+
+                    $(".ShowSubMenu").show();
 
                 });
 
@@ -79,16 +82,18 @@
                     var id = $(this).val();
                     if ($(this).is(":checked")) {
                         $('#UnSelectAll').prop("checked", false);
+                        // checkedValue.push(id);
+
+                        checkedValue['modul_id'] = $('#Modul').val();
                         checkedValue.push(id);
+
                     } else {
                         var result = checkedValue.filter(function(elem) {
                             return elem != id;
                         });
                         checkedValue = result;
                     }
-
-                    console.log(checkedValue);
-
+                    // console.log(checkedValue);
                 });
             }
         });
@@ -130,10 +135,12 @@
     });
 </script>
 
+
 <script>
     $('#SavePrivilageMenu').click(function() {
 
         console.log(checkedValue);
+
         const swalWithBootstrapButtons = Swal.mixin({
             confirmButtonClass: 'btn btn-success btn-sm',
             cancelButtonClass: 'btn btn-danger btn-sm',
