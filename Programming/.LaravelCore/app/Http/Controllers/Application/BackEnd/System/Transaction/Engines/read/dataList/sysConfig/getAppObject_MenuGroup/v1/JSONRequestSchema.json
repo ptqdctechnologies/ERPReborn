@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.read.dataList.sysConfig.getAppObject_Menu (version 1)",
+"description": "JSON Request Schema of transaction.read.dataList.sysConfig.getAppObject_MenuGroup (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.read.dataList.sysConfig.getAppObject_Menu" ]
+                        "enum": [ "transaction.read.dataList.sysConfig.getAppObject_MenuGroup" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -33,17 +33,7 @@
         "type": "object",
         "properties": {
             "parameter": {
-                "type": "object",
-                "properties": {
-                    "menuGroup_RefID": {
-                        "type": "integer",
-                        "minimum": 1,
-                        "maximum": 9223372036854775807
-                        }
-                    },
-                "required": [
-                    "menuGroup_RefID"
-                    ]
+                "additionalProperties": false
                 },
             "SQLStatement": {
                 "type": "object",
