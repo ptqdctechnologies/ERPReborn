@@ -59,17 +59,17 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.296.2",
-            "version_normalized": "3.296.2.0",
+            "version": "3.296.4",
+            "version_normalized": "3.296.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "74dda6a5bf570ae4b394c2ed54edd573883426cc"
+                "reference": "2efd701a5e5f50560319ffe0669942dc8d3a4a54"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/74dda6a5bf570ae4b394c2ed54edd573883426cc",
-                "reference": "74dda6a5bf570ae4b394c2ed54edd573883426cc",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/2efd701a5e5f50560319ffe0669942dc8d3a4a54",
+                "reference": "2efd701a5e5f50560319ffe0669942dc8d3a4a54",
                 "shasum": ""
             },
             "require": {
@@ -110,7 +110,7 @@
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
                 "ext-sockets": "To use client-side monitoring"
             },
-            "time": "2024-01-16T19:10:36+00:00",
+            "time": "2024-01-17T23:34:36+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -151,7 +151,7 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.296.2"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.296.4"
             },
             "install-path": "../aws/aws-sdk-php"
         },
@@ -3595,17 +3595,17 @@
         },
         {
             "name": "nette/utils",
-            "version": "v4.0.3",
-            "version_normalized": "4.0.3.0",
+            "version": "v4.0.4",
+            "version_normalized": "4.0.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/utils.git",
-                "reference": "a9d127dd6a203ce6d255b2e2db49759f7506e015"
+                "reference": "d3ad0aa3b9f934602cb3e3902ebccf10be34d218"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/utils/zipball/a9d127dd6a203ce6d255b2e2db49759f7506e015",
-                "reference": "a9d127dd6a203ce6d255b2e2db49759f7506e015",
+                "url": "https://api.github.com/repos/nette/utils/zipball/d3ad0aa3b9f934602cb3e3902ebccf10be34d218",
+                "reference": "d3ad0aa3b9f934602cb3e3902ebccf10be34d218",
                 "shasum": ""
             },
             "require": {
@@ -3629,7 +3629,7 @@
                 "ext-mbstring": "to use Strings::lower() etc...",
                 "ext-tokenizer": "to use Nette\\Utils\\Reflection::getUseStatements()"
             },
-            "time": "2023-10-29T21:02:13+00:00",
+            "time": "2024-01-17T16:50:36+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -3678,7 +3678,7 @@
             ],
             "support": {
                 "issues": "https://github.com/nette/utils/issues",
-                "source": "https://github.com/nette/utils/tree/v4.0.3"
+                "source": "https://github.com/nette/utils/tree/v4.0.4"
             },
             "install-path": "../nette/utils"
         },
