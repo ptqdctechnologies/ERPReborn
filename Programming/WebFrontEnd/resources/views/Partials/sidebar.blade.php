@@ -697,7 +697,6 @@
                             <a href="{{ route('PrivilageMenu.index') }}" class="nav-link">&nbsp;
                                 <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
                                 <label>Privilage Menu</label>
-                                <i class="right fas fa-angle-left"></i>
                             </a>
                         </li>
                     </ul>
