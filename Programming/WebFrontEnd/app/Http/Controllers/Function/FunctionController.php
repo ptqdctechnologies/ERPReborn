@@ -543,10 +543,10 @@ class FunctionController extends Controller
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
-                'transaction.read.dataList.humanResource.getOrganizationalDepartment',
+                'transaction.read.dataList.sysConfig.getAppObject_UserRoleGroup',
                 'latest',
                 [
-                    'parameter' => [],
+                    'parameter' => null,
                     'SQLStatement' => [
                         'pick' => null,
                         'sort' => null,
@@ -565,7 +565,51 @@ class FunctionController extends Controller
             ),
             true
         );
-        
+
         return response()->json($Departement);
+    }
+
+    //ROLE
+
+    public function getRole(Request $request)
+    {
+
+        if (Redis::get("RoleMenu") == null) {
+
+            $varAPIWebToken = Session::get('SessionLogin');
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.sysConfig.getAppObject_UserRole',
+                'latest',
+                [
+                    'parameter' => [
+                        'userRoleGroup_RefID' => null
+                    ],
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
+            );
+        }
+
+        $RoleMenu = json_decode(
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "RoleMenu"
+            ),
+            true
+        );
+
+        $departement_id = $request->input('departement_id');
+
+        $collection = collect($RoleMenu);
+        $collection = $collection->where('UserRoleGroup_RefID', $departement_id);
+
+        return response()->json($collection->all());
     }
 }

@@ -11,10 +11,17 @@
 | ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
+<<<<<<< HEAD
 namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataList\sysConfig\getAppObject_UserRoleGroup\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
+=======
+
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataList\sysConfig\getAppObject_UserRoleGroup\v1 {
+    class example extends \App\Http\Controllers\Controller
+    {
+>>>>>>> d0ec8b5fa (update 19 Januari 2024)
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataList.sysConfig.getAppObject_UserRoleGroup.v1_throughAPIGateway |
@@ -27,6 +34,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
+<<<<<<< HEAD
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
@@ -50,6 +58,31 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 );
             var_dump($varData);
             }
+=======
+        {
+            //---Parameter Set---
+            if (!$varAPIWebToken) {
+                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+            }
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.sysConfig.getAppObject_UserRoleGroup',
+                'latest',
+                [
+                    'parameter' => null,
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ]
+            );
+            var_dump($varData);
+        }
+>>>>>>> d0ec8b5fa (update 19 Januari 2024)
 
 
         /*
@@ -65,11 +98,19 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGatewayJQuery($varAPIWebToken)
+<<<<<<< HEAD
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
+=======
+        {
+            //---Parameter Set---
+            if (!$varAPIWebToken) {
+                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+            }
+>>>>>>> d0ec8b5fa (update 19 Januari 2024)
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<table border="1" style="border-collapse: collapse;">';
@@ -81,6 +122,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
             echo '</table>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+<<<<<<< HEAD
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
                 'transaction.read.dataList.sysConfig.getAppObject_UserRoleGroup', 
@@ -100,3 +142,24 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             }
         }
     }
+=======
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.sysConfig.getAppObject_UserRoleGroup',
+                'latest',
+                '{' .
+                    '"parameter" : null, ' .
+                    '"SQLStatement" : {' .
+                    '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, ' .
+                    '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, ' .
+                    '"filter" : document.getElementById("dataInput_SQLStatement_filter").value, ' .
+                    '"paging" : document.getElementById("dataInput_SQLStatement_paging").value' .
+                    '}' .
+                    '}'
+            );
+            echo "<button type='button' onclick='javascript:var varData = " . $varJQueryFunction . "; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+        }
+    }
+}
+>>>>>>> d0ec8b5fa (update 19 Januari 2024)

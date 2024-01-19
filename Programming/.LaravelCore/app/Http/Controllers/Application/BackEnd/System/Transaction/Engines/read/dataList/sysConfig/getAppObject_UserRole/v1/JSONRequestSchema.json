@@ -33,6 +33,7 @@
         "type": "object",
         "properties": {
             "parameter": {
+<<<<<<< HEAD
                 "type": "object",
                 "properties": {
                     "userRoleGroup_RefID": {
@@ -43,6 +44,21 @@
                     },
                 "required": [
                     "userRoleGroup_RefID"
+=======
+                "anyOf": [
+                        {"type": "null"},
+                        {
+                        "type": "object",
+                        "properties": {
+                            "userRoleGroup_RefID": {
+                                "type": [ "integer", "null" ],
+                                "minimum": 1,
+                                "maximum": 9223372036854775807
+                                }
+                            },
+                        "required": [ "userRoleGroup_RefID" ]
+                        }
+>>>>>>> d0ec8b5fa (update 19 Januari 2024)
                     ]
                 },
             "SQLStatement": {
