@@ -24,3 +24,5 @@
 
 [mysqld]
 skip-grant-tables
+#innodb_data_file_path = ibdata1:10M:autoextend:max:512M
+innodb_data_file_path = ibdata1:10M:autoextend

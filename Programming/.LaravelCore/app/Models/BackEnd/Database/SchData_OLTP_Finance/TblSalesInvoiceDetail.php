@@ -56,7 +56,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varSalesInvoice_RefID ► Sales Invoice Reference ID                                                       |
-        |      ▪ (int)    varSalesInvoiceRequestDetail_RefID ► Sales Invoice Request Detail Reference ID                           |
+        |      ▪ (int)    varSalesInvoiceRequesitionDetail_RefID ► Sales Invoice Requesition Detail Reference ID                   |
         |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
         |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
@@ -76,7 +76,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varSalesInvoice_RefID = null, int $varSalesInvoiceRequestDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, int $varProductUnitPriceDiscountCurrency_RefID = null, float $varProductUnitPriceDiscountCurrencyValue = null, float $varProductUnitPriceDiscountCurrencyExchangeRate = null, string $varRemarks = null,
+            int $varSalesInvoice_RefID = null, int $varSalesInvoiceRequesitionDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, int $varProductUnitPriceDiscountCurrency_RefID = null, float $varProductUnitPriceDiscountCurrencyValue = null, float $varProductUnitPriceDiscountCurrencyExchangeRate = null, string $varRemarks = null,
             array $varAdditionalData = [])
             {
             $varReturn = 
@@ -94,7 +94,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
                             [$varSalesInvoice_RefID, 'bigint'],
-                            [$varSalesInvoiceRequestDetail_RefID, 'bigint'],
+                            [$varSalesInvoiceRequesitionDetail_RefID, 'bigint'],
                             [$varProduct_RefID, 'bigint'],
                             [$varQuantity, 'numeric'],
                             [$varQuantityUnit_RefID, 'bigint'],
@@ -132,7 +132,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varSalesInvoice_RefID ► Sales Invoice Reference ID                                                       |
-        |      ▪ (int)    varSalesInvoiceRequestDetail_RefID ► Sales Invoice Request Detail Reference ID                           |
+        |      ▪ (int)    varSalesInvoiceRequesitionDetail_RefID ► Sales Invoice Requesition Detail Reference ID                           |
         |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
         |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
@@ -152,7 +152,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varSalesInvoice_RefID = null, int $varSalesInvoiceRequestDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, int $varProductUnitPriceDiscountCurrency_RefID = null, float $varProductUnitPriceDiscountCurrencyValue = null, float $varProductUnitPriceDiscountCurrencyExchangeRate = null, string $varRemarks = null,
+            int $varSalesInvoice_RefID = null, int $varSalesInvoiceRequesitionDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, int $varProductUnitPriceDiscountCurrency_RefID = null, float $varProductUnitPriceDiscountCurrencyValue = null, float $varProductUnitPriceDiscountCurrencyExchangeRate = null, string $varRemarks = null,
             array $varAdditionalData = [])
             {
             $varReturn = 
@@ -170,7 +170,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
                             [$varSalesInvoice_RefID, 'bigint'],
-                            [$varSalesInvoiceRequestDetail_RefID, 'bigint'],
+                            [$varSalesInvoiceRequesitionDetail_RefID, 'bigint'],
                             [$varProduct_RefID, 'bigint'],
                             [$varQuantity, 'numeric'],
                             [$varQuantityUnit_RefID, 'bigint'],

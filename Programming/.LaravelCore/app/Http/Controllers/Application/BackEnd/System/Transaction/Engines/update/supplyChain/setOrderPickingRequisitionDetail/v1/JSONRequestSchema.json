@@ -45,7 +45,7 @@
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         },
-                    "combinedBudgetSectionDetail_RefID": {
+                    "purchaseRequisitionDetail_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
@@ -92,7 +92,7 @@
                     },
                 "required": [
                     "orderPickingRequisition_RefID",
-                    "combinedBudgetSectionDetail_RefID",
+                    "purchaseRequisitionDetail_RefID",
                     "product_RefID",
                     "quantity",
                     "quantityUnit_RefID",

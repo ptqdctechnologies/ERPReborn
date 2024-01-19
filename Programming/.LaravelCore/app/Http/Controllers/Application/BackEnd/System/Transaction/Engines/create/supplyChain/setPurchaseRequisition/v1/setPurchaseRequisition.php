@@ -24,7 +24,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-03-02                                                                                           |
-        | ▪ Createion Date  : 2022-03-02                                                                                           |
+        | ▪ Creation Date   : 2022-03-02                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -62,7 +62,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_SupplyChain\TblPurchaseRequisition())->setDataInsert(
+                        if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_SupplyChain\TblPurchaseRequisition())->setDataInsert(
                             $varUserSession, 
                             null, 
                             null,

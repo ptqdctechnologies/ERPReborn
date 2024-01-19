@@ -1104,10 +1104,59 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataList_AppObject_Menu                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-01-11                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2024-01-17                                                                                           |
         | ▪ Creation Date   : 2023-01-11                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Menu                                                                              |
+        | ▪ Description     : Mendapatkan Daftar User Role                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varUserRoleGroup_RefID ► User Role Group_Reference ID                                                    |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_AppObject_Menu(
+            $varUserSession, int $varBranchID,
+            int $varUserRoleGroup_RefID = null,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_GetDataList_AppObject_Menu',
+                        [
+                            [$varBranchID, 'bigint'],
+                            
+                            [$varUserRoleGroup_RefID, 'bigint'],
+
+                            [$varPickStatement, 'varchar'],
+                            [$varSortStatement, 'varchar'],
+                            [$varFilterStatement, 'varchar'],
+                            [$varPagingStatement, 'varchar']
+                        ]
+                        )
+                    );
+            return $varReturn['Data'];
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_AppObject_MenuGroup                                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-01-17                                                                                           |
+        | ▪ Creation Date   : 2024-01-17                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Menu Group                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
@@ -1120,7 +1169,7 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_AppObject_Menu(
+        public function getDataList_AppObject_MenuGroup(
             $varUserSession, int $varBranchID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
@@ -1129,7 +1178,7 @@ namespace App\Models\Database\SchSysConfig
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        'SchSysConfig.Func_GetDataList_AppObject_Menu',
+                        'SchSysConfig.Func_GetDataList_AppObject_MenuGroup',
                         [
                             [$varBranchID, 'bigint' ],
 
@@ -1146,8 +1195,59 @@ namespace App\Models\Database\SchSysConfig
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_AppObject_MenuGroupMember                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-01-17                                                                                           |
+        | ▪ Creation Date   : 2024-01-17                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Menu Group Member                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varMenuGroup_RefID ► Menu Group_Reference ID                                                             |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_AppObject_MenuGroupMember(
+            $varUserSession, int $varBranchID,
+            int $varMenuGroup_RefID = null,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_GetDataList_AppObject_MenuGroupMember',
+                        [
+                            [$varBranchID, 'bigint'],
+                            
+                            [$varMenuGroup_RefID, 'bigint'],
+
+                            [$varPickStatement, 'varchar'],
+                            [$varSortStatement, 'varchar'],
+                            [$varFilterStatement, 'varchar'],
+                            [$varPagingStatement, 'varchar']
+                        ]
+                        )
+                    );
+            return $varReturn['Data'];
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataList_AppObject_UserRole                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
+
         | ▪ Version         : 1.0001.0000000                                                                                       |
         | ▪ Last Update     : 2024-01-16                                                                                           |
         | ▪ Creation Date   : 2022-12-30                                                                                           |

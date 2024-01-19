@@ -9,8 +9,8 @@
 | ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\sysConfig\getAppObject_UserRoleGroup\v1 {
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\sysConfig\getAppObject_UserRoleGroup\v1
+   {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : getAppObject_UserRoleGroup                                                                                   |
@@ -124,3 +124,4 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         }
     }
 }
+?>

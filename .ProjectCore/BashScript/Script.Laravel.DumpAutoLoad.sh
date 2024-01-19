@@ -14,9 +14,11 @@
 
 clear;
 
-sudo docker exec -it php-apache-backend /bin/bash -c "cd /var/www/html/WebBackEnd; php artisan key:generate; php artisan config:clear; php artisan route:clear; php artisan cache:clear; composer dump-autoload; cd -; ";
-sudo docker exec -it php-apache-frontend /bin/bash -c "cd /var/www/html/WebFrontEnd; php artisan key:generate; php artisan config:clear; php artisan route:clear; php artisan cache:clear; composer dump-autoload; cd -; ";
+#sudo docker exec -it php-apache-backend /bin/bash -c "cd /var/www/html/WebBackEnd; php artisan key:generate; php artisan config:clear; php artisan route:clear; php artisan cache:clear; composer dump-autoload; cd -; ";
+#sudo docker exec -it php-apache-frontend /bin/bash -c "cd /var/www/html/WebFrontEnd; php artisan key:generate; php artisan config:clear; php artisan route:clear; php artisan cache:clear; composer dump-autoload; cd -; ";
 
+sudo docker exec -it php-apache-backend /bin/bash -c "cd /var/www/html/WebBackEnd; php artisan config:clear; php artisan route:clear; php artisan cache:clear; composer dump-autoload; cd -; ";
+sudo docker exec -it php-apache-frontend /bin/bash -c "cd /var/www/html/WebFrontEnd; php artisan config:clear; php artisan route:clear; php artisan cache:clear; composer dump-autoload; cd -; ";
 
 #cd ./Programming/WebBackEnd;
 #sudo php artisan route:clear;

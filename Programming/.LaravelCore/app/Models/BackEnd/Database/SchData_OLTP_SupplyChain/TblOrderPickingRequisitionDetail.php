@@ -56,7 +56,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varOrderPickingRequisition_RefID ► Order Picking Requisition Reference ID                                |
-        |      ▪ (int)    varCombinedBudgetSectionDetail_RefID ► Combined Budget Section Detail Reference ID                       |
+        |      ▪ (int)    varPurchaseRequisitionDetail_RefID ► Purchase Requisition Detail Reference ID                            |
         |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
         |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
@@ -72,7 +72,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varOrderPickingRequisition_RefID = null, int $varCombinedBudgetSectionDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, string $varFulfillmentDeadlineDateTimeTZ = null, string $varRemarks = null)
+            int $varOrderPickingRequisition_RefID = null, int $varPurchaseRequisitionDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, string $varFulfillmentDeadlineDateTimeTZ = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -88,7 +88,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [$varSysBaseCurrency_RefID, 'bigint'],
                         
                         [$varOrderPickingRequisition_RefID, 'bigint'],
-                        [$varCombinedBudgetSectionDetail_RefID, 'bigint'],
+                        [$varPurchaseRequisitionDetail_RefID, 'bigint'],
                         [$varProduct_RefID, 'bigint'],
                         [$varQuantity, 'numeric'],
                         [$varQuantityUnit_RefID, 'bigint'],
@@ -122,7 +122,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varOrderPickingRequisition_RefID ► Order Picking Requisition Reference ID                                |
-        |      ▪ (int)    varCombinedBudgetSectionDetail_RefID ► Combined Budget Section Detail Reference ID                       |
+        |      ▪ (int)    varPurchaseRequisitionDetail_RefID ► Purchase Requisition Detail Reference ID                            |
         |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
         |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
@@ -138,7 +138,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varOrderPickingRequisition_RefID = null, int $varCombinedBudgetSectionDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, string $varFulfillmentDeadlineDateTimeTZ = null, string $varRemarks = null)
+            int $varOrderPickingRequisition_RefID = null, int $varPurchaseRequisitionDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, string $varFulfillmentDeadlineDateTimeTZ = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -154,7 +154,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [$varSysBaseCurrency_RefID, 'bigint'],
                         
                         [$varOrderPickingRequisition_RefID, 'bigint'],
-                        [$varCombinedBudgetSectionDetail_RefID, 'bigint'],
+                        [$varPurchaseRequisitionDetail_RefID, 'bigint'],
                         [$varProduct_RefID, 'bigint'],
                         [$varQuantity, 'numeric'],
                         [$varQuantityUnit_RefID, 'bigint'],

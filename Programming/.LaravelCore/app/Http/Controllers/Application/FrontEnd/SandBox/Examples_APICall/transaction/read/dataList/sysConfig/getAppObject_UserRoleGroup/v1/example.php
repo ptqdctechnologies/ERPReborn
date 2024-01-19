@@ -27,31 +27,29 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
-        {
+            {
             //---Parameter Set---
             if (!$varAPIWebToken) {
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-            }
+                }
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.sysConfig.getAppObject_UserRoleGroup',
-                'latest',
+                $varAPIWebToken, 
+                'transaction.read.dataList.sysConfig.getAppObject_UserRoleGroup', 
+                'latest', 
                 [
-                    'parameter' => null,
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
                     ]
                 ]
-            );
+                );
             var_dump($varData);
-        }
-
-
+            }
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
@@ -65,11 +63,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGatewayJQuery($varAPIWebToken)
-        {
+            {
             //---Parameter Set---
             if (!$varAPIWebToken) {
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-            }
+                }
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<table border="1" style="border-collapse: collapse;">';
