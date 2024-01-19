@@ -146,6 +146,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getDocumentType', 'Function\FunctionController@getDocumentType')->name('getDocumentType');
     Route::get('getPrivilageMenu', 'Function\FunctionController@getPrivilageMenu')->name('getPrivilageMenu');
     Route::get('getDepartement', 'Function\FunctionController@getDepartement')->name('getDepartement');
+    Route::get('getRole', 'Function\FunctionController@getRole')->name('getRole');
     Route::get('ShowRevisionHistory/{id}', 'Function\FunctionController@ShowRevisionHistory')->name('ShowRevisionHistory');
 
     Route::get('TestApi', 'TestApiController@index')->name('TestApi');
