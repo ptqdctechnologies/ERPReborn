@@ -105,7 +105,7 @@ class CheckDocumentController extends Controller
                 ],
                 false
             );
-
+            dd($DataWorkflowHistory);
             if($DataWorkflowHistory['metadata']['HTTPStatusCode'] == 200){
                 $submitter_ID = $DataWorkflowHistory['data'][0]['approverEntity_RefID'];
                 $nextApprover = $DataWorkflowHistory['data'][count($DataWorkflowHistory['data']) - 1]['nextApproverEntity_RefID'];

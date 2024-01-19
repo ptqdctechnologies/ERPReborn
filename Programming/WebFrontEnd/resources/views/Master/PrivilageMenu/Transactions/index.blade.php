@@ -3,7 +3,119 @@
 @include('Partials.navbar')
 @include('Partials.sidebar')
 @include('getFunction.getDepartement')
+@include('getFunction.getRole')
 
+<style>
+    #TableSubMenu {
+        position: relative;
+        border-collapse: collapse;
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    #TableSubMenu th,
+    #TableSubMenu td {
+        text-align: center;
+        height: 20px;
+        line-height: 20px;
+        padding: 0 15px;
+    }
+
+    #TableSubMenu thead th {
+        position: sticky;
+        position: -webkit-sticky;
+        top: 0;
+        z-index: 10;
+        font-size: 12px;
+    }
+
+    #TableSubMenu thead th:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        height: 30px;
+        background-color: #4B586A;
+        z-index: -1;
+    }
+
+    #TableSubMenu thead th:first-child:after {
+        border-left: 1px solid #dcebff;
+    }
+
+    #TableSubMenu thead th.multiple-col {
+        padding: 0;
+    }
+
+    #TableSubMenu thead th.multiple-col>div {
+        height: 30px;
+        box-sizing: border-box;
+    }
+
+    #TableSubMenu thead th.multiple-col>div:first-child {
+        border-bottom: 1px solid #dcebff;
+    }
+
+    #TableSubMenu thead th.multiple-col>div:last-child {
+        display: flex;
+    }
+
+    #TableSubMenu thead th.multiple-col>div:last-child>div {
+        position: relative;
+        width: 100%;
+    }
+
+    #TableSubMenu thead th.multiple-col>div:last-child>div:first-child:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        border-right: 1px solid #dcebff;
+    }
+
+    #TableSubMenu tbody>tr>td {
+        position: relative;
+        font-size: 12px;
+        z-index: 5;
+        background-color: #fff;
+        font-size: 12px;
+        padding: 2px;
+    }
+
+    #TableSubMenu tbody>tr>td>div {
+        position: relative;
+        z-index: 30;
+        line-height: 24px;
+    }
+
+    #TableSubMenu tbody>tr>td:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        border-bottom: 1px solid #dcebff;
+        border-right: 1px solid #dcebff;
+    }
+
+    #TableSubMenu tbody>tr>td:first-child:after {
+        border-left: 1px solid #dcebff;
+    }
+
+    #TableSubMenu tbody>tr>td:first-child,
+    #TableSubMenu tbody>tr>td:nth-child(2) {
+        /* width: 200px; */
+        margin: 0 auto;
+    }
+</style>
 <div class="content-wrapper">
     <section class="content">
         <div class="container-fluid">
@@ -56,7 +168,7 @@
                                                                 <input id="user_role" style="border-radius:0;background-color:white;" name="user_role" class="form-control" readonly>
                                                                 <div class="input-group-append">
                                                                     <span style="border-radius:0;" class="input-group-text form-control">
-                                                                        <a href="#" id="user_role_popup" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                                        <a href="#" id="user_role_popup" data-toggle="modal" data-target="#myRole" class="myRole"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -147,25 +259,26 @@
                                     </div>
                                     <br><br>
 
-                                    <div class="row ShowSubMenu">
+                                    <div class="row">
                                         <div class="col-12">
                                             <div class="card">
                                                 <div class="card-body table-responsive p-0" style="max-height:370px;">
-                                                    <table class="table table-sm table-head-fixed text-nowrap TableSubMenu table-md" id="TableSubMenu">
-                                                        <tbody>
-                                                            <!-- @foreach($Departement as $Departements)
+                                                    <table class="table table-md table-head-fixed text-nowrap TableSubMenu" id="TableSubMenu">
+                                                        <thead>
                                                             <tr>
-                                                                <td>
-                                                                    <div class="input-group">
-                                                                        &nbsp;&nbsp;
-                                                                        <span class="input-group-text">
-                                                                            <input type="checkbox" name="Sub_Menu" id="Sub_Menu" class="Sub_Menu" value="{{ $Departements['Sys_ID'] }}">
-                                                                        </span>
-                                                                        <span style="position: relative;top:7px;left:15px;">{{ $Departements['Name'] }}</span>
+                                                                <th rowspan="2" style="padding-bottom:20px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Sub Modul</th>
+                                                                <th class="multiple-col" colspan="4" style="border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                                    <div>Action</div>
+                                                                    <div>
+                                                                        <div style="border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Create</div>
+                                                                        <div style="border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Read</div>
+                                                                        <div style="border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Update</div>
+                                                                        <div style="border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Delete</div>
                                                                     </div>
-                                                                </td>
+                                                                </th>
                                                             </tr>
-                                                            @endforeach -->
+                                                        </thead>
+                                                        <tbody>
                                                         </tbody>
                                                     </table>
                                                 </div>
