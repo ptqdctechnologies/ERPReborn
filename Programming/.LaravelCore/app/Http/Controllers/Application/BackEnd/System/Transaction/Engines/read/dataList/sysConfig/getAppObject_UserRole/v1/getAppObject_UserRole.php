@@ -60,37 +60,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
             $userSessionID = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             $branchID = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($userSessionID)['branchID'];
 
-<<<<<<< HEAD
-                            $varData['parameter']['userRoleGroup_RefID'],
-
-                            $varData['SQLStatement']['pick'],
-                            $varData['SQLStatement']['sort'],
-                            $varData['SQLStatement']['filter'],
-                            $varData['SQLStatement']['paging']
-                            ))))
-                            {
-                            throw new \Exception();
-                            }
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
-                        } 
-                    catch (\Exception $ex) {
-                        $varErrorMessage = $ex->getMessage();
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
-                        }
-                    //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $ex->getMessage());
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
-            catch (\Exception $ex) {
-                }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
-            }
-=======
             $varTTL = 86400; // 24 Jam
             // GET DATA MASTER RoleMenu 
             $varRoleMenu =
@@ -153,7 +122,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
             // catch (\Exception $ex) {
             //     }
             // return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
->>>>>>> d0ec8b5fa (update 19 Januari 2024)
         }
     }
 }
