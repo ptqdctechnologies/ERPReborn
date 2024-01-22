@@ -2951,6 +2951,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Models\\Database\\SchSysConfig\\TblAppObject_InstitutionCompany' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblAppObject_InstitutionCompany.php',
         'App\\Models\\Database\\SchSysConfig\\TblAppObject_InstitutionRegional' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblAppObject_InstitutionRegional.php',
         'App\\Models\\Database\\SchSysConfig\\TblAppObject_Menu' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblAppObject_Menu.php',
+        'App\\Models\\Database\\SchSysConfig\\TblAppObject_MenuAction' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblAppObject_MenuAction.php',
         'App\\Models\\Database\\SchSysConfig\\TblAppObject_UserRole' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblAppObject_UserRole.php',
         'App\\Models\\Database\\SchSysConfig\\TblAppObject_UserRoleGroup' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblAppObject_UserRoleGroup.php',
         'App\\Models\\Database\\SchSysConfig\\TblAppObject_UserRoleGroupMember' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblAppObject_UserRoleGroupMember.php',

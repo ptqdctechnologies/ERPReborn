@@ -2296,6 +2296,7 @@ return array(
     'App\\Models\\Database\\SchSysConfig\\TblAppObject_InstitutionCompany' => $baseDir . '/app/Models/Database/SchSysConfig/TblAppObject_InstitutionCompany.php',
     'App\\Models\\Database\\SchSysConfig\\TblAppObject_InstitutionRegional' => $baseDir . '/app/Models/Database/SchSysConfig/TblAppObject_InstitutionRegional.php',
     'App\\Models\\Database\\SchSysConfig\\TblAppObject_Menu' => $baseDir . '/app/Models/Database/SchSysConfig/TblAppObject_Menu.php',
+    'App\\Models\\Database\\SchSysConfig\\TblAppObject_MenuAction' => $baseDir . '/app/Models/Database/SchSysConfig/TblAppObject_MenuAction.php',
     'App\\Models\\Database\\SchSysConfig\\TblAppObject_UserRole' => $baseDir . '/app/Models/Database/SchSysConfig/TblAppObject_UserRole.php',
     'App\\Models\\Database\\SchSysConfig\\TblAppObject_UserRoleGroup' => $baseDir . '/app/Models/Database/SchSysConfig/TblAppObject_UserRoleGroup.php',
     'App\\Models\\Database\\SchSysConfig\\TblAppObject_UserRoleGroupMember' => $baseDir . '/app/Models/Database/SchSysConfig/TblAppObject_UserRoleGroupMember.php',
