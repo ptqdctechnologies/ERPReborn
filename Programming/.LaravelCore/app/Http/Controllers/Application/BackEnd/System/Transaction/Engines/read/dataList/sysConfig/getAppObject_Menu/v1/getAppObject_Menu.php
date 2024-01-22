@@ -106,25 +106,36 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
-    private function dataProcessing($varUserSession, array $varData = null)
+        private function dataProcessing($varUserSession, array $varData = null)
             {
-            $varReturn = $varData;
-            
-//            dd($varData[0]);
-            
-            for ($i = 0, $iMax = count($varData); $i != $iMax; $i++)
-                {
-                echo "<br>------------->";
-                echo 
-                
-                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varData[$i]['JSONDataMenuAction']);
-                echo "<br>";
+            $varReturn = null;
+            try {
+                if($varData)
+                    {
+                    for ($i = 0, $iMax = count($varData); $i != $iMax; $i++)
+                        {
+                        $varReturn[$i] = [
+                            'Sys_ID' => $varData[$i]['sys_ID'],
+                            'Sys_PID' => $varData[$i]['sys_PID'],
+                            'Sys_SID' => $varData[$i]['sys_SID'],
+                            'Sys_RPK' => $varData[$i]['sys_RPK'],
+                            'Sys_Branch_RefID' => $varData[$i]['sys_Branch_RefID'],
+                            'Key' => $varData[$i]['key'],
+                            'Caption' => $varData[$i]['caption'],
+                            'MenuAction' => (\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varData[$i]['JSONDataMenuAction'])),
+                            'OrderSequence' => $varData[$i]['orderSequence']
+                            ];
+                        }
+                    }
+                else
+                    {
+                    throw new \Exception();
+                    }
                 }
-            //dd($varReturn);
-            
+            catch (\Exception $ex) {
+                }
             return $varReturn;
             }
-
         }
     }
 
