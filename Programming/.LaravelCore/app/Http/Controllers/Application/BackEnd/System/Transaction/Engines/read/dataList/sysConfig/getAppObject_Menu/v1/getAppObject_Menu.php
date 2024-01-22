@@ -6,7 +6,7 @@
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\sysConfig                      |
 |                \getAppObject_Menu\v1                                                                                             |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\sysConfig\getAppObject_Menu\v1
@@ -67,17 +67,22 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                             {
                             throw new \Exception('SQL Injection Threat Prevention');
                             }
-                        if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchSysConfig\General())->getDataList_AppObject_Menu(
-                            $varUserSession,
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
+                        if (!($varDataSend = 
+                            $this->dataProcessing(
+                                $varUserSession,
+                                \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchSysConfig\General())->getDataList_AppObject_Menu(
+                                    $varUserSession,
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
 
-                            $varData['parameter']['menuGroup_RefID'],
+                                    $varData['parameter']['menuGroup_RefID'],
 
-                            $varData['SQLStatement']['pick'],
-                            $varData['SQLStatement']['sort'],
-                            $varData['SQLStatement']['filter'],
-                            $varData['SQLStatement']['paging']
-                            ))))
+                                    $varData['SQLStatement']['pick'],
+                                    $varData['SQLStatement']['sort'],
+                                    $varData['SQLStatement']['filter'],
+                                    $varData['SQLStatement']['paging']
+                                    ))
+                                )
+                            ))
                             {
                             throw new \Exception();
                             }
@@ -100,6 +105,26 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
+
+    private function dataProcessing($varUserSession, array $varData = null)
+            {
+            $varReturn = $varData;
+            
+//            dd($varData[0]);
+            
+            for ($i = 0, $iMax = count($varData); $i != $iMax; $i++)
+                {
+                echo "<br>------------->";
+                echo 
+                
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varData[$i]['JSONDataMenuAction']);
+                echo "<br>";
+                }
+            //dd($varReturn);
+            
+            return $varReturn;
+            }
+
         }
     }
 
