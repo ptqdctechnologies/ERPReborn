@@ -18,7 +18,7 @@ use App\Http\Controllers\UserController;
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[START]---
 $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
-$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxkaS5tdWx5YWRpIiwiaWF0IjoxNzA1ODk4NDM4fQ.MDYxYzEzZTc5YThiMTU2MzFjNTk0N2RjMDQwZDFkY2Q2N2Q1ZTcxMTM0Y2U3MzZjNjNjY2QwZTE1ODA3MjFjOA';
+$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxkaS5tdWx5YWRpIiwiaWF0IjoxNzA1Mzk1NzYzfQ.MGNiYmMxYzY2OGRiNjZlZTk1ZGFjM2M0MDg3ZTgxY2MyZTg1M2Y5ZjVlN2ZmNzE4YzA5MmJiMjIyNTMzYzU5OQ';
 
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
@@ -147,6 +147,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getPrivilageMenu', 'Function\FunctionController@getPrivilageMenu')->name('getPrivilageMenu');
     Route::get('getDepartement', 'Function\FunctionController@getDepartement')->name('getDepartement');
     Route::get('getRole', 'Function\FunctionController@getRole')->name('getRole');
+    Route::get('getMenuGroup', 'Function\FunctionController@getMenuGroup')->name('getMenuGroup');
+    Route::get('getSubMenu', 'Function\FunctionController@getSubMenu')->name('getSubMenu');
     Route::get('ShowRevisionHistory/{id}', 'Function\FunctionController@ShowRevisionHistory')->name('ShowRevisionHistory');
 
     Route::get('TestApi', 'TestApiController@index')->name('TestApi');

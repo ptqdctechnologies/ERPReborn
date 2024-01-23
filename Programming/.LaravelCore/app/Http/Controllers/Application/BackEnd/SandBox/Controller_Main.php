@@ -22,7 +22,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
 
         {
 
-            $x = (new \App\Models\Database\SchData_OLTP_HumanResource\General())->getDataList_OrganizationalDepartment(
+            $x = (new \App\Models\Database\SchSysConfig\General())->getDataList_AppObject_Menu(
                 6000000000001, 
                 11000000000004
             );

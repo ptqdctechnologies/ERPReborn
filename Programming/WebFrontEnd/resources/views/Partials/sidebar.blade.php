@@ -51,7 +51,7 @@
                 </li>
 
                 <li class="nav-item has-treeview">
-                    @if(in_array("Module.Finance.Advance.Transaction.Create", $privilageMenu, TRUE) || in_array("Module.Finance.AdvanceSettlement.Transaction.Create", $privilageMenu, TRUE) || in_array("Module.HumanResource.PersonBusinessTrip.Transaction.Create", $privilageMenu, TRUE) || in_array("Module.HumanResource.PersonBusinessTripSettlement.Transaction.Create", $privilageMenu, TRUE))
+                    @if(in_array("Module.Finance.Advance.Transaction", $privilageMenu, TRUE) || in_array("Module.Finance.AdvanceSettlement.Transaction.Create", $privilageMenu, TRUE) || in_array("Module.HumanResource.PersonBusinessTrip.Transaction.Create", $privilageMenu, TRUE) || in_array("Module.HumanResource.PersonBusinessTripSettlement.Transaction.Create", $privilageMenu, TRUE))
                     <a href="#" class="nav-link">
                         <i class="nav-icon-sm fas fa-shopping-basket" style="color:#e9ecef;"></i>
                         <label>
@@ -63,7 +63,7 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
 
-                            @if(in_array("Module.Finance.Advance.Transaction.Create", $privilageMenu, TRUE) || in_array("Module.Finance.AdvanceSettlement.Transaction.Create", $privilageMenu, TRUE))
+                            @if(in_array("Module.Finance.Advance.Transaction", $privilageMenu, TRUE) || in_array("Module.Finance.AdvanceSettlement.Transaction.Create", $privilageMenu, TRUE))
                             <a href="#" class="nav-link">&nbsp;
                                 <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
                                 <label>Advance</label>
@@ -78,7 +78,7 @@
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
-                                        @if(in_array("Module.Finance.Advance.Report.DataList.AllDocuments", $privilageMenu, TRUE))
+                                        @if(in_array("Module.Finance.Advance.Report.Form", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceRequest.ReportAdvanceSummary') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
@@ -86,7 +86,7 @@
                                             </a>
                                         </li>
                                         @endif
-                                        @if(in_array("Module.Finance.Advance.Report.DataList.AllDocuments", $privilageMenu, TRUE))
+                                        @if(in_array("Module.Finance.Advance.Report.Form", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceRequest.ReportAdvanceSummaryDetail') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
@@ -105,7 +105,7 @@
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
-                                        @if(in_array("Module.Finance.Advance.Transaction.Create", $privilageMenu, TRUE))
+                                        @if(in_array("Module.Finance.Advance.Transaction", $privilageMenu, TRUE))
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceRequest.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
@@ -697,7 +697,6 @@
                             <a href="{{ route('PrivilageMenu.index') }}" class="nav-link">&nbsp;
                                 <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
                                 <label>Privilage Menu</label>
-                                <i class="right fas fa-angle-left"></i>
                             </a>
                         </li>
                     </ul>

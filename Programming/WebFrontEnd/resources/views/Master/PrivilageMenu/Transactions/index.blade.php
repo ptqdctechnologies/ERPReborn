@@ -42,9 +42,9 @@
         z-index: -1;
     }
 
-    #TableSubMenu thead th:first-child:after {
+    /* #TableSubMenu thead th:first-child:after {
         border-left: 1px solid #dcebff;
-    }
+    } */
 
     #TableSubMenu thead th.multiple-col {
         padding: 0;
@@ -54,10 +54,10 @@
         height: 30px;
         box-sizing: border-box;
     }
-
+/* 
     #TableSubMenu thead th.multiple-col>div:first-child {
         border-bottom: 1px solid #dcebff;
-    }
+    } */
 
     #TableSubMenu thead th.multiple-col>div:last-child {
         display: flex;
@@ -76,7 +76,7 @@
         width: 100%;
         height: 100%;
         box-sizing: border-box;
-        border-right: 1px solid #dcebff;
+        /* border-right: 1px solid #dcebff; */
     }
 
     #TableSubMenu tbody>tr>td {
@@ -102,13 +102,13 @@
         width: 100%;
         height: 100%;
         box-sizing: border-box;
-        border-bottom: 1px solid #dcebff;
-        border-right: 1px solid #dcebff;
+        /* border-bottom: 1px solid #dcebff;
+        border-right: 1px solid #dcebff; */
     }
 
-    #TableSubMenu tbody>tr>td:first-child:after {
+    /* #TableSubMenu tbody>tr>td:first-child:after {
         border-left: 1px solid #dcebff;
-    }
+    } */
 
     #TableSubMenu tbody>tr>td:first-child,
     #TableSubMenu tbody>tr>td:nth-child(2) {
@@ -283,6 +283,7 @@
                                                     </table>
                                                 </div>
                                             </div>
+                                            <p><i><b>* If the button cannot be clicked, it means there is no menu privilege</b></i> </p>
                                             <a href="{{ route('PrivilageMenu.index') }}" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
                                                 <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Back"> Back
                                             </a>
