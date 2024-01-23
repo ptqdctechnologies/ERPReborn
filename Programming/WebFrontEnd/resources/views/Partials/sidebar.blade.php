@@ -82,7 +82,7 @@
                                         <li class="nav-item">
                                             <a href="{{ route('AdvanceRequest.ReportAdvanceSummary') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>Advance Summary</label>
+                                                <label>Advance Summarysss</label>
                                             </a>
                                         </li>
                                         @endif
