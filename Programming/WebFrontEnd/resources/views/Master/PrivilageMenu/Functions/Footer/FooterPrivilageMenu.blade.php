@@ -15,7 +15,7 @@
 
     $.ajax({
         type: 'GET',
-        url: '{!! route("getDepartement") !!}',
+        url: '{!! route("getMenuGroup") !!}',
         success: function(data) {
             $(".Modul").empty();
 
@@ -35,9 +35,10 @@
 
 <script>
 
-    var keys = 0;
 
     $('#Modul').on("select2:select", function(e) {
+
+        var keys = 0;
 
         $('#TableSubMenu').find('tbody').empty();
 
@@ -48,8 +49,9 @@
         });
         $.ajax({
             type: 'GET',
-            url: '{!! route("getRole") !!}?departement_id=' + $('#Modul').val(),
+            url: '{!! route("getSubMenu") !!}?menu_group_id=' + $('#Modul').val(),
             success: function(data) {
+
                 $.each(data, function(key, val) {
 
                     keys += 1;
@@ -69,30 +71,81 @@
                     var disabledSubMenuUpdate = "disabled";
                     var disabledSubMenuDelete = "disabled";
 
-                    for (var i = 0; i < checkedValue.length; i++) {
-                        if (checkedValue[i] == val.Sys_ID) {
+                    var ActionCreate = 0;
+                    var ActionRead = 0;
+                    var ActionUpdate = 0;
+                    var ActionDelete = 0;
+                    var ActionCreateID = 0;
+                    var ActionReadID = 0;
+                    var ActionUpdateID = 0;
+                    var ActionDeleteID = 0;
+
+                    for (var n = 0; n < checkedValue.length; n++) {
+                        if (checkedValue[n] == val.Sys_ID) {
                             checkedSubMenu = "checked";
-                            disabledSubMenuCreate = "";
-                            disabledSubMenuRead = "";
-                            disabledSubMenuUpdate = "";
-                            disabledSubMenuDelete = "";
                             continue;
                         }
-                        if (checkedValue[i] == val.Sys_ID + '1111') {
-                            checkedSubMenuCreate = "checked";
-                            continue;
+
+                        for (var i = 0; i < val.MenuAction.length; i++) {
+
+                            if(val.MenuAction[i]['entities']['caption'] == "Create"){
+
+                                if (checkedValue[n] == val.MenuAction[i]['recordID']) {
+                                    checkedSubMenuCreate = "checked";
+                                    disabledSubMenuCreate = "";
+                                    continue;
+                                }
+
+                            }
+                            if(val.MenuAction[i]['entities']['caption'] == "Read"){
+
+                                if (checkedValue[n] == val.MenuAction[i]['recordID']) {
+                                    checkedSubMenuRead = "checked";
+                                    disabledSubMenuRead = "";
+                                    continue;
+                                }
+
+                            }
+                            if(val.MenuAction[i]['entities']['caption'] == "Edit"){
+                                
+                                if (checkedValue[n] == val.MenuAction[i]['recordID']) {
+                                    checkedSubMenuUpdate = "checked";
+                                    disabledSubMenuUpdate = "";
+                                    continue;
+                                }
+
+                            }
+                            if(val.MenuAction[i]['entities']['caption'] == "Delete"){
+                                
+                                if (checkedValue[n] == val.MenuAction[i]['recordID']) {
+                                    checkedSubMenuDelete = "checked";
+                                    disabledSubMenuDelete = "";
+                                    continue;
+                                }
+
+                            }
                         }
-                        if (checkedValue[i] == val.Sys_ID + '2222') {
-                            checkedSubMenuRead = "checked";
-                            continue;
+
+                    }
+
+                    
+                    for (var i = 0; i < val.MenuAction.length; i++) {
+
+                        if(val.MenuAction[i]['entities']['caption'] == "Create"){
+                            ActionCreate = 1;
+                            ActionCreateID = val.MenuAction[i]['recordID'];
                         }
-                        if (checkedValue[i] == val.Sys_ID + '3333') {
-                            checkedSubMenuUpdate = "checked";
-                            continue;
+                        if(val.MenuAction[i]['entities']['caption'] == "Read"){
+                            ActionRead = 1;
+                            ActionReadID = val.MenuAction[i]['recordID'];
                         }
-                        if (checkedValue[i] == val.Sys_ID + '4444') {
-                            checkedSubMenuDelete = "checked";
-                            continue;
+                        if(val.MenuAction[i]['entities']['caption'] == "Edit"){
+                            ActionUpdate = 1;
+                            ActionUpdateID = val.MenuAction[i]['recordID'];
+                        }
+                        if(val.MenuAction[i]['entities']['caption'] == "Delete"){
+                            ActionDelete = 1;
+                            ActionDeleteID = val.MenuAction[i]['recordID'];
                         }
                     }
 
@@ -100,36 +153,36 @@
                             '<td>' +
                                 '<div class="input-group">&nbsp;&nbsp;' +
                                     '<span class="input-group-text">' +
-                                        '<input type="checkbox" ' + checkedSubMenu + ' name="Sub_Menu" id="Sub_Menu' + keys + '" class="Sub_Menu" value="' + val.Sys_ID + '" onclick="OpenAction(' + keys + ', this)">' +
+                                        '<input type="checkbox" ' + checkedSubMenu + ' name="Sub_Menu" id="Sub_Menu' + keys + '" class="Sub_Menu" value="' + val.Sys_ID + '" onclick="OpenAction(' + keys + ', ' + ActionCreate + ', ' + ActionRead + ', ' + ActionUpdate + ', ' + ActionDelete + ', this)">' +
                                     '</span>' +
-                                    '<span style="position: relative;top:7px;left:15px;">' + val.FullName + '</span>' +
+                                    '<span style="position: relative;top:7px;left:15px;">' + val.Caption + '</span>' +
                                 '</div>' +
                             '</td>' +
                             '<td>' +
                                 '<div class="input-group">&nbsp;&nbsp;' +
                                     '<span class="input-group-text" style="margin: 0 auto;display: block;">' +
-                                        '<input type="checkbox" ' + disabledSubMenuCreate + ' ' + checkedSubMenuCreate + ' name="Sub_Menu_Create" id="Sub_Menu_Create' + keys + '" class="Sub_Menu_Create" value="' + val.Sys_ID + 1111 + '">' +
-                                    '</span>' +
-                                '</div>' +
-                            '</td>' +
-                            '<td>' +
-                                '<div class="input-group">&nbsp;&nbsp;' +
-                                    '<span class="input-group-text" style="margin: 0 auto;display: block;">' +
-                                        '<input type="checkbox" ' + disabledSubMenuRead + ' ' + checkedSubMenuRead + ' name="Sub_Menu_Read" id="Sub_Menu_Read' + keys + '" class="Sub_Menu_Read" value="' + val.Sys_ID + 2222 + '">' +
+                                        '<input type="checkbox" ' + disabledSubMenuCreate + ' ' + checkedSubMenuCreate + ' name="Sub_Menu_Create" id="Sub_Menu_Create' + keys + '" class="Sub_Menu_Create" value="' + ActionCreateID + '">' +
                                     '</span>' +
                                 '</div>' +
                             '</td>' +
                             '<td>' +
                                 '<div class="input-group">&nbsp;&nbsp;' +
                                     '<span class="input-group-text" style="margin: 0 auto;display: block;">' +
-                                        '<input type="checkbox" ' + disabledSubMenuUpdate + ' ' + checkedSubMenuUpdate + ' name="Sub_Menu_Update" id="Sub_Menu_Update' + keys + '" class="Sub_Menu_Update" value="' + val.Sys_ID + 3333 + '">' +
+                                        '<input type="checkbox" ' + disabledSubMenuRead + ' ' + checkedSubMenuRead + ' name="Sub_Menu_Read" id="Sub_Menu_Read' + keys + '" class="Sub_Menu_Read" value="' + ActionReadID + '">' +
                                     '</span>' +
                                 '</div>' +
                             '</td>' +
                             '<td>' +
                                 '<div class="input-group">&nbsp;&nbsp;' +
                                     '<span class="input-group-text" style="margin: 0 auto;display: block;">' +
-                                        '<input type="checkbox" ' + disabledSubMenuDelete + ' ' + checkedSubMenuDelete + ' name="Sub_Menu_Delete" id="Sub_Menu_Delete' + keys + '" class="Sub_Menu_Delete" value="' + val.Sys_ID + 4444 + '">' +
+                                        '<input type="checkbox" ' + disabledSubMenuUpdate + ' ' + checkedSubMenuUpdate + ' name="Sub_Menu_Update" id="Sub_Menu_Update' + keys + '" class="Sub_Menu_Update" value="' + ActionUpdateID + '">' +
+                                    '</span>' +
+                                '</div>' +
+                            '</td>' +
+                            '<td>' +
+                                '<div class="input-group">&nbsp;&nbsp;' +
+                                    '<span class="input-group-text" style="margin: 0 auto;display: block;">' +
+                                        '<input type="checkbox" ' + disabledSubMenuDelete + ' ' + checkedSubMenuDelete + ' name="Sub_Menu_Delete" id="Sub_Menu_Delete' + keys + '" class="Sub_Menu_Delete" value="' + ActionDeleteID + '">' +
                                     '</span>' +
                                 '</div>' +
                             '</td>' +
@@ -226,12 +279,38 @@
 </script>
 
 <script>
-    function OpenAction(key, val) {
-        if(val.checked){
-            $("#Sub_Menu_Create" + key).prop("disabled", false);
-            $("#Sub_Menu_Read" + key).prop("disabled", false);
-            $("#Sub_Menu_Update" + key).prop("disabled", false);
-            $("#Sub_Menu_Delete" + key).prop("disabled", false);
+    function OpenAction(key, ActionCreate, ActionRead, ActionUpdate, ActionDelete, event) {
+
+        if(event.checked){
+
+            if(ActionCreate == 1){
+                $("#Sub_Menu_Create" + key).prop("disabled", false);
+            }
+            else{
+                $("#Sub_Menu_Create" + key).prop("disabled", true);
+            }
+
+            if(ActionRead == 1){
+                $("#Sub_Menu_Read" + key).prop("disabled", false);
+            }
+            else{
+                $("#Sub_Menu_Read" + key).prop("disabled", true);
+            }
+
+            if(ActionUpdate == 1){
+                $("#Sub_Menu_Update" + key).prop("disabled", false);
+            }
+            else{
+                $("#Sub_Menu_Update" + key).prop("disabled", true);
+            }
+
+            if(ActionDelete == 1){
+                $("#Sub_Menu_Delete" + key).prop("disabled", false);
+            }
+            else{
+                $("#Sub_Menu_Delete" + key).prop("disabled", true);
+            }
+
         }
         else{
 
@@ -278,15 +357,6 @@
 
         if ($(this).is(":checked")) {
             $('.Sub_Menu').prop("checked", true);
-            $(".Sub_Menu_Create").prop("checked", true);
-            $(".Sub_Menu_Read").prop("checked", true);
-            $(".Sub_Menu_Update").prop("checked", true);
-            $(".Sub_Menu_Delete").prop("checked", true);
-
-            $(".Sub_Menu_Create").prop("disabled", false);
-            $(".Sub_Menu_Read").prop("disabled", false);
-            $(".Sub_Menu_Update").prop("disabled", false);
-            $(".Sub_Menu_Delete").prop("disabled", false);
 
             $('#UnSelectAll').prop("checked", false);
 
@@ -300,18 +370,82 @@
                 $.each(sub_Menu, function(key, value) {
                     checkedValue.push(value.value);
                 });
+                
                 $.each(sub_Menu_Create, function(key, value) {
-                    checkedValue.push(value.value);
+                    var keys  = key + 1;
+                    
+                    if(value.value != 0){
+
+                        checkedValue.push(value.value);
+
+                        $("#Sub_Menu_Create" + keys).prop("checked", true);
+                        $("#Sub_Menu_Create" + keys).prop("disabled", false);
+
+                    }
+                    else{
+                        $("#Sub_Menu_Create" + keys).prop("checked", false);
+                        $("#Sub_Menu_Create" + keys).prop("disabled", true);
+                    }
+
                 });
+
                 $.each(sub_Menu_Read, function(key, value) {
-                    checkedValue.push(value.value);
+                    
+                    var keys  = key + 1;
+                    
+                    if(value.value != 0){
+
+                        checkedValue.push(value.value);
+
+                        $("#Sub_Menu_Read" + keys).prop("checked", true);
+                        $("#Sub_Menu_Read" + keys).prop("disabled", false);
+
+                    }
+                    else{
+                        $("#Sub_Menu_Read" + keys).prop("checked", false);
+                        $("#Sub_Menu_Read" + keys).prop("disabled", true);
+                    }
+
                 });
+
                 $.each(sub_Menu_Update, function(key, value) {
-                    checkedValue.push(value.value);
+                    
+                    var keys  = key + 1;
+                    
+                    if(value.value != 0){
+
+                        checkedValue.push(value.value);
+
+                        $("#Sub_Menu_Update" + keys).prop("checked", true);
+                        $("#Sub_Menu_Update" + keys).prop("disabled", false);
+
+                    }
+                    else{
+                        $("#Sub_Menu_Update" + keys).prop("checked", false);
+                        $("#Sub_Menu_Update" + keys).prop("disabled", true);
+                    }
+
                 });
+
                 $.each(sub_Menu_Delete, function(key, value) {
-                    checkedValue.push(value.value);
+                    
+                    var keys  = key + 1;
+                    
+                    if(value.value != 0){
+
+                        checkedValue.push(value.value);
+
+                        $("#Sub_Menu_Delete" + keys).prop("checked", true);
+                        $("#Sub_Menu_Delete" + keys).prop("disabled", false);
+
+                    }
+                    else{
+                        $("#Sub_Menu_Delete" + keys).prop("checked", false);
+                        $("#Sub_Menu_Delete" + keys).prop("disabled", true);
+                    }
+
                 });
+                
             }
             else{
                 $.each(sub_Menu, function(key, value) {
@@ -321,25 +455,84 @@
                 });
                 $.each(sub_Menu_Create, function(key, value) {
                     if(!checkedValue.includes(value.value)){
-                        checkedValue.push(value.value);
+                        // checkedValue.push(value.value);
+                        var keys  = key + 1;
+                    
+                        if(value.value != 0){
+
+                            checkedValue.push(value.value);
+
+                            $("#Sub_Menu_Create" + keys).prop("checked", true);
+                            $("#Sub_Menu_Create" + keys).prop("disabled", false);
+                        }
+                        else{
+                            $("#Sub_Menu_Create" + keys).prop("checked", false);
+                            $("#Sub_Menu_Create" + keys).prop("disabled", true);
+                        }
+                        
                     }
+
+                    
                 });
                 $.each(sub_Menu_Read, function(key, value) {
                     if(!checkedValue.includes(value.value)){
-                        checkedValue.push(value.value);
+                        // checkedValue.push(value.value);
+                        var keys  = key + 1;
+                    
+                        if(value.value != 0){
+
+                            checkedValue.push(value.value);
+
+                            $("#Sub_Menu_Read" + keys).prop("checked", true);
+                            $("#Sub_Menu_Read" + keys).prop("disabled", false);
+
+                        }
+                        else{
+                            $("#Sub_Menu_Read" + keys).prop("checked", false);
+                            $("#Sub_Menu_Read" + keys).prop("disabled", true);
+                        }
                     }
                 });
                 $.each(sub_Menu_Update, function(key, value) {
                     if(!checkedValue.includes(value.value)){
-                        checkedValue.push(value.value);
+                        // checkedValue.push(value.value);
+                        var keys  = key + 1;
+                    
+                        if(value.value != 0){
+
+                            checkedValue.push(value.value);
+
+                            $("#Sub_Menu_Update" + keys).prop("checked", true);
+                            $("#Sub_Menu_Update" + keys).prop("disabled", false);
+
+                        }
+                        else{
+                            $("#Sub_Menu_Update" + keys).prop("checked", false);
+                            $("#Sub_Menu_Update" + keys).prop("disabled", true);
+                        }
                     }
                 });
                 $.each(sub_Menu_Delete, function(key, value) {
                     if(!checkedValue.includes(value.value)){
-                        checkedValue.push(value.value);
+                        // checkedValue.push(value.value);
+                        var keys  = key + 1;
+                    
+                        if(value.value != 0){
+
+                            checkedValue.push(value.value);
+
+                            $("#Sub_Menu_Delete" + keys).prop("checked", true);
+                            $("#Sub_Menu_Delete" + keys).prop("disabled", false);
+
+                        }
+                        else{
+                            $("#Sub_Menu_Delete" + keys).prop("checked", false);
+                            $("#Sub_Menu_Delete" + keys).prop("disabled", true);
+                        }
                     }
                 });
             }
+            // console.log(checkedValue);
         }
 
         $('#SelectAll').prop("checked", true);
@@ -397,6 +590,9 @@
         else{
             $("#SavePrivilageMenu").prop("disabled", true);
         }
+
+
+        // console.log(checkedValue);
 
     });
 </script>

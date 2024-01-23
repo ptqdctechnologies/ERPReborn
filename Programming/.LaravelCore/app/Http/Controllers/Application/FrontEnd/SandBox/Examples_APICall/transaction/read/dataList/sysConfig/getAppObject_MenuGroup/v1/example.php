@@ -4,25 +4,26 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataList\sysConfig          |
-|                 \getAppObject_Menu\v1                                                                                            |
-| ▪ API Key     : transaction.read.dataList.sysConfig.getAppObject_Menu                                                            |
+|                 \getAppObject_MenuGroup\v1                                                                                       |
+| ▪ API Key     : transaction.read.dataList.sysConfig.getAppObject_MenuGroup                                                       |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataList\sysConfig\getAppObject_Menu\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataList\sysConfig\getAppObject_MenuGroup\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataList.sysConfig.getAppObject_Menu.v1_throughAPIGateway          |
-        |                     ► http://172.28.0.4/transaction.read.dataList.sysConfig.getAppObject_Menu.v1_throughAPIGateway       |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataList.sysConfig.getAppObject_MenuGroup.v1_throughAPIGateway     |
+        |                     ► http://172.28.0.4/                                                                                 |
+        |                       transaction.read.dataList.sysConfig.getAppObject_MenuGroup.v1_throughAPIGateway                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-01-11                                                                                           |
-        | ▪ Creation Date   : 2023-01-11                                               c                                            |
+        | ▪ Last Update     : 2024-01-17                                                                                           |
+        | ▪ Creation Date   : 2024-01-17                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
@@ -34,21 +35,19 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.sysConfig.getAppObject_Menu',
-                'latest',
+                $varAPIWebToken, 
+                'transaction.read.dataList.sysConfig.getAppObject_MenuGroup', 
+                'latest', 
                 [
-                    'parameter' => [
-                        'menuGroup_RefID' => null
-                    ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
                     ]
                 ]
-            );
+                );
             var_dump($varData);
             }
 
@@ -56,13 +55,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
-        |                     transaction.read.dataList.sysConfig.getAppObject_Menu.v1_throughAPIGatewayJQuery                     |
+        |                     transaction.read.dataList.sysConfig.getAppObject_MenuGroup.v1_throughAPIGatewayJQuery                |
         |                     ► http://172.28.0.4/                                                                                 |
-        |                       transaction.read.dataList.sysConfig.getAppObject_Menu.v1_throughAPIGatewayJQuery                   |
+        |                       transaction.read.dataList.sysConfig.getAppObject_MenuGroup.v1_throughAPIGatewayJQuery              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-01-11                                                                                           |
-        | ▪ Creation Date   : 2023-01-11                                                                                           |
+        | ▪ Last Update     : 2024-01-17                                                                                           |
+        | ▪ Creation Date   : 2024-01-17                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGatewayJQuery($varAPIWebToken)
@@ -84,7 +83,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
-                'transaction.read.dataList.sysConfig.getAppObject_Menu', 
+                'transaction.read.dataList.sysConfig.getAppObject_MenuGroup', 
                 'latest', 
                 '{'.
                     '"parameter" : null, '.

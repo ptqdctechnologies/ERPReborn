@@ -283,6 +283,7 @@
                                                     </table>
                                                 </div>
                                             </div>
+                                            <p><i><b>* If the button cannot be clicked, it means there is no menu privilege</b></i> </p>
                                             <a href="{{ route('PrivilageMenu.index') }}" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
                                                 <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Back"> Back
                                             </a>
