@@ -63,15 +63,16 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchSysConfig\TblAppObject_WorkFlowPathAction())->getDataEntities(
-                            $varUserSession, 
-                            
-                            $varData['parameter']['recordIDSet'],
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID']
-                            ))))
-                            {
-                            throw new \Exception();
-                            }
+                        if (!($varDataSend = 
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchSysConfig\TblAppObject_WorkFlowPathAction())->getDataEntities(
+                                $varUserSession, 
+
+                                $varData['parameter']['recordIDSet'],
+                                (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID']
+                                ))))
+                                {
+                                throw new \Exception();
+                                }
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
