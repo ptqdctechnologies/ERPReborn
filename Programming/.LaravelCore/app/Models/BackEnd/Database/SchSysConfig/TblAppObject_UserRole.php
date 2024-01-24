@@ -12,11 +12,11 @@ namespace App\Models\Database\SchSysConfig
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblAppObject_MenuGroupMember                                                                                 |
-    | ▪ Description : Menangani Models Database ► SchSysConfig ► TblAppObject_MenuGroupMember                                      |
+    | ▪ Class Name  : TblAppObject_UserRole                                                                                        |
+    | ▪ Description : Menangani Models Database ► SchSysConfig ► TblAppObject_UserRole                                             |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblAppObject_MenuGroupMember extends \App\Models\Database\DefaultClassPrototype
+    class TblAppObject_UserRole extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -85,8 +85,7 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varMenuGroup_RefID ► Menu Group Reference ID                                                             |
-        |      ▪ (int)    varMenu_RefID ► Menu Reference ID                                                                        |
+        |      ▪ (string) varName ► Name                                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -94,7 +93,7 @@ namespace App\Models\Database\SchSysConfig
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varMenuGroup_RefID = null, int $varMenu_RefID = null)
+            string $varName = null)
             {
             $varReturn = 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -110,8 +109,7 @@ namespace App\Models\Database\SchSysConfig
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
-                            [$varMenuGroup_RefID, 'bigint'],
-                            [$varMenu_RefID, 'bigint']
+                            [$varName, 'varchar']
                         ]
                         )
                     );
@@ -136,8 +134,7 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varMenuGroup_RefID ► Menu Group Reference ID                                                             |
-        |      ▪ (int)    varMenu_RefID ► Menu Reference ID                                                                        |
+        |      ▪ (string) varName ► Name                                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -145,7 +142,7 @@ namespace App\Models\Database\SchSysConfig
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varMenuGroup_RefID = null, int $varMenu_RefID = null)
+            string $varName = null)
             {
             $varReturn = 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -161,9 +158,8 @@ namespace App\Models\Database\SchSysConfig
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
-                            [$varMenuGroup_RefID, 'bigint'],
-                            [$varMenu_RefID, 'bigint']
-                        ]
+                            [$varName, 'varchar']
+                        ],
                         )
                     );
             return $varReturn['Data'][0];
