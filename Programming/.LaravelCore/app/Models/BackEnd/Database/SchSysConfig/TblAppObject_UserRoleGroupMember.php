@@ -12,11 +12,11 @@ namespace App\Models\Database\SchSysConfig
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblAppObject_MenuGroupMember                                                                                 |
-    | ▪ Description : Menangani Models Database ► SchSysConfig ► TblAppObject_MenuGroupMember                                      |
+    | ▪ Class Name  : TblAppObject_UserRoleGroupMember                                                                             |
+    | ▪ Description : Menangani Models Database ► SchSysConfig ► TblAppObject_UserRoleGroupMember                                  |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblAppObject_MenuGroupMember extends \App\Models\Database\DefaultClassPrototype
+    class TblAppObject_UserRoleGroupMember extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -85,8 +85,8 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varMenuGroup_RefID ► Menu Group Reference ID                                                             |
-        |      ▪ (int)    varMenu_RefID ► Menu Reference ID                                                                        |
+        |      ▪ (int)    varUserRoleGroup_RefID ► User Role Group Reference ID                                                    |
+        |      ▪ (int)    varUserRole_RefID ► User Role Reference ID                                                               |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -94,7 +94,7 @@ namespace App\Models\Database\SchSysConfig
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varMenuGroup_RefID = null, int $varMenu_RefID = null)
+            int $varUserRoleGroup_RefID = null, int $varUserRole_RefID = null)
             {
             $varReturn = 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -110,8 +110,8 @@ namespace App\Models\Database\SchSysConfig
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
-                            [$varMenuGroup_RefID, 'bigint'],
-                            [$varMenu_RefID, 'bigint']
+                            [$varUserRoleGroup_RefID, 'bigint'],
+                            [$varUserRole_RefID, 'bigint']
                         ]
                         )
                     );
@@ -136,8 +136,8 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varMenuGroup_RefID ► Menu Group Reference ID                                                             |
-        |      ▪ (int)    varMenu_RefID ► Menu Reference ID                                                                        |
+        |      ▪ (int)    varUserRoleGroup_RefID ► User Role Group Reference ID                                                    |
+        |      ▪ (int)    varUserRole_RefID ► User Role Reference ID                                                               |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -145,7 +145,7 @@ namespace App\Models\Database\SchSysConfig
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varMenuGroup_RefID = null, int $varMenu_RefID = null)
+            int $varUserRoleGroup_RefID = null, int $varUserRole_RefID = null)
             {
             $varReturn = 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -161,8 +161,8 @@ namespace App\Models\Database\SchSysConfig
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
-                            [$varMenuGroup_RefID, 'bigint'],
-                            [$varMenu_RefID, 'bigint']
+                            [$varUserRoleGroup_RefID, 'bigint'],
+                            [$varUserRole_RefID, 'bigint']
                         ]
                         )
                     );
