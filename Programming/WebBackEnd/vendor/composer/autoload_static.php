@@ -6184,6 +6184,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Illuminate\\Queue\\Events\\JobProcessed' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Queue/Events/JobProcessed.php',
         'Illuminate\\Queue\\Events\\JobProcessing' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Queue/Events/JobProcessing.php',
         'Illuminate\\Queue\\Events\\JobQueued' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Queue/Events/JobQueued.php',
+        'Illuminate\\Queue\\Events\\JobQueueing' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Queue/Events/JobQueueing.php',
         'Illuminate\\Queue\\Events\\JobReleasedAfterException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Queue/Events/JobReleasedAfterException.php',
         'Illuminate\\Queue\\Events\\JobRetryRequested' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Queue/Events/JobRetryRequested.php',
         'Illuminate\\Queue\\Events\\JobTimedOut' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Queue/Events/JobTimedOut.php',

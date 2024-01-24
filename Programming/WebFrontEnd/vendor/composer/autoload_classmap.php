@@ -3170,6 +3170,7 @@ return array(
     'Illuminate\\Queue\\Events\\JobProcessed' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Events/JobProcessed.php',
     'Illuminate\\Queue\\Events\\JobProcessing' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Events/JobProcessing.php',
     'Illuminate\\Queue\\Events\\JobQueued' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Events/JobQueued.php',
+    'Illuminate\\Queue\\Events\\JobQueueing' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Events/JobQueueing.php',
     'Illuminate\\Queue\\Events\\JobReleasedAfterException' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Events/JobReleasedAfterException.php',
     'Illuminate\\Queue\\Events\\JobRetryRequested' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Events/JobRetryRequested.php',
     'Illuminate\\Queue\\Events\\JobTimedOut' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Events/JobTimedOut.php',

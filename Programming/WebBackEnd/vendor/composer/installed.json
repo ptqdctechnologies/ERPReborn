@@ -59,17 +59,17 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.296.7",
-            "version_normalized": "3.296.7.0",
+            "version": "3.296.8",
+            "version_normalized": "3.296.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "da296909ceb8a4c156c4e849fe1c43ec9e2bb4b0"
+                "reference": "f84fe470709e5ab9515649a1a0891e279693d1b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/da296909ceb8a4c156c4e849fe1c43ec9e2bb4b0",
-                "reference": "da296909ceb8a4c156c4e849fe1c43ec9e2bb4b0",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/f84fe470709e5ab9515649a1a0891e279693d1b3",
+                "reference": "f84fe470709e5ab9515649a1a0891e279693d1b3",
                 "shasum": ""
             },
             "require": {
@@ -110,7 +110,7 @@
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
                 "ext-sockets": "To use client-side monitoring"
             },
-            "time": "2024-01-22T19:11:58+00:00",
+            "time": "2024-01-23T20:32:59+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -151,7 +151,7 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.296.7"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.296.8"
             },
             "install-path": "../aws/aws-sdk-php"
         },
@@ -1823,17 +1823,17 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v10.41.0",
-            "version_normalized": "10.41.0.0",
+            "version": "v10.42.0",
+            "version_normalized": "10.42.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "da31969bd35e6ee0bbcd9e876f88952dc754b012"
+                "reference": "fef1aff874a6749c44f8e142e5764eab8cb96890"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/da31969bd35e6ee0bbcd9e876f88952dc754b012",
-                "reference": "da31969bd35e6ee0bbcd9e876f88952dc754b012",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/fef1aff874a6749c44f8e142e5764eab8cb96890",
+                "reference": "fef1aff874a6749c44f8e142e5764eab8cb96890",
                 "shasum": ""
             },
             "require": {
@@ -1982,7 +1982,7 @@
                 "symfony/postmark-mailer": "Required to enable support for the Postmark mail transport (^6.2).",
                 "symfony/psr-http-message-bridge": "Required to use PSR-7 bridging features (^2.0)."
             },
-            "time": "2024-01-16T15:23:58+00:00",
+            "time": "2024-01-23T15:07:56+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -3420,17 +3420,17 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.72.1",
-            "version_normalized": "2.72.1.0",
+            "version": "2.72.2",
+            "version_normalized": "2.72.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "2b3b3db0a2d0556a177392ff1a3bf5608fa09f78"
+                "reference": "3e7edc41b58d65509baeb0d4a14c8fa41d627130"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/2b3b3db0a2d0556a177392ff1a3bf5608fa09f78",
-                "reference": "2b3b3db0a2d0556a177392ff1a3bf5608fa09f78",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/3e7edc41b58d65509baeb0d4a14c8fa41d627130",
+                "reference": "3e7edc41b58d65509baeb0d4a14c8fa41d627130",
                 "shasum": ""
             },
             "require": {
@@ -3458,7 +3458,7 @@
                 "phpunit/phpunit": "^7.5.20 || ^8.5.26 || ^9.5.20",
                 "squizlabs/php_codesniffer": "^3.4"
             },
-            "time": "2023-12-08T23:47:49+00:00",
+            "time": "2024-01-19T00:21:53+00:00",
             "bin": [
                 "bin/carbon"
             ],
