@@ -24,57 +24,64 @@ class AdvanceRequestController extends Controller
     public function index(Request $request)
     {
         try {
-            $varAPIWebToken = Session::get('SessionLogin');
 
-            if (Redis::get("DocumentType") == null) {
+            if (in_array("Module.Finance.Advance.Transaction", $this->GetPrivilageMenu(), TRUE)) {
 
                 $varAPIWebToken = Session::get('SessionLogin');
-                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken,
-                    'transaction.read.dataList.master.getBusinessDocumentType',
-                    'latest',
-                    [
-                        'parameter' => [],
-                        'SQLStatement' => [
-                            'pick' => null,
-                            'sort' => null,
-                            'filter' => null,
-                            'paging' => null
-                        ]
-                    ],
-                    false
+
+                if (Redis::get("DocumentType") == null) {
+
+                    $varAPIWebToken = Session::get('SessionLogin');
+                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken,
+                        'transaction.read.dataList.master.getBusinessDocumentType',
+                        'latest',
+                        [
+                            'parameter' => [],
+                            'SQLStatement' => [
+                                'pick' => null,
+                                'sort' => null,
+                                'filter' => null,
+                                'paging' => null
+                            ]
+                        ],
+                        false
+                    );
+                }
+
+                $DocumentType = json_decode(
+                    \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        "DocumentType"
+                    ),
+                    true
                 );
+                $collection = collect($DocumentType);
+                $collection = $collection->where('Name', "Advance Form");
+                foreach ($collection->all() as $collections) {
+                    $DocumentTypeID = $collections['Sys_ID'];
+                }
+
+                $var = 0;
+                if (!empty($_GET['var'])) {
+                    $var =  $_GET['var'];
+                }
+
+
+                $compact = [
+                    'var' => $var,
+                    'varAPIWebToken' => $varAPIWebToken,
+                    'DocumentTypeID' => $DocumentTypeID,
+                    'statusRevisi' => 0,
+
+                ];
+
+                return view('Advance.Advance.Transactions.CreateAdvanceRequest', $compact);
             }
-
-            $DocumentType = json_decode(
-                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    "DocumentType"
-                ),
-                true
-            );
-            $collection = collect($DocumentType);
-            $collection = $collection->where('Name', "Advance Form");
-            foreach ($collection->all() as $collections) {
-                $DocumentTypeID = $collections['Sys_ID'];
+            else{
+                return redirect('dashboard')->with('NotFound', 'Process Error');
             }
-
-            $var = 0;
-            if (!empty($_GET['var'])) {
-                $var =  $_GET['var'];
-            }
-            
-
-            $compact = [
-                'var' => $var,
-                'varAPIWebToken' => $varAPIWebToken,
-                'DocumentTypeID' => $DocumentTypeID,
-                'statusRevisi' => 0,
-
-            ];
-
-            return view('Advance.Advance.Transactions.CreateAdvanceRequest', $compact);
         } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
@@ -310,7 +317,7 @@ class AdvanceRequestController extends Controller
             $compact = [
                 "status" => 500
             ];
-            
+
             return response()->json($compact);
         }
     }
