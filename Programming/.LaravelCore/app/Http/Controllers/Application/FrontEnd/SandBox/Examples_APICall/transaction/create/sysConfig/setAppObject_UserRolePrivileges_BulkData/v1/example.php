@@ -4,22 +4,23 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\sysConfig                 |
-|                 \setAppObject_UserRolePrivileges\v1                                                                              |
-| ▪ API Key     : transaction.create.sysConfig.setAppObject_UserRolePrivileges                                                     |
+|                 \setAppObject_UserRolePrivileges_BulkData\v1                                                                     |
+| ▪ API Key     : transaction.create.sysConfig.setAppObject_UserRolePrivileges_BulkData                                            |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\sysConfig\setAppObject_UserRolePrivileges\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\sysConfig\setAppObject_UserRolePrivileges_BulkData\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.create.sysConfig.setAppObject_UserRolePrivileges.v1_throughAPIGateway   |
+        | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
+        |                     transaction.create.sysConfig.setAppObject_UserRolePrivileges_BulkData.v1_throughAPIGateway           |
         |                     ► http://172.28.0.4/                                                                                 |
-        |                       transaction.create.sysConfig.setAppObject_UserRolePrivileges.v1_throughAPIGateway                  |
+        |                       transaction.create.sysConfig.setAppObject_UserRolePrivileges_BulkData.v1_throughAPIGateway         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2024-01-25                                                                                           |
@@ -36,7 +37,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'transaction.create.sysConfig.setAppObject_UserRolePrivileges', 
+                'transaction.create.sysConfig.setAppObject_UserRolePrivileges_BulkData', 
                 'latest', 
                 [
                 'entities' => [
@@ -61,9 +62,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
-        |                     transaction.create.sysConfig.setAppObject_UserRolePrivileges.v1_throughAPIGatewayJQuery              |
+        |                     transaction.create.sysConfig.setAppObject_UserRolePrivileges_BulkData.v1_throughAPIGatewayJQuery     |
         |                     ► http://172.28.0.4/                                                                                 |
-        |                       transaction.create.sysConfig.setAppObject_UserRolePrivileges.v1_throughAPIGatewayJQuery            |
+        |                       transaction.create.sysConfig.setAppObject_UserRolePrivileges_BulkData.v1_throughAPIGatewayJQuery   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2024-01-25                                                                                           |
@@ -98,7 +99,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
-                'transaction.create.sysConfig.setAppObject_UserRolePrivileges', 
+                'transaction.create.sysConfig.setAppObject_UserRolePrivileges_BulkData', 
                 'latest', 
                 '{'.
                     '"entities" : {'.

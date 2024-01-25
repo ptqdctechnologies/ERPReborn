@@ -4,20 +4,20 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\sysConfig                             |
-|                \setAppObject_UserRolePrivileges\v1                                                                               |
+|                \setAppObject_UserRolePrivileges_BulkData\v1                                                                      |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\sysConfig\setAppObject_UserRolePrivileges\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\sysConfig\setAppObject_UserRolePrivileges_BulkData\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setAppObject_UserRolePrivileges                                                                              |
-    | ▪ Description : Menangani API transaction.create.sysConfig.setAppObject_UserRolePrivileges Version 1                         |
+    | ▪ Class Name  : setAppObject_UserRolePrivileges_BulkData                                                                     |
+    | ▪ Description : Menangani API transaction.create.sysConfig.setAppObject_UserRolePrivileges_BulkData Version 1                |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setAppObject_UserRolePrivileges extends \App\Http\Controllers\Controller
+    class setAppObject_UserRolePrivileges_BulkData extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -59,14 +59,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create User Role Privileges Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create User Role Privileges Bulk Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
                         if (!($varDataSend = 
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate(
                                 $varUserSession, 
-                                (new \App\Models\Database\SchSysConfig\TblAppObject_UserRolePrivileges())->setDataInsert(
+                                (new \App\Models\Database\SchSysConfig\TblAppObject_UserRolePrivileges())->setDataInsert_BulkData(
                                     $varUserSession, 
                                     null, 
                                     null,
