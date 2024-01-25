@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.update.sysConfig.setWorkFlow (version 1)",
+"description": "JSON Request Schema of transaction.update.sysConfig.setAppObject_WorkFlow (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.update.sysConfig.setWorkFlow" ]
+                        "enum": [ "transaction.update.sysConfig.setAppObject_WorkFlow" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -19,10 +19,15 @@
                         "minLength": 1
                         }
                     },
-                "required": [ "key", "version" ]
+                "required": [
+                    "key",
+                    "version"
+                    ]
                 }
             },
-        "required": [ "API" ]
+        "required": [
+            "API"
+            ]
         },
     "data": {
         "type": "object",
@@ -45,11 +50,20 @@
                         "maxLength": 512
                         }
                     },
-                "required": [ "JSONDataInitGraph", "remarks" ]
+                "required": [
+                    "JSONDataInitGraph",
+                    "remarks"
+                    ]
                 }
             },
-        "required": [ "recordID", "entities" ]
+        "required": [
+            "recordID",
+            "entities"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }

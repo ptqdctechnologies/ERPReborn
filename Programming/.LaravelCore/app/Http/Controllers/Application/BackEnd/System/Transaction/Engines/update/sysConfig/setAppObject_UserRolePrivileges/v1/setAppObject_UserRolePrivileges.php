@@ -4,28 +4,28 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\sysConfig                             |
-|                \setLog_BusinessDocumentWorkFlowPath\v1                                                                           |
+|                \setAppObject_UserRolePrivileges\v1                                                                               |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\sysConfig\setLog_BusinessDocumentWorkFlowPath\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\sysConfig\setAppObject_UserRolePrivileges\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setLog_BusinessDocumentWorkFlowPath                                                                          |
-    | ▪ Description : Menangani API transaction.update.sysConfig.setLog_BusinessDocumentWorkFlowPath Version 1                     |
+    | ▪ Class Name  : setAppObject_UserRolePrivileges                                                                              |
+    | ▪ Description : Menangani API transaction.update.sysConfig.setAppObject_UserRolePrivileges Version 1                         |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setLog_BusinessDocumentWorkFlowPath extends \App\Http\Controllers\Controller
+    class setAppObject_UserRolePrivileges extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-03-06                                                                                           |
-        | ▪ Creation Date   : 2023-03-06                                                                                           |
+        | ▪ Last Update     : 2024-01-25                                                                                           |
+        | ▪ Creation Date   : 2024-01-25                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-03-06                                                                                           |
-        | ▪ Creation Date   : 2023-03-06                                                                                           |
+        | ▪ Last Update     : 2024-01-25                                                                                           |
+        | ▪ Creation Date   : 2024-01-25                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -59,24 +59,23 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Update Log Business Document WorkFlow Path Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Update User Role Privileges Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
                         if (!($varDataSend = 
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate(
                                 $varUserSession, 
-                                (new \App\Models\Database\SchSysConfig\TblLog_BusinessDocumentWorkFlowPath())->setDataUpdate(
+                                (new \App\Models\Database\SchSysConfig\TblAppObject_UserRolePrivileges())->setDataUpdate(
                                     $varUserSession,
-                                    $varData['recordID'],
+                                    null, //$varData['recordID'],
                                     null,
                                     null,
                                     (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                                     \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
 
-                                    $varData['entities']['businessDocument_RefID'],
-                                    $varData['entities']['lastLog_BusinessDocumentWorkFlowPathHistory_RefID'],
-                                    $varData['entities']['signActive']
+                                    $varData['entities']['userRole_RefID'],
+                                    $varData['entities']['menuAction_RefIDArray']
                                     )
                                 )
                             ))

@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.update.sysConfig.setLog_BusinessDocumentWorkFlowPath (version 1)",
+"description": "JSON Request Schema of transaction.create.sysConfig.setAppObject_UserRolePrivileges (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.update.sysConfig.setLog_BusinessDocumentWorkFlowPath" ]
+                        "enum": [ "transaction.create.sysConfig.setAppObject_UserRolePrivileges" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -32,37 +32,28 @@
     "data": {
         "type": "object",
         "properties": {
-            "recordID" : {
-                "type": "integer",
-                "minimum": 1,
-                "maximum": 9223372036854775807
-                },
             "entities" : {
                 "type": "object",
                 "properties": {
-                    "businessDocument_RefID": {
-                        "type": [ "integer", "null" ],
+                    "userRole_RefID": {
+                        "type": [ "integer" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         },
-                    "lastLog_BusinessDocumentWorkFlowPathHistory_RefID": {
-                        "type": [ "integer", "null" ],
-                        "minimum": 1,
-                        "maximum": 9223372036854775807
-                        },
-                    "signActive": {
-                        "type": [ "boolean", "null" ]
+                    "menuAction_RefIDArray": {
+                        "type": [ "array" ],
+                        "items": {
+                            "type": "number"
+                            }
                         }
                     },
-                "required": [ 
-                    "businessDocument_RefID",
-                    "lastLog_BusinessDocumentWorkFlowPathHistory_RefID",
-                    "signActive"
+                "required": [
+                    "userRole_RefID",
+                    "menuAction_RefIDArray"
                     ]
                 }
             },
-        "required": [
-            "recordID",
+        "required": [ 
             "entities"
             ]
         }
