@@ -62,16 +62,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.296.6",
+            "version": "3.297.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "11d0a94f8b2539d587e2f6db7c2fa8e39fe78a67"
+                "reference": "ad1f7be78d74d48628a6fe345818ce53bae64169"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/11d0a94f8b2539d587e2f6db7c2fa8e39fe78a67",
-                "reference": "11d0a94f8b2539d587e2f6db7c2fa8e39fe78a67",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ad1f7be78d74d48628a6fe345818ce53bae64169",
+                "reference": "ad1f7be78d74d48628a6fe345818ce53bae64169",
                 "shasum": ""
             },
             "require": {
@@ -151,9 +151,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.296.6"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.297.0"
             },
-            "time": "2024-01-19T19:14:55+00:00"
+            "time": "2024-01-24T19:09:39+00:00"
         },
         {
             "name": "brick/math",
@@ -780,16 +780,16 @@
         },
         {
             "name": "elibyy/tcpdf-laravel",
-            "version": "10.0.2",
+            "version": "10.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elibyy/tcpdf-laravel.git",
-                "reference": "edc3318607370b9367748565446c0bb53c17da6f"
+                "reference": "290ad7bc5acf424d3f1c6208f3efd13906b6b9f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elibyy/tcpdf-laravel/zipball/edc3318607370b9367748565446c0bb53c17da6f",
-                "reference": "edc3318607370b9367748565446c0bb53c17da6f",
+                "url": "https://api.github.com/repos/elibyy/tcpdf-laravel/zipball/290ad7bc5acf424d3f1c6208f3efd13906b6b9f5",
+                "reference": "290ad7bc5acf424d3f1c6208f3efd13906b6b9f5",
                 "shasum": ""
             },
             "require": {
@@ -830,9 +830,9 @@
             ],
             "support": {
                 "issues": "https://github.com/elibyy/tcpdf-laravel/issues",
-                "source": "https://github.com/elibyy/tcpdf-laravel/tree/10.0.2"
+                "source": "https://github.com/elibyy/tcpdf-laravel/tree/10.0.3"
             },
-            "time": "2023-11-20T08:37:17+00:00"
+            "time": "2024-01-24T11:05:55+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -1636,16 +1636,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v10.41.0",
+            "version": "v10.42.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "da31969bd35e6ee0bbcd9e876f88952dc754b012"
+                "reference": "fef1aff874a6749c44f8e142e5764eab8cb96890"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/da31969bd35e6ee0bbcd9e876f88952dc754b012",
-                "reference": "da31969bd35e6ee0bbcd9e876f88952dc754b012",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/fef1aff874a6749c44f8e142e5764eab8cb96890",
+                "reference": "fef1aff874a6749c44f8e142e5764eab8cb96890",
                 "shasum": ""
             },
             "require": {
@@ -1837,7 +1837,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2024-01-16T15:23:58+00:00"
+            "time": "2024-01-23T15:07:56+00:00"
         },
         {
             "name": "laravel/prompts",
@@ -3031,16 +3031,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.72.1",
+            "version": "2.72.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "2b3b3db0a2d0556a177392ff1a3bf5608fa09f78"
+                "reference": "3e7edc41b58d65509baeb0d4a14c8fa41d627130"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/2b3b3db0a2d0556a177392ff1a3bf5608fa09f78",
-                "reference": "2b3b3db0a2d0556a177392ff1a3bf5608fa09f78",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/3e7edc41b58d65509baeb0d4a14c8fa41d627130",
+                "reference": "3e7edc41b58d65509baeb0d4a14c8fa41d627130",
                 "shasum": ""
             },
             "require": {
@@ -3134,7 +3134,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-12-08T23:47:49+00:00"
+            "time": "2024-01-19T00:21:53+00:00"
         },
         {
             "name": "nette/schema",
