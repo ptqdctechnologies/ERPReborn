@@ -61,16 +61,21 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate($varUserSession, (new \App\Models\Database\SchData_OLTP_Project\TblProjectSection())->setDataUpdate(
-                            $varUserSession,
-                            $varData['recordID'],
-                            null,
-                            null,
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            $varData['entities']['businessDocumentVersion_RefID'],
-                            $varData['entities']['project_RefID'],
-                            $varData['entities']['name']
-                            ))))
+                        if (!($varDataSend = 
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate(
+                                $varUserSession,
+                                (new \App\Models\Database\SchData_OLTP_Project\TblProjectSection())->setDataUpdate(
+                                    $varUserSession,
+                                    $varData['recordID'],
+                                    null,
+                                    null,
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+
+                                    $varData['entities']['project_RefID'],
+                                    $varData['entities']['name']
+                                    )
+                                )
+                            ))
                             {
                             throw new \Exception();
                             }
