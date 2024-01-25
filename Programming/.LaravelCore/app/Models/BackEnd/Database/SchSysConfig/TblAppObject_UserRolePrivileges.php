@@ -41,7 +41,7 @@ namespace App\Models\Database\SchSysConfig
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : setDataInsert                                                                                        |
+        | ▪ Method Name     : setDataInsert_BulkData                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2024-01-25                                                                                           |
@@ -63,7 +63,7 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function setDataInsert(
+        public function setDataInsert_BulkData(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
             int $varUserRole_RefID = null, array $varMenuAction_RefIDArray = [])
@@ -95,7 +95,7 @@ namespace App\Models\Database\SchSysConfig
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : setDataUpdate                                                                                        |
+        | ▪ Method Name     : setDataUpdate_BulkData                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2024-01-25                                                                                           |
@@ -118,7 +118,7 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function setDataUpdate(
+        public function setDataUpdate_BulkData(
             $varUserSession, 
             int $varSysID = null, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
             int $varUserRole_RefID = null, array $varMenuAction_RefIDArray = [])
