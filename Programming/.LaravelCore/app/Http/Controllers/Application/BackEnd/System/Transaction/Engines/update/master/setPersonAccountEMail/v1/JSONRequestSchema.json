@@ -19,10 +19,15 @@
                         "minLength": 1
                         }
                     },
-                "required": [ "key", "version" ]
+                "required": [
+                    "key",
+                    "version"
+                    ]
                 }
             },
-        "required": [ "API" ]
+        "required": [
+            "API"
+            ]
         },
     "data": {
         "type": "object",
@@ -46,11 +51,20 @@
                         "maxLength": 256
                         }
                     },
-                "required": [ "person_RefID", "account" ]
+                "required": [
+                    "person_RefID",
+                    "account"
+                    ]
                 }
             },
-        "required": [ "recordID", "entities" ]
+        "required": [
+            "recordID",
+            "entities"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }
