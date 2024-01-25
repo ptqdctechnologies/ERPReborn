@@ -24,6 +24,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-03-10                                                                                           |
+        | ▪ Creation Date   : 2022-03-10                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,6 +44,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-03-10                                                                                           |
+        | ▪ Creation Date   : 2022-03-10                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -61,23 +63,26 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
 //                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate($varUserSession, (new \App\Models\Database\SchData_OLTP_SupplyChain\TblDeliveryOrderDetail())->setDataUpdate(
-                        if(!($varDataSend = (new \App\Models\Database\SchData_OLTP_SupplyChain\TblDeliveryOrderDetail())->setDataUpdate(
-                            $varUserSession,
-                            $varData['recordID'],
-                            null,
-                            null,
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            $varData['entities']['deliveryOrder_RefID'],
-                            $varData['entities']['referenceDocument_RefID'],
-                            $varData['entities']['quantity'],
-                            $varData['entities']['quantityUnit_RefID'],
-                            $varData['entities']['remarks']
+                        if(!($varDataSend = 
+                            (new \App\Models\Database\SchData_OLTP_SupplyChain\TblDeliveryOrderDetail())->setDataUpdate(
+                                $varUserSession,
+                                $varData['recordID'],
+                                null,
+                                null,
+                                (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+
+                                $varData['entities']['deliveryOrder_RefID'],
+                                $varData['entities']['referenceDocument_RefID'],
+                                $varData['entities']['quantity'],
+                                $varData['entities']['quantityUnit_RefID'],
+                                $varData['entities']['remarks']
 //                            ))))
-                            )))
+                                )
+                            ))
                             {
                             throw new \Exception();
                             }
-$varDataSend = ['zzz' => $varDataSend];
+                        //$varDataSend = ['zzz' => $varDataSend];
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
