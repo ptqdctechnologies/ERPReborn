@@ -15,6 +15,21 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+
+    public function GetPrivilageMenu()
+    {
+        $SessionWorkerCareerInternal_RefID =  Session::get('SessionWorkerCareerInternal_RefID');
+        $privilageMenu = json_decode(
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "RedisGetMenu" . $SessionWorkerCareerInternal_RefID
+            ),
+            true
+        );
+
+        return $privilageMenu;
+    
+    }
     public function SelectWorkFlow(Request $request)
     {
         try {
