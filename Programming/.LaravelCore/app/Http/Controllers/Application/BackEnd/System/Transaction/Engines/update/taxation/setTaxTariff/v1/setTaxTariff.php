@@ -23,8 +23,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-03-15                                                                                           |
         | ▪ Last Update     : 2022-03-15                                                                                           |
+        | ▪ Creation Date   : 2022-03-15                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,8 +43,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-03-15                                                                                           |
         | ▪ Last Update     : 2022-03-15                                                                                           |
+        | ▪ Creation Date   : 2022-03-15                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -61,21 +61,27 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Update Tax Tariff Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate($varUserSession, (new \App\Models\Database\SchData_OLTP_Taxation\TblTaxTariff())->setDataUpdate(
-                            $varUserSession,
-                            $varData['recordID'],
-                            null,
-                            null,
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            $varData['entities']['taxType_RefID'],
-                            $varData['entities']['validStartDateTimeTZ'],
-                            $varData['entities']['validFinishDateTimeTZ'],
-                            $varData['entities']['tariffMinimumRate'],
-                            $varData['entities']['tariffMaximumRate'],
-                            $varData['entities']['roundUnit'],
-                            $varData['entities']['signRoundUp']
-                            ))))
+                    try {
+                        if (!($varDataSend = 
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate(
+                                $varUserSession, 
+                                (new \App\Models\Database\SchData_OLTP_Taxation\TblTaxTariff())->setDataUpdate(
+                                    $varUserSession,
+                                    $varData['recordID'],
+                                    null,
+                                    null,
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+
+                                    $varData['entities']['taxType_RefID'],
+                                    $varData['entities']['validStartDateTimeTZ'],
+                                    $varData['entities']['validFinishDateTimeTZ'],
+                                    $varData['entities']['tariffMinimumRate'],
+                                    $varData['entities']['tariffMaximumRate'],
+                                    $varData['entities']['roundUnit'],
+                                    $varData['entities']['signRoundUp']
+                                    )
+                                )
+                            ))
                             {
                             throw new \Exception();
                             }
