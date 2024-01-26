@@ -2,39 +2,39 @@
 <script>
     $("#user_role_popup").prop("disabled", true);
     $("#SavePrivilageMenu").prop("disabled", true);
-    $("#Modul").prop("disabled", true);
+    // $("#Modul").prop("disabled", true);
     var checkedValue = [];
+    var checkedValueAction = [];
 </script>
 
 <script>
     $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    $.ajax({
-        type: 'GET',
-        url: '{!! route("getMenuGroup") !!}',
-        success: function(data) {
-            $(".Modul").empty();
-
-            var option = "<option value='" + '' + "'>" + 'Select Modul' + "</option>";
-            $(".Modul").append(option);
-
-            var len = data.length;
-            for (var i = 0; i < len; i++) {
-                var ids = data[i].Sys_ID;
-                var names = data[i].Name;
-                var option2 = "<option value='" + ids + "'>" + names + "</option>";
-                $(".Modul").append(option2);
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
-        }
-    });
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getMenuGroup") !!}',
+            success: function(data) {
+                $(".Modul").empty();
+
+                var option = "<option value='" + '' + "'>" + 'Select Modul' + "</option>";
+                $(".Modul").append(option);
+
+                var len = data.length;
+                for (var i = 0; i < len; i++) {
+                    var ids = data[i].Sys_ID;
+                    var names = data[i].Name;
+                    var option2 = "<option value='" + ids + "'>" + names + "</option>";
+                    $(".Modul").append(option2);
+                }
+            }
+        });
 </script>
 
 <script>
-
 
     $('#Modul').on("select2:select", function(e) {
 
@@ -53,7 +53,7 @@
             success: function(data) {
 
                 $.each(data, function(key, val) {
-
+                    
                     keys += 1;
 
                     $('#SelectAll').prop("checked", false);
@@ -80,17 +80,20 @@
                     var ActionUpdateID = 0;
                     var ActionDeleteID = 0;
 
-                    for (var n = 0; n < checkedValue.length; n++) {
+                    var checkedValueTotal = checkedValue.length + checkedValueAction.length;
+
+                    for (var n = 0; n < checkedValueTotal; n++) {
                         if (checkedValue[n] == val.Sys_ID) {
                             checkedSubMenu = "checked";
-                            continue;
+                            // continue;
                         }
 
                         for (var i = 0; i < val.MenuAction.length; i++) {
 
                             if(val.MenuAction[i]['entities']['caption'] == "Create"){
 
-                                if (checkedValue[n] == val.MenuAction[i]['recordID']) {
+                                if (checkedValueAction[n] == val.MenuAction[i]['recordID']) {
+
                                     checkedSubMenuCreate = "checked";
                                     disabledSubMenuCreate = "";
                                     continue;
@@ -99,7 +102,7 @@
                             }
                             if(val.MenuAction[i]['entities']['caption'] == "Read"){
 
-                                if (checkedValue[n] == val.MenuAction[i]['recordID']) {
+                                if (checkedValueAction[n] == val.MenuAction[i]['recordID']) {
                                     checkedSubMenuRead = "checked";
                                     disabledSubMenuRead = "";
                                     continue;
@@ -108,7 +111,7 @@
                             }
                             if(val.MenuAction[i]['entities']['caption'] == "Edit"){
                                 
-                                if (checkedValue[n] == val.MenuAction[i]['recordID']) {
+                                if (checkedValueAction[n] == val.MenuAction[i]['recordID']) {
                                     checkedSubMenuUpdate = "checked";
                                     disabledSubMenuUpdate = "";
                                     continue;
@@ -117,7 +120,7 @@
                             }
                             if(val.MenuAction[i]['entities']['caption'] == "Delete"){
                                 
-                                if (checkedValue[n] == val.MenuAction[i]['recordID']) {
+                                if (checkedValueAction[n] == val.MenuAction[i]['recordID']) {
                                     checkedSubMenuDelete = "checked";
                                     disabledSubMenuDelete = "";
                                     continue;
@@ -189,6 +192,13 @@
                         '</tr>';
                     $('table.TableSubMenu tbody').append(html);
 
+                    if(checkedValue.length > 0){
+                        $("#SavePrivilageMenu").prop("disabled", false);
+                    }
+                    else{
+                        $("#SavePrivilageMenu").prop("disabled", true);
+                    }
+
                 });
 
                 $('.Sub_Menu').click(function() {
@@ -218,14 +228,14 @@
                     var id = $(this).val();
                     if ($(this).is(":checked")) {
                         $('#UnSelectAll').prop("checked", false);
-                        checkedValue.push(id);
+                        checkedValueAction.push(id);
 
                     } else {
                         $('#SelectAll').prop("checked", false);
-                        var result = checkedValue.filter(function(elem) {
+                        var result = checkedValueAction.filter(function(elem) {
                             return elem != id;
                         });
-                        checkedValue = result;
+                        checkedValueAction = result;
                     }
                 });
 
@@ -233,14 +243,14 @@
                     var id = $(this).val();
                     if ($(this).is(":checked")) {
                         $('#UnSelectAll').prop("checked", false);
-                        checkedValue.push(id);
+                        checkedValueAction.push(id);
 
                     } else {
                         $('#SelectAll').prop("checked", false);
-                        var result = checkedValue.filter(function(elem) {
+                        var result = checkedValueAction.filter(function(elem) {
                             return elem != id;
                         });
-                        checkedValue = result;
+                        checkedValueAction = result;
                     }
                 });
 
@@ -248,14 +258,14 @@
                     var id = $(this).val();
                     if ($(this).is(":checked")) {
                         $('#UnSelectAll').prop("checked", false);
-                        checkedValue.push(id);
+                        checkedValueAction.push(id);
 
                     } else {
                         $('#SelectAll').prop("checked", false);
-                        var result = checkedValue.filter(function(elem) {
+                        var result = checkedValueAction.filter(function(elem) {
                             return elem != id;
                         });
-                        checkedValue = result;
+                        checkedValueAction = result;
                     }
                 });
 
@@ -263,14 +273,14 @@
                     var id = $(this).val();
                     if ($(this).is(":checked")) {
                         $('#UnSelectAll').prop("checked", false);
-                        checkedValue.push(id);
+                        checkedValueAction.push(id);
 
                     } else {
                         $('#SelectAll').prop("checked", false);
-                        var result = checkedValue.filter(function(elem) {
+                        var result = checkedValueAction.filter(function(elem) {
                             return elem != id;
                         });
-                        checkedValue = result;
+                        checkedValueAction = result;
                     }
                 });
             }
@@ -329,25 +339,25 @@
             var Sub_Menu_Update = document.getElementById('Sub_Menu_Update' + key);
             var Sub_Menu_Delete = document.getElementById('Sub_Menu_Delete' + key);
 
-            var result = checkedValue.filter(function(elem) {
+            var result = checkedValueAction.filter(function(elem) {
                 return elem != Sub_Menu_Create.value;
             });
-            checkedValue = result;
+            checkedValueAction = result;
 
-            var result2 = checkedValue.filter(function(elem) {
+            var result2 = checkedValueAction.filter(function(elem) {
                 return elem != Sub_Menu_Read.value;
             });
-            checkedValue = result2;
+            checkedValueAction = result2;
 
-            var result3 = checkedValue.filter(function(elem) {
+            var result3 = checkedValueAction.filter(function(elem) {
                 return elem != Sub_Menu_Update.value;
             });
-            checkedValue = result3;
+            checkedValueAction = result3;
 
-            var result4 = checkedValue.filter(function(elem) {
+            var result4 = checkedValueAction.filter(function(elem) {
                 return elem != Sub_Menu_Delete.value;
             });
-            checkedValue = result4;
+            checkedValueAction = result4;
         }
     }
 </script>
@@ -376,7 +386,7 @@
                     
                     if(value.value != 0){
 
-                        checkedValue.push(value.value);
+                        checkedValueAction.push(value.value);
 
                         $("#Sub_Menu_Create" + keys).prop("checked", true);
                         $("#Sub_Menu_Create" + keys).prop("disabled", false);
@@ -395,7 +405,7 @@
                     
                     if(value.value != 0){
 
-                        checkedValue.push(value.value);
+                        checkedValueAction.push(value.value);
 
                         $("#Sub_Menu_Read" + keys).prop("checked", true);
                         $("#Sub_Menu_Read" + keys).prop("disabled", false);
@@ -414,7 +424,7 @@
                     
                     if(value.value != 0){
 
-                        checkedValue.push(value.value);
+                        checkedValueAction.push(value.value);
 
                         $("#Sub_Menu_Update" + keys).prop("checked", true);
                         $("#Sub_Menu_Update" + keys).prop("disabled", false);
@@ -433,7 +443,7 @@
                     
                     if(value.value != 0){
 
-                        checkedValue.push(value.value);
+                        checkedValueAction.push(value.value);
 
                         $("#Sub_Menu_Delete" + keys).prop("checked", true);
                         $("#Sub_Menu_Delete" + keys).prop("disabled", false);
@@ -454,13 +464,13 @@
                     }
                 });
                 $.each(sub_Menu_Create, function(key, value) {
-                    if(!checkedValue.includes(value.value)){
-                        // checkedValue.push(value.value);
+                    if(!checkedValueAction.includes(value.value)){
+                        // checkedValueAction.push(value.value);
                         var keys  = key + 1;
                     
                         if(value.value != 0){
 
-                            checkedValue.push(value.value);
+                            checkedValueAction.push(value.value);
 
                             $("#Sub_Menu_Create" + keys).prop("checked", true);
                             $("#Sub_Menu_Create" + keys).prop("disabled", false);
@@ -475,13 +485,13 @@
                     
                 });
                 $.each(sub_Menu_Read, function(key, value) {
-                    if(!checkedValue.includes(value.value)){
-                        // checkedValue.push(value.value);
+                    if(!checkedValueAction.includes(value.value)){
+                        // checkedValueAction.push(value.value);
                         var keys  = key + 1;
                     
                         if(value.value != 0){
 
-                            checkedValue.push(value.value);
+                            checkedValueAction.push(value.value);
 
                             $("#Sub_Menu_Read" + keys).prop("checked", true);
                             $("#Sub_Menu_Read" + keys).prop("disabled", false);
@@ -494,13 +504,13 @@
                     }
                 });
                 $.each(sub_Menu_Update, function(key, value) {
-                    if(!checkedValue.includes(value.value)){
-                        // checkedValue.push(value.value);
+                    if(!checkedValueAction.includes(value.value)){
+                        // checkedValueAction.push(value.value);
                         var keys  = key + 1;
                     
                         if(value.value != 0){
 
-                            checkedValue.push(value.value);
+                            checkedValueAction.push(value.value);
 
                             $("#Sub_Menu_Update" + keys).prop("checked", true);
                             $("#Sub_Menu_Update" + keys).prop("disabled", false);
@@ -513,13 +523,13 @@
                     }
                 });
                 $.each(sub_Menu_Delete, function(key, value) {
-                    if(!checkedValue.includes(value.value)){
-                        // checkedValue.push(value.value);
+                    if(!checkedValueAction.includes(value.value)){
+                        // checkedValueAction.push(value.value);
                         var keys  = key + 1;
                     
                         if(value.value != 0){
 
-                            checkedValue.push(value.value);
+                            checkedValueAction.push(value.value);
 
                             $("#Sub_Menu_Delete" + keys).prop("checked", true);
                             $("#Sub_Menu_Delete" + keys).prop("disabled", false);
@@ -572,16 +582,16 @@
             checkedValue = checkedValue.filter(item => item !== value.value);
         });
         $.each(sub_Menu_Create, function(key, value) {
-            checkedValue = checkedValue.filter(item => item !== value.value);
+            checkedValueAction = checkedValueAction.filter(item => item !== value.value);
         });
         $.each(sub_Menu_Read, function(key, value) {
-            checkedValue = checkedValue.filter(item => item !== value.value);
+            checkedValueAction = checkedValueAction.filter(item => item !== value.value);
         });
         $.each(sub_Menu_Update, function(key, value) {
-            checkedValue = checkedValue.filter(item => item !== value.value);
+            checkedValueAction = checkedValueAction.filter(item => item !== value.value);
         });
         $.each(sub_Menu_Delete, function(key, value) {
-            checkedValue = checkedValue.filter(item => item !== value.value);
+            checkedValueAction = checkedValueAction.filter(item => item !== value.value);
         });
 
         if(checkedValue.length > 0){
@@ -591,9 +601,6 @@
             $("#SavePrivilageMenu").prop("disabled", true);
         }
 
-
-        // console.log(checkedValue);
-
     });
 </script>
 
@@ -601,6 +608,7 @@
     $('#SavePrivilageMenu').click(function() {
 
         console.log(checkedValue);
+        console.log(checkedValueAction);
 
         const swalWithBootstrapButtons = Swal.mixin({
             confirmButtonClass: 'btn btn-success btn-sm',
@@ -624,8 +632,11 @@
 
             if (result.value) {
 
+                ShowLoading();
+
                 var data = {
                     checkedValue: checkedValue,
+                    checkedValueAction: checkedValueAction,
                     user_role_id: $("#user_role_id").val(),
                 };
 

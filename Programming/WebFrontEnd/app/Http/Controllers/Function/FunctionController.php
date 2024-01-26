@@ -498,8 +498,6 @@ class FunctionController extends Controller
             true
         );
 
-        dd($DocumentType);
-
         return response()->json($DocumentType);
     }
 
@@ -526,7 +524,7 @@ class FunctionController extends Controller
             ]
         );
 
-        // dd($varData);
+        dd($varData);
         $compact = [
             'data' => $varData['data']
         ];

@@ -23,6 +23,58 @@ class PrivilageMenuController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
+        $userRole_RefID = $request->user_role_id;
+        $menuAction_RefIDArray = $request->checkedValueAction;
+        $varAPIWebToken = Session::get('SessionLogin');
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.create.sysConfig.setAppObject_UserRolePrivileges_BulkData',
+            'latest',
+            [
+                'entities' => [
+                    'userRole_RefID' => (int) $userRole_RefID,
+                    'menuAction_RefIDArray' => array_map('intval', $menuAction_RefIDArray)
+
+                ]
+            ]
+        );
+
+
+        $compact = [
+            "status" => $varData['metadata']['HTTPStatusCode'],
+        ];
+
+
+        // dd($compact);
+        return response()->json($compact);
+    }
+
+    public function DataListPrivilageMenu(Request $request)
+    {
+
+        $sys_id_role = $request->input('sys_id_role');
+        
+        $varAPIWebToken = Session::get('SessionLogin');
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.sysConfig.getAppObject_UserRolePrivileges',
+            'latest',
+            [
+                'parameter' => [
+                    'userRole_RefID' => (int) $sys_id_role
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ]
+        );
+
+        return response()->json($varData['data']);
     }
 }

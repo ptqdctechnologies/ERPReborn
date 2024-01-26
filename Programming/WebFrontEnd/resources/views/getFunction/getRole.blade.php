@@ -80,5 +80,56 @@
 
         $("#Modul").prop("disabled", false);
 
+        $('#TableSubMenu').find('tbody').empty();
+
+        checkedValue = [];
+        checkedValueAction = [];
+        
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getMenuGroup") !!}',
+            success: function(data) {
+                $(".Modul").empty();
+
+                var option = "<option value='" + '' + "'>" + 'Select Modul' + "</option>";
+                $(".Modul").append(option);
+
+                var len = data.length;
+                for (var i = 0; i < len; i++) {
+                    var ids = data[i].Sys_ID;
+                    var names = data[i].Name;
+                    var option2 = "<option value='" + ids + "'>" + names + "</option>";
+                    $(".Modul").append(option2);
+                }
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("PrivilageMenu.DataListPrivilageMenu") !!}?sys_id_role=' + sys_id_role,
+            success: function(data) {
+
+                console.log(data);
+
+                var len = data.length;
+                for (var i = 0; i < len; i++) {
+
+                    if(!checkedValue.includes(data[i]['menu_RefID'])){
+                        checkedValue.push(data[i]['menu_RefID']);
+                    }
+
+                    if(!checkedValueAction.includes(data[i]['menuAction_RefID'])){
+                        checkedValueAction.push(data[i]['menuAction_RefID']);
+                    }
+                }
+            }
+        });
+        console.log(checkedValue);
     });
 </script>
