@@ -1197,7 +1197,6 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataList_AppObject_MenuGroupMember                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
-
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2024-01-17                                                                                           |
         | ▪ Creation Date   : 2024-01-17                                                                                           |
@@ -1247,7 +1246,6 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataList_AppObject_UserRole                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
-
         | ▪ Version         : 1.0001.0000000                                                                                       |
         | ▪ Last Update     : 2024-01-16                                                                                           |
         | ▪ Creation Date   : 2022-12-30                                                                                           |
@@ -1374,6 +1372,55 @@ namespace App\Models\Database\SchSysConfig
                             [$varBranchID, 'bigint'],
                             
                             [$varUserRoleGroup_RefID, 'bigint'],
+
+                            [$varPickStatement, 'varchar'],
+                            [$varSortStatement, 'varchar'],
+                            [$varFilterStatement, 'varchar'],
+                            [$varPagingStatement, 'varchar']
+                        ]
+                        )
+                    );
+            return $varReturn['Data'];
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_AppObject_UserRolePrivileges                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-01-25                                                                                           |
+        | ▪ Creation Date   : 2024-01-25                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar User Role Privileges                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varUserRole_RefID ► User Role Reference ID                                                               |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_AppObject_UserRolePrivileges(
+            $varUserSession, int $varBranchID,
+            int $varUserRole_RefID = null,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_GetDataList_AppObject_UserRolePrivileges',
+                        [
+                            [$varBranchID, 'bigint'],
+                            
+                            [$varUserRole_RefID, 'bigint'],
 
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],

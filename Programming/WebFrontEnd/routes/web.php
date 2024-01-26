@@ -129,6 +129,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // CodeOfBudgeting
     Route::resource('CodeOfBudgeting', 'CodeOfBudgetingController');
     // PrivilageMenu
+    Route::get('DataListPrivilageMenu', 'Master\PrivilageMenu\PrivilageMenuController@DataListPrivilageMenu')->name('PrivilageMenu.DataListPrivilageMenu');
     Route::resource('PrivilageMenu', 'Master\PrivilageMenu\PrivilageMenuController');
 
     //Function
