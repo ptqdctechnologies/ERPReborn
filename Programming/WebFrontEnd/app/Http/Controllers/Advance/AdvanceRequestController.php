@@ -25,7 +25,7 @@ class AdvanceRequestController extends Controller
     {
         try {
 
-            if (in_array("Module.Finance.Advance.Transaction", $this->GetPrivilageMenu(), TRUE)) {
+            // if (in_array("Module.Finance.Advance.Transaction", $this->GetPrivilageMenu(), TRUE)) {
 
                 $varAPIWebToken = Session::get('SessionLogin');
 
@@ -78,10 +78,10 @@ class AdvanceRequestController extends Controller
                 ];
 
                 return view('Advance.Advance.Transactions.CreateAdvanceRequest', $compact);
-            }
-            else{
-                return redirect('dashboard')->with('NotFound', 'Process Error');
-            }
+        //     }
+        //     else{
+        //         return redirect('dashboard')->with('NotFound', 'Process Error');
+        //     }
         } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');

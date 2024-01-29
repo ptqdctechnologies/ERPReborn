@@ -524,7 +524,7 @@ class FunctionController extends Controller
             ]
         );
 
-        dd($varData);
+        // dd($varData);
         $compact = [
             'data' => $varData['data']
         ];

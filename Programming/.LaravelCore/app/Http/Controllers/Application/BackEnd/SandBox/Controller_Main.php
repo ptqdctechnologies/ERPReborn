@@ -22,12 +22,14 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
 
         {
 
-            $x = (new \App\Models\Database\SchSysConfig\General())->getDataList_AppObject_Menu(
+            $x = (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataList_CombinedBudgetSectionDetail(
                 6000000000001, 
-                11000000000004
+                11000000000004,
+                143000000000029
             );
 
             dd($x);
+
 
             dd(Redis::get("a"));
             $varReturn =
