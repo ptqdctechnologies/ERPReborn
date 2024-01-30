@@ -64,10 +64,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Login Branch And User Role (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    $varAPIWebToken = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession)['APIWebToken'];
-                    $varBranchID = $varData['branchID'];
-                    $varUserID = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession)['userID'];
-                    $varUserRoleID = $varData['userRoleID'];
+                    $varAPIWebToken = 
+                        \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession)['APIWebToken'];
+                    $varBranchID = 
+                        $varData['branchID'];
+                    $varUserID = 
+                        \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession)['userID'];
+                    $varUserRoleID = 
+                        $varData['userRoleID'];
 
 
                     //                   $varTemp = (new \App\Models\Database\SchSysConfig\General())->setUserSessionLogout($varUserSession, $varUserSession);        
@@ -249,7 +253,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                     $varUserID,
                     $varBranchID,
                     $varUserRoleID
-                );
+                    );
 
             if (is_null($varData)) {
                 $varReturn = NULL;
