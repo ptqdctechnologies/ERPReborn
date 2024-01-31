@@ -34,8 +34,7 @@
 </script>
 
 <script>
-
-    $('#Modul').on("select2:select", function(e) {
+    function TableSubMenu(ModulID, Type){
 
         var keys = 0;
 
@@ -48,25 +47,19 @@
         });
         $.ajax({
             type: 'GET',
-            url: '{!! route("getSubMenu") !!}?menu_group_id=' + $('#Modul').val(),
+            url: '{!! route("getSubMenu") !!}?menu_group_id=' + ModulID + '&type=' + Type,
             success: function(data) {
 
                 $.each(data, function(key, val) {
                     
                     keys += 1;
 
-                    $('#SelectAll').prop("checked", false);
-                    $('#UnSelectAll').prop("checked", false);
-
                     var checkedSubMenu = "";
                     for (var i = 0; i < checkedValue.length; i++) {
+                        if (checkedValue[i] == val.Sys_ID) {
 
-                        if(val.MenuAction[i]['entities']['caption'] == "Execute"){
-                            if (checkedValue[i] == val.MenuAction[i]['recordID']) {
+                            checkedSubMenu = "checked";
 
-                                checkedSubMenu = "checked";
-
-                            }
                         }
                     }
 
@@ -116,10 +109,40 @@
                 });
             }
         });
+    }
+</script>
+
+<script>
+
+    $('#Modul').on("select2:select", function(e) {
+
+        $('#SelectAll').prop("checked", false);
+        $('#UnSelectAll').prop("checked", false);
+        $('#Transaction').prop("checked", false);
+        $('#Report').prop("checked", false);
+
+        var ModulID = $('#Modul').val();
+        var Type = "All";
+        TableSubMenu(ModulID, Type);
+        
+    });
+</script>
+
+
+<script>
+
+    $('#Type').on("select2:select", function(e) {
+
+        var ModulID = $('#Modul').val();
+        var Type = $('#Type').val();
+
+        TableSubMenu(ModulID, Type);
+        
     });
 </script>
 
 <script>
+
     $('#SelectAll').click(function() {
 
         if ($(this).is(":checked")) {

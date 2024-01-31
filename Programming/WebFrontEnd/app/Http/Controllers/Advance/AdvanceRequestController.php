@@ -355,7 +355,23 @@ class AdvanceRequestController extends Controller
                 ),
                 true
             );
-            return response()->json($DataListAdvance);
+
+
+            $collection = collect($DataListAdvance);
+
+            $project_id = $request->project_id;
+            $site_id = $request->site_id;
+
+            if ($project_id != "") {
+                $collection = $collection->where('CombinedBudget_RefID', $project_id);
+            }
+            if ($site_id != "") {
+                $collection = $collection->where('CombinedBudgetSection_RefID', $site_id);
+            }
+
+            $collection = $collection->all();
+
+            return response()->json($collection);
         } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
@@ -423,7 +439,7 @@ class AdvanceRequestController extends Controller
             $project_id = $request->project_id;
             $site_id = $request->site_id;
             // $work_id = $request->work_id;
-            // $product_id = $request->product_id;
+            $requester_id = $request->requester_id;
             $beneficiary_id = $request->beneficiary_id;
 
             if ($project_id != "") {
@@ -432,9 +448,9 @@ class AdvanceRequestController extends Controller
             if ($site_id != "") {
                 $collection = $collection->where('CombinedBudgetSection_RefID', $site_id);
             }
-            // if ($product_id != "") {
-            //     $collection = $collection->where('Product_ID', $product_id);
-            // }
+            if ($requester_id != "") {
+                $collection = $collection->where('RequesterWorkerJobsPosition_RefID', $requester_id);
+            }
             if ($beneficiary_id != "") {
                 $collection = $collection->where('BeneficiaryWorkerJobsPosition_RefID', $beneficiary_id);
             }
@@ -443,35 +459,26 @@ class AdvanceRequestController extends Controller
             // }
 
             $collection = $collection->all();
+            
             $varDataExcel = [];
             $varDataProject = [];
             $i = 0;
-            $sum_idr = 0;
-            $sum_other = 0;
+            $total = 0;
             foreach ($collection as $collections) {
 
-                $totalIdr = 0;
-                $otherCurrency = 0;
-
-                if ($collections['CurrencyName'] == "IDR") {
-                    $totalIdr = $collections['TotalAdvance'];
-                } else {
-                    $otherCurrency = $collections['TotalAdvance'];
-                }
-
-                $sum_idr += $totalIdr;
-                $sum_other += $otherCurrency;
-
+                $total +=  $collections['TotalAdvance'];
 
                 $varDataProject[0]['projectCode'] = $collections['CombinedBudgetCode'];
                 $varDataProject[0]['projectName'] = $collections['CombinedBudgetName'];
 
                 $varDataExcel[$i]['no'] = $i + 1;
                 $varDataExcel[$i]['documentNumber'] = $collections['DocumentNumber'];
+                $varDataExcel[$i]['subBudget'] = $collections['CombinedBudgetSectionName'];
                 $varDataExcel[$i]['date'] = date('d-m-Y', strtotime($collections['DocumentDateTimeTZ']));
-                $varDataExcel[$i]['totalIdr'] = number_format($totalIdr, 2);
-                $varDataExcel[$i]['otherCurrency'] = number_format($otherCurrency, 2);
-                $varDataExcel[$i]['beneficiaryWorkerName'] = $collections['BeneficiaryWorkerName'];
+                $varDataExcel[$i]['total'] = number_format($collections['TotalAdvance'], 2);
+                $varDataExcel[$i]['currency'] = $collections['CurrencyName'];
+                $varDataExcel[$i]['requester'] = $collections['RequesterWorkerName'];
+                $varDataExcel[$i]['beneficiary'] = $collections['BeneficiaryWorkerName'];
                 $varDataExcel[$i]['remark'] = ucfirst(trans($collections['remark']));
                 $i++;
             }
@@ -483,8 +490,7 @@ class AdvanceRequestController extends Controller
 
             Session::put("AdvanceSummaryReportDataPDF", $compact);
             Session::put("AdvanceSummaryReportDataExcel", $compact['varDataExcel']);
-            Session::put("AdvanceSummaryReportSumIDR", number_format($sum_idr, 2));
-            Session::put("AdvanceSummaryReportSumOtherCurrency", number_format($sum_other, 2));
+            Session::put("AdvanceSummaryReportTotal", number_format($total, 2));
             Session::put("AdvanceSummaryReportIsSubmit", "Yes");
 
             return response()->json($compact);
@@ -613,6 +619,7 @@ class AdvanceRequestController extends Controller
             if ($advance_number != "") {
                 $collection = $collection->where('DocumentNumber', $advance_number);
             }
+            
             $dataHeader = [];
             foreach ($collection as $collections) {
                 $dataHeader = $collections;
@@ -665,10 +672,11 @@ class AdvanceRequestController extends Controller
 
             $advance_RefID = $request->advance_RefID;
             $advance_number = $request->advance_number;
+            
             $statusHeader = "Yes";
 
             if ($advance_RefID == "" && $advance_number == "") {
-                return redirect()->back()->with('NotFound', 'Data Cannot Empty');
+                return redirect()->route('AdvanceRequest.ReportAdvanceSummaryDetail')->with('NotFound', 'Advance Number Cannot Empty');
             }
 
             $compact = $this->ReportAdvanceSummaryDetailData($advance_RefID, $advance_number, $statusHeader);
@@ -688,7 +696,6 @@ class AdvanceRequestController extends Controller
     public function PrintExportReportAdvanceSummaryDetail(Request $request)
     {
         try {
-
             $isSubmit = Session::get("AdvanceSummaryReportDetailIsSubmit");
             if ($isSubmit == "Yes") {
                 $print_type = $request->print_type;
@@ -704,15 +711,15 @@ class AdvanceRequestController extends Controller
                         'printedBy' => Session::get('SessionLoginName'),
                         'data' => $dataAdvance
                     ];
-                    // dd($data);
 
                     $pdf = Pdf::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->setPaper('a4', 'landscape')->loadView('Advance.Advance.Reports.PrintReportAdvanceSummaryDetail', $data);
-                    return $pdf->download('Print Report Advance Summary Detail.pdf');
+                    return $pdf->download('Print Report Advance Detail.pdf');
+
                 } else if ($print_type == "Excel") {
 
                     return Excel::download(new ExportReportAdvanceSummaryDetail, 'Export Report Advance Summary Detail.xlsx');
                 }
-            } else {
+            } else {    
                 return redirect()->route('AdvanceRequest.ReportAdvanceSummaryDetail')->with('NotFound', 'Data Cannot Empty');
             }
         } catch (\Throwable $th) {

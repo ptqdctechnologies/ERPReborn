@@ -2,6 +2,8 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
+@include('getFunction.getSite')
+@include('getFunction.getProject')
 @include('Advance.Advance.Functions.Table.TableAdvanceRevision')
 
 <div class="content-wrapper">
@@ -9,7 +11,7 @@
     <div class="container-fluid">
       <div class="row mb-1" style="background-color:#4B586A;">
         <div class="col-sm-6" style="height:30px;">
-          <label style="font-size:15px;position:relative;top:7px;color:white;">Advance Summary Report Detail</label>
+          <label style="font-size:15px;position:relative;top:7px;color:white;">Advance Report Detail</label>
         </div>
       </div>
       <div class="card">
@@ -18,9 +20,9 @@
 
 
             @if($statusHeader == "Yes")
-              @include('Advance.Advance.Functions.Header.HeaderReportAdvanceSummaryDetail')
+            @include('Advance.Advance.Functions.Header.HeaderReportAdvanceSummaryDetail')
             @endif
-            
+
             @if($statusDetail == 1 && $dataHeader != [])
             <div class="card">
               <div class="tab-content p-3" id="nav-tabContent">
@@ -40,7 +42,7 @@
                             <div class="form-group">
                               <table>
                                 <tr>
-                                  <td style="padding-top: 5px;"><label>Transaction Number</label></td>
+                                  <td style="padding-top: 5px;"><label>Advance Number</label></td>
                                   <td>:</td>
                                   <td>{{ $dataHeader['DocumentNumber'] }}</td>
                                 </tr>
@@ -50,12 +52,12 @@
                                   <td>{{ date("d-m-Y", strtotime($dataHeader['Date'])) }}</td>
                                 </tr>
                                 <tr>
-                                  <td style="padding-top: 5px;"><label>Budget Code</label></td>
+                                  <td style="padding-top: 5px;"><label>Budget</label></td>
                                   <td>:</td>
                                   <td>{{ $dataHeader['CombinedBudgetCode'] }} - {{ $dataHeader['CombinedBudgetName'] }}</td>
                                 </tr>
                                 <tr>
-                                  <td style="padding-top: 5px;"><label>Sub Budget Code</label></td>
+                                  <td style="padding-top: 5px;"><label>Sub Budget</label></td>
                                   <td>:</td>
                                   <td>{{ $dataHeader['CombinedBudgetSectionCode'] }} - {{ $dataHeader['CombinedBudgetSectionName'] }}</td>
                                 </tr>
@@ -65,6 +67,11 @@
                           <div class="col-md-4">
                             <div class="form-group">
                               <table>
+                                <tr>
+                                  <td style="padding-top: 5px;"><label>Currency</label></td>
+                                  <td>:</td>
+                                  <td>{{ $dataHeader['ProductUnitPriceCurrencyISOCode'] }}</td>
+                                </tr>
                                 <tr>
                                   <td style="padding-top: 5px;"><label>Requester</label></td>
                                   <td>:</td>
@@ -76,14 +83,9 @@
                                   <td>{{ $dataHeader['BeneficiaryWorkerName'] }}</td>
                                 </tr>
                                 <tr>
-                                  <td style="padding-top: 5px;"><label>Bank Name</label></td>
-                                  <td>:</td>
-                                  <td>{{ $dataHeader['BankAcronym'] }} - {{ $dataHeader['BankName'] }}</td>
-                                </tr>
-                                <tr>
                                   <td style="padding-top: 5px;"><label>Bank Account</label></td>
                                   <td>:</td>
-                                  <td>{{ $dataHeader['BankAccountNumber'] }} - {{ $dataHeader['BankAccountName'] }}</td>
+                                  <td>{{ $dataHeader['BankAcronym'] }} - {{ $dataHeader['BankAccountName'] }} - {{ $dataHeader['BankAccountNumber'] }}</td>
                                 </tr>
                               </table>
                             </div>

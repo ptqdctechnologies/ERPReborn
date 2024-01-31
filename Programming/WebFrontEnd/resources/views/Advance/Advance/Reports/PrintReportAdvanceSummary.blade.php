@@ -1,15 +1,6 @@
 @extends('Partials.app')
 @section('main')
 
-<!-- <style>
-  table,
-  th,
-  td {
-    border: 1px solid #ced4da;
-    border-collapse: collapse;
-  }
-</style> -->
-
 <div class="content-wrapper">
   <section class="content">
     <div class="container-fluid">
@@ -45,32 +36,29 @@
                     <thead>
                       <tr style="border: 1px solid #ced4da;border-collapse: collapse;">
                         <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">No</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Transaction Number</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Advance&nbsp;Number</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Sub&nbsp;Budget</th>
                         <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Date</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Total IDR</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Other Currency</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Total</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Currency</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Requester</th>
                         <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Beneficiary</th>
                         <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Remark</th>
                       </tr>
                     </thead>
-                    @php $no = 1; $TotalAdvance = 0; $OtherCurrency = 0; $TotalIDR = 0; $TotalOtherCurrency = 0; @endphp
+                    @php $no = 1; $TotalAdvance = 0; @endphp
                     @foreach($data['data'] as $datas)
 
-                    @if($datas['CurrencyName'] == "IDR")
-                    @php $TotalAdvance = $datas['TotalAdvance']; @endphp
-                    @else
-                    @php $OtherCurrency = $datas['TotalAdvance']; @endphp
-                    @endif
-
-                    @php $TotalIDR += $TotalAdvance @endphp
-                    @php $TotalOtherCurrency += $OtherCurrency @endphp
-
+                    @php $TotalAdvance += $datas['TotalAdvance']; @endphp
+                    
                     <tbody>
                       <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $no++ }}</td>
                       <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $datas['DocumentNumber'] }}</td>
+                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $datas['CombinedBudgetSectionName'] }}</td>
                       <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ date('d-m-Y', strtotime($datas['DocumentDateTimeTZ'])) }}</td>
                       <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ number_format($TotalAdvance,2) }}</td>
-                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ number_format($OtherCurrency,2) }}</td>
+                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $datas['CurrencyName'] }}</td>
+                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $datas['RequesterWorkerName'] }}</td>
                       <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $datas['BeneficiaryWorkerName'] }}</td>
                       <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"> {{ucfirst(trans($datas['remark']))}} </td>
                     </tbody>
@@ -78,10 +66,9 @@
 
                     <tfoot>
                       <tr style="font-weight:bolder;border: 1px solid #ced4da;border-collapse: collapse;">
-                        <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;text-align:center;" colspan="3">GRAND TOTAL</td>
-                        <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;">{{ number_format($TotalIDR,2) }}</td>
-                        <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;">{{ number_format($TotalOtherCurrency,2) }} </td>
-                        <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;" colspan="2"></td>
+                        <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;text-align:center;" colspan="4">GRAND TOTAL</td>
+                        <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;">{{ number_format($TotalAdvance,2) }}</td>
+                        <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;" colspan="4"></td>
                       </tr>
                     </tfoot>
 

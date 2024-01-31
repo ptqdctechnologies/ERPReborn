@@ -105,46 +105,25 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <table>
                                                     <tr>
+                                                        <td style="padding-top: 7px;"><label>Menu Type &nbsp;&nbsp;&nbsp;</label></td>
                                                         <td>
-                                                            <div class="row">
-                                                                <div class="col-lg-6">
-                                                                    <div class="input-group">
-                                                                        <span class="input-group-text">
-                                                                            <input type="checkbox" id="Transaction">
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
+                                                            <div class="input-group" style="padding-bottom: 3px;">
+                                                                <select id="Type" class="form-control Type select2" name="Type" style="width: 200px;">
+                                                                    <option selected="selected" value="All"> All </option>
+                                                                    <option value="Transaction"> Transaction </option>
+                                                                    <option value="Report"> Report </option>
+                                                                </select>
                                                             </div>
                                                         </td>
-                                                        <td style="padding-top: 7px;"><label>&nbsp;&nbsp;&nbsp;Transaction</label></td>
                                                     </tr>
                                                 </table>
                                             </div>
                                         </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <table>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="row">
-                                                                <div class="col-lg-6">
-                                                                    <div class="input-group">
-                                                                        <span class="input-group-text">
-                                                                            <input type="checkbox" id="Report">
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td style="padding-top: 7px;"><label>&nbsp;&nbsp;&nbsp;Report</label></td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </div>
+                                        
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <table>
@@ -195,7 +174,7 @@
                                                     <table class="table table-sm table-head-fixed text-nowrap TableSubMenu" id="TableSubMenu">
                                                         <thead>
                                                             <tr>
-                                                                <th style="padding-bottom:20px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Menu</th>
+                                                                <th style="padding:10px 0px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Menu</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>

@@ -54,7 +54,7 @@
             @endif
 
             @include('Documents.Transactions.ButtonApproval')
-
+            
             @include('Documents.Transactions.DocumentApprovalHistory')
 
           </div>

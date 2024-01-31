@@ -513,7 +513,7 @@ class FunctionController extends Controller
             'latest',
             [
                 'parameter' => [
-                    'source_RefID' => (int) $id
+                    'source_RefID' => 76000000000173
                 ],
                 'SQLStatement' => [
                     'pick' => null,
@@ -524,9 +524,28 @@ class FunctionController extends Controller
             ]
         );
 
-        // dd($varData);
+        $varDataDetail = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'dataWarehouse.read.dataList.log.getTransactionHistory',
+            'latest',
+            [
+                'parameter' => [
+                    'source_RefID' => (int) $id
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ]
+        );
+        // dd($varDataDetail);
+
         $compact = [
-            'data' => $varData['data']
+            'data' => $varData['data'],
+            'dataDetail' => $varDataDetail['data']
         ];
         return view('getFunction.ShowRevisionHistory', $compact);
     }
@@ -680,11 +699,15 @@ class FunctionController extends Controller
         );
 
         $menu_group_id = $request->input('menu_group_id');
+        $type = $request->input('type');
 
         $collection = collect($SubMenu);
         $collection = $collection->where('MenuGroup_RefID', $menu_group_id);
+        
+        if($type != "All"){
+            // $collection = $collection->where('Sys_ID', $type);
+        }
 
-        // dd($collection);
         return response()->json($collection->all());
     }
 }
