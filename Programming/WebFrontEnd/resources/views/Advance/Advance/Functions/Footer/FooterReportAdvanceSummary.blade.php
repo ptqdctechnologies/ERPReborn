@@ -78,10 +78,10 @@
 
             var project_code = $("#project_code").val();
             var site_code = $("#site_code").val();
-            var product_name = $("#product_name").val();
+            var requester = $("#requester").val();
             var beneficiary = $("#beneficiary").val();
 
-            if (project_code == "" && site_code == "" && product_name == "" && beneficiary == "") {
+            if (project_code == "" && site_code == "" && requester == "" && beneficiary == "") {
                 ErrorNotif("Data Cannot Empty !");
             } else {
 
@@ -107,7 +107,7 @@
 
                 var no = 1;
                 var keys = 0;
-                var TotalIdr = 0;
+                var Total = 0;
                 var TotalOtherCyrrency = 0;
 
                 $.ajax({
@@ -122,23 +122,23 @@
                     success: function(data) {
                         $.each(data.data, function(key, val) {
 
+                            console.log(val);
+                            $("#budget_code").html(val.CombinedBudgetCode+ ' - ' + val.CombinedBudgetName);
+
                             if (val.BeneficiaryWorkerName == null) {
-                                BeneficiaryWorkerName = "";
+                                var BeneficiaryWorkerName = "";
                             } else {
-                                BeneficiaryWorkerName = val.BeneficiaryWorkerName;
+                                var BeneficiaryWorkerName = val.BeneficiaryWorkerName;
                             }
 
-                            var TotalAdvance = 0;
-                            var OtherCurrency = 0;
-
-                            if (val.CurrencyName == "IDR") {
-                                TotalAdvance = val.TotalAdvance;
+                            if (val.RequesterWorkerName == null) {
+                                var RequesterWorkerName = "";
                             } else {
-                                OtherCurrency = val.TotalAdvance;
+                                var RequesterWorkerName = val.RequesterWorkerName;
                             }
+                            
 
-                            TotalIdr += +TotalAdvance;
-                            TotalOtherCyrrency += +OtherCurrency;
+                            Total += +val.TotalAdvance;
 
                             const date = dateFns.format(
                                 dateFns.parse(val.DocumentDateTimeTZ, "yyyy-MM-dd hh:mm:ss"),
@@ -149,17 +149,18 @@
                             t.row.add([
                                 '<tbody><tr><td>' + no++ + '</td>',
                                 '<td><a href="ReportAdvanceSummaryDetailID/' + +val.Sys_ID + '">' + val.DocumentNumber + '</a></td>',
+                                '<td>' + val.CombinedBudgetSectionName + '</td>',
                                 '<td>' + date + '</td>',
-                                '<td>' + currencyTotal(TotalAdvance) + '</td>',
-                                '<td>' + currencyTotal(OtherCurrency) + '</td>',
+                                '<td>' + currencyTotal(val.TotalAdvance) + '</td>',
+                                '<td>' + val.CurrencyName + '</td>',
+                                '<td>' + RequesterWorkerName + '</td>',
                                 '<td>' + BeneficiaryWorkerName + '</td>',
                                 '<td>' + val.remark.charAt(0).toUpperCase() + val.remark.slice(1) + '</td></tr></tbody>'
                             ]).draw();
 
                         });
 
-                        $('#TotalIdr').html(currencyTotal(TotalIdr));
-                        $('#TotalOtherCyrrency').html(currencyTotal(TotalOtherCyrrency));
+                        $('#Total').html(currencyTotal(Total));
 
                         HideLoading();
                     },

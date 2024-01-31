@@ -24,7 +24,7 @@ class ExportReportAdvanceSummary implements FromCollection, WithHeadings, Should
         return [
             ["ADVANCE REQUEST SUMMARY", " ", " ", " ", " ", " ", " "],
             ["", "", "", "", "", "", ""],
-            ["No", "Transaction Number", "Date", "Total IDR", "Other Currency", "Beneficiary", "Remark"]
+            ["No", "Advance Number", "Sub Budget", "Date", "Total", "Currency", "Requester", "Beneficiary", "Remark"]
         ];
     }
 
@@ -42,8 +42,8 @@ class ExportReportAdvanceSummary implements FromCollection, WithHeadings, Should
             ]
         ];
 
-        $sheet->getStyle('A1:G1')->applyFromArray($styleArrayHeader1);
-        $sheet->mergeCells('A1:G1');
+        $sheet->getStyle('A1:I1')->applyFromArray($styleArrayHeader1);
+        $sheet->mergeCells('A1:I1');
 
 
         $styleArrayHeader2 = [
@@ -70,7 +70,7 @@ class ExportReportAdvanceSummary implements FromCollection, WithHeadings, Should
             ],
         ];
 
-        $sheet->getStyle('A3:G3')->applyFromArray($styleArrayHeader2);
+        $sheet->getStyle('A3:I3')->applyFromArray($styleArrayHeader2);
 
         $styleArrayContent = [
             'borders' => [
@@ -84,17 +84,15 @@ class ExportReportAdvanceSummary implements FromCollection, WithHeadings, Should
         ];
 
         $totalCell = count(Session::get("AdvanceSummaryReportDataExcel"));
-        $lastCell = 'A4:G' . $totalCell + 3;
+        $lastCell = 'A4:I' . $totalCell + 3;
         $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
 
-        $sum_idr = Session::get("AdvanceSummaryReportSumIDR");
-        $sum_other = Session::get("AdvanceSummaryReportSumOtherCurrency");
+        $total = Session::get("AdvanceSummaryReportTotal");
 
         $sheet->insertNewRowBefore($totalCell + 4, 1);
         $sheet->setCellValue('A' . $totalCell + 4, "GRAND TOTAL");
-        $sheet->setCellValue('D' . $totalCell + 4, $sum_idr);
-        $sheet->setCellValue('E' . $totalCell + 4, $sum_other);
-        $sheet->mergeCells('A' . $totalCell + 4 . ':' . 'C' . $totalCell + 4);
+        $sheet->setCellValue('E' . $totalCell + 4, $total);
+        $sheet->mergeCells('A' . $totalCell + 4 . ':' . 'D' . $totalCell + 4);
 
         $styleArrayFooter = [
             'font' => [
@@ -115,7 +113,7 @@ class ExportReportAdvanceSummary implements FromCollection, WithHeadings, Should
             ],
         ];
 
-        $sheet->getStyle('A' . $totalCell + 4 . ':' . 'G' . $totalCell + 4)->applyFromArray($styleArrayFooter);
+        $sheet->getStyle('A' . $totalCell + 4 . ':' . 'I' . $totalCell + 4)->applyFromArray($styleArrayFooter);
 
     }
 }

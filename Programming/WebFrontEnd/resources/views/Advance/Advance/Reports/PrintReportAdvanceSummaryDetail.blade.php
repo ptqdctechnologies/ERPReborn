@@ -20,7 +20,7 @@
           </center>
           <table style="float:left;">
             <tr>
-              <td><label>Transaction Number</label></td>
+              <td><label>Advance Number</label></td>
               <td>:</td>
               <td>{{ $data['dataHeader']['DocumentNumber'] }}</td>
             </tr>
@@ -40,6 +40,11 @@
               <td>{{ date("d-m-Y", strtotime($data['dataHeader']['Date'])) }}</td>
             </tr>
             <tr>
+              <td><label>Currency</label></td>
+              <td>:</td>
+              <td>{{ $data['dataHeader']['ProductUnitPriceCurrencyISOCode'] }}</td>
+            </tr>
+            <tr>
               <td><label>Requester</label></td>
               <td>:</td>
               <td>{{ $data['dataHeader']['RequesterWorkerName'] }}</td>
@@ -56,7 +61,7 @@
               <td><img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('/AdminLTE-master/dist/img/qdc.png'))) }}" width="190"></td>
             </tr>
           </table>
-          <br><br><br><br><br>
+          <br><br><br><br><br><br>
 
           <table style="float:right;">
             <tr>
@@ -71,7 +76,7 @@
             </tr>
           </table>
 
-          <br><br><br><br>
+          <br><br><br><br><br>
         </div>
       </div>
       <div class="card">

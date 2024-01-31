@@ -4,7 +4,7 @@
       @csrf
       <div class="card-body">
         <div class="row">
-          <div class="col-md-3">
+          <div class="col-md-2">
             <div class="form-group">
               <table>
                 <tr>
@@ -24,7 +24,7 @@
               </table>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-2">
             <div class="form-group">
               <table>
                 <tr>
@@ -44,18 +44,18 @@
               </table>
             </div>
           </div>
-          <!-- <div class="col-md-2">
+          <div class="col-md-2">
             <div class="form-group">
               <table>
                 <tr>
-                  <th style="padding-top: 7px;"><label>Work&nbsp;ID&nbsp;</label></th>
+                  <th style="padding-top: 7px;"><label>Requester&nbsp;</label></th>
                   <td>
                     <div class="input-group">
-                      <input id="work_id" hidden name="work_id">
-                      <input id="work_code" style="border-radius:0;background-color:white;" data-toggle="modal" data-target="#myProject" class="form-control" readonly name="work_code">
+                      <input id="requester_id" hidden name="requester_id">
+                      <input id="requester" style="border-radius:0;background-color:white;" data-toggle="modal" data-target="#myWorker" class="form-control myWorker" readonly name="Requester">
                       <div class="input-group-append">
                         <span style="border-radius:0;" class="input-group-text form-control">
-                          <a href="#" id="work_code_popup" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                          <a href="#" id="requester_popup" data-toggle="modal" data-target="#myWorker" class="myWorker"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                         </span>
                       </div>
                     </div>
@@ -63,27 +63,7 @@
                 </tr>
               </table>
             </div>
-          </div> -->
-          <!-- <div class="col-md-3">
-            <div class="form-group">
-              <table>
-                <tr>
-                  <th style="padding-top: 7px;"><label>Product&nbsp;</label></th>
-                  <td>
-                    <div class="input-group">
-                      <input id="product_id" hidden name="product_id">
-                      <input id="product_name" style="border-radius:0;background-color:white;" onclick="KeyFunction('')" class="form-control" readonly name="product_name">
-                      <div class="input-group-append">
-                        <span style="border-radius:0;" class="input-group-text form-control">
-                          <a href="#" id="product_id_popup" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction('')"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                        </span>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </table>
-            </div>
-          </div> -->
+          </div>
           <div class="col-md-3">
             <div class="form-group">
               <table>
@@ -104,7 +84,7 @@
               </table>
             </div>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-3">
             <div class="form-group">
               <table>
                 <tr>
@@ -112,6 +92,7 @@
                     <button class="btn btn-default btn-sm" type="submit">
                       <img src="{{ asset('AdminLTE-master/dist/img/backwards.png') }}" width="12" alt="" title="Show"> Show
                     </button>
+                    &nbsp;&nbsp;&nbsp;
                   </td>
                  </form>
 
@@ -119,12 +100,11 @@
                     @csrf
                     <td>
                       <select name="print_type" id="print_type" class="form-control">
-                        <option value="PDF">PDF</option>
-                        <option value="Excel">Excel</option>
+                        <option value="PDF">Export PDF</option>
+                        <option value="Excel">Export Excel</option>
                       </select>
                     </td>
                     <td>
-
                       <button class="btn btn-default btn-sm" type="submit">
                         <img src="{{ asset('AdminLTE-master/dist/img/printer.png') }}" width="17" alt="" title="Print">
                       </button>

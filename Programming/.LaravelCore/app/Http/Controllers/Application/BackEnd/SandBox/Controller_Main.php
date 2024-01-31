@@ -22,10 +22,10 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
 
         {
 
-            $x = (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataList_CombinedBudgetSectionDetail(
+            $x = (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_Resume_BusinessDocumentIssuanceDisposition(
                 6000000000001, 
                 11000000000004,
-                143000000000029
+                164000000000023
             );
 
             dd($x);
