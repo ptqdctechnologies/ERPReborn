@@ -2921,6 +2921,7 @@ return array(
     'Illuminate\\Foundation\\Console\\ScopeMakeCommand' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Console/ScopeMakeCommand.php',
     'Illuminate\\Foundation\\Console\\ServeCommand' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Console/ServeCommand.php',
     'Illuminate\\Foundation\\Console\\StorageLinkCommand' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Console/StorageLinkCommand.php',
+    'Illuminate\\Foundation\\Console\\StorageUnlinkCommand' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Console/StorageUnlinkCommand.php',
     'Illuminate\\Foundation\\Console\\StubPublishCommand' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Console/StubPublishCommand.php',
     'Illuminate\\Foundation\\Console\\TestMakeCommand' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Console/TestMakeCommand.php',
     'Illuminate\\Foundation\\Console\\UpCommand' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Console/UpCommand.php',
