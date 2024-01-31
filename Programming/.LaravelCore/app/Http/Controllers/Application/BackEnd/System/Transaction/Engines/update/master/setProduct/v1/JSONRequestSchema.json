@@ -19,10 +19,15 @@
                         "minLength": 1
                         }
                     },
-                "required": [ "key", "version" ]
+                "required": [
+                    "key",
+                    "version"
+                    ]
                 }
             },
-        "required": [ "API" ]
+        "required": [
+            "API"
+            ]
         },
     "data": {
         "type": "object",
@@ -56,11 +61,22 @@
                         "maximum": 9223372036854775807
                         }
                     },
-                "required": [ "code", "name", "productType_RefID", "quantityUnit_RefID" ]
+                "required": [
+                    "code",
+                    "name",
+                    "productType_RefID",
+                    "quantityUnit_RefID"
+                    ]
                 }
             },
-        "required": [ "recordID", "entities" ]
+        "required": [
+            "recordID",
+            "entities"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }

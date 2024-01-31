@@ -19,10 +19,15 @@
                         "minLength": 1
                         }                        
                     },
-                "required": [ "key", "version" ]
+                "required": [
+                    "key",
+                    "version"
+                    ]
                 }
             },
-        "required": [ "API" ]
+        "required": [
+            "API"
+            ]
         },
     "data": {
         "type": "object",
@@ -34,8 +39,14 @@
                 "type": "integer"
                 }
             },
-        "required": [ "branchID", "userRoleID" ]
+        "required": [
+            "branchID",
+            "userRoleID"
+            ]
         }       
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }
