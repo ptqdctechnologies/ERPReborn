@@ -83,7 +83,6 @@
         $('#TableSubMenu').find('tbody').empty();
 
         checkedValue = [];
-        checkedValueAction = [];
         
         $.ajaxSetup({
             headers: {
@@ -110,26 +109,31 @@
             }
         });
 
+        $("#SavePrivilageMenu").prop("disabled", true);
+
         $.ajax({
             type: 'GET',
             url: '{!! route("PrivilageMenu.DataListPrivilageMenu") !!}?sys_id_role=' + sys_id_role,
             success: function(data) {
 
-                console.log(data);
+                if(data.status == 200){
 
-                var len = data.length;
-                for (var i = 0; i < len; i++) {
+                    $("#SavePrivilageMenu").prop("disabled", false);
 
-                    if(!checkedValue.includes(data[i]['menu_RefID'])){
-                        checkedValue.push(data[i]['menu_RefID']);
-                    }
+                    var len = data.data.length;
 
-                    if(!checkedValueAction.includes(data[i]['menuAction_RefID'])){
-                        checkedValueAction.push(data[i]['menuAction_RefID']);
+                    for (var i = 0; i < len; i++) {
+
+                        if(!checkedValue.includes(data.data[i]['menuAction_RefID'])){
+                            checkedValue.push(data.data[i]['menuAction_RefID']);
+                        }
+
                     }
                 }
+
+                
             }
         });
-        console.log(checkedValue);
+
     });
 </script>

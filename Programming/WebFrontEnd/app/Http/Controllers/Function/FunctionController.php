@@ -698,6 +698,8 @@ class FunctionController extends Controller
             true
         );
 
+        // dd($SubMenu);
+
         $menu_group_id = $request->input('menu_group_id');
         $type = $request->input('type');
 
@@ -705,7 +707,7 @@ class FunctionController extends Controller
         $collection = $collection->where('MenuGroup_RefID', $menu_group_id);
         
         if($type != "All"){
-            // $collection = $collection->where('Sys_ID', $type);
+            $collection = $collection->where('Type', $type);
         }
 
         return response()->json($collection->all());

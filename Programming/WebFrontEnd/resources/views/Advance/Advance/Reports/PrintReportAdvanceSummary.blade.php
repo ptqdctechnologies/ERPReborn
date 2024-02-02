@@ -11,7 +11,7 @@
           </center>
           <table style="float:left;">
             <tr>
-              <td>Project</td>
+              <td>Budget</td>
               <td>:</td>
               <td>{{ $projectCode }} - {{ $projectName }}</td>
             </tr>
@@ -56,7 +56,7 @@
                       <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $datas['DocumentNumber'] }}</td>
                       <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $datas['CombinedBudgetSectionName'] }}</td>
                       <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ date('d-m-Y', strtotime($datas['DocumentDateTimeTZ'])) }}</td>
-                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ number_format($TotalAdvance,2) }}</td>
+                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ number_format($datas['TotalAdvance'],2) }}</td>
                       <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $datas['CurrencyName'] }}</td>
                       <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $datas['RequesterWorkerName'] }}</td>
                       <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $datas['BeneficiaryWorkerName'] }}</td>

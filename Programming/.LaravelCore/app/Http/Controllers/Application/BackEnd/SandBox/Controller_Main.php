@@ -22,6 +22,15 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
 
         {
 
+            $varData =
+                (new \App\Models\Database\SchSysConfig\General())->getUserRolePrivilegeMenuAndBudget(
+                    6000000000001, 
+                    4000000000359,
+                    11000000000004,
+                    95000000000037
+                );
+            dd($varData);
+
             $x = (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_Resume_BusinessDocumentIssuanceDisposition(
                 6000000000001, 
                 11000000000004,

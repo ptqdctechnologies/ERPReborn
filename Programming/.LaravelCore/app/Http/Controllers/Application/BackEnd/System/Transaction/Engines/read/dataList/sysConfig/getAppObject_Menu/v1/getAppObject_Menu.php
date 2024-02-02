@@ -77,8 +77,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                     'Sys_RPK' => $varData[$i]['Sys_RPK'],
                     'Sys_Branch_RefID' => $varData[$i]['Sys_Branch_RefID'],
                     'MenuGroup_RefID' => $varData[$i]['MenuGroup_RefID'],
+                    'DefaultMenuAction_RefID' => $varData[$i]['DefaultMenuAction_RefID'],
                     'Key' => $varData[$i]['Key'],
                     'Caption' => $varData[$i]['Caption'],
+                    'Type' => $varData[$i]['Type'],
                     'MenuAction' => (\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varData[$i]['JSONDataMenuAction'])),
                     'OrderSequence' => $varData[$i]['OrderSequence']
                 ];
