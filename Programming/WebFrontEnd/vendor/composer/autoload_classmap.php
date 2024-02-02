@@ -6606,6 +6606,7 @@ return array(
     'Sabberworm\\CSS\\OutputFormat' => $vendorDir . '/sabberworm/php-css-parser/src/OutputFormat.php',
     'Sabberworm\\CSS\\OutputFormatter' => $vendorDir . '/sabberworm/php-css-parser/src/OutputFormatter.php',
     'Sabberworm\\CSS\\Parser' => $vendorDir . '/sabberworm/php-css-parser/src/Parser.php',
+    'Sabberworm\\CSS\\Parsing\\Anchor' => $vendorDir . '/sabberworm/php-css-parser/src/Parsing/Anchor.php',
     'Sabberworm\\CSS\\Parsing\\OutputException' => $vendorDir . '/sabberworm/php-css-parser/src/Parsing/OutputException.php',
     'Sabberworm\\CSS\\Parsing\\ParserState' => $vendorDir . '/sabberworm/php-css-parser/src/Parsing/ParserState.php',
     'Sabberworm\\CSS\\Parsing\\SourceException' => $vendorDir . '/sabberworm/php-css-parser/src/Parsing/SourceException.php',
