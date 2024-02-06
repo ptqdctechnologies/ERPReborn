@@ -192,7 +192,7 @@
                         '</td>' +
 
                         '<td style="border:1px solid #e9ecef;display:' + statusDisplay2[key] + '">' + '<span>' + val2.product_RefID + '</span>' + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + '<span id="product_name' + key + '">' + val2.productName + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;max-width:15px;overflow: hidden;" title="' + val2.productName + '">' + '<span id="product_name' + key + '">' + val2.productName + '</span>' + '</td>' +
                         '<input id="putUom' + key + '" type="hidden">' +
 
                         '<input id="TotalBudget' + key + '" type="hidden">' +

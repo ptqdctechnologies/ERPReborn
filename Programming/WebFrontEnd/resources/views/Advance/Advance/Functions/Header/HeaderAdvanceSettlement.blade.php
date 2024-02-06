@@ -4,20 +4,15 @@
       <div class="form-group">
         <table>
           <tr>
-            <td style="padding-top: 12px;"><label>Budget Code</label></td>
+            <td style="padding-top: 12px;"><label>Advance Number</label></td>
             <td>
-              <div class="input-group" style="width: 70%;">
-                <input id="project_code" style="border-radius:0;" name="project_code" class="form-control" readonly>
+              <div class="input-group">
+                <input id="advance_number" style="border-radius:0;" name="advance_number" class="form-control" readonly>
                 <div class="input-group-append">
                   <span style="border-radius:0;" class="input-group-text form-control">
-                    <a id="project_code_popup" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                    <a id="advance_number2" data-toggle="modal" data-target="#mySearchArf" class="mySearchArf"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                   </span>
                 </div>
-              </div>
-            </td>
-            <td>
-              <div class="input-group" style="width: 140%;position:relative;right:38%;">
-                <input id="project_code_detail" style="border-radius:0;" class="form-control" name="projectname" readonly>
               </div>
             </td>
           </tr>

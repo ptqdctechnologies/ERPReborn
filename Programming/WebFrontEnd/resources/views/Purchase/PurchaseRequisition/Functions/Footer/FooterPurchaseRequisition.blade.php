@@ -83,6 +83,7 @@
             url: '{!! route("getBudget") !!}?sitecode=' + sys_id,
             // url: '{!! route("getBudget") !!}?sitecode=' + 143000000000305,
             success: function(data) {
+                    console.log(data);
                 var no = 1;
                 applied = 0;
                 status = "";
@@ -592,7 +593,6 @@
 
                 $.ajax({
                     type: 'GET',
-                    url: '{!! route("StoreWorkFlow") !!}?workFlowPath_RefID=' + workFlowPath_RefID + '&businessDocument_RefID=' + businessDocument_RefID + '&documentNumber=' + documentNumber + '&approverEntity_RefID=' + approverEntity_RefID + '&comment=' + result.value,
                     success: function(data) {
 
                         HideLoading();

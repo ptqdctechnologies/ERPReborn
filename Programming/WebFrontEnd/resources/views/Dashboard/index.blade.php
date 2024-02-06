@@ -11,10 +11,9 @@
 <div class="content-wrapper">
   <section class="content">
     <div class="container-fluid">
-
-      <div class="row mb-1" style="background-color:#4B586A;">
-        <div class="col-sm-6" style="height:30px;">
-          <label style="font-size:15px;position:relative;top:7px;color:white;">Project Dashboard</label>
+      <div class="row mb-1 sidebar-dark-primary">
+        <div class="col-sm-6 sidebar" style="height:30px;">
+          <a href="#" class="d-block" style="font-size:15px;position:relative;top:7px;">Project Dashboard</a>
         </div>
       </div>
     </div>
