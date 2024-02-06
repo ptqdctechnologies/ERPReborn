@@ -12,11 +12,11 @@ namespace App\Models\Database\SchSysConfig
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblAppObject_UserRoleGroupMember                                                                             |
-    | ▪ Description : Menangani Models Database ► SchSysConfig ► TblAppObject_UserRoleGroupMember                                  |
+    | ▪ Class Name  : TblAppObject_MenuGroupMember                                                                                 |
+    | ▪ Description : Menangani Models Database ► SchSysConfig ► TblAppObject_MenuGroupMember                                      |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblAppObject_UserRoleGroupMember extends \App\Models\Database\DefaultClassPrototype
+    class TblAppObject_MenuGroupMember extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

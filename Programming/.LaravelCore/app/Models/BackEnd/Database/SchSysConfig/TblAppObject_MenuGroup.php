@@ -12,11 +12,11 @@ namespace App\Models\Database\SchSysConfig
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblAppObject_Menu                                                                                            |
-    | ▪ Description : Menangani Models Database ► SchSysConfig ► TblAppObject_Menu                                                 |
+    | ▪ Class Name  : TblAppObject_MenuGroup                                                                                       |
+    | ▪ Description : Menangani Models Database ► SchSysConfig ► TblAppObject_MenuGroup                                            |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblAppObject_Menu extends \App\Models\Database\DefaultClassPrototype
+    class TblAppObject_MenuGroup extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

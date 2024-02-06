@@ -24,8 +24,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-04-20                                                                                           |
         | ▪ Last Update     : 2022-04-20                                                                                           |
+        | ▪ Creation Date   : 2022-04-20                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Creation Date   : 2022-06-20                                                                                           |
-        | ▪ Last Update     : 2022-04-20                                                                                           |
+        | ▪ Last Update     : 2022-06-20                                                                                           |
+        | ▪ Creation Date   : 2022-04-20                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -63,25 +63,30 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate($varUserSession, (new \App\Models\Database\SchData_OLTP_SupplyChain\TblPurchaseOrderPaymentTerm())->setDataUpdate(
-                            $varUserSession,
-                            $varData['recordID'],
-                            null,
-                            null,
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
+                        if (!($varDataSend = 
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate(
+                                $varUserSession,
+                                (new \App\Models\Database\SchData_OLTP_SupplyChain\TblPurchaseOrderPaymentTerm())->setDataUpdate(
+                                    $varUserSession,
+                                    $varData['recordID'],
+                                    null,
+                                    null,
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                                    \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
 
-                            $varData['entities']['purchaseOrder_RefID'],
-                            $varData['entities']['paymentTerm_RefID'],
-                            $varData['entities']['dueDays'],
-                            $varData['entities']['priceCurrency_RefID'],
-                            $varData['entities']['priceCurrencyValue'],
-                            $varData['entities']['priceCurrencyExchangeRate'],
-                            $varData['entities']['priceBaseCurrencyValue'],
-                            $varData['entities']['discountDueDays'],
-                            $varData['entities']['discountPercentageRate'],
-                            $varData['entities']['remarks'],
-                            ))))
+                                    $varData['entities']['purchaseOrder_RefID'],
+                                    $varData['entities']['paymentTerm_RefID'],
+                                    $varData['entities']['dueDays'],
+                                    $varData['entities']['priceCurrency_RefID'],
+                                    $varData['entities']['priceCurrencyValue'],
+                                    $varData['entities']['priceCurrencyExchangeRate'],
+                                    $varData['entities']['priceBaseCurrencyValue'],
+                                    $varData['entities']['discountDueDays'],
+                                    $varData['entities']['discountPercentageRate'],
+                                    $varData['entities']['remarks'],
+                                    )
+                                )
+                            ))
                             {
                             throw new \Exception();
                             }
