@@ -1,13 +1,13 @@
-<div id="mySearchArf" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="mySearchDeliveryOrder" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <label class="card-title">Select Advance Request</label>
+                <label class="card-title">Select Purchase Order</label>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
 
-                <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceSettlement.SearchAdvanceRequest') }}" id="FormSubmitSearchAdvance">
+                <form method="post" enctype="multipart/form-data" action="{{ route('MaterialReceive.SearchDeliveryOrder') }}" id="FormSubmitSearchDeliveryOrder">
                     @csrf
                     <div class="row">
                         <div class="col-md-6">
@@ -18,14 +18,6 @@
                                         <td>
                                             <div class="input-group">
                                                 <input autocomplete="off" id="budget_code" style="border-radius:0;" name="budget_code" class="form-control">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="padding-top: 10px;"><label>Requester</label></td>
-                                        <td>
-                                            <div class="input-group">
-                                                <input autocomplete="off" id="requester" style="border-radius:0;" name="requester" class="form-control">
                                             </div>
                                         </td>
                                     </tr>
@@ -51,21 +43,21 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td style="padding-top: 10px;"><label>Benificiary</label></td>
+                                    <!-- <tr>
+                                        <td style="padding-top: 10px;"><label>Supplier</label></td>
                                         <td>
                                             <div class="input-group">
-                                                <input autocomplete="off" id="benificiary" style="border-radius:0;" name="benificiary" class="form-control">
+                                                <input autocomplete="off" id="supplier" style="border-radius:0;" name="supplier" class="form-control">
                                             </div>
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                 </table>
                             </div>
                             <br><br>
                             <a class="btn btn-default btn-sm" style="float: right;" onclick="ResetFilter()">
                                 <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="12" alt="" title="Reset"> &nbsp; Reset
                             </a>
-                            <button class="btn btn-default btn-sm" style="float: right;position: relative;right:10px;" type="submit" id="SubmitSearchAdvance" >
+                            <button class="btn btn-default btn-sm" style="float: right;position: relative;right:10px;" type="submit" id="SubmitSearchPurchaseOrder" >
                                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="12" alt="" title="Search"> &nbsp; Search
                             </button>
                         </div>
@@ -76,15 +68,14 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="min-height: 390px;">
-                                <table class="table table-head-fixed text-nowrap TableSearchArfinAsf" id="TableSearchArfinAsf">
+                                <table class="table table-head-fixed text-nowrap TableSearchDoInMaterialReceive" id="TableSearchDoInMaterialReceive">
                                     <thead>
                                         <tr>
                                             <th>No</th>
                                             <th>Transaction Number</th>
                                             <th>Budget Code</th>
                                             <th>Sub Budget Code</th>
-                                            <th>Requester</th>
-                                            <th>Benificiary</th>
+                                            <!-- <th>Supplier</th> -->
                                         </tr>
                                     </thead>
                                     <tbody>

@@ -2,8 +2,7 @@
     <table class="table table-head-fixed text-nowrap table-striped TableDorDetail">
         <thead>
             <tr>
-                <th style="border:1px solid #e9ecef;text-align: center;">Used</th>
-                <th style="border:1px solid #e9ecef;text-align: center;">Trano</th>
+                <th style="border:1px solid #e9ecef;text-align: center;">Transaction Number</th>
                 <th style="border:1px solid #e9ecef;text-align: center;">Product Id</th>
                 <th style="border:1px solid #e9ecef;text-align: center;">Product Name</th>
                 <th style="border:1px solid #e9ecef;text-align: center;">Valuta</th>

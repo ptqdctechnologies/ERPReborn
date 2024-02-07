@@ -125,6 +125,10 @@
 
                     $("#beneficiary_id").val(data.data[0]['BeneficiaryWorkerJobsPosition_RefID']);
                     $("#beneficiary").val(data.data[0]['BeneficiaryWorkerName']);
+                    $("#dataInput_Log_FileUpload_Pointer_RefID").val(data.data[0]['Log_FileUpload_Pointer_RefID']);
+
+                    // $("input[name='dataInput_Log_FileUpload_Pointer_RefID']").val(91000000000728);
+
 
                     $("#bank_code").val(data.data[0]['Bank_RefID']);
                     $("#bank_name").val(data.data[0]['BankAcronym']);
@@ -183,9 +187,6 @@
                             '<input name="getAdvanceDetail_RefID[]" value="' + value.Sys_ID_AdvanceDetail + '" type="hidden">' +
                             '<input name="combinedBudget" value="' + value.CombinedBudget_RefID + '" type="hidden">' +
 
-                            '<td style="border:1px solid #e9ecef;">' +
-                            '&nbsp;&nbsp;&nbsp;<div class="progress ' + status + ' progress-xs" style="height: 14px;border-radius:8px;"> @if(' + applied + ' >= ' + 0 + ' && ' + applied + ' <= ' + 40 + ')<div class="progress-bar bg-red" style="width:' + applied + '%;"></div> @elseif(' + applied + ' >= ' + 41 + ' && ' + applied + ' <= ' + 89 + ')<div class="progress-bar bg-blue" style="width:' + applied + '%;"></div> @elseif(' + applied + ' >= ' + 90 + ' && ' + applied + ' <= ' + 100 + ')<div class="progress-bar bg-green" style="width:' + applied + '%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>' + applied + ' %</center></small>' +
-                            '</td>' +
 
                             '<td style="border:1px solid #e9ecef;">' + value.DocumentNumber + '</td>' +
 
@@ -201,7 +202,7 @@
                             '</td>' +
 
                             '<td style="border:1px solid #e9ecef;display:' + statusDisplay2[keys] + '">' + '<span>' + value.Product_RefID + '</span>' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + '<span id="product_name' + keys + '">' + value.ProductName + '</span>' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;max-width:15px;overflow: hidden;" title="' + value.ProductName + '">' + '<span id="product_name' + keys + '">' + value.ProductName + '</span>' + '</td>' +
 
 
                             '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_qty2' + keys + '">' + currencyTotal(value.Quantity) + '</span>' + '</td>' +

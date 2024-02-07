@@ -1,9 +1,8 @@
 <div class="wrapper-budget card-body table-responsive p-0 tableShowHideSupp" style="height: 230px;">
-    <table class="table text-nowrap table-head-fixed table-striped tablePoDetailMaterialReceive">
+    <table class="table text-nowrap table-head-fixed table-striped TableMaterialResource" id="TableMaterialResource">
         <thead>
             <tr>
-
-                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Progress</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Transaction Number</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Id</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Name</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty Budget</th>

@@ -17,20 +17,16 @@
                         <div class="form-group">
                             <table>
                                 <tr>
-                                    <td style="padding-top:12px;"><label>Budget Code</label></td>
+                                    <td style="padding-top:12px;"><label>Purchase Order</label></td>
                                     <td>
-                                        <div class="input-group" style="width: 70%;">
-                                            <input id="projectcode" style="border-radius:0;" name="var_budget_code" class="form-control" readonly>
+                                        <div class="input-group">
+                                            <input id="purchase_order_id" style="border-radius:0;" name="purchase_order_id" class="form-control" type="hidden">
+                                            <input id="purchase_order" style="border-radius:0;" name="purchase_order" class="form-control" readonly>
                                             <div class="input-group-append">
                                                 <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a href="#" id="projectcode2" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                    <a id="purchase_order2" data-toggle="modal" data-target="#mySearchPurchaseOrder" class="mySearchPurchaseOrder"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                                 </span>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group" style="width: 140%;position:relative;right:38%;">
-                                            <input id="projectname" style="border-radius:0;" class="form-control" name="var_budget_code2" readonly>
                                         </div>
                                     </td>
                                 </tr>
@@ -46,7 +42,7 @@
                                     <td style="padding-top:15px;"><label>Receiver Name</label></td>
                                     <td style="padding-top:10px;">
                                         <div class="input-group">
-                                            <input id="receiver_name" style="border-radius:0;" name="receiver_name" class="form-control" >
+                                            <input id="receiver_name" style="border-radius:0;" name="receiver_name" class="form-control">
 
                                         </div>
                                     </td>

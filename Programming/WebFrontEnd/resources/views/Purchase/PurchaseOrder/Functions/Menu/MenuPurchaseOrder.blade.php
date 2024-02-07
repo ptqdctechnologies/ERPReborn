@@ -9,34 +9,17 @@
                                 <span style="position:relative;bottom:5px;"><img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"> SELECT ACTION </span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-left" style="padding: 10px;font-size:14px;background-color:#4B586A;margin-top:8px;">
-                                @if(in_array("Module.SupplyChain.Procurement.PurchaseOrder.Transaction.Create", Session::get('privilageMenu'), TRUE))
                                 <li class="nav-item">
                                     <a href="{{ route('PurchaseOrder.index') }}" class="nav-link" style="color:white;padding-bottom:10px;">
                                         <i class="far fa-file nav-icon-sm"> Create Purchase Order</i>
                                     </a>
                                 </li>
-                                @endif
-                                @if(in_array("Module.SupplyChain.Procurement.PurchaseOrder.Transaction.Edit", Session::get('privilageMenu'), TRUE))
                                 <li class="nav-item">
                                     <a class="nav-link myPopUpPurchaseOrderRevision" data-toggle="modal" data-target="#myPopUpPurchaseOrderRevision" style="color:white;padding-bottom:10px;">
                                         <i class="far fa-file nav-icon-sm"> Revision Purchase Order</i>
                                     </a>
                                 </li>
-                                @endif
                             </ul>
-<!--                             
-                            <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-left" style="padding: 10px;font-size:14px;background-color:#4B586A;margin-top:8px;">
-                                <li class="nav-item">
-                                    <a href="{{ route('PurchaseOrder.index') }}" class="nav-link" style="color:white;padding-bottom:10px;">
-                                        <i class="far fa-file nav-icon-sm"> Create Purchase Order</i>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="modal" data-target="#popUpPurchaseOrderRevision" style="color:white;padding-bottom:10px;">
-                                        <i class="far fa-file nav-icon-sm"> Revision Purchase Order</i>
-                                    </a>
-                                </li>
-                            </ul> -->
                         </li>
                     </ul>
                 </label>

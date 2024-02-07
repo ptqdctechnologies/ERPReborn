@@ -2,8 +2,8 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
-@include('Inventory.MaterialReceive.Functions.PopUp.searchPoNumber')
-@include('Inventory.MaterialReceive.Functions.PopUp.searchDoNumber')
+@include('Inventory.MaterialReceive.Functions.PopUp.SearchPurchaseOrder')
+@include('Inventory.MaterialReceive.Functions.PopUp.SearchDeliveryOrder')
 @include('Inventory.MaterialReceive.Functions.PopUp.PopUpMaterialReceiveRevision')
 @include('getFunction.getWarehouse')
 @include('getFunction.getWarehouse2')
@@ -30,7 +30,7 @@
                                 <div class="col-12">
                                     <div class="card">
                                         <div class="card-header">
-                                            <label class="card-title">
+                                            <label class="card-titl e">
                                                 File Receipt
                                             </label>
                                             <div class="card-tools">
@@ -78,7 +78,7 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <label class="card-title">
-                                                PO Detail
+                                                <span id="ms_type"></span> Detail
                                             </label>
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -86,7 +86,7 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        @include('Inventory.MaterialReceive.Functions.Table.tablePoDetail')
+                                        @include('Inventory.MaterialReceive.Functions.Table.TableMaterialResource')
                                     </div>
                                 </div>
                             </div>
@@ -110,7 +110,7 @@
                                         <table class="table table-head-fixed text-nowrap table-striped TableMaterialReceiveCart" id="TableMaterialReceiveCart">
                                             <thead>
                                                 <tr>
-                                                    <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Work Id</th>
+                                                    <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Transaction Number</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Product Id</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Product Name</th>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">UOM</th>

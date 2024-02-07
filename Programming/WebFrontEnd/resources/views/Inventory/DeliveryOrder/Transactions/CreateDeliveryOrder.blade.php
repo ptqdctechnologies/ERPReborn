@@ -6,7 +6,7 @@
 @include('getFunction.getSite')
 @include('getFunction.getTransporter')
 @include('Inventory.DeliveryOrder.Functions.PopUp.PopUpDoRevision')
-@include('Inventory.DeliveryOrder.Functions.PopUp.SearchDor')
+@include('Inventory.DeliveryOrder.Functions.PopUp.SearDeliveryOrderRequest')
 
 
 <div class="content-wrapper">
@@ -69,8 +69,7 @@
                                         <div class="card-header">
 
                                             <label class="card-title">
-                                                Delivery Order Request Detail &nbsp;&nbsp; || &nbsp;&nbsp; Select Delivery Order Number
-                                                <a href="#" id="dor_number2" data-toggle="modal" data-target="#mySearchDor"><img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></a>
+                                                Delivery Order Request Detail
                                             </label>
 
                                             <div class="card-tools">

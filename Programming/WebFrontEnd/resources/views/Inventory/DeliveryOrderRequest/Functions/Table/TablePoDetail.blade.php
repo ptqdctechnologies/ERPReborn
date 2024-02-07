@@ -1,9 +1,8 @@
 <div class="wrapper-budget card-body table-responsive p-0 tableShowHideDor" style="height: 230px;">
-    <table class="table table-head-fixed text-nowrap table-sm TablePrDetailDor" id="TablePrDetailDor">
+    <table class="table table-head-fixed text-nowrap table-sm TablePoDetailDor" id="TablePoDetailDor">
         <thead>
             <tr>
-                <th style="border:1px solid #e9ecef;text-align: center;">Used</th>
-                <th style="border:1px solid #e9ecef;text-align: center;">Trano</th>
+                <th style="border:1px solid #e9ecef;text-align: center;">Transaction Number</th>
                 <th style="border:1px solid #e9ecef;text-align: center;">Product Id</th>
                 <th style="border:1px solid #e9ecef;text-align: center;">Product Name</th>
                 <th style="border:1px solid #e9ecef;text-align: center;">Qty</th>

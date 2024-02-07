@@ -261,7 +261,7 @@ class AdvanceSettlementController extends Controller
 
     public function StoreValidateAdvanceSettlementBeneficiary(Request $request)
     {
-        $varAPIWebToken = Session::get('SessionLogin');
+        
         $tamp = 0;
         $tamp2 = 0;
         $status = 200;

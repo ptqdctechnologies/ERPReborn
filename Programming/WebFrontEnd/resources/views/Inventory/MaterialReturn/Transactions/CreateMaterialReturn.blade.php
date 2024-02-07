@@ -4,8 +4,8 @@
 @include('Partials.sidebar')
 @include('getFunction.getProject')
 @include('getFunction.getSite')
-@include('getFunction.getDelivery')
-@include('getFunction.getReceive')
+@include('getFunction.getSupplier')
+@include('getFunction.getWorker')
 @include('getFunction.getProduct')
 @include('Inventory.MaterialReturn.Functions.PopUp.PopUpMaterialReturnRevision')
 

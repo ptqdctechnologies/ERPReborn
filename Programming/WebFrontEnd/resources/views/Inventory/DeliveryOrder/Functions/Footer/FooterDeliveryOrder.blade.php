@@ -14,79 +14,96 @@
     });
 </script>
 
+<script>
+    function TableSearchDorInDo(data) {
+        $('.TableSearchDorInDo').find('tbody').empty();
+        var no = 1;
+        t = $('#TableSearchDorInDo').DataTable();
+        t.clear().draw();
+
+        var keys = 0;
+
+        $.each(data, function(key, val) {
+            keys += 1;
+            t.row.add([
+                '<tbody><tr><input id="delivery_order_request_id' + keys + '" value="' + val.Sys_ID + '" type="hidden"><input id="supplier_id' + keys + '" value="' + val.RequesterWorkerJobsPosition_RefID + '" type="hidden"><td>' + no++ + '</td>',
+                '<td>' + val.DocumentNumber + '</td>',
+                '<td>' + val.CombinedBudgetCode + '</td>',
+                '<td>' + val.CombinedBudgetSectionCode + '</td>',
+                '<td>' + val.RequesterWorkerName + '</td></tr></tbody>'
+            ]).draw();
+
+        });
+    }
+</script>
 
 <script>
-    $('#tableGetProject tbody').on('click', 'tr', function() {
-
-        //RESET FORM
-        document.getElementById("FormSubmitDo").reset();
-        $('.TableDorDetail').find('tbody').empty();
-        $('.TableDoCart').find('tbody').empty();
-        $('#TotalBudgetSelected').html(0);
-        $('#TotalQty').html(0);
-        $("#SubmitDo").prop("disabled", true);
-        //END RESET FORM
-
-        $("#myProject").modal('toggle');
-
-        var row = $(this).closest("tr");
-        var id = row.find("td:nth-child(1)").text();
-        var sys_id = $('#sys_id_budget' + id).val();
-        var code = row.find("td:nth-child(2)").text();
-        var name = row.find("td:nth-child(3)").text();
-
-        $("#projectcode").val(code);
-        $("#projectname").val(name);
-        $("#dor_number2").prop("disabled", false);
-
-
-        $(".dor_detail").show();
-
+    $('#delivery_order_request2').one('click', function() {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
 
-        var keys = 0;
-
         $.ajax({
             type: 'GET',
-            url: '{!! route("DeliveryOrder.DeliveryOrderByBudgetID") !!}?projectcode=' + sys_id,
+            url: '{!! route("AdvanceRequest.AdvanceListData") !!}',
             success: function(data) {
-                var no = 1;
-                t = $('#tableSearchDorInDo').DataTable();
-                $.each(data.DataAdvanceRequest, function(key, val) {
-                    keys += 1;
-                    t.row.add([
-                        '<tbody><tr><input id="sys_id' + keys + '" value="' + val.sys_ID + '" type="hidden"><td>' + no++ + '</td>',
-                        '<td>' + val.documentNumber + '</td>',
-                        '<td>' + val.combinedBudgetCode + '</td>',
-                        '<td>' + val.combinedBudgetName + '</td>',
-                        '<td>' + val.combinedBudgetSectionCode + '</td>',
-                        '<td>' + val.combinedBudgetSectionName + '</td></tr></tbody>'
-                    ]).draw();
 
-                });
+                TableSearchDorInDo(data);
+
             }
         });
     });
 </script>
 
 <script>
+    $(function() {
+        $("#FormSubmitSearchPurchaseOrder").on("submit", function(e) { //id of form 
+            e.preventDefault();
+
+            var action = $(this).attr("action"); //get submit action from form
+            var method = $(this).attr("method"); // get submit method
+            var form_data = new FormData($(this)[0]); // convert form into formdata 
+            var form = $(this);
+
+            $.ajax({
+                url: action,
+                dataType: 'json', // what to expect back from the server
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data,
+                type: method,
+                success: function(data) {
+
+                    TableSearchDorInDo(data);
+
+                }
+            })
+        });
+    });
+</script>
+
+
+
+<script>
     var keys = 0;
 
-    $('#tableSearchDorInDo tbody').on('click', 'tr', function() {
+    $('#TableSearchDorInDo tbody').on('click', 'tr', function() {
 
-        $("#mySearchDor").modal('toggle');
+        $("#mySearDeliveryOrderRequest").modal('toggle');
 
         var row = $(this).closest("tr");
         var id = row.find("td:nth-child(1)").text();
-        var sys_id = $('#sys_id' + id).val();
-        var trano = row.find("td:nth-child(2)").text();
-        $("#dor_number").val(sys_id);
-        $(".tableShowHideDo").show();
+        var delivery_order_request_id = $('#delivery_order_request_id' + id).val();
+        var delivery_order_request = row.find("td:nth-child(2)").text();
+        $("#delivery_order_request").val(delivery_order_request);
 
+
+        var supplier_id = $('#supplier_id' + id).val();
+        var supplier = row.find("td:nth-child(5)").text();
+        
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -94,8 +111,8 @@
         });
 
         $.ajax({
-            type: "GET",
-            url: '{!! route("DeliveryOrder.DeliveryOrderByDorID") !!}?sys_id=' + sys_id,
+            type: "POST",
+            url: '{!! route("DeliveryOrder.StoreValidateDeliveryOrderSupplier") !!}?supplier_id=' + supplier_id + '&supplier=' + supplier + '&delivery_order_request_id=' + delivery_order_request_id,
             success: function(data) {
 
                 var no = 1;
@@ -107,23 +124,24 @@
                 statusForm = [];
                 if (data.status == "200") {
 
-                    $("#dor_number").val(data.sys_id);
+                    $("#supplier_id").val(data.supplier_id);
+                    $("#supplier").val(data.supplier);
 
-                    $.each(data.DataDorList, function(key, value) {
+                    $.each(data.data, function(key, value) {
 
                         keys += 1;
 
-                        // if(value.quantityAbsorption == "0.00" && value.quantity == "0.00"){
-                        if (value.quantity == "0.00") {
+                        // if(value.QuantityAbsorption == "0.00" && value.Quantity == "0.00"){
+                        if (value.Quantity == "0.00") {
                             var applied = 0;
                         } else {
-                            // var applied = Math.round(parseFloat(value.quantityAbsorption) / parseFloat(value.quantity) * 100);
-                            var applied = Math.round(parseFloat(value.quantity) * 100);
+                            // var applied = Math.round(parseFloat(value.QuantityAbsorption) / parseFloat(value.Quantity) * 100);
+                            var applied = Math.round(parseFloat(value.Quantity) * 100);
                         }
                         if (applied >= 100) {
                             var status = "disabled";
                         }
-                        if (value.productName == "Unspecified Product") {
+                        if (value.ProductName == "Unspecified Product") {
                             statusDisplay[keys] = "";
                             statusDisplay2[keys] = "none";
                             statusForm[keys] = "disabled";
@@ -134,27 +152,23 @@
                         }
 
                         var html = '<tr>' +
-                            '<input name="getWorkId[]" value="' + value.combinedBudgetSubSectionLevel1_RefID + '" type="hidden">' +
-                            '<input name="getWorkName[]" value="' + value.combinedBudgetSubSectionLevel1Name + '" type="hidden">' +
-                            '<input name="getProductId[]" value="' + value.product_RefID + '" type="hidden">' +
-                            '<input name="getProductName[]" value="' + value.productName + '" type="hidden">' +
-                            '<input name="getQty[]" id="budget_qty' + keys + '" value="' + value.quantity + '" type="hidden">' +
-                            '<input name="getPrice[]" id="budget_price' + keys + '" value="' + value.productUnitPriceCurrencyValue + '" type="hidden">' +
-                            '<input name="getUom[]" value="' + value.quantityUnitName + '" type="hidden">' +
-                            '<input name="getCurrency[]" value="' + value.priceCurrencyISOCode + '" type="hidden">' +
-                            '<input name="getTotal[]" value="' + value.priceBaseCurrencyValue + '" type="hidden">' +
+                            '<input name="getWorkId[]" value="' + value.CombinedBudgetSubSectionLevel1_RefID + '" type="hidden">' +
+                            '<input name="getWorkName[]" value="' + value.CombinedBudgetSubSectionLevel1Name + '" type="hidden">' +
+                            '<input name="getProductId[]" value="' + value.Product_RefID + '" type="hidden">' +
+                            '<input name="getProductName[]" value="' + value.ProductName + '" type="hidden">' +
+                            '<input name="getQty[]" id="budget_qty' + keys + '" value="' + value.Quantity + '" type="hidden">' +
+                            '<input name="getPrice[]" id="budget_price' + keys + '" value="' + value.ProductUnitPriceCurrencyValue + '" type="hidden">' +
+                            '<input name="getUom[]" value="' + value.QuantityUnitName + '" type="hidden">' +
+                            '<input name="getCurrency[]" value="' + value.ProductUnitPriceCurrencyISOCode + '" type="hidden">' +
+                            '<input name="getTotal[]" value="' + value.PriceBaseCurrencyValue + '" type="hidden">' +
                             '<input name="combinedBudget" value="' + value.sys_ID + '" type="hidden">' +
-                            '<input name="getTrano[]" value="' + trano + '" type="hidden">' +
+                            '<input name="getTrano[]" value="' + delivery_order_request + '" type="hidden">' +
 
-                            '<td style="border:1px solid #e9ecef;">' +
-                            '&nbsp;&nbsp;&nbsp;<div class="progress ' + status + ' progress-xs" style="height: 14px;border-radius:8px;"> @if(' + applied + ' >= ' + 0 + ' && ' + applied + ' <= ' + 40 + ')<div class="progress-bar bg-red" style="width:' + applied + '%;"></div> @elseif(' + applied + ' >= ' + 41 + ' && ' + applied + ' <= ' + 89 + ')<div class="progress-bar bg-blue" style="width:' + applied + '%;"></div> @elseif(' + applied + ' >= ' + 90 + ' && ' + applied + ' <= ' + 100 + ')<div class="progress-bar bg-green" style="width:' + applied + '%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>' + applied + ' %</center></small>' +
-                            '</td>' +
-
-                            '<td style="border:1px solid #e9ecef;">' + '<span>' + trano + '</span>' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + value.product_RefID + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + value.productName + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + value.priceCurrencyISOCode + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + value.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + '<span>' + delivery_order_request + '</span>' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + value.Product_RefID + '</td>' +
+                            '<td style="border:1px solid #e9ecef;max-width:15px;overflow: hidden;" title="' + value.ProductName + '">' + value.ProductName + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + value.ProductUnitPriceCurrencyISOCode + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.Quantity) + '</td>' +
 
                             '<td class="sticky-col second-col-dor-qty" style="border:1px solid #e9ecef;background-color:white;">' + '<input onkeyup="total_req(' + keys + ', this)" onkeypress="return isNumberKey(this, event);" id="total_req' + keys + '" style="border-radius:0;" name="total_req[]" class="form-control total_req" autocomplete="off" ' + statusForm[keys] + '>' + '</td>' +
                             '<td class="sticky-col first-col-dor-note" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="note_req' + keys + '" style="border-radius:0;" name="note_req[]" class="form-control note_req" autocomplete="off" ' + statusForm[keys] + '>' + '</td>' +
@@ -163,8 +177,10 @@
 
                         $('table.TableDorDetail tbody').append(html);
                     });
-                } else if (data.status == "500") {
+                } else if (data.status == "501") {
                     Swal.fire("Cancelled", "You have chosen this number !", "error");
+                } else {
+                    Swal.fire("Cancelled", "Please use same requester !", "error");
                 }
             },
         });
