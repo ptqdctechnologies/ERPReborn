@@ -1,98 +1,112 @@
 <script type="text/javascript">
     $("#addAsfListCart").prop("disabled", true);
     $("#SaveAsfList").prop("disabled", true);
-    $("#advance_number2").prop("disabled", true);
     $("#bank_name2").prop("disabled", true);
     $("#bank_account2").prop("disabled", true);
     $("#detailASF").hide();
-    // $(".tableShowHideArfDetail").hide();
-    // $("#amountCompanyCart").hide();
-    // $(".amountCompanyCart").hide();
-    // $("#expenseCompanyCart").hide();
-    // $(".expenseCompanyCart").hide();
-    // $(".file-attachment").hide();
 </script>
 
 <script>
-    $('#tableGetProject tbody').on('click', 'tr', function() {
+    function TableSearchArfinAsf(data) {
+        $('.TableSearchArfinAsf').find('tbody').empty();
+        var no = 1;
+        t = $('#TableSearchArfinAsf').DataTable();
+        t.clear().draw();
 
-        //RESET FORM
-        document.getElementById("FormStoreAdvanceSettlement").reset();
-        $("#dataInput_Log_FileUpload_Pointer_RefID").val("");
-        $("#dataInput_Log_FileUpload_Pointer_RefID_Action").val("");
-        $('.TableArfDetail').find('tbody').empty();
-        $('.TableExpenseClaim').find('tbody').empty();
-        $('.TableAmountDueto').find('tbody').empty();
-        $('#zhtSysObjDOMTable_Upload_ActionPanel').find('tbody').empty();
-        $('#TotalBudgetSelected').html(0);
-        $('#TotalQtyExpense').html(0);
-        $('#TotalQtyAmount').html(0);
-        $('#GrandTotalExpense').html(0);
-        $('#GrandTotalAmount').html(0);
-        $("#SaveAsfList").prop("disabled", true);
-        //END RESET FORM
+        var keys = 0;
 
-        $("#myProject").modal('toggle');
+        $.each(data, function(key, val) {
+            keys += 1;
+            t.row.add([
+                '<tbody><tr><input id="advance_RefID' + keys + '" value="' + val.Sys_ID + '" type="hidden"><input id="beneficiary_id' + keys + '" value="' + val.BeneficiaryWorkerJobsPosition_RefID + '" type="hidden"><td>' + no++ + '</td>',
+                '<td>' + val.DocumentNumber + '</td>',
+                '<td>' + val.CombinedBudgetCode + '</td>',
+                '<td>' + val.CombinedBudgetSectionCode + '</td>',
+                '<td>' + val.RequesterWorkerName + '</td>',
+                '<td>' + val.BeneficiaryWorkerName + '</td></tr></tbody>'
+            ]).draw();
 
-        var row = $(this).closest("tr");
-        var id = row.find("td:nth-child(1)").text();
-        var sys_id = $('#sys_id_budget' + id).val();
-        var code = row.find("td:nth-child(2)").text();
-        var name = row.find("td:nth-child(3)").text();
+        });
+    }
+</script>
 
-        $("#project_code").val(code);
-        $("#project_code_detail").val(name);
-
-        $("#advance_number2").prop("disabled", false);
-
-
-        $(".file-attachment").show();
-
+<script>
+    $('#advance_number2').one('click', function() {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-
         var keys = 0;
 
         $.ajax({
             type: 'GET',
-            url: '{!! route("AdvanceSettlement.AdvanceListDataByBudgetCode") !!}?sys_id=' + sys_id,
+            url: '{!! route("AdvanceRequest.AdvanceListData") !!}',
             success: function(data) {
-                var no = 1;
-                t = $('#tableSearchArfinAsf').DataTable();
-                t.clear();
-                $.each(data, function(key, val) {
-                    keys += 1;
-                    t.row.add([
-                        '<tbody><tr><input id="advance_RefID' + keys + '" value="' + val.Sys_ID + '" type="hidden"><input id="beneficiary_RefID' + keys + '" value="' + val.BeneficiaryWorkerJobsPosition_RefID + '" type="hidden"><input id="beneficiary' + keys + '" value="' + val.BeneficiaryWorkerName + '" type="hidden"><td>' + no++ + '</td>',
-                        '<td>' + val.DocumentNumber + '</td>',
-                        '<td>' + val.CombinedBudgetCode + '</td>',
-                        '<td>' + val.CombinedBudgetName + '</td>',
-                        '<td>' + val.CombinedBudgetSectionCode + '</td>',
-                        '<td>' + val.CombinedBudgetSectionName + '</td></tr></tbody>'
-                    ]).draw();
-
-                });
+                TableSearchArfinAsf(data);
             }
         });
     });
 </script>
 
 <script>
+    $(function() {
+        $("#FormSubmitSearchAdvance").on("submit", function(e) { //id of form 
+            e.preventDefault();
+
+            var action = $(this).attr("action"); //get submit action from form
+            var method = $(this).attr("method"); // get submit method
+            var form_data = new FormData($(this)[0]); // convert form into formdata 
+            var form = $(this);
+
+            $.ajax({
+                url: action,
+                dataType: 'json', // what to expect back from the server
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data,
+                type: method,
+                success: function(data) {
+
+                    TableSearchArfinAsf(data);
+                }
+            })
+        });
+    });
+</script>
+
+
+<script>
     var keys = 0;
 
-    $('#tableSearchArfinAsf tbody').on('click', 'tr', function() {
+    $('#TableSearchArfinAsf tbody').on('click', 'tr', function() {
+
+        //RESET FORM
+        // document.getElementById("FormStoreAdvanceSettlement").reset();
+        // $("#dataInput_Log_FileUpload_Pointer_RefID").val("");
+        // $("#dataInput_Log_FileUpload_Pointer_RefID_Action").val("");
+        // $('.TableArfDetail').find('tbody').empty();
+        // $('.TableExpenseClaim').find('tbody').empty();
+        // $('.TableAmountDueto').find('tbody').empty();
+        // $('#zhtSysObjDOMTable_Upload_ActionPanel').find('tbody').empty();
+        // $('#TotalBudgetSelected').html(0);
+        // $('#TotalQtyExpense').html(0);
+        // $('#TotalQtyAmount').html(0);
+        // $('#GrandTotalExpense').html(0);
+        // $('#GrandTotalAmount').html(0);
+        // $("#SaveAsfList").prop("disabled", true);
+        //END RESET FORM
 
         $("#mySearchArf").modal('toggle');
 
         var row = $(this).closest("tr");
         var id = row.find("td:nth-child(1)").text();
         var advance_RefID = $('#advance_RefID' + id).val();
-        var beneficiary_RefID = $('#beneficiary_RefID' + id).val();
-        var beneficiary = $('#beneficiary' + id).val();
         var advance_number = row.find("td:nth-child(2)").text();
+
+        var beneficiary_id = $('#beneficiary_id' + id).val();
+        var beneficiary = row.find("td:nth-child(6)").text();
 
         $("#advance_number").val(advance_number);
         $(".tableShowHideArfDetail").show();
@@ -104,7 +118,7 @@
         });
         $.ajax({
             type: "POST",
-            url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlementBeneficiary") !!}?beneficiary_id=' + beneficiary_RefID + '&beneficiary=' + beneficiary + '&beneficiary_id2=' + $('#beneficiary_id').val() + '&advance_RefID=' + advance_RefID,
+            url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlementBeneficiary") !!}?beneficiary_id=' + beneficiary_id + '&beneficiary=' + beneficiary + '&advance_RefID=' + advance_RefID,
             success: function(data) {
 
                 if (data.status == "200") {
@@ -216,7 +230,7 @@
                 } else if (data.status == "501") {
                     Swal.fire("Cancelled", "You have chosen this number !", "error");
                 } else {
-                    Swal.fire("Cancelled", "Please use same requester !", "error");
+                    Swal.fire("Cancelled", "Please use same benificiary !", "error");
                 }
             },
         });
@@ -723,4 +737,25 @@
         ShowLoading();
         location.reload();
     }
+</script>
+
+<!-- RESET FILTER  -->
+<script type="text/javascript">
+    function ResetFilter() {
+        $("#trano").val("");
+        $("#budget_code").val("");
+        $("#sub_budget_code").val("");
+        $("#requester").val("");
+        $("#benificary").val("");
+    }
+</script>
+
+<!-- HIDE SEARCHING PLUGIN FROM DATATABLE -->
+<script>
+    $(document).ready(function() {
+        $('.TableSearchArfinAsf').DataTable({
+            "searching": false,
+            "dom": 'rtip'
+        });
+    });
 </script>

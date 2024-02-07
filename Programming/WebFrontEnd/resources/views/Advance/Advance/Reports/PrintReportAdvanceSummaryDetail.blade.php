@@ -25,12 +25,12 @@
               <td>{{ $data['dataHeader']['DocumentNumber'] }}</td>
             </tr>
             <tr>
-              <td><label>Budget Code</label></td>
+              <td><label>Budget</label></td>
               <td>:</td>
               <td>{{ $data['dataHeader']['CombinedBudgetCode'] }} - {{ $data['dataHeader']['CombinedBudgetName'] }}</td>
             </tr>
             <tr>
-              <td><label>Sub Budget Code</label></td>
+              <td><label>Sub Budget</label></td>
               <td>:</td>
               <td>{{ $data['dataHeader']['CombinedBudgetSectionCode'] }} - {{ $data['dataHeader']['CombinedBudgetSectionName'] }}</td>
             </tr>

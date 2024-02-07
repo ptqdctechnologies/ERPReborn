@@ -12,7 +12,8 @@ class AdvanceSettlementController extends Controller
     public function index(Request $request)
     {
         $varAPIWebToken = Session::get('SessionLogin');
-        Session::forget("SessionAdvanceSetllementRequester");
+        Session::forget("SessionAdvanceSetllementBeneficiary");
+        Session::forget("SessionAdvanceSetllementBeneficiaryID");
 
         $var = 0;
         if (!empty($_GET['var'])) {
@@ -47,7 +48,7 @@ class AdvanceSettlementController extends Controller
         if (isset($input['var_product_id_amount'])) {
             $count_product_amount = count($input['var_product_id_amount']);
         }
-        
+
         $advanceSettlementDetail = [];
 
         $count_product = $count_product_amount;
@@ -142,7 +143,7 @@ class AdvanceSettlementController extends Controller
             ]
         );
 
-        
+
         // $varAPIWebToken = Session::get('SessionLogin');
 
         // $input = $request->all();
@@ -159,7 +160,7 @@ class AdvanceSettlementController extends Controller
         // if (isset($input['var_product_id_amount'])) {
         //     $count_product_amount = count($input['var_product_id_amount']);
         // }
-        
+
         // $advanceSettlementDetail = [];
 
         // $count_product = $count_product_amount;
@@ -262,28 +263,36 @@ class AdvanceSettlementController extends Controller
     {
         $varAPIWebToken = Session::get('SessionLogin');
         $tamp = 0;
+        $tamp2 = 0;
         $status = 200;
         $varDataAdvanceList['data'] = [];
         $beneficiary_id = $request->input('beneficiary_id');
         $beneficiary = $request->input('beneficiary');
-        $beneficiary_id2 = $request->input('beneficiary_id2');
         $advance_RefID = $request->input('advance_RefID');
 
-        $data = Session::get("SessionAdvanceSetllementRequester");
-        if (Session::has("SessionAdvanceSetllementRequester")) {
+        $data = Session::get("SessionAdvanceSetllementBeneficiary");
+        $dataID = Session::get("SessionAdvanceSetllementBeneficiaryID");
+        if (Session::has("SessionAdvanceSetllementBeneficiary")) {
             for ($i = 0; $i < count($data); $i++) {
                 if ($data[$i] == $advance_RefID) {
                     $tamp = 1;
                 }
             }
             if ($tamp == 0) {
-                if ($beneficiary_id != $beneficiary_id2 && $beneficiary_id2 != "") {
-                    $status = 500;
-                } else {
+                for ($i = 0; $i < count($dataID); $i++) {
+                    if ($dataID[$i] != $beneficiary_id) {
+                        $status = 500;
+                        $tamp2 = 1;
+                        break;
+                    }
+                }
+
+                if ($tamp2 == 0){
 
                     $varDataAdvanceList = $this->AdvanceDetailComplexByBeneficiaryID($advance_RefID);
 
-                    Session::push("SessionAdvanceSetllementRequester", $advance_RefID);
+                    Session::push("SessionAdvanceSetllementBeneficiary", $advance_RefID);
+                    Session::push("SessionAdvanceSetllementBeneficiaryID", $beneficiary_id);
                 }
             } else {
                 $status = 501;
@@ -292,7 +301,8 @@ class AdvanceSettlementController extends Controller
 
             $varDataAdvanceList = $this->AdvanceDetailComplexByBeneficiaryID($advance_RefID);
 
-            Session::push("SessionAdvanceSetllementRequester", $advance_RefID);
+            Session::push("SessionAdvanceSetllementBeneficiary", $advance_RefID);
+            Session::push("SessionAdvanceSetllementBeneficiaryID", $beneficiary_id);
         }
         $compact = [
             'status' => $status,
@@ -349,10 +359,10 @@ class AdvanceSettlementController extends Controller
 
         return $filteredArray;
     }
-    public function AdvanceListDataByBudgetCode(Request $request)
+    public function SearchAdvanceRequest(Request $request)
     {
-
-        Session::forget("SessionAdvanceSetllementRequester");
+        Session::forget("SessionAdvanceSetllementBeneficiary");
+        Session::forget("SessionAdvanceSetllementBeneficiaryID");
         if (Redis::get("DataListAdvance") == null) {
             $varAPIWebToken = Session::get('SessionLogin');
             \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
@@ -382,8 +392,39 @@ class AdvanceSettlementController extends Controller
         );
 
         $collection = collect($DataListAdvance);
-        $sys_id = $request->input('sys_id');
-        $collection = $collection->where('CombinedBudget_RefID', $sys_id);
+
+        $budget_code = $request->input('budget_code');
+        $sub_budget_code = $request->input('sub_budget_code');
+        $requester = $request->input('requester');
+        $benificiary = $request->input('benificiary');
+        $trano = $request->input('trano');
+
+        if ($budget_code != "") {
+            $collection = $collection->filter(function ($item) use ($budget_code) {
+                return strpos($item['CombinedBudgetCode'], $budget_code) !== false;
+            });
+        }
+        if ($sub_budget_code != "") {
+            $collection = $collection->filter(function ($item) use ($sub_budget_code) {
+                return strpos($item['CombinedBudgetSectionCode'], $sub_budget_code) !== false;
+            });
+        }
+        if ($requester != "") {
+            $collection = $collection->filter(function ($item) use ($requester) {
+                return strpos($item['RequesterWorkerName'], $requester) !== false;
+            });
+        }
+
+        if ($benificiary != "") {
+            $collection = $collection->filter(function ($item) use ($benificiary) {
+                return strpos($item['BeneficiaryWorkerName'], $benificiary) !== false;
+            });
+        }
+        if ($trano != "") {
+            $collection = $collection->filter(function ($item) use ($trano) {
+                return strpos($item['DocumentNumber'], $trano) !== false;
+            });
+        }
 
         return response()->json($collection->all());
     }
@@ -465,7 +506,8 @@ class AdvanceSettlementController extends Controller
     public function RevisionAdvanceSettlementIndex(Request $request)
     {
         $varAPIWebToken = Session::get('SessionLogin');
-        Session::forget("SessionAdvanceSetllementRequester");
+        Session::forget("SessionAdvanceSetllementBeneficiary");
+        Session::forget("SessionAdvanceSetllementBeneficiaryID");
 
         $varDataAdvanceSettlementRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),

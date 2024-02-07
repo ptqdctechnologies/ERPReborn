@@ -23,9 +23,8 @@ class PrivilageMenuController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
         $userRole_RefID = $request->user_role_id;
-        $menuAction_RefIDArray = $request->checkedValueAction;
+        $menuAction_RefIDArray = $request->checkedValue;
         $varAPIWebToken = Session::get('SessionLogin');
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -75,6 +74,11 @@ class PrivilageMenuController extends Controller
             ]
         );
 
-        return response()->json($varData['data']);
+        $compact = [
+            "data" => $varData['data'],
+            "status" => $varData['metadata']['HTTPStatusCode']
+        ];
+
+        return response()->json($compact);
     }
 }

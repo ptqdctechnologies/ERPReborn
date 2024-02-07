@@ -1,21 +1,17 @@
 <?php
 
-use Illuminate\Support\Facades\Session;
+namespace App\Helpers;
 
-function rupiah()
+class helpers
 {
-  // $cek = Session::get("SessionLogout");
 
-  // if($cek >= 1){
-  //   $tamp = 100;
-  // }
-  // else{
-  //   $tamp = 200;
-  // }
-
-  // return $tamp;
-  // // config(['session.lifetime' => 2]);
-
-  return 10;
-
+    // 4B586A
+    public function GoToDocumentBGColor()
+    {
+        return "background-color:red;";
+    }
+    public function SidebarBGColor()
+    {
+        return "background-color:yellow;";
+    }
 }

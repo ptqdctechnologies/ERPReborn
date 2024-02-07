@@ -2,10 +2,10 @@
 <script>
     $("#user_role_popup").prop("disabled", true);
     $("#SavePrivilageMenu").prop("disabled", true);
-    // $("#Modul").prop("disabled", true);
+    $("#Modul").prop("disabled", true);
     var checkedValue = [];
 </script>
-
+<!-- 
 <script>
     $.ajaxSetup({
             headers: {
@@ -31,10 +31,16 @@
                 }
             }
         });
-</script>
+</script> -->
 
 <script>
-    function TableSubMenu(ModulID, Type){
+    function TableSubMenu(){
+
+        $('#SelectAll').prop("checked", false);
+        $('#UnSelectAll').prop("checked", false);
+
+        var ModulID = $('#Modul').val();
+        var Type = $('#Type').val();
 
         var keys = 0;
 
@@ -56,7 +62,7 @@
 
                     var checkedSubMenu = "";
                     for (var i = 0; i < checkedValue.length; i++) {
-                        if (checkedValue[i] == val.Sys_ID) {
+                        if (checkedValue[i] == val.DefaultMenuAction_RefID) {
 
                             checkedSubMenu = "checked";
 
@@ -67,7 +73,7 @@
                             '<td>' +
                                 '<div class="input-group">&nbsp;&nbsp;' +
                                     '<span class="input-group-text">' +
-                                        '<input type="checkbox" ' + checkedSubMenu + ' name="Sub_Menu" id="Sub_Menu' + keys + '" class="Sub_Menu" value="' + val.Sys_ID + '">' +
+                                        '<input type="checkbox" ' + checkedSubMenu + ' name="Sub_Menu" id="Sub_Menu' + keys + '" class="Sub_Menu" value="' + val.DefaultMenuAction_RefID + '">' +
                                     '</span>' +
                                     '<span style="position: relative;top:7px;left:15px;">' + val.Caption + '</span>' +
                                 '</div>' +
@@ -116,14 +122,9 @@
 
     $('#Modul').on("select2:select", function(e) {
 
-        $('#SelectAll').prop("checked", false);
-        $('#UnSelectAll').prop("checked", false);
-        $('#Transaction').prop("checked", false);
-        $('#Report').prop("checked", false);
+        console.log(checkedValue.length);
 
-        var ModulID = $('#Modul').val();
-        var Type = "All";
-        TableSubMenu(ModulID, Type);
+        TableSubMenu();
         
     });
 </script>
@@ -133,10 +134,7 @@
 
     $('#Type').on("select2:select", function(e) {
 
-        var ModulID = $('#Modul').val();
-        var Type = $('#Type').val();
-
-        TableSubMenu(ModulID, Type);
+        TableSubMenu();
         
     });
 </script>

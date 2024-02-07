@@ -23,7 +23,7 @@
             @include('Advance.Advance.Functions.Header.HeaderReportAdvanceSummary')
 
 
-            <div class="col-12 ShowDocumentList" style="font-weight: bold;">
+            <div class="col-12 ShowTableReportAdvanceSummary" style="font-weight: bold;">
               <div class="card">
 
                 <div class="card-body">
@@ -45,7 +45,7 @@
             </div>
           </div>
 
-          <div class="col-12">
+          <div class="col-12 ShowTableReportAdvanceSummary">
             <div class="card">
               <div class="card-body table-responsive p-0">
 
@@ -67,7 +67,7 @@
                   </tbody>
                   <tfoot>
                     <tr style="font-weight:bolder;">
-                      <td colspan="4">GRAND TOTAL</td>
+                      <td colspan="4">GRAND TOTAL ADVANCE</td>
                       <td><span id="Total"></span></td>
                       <td colspan="4"></td>
                     </tr>
