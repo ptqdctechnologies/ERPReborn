@@ -36,25 +36,22 @@
                     <a href="{{ route('logout') }}" class="btn btn-default btn-sm float-right">Sign out</a>
                 </li>
             </ul>
+        </li>
+        <li class="nav-item dropdown user-menu">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                <i class="fas fa-arrow-circle-down" style="position:relative;top:5px;"></i>
+            </a>
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <li class="user-header bg-secondary">
-                    <img src="{{ asset('AdminLTE-master/dist/img/user.png')}}" class="img-circle elevation-2" alt="User Image">
-                    @if(Session::get('SessionLoginName'))
-                    <p>
-                        {{Session::get('SessionLoginName')}}
-                        <small><br> {{Session::get('SessionOrganizationalDepartmentName')}}</small>
-                    </p>
-                    @else
-                    <p>
-                        Admin
-                        <small>{{Session::get('SessionCompanyName')}}</small>
-                    </p>
-                    @endif
+                <li class="user-footer float-left">
+                    <small>Mode</small>
                 </li>
 
-                <li class="user-footer">
-                    <a href="#" class="btn btn-default btn-sm">Profile</a>
-                    <a href="{{ route('logout') }}" class="btn btn-default btn-sm float-right">Sign out</a>
+                <li class="user-footer float-right">
+                    <select name="mode" id="mode" class="form-control">
+                        <option selected>Select Mode</option>
+                        <option value="dark">Dark</option>
+                        <option value="light">Light</option>
+                    </select>
                 </li>
             </ul>
         </li>

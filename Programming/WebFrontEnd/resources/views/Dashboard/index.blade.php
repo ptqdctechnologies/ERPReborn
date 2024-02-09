@@ -11,7 +11,7 @@
 <div class="content-wrapper">
   <section class="content">
     <div class="container-fluid">
-      <div class="row mb-1 sidebar-dark-primary">
+      <div class="row mb-1 sidebar-{{ $ColorMode }}-primary">
         <div class="col-sm-6 sidebar" style="height:30px;">
           <a href="#" class="d-block" style="font-size:15px;position:relative;top:7px;">Project Dashboard</a>
         </div>

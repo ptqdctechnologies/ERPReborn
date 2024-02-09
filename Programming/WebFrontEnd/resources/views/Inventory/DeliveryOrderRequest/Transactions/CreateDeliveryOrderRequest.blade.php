@@ -63,7 +63,6 @@
                                         <table class="table table-head-fixed text-nowrap TableDorCart" id="TableDorCart">
                                             <thead>
                                                 <tr>
-                                                    <th>Work Id</th>
                                                     <th>Product Id</th>
                                                     <th>Product Name</th>
                                                     <th>PR Price</th>

@@ -148,8 +148,6 @@
                         }
 
                         var html = '<tr>' +
-                            '<input name="getWorkId[]" value="' + value.CombinedBudget_SubSectionLevel1_RefID + '" type="hidden">' +
-                            '<input name="getWorkName[]" value="' + value.CombinedBudget_SubSectionLevel1Name + '" type="hidden">' +
                             '<input name="getProductId[]" value="' + value.Product_RefID + '" type="hidden">' +
                             '<input name="getProductName[]" value="' + value.ProductName + '" type="hidden">' +
                             '<input name="getQty[]" id="budget_qty' + keys + '" value="' + value.Quantity + '" type="hidden">' +
@@ -219,9 +217,6 @@
 
         $(".DetailDorList").show();
         var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
-        var getWorkId = $("input[name='getWorkId[]']").map(function() {
-            return $(this).val();
-        }).get();
         var getWorkName = $("input[name='getWorkName[]']").map(function() {
             return $(this).val();
         }).get();
@@ -276,8 +271,6 @@
                     '<input type="hidden" name="var_date" value="' + date + '">' +
                     '<input type="hidden" name="var_combinedBudget[]" value="' + combinedBudget + '">' +
 
-                    // '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkName[index] + '</td>' +
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkId[index] + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductId + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductName + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + currencyTotal(getPrice[index]) + '</td>' +
