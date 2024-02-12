@@ -1,13 +1,200 @@
 <script type="text/javascript">
     $(document).ready(function() {
-        $(".headerDor1").hide();
-        $(".headerDor2").hide();
-        $(".headerDor3").hide();
-        $(".headerDor4").hide();
+
+        $(".WarehouseLeft").hide();
+        $(".SiteLeft").hide();
+        $(".SupplierLeft").hide();
+        $(".WarehouseRight").hide();
+        $(".SiteRight").hide();
+        $(".SupplierRight").hide();
+        $(".UserRight").hide();
+        $(".ArrowIcon").hide();
+
+        $("#WTH").hide();
+        $("#WTS").hide();
+        $("#WTU").hide();
+        $("#SUTW").hide();
+        $("#STS").hide();
+        $("#SITW").hide();
+
         $("#detailPR").hide();
         $("#detailDor").hide();
         $("#headerPrNumber2").prop("disabled", true);
         $("#SubmitDor").prop("disabled", true);
+
+        $(".ShowPO").hide();
+        $(".ShowOP").hide();
+        $(".ShowSM").hide();
+        $(".ShowReceiver").hide();
+    });
+</script>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".deliverType").on('click', function(e) {
+            e.preventDefault();
+            var valType = $(".deliverType").val();
+            if (valType == "Warehouse to Warehouse") {
+                $(".WarehouseLeft").show();
+                $(".SiteLeft").hide();
+                $(".SupplierLeft").hide();
+                $(".WarehouseRight").show();
+                $(".SiteRight").hide();
+                $(".SupplierRight").hide();
+                $(".UserRight").hide();
+                $(".ArrowIcon").show();
+            } else if (valType == "Warehouse to Site") {
+                $(".WarehouseLeft").show();
+                $(".SiteLeft").hide();
+                $(".SupplierLeft").hide();
+                $(".WarehouseRight").hide();
+                $(".SiteRight").show();
+                $(".SupplierRight").hide();
+                $(".UserRight").hide();
+                $(".ArrowIcon").show();
+            } else if (valType == "Warehouse to User") {
+                $(".WarehouseLeft").show();
+                $(".SiteLeft").hide();
+                $(".SupplierLeft").hide();
+                $(".WarehouseRight").hide();
+                $(".SiteRight").hide();
+                $(".SupplierRight").hide();
+                $(".UserRight").show();
+                $(".ArrowIcon").show();
+            } else if (valType == "Supplier to Warehouse") {
+                $(".WarehouseLeft").hide();
+                $(".SiteLeft").hide();
+                $(".SupplierLeft").show();
+                $(".WarehouseRight").show();
+                $(".SiteRight").hide();
+                $(".SupplierRight").hide();
+                $(".UserRight").hide();
+                $(".ArrowIcon").show();
+            } else if (valType == "Supplier to Site") {
+                $(".WarehouseLeft").hide();
+                $(".SiteLeft").hide();
+                $(".SupplierLeft").show();
+                $(".WarehouseRight").hide();
+                $(".SiteRight").show();
+                $(".SupplierRight").hide();
+                $(".UserRight").hide();
+                $(".ArrowIcon").show();
+            } else if (valType == "Site to Warehouse") {
+                $(".WarehouseLeft").hide();
+                $(".SiteLeft").show();
+                $(".SupplierLeft").hide();
+                $(".WarehouseRight").show();
+                $(".SiteRight").hide();
+                $(".SupplierRight").hide();
+                $(".UserRight").hide();
+                $(".ArrowIcon").show();
+            }
+            else{
+                $(".WarehouseLeft").hide();
+                $(".SiteLeft").hide();
+                $(".SupplierLeft").hide();
+                $(".WarehouseRight").hide();
+                $(".SiteRight").hide();
+                $(".SupplierRight").hide();
+                $(".UserRight").hide();
+                $(".ArrowIcon").hide();
+            }
+        });
+
+        // $(".siteName1").on('click', function(e) {
+        //     e.preventDefault();
+        //     var valSite = $(".siteName1").val();
+        //     if (valSite == "WH-001") {
+        //         $("#headerAddressSiteName1").val("Jl. Baru Leko. Kode Pos, : 97796. Desa/Kelurahan, : DESA LEKO SULA. Kecamatan/Kota (LN), Kec. Mangoli Barat, Kab. Kepulauan Sula, Prov. Maluku Utara");
+        //     } else if (valSite == "WH-002") {
+        //         $("#headerAddressSiteName1").val("Bekasi cyber park, RT.001/RW.009, Kayuringin Jaya, Kec. Bekasi Bar., Kota Bks, Jawa Barat 17415");
+        //     }
+        // });
+
+        // $(".siteName2").on('click', function(e) {
+        //     e.preventDefault();
+        //     var valSite = $(".siteName2").val();
+        //     if (valSite == "WH-001") {
+        //         $("#headerAddressSiteName2").val("Jl. Baru Leko. Kode Pos, : 97796. Desa/Kelurahan, : DESA LEKO SULA. Kecamatan/Kota (LN), Kec. Mangoli Barat, Kab. Kepulauan Sula, Prov. Maluku Utara");
+        //     } else if (valSite == "WH-002") {
+        //         $("#headerAddressSiteName2").val("Bekasi cyber park, RT.001/RW.009, Kayuringin Jaya, Kec. Bekasi Bar., Kota Bks, Jawa Barat 17415");
+        //     }
+        // });
+
+        // $(".siteName3").on('click', function(e) {
+        //     e.preventDefault();
+        //     var valSite = $(".siteName3").val();
+        //     if (valSite == "WH-001") {
+        //         $("#headerAddressSiteName3").val("Jl. Baru Leko. Kode Pos, : 97796. Desa/Kelurahan, : DESA LEKO SULA. Kecamatan/Kota (LN), Kec. Mangoli Barat, Kab. Kepulauan Sula, Prov. Maluku Utara");
+        //     } else if (valSite == "WH-002") {
+        //         $("#headerAddressSiteName3").val("Bekasi cyber park, RT.001/RW.009, Kayuringin Jaya, Kec. Bekasi Bar., Kota Bks, Jawa Barat 17415");
+        //     }
+        // });
+    });
+</script>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".Source").on('click', function(e) {
+            e.preventDefault();
+            var valSource = $(".Source").val();
+
+            if (valSource == "Purchase Order") {
+                $(".ShowPO").show();
+                $(".ShowOP").hide();
+                $(".ShowSM").hide();
+                $(".ShowReceiver").show();
+                $(".ShowReceiver").show();
+
+                $("#WTH").hide();
+                $("#WTS").hide();
+                $("#WTU").hide();
+                $("#SUTW").show();
+                $("#STS").show();
+                $("#SITW").hide();
+                
+            } else if (valSource == "Order Picking") {
+                $(".ShowPO").hide();
+                $(".ShowOP").show();
+                $(".ShowSM").hide();
+                $(".ShowReceiver").show();
+
+                $("#WTH").show();
+                $("#WTS").show();
+                $("#WTU").hide();
+                $("#SUTW").hide();
+                $("#STS").hide();
+                $("#SITW").show();
+
+            } else if (valSource == "Stock Movement") {
+                $(".ShowPO").hide();
+                $(".ShowOP").hide();
+                $(".ShowSM").show();
+                $(".ShowReceiver").show();
+
+                $("#WTH").show();
+                $("#WTS").hide();
+                $("#WTU").show();
+                $("#SUTW").hide();
+                $("#STS").hide();
+                $("#SITW").hide();
+            }
+
+            $(".deliverType").val("");
+
+            $(".WarehouseLeft").hide();
+            $(".SiteLeft").hide();
+            $(".SupplierLeft").hide();
+            $(".WarehouseRight").hide();
+            $(".SiteRight").hide();
+            $(".SupplierRight").hide();
+            $(".UserRight").hide();
+            $(".ArrowIcon").hide();
+            
+        });
     });
 </script>
 
@@ -100,7 +287,7 @@
 
         var supplier_id = $('#supplier_id' + id).val();
         var supplier = row.find("td:nth-child(5)").text();
-        
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -124,7 +311,7 @@
                     $("#supplier").val(data.supplier);
 
                     $.each(data.data, function(key, value) {
-                        
+
                         keys += 1;
 
                         // if(value.QuantityAbsorption == "0.00" && value.Quantity == "0.00"){
@@ -288,66 +475,6 @@
         });
 
     }
-</script>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        $(".deliverType").on('click', function(e) {
-            e.preventDefault();
-            var valType = $(".deliverType").val();
-            if (valType == "Warehouse to Site") {
-                $(".headerDor1").show();
-                $(".headerDor2").hide();
-                $(".headerDor3").hide();
-                $(".headerDor4").hide();
-            } else if (valType == "Warehouse to Warehouse") {
-                $(".headerDor2").show();
-                $(".headerDor1").hide();
-                $(".headerDor3").hide();
-                $(".headerDor4").hide();
-            } else if (valType == "Supplier to Site") {
-                $(".headerDor3").show();
-                $(".headerDor2").hide();
-                $(".headerDor1").hide();
-                $(".headerDor4").hide();
-            } else if (valType == "Site to Warehouse") {
-                $(".headerDor4").show();
-                $(".headerDor3").hide();
-                $(".headerDor2").hide();
-                $(".headerDor1").hide();
-            }
-        });
-
-        $(".siteName1").on('click', function(e) {
-            e.preventDefault();
-            var valSite = $(".siteName1").val();
-            if (valSite == "WH-001") {
-                $("#headerAddressSiteName1").val("Jl. Baru Leko. Kode Pos, : 97796. Desa/Kelurahan, : DESA LEKO SULA. Kecamatan/Kota (LN), Kec. Mangoli Barat, Kab. Kepulauan Sula, Prov. Maluku Utara");
-            } else if (valSite == "WH-002") {
-                $("#headerAddressSiteName1").val("Bekasi cyber park, RT.001/RW.009, Kayuringin Jaya, Kec. Bekasi Bar., Kota Bks, Jawa Barat 17415");
-            }
-        });
-
-        $(".siteName2").on('click', function(e) {
-            e.preventDefault();
-            var valSite = $(".siteName2").val();
-            if (valSite == "WH-001") {
-                $("#headerAddressSiteName2").val("Jl. Baru Leko. Kode Pos, : 97796. Desa/Kelurahan, : DESA LEKO SULA. Kecamatan/Kota (LN), Kec. Mangoli Barat, Kab. Kepulauan Sula, Prov. Maluku Utara");
-            } else if (valSite == "WH-002") {
-                $("#headerAddressSiteName2").val("Bekasi cyber park, RT.001/RW.009, Kayuringin Jaya, Kec. Bekasi Bar., Kota Bks, Jawa Barat 17415");
-            }
-        });
-
-        $(".siteName3").on('click', function(e) {
-            e.preventDefault();
-            var valSite = $(".siteName3").val();
-            if (valSite == "WH-001") {
-                $("#headerAddressSiteName3").val("Jl. Baru Leko. Kode Pos, : 97796. Desa/Kelurahan, : DESA LEKO SULA. Kecamatan/Kota (LN), Kec. Mangoli Barat, Kab. Kepulauan Sula, Prov. Maluku Utara");
-            } else if (valSite == "WH-002") {
-                $("#headerAddressSiteName3").val("Bekasi cyber park, RT.001/RW.009, Kayuringin Jaya, Kec. Bekasi Bar., Kota Bks, Jawa Barat 17415");
-            }
-        });
-    });
 </script>
 
 <script type="text/javascript">

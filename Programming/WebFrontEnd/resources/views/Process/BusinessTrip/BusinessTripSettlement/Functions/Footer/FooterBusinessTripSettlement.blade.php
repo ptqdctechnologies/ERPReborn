@@ -4,94 +4,115 @@
     $("#ManagerNameId").prop("disabled", true);
     $("#CurrencyId").prop("disabled", true);
     $("#FinanceId").prop("disabled", true);
-    $("#brf_number2").prop("disabled", true);
-    // $("#amountCompanyCart").hide();
-    // $(".amountCompanyCart").hide();
-    // $("#expenseCompanyCart").hide();
-    // $(".expenseCompanyCart").hide();
-    // $(".tableShowHideBrfDetail").hide();
-    // $(".DetailBsf").hide();
-    // $("#detailBrfList").hide();
+</script>
+
+
+
+<script>
+    function TableSearchBrfInBsf(data) {
+        $('.TableSearchBrfInBsf').find('tbody').empty();
+        var no = 1;
+        t = $('#TableSearchBrfInBsf').DataTable();
+        t.clear().draw();
+
+        var keys = 0;
+
+        $.each(data, function(key, val) {
+            keys += 1;
+            t.row.add([
+                '<tbody><tr><input id="bussinesTripRefID' + keys + '" value="' + val.Sys_ID + '" type="hidden"><input id="requester_id' + keys + '" value="' + val.RequesterWorkerJobsPosition_RefID + '" type="hidden"><td>' + no++ + '</td>',
+                '<td>' + val.DocumentNumber + '</td>',
+                '<td>' + val.CombinedBudgetCode + '</td>',
+                '<td>' + val.CombinedBudgetSectionCode + '</td>',
+                '<td>' + val.RequesterWorkerName + '</td></tr></tbody>'
+            ]).draw();
+
+        });
+    }
 </script>
 
 <script>
-    $('#tableGetProject tbody').on('click', 'tr', function() {
-        
-        //RESET FORM
-        document.getElementById("FormStoreBusinessTripSettlement").reset();
-        $("#dataInput_Log_FileUpload_Pointer_RefID").val("");
-        $("#dataInput_Log_FileUpload_Pointer_RefID_Action").val("");
-        $('.TableBrfDetail').find('tbody').empty();
-        $('.TableExpenseClaim').find('tbody').empty();
-        $('.TableAmountDueto').find('tbody').empty();
-        $('#zhtSysObjDOMTable_Upload_ActionPanel').find('tbody').empty();
-        $('#TotalBudgetSelected').html(0);
-        $('#TotalQtyExpense').html(0);
-        $('#TotalQtyAmount').html(0);
-        $('#GrandTotalExpense').html(0);
-        $('#GrandTotalAmount').html(0);
-        $("#SaveBsfList").prop("disabled", true);
-        //END RESET FORM
-        
-        $("#myProject").modal('toggle');
-
-        var row = $(this).closest("tr")
-        var id = row.find("td:nth-child(1)").text();
-        var sys_ID = $('#sys_id_budget' + id).val();
-        var code = row.find("td:nth-child(2)").text();
-        var name = row.find("td:nth-child(3)").text();
-
-        $("#projectcode").val(code);
-        $("#projectname").val(name);
-        $("#brf_number2").prop("disabled", false);
-
+    $('#bussines_trip_number2').one('click', function() {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-
         var keys = 0;
 
         $.ajax({
             type: 'GET',
-            url: '{!! route("BusinessTripSettlement.BusinessTripRequestByBudgetID") !!}?projectcode=' + sys_ID,
+            url: '{!! route("BusinessTripRequest.BusinessTripRequestListData") !!}',
             success: function(data) {
-
-                var no = 1;
-                t = $('#TableSearchBrfInBsf').DataTable();
-                $.each(data.DataAdvanceRequest, function(key, val) {
-                    keys += 1;
-                    t.row.add([
-                        '<tbody><tr><input id="advance_RefID' + keys + '" value="' + val.sys_ID + '" type="hidden"><input id="requester_RefID' + keys + '" value="' + val.requesterWorkerJobsPosition_RefID + '" type="hidden"><input id="requester_name' + keys + '" value="' + val.requesterWorkerName + '" type="hidden"><td>' + no++ + '</td>',
-                        '<td>' + val.documentNumber + '</td>',
-                        '<td>' + val.combinedBudgetCode + '</td>',
-                        '<td>' + val.combinedBudgetName + '</td>',
-                        '<td>' + val.combinedBudgetSectionCode + '</td>',
-                        '<td>' + val.combinedBudgetSectionName + '</td></tr></tbody>'
-                    ]).draw();
-
-                });
+                TableSearchBrfInBsf(data);
             }
         });
     });
 </script>
 
+
+<script>
+    $(function() {
+        $("#FormSubmitSearchBussinesTrip").on("submit", function(e) { //id of form 
+            e.preventDefault();
+
+            var action = $(this).attr("action"); //get submit action from form
+            var method = $(this).attr("method"); // get submit method
+            var form_data = new FormData($(this)[0]); // convert form into formdata 
+            var form = $(this);
+
+            $.ajax({
+                url: action,
+                dataType: 'json', // what to expect back from the server
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data,
+                type: method,
+                success: function(data) {
+
+                    TableSearchBrfInBsf(data);
+                }
+            })
+        });
+    });
+</script>
+
+
 <script>
     var keys = 0;
 
+    //RESET FORM
+    // document.getElementById("FormStoreBusinessTripSettlement").reset();
+    // $("#dataInput_Log_FileUpload_Pointer_RefID").val("");
+    // $("#dataInput_Log_FileUpload_Pointer_RefID_Action").val("");
+    // $('.TableBrfDetail').find('tbody').empty();
+    // $('.TableExpenseClaim').find('tbody').empty();
+    // $('.TableAmountDueto').find('tbody').empty();
+    // $('#zhtSysObjDOMTable_Upload_ActionPanel').find('tbody').empty();
+    // $('#TotalBudgetSelected').html(0);
+    // $('#TotalQtyExpense').html(0);
+    // $('#TotalQtyAmount').html(0);
+    // $('#GrandTotalExpense').html(0);
+    // $('#GrandTotalAmount').html(0);
+    // $("#SaveBsfList").prop("disabled", true);
+    //END RESET FORM
+
+    
     $('#TableSearchBrfInBsf tbody').on('click', 'tr', function() {
 
         $("#mySearchBrf").modal('toggle');
 
         var row = $(this).closest("tr");
         var id = row.find("td:nth-child(1)").text();
-        var advance_RefID = $('#advance_RefID' + id).val();
-        var requester_RefID = $('#requester_RefID' + id).val();
-        var requester_name = $('#requester_name' + id).val();
-        var advance_number = row.find("td:nth-child(2)").text();
+        var bussinesTripRefID = $('#bussinesTripRefID' + id).val();
+        var bussines_trip_number = row.find("td:nth-child(2)").text();
 
-        $("#advance_number").val(advance_number);
+        var requester_id = $('#requester_id' + id).val();
+        var requester_name = row.find("td:nth-child(5)").text();
+
+        $("#bussines_trip_number").val(bussines_trip_number);
+
         $(".tableShowHideBrfDetail").show();
 
         $.ajaxSetup({
@@ -101,7 +122,7 @@
         });
         $.ajax({
             type: "POST",
-            url: '{!! route("BusinessTripSettlement.StoreValidateBusinessTripSettlementRequester") !!}?requester_id=' + requester_RefID + '&requester_name=' + requester_name + '&requester_id2=' + $('#requester_id').val() + '&advance_RefID=' + advance_RefID,
+            url: '{!! route("BusinessTripSettlement.StoreValidateBusinessTripSettlementRequester") !!}?requester_id=' + requester_id + '&requester_name=' + requester_name + '&bussinesTripRefID=' + bussinesTripRefID,
             success: function(data) {
                 if (data.status == "200") {
 
@@ -115,21 +136,21 @@
                     statusDisplay = [];
                     statusDisplay2 = [];
                     statusForm = [];
-                    $.each(data.DataAdvanceList, function(key, value) {
+                    $.each(data.data, function(key, value) {
 
                         keys += 1;
 
-                        // if(value.quantityAbsorption == "0.00" && value.quantity == "0.00"){
-                        if (value.quantity == "0.00") {
+                        // if(value.QuantityAbsorption == "0.00" && value.Quantity == "0.00"){
+                        if (value.Quantity == "0.00") {
                             var applied = 0;
                         } else {
-                            // var applied = Math.round(parseFloat(value.quantityAbsorption) / parseFloat(value.quantity) * 100);
-                            var applied = Math.round(parseFloat(value.quantity) * 100);
+                            // var applied = Math.round(parseFloat(value.QuantityAbsorption) / parseFloat(value.Quantity) * 100);
+                            var applied = Math.round(parseFloat(value.Quantity) * 100);
                         }
                         if (applied >= 100) {
                             var status = "disabled";
                         }
-                        if (value.productName == "Unspecified Product") {
+                        if (value.ProductName == "Unspecified Product") {
                             statusDisplay[keys] = "";
                             statusDisplay2[keys] = "none";
                             statusForm[keys] = "disabled";
@@ -141,23 +162,19 @@
                         var html =
                             '<tr>' +
 
-                            '<input name="getWorkId[]" value="' + value.combinedBudgetSubSectionLevel1_RefID + '" type="hidden">' +
-                            '<input name="getWorkName[]" value="' + value.combinedBudgetSubSectionLevel1Name + '" type="hidden">' +
-                            '<input name="getProductId[]" value="' + value.product_RefID + '" type="hidden">' +
-                            '<input name="getProductName[]" value="' + value.productName + '" type="hidden">' +
-                            '<input name="getQty[]" id="budget_qty' + keys + '" value="' + value.quantity + '" type="hidden">' +
-                            '<input name="getPrice[]" id="budget_price' + keys + '" value="' + value.productUnitPriceCurrencyValue + '" type="hidden">' +
-                            '<input name="getUom[]" value="' + value.quantityUnitName + '" type="hidden">' +
-                            '<input name="getCurrency[]" value="' + value.priceCurrencyISOCode + '" type="hidden">' +
-                            '<input name="getAdvanceNumber[]" value="' + advance_number + '" type="hidden">' +
-                            '<input name="getRemark[]" value="' + value.remarks + '" type="hidden">' +
-                            '<input name="combinedBudget" value="' + value.sys_ID + '" type="hidden">' +
+                            '<input name="getWorkId[]" value="' + value.CombinedBudgetSubSectionLevel1_RefID + '" type="hidden">' +
+                            '<input name="getWorkName[]" value="' + value.CombinedBudgetSubSectionLevel1Name + '" type="hidden">' +
+                            '<input name="getProductId[]" value="' + value.Product_RefID + '" type="hidden">' +
+                            '<input name="getProductName[]" value="' + value.ProductName + '" type="hidden">' +
+                            '<input name="getQty[]" id="budget_qty' + keys + '" value="' + value.Quantity + '" type="hidden">' +
+                            '<input name="getPrice[]" id="budget_price' + keys + '" value="' + value.ProductUnitPriceBaseCurrencyValue + '" type="hidden">' +
+                            '<input name="getUom[]" value="' + value.QuantityUnitName + '" type="hidden">' +
+                            '<input name="getCurrency[]" value="' + value.ProductUnitPriceCurrencyISOCode + '" type="hidden">' +
+                            '<input name="getAdvanceNumber[]" value="' + bussines_trip_number + '" type="hidden">' +
+                            '<input name="getRemark[]" value="' + value.Remarks + '" type="hidden">' +
+                            '<input name="combinedBudget" value="' + value.Sys_ID + '" type="hidden">' +
 
-                            '<td style="border:1px solid #e9ecef;">' +
-                            '&nbsp;&nbsp;&nbsp;<div class="progress ' + status + ' progress-xs" style="height: 14px;border-radius:8px;"> @if(' + applied + ' >= ' + 0 + ' && ' + applied + ' <= ' + 40 + ')<div class="progress-bar bg-red" style="width:' + applied + '%;"></div> @elseif(' + applied + ' >= ' + 41 + ' && ' + applied + ' <= ' + 89 + ')<div class="progress-bar bg-blue" style="width:' + applied + '%;"></div> @elseif(' + applied + ' >= ' + 90 + ' && ' + applied + ' <= ' + 100 + ')<div class="progress-bar bg-green" style="width:' + applied + '%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>' + applied + ' %</center></small>' +
-                            '</td>' +
-
-                            '<td style="border:1px solid #e9ecef;">' + advance_number + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + bussines_trip_number + '</td>' +
 
                             '<td style="border:1px solid #e9ecef;display:' + statusDisplay[keys] + '";">' +
                             '<div class="input-group">' +
@@ -170,26 +187,26 @@
                             '</div>' +
                             '</td>' +
 
-                            '<td style="border:1px solid #e9ecef;display:' + statusDisplay2[keys] + '">' + '<span>' + value.product_RefID + '</span>' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + '<span id="putProductName' + keys + '">' + value.productName + '</span>' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;display:' + statusDisplay2[keys] + '">' + '<span>' + value.Product_RefID + '</span>' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;max-width:15px;overflow: hidden;" title="' + value.ProductName + '">' + '<span id="putProductName' + keys + '">' + value.ProductName + '</span>' + '</td>' +
 
 
-                            '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_qty2' + keys + '">' + currencyTotal(value.quantity) + '</span>' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + value.quantity + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + value.quantityUnitName + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.productUnitPriceCurrencyValue) + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.priceBaseCurrencyValue) + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + value.priceCurrencyISOCode + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_qty2' + keys + '">' + currencyTotal(value.Quantity) + '</span>' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + value.Quantity + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + value.QuantityUnitName + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.ProductUnitPriceBaseCurrencyValue) + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.PriceBaseCurrencyValue) + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + value.ProductUnitPriceCurrencyISOCode + '</td>' +
 
                             '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col third-col-asf-expense-qty">' + '<input onkeyup="qty_expense(' + keys + ', this)" id="qty_expense' + keys + '" style="border-radius:0;width:50px;" name="qty_expense[]" class="form-control qty_expense" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[keys] + ' value="0">' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col third-col-asf-expense-price">' + '<input onkeyup="price_expense(' + keys + ', this)" id="price_expense' + keys + '" style="border-radius:0;width:90px;" name="price_expense[]" class="form-control price_expense" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[keys] + ' value="' + currency(value.productUnitPriceCurrencyValue) + '">' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col third-col-asf-expense-price">' + '<input onkeyup="price_expense(' + keys + ', this)" id="price_expense' + keys + '" style="border-radius:0;width:90px;" name="price_expense[]" class="form-control price_expense" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[keys] + ' value="' + currency(value.ProductUnitPriceBaseCurrencyValue) + '">' + '</td>' +
                             '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col third-col-asf-expense-total">' + '<input id="total_expense' + keys + '" style="border-radius:0;width:90px;background-color:white;" name="total_expense[]" class="form-control total_expense" autocomplete="off" disabled value="0">' + '</td>' +
 
                             '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col second-col-asf-amount-qty">' + '<input onkeyup="qty_amount(' + keys + ', this)" id="qty_amount' + keys + '" style="border-radius:0;width:50px;" name="qty_amount[]" class="form-control qty_amount" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[keys] + ' value="0">' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col second-col-asf-amount-price">' + '<input onkeyup="price_amount(' + keys + ', this)" id="price_amount' + keys + '" style="border-radius:0;width:90px;" name="price_amount[]" class="form-control price_amount" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[keys] + ' value="' + currency(value.productUnitPriceCurrencyValue) + '">' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col second-col-asf-amount-price">' + '<input onkeyup="price_amount(' + keys + ', this)" id="price_amount' + keys + '" style="border-radius:0;width:90px;" name="price_amount[]" class="form-control price_amount" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[keys] + ' value="' + currency(value.ProductUnitPriceBaseCurrencyValue) + '">' + '</td>' +
                             '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col second-col-asf-amount-total">' + '<input id="total_amount' + keys + '" style="border-radius:0;width:90px;background-color:white;" name="total_amount[]" class="form-control total_amount" autocomplete="off" disabled value="0">' + '</td>' +
 
-                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col first-col-asf-balance-total">' + '<input id="total_balance_qty' + keys + '" style="border-radius:0;width:90px;background-color:white;" name="total_balance_qty[]" class="form-control total_balance_qty" autocomplete="off" disabled value="' + currencyTotal(value.priceBaseCurrencyValue) + '">' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col first-col-asf-balance-total">' + '<input id="total_balance_qty' + keys + '" style="border-radius:0;width:90px;background-color:white;" name="total_balance_qty[]" class="form-control total_balance_qty" autocomplete="off" disabled value="' + currencyTotal(value.PriceBaseCurrencyValue) + '">' + '</td>' +
 
                             '</tr>';
 
@@ -465,14 +482,14 @@
                     '<input type="hidden" name="var_total_expense[]" class="total_expense2' + index + '" value="' + total_expense[index] + '">' +
                     '<input type="hidden" name="var_currency_expense[]" value="' + getCurrency[index] + '">' +
 
-                    '<input type="hidden" name="var_advance_number" value="' + getAdvanceNumber[index] + '">' +
+                    '<input type="hidden" name="var_bussines_trip_number" value="' + getAdvanceNumber[index] + '">' +
                     '<input type="hidden" name="var_date" value="' + date + '">' +
                     '<input type="hidden" name="var_combined_budget" value="' + combinedBudget + '">' +
                     '<input type="hidden" name="var_remark" value="' + getRemark[index] + '">' +
 
                     '<td style="border:1px solid #e9ecef;">' + getAdvanceNumber[index] + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + putProductId + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + putProductName + '</td>' +
+                    '<td style="border:1px solid #e9ecef;max-width:15px;overflow: hidden;" title="' + putProductName + '">' + putProductName + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + getUom[index] + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + currencyTotal(price_expense[index]) + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + currencyTotal(qty_expense[index]) + '</td>' +
@@ -513,7 +530,7 @@
                     '<input type="hidden" name="var_total_amount[]" class="total_amount2' + index + '" value="' + total_amount[index] + '">' +
                     '<input type="hidden" name="var_currency_amount[]" value="' + getCurrency[index] + '">' +
 
-                    '<input type="hidden" name="var_advance_number" value="' + getAdvanceNumber[index] + '">' +
+                    '<input type="hidden" name="var_bussines_trip_number" value="' + getAdvanceNumber[index] + '">' +
                     '<input type="hidden" name="var_date" value="' + date + '">' +
                     '<input type="hidden" name="var_combined_budget" value="' + combinedBudget + '">' +
                     '<input type="hidden" name="var_remark" value="' + getRemark[index] + '">' +

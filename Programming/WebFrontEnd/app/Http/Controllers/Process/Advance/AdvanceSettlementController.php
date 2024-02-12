@@ -360,6 +360,7 @@ class AdvanceSettlementController extends Controller
 
         return $filteredArray;
     }
+    
     public function SearchAdvanceRequest(Request $request)
     {
         Session::forget("SessionAdvanceSetllementBeneficiary");

@@ -12,7 +12,7 @@
         </div>
         <div class="card-body DorDetail">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-12" style="margin-bottom: 20px;">
                     <div class="form-group">
                         <table>
                             <tr>
@@ -20,29 +20,32 @@
                                 <td>
                                     <div class="input-group">
                                         <select class="form-control deliverType" style="border-radius:0;" name="deliver_type" id="deliver_type">
-                                            <option selected="selected">Select Type</option>
-                                            <option value="Warehouse to Site">Warehouse to Site</option>
-                                            <option value="Warehouse to Warehouse">Warehouse to Warehouse</option>
-                                            <option value="Supplier to Site">Supplier to Site</option>
-                                            <option value="Site to Warehouse">Site to Warehouse</option>
+                                            <option value="" selected">Select Delivery Type</option>
+                                            <option id="WTH" value="Warehouse to Warehouse">Warehouse to Warehouse</option>
+                                            <option id="WTS" value="Warehouse to Site">Warehouse to Site</option>
+                                            <option id="WTU" value="Warehouse to User">Warehouse to User</option>
+                                            <option id="SUTW" value="Supplier to Warehouse">Supplier to Warehouse</option>
+                                            <option id="STS" value="Supplier to Site">Supplier to Site</option>
+                                            <option id="SITW" value="Site to Warehouse">Site to Warehouse</option>
                                         </select>
                                     </div>
                                 </td>
                             </tr>
-
                         </table>
                     </div>
                 </div>
 
-                <div class="col-md-6 headerDor1">
+                <div class="col-md-6">
                     <div class="form-group">
-                        <table>
+                        <table class="WarehouseLeft">
                             <tr>
-                                <div>
-                                    <label>
-                                        <strong>Warehouse Detail</strong>
-                                    </label>
-                                </div>
+                                <td>
+                                    <div>
+                                        <label>
+                                            <strong>Warehouse Detail</strong>
+                                        </label>
+                                    </div>
+                                </td>
                             </tr>
                             <tr>
                                 <td><label>Warehouse</label></td>
@@ -66,30 +69,17 @@
                                 </td>
                             </tr>
                         </table>
-                    </div>
-                </div>
 
-                <div class="col-md-2 headerDor1">
-                    <div class="form-group">
-                        <table>
-                            <tr>
-                                <div>
-                                    <img src="/AdminLTE-master/dist/img/right-arrow.png" width="50px;" style="position:relative;right:15px;"><br><br>
-                                </div>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
 
-                <div class="col-md-4 headerDor1">
-                    <div class="form-group">
-                        <table>
+                        <table class="SiteLeft">
                             <tr>
-                                <div>
-                                    <label>
-                                        <strong>Site Detail</strong>
-                                    </label>
-                                </div>
+                                <td>
+                                    <div>
+                                        <label>
+                                            <strong>Site Detail</strong>
+                                        </label>
+                                    </div>
+                                </td>
                             </tr>
                             <tr>
                                 <td><label>Site Name</label></td>
@@ -112,95 +102,16 @@
                                 </td>
                             </tr>
                         </table>
-                    </div>
-                </div>
 
-                <div class="col-md-6 headerDor2">
-                    <div class="form-group">
-                        <table>
+                        <table class="SupplierLeft">
                             <tr>
-                                <div>
-                                    <label>
-                                        <strong>Warehouse Detail</strong>
-                                    </label>
-                                </div>
-                            </tr>
-                            <tr>
-                                <td><label>Warehouse</label></td>
                                 <td>
-                                    <div class="input-group">
-                                        <input id="headerWarehouse2" style="border-radius:0;margin-left:33px;" name="headerWarehouse2" class="form-control">
-                                        <div class="input-group-append">
-                                            <span style="border-radius:0;" class="input-group-text form-control">
-                                                <a href="#"><i id="headerWarehouse2" data-toggle="modal" data-target="#mySearchWarehouse2" class="fas fa-gift mySearchWarehouse2" style="color:grey;"></i></a>
-                                            </span>
-                                        </div>
+                                    <div>
+                                        <label>
+                                            <strong>Supplier Detail</strong>
+                                        </label>
                                     </div>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td><label>Addres</label></td>
-                                <td>
-                                    <div class="input-group">
-                                        <textarea class="form-control" name="headerAddress3" id="headerAddresWarehouse2" cols="20" rows="5" style="border-radius:0;margin-left:33px;"></textarea>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="col-md-2 headerDor2">
-                    <div class="form-group">
-                        <table>
-                            <tr>
-                                <div>
-                                    <img src="/AdminLTE-master/dist/img/right-arrow.png" width="50px;" style="position:relative;right:15px;"><br><br>
-                                </div>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="col-md-4 headerDor2">
-                    <div class="form-group">
-                        <table>
-                            <tr>
-                                <div>
-                                    <label>
-                                        <strong>Warehouse Detail</strong>
-                                    </label>
-                                </div>
-                            </tr>
-                            <tr>
-                                <td><label>Warehouse Name</label></td>
-                                <td>
-                                    <div class="input-group">
-                                        <input name="headerWarehouse" id="headerWarehouse" style="border-radius:0;" type="text" class="form-control">
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><label>Addres</label></td>
-                                <td>
-                                    <div class="input-group">
-                                        <textarea class="form-control" name="headerAddress4" id="headerAddress4" cols="25" rows="5"></textarea>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="col-md-6 headerDor3">
-                    <div class="form-group">
-                        <table>
-                            <tr>
-                                <div>
-                                    <label>
-                                        <strong>Supplier Detail</strong>
-                                    </label>
-                                </div>
                             </tr>
                             <tr>
                                 <td><label>Supplier</label></td>
@@ -224,10 +135,11 @@
                                 </td>
                             </tr>
                         </table>
+
                     </div>
                 </div>
 
-                <div class="col-md-2 headerDor3">
+                <div class="col-md-2 ArrowIcon">
                     <div class="form-group">
                         <table>
                             <tr>
@@ -239,103 +151,27 @@
                     </div>
                 </div>
 
-                <div class="col-md-4 headerDor3">
+                <div class="col-md-4">
                     <div class="form-group">
-                        <table>
-                            <tr>
-                                <div>
-                                    <label>
-                                        <strong>Site Detail</strong>
-                                    </label>
-                                </div>
-                            </tr>
-                            <tr>
-                                <td><label>Site Name</label></td>
-                                <td>
-                                    <div class="input-group">
-                                        <select name="headerSiteName2" id="headerSiteName2" style="border-radius:0;" class="form-control siteName2">
-                                            <option value="">-- Select Site Name --</option>
-                                            <option value="WH-001">WH-001</option>
-                                            <option value="WH-002">WH-002</option>
-                                        </select>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><label>Addres</label></td>
-                                <td>
-                                    <div class="input-group">
-                                        <textarea class="form-control" name="headerAddressSiteName2" id="headerAddressSiteName2" cols="25" rows="5"></textarea>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                <div class="col-md-6 headerDor4">
-                    <div class="form-group">
-                        <table>
-                            <tr>
-                                <div>
-                                    <label>
-                                        <strong>Site Detail</strong>
-                                    </label>
-                                </div>
-                            </tr>
-                            <tr>
-                                <td><label>Site Name</label></td>
-                                <td>
-                                    <div class="input-group">
-                                        <select name="headerSiteName3" id="headerSiteName3" style="border-radius:0;" class="form-control siteName3">
-                                            <option value="">-- Select Site Name --</option>
-                                            <option value="WH-001">WH-001</option>
-                                            <option value="WH-002">WH-002</option>
-                                        </select>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><label>Addres</label></td>
-                                <td>
-                                    <div class="input-group">
-                                        <textarea class="form-control" name="headerAddressSiteName3" id="headerAddressSiteName3" cols="25" rows="5"></textarea>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
 
-                <div class="col-md-2 headerDor4">
-                    <div class="form-group">
-                        <table>
+                        <table class="WarehouseRight">
                             <tr>
-                                <div>
-                                    <img src="/AdminLTE-master/dist/img/right-arrow.png" width="50px;" style="position:relative;right:15px;"><br><br>
-                                </div>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="col-md-4 headerDor4">
-                    <div class="form-group">
-                        <table>
-                            <tr>
-                                <div>
-                                    <label>
-                                        <strong>Warehouse Detail</strong>
-                                    </label>
-                                </div>
+                                <td>
+                                    <div>
+                                        <label>
+                                            <strong>Warehouse&nbsp;Detail</strong>
+                                        </label>
+                                    </div>
+                                </td>
                             </tr>
                             <tr>
                                 <td><label>Warehouse</label></td>
                                 <td>
                                     <div class="input-group">
-                                        <input id="headerWarehouse3" style="border-radius:0;margin-left:33px;" name="headerWarehouse3" class="form-control">
+                                        <input id="headerWarehouse2" style="border-radius:0;margin-left:33px;" name="headerWarehouse2" class="form-control">
                                         <div class="input-group-append">
                                             <span style="border-radius:0;" class="input-group-text form-control">
-                                                <a href="#"><i id="headerWarehouse3" data-toggle="modal" data-target="#mySearchWarehouse3" class="fas fa-gift mySearchWarehouse3" style="color:grey;"></i></a>
+                                                <a href="#"><i id="headerWarehouse2" data-toggle="modal" data-target="#mySearchWarehouse2" class="fas fa-gift mySearchWarehouse2" style="color:grey;"></i></a>
                                             </span>
                                         </div>
                                     </div>
@@ -345,7 +181,98 @@
                                 <td><label>Addres</label></td>
                                 <td>
                                     <div class="input-group">
-                                        <textarea class="form-control" name="" id="headerAddresWarehouse3" cols="20" rows="5" style="border-radius:0;margin-left:33px;"></textarea>
+                                        <textarea class="form-control" name="headerAddress3" id="headerAddresWarehouse2" cols="20" rows="5" style="border-radius:0;margin-left:33px;"></textarea>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table class="SiteRight">
+                            <tr>
+                                <td>
+                                    <div>
+                                        <label>
+                                            <strong>Site Detail</strong>
+                                        </label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label>Site Name</label></td>
+                                <td>
+                                    <div class="input-group">
+                                        <select name="headerSiteName1" id="headerSiteName1" style="border-radius:0;" class="form-control siteName1">
+                                            <option value="">-- Select Site Name --</option>
+                                            <option value="WH-001">WH-001</option>
+                                            <option value="WH-002">WH-002</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label>Addres</label></td>
+                                <td>
+                                    <div class="input-group">
+                                        <textarea class="form-control" name="headerAddressSiteName1" id="headerAddressSiteName1" cols="25" rows="5"></textarea>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table class="SupplierRight">
+                            <tr>
+                                <td>
+                                    <div>
+                                        <label>
+                                            <strong>Supplier Detail</strong>
+                                        </label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label>Supplier</label></td>
+                                <td>
+                                    <div class="input-group">
+                                        <input id="supplier_code" style="border-radius:0;margin-left:48px;" name="supplier_code" class="form-control">
+                                        <div class="input-group-append">
+                                            <span style="border-radius:0;" class="input-group-text form-control">
+                                                <a href="#"><i id="suppliercode2" data-toggle="modal" data-target="#mySupplier" class="fas fa-gift mySupplier" style="color:grey;"></i></a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label>Addres</label></td>
+                                <td>
+                                    <div class="input-group">
+                                        <textarea class="form-control" name="supplierAddress" id="supplierAddress" cols="20" rows="5" style="border-radius:0;margin-left:48px;"></textarea>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table class="UserRight">
+                            <tr>
+                                <td>
+                                    <div>
+                                        <label>
+                                            <strong>User&nbsp;Detail</strong>
+                                        </label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label>User</label></td>
+                                <td>
+                                    <div class="input-group">
+                                        <input id="supplier_code" style="border-radius:0;margin-left:48px;" name="supplier_code" class="form-control">
+                                        <div class="input-group-append">
+                                            <span style="border-radius:0;" class="input-group-text form-control">
+                                                <a href="#"><i id="suppliercode2" data-toggle="modal" data-target="#mySupplier" class="fas fa-gift mySupplier" style="color:grey;"></i></a>
+                                            </span>
+                                        </div>
+                                        <input id="site_code_detail" style="border-radius:0;" class="col-8 form-control" name="site_code_detail">
                                     </div>
                                 </td>
                             </tr>

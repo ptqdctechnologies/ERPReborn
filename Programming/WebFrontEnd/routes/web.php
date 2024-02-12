@@ -188,6 +188,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('BusinessTripRequestByBudgetID', 'Process\Advance\BusinessTripSettlementController@BusinessTripRequestByBudgetID')->name('BusinessTripSettlement.BusinessTripRequestByBudgetID');
     Route::get('BusinessTripSettlementListDataById', 'Process\Advance\BusinessTripSettlementController@BusinessTripSettlementListDataById')->name('BusinessTripSettlement.BusinessTripSettlementListDataById');
     Route::get('BusinessTripSettlementListCartRevision', 'Process\Advance\BusinessTripSettlementController@BusinessTripSettlementListCartRevision')->name('BusinessTripSettlement.BusinessTripSettlementListCartRevision');
+    Route::post('SearchBusinessTripRequest', 'Process\Advance\BusinessTripSettlementController@SearchBusinessTripRequest')->name('BusinessTripSettlement.SearchBusinessTripRequest');
     Route::resource('BusinessTripSettlement', 'Process\Advance\BusinessTripSettlementController');
 
     // BRF

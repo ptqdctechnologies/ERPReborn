@@ -17,7 +17,7 @@
 
     var arf_date = $('23-02-2021').val();
     var var_recordID = $("#var_recordID").val();
-    var trano = $("#trano").val();
+    var transaction_number = $("#transaction_number").val();
     var TotalBudgetList = 0;
     var TotalQtyExpense = 0;
     var TotalQtyAmount = 0;
@@ -44,7 +44,7 @@
                 TotalQtyExpense += +value.quantity.replace(/,/g, '');
                 var html =
                     '<tr>' +
-                    '<td style="border:1px solid #e9ecef;">' + trano + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + transaction_number + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + value.product_RefID + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + value.productName + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + value.quantityUnitName + '</td>' +
@@ -66,7 +66,7 @@
                 TotalQtyAmount += +value.quantity.replace(/,/g, '');
                 var html =
                     '<tr>' +
-                    '<td style="border:1px solid #e9ecef;">' + trano + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + transaction_number + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + value.product_RefID + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + value.productName + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + value.quantityUnitName + '</td>' +
@@ -114,15 +114,11 @@
                     '<input name="getPrice[]" id="budget_price' + key + '" value="' + value.productUnitPriceCurrencyValue + '" type="hidden">' +
                     '<input name="getUom[]" value="' + value.quantityUnitName + '" type="hidden">' +
                     '<input name="getCurrency[]" value="' + value.priceCurrencyISOCode + '" type="hidden">' +
-                    '<input name="getAdvanceNumber[]" value="' + trano + '" type="hidden">' +
+                    '<input name="getAdvanceNumber[]" value="' + transaction_number + '" type="hidden">' +
                     '<input name="getRemark[]" value="' + value.remarks + '" type="hidden">' +
                     '<input name="combinedBudget" value="' + value.sys_ID + '" type="hidden">' +
 
-                    '<td style="border:1px solid #e9ecef;">' +
-                    '&nbsp;&nbsp;&nbsp;<div class="progress ' + status + ' progress-xs" style="height: 14px;border-radius:8px;"> @if(' + applied + ' >= ' + 0 + ' && ' + applied + ' <= ' + 40 + ')<div class="progress-bar bg-red" style="width:' + applied + '%;"></div> @elseif(' + applied + ' >= ' + 41 + ' && ' + applied + ' <= ' + 89 + ')<div class="progress-bar bg-blue" style="width:' + applied + '%;"></div> @elseif(' + applied + ' >= ' + 90 + ' && ' + applied + ' <= ' + 100 + ')<div class="progress-bar bg-green" style="width:' + applied + '%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>' + applied + ' %</center></small>' +
-                    '</td>' +
-
-                    '<td style="border:1px solid #e9ecef;">' + trano + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + transaction_number + '</td>' +
 
                     '<td style="border:1px solid #e9ecef;display:' + statusDisplay[key] + '";">' +
                     '<div class="input-group">' +
@@ -136,7 +132,7 @@
                     '</td>' +
 
                     '<td style="border:1px solid #e9ecef;display:' + statusDisplay2[key] + '">' + '<span>' + value.product_RefID + '</span>' + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + '<span id="putProductName' + key + '">' + value.productName + '</span>' + '</td>' +
+                    '<td style="border:1px solid #e9ecef;max-width:15px;overflow: hidden;" title="' + value.productName + '">' + '<span id="putProductName' + key + '">' + value.productName + '</span>' + '</td>' +
 
                     '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_qty2' + key + '">' + currencyTotal(value.quantity) + '</span>' + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.quantity) + '</td>' +
@@ -421,7 +417,7 @@
 
                 '<td style="border:1px solid #e9ecef;">' + getAdvanceNumber[index] + '</td>' +
                 '<td style="border:1px solid #e9ecef;">' + putProductId + '</td>' +
-                '<td style="border:1px solid #e9ecef;">' + putProductName + '</td>' +
+                '<td style="border:1px solid #e9ecef;max-width:15px;overflow: hidden;" title="' + putProductName + '">' + putProductName + '</td>' +
                 '<td style="border:1px solid #e9ecef;">' + getUom[index] + '</td>' +
                 '<td style="border:1px solid #e9ecef;">' + currencyTotal(price_expense[index]) + '</td>' +
                 '<td style="border:1px solid #e9ecef;">' + currencyTotal(qty_expense[index]) + '</td>' +

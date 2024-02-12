@@ -17,7 +17,7 @@
       </div>
       @include('Process.BusinessTrip.BusinessTripSettlement.Functions.Menu.MenuBusinessTripSettlement')
       <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
-      <input id="trano" style="border-radius:0;" name="trano" value="{{ $trano }}" class="form-control" type="hidden">
+      <input id="transaction_number" style="border-radius:0;" name="transaction_number" value="{{ $trano }}" class="form-control" type="hidden">
       <div class="card" style="position:relative;bottom:10px;">
         <form method="post" enctype="multipart/form-data" action="{{ route('BusinessTripSettlement.update', $var_recordID) }}" id="FormStoreBusinessTripSettlementRevision">
           @method('PUT')
@@ -91,8 +91,7 @@
                 <div class="card">
                   <div class="card-header">
                     <label class="card-title">
-                      Business Trip Request Detail &nbsp;&nbsp; || &nbsp;&nbsp; Select Business Trip Request
-                      <a href="#" id="brf_number2" data-toggle="modal" data-target="#mySearchBrf"><img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></a>
+                      Business Trip Request Detail
                     </label>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -201,13 +200,46 @@
                 </div>
               </div>
             </div>
-            <a onclick="CancelBusinessTripSettlement();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
-              <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
-            </a>
-            <button class="btn btn-default btn-sm float-right" type="submit" id="SaveBsfList" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-              <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit"> Submit
-            </button>
-            <br><br>
+            <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <label class="card-title">
+                        Remark
+                      </label>
+                      <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                          <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="card-body Remark">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <table>
+                              <tr>
+                                <td style="display: flex;">
+                                  <textarea name="var_remark" id="remark" rows="2" cols="150" class="form-control"></textarea>
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <a onclick="CancelBusinessTripSettlement();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                    <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
+                  </a>
+                  <button class="btn btn-default btn-sm float-right" type="submit" id="SaveBsfList" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                    <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit"> Submit
+                  </button>
+                </div>
+              </div>
+              <br><br>
+            </div>
           </div>
         </form>
       </div>
