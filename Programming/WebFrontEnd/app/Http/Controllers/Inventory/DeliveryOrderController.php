@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Inventory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Session;
 
 class DeliveryOrderController extends Controller
 {
@@ -12,7 +14,8 @@ class DeliveryOrderController extends Controller
     public function index(Request $request)
     {
         
-        $request->session()->forget("SessionDeliveryOrderID");
+        Session::forget("SessionDeliveryOrderSupplier");
+        Session::forget("SessionDeliveryOrderSupplierID");
         $var = 0;
         if (!empty($_GET['var'])) {
             $var =  $_GET['var'];
@@ -183,6 +186,8 @@ class DeliveryOrderController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         
+        Session::forget("SessionDeliveryOrderSupplier");
+        Session::forget("SessionDeliveryOrderSupplierID");
 
         $varDataAdvanceRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -237,5 +242,183 @@ class DeliveryOrderController extends Controller
         ]
         );
         return response()->json($varData['data']);
+    }
+
+
+
+    
+
+
+
+
+    //UPDATE
+
+
+    public function StoreValidateDeliveryOrderSupplier(Request $request)
+    {
+        $tamp = 0;
+        $tamp2 = 0;
+        $status = 200;
+        $varDataAdvanceList['data'] = [];
+        $supplier_id = $request->input('supplier_id');
+        $supplier = $request->input('supplier');
+        $delivery_order_request_id = $request->input('delivery_order_request_id');
+
+        $data = Session::get("SessionDeliveryOrderSupplier");
+        $dataID = Session::get("SessionDeliveryOrderSupplierID");
+
+        if (Session::has("SessionDeliveryOrderSupplier")) {
+            for ($i = 0; $i < count($data); $i++) {
+                if ($data[$i] == $delivery_order_request_id) {
+                    $tamp = 1;
+                }
+            }
+            if ($tamp == 0) {
+                for ($i = 0; $i < count($dataID); $i++) {
+                    if ($dataID[$i] != $supplier_id) {
+                        $status = 500;
+                        $tamp2 = 1;
+                        break;
+                    }
+                }
+
+                if ($tamp2 == 0){
+
+                    $varDataAdvanceList = $this->DeliveryOrderComplexBySupplierID($delivery_order_request_id);
+
+                    Session::push("SessionDeliveryOrderSupplier", $delivery_order_request_id);
+                    Session::push("SessionDeliveryOrderSupplierID", $supplier_id);
+                }
+            } else {
+                $status = 501;
+            }
+        } else {
+
+            $varDataAdvanceList = $this->DeliveryOrderComplexBySupplierID($delivery_order_request_id);
+
+            Session::push("SessionDeliveryOrderSupplier", $delivery_order_request_id);
+            Session::push("SessionDeliveryOrderSupplierID", $supplier_id);
+        }
+        $compact = [
+            'status' => $status,
+            'supplier_id' => $supplier_id,
+            'supplier' => $supplier,
+            'data' => $varDataAdvanceList,
+        ];
+
+        return response()->json($compact);
+    }
+
+
+    public function DeliveryOrderComplexBySupplierID($advance_RefID)
+    {
+        $varAPIWebToken = Session::get('SessionLogin');
+        if (Redis::get("DataListAdvanceDetailComplex") == null) {
+            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.finance.getAdvanceDetailComplex',
+                'latest',
+                [
+                    'parameter' => [
+                        'advance_RefID' => 1,
+                    ],
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
+            );
+        }
+
+        $DataAdvanceDetailComplex = json_decode(
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "DataListAdvanceDetailComplex"
+            ),
+            true
+        );
+
+        $collection = collect($DataAdvanceDetailComplex);
+        $collection = $collection->where('Sys_ID_Advance', $advance_RefID);
+
+
+        $filteredArray = [];
+        $num = 0;
+        foreach ($collection->all() as $collections) {
+            $filteredArray[$num] = $collections;
+            $num++;
+        }
+
+        return $filteredArray;
+    }
+
+
+
+    public function SearchDeliveryOrderRequest(Request $request)
+    {
+        Session::forget("SessionDeliveryOrderSupplier");
+        Session::forget("SessionDeliveryOrderSupplierID");
+
+        if (Redis::get("DataListAdvance") == null) {
+            $varAPIWebToken = Session::get('SessionLogin');
+            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.finance.getAdvance',
+                'latest',
+                [
+                    'parameter' => null,
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
+            );
+        }
+
+        $DataListAdvance = json_decode(
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "DataListAdvance"
+            ),
+            true
+        );
+
+        $collection = collect($DataListAdvance);
+
+        $budget_code = $request->input('budget_code');
+        $sub_budget_code = $request->input('sub_budget_code');
+        $supplier = $request->input('supplier');
+        $trano = $request->input('trano');
+
+        if ($budget_code != "") {
+            $collection = $collection->filter(function ($item) use ($budget_code) {
+                return strpos($item['CombinedBudgetCode'], $budget_code) !== false;
+            });
+        }
+        if ($sub_budget_code != "") {
+            $collection = $collection->filter(function ($item) use ($sub_budget_code) {
+                return strpos($item['CombinedBudgetSectionCode'], $sub_budget_code) !== false;
+            });
+        }
+        if ($supplier != "") {
+            $collection = $collection->filter(function ($item) use ($supplier) {
+                return strpos($item['RequesterWorkerName'], $supplier) !== false;
+            });
+        }
+        if ($trano != "") {
+            $collection = $collection->filter(function ($item) use ($trano) {
+                return strpos($item['DocumentNumber'], $trano) !== false;
+            });
+        }
+
+        return response()->json($collection->all());
     }
 }

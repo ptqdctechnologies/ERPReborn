@@ -379,3 +379,26 @@
     }
   }
 </script> -->
+
+
+<script>
+  // console.log(type);
+  $('#mode').on('change', function() {
+
+    var value = $(this).val();
+
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+
+    $.ajax({
+      type: 'GET',
+      url: '{!! route("ColorMode") !!}?value=' + value,
+      success: function(data) {
+        location.reload();
+      }
+    });
+  });
+</script>

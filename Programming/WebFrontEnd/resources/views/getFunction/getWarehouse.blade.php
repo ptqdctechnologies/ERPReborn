@@ -11,7 +11,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="tableGetWarehouse1">
+                                <table class="table table-head-fixed text-nowrap" id="TableGetWarehouse1">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -21,50 +21,14 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @for($i = 1; $i < 10; $i++)
                                         <tr>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal">1</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchWarehouse" data-id="WH-001" data-name="Jl. Baru Leko. Kode Pos, : 97796. Desa/Kelurahan, : DESA LEKO SULA. Kecamatan/Kota (LN), Kec. Mangoli Barat, Kab. Kepulauan Sula, Prov. Maluku Utara">WH-001</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchWarehouse" data-id="Lekosula">Lekosula </p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchWarehouse" data-id="">Jl. Baru Leko. Kode Pos, : 97796. Desa/Kelurahan, : DESA LEKO SULA. Kecamatan/Kota (LN), Kec. Mangoli Barat, Kab. Kepulauan Sula, Prov. Maluku Utara </p>
-                                                </span>
-                                            </td>
+                                            <td>{{ $i }}</td>
+                                            <td>WH-000{{ $i }}</td>
+                                            <td>Lekosula - {{ $i }}</td>
+                                            <td>Jl. Baru Leko. Kode Pos, : 97796. Desa/Kelurahan, : DESA LEKO SULA. Kecamatan/Kota (LN), Kec. Mangoli Barat, Kab. Kepulauan Sula, Prov. Maluku Utara - {{ $i }}</td>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal">2</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchWarehouse" data-id="WH-002" data-name="Bekasi cyber park, RT.001/RW.009, Kayuringin Jaya, Kec. Bekasi Bar., Kota Bks, Jawa Barat 17415">WH-002</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchWarehouse" data-id="brfp_no">Bekasi Cyber Park Pole II</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchWarehouse" data-id="project_id">Bekasi cyber park, RT.001/RW.009, Kayuringin Jaya, Kec. Bekasi Bar., Kota Bks, Jawa Barat 17415</p>
-                                                </span>
-                                            </td>
-                                        </tr>
+                                        @endfor
                                     </tbody>
                                 </table>
                             </div>
@@ -81,20 +45,20 @@
     $(function() {
         $('.mySearchWarehouse1').on('click', function(e) {
             e.preventDefault();
-            $('#tableGetWarehouse1').DataTable();
+            $('#TableGetWarehouse1').DataTable();
         });
     });
 </script>
 
+
 <script>
-    $(function() {
-        $(".klikSearchWarehouse").on('click', function(e) {
-            e.preventDefault(); // in chase you change to a link or button
-            var $this = $(this);
-            var code = $this.data("id");
-            var name = $this.data("name");
-            $("#headerWarehouse1").val(code);
-            $("#headerAddresWarehouse1").val(name);
-        });
+
+    $('#TableGetWarehouse1 tbody').on('click', 'tr', function() {
+
+        $("#mySearchWarehouse1").modal('toggle');
+
+        var row = $(this).closest("tr");
+        var wh_code = row.find("td:nth-child(2)").text();
+        $("#headerWarehouse1").val(wh_code);
     });
 </script>

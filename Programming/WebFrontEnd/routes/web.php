@@ -158,51 +158,52 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     // ARF 
 
-    Route::get('AdvanceListData', 'Advance\AdvanceRequestController@AdvanceListData')->name('AdvanceRequest.AdvanceListData');
-    Route::get('ReportAdvanceSummary', 'Advance\AdvanceRequestController@ReportAdvanceSummary')->name('AdvanceRequest.ReportAdvanceSummary');
-    Route::post('ReportAdvanceSummaryStore', 'Advance\AdvanceRequestController@ReportAdvanceSummaryStore')->name('AdvanceRequest.ReportAdvanceSummaryStore');
-    Route::get('ReportAdvanceSummaryDetailID/{id}', 'Advance\AdvanceRequestController@ReportAdvanceSummaryDetailID')->name('AdvanceRequest.ReportAdvanceSummaryDetailID');
-    Route::get('ReportAdvanceSummaryDetail', 'Advance\AdvanceRequestController@ReportAdvanceSummaryDetail')->name('AdvanceRequest.ReportAdvanceSummaryDetail');
-    Route::post('ReportAdvanceSummaryDetailStore', 'Advance\AdvanceRequestController@ReportAdvanceSummaryDetailStore')->name('AdvanceRequest.ReportAdvanceSummaryDetailStore');
-    Route::post('RevisionAdvance', 'Advance\AdvanceRequestController@RevisionAdvanceIndex')->name('AdvanceRequest.RevisionAdvance');
-    Route::post('PrintExportReportAdvanceSummary', 'Advance\AdvanceRequestController@PrintExportReportAdvanceSummary')->name('AdvanceRequest.PrintExportReportAdvanceSummary');
-    Route::post('PrintExportReportAdvanceSummaryDetail', 'Advance\AdvanceRequestController@PrintExportReportAdvanceSummaryDetail')->name('AdvanceRequest.PrintExportReportAdvanceSummaryDetail');
-    Route::post('updates', 'Advance\AdvanceRequestController@updates')->name('AdvanceRequest.updates');
-    Route::resource('AdvanceRequest', 'Advance\AdvanceRequestController');
+    Route::get('AdvanceListData', 'Process\Advance\AdvanceRequestController@AdvanceListData')->name('AdvanceRequest.AdvanceListData');
+    Route::get('ReportAdvanceSummary', 'Process\Advance\AdvanceRequestController@ReportAdvanceSummary')->name('AdvanceRequest.ReportAdvanceSummary');
+    Route::post('ReportAdvanceSummaryStore', 'Process\Advance\AdvanceRequestController@ReportAdvanceSummaryStore')->name('AdvanceRequest.ReportAdvanceSummaryStore');
+    Route::get('ReportAdvanceSummaryDetailID/{id}', 'Process\Advance\AdvanceRequestController@ReportAdvanceSummaryDetailID')->name('AdvanceRequest.ReportAdvanceSummaryDetailID');
+    Route::get('ReportAdvanceSummaryDetail', 'Process\Advance\AdvanceRequestController@ReportAdvanceSummaryDetail')->name('AdvanceRequest.ReportAdvanceSummaryDetail');
+    Route::post('ReportAdvanceSummaryDetailStore', 'Process\Advance\AdvanceRequestController@ReportAdvanceSummaryDetailStore')->name('AdvanceRequest.ReportAdvanceSummaryDetailStore');
+    Route::post('RevisionAdvance', 'Process\Advance\AdvanceRequestController@RevisionAdvanceIndex')->name('AdvanceRequest.RevisionAdvance');
+    Route::post('PrintExportReportAdvanceSummary', 'Process\Advance\AdvanceRequestController@PrintExportReportAdvanceSummary')->name('AdvanceRequest.PrintExportReportAdvanceSummary');
+    Route::post('PrintExportReportAdvanceSummaryDetail', 'Process\Advance\AdvanceRequestController@PrintExportReportAdvanceSummaryDetail')->name('AdvanceRequest.PrintExportReportAdvanceSummaryDetail');
+    Route::post('updates', 'Process\Advance\AdvanceRequestController@updates')->name('AdvanceRequest.updates');
+    Route::resource('AdvanceRequest', 'Process\Advance\AdvanceRequestController');
 
     // ASF
-    Route::post('StoreValidateAdvanceSettlementBeneficiary', 'Advance\AdvanceSettlementController@StoreValidateAdvanceSettlementBeneficiary')->name('AdvanceSettlement.StoreValidateAdvanceSettlementBeneficiary');
-    Route::post('RevisionAdvanceSettlement', 'Advance\AdvanceSettlementController@RevisionAdvanceSettlementIndex')->name('AdvanceSettlement.RevisionAdvanceSettlement');
-    Route::get('AdvanceSettlementListData', 'Advance\AdvanceSettlementController@AdvanceSettlementListData')->name('AdvanceSettlement.AdvanceSettlementListData');
-    Route::get('AdvanceSettlementListDataById', 'Advance\AdvanceSettlementController@AdvanceSettlementListDataById')->name('AdvanceSettlement.AdvanceSettlementListDataById');
-    Route::post('SearchAdvanceRequest', 'Advance\AdvanceSettlementController@SearchAdvanceRequest')->name('AdvanceSettlement.SearchAdvanceRequest');
-    Route::get('AdvanceSettlementListCartRevision', 'Advance\AdvanceSettlementController@AdvanceSettlementListCartRevision')->name('AdvanceSettlement.AdvanceSettlementListCartRevision');
-    Route::resource('AdvanceSettlement', 'Advance\AdvanceSettlementController');
+    Route::post('StoreValidateAdvanceSettlementBeneficiary', 'Process\Advance\AdvanceSettlementController@StoreValidateAdvanceSettlementBeneficiary')->name('AdvanceSettlement.StoreValidateAdvanceSettlementBeneficiary');
+    Route::post('RevisionAdvanceSettlement', 'Process\Advance\AdvanceSettlementController@RevisionAdvanceSettlementIndex')->name('AdvanceSettlement.RevisionAdvanceSettlement');
+    Route::get('AdvanceSettlementListData', 'Process\Advance\AdvanceSettlementController@AdvanceSettlementListData')->name('AdvanceSettlement.AdvanceSettlementListData');
+    Route::get('AdvanceSettlementListDataById', 'Process\Advance\AdvanceSettlementController@AdvanceSettlementListDataById')->name('AdvanceSettlement.AdvanceSettlementListDataById');
+    Route::post('SearchAdvanceRequest', 'Process\Advance\AdvanceSettlementController@SearchAdvanceRequest')->name('AdvanceSettlement.SearchAdvanceRequest');
+    Route::get('AdvanceSettlementListCartRevision', 'Process\Advance\AdvanceSettlementController@AdvanceSettlementListCartRevision')->name('AdvanceSettlement.AdvanceSettlementListCartRevision');
+    Route::resource('AdvanceSettlement', 'Process\Advance\AdvanceSettlementController');
 
     // BSF
-    Route::post('StoreValidateBusinessTripSettlement', 'Advance\BusinessTripSettlementController@StoreValidateBusinessTripSettlement')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlement');
-    Route::post('StoreValidateBusinessTripSettlement2', 'Advance\BusinessTripSettlementController@StoreValidateBusinessTripSettlement2')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlement2');
-    Route::post('StoreValidateBusinessTripSettlementRequester', 'Advance\BusinessTripSettlementController@StoreValidateBusinessTripSettlementRequester')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlementRequester');
-    Route::post('RevisionBusinessTripSettlement', 'Advance\BusinessTripSettlementController@RevisionBusinessTripSettlementIndex')->name('BusinessTripSettlement.RevisionBusinessTripSettlement');
-    Route::get('BusinessTripSettlementListData', 'Advance\BusinessTripSettlementController@BusinessTripSettlementListData')->name('BusinessTripSettlement.BusinessTripSettlementListData');
-    Route::get('BusinessTripRequestByBudgetID', 'Advance\BusinessTripSettlementController@BusinessTripRequestByBudgetID')->name('BusinessTripSettlement.BusinessTripRequestByBudgetID');
-    Route::get('BusinessTripSettlementListDataById', 'Advance\BusinessTripSettlementController@BusinessTripSettlementListDataById')->name('BusinessTripSettlement.BusinessTripSettlementListDataById');
-    Route::get('BusinessTripSettlementListCartRevision', 'Advance\BusinessTripSettlementController@BusinessTripSettlementListCartRevision')->name('BusinessTripSettlement.BusinessTripSettlementListCartRevision');
-    Route::resource('BusinessTripSettlement', 'Advance\BusinessTripSettlementController');
+    Route::post('StoreValidateBusinessTripSettlement', 'Process\Advance\BusinessTripSettlementController@StoreValidateBusinessTripSettlement')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlement');
+    Route::post('StoreValidateBusinessTripSettlement2', 'Process\Advance\BusinessTripSettlementController@StoreValidateBusinessTripSettlement2')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlement2');
+    Route::post('StoreValidateBusinessTripSettlementRequester', 'Process\Advance\BusinessTripSettlementController@StoreValidateBusinessTripSettlementRequester')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlementRequester');
+    Route::post('RevisionBusinessTripSettlement', 'Process\Advance\BusinessTripSettlementController@RevisionBusinessTripSettlementIndex')->name('BusinessTripSettlement.RevisionBusinessTripSettlement');
+    Route::get('BusinessTripSettlementListData', 'Process\Advance\BusinessTripSettlementController@BusinessTripSettlementListData')->name('BusinessTripSettlement.BusinessTripSettlementListData');
+    Route::get('BusinessTripRequestByBudgetID', 'Process\Advance\BusinessTripSettlementController@BusinessTripRequestByBudgetID')->name('BusinessTripSettlement.BusinessTripRequestByBudgetID');
+    Route::get('BusinessTripSettlementListDataById', 'Process\Advance\BusinessTripSettlementController@BusinessTripSettlementListDataById')->name('BusinessTripSettlement.BusinessTripSettlementListDataById');
+    Route::get('BusinessTripSettlementListCartRevision', 'Process\Advance\BusinessTripSettlementController@BusinessTripSettlementListCartRevision')->name('BusinessTripSettlement.BusinessTripSettlementListCartRevision');
+    Route::post('SearchBusinessTripRequest', 'Process\Advance\BusinessTripSettlementController@SearchBusinessTripRequest')->name('BusinessTripSettlement.SearchBusinessTripRequest');
+    Route::resource('BusinessTripSettlement', 'Process\Advance\BusinessTripSettlementController');
 
     // BRF
-    Route::post('StoreValidateBusinessTripRequest', 'Advance\BusinessTripRequestController@StoreValidateBusinessTripRequest')->name('BusinessTripRequest.StoreValidateBusinessTripRequest');
-    Route::post('StoreValidateBusinessTripRequest2', 'Advance\BusinessTripRequestController@StoreValidateBusinessTripRequest2')->name('BusinessTripRequest.StoreValidateBusinessTripRequest2');
-    Route::post('RevisionBusinessTripRequest', 'Advance\BusinessTripRequestController@RevisionBusinessTripRequestIndex')->name('BusinessTripRequest.RevisionBusinessTripRequest');
-    Route::get('BusinessTripRequestListData', 'Advance\BusinessTripRequestController@BusinessTripRequestListData')->name('BusinessTripRequest.BusinessTripRequestListData');
-    Route::post('BusinessTripRequestListCartRevision', 'Advance\BusinessTripRequestController@BusinessTripRequestListCartRevision')->name('BusinessTripRequest.BusinessTripRequestListCartRevision');
-    Route::resource('BusinessTripRequest', 'Advance\BusinessTripRequestController');
+    Route::post('StoreValidateBusinessTripRequest', 'Process\Advance\BusinessTripRequestController@StoreValidateBusinessTripRequest')->name('BusinessTripRequest.StoreValidateBusinessTripRequest');
+    Route::post('StoreValidateBusinessTripRequest2', 'Process\Advance\BusinessTripRequestController@StoreValidateBusinessTripRequest2')->name('BusinessTripRequest.StoreValidateBusinessTripRequest2');
+    Route::post('RevisionBusinessTripRequest', 'Process\Advance\BusinessTripRequestController@RevisionBusinessTripRequestIndex')->name('BusinessTripRequest.RevisionBusinessTripRequest');
+    Route::get('BusinessTripRequestListData', 'Process\Advance\BusinessTripRequestController@BusinessTripRequestListData')->name('BusinessTripRequest.BusinessTripRequestListData');
+    Route::post('BusinessTripRequestListCartRevision', 'Process\Advance\BusinessTripRequestController@BusinessTripRequestListCartRevision')->name('BusinessTripRequest.BusinessTripRequestListCartRevision');
+    Route::resource('BusinessTripRequest', 'Process\Advance\BusinessTripRequestController');
 
     // REM
-    Route::post('StoreValidateReimbursableExpenditure', 'Advance\ReimbursableExpenditureController@StoreValidateReimbursableExpenditure')->name('ReimbursableExpenditure.StoreValidateReimbursableExpenditure');
-    Route::post('StoreValidateReimbursableExpenditure2', 'Advance\ReimbursableExpenditureController@StoreValidateReimbursableExpenditure2')->name('ReimbursableExpenditure.StoreValidateReimbursableExpenditure2');
-    Route::post('RevisionReimbursableExpenditure', 'Advance\ReimbursableExpenditureController@RevisionReimbursableExpenditureIndex')->name('ReimbursableExpenditure.RevisionReimbursableExpenditure');
-    Route::resource('ReimbursableExpenditure', 'Advance\ReimbursableExpenditureController');
+    Route::post('StoreValidateReimbursableExpenditure', 'Process\Advance\ReimbursableExpenditureController@StoreValidateReimbursableExpenditure')->name('ReimbursableExpenditure.StoreValidateReimbursableExpenditure');
+    Route::post('StoreValidateReimbursableExpenditure2', 'Process\Advance\ReimbursableExpenditureController@StoreValidateReimbursableExpenditure2')->name('ReimbursableExpenditure.StoreValidateReimbursableExpenditure2');
+    Route::post('RevisionReimbursableExpenditure', 'Process\Advance\ReimbursableExpenditureController@RevisionReimbursableExpenditureIndex')->name('ReimbursableExpenditure.RevisionReimbursableExpenditure');
+    Route::resource('ReimbursableExpenditure', 'Process\Advance\ReimbursableExpenditureController');
 
     // PR
     Route::post('StoreValidatePurchaseRequisition', 'Purchase\PurchaseRequisitionController@StoreValidatePurchaseRequisition')->name('PurchaseRequisition.StoreValidatePurchaseRequisition');
@@ -245,7 +246,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // DOR
     Route::post('StoreValidateDeliveryOrderRequest', 'Inventory\DeliveryOrderRequestController@StoreValidateDeliveryOrderRequest')->name('DeliveryOrderRequest.StoreValidateDeliveryOrderRequest');
     Route::post('StoreValidateDeliveryOrderRequest2', 'Inventory\DeliveryOrderRequestController@StoreValidateDeliveryOrderRequest2')->name('DeliveryOrderRequest.StoreValidateDeliveryOrderRequest2');
-    Route::post('StoreValidateDeliveryOrderRequestRequester', 'Inventory\DeliveryOrderRequestController@StoreValidateDeliveryOrderRequestRequester')->name('DeliveryOrderRequest.StoreValidateDeliveryOrderRequestRequester');
+    Route::post('StoreValidateDeliveryOrderRequestSupplier', 'Inventory\DeliveryOrderRequestController@StoreValidateDeliveryOrderRequestSupplier')->name('DeliveryOrderRequest.StoreValidateDeliveryOrderRequestSupplier');
     Route::post('RevisionDeliveryOrderRequestIndex', 'Inventory\DeliveryOrderRequestController@RevisionDeliveryOrderRequestIndex')->name('DeliveryOrderRequest.RevisionDeliveryOrderRequestIndex');
     Route::get('DeliveryOrderRequestListData', 'Inventory\DeliveryOrderRequestController@DeliveryOrderRequestListData')->name('DeliveryOrderRequest.DeliveryOrderRequestListData');
     Route::get('DeliveryOrderRequestListDataByID', 'Inventory\DeliveryOrderRequestController@DeliveryOrderRequestListDataByID')->name('DeliveryOrderRequest.DeliveryOrderRequestListDataByID');
@@ -255,6 +256,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('ReportDORtoDO', 'Inventory\DeliveryOrderRequestController@ReportDORtoDO')->name('Inventory.ReportDORtoDO');
     // Route::post('DeliveryOrderRequestByPrID', 'Inventory\DeliveryOrderRequestController@DeliveryOrderRequestByPrID')->name('DeliveryOrderRequest.DeliveryOrderRequestByPrID');
     Route::post('DeliveryOrderRequestListCartRevision', 'Inventory\DeliveryOrderRequestController@DeliveryOrderRequestListCartRevision')->name('DeliveryOrderRequest.DeliveryOrderRequestListCartRevision');
+    Route::post('SearchPurchaseOrder', 'Inventory\DeliveryOrderRequestController@SearchPurchaseOrder')->name('DeliveryOrderRequest.SearchPurchaseOrder');
     Route::resource('DeliveryOrderRequest', 'Inventory\DeliveryOrderRequestController');
 
     // DO
@@ -265,16 +267,20 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('DeliveryOrderByBudgetID', 'Inventory\DeliveryOrderController@DeliveryOrderByBudgetID')->name('DeliveryOrder.DeliveryOrderByBudgetID');
     Route::get('DeliveryOrderByDorID', 'Inventory\DeliveryOrderController@DeliveryOrderByDorID')->name('DeliveryOrder.DeliveryOrderByDorID');
     Route::get('ReportDOSummary', 'Inventory\DeliveryOrderController@ReportDOSummary')->name('Inventory.ReportDOSummary');
+    Route::post('StoreValidateDeliveryOrderSupplier', 'Inventory\DeliveryOrderController@StoreValidateDeliveryOrderSupplier')->name('DeliveryOrder.StoreValidateDeliveryOrderSupplier');
     Route::get('ReportDODetail', 'Inventory\DeliveryOrderController@ReportDODetail')->name('Inventory.ReportDODetail');
+    Route::post('SearchDeliveryOrderRequest', 'Inventory\DeliveryOrderController@SearchDeliveryOrderRequest')->name('DeliveryOrder.SearchDeliveryOrderRequest');
     Route::resource('DeliveryOrder', 'Inventory\DeliveryOrderController');
 
     //MaterialReceive
     Route::post('StoreValidateMaterialReceive', 'Inventory\MaterialReceiveController@StoreValidateMaterialReceive')->name('MaterialReceive.StoreValidateMaterialReceive');
     Route::post('StoreValidateMaterialReceive2', 'Inventory\MaterialReceiveController@StoreValidateMaterialReceive2')->name('MaterialReceive.StoreValidateMaterialReceive2');
     Route::post('MaterialReceiveListCartRevision', 'Inventory\MaterialReceiveController@MaterialReceiveListCartRevision')->name('MaterialReceive.MaterialReceiveListCartRevision');
-    Route::get('MaterialReceiveListDataByID', 'Inventory\MaterialReceiveController@MaterialReceiveListDataByID')->name('MaterialReceive.MaterialReceiveListDataByID');
+    Route::get('MaterialReceiveListDataPO', 'Inventory\MaterialReceiveController@MaterialReceiveListDataPO')->name('MaterialReceive.MaterialReceiveListDataPO');
+    Route::get('MaterialReceiveListDataDO', 'Inventory\MaterialReceiveController@MaterialReceiveListDataDO')->name('MaterialReceive.MaterialReceiveListDataDO');
     Route::post('RevisionMaterialReceiveIndex', 'Inventory\MaterialReceiveController@RevisionMaterialReceiveIndex')->name('MaterialReceive.RevisionMaterialReceiveIndex');
     Route::get('MaterialReceiveListData', 'Inventory\MaterialReceiveController@MaterialReceiveListData')->name('MaterialReceive.MaterialReceiveListData');
+    Route::post('SearchDeliveryOrder', 'Inventory\MaterialReceiveController@SearchDeliveryOrder')->name('MaterialReceive.SearchDeliveryOrder');
     Route::resource('MaterialReceive', 'Inventory\MaterialReceiveController');
 
     // MRET
@@ -302,6 +308,11 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     Route::get('CO', 'controllerSalesCo@index')->name('CO.index');
     Route::get('revisionCo', 'controllerSalesCo@revisionCo')->name('CO.revisionCo');
+
+
+    //SETTING
+
+    Route::get('ColorMode', 'Setting\Mode\ColorModeController@ColorMode')->name('ColorMode');
 });
 
 

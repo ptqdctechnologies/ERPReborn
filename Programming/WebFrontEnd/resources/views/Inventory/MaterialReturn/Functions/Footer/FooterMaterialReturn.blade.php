@@ -43,7 +43,7 @@
     var key = 0;
     $.ajax({
       type: 'GET',
-      url: '{!! route("getSite") !!}?projectcode=' + sys_id,
+      url: '{!! route("getSite") !!}?project_code=' + sys_id,
       success: function(data) {
 
         var no = 1;
@@ -52,9 +52,9 @@
         $.each(data, function(key, val) {
           key += 1;
           t.row.add([
-            '<tbody><tr><input id="sys_id_site' + key + '" value="' + val.sys_ID + '" type="hidden"><td>' + no++ + '</td>',
-            '<td>' + val.code + '</td>',
-            '<td>' + val.name + '</td></tr></tbody>'
+            '<tbody><tr><input id="sys_id_site' + key + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
+            '<td>' + val.Code + '</td>',
+            '<td>' + val.Name + '</td></tr></tbody>'
           ]).draw();
         });
       }
@@ -104,11 +104,9 @@
       });
 
 
-      var trano = "MRT-001";
-
       $.ajax({
         type: 'GET',
-        url: '{!! route("getBudget") !!}?sitecode=' + $('#siteid').val(),
+        url: '{!! route("getBudget") !!}?site_code=' + $('#siteid').val(),
         success: function(data) {
 
           var no = 1;
@@ -133,12 +131,10 @@
               statusDisplay[key] = "";
               statusDisplay2[key] = "none";
               statusForm[key] = "disabled";
-              balance_qty = "-";
             } else {
               statusDisplay[key] = "none";
               statusDisplay2[key] = "";
               statusForm[key] = "";
-              balance_qty = currencyTotal(value.quantityRemain);
             }
 
             var html = '<tr>' +
@@ -155,13 +151,9 @@
               '<input name="combinedBudgetSectionDetail_RefID[]" value="' + value.sys_ID + '" type="hidden">' +
               '<input name="combinedBudget_RefID" value="' + value.combinedBudget_RefID + '" type="hidden">' +
 
-              '<td style="border:1px solid #e9ecef;">' +
-              '&nbsp;&nbsp;&nbsp;<div class="progress ' + status + ' progress-xs" style="height: 14px;border-radius:8px;"> @if(' + applied + ' >= ' + 0 + ' && ' + applied + ' <= ' + 40 + ')<div class="progress-bar bg-red" style="width:' + applied + '%;"></div> @elseif(' + applied + ' >= ' + 41 + ' && ' + applied + ' <= ' + 89 + ')<div class="progress-bar bg-blue" style="width:' + applied + '%;"></div> @elseif(' + applied + ' >= ' + 90 + ' && ' + applied + ' <= ' + 100 + ')<div class="progress-bar bg-green" style="width:' + applied + '%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>' + applied + ' %</center></small>' +
-              '</td>' +
-
               '<td style="border:1px solid #e9ecef;display:' + statusDisplay[key] + '";">' +
               '<div class="input-group">' +
-              '<input id="putProductId' + key + '" style="border-radius:0;width:130px;background-color:white;" name="putProductId" class="form-control" readonly>' +
+              '<input id="product_id' + key + '" style="border-radius:0;width:130px;background-color:white;" name="product_id" class="form-control" readonly>' +
               '<div class="input-group-append">' +
               '<span style="border-radius:0;" class="input-group-text form-control" data-id="10">' +
               '<a id="product_id2" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(' + key + ')"><img src="{{ asset("AdminLTE-master/dist/img/box.png") }}" width="13" alt=""></a>' +
@@ -171,28 +163,28 @@
               '</td>' +
 
               '<td style="border:1px solid #e9ecef;display:' + statusDisplay2[key] + '">' + '<span>' + value.product_RefID + '</span>' + '</td>' +
-              '<td style="border:1px solid #e9ecef;">' + '<span id="putProductName' + key + '">' + value.productName + '</span>' + '</td>' +
+              '<td style="border:1px solid #e9ecef;max-width:15px;overflow: hidden;" title="' + value.productName + '">' + '<span id="product_name' + key + '">' + value.productName + '</span>' + '</td>' +
               '<input id="putUom' + key + '" type="hidden">' +
 
               '<input id="TotalBudget' + key + '" type="hidden">' +
 
               '<td style="border:1px solid #e9ecef;">' + value.priceBaseCurrencyISOCode + '</td>' +
-              '<td style="border:1px solid #e9ecef;">' + value.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+              '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.quantity)+ '</td>' +
 
-              '<td class="sticky-col second-col-dor-qty" style="border:1px solid #e9ecef;background-color:white;">' + '<input onkeyup="total_req(' + key + ', this)" onkeypress="return isNumberKey(this, event);" id="total_req' + key + '" style="border-radius:0;" name="total_req[]" class="form-control total_req" autocomplete="off" ' + statusForm[key] + '>' + '</td>' +
+              '<td class="sticky-col second-col-dor-qty" style="border:1px solid #e9ecef;background-color:white;">' + '<input onkeypress="return isNumberKey(this, event);" id="qty_req' + key + '" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" ' + statusForm[key] + '>' + '</td>' +
               '<td class="sticky-col first-col-dor-note" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="note_req' + key + '" style="border-radius:0;" name="note_req[]" class="form-control note_req" autocomplete="off" ' + statusForm[key] + '>' + '</td>' +
 
               '</tr>';
             $('table.TableDorDetail tbody').append(html);
 
             //VALIDASI QTY
-            $('#total_req' + key).keyup(function() {
+            $('#qty_req' + key).keyup(function() {
               var qty_val = $(this).val().replace(/,/g, '');
               var budget_qty_val = $("#budget_qty" + key).val();
 
               if (qty_val == "") {
-                $('#total_req' + key).val("");
-                $("input[name='total_req[]']").css("border", "1px solid #ced4da");
+                $('#qty_req' + key).val("");
+                $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
               } else if (parseFloat(qty_val) > parseFloat(budget_qty_val)) {
 
                 swal({
@@ -202,16 +194,17 @@
                   }
                 });
 
-                $('#total_req' + key).val("");
-                $('#total_req' + key).css("border", "1px solid red");
-                $('#total_req' + key).focus();
+                $('#qty_req' + key).val("");
+                $('#qty_req' + key).css("border", "1px solid red");
+                $('#qty_req' + key).focus();
+
               } else {
-                $("input[name='total_req[]']").css("border", "1px solid #ced4da");
-                $('#total_req' + key).val(currencyTotal(qty_val));
+                $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
+                $('#qty_req' + key).val(qty_val);
               }
 
               //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED
-              TotalBudgetSelected();
+              // TotalBudgetSelected();
             });
 
           });
@@ -250,7 +243,7 @@
     var getCurrency = $("input[name='getCurrency[]']").map(function() {
       return $(this).val();
     }).get();
-    var total_req = $("input[name='total_req[]']").map(function() {
+    var qty_req = $("input[name='qty_req[]']").map(function() {
       return $(this).val();
     }).get();
     var note_req = $("input[name='note_req[]']").map(function() {
@@ -262,36 +255,35 @@
     var TotalBudgetSelectedTamp = 0;
     var TotalQty = 0;
 
-    $.each(total_req, function(index, data) {
-      if (total_req[index] != "" && total_req[index] > "0.00" && total_req[index] != "NaN.00") {
+    $.each(qty_req, function(index, data) {
+      if (qty_req[index] != "" && qty_req[index] > "0.00" && qty_req[index] != "NaN.00") {
 
-        var putProductId = getProductId[index];
-        var putProductName = getProductName[index];
+        var product_id = getProductId[index];
+        var product_name = getProductName[index];
+        var putUom = getUom[index];
 
         if (getProductName[index] == "Unspecified Product") {
-          var putProductId = $("#putProductId" + index).val();
-          var putProductName = $("#putProductName" + index).html();
+            var product_id = $("#product_id" + index).val();
+            var product_name = $("#product_name" + index).html();
+            var putUom = $("#putUom" + index).val();
         }
-        TotalBudgetSelectedTamp += +total_req[index].replace(/,/g, '');
-        TotalQty += +total_req[index].replace(/,/g, '');
+        TotalBudgetSelectedTamp += +qty_req[index].replace(/,/g, '');
+        TotalQty += +qty_req[index].replace(/,/g, '');
         var html = '<tr>' +
 
-          '<input type="hidden" name="var_product_id[]" value="' + putProductId + '">' +
-          '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
-          '<input type="hidden" name="var_quantity[]" class="qty_req2' + index + '" data-id="' + index + '" value="' + currencyTotal(total_req[index]).replace(/,/g, '') + '">' +
+          '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
+          '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + product_name + '">' +
+          '<input type="hidden" name="var_quantity[]" class="qty_req2' + index + '" data-id="' + index + '" value="' + currencyTotal(qty_req[index]).replace(/,/g, '') + '">' +
           '<input type="hidden" name="var_uom[]" value="' + getUom[index] + '">' +
           '<input type="hidden" name="var_currency[]" value="' + getCurrency[index] + '">' +
           '<input type="hidden" name="var_date" value="' + date + '">' +
           '<input type="hidden" name="var_combinedBudget[]" value="' + combinedBudget + '">' +
 
-
-          // '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getTrano[index] + '</td>' +
-          // '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkName[index] + '</td>' +
-          '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductId + '</td>' +
-          '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductName + '</td>' +
+          '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + product_id + '</td>' +
+          '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;max-width:15px;overflow: hidden;" title="' + product_name + '">' + product_name + '</td>' +
           '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getCurrency[index] + '</td>' +
           '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + note_req[index] + '</td>' +
-          '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + total_req[index] + '</td>' +
+          '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + qty_req[index] + '</td>' +
 
           '</tr>';
 

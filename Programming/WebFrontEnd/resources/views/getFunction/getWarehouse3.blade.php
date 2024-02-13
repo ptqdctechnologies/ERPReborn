@@ -6,12 +6,12 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                
+
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="tableGetWarehouse3">
+                                <table class="table table-head-fixed text-nowrap" id="TableGetWarehouse3">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -21,51 +21,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- @php $no=1; @endphp -->
-                                        <tr>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal">1</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchWarehouse3" data-id="WH-001" data-name="Jl. Baru Leko. Kode Pos, : 97796. Desa/Kelurahan, : DESA LEKO SULA. Kecamatan/Kota (LN), Kec. Mangoli Barat, Kab. Kepulauan Sula, Prov. Maluku Utara">WH-001</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchWarehouse3" data-id="Lekosula">Lekosula </p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchWarehouse3" data-id="">Jl. Baru Leko. Kode Pos, : 97796. Desa/Kelurahan, : DESA LEKO SULA. Kecamatan/Kota (LN), Kec. Mangoli Barat, Kab. Kepulauan Sula, Prov. Maluku Utara </p>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal">2</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchWarehouse3" data-id="WH-002" data-name="Bekasi cyber park, RT.001/RW.009, Kayuringin Jaya, Kec. Bekasi Bar., Kota Bks, Jawa Barat 17415">WH-002</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchWarehouse3" data-id="brfp_no">Bekasi Cyber Park Pole II</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchWarehouse3" data-id="project_id">Bekasi cyber park, RT.001/RW.009, Kayuringin Jaya, Kec. Bekasi Bar., Kota Bks, Jawa Barat 17415</p>
-                                                </span>
-                                            </td>
-                                        </tr>
+                                        @for($i = 1; $i < 10; $i++) <tr>
+                                            <td>{{ $i }}</td>
+                                            <td>WH-000 {{ $i }}</td>
+                                            <td>Lekosula - {{ $i }}</td>
+                                            <td>Jl. Baru Leko. Kode Pos, : 97796. Desa/Kelurahan, : DESA LEKO SULA. Kecamatan/Kota (LN), Kec. Mangoli Barat, Kab. Kepulauan Sula, Prov. Maluku Utara - {{ $i }}</td>
+                                            </tr>
+                                            @endfor
                                     </tbody>
                                 </table>
                             </div>
@@ -78,24 +40,22 @@
 </div>
 
 <script>
-
     $(function() {
         $('.mySearchWarehouse3').on('click', function(e) {
             e.preventDefault();
-            $('#tableGetWarehouse3').DataTable();
+            $('#TableGetWarehouse3').DataTable();
         });
     });
 </script>
 
+
 <script>
-    $(function() {
-        $(".klikSearchWarehouse3").on('click', function(e) {
-            e.preventDefault(); // in chase you change to a link or button
-            var $this = $(this);
-            var code = $this.data("id");
-            var name = $this.data("name");
-            $("#headerWarehouse3").val(code);
-            $("#headerAddresWarehouse3").val(name);
-        });
+    $('#TableGetWarehouse3 tbody').on('click', 'tr', function() {
+
+        $("#mySearchWarehouse3").modal('toggle');
+
+        var row = $(this).closest("tr");
+        var wh_code = row.find("td:nth-child(2)").text();
+        $("#headerWarehouse3").val(wh_code);
     });
 </script>

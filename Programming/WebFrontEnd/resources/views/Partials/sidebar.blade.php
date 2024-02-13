@@ -1,4 +1,4 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-2">
+<aside class="main-sidebar sidebar-{{ $ColorMode }}-primary elevation-2">
 
     <div class="sidebar" style="height: 80%;">
 
@@ -1353,8 +1353,9 @@
 
     </div>
 
-    <div class="user-panel mt-0 pb-0 mb-0 d-flex sidebar-dark-primary" style="text-align:center;padding-top:10px;height:20%;border-top:2px white solid;">
+    <div class="user-panel mt-0 pb-0 mb-0 d-flex sidebar-{{ $ColorMode }}-primary" style="text-align:center;padding-top:10px;height:20%;border-top:2px white solid;">
         <div class="card-body sidebar">
+            <hr>
             <a href="#" class="d-block" style="font-size:15px;position:relative;top:7px;">
                 <h1><b>{{ $CountDocumentWorkflowComposer }}</b></h1>
             </a>

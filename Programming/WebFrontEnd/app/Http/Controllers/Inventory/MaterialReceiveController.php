@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Inventory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Session;
 
 class MaterialReceiveController extends Controller
 {
@@ -31,25 +33,24 @@ class MaterialReceiveController extends Controller
 
     public function StoreValidateMaterialReceive(Request $request)
     {
-        $tamp = 0; $status = 200;
+        $tamp = 0;
+        $status = 200;
         $val = $request->input('putWorkId');
         $val2 = $request->input('putProductId');
         $data = $request->session()->get("SessionMaterialReceive");
-        if($request->session()->has("SessionMaterialReceive")){
-            for($i = 0; $i < count($data); $i++){
-                if($data[$i] == $val && $data[$i+1] == $val2){
+        if ($request->session()->has("SessionMaterialReceive")) {
+            for ($i = 0; $i < count($data); $i++) {
+                if ($data[$i] == $val && $data[$i + 1] == $val2) {
                     $tamp = 1;
                 }
             }
-            if($tamp == 0){
+            if ($tamp == 0) {
                 $request->session()->push("SessionMaterialReceive", $val);
                 $request->session()->push("SessionMaterialReceive", $val2);
-            }
-            else{
+            } else {
                 $status = 500;
             }
-        }
-        else{
+        } else {
             $request->session()->push("SessionMaterialReceive", $val);
             $request->session()->push("SessionMaterialReceive", $val2);
         }
@@ -62,11 +63,11 @@ class MaterialReceiveController extends Controller
         $val = $request->input('putWorkId');
         $val2 = $request->input('putProductId');
         $data = $request->session()->get("SessionMaterialReceive");
-        if($request->session()->has("SessionMaterialReceive")){
-            for($i = 0; $i < count($data); $i++){
-                if($data[$i] == $val && $data[$i+1] == $val2){
+        if ($request->session()->has("SessionMaterialReceive")) {
+            for ($i = 0; $i < count($data); $i++) {
+                if ($data[$i] == $val && $data[$i + 1] == $val2) {
                     unset($data[$i]);
-                    unset($data[$i+1]);
+                    unset($data[$i + 1]);
                     $newClass = array_values($data);
                     $request->session()->put("SessionMaterialReceive", $newClass);
                 }
@@ -102,32 +103,105 @@ class MaterialReceiveController extends Controller
         return response()->json($varDataAdvanceRequest['data']);
     }
 
-    public function MaterialReceiveListDataByID(Request $request)
+    public function MaterialReceiveListDataPO(Request $request)
     {
-        $advance_RefID = $request->input('var_recordID');
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varDataAdvanceList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.finance.getAdvanceDetail',
-            'latest',
-            [
-                'parameter' => [
-                    'advance_RefID' => (int) $advance_RefID,
+        $advance_RefID = $request->input('purchase_order_id');
+        $varAPIWebToken = Session::get('SessionLogin');
+
+        // DATA REVISION ADVANCE
+        if (Redis::get("DataListAdvanceDetailComplex") == null) {
+            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.finance.getAdvanceDetailComplex',
+                'latest',
+                [
+                    'parameter' => [
+                        'advance_RefID' => (int) $advance_RefID,
+                    ],
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
                 ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
+                false
+            );
+        }
+
+        $DataAdvanceDetailComplex = json_decode(
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "DataListAdvanceDetailComplex"
+            ),
+            true
         );
-        // dd($varDataAdvanceList);
-        return response()->json($varDataAdvanceList['data']);
+
+        $collection = collect($DataAdvanceDetailComplex);
+        $collection = $collection->where('Sys_ID_Advance', $advance_RefID);
+
+        $num = 0;
+        $filteredArray = [];
+
+        foreach ($collection as $collections) {
+            $filteredArray[$num] = $collections;
+            $num++;
+        }
+
+        return response()->json($filteredArray);
     }
 
-    
+    public function MaterialReceiveListDataDO(Request $request)
+    {
+        $advance_RefID = $request->input('delivery_order_id');
+        $varAPIWebToken = Session::get('SessionLogin');
+
+        // DATA REVISION ADVANCE
+        if (Redis::get("DataListAdvanceDetailComplex") == null) {
+            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.finance.getAdvanceDetailComplex',
+                'latest',
+                [
+                    'parameter' => [
+                        'advance_RefID' => (int) $advance_RefID,
+                    ],
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
+            );
+        }
+
+        $DataAdvanceDetailComplex = json_decode(
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "DataListAdvanceDetailComplex"
+            ),
+            true
+        );
+
+        $collection = collect($DataAdvanceDetailComplex);
+        $collection = $collection->where('Sys_ID_Advance', $advance_RefID);
+
+        $num = 0;
+        $filteredArray = [];
+
+        foreach ($collection as $collections) {
+            $filteredArray[$num] = $collections;
+            $num++;
+        }
+
+        return response()->json($filteredArray);
+    }
+
+
     public function RevisionMaterialReceiveIndex(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -164,7 +238,7 @@ class MaterialReceiveController extends Controller
         $input = $request->all();
         dd($input);
         $compact = [
-            "status"=>true,
+            "status" => true,
         ];
 
         return response()->json($compact);
@@ -177,22 +251,88 @@ class MaterialReceiveController extends Controller
         $var_recordID = $request->input('var_recordID');
 
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken, 
-        'transaction.read.dataList.finance.getAdvanceDetail', 
-        'latest', 
-        [
-        'parameter' => [
-            'advance_RefID' => (int) $var_recordID,
-            ],
-        'SQLStatement' => [
-            'pick' => null,
-            'sort' => null,
-            'filter' => null,
-            'paging' => null
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.finance.getAdvanceDetail',
+            'latest',
+            [
+                'parameter' => [
+                    'advance_RefID' => (int) $var_recordID,
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
             ]
-        ]
         );
         return response()->json($varData['data']);
+    }
+
+
+
+    public function SearchDeliveryOrder(Request $request)
+    {
+        Session::forget("SessionDeliveryOrderRequestSupplier");
+        Session::forget("SessionDeliveryOrderRequestSupplierID");
+
+        if (Redis::get("DataListAdvance") == null) {
+            $varAPIWebToken = Session::get('SessionLogin');
+            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.finance.getAdvance',
+                'latest',
+                [
+                    'parameter' => null,
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
+            );
+        }
+
+        $DataListAdvance = json_decode(
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "DataListAdvance"
+            ),
+            true
+        );
+
+        $collection = collect($DataListAdvance);
+
+        $budget_code = $request->input('budget_code');
+        $sub_budget_code = $request->input('sub_budget_code');
+        $supplier = $request->input('supplier');
+        $trano = $request->input('trano');
+
+        if ($budget_code != "") {
+            $collection = $collection->filter(function ($item) use ($budget_code) {
+                return strpos($item['CombinedBudgetCode'], $budget_code) !== false;
+            });
+        }
+        if ($sub_budget_code != "") {
+            $collection = $collection->filter(function ($item) use ($sub_budget_code) {
+                return strpos($item['CombinedBudgetSectionCode'], $sub_budget_code) !== false;
+            });
+        }
+        if ($supplier != "") {
+            $collection = $collection->filter(function ($item) use ($supplier) {
+                return strpos($item['RequesterWorkerName'], $supplier) !== false;
+            });
+        }
+        if ($trano != "") {
+            $collection = $collection->filter(function ($item) use ($trano) {
+                return strpos($item['DocumentNumber'], $trano) !== false;
+            });
+        }
+
+        return response()->json($collection->all());
     }
 }

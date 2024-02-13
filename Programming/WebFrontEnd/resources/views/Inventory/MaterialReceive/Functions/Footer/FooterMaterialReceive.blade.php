@@ -8,7 +8,7 @@
         $("#DetailMaterialReceive").hide();
         $("#headerPrNumber2").prop("disabled", true);
         $("#SubmitMaterialReceive").prop("disabled", true);
-        $("#addToPoDetail").prop("disabled", true);
+        $("#AddToDetail").prop("disabled", true);
         $("#po_number").css("background-color", "white");
         $("#warehouse1").css("background-color", "white");
         $("#do_number").css("background-color", "white");
@@ -19,60 +19,14 @@
 </script>
 
 <script>
-    $('#TablePoNumber tbody').on('click', 'tr', function() {
+    $('#AddToDetail').on('click', function(e) {
 
-        $("#myPoNumber").modal('toggle');
+        var ms_type = $(".materialSource").val();
 
-        var row = $(this).closest("tr");
-        var id = row.find("td:nth-child(1)").text();
-        var sys_id = $('#sys_id_budget' + id).val();
-        var code = row.find("td:nth-child(2)").text();
-        var name = row.find("td:nth-child(3)").text();
-
-        $("#po_number").val(code);
-        $("#sitecode").val("143000000000300");
-        $(".projectcode").val("143000000000300");
-        $("#projectcode2").val("Pengadaan jasa elektrifikasi PI 402 (Kluster KMJ 11, KMJ9, dan KMJ 24) di PT PGE area Kamojang");
-        $("#supplier_code").val("VDR2279");
-        $("#supplier_code2").val("Infra Media Dinamika");
-        $("#netActMaterialReceive").val("");
-        $("#addToPoDetail").prop("disabled", false);
-
-    });
-</script>
-
-
-<script>
-    $('#TableDoNumber tbody').on('click', 'tr', function() {
-
-        $("#myDoNumber").modal('toggle');
-
-        var row = $(this).closest("tr");
-        var id = row.find("td:nth-child(1)").text();
-        var sys_id = $('#sys_id_budget' + id).val();
-        var code = row.find("td:nth-child(2)").text();
-        var name = row.find("td:nth-child(3)").text();
-
-
-        $("#do_number").val(code);
-        $("#sitecode").val("143000000000300");
-        $(".projectcode").val("143000000000300");
-        $("#projectcode4").val("Pengadaan jasa elektrifikasi PI 402 (Kluster KMJ 11, KMJ9, dan KMJ 24) di PT PGE area Kamojang");
-        // $("#remarkMaterialReceive2").val("Tagihan Listrik Infra media dinamika bulan Mei 2022.");
-        $("#warehouse2").val("Head Office Jakarta");
-        $("#warehouse3").val("Pasar Jatinegara");
-        $("#addToPoDetail").prop("disabled", false);
-
-    });
-</script>
-
-
-<script>
-    $('#addToPoDetail').on('click', function(e) {
         e.preventDefault(); // in chase you change to a link or button
         $(".tableShowHideSupp").show();
         $("#FileReceipt").show();
-        $("#addToPoDetail").prop("disabled", true);
+        $("#AddToDetail").prop("disabled", true);
 
         $.ajaxSetup({
             headers: {
@@ -80,89 +34,167 @@
             }
         });
 
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("getBudget") !!}?sitecode=' + $('#sitecode').val(),
-            success: function(data) {
+        if (ms_type == "Supplier to Site") {
+            $.ajax({
+                type: 'GET',
+                url: '{!! route("MaterialReceive.MaterialReceiveListDataPO") !!}?purchase_order_id=' + $("#purchase_order_id").val(),
+                success: function(data) {
 
-                var no = 1;
-                applied = 0;
-                TotalBudgetSelected = 0;
-                status = "";
-                statusDisplay = [];
-                statusDisplay2 = [];
-                statusForm = [];
-                $.each(data, function(key, value) {
-                    // if(value.quantityAbsorption == "0.00" && value.quantity == "0.00"){
-                    if (value.quantity == "0.00") {
-                        var applied = 0;
-                    } else {
-                        // var applied = Math.round(parseFloat(value.quantityAbsorption) / parseFloat(value.quantity) * 100);
-                        var applied = Math.round(parseFloat(value.quantity) * 100);
-                    }
-                    if (applied >= 100) {
-                        var status = "disabled";
-                    }
-
-                    var html = '<tr>' +
-
-                        '<input name="getWorkId[]" value="' + value.combinedBudgetSubSectionLevel1_RefID + '" type="hidden">' +
-                        '<input name="getWorkName[]" value="' + value.combinedBudgetSubSectionLevel1Name + '" type="hidden">' +
-                        '<input name="getProductId[]" value="' + value.product_RefID + '" type="hidden">' +
-                        '<input name="getProductName[]" value="' + value.productName + '" type="hidden">' +
-                        '<input name="getQty[]" id="budget_qty' + key + '" value="' + value.quantity + '" type="hidden">' +
-                        '<input name="getPrice[]" id="budget_price' + key + '" value="' + value.productUnitPriceCurrencyValue + '" type="hidden">' +
-                        '<input name="getUom[]" value="' + value.quantityUnitName + '" type="hidden">' +
-                        '<input name="getCurrency[]" value="' + value.priceCurrencyISOCode + '" type="hidden">' +
-                        '<input name="getTotal[]" value="' + value.priceBaseCurrencyValue + '" type="hidden">' +
-                        '<input name="combinedBudget" value="' + value.sys_ID + '" type="hidden">' +
-
-                        '<td style="border:1px solid #e9ecef;">' +
-                        '&nbsp;&nbsp;&nbsp;<div class="progress ' + status + ' progress-xs" style="height: 14px;border-radius:8px;"> @if(' + applied + ' >= ' + 0 + ' && ' + applied + ' <= ' + 40 + ')<div class="progress-bar bg-red" style="width:' + applied + '%;"></div> @elseif(' + applied + ' >= ' + 41 + ' && ' + applied + ' <= ' + 89 + ')<div class="progress-bar bg-blue" style="width:' + applied + '%;"></div> @elseif(' + applied + ' >= ' + 90 + ' && ' + applied + ' <= ' + 100 + ')<div class="progress-bar bg-green" style="width:' + applied + '%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>' + applied + ' %</center></small>' +
-                        '</td>' +
-
-                        '<td style="border:1px solid #e9ecef;">' + value.product_RefID + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + value.productName + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + value.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + value.quantityRemain.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + value.quantityUnitName + '</td>' +
-
-                        '<td class="sticky-col second-col-dor-qty" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req' + key + '" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" ' + statusForm[key] + '>' + '</td>' +
-                        '<td class="sticky-col first-col-dor-note" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="note_req' + key + '" style="border-radius:0;" name="note_req[]" class="form-control note_req" autocomplete="off" ' + statusForm[key] + '>' + '</td>' +
-
-                        '</tr>';
-
-                    $('table.tablePoDetailMaterialReceive tbody').append(html);
-
-                    //VALIDASI QTY
-                    $('#qty_req' + key).keyup(function() {
-                        $(this).val(currency($(this).val()));
-                        var qty_val = $(this).val().replace(/,/g, '');
-                        var budget_qty_val = $("#budget_qty" + key).val();
-
-                        if (qty_val == "") {
-                            $('#total_req' + key).val("");
-                            $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
-                        } else if (parseFloat(qty_val) > parseFloat(budget_qty_val)) {
-
-                            swal({
-                                onOpen: function() {
-                                    swal.disableConfirmButton();
-                                    Swal.fire("Error !", "Qty is over budget !", "error");
-                                }
-                            });
-
-                            $('#qty_req' + key).val("");
-                            $('#qty_req' + key).css("border", "1px solid red");
-                            $('#qty_req' + key).focus();
+                    var no = 1;
+                    applied = 0;
+                    TotalBudgetSelected = 0;
+                    status = "";
+                    statusDisplay = [];
+                    statusDisplay2 = [];
+                    statusForm = [];
+                    $.each(data, function(key, value) {
+                        // if(value.QuantityAbsorption == "0.00" && value.Quantity == "0.00"){
+                        if (value.Quantity == "0.00") {
+                            var applied = 0;
                         } else {
-                            $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
+                            // var applied = Math.round(parseFloat(value.QuantityAbsorption) / parseFloat(value.Quantity) * 100);
+                            var applied = Math.round(parseFloat(value.Quantity) * 100);
                         }
-                    });
+                        if (applied >= 100) {
+                            var status = "disabled";
+                        }
 
-                });
-            },
-        });
+                        var html = '<tr>' +
+
+                            '<input name="getProductId[]" value="' + value.Product_RefID + '" type="hidden">' +
+                            '<input name="getProductName[]" value="' + value.ProductName + '" type="hidden">' +
+                            '<input name="getQty[]" id="budget_qty' + key + '" value="' + value.Quantity + '" type="hidden">' +
+                            '<input name="getPrice[]" id="budget_price' + key + '" value="' + value.ProductUnitPriceCurrencyValue + '" type="hidden">' +
+                            '<input name="getUom[]" value="' + value.QuantityUnitName + '" type="hidden">' +
+                            '<input name="getCurrency[]" value="' + value.PriceCurrencyISOCode + '" type="hidden">' +
+                            '<input name="getTotal[]" value="' + value.PriceBaseCurrencyValue + '" type="hidden">' +
+                            '<input name="combinedBudget" value="' + value.sys_ID + '" type="hidden">' +
+                            '<input name="getTrano[]" value="' + $("#purchase_order").val() + '" type="hidden">' +
+
+                            '<td style="border:1px solid #e9ecef;">' + $("#purchase_order").val() + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + value.Product_RefID + '</td>' +
+                            '<td style="border:1px solid #e9ecef;max-width:15px;overflow: hidden;" title="' + value.ProductName + '">' + value.ProductName + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.Quantity) + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.Quantity) + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + value.QuantityUnitName + '</td>' +
+
+                            '<td class="sticky-col second-col-dor-qty" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req' + key + '" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" ' + statusForm[key] + '>' + '</td>' +
+                            '<td class="sticky-col first-col-dor-note" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="note_req' + key + '" style="border-radius:0;" name="note_req[]" class="form-control note_req" autocomplete="off" ' + statusForm[key] + '>' + '</td>' +
+
+                            '</tr>';
+
+                        $('table.TableMaterialResource tbody').append(html);
+
+                        //VALIDASI QTY
+                        $('#qty_req' + key).keyup(function() {
+                            $(this).val(currency($(this).val()));
+                            var qty_val = $(this).val().replace(/,/g, '');
+                            var budget_qty_val = $("#budget_qty" + key).val();
+
+                            if (qty_val == "") {
+                                $('#total_req' + key).val("");
+                                $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
+                            } else if (parseFloat(qty_val) > parseFloat(budget_qty_val)) {
+
+                                swal({
+                                    onOpen: function() {
+                                        swal.disableConfirmButton();
+                                        Swal.fire("Error !", "Qty is over budget !", "error");
+                                    }
+                                });
+
+                                $('#qty_req' + key).val("");
+                                $('#qty_req' + key).css("border", "1px solid red");
+                                $('#qty_req' + key).focus();
+                            } else {
+                                $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
+                            }
+                        });
+
+                    });
+                },
+            });
+        } else {
+            $.ajax({
+                type: 'GET',
+                url: '{!! route("MaterialReceive.MaterialReceiveListDataDO") !!}?delivery_order_id=' + $("#delivery_order_id").val(),
+                success: function(data) {
+
+                    var no = 1;
+                    applied = 0;
+                    TotalBudgetSelected = 0;
+                    status = "";
+                    statusDisplay = [];
+                    statusDisplay2 = [];
+                    statusForm = [];
+                    $.each(data, function(key, value) {
+                        // if(value.QuantityAbsorption == "0.00" && value.Quantity == "0.00"){
+                        if (value.Quantity == "0.00") {
+                            var applied = 0;
+                        } else {
+                            // var applied = Math.round(parseFloat(value.QuantityAbsorption) / parseFloat(value.Quantity) * 100);
+                            var applied = Math.round(parseFloat(value.Quantity) * 100);
+                        }
+                        if (applied >= 100) {
+                            var status = "disabled";
+                        }
+
+                        var html = '<tr>' +
+
+                            '<input name="getProductId[]" value="' + value.Product_RefID + '" type="hidden">' +
+                            '<input name="getProductName[]" value="' + value.ProductName + '" type="hidden">' +
+                            '<input name="getQty[]" id="budget_qty' + key + '" value="' + value.Quantity + '" type="hidden">' +
+                            '<input name="getPrice[]" id="budget_price' + key + '" value="' + value.ProductUnitPriceCurrencyValue + '" type="hidden">' +
+                            '<input name="getUom[]" value="' + value.QuantityUnitName + '" type="hidden">' +
+                            '<input name="getCurrency[]" value="' + value.PriceCurrencyISOCode + '" type="hidden">' +
+                            '<input name="getTotal[]" value="' + value.PriceBaseCurrencyValue + '" type="hidden">' +
+                            '<input name="combinedBudget" value="' + value.sys_ID + '" type="hidden">' +
+                            '<input name="getTrano[]" value="' + $("#delivery_order").val() + '" type="hidden">' +
+
+                            '<td style="border:1px solid #e9ecef;">' + $("#delivery_order").val() + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + value.Product_RefID + '</td>' +
+                            '<td style="border:1px solid #e9ecef;max-width:15px;overflow: hidden;" title="' + value.ProductName + '">' + value.ProductName + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.Quantity) + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.Quantity) + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + value.QuantityUnitName + '</td>' +
+
+                            '<td class="sticky-col second-col-dor-qty" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req' + key + '" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" autocomplete="off" ' + statusForm[key] + '>' + '</td>' +
+                            '<td class="sticky-col first-col-dor-note" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="note_req' + key + '" style="border-radius:0;" name="note_req[]" class="form-control note_req" autocomplete="off" ' + statusForm[key] + '>' + '</td>' +
+
+                            '</tr>';
+
+                        $('table.TableMaterialResource tbody').append(html);
+
+                        //VALIDASI QTY
+                        $('#qty_req' + key).keyup(function() {
+                            $(this).val(currency($(this).val()));
+                            var qty_val = $(this).val().replace(/,/g, '');
+                            var budget_qty_val = $("#budget_qty" + key).val();
+
+                            if (qty_val == "") {
+                                $('#total_req' + key).val("");
+                                $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
+                            } else if (parseFloat(qty_val) > parseFloat(budget_qty_val)) {
+
+                                swal({
+                                    onOpen: function() {
+                                        swal.disableConfirmButton();
+                                        Swal.fire("Error !", "Qty is over budget !", "error");
+                                    }
+                                });
+
+                                $('#qty_req' + key).val("");
+                                $('#qty_req' + key).css("border", "1px solid red");
+                                $('#qty_req' + key).focus();
+                            } else {
+                                $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
+                            }
+                        });
+
+                    });
+                },
+            });
+        }
     });
 </script>
 
@@ -176,7 +208,7 @@
         $(".MaterialReceiveCart").show();
 
         var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
-        var getWorkId = $("input[name='getWorkId[]']").map(function() {
+        var getTrano = $("input[name='getTrano[]']").map(function() {
             return $(this).val();
         }).get();
         var getWorkName = $("input[name='getWorkName[]']").map(function() {
@@ -228,10 +260,9 @@
                     '<input type="hidden" name="var_date" value="' + date + '">' +
                     '<input type="hidden" name="var_combinedBudget[]" value="' + combinedBudget + '">' +
 
-
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkId[index] + '</td>' +
+                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getTrano[index] + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductId + '</td>' +
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductName + '</td>' +
+                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;max-width:15px;overflow: hidden;" title="' + putProductName + '">' + putProductName + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getUom[index] + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + note_req[index] + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + qty_req[index] + '</td>' +
@@ -253,16 +284,24 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+        $("#ms_type").html("");
         $(".materialSource").on('click', function(e) {
             e.preventDefault();
             var valType = $(".materialSource").val();
 
+
+            $('.TableMaterialReceiveCart').find('tbody').empty();
+            $('.TableMaterialResource').find('tbody').empty();
+
+
             if (valType == "Supplier to Site") {
                 $(".headerMaterialReceive1").show();
                 $(".headerMaterialReceive2").hide();
+                $("#ms_type").html("Purchase Order");
             } else if (valType == "Warehouse to Warehouse") {
                 $(".headerMaterialReceive2").show();
                 $(".headerMaterialReceive1").hide();
+                $("#ms_type").html("Delivery Order");
             }
         });
     });
@@ -426,5 +465,194 @@
             }
         });
 
+    });
+</script>
+
+<script>
+    function TableSearchPoInMaterialReceive(data) {
+        $('.TableSearchPoInMaterialReceive').find('tbody').empty();
+        var no = 1;
+        t = $('#TableSearchPoInMaterialReceive').DataTable();
+        t.clear().draw();
+
+        var keys = 0;
+
+        $.each(data, function(key, val) {
+            keys += 1;
+            t.row.add([
+                '<tbody><tr><input id="purchase_order_id' + keys + '" value="' + val.Sys_ID + '" type="hidden"><input id="supplier_id' + keys + '" value="' + val.RequesterWorkerJobsPosition_RefID + '" type="hidden"><input id="budget_name' + keys + '" value="' + val.CombinedBudgetName + '" type="hidden"><td>' + no++ + '</td>',
+                '<td>' + val.DocumentNumber + '</td>',
+                '<td>' + val.CombinedBudgetCode + '</td>',
+                '<td>' + val.CombinedBudgetSectionCode + '</td>',
+                '<td>' + val.RequesterWorkerName + '</td></tr></tbody>'
+            ]).draw();
+
+        });
+    }
+</script>
+
+<script>
+    $('#purchase_order2').one('click', function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("AdvanceRequest.AdvanceListData") !!}',
+            success: function(data) {
+
+                TableSearchPoInMaterialReceive(data);
+
+            }
+        });
+    });
+</script>
+
+<script>
+    $(function() {
+        $("#FormSubmitSearchPurchaseOrder").on("submit", function(e) { //id of form 
+            e.preventDefault();
+
+            var action = $(this).attr("action"); //get submit action from form
+            var method = $(this).attr("method"); // get submit method
+            var form_data = new FormData($(this)[0]); // convert form into formdata 
+            var form = $(this);
+
+            $.ajax({
+                url: action,
+                dataType: 'json', // what to expect back from the server
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data,
+                type: method,
+                success: function(data) {
+
+                    TableSearchPoInMaterialReceive(data);
+
+                }
+            })
+        });
+    });
+</script>
+
+
+<script>
+    var keys = 0;
+
+    $('#TableSearchPoInMaterialReceive tbody').on('click', 'tr', function() {
+
+        $("#mySearchPurchaseOrder").modal('toggle');
+
+        var row = $(this).closest("tr");
+        var id = row.find("td:nth-child(1)").text();
+        var purchase_order_id = $('#purchase_order_id' + id).val();
+        var purchase_order = row.find("td:nth-child(2)").text();
+        var budget_code = row.find("td:nth-child(3)").text();
+        var budget_name = $('#budget_name' + id).val();
+        var supplier_id = $('#supplier_id' + id).val();
+        var supplier_name = row.find("td:nth-child(5)").text();
+        $("#purchase_order_id").val(purchase_order_id);
+        $("#purchase_order").val(purchase_order);
+        $("#budget_code_po").val(budget_code);
+        $("#budget_name_po").val(budget_name);
+        $("#supplier_code_po").val(supplier_id);
+        $("#supplier_name_po").val(supplier_name);
+
+    });
+</script>
+
+
+<script>
+    function TableSearchDoInMaterialReceive(data) {
+        $('.TableSearchDoInMaterialReceive').find('tbody').empty();
+        var no = 1;
+        t = $('#TableSearchDoInMaterialReceive').DataTable();
+        t.clear().draw();
+
+        var keys = 0;
+
+        $.each(data, function(key, val) {
+            keys += 1;
+            t.row.add([
+                '<tbody><tr><input id="delivery_order_id' + keys + '" value="' + val.Sys_ID + '" type="hidden"><input id="budget_name' + keys + '" value="' + val.CombinedBudgetName + '" type="hidden"><td>' + no++ + '</td>',
+                '<td>' + val.DocumentNumber + '</td>',
+                '<td>' + val.CombinedBudgetCode + '</td>',
+                '<td>' + val.CombinedBudgetSectionCode + '</td></tr></tbody>'
+            ]).draw();
+
+        });
+    }
+</script>
+
+<script>
+    $('#delivery_order2').one('click', function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("AdvanceRequest.AdvanceListData") !!}',
+            success: function(data) {
+
+                TableSearchDoInMaterialReceive(data);
+
+            }
+        });
+    });
+</script>
+
+<script>
+    $(function() {
+        $("#FormSubmitSearchDeliveryOrder").on("submit", function(e) { //id of form 
+            e.preventDefault();
+
+            var action = $(this).attr("action"); //get submit action from form
+            var method = $(this).attr("method"); // get submit method
+            var form_data = new FormData($(this)[0]); // convert form into formdata 
+            var form = $(this);
+
+            $.ajax({
+                url: action,
+                dataType: 'json', // what to expect back from the server
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data,
+                type: method,
+                success: function(data) {
+
+                    TableSearchDoInMaterialReceive(data);
+
+                }
+            })
+        });
+    });
+</script>
+
+
+<script>
+    var keys = 0;
+
+    $('#TableSearchDoInMaterialReceive tbody').on('click', 'tr', function() {
+
+        $("#mySearchDeliveryOrder").modal('toggle');
+
+        var row = $(this).closest("tr");
+        var id = row.find("td:nth-child(1)").text();
+        var delivery_order_id = $('#delivery_order_id' + id).val();
+        var delivery_order = row.find("td:nth-child(2)").text();
+        var budget_code = row.find("td:nth-child(3)").text();
+        var budget_name = $('#budget_name' + id).val();
+        $("#delivery_order_id").val(delivery_order_id);
+        $("#delivery_order").val(delivery_order);
+        $("#budget_code_do").val(budget_code);
+        $("#budget_name_do").val(budget_name);
     });
 </script>
