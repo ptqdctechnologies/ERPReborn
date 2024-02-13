@@ -30,8 +30,8 @@
     var code = row.find("td:nth-child(2)").text();
     var name = row.find("td:nth-child(3)").text();
 
-    $("#projectcode").val(code);
-    $("#projectname").val(name);
+    $("#project_code").val(code);
+    $("#project_code_detail").val(name);
     $("#sitecode2").prop("disabled", false);
 
     $.ajaxSetup({

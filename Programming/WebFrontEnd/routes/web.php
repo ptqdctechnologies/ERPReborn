@@ -62,6 +62,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // Dashboard
     Route::resource('dashboard', 'Dashboard\DashboardController');
 
+    // Warehouse
+    Route::resource('Warehouse', 'Register\Warehouse\WarehouseController');
+
     //Approval Document
 
     Route::get('ApprovalAccepted', 'Document\ApprovalDocumentController@ApprovalAccepted')->name('ApprovalDocument.ApprovalAccepted');
@@ -79,35 +82,35 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     //MASTER DATA
     //Periode
-    Route::resource('Periode', 'Master\PeriodeController');
+    Route::resource('Periode', 'Register\PeriodeController');
     //ProductType
-    Route::resource('ProductType', 'Master\ProductTypeController');
+    Route::resource('ProductType', 'Register\ProductTypeController');
     //Religion
-    Route::resource('Religion', 'Master\ReligionController');
+    Route::resource('Religion', 'Register\ReligionController');
     //Currency
-    Route::resource('Currency', 'Master\CurrencyController');
+    Route::resource('Currency', 'Register\CurrencyController');
     //Country
-    Route::resource('Country', 'Master\CountryController');
+    Route::resource('Country', 'Register\CountryController');
     //CountryAdministrativeAreaLevel1
-    Route::resource('CountryAdministrativeAreaLevel1', 'Master\CountryAdministrativeAreaLevel1Controller');
+    Route::resource('CountryAdministrativeAreaLevel1', 'Register\CountryAdministrativeAreaLevel1Controller');
     //CountryAdministrativeAreaLevel2
-    Route::resource('CountryAdministrativeAreaLevel2', 'Master\CountryAdministrativeAreaLevel2Controller');
+    Route::resource('CountryAdministrativeAreaLevel2', 'Register\CountryAdministrativeAreaLevel2Controller');
     //CountryAdministrativeAreaLevel3
-    Route::resource('CountryAdministrativeAreaLevel3', 'Master\CountryAdministrativeAreaLevel3Controller');
+    Route::resource('CountryAdministrativeAreaLevel3', 'Register\CountryAdministrativeAreaLevel3Controller');
     //CountryAdministrativeAreaLevel4
-    Route::resource('CountryAdministrativeAreaLevel4', 'Master\CountryAdministrativeAreaLevel4Controller');
+    Route::resource('CountryAdministrativeAreaLevel4', 'Register\CountryAdministrativeAreaLevel4Controller');
     //BloodAglutinogenType
-    Route::resource('BloodAglutinogenType', 'Master\BloodAglutinogenTypeController');
+    Route::resource('BloodAglutinogenType', 'Register\BloodAglutinogenTypeController');
     //BusinessDocument
-    Route::resource('BusinessDocument', 'Master\BusinessDocumentController');
+    Route::resource('BusinessDocument', 'Register\BusinessDocumentController');
     //BusinessDocumentType
-    Route::resource('BusinessDocumentType', 'Master\BusinessDocumentTypeController');
+    Route::resource('BusinessDocumentType', 'Register\BusinessDocumentTypeController');
     //BusinessDocumentVersion
-    Route::resource('BusinessDocumentVersion', 'Master\BusinessDocumentVersionController');
+    Route::resource('BusinessDocumentVersion', 'Register\BusinessDocumentVersionController');
     //Supplier
-    Route::get('Supplier', 'Master\SupplierController@supplier')->name('supplier.index');
-    Route::get('addSupplier', 'Master\SupplierController@addSupplier')->name('supplier.addSupplier');
-    Route::post('revisionSupplier', 'Master\SupplierController@revisionSupplier')->name('supplier.revisionSupplier');
+    Route::get('Supplier', 'Register\SupplierController@supplier')->name('supplier.index');
+    Route::get('addSupplier', 'Register\SupplierController@addSupplier')->name('supplier.addSupplier');
+    Route::post('revisionSupplier', 'Register\SupplierController@revisionSupplier')->name('supplier.revisionSupplier');
     // Budget
     Route::resource('Budget', 'BudgetController');
     // Budget Expense
@@ -129,8 +132,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // CodeOfBudgeting
     Route::resource('CodeOfBudgeting', 'CodeOfBudgetingController');
     // PrivilageMenu
-    Route::get('DataListPrivilageMenu', 'Master\PrivilageMenu\PrivilageMenuController@DataListPrivilageMenu')->name('PrivilageMenu.DataListPrivilageMenu');
-    Route::resource('PrivilageMenu', 'Master\PrivilageMenu\PrivilageMenuController');
+    Route::get('DataListPrivilageMenu', 'Register\PrivilageMenu\PrivilageMenuController@DataListPrivilageMenu')->name('PrivilageMenu.DataListPrivilageMenu');
+    Route::resource('PrivilageMenu', 'Register\PrivilageMenu\PrivilageMenuController');
 
     //Function
     Route::get('getProject', 'Function\FunctionController@getProject')->name('getProject');
@@ -143,6 +146,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getWorker', 'Function\FunctionController@getWorker')->name('getWorker');
     Route::get('getSupplier', 'Function\FunctionController@getSupplier')->name('getSupplier');
     Route::get('getDeliverTo', 'Function\FunctionController@getDeliverTo')->name('getDeliverTo');
+    Route::get('getWarehouse', 'Function\FunctionController@getWarehouse')->name('getWarehouse');
     Route::get('getBusinessTripCostComponentEntity', 'Function\FunctionController@getBusinessTripCostComponentEntity')->name('getBusinessTripCostComponentEntity');
     Route::get('getDocumentType', 'Function\FunctionController@getDocumentType')->name('getDocumentType');
     Route::get('getPrivilageMenu', 'Function\FunctionController@getPrivilageMenu')->name('getPrivilageMenu');
@@ -192,18 +196,18 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('BusinessTripSettlement', 'Process\Advance\BusinessTripSettlementController');
 
     // BRF
-    Route::post('StoreValidateBusinessTripRequest', 'Process\Advance\BusinessTripRequestController@StoreValidateBusinessTripRequest')->name('BusinessTripRequest.StoreValidateBusinessTripRequest');
-    Route::post('StoreValidateBusinessTripRequest2', 'Process\Advance\BusinessTripRequestController@StoreValidateBusinessTripRequest2')->name('BusinessTripRequest.StoreValidateBusinessTripRequest2');
-    Route::post('RevisionBusinessTripRequest', 'Process\Advance\BusinessTripRequestController@RevisionBusinessTripRequestIndex')->name('BusinessTripRequest.RevisionBusinessTripRequest');
-    Route::get('BusinessTripRequestListData', 'Process\Advance\BusinessTripRequestController@BusinessTripRequestListData')->name('BusinessTripRequest.BusinessTripRequestListData');
-    Route::post('BusinessTripRequestListCartRevision', 'Process\Advance\BusinessTripRequestController@BusinessTripRequestListCartRevision')->name('BusinessTripRequest.BusinessTripRequestListCartRevision');
-    Route::resource('BusinessTripRequest', 'Process\Advance\BusinessTripRequestController');
+    Route::post('StoreValidateBusinessTripRequest', 'Process\BusinessTrip\BusinessTripRequestController@StoreValidateBusinessTripRequest')->name('BusinessTripRequest.StoreValidateBusinessTripRequest');
+    Route::post('StoreValidateBusinessTripRequest2', 'Process\BusinessTrip\BusinessTripRequestController@StoreValidateBusinessTripRequest2')->name('BusinessTripRequest.StoreValidateBusinessTripRequest2');
+    Route::post('RevisionBusinessTripRequest', 'Process\BusinessTrip\BusinessTripRequestController@RevisionBusinessTripRequestIndex')->name('BusinessTripRequest.RevisionBusinessTripRequest');
+    Route::get('BusinessTripRequestListData', 'Process\BusinessTrip\BusinessTripRequestController@BusinessTripRequestListData')->name('BusinessTripRequest.BusinessTripRequestListData');
+    Route::post('BusinessTripRequestListCartRevision', 'Process\BusinessTrip\BusinessTripRequestController@BusinessTripRequestListCartRevision')->name('BusinessTripRequest.BusinessTripRequestListCartRevision');
+    Route::resource('BusinessTripRequest', 'Process\BusinessTrip\BusinessTripRequestController');
 
     // REM
-    Route::post('StoreValidateReimbursableExpenditure', 'Process\Advance\ReimbursableExpenditureController@StoreValidateReimbursableExpenditure')->name('ReimbursableExpenditure.StoreValidateReimbursableExpenditure');
-    Route::post('StoreValidateReimbursableExpenditure2', 'Process\Advance\ReimbursableExpenditureController@StoreValidateReimbursableExpenditure2')->name('ReimbursableExpenditure.StoreValidateReimbursableExpenditure2');
-    Route::post('RevisionReimbursableExpenditure', 'Process\Advance\ReimbursableExpenditureController@RevisionReimbursableExpenditureIndex')->name('ReimbursableExpenditure.RevisionReimbursableExpenditure');
-    Route::resource('ReimbursableExpenditure', 'Process\Advance\ReimbursableExpenditureController');
+    Route::post('StoreValidateReimbursableExpenditure', 'Process\Reimbursement\ReimbursableExpenditureController@StoreValidateReimbursableExpenditure')->name('ReimbursableExpenditure.StoreValidateReimbursableExpenditure');
+    Route::post('StoreValidateReimbursableExpenditure2', 'Process\Reimbursement\ReimbursableExpenditureController@StoreValidateReimbursableExpenditure2')->name('ReimbursableExpenditure.StoreValidateReimbursableExpenditure2');
+    Route::post('RevisionReimbursableExpenditure', 'Process\Reimbursement\ReimbursableExpenditureController@RevisionReimbursableExpenditureIndex')->name('ReimbursableExpenditure.RevisionReimbursableExpenditure');
+    Route::resource('ReimbursableExpenditure', 'Process\Reimbursement\ReimbursableExpenditureController');
 
     // PR
     Route::post('StoreValidatePurchaseRequisition', 'Purchase\PurchaseRequisitionController@StoreValidatePurchaseRequisition')->name('PurchaseRequisition.StoreValidatePurchaseRequisition');
@@ -257,6 +261,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // Route::post('DeliveryOrderRequestByPrID', 'Inventory\DeliveryOrderRequestController@DeliveryOrderRequestByPrID')->name('DeliveryOrderRequest.DeliveryOrderRequestByPrID');
     Route::post('DeliveryOrderRequestListCartRevision', 'Inventory\DeliveryOrderRequestController@DeliveryOrderRequestListCartRevision')->name('DeliveryOrderRequest.DeliveryOrderRequestListCartRevision');
     Route::post('SearchPurchaseOrder', 'Inventory\DeliveryOrderRequestController@SearchPurchaseOrder')->name('DeliveryOrderRequest.SearchPurchaseOrder');
+    Route::post('SearchOrderPicking', 'Inventory\DeliveryOrderRequestController@SearchOrderPicking')->name('DeliveryOrderRequest.SearchOrderPicking');
+    Route::post('SearchStockMovement', 'Inventory\DeliveryOrderRequestController@SearchStockMovement')->name('DeliveryOrderRequest.SearchStockMovement');
     Route::resource('DeliveryOrderRequest', 'Inventory\DeliveryOrderRequestController');
 
     // DO

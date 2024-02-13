@@ -1085,11 +1085,19 @@
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">&nbsp;&nbsp;&nbsp;
+                                    <a href="#"  class="nav-link">&nbsp;&nbsp;&nbsp;
                                         <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
                                         <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('Warehouse.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
+                                                <label>Warehouse</label>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
                         </li>

@@ -10,6 +10,90 @@
   });
 </script>
 
+<script>
+    $('#tableGetProject tbody').on('click', 'tr', function() {
+
+        $("#sitecode2").prop("disabled", false);
+        $("#myProject").modal('toggle');
+
+        var row = $(this).closest("tr");
+        var id = row.find("td:nth-child(1)").text();
+        var sys_id = $('#sys_id_budget' + id).val();
+        var code = row.find("td:nth-child(2)").text();
+        var name = row.find("td:nth-child(3)").text();
+
+        $("#project_code").val(code);
+        $("#project_code_detail").val(name);
+        $("#site_code_popup").prop("disabled", false);
+
+
+        var documentTypeID = $("#DocumentTypeID").val();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var keys = 0;
+          $.ajax({
+              type: 'GET',
+              url: '{!! route("getSite") !!}?project_code=' + sys_id,
+              success: function(data) {
+
+                  var no = 1;
+                  var t = $('#tableGetSite').DataTable();
+                  t.clear();
+                  $.each(data, function(key, val) {
+                      keys += 1;
+                      t.row.add([
+                          '<tbody><tr><input id="sys_id_site' + keys + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
+                          '<td>' + val.Code + '</td>',
+                          '<td>' + val.Name + '</td></tr></tbody>'
+                      ]).draw();
+                  });
+              }
+          });
+
+        // $.ajax({
+        //     type: 'GET',
+        //     url: '{!! route("CheckingWorkflow") !!}?combinedBudget_RefID=' + sys_id + '&documentTypeID=' + documentTypeID,
+        //     success: function(data) {
+        //         if (data > 0) {
+
+        //             var keys = 0;
+        //             $.ajax({
+        //                 type: 'GET',
+        //                 url: '{!! route("getSite") !!}?project_code=' + sys_id,
+        //                 success: function(data) {
+
+        //                     var no = 1;
+        //                     var t = $('#tableGetSite').DataTable();
+        //                     t.clear();
+        //                     $.each(data, function(key, val) {
+        //                         keys += 1;
+        //                         t.row.add([
+        //                             '<tbody><tr><input id="sys_id_site' + keys + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
+        //                             '<td>' + val.Code + '</td>',
+        //                             '<td>' + val.Name + '</td></tr></tbody>'
+        //                         ]).draw();
+        //                     });
+        //                 }
+        //             });
+
+        //         } else {
+        //             $("#project_code").val("");
+        //             $("#project_code_detail").val("");
+        //             Swal.fire("Error", "User Has Not Workflow For This Project", "error");
+        //         }
+        //     },
+        //     error: function(jqXHR, textStatus, errorThrown) {
+        //         Swal.fire("Error", "Data Error", "error");
+        //     }
+        // });
+    });
+</script>
+
 
 <script type="text/javascript">
   //GET MATRET LIST 
@@ -126,12 +210,6 @@
           '<input name="combinedBudget" value="' + val2.sys_ID + '" type="hidden">' +
           '<input name="getRecordIDDetail[]" value="' + var_recordIDDetail + '"  type="hidden">' +
           '<input name="getTrano[]" value="' + val2.sys_ID + '" type="hidden">' +
-
-
-          '<td style="border:1px solid #e9ecef;">' +
-          '&nbsp;&nbsp;&nbsp;<div class="progress ' + status + ' progress-xs" style="height: 14px;border-radius:8px;"> @if(' + applied + ' >= ' + 0 + ' && ' + applied + ' <= ' + 40 + ')<div class="progress-bar bg-red" style="width:' + applied + '%;"></div> @elseif(' + applied + ' >= ' + 41 + ' && ' + applied + ' <= ' + 89 + ')<div class="progress-bar bg-blue" style="width:' + applied + '%;"></div> @elseif(' + applied + ' >= ' + 90 + ' && ' + applied + ' <= ' + 100 + ')<div class="progress-bar bg-green" style="width:' + applied + '%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>' + applied + ' %</center></small>' +
-          '</td>' +
-
 
           '<td style="border:1px solid #e9ecef;">' + val2.product_RefID + '</td>' +
           '<td style="border:1px solid #e9ecef;">' + val2.productName + '</td>' +
@@ -325,7 +403,6 @@
     $("#sitename").val("");
 
     $("#projectcode2").prop("disabled", false);
-    $("#sitecode2").prop("disabled", false);
   }
 </script>
 

@@ -6,8 +6,6 @@
 @include('Inventory.MaterialReceive.Functions.PopUp.SearchDeliveryOrder')
 @include('Inventory.MaterialReceive.Functions.PopUp.PopUpMaterialReceiveRevision')
 @include('getFunction.getWarehouse')
-@include('getFunction.getWarehouse2')
-@include('getFunction.getWarehouse3')
 
 <div class="content-wrapper">
     <section class="content">

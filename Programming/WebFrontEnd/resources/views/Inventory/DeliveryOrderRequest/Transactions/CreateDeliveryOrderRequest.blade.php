@@ -4,10 +4,12 @@
 @include('Partials.sidebar')
 @include('Inventory.DeliveryOrderRequest.Functions.PopUp.PopUpDorRevision')
 @include('Inventory.DeliveryOrderRequest.Functions.PopUp.SearchPurchaseOrder')
+@include('Inventory.DeliveryOrderRequest.Functions.PopUp.SearchOrderPicking')
+@include('Inventory.DeliveryOrderRequest.Functions.PopUp.SearchStockMovement')
 @include('getFunction.getWarehouse')
-@include('getFunction.getWarehouse2')
-@include('getFunction.getWarehouse3')
+@include('getFunction.getSite')
 @include('getFunction.getSupplier')
+@include('getFunction.getWorker')
 
 <div class="content-wrapper">
     <section class="content">
@@ -39,7 +41,7 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        @include('Inventory.DeliveryOrderRequest.Functions.Table.TablePoDetail')
+                                        @include('Inventory.DeliveryOrderRequest.Functions.Table.TableSourceDetail')
                                     </div>
                                 </div>
                             </div>

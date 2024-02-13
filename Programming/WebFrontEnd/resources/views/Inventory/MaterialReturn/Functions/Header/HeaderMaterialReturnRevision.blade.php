@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-header">
                 <label class="card-title">
-                    Add New Materail Return
+                     Materail Return
                 </label>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -21,17 +21,17 @@
                                     <td><label>Budget Code</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="projectcode" style="border-radius:0;" name="projectcode" class="form-control" readonly value="{{$dataAdvanceRevisions['entities']['combinedBudget_RefID']}}">
+                                            <input id="project_code" style="border-radius:0;" name="project_code" class="form-control" readonly>
                                             <div class="input-group-append">
-                                            <span style="border-radius:0;" class="input-group-text form-control">
-                                                <a href="#" id="projectcode2" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                                            </span>
+                                                <span style="border-radius:0;" class="input-group-text form-control">
+                                                    <a href="#" id="project_code2" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                </span>
                                             </div>
                                         </div>
-                                        </td>
-                                        <td>
+                                    </td>
+                                    <td>
                                         <div class="input-group">
-                                            <input id="projectname" style="border-radius:0;" class="form-control" name="projectname" readonly value="{{$dataAdvanceRevisions['entities']['combinedBudgetName']}}">
+                                            <input id="project_code_detail" style="border-radius:0;" class="form-control" name="project_code_detail" readonly>
                                         </div>
                                     </td>
                                 </tr>
@@ -69,17 +69,18 @@
                                     <td><label>Sub Budget Code</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="sitecode" style="border-radius:0;" name="sitecode" class="form-control" readonly  value="{{$dataAdvanceRevisions['entities']['combinedBudgetSection_RefID']}}">
+                                            <input type="hidden" id="siteid" style="border-radius:0;" name="siteid" class="form-control" readonly>
+                                            <input id="sitecode" style="border-radius:0;" name="sitecode" class="form-control" readonly>
                                             <div class="input-group-append">
-                                            <span style="border-radius:0;" class="input-group-text form-control">
-                                                <a href="#" id="sitecode2" data-toggle="modal" data-target="#mySiteCode"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                                            </span>
+                                                <span style="border-radius:0;" class="input-group-text form-control">
+                                                    <a href="#" id="sitecode2" data-toggle="modal" data-target="#mySiteCode"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                </span>
                                             </div>
                                         </div>
-                                        </td>
-                                        <td>
+                                    </td>
+                                    <td>
                                         <div class="input-group">
-                                            <input id="sitename" style="border-radius:0;" class="form-control" name="sitename" readonly value="{{$dataAdvanceRevisions['entities']['combinedBudgetSectionName']}}">
+                                            <input id="sitename" style="border-radius:0;" class="form-control" name="sitename" readonly>
                                         </div>
                                     </td>
                                 </tr>
@@ -87,7 +88,7 @@
                                     <td><label>DO Number</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="DoNumberMret" style="border-radius:0;" name="DoNumberMret" class="form-control" value="{{$dataAdvanceRevisions['entities']['combinedBudget_RefID']}}">
+                                            <input id="DoNumberMret" style="border-radius:0;" name="DoNumberMret" class="form-control">
 
                                         </div>
                                     </td>
@@ -96,37 +97,27 @@
                                     <td><label>Delivery By</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="delivery" name="delivery" class="form-control" readonly value="{{$dataAdvanceRevisions['entities']['combinedBudget_RefID']}}">
+                                            <input id="supplier_name" name="supplier_name" class="form-control" readonly>
                                             <div class="input-group-append">
                                                 <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a href="#"><i id="delivery" data-toggle="modal" data-target="#myDelivery" class="fas fa-gift myDelivery" style="color:grey;"></i></a>
+                                                    <a href="#"><i id="supplier_name2" data-toggle="modal" data-target="#mySupplier" class="fas fa-gift mySupplier" style="color:grey;"></i></a>
                                                 </span>
                                             </div>
                                         </div>
                                     </td>
-                                    <!-- <td>
-                                        <div class="input-group">
-                                            <input id="delivery2" style="border-radius:0;" class="form-control" name="projectname" readonly>
-                                        </div>
-                                    </td> -->
                                 </tr>
                                 <tr>
                                     <td><label>Receive By</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="receive" name="receive" class="form-control" readonly value="{{$dataAdvanceRevisions['entities']['combinedBudget_RefID']}}">
+                                            <input id="requester" name="requester" class="form-control" readonly>
                                             <div class="input-group-append">
                                                 <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a href="#"><i id="receive" data-toggle="modal" data-target="#myReceive" class="fas fa-gift myReceive" style="color:grey;"></i></a>
+                                                    <a href="#"><i id="requester2" data-toggle="modal" data-target="#myWorker" class="fas fa-gift myWorker" style="color:grey;"></i></a>
                                                 </span>
                                             </div>
                                         </div>
                                     </td>
-                                    <!-- <td>
-                                        <div class="input-group">
-                                            <input id="receive2" style="border-radius:0;" class="form-control" name="projectname" readonly>
-                                        </div>
-                                    </td> -->
                                 </tr>
                             </table>
                         </div>

@@ -14,9 +14,8 @@
                                             <td><label>Revision Number&nbsp;</label></td>
                                             <td>
                                                 <div class="input-group">
-                                                    <input id="searcDorNumberRevisionId" style="border-radius:0;" name="searcDorNumberRevisionId" type="hidden" class="form-control">
-                                                    <input id="siteCodeRevAsfBefore" style="border-radius:0;" name="siteCodeRevArfBefore" class="form-control" type="hidden">
-                                                    <input required="" id="searchDorNumberRevisions" style="border-radius:0;" name="searchDorNumberRevisions" type="text" class="form-control" required readonly>
+                                                    <input id="dor_RefID" style="border-radius:0;" name="dor_RefID" type="hidden" class="form-control">
+                                                    <input required="" id="dor_number" style="border-radius:0;" name="dor_number" type="text" class="form-control" required readonly>
                                                     <div class="input-group-append">
                                                         <span style="border-radius:0;" class="input-group-text form-control">
                                                             <a data-toggle="modal" data-target="#PopUpTableDorRevision"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
@@ -50,7 +49,7 @@
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <label class="card-title">Choose DOR</label>
+                <label class="card-title">Select Delivery Order Request</label>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
@@ -84,8 +83,18 @@
 
 
 <script>
-    function klikPopUpDoRevision(id, code) {
-        $("#searcDorNumberRevisionId").val(id);
-        $("#searchDorNumberRevisions").val(code);
-    }
+
+    $('#TableSearchDeliveryOrderRequest tbody').on('click', 'tr', function () {
+
+        $("#PopUpTableDorRevision").modal('toggle');
+        var row = $(this).closest("tr");
+        var id = row.find("td:nth-child(1)").text();  
+        var dor_RefID = $('#sys_id_dor_revision' + id).val();
+        var code = row.find("td:nth-child(2)").text();
+        
+        $("#dor_RefID").val(dor_RefID);
+        $("#dor_number").val(code);
+
+    });
+    
 </script>

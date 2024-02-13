@@ -14,8 +14,8 @@
                                             <td><label>Revision Number&nbsp;</label></td>
                                             <td>
                                                 <div class="input-group">
-                                                    <input id="searchMaterialReturnNumberRevisionId" style="border-radius:0;" name="searchMaterialReturnNumberRevisionId" type="hidden" class="form-control">
-                                                    <input required="" id="searchMaterialReturnNumberRevisions" style="border-radius:0;" name="searchMaterialReturnNumberRevisions" type="text" class="form-control" required readonly>
+                                                    <input id="mr_RefID" style="border-radius:0;" name="mr_RefID" type="hidden" class="form-control">
+                                                    <input required="" id="mr_number" style="border-radius:0;" name="mr_number" type="text" class="form-control" required readonly>
                                                     <div class="input-group-append">
                                                         <span style="border-radius:0;" class="input-group-text form-control">
                                                             <a data-toggle="modal" data-target="#PopUpTableMaterialReturnRevision"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
@@ -80,9 +80,20 @@
     </div>
 </div>
 
+
 <script>
-    function klikPopUpMaterialReturnRevision(id, code) {
-        $("#searchMaterialReturnNumberRevisionId").val(id);
-        $("#searchMaterialReturnNumberRevisions").val(code);
-    }
+    $('#TableSearchMaterialReturn tbody').on('click', 'tr', function() {
+
+        $("#PopUpTableMaterialReturnRevision").modal('toggle');
+        var row = $(this).closest("tr");
+        var id = row.find("td:nth-child(1)").text();
+        var do_RefID = $('#sys_id_dor_revision' + id).val();
+        var code = row.find("td:nth-child(2)").text();
+
+
+        $("#mr_RefID").val(do_RefID);
+        $("#mr_number").val(code);
+
+    });
 </script>
+

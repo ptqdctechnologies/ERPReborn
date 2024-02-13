@@ -14,8 +14,8 @@
                                             <td><label>Revision Number&nbsp;</label></td>
                                             <td>
                                                 <div class="input-group">
-                                                    <input id="searchMaterialReceiveNumberRevisionId" style="border-radius:0;" name="searchMaterialReceiveNumberRevisionId" type="hidden" class="form-control">
-                                                    <input required="" id="searchMaterialReceiveNumberRevisions" style="border-radius:0;" name="searchMaterialReceiveNumberRevisions" type="text" class="form-control" required readonly>
+                                                    <input id="materialReceive_RefID" style="border-radius:0;" name="materialReceive_RefID" type="hidden" class="form-control">
+                                                    <input required="" id="materialReceiveNumber" style="border-radius:0;" name="materialReceiveNumber" type="text" class="form-control" required readonly>
                                                     <div class="input-group-append">
                                                         <span style="border-radius:0;" class="input-group-text form-control">
                                                             <a data-toggle="modal" data-target="#PopUpTableMaterialReceiveRevision"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
@@ -82,9 +82,18 @@
 
 
 
+
 <script>
-    function klikPopUpMaterialReceiveRevision(id, code) {
-        $("#searchMaterialReceiveNumberRevisionId").val(id);
-        $("#searchMaterialReceiveNumberRevisions").val(code);
-    }
+    $('#TableSearchMaterialReceive tbody').on('click', 'tr', function() {
+
+        $("#PopUpTableMaterialReceiveRevision").modal('toggle');
+        var row = $(this).closest("tr");
+        var id = row.find("td:nth-child(1)").text();
+        var mr_RefID = $('#sys_id_material_receive_revision' + id).val();
+        var code = row.find("td:nth-child(2)").text();
+
+        $("#materialReceive_RefID").val(mr_RefID);
+        $("#materialReceiveNumber").val(code);
+
+    });
 </script>

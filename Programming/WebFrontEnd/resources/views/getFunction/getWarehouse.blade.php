@@ -1,4 +1,4 @@
-<div id="mySearchWarehouse1" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="myGetWarehouse" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -6,29 +6,22 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                
+
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="TableGetWarehouse1">
+                                <table class="table table-head-fixed text-nowrap TableGetWarehouse" id="TableGetWarehouse">
                                     <thead>
                                         <tr>
                                             <th>No</th>
                                             <th>Warehouse Code</th>
                                             <th>Warehouse Name</th>
+                                            <th>Warehouse Type</th>
                                             <th>Address</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @for($i = 1; $i < 10; $i++)
-                                        <tr>
-                                            <td>{{ $i }}</td>
-                                            <td>WH-000{{ $i }}</td>
-                                            <td>Lekosula - {{ $i }}</td>
-                                            <td>Jl. Baru Leko. Kode Pos, : 97796. Desa/Kelurahan, : DESA LEKO SULA. Kecamatan/Kota (LN), Kec. Mangoli Barat, Kab. Kepulauan Sula, Prov. Maluku Utara - {{ $i }}</td>
-                                        </tr>
-                                        @endfor
                                     </tbody>
                                 </table>
                             </div>
@@ -40,25 +33,115 @@
     </div>
 </div>
 
-<script>
 
+<script>
     $(function() {
-        $('.mySearchWarehouse1').on('click', function(e) {
+        $('.myGetWarehouseFrom').one('click', function(e) {
             e.preventDefault();
-            $('#TableGetWarehouse1').DataTable();
+            // ShowLoading();
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            var keys = 0;
+
+            $.ajax({
+                type: 'GET',
+                url: '{!! route("getWarehouse") !!}',
+                success: function(data) {
+                    var no = 1;
+                    var t = $('#TableGetWarehouse').DataTable();
+                    t.clear();
+                    $.each(data, function(key, val) {
+                        keys += 1;
+                        t.row.add([
+                            '<tbody><tr><input id="sys_id_warehouse' + keys + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
+                            '<td>' + val.Code + '</td>',
+                            '<td>' + val.Name + '</td>',
+                            '<td>' + val.Type + '</td>',
+                            '<td>' + val.Address + '</td></tr></tbody>',
+                        ]).draw();
+                    });
+                }
+            });
+
+            $('#TableGetWarehouse tbody').on('click', 'tr', function() {
+
+                $("#myGetWarehouse").modal('toggle');
+
+                var row = $(this).closest("tr");
+                var id = row.find("td:nth-child(1)").text();
+                var sys_id_warehouse = $('#sys_id_warehouse' + id).val();
+                var code = row.find("td:nth-child(2)").text();
+                var name = row.find("td:nth-child(3)").text();
+                var address = row.find("td:nth-child(5)").text();
+
+                $("#warehouse_from_id").val(sys_id_warehouse);
+                $("#warehouse_from").val(code + ' - ' + name);
+                $("#warehouse_from_addres").val(address);
+                
+
+            });
+
         });
     });
 </script>
 
 
 <script>
+    $(function() {
+        $('.myGetWarehouseTo').one('click', function(e) {
+            e.preventDefault();
+            // ShowLoading();
 
-    $('#TableGetWarehouse1 tbody').on('click', 'tr', function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
-        $("#mySearchWarehouse1").modal('toggle');
+            var keys = 0;
 
-        var row = $(this).closest("tr");
-        var wh_code = row.find("td:nth-child(2)").text();
-        $("#headerWarehouse1").val(wh_code);
+            $.ajax({
+                type: 'GET',
+                url: '{!! route("getWarehouse") !!}',
+                success: function(data) {
+                    var no = 1;
+                    var t = $('#TableGetWarehouse').DataTable();
+                    t.clear();
+                    $.each(data, function(key, val) {
+                        keys += 1;
+                        t.row.add([
+                            '<tbody><tr><input id="sys_id_warehouse' + keys + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
+                            '<td>' + val.Code + '</td>',
+                            '<td>' + val.Name + '</td>',
+                            '<td>' + val.Type + '</td>',
+                            '<td>' + val.Address + '</td></tr></tbody>',
+                        ]).draw();
+                    });
+                }
+            });
+
+            $('#TableGetWarehouse tbody').on('click', 'tr', function() {
+
+                $("#myGetWarehouse").modal('toggle');
+
+                var row = $(this).closest("tr");
+                var id = row.find("td:nth-child(1)").text();
+                var sys_id_warehouse = $('#sys_id_warehouse' + id).val();
+                var code = row.find("td:nth-child(2)").text();
+                var name = row.find("td:nth-child(3)").text();
+                var address = row.find("td:nth-child(5)").text();
+
+                $("#warehouse_to_id").val(sys_id_warehouse);
+                $("#warehouse_to").val(code + ' - ' + name);
+                $("#warehouse_to_addres").val(address);
+
+            });
+
+        });
     });
 </script>
