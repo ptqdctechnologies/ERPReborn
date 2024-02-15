@@ -272,7 +272,7 @@ class FunctionController extends Controller
         return response()->json($DataSupplier);
     }
 
-    // FUNCTION WAREHOUSE 
+    // FUNCTION DELIVER TO
     public function getDeliverTo(Request $request)
     {
         $varAPIWebToken = Session::get('SessionLogin');
@@ -296,7 +296,7 @@ class FunctionController extends Controller
     }
 
     // FUNCTION WAREHOUSE 
-    public function getWarehouse(Request $request)
+    public function getWarehouse()
     {
         if (Redis::get("Warehouse") == null) {
 
@@ -450,7 +450,7 @@ class FunctionController extends Controller
     }
 
     // FUNCTION PRODUCT 
-    public function getProduct(Request $request)
+    public function getProduct()
     {
         if (Redis::get("Product") == null) {
 

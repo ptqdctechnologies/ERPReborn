@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\Function\FunctionController;
 
 class WarehouseController extends Controller
 {
@@ -17,68 +18,38 @@ class WarehouseController extends Controller
      */
     public function index()
     {
-        return view('Register.Warehouse.Transactions.index');
+        $dataWarehouse = json_decode((new FunctionController)->getWarehouse()->content(), true);
+
+        return view('Register.Warehouse.Transactions.index', compact('dataWarehouse'));
     }
 
+    public function create()
+    {
+        return view('Register.Warehouse.Transactions.create');
+    }
 
     public function store(Request $request)
     {
-        $userRole_RefID = $request->user_role_id;
-        $menuAction_RefIDArray = $request->checkedValue;
-        $varAPIWebToken = Session::get('SessionLogin');
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.create.sysConfig.setAppObject_UserRolePrivileges_BulkData',
-            'latest',
-            [
-                'entities' => [
-                    'userRole_RefID' => (int) $userRole_RefID,
-                    'menuAction_RefIDArray' => array_map('intval', $menuAction_RefIDArray)
-
-                ]
-            ]
-        );
-
-
-        $compact = [
-            "status" => $varData['metadata']['HTTPStatusCode'],
-        ];
-
-
-        // dd($compact);
-        return response()->json($compact);
+        dd($request->all());
     }
 
-    public function DataListWarehouse(Request $request)
+    public function EditWarehouse(Request $request)
     {
 
-        $sys_id_role = $request->input('sys_id_role');
-        
-        $varAPIWebToken = Session::get('SessionLogin');
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.sysConfig.getAppObject_UserRolePrivileges',
-            'latest',
-            [
-                'parameter' => [
-                    'userRole_RefID' => (int) $sys_id_role
-                ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
+        $dataWarehouse = json_decode((new FunctionController)->getWarehouse()->content(), true);
+        $collection = collect($dataWarehouse);
+        $collection = $collection->where('Sys_ID', $request->warehouse_id);
 
-        $compact = [
-            "data" => $varData['data'],
-            "status" => $varData['metadata']['HTTPStatusCode']
-        ];
+        foreach ($collection->all() as $collections) {
+            $dataWarehouse = $collections;
+        }
 
-        return response()->json($compact);
+        return view('Register.Warehouse.Transactions.edit', compact('dataWarehouse'));
+    }
+
+
+    public function update(Request $request, $id)
+    {
+        dd($request->all());
     }
 }

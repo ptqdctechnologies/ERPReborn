@@ -209,24 +209,24 @@
 </script>
 
 <script>
-    $('#stock_movement2').one('click', function() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+//     $('#stock_movement2').one('click', function() {
+//         $.ajaxSetup({
+//             headers: {
+//                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//             }
+//         });
 
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("AdvanceRequest.AdvanceListData") !!}',
-            success: function(data) {
+//         $.ajax({
+//             type: 'GET',
+//             url: '{!! route("AdvanceRequest.AdvanceListData") !!}',
+//             success: function(data) {
 
-                TableSearchSmInDor(data);
+//                 TableSearchSmInDor(data);
 
-            }
-        });
-    });
-</script>
+//             }
+//         });
+//     });
+// </script>
 
 <script>
     function TableSearchPoInDor(data) {
@@ -353,7 +353,7 @@
     });
 </script>
 
-
+<!-- 
 <script>
     $(function() {
         $("#FormSubmitSearchStockMovement").on("submit", function(e) { //id of form 
@@ -380,7 +380,7 @@
             })
         });
     });
-</script>
+</script> -->
 
 <script>
     var keys = 0;
@@ -635,7 +635,7 @@
     }
 </script>
 
-<script>
+<!-- <script>
     var keys = 0;
 
     $('#TableSearchSmInDor tbody').on('click', 'tr', function() {
@@ -759,7 +759,7 @@
         //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED
         TotalBudgetSelected();
     }
-</script>
+</script> -->
 
 <script>
     function addFromDetailtoCartJs() {

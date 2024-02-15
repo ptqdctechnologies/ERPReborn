@@ -52,7 +52,7 @@
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon-sm fas fa-home   " style="color:#e9ecef;"></i>
+                        <i class="nav-icon-sm fas fa-shopping-basket" style="color:#e9ecef;"></i>
                         <label>
                             Budget
                         </label>
@@ -121,7 +121,7 @@
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon-sm fas fa-home" style="color:#e9ecef;"></i>
+                        <i class="nav-icon-sm fas fa-users" style="color:#e9ecef;"></i>
                         <label>
                             Human Resource
                         </label>
@@ -156,13 +156,11 @@
                             </ul>
                         </li>
                     </ul>
-
                 </li>
-
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon-sm fas fa-home" style="color:#e9ecef;"></i>
+                        <i class="nav-icon-sm fas fa-credit-card" style="color:#e9ecef;"></i>
                         <label>
                             Finance
                         </label>
@@ -369,7 +367,7 @@
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon-sm fas fa-home" style="color:#e9ecef;"></i>
+                        <i class="nav-icon-sm fas fa-chart-line" style="color:#e9ecef;"></i>
                         <label>
                             Sales
                         </label>
@@ -464,7 +462,7 @@
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon-sm fas fa-shopping-basket" style="color:#e9ecef;"></i>
+                        <i class="nav-icon-sm fas fa-hourglass-start" style="color:#e9ecef;"></i>
                         <label>
                             Process
                         </label>
@@ -972,7 +970,7 @@
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon-sm fas fa-chart-line" style="color:#e9ecef;"></i>
+                        <i class="nav-icon-sm fas fa-registered" style="color:#e9ecef;"></i>
                         <label>
                             Register
                         </label>
@@ -1042,64 +1040,18 @@
                     </ul>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">&nbsp;
+                            <a href="{{ route('Product.index') }}?var=1" class="nav-link">&nbsp;
                                 <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
                                 <label>Master Product</label>
-                                <i class="right fas fa-angle-left"></i>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">&nbsp;&nbsp;&nbsp;
-                                        <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
-                                        <label>Report</label>
-                                        <i class="right fas fa-angle-left"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">&nbsp;&nbsp;&nbsp;
-                                        <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
-                                        <label>Transaction</label>
-                                        <i class="right fas fa-angle-left"></i>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                     </ul>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">&nbsp;
+                            <a href="{{ route('Warehouse.index') }}?var=1" class="nav-link">&nbsp;
                                 <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
                                 <label>Master Warehouse</label>
-                                <i class="right fas fa-angle-left"></i>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">&nbsp;&nbsp;&nbsp;
-                                        <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
-                                        <label>Report</label>
-                                        <i class="right fas fa-angle-left"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="#"  class="nav-link">&nbsp;&nbsp;&nbsp;
-                                        <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
-                                        <label>Transaction</label>
-                                        <i class="right fas fa-angle-left"></i>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('Warehouse.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>Warehouse</label>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
                         </li>
                     </ul>
                     <ul class="nav nav-treeview">
@@ -1241,7 +1193,7 @@
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon-sm fas fa-chart-line" style="color:#e9ecef;"></i>
+                        <i class="nav-icon-sm fas fa-user" style="color:#e9ecef;"></i>
                         <label>
                             Admin
                         </label>
@@ -1361,13 +1313,13 @@
 
     </div>
 
-    <div class="user-panel mt-0 pb-0 mb-0 d-flex sidebar-{{ $ColorMode }}-primary" style="text-align:center;padding-top:10px;height:20%;border-top:2px white solid;">
+    <div class="user-panel mt-0 pb-0 mb-0 d-flex sidebar-{{ $ColorMode }}-primary" style="text-align:center;height:20%;border-top:2px white solid;">
         <div class="card-body sidebar">
             <hr>
-            <a href="#" class="d-block" style="font-size:15px;position:relative;top:7px;">
+            <a href="#" class="d-block" style="font-size:15px;">
                 <h1><b>{{ $CountDocumentWorkflowComposer }}</b></h1>
             </a>
-            <a href="#" class="d-block" style="font-size:15px;position:relative;top:7px;">
+            <a href="#" class="d-block" style="font-size:15px;">
                 <h5>Document to Process</h5>
             </a>
             <a href="{{ route('MyDocument.index') }}">

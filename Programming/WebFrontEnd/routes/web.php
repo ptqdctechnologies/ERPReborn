@@ -63,7 +63,11 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('dashboard', 'Dashboard\DashboardController');
 
     // Warehouse
+    Route::post('EditWarehouse', 'Register\Warehouse\WarehouseController@EditWarehouse')->name('Warehouse.EditWarehouse');
     Route::resource('Warehouse', 'Register\Warehouse\WarehouseController');
+
+    // Product
+    Route::resource('Product', 'Register\Product\ProductController');
 
     //Approval Document
 
@@ -184,16 +188,16 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('AdvanceSettlement', 'Process\Advance\AdvanceSettlementController');
 
     // BSF
-    Route::post('StoreValidateBusinessTripSettlement', 'Process\Advance\BusinessTripSettlementController@StoreValidateBusinessTripSettlement')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlement');
-    Route::post('StoreValidateBusinessTripSettlement2', 'Process\Advance\BusinessTripSettlementController@StoreValidateBusinessTripSettlement2')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlement2');
-    Route::post('StoreValidateBusinessTripSettlementRequester', 'Process\Advance\BusinessTripSettlementController@StoreValidateBusinessTripSettlementRequester')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlementRequester');
-    Route::post('RevisionBusinessTripSettlement', 'Process\Advance\BusinessTripSettlementController@RevisionBusinessTripSettlementIndex')->name('BusinessTripSettlement.RevisionBusinessTripSettlement');
-    Route::get('BusinessTripSettlementListData', 'Process\Advance\BusinessTripSettlementController@BusinessTripSettlementListData')->name('BusinessTripSettlement.BusinessTripSettlementListData');
-    Route::get('BusinessTripRequestByBudgetID', 'Process\Advance\BusinessTripSettlementController@BusinessTripRequestByBudgetID')->name('BusinessTripSettlement.BusinessTripRequestByBudgetID');
-    Route::get('BusinessTripSettlementListDataById', 'Process\Advance\BusinessTripSettlementController@BusinessTripSettlementListDataById')->name('BusinessTripSettlement.BusinessTripSettlementListDataById');
-    Route::get('BusinessTripSettlementListCartRevision', 'Process\Advance\BusinessTripSettlementController@BusinessTripSettlementListCartRevision')->name('BusinessTripSettlement.BusinessTripSettlementListCartRevision');
-    Route::post('SearchBusinessTripRequest', 'Process\Advance\BusinessTripSettlementController@SearchBusinessTripRequest')->name('BusinessTripSettlement.SearchBusinessTripRequest');
-    Route::resource('BusinessTripSettlement', 'Process\Advance\BusinessTripSettlementController');
+    Route::post('StoreValidateBusinessTripSettlement', 'Process\BusinessTrip\BusinessTripSettlementController@StoreValidateBusinessTripSettlement')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlement');
+    Route::post('StoreValidateBusinessTripSettlement2', 'Process\BusinessTrip\BusinessTripSettlementController@StoreValidateBusinessTripSettlement2')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlement2');
+    Route::post('StoreValidateBusinessTripSettlementRequester', 'Process\BusinessTrip\BusinessTripSettlementController@StoreValidateBusinessTripSettlementRequester')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlementRequester');
+    Route::post('RevisionBusinessTripSettlement', 'Process\BusinessTrip\BusinessTripSettlementController@RevisionBusinessTripSettlementIndex')->name('BusinessTripSettlement.RevisionBusinessTripSettlement');
+    Route::get('BusinessTripSettlementListData', 'Process\BusinessTrip\BusinessTripSettlementController@BusinessTripSettlementListData')->name('BusinessTripSettlement.BusinessTripSettlementListData');
+    Route::get('BusinessTripRequestByBudgetID', 'Process\BusinessTrip\BusinessTripSettlementController@BusinessTripRequestByBudgetID')->name('BusinessTripSettlement.BusinessTripRequestByBudgetID');
+    Route::get('BusinessTripSettlementListDataById', 'Process\BusinessTrip\BusinessTripSettlementController@BusinessTripSettlementListDataById')->name('BusinessTripSettlement.BusinessTripSettlementListDataById');
+    Route::get('BusinessTripSettlementListCartRevision', 'Process\BusinessTrip\BusinessTripSettlementController@BusinessTripSettlementListCartRevision')->name('BusinessTripSettlement.BusinessTripSettlementListCartRevision');
+    Route::post('SearchBusinessTripRequest', 'Process\BusinessTrip\BusinessTripSettlementController@SearchBusinessTripRequest')->name('BusinessTripSettlement.SearchBusinessTripRequest');
+    Route::resource('BusinessTripSettlement', 'Process\BusinessTrip\BusinessTripSettlementController');
 
     // BRF
     Route::post('StoreValidateBusinessTripRequest', 'Process\BusinessTrip\BusinessTripRequestController@StoreValidateBusinessTripRequest')->name('BusinessTripRequest.StoreValidateBusinessTripRequest');

@@ -14,7 +14,7 @@
             <div class="card-body">
                 <div class="row">
 
-                    <div class="col-md-8">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <table>
                                 <tr>
@@ -44,7 +44,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4 ShowReceiver">
+                    <div class="col-md-6 ShowReceiver">
                         <div class="form-group">
                             <table>
                                 <tr class="ShowPO">
@@ -76,7 +76,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class="ShowSM">
+                                <!-- <tr class="ShowSM">
                                     <td style="padding-top:12px;"><label>Stock Movement</label></td>
                                     <td>
                                         <div class="input-group">
@@ -89,9 +89,9 @@
                                             </div>
                                         </div>
                                     </td>
-                                </tr>
+                                </tr> -->
 
-                                <tr class="ShowReceiver">
+                                <!-- <tr class="ShowReceiver">
                                     <td style="padding-top:12px;"><label>Receiver Number</label></td>
                                     <td>
                                         <div class="input-group">
@@ -99,7 +99,7 @@
 
                                         </div>
                                     </td>
-                                </tr>
+                                </tr> -->
                             </table>
                         </div>
                     </div>

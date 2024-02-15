@@ -139,7 +139,7 @@
                 statusDisplay2 = [];
                 statusForm = [];
                 $.each(data, function(key, val2) {
-
+                    
                     var used = val2.quantityAbsorptionRatio * 100;
 
                     if (used == "0.00" && val2.quantity == "0.00") {
@@ -163,8 +163,8 @@
                     }
 
                     var html = '<tr>' +
-                        '<input name="getWorkId[]" value="' + val2.combinedBudgetSubSectionLevel1_RefID + '" type="hidden">' +
-                        '<input name="getWorkName[]" value="' + val2.combinedBudgetSubSectionLevel1Name + '" type="hidden">' +
+                        // '<input name="getWorkId[]" value="' + val2.combinedBudgetSubSectionLevel1_RefID + '" type="hidden">' +
+                        // '<input name="getWorkName[]" value="' + val2.combinedBudgetSubSectionLevel1Name + '" type="hidden">' +
                         '<input name="getProductId[]" value="' + val2.product_RefID + '" type="hidden">' +
                         '<input name="getProductName[]" value="' + val2.productName + '" type="hidden">' +
                         '<input name="getQtyId[]" id="budget_qty_id' + key + '" value="' + val2.quantityUnit_RefID + '" type="hidden">' +
@@ -175,10 +175,6 @@
                         '<input name="getCurrencyId[]" value="' + val2.sys_BaseCurrency_RefID + '" type="hidden">' +
                         '<input name="combinedBudgetSectionDetail_RefID[]" value="' + val2.sys_ID + '" type="hidden">' +
                         '<input name="combinedBudget_RefID" value="' + val2.combinedBudget_RefID + '" type="hidden">' +
-
-                        '<td style="border:1px solid #e9ecef;">' +
-                        '&nbsp;&nbsp;&nbsp;<div class="progress ' + status + ' progress-xs" style="height: 14px;border-radius:8px;"> @if(' + applied + ' >= ' + 0 + ' && ' + applied + ' <= ' + 40 + ')<div class="progress-bar bg-red" style="width:' + applied + '%;"></div> @elseif(' + applied + ' >= ' + 41 + ' && ' + applied + ' <= ' + 89 + ')<div class="progress-bar bg-blue" style="width:' + applied + '%;"></div> @elseif(' + applied + ' >= ' + 90 + ' && ' + applied + ' <= ' + 100 + ')<div class="progress-bar bg-green" style="width:' + applied + '%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>' + applied + ' %</center></small>' +
-                        '</td>' +
 
                         '<td style="border:1px solid #e9ecef;display:' + statusDisplay[key] + '";">' +
                         '<div class="input-group">' +
@@ -375,12 +371,12 @@
         // var today = new Date();
         // var date = formatDate(today);
 
-        var getWorkId = $("input[name='getWorkId[]']").map(function() {
-            return $(this).val();
-        }).get();
-        var getWorkName = $("input[name='getWorkName[]']").map(function() {
-            return $(this).val();
-        }).get();
+        // var getWorkId = $("input[name='getWorkId[]']").map(function() {
+        //     return $(this).val();
+        // }).get();
+        // var getWorkName = $("input[name='getWorkName[]']").map(function() {
+        //     return $(this).val();
+        // }).get();
         var getProductId = $("input[name='getProductId[]']").map(function() {
             return $(this).val();
         }).get();
@@ -444,8 +440,8 @@
                     '<input type="hidden" name="var_combinedBudgetSectionDetail_RefID[]" value="' + combinedBudgetSectionDetail_RefID[index] + '">' +
                     '<input type="hidden" name="var_combinedBudget_RefID" value="' + combinedBudget_RefID + '">' +
 
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkId[index] + '</td>' +
-                    '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkName[index] + '</td>' +
+                    // '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkId[index] + '</td>' +
+                    // '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkName[index] + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + product_id + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + product_name + '</td>' +
                     '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putUom + '</td>' +
