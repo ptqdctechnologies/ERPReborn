@@ -720,7 +720,7 @@ class Stringable implements JsonSerializable, ArrayAccess
     /**
      * Replace the patterns matching the given regular expression.
      *
-     * @param  string  $pattern
+     * @param  array|string  $pattern
      * @param  \Closure|string  $replace
      * @param  int  $limit
      * @return static
@@ -1244,6 +1244,27 @@ class Stringable implements JsonSerializable, ArrayAccess
     public function toHtmlString()
     {
         return new HtmlString($this->value);
+    }
+
+    /**
+     * Convert the string to Base64 encoding.
+     *
+     * @return void
+     */
+    public function toBase64()
+    {
+        return new static(base64_encode($this->value));
+    }
+
+    /**
+     * Decode the Base64 encoded string.
+     *
+     * @param  bool  $strict
+     * @return void
+     */
+    public function fromBase64($strict = false)
+    {
+        return new static(base64_decode($this->value, $strict));
     }
 
     /**
