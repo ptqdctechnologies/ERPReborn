@@ -3115,6 +3115,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Aws\\Arn\\S3\\OutpostsAccessPointArn' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Arn/S3/OutpostsAccessPointArn.php',
         'Aws\\Arn\\S3\\OutpostsArnInterface' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Arn/S3/OutpostsArnInterface.php',
         'Aws\\Arn\\S3\\OutpostsBucketArn' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Arn/S3/OutpostsBucketArn.php',
+        'Aws\\Artifact\\ArtifactClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Artifact/ArtifactClient.php',
+        'Aws\\Artifact\\Exception\\ArtifactException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Artifact/Exception/ArtifactException.php',
         'Aws\\Athena\\AthenaClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Athena/AthenaClient.php',
         'Aws\\Athena\\Exception\\AthenaException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Athena/Exception/AthenaException.php',
         'Aws\\AuditManager\\AuditManagerClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/AuditManager/AuditManagerClient.php',

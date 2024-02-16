@@ -2460,6 +2460,8 @@ return array(
     'Aws\\Arn\\S3\\OutpostsAccessPointArn' => $vendorDir . '/aws/aws-sdk-php/src/Arn/S3/OutpostsAccessPointArn.php',
     'Aws\\Arn\\S3\\OutpostsArnInterface' => $vendorDir . '/aws/aws-sdk-php/src/Arn/S3/OutpostsArnInterface.php',
     'Aws\\Arn\\S3\\OutpostsBucketArn' => $vendorDir . '/aws/aws-sdk-php/src/Arn/S3/OutpostsBucketArn.php',
+    'Aws\\Artifact\\ArtifactClient' => $vendorDir . '/aws/aws-sdk-php/src/Artifact/ArtifactClient.php',
+    'Aws\\Artifact\\Exception\\ArtifactException' => $vendorDir . '/aws/aws-sdk-php/src/Artifact/Exception/ArtifactException.php',
     'Aws\\Athena\\AthenaClient' => $vendorDir . '/aws/aws-sdk-php/src/Athena/AthenaClient.php',
     'Aws\\Athena\\Exception\\AthenaException' => $vendorDir . '/aws/aws-sdk-php/src/Athena/Exception/AthenaException.php',
     'Aws\\AuditManager\\AuditManagerClient' => $vendorDir . '/aws/aws-sdk-php/src/AuditManager/AuditManagerClient.php',
