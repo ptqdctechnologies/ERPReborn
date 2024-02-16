@@ -52,8 +52,8 @@
         var html =
           '<tr>' +
           '<td style="border:1px solid #e9ecef;">' + trano + '</td>' +
-          '<td style="border:1px solid #e9ecef;">' + value.combinedBudgetSubSectionLevel1_RefID + '</td>' +
-          '<td style="border:1px solid #e9ecef;">' + value.combinedBudgetSubSectionLevel1Name + '</td>' +
+          // '<td style="border:1px solid #e9ecef;">' + value.combinedBudgetSubSectionLevel1_RefID + '</td>' +
+          // '<td style="border:1px solid #e9ecef;">' + value.combinedBudgetSubSectionLevel1Name + '</td>' +
           '<td style="border:1px solid #e9ecef;">' + value.product_RefID + '</td>' +
           '<td style="border:1px solid #e9ecef;">' + value.productName + '</td>' +
           '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="' + key + '" class="price_req2' + key + '">' + currencyTotal(value.productUnitPriceBaseCurrencyValue) + '</span>' + '</td>' +
@@ -91,8 +91,8 @@
 
         var html =
           '<tr>' +
-          '<input name="getWorkId[]" value="' + value.combinedBudgetSubSectionLevel1_RefID + '" type="hidden">' +
-          '<input name="getWorkName[]" value="' + value.combinedBudgetSubSectionLevel1Name + '" type="hidden">' +
+          // '<input name="getWorkId[]" value="' + value.combinedBudgetSubSectionLevel1_RefID + '" type="hidden">' +
+          // '<input name="getWorkName[]" value="' + value.combinedBudgetSubSectionLevel1Name + '" type="hidden">' +
           '<input name="getProductId[]" value="' + value.product_RefID + '" type="hidden">' +
           '<input name="getProductName[]" value="' + value.productName + '" type="hidden">' +
           '<input name="getQty[]" id="budget_qty' + key + '" value="' + value.quantity + '" type="hidden">' +
@@ -103,10 +103,6 @@
           '<input name="combinedBudgetSectionDetail_RefID[]" value="' + value.sys_ID + '" type="hidden">' +
           '<input name="combinedBudget_RefID" value="' + value.combinedBudget_RefID + '" type="hidden">' +
           '<input name="getRecordIDDetail[]" value="' + value.sys_ID + '"  type="hidden">' +
-
-          '<td style="border:1px solid #e9ecef;">' +
-          '&nbsp;&nbsp;&nbsp;<div class="progress ' + status + ' progress-xs" style="height: 14px;border-radius:8px;"> @if(' + applied + ' >= ' + 0 + ' && ' + applied + ' <= ' + 40 + ')<div class="progress-bar bg-red" style="width:' + applied + '%;"></div> @elseif(' + applied + ' >= ' + 41 + ' && ' + applied + ' <= ' + 89 + ')<div class="progress-bar bg-blue" style="width:' + applied + '%;"></div> @elseif(' + applied + ' >= ' + 90 + ' && ' + applied + ' <= ' + 100 + ')<div class="progress-bar bg-green" style="width:' + applied + '%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>' + applied + ' %</center></small>' +
-          '</td>' +
 
           '<td style="border:1px solid #e9ecef;display:' + statusDisplay[key] + '";">' +
           '<div class="input-group">' +
@@ -301,12 +297,12 @@
 
     $(".BrfListCart").show();
     var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
-    var getWorkId = $("input[name='getWorkId[]']").map(function() {
-      return $(this).val();
-    }).get();
-    var getWorkName = $("input[name='getWorkName[]']").map(function() {
-      return $(this).val();
-    }).get();
+    // var getWorkId = $("input[name='getWorkId[]']").map(function() {
+    //   return $(this).val();
+    // }).get();
+    // var getWorkName = $("input[name='getWorkName[]']").map(function() {
+    //   return $(this).val();
+    // }).get();
     var getProductId = $("input[name='getProductId[]']").map(function() {
       return $(this).val();
     }).get();
@@ -385,8 +381,8 @@
         '<input type="hidden" name="var_recordIDDetail[]" value="' + getRecordIDDetail[index] + '">' +
 
         '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + trano + '</td>' +
-        '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkId[index] + '</td>' +
-        '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkName[index] + '</td>' +
+        // '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkId[index] + '</td>' +
+        // '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkName[index] + '</td>' +
         '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductId + '</td>' +
         '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductName + '</td>' +
         // '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putUom + '</td>' +

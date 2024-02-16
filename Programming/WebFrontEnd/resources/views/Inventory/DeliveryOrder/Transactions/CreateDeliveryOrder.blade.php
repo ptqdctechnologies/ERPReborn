@@ -56,7 +56,7 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        @include('Inventory.DeliveryOrder.Functions.Header.HeaderDo2')
+                                        @include('Inventory.DeliveryOrder.Functions.Header.HeaderDoDetail')
                                     </div>
                                 </div>
                             </div>

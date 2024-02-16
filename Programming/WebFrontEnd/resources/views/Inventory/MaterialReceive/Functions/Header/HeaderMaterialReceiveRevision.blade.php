@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-header">
                 <label class="card-title">
-                    MaterialReceive Revision
+                    New MaterialReceive
                 </label>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -38,13 +38,14 @@
                         <div class="form-group">
                             <table>
                                 <tr>
-                                    <td style="padding-top: 5px;"><label>PO Number</label></td>
+                                    <td style="padding-top:12px;"><label>Purchase Order Number</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="po_number" style="border-radius:0;" name="po_number" class="form-control" readonly value="{{$dataAdvanceRevisions['entities']['combinedBudget_RefID']}}">
+                                            <input id="purchase_order_id" style="border-radius:0;" name="purchase_order_id" class="form-control" type="hidden">
+                                            <input id="purchase_order" style="border-radius:0;" name="purchase_order" class="form-control" readonly>
                                             <div class="input-group-append">
                                                 <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a href="#"><i id="customerPopUp" data-toggle="modal" data-target="#myPoNumber" class="fas fa-gift myPoNumber" style="color:grey;"></i></a>
+                                                    <a id="purchase_order2" data-toggle="modal" data-target="#mySearchPurchaseOrder" class="mySearchPurchaseOrder"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                                 </span>
                                             </div>
                                         </div>
@@ -54,13 +55,12 @@
                                     <td><label>Budget Code</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input name="sitecode" id="sitecode" style="border-radius:0;" type="hidden" class="form-control" readonly value="{{$dataAdvanceRevisions['entities']['combinedBudgetSection_RefID']}}">
-                                            <input name="projectcode" id="projectcode" style="border-radius:0;" type="text" class="form-control projectcode" readonly value="{{$dataAdvanceRevisions['entities']['combinedBudget_RefID']}}">
+                                            <input name="budget_code_po" id="budget_code_po" style="border-radius:0;" type="text" class="form-control" readonly>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="projectcode2" style="border-radius:0;" class="form-control" name="projectcode2" readonly value="{{$dataAdvanceRevisions['entities']['combinedBudgetSectionName']}}">
+                                            <input id="budget_name_po" style="border-radius:0;" class="form-control" name="budget_name_po" readonly>
                                         </div>
                                     </td>
                                 </tr>
@@ -68,12 +68,12 @@
                                     <td><label>Supplier Code</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input name="supplier_code" id="supplier_code" style="border-radius:0;" type="text" class="form-control" readonly readonly value="{{$dataAdvanceRevisions['entities']['combinedBudgetSection_RefID']}}">
+                                            <input name="supplier_code_po" id="supplier_code_po" style="border-radius:0;" type="text" class="form-control" readonly>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="supplier_code2" style="border-radius:0;" class="form-control" name="supplier_code2" readonly value="{{$dataAdvanceRevisions['entities']['combinedBudgetSectionName']}}">
+                                            <input id="supplier_name_po" style="border-radius:0;" class="form-control" name="supplier_name_po" readonly>
                                         </div>
                                     </td>
                                 </tr>
@@ -87,7 +87,7 @@
                                     <td><Label>Remark</Label></td>
                                     <td>
                                         <div class="input-group">
-                                            <textarea name="remarkPo" id="remarkPo" style="border-radius:0;" cols="30" rows="3" class="form-control"> {{$dataAdvanceRevisions['entities']['remarks']}}</textarea>
+                                            <textarea name="remarkPo" id="remarkPo" style="border-radius:0;" cols="30" rows="3" class="form-control"></textarea>
                                         </div>
                                     </td>
                                 </tr>
@@ -95,7 +95,7 @@
                                     <td style="padding-top: 5px;"><label>Warehouse</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="headerWarehouse1" style="border-radius:0;" name="headerWarehouse1" class="form-control" readonly value="{{$dataAdvanceRevisions['entities']['remarks']}}">
+                                            <input id="headerWarehouse1" style="border-radius:0;" name="headerWarehouse1" class="form-control" readonly>
                                             <div class="input-group-append">
                                                 <span style="border-radius:0;" class="input-group-text form-control">
                                                     <a href="#"><i id="customerPopUp" data-toggle="modal" data-target="#mySearchWarehouse1" class="fas fa-gift mySearchWarehouse1" style="color:grey;"></i></a>
@@ -112,13 +112,14 @@
                         <div class="form-group">
                             <table>
                                 <tr>
-                                    <td style="padding-top: 5px;"><label>DO Number</label></td>
+                                    <td style="padding-top: 5px;"><label>Delivery Order Number</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="do_number" style="border-radius:0;" class="form-control" readonly>
+                                            <input id="delivery_order_id" style="border-radius:0;" name="delivery_order_id" class="form-control" type="hidden">
+                                            <input id="delivery_order" style="border-radius:0;" class="form-control" readonly>
                                             <div class="input-group-append">
                                                 <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a href="#"><i id="customerPopUp" data-toggle="modal" data-target="#myDoNumber" class="fas fa-gift myDoNumber" style="color:grey;"></i></a>
+                                                    <a href="#"><i id="delivery_order2" data-toggle="modal" data-target="#mySearchDeliveryOrder" class="fas fa-gift mySearchDeliveryOrder" style="color:grey;"></i></a>
                                                 </span>
                                             </div>
                                         </div>
@@ -128,12 +129,12 @@
                                     <td><label>Budget Code</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input name="projectcode" id="projectcode" style="border-radius:0;" type="text" class="form-control projectcode" readonly>
+                                            <input name="budget_code_do" id="budget_code_do" style="border-radius:0;" type="text" class="form-control projectcode" readonly>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="projectcode4" style="border-radius:0;" class="form-control" name="projectcode4" readonly>
+                                            <input id="budget_name_do" style="border-radius:0;" class="form-control" name="budget_name_do" readonly>
                                         </div>
                                     </td>
                                 </tr>
@@ -141,7 +142,7 @@
                                     <td><Label>Remark</Label></td>
                                     <td>
                                         <div class="input-group">
-                                            <textarea name="remarkDo" id="remarkDo" style="border-radius:0;" cols="30" rows="3" class="form-control"></textarea>
+                                            <textarea name="remark_do" id="remark_do" style="border-radius:0;" cols="30" rows="3" class="form-control"></textarea>
                                         </div>
                                     </td>
                                 </tr>
@@ -187,7 +188,7 @@
                 <a onclick="CancelMaterialReceive();" class="btn btn-default btn-sm float-right CancelDor" style="background-color:#e9ecef;border:1px solid #ced4da;">
                     <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel"> Cancel
                 </a>
-                <a class="btn btn-default btn-sm float-right" id="addToPoDetail" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                <a class="btn btn-default btn-sm float-right" id="AddToDetail" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                     <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add"> Add
                 </a>
 

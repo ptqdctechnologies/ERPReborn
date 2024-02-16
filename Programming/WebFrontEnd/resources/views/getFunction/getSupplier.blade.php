@@ -17,7 +17,6 @@
                                             <th>Supplier Code</th>
                                             <th>Supplier Name</th>
                                             <th>Address</th>
-                                            <!-- <th style="display:none;"></th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -42,21 +41,21 @@
     $(function() {
         $('.mySupplier').on('click', function(e) {
             e.preventDefault();
-            
+
             $.ajax({
                 type: 'GET',
                 url: '{!! route("getSupplier") !!}',
                 success: function(data) {
-                    var no = 1; t = $('#tableGetSupplier').DataTable();
+                    var no = 1;
+                    t = $('#tableGetSupplier').DataTable();
                     t.clear();
                     $.each(data, function(key, val) {
                         t.row.add([
 
-                            '<tbody><tr><td>' + no++ + '</td>',
-                            '<td>' + val.sys_ID+ '</td>',
-                            '<td>' + val.fullName + '</td>',
-                            '<td>' + val.address + '</td></tr></tbody>',
-                            // '<span style="display:none;"><td>' + val.sys_ID + '</td></span></tr></tbody>'
+                            '<tbody><tr><input id="sys_id_supplier' + keys + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
+                            '<td>' + val.Code + '</td>',
+                            '<td>' + val.Name + '</td>',
+                            '<td>' + val.Address + '</td></tr></tbody>',
 
                         ]).draw();
 
@@ -69,20 +68,20 @@
 </script>
 
 <script>
-
-    $('#tableGetSupplier tbody').on('click', 'tr', function () {
+    $('#tableGetSupplier tbody').on('click', 'tr', function() {
 
         $("#mySupplier").modal('toggle');
 
-        var row = $(this).closest("tr");    
-        var sys_ID = row.find("td:nth-child(2)").text();
+        var row = $(this).closest("tr");
+        var id = row.find("td:nth-child(1)").text();
+        var sys_id_supplier = $('#sys_id_supplier' + id).val();
+        var code = row.find("td:nth-child(2)").text();
         var name = row.find("td:nth-child(3)").text();
         var address = row.find("td:nth-child(4)").text();
-        
-        $("#supplier_code").val(sys_ID);
-        $("#supplier_name").val(name);
+
+        $("#supplier_id").val(sys_id_supplier);
+        $("#supplier_code").val(code + ' - ' + name);
         $("#address").val(address);
 
     });
-    
 </script>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Inventory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 
@@ -83,24 +84,56 @@ class MaterialReceiveController extends Controller
 
     public function MaterialReceiveListData(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.finance.getAdvance',
-            'latest',
-            [
-                'parameter' => null,
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
+        try {
 
-        return response()->json($varDataAdvanceRequest['data']);
+            if (Redis::get("DataListAdvance") == null) {
+                $varAPIWebToken = Session::get('SessionLogin');
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken,
+                    'transaction.read.dataList.finance.getAdvance',
+                    'latest',
+                    [
+                        'parameter' => null,
+                        'SQLStatement' => [
+                            'pick' => null,
+                            'sort' => null,
+                            'filter' => null,
+                            'paging' => null
+                        ]
+                    ],
+                    false
+                );
+            }
+
+            $DataListAdvance = json_decode(
+                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    "DataListAdvance"
+                ),
+                true
+            );
+
+
+            $collection = collect($DataListAdvance);
+
+            $project_id = $request->project_id;
+            $site_id = $request->site_id;
+
+            if ($project_id != "") {
+                $collection = $collection->where('CombinedBudget_RefID', $project_id);
+            }
+            if ($site_id != "") {
+                $collection = $collection->where('CombinedBudgetSection_RefID', $site_id);
+            }
+
+            $collection = $collection->all();
+
+            return response()->json($collection);
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 
     public function MaterialReceiveListDataPO(Request $request)
@@ -204,34 +237,93 @@ class MaterialReceiveController extends Controller
 
     public function RevisionMaterialReceiveIndex(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionMaterialReceive");
+        try {
 
-        $varDataAdvanceRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'report.form.documentForm.finance.getAdvance',
-            'latest',
-            [
-                'parameter' => [
-                    'recordID' => (int) $request->searchMaterialReceiveNumberRevisionId,
-                ]
-            ]
-        );
-        // dd($varDataAdvanceRevision['data'][0]['document']['content']['itemList']['ungrouped'][0]);
-        $compact = [
-            'dataAdvanceRevisions' => $varDataAdvanceRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
-            'logFileUploadPointer_RefID' => $varDataAdvanceRevision['data'][0]['document']['content']['attachmentFiles']['main']['logFileUploadPointer_RefID'],
-            'dataRequester' => $varDataAdvanceRevision['data'][0]['document']['content']['involvedPersons']['requester'],
-            'var_recordID' => $request->searchMaterialReceiveNumberRevisionId,
-            'varAPIWebToken' => $varAPIWebToken,
-            'statusAdvanceRevisi' => 0,
-            'statusPrRevisi' => 0,
-            'statusPr' => 0,
-            'statusRevisi' => 1,
-        ];
+            $materialReceive_RefID = $request->materialReceive_RefID;
+            $varAPIWebToken = Session::get('SessionLogin');
 
-        return view('Inventory.MaterialReceive.Transactions.RevisionMaterialReceive', $compact);
+            // DATA REVISION ADVANCE
+            if (Redis::get("DataListAdvanceDetailComplex") == null) {
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken,
+                    'transaction.read.dataList.finance.getAdvanceDetailComplex',
+                    'latest',
+                    [
+                        'parameter' => [
+                            'advance_RefID' => (int) $materialReceive_RefID,
+                        ],
+                        'SQLStatement' => [
+                            'pick' => null,
+                            'sort' => null,
+                            'filter' => null,
+                            'paging' => null
+                        ]
+                    ],
+                    false
+                );
+            }
+
+            $DataAdvanceDetailComplex = json_decode(
+                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    "DataListAdvanceDetailComplex"
+                ),
+                true
+            );
+
+            $collection = collect($DataAdvanceDetailComplex);
+            $collection = $collection->where('Sys_ID_Advance', $materialReceive_RefID);
+
+            $num = 0;
+            $filteredArray = [];
+
+            foreach ($collection as $collections) {
+                $filteredArray[$num] = $collections;
+                $num++;
+            }
+
+            if ($filteredArray[0]['Log_FileUpload_Pointer_RefID'] == 0) {
+                $dataDetailFileAttachment = null;
+            } else {
+                $dataDetailFileAttachment = $filteredArray[0]['Log_FileUpload_Pointer_RefID'];
+            }
+
+            for ($i = 0; $i < count($filteredArray); $i++) {
+                unset($filteredArray[$i]['FileAttachment']);
+            }
+
+            //DOCUMENT TYPE ID ADVANCE
+            $DocumentType = json_decode(
+                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    "DocumentType"
+                ),
+                true
+            );
+            $collection = collect($DocumentType);
+            $collection = $collection->where('Name', "Advance Form");
+            foreach ($collection->all() as $collections) {
+                $DocumentTypeID = $collections['Sys_ID'];
+            }
+
+            $remark = $filteredArray[0]['Remarks'];
+            $filteredArray[0]['Remarks'] = "";
+
+            $compact = [
+                'dataHeader' => $filteredArray[0],
+                'dataDetail' => $filteredArray,
+                'remark' => $remark,
+                'dataFileAttachment' => $dataDetailFileAttachment,
+                'DocumentTypeID' => $DocumentTypeID,
+                'varAPIWebToken' => $varAPIWebToken,
+                'statusRevisi' => 1,
+            ];
+            return view('Inventory.MaterialReceive.Transactions.RevisionMaterialReceive', $compact);
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
     public function update(Request $request, $id)
     {

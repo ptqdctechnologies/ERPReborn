@@ -4,19 +4,18 @@
             <div class="modal-header">
                 <div class="modal-body">
                     <span style="font-size: 15px;position:relative;left:25%;font-weight:bold;">DELIVERY ORDER REVISION</span><br><br><br>
-                    <form action="{{ route('DeliveryOrder.RevisionDeliveryOrderIndex') }}" }}" method="post">
-                    @csrf
+                    <form action="{{ route('DeliveryOrder.RevisionDeliveryOrderIndex') }}" method="post">
+                        @csrf
                         <div class="card" style="margin-left: 8%;">
-                            <div class="card-body"> 
+                            <div class="card-body">
                                 <div class="form-group">
                                     <table>
                                         <tr>
                                             <td><label>Revision Number&nbsp;</label></td>
                                             <td>
                                                 <div class="input-group">
-                                                    <input id="searcDoNumberRevisionId" style="border-radius:0;" name="searcDoNumberRevisionId" type="hidden" class="form-control">
-                                                    <input id="siteCodeRevAsfBefore" style="border-radius:0;" name="siteCodeRevArfBefore" class="form-control" type="hidden">
-                                                    <input required="" id="searchDorNumberRevisions" style="border-radius:0;" name="searchDorNumberRevisions" type="text" class="form-control" required readonly>
+                                                    <input id="do_RefID" style="border-radius:0;" name="do_RefID" type="hidden" class="form-control" hidden>
+                                                    <input id="do_number" style="border-radius:0;" name="do_number" class="form-control">
                                                     <div class="input-group-append">
                                                         <span style="border-radius:0;" class="input-group-text form-control">
                                                             <a data-toggle="modal" data-target="#PopUpTableDoRevision"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
@@ -82,8 +81,16 @@
 
 
 <script>
-    function klikPopUpDoRevision(id, code) {
-        $("#searcDoNumberRevisionId").val(id);
-        $("#searchDorNumberRevisions").val(code);
-    }
+    $('#TableSearchDeliveryOrder tbody').on('click', 'tr', function() {
+
+        $("#PopUpTableDoRevision").modal('toggle');
+        var row = $(this).closest("tr");
+        var id = row.find("td:nth-child(1)").text();
+        var do_RefID = $('#sys_id_dor_revision' + id).val();
+        var code = row.find("td:nth-child(2)").text();
+
+        $("#do_RefID").val(do_RefID);
+        $("#do_number").val(code);
+
+    });
 </script>

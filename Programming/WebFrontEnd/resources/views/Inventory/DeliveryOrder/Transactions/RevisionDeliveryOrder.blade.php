@@ -6,7 +6,7 @@
 @include('getFunction.getSite')
 @include('getFunction.getTransporter')
 @include('Inventory.DeliveryOrder.Functions.PopUp.PopUpDoRevision')
-@include('Inventory.DeliveryOrder.Functions.PopUp.SearchDor')
+@include('Inventory.DeliveryOrder.Functions.PopUp.SearDeliveryOrderRequest')
 
 
 <div class="content-wrapper">
@@ -19,13 +19,12 @@
             </div>
             @include('Inventory.DeliveryOrder.Functions.Menu.MenuDeliveryOrder')
             <div class="card" style="position:relative;bottom:10px;">
-                <form method="post" enctype="multipart/form-data" action="{{ route('DeliveryOrder.update', $var_recordID) }}" id="FormSubmitDoRevision">
+                <form method="post" enctype="multipart/form-data" action="{{ route('DeliveryOrder.update', $dataHeader['Sys_ID_Advance']) }}" id="FormSubmitDoRevision">
                     @csrf
                     @method('PUT')
-                    <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
-                    <input id="sitecode" style="border-radius:0;" name="sitecode" class="form-control" type="hidden" value="{{$dataAdvanceRevisions['entities']['combinedBudgetSection_RefID']}}">
-                    <input id="trano" style="border-radius:0;" name="trano" value="{{ $trano }}" class="form-control" type="hidden">
-                    
+                    <input type="hidden" name="DocumentTypeID" value="{{ $DocumentTypeID }}" id="DocumentTypeID">
+                    <input type="hidden" name="var_recordID" value="{{ $dataHeader['Sys_ID_Advance'] }}" id="var_recordID">
+
                     <div class="tab-content p-3" id="nav-tabContent">
 
                         <div class="row">
@@ -60,7 +59,7 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        @include('Inventory.DeliveryOrder.Functions.Header.HeaderDoRevision2')
+                                        @include('Inventory.DeliveryOrder.Functions.Header.HeaderDoDetailRevision')
                                     </div>
                                 </div>
                             </div>
@@ -72,8 +71,7 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <label class="card-title">
-                                                Delivery Order Request Detail &nbsp;&nbsp; || &nbsp;&nbsp; Select Delivery Order Number
-                                                <a href="#" id="dor_number2" data-toggle="modal" data-target="#mySearchDor"><img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></a>
+                                                Delivery Order Request Detail
                                             </label>
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">

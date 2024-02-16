@@ -14,7 +14,7 @@
             <div class="card-body">
                 <div class="row">
 
-                    <div class="col-md-8">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <table>
                                 <tr>
@@ -44,7 +44,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4 ShowReceiver">
+                    <div class="col-md-6 ShowReceiver">
                         <div class="form-group">
                             <table>
                                 <tr class="ShowPO">
@@ -66,32 +66,32 @@
                                     <td style="padding-top:12px;"><label>Order Picking</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="purchase_order_id" style="border-radius:0;" name="purchase_order_id" class="form-control" type="hidden">
-                                            <input id="purchase_order" style="border-radius:0;" name="purchase_order" class="form-control" readonly>
+                                            <input id="order_picking_id" style="border-radius:0;" name="order_picking_id" class="form-control" type="hidden">
+                                            <input id="order_picking" style="border-radius:0;" name="order_picking" class="form-control" readonly>
                                             <div class="input-group-append">
                                                 <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a id="purchase_order2" data-toggle="modal" data-target="#mySearchPurchaseOrder" class="mySearchPurchaseOrder"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                    <a id="order_picking2" data-toggle="modal" data-target="#mySearchOrderPicking" class="mySearchPurchaseOrder"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                                 </span>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class="ShowSM">
+                                <!-- <tr class="ShowSM">
                                     <td style="padding-top:12px;"><label>Stock Movement</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="purchase_order_id" style="border-radius:0;" name="purchase_order_id" class="form-control" type="hidden">
-                                            <input id="purchase_order" style="border-radius:0;" name="purchase_order" class="form-control" readonly>
+                                            <input id="stock_movement_id" style="border-radius:0;" name="stock_movement_id" class="form-control" type="hidden">
+                                            <input id="stock_movement" style="border-radius:0;" name="stock_movement" class="form-control" readonly>
                                             <div class="input-group-append">
                                                 <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a id="purchase_order2" data-toggle="modal" data-target="#mySearchPurchaseOrder" class="mySearchPurchaseOrder"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                    <a id="stock_movement2" data-toggle="modal" data-target="#mySearchStockMovement" class="mySearchPurchaseOrder"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                                 </span>
                                             </div>
                                         </div>
                                     </td>
-                                </tr>
+                                </tr> -->
 
-                                <tr class="ShowReceiver">
+                                <!-- <tr class="ShowReceiver">
                                     <td style="padding-top:12px;"><label>Receiver Number</label></td>
                                     <td>
                                         <div class="input-group">
@@ -99,7 +99,7 @@
 
                                         </div>
                                     </td>
-                                </tr>
+                                </tr> -->
                             </table>
                         </div>
                     </div>

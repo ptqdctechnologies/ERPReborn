@@ -18,10 +18,12 @@
             </div>
             @include('Inventory.MaterialReturn.Functions.Menu.MenuMaterialReturn')
             <div class="card" style="position:relative;bottom:10px;">
-                <form method="post" enctype="multipart/form-data" action="{{ route('MaterialReturn.update', $var_recordID) }}" id="FormSubmitiSupp">
+                <form method="post" enctype="multipart/form-data" action="{{ route('MaterialReturn.update', $dataHeader['Sys_ID_Advance'] ) }}" id="FormSubmitiSupp">
                     @csrf
                     @method('PUT')
-                    <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
+                    <input type="hidden" name="DocumentTypeID" value="{{ $DocumentTypeID }}" id="DocumentTypeID">
+                    <input type="hidden" name="var_recordID" value="{{ $dataHeader['Sys_ID_Advance'] }}" id="var_recordID">
+
                     <div class="tab-content p-3" id="nav-tabContent">
                         @include('Inventory.MaterialReturn.Functions.Header.HeaderMaterialReturnRevision')
                         <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="product-desc-tab">
@@ -30,7 +32,7 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <label class="card-title">
-                                            Material Return Detail
+                                                Material Return Detail
                                             </label>
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">

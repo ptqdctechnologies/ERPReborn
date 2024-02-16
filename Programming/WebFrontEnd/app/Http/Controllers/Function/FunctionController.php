@@ -75,15 +75,21 @@ class FunctionController extends Controller
             true
         );
 
-        $num = 0;
-        $filteredArray = [];
-        for ($i = 0; $i < count($DataSubBudget); $i++) {
-            if ($DataSubBudget[$i]['Project_RefID'] == $project_code) {
-                $filteredArray[$num] = $DataSubBudget[$i];
-                $num++;
+        
+        if($project_code){
+            $num = 0;
+            $filteredArray = [];
+            for ($i = 0; $i < count($DataSubBudget); $i++) {
+                if ($DataSubBudget[$i]['Project_RefID'] == $project_code) {
+                    $filteredArray[$num] = $DataSubBudget[$i];
+                    $num++;
+                }
             }
-        }
+        }   
 
+        else{
+            $filteredArray = $DataSubBudget;
+        }
 
         return response()->json($filteredArray);
     }
@@ -233,26 +239,40 @@ class FunctionController extends Controller
     public function getSupplier(Request $request)
     {
         $varAPIWebToken = Session::get('SessionLogin');
-        $varDataSupplier = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.supplyChain.getSupplier',
-            'latest',
-            [
-                'parameter' => null,
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
+
+        if (Redis::get("Supplier") == null) {
+
+            $varAPIWebToken = Session::get('SessionLogin');
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.supplyChain.getSupplier',
+                'latest',
+                [
+                    'parameter' => null,
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
+            );
+        }
+
+        $DataSupplier = json_decode(
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "Supplier"
+            ),
+            true
         );
 
-        return response()->json($varDataSupplier['data']);
+        return response()->json($DataSupplier);
     }
 
-    // FUNCTION WAREHOUSE 
+    // FUNCTION DELIVER TO
     public function getDeliverTo(Request $request)
     {
         $varAPIWebToken = Session::get('SessionLogin');
@@ -273,6 +293,41 @@ class FunctionController extends Controller
         );
 
         return response()->json($varDataDeliverTo['data']);
+    }
+
+    // FUNCTION WAREHOUSE 
+    public function getWarehouse()
+    {
+        if (Redis::get("Warehouse") == null) {
+
+            $varAPIWebToken = Session::get('SessionLogin');
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.supplyChain.getWarehouse',
+                'latest',
+                [
+                    'parameter' => null,
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
+            );
+        }
+
+        $DataWarehouse = json_decode(
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "Warehouse"
+            ),
+            true
+        );
+
+        return response()->json($DataWarehouse);
     }
 
     // FUNCTION BRF COST 
@@ -395,7 +450,7 @@ class FunctionController extends Controller
     }
 
     // FUNCTION PRODUCT 
-    public function getProduct(Request $request)
+    public function getProduct()
     {
         if (Redis::get("Product") == null) {
 

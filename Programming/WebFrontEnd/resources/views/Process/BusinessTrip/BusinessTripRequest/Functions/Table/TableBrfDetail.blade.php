@@ -2,7 +2,6 @@
     <table class=" table table-head-fixed text-nowrap table-sm TableBrfDetail" id="TableBrfDetail">
         <thead>
             <tr>
-                <th rowspan="2" style="padding-bottom:17px;border:1px solid #e9ecef;text-align: center;">Used</th>
                 <th rowspan="2" style="padding-bottom:17px;border:1px solid #e9ecef;text-align: center;">Trano</th>
                 <th rowspan="2" style="padding-bottom:17px;border:1px solid #e9ecef;text-align: center;">Product Id</th>
                 <th rowspan="2" style="padding-bottom:17px;border:1px solid #e9ecef;text-align: center;">Product Name</th>

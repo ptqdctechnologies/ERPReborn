@@ -2,19 +2,17 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
-@include('getFunction.getProject')
-@include('getFunction.getSite')
 @include('Inventory.DeliveryOrderRequest.Functions.PopUp.PopUpDorRevision')
-@include('Inventory.DeliveryOrderRequest.Functions.PopUp.SearchPurchaseRequisition')
+@include('Inventory.DeliveryOrderRequest.Functions.PopUp.SearchPurchaseOrder')
+@include('Inventory.DeliveryOrderRequest.Functions.PopUp.SearchOrderPicking')
+@include('Inventory.DeliveryOrderRequest.Functions.PopUp.SearchStockMovement')
 @include('getFunction.getWarehouse')
-@include('getFunction.getWarehouse2')
-@include('getFunction.getWarehouse3')
+@include('getFunction.getSite')
 @include('getFunction.getSupplier')
+@include('getFunction.getWorker')
 
 <div class="content-wrapper">
     <section class="content">
-        <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
-
         <div class="container-fluid">
             <div class="row mb-1" style="background-color:#4B586A;">
                 <div class="col-sm-6" style="height:30px;">
@@ -23,21 +21,23 @@
             </div>
             @include('Inventory.DeliveryOrderRequest.Functions.Menu.MenuDeliveryOrderRequest')
             <div class="card" style="position:relative;bottom:10px;">
-                <form method="post" enctype="multipart/form-data" action="{{ route('DeliveryOrderRequest.update', $var_recordID) }}" id="FormSubmitDorRevision">
+                <form method="post" enctype="multipart/form-data" action="{{ route('DeliveryOrderRequest.update', $dataHeader['Sys_ID_Advance']) }}" id="FormSubmitDorRevision">
                     @csrf
                     @method('PUT')
-                    <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
-                    <input id="trano" style="border-radius:0;" name="trano" value="{{ $trano }}" class="form-control" type="hidden">
+
+                    <input type="hidden" name="DocumentTypeID" value="{{ $DocumentTypeID }}" id="DocumentTypeID">
+                    <input type="hidden" name="var_recordID" value="{{ $dataHeader['Sys_ID_Advance'] }}" id="var_recordID">
+
                     <div class="tab-content p-3" id="nav-tabContent">
                         @include('Inventory.DeliveryOrderRequest.Functions.Header.HeaderDorRevision')
+                        @include('Inventory.DeliveryOrderRequest.Functions.Header.HeaderDorDetailRevision')
                         <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="product-desc-tab">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="card">
                                         <div class="card-header">
                                             <label class="card-title">
-                                                Purchase Requisition Detail &nbsp;&nbsp;
-                                                <a id="pr_number2" data-toggle="modal" data-target="#mySearchPurchaseRequistion" title="Select Purchase Requisition"><img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt=""></a>
+                                                Delivery Order Request Detail 
                                             </label>
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -45,7 +45,7 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        @include('Inventory.DeliveryOrderRequest.Functions.Table.TablePrDetail')
+                                        @include('Inventory.DeliveryOrderRequest.Functions.Table.TableSourceDetail')
                                     </div>
                                 </div>
                             </div>

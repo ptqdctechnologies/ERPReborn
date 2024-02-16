@@ -20,7 +20,7 @@
                                 <td>
                                     <div class="input-group">
                                         <select class="form-control deliverType" style="border-radius:0;" name="deliver_type" id="deliver_type">
-                                            <option value="" selected">Select Delivery Type</option>
+                                            <option value="" selected>Select Delivery Type</option>
                                             <option id="WTH" value="Warehouse to Warehouse">Warehouse to Warehouse</option>
                                             <option id="WTS" value="Warehouse to Site">Warehouse to Site</option>
                                             <option id="WTU" value="Warehouse to User">Warehouse to User</option>
@@ -42,7 +42,7 @@
                                 <td>
                                     <div>
                                         <label>
-                                            <strong>Warehouse Detail</strong>
+                                            <strong>Warehouse From</strong>
                                         </label>
                                     </div>
                                 </td>
@@ -51,10 +51,11 @@
                                 <td><label>Warehouse</label></td>
                                 <td>
                                     <div class="input-group">
-                                        <input id="headerWarehouse1" style="border-radius:0;margin-left:33px;" name="headerWarehouse1" class="form-control">
+                                        <input id="warehouse_from_id" style="border-radius:0;margin-left:33px;" name="warehouse_from_id" class="form-control" hidden>
+                                        <input id="warehouse_from" style="border-radius:0;margin-left:33px;" name="warehouse_from" class="form-control">
                                         <div class="input-group-append">
                                             <span style="border-radius:0;" class="input-group-text form-control">
-                                                <a href="#"><i id="headerWarehouse1" data-toggle="modal" data-target="#mySearchWarehouse1" class="fas fa-gift mySearchWarehouse1" style="color:grey;"></i></a>
+                                                <a href="#"><i id="warehouse_from_2" data-toggle="modal" data-target="#myGetWarehouse" class="fas fa-gift myGetWarehouseFrom" style="color:grey;"></i></a>
                                             </span>
                                         </div>
                                     </div>
@@ -64,7 +65,7 @@
                                 <td><label>Addres</label></td>
                                 <td>
                                     <div class="input-group">
-                                        <textarea class="form-control" name="" id="headerAddresWarehouse1" cols="20" rows="5" style="border-radius:0;margin-left:33px;"></textarea>
+                                        <textarea class="form-control" name="" id="warehouse_from_addres" cols="20" rows="5" style="border-radius:0;margin-left:33px;"></textarea>
                                     </div>
                                 </td>
                             </tr>
@@ -76,7 +77,7 @@
                                 <td>
                                     <div>
                                         <label>
-                                            <strong>Site Detail</strong>
+                                            <strong>Site From</strong>
                                         </label>
                                     </div>
                                 </td>
@@ -85,42 +86,11 @@
                                 <td><label>Site Name</label></td>
                                 <td>
                                     <div class="input-group">
-                                        <select name="headerSiteName1" id="headerSiteName1" style="border-radius:0;" class="form-control siteName1">
-                                            <option value="">-- Select Site Name --</option>
-                                            <option value="WH-001">WH-001</option>
-                                            <option value="WH-002">WH-002</option>
-                                        </select>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><label>Addres</label></td>
-                                <td>
-                                    <div class="input-group">
-                                        <textarea class="form-control" name="headerAddressSiteName1" id="headerAddressSiteName1" cols="25" rows="5"></textarea>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-
-                        <table class="SupplierLeft">
-                            <tr>
-                                <td>
-                                    <div>
-                                        <label>
-                                            <strong>Supplier Detail</strong>
-                                        </label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><label>Supplier</label></td>
-                                <td>
-                                    <div class="input-group">
-                                        <input id="supplier_code" style="border-radius:0;margin-left:48px;" name="supplier_code" class="form-control">
+                                        <input id="site_from_id" style="border-radius:0;margin-left:33px;" name="site_from_id" class="form-control" hidden>
+                                        <input id="site_from" style="border-radius:0;margin-left:33px;" name="site_from" class="form-control">
                                         <div class="input-group-append">
                                             <span style="border-radius:0;" class="input-group-text form-control">
-                                                <a href="#"><i id="suppliercode2" data-toggle="modal" data-target="#mySupplier" class="fas fa-gift mySupplier" style="color:grey;"></i></a>
+                                                <a href="#"><i id="site_from_2" data-toggle="modal" data-target="#mySiteCode" class="fas fa-gift mySiteCodeFrom" style="color:grey;"></i></a>
                                             </span>
                                         </div>
                                     </div>
@@ -130,7 +100,41 @@
                                 <td><label>Addres</label></td>
                                 <td>
                                     <div class="input-group">
-                                        <textarea class="form-control" name="supplierAddress" id="supplierAddress" cols="20" rows="5" style="border-radius:0;margin-left:48px;"></textarea>
+                                        <textarea class="form-control" name="site_from_address" id="site_from_address" cols="25" rows="5"></textarea>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table class="Supplier">
+                            <tr>
+                                <td>
+                                    <div>
+                                        <label>
+                                            <strong>Supplier From</strong>
+                                        </label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label>Supplier</label></td>
+                                <td>
+                                    <div class="input-group">
+                                        <input id="supplier_id" style="border-radius:0;margin-left:48px;" name="supplier_id" class="form-control" hidden>
+                                        <input id="supplier_code" style="border-radius:0;margin-left:48px;" name="supplier_code" class="form-control">
+                                        <div class="input-group-append">
+                                            <span style="border-radius:0;" class="input-group-text form-control">
+                                                <a href="#"><i id="supplier_code_2" data-toggle="modal" data-target="#mySupplier" class="fas fa-gift mySupplier" style="color:grey;"></i></a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label>Addres</label></td>
+                                <td>
+                                    <div class="input-group">
+                                        <textarea class="form-control" name="supplier_address" id="supplier_address" cols="20" rows="5" style="border-radius:0;margin-left:48px;"></textarea>
                                     </div>
                                 </td>
                             </tr>
@@ -159,7 +163,7 @@
                                 <td>
                                     <div>
                                         <label>
-                                            <strong>Warehouse&nbsp;Detail</strong>
+                                            <strong>Warehouse&nbsp;To</strong>
                                         </label>
                                     </div>
                                 </td>
@@ -168,10 +172,11 @@
                                 <td><label>Warehouse</label></td>
                                 <td>
                                     <div class="input-group">
-                                        <input id="headerWarehouse2" style="border-radius:0;margin-left:33px;" name="headerWarehouse2" class="form-control">
+                                        <input id="warehouse_to_id" style="border-radius:0;margin-left:33px;" name="warehouse_to_id" class="form-control" hidden>
+                                        <input id="warehouse_to" style="border-radius:0;margin-left:33px;" name="warehouse_to" class="form-control">
                                         <div class="input-group-append">
                                             <span style="border-radius:0;" class="input-group-text form-control">
-                                                <a href="#"><i id="headerWarehouse2" data-toggle="modal" data-target="#mySearchWarehouse2" class="fas fa-gift mySearchWarehouse2" style="color:grey;"></i></a>
+                                                <a href="#"><i id="warehouse_to_2" data-toggle="modal" data-target="#myGetWarehouse" class="fas fa-gift myGetWarehouseTo" style="color:grey;"></i></a>
                                             </span>
                                         </div>
                                     </div>
@@ -181,7 +186,7 @@
                                 <td><label>Addres</label></td>
                                 <td>
                                     <div class="input-group">
-                                        <textarea class="form-control" name="headerAddress3" id="headerAddresWarehouse2" cols="20" rows="5" style="border-radius:0;margin-left:33px;"></textarea>
+                                        <textarea class="form-control" name="warehouse_to_addres" id="warehouse_to_addres" cols="20" rows="5" style="border-radius:0;margin-left:33px;"></textarea>
                                     </div>
                                 </td>
                             </tr>
@@ -192,7 +197,7 @@
                                 <td>
                                     <div>
                                         <label>
-                                            <strong>Site Detail</strong>
+                                            <strong>Site To</strong>
                                         </label>
                                     </div>
                                 </td>
@@ -201,42 +206,11 @@
                                 <td><label>Site Name</label></td>
                                 <td>
                                     <div class="input-group">
-                                        <select name="headerSiteName1" id="headerSiteName1" style="border-radius:0;" class="form-control siteName1">
-                                            <option value="">-- Select Site Name --</option>
-                                            <option value="WH-001">WH-001</option>
-                                            <option value="WH-002">WH-002</option>
-                                        </select>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><label>Addres</label></td>
-                                <td>
-                                    <div class="input-group">
-                                        <textarea class="form-control" name="headerAddressSiteName1" id="headerAddressSiteName1" cols="25" rows="5"></textarea>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-
-                        <table class="SupplierRight">
-                            <tr>
-                                <td>
-                                    <div>
-                                        <label>
-                                            <strong>Supplier Detail</strong>
-                                        </label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><label>Supplier</label></td>
-                                <td>
-                                    <div class="input-group">
-                                        <input id="supplier_code" style="border-radius:0;margin-left:48px;" name="supplier_code" class="form-control">
+                                        <input id="site_to_id" style="border-radius:0;margin-left:33px;" name="site_to_id" class="form-control" hidden>
+                                        <input id="site_to" style="border-radius:0;margin-left:33px;" name="site_to" class="form-control">
                                         <div class="input-group-append">
                                             <span style="border-radius:0;" class="input-group-text form-control">
-                                                <a href="#"><i id="suppliercode2" data-toggle="modal" data-target="#mySupplier" class="fas fa-gift mySupplier" style="color:grey;"></i></a>
+                                                <a href="#"><i id="site_to_2" data-toggle="modal" data-target="#mySiteCode" class="fas fa-gift mySiteCodeTo" style="color:grey;"></i></a>
                                             </span>
                                         </div>
                                     </div>
@@ -246,7 +220,7 @@
                                 <td><label>Addres</label></td>
                                 <td>
                                     <div class="input-group">
-                                        <textarea class="form-control" name="supplierAddress" id="supplierAddress" cols="20" rows="5" style="border-radius:0;margin-left:48px;"></textarea>
+                                        <textarea class="form-control" name="site_to_address" id="site_to_address" cols="25" rows="5"></textarea>
                                     </div>
                                 </td>
                             </tr>
@@ -257,7 +231,7 @@
                                 <td>
                                     <div>
                                         <label>
-                                            <strong>User&nbsp;Detail</strong>
+                                            <strong>User&nbsp;To</strong>
                                         </label>
                                     </div>
                                 </td>
@@ -266,13 +240,14 @@
                                 <td><label>User</label></td>
                                 <td>
                                     <div class="input-group">
-                                        <input id="supplier_code" style="border-radius:0;margin-left:48px;" name="supplier_code" class="form-control">
+                                        <input id="requester_id" style="border-radius:0;margin-left:48px;" name="requester_id" class="form-control" hidden>
+                                        <input id="requester" style="border-radius:0;margin-left:48px;" name="requester" class="form-control">
                                         <div class="input-group-append">
                                             <span style="border-radius:0;" class="input-group-text form-control">
-                                                <a href="#"><i id="suppliercode2" data-toggle="modal" data-target="#mySupplier" class="fas fa-gift mySupplier" style="color:grey;"></i></a>
+                                                <a href="#"><i id="requester2" data-toggle="modal" data-target="#myWorker" class="fas fa-gift myWorker" style="color:grey;"></i></a>
                                             </span>
                                         </div>
-                                        <input id="site_code_detail" style="border-radius:0;" class="col-8 form-control" name="site_code_detail">
+                                        <input id="requester_detail" style="border-radius:0;" class="col-8 form-control" name="requester_detail">
                                     </div>
                                 </td>
                             </tr>

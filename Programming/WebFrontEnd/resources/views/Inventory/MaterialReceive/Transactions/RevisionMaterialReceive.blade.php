@@ -2,12 +2,10 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
-@include('Inventory.MaterialReceive.Functions.PopUp.searchPoNumber')
-@include('Inventory.MaterialReceive.Functions.PopUp.searchDoNumber')
+@include('Inventory.MaterialReceive.Functions.PopUp.SearchPurchaseOrder')
+@include('Inventory.MaterialReceive.Functions.PopUp.SearchDeliveryOrder')
 @include('Inventory.MaterialReceive.Functions.PopUp.PopUpMaterialReceiveRevision')
 @include('getFunction.getWarehouse')
-@include('getFunction.getWarehouse2')
-@include('getFunction.getWarehouse3')
 
 <div class="content-wrapper">
     <section class="content">
@@ -19,10 +17,12 @@
             </div>
             @include('Inventory.MaterialReceive.Functions.Menu.MenuMaterialReceive')
             <div class="card" style="position:relative;bottom:10px;">
-                <form method="post" enctype="multipart/form-data" action="{{ route('MaterialReceive.update', $var_recordID) }}" id="FormSubmitMaterialReceive">
+                <form method="post" enctype="multipart/form-data" action="{{ route('MaterialReceive.update', $dataHeader['Sys_ID_Advance']) }}" id="FormSubmitMaterialReceive">
                     @csrf
                     @method('PUT')
-                    <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
+                    <input type="hidden" name="DocumentTypeID" value="{{ $DocumentTypeID }}" id="DocumentTypeID">
+                    <input type="hidden" name="var_recordID" value="{{ $dataHeader['Sys_ID_Advance'] }}" id="var_recordID">
+
                     <div class="tab-content p-3" id="nav-tabContent">
                         @include('Inventory.MaterialReceive.Functions.Header.HeaderMaterialReceiveRevision')
 
@@ -43,7 +43,7 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="{{ $logFileUploadPointer_RefID }}" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID">
+                                                    <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID">
                                                     <input type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" name="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" onchange="javascript: @php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataInput_Log_FileUpload_Pointer_RefID_Action', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord'); @endphp;" />
                                                 </div>
                                                 <br><br>
@@ -87,7 +87,7 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        @include('Inventory.MaterialReceive.Functions.Table.tablePoDetail')
+                                        @include('Inventory.MaterialReceive.Functions.Table.TableMaterialResource')
                                     </div>
                                 </div>
                             </div>

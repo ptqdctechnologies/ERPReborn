@@ -58,7 +58,7 @@
     var keys = 0;
     $.ajax({
       type: 'GET',
-      url: '{!! route("getSite") !!}?projectcode=' + sys_id,
+      url: '{!! route("getSite") !!}?project_code=' + sys_id,
       success: function(data) {
 
         var no = 1;
@@ -67,9 +67,9 @@
         $.each(data, function(key, val) {
           keys += 1;
           t.row.add([
-            '<tbody><tr><input id="sys_id_site' + keys + '" value="' + val.sys_ID + '" type="hidden"><td>' + no++ + '</td>',
-            '<td>' + val.code + '</td>',
-            '<td>' + val.name + '</td></tr></tbody>'
+            '<tbody><tr><input id="sys_id_site' + keys + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
+            '<td>' + val.Code + '</td>',
+            '<td>' + val.Name + '</td></tr></tbody>'
           ]).draw();
         });
       }
@@ -121,7 +121,7 @@
 
     $.ajax({
       type: 'GET',
-      url: '{!! route("getBudget") !!}?sitecode=' + sys_ID,
+      url: '{!! route("getBudget") !!}?site_code=' + sys_ID,
       // url: '{!! route("getBudget") !!}?sitecode=' + 143000000000305,
       success: function(data) {
         var no = 1;
@@ -152,8 +152,8 @@
           }
 
           var html = '<tr>' +
-            '<input name="getWorkId[]" value="' + val2.combinedBudgetSubSectionLevel1_RefID + '" type="hidden">' +
-            '<input name="getWorkName[]" value="' + val2.combinedBudgetSubSectionLevel1Name + '" type="hidden">' +
+            // '<input name="getWorkId[]" value="' + val2.combinedBudgetSubSectionLevel1_RefID + '" type="hidden">' +
+            // '<input name="getWorkName[]" value="' + val2.combinedBudgetSubSectionLevel1Name + '" type="hidden">' +
             '<input name="getProductId[]" value="' + val2.product_RefID + '" type="hidden">' +
             '<input name="getProductName[]" value="' + val2.productName + '" type="hidden">' +
             '<input name="getQtyId[]" id="budget_qty_id' + key + '" value="' + val2.quantityUnit_RefID + '" type="hidden">' +
@@ -165,10 +165,6 @@
             '<input name="getCurrencyId[]" value="' + val2.priceCurrency_RefID + '" type="hidden">' +
             '<input name="combinedBudgetSectionDetail_RefID[]" value="' + val2.sys_ID + '" type="hidden">' +
             '<input name="combinedBudget_RefID" value="' + val2.combinedBudget_RefID + '" type="hidden">' +
-
-            '<td style="border:1px solid #e9ecef;">' +
-            '&nbsp;&nbsp;&nbsp;<div class="progress ' + status + ' progress-xs" style="height: 14px;border-radius:8px;"> @if(' + applied + ' >= ' + 0 + ' && ' + applied + ' <= ' + 40 + ')<div class="progress-bar bg-red" style="width:' + applied + '%;"></div> @elseif(' + applied + ' >= ' + 41 + ' && ' + applied + ' <= ' + 89 + ')<div class="progress-bar bg-blue" style="width:' + applied + '%;"></div> @elseif(' + applied + ' >= ' + 90 + ' && ' + applied + ' <= ' + 100 + ')<div class="progress-bar bg-green" style="width:' + applied + '%;"></div> @else<div class="progress-bar bg-grey" style="width:100%;"></div> @endif</div><small><center>' + applied + ' %</center></small>' +
-            '</td>' +
 
             '<td style="border:1px solid #e9ecef;display:' + statusDisplay[key] + '";">' +
             '<div class="input-group">' +
@@ -182,13 +178,13 @@
             '</td>' +
 
             '<td style="border:1px solid #e9ecef;display:' + statusDisplay2[key] + '">' + '<span>' + val2.product_RefID + '</span>' + '</td>' +
-            '<td style="border:1px solid #e9ecef;">' + '<span id="putProductName' + key + '">' + val2.productName + '</span>' + '</td>' +
+            '<td style="border:1px solid #e9ecef;max-width:15px;overflow: hidden;" title="' + val2.productName + '">' + '<span id="putProductName' + key + '">' + val2.productName + '</span>' + '</td>' +
             '<input id="putUom' + key + '" type="hidden">' +
 
             '<input id="TotalBudget' + key + '" type="hidden">' +
 
             '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.quantity) + '</span>' + '</td>' +
-            '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.quantityRemain) + '</span>' + '</td>' +
+            '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.quantityRemaining) + '</span>' + '</td>' +
             '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.priceBaseCurrencyValue) + '</span>' + '</td>' +
             '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_value2' + key + '">' + currencyTotal(val2.quantity * val2.priceBaseCurrencyValue) + '</span>' + '</td>' +
 
@@ -328,12 +324,12 @@
 
     $(".BrfListCart").show();
     var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
-    var getWorkId = $("input[name='getWorkId[]']").map(function() {
-      return $(this).val();
-    }).get();
-    var getWorkName = $("input[name='getWorkName[]']").map(function() {
-      return $(this).val();
-    }).get();
+    // var getWorkId = $("input[name='getWorkId[]']").map(function() {
+    //   return $(this).val();
+    // }).get();
+    // var getWorkName = $("input[name='getWorkName[]']").map(function() {
+    //   return $(this).val();
+    // }).get();
     var getProductId = $("input[name='getProductId[]']").map(function() {
       return $(this).val();
     }).get();
@@ -409,12 +405,12 @@
           '<input type="hidden" name="var_accomodation[]" value="' + accomodation_req[index] + '">' +
           '<input type="hidden" name="var_other[]" value="' + other_req[index] + '">' +
 
-          '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkId[index] + '</td>' +
-          '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkName[index] + '</td>' +
+          // '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkId[index] + '</td>' +
+          // '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getWorkName[index] + '</td>' +
           '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductId + '</td>' +
           '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putProductName + '</td>' +
-          '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putUom + '</td>' +
-          '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getCurrency[index] + '</td>' +
+          // '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + putUom + '</td>' +
+          // '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + getCurrency[index] + '</td>' +
           '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="' + index + '" class="allowance_req2' + index + '">' + currencyTotal(allowance_req[index]) + '</span>' + '</td>' +
           '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="' + index + '" class="accomodation_req2' + index + '">' + currencyTotal(accomodation_req[index]) + '</span>' + '</td>' +
           '<td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;">' + '<span data-id="' + index + '" class="other_req2' + index + '">' + currencyTotal(other_req[index]) + '</span>' + '</td>' +

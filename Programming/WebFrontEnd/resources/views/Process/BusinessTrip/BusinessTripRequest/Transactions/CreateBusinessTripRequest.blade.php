@@ -509,8 +509,8 @@
                     <table class="table table-head-fixed text-nowrap table-striped TableBusinessTrip" id="TableBusinessTrip">
                       <thead>
                         <tr>
-                          <th style="border:1px solid #e9ecef;text-align: center;">Work ID</th>
-                          <th style="border:1px solid #e9ecef;text-align: center;">Work Name</th>
+                          <!-- <th style="border:1px solid #e9ecef;text-align: center;">Work ID</th>
+                          <th style="border:1px solid #e9ecef;text-align: center;">Work Name</th> -->
                           <th style="border:1px solid #e9ecef;text-align: center;">Product ID</th>
                           <th style="border:1px solid #e9ecef;text-align: center;">Product Name</th>
                           <th style="border:1px solid #e9ecef;text-align: center;">Allowance</th>

@@ -38,20 +38,25 @@
     $(function() {
         $('.myPopUpDoRevision').on('click', function(e) {
             e.preventDefault();
+
+            var keys = 0;
+
             $.ajax({
                 type: 'GET',
                 url: '{!! route("DeliveryOrder.DeliveryOrderListData") !!}',
                 success: function(data) {
-                    var no = 1; t = $('#TableSearchDeliveryOrder').DataTable();
+                    var no = 1;
+                    t = $('#TableSearchDeliveryOrder').DataTable();
                     t.clear();
                     $.each(data, function(key, val) {
+                        keys += 1;
                         t.row.add([
-                            '<tbody><tr><td>' + no++ + '</td>',
-                            '<td><span data-dismiss="modal" onclick="klikPopUpDoRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.documentNumber + '</span></td>',
-                            '<td><span data-dismiss="modal" onclick="klikPopUpDoRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudget_RefID + '</span></td>',
-                            '<td><span data-dismiss="modal" onclick="klikPopUpDoRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudgetName + '</span></td>',
-                            '<td><span data-dismiss="modal" onclick="klikPopUpDoRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudgetSection_RefID + '</span></td>',
-                            '<td><span data-dismiss="modal" onclick="klikPopUpDoRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudgetSectionName + '</td></tr></tbody>'
+                            '<tbody><tr><input id="sys_id_dor_revision' + keys + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
+                            '<td>' + val.DocumentNumber + '</td>',
+                            '<td>' + val.CombinedBudgetCode + '</td>',
+                            '<td>' + val.CombinedBudgetName + '</td>',
+                            '<td>' + val.CombinedBudgetSectionCode + '</td>',
+                            '<td>' + val.CombinedBudgetSectionName + '</td></tr></tbody>'
                         ]).draw();
 
                     });
