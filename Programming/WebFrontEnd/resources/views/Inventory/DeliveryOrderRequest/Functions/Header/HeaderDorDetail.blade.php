@@ -35,7 +35,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="form-group">
                         <table class="WarehouseLeft">
                             <tr>
@@ -148,14 +148,14 @@
                         <table>
                             <tr>
                                 <div>
-                                    <img src="/AdminLTE-master/dist/img/right-arrow.png" width="50px;" style="position:relative;right:15px;"><br><br>
+                                    <img src="/AdminLTE-master/dist/img/right-arrow.png" width="50px;"><br><br>
                                 </div>
                             </tr>
                         </table>
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <div class="form-group">
 
                         <table class="WarehouseRight">

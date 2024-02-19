@@ -13,7 +13,7 @@
 
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-item has-treeview">
+                <li class="nav-item has-treeview" style="position: relative;left:2px;">
                     <a href="#" class="nav-link">
                         <i class="nav-icon-sm fas fa-home" style="color:#e9ecef;"></i>
                         <label>
@@ -50,7 +50,7 @@
                     </ul>
                 </li>
 
-                <li class="nav-item has-treeview">
+                <li class="nav-item has-treeview" style="position: relative;left:2px;">
                     <a href="#" class="nav-link">
                         <i class="nav-icon-sm fas fa-shopping-basket" style="color:#e9ecef;"></i>
                         <label>
@@ -119,7 +119,7 @@
 
                 </li>
 
-                <li class="nav-item has-treeview">
+                <li class="nav-item has-treeview" style="position: relative;left:2px;">
                     <a href="#" class="nav-link">
                         <i class="nav-icon-sm fas fa-users" style="color:#e9ecef;"></i>
                         <label>
@@ -158,7 +158,7 @@
                     </ul>
                 </li>
 
-                <li class="nav-item has-treeview">
+                <li class="nav-item has-treeview" style="position: relative;left:2px;">
                     <a href="#" class="nav-link">
                         <i class="nav-icon-sm fas fa-credit-card" style="color:#e9ecef;"></i>
                         <label>
@@ -365,7 +365,7 @@
                 </li>
 
 
-                <li class="nav-item has-treeview">
+                <li class="nav-item has-treeview" style="position: relative;left:2px;">
                     <a href="#" class="nav-link">
                         <i class="nav-icon-sm fas fa-chart-line" style="color:#e9ecef;"></i>
                         <label>
@@ -460,11 +460,11 @@
                 </li>
 
 
-                <li class="nav-item has-treeview">
+                <li class="nav-item has-treeview" style="position: relative;left:2px;">
                     <a href="#" class="nav-link">
                         <i class="nav-icon-sm fas fa-hourglass-start" style="color:#e9ecef;"></i>
                         <label>
-                            Process
+                            &nbsp;Process
                         </label>
                         <i class="right fas fa-angle-left"></i>
                     </a>
@@ -757,6 +757,42 @@
                         <li class="nav-item">
                             <a href="#" class="nav-link">&nbsp;
                                 <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
+                                <label>Order Picking</label>
+                                <i class="right fas fa-angle-left"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">&nbsp;&nbsp;&nbsp;
+                                        <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
+                                        <label>Report</label>
+                                        <i class="right fas fa-angle-left"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">&nbsp;&nbsp;&nbsp;
+                                        <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
+                                        <label>Transaction</label>
+                                        <i class="right fas fa-angle-left"></i>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('OrderPicking.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
+                                                <label>Order Picking</label>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">&nbsp;
+                                <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
                                 <label>Account Payable</label>
                                 <i class="right fas fa-angle-left"></i>
                             </a>
@@ -972,7 +1008,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon-sm fas fa-registered" style="color:#e9ecef;"></i>
                         <label>
-                            Register
+                            &nbsp;Register
                         </label>
                         <i class="right fas fa-angle-left"></i>
                     </a>
@@ -1195,7 +1231,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon-sm fas fa-user" style="color:#e9ecef;"></i>
                         <label>
-                            Admin
+                            &nbsp;Admin
                         </label>
                         <i class="right fas fa-angle-left"></i>
                     </a>

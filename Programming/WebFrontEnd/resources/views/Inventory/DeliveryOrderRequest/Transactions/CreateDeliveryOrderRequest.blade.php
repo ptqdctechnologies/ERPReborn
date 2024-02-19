@@ -33,7 +33,7 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <label class="card-title">
-                                                Delivery Order Request Detail 
+                                                Delivery Order Request Detail
                                             </label>
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -85,12 +85,45 @@
                                         </table>
                                     </div>
                                 </div>
-                                <a onclick="CancelDor();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
-                                    <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
-                                </a>
-                                <button class="btn btn-default btn-sm float-right" type="submit" id="SubmitDor" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                                    <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
-                                </button>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <label class="card-title">
+                                                Note
+                                            </label>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                    <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body Remark">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <table>
+                                                            <tr>
+                                                                <td style="display: flex;">
+                                                                    <textarea name="var_remark" id="remark" rows="2" cols="150" class="form-control"></textarea>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a onclick="CancelDor();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                                        <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
+                                    </a>
+                                    <button class="btn btn-default btn-sm float-right" type="submit" id="SubmitDor" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                                        <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

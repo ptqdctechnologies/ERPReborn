@@ -237,6 +237,20 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('addListCartPurchaseOrder', 'Purchase\PurchaseOrderController@addListCartPurchaseOrder')->name('PurchaseOrder.addListCartPurchaseOrder');
     Route::resource('PurchaseOrder', 'Purchase\PurchaseOrderController');
 
+     // OP
+     Route::post('StoreValidateOrderPicking', 'Purchase\OrderPickingController@StoreValidateOrderPicking')->name('OrderPicking.StoreValidateOrderPicking');
+     Route::post('StoreValidateOrderPicking2', 'Purchase\OrderPickingController@StoreValidateOrderPicking2')->name('OrderPicking.StoreValidateOrderPicking2');
+     Route::post('StoreValidateOrderPickingPrNumber', 'Purchase\OrderPickingController@StoreValidateOrderPickingPrNumber')->name('OrderPicking.StoreValidateOrderPickingPrNumber');
+     Route::post('RevisionOrderPicking', 'Purchase\OrderPickingController@RevisionOrderPickingIndex')->name('OrderPicking.RevisionOrderPicking');
+     Route::get('ReportOrderPickingSummary', 'Purchase\OrderPickingController@ReportPoSummary')->name('OrderPicking.ReportOrderPickingSummary');
+     Route::get('ReportOrderPickingDetail', 'Purchase\OrderPickingController@ReportPoDetail')->name('OrderPicking.ReportOrderPickingDetail');
+     Route::get('OrderPickingListData', 'Purchase\OrderPickingController@OrderPickingListData')->name('OrderPicking.OrderPickingListData');
+     // Route::post('RevisionOrderPicking', 'Purchase\OrderPickingController@RevisionOrderPicking')->name('OrderPicking.RevisionOrderPicking');
+     Route::get('OrderPickingByPrID', 'Purchase\OrderPickingController@OrderPickingByPrID')->name('OrderPicking.OrderPickingByPrID');
+     Route::post('addListCartOrderPicking', 'Purchase\OrderPickingController@addListCartOrderPicking')->name('OrderPicking.addListCartOrderPicking');
+     Route::resource('OrderPicking', 'Purchase\OrderPickingController');
+    
+
     // PPM
     Route::post('StoreValidatePieceMeal', 'HumanResource\PieceMealController@StoreValidatePieceMeal')->name('PieceMeal.StoreValidatePieceMeal');
     Route::post('StoreValidatePieceMeal2', 'HumanResource\PieceMealController@StoreValidatePieceMeal2')->name('PieceMeal.StoreValidatePieceMeal2');

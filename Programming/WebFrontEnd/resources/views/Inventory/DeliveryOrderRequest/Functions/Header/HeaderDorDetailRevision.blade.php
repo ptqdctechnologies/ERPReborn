@@ -20,7 +20,7 @@
                                 <td>
                                     <div class="input-group">
                                         <select class="form-control deliverType" style="border-radius:0;" name="deliver_type" id="deliver_type">
-                                            <option value="" selected">Select Delivery Type</option>
+                                            <option value="" selected>Select Delivery Type</option>
                                             <option id="WTH" value="Warehouse to Warehouse">Warehouse to Warehouse</option>
                                             <option id="WTS" value="Warehouse to Site">Warehouse to Site</option>
                                             <option id="WTU" value="Warehouse to User">Warehouse to User</option>
@@ -35,14 +35,14 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="form-group">
                         <table class="WarehouseLeft">
                             <tr>
                                 <td>
                                     <div>
                                         <label>
-                                            <strong>Warehouse Detail</strong>
+                                            <strong>Warehouse From</strong>
                                         </label>
                                     </div>
                                 </td>
@@ -77,7 +77,7 @@
                                 <td>
                                     <div>
                                         <label>
-                                            <strong>Site Detail</strong>
+                                            <strong>Site From</strong>
                                         </label>
                                     </div>
                                 </td>
@@ -111,7 +111,7 @@
                                 <td>
                                     <div>
                                         <label>
-                                            <strong>Supplier Detail</strong>
+                                            <strong>Supplier From</strong>
                                         </label>
                                     </div>
                                 </td>
@@ -148,14 +148,14 @@
                         <table>
                             <tr>
                                 <div>
-                                    <img src="/AdminLTE-master/dist/img/right-arrow.png" width="50px;" style="position:relative;right:15px;"><br><br>
+                                    <img src="/AdminLTE-master/dist/img/right-arrow.png" width="50px;"><br><br>
                                 </div>
                             </tr>
                         </table>
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <div class="form-group">
 
                         <table class="WarehouseRight">
@@ -163,7 +163,7 @@
                                 <td>
                                     <div>
                                         <label>
-                                            <strong>Warehouse&nbsp;Detail</strong>
+                                            <strong>Warehouse&nbsp;To</strong>
                                         </label>
                                     </div>
                                 </td>
@@ -197,7 +197,7 @@
                                 <td>
                                     <div>
                                         <label>
-                                            <strong>Site Detail</strong>
+                                            <strong>Site To</strong>
                                         </label>
                                     </div>
                                 </td>
@@ -231,7 +231,7 @@
                                 <td>
                                     <div>
                                         <label>
-                                            <strong>User&nbsp;Detail</strong>
+                                            <strong>User&nbsp;To</strong>
                                         </label>
                                     </div>
                                 </td>

@@ -21,6 +21,8 @@ class KeyMenuComposer
             true
         );
 
+        // dd($privilageMenu);
+
         $compact = [
             'privilageMenu' => $privilageMenu
         ];
