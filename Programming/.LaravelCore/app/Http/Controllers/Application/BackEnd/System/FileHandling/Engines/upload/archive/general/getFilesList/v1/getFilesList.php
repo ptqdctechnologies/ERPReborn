@@ -63,9 +63,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        $varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
-                            $varUserSession,
-                            $this->dataProcessing($varUserSession, $varData['parameter']['rotateLog_FileUploadStagingArea_RefRPK']));
+                        $varDataSend = 
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
+                                $varUserSession,
+                                $this->dataProcessing($varUserSession, $varData['parameter']['rotateLog_FileUploadStagingArea_RefRPK'])
+                                );
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {

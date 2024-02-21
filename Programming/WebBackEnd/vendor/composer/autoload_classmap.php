@@ -2502,6 +2502,8 @@ return array(
     'Aws\\Budgets\\BudgetsClient' => $vendorDir . '/aws/aws-sdk-php/src/Budgets/BudgetsClient.php',
     'Aws\\Budgets\\Exception\\BudgetsException' => $vendorDir . '/aws/aws-sdk-php/src/Budgets/Exception/BudgetsException.php',
     'Aws\\CacheInterface' => $vendorDir . '/aws/aws-sdk-php/src/CacheInterface.php',
+    'Aws\\Chatbot\\ChatbotClient' => $vendorDir . '/aws/aws-sdk-php/src/Chatbot/ChatbotClient.php',
+    'Aws\\Chatbot\\Exception\\ChatbotException' => $vendorDir . '/aws/aws-sdk-php/src/Chatbot/Exception/ChatbotException.php',
     'Aws\\ChimeSDKIdentity\\ChimeSDKIdentityClient' => $vendorDir . '/aws/aws-sdk-php/src/ChimeSDKIdentity/ChimeSDKIdentityClient.php',
     'Aws\\ChimeSDKIdentity\\Exception\\ChimeSDKIdentityException' => $vendorDir . '/aws/aws-sdk-php/src/ChimeSDKIdentity/Exception/ChimeSDKIdentityException.php',
     'Aws\\ChimeSDKMediaPipelines\\ChimeSDKMediaPipelinesClient' => $vendorDir . '/aws/aws-sdk-php/src/ChimeSDKMediaPipelines/ChimeSDKMediaPipelinesClient.php',
