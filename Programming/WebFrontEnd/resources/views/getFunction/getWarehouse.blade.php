@@ -120,16 +120,17 @@
                                     '<input name="getCurrency[]" value="' + value.PriceBaseCurrencyISOCode + '" type="hidden">' +
                                     '<input name="getTotal[]" value="' + value.PriceBaseCurrencyValue + '" type="hidden">' +
                                     '<input name="combinedBudget" value="' + value.sys_ID + '" type="hidden">' +
+                                    '<input name="getDocumentNumber[]" value="' + value.DocumentNumber + '" type="hidden">' +
 
                                     '<td style="border:1px solid #e9ecef;">' + '<span>' + value.DocumentNumber + '</span>' + '</td>' +
                                     '<td style="border:1px solid #e9ecef;">' + '<span id="putProductId' + keys + '">' + value.Product_RefID + '</span>' + '</td>' +
                                     '<td style="border:1px solid #e9ecef;max-width:15px;overflow: hidden;" title="' + value.ProductName + '">' + '<span id="putProductName' + keys + '">' + value.ProductName + '</span>' + '</td>' +
                                     '<td style="border:1px solid #e9ecef;">' + '<span">' + currencyTotal(value.Quantity) + '</span>' + '</td>' +
-                                    '<td style="border:1px solid #e9ecef;">' + '<span">' + currencyTotal(value.ProductUnitPriceBaseCurrencyValue) + '</span>' + '</td>' +
-                                    '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(value.PriceBaseCurrencyValue) + '</span>' + '</td>' +
+                                    '<td style="border:1px solid #e9ecef;">' + '<span">' + currencyTotal(value.Quantity) + '</span>' + '</td>' +
 
-                                    '<td class="sticky-col first-col" style="border:1px solid #e9ecef;background-color:white;">' + '<input onkeyup="total_req(' + keys + ', this)" onkeypress="return isNumberKey(this, event);" id="total_req' + keys + '" style="border-radius:0;" name="total_req[]" class="form-control total_req" autocomplete="off">' + '</td>' +
-
+                                    '<td class="sticky-col second-col-dor-qty" style="border:1px solid #e9ecef;">' + '<input onkeyup="total_req(' + keys + ', this)" onkeypress="return isNumberKey(this, event);" id="total_req' + keys + '" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off">' + '</td>' +
+                                    '<td class="sticky-col first-col-dor-note" style="border:1px solid #e9ecef;">' + '<input id="balance_qty_po' + keys + '" style="border-radius:0;background-color:white;" name="balance_qty_po[]" disabled class="form-control balance_qty_po" value="' + currencyTotal(value.Quantity) + '">' + '</td>' +
+                                    
                                     '</tr>';
 
                                 $('table.TableSourceDetailDor tbody').append(html);
@@ -138,37 +139,6 @@
                         
                     });
                 }
-
-                //VALIDASI QTY EXPENSE
-
-                function total_req(keys, value) {
-
-                    var qty_val = (value.value).replace(/,/g, '');
-                    var budget_qty_val = $("#budget_qty" + keys).val();
-
-                    if (qty_val == "") {
-                        $("input[name='total_req[]']").css("border", "1px solid #ced4da");
-                    } else if (parseFloat(qty_val) > parseFloat(budget_qty_val)) {
-
-                        swal({
-                            onOpen: function() {
-                                swal.disableConfirmButton();
-                                Swal.fire("Error !", "Qty is over budget !", "error");
-                            }
-                        });
-
-                        $('#total_req' + keys).val("");
-                        $('#total_req' + keys).css("border", "1px solid red");
-                        $('#total_req' + keys).focus();
-                    } else {
-                        $("input[name='total_req[]']").css("border", "1px solid #ced4da");
-                        $('#total_req' + keys).val(qty_val);
-                    }
-
-                    //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED
-                    TotalBudgetSelected();
-                }
-
 
             });
 

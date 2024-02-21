@@ -12,6 +12,75 @@
         </div>
 
         <nav class="mt-2">
+
+            <!-- <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                @foreach($MenuGroup as $MenuGroups)
+                <li class="nav-item has-treeview" style="position: relative;left:2px;">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon-sm fas fa-hourglass-start" style="color:#e9ecef;"></i>
+                        <label>
+                            &nbsp; {{ $MenuGroups['Name'] }}
+                        </label>
+                        <i class="right fas fa-angle-left"></i>
+                    </a>
+                    <ul class="nav nav-treeview">
+
+                        @foreach($MenuGroup as $MenuGroups2)
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">&nbsp;
+                                <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
+                                <label>{{ $MenuGroups2['Name'] }}</label>
+                                <i class="right fas fa-angle-left"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                @foreach($MenuGroup as $MenuGroups3)
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">&nbsp;&nbsp;&nbsp;
+                                        <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
+                                        <label>{{ $MenuGroups3['Name'] }}</label>
+                                        <i class="right fas fa-angle-left"></i>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        @foreach($MenuGroup as $MenuGroups4)
+                                        <li class="nav-item">
+                                            <a href="{{ route('AdvanceRequest.ReportAdvanceSummary') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
+                                                <label>{{ $MenuGroups4['Name'] }}</label>
+                                            </a>
+                                        </li>
+                                        @endforeach
+                                    </ul>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                        @endforeach
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        @foreach($MenuGroup as $MenuGroups5)
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">&nbsp;&nbsp;&nbsp;
+                                <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
+                                <label>Transaction</label>
+                                <i class="right fas fa-angle-left"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('AdvanceRequest.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
+                                        <label>{{ $MenuGroups5['Name'] }}</label>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        @endforeach
+                    </ul>
+                </li>
+                @endforeach
+            </ul> -->
+
+
+
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item has-treeview" style="position: relative;left:2px;">
                     <a href="#" class="nav-link">
@@ -21,7 +90,6 @@
                         </label>
                         <i class="right fas fa-angle-left"></i>
                     </a>
-
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="#" class="nav-link">&nbsp;
@@ -34,14 +102,14 @@
                                     <a href="{{ route('CheckDocument.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;
                                         <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
                                         <label>Check Document</label>
-                                        <i class="right fas fa-angle-left"></i>
+
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ route('MyDocument.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;
                                         <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
                                         <label>My Document</label>
-                                        <i class="right fas fa-angle-left"></i>
+
                                     </a>
 
                                 </li>
@@ -580,7 +648,7 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('BusinessTripRequest.index') }}?var=1"" class=" nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="{{ route('BusinessTripRequest.index') }}?var=1" class=" nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Business Trip Request</label>
                                             </a>
@@ -615,7 +683,7 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('BusinessTripSettlement.index') }}?var=1"" class=" nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="{{ route('BusinessTripSettlement.index') }}?var=1" class=" nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Business Trip Settlement</label>
                                             </a>
@@ -1027,24 +1095,6 @@
                                 <label>Master COA</label>
                                 <i class="right fas fa-angle-left"></i>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">&nbsp;&nbsp;&nbsp;
-                                        <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
-                                        <label>Report</label>
-                                        <i class="right fas fa-angle-left"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">&nbsp;&nbsp;&nbsp;
-                                        <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
-                                        <label>Transaction</label>
-                                        <i class="right fas fa-angle-left"></i>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                     </ul>
                     <ul class="nav nav-treeview">
@@ -1323,7 +1373,7 @@
                                 <label>Closing Periode </label>
                                 <i class="right fas fa-angle-left"></i>
                             </a>
-                            <ul class="nav nav-treeview">
+                            <ul class="nafile:///home/mulyadi/Downloads/sidebar.blade.phpv nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">&nbsp;&nbsp;&nbsp;
                                         <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>

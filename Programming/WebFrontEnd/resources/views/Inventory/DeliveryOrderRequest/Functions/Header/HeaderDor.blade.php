@@ -31,20 +31,12 @@
                                     </td>
                                 </tr>
 
-                                <tr class="ShowReceiver">
-                                    <td style="padding-top:12px;"><label>Receiver Name</label></td>
-                                    <td>
-                                        <div class="input-group">
-                                            <input id="receiver_name" style="border-radius:0;" name="receiver_name" class="form-control">
 
-                                        </div>
-                                    </td>
-                                </tr>
                             </table>
                         </div>
                     </div>
 
-                    <div class="col-md-6 ShowReceiver">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <table>
                                 <tr class="ShowPO">
@@ -73,6 +65,16 @@
                                                     <a id="order_picking2" data-toggle="modal" data-target="#mySearchOrderPicking" class="mySearchPurchaseOrder"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                                 </span>
                                             </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr class="ShowReceiver">
+                                    <td style="padding-top:12px;"><label>Receiver Name</label></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <input id="receiver_name" style="border-radius:0;" name="receiver_name" class="form-control">
+
                                         </div>
                                     </td>
                                 </tr>

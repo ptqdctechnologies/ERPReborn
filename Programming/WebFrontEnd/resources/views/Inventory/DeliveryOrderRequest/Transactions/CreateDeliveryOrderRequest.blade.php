@@ -5,7 +5,6 @@
 @include('Inventory.DeliveryOrderRequest.Functions.PopUp.PopUpDorRevision')
 @include('Inventory.DeliveryOrderRequest.Functions.PopUp.SearchPurchaseOrder')
 @include('Inventory.DeliveryOrderRequest.Functions.PopUp.SearchOrderPicking')
-@include('Inventory.DeliveryOrderRequest.Functions.PopUp.SearchStockMovement')
 @include('getFunction.getWarehouse')
 @include('getFunction.getSite')
 @include('getFunction.getSupplier')
@@ -65,10 +64,9 @@
                                         <table class="table table-head-fixed text-nowrap TableDorCart" id="TableDorCart">
                                             <thead>
                                                 <tr>
+                                                    <th>Transaction Number</th>
                                                     <th>Product Id</th>
                                                     <th>Product Name</th>
-                                                    <th>PR Price</th>
-                                                    <th>Average Price</th>
                                                     <th>Qty</th>
                                                 </tr>
                                             </thead>

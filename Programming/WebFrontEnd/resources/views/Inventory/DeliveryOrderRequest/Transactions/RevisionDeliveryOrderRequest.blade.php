@@ -5,7 +5,6 @@
 @include('Inventory.DeliveryOrderRequest.Functions.PopUp.PopUpDorRevision')
 @include('Inventory.DeliveryOrderRequest.Functions.PopUp.SearchPurchaseOrder')
 @include('Inventory.DeliveryOrderRequest.Functions.PopUp.SearchOrderPicking')
-@include('Inventory.DeliveryOrderRequest.Functions.PopUp.SearchStockMovement')
 @include('getFunction.getWarehouse')
 @include('getFunction.getSite')
 @include('getFunction.getSupplier')

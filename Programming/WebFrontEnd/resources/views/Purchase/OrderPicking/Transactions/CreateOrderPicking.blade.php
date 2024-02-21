@@ -2,14 +2,10 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
+@include('getFunction.getMaterialServiceRequest')
 @include('getFunction.getProject')
 @include('getFunction.getSite')
-@include('getFunction.getSupplier')
-@include('getFunction.getDeliverTo')
-@include('getFunction.getProduct')
-@include('Purchase.OrderPicking.Functions.PopUp.SearchPurchaseRequest')
-@include('Purchase.OrderPicking.Functions.PopUp.SearchOrderPicking')
-
+@include('getFunction.getWarehouse')
 
 <div class="content-wrapper">
   <section class="content">
