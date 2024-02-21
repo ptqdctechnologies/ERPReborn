@@ -3157,6 +3157,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Aws\\Budgets\\BudgetsClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Budgets/BudgetsClient.php',
         'Aws\\Budgets\\Exception\\BudgetsException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Budgets/Exception/BudgetsException.php',
         'Aws\\CacheInterface' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/CacheInterface.php',
+        'Aws\\Chatbot\\ChatbotClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Chatbot/ChatbotClient.php',
+        'Aws\\Chatbot\\Exception\\ChatbotException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Chatbot/Exception/ChatbotException.php',
         'Aws\\ChimeSDKIdentity\\ChimeSDKIdentityClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/ChimeSDKIdentity/ChimeSDKIdentityClient.php',
         'Aws\\ChimeSDKIdentity\\Exception\\ChimeSDKIdentityException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/ChimeSDKIdentity/Exception/ChimeSDKIdentityException.php',
         'Aws\\ChimeSDKMediaPipelines\\ChimeSDKMediaPipelinesClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/ChimeSDKMediaPipelines/ChimeSDKMediaPipelinesClient.php',
