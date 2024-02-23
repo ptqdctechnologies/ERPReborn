@@ -31,20 +31,12 @@
                                     </td>
                                 </tr>
 
-                                <tr class="ShowReceiver">
-                                    <td style="padding-top:12px;"><label>Receiver Name</label></td>
-                                    <td>
-                                        <div class="input-group">
-                                            <input id="receiver_name" style="border-radius:0;" name="receiver_name" class="form-control">
 
-                                        </div>
-                                    </td>
-                                </tr>
                             </table>
                         </div>
                     </div>
 
-                    <div class="col-md-6 ShowReceiver">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <table>
                                 <tr class="ShowPO">
@@ -76,30 +68,16 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <!-- <tr class="ShowSM">
-                                    <td style="padding-top:12px;"><label>Stock Movement</label></td>
-                                    <td>
-                                        <div class="input-group">
-                                            <input id="stock_movement_id" style="border-radius:0;" name="stock_movement_id" class="form-control" type="hidden">
-                                            <input id="stock_movement" style="border-radius:0;" name="stock_movement" class="form-control" readonly>
-                                            <div class="input-group-append">
-                                                <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a id="stock_movement2" data-toggle="modal" data-target="#mySearchStockMovement" class="mySearchPurchaseOrder"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr> -->
 
-                                <!-- <tr class="ShowReceiver">
-                                    <td style="padding-top:12px;"><label>Receiver Number</label></td>
+                                <tr class="ShowReceiver">
+                                    <td style="padding-top:12px;"><label>Receiver Name</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="receiver_number" style="border-radius:0;" name="receiver_number" class="form-control">
+                                            <input id="receiver_name" style="border-radius:0;" name="receiver_name" class="form-control">
 
                                         </div>
                                     </td>
-                                </tr> -->
+                                </tr>
                             </table>
                         </div>
                     </div>

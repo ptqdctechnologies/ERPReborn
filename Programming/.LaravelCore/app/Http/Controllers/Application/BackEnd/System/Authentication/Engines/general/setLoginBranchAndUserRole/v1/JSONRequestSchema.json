@@ -36,7 +36,9 @@
                 "type": "integer"
                 },
             "userRoleID": {
-                "type": "integer"
+                "type": [
+                    "integer", "null"
+                ]
                 }
             },
         "required": [

@@ -121,9 +121,7 @@
 <script>
 
     $('#Modul').on("select2:select", function(e) {
-
-        console.log(checkedValue.length);
-
+        
         TableSubMenu();
         
     });
@@ -185,9 +183,14 @@
         var sub_Menu = document.getElementsByClassName('Sub_Menu');
        
         $.each(sub_Menu, function(key, value) {
-            checkedValue = checkedValue.filter(item => item !== value.value);
+            // checkedValue = checkedValue.filter(item => item !== value.value);
+
+            var result = checkedValue.filter(function(elem) {
+                return elem != value.value;
+            });
+            checkedValue = result;
+            
         });
-        
 
         if(checkedValue.length > 0){
             $("#SavePrivilageMenu").prop("disabled", false);

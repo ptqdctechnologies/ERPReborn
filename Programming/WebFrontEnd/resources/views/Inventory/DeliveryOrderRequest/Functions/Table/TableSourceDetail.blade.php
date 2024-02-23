@@ -5,10 +5,11 @@
                 <th style="border:1px solid #e9ecef;text-align: center;">Transaction Number</th>
                 <th style="border:1px solid #e9ecef;text-align: center;">Product Id</th>
                 <th style="border:1px solid #e9ecef;text-align: center;">Product Name</th>
-                <th style="border:1px solid #e9ecef;text-align: center;">Qty</th>
-                <th style="border:1px solid #e9ecef;text-align: center;">PR Price</th>
-                <th style="border:1px solid #e9ecef;text-align: center;">Average Price</th>
-                <th class="sticky-col first-col" style="text-align: center;background-color:#4B586A;color:white;">Qty</th>
+                <th style="border:1px solid #e9ecef;text-align: center;">Qty Avail</th>
+                <th style="border:1px solid #e9ecef;text-align: center;">Qty Req</th>
+                <th class="sticky-col second-col-dor-qty" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Qty Req</th>
+                <th class="sticky-col first-col-dor-note" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Balance Qty</th>
+
             </tr>
         </thead>
         <tbody>

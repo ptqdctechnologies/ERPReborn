@@ -25,6 +25,7 @@ class PrivilageMenuController extends Controller
     {
         $userRole_RefID = $request->user_role_id;
         $menuAction_RefIDArray = $request->checkedValue;
+        // dd($menuAction_RefIDArray);
         $varAPIWebToken = Session::get('SessionLogin');
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -40,6 +41,7 @@ class PrivilageMenuController extends Controller
             ]
         );
 
+        // dd($varData);
 
         $compact = [
             "status" => $varData['metadata']['HTTPStatusCode'],

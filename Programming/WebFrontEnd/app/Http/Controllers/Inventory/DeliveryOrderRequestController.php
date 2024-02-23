@@ -384,29 +384,71 @@ class DeliveryOrderRequestController extends Controller
 
     public function DeliveryOrderRequestListCartRevision(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $var_recordID = $request->input('var_recordID');
+        // $varAPIWebToken = $request->session()->get('SessionLogin');
+        // $var_recordID = $request->input('var_recordID');
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.finance.getAdvanceDetail',
-            'latest',
-            [
-                'parameter' => [
-                    'advance_RefID' => (int) $var_recordID,
+        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varAPIWebToken,
+        //     'transaction.read.dataList.finance.getAdvanceDetail',
+        //     'latest',
+        //     [
+        //         'parameter' => [
+        //             'advance_RefID' => (int) $var_recordID,
+        //         ],
+        //         'SQLStatement' => [
+        //             'pick' => null,
+        //             'sort' => null,
+        //             'filter' => null,
+        //             'paging' => null
+        //         ]
+        //     ]
+        // );
+
+        // return response()->json($varData['data']);
+
+        $varAPIWebToken = Session::get('SessionLogin');
+        if (Redis::get("DataListAdvanceDetailComplex") == null) {
+            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.finance.getAdvanceDetailComplex',
+                'latest',
+                [
+                    'parameter' => [
+                        'advance_RefID' => 1,
+                    ],
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
                 ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
+                false
+            );
+        }
+
+        $DataAdvanceDetailComplex = json_decode(
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "DataListAdvanceDetailComplex"
+            ),
+            true
         );
 
-        dd($varData);
-        return response()->json($varData['data']);
+        $collection = collect($DataAdvanceDetailComplex);
+
+        $filteredArray = [];
+        $num = 0;
+        foreach ($collection->all() as $collections) {
+            $filteredArray[$num] = $collections;
+            $num++;
+        }
+
+
+        return response()->json($filteredArray);
+        
     }
 
     public function update(Request $request, $id)

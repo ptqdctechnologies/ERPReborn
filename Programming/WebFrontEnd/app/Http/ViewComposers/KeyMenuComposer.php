@@ -21,8 +21,21 @@ class KeyMenuComposer
             true
         );
 
+        // dd($privilageMenu);
+
+        $MenuGroup = json_decode(
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "MenuGroup"
+            ),
+            true
+        );
+
+        // dd($MenuGroup);
+
         $compact = [
-            'privilageMenu' => $privilageMenu
+            'privilageMenu' => $privilageMenu,
+            'MenuGroup' => $MenuGroup
         ];
         $view->with($compact);
     }
