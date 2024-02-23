@@ -35,7 +35,7 @@ namespace App\Models\Database\SchSysConfig
         */
         function __construct()
             {
-            parent::__construct(__CLASS__);
+            parent::__construct(__CLASS__); 
             }
 
 

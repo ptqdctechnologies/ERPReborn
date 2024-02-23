@@ -180,7 +180,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
 
 
                             //REDIS KEY MENU LIST
-                            
+                        
                             \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
                                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                                 "RedisGetMenu".$varDataRedis['userIdentity']['workerCareerInternal_RefID'], 

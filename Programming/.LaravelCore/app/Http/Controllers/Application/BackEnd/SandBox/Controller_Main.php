@@ -22,9 +22,35 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
 
         {
 
+            // $varBranch =
+            //     (new \App\Models\Database\SchSysConfig\General())->getUserPrivilege_InstitutionBranch(
+            //         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            //         4000000000399
+            //     );
+
+            $varRole =
+                (new \App\Models\Database\SchSysConfig\General())->getDataList_UserRole(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    4000000000399,
+                    null
+                );
+
+            dd($varRole);
+                
+            $varData ['userName'] = "icha";
+            $varData ['userPassword'] = "icha1234";
+
+            $x =
+                (new \App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\general\setLogin\v1\setLogin)->setLogin(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varData
+                );
+            dd($x);
+
+
             $varData =
                 (new \App\Models\Database\SchSysConfig\General())->getUserRolePrivilegeMenuAndBudget(
-                    6000000000001, 
+                    6000000000001,
                     4000000000359,
                     11000000000004,
                     95000000000037
@@ -32,7 +58,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
             dd($varData);
 
             $x = (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_Resume_BusinessDocumentIssuanceDisposition(
-                6000000000001, 
+                6000000000001,
                 11000000000004,
                 164000000000023
             );

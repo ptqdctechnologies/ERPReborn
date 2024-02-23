@@ -9,8 +9,8 @@
 | ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\documentWorkFlow\approvalStage\getApprovementHistoryList\v1
-    {
+
+namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\documentWorkFlow\approvalStage\getApprovementHistoryList\v1 {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : getApprovementHistoryList                                                                                    |
@@ -18,7 +18,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\doc
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class getApprovementHistoryList extends \App\Http\Controllers\Controller
-        {
+    {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
@@ -35,8 +35,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\doc
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         function __construct()
-            {
-            }
+        {
+        }
 
 
         /*
@@ -56,7 +56,20 @@ namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\doc
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         function main($varUserSession, $varData)
-            {
+        {
+            // $userSessionID = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+            // $branchID = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($userSessionID)['branchID'];
+            // // GET DATA MASTER SubMenu 
+            // $varDataSend = (new \App\Models\Database\SchSysConfig\General())->getBusinessDocumentWorkFlowPathApprovementHistory(
+            //     $userSessionID,
+            //     $branchID,
+            //     $varData['parameter']['businessDocument_RefID']
+            // );
+
+            // $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
+
+            // return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Business Document Work Flow Path Approvement History (version 1)');
@@ -90,6 +103,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\doc
             catch (\Exception $ex) {
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
-            }
         }
     }
+}
