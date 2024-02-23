@@ -193,6 +193,57 @@ namespace App\Models\Database\SchSysConfig
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getUserPrivilege_MenuLayout                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-07-31                                                                                           |
+        | ▪ Creation Date   : 2023-07-31                                                                                           |
+        | ▪ Description     : Mendapatkan User Privilege Menu Layout                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varBranch_RefID ► Branch Reference ID                                                                    |
+        |      ▪ (int)    varUser_RefID ► User Reference ID                                                                        |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getUserPrivilege_MenuLayout(
+            $varUserSession, 
+            int $varBranch_RefID, int $varUser_RefID)
+            {
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_General_GetUserPrivilege_MenuLayout',
+                            [
+                                [$varBranch_RefID, 'bigint'],
+                                [$varUser_RefID, 'bigint']
+                            ]
+                            )
+                        );
+                
+                $varReturn['Data'] = 
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['Data'][0]['Func_General_GetUserPrivilege_MenuLayout']
+                        );
+
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getUserPrivilege_Role                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
