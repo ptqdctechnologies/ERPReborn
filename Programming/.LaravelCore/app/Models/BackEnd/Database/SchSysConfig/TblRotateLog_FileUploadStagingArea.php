@@ -24,6 +24,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-07-21                                                                                           |
+        | ▪ Creation Date   : 2021-07-21                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,6 +45,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-07-28                                                                                           |
+        | ▪ Creation Date   : 2021-07-28                                                                                           |
         | ▪ Description     : Data Initialize                                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -54,14 +56,15 @@ namespace App\Models\Database\SchSysConfig
         */
         public function setDataInitialize($varUserSession)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig-Initialize.Func_'.parent::getSchemaName($varUserSession).'_'.parent::getTableName($varUserSession),
-                    []
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig-Initialize.Func_'.parent::getSchemaName($varUserSession).'_'.parent::getTableName($varUserSession),
+                        []
+                        )
+                    );
             return $varReturn['Data'][0];
             }
 
@@ -72,6 +75,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000002                                                                                       |
         | ▪ Last Update     : 2021-07-22                                                                                           |
+        | ▪ Creation Date   : 2021-07-22                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -87,19 +91,20 @@ namespace App\Models\Database\SchSysConfig
             string $varSysDataAnnotation = null, 
             string $varApplicationKey)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.Func_TblRotateLog_FileUploadStagingArea_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [null, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varApplicationKey, 'character varying']
-                    ],
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_TblRotateLog_FileUploadStagingArea_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [null, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varApplicationKey, 'character varying']
+                        ],
+                        )
+                    );
             return $varReturn['Data'][0];
             }
         }

@@ -59,22 +59,22 @@ namespace App\Models\Database\SchSysConfig
         */
         public function setDataInsert(
             $varUserSession, 
-            
             string $varAPIWebToken = null, 
             string $varJSONData = null, string $varExpiredInterval = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.Func_TblRotateLog_APIRequestByGet_Signature_SET',
-                    [
-                        [$varAPIWebToken, 'varchar'],
-                        [$varJSONData, 'varchar'],
-                        [$varExpiredInterval, 'interval']
-                    ],
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_TblRotateLog_APIRequestByGet_Signature_SET',
+                        [
+                            [$varAPIWebToken, 'varchar'],
+                            [$varJSONData, 'varchar'],
+                            [$varExpiredInterval, 'interval']
+                        ],
+                        )
+                    );
             return $varReturn['Data'][0]['Signature'];
             }
         }

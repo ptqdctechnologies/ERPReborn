@@ -5,7 +5,7 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchSysConfig                                                                                 |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchSysConfig
@@ -24,6 +24,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-01-27                                                                                           |
+        | ▪ Creation Date   : 2021-01-27                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,6 +45,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-01-27                                                                                           |
+        | ▪ Creation Date   : 2021-01-27                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -51,6 +53,7 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varLog_Device_PersonAccessFetch_RefID ► Reference ID                                                     |
         |      ▪ (string) varAttendanceDateTimeTZ ► Attendance DateTimeTZ                                                          |
         |      ▪ (int)    varPersonID ► Finger Print User ID                                                                       |
@@ -64,24 +67,26 @@ namespace App\Models\Database\SchSysConfig
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
             int $varLog_Device_PersonAccessFetch_RefID = null, string $varAttendanceDateTimeTZ = null, int $varPersonID = null, string $varPersonUserName = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [null, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
-                        [$varLog_Device_PersonAccessFetch_RefID, 'bigint'],
-                        [$varAttendanceDateTimeTZ, 'timestamptz'],
-                        [$varPersonID, 'bigint'],
-                        [$varPersonUserName, 'varchar']
-                    ]
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [null, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranchRefID, 'bigint'],
+
+                            [$varLog_Device_PersonAccessFetch_RefID, 'bigint'],
+                            [$varAttendanceDateTimeTZ, 'timestamptz'],
+                            [$varPersonID, 'bigint'],
+                            [$varPersonUserName, 'varchar']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0];
             }
 
@@ -92,6 +97,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-01-27                                                                                           |
+        | ▪ Creation Date   : 2021-01-27                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -100,6 +106,7 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varLog_Device_PersonAccessFetch_RefID ► Reference ID                                                     |
         |      ▪ (string) varAttendanceDateTimeTZ ► Attendance DateTimeTZ                                                          |
         |      ▪ (int)    varPersonID ► Finger Print User ID                                                                       |
@@ -113,24 +120,26 @@ namespace App\Models\Database\SchSysConfig
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
             int $varLog_Device_PersonAccessFetch_RefID = null, string $varAttendanceDateTimeTZ = null, int $varPersonID = null, string $varPersonUserName = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varSysID, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
-                        [$varLog_Device_PersonAccessFetch_RefID, 'bigint'],
-                        [$varAttendanceDateTimeTZ, 'timestamptz'],
-                        [$varPersonID, 'bigint'],
-                        [$varPersonUserName, 'varchar']
-                    ],
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varSysID, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranchRefID, 'bigint'],
+
+                            [$varLog_Device_PersonAccessFetch_RefID, 'bigint'],
+                            [$varAttendanceDateTimeTZ, 'timestamptz'],
+                            [$varPersonID, 'bigint'],
+                            [$varPersonUserName, 'varchar']
+                        ],
+                        )
+                    );
             return $varReturn['Data'][0];
             }
         }

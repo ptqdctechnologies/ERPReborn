@@ -70,28 +70,29 @@ namespace App\Models\Database\SchSysConfig
             string $varSysDataAnnotation = null, 
             string $varHostIPAddress, string $varURL, string $varNavigatorUserAgent, string $varRequestDateTimeTZ, string $varRequestHTTPHeader, string $varRequestHTTPBody, string $varResponseDateTimeTZ, int $varResponseHTTPStatus = null, string $varResponseHTTPHeader = null, string $varResponseHTTPBody = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.Func_TblRotateLog_API_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [null, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varHostIPAddress, 'cidr'],
-                        [$varURL, 'character varying'],
-                        [$varNavigatorUserAgent, 'character varying'],
-                        [$varRequestDateTimeTZ, 'timestamp with time zone'],
-                        [$varRequestHTTPHeader, 'json'], 
-                        [$varRequestHTTPBody, 'character varying'],
-                        [$varResponseDateTimeTZ, 'timestamp with time zone'], 
-                        [$varResponseHTTPStatus, 'smallint'], 
-                        [$varResponseHTTPHeader, 'json'],
-                        [$varResponseHTTPBody, 'character varying']
-                    ],
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_TblRotateLog_API_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [null, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varHostIPAddress, 'cidr'],
+                            [$varURL, 'character varying'],
+                            [$varNavigatorUserAgent, 'character varying'],
+                            [$varRequestDateTimeTZ, 'timestamp with time zone'],
+                            [$varRequestHTTPHeader, 'json'], 
+                            [$varRequestHTTPBody, 'character varying'],
+                            [$varResponseDateTimeTZ, 'timestamp with time zone'], 
+                            [$varResponseHTTPStatus, 'smallint'], 
+                            [$varResponseHTTPHeader, 'json'],
+                            [$varResponseHTTPBody, 'character varying']
+                        ],
+                        )
+                    );
             return $varReturn['Data'][0];
             }
         }

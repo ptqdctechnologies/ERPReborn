@@ -23,8 +23,8 @@ namespace App\Models\Database\SchSysConfig
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2023-02-08                                                                                           |
         | ▪ Last Update     : 2023-02-08                                                                                           |
+        | ▪ Creation Date   : 2023-02-08                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,8 +43,8 @@ namespace App\Models\Database\SchSysConfig
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2023-02-28                                                                                           |
         | ▪ Last Update     : 2023-02-28                                                                                           |
+        | ▪ Creation Date   : 2023-02-28                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -65,24 +65,25 @@ namespace App\Models\Database\SchSysConfig
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
             string $varJSONDataInitGraph = null, string $varRemarks = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [null, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
-                        
-                        [$varRemarks, 'varchar'],
-                        [$varJSONDataInitGraph, 'json']
-                    ]
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [null, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
+
+                            [$varRemarks, 'varchar'],
+                            [$varJSONDataInitGraph, 'json']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0];
             }
 
@@ -92,8 +93,8 @@ namespace App\Models\Database\SchSysConfig
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2023-02-28                                                                                           |
         | ▪ Last Update     : 2023-02-28                                                                                           |
+        | ▪ Creation Date   : 2023-02-28                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -115,24 +116,25 @@ namespace App\Models\Database\SchSysConfig
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
             string $varJSONDataInitGraph = null, string $varRemarks = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varSysID, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varSysID, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [$varRemarks, 'varchar'],
-                        [$varJSONDataInitGraph, 'json']
-                    ]
-                    )
-                );
+                            [$varRemarks, 'varchar'],
+                            [$varJSONDataInitGraph, 'json']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0];
             }
         }

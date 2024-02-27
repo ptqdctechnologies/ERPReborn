@@ -23,8 +23,8 @@ namespace App\Models\Database\SchSysConfig
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2020-09-11                                                                                           |
         | ▪ Last Update     : 2020-09-11                                                                                           |
+        | ▪ Creation Date   : 2020-09-11                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Models\Database\SchSysConfig
         | ▪ Method Name     : setDataInitialize                                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-04-08                                                                                           |
         | ▪ Last Update     : 2022-04-08                                                                                           |
+        | ▪ Creation Date   : 2022-04-08                                                                                           |
         | ▪ Description     : Data Initialize                                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -56,14 +56,15 @@ namespace App\Models\Database\SchSysConfig
         */
         public function setDataInitialize($varUserSession)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig-Initialize.Func_'.parent::getSchemaName($varUserSession).'_'.parent::getTableName($varUserSession),
-                    []
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig-Initialize.Func_'.parent::getSchemaName($varUserSession).'_'.parent::getTableName($varUserSession),
+                        []
+                        )
+                    );
             return $varReturn['Data'][0];
             }
 
@@ -74,6 +75,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-09-11                                                                                           |
+        | ▪ Creation Date   : 2020-09-11                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -91,21 +93,22 @@ namespace App\Models\Database\SchSysConfig
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
             string $varName = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [null, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
-                        [$varName, 'varchar']
-                    ]
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [null, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranchRefID, 'bigint'],
+                            [$varName, 'varchar']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0];
             }
 
@@ -116,6 +119,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-09-11                                                                                           |
+        | ▪ Creation Date   : 2020-09-11                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -134,21 +138,22 @@ namespace App\Models\Database\SchSysConfig
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
             string $varName = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varSysID, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
-                        [$varName, 'varchar']
-                    ],
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varSysID, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranchRefID, 'bigint'],
+                            [$varName, 'varchar']
+                        ],
+                        )
+                    );
             return $varReturn['Data'][0];
             }*/
         }
