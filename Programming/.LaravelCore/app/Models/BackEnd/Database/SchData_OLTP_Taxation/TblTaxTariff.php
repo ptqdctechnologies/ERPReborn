@@ -23,8 +23,8 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-03-15                                                                                           |
         | ▪ Last Update     : 2022-03-15                                                                                           |
+        | ▪ Creation Date   : 2022-03-15                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         | ▪ Method Name     : setDataInitialize                                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-03-15                                                                                           |
         | ▪ Last Update     : 2022-03-15                                                                                           |
+        | ▪ Creation Date   : 2022-03-15                                                                                           |
         | ▪ Description     : Data Initialize                                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -56,14 +56,16 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         */
         public function setDataInitialize($varUserSession)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig-Initialize.Func_'.parent::getSchemaName($varUserSession).'_'.parent::getTableName($varUserSession),
-                    []
-                    )
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig-Initialize.Func_'.parent::getSchemaName($varUserSession).'_'.parent::getTableName($varUserSession),
+                        []
+                        )
                 );
+
             return $varReturn['Data'][0];
             }
 
@@ -73,15 +75,16 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Creation Date   : 2022-03-15                                                                                           |
         | ▪ Last Update     : 2022-03-16                                                                                           |
+        | ▪ Creation Date   : 2022-03-15                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varTaxType_RefID ► Tax Type Reference ID                                                                 |
         |      ▪ (string) varValidStartDateTimeTZ ► Valid Start DateTimeTZ                                                         |
         |      ▪ (string) varValidFinishDateTimeTZ ► Valid Finish DateTimeTZ                                                       |
@@ -95,31 +98,33 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         */
         public function setDataInsert(
             $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
+            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,
             int $varTaxType_RefID = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null, float $varTariffMinimumRate = null, float $varTariffMaximumRate = null, int $varRoundUnit = null, bool $varSignRoundUp = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [null, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [null, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
 
-                        [$varTaxType_RefID, 'bigint'],
-                        [$varValidStartDateTimeTZ, 'timestamptz'],
-                        [$varValidFinishDateTimeTZ, 'timestamptz'],
-                        [$varTariffMinimumRate, 'numeric'],
-                        [$varTariffMaximumRate, 'numeric'],
-                        [$varRoundUnit, 'smallint'],
-                        [$varSignRoundUp, 'boolean']
-                    ]
-                    )
-                );
+                            [$varTaxType_RefID, 'bigint'],
+                            [$varValidStartDateTimeTZ, 'timestamptz'],
+                            [$varValidFinishDateTimeTZ, 'timestamptz'],
+                            [$varTariffMinimumRate, 'numeric'],
+                            [$varTariffMaximumRate, 'numeric'],
+                            [$varRoundUnit, 'smallint'],
+                            [$varSignRoundUp, 'boolean']
+                        ]
+                        )
+                    );
+
             return $varReturn['Data'][0];
             }
 
@@ -129,8 +134,8 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Creation Date   : 2022-03-15                                                                                           |
         | ▪ Last Update     : 2022-03-16                                                                                           |
+        | ▪ Creation Date   : 2022-03-15                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -138,7 +143,8 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varTaxType_RefID ► Tax Type Reference ID                                                                 |
         |      ▪ (string) varValidStartDateTimeTZ ► Valid Start DateTimeTZ                                                         |
         |      ▪ (string) varValidFinishDateTimeTZ ► Valid Finish DateTimeTZ                                                       |
@@ -152,31 +158,33 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         */
         public function setDataUpdate(
             $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
+            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,
             int $varTaxType_RefID = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null, float $varTariffMinimumRate = null, float $varTariffMaximumRate = null, int $varRoundUnit = null, bool $varSignRoundUp = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varSysID, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varSysID, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
 
-                        [$varTaxType_RefID, 'bigint'],
-                        [$varValidStartDateTimeTZ, 'timestamptz'],
-                        [$varValidFinishDateTimeTZ, 'timestamptz'],
-                        [$varTariffMinimumRate, 'numeric'],
-                        [$varTariffMaximumRate, 'numeric'],
-                        [$varRoundUnit, 'smallint'],
-                        [$varSignRoundUp, 'boolean']
-                    ],
-                    )
-                );
+                            [$varTaxType_RefID, 'bigint'],
+                            [$varValidStartDateTimeTZ, 'timestamptz'],
+                            [$varValidFinishDateTimeTZ, 'timestamptz'],
+                            [$varTariffMinimumRate, 'numeric'],
+                            [$varTariffMaximumRate, 'numeric'],
+                            [$varRoundUnit, 'smallint'],
+                            [$varSignRoundUp, 'boolean']
+                        ],
+                        )
+                    );
+
             return $varReturn['Data'][0];
             }
         }

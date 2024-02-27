@@ -23,13 +23,14 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         | ▪ Method Name     : getDataList_TaxType                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-03-16                                                                                           |
         | ▪ Last Update     : 2022-03-16                                                                                           |
+        | ▪ Creation Date   : 2022-03-16                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Jenis Pajak                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |        ----------------------------------------                                                                          |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -43,20 +44,22 @@ namespace App\Models\Database\SchData_OLTP_Taxation
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Taxation.Func_GetDataList_TaxType',
-                        [
-                            [$varBranchID, 'bigint' ],
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );                
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Taxation.Func_GetDataList_TaxType',
+                            [
+                                [$varBranchID, 'bigint' ],
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -70,13 +73,14 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         | ▪ Method Name     : getDataPickList_TaxType                                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-03-16                                                                                           |
         | ▪ Last Update     : 2022-03-16                                                                                           |
+        | ▪ Creation Date   : 2022-03-16                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Jenis Pajak                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -85,16 +89,18 @@ namespace App\Models\Database\SchData_OLTP_Taxation
             $varUserSession, int $varBranchID)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Taxation.Func_GetDataPickList_TaxType',
-                        [
-                            [$varBranchID, 'bigint' ]
-                        ]
-                        )
-                    );
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Taxation.Func_GetDataPickList_TaxType',
+                            [
+                                [$varBranchID, 'bigint' ]
+                            ]
+                            )
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -108,13 +114,14 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         | ▪ Method Name     : getReport_Form_DocumentForm_TransactionTax                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-06-30                                                                                           |
         | ▪ Creation Date   : 2022-06-30                                                                                           |
+        | ▪ Last Update     : 2022-06-30                                                                                           |
         | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Pajak Transaksi (Transaction Tax)                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varSysID ► Record ID                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -125,17 +132,20 @@ namespace App\Models\Database\SchData_OLTP_Taxation
             int $varSysID)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Taxation.Func_GetReport_DocForm_TransactionTax',
-                        [
-                            [$varSysBranch_RefID, 'bigint' ],
-                            [$varSysID, 'bigint' ]
-                        ]
-                        )
-                    );
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Taxation.Func_GetReport_DocForm_TransactionTax',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
+
+                                [$varSysID, 'bigint' ]
+                            ]
+                            )
+                        );
+
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 

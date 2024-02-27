@@ -23,8 +23,8 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-03-16                                                                                           |
         | ▪ Last Update     : 2022-03-16                                                                                           |
+        | ▪ Creation Date   : 2022-03-16                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Creation Date   : 2022-03-16                                                                                           |
         | ▪ Last Update     : 2022-03-24                                                                                           |
+        | ▪ Creation Date   : 2022-03-16                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -70,28 +70,30 @@ namespace App\Models\Database\SchData_OLTP_Taxation
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
             int $varTransactionTax_RefID = null, int $varTaxType_RefID = null, int $varTariffCurrency_RefID = null, float $varTariffCurrencyValue = null, float $varTariffCurrencyExchangeRate = null, string $varRemarks = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [null, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [null, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [$varTransactionTax_RefID, 'bigint'],
-                        [$varTaxType_RefID, 'bigint'],
-                        [$varTariffCurrency_RefID, 'bigint'],
-                        [$varTariffCurrencyValue, 'numeric'],
-                        [$varTariffCurrencyExchangeRate, 'numeric'],
-                        [$varRemarks, 'varchar']
-                    ]
-                    )
-                );
+                            [$varTransactionTax_RefID, 'bigint'],
+                            [$varTaxType_RefID, 'bigint'],
+                            [$varTariffCurrency_RefID, 'bigint'],
+                            [$varTariffCurrencyValue, 'numeric'],
+                            [$varTariffCurrencyExchangeRate, 'numeric'],
+                            [$varRemarks, 'varchar']
+                        ]
+                        )
+                    );
+
             return $varReturn['Data'][0];
             }
 
@@ -101,8 +103,8 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Creation Date   : 2022-03-16                                                                                           |
         | ▪ Last Update     : 2022-03-24                                                                                           |
+        | ▪ Creation Date   : 2022-03-16                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -128,28 +130,30 @@ namespace App\Models\Database\SchData_OLTP_Taxation
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
             int $varTransactionTax_RefID = null, int $varTaxType_RefID = null, int $varTariffCurrency_RefID = null, float $varTariffCurrencyValue = null, float $varTariffCurrencyExchangeRate = null, string $varRemarks = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varSysID, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varSysID, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [$varTransactionTax_RefID, 'bigint'],
-                        [$varTaxType_RefID, 'bigint'],
-                        [$varTariffCurrency_RefID, 'bigint'],
-                        [$varTariffCurrencyValue, 'numeric'],
-                        [$varTariffCurrencyExchangeRate, 'numeric'],
-                        [$varRemarks, 'varchar']
-                    ],
-                    )
-                );
+                            [$varTransactionTax_RefID, 'bigint'],
+                            [$varTaxType_RefID, 'bigint'],
+                            [$varTariffCurrency_RefID, 'bigint'],
+                            [$varTariffCurrencyValue, 'numeric'],
+                            [$varTariffCurrencyExchangeRate, 'numeric'],
+                            [$varRemarks, 'varchar']
+                        ],
+                        )
+                    );
+
             return $varReturn['Data'][0];
             }
         }
