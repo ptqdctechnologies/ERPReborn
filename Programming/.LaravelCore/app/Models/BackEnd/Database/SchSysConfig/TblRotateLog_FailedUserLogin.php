@@ -89,6 +89,7 @@ namespace App\Models\Database\SchSysConfig
                         ],
                         )
                     );
+
             return $varReturn['Data'][0];
             }
         }
