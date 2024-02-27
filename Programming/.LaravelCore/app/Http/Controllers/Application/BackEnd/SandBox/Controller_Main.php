@@ -21,24 +21,41 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
         public function testAja2()
 
         {
+            $varMenu =
+                (new \App\Models\Database\SchSysConfig\General())->getDataList_AppObject_UserRole(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    11000000000004
+                );
+
+            dd($varMenu);
+
+            // $varMenu =
+            //     (new \App\Models\Database\SchSysConfig\General())->getDataList_AppObject_UserRolePrivileges(
+            //         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            //         11000000000004,
+            //         95000000000037
+            //     );
+
+            // dd($varMenu);
 
             // $varBranch =
             //     (new \App\Models\Database\SchSysConfig\General())->getUserPrivilege_InstitutionBranch(
             //         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            //         4000000000399
+            //         4000000000002
             //     );
 
-            $varRole =
-                (new \App\Models\Database\SchSysConfig\General())->getDataList_UserRole(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    4000000000399,
-                    null
-                );
+            // dd($varBranch);
+            // $varRole =
+            //     (new \App\Models\Database\SchSysConfig\General())->getDataList_UserRole(
+            //         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            //         4000000000399,
+            //         null
+            //     );
 
-            dd($varRole);
-                
-            $varData ['userName'] = "icha";
-            $varData ['userPassword'] = "icha1234";
+            // dd($varRole);
+
+            $varData['userName'] = "icha";
+            $varData['userPassword'] = "icha1234";
 
             $x =
                 (new \App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\general\setLogin\v1\setLogin)->setLogin(

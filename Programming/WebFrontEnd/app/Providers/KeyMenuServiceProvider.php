@@ -9,16 +9,16 @@ class KeyMenuServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        View::composer(
-            [
-                'Partials.sidebar', 
-                'Advance.Advance.Functions.Menu.MenuAdvanceRequest', 
-                'Advance.Advance.Functions.Menu.MenuAdvanceSettlement', 
-                'Advance.BusinessTrip.Functions.Menu.MenuBusinessTripRequest', 
-                'Purchase.PurchaseRequisition.Functions.Menu.MenuProcReq', 
-                'Documents.Functions.Menu.MenuMyDocument'
-            ],
-            'App\Http\ViewComposers\KeyMenuComposer'
-        );
+        // View::composer(
+        //     [
+        //         'Partials.sidebar', 
+        //         'Advance.Advance.Functions.Menu.MenuAdvanceRequest', 
+        //         'Advance.Advance.Functions.Menu.MenuAdvanceSettlement', 
+        //         'Advance.BusinessTrip.Functions.Menu.MenuBusinessTripRequest', 
+        //         'Purchase.PurchaseRequisition.Functions.Menu.MenuProcReq', 
+        //         'Documents.Functions.Menu.MenuMyDocument'
+        //     ],
+        //     'App\Http\ViewComposers\KeyMenuComposer'
+        // );
     }
 }

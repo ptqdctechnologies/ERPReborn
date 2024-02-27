@@ -610,7 +610,6 @@ class FunctionController extends Controller
     public function getDepartement()
     {
         if (Redis::get("Departement") == null) {
-
             $varAPIWebToken = Session::get('SessionLogin');
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -753,7 +752,6 @@ class FunctionController extends Controller
             true
         );
 
-        // dd($SubMenu);
 
         $menu_group_id = $request->input('menu_group_id');
         $type = $request->input('type');

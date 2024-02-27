@@ -218,21 +218,21 @@ $varDataSend = [
                                     "Branch" . $user_RefID,
                                     json_encode($varBranch),
                                     $varTTL
-                                ); 
+                                );
                             }
+
+                            $varDataBranch = json_decode(
+                                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                    "Branch" . $user_RefID
+                                ),
+                                true
+                            );
 
                             // 2
                             //GET REDIS BRANCH
 
                             if (Redis::get("Role" . $user_RefID) == null) {
-                                $varDataBranch = json_decode(
-                                    \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                                        "Branch" . $user_RefID
-                                    ),
-                                    true
-                                );
-
                                 //DATA ROLE
 
                                 if (count($varDataBranch) > 1) {
@@ -242,7 +242,6 @@ $varDataSend = [
                                             $user_RefID,
                                             null
                                         );
-
                                 } else {
                                     $varRole =
                                         (new \App\Models\Database\SchSysConfig\General())->getUserPrivilege_Role(
@@ -263,28 +262,56 @@ $varDataSend = [
                                 );
                             }
 
+                            // 3
+                            //DATA MENU
+
+                            $varDataRole = json_decode(
+                                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                    "Role" . $user_RefID
+                                ),
+                                true
+                            );
+
+                            if (count($varDataBranch) == 1) {
+                                foreach ($varDataRole as $varDataRoles) {
+
+                                    if (Redis::get("RedisSetMenu" . $varDataRoles['Sys_ID']) == null) {
+
+                                        //SET REDIS MENU
+
+                                        \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+                                            $varUserSession,
+                                            "RedisSetMenu" . $varDataRoles['Sys_ID'],
+                                            true,
+                                            $varTTL
+                                        );
+
+                                        $varMenu =
+                                            (new \App\Models\Database\SchSysConfig\General())->getUserPrivilege_MenuLayout(
+                                                $varUserSession,
+                                                $varDataBranch[0]['Sys_ID'],
+                                                $user_RefID
+                                            );
+
+                                        \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+                                            $varUserSession,
+                                            "RedisGetMenu" . $user_RefID,
+                                            json_encode($varMenu),
+                                            $varTTL
+                                        );
+                                    }
+                                }
+
+
+                                $varDataRedis = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, (new \App\Models\Cache\General\APIWebToken())->getDataRecord($varUserSession, $varBufferDB[0]['APIWebToken']));
+                                $varDataRedis['branch_RefID'] = $varDataBranch[0]['Sys_ID'];
+                                (new \App\Models\Cache\General\APIWebToken())->setDataUpdate($varUserSession, $varBufferDB[0]['APIWebToken'], \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varDataRedis));
+                            }
+
+
                             // END REDIS HELPER LOGIN 
 
-
-                            //$varDataSend = ['xxx' => $varBufferDB];
-                            //$varDataSend = ['xxx' => $varData];
-                            //$varDataSend = ['xxx' => $varSysID];
-                            //$varDataSend = ['xxx' => $varUserName];
-                            //$varDataSend = ['xxx' => $varUserIdentity];
-
-                            /*
-                        $varDataSend = ['xxx' => 
-                            (new \App\Models\Database\SchSysConfig\General())
-                                ->getUserRolePrivilege(
-                                    $varUserSession, 
-                                    11000000000001,
-                                    (new \App\Models\Database\SchSysConfig\General())->getUserIDByName(
-                                        $varUserSession, 
-                                        $varUserName
-                                        )
-                                    )
-                            ];
-                        */
                             $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend, $this->varAPIIdentity);
                         } else {
                             $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, 'User\'s Environment Variable Can\'t be Declared');

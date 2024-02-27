@@ -16,7 +16,7 @@ class LoginController extends Controller
     public function index(Request $request)
     {
         try {
-            // dd(Redis::get('*'));
+            // dd(Redis::keys('*'));
             $varAPIWebToken = Session::get('SessionLogin');
             if ($varAPIWebToken) {
                 return view('Dashboard.index');
@@ -87,10 +87,21 @@ class LoginController extends Controller
             );
 
             if ($checking['metadata']['HTTPStatusCode'] == 200) {
+
+                $privilageMenu = json_decode(
+                    \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        "RedisGetMenu" . $user_RefID
+                    ),
+                    true
+                );
+
                 Session::put('SessionLogin', $varAPIWebToken);
                 Session::put('SessionOrganizationalDepartmentName', $organizationalDepartmentName);
                 Session::put('SessionLoginName', $personName);
                 Session::put('SessionWorkerCareerInternal_RefID', $workerCareerInternal_RefID);
+                Session::put('SessionUser_RefID', $user_RefID);
+                Session::put('PrivilageMenu', $privilageMenu);
 
                 $compact = [
                     'status_code' => 1,
@@ -151,17 +162,35 @@ class LoginController extends Controller
 
                     $varAPIWebToken = $dataAwal['data']['APIWebToken'];
 
-                    // CALL GET INSTRUCTION BRANCH FUNCTION 
                     $varDataBranch = $this->GetInstitutionBranchFunction($dataAwal['data']['userIdentity']['user_RefID']);
 
                     if (count($varDataBranch) == 1) {
 
-                        // CALL GET ROLE FUNCTION 
-                        $varDataRole = $this->GetRoleFunction($varDataBranch[0]['Sys_ID'], $dataAwal['data']['userIdentity']['user_RefID']);
+                        $privilageMenu = json_decode(
+                            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                "RedisGetMenu" . $dataAwal['data']['userIdentity']['user_RefID']
+                            ),
+                            true
+                        );
 
-                        // CALL SET LOGIN BRANCH AND USER ROLE FUNCTION
-                        return $this->SetLoginBranchAndUserRoleFunction($varAPIWebToken, $varDataBranch[0]['Sys_ID'], $varDataRole[0]['Sys_ID'], $dataAwal['data']['userIdentity']['personName'], $dataAwal['data']['userIdentity']['workerCareerInternal_RefID'], $dataAwal['data']['userIdentity']['user_RefID'], $dataAwal['data']['userIdentity']['organizationalDepartmentName']);
+                        // dd($privilageMenu);
+
+                        Session::put('SessionLogin', $varAPIWebToken);
+                        Session::put('SessionOrganizationalDepartmentName', $dataAwal['data']['userIdentity']['organizationalDepartmentName']);
+                        Session::put('SessionLoginName', $dataAwal['data']['userIdentity']['personName']);
+                        Session::put('SessionWorkerCareerInternal_RefID', $dataAwal['data']['userIdentity']['workerCareerInternal_RefID']);
+                        Session::put('SessionUser_RefID', $dataAwal['data']['userIdentity']['user_RefID']);
+                        Session::put('PrivilageMenu', $privilageMenu);
+
+                        $compact = [
+                            'status_code' => 1,
+                        ];
+
+                        return response()->json($compact);
                     } else {
+
+                        // CALL GET INSTRUCTION BRANCH FUNCTION 
 
                         if ($varUserRoleID == 0) {
 
