@@ -65,6 +65,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (float)  varProductUnitPriceCurrencyExchangeRate ► Product Unit Price Currency Exchange Rate                      |
         |      ▪ (string) varFulfillmentDeadlineDateTimeTZ ► Fulfillment Deadline DateTimeTZ                                       |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -132,6 +133,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (float)  varProductUnitPriceCurrencyExchangeRate ► Product Unit Price Currency Exchange Rate                      |
         |      ▪ (string) varFulfillmentDeadlineDateTimeTZ ► Fulfillment Deadline DateTimeTZ                                       |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
