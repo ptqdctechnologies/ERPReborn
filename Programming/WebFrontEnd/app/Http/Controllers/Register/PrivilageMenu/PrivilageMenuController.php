@@ -16,7 +16,9 @@ class PrivilageMenuController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
+        // dd(Session::get("PrivilageMenu"));
+
         return view('Register.PrivilageMenu.Transactions.index');
     }
 
@@ -42,6 +44,10 @@ class PrivilageMenuController extends Controller
         );
 
         // dd($varData);
+
+        if($varData['metadata']['HTTPStatusCode'] == "200"){
+            Redis::del("RedisSetMenu" . $userRole_RefID);
+        }
 
         $compact = [
             "status" => $varData['metadata']['HTTPStatusCode'],
@@ -75,6 +81,8 @@ class PrivilageMenuController extends Controller
                 ]
             ]
         );
+
+        // dd($varData);
 
         $compact = [
             "data" => $varData['data'],

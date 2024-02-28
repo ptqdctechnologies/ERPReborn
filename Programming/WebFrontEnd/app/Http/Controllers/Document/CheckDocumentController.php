@@ -34,21 +34,6 @@ class CheckDocumentController extends Controller
         $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
         $varAPIWebToken = Session::get('SessionLogin');
 
-        $DataWorkflowHistory = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'userAction.documentWorkFlow.approvalStage.getApprovementHistoryList', 
-            'latest',
-            [
-            'parameter' => [
-                'businessDocument_RefID' => 74000000020689
-                ]
-            ],
-            false
-        );
-
-        dd($DataWorkflowHistory);
-
         if (Redis::get("DataListAdvanceDetailComplex") == null) {
             \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -95,7 +80,7 @@ class CheckDocumentController extends Controller
             $num++;
         }
 
-        dd($filteredArray);
+        // dd($filteredArray);
 
         $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
         $statusApprover = "No";

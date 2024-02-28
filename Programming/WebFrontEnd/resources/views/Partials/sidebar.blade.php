@@ -13,75 +13,79 @@
 
         <nav class="mt-2">
 
-            <!-- <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                @foreach($MenuGroup as $MenuGroups)
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                @foreach(Session::get("PrivilageMenu") as $MenuLayouts)
                 <li class="nav-item has-treeview" style="position: relative;left:2px;">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon-sm fas fa-hourglass-start" style="color:#e9ecef;"></i>
+                        <i class="nav-icon-sm {{ $MenuLayouts['entities']['iconSource'] }}" style="color:#e9ecef;"></i>
                         <label>
-                            &nbsp; {{ $MenuGroups['Name'] }}
+                            &nbsp; {{ $MenuLayouts['entities']['caption'] }}
                         </label>
                         <i class="right fas fa-angle-left"></i>
                     </a>
                     <ul class="nav nav-treeview">
-
-                        @foreach($MenuGroup as $MenuGroups2)
+                        @foreach($MenuLayouts['entities']['itemList'] as $MenuLayouts2)
                         <li class="nav-item">
+
+                            @if($MenuLayouts2['entities']['itemList'][0]['entities']['caption'] == "Transaction" || $MenuLayouts2['entities']['itemList'][0]['entities']['caption'] == "Report")
                             <a href="#" class="nav-link">&nbsp;
                                 <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
-                                <label>{{ $MenuGroups2['Name'] }}</label>
+                                <label>{{ $MenuLayouts2['entities']['caption'] }}</label>
                                 <i class="right fas fa-angle-left"></i>
                             </a>
                             <ul class="nav nav-treeview">
-                                @foreach($MenuGroup as $MenuGroups3)
+                                @foreach($MenuLayouts2['entities']['itemList'] as $MenuLayouts3)
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">&nbsp;&nbsp;&nbsp;
                                         <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
-                                        <label>{{ $MenuGroups3['Name'] }}</label>
+                                        <label>{{ $MenuLayouts3['entities']['caption'] }}</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
-                                        @foreach($MenuGroup as $MenuGroups4)
+                                        @foreach($MenuLayouts3['entities']['itemList'] as $MenuLayouts4)
+                                    
                                         <li class="nav-item">
-                                            <a href="{{ route('AdvanceRequest.ReportAdvanceSummary') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>{{ $MenuGroups4['Name'] }}</label>
-                                            </a>
+                                            @if(isset($MenuLayouts4['entities']['URLPath']))
+                                                <a href="{{ route($MenuLayouts4['entities']['URLPath']) }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
+                                                    <label>{{ $MenuLayouts4['entities']['caption'] }}</label>
+                                                </a>
+                                            @else
+                                                <a href="#" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
+                                                    <label>{{ $MenuLayouts4['entities']['caption'] }}</label>
+                                                </a>
+                                            @endif
                                         </li>
                                         @endforeach
                                     </ul>
                                 </li>
                                 @endforeach
                             </ul>
-                        </li>
-                        @endforeach
-                    </ul>
-                    <ul class="nav nav-treeview">
-                        @foreach($MenuGroup as $MenuGroups5)
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">&nbsp;&nbsp;&nbsp;
-                                <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
-                                <label>Transaction</label>
-                                <i class="right fas fa-angle-left"></i>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('AdvanceRequest.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                        <label>{{ $MenuGroups5['Name'] }}</label>
+                            @else
+                                @if(isset($MenuLayouts2['entities']['itemList'][0]['entities']['URLPath']))
+                                    <a href="{{ route($MenuLayouts2['entities']['itemList'][0]['entities']['URLPath']) }}?var=1" class="nav-link">&nbsp;
+                                        <i class="nav-icon-sm far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
+                                        <label>{{ $MenuLayouts2['entities']['caption'] }}</label>
                                     </a>
-                                </li>
-                            </ul>
+                                @else
+                                    <a href="#" class="nav-link">&nbsp;
+                                        <i class="nav-icon-sm far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
+                                        <label>{{ $MenuLayouts2['entities']['caption'] }}</label>
+                                    </a>
+                                @endif
+                            @endif
                         </li>
                         @endforeach
                     </ul>
                 </li>
                 @endforeach
-            </ul> -->
+
+            </ul>
 
 
 
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item has-treeview" style="position: relative;left:2px;">
                     <a href="#" class="nav-link">
                         <i class="nav-icon-sm fas fa-home" style="color:#e9ecef;"></i>
@@ -1394,7 +1398,7 @@
                         </li>
                     </ul>
                 </li>
-            </ul>
+            </ul> -->
         </nav>
 
     </div>
