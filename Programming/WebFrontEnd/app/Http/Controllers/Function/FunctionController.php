@@ -637,6 +637,8 @@ class FunctionController extends Controller
             true
         );
 
+        // dd($Departement);
+
         return response()->json($Departement);
     }
 

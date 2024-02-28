@@ -21,6 +21,21 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
         public function testAja2()
 
         {
+            $varAdvanceDetailComplex =
+                (new \App\Models\Database\SchData_OLTP_Project\TblProjectSectionItem())->setDataInsert(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    11000000000004,
+                    null, 
+                    null,
+                    11000000000004,
+                    $varData['entities']['businessDocumentVersion_RefID'],
+                    $varData['entities']['projectSection_RefID'],
+                    $varData['entities']['name'],
+                    $varData['entities']['code']
+                );
+
+            dd($varAdvanceDetailComplex);
+
             $varMenu =
                 (new \App\Models\Database\SchSysConfig\General())->getDataList_AppObject_UserRole(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),

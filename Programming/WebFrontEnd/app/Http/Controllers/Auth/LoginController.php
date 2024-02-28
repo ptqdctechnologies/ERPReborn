@@ -42,6 +42,8 @@ class LoginController extends Controller
                 true
             );
 
+            // dd($varDataRole);
+
             return $varDataRole;
         } catch (\Throwable $th) {
 
@@ -62,6 +64,7 @@ class LoginController extends Controller
                 ),
                 true
             );
+
             return $varDataBranch;
         } catch (\Throwable $th) {
 
@@ -149,9 +152,7 @@ class LoginController extends Controller
                     $username,
                     $password
                 );
-
-                // dd($dataAwal);
-
+            
                 if ($dataAwal['metadata']['HTTPStatusCode'] != 200) {
 
                     $compact = [

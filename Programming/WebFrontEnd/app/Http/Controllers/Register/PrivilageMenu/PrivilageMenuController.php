@@ -17,7 +17,7 @@ class PrivilageMenuController extends Controller
      */
     public function index()
     {   
-        dd(Session::get("PrivilageMenu"));
+        // dd(Session::get("PrivilageMenu"));
 
         return view('Register.PrivilageMenu.Transactions.index');
     }
