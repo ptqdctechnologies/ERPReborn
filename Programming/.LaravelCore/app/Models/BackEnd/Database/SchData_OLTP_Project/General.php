@@ -213,7 +213,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         */
         public function getDataPickList_ProjectSectionItem(
             $varUserSession, int $varBranchID,
-            int $varProject_RefID)
+            int $varProject_RefID = null)
             {
             try {
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(

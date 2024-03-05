@@ -63,8 +63,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\p
             $varSubBudget =
                 (new \App\Models\Database\SchData_OLTP_Project\General())->getDataPickList_ProjectSectionItem(
                     $userSessionID,
-                    $branchID,
-                    0
+                    $branchID
                 );
 
             //SET REDIS SUB BUDGET

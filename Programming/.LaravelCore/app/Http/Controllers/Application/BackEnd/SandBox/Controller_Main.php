@@ -21,20 +21,51 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox {
         public function testAja2()
 
         {
-            $varAdvanceDetailComplex =
-                (new \App\Models\Database\SchData_OLTP_Project\TblProjectSectionItem())->setDataInsert(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+
+            $varShowMyDocumentListData =
+                (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_Resume_BusinessDocumentIssuanceDisposition(
+                    6000000000001,
                     11000000000004,
-                    null, 
+                    4000000000359
+                );  
+
+            dd($varShowMyDocumentListData);
+
+
+            $varSubBudget =
+                (new \App\Models\Database\SchData_OLTP_Project\TblProjectSectionItem())->setDataUpdate(
+                    6000000000001,
+                    143000000000316,
+                    "[ SourceSchema:SchData-OLTP-Master ][ SourceTable:TblBusinessDocumentVersion ][ SourceRecord:75000000190433 ]",
                     null,
-                    11000000000004,
-                    $varData['entities']['businessDocumentVersion_RefID'],
-                    $varData['entities']['projectSection_RefID'],
-                    $varData['entities']['name'],
-                    $varData['entities']['code']
+                    11000000000003,
+                    146000000000127,
+                    110000000000316,
+                    "test",
+                    "257"
                 );
 
-            dd($varAdvanceDetailComplex);
+            dd($varSubBudget);
+            
+
+            $varSubBudget =
+                (new \App\Models\Database\SchData_OLTP_Project\General())->getDataPickList_ProjectSectionItem(
+                    6000000000001,
+                    11000000000004
+                );
+
+            dd($varSubBudget);
+
+
+            $data =
+                (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentByRecordID(
+                    6000000000001,
+                    76000000000197
+                );
+
+            dd($data);
+
+
 
             $varMenu =
                 (new \App\Models\Database\SchSysConfig\General())->getDataList_AppObject_UserRole(

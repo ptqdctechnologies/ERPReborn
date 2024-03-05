@@ -25,63 +25,57 @@ class AdvanceRequestController extends Controller
     {
         try {
 
-            // if (in_array("Module.Finance.Advance.Transaction", $this->GetPrivilageMenu(), TRUE)) {
+            $varAPIWebToken = Session::get('SessionLogin');
+
+            if (Redis::get("DocumentType") == null) {
 
                 $varAPIWebToken = Session::get('SessionLogin');
-
-                if (Redis::get("DocumentType") == null) {
-
-                    $varAPIWebToken = Session::get('SessionLogin');
-                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                        $varAPIWebToken,
-                        'transaction.read.dataList.master.getBusinessDocumentType',
-                        'latest',
-                        [
-                            'parameter' => [],
-                            'SQLStatement' => [
-                                'pick' => null,
-                                'sort' => null,
-                                'filter' => null,
-                                'paging' => null
-                            ]
-                        ],
-                        false
-                    );
-                }
-
-                $DocumentType = json_decode(
-                    \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                        "DocumentType"
-                    ),
-                    true
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken,
+                    'transaction.read.dataList.master.getBusinessDocumentType',
+                    'latest',
+                    [
+                        'parameter' => [],
+                        'SQLStatement' => [
+                            'pick' => null,
+                            'sort' => null,
+                            'filter' => null,
+                            'paging' => null
+                        ]
+                    ],
+                    false
                 );
-                $collection = collect($DocumentType);
-                $collection = $collection->where('Name', "Advance Form");
-                foreach ($collection->all() as $collections) {
-                    $DocumentTypeID = $collections['Sys_ID'];
-                }
+            }
 
-                $var = 0;
-                if (!empty($_GET['var'])) {
-                    $var =  $_GET['var'];
-                }
+            $DocumentType = json_decode(
+                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    "DocumentType"
+                ),
+                true
+            );
+            $collection = collect($DocumentType);
+            $collection = $collection->where('Name', "Advance Form");
+            foreach ($collection->all() as $collections) {
+                $DocumentTypeID = $collections['Sys_ID'];
+            }
+
+            $var = 0;
+            if (!empty($_GET['var'])) {
+                $var =  $_GET['var'];
+            }
 
 
-                $compact = [
-                    'var' => $var,
-                    'varAPIWebToken' => $varAPIWebToken,
-                    'DocumentTypeID' => $DocumentTypeID,
-                    'statusRevisi' => 0,
+            $compact = [
+                'var' => $var,
+                'varAPIWebToken' => $varAPIWebToken,
+                'DocumentTypeID' => $DocumentTypeID,
+                'statusRevisi' => 0,
 
-                ];
+            ];
 
-                return view('Process.Advance.AdvanceRequest.Transactions.CreateAdvanceRequest', $compact);
-        //     }
-        //     else{
-        //         return redirect('dashboard')->with('NotFound', 'Process Error');
-        //     }
+            return view('Process.Advance.AdvanceRequest.Transactions.CreateAdvanceRequest', $compact);
         } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
@@ -459,7 +453,7 @@ class AdvanceRequestController extends Controller
             // }
 
             $collection = $collection->all();
-            
+
             $varDataExcel = [];
             $varDataProject = [];
             $i = 0;
@@ -619,7 +613,7 @@ class AdvanceRequestController extends Controller
             if ($advance_number != "") {
                 $collection = $collection->where('DocumentNumber', $advance_number);
             }
-            
+
             $dataHeader = [];
             foreach ($collection as $collections) {
                 $dataHeader = $collections;
@@ -672,7 +666,7 @@ class AdvanceRequestController extends Controller
 
             $advance_RefID = $request->advance_RefID;
             $advance_number = $request->advance_number;
-            
+
             $statusHeader = "Yes";
 
             if ($advance_RefID == "" && $advance_number == "") {
@@ -714,12 +708,11 @@ class AdvanceRequestController extends Controller
 
                     $pdf = Pdf::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->setPaper('a4', 'landscape')->loadView('Process.Advance.AdvanceRequest.Reports.PrintReportAdvanceSummaryDetail', $data);
                     return $pdf->download('Print Report Advance Detail.pdf');
-
                 } else if ($print_type == "Excel") {
 
                     return Excel::download(new ExportReportAdvanceSummaryDetail, 'Export Report Advance Summary Detail.xlsx');
                 }
-            } else {    
+            } else {
                 return redirect()->route('AdvanceRequest.ReportAdvanceSummaryDetail')->with('NotFound', 'Data Cannot Empty');
             }
         } catch (\Throwable $th) {
