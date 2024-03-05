@@ -18,6 +18,9 @@
     <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/adminltesweatalert.min.css') }}">
     <!-- Loading css -->
     <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/loading.css') }}">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
     <style>
         #dis1 {
             border-radius: 20px;
@@ -84,7 +87,7 @@
                     <input type="hidden" class="personName" name="personName">
                     <input type="hidden" class="workerCareerInternal_RefID" name="workerCareerInternal_RefID">
                     <input type="hidden" class="organizationalDepartmentName" name="organizationalDepartmentName">
-                    
+
 
                     <div class=" input-group mb-4">
                         <input type="text" class="form-control username" placeholder="Username" name="username" id="dis2" required="" autocomplete="off" autofocus>
@@ -111,13 +114,13 @@
                         </div>
                     </div>
 
-                    <div class="input-group mb-4">
-                        <select class="form-control branch_id" name="branch_id" id="dis2">
+                    <div class="input-group mb-4" id="branch">
+                        <select class="form-control branch_id" name="branch_id" id="branch_id">
                             <option selected="selected" value=""> Select Company Name </option>
                         </select>
                     </div>
-                    <div class="input-group mb-4">
-                        <select class="form-control role_id" name="role_id" id="dis2">
+                    <div class="input-group mb-4" id="role">
+                        <select class="form-control role_id" name="role_id" id="role_id">
                             <option selected="selected" value=""> Select User Role </option>
                         </select>
                     </div>
@@ -145,6 +148,30 @@
     <script src="{{ asset('AdminLTE-master/dist/js/adminlte.min.js') }}"></script>
     <!-- sweetalert -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
+    <!-- Select2 -->
+    <script src="{{ asset('AdminLTE-master/plugins/select2/js/select2.full.min.js') }}"></script>
+
+
+    <!-- FUNCTION SELECT 2 IN COMBO BOX-->
+    <script>
+        $(function() {
+            //Initialize Select2 Elements
+            $('#branch_id').select2({
+                theme: 'bootstrap4'
+            });
+
+            $('#role_id').select2({
+                theme: 'bootstrap4'
+            })
+        })
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#role").hide();
+            $("#branch").hide();
+        });
+    </script>
 
     <!-- FUNCTION SHOW HIDE -->
 
@@ -177,16 +204,6 @@
         }
     </script>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-
-            HideLoading();
-
-            $(".branch_id").hide();
-            $(".role_id").hide();
-        });
-    </script>
-
     <script>
         $.ajaxSetup({
             headers: {
@@ -217,7 +234,7 @@
                         if (response.status_code == 0) {
 
                             HideLoading();
-                            Swal.fire("Cancelled", "Pastikan username dan password and benar", "error");
+                            Swal.fire("Cancelled", "Make sure the username and password are correct", "error");
 
                         } else if (response.status_code == 1) {
 
@@ -234,7 +251,7 @@
                             $(".organizationalDepartmentName").val(response.organizationalDepartmentName);
 
                             $(".branch_id").empty();
-                            
+
                             var option = "<option value='" + '' + "'>" + 'Select Company Name' + "</option>";
                             $(".branch_id").append(option);
 
@@ -247,17 +264,23 @@
                             }
                             $(".username").prop("readonly", true);
                             $(".password").prop("readonly", true);
-                            $(".branch_id").show();
-                            $(".role_id").show();
+
+                            $("#branch").show();
+                            $("#role").show();
 
                             $(".submit_button").prop("disabled", true);
+                        } else if (response.status_code == 3) {
+
+                            HideLoading();
+                            Swal.fire("Cancelled", "You have not access", "error");
+
                         }
                     },
                     error: function(response) { // handle the error
 
                         HideLoading();
 
-                        Swal.fire("Cancelled", "Pastikan username dan password and benar", "error");
+                        Swal.fire("Cancelled", "Make sure the username and password are correct", "error");
                     },
 
                 })
@@ -276,19 +299,20 @@
             $(".branch_id").change(function() {
 
                 var id = $(this).val();
+                
                 if (id != "") {
 
                     ShowLoading();
 
                     $.ajax({
                         type: 'GET',
-                        url: '{!! route("getRoleLogin") !!}?user_RefID=' + $('.user_RefID').val() + '&varAPIWebToken=' + $('.varAPIWebToken').val() + '&branch_id=' + $('.branch_id').val()+ '&organizationalDepartmentName=' + $('.organizationalDepartmentName').val(),
+                        url: '{!! route("getRoleLogin") !!}?user_RefID=' + $('.user_RefID').val() + '&varAPIWebToken=' + $('.varAPIWebToken').val() + '&branch_id=' + $('.branch_id').val() + '&organizationalDepartmentName=' + $('.organizationalDepartmentName').val(),
                         success: function(data) {
 
                             var len = 0;
                             if (data.status == '401') {
 
-                                Swal.fire("Cancelled", "Pastikan username dan password and benar", "error");
+                                Swal.fire("Cancelled", "Make sure the username and password are correct", "error");
                                 HideLoading();
 
                             } else {
@@ -313,13 +337,12 @@
                             }
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
-                            Swal.fire("Cancelled", "Pastikan username dan password and benar", "error");
+                            Swal.fire("Cancelled", "Make sure the username and password are correct", "error");
 
                             HideLoading();
                         }
                     });
-                }
-                else{
+                } else {
                     $(".role_id").empty();
                     var option = "<option value='" + '' + "'>" + 'Select User Role' + "</option>";
                     $(".role_id").append(option);
@@ -333,6 +356,7 @@
         $(document).ready(function() {
             $(".role_id").change(function() {
                 var id = $(this).val();
+                
                 if (id != "") {
                     $(".submit_button").prop("disabled", false);
                 } else {

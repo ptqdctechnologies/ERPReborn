@@ -176,19 +176,30 @@ class LoginController extends Controller
                         );
 
                         // dd($privilageMenu);
+                        $cekLogin = $privilageMenu[0]['entities']['itemList'];
 
-                        Session::put('SessionLogin', $varAPIWebToken);
-                        Session::put('SessionOrganizationalDepartmentName', $dataAwal['data']['userIdentity']['organizationalDepartmentName']);
-                        Session::put('SessionLoginName', $dataAwal['data']['userIdentity']['personName']);
-                        Session::put('SessionWorkerCareerInternal_RefID', $dataAwal['data']['userIdentity']['workerCareerInternal_RefID']);
-                        Session::put('SessionUser_RefID', $dataAwal['data']['userIdentity']['user_RefID']);
-                        Session::put('PrivilageMenu', $privilageMenu);
+                        foreach($cekLogin as $cekLogins){
+                            if($cekLogins['entities']['caption'] == "Login"){
+                                Session::put('SessionLogin', $varAPIWebToken);
+                                Session::put('SessionOrganizationalDepartmentName', $dataAwal['data']['userIdentity']['organizationalDepartmentName']);
+                                Session::put('SessionLoginName', $dataAwal['data']['userIdentity']['personName']);
+                                Session::put('SessionWorkerCareerInternal_RefID', $dataAwal['data']['userIdentity']['workerCareerInternal_RefID']);
+                                Session::put('SessionUser_RefID', $dataAwal['data']['userIdentity']['user_RefID']);
+                                Session::put('PrivilageMenu', $privilageMenu);
+        
+                                $compact = [
+                                    'status_code' => 1,
+                                ];
+        
+                                return response()->json($compact);
+                            }
+                        }
 
                         $compact = [
-                            'status_code' => 1,
+                            'status_code' => 3,
                         ];
-
                         return response()->json($compact);
+                        
                     } else {
 
                         // CALL GET INSTRUCTION BRANCH FUNCTION 
