@@ -31,27 +31,29 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken = 
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.read.dataList.budgeting.getCombinedBudgetSectionDetail', 
-                'latest', 
-                [
-                'parameter' => [
-                    //'combinedBudgetSection_RefID' => 143000000000029, //104000000000003,
-                    'combinedBudgetSection_RefID' => null
-                    ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
+            $varData = 
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken, 
+                    'transaction.read.dataList.budgeting.getCombinedBudgetSectionDetail', 
+                    'latest', 
+                    [
+                    'parameter' => [
+                        //'combinedBudgetSection_RefID' => 143000000000029, //104000000000003,
+                        'combinedBudgetSection_RefID' => null
+                        ],
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                        ]
                     ]
-                ]
-                );
+                    );
             var_dump($varData);
             }
 

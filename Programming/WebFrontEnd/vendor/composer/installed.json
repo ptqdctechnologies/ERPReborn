@@ -1691,17 +1691,17 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v10.46.0",
-            "version_normalized": "10.46.0.0",
+            "version": "v10.47.0",
+            "version_normalized": "10.47.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "5e95946a8283a8d5c015035793f9c61c297e937f"
+                "reference": "fce29b8de62733cdecbe12e3bae801f83fff2ea4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/5e95946a8283a8d5c015035793f9c61c297e937f",
-                "reference": "5e95946a8283a8d5c015035793f9c61c297e937f",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/fce29b8de62733cdecbe12e3bae801f83fff2ea4",
+                "reference": "fce29b8de62733cdecbe12e3bae801f83fff2ea4",
                 "shasum": ""
             },
             "require": {
@@ -1851,7 +1851,7 @@
                 "symfony/postmark-mailer": "Required to enable support for the Postmark mail transport (^6.2).",
                 "symfony/psr-http-message-bridge": "Required to use PSR-7 bridging features (^2.0)."
             },
-            "time": "2024-02-27T16:46:54+00:00",
+            "time": "2024-03-05T15:18:36+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -2092,17 +2092,17 @@
         },
         {
             "name": "laravel/ui",
-            "version": "v4.4.0",
-            "version_normalized": "4.4.0.0",
+            "version": "v4.5.0",
+            "version_normalized": "4.5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/ui.git",
-                "reference": "7335d7049b2cde345c029e9d2de839b80af62bc0"
+                "reference": "da3811f409297d13feccd5858ce748e7474b3d11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/ui/zipball/7335d7049b2cde345c029e9d2de839b80af62bc0",
-                "reference": "7335d7049b2cde345c029e9d2de839b80af62bc0",
+                "url": "https://api.github.com/repos/laravel/ui/zipball/da3811f409297d13feccd5858ce748e7474b3d11",
+                "reference": "da3811f409297d13feccd5858ce748e7474b3d11",
                 "shasum": ""
             },
             "require": {
@@ -2113,10 +2113,10 @@
                 "php": "^8.0"
             },
             "require-dev": {
-                "orchestra/testbench": "^7.0|^8.0|^9.0",
-                "phpunit/phpunit": "^9.3|^10.4"
+                "orchestra/testbench": "^7.35|^8.15|^9.0",
+                "phpunit/phpunit": "^9.3|^10.4|^11.0"
             },
-            "time": "2024-01-12T15:56:45+00:00",
+            "time": "2024-03-04T13:58:27+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -2151,7 +2151,7 @@
                 "ui"
             ],
             "support": {
-                "source": "https://github.com/laravel/ui/tree/v4.4.0"
+                "source": "https://github.com/laravel/ui/tree/v4.5.0"
             },
             "install-path": "../laravel/ui"
         },
@@ -3433,17 +3433,17 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v5.0.1",
-            "version_normalized": "5.0.1.0",
+            "version": "v5.0.2",
+            "version_normalized": "5.0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "2218c2252c874a4624ab2f613d86ac32d227bc69"
+                "reference": "139676794dc1e9231bf7bcd123cfc0c99182cb13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/2218c2252c874a4624ab2f613d86ac32d227bc69",
-                "reference": "2218c2252c874a4624ab2f613d86ac32d227bc69",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/139676794dc1e9231bf7bcd123cfc0c99182cb13",
+                "reference": "139676794dc1e9231bf7bcd123cfc0c99182cb13",
                 "shasum": ""
             },
             "require": {
@@ -3456,7 +3456,7 @@
                 "ircmaxell/php-yacc": "^0.0.7",
                 "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0"
             },
-            "time": "2024-02-21T19:24:10+00:00",
+            "time": "2024-03-05T20:51:40+00:00",
             "bin": [
                 "bin/php-parse"
             ],
@@ -3488,7 +3488,7 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v5.0.1"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v5.0.2"
             },
             "install-path": "../nikic/php-parser"
         },
@@ -4392,17 +4392,17 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "8.5.36",
-            "version_normalized": "8.5.36.0",
+            "version": "8.5.37",
+            "version_normalized": "8.5.37.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "9652df58e06a681429d8cfdaec3c43d6de581d5a"
+                "reference": "fce30f306cee78be33ba00c8f9a853f41db0491b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/9652df58e06a681429d8cfdaec3c43d6de581d5a",
-                "reference": "9652df58e06a681429d8cfdaec3c43d6de581d5a",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/fce30f306cee78be33ba00c8f9a853f41db0491b",
+                "reference": "fce30f306cee78be33ba00c8f9a853f41db0491b",
                 "shasum": ""
             },
             "require": {
@@ -4436,7 +4436,7 @@
                 "ext-xdebug": "PHP extension that provides line coverage as well as branch and path coverage",
                 "phpunit/php-invoker": "To allow enforcing time limits"
             },
-            "time": "2023-12-01T16:52:15+00:00",
+            "time": "2024-03-06T06:27:42+00:00",
             "bin": [
                 "phpunit"
             ],
@@ -4473,7 +4473,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/8.5.36"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/8.5.37"
             },
             "funding": [
                 {
@@ -7174,17 +7174,17 @@
         },
         {
             "name": "symfony/http-kernel",
-            "version": "v6.4.4",
-            "version_normalized": "6.4.4.0",
+            "version": "v6.4.5",
+            "version_normalized": "6.4.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-kernel.git",
-                "reference": "7a186f64a7f02787c04e8476538624d6aa888e42"
+                "reference": "f6947cb939d8efee137797382cb4db1af653ef75"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/7a186f64a7f02787c04e8476538624d6aa888e42",
-                "reference": "7a186f64a7f02787c04e8476538624d6aa888e42",
+                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/f6947cb939d8efee137797382cb4db1af653ef75",
+                "reference": "f6947cb939d8efee137797382cb4db1af653ef75",
                 "shasum": ""
             },
             "require": {
@@ -7242,7 +7242,7 @@
                 "symfony/var-exporter": "^6.2|^7.0",
                 "twig/twig": "^2.13|^3.0.4"
             },
-            "time": "2024-02-27T06:32:13+00:00",
+            "time": "2024-03-04T21:00:47+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -7270,7 +7270,7 @@
             "description": "Provides a structured process for converting a Request into a Response",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/http-kernel/tree/v6.4.4"
+                "source": "https://github.com/symfony/http-kernel/tree/v6.4.5"
             },
             "funding": [
                 {
@@ -8262,17 +8262,17 @@
         },
         {
             "name": "symfony/routing",
-            "version": "v6.4.3",
-            "version_normalized": "6.4.3.0",
+            "version": "v6.4.5",
+            "version_normalized": "6.4.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/routing.git",
-                "reference": "3b2957ad54902f0f544df83e3d58b38d7e8e5842"
+                "reference": "7fe30068e207d9c31c0138501ab40358eb2d49a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/routing/zipball/3b2957ad54902f0f544df83e3d58b38d7e8e5842",
-                "reference": "3b2957ad54902f0f544df83e3d58b38d7e8e5842",
+                "url": "https://api.github.com/repos/symfony/routing/zipball/7fe30068e207d9c31c0138501ab40358eb2d49a4",
+                "reference": "7fe30068e207d9c31c0138501ab40358eb2d49a4",
                 "shasum": ""
             },
             "require": {
@@ -8294,7 +8294,7 @@
                 "symfony/http-foundation": "^5.4|^6.0|^7.0",
                 "symfony/yaml": "^5.4|^6.0|^7.0"
             },
-            "time": "2024-01-30T13:55:02+00:00",
+            "time": "2024-02-27T12:33:30+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -8328,7 +8328,7 @@
                 "url"
             ],
             "support": {
-                "source": "https://github.com/symfony/routing/tree/v6.4.3"
+                "source": "https://github.com/symfony/routing/tree/v6.4.5"
             },
             "funding": [
                 {
