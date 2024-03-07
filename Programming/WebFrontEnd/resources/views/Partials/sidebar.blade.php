@@ -11,7 +11,7 @@
             </div>
         </div>
 
-        <nav class="mt-2">
+        <nav class="mt-2" >
 
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 @foreach(Session::get("PrivilageMenu") as $MenuLayouts)
@@ -36,17 +36,14 @@
                                 <ul class="nav nav-treeview">
                                     @foreach($MenuLayouts2['entities']['itemList'] as $MenuLayouts3)
                                         <li class="nav-item">
+                                            @php $url = "login"; @endphp
                                             @if(isset($MenuLayouts3['entities']['URLPath']))
-                                                <a href="{{ route($MenuLayouts3['entities']['URLPath']) }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                    <label>{{ $MenuLayouts3['entities']['caption'] }}</label>
-                                                </a>
-                                            @else
-                                                <a href="#" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                    <label>{{ $MenuLayouts3['entities']['caption'] }}</label>
-                                                </a>
+                                                @php $url = $MenuLayouts3['entities']['URLPath']; @endphp
                                             @endif
+                                            <a href="{{ route($url) }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <i class="nav-icon-sm far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
+                                                <label>{{ $MenuLayouts3['entities']['caption'] }}</label>
+                                            </a>
                                         </li>
                                     @endforeach
                                 </ul>
@@ -69,38 +66,32 @@
                                                 </a>
                                                 <ul class="nav nav-treeview">
                                                     @foreach($MenuLayouts3['entities']['itemList'] as $MenuLayouts4)
-                                                
                                                     <li class="nav-item">
+                                                        @php $url = "login"; @endphp
                                                         @if(isset($MenuLayouts4['entities']['URLPath']))
-                                                            <a href="{{ route($MenuLayouts4['entities']['URLPath']) }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                                <label>{{ $MenuLayouts4['entities']['caption'] }}</label>
-                                                            </a>
-                                                        @else
-                                                            <a href="#" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                                <label>{{ $MenuLayouts4['entities']['caption'] }}</label>
-                                                            </a>
+                                                            @php $url = $MenuLayouts4['entities']['URLPath']; @endphp
                                                         @endif
+                                                        <a href="{{ route($url) }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            <i class="nav-icon-sm far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
+                                                            <label>{{ $MenuLayouts4['entities']['caption'] }}</label>
+                                                        </a>
                                                     </li>
-                                                    @endforeach
+                                                @endforeach
                                                 </ul>
                                             </li>
                                             @endforeach 
                                         </ul>
 
                                     @else
+                                        @php $url = "login"; @endphp
                                         @if(isset($MenuLayouts2['entities']['URLPath']))
-                                            <a href="{{ route($MenuLayouts2['entities']['URLPath']) }}?var=1" class="nav-link">&nbsp;
-                                                <i class="nav-icon-sm far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>{{ $MenuLayouts2['entities']['caption'] }}</label>
-                                            </a>
-                                        @else
-                                            <a href="#" class="nav-link">&nbsp;
-                                                <i class="nav-icon-sm far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>{{ $MenuLayouts2['entities']['caption'] }}</label>
-                                            </a>
+                                            @php $url = $MenuLayouts2['entities']['URLPath']; @endphp
                                         @endif
+                                        <a href="{{ route($url) }}?var=1" class="nav-link">&nbsp;
+                                            <i class="nav-icon-sm far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
+                                            <label>{{ $MenuLayouts2['entities']['caption'] }}</label>
+                                        </a>
+
                                     @endif
                                 @endif
                             </li>
