@@ -153,6 +153,9 @@ class LoginController extends Controller
                     $password
                 );
             
+
+                // dd($dataAwal);
+
                 if ($dataAwal['metadata']['HTTPStatusCode'] != 200) {
 
                     $compact = [
