@@ -2,24 +2,38 @@
 
 namespace App\Http\Controllers\Application\BackEnd\SandBox {
 
-    use Carbon\Carbon;
-    use Illuminate\Http\Request;
-    use Illuminate\Http\Response;
-    use Illuminate\Support\Arr;
-    use Illuminate\Support\Facades\Cache;
-    use Illuminate\Support\Facades\Redis;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Redis;
 
-    class Controller_Main extends \App\Http\Controllers\Controller
+class Controller_Main extends \App\Http\Controllers\Controller
     {
-        public function __construct()
+    public function __construct()
         {
-            //$this->middleware(\App\Http\Middleware\Application\BackEnd\RequestHandler_General::class);
+        //$this->middleware(\App\Http\Middleware\Application\BackEnd\RequestHandler_General::class);
         }
 
 
+    public function testAja3()
+        {
+        echo "xxxxxxxxxx";
+        $varData =
+            (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataList_CombinedBudgetSectionDetail(
+                6000000000001, 
+                6000000000001,
+                null
+            );
+        dd($varData);
+        
+        
+        
+        }
+        
 
-        public function testAja2()
-
+    public function testAja2()
         {
 
             $varShowMyDocumentListData =

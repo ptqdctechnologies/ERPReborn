@@ -57,16 +57,18 @@ namespace App\Models\Database\SchSysConfig
         */
         public function resetSequence($varUserSession, int $varRecordPK)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.Func_TblRotateLog_FileUploadStagingAreaDetail_ResetSequence',
-                    [
-                        [$varRecordPK, 'bigint']
-                    ]
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_TblRotateLog_FileUploadStagingAreaDetail_ResetSequence',
+                        [
+                            [$varRecordPK, 'bigint']
+                        ]
+                        )
+                    );
+
             return $varReturn['Data'][0];            
             }
 
@@ -88,14 +90,16 @@ namespace App\Models\Database\SchSysConfig
         */
         public function setDataInitialize($varUserSession)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig-Initialize.Func_'.parent::getSchemaName($varUserSession).'_'.parent::getTableName($varUserSession),
-                    []
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig-Initialize.Func_'.parent::getSchemaName($varUserSession).'_'.parent::getTableName($varUserSession),
+                        []
+                        )
+                    );
+
             return $varReturn['Data'][0];
             }
 
@@ -134,30 +138,32 @@ namespace App\Models\Database\SchSysConfig
             string $varSysDataAnnotation = null, 
             int $varRotateLog_FileUploadStagingArea_RefRPK, int $varFileSequence, string $varFileName, int $varFileSize, string $varFileMIME, string $varFileExtension, string $varFileLastModifiedDateTimeTZ, int $varFileLastModifiedUnixTimestamp, int $varHashMethod_RefID, string $varContentBase64Hash, string $varURLDelete)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.Func_TblRotateLog_FileUploadStagingAreaDetail_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [null, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.Func_TblRotateLog_FileUploadStagingAreaDetail_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [null, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
 
-                        [$varRotateLog_FileUploadStagingArea_RefRPK, 'bigint'],
-                        [$varFileSequence, 'smallint'],
-                        [$varFileName, 'varchar'],
-                        [$varFileSize, 'bigint'],
-                        [$varFileMIME, 'varchar'],
-                        [$varFileExtension, 'varchar'],
-                        [$varFileLastModifiedDateTimeTZ, 'varchar'],
-                        [$varFileLastModifiedUnixTimestamp, 'bigint'],
-                        [$varHashMethod_RefID, 'bigint'],
-                        [$varContentBase64Hash, 'varchar'],
-                        [$varURLDelete, 'varchar']
-                    ]
-                    )
-                );
+                            [$varRotateLog_FileUploadStagingArea_RefRPK, 'bigint'],
+                            [$varFileSequence, 'smallint'],
+                            [$varFileName, 'varchar'],
+                            [$varFileSize, 'bigint'],
+                            [$varFileMIME, 'varchar'],
+                            [$varFileExtension, 'varchar'],
+                            [$varFileLastModifiedDateTimeTZ, 'varchar'],
+                            [$varFileLastModifiedUnixTimestamp, 'bigint'],
+                            [$varHashMethod_RefID, 'bigint'],
+                            [$varContentBase64Hash, 'varchar'],
+                            [$varURLDelete, 'varchar']
+                        ]
+                        )
+                    );
+
             return $varReturn['Data'][0];
             }
 

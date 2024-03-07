@@ -38,16 +38,17 @@ namespace App\Models\Database\SchSysAsset
         */
         public function getData_APIWebToken_IsExist($varUserSession, $varAPIWebToken)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysAsset.Func_GetData_APIWebToken_IsExist',
-                    [
-                        [$varAPIWebToken, 'varchar']
-                    ]
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysAsset.Func_GetData_APIWebToken_IsExist',
+                        [
+                            [$varAPIWebToken, 'varchar']
+                        ]
+                        )
+                    );
             return
                 [
                 'SignExist' => (boolean) $varReturn['Data'][0]['Func_GetData_APIWebToken_IsExist']                
@@ -116,24 +117,25 @@ namespace App\Models\Database\SchSysAsset
             $varUserSession, 
             int $varArchiveRecordID = null, int $varStagingAreaRecordPK = null, string $varFileName = null, int $varFileSize = null, string $varFileMIME = null, string $varFileExtension = null, int $varFileLastModifiedUnixTimestamp = null, string $varContentBase64Hash = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysAsset.Func_GetData_FileUpload_isFileAlreadyExist',
-                    [
-                        [$varArchiveRecordID, 'bigint'],
-                        [$varStagingAreaRecordPK, 'bigint'],
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysAsset.Func_GetData_FileUpload_isFileAlreadyExist',
+                        [
+                            [$varArchiveRecordID, 'bigint'],
+                            [$varStagingAreaRecordPK, 'bigint'],
 
-                        [$varFileName, 'character varying'],
-                        [$varFileSize, 'bigint'],
-                        [$varFileMIME, 'character varying'],
-                        [$varFileExtension, 'character varying'],
-                        [$varFileLastModifiedUnixTimestamp, 'bigint'],
-                        [$varContentBase64Hash, 'character varying']
-                    ]
-                    )
-                );
+                            [$varFileName, 'character varying'],
+                            [$varFileSize, 'bigint'],
+                            [$varFileMIME, 'character varying'],
+                            [$varFileExtension, 'character varying'],
+                            [$varFileLastModifiedUnixTimestamp, 'bigint'],
+                            [$varContentBase64Hash, 'character varying']
+                        ]
+                        )
+                    );
 
             return 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBooleanConvertion(
@@ -166,38 +168,38 @@ namespace App\Models\Database\SchSysAsset
                 $varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID = [];
                 }
             
-            $varData = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysAsset.Func_GetData_FileUpload_MasterFileRecord',
-                    [
-                        [$varLog_FileUpload_Pointer_RefID, 'bigint'],
-                        [$varRotateLog_FileUploadStagingArea_RefRPK, 'bigint'],
+            $varData = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysAsset.Func_GetData_FileUpload_MasterFileRecord',
                         [
-                            \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getSQLSyntax_Source_NumberArrayToBigIntArray(
-                                $varUserSession, 
-                                $varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID
-                                ),
-                            'bigint[]'
+                            [$varLog_FileUpload_Pointer_RefID, 'bigint'],
+                            [$varRotateLog_FileUploadStagingArea_RefRPK, 'bigint'],
+                            [
+                                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getSQLSyntax_Source_NumberArrayToBigIntArray(
+                                    $varUserSession, 
+                                    $varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID
+                                    ),
+                                'bigint[]'
+                            ]
                         ]
-                    ]
-                    )
-                );
-            
+                        )
+                    );
 
             $varReturn = [];
             $x = 0;
-            for ($i=0; $i < count($varData['Data']); $i++){
-                if($varData['Data'][$i]['RecordReference'] != 0){
+            for ($i=0; $i < count($varData['Data']); $i++) {
+                if($varData['Data'][$i]['RecordReference'] != 0) {
                     // $varReturn['Process'] = $varData['Process'];
                     $varReturn['Data'][$x] = $varData['Data'][$i];
                     // $varReturn['RowCount'] = $varData['RowCount'];
                     // $varReturn['Notice'] = $varData['Notice'];
                     $varReturn['Data'][$x]['Sequence'] = $x + 1;
                     $x++;
+                    }
                 }
-            }
 
             $varReturn['RowCount'] = $x;
                 
@@ -228,18 +230,19 @@ namespace App\Models\Database\SchSysAsset
                 $varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID = [];
                 }
             
-            $varData = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchData-OLTP-DataAcquisition.Func_GetDataPickSet_ArchivedFilesObject',
-                    [
+            $varData = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-DataAcquisition.Func_GetDataPickSet_ArchivedFilesObject',
+                        [
 
-                        [$varUserSession, 'bigint'],
-                        [$varLog_FileUpload_Pointer_RefID, 'bigint'],
-                    ]
-                    )
-                );
+                            [$varUserSession, 'bigint'],
+                            [$varLog_FileUpload_Pointer_RefID, 'bigint'],
+                        ]
+                        )
+                    );
 
             $varReturn =  [
                 \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
@@ -256,21 +259,24 @@ namespace App\Models\Database\SchSysAsset
             $varUserSession,
             string $varEncryptedData)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession,
-                'SELECT "SchSysAsset"."Func_General_DataDecrypt_HTTPGetParameter"(\''.$varEncryptedData.'\'::varchar)'
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession,
+                    'SELECT "SchSysAsset"."Func_General_DataDecrypt_HTTPGetParameter"(\''.$varEncryptedData.'\'::varchar)'
+                    );
             return $varReturn['Data'][0]['Func_General_DataDecrypt_HTTPGetParameter'];
             }
+
 
         public function getDataEncrypt_HTTPGetParameter(
             $varUserSession,
             string $varPlainData) 
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession,
-                'SELECT "SchSysAsset"."Func_General_DataEncrypt_HTTPGetParameter"(\''.$varPlainData.'\'::varchar)'
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession,
+                    'SELECT "SchSysAsset"."Func_General_DataEncrypt_HTTPGetParameter"(\''.$varPlainData.'\'::varchar)'
+                    );
             return $varReturn['Data'][0]['Func_General_DataEncrypt_HTTPGetParameter'];
             }
 
@@ -292,16 +298,17 @@ namespace App\Models\Database\SchSysAsset
         */
         public function getFileEntities_StagingArea($varUserSession, int $varRPK)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysAsset.Func_GetFileEntities_StagingArea',
-                    [
-                        [$varRPK, 'bigint']
-                    ]
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysAsset.Func_GetFileEntities_StagingArea',
+                        [
+                            [$varRPK, 'bigint']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0];
             }
 
@@ -323,17 +330,18 @@ namespace App\Models\Database\SchSysAsset
         */
         public function getCloudStorageFilesList($varUserSession, int $varRotateLog_FileUploadStagingArea_RefRPK, string $varArrayPhysicalName = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysAsset.Func_GetDataList_CloudStorageFiles',
-                    [
-                        [$varRotateLog_FileUploadStagingArea_RefRPK, 'bigint'],
-                        [$varArrayPhysicalName, 'varchar[]'],
-                    ]
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysAsset.Func_GetDataList_CloudStorageFiles',
+                        [
+                            [$varRotateLog_FileUploadStagingArea_RefRPK, 'bigint'],
+                            [$varArrayPhysicalName, 'varchar[]'],
+                        ]
+                        )
+                    );
             return $varReturn['Data'];
             }
 
@@ -355,16 +363,17 @@ namespace App\Models\Database\SchSysAsset
         */
         public function getHash_SHA256($varUserSession, $varData)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysAsset.Func_General_Hash_SHA256',
-                    [
-                        [$varData, 'bytea']
-                    ]
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysAsset.Func_General_Hash_SHA256',
+                        [
+                            [$varData, 'bytea']
+                        ]
+                        )
+                    );
             return  $varReturn['Data'][0]['Func_General_Hash_SHA256'];
             }
 
@@ -386,16 +395,17 @@ namespace App\Models\Database\SchSysAsset
         */
         public function getLocalStorageSubDirectoriesList($varUserSession, string $varArrayPhysicalName = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysAsset.Func_GetDataList_LocalStorageSubDirectories',
-                    [
-                        [$varArrayPhysicalName, 'varchar[]'],
-                    ]
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysAsset.Func_GetDataList_LocalStorageSubDirectories',
+                        [
+                            [$varArrayPhysicalName, 'varchar[]'],
+                        ]
+                        )
+                    );
             return $varReturn['Data'];
             }
 
@@ -417,17 +427,18 @@ namespace App\Models\Database\SchSysAsset
         */
         public function getLocalStorageFilesList($varUserSession, int $varRotateLog_FileUploadStagingArea_RefRPK, string $varArrayPhysicalName = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysAsset.Func_GetDataList_LocalStorageFiles',
-                    [
-                        [$varRotateLog_FileUploadStagingArea_RefRPK, 'bigint'],
-                        [$varArrayPhysicalName, 'varchar[128]'],
-                    ]
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysAsset.Func_GetDataList_LocalStorageFiles',
+                        [
+                            [$varRotateLog_FileUploadStagingArea_RefRPK, 'bigint'],
+                            [$varArrayPhysicalName, 'varchar[128]'],
+                        ]
+                        )
+                    );
             return $varReturn['Data'];
             }
 
@@ -449,16 +460,17 @@ namespace App\Models\Database\SchSysAsset
         */
         public function getCloudStorageSubDirectoriesList($varUserSession, string $varArrayPhysicalName = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysAsset.Func_GetDataList_CloudStorageSubDirectories',
-                    [
-                        [$varArrayPhysicalName, 'varchar[]'],
-                    ]
-                    )
-                );
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysAsset.Func_GetDataList_CloudStorageSubDirectories',
+                        [
+                            [$varArrayPhysicalName, 'varchar[]'],
+                        ]
+                        )
+                    );
             return $varReturn['Data'];
             }
         }

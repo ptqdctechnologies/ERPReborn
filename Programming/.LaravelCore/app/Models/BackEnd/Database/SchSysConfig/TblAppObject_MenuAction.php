@@ -65,6 +65,7 @@ namespace App\Models\Database\SchSysConfig
                         []
                         )
                     );
+
             return $varReturn['Data'][0];
             }
 
@@ -73,8 +74,8 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-01-19                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2024-02-27                                                                                           |
         | ▪ Creation Date   : 2024-01-19                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -88,6 +89,7 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (int)    varMenu_RefID ► Menu Reference ID                                                                        |
         |      ▪ (string) varKey ► Key                                                                                             |
         |      ▪ (string) varCaption ► Caption                                                                                     |
+        |      ▪ (string) varURLPath ► URL Path                                                                                    |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -95,7 +97,7 @@ namespace App\Models\Database\SchSysConfig
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varMenu_RefID = null, string $varKey = null, string $varCaption = null)
+            int $varMenu_RefID = null, string $varKey = null, string $varCaption = null, string $varURLPath = null)
             {
             $varReturn = 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -113,10 +115,12 @@ namespace App\Models\Database\SchSysConfig
 
                             [$varMenu_RefID, 'bigint'],
                             [$varKey, 'varchar'],
-                            [$varCaption, 'varchar']
+                            [$varCaption, 'varchar'],
+                            [$varURLPath, 'varchar']
                         ]
                         )
                     );
+
             return $varReturn['Data'][0];
             }
 
@@ -125,8 +129,8 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-01-19                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2024-02-27                                                                                           |
         | ▪ Creation Date   : 2024-01-19                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -141,6 +145,7 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (int)    varMenu_RefID ► Menu Reference ID                                                                        |
         |      ▪ (string) varKey ► Key                                                                                             |
         |      ▪ (string) varCaption ► Caption                                                                                     |
+        |      ▪ (string) varURLPath ► URL Path                                                                                    |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -148,7 +153,7 @@ namespace App\Models\Database\SchSysConfig
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varMenu_RefID = null, string $varKey = null, string $varCaption = null)
+            int $varMenu_RefID = null, string $varKey = null, string $varCaption = null, string $varURLPath = null)
             {
             $varReturn = 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -166,10 +171,12 @@ namespace App\Models\Database\SchSysConfig
 
                             [$varMenu_RefID, 'bigint'],
                             [$varKey, 'varchar'],
-                            [$varCaption, 'varchar']
+                            [$varCaption, 'varchar'],
+                            [$varURLPath, 'varchar']
                         ]
                         )
                     );
+
             return $varReturn['Data'][0];
             }
         }

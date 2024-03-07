@@ -20,7 +20,6 @@ namespace App\Models\Database\SchSysConfig_Initialize
 
     class General
         {
-        
         }
     }
 
