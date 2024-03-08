@@ -139,7 +139,7 @@
                 statusDisplay2 = [];
                 statusForm = [];
                 $.each(data, function(key, val2) {
-                    
+                    console.log(val2);
                     var used = val2.quantityAbsorptionRatio * 100;
 
                     if (used == "0.00" && val2.quantity == "0.00") {
@@ -168,7 +168,7 @@
                         '<input name="getProductId[]" value="' + val2.product_RefID + '" type="hidden">' +
                         '<input name="getProductName[]" value="' + val2.productName + '" type="hidden">' +
                         '<input name="getQtyId[]" id="budget_qty_id' + key + '" value="' + val2.quantityUnit_RefID + '" type="hidden">' +
-                        '<input name="getQty[]" id="budget_qty' + key + '" value="' + val2.quantity + '" type="hidden">' +
+                        '<input name="getQty[]" id="budget_qty' + key + '" value="' + balance_qty + '" type="hidden">' +
                         '<input name="getPrice[]" id="budget_price' + key + '" value="' + val2.priceBaseCurrencyValue + '" type="hidden">' +
                         '<input name="getUom[]" value="' + val2.quantityUnitName + '" type="hidden">' +
                         '<input name="getCurrency[]" value="' + val2.priceBaseCurrencyISOCode + '" type="hidden">' +

@@ -80,11 +80,10 @@
 
         $.ajax({
             type: 'GET',
-            url: '{!! route("getBudget") !!}?sitecode=' + sys_id,
-            // url: '{!! route("getBudget") !!}?sitecode=' + 143000000000305,
+            url: '{!! route("getBudget") !!}?site_code=' + sys_id,
             success: function(data) {
-                    console.log(data);
                 var no = 1;
+                var price = 0;
                 applied = 0;
                 status = "";
                 statusDisplay = [];
@@ -107,6 +106,12 @@
                         statusDisplay[key] = "none";
                         statusDisplay2[key] = "";
                         statusForm[key] = "";
+                    }
+
+                    if (val2.unitPriceBaseCurrencyValue == null) {
+                        price = 0;
+                    } else {
+                        price = val2.unitPriceBaseCurrencyValue;
                     }
 
                     var html = '<tr>' +
@@ -141,8 +146,8 @@
                         '<td style="position:relative;width:130px; border:1px solid #e9ecef;">' + '<span id="putProductName' + key + '">' + val2.productName + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span">' + currencyTotal(val2.quantity) + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_qty2' + key + '">' + currencyTotal(val2.quantity) + '</span>' + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.unitPriceBaseCurrencyValue) + '</span>' + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.quantity * val2.unitPriceBaseCurrencyValue) + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(price) + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.quantity * price) + '</span>' + '</td>' +
 
                         '<td class="sticky-col fifth-col-pr" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req' + key + '" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[key] + '>' + '</td>' +
                         '<td class="sticky-col forth-col-pr" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req' + key + '" style="border-radius:0;" name="price_req[]" class="form-control price_req" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[key] + '>' + '</td>' +
