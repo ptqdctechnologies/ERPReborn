@@ -561,25 +561,8 @@ class FunctionController extends Controller
     public function ShowRevisionHistory($id)
     {
         $varAPIWebToken = Session::get('SessionLogin');
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'dataWarehouse.read.dataList.log.getTransactionHistory',
-            'latest',
-            [
-                'parameter' => [
-                    'source_RefID' => 76000000000173
-                ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
 
-        $varDataDetail = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'dataWarehouse.read.dataList.log.getTransactionHistory',
@@ -596,11 +579,11 @@ class FunctionController extends Controller
                 ]
             ]
         );
-        // dd($varDataDetail);
+        
+        dd($varData);
 
         $compact = [
-            'data' => $varData['data'],
-            'dataDetail' => $varDataDetail['data']
+            'data' => $varData['data']
         ];
         return view('getFunction.ShowRevisionHistory', $compact);
     }

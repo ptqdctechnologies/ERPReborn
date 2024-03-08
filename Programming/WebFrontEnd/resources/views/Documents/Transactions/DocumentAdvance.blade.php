@@ -60,7 +60,7 @@
                 @if(isset($dataHeader['DateUpdate']))
                 <td>
                   <div class="input-group">
-                    <a class="btn btn-default btn-sm" href="#" onclick="ShowRevisionHistory({{ $dataHeader['Sys_ID_AdvanceDetail'] }});">
+                    <a class="btn btn-default btn-sm" href="#" onclick="ShowRevisionHistory({{ $dataHeader['Sys_ID_Advance'] }});">
                       Show Revision History
                     </a>
                   </div>
