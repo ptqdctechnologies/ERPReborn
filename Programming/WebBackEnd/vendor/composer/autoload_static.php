@@ -3125,6 +3125,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Aws\\AuditManager\\Exception\\AuditManagerException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/AuditManager/Exception/AuditManagerException.php',
         'Aws\\AugmentedAIRuntime\\AugmentedAIRuntimeClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/AugmentedAIRuntime/AugmentedAIRuntimeClient.php',
         'Aws\\AugmentedAIRuntime\\Exception\\AugmentedAIRuntimeException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/AugmentedAIRuntime/Exception/AugmentedAIRuntimeException.php',
+        'Aws\\Auth\\Exception\\UnresolvedAuthSchemeException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Auth/Exception/UnresolvedAuthSchemeException.php',
         'Aws\\AutoScalingPlans\\AutoScalingPlansClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/AutoScalingPlans/AutoScalingPlansClient.php',
         'Aws\\AutoScalingPlans\\Exception\\AutoScalingPlansException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/AutoScalingPlans/Exception/AutoScalingPlansException.php',
         'Aws\\AutoScaling\\AutoScalingClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/AutoScaling/AutoScalingClient.php',

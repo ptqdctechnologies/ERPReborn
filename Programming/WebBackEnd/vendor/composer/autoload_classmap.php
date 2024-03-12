@@ -2470,6 +2470,7 @@ return array(
     'Aws\\AuditManager\\Exception\\AuditManagerException' => $vendorDir . '/aws/aws-sdk-php/src/AuditManager/Exception/AuditManagerException.php',
     'Aws\\AugmentedAIRuntime\\AugmentedAIRuntimeClient' => $vendorDir . '/aws/aws-sdk-php/src/AugmentedAIRuntime/AugmentedAIRuntimeClient.php',
     'Aws\\AugmentedAIRuntime\\Exception\\AugmentedAIRuntimeException' => $vendorDir . '/aws/aws-sdk-php/src/AugmentedAIRuntime/Exception/AugmentedAIRuntimeException.php',
+    'Aws\\Auth\\Exception\\UnresolvedAuthSchemeException' => $vendorDir . '/aws/aws-sdk-php/src/Auth/Exception/UnresolvedAuthSchemeException.php',
     'Aws\\AutoScalingPlans\\AutoScalingPlansClient' => $vendorDir . '/aws/aws-sdk-php/src/AutoScalingPlans/AutoScalingPlansClient.php',
     'Aws\\AutoScalingPlans\\Exception\\AutoScalingPlansException' => $vendorDir . '/aws/aws-sdk-php/src/AutoScalingPlans/Exception/AutoScalingPlansException.php',
     'Aws\\AutoScaling\\AutoScalingClient' => $vendorDir . '/aws/aws-sdk-php/src/AutoScaling/AutoScalingClient.php',
