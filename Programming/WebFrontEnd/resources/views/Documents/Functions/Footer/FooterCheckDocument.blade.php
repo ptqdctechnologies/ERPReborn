@@ -147,8 +147,8 @@
 
 
 <script>
-    function ShowRevisionHistory(id) {
-        var page = 'http://localhost:20080/ShowRevisionHistory/'+id;
+    function ShowRevisionHistory(id, docNum, docName) {
+        var page = 'http://localhost:20080/ShowRevisionHistory?id=' + id + '&docNum=' + docNum + '&docName=' + docName;
         var myWindow = window.open(page, "_blank", "scrollbars=yes,width=400,height=500,top=300");
 
     }
