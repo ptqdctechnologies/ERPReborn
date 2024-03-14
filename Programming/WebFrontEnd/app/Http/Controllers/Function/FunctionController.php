@@ -558,8 +558,13 @@ class FunctionController extends Controller
 
     //LOG TRANSACTION
 
-    public function ShowRevisionHistory($id)
+    public function ShowRevisionHistory(Request $request)
     {
+
+        $id = $request->input('id');
+        $docNum = $request->input('docNum');
+        $docName = $request->input('docName');
+
         $varAPIWebToken = Session::get('SessionLogin');
 
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
@@ -580,10 +585,37 @@ class FunctionController extends Controller
             ]
         );
         
-        dd($varData);
 
+        $collection = collect($varData['data']);
+        $collection = $collection->sort();
+
+        // HEADER
+        $dataHeader = $collection->where('type', 'Header');
+
+        // dd($dataHeader);
+
+        //DETAIL
+        $detail = $collection->where('type', 'Detail');
+        $groupedByDetail = $detail->groupBy('source_RefPID');
+
+        $dataDetail = [];
+        foreach($groupedByDetail as $groupedByDetails){
+            $dataDetail [] = $groupedByDetails;
+        }
+
+        // dd($dataDetail);
+        // $filterDetail = collect($detail)->unique(function ($item) {
+        //     return $item['content']['sys_PID'];
+        // });
+        
+
+        
         $compact = [
-            'data' => $varData['data']
+            'data' => $varData['data'],
+            'documentNumber' => $docNum,
+            'documentName' => $docName,
+            'dataHeader' => $dataHeader,
+            'dataDetail' => $dataDetail
         ];
         return view('getFunction.ShowRevisionHistory', $compact);
     }

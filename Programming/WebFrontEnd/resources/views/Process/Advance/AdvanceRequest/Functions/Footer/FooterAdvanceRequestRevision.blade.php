@@ -63,7 +63,7 @@
             '<input name="var_product_name[]" value="' + dataDetails['ProductName'] + '" type="hidden">' +
             '<input name="var_qty_id[]" value="' + dataDetails['QuantityUnit_RefID'] + '" type="hidden">' +
             '<input id="budget_qty' + key + '" value="' + dataDetails['Quantity'] + '" type="hidden">' +
-            '<input id="budget_price' + key + '" value="' + dataDetails['PriceBaseCurrencyValue'] + '" type="hidden">' +
+            '<input id="budget_price' + key + '" value="' + dataDetails['ProductUnitPriceBaseCurrencyValue'] + '" type="hidden">' +
             '<input name="var_uom[]" value="' + dataDetails['QuantityUnitName'] + '" type="hidden">' +
             '<input name="var_currency_id[]" value="' + dataDetails['PriceCurrency_RefID'] + '" type="hidden">' +
             '<input name="var_currency[]" value="' + dataDetails['ProductUnitPriceCurrencyISOCode'] + '" type="hidden">' +

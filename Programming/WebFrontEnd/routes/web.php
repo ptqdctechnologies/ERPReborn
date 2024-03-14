@@ -158,7 +158,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getRole', 'Function\FunctionController@getRole')->name('getRole');
     Route::get('getMenuGroup', 'Function\FunctionController@getMenuGroup')->name('getMenuGroup');
     Route::get('getSubMenu', 'Function\FunctionController@getSubMenu')->name('getSubMenu');
-    Route::get('ShowRevisionHistory/{id}', 'Function\FunctionController@ShowRevisionHistory')->name('ShowRevisionHistory');
+    Route::get('ShowRevisionHistory', 'Function\FunctionController@ShowRevisionHistory')->name('ShowRevisionHistory');
 
     Route::get('TestApi', 'TestApiController@index')->name('TestApi');
 
