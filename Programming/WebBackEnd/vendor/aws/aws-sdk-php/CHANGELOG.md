@@ -1,5 +1,67 @@
 # CHANGELOG
 
+## 3.301.4 - 2024-03-20
+
+* `Aws\ManagedBlockchainQuery` - AMB Query: update GetTransaction to include transactionId as input
+* `Aws\CodeBuild` - This release adds support for new webhook events (RELEASED and PRERELEASED) and filter types (TAG_NAME and RELEASE_NAME).
+* `Aws\SavingsPlans` - Introducing the Savings Plans Return feature enabling customers to return their Savings Plans within 7 days of purchase.
+* `Aws\Connect` - This release updates the *InstanceStorageConfig APIs to support a new ResourceType: REAL_TIME_CONTACT_ANALYSIS_CHAT_SEGMENTS. Use this resource type to enable streaming for real-time analysis of chat contacts and to associate a Kinesis stream where real-time analysis chat segments will be published.
+* `Aws\AccessAnalyzer` - This release adds support for policy validation and external access findings for DynamoDB tables and streams. IAM Access Analyzer helps you author functional and secure resource-based policies and identify cross-account access. Updated service API, documentation, and paginators.
+* `Aws\DynamoDB` - This release introduces 3 new APIs ('GetResourcePolicy', 'PutResourcePolicy' and 'DeleteResourcePolicy') and modifies the existing 'CreateTable' API for the resource-based policy support. It also modifies several APIs to accept a 'TableArn' for the 'TableName' parameter.
+
+## 3.301.3 - 2024-03-19
+
+* `Aws\finspace` - Adding new attributes readWrite and onDemand to dataview models for Database Maintenance operations.
+* `Aws\ManagedBlockchainQuery` - Introduces a new API for Amazon Managed Blockchain Query: ListFilteredTransactionEvents.
+* `Aws\CloudFormation` - Documentation update, March 2024. Corrects some formatting.
+* `Aws\CloudWatchLogs` - Update LogSamples field in Anomaly model to be a list of LogEvent
+* `Aws\EC2` - This release adds the new DescribeMacHosts API operation for getting information about EC2 Mac Dedicated Hosts. Users can now see the latest macOS versions that their underlying Apple Mac can support without needing to be updated.
+
+## 3.301.2 - 2024-03-18
+
+* `Aws\S3` - Fix two issues with response root node names.
+* `Aws\KMS` - Adds the ability to use the default policy name by omitting the policyName parameter in calls to PutKeyPolicy and GetKeyPolicy
+* `Aws\CloudFormation` - This release supports for a new API ListStackSetAutoDeploymentTargets, which provider auto-deployment configuration as a describable resource. Customers can now view the specific combinations of regions and OUs that are being auto-deployed.
+* `Aws\TimestreamQuery` - Documentation updates, March 2024
+* `Aws\RDS` - This release launches the ModifyIntegration API and support for data filtering for zero-ETL Integrations.
+* `Aws\MediaTailor` - This release adds support to allow customers to show different content within a channel depending on metadata associated with the viewer.
+
+## 3.301.1 - 2024-03-15
+
+* `Aws\S3` - Documentation updates for Amazon S3.
+* `Aws\EC2` - Add media accelerator and neuron device information on the describe instance types API.
+* `Aws\Backup` - This release introduces a boolean attribute ManagedByAWSBackupOnly as part of ListRecoveryPointsByResource api to filter the recovery points based on ownership. This attribute can be used to filter out the recovery points protected by AWSBackup.
+* `Aws\KinesisAnalyticsV2` - Support for Flink 1.18 in Managed Service for Apache Flink
+* `Aws\SageMaker` - Adds m6i, m6id, m7i, c6i, c6id, c7i, r6i r6id, r7i, p5 instance type support to Sagemaker Notebook Instances and miscellaneous wording fixes for previous Sagemaker documentation.
+* `Aws\WorkSpacesThinClient` - Removed unused parameter kmsKeyArn from UpdateDeviceRequest
+* `Aws\Connect` - This release adds Hierarchy based Access Control fields to Security Profile public APIs and adds support for UserAttributeFilter to SearchUsers API.
+* `Aws\CodeBuild` - AWS CodeBuild now supports overflow behavior on Reserved Capacity.
+
+## 3.301.0 - 2024-03-14
+
+* `Aws\` - Amazon IOT Roborunner has been removed from the SDK because it has been discontinued.
+* `Aws\EC2InstanceConnect` - This release includes a new exception type "SerialConsoleSessionUnsupportedException" for SendSerialConsoleSSHPublicKey API.
+* `Aws\ElasticLoadBalancingv2` - This release allows you to configure HTTP client keep-alive duration for communication between clients and Application Load Balancers.
+* `Aws\RDS` - Updates Amazon RDS documentation for EBCDIC collation for RDS for Db2.
+* `Aws\Amplify` - Documentation updates for Amplify. Identifies the APIs available only to apps created using Amplify Gen 1.
+* `Aws\TimestreamInfluxDB` - This is the initial SDK release for Amazon Timestream for InfluxDB. Amazon Timestream for InfluxDB is a new time-series database engine that makes it easy for application developers and DevOps teams to run InfluxDB databases on AWS for near real-time time-series applications using open source APIs.
+* `Aws\SecretsManager` - Doc only update for Secrets Manager
+* `Aws\FIS` - This release adds support for previewing target resources before running a FIS experiment. It also adds resource ARNs for actions, experiments, and experiment templates to API responses.
+
+## 3.300.17 - 2024-03-13
+
+* `Aws\S3` - This release makes the default option for S3 on Outposts request signing to use the SigV4A algorithm when using AWS Common Runtime (CRT).
+* `Aws\KinesisAnalyticsV2` - Support new RuntimeEnvironmentUpdate parameter within UpdateApplication API allowing callers to change the Flink version upon which their application runs.
+* `Aws\IVSRealTime` - adds support for multiple new composition layout configuration options (grid, pip)
+
+## 3.300.16 - 2024-03-12
+
+* `Aws\EC2` - Documentation updates for Amazon EC2.
+* `Aws\Kafka` - Added support for specifying the starting position of topic replication in MSK-Replicator.
+* `Aws\Connect` - This release increases MaxResults limit to 500 in request for SearchUsers, SearchQueues and SearchRoutingProfiles APIs of Amazon Connect.
+* `Aws\CloudFormation` - CloudFormation documentation update for March, 2024
+* `Aws\SSM` - March 2024 doc-only updates for Systems Manager.
+
 ## 3.300.15 - 2024-03-11
 
 * `Aws\ElastiCache` - Revisions to API text that are now to be carried over to SDK text, changing usages of "SFO" in code examples to "us-west-1", and some other typos.
