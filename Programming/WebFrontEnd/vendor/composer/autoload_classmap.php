@@ -4166,6 +4166,7 @@ return array(
     'Mockery\\CountValidator\\AtLeast' => $vendorDir . '/mockery/mockery/library/Mockery/CountValidator/AtLeast.php',
     'Mockery\\CountValidator\\AtMost' => $vendorDir . '/mockery/mockery/library/Mockery/CountValidator/AtMost.php',
     'Mockery\\CountValidator\\CountValidatorAbstract' => $vendorDir . '/mockery/mockery/library/Mockery/CountValidator/CountValidatorAbstract.php',
+    'Mockery\\CountValidator\\CountValidatorInterface' => $vendorDir . '/mockery/mockery/library/Mockery/CountValidator/CountValidatorInterface.php',
     'Mockery\\CountValidator\\Exact' => $vendorDir . '/mockery/mockery/library/Mockery/CountValidator/Exact.php',
     'Mockery\\CountValidator\\Exception' => $vendorDir . '/mockery/mockery/library/Mockery/CountValidator/Exception.php',
     'Mockery\\Exception' => $vendorDir . '/mockery/mockery/library/Mockery/Exception.php',
