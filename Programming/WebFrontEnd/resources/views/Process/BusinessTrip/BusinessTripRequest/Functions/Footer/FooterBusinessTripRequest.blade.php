@@ -19,6 +19,7 @@
   // $(".file-attachment").hide();
   // $(".tableShowHideBOQ3").hide();
   // $(".FollowingCondition").hide();
+    $("#requester_icon").hide();
 </script>
 
 

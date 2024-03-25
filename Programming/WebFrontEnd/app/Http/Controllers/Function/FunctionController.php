@@ -594,6 +594,10 @@ class FunctionController extends Controller
 
         // dd($dataHeader);
 
+        // foreach($dataHeader as $dataHeaders){
+        //     dd($dataHeaders);
+        // }
+
         //DETAIL
         $detail = $collection->where('type', 'Detail');
         $groupedByDetail = $detail->groupBy('source_RefPID');
@@ -602,14 +606,12 @@ class FunctionController extends Controller
         foreach($groupedByDetail as $groupedByDetails){
             $dataDetail [] = $groupedByDetails;
         }
-
+        
         // dd($dataDetail);
         // $filterDetail = collect($detail)->unique(function ($item) {
         //     return $item['content']['sys_PID'];
         // });
-        
-
-        
+                
         $compact = [
             'data' => $varData['data'],
             'documentNumber' => $docNum,
@@ -776,9 +778,7 @@ class FunctionController extends Controller
         $collection = collect($SubMenu);
         $collection = $collection->where('MenuGroup_RefID', $menu_group_id);
         
-        if($type != "All"){
-            $collection = $collection->where('Type', $type);
-        }
+        $collection = $collection->where('Type', $type);
 
         return response()->json($collection->all());
     }

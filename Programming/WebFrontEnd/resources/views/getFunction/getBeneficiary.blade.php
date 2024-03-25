@@ -96,8 +96,41 @@
 
         $("#bank_name_popup").prop("disabled", false);
 
-
         MandatoryFormFunctionFalse("#beneficiary", "#beneficiary_detail");
+
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getBank") !!}?person_refID=' + person_refID,
+            success: function(data) {
+
+                if(data.length == 1){
+
+                    $("#bank_code").val(data[0].Bank_RefID);
+                    $("#bank_name").val(data[0].BankAcronym);
+                    $("#bank_name_detail").val(data[0].BankName);
+
+                    MandatoryFormFunctionFalse("#bank_name", "#bank_name_detail");
+
+                    $.ajax({
+                        type: 'GET',
+                        url: '{!! route("getEntityBankAccount") !!}?person_refID=' + person_refID + '&Bank_RefID=' + data[0].Bank_RefID,
+                        success: function(data) {
+
+                            if(data.length == 1){
+                                $("#bank_account_id").val(data[0].Sys_ID);
+                                $("#bank_account").val(data[0].AccountNumber);
+                                $("#bank_account_detail").val(data[0].AccountName);
+                                
+                                MandatoryFormFunctionFalse("#bank_account", "#bank_account_detail");
+                            }
+
+                        }
+                    });
+                }
+                    
+            }
+        });
 
     });
 </script>

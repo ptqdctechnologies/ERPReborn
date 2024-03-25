@@ -113,7 +113,7 @@
                                                         <td>
                                                             <div class="input-group" style="padding-bottom: 3px;">
                                                                 <select id="Type" class="form-control Type select2" name="Type" style="width: 200px;">
-                                                                    <option selected="selected" value="All"> All </option>
+                                                                    <option selected="selected"> Select Type </option>
                                                                     <option value="Transaction"> Transaction </option>
                                                                     <option value="Report"> Report </option>
                                                                 </select>

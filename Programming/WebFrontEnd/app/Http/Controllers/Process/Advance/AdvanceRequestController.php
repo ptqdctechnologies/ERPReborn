@@ -233,6 +233,7 @@ class AdvanceRequestController extends Controller
                 'DocumentTypeID' => $DocumentTypeID,
                 'varAPIWebToken' => $varAPIWebToken,
                 'statusRevisi' => 1,
+                'statusFinalApprove' => "No",
             ];
             return view('Process.Advance.AdvanceRequest.Transactions.RevisionAdvanceRequest', $compact);
         } catch (\Throwable $th) {

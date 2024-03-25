@@ -99,22 +99,20 @@
                         <div class="form-group">
                           <table>
                             <tr>
-                              <td><label>Requester</label></td>
+                              <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Requester</label></td>
                               <td>
-                                <div class="input-group" style="width: 70%;">
-                                  <input name="request_name" id="request_name" style="border-radius:0;" type="text" class="form-control" readonly>
-                                  <input name="request_name_id" id="request_name_id" style="border-radius:0;" type="hidden" class="form-control" readonly>
+                                <div class="input-group">
+                                  <input name="requester" id="requester" style="border-radius:0;" type="text" class="col-4 form-control" readonly>
+                                  <input name="requester_id" id="requester_id" style="border-radius:0;" type="hidden" class="form-control" readonly>
                                   <input name="var_combinedBudget" id="combinedBudget" style="border-radius:0;" type="hidden" class="form-control" readonly>
                                   <div class="input-group-append">
                                     <span style="border-radius:0;" class="input-group-text form-control">
-                                      <a href="#" id="request_name2" data-toggle="modal" data-target="#myWorker" class="myWorker"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                      <a href="#" id="requester_popup" data-toggle="modal" data-target="#myWorker" class="myWorker"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                     </span>
                                   </div>
-                                </div>
-                              </td>
-                              <td>
-                                <div class="input-group" style="width: 140%;position:relative;right:38%;">
-                                  <input id="request_position" style="border-radius:0;" class="form-control" name="request_position" readonly>
+
+                                  <input id="requester_detail" style="border-radius:0;" class="col-7 form-control" name="requester_detail" readonly>
+                                  <span id="requester_icon" title="Please Input Requester" style="position: relative;top:2px;left:3px;"><img src="{{ asset('AdminLTE-master/dist/img/mandatory.png') }}" width="17" alt=""></span>
                                 </div>
                               </td>
                             </tr>
@@ -130,7 +128,7 @@
                               <td><label>Date Commance Travel</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="dateCommance" name="dateCommance" style="border-radius:0;" type="time" class="form-control">
+                                  <input id="dateCommance" name="dateCommance" style="border-radius:0;" type="date" class="form-control">
                                 </div>
                               </td>
                             </tr>

@@ -14,7 +14,7 @@
         <nav class="mt-2" >
 
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                @foreach(Session::get("PrivilageMenu") as $MenuLayouts)
+                @foreach($privilageMenu as $MenuLayouts)
                 <li class="nav-item has-treeview" style="position: relative;left:2px;">
                     <a href="#" class="nav-link">
                         <i class="nav-icon-sm {{ $MenuLayouts['entities']['iconSource'] }}" style="color:#e9ecef;"></i>
@@ -83,15 +83,16 @@
                                         </ul>
 
                                     @else
-                                        @php $url = "login"; @endphp
-                                        @if(isset($MenuLayouts2['entities']['URLPath']))
-                                            @php $url = $MenuLayouts2['entities']['URLPath']; @endphp
+                                        @if($MenuLayouts2['entities']['caption'] != "Login" && $MenuLayouts2['entities']['caption'] != "Logout")
+                                            @php $url = "login"; @endphp
+                                            @if(isset($MenuLayouts2['entities']['URLPath']))
+                                                @php $url = $MenuLayouts2['entities']['URLPath']; @endphp
+                                            @endif
+                                            <a href="{{ route($url) }}?var=1" class="nav-link">&nbsp;
+                                                <i class="nav-icon-sm far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
+                                                <label>{{ $MenuLayouts2['entities']['caption'] }}</label>
+                                            </a>
                                         @endif
-                                        <a href="{{ route($url) }}?var=1" class="nav-link">&nbsp;
-                                            <i class="nav-icon-sm far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                            <label>{{ $MenuLayouts2['entities']['caption'] }}</label>
-                                        </a>
-
                                     @endif
                                 @endif
                             </li>

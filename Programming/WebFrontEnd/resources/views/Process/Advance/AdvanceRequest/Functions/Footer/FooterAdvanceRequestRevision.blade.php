@@ -5,6 +5,22 @@
     $("#showContentBOQ3").hide();
     $("#product_id2").prop("disabled", true);
     // $("#submitArf").prop("disabled", true);
+    
+    $("#requester_popup").prop("disabled", true);
+    $("#beneficiary_popup").prop("disabled", true);
+    $("#bank_name_popup").prop("disabled", true);
+    $("#bank_account_popup").prop("disabled", true);
+    $("#product_id2").prop("disabled", true);
+    
+    if($("#statusFinalApprove").val() == "No"){
+        $("#requester_popup").prop("disabled", false);
+        $("#beneficiary_popup").prop("disabled", false);
+        $("#bank_name_popup").prop("disabled", false);
+        $("#bank_account_popup").prop("disabled", false);
+        $("#product_id2").prop("disabled", false);
+    }
+
+
 </script>
 
 <script type="text/javascript">
