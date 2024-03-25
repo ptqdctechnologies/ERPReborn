@@ -7,9 +7,11 @@
 @include('Process.Advance.AdvanceRequest.Functions.PopUp.PopUpAdvanceRevision')
 @include('Process.Advance.AdvanceRequest.Functions.Table.TableAdvanceRevision')
 @include('getFunction.getProject')
+@include('getFunction.getWorker')
+@include('getFunction.getBeneficiary')
+@include('getFunction.getBank')
+@include('getFunction.getBankAccount')
 @include('getFunction.getWorkFlow')
-<!-- @include('getFunction.getBank')
-@include('getFunction.getBankAccount') -->
 
 <div class="content-wrapper">
   <section class="content">

@@ -1,7 +1,7 @@
 <script type="text/javascript">
     $("#site_code_popup").prop("disabled", true);
     $("#requester_popup").prop("disabled", true);
-    // $("#beneficiary_popup").prop("disabled", true);
+    $("#beneficiary_popup").prop("disabled", true);
     $("#bank_name_popup").prop("disabled", true);
     $("#bank_account_popup").prop("disabled", true);
     $("#product_id2").prop("disabled", true);
