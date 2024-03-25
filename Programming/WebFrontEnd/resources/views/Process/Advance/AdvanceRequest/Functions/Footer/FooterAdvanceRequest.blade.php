@@ -1,7 +1,7 @@
 <script type="text/javascript">
     $("#site_code_popup").prop("disabled", true);
     $("#requester_popup").prop("disabled", true);
-    $("#beneficiary_popup").prop("disabled", true);
+    // $("#beneficiary_popup").prop("disabled", true);
     $("#bank_name_popup").prop("disabled", true);
     $("#bank_account_popup").prop("disabled", true);
     $("#product_id2").prop("disabled", true);
@@ -139,7 +139,6 @@
                 statusDisplay2 = [];
                 statusForm = [];
                 $.each(data, function(key, val2) {
-                    console.log(val2);
                     var used = val2.quantityAbsorptionRatio * 100;
 
                     if (used == "0.00" && val2.quantity == "0.00") {

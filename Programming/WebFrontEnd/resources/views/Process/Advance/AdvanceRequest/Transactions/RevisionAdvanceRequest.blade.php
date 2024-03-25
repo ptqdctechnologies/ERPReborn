@@ -25,9 +25,10 @@
         <form method="post" enctype="multipart/form-data" action="{{ route('SelectWorkFlow') }}" id="FormUpdateAdvance">
           @csrf
 
+          <input type="hidden" name="statusFinalApprove" value="{{ $statusFinalApprove }}" id="statusFinalApprove">
           <input type="hidden" name="DocumentTypeID" value="{{ $DocumentTypeID }}" id="DocumentTypeID">
           <input type="hidden" name="Sys_ID_Advance" value="{{ $dataHeader['Sys_ID_Advance'] }}" id="Sys_ID_Advance">
-        
+
           <div class="tab-content p-3" id="nav-tabContent">
             <div class="row">
               <div class="col-12">
@@ -110,7 +111,7 @@
                   <div class="card">
                     <div class="card-header">
                       <label class="card-title">
-                        Budget Details
+                        Data Advance Detail
                       </label>
                       <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
