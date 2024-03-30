@@ -1,5 +1,35 @@
 # CHANGELOG
 
+## 3.302.0 - 2024-03-29
+
+* `Aws\NeptuneGraph` - Add the new API Start-Import-Task for Amazon Neptune Analytics.
+* `Aws\CodeBuild` - Add new fleet status code for Reserved Capacity.
+* `Aws\B2bi` - Supporting new EDI X12 transaction sets for X12 versions 4010, 4030, and 5010.
+* `Aws\IoTWireless` - Add support for retrieving key historical and live metrics for LoRaWAN devices and gateways
+* `Aws\InternetMonitor` - This release adds support to allow customers to track cross account monitors through ListMonitor, GetMonitor, ListHealthEvents, GetHealthEvent, StartQuery APIs.
+* `Aws\CodeConnections` - Duplicating the CodeStar Connections service into the new, rebranded AWS CodeConnections service.
+* `Aws\SageMaker` - This release adds support for custom images for the CodeEditor App on SageMaker Studio
+* `Aws\MarketplaceCatalog` - This release enhances the ListEntities API to support ResaleAuthorizationId filter and sort for OfferEntity in the request and the addition of a ResaleAuthorizationId field in the response of OfferSummary.
+
+## 3.301.10 - 2024-03-28
+
+* `Aws\EKS` - Add multiple customer error code to handle customer caused failure when managing EKS node groups
+* `Aws\ComputeOptimizer` - This release enables AWS Compute Optimizer to analyze and generate recommendations with a new customization preference, Memory Utilization.
+* `Aws\NeptuneGraph` - Update ImportTaskCancelled waiter to evaluate task state correctly and minor documentation changes.
+* `Aws\QuickSight` - Amazon QuickSight: Adds support for setting up VPC Endpoint restrictions for accessing QuickSight Website.
+* `Aws\OAM` - This release adds support for sharing AWS::InternetMonitor::Monitor resources.
+* `Aws\EC2` - Amazon EC2 C7gd, M7gd and R7gd metal instances with up to 3.8 TB of local NVMe-based SSD block-level storage have up to 45% improved real-time NVMe storage performance than comparable Graviton2-based instances.
+* `Aws\GuardDuty` - Add EC2 support for GuardDuty Runtime Monitoring auto management.
+* `Aws\CodeCatalyst` - This release adds support for understanding pending changes to subscriptions by including two new response parameters for the GetSubscription API for Amazon CodeCatalyst.
+
+## 3.301.9 - 2024-03-27
+
+* `Aws\BedrockAgentRuntime` - This release introduces filtering support on Retrieve and RetrieveAndGenerate APIs.
+* `Aws\ElastiCache` - Added minimum capacity to Amazon ElastiCache Serverless. This feature allows customer to ensure minimum capacity even without current load
+* `Aws\SecretsManager` - Documentation updates for Secrets Manager
+* `Aws\BedrockAgent` - This changes introduces metadata documents statistics and also updates the documentation for bedrock agent.
+* `Aws\Batch` - This feature allows AWS Batch to support configuration of imagePullSecrets and allowPrivilegeEscalation for jobs running on EKS
+
 ## 3.301.8 - 2024-03-26
 
 * `Aws\CostExplorer` - Adds support for backfill of cost allocation tags, with new StartCostAllocationTagBackfill and ListCostAllocationTagBackfillHistory API.
