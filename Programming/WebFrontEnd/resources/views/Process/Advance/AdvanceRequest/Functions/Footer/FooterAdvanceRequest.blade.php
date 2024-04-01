@@ -139,7 +139,6 @@
                 statusDisplay2 = [];
                 statusForm = [];
                 $.each(data, function(key, val2) {
-                    console.log(val2);
                     var used = val2.quantityAbsorptionRatio * 100;
 
                     if (used == "0.00" && val2.quantity == "0.00") {
