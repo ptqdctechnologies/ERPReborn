@@ -4,28 +4,28 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataResume\master                       |
-|                \getEntityContactNumber\v1                                                                                        |
+|                \getBusinessDocumentFormAndLinkageFileUpload\v1                                                                   |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataResume\master\getEntityContactNumber\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataResume\master\getBusinessDocumentFormAndLinkageFileUpload\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getEntityContactNumber                                                                                       |
-    | ▪ Description : Menangani API transaction.read.dataResume.master.getEntityContactNumber Version 1                            |
+    | ▪ Class Name  : getBusinessDocumentFormAndLinkageFileUpload                                                                  |
+    | ▪ Description : Menangani API transaction.read.dataResume.master.getBusinessDocumentFormAndLinkageFileUpload Version 1       |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getEntityContactNumber extends \App\Http\Controllers\Controller
+    class getBusinessDocumentFormAndLinkageFileUpload extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-11-11                                                                                           |
-        | ▪ Creation Date   : 2022-11-11                                                                                           |
+        | ▪ Last Update     : 2024-04-03                                                                                           |
+        | ▪ Creation Date   : 2024-04-03                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-11-11                                                                                           |
-        | ▪ Creation Date   : 2022-11-11                                                                                           |
+        | ▪ Last Update     : 2024-04-03                                                                                           |
+        | ▪ Creation Date   : 2024-04-03                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -63,18 +63,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-//                        if(($varData['SQLStatement']['filter']) && (\App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, $varData['SQLStatement']['filter']) == FALSE))
-//                            {
-//                            throw new \Exception('SQL Injection Threat Prevention');
-//                            }
                         if(!($varDataSend = 
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession, 
-                                (new \App\Models\Database\SchData_OLTP_Master\General())->getDataResume_EntityContactNumber(
+                                (new \App\Models\Database\SchData_OLTP_Master\General())->getDataResume_BusinessDocumentFormAndLinkageFileUpload(
                                     $varUserSession, 
                                     (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
 
-                                    $varData['parameter']['entity_RefID']
+                                    $varData['parameter']['businessDocumentForm_RefID']
                                     )
                                 )
                             ))
