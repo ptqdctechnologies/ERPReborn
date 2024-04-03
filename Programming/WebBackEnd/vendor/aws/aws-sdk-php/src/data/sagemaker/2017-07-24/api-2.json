@@ -3942,7 +3942,8 @@
         "CreationTime":{"shape":"Timestamp"},
         "LastModifiedTime":{"shape":"Timestamp"},
         "KernelGatewayImageConfig":{"shape":"KernelGatewayImageConfig"},
-        "JupyterLabAppImageConfig":{"shape":"JupyterLabAppImageConfig"}
+        "JupyterLabAppImageConfig":{"shape":"JupyterLabAppImageConfig"},
+        "CodeEditorAppImageConfig":{"shape":"CodeEditorAppImageConfig"}
       }
     },
     "AppImageConfigList":{
@@ -4027,7 +4028,89 @@
         "ml.p4de.24xlarge",
         "ml.trn1.2xlarge",
         "ml.trn1.32xlarge",
-        "ml.trn1n.32xlarge"
+        "ml.trn1n.32xlarge",
+        "ml.p5.48xlarge",
+        "ml.m6i.large",
+        "ml.m6i.xlarge",
+        "ml.m6i.2xlarge",
+        "ml.m6i.4xlarge",
+        "ml.m6i.8xlarge",
+        "ml.m6i.12xlarge",
+        "ml.m6i.16xlarge",
+        "ml.m6i.24xlarge",
+        "ml.m6i.32xlarge",
+        "ml.m7i.large",
+        "ml.m7i.xlarge",
+        "ml.m7i.2xlarge",
+        "ml.m7i.4xlarge",
+        "ml.m7i.8xlarge",
+        "ml.m7i.12xlarge",
+        "ml.m7i.16xlarge",
+        "ml.m7i.24xlarge",
+        "ml.m7i.48xlarge",
+        "ml.c6i.large",
+        "ml.c6i.xlarge",
+        "ml.c6i.2xlarge",
+        "ml.c6i.4xlarge",
+        "ml.c6i.8xlarge",
+        "ml.c6i.12xlarge",
+        "ml.c6i.16xlarge",
+        "ml.c6i.24xlarge",
+        "ml.c6i.32xlarge",
+        "ml.c7i.large",
+        "ml.c7i.xlarge",
+        "ml.c7i.2xlarge",
+        "ml.c7i.4xlarge",
+        "ml.c7i.8xlarge",
+        "ml.c7i.12xlarge",
+        "ml.c7i.16xlarge",
+        "ml.c7i.24xlarge",
+        "ml.c7i.48xlarge",
+        "ml.r6i.large",
+        "ml.r6i.xlarge",
+        "ml.r6i.2xlarge",
+        "ml.r6i.4xlarge",
+        "ml.r6i.8xlarge",
+        "ml.r6i.12xlarge",
+        "ml.r6i.16xlarge",
+        "ml.r6i.24xlarge",
+        "ml.r6i.32xlarge",
+        "ml.r7i.large",
+        "ml.r7i.xlarge",
+        "ml.r7i.2xlarge",
+        "ml.r7i.4xlarge",
+        "ml.r7i.8xlarge",
+        "ml.r7i.12xlarge",
+        "ml.r7i.16xlarge",
+        "ml.r7i.24xlarge",
+        "ml.r7i.48xlarge",
+        "ml.m6id.large",
+        "ml.m6id.xlarge",
+        "ml.m6id.2xlarge",
+        "ml.m6id.4xlarge",
+        "ml.m6id.8xlarge",
+        "ml.m6id.12xlarge",
+        "ml.m6id.16xlarge",
+        "ml.m6id.24xlarge",
+        "ml.m6id.32xlarge",
+        "ml.c6id.large",
+        "ml.c6id.xlarge",
+        "ml.c6id.2xlarge",
+        "ml.c6id.4xlarge",
+        "ml.c6id.8xlarge",
+        "ml.c6id.12xlarge",
+        "ml.c6id.16xlarge",
+        "ml.c6id.24xlarge",
+        "ml.c6id.32xlarge",
+        "ml.r6id.large",
+        "ml.r6id.xlarge",
+        "ml.r6id.2xlarge",
+        "ml.r6id.4xlarge",
+        "ml.r6id.8xlarge",
+        "ml.r6id.12xlarge",
+        "ml.r6id.16xlarge",
+        "ml.r6id.24xlarge",
+        "ml.r6id.32xlarge"
       ]
     },
     "AppList":{
@@ -5777,10 +5860,18 @@
       "max":2,
       "min":1
     },
+    "CodeEditorAppImageConfig":{
+      "type":"structure",
+      "members":{
+        "FileSystemConfig":{"shape":"FileSystemConfig"},
+        "ContainerConfig":{"shape":"ContainerConfig"}
+      }
+    },
     "CodeEditorAppSettings":{
       "type":"structure",
       "members":{
         "DefaultResourceSpec":{"shape":"ResourceSpec"},
+        "CustomImages":{"shape":"CustomImages"},
         "LifecycleConfigArns":{"shape":"LifecycleConfigArns"}
       }
     },
@@ -6263,7 +6354,8 @@
         "AppImageConfigName":{"shape":"AppImageConfigName"},
         "Tags":{"shape":"TagList"},
         "KernelGatewayImageConfig":{"shape":"KernelGatewayImageConfig"},
-        "JupyterLabAppImageConfig":{"shape":"JupyterLabAppImageConfig"}
+        "JupyterLabAppImageConfig":{"shape":"JupyterLabAppImageConfig"},
+        "CodeEditorAppImageConfig":{"shape":"CodeEditorAppImageConfig"}
       }
     },
     "CreateAppImageConfigResponse":{
@@ -8533,7 +8625,8 @@
         "CreationTime":{"shape":"Timestamp"},
         "LastModifiedTime":{"shape":"Timestamp"},
         "KernelGatewayImageConfig":{"shape":"KernelGatewayImageConfig"},
-        "JupyterLabAppImageConfig":{"shape":"JupyterLabAppImageConfig"}
+        "JupyterLabAppImageConfig":{"shape":"JupyterLabAppImageConfig"},
+        "CodeEditorAppImageConfig":{"shape":"CodeEditorAppImageConfig"}
       }
     },
     "DescribeAppRequest":{
@@ -13691,7 +13784,7 @@
     "KmsKeyId":{
       "type":"string",
       "max":2048,
-      "pattern":".*"
+      "pattern":"^[a-zA-Z0-9:/_-]*$"
     },
     "LabelAttributeName":{
       "type":"string",
@@ -22174,7 +22267,8 @@
       "members":{
         "AppImageConfigName":{"shape":"AppImageConfigName"},
         "KernelGatewayImageConfig":{"shape":"KernelGatewayImageConfig"},
-        "JupyterLabAppImageConfig":{"shape":"JupyterLabAppImageConfig"}
+        "JupyterLabAppImageConfig":{"shape":"JupyterLabAppImageConfig"},
+        "CodeEditorAppImageConfig":{"shape":"CodeEditorAppImageConfig"}
       }
     },
     "UpdateAppImageConfigResponse":{

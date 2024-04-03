@@ -1,5 +1,81 @@
 # CHANGELOG
 
+## 3.303.1 - 2024-04-02
+
+* `Aws\ivschat` - Doc-only update. Changed "Resources" to "Key Concepts" in docs and updated text.
+* `Aws\SecurityHub` - Documentation updates for AWS Security Hub
+* `Aws\RolesAnywhere` - This release increases the limit on the roleArns request parameter for the *Profile APIs that support it. This parameter can now take up to 250 role ARNs.
+* `Aws\ECS` - Documentation only update for Amazon ECS.
+* `Aws\Glue` - Adding View related fields to responses of read-only Table APIs.
+
+## 3.303.0 - 2024-04-01
+
+* `Aws\CloudWatch` - This release adds support for CloudWatch Anomaly Detection on cross-account metrics. SingleMetricAnomalyDetector and MetricDataQuery inputs to Anomaly Detection APIs now take an optional AccountId field.
+* `Aws\EMR` - This release fixes a broken link in the documentation.
+* `Aws\Deadline` - AWS Deadline Cloud is a new fully managed service that helps customers set up, deploy, and scale rendering projects in minutes, so they can improve the efficiency of their rendering pipelines and take on more projects.
+* `Aws\DataZone` - This release supports the feature of AI recommendations for descriptions to enrich the business data catalog in Amazon DataZone.
+* `Aws\Lightsail` - This release adds support to upgrade the TLS version of the distribution.
+
+## 3.302.0 - 2024-03-29
+
+* `Aws\NeptuneGraph` - Add the new API Start-Import-Task for Amazon Neptune Analytics.
+* `Aws\CodeBuild` - Add new fleet status code for Reserved Capacity.
+* `Aws\B2bi` - Supporting new EDI X12 transaction sets for X12 versions 4010, 4030, and 5010.
+* `Aws\IoTWireless` - Add support for retrieving key historical and live metrics for LoRaWAN devices and gateways
+* `Aws\InternetMonitor` - This release adds support to allow customers to track cross account monitors through ListMonitor, GetMonitor, ListHealthEvents, GetHealthEvent, StartQuery APIs.
+* `Aws\CodeConnections` - Duplicating the CodeStar Connections service into the new, rebranded AWS CodeConnections service.
+* `Aws\SageMaker` - This release adds support for custom images for the CodeEditor App on SageMaker Studio
+* `Aws\MarketplaceCatalog` - This release enhances the ListEntities API to support ResaleAuthorizationId filter and sort for OfferEntity in the request and the addition of a ResaleAuthorizationId field in the response of OfferSummary.
+
+## 3.301.10 - 2024-03-28
+
+* `Aws\EKS` - Add multiple customer error code to handle customer caused failure when managing EKS node groups
+* `Aws\ComputeOptimizer` - This release enables AWS Compute Optimizer to analyze and generate recommendations with a new customization preference, Memory Utilization.
+* `Aws\NeptuneGraph` - Update ImportTaskCancelled waiter to evaluate task state correctly and minor documentation changes.
+* `Aws\QuickSight` - Amazon QuickSight: Adds support for setting up VPC Endpoint restrictions for accessing QuickSight Website.
+* `Aws\OAM` - This release adds support for sharing AWS::InternetMonitor::Monitor resources.
+* `Aws\EC2` - Amazon EC2 C7gd, M7gd and R7gd metal instances with up to 3.8 TB of local NVMe-based SSD block-level storage have up to 45% improved real-time NVMe storage performance than comparable Graviton2-based instances.
+* `Aws\GuardDuty` - Add EC2 support for GuardDuty Runtime Monitoring auto management.
+* `Aws\CodeCatalyst` - This release adds support for understanding pending changes to subscriptions by including two new response parameters for the GetSubscription API for Amazon CodeCatalyst.
+
+## 3.301.9 - 2024-03-27
+
+* `Aws\BedrockAgentRuntime` - This release introduces filtering support on Retrieve and RetrieveAndGenerate APIs.
+* `Aws\ElastiCache` - Added minimum capacity to Amazon ElastiCache Serverless. This feature allows customer to ensure minimum capacity even without current load
+* `Aws\SecretsManager` - Documentation updates for Secrets Manager
+* `Aws\BedrockAgent` - This changes introduces metadata documents statistics and also updates the documentation for bedrock agent.
+* `Aws\Batch` - This feature allows AWS Batch to support configuration of imagePullSecrets and allowPrivilegeEscalation for jobs running on EKS
+
+## 3.301.8 - 2024-03-26
+
+* `Aws\CostExplorer` - Adds support for backfill of cost allocation tags, with new StartCostAllocationTagBackfill and ListCostAllocationTagBackfillHistory API.
+* `Aws\finspace` - Add new operation delete-kx-cluster-node and add status parameter to list-kx-cluster-node operation.
+* `Aws\ECS` - This is a documentation update for Amazon ECS.
+* `Aws\EC2` - Documentation updates for Elastic Compute Cloud (EC2).
+* `Aws\BedrockAgentRuntime` - This release adds support to customize prompts sent through the RetrieveAndGenerate API in Agents for Amazon Bedrock.
+
+## 3.301.7 - 2024-03-25
+
+* `Aws\EC2` - Added support for ModifyInstanceMetadataDefaults and GetInstanceMetadataDefaults to set Instance Metadata Service account defaults
+* `Aws\SageMaker` - Introduced support for the following new instance types on SageMaker Studio for JupyterLab and CodeEditor applications: m6i, m6id, m7i, c6i, c6id, c7i, r6i, r6id, r7i, and p5
+* `Aws\ECS` - Documentation only update for Amazon ECS.
+* `Aws\MediaLive` - Exposing TileMedia H265 options
+* `Aws\EMRContainers` - This release increases the number of supported job template parameters from 20 to 100.
+* `Aws\GlobalAccelerator` - AWS Global Accelerator now supports cross-account sharing for bring your own IP addresses.
+* `Aws\CodeBuild` - Supporting GitLab and GitLab Self Managed as source types in AWS CodeBuild.
+
+## 3.301.6 - 2024-03-22
+
+* `Aws\kendra` - Documentation update, March 2024. Corrects some docs for Amazon Kendra.
+* `Aws\Pricing` - Add ResourceNotFoundException to ListPriceLists and GetPriceListFileUrl APIs
+* `Aws\RolesAnywhere` - This release relaxes constraints on the durationSeconds request parameter for the *Profile APIs that support it. This parameter can now take on values that go up to 43200.
+* `Aws\SecurityHub` - Added new resource detail object to ASFF, including resource for LastKnownExploitAt
+* `Aws\Firehose` - Updates Amazon Firehose documentation for message regarding Enforcing Tags IAM Policy.
+
+## 3.301.5 - 2024-03-21
+
+* `Aws\CodeArtifact` - This release adds Package groups to CodeArtifact so you can more conveniently configure package origin controls for multiple packages.
+
 ## 3.301.4 - 2024-03-20
 
 * `Aws\ManagedBlockchainQuery` - AMB Query: update GetTransaction to include transactionId as input

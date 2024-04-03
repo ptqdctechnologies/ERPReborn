@@ -461,7 +461,7 @@
     "CreateProfileRequestDurationSecondsInteger":{
       "type":"integer",
       "box":true,
-      "max":3600,
+      "max":43200,
       "min":900
     },
     "CreateTrustAnchorRequest":{
@@ -822,7 +822,7 @@
     "RoleArnList":{
       "type":"list",
       "member":{"shape":"RoleArn"},
-      "max":50,
+      "max":250,
       "min":0
     },
     "ScalarCrlRequest":{
@@ -1085,7 +1085,7 @@
     "UpdateProfileRequestDurationSecondsInteger":{
       "type":"integer",
       "box":true,
-      "max":3600,
+      "max":43200,
       "min":900
     },
     "UpdateProfileRequestSessionPolicyString":{

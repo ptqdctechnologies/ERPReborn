@@ -570,6 +570,14 @@
         },
         "serviceIdentifier": "codecommit"
     },
+    "codeconnections": {
+        "namespace": "CodeConnections",
+        "versions": {
+            "latest": "2023-12-01",
+            "2023-12-01": "2023-12-01"
+        },
+        "serviceIdentifier": "codeconnections"
+    },
     "codedeploy": {
         "namespace": "CodeDeploy",
         "versions": {
@@ -817,6 +825,14 @@
             "2017-04-19": "2017-04-19"
         },
         "serviceIdentifier": "dax"
+    },
+    "deadline": {
+        "namespace": "Deadline",
+        "versions": {
+            "latest": "2023-10-12",
+            "2023-10-12": "2023-10-12"
+        },
+        "serviceIdentifier": "deadline"
     },
     "detective": {
         "namespace": "Detective",

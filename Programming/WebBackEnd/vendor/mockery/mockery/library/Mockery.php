@@ -418,7 +418,7 @@ class Mockery
      *
      * @template TInstanceMock
      *
-     * @param array<class-string<TInstanceMock>|TInstanceMock> $args
+     * @param array<class-string<TInstanceMock>|TInstanceMock|array<mixed>> $args
      *
      * @return LegacyMockInterface&MockInterface&TInstanceMock
      */
@@ -468,7 +468,7 @@ class Mockery
      *
      * @template TMock
      *
-     * @param array<class-string<TMock>|TMock> $args
+     * @param array<class-string<TMock>|TMock|array<mixed>> $args
      *
      * @return LegacyMockInterface&MockInterface&TMock
      */
@@ -496,7 +496,7 @@ class Mockery
      *
      * @template TNamedMock
      *
-     * @param array<class-string<TNamedMock>|TNamedMock> $args
+     * @param array<class-string<TNamedMock>|TNamedMock|array<mixed>> $args
      *
      * @return LegacyMockInterface&MockInterface&TNamedMock
      */
@@ -668,7 +668,7 @@ class Mockery
      *
      * @template TSpy
      *
-     * @param array<class-string<TSpy>|TSpy> $args
+     * @param array<class-string<TSpy>|TSpy|array<mixed>> $args
      *
      * @return LegacyMockInterface&MockInterface&TSpy
      */
@@ -759,7 +759,7 @@ class Mockery
                 $mock = self::getNewDemeterMock($container, $parent, $method, $expectations);
             } else {
                 $demeterMockKey = $container->getKeyOfDemeterMockFor($method, $parent);
-                if ($demeterMockKey) {
+                if ($demeterMockKey !== null) {
                     $mock = self::getExistingDemeterMock($container, $demeterMockKey);
                 }
             }
@@ -987,13 +987,27 @@ class Mockery
             $parRefMethod = $parRef->getMethod($method);
             $parRefMethodRetType = Reflector::getReturnType($parRefMethod, true);
 
-            if ($parRefMethodRetType !== null && $parRefMethodRetType !== 'mixed') {
-                $nameBuilder = new MockNameBuilder();
-                $nameBuilder->addPart('\\' . $newMockName);
-                $mock = self::namedMock($nameBuilder->build(), $parRefMethodRetType);
-                $exp->andReturn($mock);
+            if ($parRefMethodRetType !== null) {
+                $returnTypes = \explode('|', $parRefMethodRetType);
 
-                return $mock;
+                $filteredReturnTypes = array_filter($returnTypes, static function (string $type): bool {
+                    return ! Reflector::isReservedWord($type);
+                });
+
+                if ($filteredReturnTypes !== []) {
+                    $nameBuilder = new MockNameBuilder();
+
+                    $nameBuilder->addPart('\\' . $newMockName);
+
+                    $mock = self::namedMock(
+                        $nameBuilder->build(),
+                        ...$filteredReturnTypes
+                    );
+
+                    $exp->andReturn($mock);
+
+                    return $mock;
+                }
             }
         }
 
