@@ -59,17 +59,17 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.302.0",
-            "version_normalized": "3.302.0.0",
+            "version": "3.303.1",
+            "version_normalized": "3.303.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "cb343ed4fc5d86c0ddf8e948f0271052f183f937"
+                "reference": "e695623e9f6f278bed69172fddb932de3705030f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/cb343ed4fc5d86c0ddf8e948f0271052f183f937",
-                "reference": "cb343ed4fc5d86c0ddf8e948f0271052f183f937",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/e695623e9f6f278bed69172fddb932de3705030f",
+                "reference": "e695623e9f6f278bed69172fddb932de3705030f",
                 "shasum": ""
             },
             "require": {
@@ -110,7 +110,7 @@
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
                 "ext-sockets": "To use client-side monitoring"
             },
-            "time": "2024-03-29T18:07:04+00:00",
+            "time": "2024-04-02T18:09:38+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -151,7 +151,7 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.302.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.303.1"
             },
             "install-path": "../aws/aws-sdk-php"
         },
@@ -5459,17 +5459,17 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.12.2",
-            "version_normalized": "0.12.2.0",
+            "version": "v0.12.3",
+            "version_normalized": "0.12.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "9185c66c2165bbf4d71de78a69dccf4974f9538d"
+                "reference": "b6b6cce7d3ee8fbf31843edce5e8f5a72eff4a73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/9185c66c2165bbf4d71de78a69dccf4974f9538d",
-                "reference": "9185c66c2165bbf4d71de78a69dccf4974f9538d",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/b6b6cce7d3ee8fbf31843edce5e8f5a72eff4a73",
+                "reference": "b6b6cce7d3ee8fbf31843edce5e8f5a72eff4a73",
                 "shasum": ""
             },
             "require": {
@@ -5491,7 +5491,7 @@
                 "ext-pdo-sqlite": "The doc command requires SQLite to work.",
                 "ext-posix": "If you have PCNTL, you'll want the POSIX extension as well."
             },
-            "time": "2024-03-17T01:53:00+00:00",
+            "time": "2024-04-02T15:57:53+00:00",
             "bin": [
                 "bin/psysh"
             ],
@@ -5535,7 +5535,7 @@
             ],
             "support": {
                 "issues": "https://github.com/bobthecow/psysh/issues",
-                "source": "https://github.com/bobthecow/psysh/tree/v0.12.2"
+                "source": "https://github.com/bobthecow/psysh/tree/v0.12.3"
             },
             "install-path": "../psy/psysh"
         },
@@ -7009,17 +7009,17 @@
         },
         {
             "name": "spatie/laravel-ignition",
-            "version": "2.5.0",
-            "version_normalized": "2.5.0.0",
+            "version": "2.5.1",
+            "version_normalized": "2.5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-ignition.git",
-                "reference": "e23f4e8ce6644dc3d68b9d8a0aed3beaca0d6ada"
+                "reference": "0c864b3cbd66ce67a2096c5f743e07ce8f1d6ab9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-ignition/zipball/e23f4e8ce6644dc3d68b9d8a0aed3beaca0d6ada",
-                "reference": "e23f4e8ce6644dc3d68b9d8a0aed3beaca0d6ada",
+                "url": "https://api.github.com/repos/spatie/laravel-ignition/zipball/0c864b3cbd66ce67a2096c5f743e07ce8f1d6ab9",
+                "reference": "0c864b3cbd66ce67a2096c5f743e07ce8f1d6ab9",
                 "shasum": ""
             },
             "require": {
@@ -7048,7 +7048,7 @@
                 "openai-php/client": "Require get solutions from OpenAI",
                 "psr/simple-cache-implementation": "Needed to cache solutions from OpenAI"
             },
-            "time": "2024-03-29T14:14:55+00:00",
+            "time": "2024-04-02T06:30:22+00:00",
             "type": "library",
             "extra": {
                 "laravel": {

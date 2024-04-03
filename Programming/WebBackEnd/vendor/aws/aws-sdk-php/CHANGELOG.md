@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## 3.303.1 - 2024-04-02
+
+* `Aws\ivschat` - Doc-only update. Changed "Resources" to "Key Concepts" in docs and updated text.
+* `Aws\SecurityHub` - Documentation updates for AWS Security Hub
+* `Aws\RolesAnywhere` - This release increases the limit on the roleArns request parameter for the *Profile APIs that support it. This parameter can now take up to 250 role ARNs.
+* `Aws\ECS` - Documentation only update for Amazon ECS.
+* `Aws\Glue` - Adding View related fields to responses of read-only Table APIs.
+
+## 3.303.0 - 2024-04-01
+
+* `Aws\CloudWatch` - This release adds support for CloudWatch Anomaly Detection on cross-account metrics. SingleMetricAnomalyDetector and MetricDataQuery inputs to Anomaly Detection APIs now take an optional AccountId field.
+* `Aws\EMR` - This release fixes a broken link in the documentation.
+* `Aws\Deadline` - AWS Deadline Cloud is a new fully managed service that helps customers set up, deploy, and scale rendering projects in minutes, so they can improve the efficiency of their rendering pipelines and take on more projects.
+* `Aws\DataZone` - This release supports the feature of AI recommendations for descriptions to enrich the business data catalog in Amazon DataZone.
+* `Aws\Lightsail` - This release adds support to upgrade the TLS version of the distribution.
+
 ## 3.302.0 - 2024-03-29
 
 * `Aws\NeptuneGraph` - Add the new API Start-Import-Task for Amazon Neptune Analytics.
