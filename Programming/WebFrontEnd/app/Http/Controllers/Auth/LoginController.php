@@ -144,7 +144,7 @@ class LoginController extends Controller
                     $username,
                     $password
                 );
-            
+        
 
                 // dd($dataAwal);
 
