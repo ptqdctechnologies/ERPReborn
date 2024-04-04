@@ -87,7 +87,7 @@ class MyDocumentController extends Controller
     public function ShowMyDocumentListData(Request $request)
     {
         $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
-        $varAPIWebToken = Session::get('SessionLogin');
+        $varAPIWebToken = Session::get('SessionLogin'); 
 
         if (Redis::get("ShowMyDocumentListData" . $SessionWorkerCareerInternal_RefID) == null) {
             \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(

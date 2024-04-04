@@ -1,7 +1,7 @@
 <div class="card-body">
   <div class="row">
 
-    <div class="col-md-8">
+    <div class="col-md-6">
       <div class="form-group">
         <table>
           <tr>
@@ -21,7 +21,7 @@
         </table>
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
       <div class="form-group">
         <table>
           <tr class="budgetDetail">

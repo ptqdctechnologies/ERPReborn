@@ -145,6 +145,7 @@ $varDataSend = [
                         //var_dump(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentYear($varUserSession));
 
                         $varSysID = $varBufferDB['SignRecordID'];
+
                         $varBufferDB =
                             (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord(
                                 $varUserSession,

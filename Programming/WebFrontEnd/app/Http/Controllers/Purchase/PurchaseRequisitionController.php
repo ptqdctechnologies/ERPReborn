@@ -207,8 +207,8 @@ class PurchaseRequisitionController extends Controller
         
         $compact = [
             'varAPIWebToken' => $varAPIWebToken,
-            'log_FileUpload_Pointer_RefID' => $varDataProcReqRevision['data'][0]['document']['content']['attachmentFiles']['main']['log_FileUpload_Pointer_RefID'],
-            'dataProcReqRevision' => $varDataProcReqRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
+            'log_FileUpload_Pointer_RefID' => $varDataProcReqRevision['data'][0]['document']['content']['general']['attachmentFiles']['main']['log_FileUpload_Pointer_RefID'],
+            'budget' => $varDataProcReqRevision['data'][0]['document']['content']['general']['budget'],
             'trano' => $varDataProcReqRevision['data'][0]['document']['header']['number'],
             'var_recordID' => $request->searchPrNumberRevisionId,
             'statusRevisi' => 1,
