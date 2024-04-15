@@ -1,5 +1,71 @@
 # CHANGELOG
 
+## 3.304.4 - 2024-04-12
+
+* `Aws\HealthLake` - Added new CREATE_FAILED status for data stores. Added new errorCause to DescribeFHIRDatastore API and ListFHIRDatastores API response for additional insights into data store creation and deletion workflows.
+* `Aws\CloudFormation` - Adding support for the new parameter "IncludePropertyValues" in the CloudFormation DescribeChangeSet API. When this parameter is included, the DescribeChangeSet response will include more detailed information such as before and after values for the resource properties that will change.
+* `Aws\ConfigService` - Updates documentation for AWS Config
+* `Aws\KMS` - This feature supports the ability to specify a custom rotation period for automatic key rotations, the ability to perform on-demand key rotations, and visibility into your key material rotations.
+* `Aws\Outposts` - This release adds EXPEDITORS as a valid shipment carrier.
+* `Aws\NeptuneGraph` - Update to API documentation to resolve customer reported issues.
+* `Aws\IoTFleetHub` - Documentation updates for AWS IoT Fleet Hub to clarify that Fleet Hub supports organization instance of IAM Identity Center.
+* `Aws\Transfer` - This change releases support for importing self signed certificates to the Transfer Family for sending outbound file transfers over TLS/HTTPS.
+* `Aws\Redshift` - Adds support for Amazon Redshift DescribeClusterSnapshots API to include Snapshot ARN response field.
+* `Aws\MediaTailor` - Added InsertionMode to PlaybackConfigurations. This setting controls whether players can use stitched or guided ad insertion. The default for players that do not specify an insertion mode is stitched.
+* `Aws\Glue` - Modifying request for GetUnfilteredTableMetadata for view-related fields.
+
+## 3.304.3 - 2024-04-11
+
+* `Aws\Batch` - This release adds the task properties field to attempt details and the name field on EKS container detail.
+* `Aws\MediaLive` - AWS Elemental MediaLive introduces workflow monitor, a new feature that enables the visualization and monitoring of your media workflows. Create signal maps of your existing workflows and monitor them by creating notification and monitoring template groups.
+* `Aws\WAFV2` - Adds an updated version of smoke tests, including smithy trait, for SDK testing.
+* `Aws\RDS` - Updates Amazon RDS documentation for Standard Edition 2 support in RDS Custom for Oracle.
+* `Aws\Pipes` - LogConfiguration ARN validation fixes
+* `Aws\Omics` - This release adds support for retrieval of S3 direct access metadata on sequence stores and read sets, and adds support for SHA256up and SHA512up HealthOmics ETags.
+* `Aws\CodeBuild` - Support access tokens for Bitbucket sources
+* `Aws\IAM` - For CreateOpenIDConnectProvider API, the ThumbprintList parameter is no longer required.
+* `Aws\S3Control` - Documentation updates for Amazon S3-control.
+* `Aws\CloudFront` - CloudFront origin access control extends support to AWS Lambda function URLs and AWS Elemental MediaPackage v2 origins.
+* `Aws\CloudWatch` - This release adds support for Metric Characteristics for CloudWatch Anomaly Detection. Anomaly Detector now takes Metric Characteristics object with Periodic Spikes boolean field that tells Anomaly Detection that spikes that repeat at the same time every week are part of the expected pattern.
+
+## 3.304.2 - 2024-04-10
+
+* `Aws\NetworkMonitor` - Examples were added to CloudWatch Network Monitor commands.
+* `Aws\Rekognition` - Added support for ContentType to content moderation detections.
+* `Aws\WorkSpacesThinClient` - Adding tags field to SoftwareSet. Removing tags fields from Summary objects. Changing the list of exceptions in tagging APIs. Fixing an issue where the SDK returns empty tags in Get APIs.
+* `Aws\SupplyChain` - This release includes API SendDataIntegrationEvent for AWS Supply Chain
+* `Aws\CleanRooms` - AWS Clean Rooms Differential Privacy is now fully available. Differential privacy protects against user-identification attempts.
+* `Aws\QConnect` - This release adds a new QiC public API updateSession and updates an existing QiC public API createSession
+* `Aws\Connect` - This release adds new Submit Auto Evaluation Action for Amazon Connect Rules.
+
+## 3.304.1 - 2024-04-09
+
+* `Aws\MediaConvert` - This release includes support for bringing your own fonts to use for burn-in or DVB-Sub captioning workflows.
+* `Aws\Pinpoint` - The OrchestrationSendingRoleArn has been added to the email channel and is used to send emails from campaigns or journeys.
+* `Aws\RDS` - This release adds support for specifying the CA certificate to use for the new db instance when restoring from db snapshot, restoring from s3, restoring to point in time, and creating a db instance read replica.
+* `Aws\CodeBuild` - Add new webhook filter types for GitHub webhooks
+
+## 3.304.0 - 2024-04-08
+
+* `Aws\ControlCatalog` - This is the initial SDK release for AWS Control Catalog, a central catalog for AWS managed controls. This release includes 3 new APIs - ListDomains, ListObjectives, and ListCommonControls - that vend high-level data to categorize controls across the AWS platform.
+* `Aws\mgn` - Added USE_SOURCE as default option to LaunchConfigurationTemplate bootMode parameter.
+* `Aws\NetworkMonitor` - Updated the allowed monitorName length for CloudWatch Network Monitor.
+
+## 3.303.4 - 2024-04-05
+
+* `Aws\QuickSight` - Adding IAMIdentityCenterInstanceArn parameter to CreateAccountSubscription
+* `Aws\ResourceGroups` - Added a new QueryErrorCode RESOURCE_TYPE_NOT_SUPPORTED that is returned by the ListGroupResources operation if the group query contains unsupported resource types.
+* `Aws\VerifiedPermissions` - Adding BatchIsAuthorizedWithToken API which supports multiple authorization requests against a PolicyStore given a bearer token.
+
+## 3.303.3 - 2024-04-04
+
+* `Aws\VerifiedPermissions` - Adds GroupConfiguration field to Identity Source API's
+* `Aws\B2bi` - Adding support for X12 5010 HIPAA EDI version and associated transaction sets.
+* `Aws\EC2` - Amazon EC2 G6 instances powered by NVIDIA L4 Tensor Core GPUs can be used for a wide range of graphics-intensive and machine learning use cases. Gr6 instances also feature NVIDIA L4 GPUs and can be used for graphics workloads with higher memory requirements.
+* `Aws\EMRContainers` - This release adds support for integration with EKS AccessEntry APIs to enable automatic Cluster Access for EMR on EKS.
+* `Aws\CleanRooms` - Feature: New schemaStatusDetails field to the existing Schema object that displays a status on Schema API responses to show whether a schema is queryable or not. New BatchGetSchemaAnalysisRule API to retrieve multiple schemaAnalysisRules using a single API call.
+* `Aws\IVS` - API update to include an SRT ingest endpoint and passphrase for all channels.
+
 ## 3.303.2 - 2024-04-03
 
 * `Aws\CleanRoomsML` - The release includes a public SDK for AWS Clean Rooms ML APIs, making them globally available to developers worldwide.
