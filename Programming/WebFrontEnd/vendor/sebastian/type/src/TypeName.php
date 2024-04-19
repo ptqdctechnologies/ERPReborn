@@ -9,33 +9,32 @@
  */
 namespace SebastianBergmann\Type;
 
+use function array_pop;
+use function explode;
+use function implode;
+use function substr;
+use ReflectionClass;
+
 final class TypeName
 {
-    /**
-     * @var ?string
-     */
-    private $namespaceName;
-
-    /**
-     * @var string
-     */
-    private $simpleName;
+    private ?string $namespaceName;
+    private string $simpleName;
 
     public static function fromQualifiedName(string $fullClassName): self
     {
         if ($fullClassName[0] === '\\') {
-            $fullClassName = \substr($fullClassName, 1);
+            $fullClassName = substr($fullClassName, 1);
         }
 
-        $classNameParts = \explode('\\', $fullClassName);
+        $classNameParts = explode('\\', $fullClassName);
 
-        $simpleName    = \array_pop($classNameParts);
-        $namespaceName = \implode('\\', $classNameParts);
+        $simpleName    = array_pop($classNameParts);
+        $namespaceName = implode('\\', $classNameParts);
 
         return new self($namespaceName, $simpleName);
     }
 
-    public static function fromReflection(\ReflectionClass $type): self
+    public static function fromReflection(ReflectionClass $type): self
     {
         return new self(
             $type->getNamespaceName(),
@@ -53,17 +52,17 @@ final class TypeName
         $this->simpleName    = $simpleName;
     }
 
-    public function getNamespaceName(): ?string
+    public function namespaceName(): ?string
     {
         return $this->namespaceName;
     }
 
-    public function getSimpleName(): string
+    public function simpleName(): string
     {
         return $this->simpleName;
     }
 
-    public function getQualifiedName(): string
+    public function qualifiedName(): string
     {
         return $this->namespaceName === null
              ? $this->simpleName

@@ -6,14 +6,15 @@ use ArrayAccess;
 use Closure;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Traits\Conditionable;
+use Illuminate\Support\Traits\Dumpable;
 use Illuminate\Support\Traits\Macroable;
 use Illuminate\Support\Traits\Tappable;
 use JsonSerializable;
-use Symfony\Component\VarDumper\VarDumper;
+use Stringable as BaseStringable;
 
-class Stringable implements JsonSerializable, ArrayAccess
+class Stringable implements JsonSerializable, ArrayAccess, BaseStringable
 {
-    use Conditionable, Macroable, Tappable;
+    use Conditionable, Dumpable, Macroable, Tappable;
 
     /**
      * The underlying string value.
@@ -508,6 +509,16 @@ class Stringable implements JsonSerializable, ArrayAccess
     }
 
     /**
+     * Remove all non-numeric characters from a string.
+     *
+     * @return static
+     */
+    public function numbers()
+    {
+        return new static(Str::numbers($this->value));
+    }
+
+    /**
      * Pad both sides of the string with another.
      *
      * @param  int  $length
@@ -957,7 +968,7 @@ class Stringable implements JsonSerializable, ArrayAccess
      */
     public function trim($characters = null)
     {
-        return new static(trim(...array_merge([$this->value], func_get_args())));
+        return new static(Str::trim(...array_merge([$this->value], func_get_args())));
     }
 
     /**
@@ -968,7 +979,7 @@ class Stringable implements JsonSerializable, ArrayAccess
      */
     public function ltrim($characters = null)
     {
-        return new static(ltrim(...array_merge([$this->value], func_get_args())));
+        return new static(Str::ltrim(...array_merge([$this->value], func_get_args())));
     }
 
     /**
@@ -979,7 +990,7 @@ class Stringable implements JsonSerializable, ArrayAccess
      */
     public function rtrim($characters = null)
     {
-        return new static(rtrim(...array_merge([$this->value], func_get_args())));
+        return new static(Str::rtrim(...array_merge([$this->value], func_get_args())));
     }
 
     /**
@@ -1270,25 +1281,14 @@ class Stringable implements JsonSerializable, ArrayAccess
     /**
      * Dump the string.
      *
+     * @param  mixed  ...$args
      * @return $this
      */
-    public function dump()
+    public function dump(...$args)
     {
-        VarDumper::dump($this->value);
+        dump($this->value, ...$args);
 
         return $this;
-    }
-
-    /**
-     * Dump the string and end the script.
-     *
-     * @return never
-     */
-    public function dd()
-    {
-        $this->dump();
-
-        exit(1);
     }
 
     /**
