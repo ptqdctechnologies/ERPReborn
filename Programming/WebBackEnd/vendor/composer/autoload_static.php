@@ -3843,6 +3843,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Aws\\RolesAnywhere\\RolesAnywhereClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/RolesAnywhere/RolesAnywhereClient.php',
         'Aws\\Route53Domains\\Exception\\Route53DomainsException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Route53Domains/Exception/Route53DomainsException.php',
         'Aws\\Route53Domains\\Route53DomainsClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Route53Domains/Route53DomainsClient.php',
+        'Aws\\Route53Profiles\\Exception\\Route53ProfilesException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Route53Profiles/Exception/Route53ProfilesException.php',
+        'Aws\\Route53Profiles\\Route53ProfilesClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Route53Profiles/Route53ProfilesClient.php',
         'Aws\\Route53RecoveryCluster\\Exception\\Route53RecoveryClusterException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Route53RecoveryCluster/Exception/Route53RecoveryClusterException.php',
         'Aws\\Route53RecoveryCluster\\Route53RecoveryClusterClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Route53RecoveryCluster/Route53RecoveryClusterClient.php',
         'Aws\\Route53RecoveryControlConfig\\Exception\\Route53RecoveryControlConfigException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Route53RecoveryControlConfig/Exception/Route53RecoveryControlConfigException.php',

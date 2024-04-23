@@ -3193,6 +3193,8 @@ return array(
     'Aws\\RolesAnywhere\\RolesAnywhereClient' => $vendorDir . '/aws/aws-sdk-php/src/RolesAnywhere/RolesAnywhereClient.php',
     'Aws\\Route53Domains\\Exception\\Route53DomainsException' => $vendorDir . '/aws/aws-sdk-php/src/Route53Domains/Exception/Route53DomainsException.php',
     'Aws\\Route53Domains\\Route53DomainsClient' => $vendorDir . '/aws/aws-sdk-php/src/Route53Domains/Route53DomainsClient.php',
+    'Aws\\Route53Profiles\\Exception\\Route53ProfilesException' => $vendorDir . '/aws/aws-sdk-php/src/Route53Profiles/Exception/Route53ProfilesException.php',
+    'Aws\\Route53Profiles\\Route53ProfilesClient' => $vendorDir . '/aws/aws-sdk-php/src/Route53Profiles/Route53ProfilesClient.php',
     'Aws\\Route53RecoveryCluster\\Exception\\Route53RecoveryClusterException' => $vendorDir . '/aws/aws-sdk-php/src/Route53RecoveryCluster/Exception/Route53RecoveryClusterException.php',
     'Aws\\Route53RecoveryCluster\\Route53RecoveryClusterClient' => $vendorDir . '/aws/aws-sdk-php/src/Route53RecoveryCluster/Route53RecoveryClusterClient.php',
     'Aws\\Route53RecoveryControlConfig\\Exception\\Route53RecoveryControlConfigException' => $vendorDir . '/aws/aws-sdk-php/src/Route53RecoveryControlConfig/Exception/Route53RecoveryControlConfigException.php',
