@@ -2332,6 +2332,7 @@ return array(
     'Illuminate\\Auth\\RequestGuard' => $vendorDir . '/laravel/framework/src/Illuminate/Auth/RequestGuard.php',
     'Illuminate\\Auth\\SessionGuard' => $vendorDir . '/laravel/framework/src/Illuminate/Auth/SessionGuard.php',
     'Illuminate\\Auth\\TokenGuard' => $vendorDir . '/laravel/framework/src/Illuminate/Auth/TokenGuard.php',
+    'Illuminate\\Broadcasting\\AnonymousEvent' => $vendorDir . '/laravel/framework/src/Illuminate/Broadcasting/AnonymousEvent.php',
     'Illuminate\\Broadcasting\\BroadcastController' => $vendorDir . '/laravel/framework/src/Illuminate/Broadcasting/BroadcastController.php',
     'Illuminate\\Broadcasting\\BroadcastEvent' => $vendorDir . '/laravel/framework/src/Illuminate/Broadcasting/BroadcastEvent.php',
     'Illuminate\\Broadcasting\\BroadcastException' => $vendorDir . '/laravel/framework/src/Illuminate/Broadcasting/BroadcastException.php',
