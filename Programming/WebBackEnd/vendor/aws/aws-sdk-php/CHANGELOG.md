@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## 3.305.3 - 2024-04-25
+
+* `Aws\Credentials` - Makes the SSO token to be refreshed when required and allowed by the rules states on the sso token provider specs.
+* `Aws\FMS` - AWS Firewall Manager adds support for network ACL policies to manage Amazon Virtual Private Cloud (VPC) network access control lists (ACLs) for accounts in your organization.
+* `Aws\SFN` - Add new ValidateStateMachineDefinition operation, which performs syntax checking on the definition of a Amazon States Language (ASL) state machine.
+* `Aws\IVSRealTime` - Bug Fix: IVS Real Time does not support ARNs using the `svs` prefix.
+* `Aws\AppSync` - UpdateGraphQLAPI documentation update and datasource introspection secret arn update
+* `Aws\IVS` - Bug Fix: IVS does not support arns with the `svs` prefix
+* `Aws\RDS` - Updates Amazon RDS documentation for setting local time zones for RDS for Db2 DB instances.
+
+## 3.305.2 - 2024-04-24
+
+* `Aws\EntityResolution` - Support Batch Unique IDs Deletion.
+* `Aws\DataSync` - This change allows users to disable and enable the schedules associated with their tasks.
+* `Aws\EMRContainers` - EMRonEKS Service support for SecurityConfiguration enforcement for Spark Jobs.
+* `Aws\EC2` - Launching capability for customers to enable or disable automatic assignment of public IPv4 addresses to their network interface
+* `Aws\SSM` - Add SSM DescribeInstanceProperties API to public AWS SDK.
+* `Aws\GameLift` - Amazon GameLift releases container fleets support for public preview. Deploy Linux-based containerized game server software for hosting on Amazon GameLift.
+
 ## 3.305.1 - 2024-04-23
 
 * `Aws\BedrockAgentRuntime` - This release introduces zero-setup file upload support for the RetrieveAndGenerate API. This allows you to chat with your data without setting up a Knowledge Base.
