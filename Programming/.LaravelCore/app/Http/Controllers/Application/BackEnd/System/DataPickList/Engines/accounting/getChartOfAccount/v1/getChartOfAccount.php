@@ -3,20 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\accounting\getCodeOfAccounting\v1           |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\accounting\getChartOfAccount\v1             |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\accounting\getCodeOfAccounting\v1
+namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\accounting\getChartOfAccount\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getCodeOfAccounting                                                                                          |
-    | ▪ Description : Menangani API dataPickList.accounting.getCodeOfAccounting Version 1                                          |
+    | ▪ Class Name  : getChartOfAccount                                                                                            |
+    | ▪ Description : Menangani API dataPickList.accounting.getChartOfAccount Version 1                                            |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getCodeOfAccounting extends \App\Http\Controllers\Controller
+    class getChartOfAccount extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -61,13 +61,18 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\a
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Data Pick List Code Of Accounting (COA) (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Accounting\General())->getDataPickList_CodeOfAccounting(
-                            $varUserSession, 
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            
-                            $varData['parameter']['effectiveDateTimeTZ']
-                            ))))
+                    try {
+                        if (!($varDataSend = 
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
+                                $varUserSession, 
+                                (new \App\Models\Database\SchData_OLTP_Accounting\General())->getDataPickList_ChartOfAccount(
+                                    $varUserSession,
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+
+                                    $varData['parameter']['effectiveDateTimeTZ']
+                                    )
+                                )
+                            ))
                             {
                             throw new \Exception();
                             }
