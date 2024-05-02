@@ -3,29 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\initialize\master                            |
-|                \setAccountingEntryRecordType\v1                                                                                  |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\initialize\accounting\setChartOfAccount\v1   |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\initialize\master\setAccountingEntryRecordType\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\initialize\accounting\setChartOfAccount\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setAccountingEntryRecordType                                                                                 |
-    | ▪ Description : Menangani API transaction.initialize.master.setAccountingEntryRecordType Version 1                           |
+    | ▪ Class Name  : setChartOfAccount                                                                                            |
+    | ▪ Description : Menangani API transaction.initialize.accounting.setChartOfAccount Version 1                                  |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setAccountingEntryRecordType extends \App\Http\Controllers\Controller
+    class setChartOfAccount extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-10-04                                                                                           |
-        | ▪ Creation Date   : 2022-10-04                                                                                           |
+        | ▪ Last Update     : 2024-05-02                                                                                           |
+        | ▪ Creation Date   : 2024-05-02                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +43,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\in
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-10-04                                                                                           |
-        | ▪ Creation Date   : 2022-10-04                                                                                           |
+        | ▪ Last Update     : 2024-05-02                                                                                           |
+        | ▪ Creation Date   : 2024-05-02                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -66,7 +65,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\in
                         if (!($varDataSend = 
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataInitialize(
                                 $varUserSession, 
-                                (new \App\Models\Database\SchData_OLTP_Master\TblAccountingEntryRecordType())->setDataInitialize(
+                                (new \App\Models\Database\SchData_OLTP_Accounting\TblChartOfAccount())->setDataInitialize(
                                     $varUserSession
                                     )
                                 )
