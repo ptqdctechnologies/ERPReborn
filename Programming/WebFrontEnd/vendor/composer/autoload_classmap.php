@@ -3593,6 +3593,7 @@ return array(
     'Laravel\\Prompts\\Themes\\Contracts\\Scrolling' => $vendorDir . '/laravel/prompts/src/Themes/Contracts/Scrolling.php',
     'Laravel\\Prompts\\Themes\\Default\\Concerns\\DrawsBoxes' => $vendorDir . '/laravel/prompts/src/Themes/Default/Concerns/DrawsBoxes.php',
     'Laravel\\Prompts\\Themes\\Default\\Concerns\\DrawsScrollbars' => $vendorDir . '/laravel/prompts/src/Themes/Default/Concerns/DrawsScrollbars.php',
+    'Laravel\\Prompts\\Themes\\Default\\Concerns\\InteractsWithStrings' => $vendorDir . '/laravel/prompts/src/Themes/Default/Concerns/InteractsWithStrings.php',
     'Laravel\\Prompts\\Themes\\Default\\ConfirmPromptRenderer' => $vendorDir . '/laravel/prompts/src/Themes/Default/ConfirmPromptRenderer.php',
     'Laravel\\Prompts\\Themes\\Default\\MultiSearchPromptRenderer' => $vendorDir . '/laravel/prompts/src/Themes/Default/MultiSearchPromptRenderer.php',
     'Laravel\\Prompts\\Themes\\Default\\MultiSelectPromptRenderer' => $vendorDir . '/laravel/prompts/src/Themes/Default/MultiSelectPromptRenderer.php',
