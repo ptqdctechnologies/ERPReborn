@@ -23,8 +23,8 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2020-09-10                                                                                           |
         | ▪ Last Update     : 2020-09-10                                                                                           |
+        | ▪ Creation Date   : 2020-09-10                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,17 +43,18 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2024-05-02                                                                                           |
         | ▪ Creation Date   : 2020-09-10                                                                                           |
-        | ▪ Last Update     : 2020-09-10                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (bool)   varSignDataAuthentication ► Sign Data Authentication                                                     |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
+        |        ----------------------------------------                                                                          |
         |      ▪ (bool)   varSignJournalPosting ► Sign Journal Posting                                                             |
         |      ▪ (string) varJournalCode ► Journal Code                                                                            |
         |      ▪ (string) varJournalDateTimeTZ ► Journal DateTimeTZ                                                                |
@@ -64,29 +65,30 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         */
         public function setDataInsert(
             $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            bool $varSignDataAuthentication = null, bool $varSignJournalPosting = null, string $varJournalCode = null, string $varJournalDateTimeTZ = null, string $varAnnotation = null)
+            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,
+            string $varJournalCode = null, string $varJournalDateTimeTZ = null, int $varPosterWorkerJobsPosition_RefID = null, $varvarPostingDateTimeTZ = null, string $varAnnotation = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [null, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [null, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
 
-                        [$varSignDataAuthentication, 'boolean'],
-                        [$varSignJournalPosting, 'boolean'],
-                        [$varJournalCode, 'varchar'],
-                        [$varJournalDateTimeTZ, 'timestamptz'],
-                        [$varAnnotation, 'varchar']
-                    ]
-                    )
-                );
+                            [$varJournalCode, 'varchar'],
+                            [$varJournalDateTimeTZ, 'timestamptz'],
+                            [$varPosterWorkerJobsPosition_RefID, 'bigint'],
+                            [$varvarPostingDateTimeTZ, 'timestamptz'],
+                            [$varAnnotation, 'varchar']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0];
             }
 
@@ -95,9 +97,9 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2024-05-02                                                                                           |
         | ▪ Creation Date   : 2020-09-10                                                                                           |
-        | ▪ Last Update     : 2020-09-10                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -105,7 +107,9 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
+        |        ----------------------------------------                                                                          |
         |      ▪ (bool)   varSignDataAuthentication ► Sign Data Authentication                                                     |
         |      ▪ (bool)   varSignJournalPosting ► Sign Journal Posting                                                             |
         |      ▪ (string) varJournalCode ► Journal Code                                                                            |
@@ -117,29 +121,30 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         */
         public function setDataUpdate(
             $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            bool $varSignDataAuthentication = null, bool $varSignJournalPosting = null, string $varJournalCode = null, string $varJournalDateTimeTZ = null, string $varAnnotation = null)
+            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,
+            string $varJournalCode = null, string $varJournalDateTimeTZ = null, int $varPosterWorkerJobsPosition_RefID = null, $varvarPostingDateTimeTZ = null, string $varAnnotation = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varSysID, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varSysID, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
 
-                        [$varSignDataAuthentication, 'boolean'],
-                        [$varSignJournalPosting, 'boolean'],
-                        [$varJournalCode, 'varchar'],
-                        [$varJournalDateTimeTZ, 'timestamptz'],
-                        [$varAnnotation, 'varchar']
-                    ],
-                    )
-                );
+                            [$varJournalCode, 'varchar'],
+                            [$varJournalDateTimeTZ, 'timestamptz'],
+                            [$varPosterWorkerJobsPosition_RefID, 'bigint'],
+                            [$varvarPostingDateTimeTZ, 'timestamptz'],
+                            [$varAnnotation, 'varchar']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0];
             }
         }

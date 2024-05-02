@@ -23,8 +23,8 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2023-10-27                                                                                           |
         | ▪ Last Update     : 2023-10-27                                                                                           |
+        | ▪ Creation Date   : 2023-10-27                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
