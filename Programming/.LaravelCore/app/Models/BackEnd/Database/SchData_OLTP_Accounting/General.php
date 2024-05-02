@@ -88,29 +88,30 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_CodeOfAccounting(
+        public function getDataList_ChartOfAccount(
             $varUserSession, int $varBranchID, 
             string $varEffectiveDateTimeTZ = null, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Accounting.Func_GetDataList_CodeOfAccounting',
-                        [
-                            [$varBranchID, 'bigint' ],
-                            
-                            [$varEffectiveDateTimeTZ, 'timestamptz' ],
-                            
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Accounting.Func_GetDataList_ChartOfAccount',
+                            [
+                                [$varBranchID, 'bigint' ],
+
+                                [$varEffectiveDateTimeTZ, 'timestamptz' ],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
