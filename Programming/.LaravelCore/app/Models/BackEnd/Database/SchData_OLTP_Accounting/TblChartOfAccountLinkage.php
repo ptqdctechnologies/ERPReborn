@@ -3,27 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : Laravel Models                                                                                                    |
-| ▪ Name Space : \App\Models\Database\SchData_OLTP_Master                                                                          |
+| ▪ Name Space : \App\Models\Database\SchData_OLTP_Accounting                                                                      |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Models\Database\SchData_OLTP_Master
+namespace App\Models\Database\SchData_OLTP_Accounting
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblBank                                                                                                      |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblBank                                                    |
+    | ▪ Class Name  : TblChartOfAccountLinkage                                                                                     |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Accounting ► TblChartOfAccountLinkage                               |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblBank extends \App\Models\Database\DefaultClassPrototype
+    class TblChartOfAccountLinkage extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-11-25                                                                                           |
+        | ▪ Creation Date   : 2024-05-02                                                                                           |
+        | ▪ Last Update     : 2024-05-02                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,8 +44,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Method Name     : setDataInitialize                                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-11-25                                                                                           |
-        | ▪ Creation Date   : 2021-11-25                                                                                           |
+        | ▪ Last Update     : 2024-05-02                                                                                           |
+        | ▪ Creation Data   : 2024-05-02                                                                                           |
         | ▪ Description     : Data Initialize                                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -73,8 +74,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-11-25                                                                                           |
-        | ▪ Creation Date   : 2021-11-25                                                                                           |
+        | ▪ Last Update     : 2024-05-02                                                                                           |
+        | ▪ Creation Data   : 2024-05-02                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -82,21 +83,29 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (string) varName ► Bank Name                                                                                      |
-        |      ▪ (string) varAcronym ► Bank Acronym                                                                                |
+        |      ▪ (int)    varChartOfAccount_RefID ► Chart Of Account Reference ID                                                  |
+        |      ▪ (int)    varLinkage_RefID ► Linkage Reference ID                                                                  |
+        |      ▪ (string) varCode ► Code                                                                                           |
+        |      ▪ (string) varName ► Name                                                                                           |
+        |      ▪ (string) varFullName ► Full Name                                                                                  |
+        |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
+        |      ▪ (string) varValidStartDateTimeTZ ► Valid Start DateTimeTZ                                                         |
+        |      ▪ (string) varValidFinishDateTimeTZ ► Valid Finish DateTimeTZ                                                       |
+        |      ▪ (bool)   varSignOtherThing ► Sign Other Thing                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
             $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,
-            string $varName = null, string $varAcronym = null)
+            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
+            int $varChartOfAccount_RefID = null, int $varLinkage_RefID = null, string $varCode = null, string $varName = null, string $varFullName = null, int $varCurrency_RefID = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null, bool $varSignOtherThing = null)
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession,
+                    $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
                         parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
@@ -106,9 +115,17 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [$varSysDataAnnotation, 'varchar'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
+                            [$varChartOfAccount_RefID, 'bigint'],
+                            [$varLinkage_RefID, 'bigint'],
+                            [$varCode, 'varchar'],
                             [$varName, 'varchar'],
-                            [$varAcronym, 'varchar']
+                            [$varFullName, 'varchar'],
+                            [$varCurrency_RefID, 'bigint'],
+                            [$varValidStartDateTimeTZ, 'timestamptz'],
+                            [$varValidFinishDateTimeTZ, 'timestamptz'],
+                            [$varSignOtherThing, 'boolean']
                         ]
                         )
                     );
@@ -121,8 +138,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-11-25                                                                                           |
-        | ▪ Creation Date   : 2021-11-25                                                                                           |
+        | ▪ Last Update     : 2024-05-02                                                                                           |
+        | ▪ Creation Data   : 2024-05-02                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -131,19 +148,27 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (string) varName ► Bank Name                                                                                      |
-        |      ▪ (string) varAcronym ► Bank Acronym                                                                                |
+        |      ▪ (int)    varChartOfAccount_RefID ► Chart Of Account Reference ID                                                  |
+        |      ▪ (int)    varLinkage_RefID ► Linkage Reference ID                                                                  |
+        |      ▪ (string) varCode ► Code                                                                                           |
+        |      ▪ (string) varName ► Name                                                                                           |
+        |      ▪ (string) varFullName ► Full Name                                                                                  |
+        |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
+        |      ▪ (string) varValidStartDateTimeTZ ► Valid Start DateTimeTZ                                                         |
+        |      ▪ (string) varValidFinishDateTimeTZ ► Valid Finish DateTimeTZ                                                       |
+        |      ▪ (bool)   varSignOtherThing ► Sign Other Thing                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
             $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,
-            string $varName = null, string $varAcronym = null)
+            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
+            int $varChartOfAccount_RefID = null, int $varLinkage_RefID = null, string $varCode = null, string $varName = null, string $varFullName = null, int $varCurrency_RefID = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null, bool $varSignOtherThing = null)
             {
-            $varReturn = 
+            $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
@@ -155,9 +180,17 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [$varSysDataAnnotation, 'varchar'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
+                            [$varChartOfAccount_RefID, 'bigint'],
+                            [$varLinkage_RefID, 'bigint'],
+                            [$varCode, 'varchar'],
                             [$varName, 'varchar'],
-                            [$varAcronym, 'varchar']
+                            [$varFullName, 'varchar'],
+                            [$varCurrency_RefID, 'bigint'],
+                            [$varValidStartDateTimeTZ, 'timestamptz'],
+                            [$varValidFinishDateTimeTZ, 'timestamptz'],
+                            [$varSignOtherThing, 'boolean']
                         ],
                         )
                     );
