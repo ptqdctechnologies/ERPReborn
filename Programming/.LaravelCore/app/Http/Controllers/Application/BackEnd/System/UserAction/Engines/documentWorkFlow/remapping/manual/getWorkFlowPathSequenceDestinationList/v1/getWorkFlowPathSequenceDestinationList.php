@@ -63,15 +63,21 @@ namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\doc
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchSysConfig\General())->getManualRemappingWorkFlowPathSequenceDestinationList(
-                            $varUserSession, 
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                                
-                            $varData['parameter']['workFlow_RefID']
-                            ))))
+                        if (!($varDataSend = 
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
+                                $varUserSession,
+                                (new \App\Models\Database\SchSysConfig\General())->getManualRemappingWorkFlowPathSequenceDestinationList(
+                                    $varUserSession, 
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+
+                                    $varData['parameter']['workFlow_RefID']
+                                    )
+                                )
+                            ))
                             {
                             throw new \Exception();
                             }
+
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {

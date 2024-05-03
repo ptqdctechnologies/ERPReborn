@@ -63,18 +63,24 @@ namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\doc
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Business Document Work Flow Path Approvement History By Submitter Entity ID (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchSysConfig\General())->getBusinessDocumentTypeWorkFlowPath(
-                            $varUserSession, 
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                    try {
+                        if (!($varDataSend =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
+                                $varUserSession,
+                                (new \App\Models\Database\SchSysConfig\General())->getBusinessDocumentTypeWorkFlowPath(
+                                    $varUserSession, 
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
 
-                            $varData['parameter']['businessDocumentType_RefID'],
-                            $varData['parameter']['submitterEntity_RefID'],
-                            NULL
-                            ))))
+                                    $varData['parameter']['businessDocumentType_RefID'],
+                                    $varData['parameter']['submitterEntity_RefID'],
+                                    NULL
+                                    )
+                                )
+                            ))
                             {
                             throw new \Exception();
                             }
+
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
