@@ -146,6 +146,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                     $varDataReturn[$i]['Path'] = null;
                     }
                 }
+
             return $varDataReturn;
             }
         }
