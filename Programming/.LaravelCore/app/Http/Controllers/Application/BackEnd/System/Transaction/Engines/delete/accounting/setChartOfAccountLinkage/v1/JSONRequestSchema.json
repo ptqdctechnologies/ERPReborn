@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.delete.accounting.setLayoutStructureCodeOfAccounting (version 1)",
+"description": "JSON Request Schema of transaction.delete.accounting.setChartOfAccountLinkage (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.delete.accounting.setLayoutStructureCodeOfAccounting" ]
+                        "enum": [ "transaction.delete.accounting.setChartOfAccountLinkage" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
