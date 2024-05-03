@@ -63,10 +63,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
-                            $varUserSession,
-                            $this->dataProcessing($varUserSession)
-                            )))
+                        if (!($varDataSend =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
+                                $varUserSession,
+                                $this->dataProcessing($varUserSession)
+                                )
+                            ))
                             {
                             throw new \Exception();
                             }
@@ -117,7 +119,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             $varArrayRPKPhysicalName = '';
             for ($i=0, $iMax=count($varDataList); $i!=$iMax; $i++)
                 {
-                if(strcmp($varArrayRPKPhysicalName, '')!=0)
+                if (strcmp($varArrayRPKPhysicalName, '')!=0)
                     {
                     $varArrayRPKPhysicalName .= ',';
                     }
@@ -126,16 +128,19 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             $varArrayRPKPhysicalName = '{'.$varArrayRPKPhysicalName.'}';
             
             //--->
-            $varDataReturn = (new \App\Models\Database\SchSysAsset\General())->getCloudStorageSubDirectoriesList(
-                $varUserSession, 
-                $varArrayRPKPhysicalName
-                );
+            $varDataReturn =
+                (new \App\Models\Database\SchSysAsset\General())->getCloudStorageSubDirectoriesList(
+                    $varUserSession, 
+                    $varArrayRPKPhysicalName
+                    );
 
             //--->
              for ($i=0, $iMax=count($varDataReturn); $i!=$iMax; $i++)
                 {
-                if(((bool) $varDataReturn[$i]['SignExistOnStorage']) == TRUE) {
-                    $varDataReturn[$i]['Path'] = 'StagingArea/'.$varDataReturn[$i]['Sys_RPK'];
+                if (((bool) $varDataReturn[$i]['SignExistOnStorage']) == TRUE) {
+                    $varDataReturn[$i]['Path'] = 
+                        'StagingArea/'.
+                        $varDataReturn[$i]['Sys_RPK'];
                     }
                 else {
                     $varDataReturn[$i]['Path'] = null;

@@ -68,6 +68,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                                 $varUserSession,
                                 $this->dataProcessing($varUserSession, $varData['parameter']['rotateLog_FileUploadStagingArea_RefRPK'])
                                 );
+
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
@@ -125,11 +126,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             $varArrayRPKPhysicalName = '{'.$varArrayRPKPhysicalName.'}';
             
             //--->
-            $varDataReturn = (new \App\Models\Database\SchSysAsset\General())->getCloudStorageFilesList(
-                $varUserSession, 
-                $varRotateLog_FileUploadStagingArea_RefRPK,
-                $varArrayRPKPhysicalName
-                );
+            $varDataReturn =
+                (new \App\Models\Database\SchSysAsset\General())->getCloudStorageFilesList(
+                    $varUserSession, 
+                    $varRotateLog_FileUploadStagingArea_RefRPK,
+                    $varArrayRPKPhysicalName
+                    );
             
             //$varDataReturn = $varDataList;
             //$varDataReturn = ['xxx' => $varArrayRPKPhysicalName];

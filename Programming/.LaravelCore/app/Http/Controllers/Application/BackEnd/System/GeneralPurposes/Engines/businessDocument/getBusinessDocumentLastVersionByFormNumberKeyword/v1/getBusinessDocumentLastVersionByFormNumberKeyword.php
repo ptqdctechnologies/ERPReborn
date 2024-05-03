@@ -62,13 +62,18 @@ namespace App\Http\Controllers\Application\BackEnd\System\GeneralPurposes\Engine
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Business Document Last Version By Form Number Keyword Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentLastVersionByFormNumberKeyword(
-                        $varUserSession, 
-                        (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                    if (!($varDataSend = 
+                        \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
+                            $varUserSession,
+                            (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentLastVersionByFormNumberKeyword(
+                                $varUserSession,
+                                (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
 
-                        $varData['parameter']['keyword'],
-                        $varData['parameter']['approverEntity_RefID']
-                        ))))
+                                $varData['parameter']['keyword'],
+                                $varData['parameter']['approverEntity_RefID']
+                                )
+                            )
+                        ))
                         {
                         throw new \Exception();
                         }

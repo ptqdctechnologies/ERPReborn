@@ -43,7 +43,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\gatew
         */
         function __construct()
             {
-            $this->varAPIIdentity = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getAPIIdentityFromClassFullName(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), __CLASS__);
+            $this->varAPIIdentity = 
+                \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getAPIIdentityFromClassFullName(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    __CLASS__
+                    );
             }
 
 
