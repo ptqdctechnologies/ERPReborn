@@ -3,28 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\accounting\setJournal\v1            |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\accounting                          |
+|                \setChartOfAccountLinkageSchema\v1                                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\accounting\setJournal\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\accounting\setChartOfAccountLinkageSchema\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setJournal                                                                                                   |
-    | ▪ Description : Menangani API transaction.undelete.accounting.setJournal Version 1                                           |
+    | ▪ Class Name  : setChartOfAccountLinkageSchema                                                                               |
+    | ▪ Description : Menangani API transaction.undelete.accounting.setChartOfAccountLinkageSchema Version 1                       |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setJournal extends \App\Http\Controllers\Controller
+    class setChartOfAccountLinkageSchema extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-08-08                                                                                           |
-        | ▪ Creation Date   : 2023-08-08                                                                                           |
+        | ▪ Last Update     : 2023-10-30                                                                                           |
+        | ▪ Creation Date   : 2023-10-30                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-08-08                                                                                           |
-        | ▪ Creation Date   : 2023-08-08                                                                                           |
+        | ▪ Last Update     : 2023-10-30                                                                                           |
+        | ▪ Creation Date   : 2023-10-30                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -58,14 +59,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Undelete Journal Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Undelete Chart Of Account Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
                         if (!($varDataSend =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUndelete(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_Accounting\TblJournal())->unsetDataDelete(
+                                (new \App\Models\Database\SchData_OLTP_Accounting\TblChartOfAccountLinkageSchema())->unsetDataDelete(
                                     $varUserSession,
                                     $varData['recordID']
                                     )

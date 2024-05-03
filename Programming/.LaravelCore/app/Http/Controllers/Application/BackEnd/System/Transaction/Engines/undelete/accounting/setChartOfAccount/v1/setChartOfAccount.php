@@ -3,7 +3,7 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\accounting\setChartOfAccount\v1            |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\accounting\setChartOfAccount\v1     |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
@@ -62,10 +62,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUndelete($varUserSession, (new \App\Models\Database\SchData_OLTP_Accounting\TblChartOfAccount())->unsetDataDelete(
-                            $varUserSession,
-                            $varData['recordID']
-                            ))))
+                        if (!($varDataSend =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUndelete(
+                                $varUserSession,
+                                (new \App\Models\Database\SchData_OLTP_Accounting\TblChartOfAccount())->unsetDataDelete(
+                                    $varUserSession,
+                                    $varData['recordID']
+                                    )
+                                )
+                            ))
                             {
                             throw new \Exception();
                             }
