@@ -68,10 +68,13 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     $varAPIWebToken =
                         \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession)['APIWebToken'];
+
                     $varBranchID =
                         $varData['branchID'];
+
                     $varUserID =
                         \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession)['userID'];
+
                     $varUserRoleID =
                         $varData['userRoleID'];
 
