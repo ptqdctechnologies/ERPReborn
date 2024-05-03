@@ -156,7 +156,7 @@ class AdvanceRequestController extends Controller
             $varAPIWebToken = Session::get('SessionLogin');
 
             // DATA REVISION ADVANCE
-            if (Redis::get("DataListAdvanceDetailComplex") == null) {
+            // if (Redis::get("DataListAdvanceDetailComplex") == null) {
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken,
@@ -175,7 +175,7 @@ class AdvanceRequestController extends Controller
                     ],
                     false
                 );
-            }
+            // }
 
             $DataAdvanceDetailComplex = json_decode(
                 \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
@@ -195,8 +195,6 @@ class AdvanceRequestController extends Controller
                 $filteredArray[$num] = $collections;
                 $num++;
             }
-
-            // dd($filteredArray);
 
             if ($filteredArray[0]['Log_FileUpload_Pointer_RefID'] == 0) {
                 $dataDetailFileAttachment = null;
@@ -323,7 +321,7 @@ class AdvanceRequestController extends Controller
     {
         try {
 
-            if (Redis::get("DataListAdvance") == null) {
+            // if (Redis::get("DataListAdvance") == null) {
                 $varAPIWebToken = Session::get('SessionLogin');
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -341,7 +339,7 @@ class AdvanceRequestController extends Controller
                     ],
                     false
                 );
-            }
+            // }
 
             $DataListAdvance = json_decode(
                 \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
@@ -350,7 +348,6 @@ class AdvanceRequestController extends Controller
                 ),
                 true
             );
-
 
             $collection = collect($DataListAdvance);
 
@@ -400,7 +397,7 @@ class AdvanceRequestController extends Controller
     {
         try {
             $varAPIWebToken = Session::get('SessionLogin');
-            if (Redis::get("ReportAdvanceSummary") == null) {
+            // if (Redis::get("ReportAdvanceSummary") == null) {
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken,
@@ -419,7 +416,7 @@ class AdvanceRequestController extends Controller
                     ],
                     false
                 );
-            }
+            // }
 
             $DataReportAdvanceSummary = json_decode(
                 \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
@@ -572,9 +569,10 @@ class AdvanceRequestController extends Controller
     public function ReportAdvanceSummaryDetailData($id, $number, $statusHeader)
     {
         try {
+            
             $varAPIWebToken = Session::get('SessionLogin');
 
-            if (Redis::get("DataListAdvanceDetailComplex") == null) {
+            // if (Redis::get("DataListAdvanceDetailComplex") == null) {
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken,
@@ -593,7 +591,7 @@ class AdvanceRequestController extends Controller
                     ],
                     false
                 );
-            }
+            // }
 
             $DataAdvanceDetailComplex = json_decode(
                 \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(

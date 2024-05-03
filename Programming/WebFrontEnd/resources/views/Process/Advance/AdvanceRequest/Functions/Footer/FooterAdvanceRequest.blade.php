@@ -696,3 +696,59 @@
         window.location.href = '/AdvanceRequest?var=1';
     }
 </script>
+
+<script>
+    const dataTablePelanggan = initDatatable(dataTableIdPelanggan,
+		//ajax config
+		{
+			"serverSide": true,
+			"url": getContextPath() + namespace + "DoSearchPelanggan",
+			"searchModel": ()=> {
+				return {
+					dtFilterPelanggan: {
+						idCustomer: $('#idPelanggan').val(),
+						namaPelanggan: $('#namaPelanggan').val(),
+						noKtp: $('#noKtp').val(),
+						noHp: $('#noHp').val(),
+					},
+					
+				}
+			}
+		},
+		[			
+			{ "data": "idCustomer", 
+			  "title": "Id</br>Pelanggan"
+			},
+			{ "data": "namaPelanggan",
+			  "title": "Nama</br>Pelanggan"
+			},
+			{ "data": "noKtp", 
+			  "title": "No Ktp"
+			},
+			{ "data": "noHp",
+			  "title": "No Hp"
+			},
+			
+		],
+		{
+			"Detail":{
+				"htmlContent": $('<button></button>', {
+					'class': 'mr-2 btn btn-primary button-pilih',
+					'html': 'Pilih' 
+				}).prop("outerHTML"),
+				"eventHandler": function(e, data){
+					openAction(getCurrentModuleId(), getContextPath() + namespace + "PrepareInformationAct", undefined, {idPelanggan: data.idCustomer});
+				}
+			},
+		},
+		false,
+		false
+	);
+
+    $('.button-pilih').on('click', function() {
+        var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
+        $("#tanggal_transaksi").val(date);
+    });
+
+
+</script>

@@ -68,11 +68,12 @@
                 t = $('#TableCheckDocument').DataTable();
                 t.clear().draw();
                 $.each(data, function(key, val) {
+                    console.log(val);
                     keys += 1;
                     t.row.add([
                         '<tbody><tr><td><input id="businessDocument_RefID' + keys + '" value="' + val.Sys_ID + '" type="hidden">' + no++ + '</span></td>',
                         '<td><span style="position:relative;left:10px;">' + val.DocumentNumber + '</span></td>',
-                        '<td><span style="position:relative;left:10px;">' + val.CombinedBudgetCode + '-' + val.CombinedBudgetSectionCode + '</span></td>',
+                        '<td><span style="position:relative;left:10px;">' + val.CombinedBudgetCode + '-' + val.CombinedBudgetName + '</span></td>',
                         '<td><span style="position:relative;left:10px;">' + val.CombinedBudgetSectionCode + '-' + val.CombinedBudgetSectionName + '</span></td></tr></tbody>',
                     ]).draw();
                 });
@@ -151,5 +152,42 @@
         var page = 'http://localhost:20080/ShowRevisionHistory?id=' + id + '&docNum=' + docNum + '&docName=' + docName;
         var myWindow = window.open(page, "_blank", "scrollbars=yes,width=400,height=500,top=300");
 
+    }
+</script>
+
+
+<script>
+    function ShowFileAttachment(id) {
+
+        ShowLoading();
+        $(".ShowFileAttachment").hide();
+
+        $('#TableFileAttachment').find('tbody').empty();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var keys = 0;
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("CheckDocument.FileAttachmentCheckDocument") !!}?businessDocumentForm_RefID=' + id,
+            success: function(data) {
+                
+                $.each(data, function(key, val) {
+                    console.log(val.entities.downloadURL);
+                    var html = '<tr>' +
+                        '<td>' + '<a href="' + val.entities.downloadURL + '">' + val.entities.name + '</td>' +
+                        '</tr>';
+                    $('table.TableFileAttachment tbody').append(html);
+                    
+                });
+
+                HideLoading();
+            }
+        });
     }
 </script>
