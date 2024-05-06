@@ -397,9 +397,10 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                             ],
                         'data' => $varData
                         ];
+                    //dd($varDataArray);
+                    //dd(json_encode($varDataArray));
                         
 
-                    // dd($varDataArray);
                     $varResponseData = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse(
                         $varUserSession, 
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_GATEWAY'),

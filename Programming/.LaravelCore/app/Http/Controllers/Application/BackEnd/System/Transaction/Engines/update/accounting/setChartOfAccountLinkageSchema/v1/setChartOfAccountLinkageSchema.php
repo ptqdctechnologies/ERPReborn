@@ -78,7 +78,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                                     $varData['entities']['linkageSchemaTable'],
                                     $varData['entities']['signLinkageBoundMandatory'],
 
-                                    (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'additionalLinkageFields', $varData['entities']) ? ((!is_null($varData['entities']['additionalLinkageFields'])) ? $varData['entities']['additionalLinkageFields'] : []) : [])
+                                    (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'additionalLinkageFields', $varData['entities']) ? ((!is_null($varData['entities']['additionalLinkageFields'])) ? $varData['entities']['additionalLinkageFields'] : null) : null)
                                     )
                                 )
                             ))

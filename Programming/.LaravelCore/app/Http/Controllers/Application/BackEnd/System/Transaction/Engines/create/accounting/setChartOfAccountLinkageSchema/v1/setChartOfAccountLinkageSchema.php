@@ -73,15 +73,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                     (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                                     \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
 
-                                    $varData['entities']['chartOfAccount_RefID'],
-                                    $varData['entities']['linkage_RefID'],
-                                    $varData['entities']['code'],
-                                    $varData['entities']['name'],
-                                    $varData['entities']['fullName'],
-                                    $varData['entities']['currency_RefID'],
-                                    $varData['entities']['validStartDateTimeTZ'],
-                                    $varData['entities']['validFinishDateTimeTZ'],
-                                    $varData['entities']['signOtherThing']
+                                    $varData['entities']['parentChartOfAccount_RefID'],
+                                    $varData['entities']['linkageSchemaTable'],
+                                    $varData['entities']['signLinkageBoundMandatory'],
+
+                                    (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'additionalLinkageFields', $varData['entities']) ? ((!is_null($varData['entities']['additionalLinkageFields'])) ? $varData['entities']['additionalLinkageFields'] : null) : null)
                                     )
                                 )
                             ))
