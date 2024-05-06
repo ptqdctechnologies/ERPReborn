@@ -502,6 +502,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                                     '"'.\App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 'URL_BACKEND_API_GATEWAY').'", '.
                                     '"'.$varAPIKey.'", '.
                                     '"'.$varAPIVersion.'", '.
+                                    //'JSON.parse(JSON.stringify(varJSONData)), '.
                                     'varJSONData, '.
                                     ''.$varTimeOut.''.
                                     '); '.

@@ -123,8 +123,8 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                             [$varName, 'varchar'],
                             [$varFullName, 'varchar'],
                             [$varCurrency_RefID, 'bigint'],
-                            [$varValidStartDateTimeTZ, 'timestamptz'],
-                            [$varValidFinishDateTimeTZ, 'timestamptz'],
+                            [$varValidStartDateTimeTZ, 'timestamp'],
+                            [$varValidFinishDateTimeTZ, 'timestamp'],
                             [$varSignOtherThing, 'boolean']
                         ]
                         )
@@ -188,10 +188,10 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                             [$varName, 'varchar'],
                             [$varFullName, 'varchar'],
                             [$varCurrency_RefID, 'bigint'],
-                            [$varValidStartDateTimeTZ, 'timestamptz'],
-                            [$varValidFinishDateTimeTZ, 'timestamptz'],
+                            [$varValidStartDateTimeTZ, 'timestamp'],
+                            [$varValidFinishDateTimeTZ, 'timestamp'],
                             [$varSignOtherThing, 'boolean']
-                        ],
+                        ]
                         )
                     );
             return $varReturn['Data'][0];

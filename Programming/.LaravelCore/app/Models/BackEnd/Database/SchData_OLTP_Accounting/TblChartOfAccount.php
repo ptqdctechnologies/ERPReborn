@@ -88,8 +88,8 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         |      ▪ (string) varCode ► Code of Accounting (COA)                                                                       |
         |      ▪ (string) varName ► Name of COA                                                                                    |
         |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
-        |      ▪ (string) varValidStartDateTime ► Valid Start DateTime                                                             |
-        |      ▪ (string) varValidFinishDateTime ► Valid Finish DateTime                                                           |
+        |      ▪ (string) varValidStartDateTimeTZ ► Valid Start DateTimeTZ                                                         |
+        |      ▪ (string) varValidFinishDateTimeTZ ► Valid Finish DateTimeTZ                                                       |
         |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -98,29 +98,30 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varCode = null, string $varName = null, int $varCurrency_RefID = null, string $varValidStartDateTime = null, string $varValidFinishDateTime = null)
+            string $varCode = null, string $varName = null, int $varCurrency_RefID = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [null, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [null, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [$varCode, 'varchar'],
-                        [$varName, 'varchar'],
-                        [$varCurrency_RefID, 'bigint'],
-                        [$varValidStartDateTime, 'timestamp'],
-                        [$varValidFinishDateTime, 'timestamp']
-                    ]
-                    )
-                );
+                            [$varCode, 'varchar'],
+                            [$varName, 'varchar'],
+                            [$varCurrency_RefID, 'bigint'],
+                            [$varValidStartDateTimeTZ, 'timestamp'],
+                            [$varValidFinishDateTimeTZ, 'timestamp']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0];
             }
 
@@ -145,8 +146,8 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         |      ▪ (string) varCode ► Code of Accounting (COA)                                                                       |
         |      ▪ (string) varName ► Name of COA                                                                                    |
         |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
-        |      ▪ (string) varValidStartDateTime ► Valid Start DateTime                                                             |
-        |      ▪ (string) varValidFinishDateTime ► Valid Finish DateTime                                                           |
+        |      ▪ (string) varValidStartDateTimeTZ ► Valid Start DateTimeTZ                                                         |
+        |      ▪ (string) varValidFinishDateTimeTZ ► Valid Finish DateTimeTZ                                                       |
         |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -155,29 +156,30 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varCode = null, string $varName = null, int $varCurrency_RefID = null, string $varValidStartDateTime = null, string $varValidFinishDateTime = null)
+            string $varCode = null, string $varName = null, int $varCurrency_RefID = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varSysID, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varSysID, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [$varCode, 'varchar'],
-                        [$varName, 'varchar'],
-                        [$varCurrency_RefID, 'bigint'],
-                        [$varValidStartDateTime, 'timestamp'],
-                        [$varValidFinishDateTime, 'timestamp']
-                    ],
-                    )
-                );
+                            [$varCode, 'varchar'],
+                            [$varName, 'varchar'],
+                            [$varCurrency_RefID, 'bigint'],
+                            [$varValidStartDateTimeTZ, 'timestamp'],
+                            [$varValidFinishDateTimeTZ, 'timestamp']
+                        ],
+                        )
+                    );
             return $varReturn['Data'][0];
             }
         }
