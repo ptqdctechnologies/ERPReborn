@@ -106,44 +106,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             '"signOtherThing" : true'.
                             '}'.
                     '}'
-                    ); 
-//'"signOtherThing" : document.getElementById("dataInput_signOtherThing").value '.
-            
-            echo "xxx : ". json_encode('"Aset ► Others"');
-            
-            $varJQueryFunction =
-                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                    $varAPIWebToken, 
-                    'transaction.create.accounting.setChartOfAccountLinkage', 
-                    'latest', 
-                    '{'.
-                        '"entities" : {'.
-                            '"chartOfAccount_RefID" : 65000000000005, '.
-                            '"linkage_RefID" : null, '.
-                            '"code" : "1-1101.01.000001", '.
-                            '"name" : "Others", '.
-                            '"fullName" : "Aset ► Others", '.
-                            '"signOtherThing" : true'.
-                            '}'.
-                    '}'
-                    ); 
-
-/*
-                        ,
-                        
-                        
-                        
-                        
-                        "currency_RefID" : 62000000000001,
-                        "validStartDateTimeTZ" : "2016-01-01 00:00:00",
-                        "validFinishDateTimeTZ" : null, 
-                        
-
- */
-
-//            echo "<button type='button' onclick='javascript:alert(   (\"\\\\\"+escape(\"►\").replace(\"%\",\"\").toLowerCase())      ); var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
-            echo "<button type='button' onclick='javascript:alert(escape(\"a ► b\")); var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+                    );             
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);
             }
         }

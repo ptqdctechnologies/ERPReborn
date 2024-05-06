@@ -39,13 +39,17 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     'transaction.update.accounting.setChartOfAccountLinkage', 
                     'latest', 
                     [
-                    'recordID' => 65000000000001,
+                    'recordID' => 237000000000001,
                     'entities' => [
-                        'code' => '1-0000',
-                        'name' => 'Assets',
+                        'chartOfAccount_RefID' => 65000000000005,
+                        'linkage_RefID' => null,
+                        'code' => '1-1101.01.000001',
+                        'name' => 'Others',
+                        'fullName' => 'Aset ► Aset Lancar ► Cash & Bank ► Petty Cash ► Petty Cash (IDR) ► Others',
                         'currency_RefID' => 62000000000001,
-                        'validStartDateTimeTZ' => '2016-01-01 00:00:00',
-                        'validFinishDateTimeTZ' => null
+                        'validStartDateTimeTZ' => '2016-01-01 00:00:00+07',
+                        'validFinishDateTimeTZ' => null,
+                        'signOtherThing' => true
                         ]
                     ]
                     );
@@ -74,12 +78,16 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<table border="1" style="border-collapse: collapse;">';
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Chart Of Account Main Data</p></td></tr>';
-            echo        '<tr><td>RecordID</td><td><input type="text" id="dataInput_RecordID" value=65000000000001></td></tr>';
-            echo        '<tr><td>Code</td><td><input type="text" id="dataInput_Code" value="1-0000"></td></tr>';
-            echo        '<tr><td>Name</td><td><input type="text" id="dataInput_Name" value="Assets"></td></tr>';
+            echo        '<tr><td>RecordID</td><td><input type="text" id="dataInput_RecordID" value=237000000000001></td></tr>';
+            echo        '<tr><td>ChartOfAccount_RefID</td><td><input type="text" id="dataInput_ChartOfAccount_RefID" value="65000000000005"></td></tr>';
+            echo        '<tr><td>Linkage_RefID</td><td><input type="text" id="dataInput_Linkage_RefID" value=""></td></tr>';
+            echo        '<tr><td>Code</td><td><input type="text" id="dataInput_Code" value="1-1101.01.000001"></td></tr>';
+            echo        '<tr><td>Name</td><td><input type="text" id="dataInput_Name" value="Others"></td></tr>';
+            echo        '<tr><td>FullName</td><td><input type="text" id="dataInput_FullName" value="Aset ► Aset Lancar ► Cash & Bank ► Petty Cash ► Petty Cash (IDR) ► Others"></td></tr>';
             echo        '<tr><td>Currency_RefID</td><td><input type="text" id="dataInput_Currency_RefID" value="62000000000001"></td></tr>';
-            echo        '<tr><td>validStartDateTimeTZ</td><td><input type="text" id="dataInput_validStartDateTimeTZ" value="2016-01-01 00:00:00"></td></tr>';
-            echo        '<tr><td>validFinishDateTimeTZ</td><td><input type="text" id="dataInput_validFinishDateTimeTZ" value="9999-12-31 23:59:59"></td></tr>';
+            echo        '<tr><td>ValidStartDateTimeTZ</td><td><input type="text" id="dataInput_validStartDateTimeTZ" value="2016-01-01 00:00:00+07"></td></tr>';
+            echo        '<tr><td>ValidFinishDateTimeTZ</td><td><input type="text" id="dataInput_validFinishDateTimeTZ" value=""></td></tr>';
+            echo        '<tr><td>SignOtherThing</td><td><input type="text" id="dataInput_signOtherThing" value="TRUE"></td></tr>';
             echo '</table><br>';
             $varJQueryFunction =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
@@ -90,14 +98,18 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     '{'.
                         '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
                         '"entities" : {'.
+                            '"chartOfAccount_RefID" : parseInt(document.getElementById("dataInput_ChartOfAccount_RefID").value), '.
+                            '"linkage_RefID" : parseInt(document.getElementById("dataInput_Linkage_RefID").value), '.
                             '"code" : document.getElementById("dataInput_Code").value, '.
                             '"name" : document.getElementById("dataInput_Name").value, '.
+                            '"fullName" : document.getElementById("dataInput_FullName").value, '.
                             '"currency_RefID" : parseInt(document.getElementById("dataInput_Currency_RefID").value), '.
                             '"validStartDateTimeTZ" : document.getElementById("dataInput_validStartDateTimeTZ").value, '.
-                            '"validFinishDateTimeTZ" : document.getElementById("dataInput_validFinishDateTimeTZ").value '.
+                            '"validFinishDateTimeTZ" : document.getElementById("dataInput_validFinishDateTimeTZ").value, '.
+                            '"signOtherThing" : true'.
                             '}'.
                     '}'
-                    ); 
+                    );
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);
             }
