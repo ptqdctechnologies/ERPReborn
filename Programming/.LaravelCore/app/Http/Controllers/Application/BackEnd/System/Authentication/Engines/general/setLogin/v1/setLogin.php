@@ -204,7 +204,7 @@ $varDataSend = [
 
                             $user_RefID = $varDataSend['userIdentity']['user_RefID'];
 
-                            $varTTL = 86400; // 24 Jam
+                            $varTTL = 32400; // 9 Jam
 
                             // 1
                             //DATA BRANCH

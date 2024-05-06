@@ -32,7 +32,7 @@
                                                 <th style="padding-bottom:15px;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2">Total</th>
                                                 @if(sizeof($dataDetail))
                                                     @for($i = 1; $i < count($dataDetail[0]); $i++) 
-                                                        <th colspan="3" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">Rev {{ $i }} - Aldi Mulyadi ( {{ date('Y-m-d', strtotime($dataDetail[0][$i]['content']['sys_Data_Edit_DateTimeTZ'])) }} )</th>
+                                                        <th colspan="3" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">Rev {{ $i }} - {{ $dataHeader[0]['requesterWorkerName'] }} ( {{ date('Y-m-d', strtotime($dataDetail[0][$i]['content']['sys_Data_Edit_DateTimeTZ'])) }} )</th>
                                                     @endfor
                                                 @endif
                                             </tr>
@@ -52,8 +52,8 @@
                                                 @for($i = 0; $i < count($dataDetail); $i++)
                                                     <tr>
                                                         <td style="padding: 8px;">{{ $dataDetail[$i][0]['content']['product_RefID'] }}</td>
-                                                        <td style="padding: 8px;">{{ $dataDetail[$i][0]['content']['product_RefID'] }}</td>
-                                                        <td style="padding: 8px;">{{ $dataDetail[$i][0]['content']['sys_PID'] }}</td>
+                                                        <td style="padding: 8px;">{{ $dataDetail[$i][0]['productName'] }}</td>
+                                                        <td style="padding: 8px;">{{ $dataDetail[$i][0]['quantityUnitName'] }}</td>
                                                         <td style="padding: 8px;">{{ $dataDetail[$i][0]['content']['quantity'] }}</td>
                                                         <td style="padding: 8px;">{{ $dataDetail[$i][0]['content']['productUnitPriceCurrencyValue'] }}</td>
                                                         <td style="padding: 8px;">{{ $dataDetail[$i][0]['content']['priceCurrencyValue'] }}</td>
@@ -101,8 +101,8 @@
                                             <tr>
                                                 @if(sizeof($dataHeader))
                                                     @foreach($dataHeader as $dataHeaders)
-                                                        <td style="padding: 8px;">{{ $dataHeaders['content']['requesterWorkerJobsPosition_RefID'] }}</td>
-                                                        <td style="padding: 8px;">{{ $dataHeaders['content']['beneficiaryWorkerJobsPosition_RefID'] }}</td>
+                                                        <td style="padding: 8px;">{{ $dataHeaders['requesterWorkerName'] }}</td>
+                                                        <td style="padding: 8px;">{{ $dataHeaders['beneficiaryWorkerName'] }}</td>
                                                         <td style="padding: 8px;">{{ $dataHeaders['content']['remarks'] }}</td>
                                                     @endforeach
                                                 @endif

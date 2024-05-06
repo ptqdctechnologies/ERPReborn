@@ -18,7 +18,7 @@ use App\Http\Controllers\UserController;
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[START]---
 $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
-$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxkaS5tdWx5YWRpIiwiaWF0IjoxNzE0OTU5OTc4fQ.NzIxYjg1ODI1NDkyYjk4ZDgxNjUyOTg3ZWRlNWI3YmRiYWVlNjUwOGViMWUwMmMxNTc0YTg3ZTI3MmVkOGZiOQ';
+$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxkaS5tdWx5YWRpIiwiaWF0IjoxNzEzNDExOTQ3fQ.OTUyY2I4ZDZkZjk5OTg2YWIwNTY1Y2VhYWM3MzdjNWM0MjI0YzU3MTU1MGQwNDY2ODkwOTJiODgxN2ZmNjQwYg';
 
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
@@ -77,6 +77,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     //Document
     Route::post('ShowDocument', 'Document\CheckDocumentController@ShowDocument')->name('CheckDocument.ShowDocument');
     Route::get('ShowDocumentByID', 'Document\CheckDocumentController@ShowDocumentByID')->name('CheckDocument.ShowDocumentByID');
+    Route::get('FileAttachmentCheckDocument', 'Document\CheckDocumentController@FileAttachmentCheckDocument')->name('CheckDocument.FileAttachmentCheckDocument');
     Route::get('ShowDocumentListData', 'Document\CheckDocumentController@ShowDocumentListData')->name('CheckDocument.ShowDocumentListData');
     Route::resource('CheckDocument', 'Document\CheckDocumentController');
 

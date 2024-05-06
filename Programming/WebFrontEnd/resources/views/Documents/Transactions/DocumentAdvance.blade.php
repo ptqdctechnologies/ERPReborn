@@ -38,16 +38,25 @@
               <tr>
                 <td style="padding-top: 5px;"><label>File Attachment</label></td>
                 <td>:</td>
-                @if(isset($dataDetail))
+                @if($Log_FileUpload_Pointer_RefID != 0)
                 <td>
-                  @php $tamp = json_decode($dataDetail[0]['FileAttachment'], true); @endphp
-                  @if(isset($tamp['data']))
-                  @for($i=0; $i< count($tamp['data']); $i++) <a href="{{ $tamp['data'][$i]['downloadURL'] }}" title="Download Attachment">- {{ $tamp['data'][$i]['name'] }} </a> <br>
-                    @endfor
-                    @endif
+
+                  <div class="input-group ShowFileAttachment">
+                    <input type="hidden" value="{{ $dataHeader['Sys_ID_Advance'] }}" id="Sys_ID_Advance">
+                    <a class="btn btn-default btn-sm" onclick="ShowFileAttachment({{ $dataHeader['Sys_ID_Advance'] }} );">
+                      Show File Attachment
+                    </a>
+                  </div>
+
+                  <table class="TableFileAttachment">
+                    <tbody>
+                    </tbody>
+                  </table>
+
                 </td>
                 @endif
               </tr>
+
             </table>
           </div>
         </div>

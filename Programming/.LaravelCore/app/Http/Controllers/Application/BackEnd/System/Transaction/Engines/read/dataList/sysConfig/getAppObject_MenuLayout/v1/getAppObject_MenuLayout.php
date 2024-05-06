@@ -64,7 +64,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
             $userSessionID = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             $branchID = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($userSessionID)['branchID'];
 
-            $varTTL = 86400; // 24 Jam
+            $varTTL = 32400; // 9 Jam
 
             $varMenu =
                 (new \App\Models\Database\SchSysConfig\General())->getUserPrivilege_MenuLayout(

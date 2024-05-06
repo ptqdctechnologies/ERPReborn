@@ -590,13 +590,12 @@ class FunctionController extends Controller
         $collection = $collection->sort();
 
         // HEADER
-        $dataHeader = $collection->where('type', 'Header');
+        $header = $collection->where('type', 'Header');
 
-        // dd($dataHeader);
-
-        // foreach($dataHeader as $dataHeaders){
-        //     dd($dataHeaders);
-        // }
+        $dataHeader = [];
+        foreach($header as $headers){
+            $dataHeader [] = $headers;
+        }
 
         //DETAIL
         $detail = $collection->where('type', 'Detail');
@@ -608,9 +607,6 @@ class FunctionController extends Controller
         }
         
         // dd($dataDetail);
-        // $filterDetail = collect($detail)->unique(function ($item) {
-        //     return $item['content']['sys_PID'];
-        // });
                 
         $compact = [
             'data' => $varData['data'],

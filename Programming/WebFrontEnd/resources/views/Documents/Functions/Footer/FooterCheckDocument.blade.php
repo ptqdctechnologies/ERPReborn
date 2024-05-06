@@ -60,9 +60,13 @@
 
         var keys = 0;
 
+
+        // var DocumentTypeID = $('#DocumentType').val();
+        var DocumentTypeID = 77000000000057;
+
         $.ajax({
             type: 'GET',
-            url: '{!! route("CheckDocument.ShowDocumentListData") !!}?DocumentType=' + $('#DocumentType').val(),
+            url: '{!! route("CheckDocument.ShowDocumentListData") !!}?DocumentType=' + DocumentTypeID,
             success: function(data) {
                 var no = 1;
                 t = $('#TableCheckDocument').DataTable();
@@ -72,7 +76,7 @@
                     t.row.add([
                         '<tbody><tr><td><input id="businessDocument_RefID' + keys + '" value="' + val.Sys_ID + '" type="hidden">' + no++ + '</span></td>',
                         '<td><span style="position:relative;left:10px;">' + val.DocumentNumber + '</span></td>',
-                        '<td><span style="position:relative;left:10px;">' + val.CombinedBudgetCode + '-' + val.CombinedBudgetSectionCode + '</span></td>',
+                        '<td><span style="position:relative;left:10px;">' + val.CombinedBudgetCode + '-' + val.CombinedBudgetName + '</span></td>',
                         '<td><span style="position:relative;left:10px;">' + val.CombinedBudgetSectionCode + '-' + val.CombinedBudgetSectionName + '</span></td></tr></tbody>',
                     ]).draw();
                 });
@@ -152,4 +156,42 @@
         var myWindow = window.open(page, "_blank", "scrollbars=yes,width=400,height=500,top=300");
 
     }
+</script>
+
+
+<script>
+    // function ShowFileAttachment(id) {
+
+    //     ShowLoading();
+        var id = $("#Sys_ID_Advance").val();
+
+        $(".ShowFileAttachment").hide();
+
+        $('#TableFileAttachment').find('tbody').empty();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var keys = 0;
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("CheckDocument.FileAttachmentCheckDocument") !!}?businessDocumentForm_RefID=' + id,
+            success: function(data) {
+                if(data.status == 200){
+                    $.each(data.data, function(key, val) {
+                    var html = '<tr>' +
+                        '<td>' + '<a href="' + val.entities.downloadURL + '">' + val.entities.name + '</td>' +
+                        '</tr>';
+                    $('table.TableFileAttachment tbody').append(html);
+                    
+                });
+                }
+                HideLoading();
+            }
+        });
+    // }
 </script>

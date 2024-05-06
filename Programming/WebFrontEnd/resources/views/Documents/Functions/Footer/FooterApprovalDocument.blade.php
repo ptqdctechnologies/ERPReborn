@@ -1,4 +1,3 @@
-
 <script type="text/javascript">
     function ApproveButton(businessDocument_ID) {
 
@@ -73,9 +72,8 @@
                                         confirmButtonColor: '#e9ecef',
                                         reverseButtons: true
                                     }).then((result) => {
-                                        if (result.value) {
-                                            window.location.href = '/MyDocument';
-                                        }
+                                        ShowLoading();
+                                        window.location.href = '/MyDocument';
                                     })
                                 } else if (data.status == "Final") {
                                     swalWithBootstrapButtons.fire({
@@ -91,9 +89,8 @@
                                         confirmButtonColor: '#e9ecef',
                                         reverseButtons: true
                                     }).then((result) => {
-                                        if (result.value) {
-                                            window.location.href = '/MyDocument';
-                                        }
+                                        ShowLoading();
+                                        window.location.href = '/MyDocument';
                                     })
                                 } else {
                                     Swal.fire("Error", "Data Error", "error");
@@ -126,7 +123,7 @@
 
 <script type="text/javascript">
     function RejectButton(businessDocument_ID, submitter_ID) {
-        
+
         const swalWithBootstrapButtons = Swal.mixin({
             confirmButtonClass: 'btn btn-success btn-sm',
             cancelButtonClass: 'btn btn-danger btn-sm',
