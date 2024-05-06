@@ -3,20 +3,21 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\accounting\setChartOfAccount\v1       |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\accounting\setChartOfAccountLinkage   |
+|                \v1                                                                                                               |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\accounting\setChartOfAccount\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\accounting\setChartOfAccountLinkage\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setChartOfAccount                                                                                            |
-    | ▪ Description : Menangani API transaction.update.accounting.setChartOfAccount Version 1                                      |
+    | ▪ Class Name  : setChartOfAccountLinkage                                                                                     |
+    | ▪ Description : Menangani API transaction.update.accounting.setChartOfAccountLinkage Version 1                               |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setChartOfAccount extends \App\Http\Controllers\Controller
+    class setChartOfAccountLinkage extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
