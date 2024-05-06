@@ -40,7 +40,8 @@
             @include('Documents.Transactions.DocumentWorkflow')
 
             @if($dataHeader['BusinessDocumentType_Name'] == "Advance Form")
-            @include('Documents.Transactions.DocumentAdvance')
+            <!-- @include('Documents.Transactions.DocumentAdvance') -->
+            @include('Documents.Transactions.DocumentPurchaseOrder')
 
             @elseif($dataHeader['BusinessDocumentType_Name'] == "Person Business Trip Form")
             @include('Documents.Transactions.DocumentBussinesTripRequest')
@@ -49,7 +50,7 @@
             @include('Documents.Transactions.DocumentPurchaseRequisition')
 
             @elseif($dataHeader['BusinessDocumentType_Name'] == "Purchase Order Form")
-            @include('Documents.Transactions.DocumentPurchaseRequisition')
+            @include('Documents.Transactions.DocumentPurchaseOrder')
 
             @endif
 

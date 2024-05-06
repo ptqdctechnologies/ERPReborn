@@ -42,6 +42,7 @@
                 <td>
 
                   <div class="input-group ShowFileAttachment">
+                    <input type="hidden" value="{{ $dataHeader['Sys_ID_Advance'] }}" id="Sys_ID_Advance">
                     <a class="btn btn-default btn-sm" onclick="ShowFileAttachment({{ $dataHeader['Sys_ID_Advance'] }} );">
                       Show File Attachment
                     </a>

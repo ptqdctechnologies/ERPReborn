@@ -5,7 +5,7 @@
                 Last Status : 
                 @if(isset($DataWorkflowHistory))
                     @if($statusDocument == 0)
-                        Awaiting {{ $DataWorkflowHistory[count($DataWorkflowHistory)-1]['WorkFlowPathActionName'] }} from {{ $DataWorkflowHistory[count($DataWorkflowHistory)-1]['NextApproverEntityName'] }}
+                        Awaiting {{ $DataWorkflowHistory[count($DataWorkflowHistory)-1]['workFlowPathActionName'] }} from {{ $DataWorkflowHistory[count($DataWorkflowHistory)-1]['nextApproverEntityName'] }}
                     @elseif($statusDocument == 1)
                         Final Approved
                     @elseif($statusDocument == 2)
@@ -33,10 +33,10 @@
                     @foreach($DataWorkflowHistory as $DataWorkflowHistorys)
                     <tr>
                         <td style="border:1px solid #4B586A;color:#4B586A;">{{ $no++ }}</td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ date('D, m/d/Y H:m:s', strtotime($DataWorkflowHistorys['ApprovalDateTimeTZ'])) }}</td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $DataWorkflowHistorys['ApproverEntityName'] }} ({{ $DataWorkflowHistorys['ApproverEntityFullJobPositionTitle'] }})</td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $DataWorkflowHistorys['WorkFlowPathActionName'] }}</td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">{!! nl2br(e($DataWorkflowHistorys['Remarks'])) !!}</td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ date('D, m/d/Y H:m:s', strtotime($DataWorkflowHistorys['approvalDateTimeTZ'])) }}</td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $DataWorkflowHistorys['approverEntityName'] }} ({{ $DataWorkflowHistorys['approverEntityFullJobPositionTitle'] }})</td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $DataWorkflowHistorys['workFlowPathActionName'] }}</td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;">{!! nl2br(e($DataWorkflowHistorys['remarks'])) !!}</td>
                     </tr>
                     @endforeach
                     @endif

@@ -17,8 +17,8 @@
                         @foreach($DataWorkflowHistory as $DataWorkflowHistorys)
                         <ul>
                             <li>
-                                <span style="text-transform:uppercase;font-weight:bold;">{{ $DataWorkflowHistorys['WorkFlowPathActionName'] }}</span> {{ date('D, m/d/Y H:m:s', strtotime($DataWorkflowHistorys['ApprovalDateTimeTZ'])) }} : {{ $DataWorkflowHistorys['ApproverEntityName'] }} ({{ $DataWorkflowHistorys['ApproverEntityFullJobPositionTitle'] }}) <br>
-                                Comment : {!! nl2br(e($DataWorkflowHistorys['Remarks'])) !!}
+                                <span style="text-transform:uppercase;font-weight:bold;">{{ $DataWorkflowHistorys['workFlowPathActionName'] }}</span> {{ date('D, m/d/Y H:m:s', strtotime($DataWorkflowHistorys['approvalDateTimeTZ'])) }} : {{ $DataWorkflowHistorys['approverEntityName'] }} ({{ $DataWorkflowHistorys['approverEntityFullJobPositionTitle'] }}) <br>
+                                Comment : {!! nl2br(e($DataWorkflowHistorys['remarks'])) !!}
                             </li>
                         </ul>
                         @endforeach

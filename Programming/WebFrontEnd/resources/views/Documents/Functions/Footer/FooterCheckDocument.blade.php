@@ -60,15 +60,18 @@
 
         var keys = 0;
 
+
+        // var DocumentTypeID = $('#DocumentType').val();
+        var DocumentTypeID = 77000000000057;
+
         $.ajax({
             type: 'GET',
-            url: '{!! route("CheckDocument.ShowDocumentListData") !!}?DocumentType=' + $('#DocumentType').val(),
+            url: '{!! route("CheckDocument.ShowDocumentListData") !!}?DocumentType=' + DocumentTypeID,
             success: function(data) {
                 var no = 1;
                 t = $('#TableCheckDocument').DataTable();
                 t.clear().draw();
                 $.each(data, function(key, val) {
-                    console.log(val);
                     keys += 1;
                     t.row.add([
                         '<tbody><tr><td><input id="businessDocument_RefID' + keys + '" value="' + val.Sys_ID + '" type="hidden">' + no++ + '</span></td>',
@@ -157,9 +160,11 @@
 
 
 <script>
-    function ShowFileAttachment(id) {
+    // function ShowFileAttachment(id) {
 
-        ShowLoading();
+    //     ShowLoading();
+        var id = $("#Sys_ID_Advance").val();
+
         $(".ShowFileAttachment").hide();
 
         $('#TableFileAttachment').find('tbody').empty();
@@ -176,18 +181,17 @@
             type: 'GET',
             url: '{!! route("CheckDocument.FileAttachmentCheckDocument") !!}?businessDocumentForm_RefID=' + id,
             success: function(data) {
-                
-                $.each(data, function(key, val) {
-                    console.log(val.entities.downloadURL);
+                if(data.status == 200){
+                    $.each(data.data, function(key, val) {
                     var html = '<tr>' +
                         '<td>' + '<a href="' + val.entities.downloadURL + '">' + val.entities.name + '</td>' +
                         '</tr>';
                     $('table.TableFileAttachment tbody').append(html);
                     
                 });
-
+                }
                 HideLoading();
             }
         });
-    }
+    // }
 </script>
