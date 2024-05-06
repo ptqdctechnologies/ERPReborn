@@ -63,22 +63,28 @@ namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\doc
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchSysConfig\General())->setActionForBusinessDocumentWorkFlowPath(
-                            $varUserSession, 
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                                
-                            $varData['entities']['businessDocument_RefID'],
-                            (new \App\Models\Database\SchSysConfig\General())->getWorkFlowPathOfBusinessDocument(
-                                $varUserSession, 
-                                $varData['entities']['businessDocument_RefID']
-                                ),
-                            118000000000010,
-                            $varData['entities']['remarks'],
-                            $varData['entities']['approverEntity_RefID']
-                            ))))
+                        if (!($varDataSend = 
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
+                                $varUserSession,
+                                (new \App\Models\Database\SchSysConfig\General())->setActionForBusinessDocumentWorkFlowPath(
+                                    $varUserSession, 
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+
+                                    $varData['entities']['businessDocument_RefID'],
+                                    (new \App\Models\Database\SchSysConfig\General())->getWorkFlowPathOfBusinessDocument(
+                                        $varUserSession, 
+                                        $varData['entities']['businessDocument_RefID']
+                                        ),
+                                    118000000000010,
+                                    $varData['entities']['remarks'],
+                                    $varData['entities']['approverEntity_RefID']
+                                    )
+                                )
+                            ))
                             {
                             throw new \Exception();
                             }
+
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {

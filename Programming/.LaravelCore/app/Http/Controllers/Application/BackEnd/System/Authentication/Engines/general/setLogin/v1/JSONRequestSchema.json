@@ -15,10 +15,14 @@
                         "minLength": 1
                         }                        
                     },
-                "required": [ "version" ]
+                "required": [
+                    "version"
+                    ]
                 }
             },
-        "required": [ "API" ]
+        "required": [
+            "API"
+            ]
         },
     "data": {
         "type": "object",
@@ -30,8 +34,14 @@
                 "type": "string"
                 }                
             },
-        "required": [ "userName", "userPassword" ]
+        "required": [
+            "userName",
+            "userPassword"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }

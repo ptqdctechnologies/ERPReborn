@@ -345,6 +345,14 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
                         },
                     "data" : varDataJSObject
                     });
+              
+                var varDataJSONUnicodeEscaped = varDataJSON;
+                varDataJSONUnicodeEscaped = 
+                    varDataJSONUnicodeEscaped.replace(/[^\0-~]/g, function(ch) {
+                        return "\\u" + ("000" + ch.charCodeAt().toString(16)).slice(-4);
+                        });
+                //alert(varDataJSONUnicodeEscaped);
+                               
                 //alert(varDataJSON);
                 //alert(this.getBase64OfMD5(varDataJSON));
                 //---> Request Parse
@@ -359,7 +367,7 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
 //                        'User-Agent' : this.getUserAgent(),
                         'Agent-DateTime' : this.getAgentDateTime(),
                         'Expires' : this.getAgentDateTime((10*60)),
-                        'X-Content-MD5' : this.getBase64OfMD5(varDataJSON),
+                        'X-Content-MD5' : this.getBase64OfMD5(varDataJSONUnicodeEscaped),
 //                        'X-Request-ID' : this.getXRequestID(varAPIWebToken, varURL),
                         },
                     dataType: "json",

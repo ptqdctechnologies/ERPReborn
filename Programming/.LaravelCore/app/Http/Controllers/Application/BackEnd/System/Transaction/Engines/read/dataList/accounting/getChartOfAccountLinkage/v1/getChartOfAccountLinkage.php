@@ -79,7 +79,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                                     $varData['SQLStatement']['sort'], 
                                     $varData['SQLStatement']['filter'], 
                                     $varData['SQLStatement']['paging']
-                                    ))
+                                    )
+                                )
                             ))
                             {
                             throw new \Exception();

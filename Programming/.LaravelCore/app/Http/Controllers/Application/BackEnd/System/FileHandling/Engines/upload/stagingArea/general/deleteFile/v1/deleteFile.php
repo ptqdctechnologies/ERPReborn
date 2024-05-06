@@ -76,6 +76,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                         $varDataSend = [
                             'message' => $varTemp['message']
                             ];
+
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
@@ -136,6 +137,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                         $varUserSession, 
                         $varData['localStoragePath']
                         );
+
                     $varMessage .= 'File on Local Storage ('.$varData['localStoragePath'].')';
                     }
 
@@ -146,6 +148,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                         $varUserSession, 
                         $varData['cloudStoragePath']
                         );
+
                     $varMessage .= ((strcmp($varMessage, '')==0) ? 'File on ' : ' and ').' Cloud Storage ('.$varData['cloudStoragePath'].')';
                     }
 

@@ -62,13 +62,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        $varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
-                            $varUserSession,
-                            $this->dataProcessing(
+                        $varDataSend =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession,
-                                $varData['parameter']['rotateLog_FileUploadStagingArea_RefRPK']
-                                )
-                            );
+                                $this->dataProcessing(
+                                    $varUserSession,
+                                    $varData['parameter']['rotateLog_FileUploadStagingArea_RefRPK']
+                                    )
+                                );
+
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);                        
                         } 
                     catch (\Exception $ex) {
@@ -108,10 +110,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         */
         private function dataProcessing($varUserSession, int $varRotateLog_FileUploadStagingArea_RefRPK)
             {
-            $varData = (new \App\Models\Database\SchSysConfig\TblRotateLog_FileUploadStagingAreaDetail())->resetSequence(
-                $varUserSession, 
-                $varRotateLog_FileUploadStagingArea_RefRPK
-                );
+            $varData =
+                (new \App\Models\Database\SchSysConfig\TblRotateLog_FileUploadStagingAreaDetail())->resetSequence(
+                    $varUserSession, 
+                    $varRotateLog_FileUploadStagingArea_RefRPK
+                    );
             
             $varDataReturn = [
                 'lastSequence' => $varData['LastSequence']

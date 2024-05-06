@@ -68,6 +68,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
                                 $varUserSession,  
                                 $this->dataProcessing($varUserSession)
                                 );
+
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
@@ -89,17 +90,34 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
             }
 
 
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : dataProcessing                                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2023-03-28                                                                                           |
+        | ▪ Creation Date   : 2023-03-28                                                                                           |
+        | ▪ Description     : Fungsi Pemrosesan Data                                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         private function dataProcessing($varUserSession)
             {           
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.FuncSys_General_SetTableSnapshotSignature',
-                    [
-                    ]
-                    )
-                );
+            $varReturn = 
+                App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.FuncSys_General_SetTableSnapshotSignature',
+                        [
+                        ]
+                        )
+                    );
+
             return $varReturn['Data'][0]['FuncSys_General_SetTableSnapshotSignature'];
             }
         }

@@ -63,13 +63,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        $varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
-                            $varUserSession,
-                            $this->dataProcessing(
+                        $varDataSend =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession,
-                                $varData['parameter']['recordPK']
-                                )
-                            );
+                                $this->dataProcessing(
+                                    $varUserSession,
+                                    $varData['parameter']['recordPK']
+                                    )
+                                );
+
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);                        
                         } 
                     catch (\Exception $ex) {
@@ -109,10 +111,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         */
         private function dataProcessing($varUserSession, int $varRecordPK)
             {
-            $varData = (new \App\Models\Database\SchSysAsset\General())->getFileEntities_StagingArea(
-                $varUserSession, 
-                $varRecordPK
-                );
+            $varData =
+                (new \App\Models\Database\SchSysAsset\General())->getFileEntities_StagingArea(
+                    $varUserSession, 
+                    $varRecordPK
+                    );
             
             $varDataReturn = [
                 'Sys_RPK' => $varData['Sys_RPK'],
@@ -136,6 +139,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                     $varUserSession,
                     $varDataReturn['LocalStoragePath']
                     );
+
             if($varDataReturn['SignExistOnLocalStorage'] == FALSE) {
                 $varDataReturn['LocalStoragePath'] = NULL;
                 }
@@ -145,6 +149,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                     $varUserSession, 
                     $varDataReturn['CloudStoragePath']
                     );
+
             if($varDataReturn['SignExistOnCloudStorage'] == FALSE) {
                 $varDataReturn['CloudStoragePath'] = NULL;
                 }

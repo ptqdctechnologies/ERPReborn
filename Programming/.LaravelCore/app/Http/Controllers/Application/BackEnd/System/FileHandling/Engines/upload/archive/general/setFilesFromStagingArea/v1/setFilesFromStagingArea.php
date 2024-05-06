@@ -6,7 +6,7 @@
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\archive\general                      |
 |                \setFilesFromStagingArea\v1                                                                                       |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2021 - 2022 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\archive\general\setFilesFromStagingArea\v1
@@ -73,6 +73,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                                     $varData['parameter']['deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID']
                                     )
                                 );
+
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {

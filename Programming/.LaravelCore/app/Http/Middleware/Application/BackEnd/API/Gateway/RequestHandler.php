@@ -111,6 +111,18 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
 */
 
 
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+
                 //--->---> Check Content Integrity
                 if(strcmp(
                     $varHTTPHeader['x-content-md5'], 
@@ -122,6 +134,7 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
                     {
                     throw new \Exception(implode($varDataSeparatorTag,
                         [403, 'Content integrity is invalid']));
+
                     /*
                     throw new \Exception(implode($varDataSeparatorTag,
                         [403, 'Content integrity is invalid ---> '.
