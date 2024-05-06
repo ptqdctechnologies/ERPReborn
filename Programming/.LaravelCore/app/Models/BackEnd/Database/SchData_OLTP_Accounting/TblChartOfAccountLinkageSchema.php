@@ -88,6 +88,8 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         |      ▪ (int)    varParentChartOfAccount_RefID ► Parent Chart Of Account Reference ID                                     |
         |      ▪ (string) varLinkageSchemaTable ► Linkage Schema Table                                                             |
         |      ▪ (bool)   varSignLinkageBoundMandatory ► Sign Linkage Bound Mandatory                                              |
+        |        ----------------------------------------                                                                          |
+        |      ▪ (string) varAdditionalLinkageFields ► Additional Linkage Fields                                                   |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -95,7 +97,8 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varParentChartOfAccount_RefID = null, string $varLinkageSchemaTable = null, bool $varSignLinkageBoundMandatory = null)
+            int $varParentChartOfAccount_RefID = null, string $varLinkageSchemaTable = null, bool $varSignLinkageBoundMandatory = null,
+            string $varAdditionalLinkageFields = null)
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -113,7 +116,9 @@ namespace App\Models\Database\SchData_OLTP_Accounting
 
                             [$varParentChartOfAccount_RefID, 'bigint'],
                             [$varLinkageSchemaTable, 'varchar'],
-                            [$varSignLinkageBoundMandatory, 'boolean']
+                            [$varSignLinkageBoundMandatory, 'boolean'],
+
+                            [$varAdditionalLinkageFields, 'json']
                         ]
                         )
                     );
@@ -141,6 +146,8 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         |      ▪ (int)    varParentChartOfAccount_RefID ► Parent Chart Of Account Reference ID                                     |
         |      ▪ (string) varLinkageSchemaTable ► Linkage Schema Table                                                             |
         |      ▪ (bool)   varSignLinkageBoundMandatory ► Sign Linkage Bound Mandatory                                              |
+        |        ----------------------------------------                                                                          |
+        |      ▪ (string) varAdditionalLinkageFields ► Additional Linkage Fields                                                   |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -148,7 +155,8 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varParentChartOfAccount_RefID = null, string $varLinkageSchemaTable = null, bool $varSignLinkageBoundMandatory = null)
+            int $varParentChartOfAccount_RefID = null, string $varLinkageSchemaTable = null, bool $varSignLinkageBoundMandatory = null,
+            string $varAdditionalLinkageFields = null)
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -166,8 +174,10 @@ namespace App\Models\Database\SchData_OLTP_Accounting
 
                             [$varParentChartOfAccount_RefID, 'bigint'],
                             [$varLinkageSchemaTable, 'varchar'],
-                            [$varSignLinkageBoundMandatory, 'boolean']
-                        ],
+                            [$varSignLinkageBoundMandatory, 'boolean'],
+
+                            [$varAdditionalLinkageFields, 'json']
+                        ]
                         )
                     );
             return $varReturn['Data'][0];

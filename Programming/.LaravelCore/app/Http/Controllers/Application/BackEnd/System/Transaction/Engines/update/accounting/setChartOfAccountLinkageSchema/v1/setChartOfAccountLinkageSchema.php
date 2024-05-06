@@ -3,28 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\finance\setAdvance\v1                 |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\accounting                            |
+|                \setChartOfAccountLinkageSchema\v1                                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\finance\setAdvance\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\accounting\setChartOfAccountLinkageSchema\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setAdvance                                                                                                   |
-    | ▪ Description : Menangani API transaction.create.finance.setAdvance Version 1                                                |
+    | ▪ Class Name  : setChartOfAccountLinkageSchema                                                                               |
+    | ▪ Description : Menangani API transaction.update.accounting.setChartOfAccountLinkageSchema Version 1                         |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setAdvance extends \App\Http\Controllers\Controller
+    class setChartOfAccountLinkageSchema extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-05-17                                                                                           |
-        | ▪ Creation Date   : 2022-05-17                                                                                           |
+        | ▪ Last Update     : 2024-05-06                                                                                           |
+        | ▪ Creation Date   : 2024-05-06                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,9 +43,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000002                                                                                       |
-        | ▪ Last Update     : 2022-09-27                                                                                           |
-        | ▪ Creation Date   : 2022-05-17                                                                                           |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-05-06                                                                                           |
+        | ▪ Creation Date   : 2024-05-06                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -56,32 +57,28 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         */
         function main($varUserSession, $varData)
             {
-                // dd($varUserSession);
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Advance Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Update Chart Of Account Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if (!($varDataSend = 
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate(
-                                $varUserSession, 
-                                (new \App\Models\Database\SchData_OLTP_Finance\TblAdvance())->setDataInsert(
-                                    $varUserSession, 
-                                    null, 
+                        if (!($varDataSend =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate(
+                                $varUserSession,
+                                (new \App\Models\Database\SchData_OLTP_Accounting\TblChartOfAccountLinkageSchema())->setDataUpdate(
+                                    $varUserSession,
+                                    $varData['recordID'],
+                                    null,
                                     null,
                                     (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                                     \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
 
-                                    $varData['entities']['documentDateTimeTZ'],
-                                    $varData['entities']['log_FileUpload_Pointer_RefID'],
-                                    $varData['entities']['requesterWorkerJobsPosition_RefID'],
-                                    $varData['entities']['beneficiaryWorkerJobsPosition_RefID'],
-                                    $varData['entities']['beneficiaryBankAccount_RefID'],
-                                    $varData['entities']['internalNotes'],
-                                    $varData['entities']['remarks'],
+                                    $varData['entities']['parentChartOfAccount_RefID'],
+                                    $varData['entities']['linkageSchemaTable'],
+                                    $varData['entities']['signLinkageBoundMandatory'],
 
-                                    (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'additionalData', $varData['entities']) ? ((!is_null($varData['entities']['additionalData'])) ? $varData['entities']['additionalData'] : []) : [])
+                                    (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'additionalLinkageFields', $varData['entities']) ? ((!is_null($varData['entities']['additionalLinkageFields'])) ? $varData['entities']['additionalLinkageFields'] : []) : [])
                                     )
                                 )
                             ))
@@ -99,8 +96,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
-                        $varErrorMessage = $ex->getMessage();
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
+                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdateException($varUserSession, $ex);
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
