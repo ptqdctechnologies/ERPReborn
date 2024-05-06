@@ -20,10 +20,15 @@
                         "pattern" : "^(latest)$|^([1-9]{1,}[0-9]*)$"
                         }                        
                     },
-                "required": [ "key", "version" ]
+                "required": [
+                    "key",
+                    "version"
+                    ]
                 }
             },
-        "required": [ "API" ]
+        "required": [
+            "API"
+            ]
         },
     "data": {
         "type": "object",
@@ -43,16 +48,27 @@
                                 "pattern" : "^(latest)$|^([1-9]{1,}[0-9]*)$"
                                 }
                             },
-                        "required": [ "key", "version" ]
+                        "required": [
+                            "key",
+                            "version"
+                            ]
                         }
                     },
-                "required": [ "API" ]
+                "required": [
+                    "API"
+                    ]
                 },
             "data": {
                 }
             },
-        "required": [ "metadata", "data" ]
+        "required": [
+            "metadata",
+            "data"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }

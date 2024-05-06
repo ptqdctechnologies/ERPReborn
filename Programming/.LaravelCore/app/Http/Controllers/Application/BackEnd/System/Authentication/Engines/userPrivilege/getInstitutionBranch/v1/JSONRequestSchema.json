@@ -19,10 +19,15 @@
                         "minLength": 1
                         }
                     },
-                "required": [ "key", "version" ]
+                "required": [
+                    "key",
+                    "version"
+                    ]
                 }
             },
-        "required": [ "API" ]
+        "required": [
+            "API"
+            ]
         },
     "data": {
         "type": "object",
@@ -43,11 +48,19 @@
                         "maxLength": 30
                         }
                     },
-                "required": [ "user_RefID", "dateTimeTZ" ]
+                "required": [
+                    "user_RefID",
+                    "dateTimeTZ"
+                    ]
                 }
             },
-        "required": [ "parameter" ]
+        "required": [
+            "parameter"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }

@@ -63,32 +63,39 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\TblAdvance())->setDataInsert(
-                            $varUserSession, 
-                            null, 
-                            null,
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
+                        if (!($varDataSend = 
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate(
+                                $varUserSession, 
+                                (new \App\Models\Database\SchData_OLTP_Finance\TblAdvance())->setDataInsert(
+                                    $varUserSession, 
+                                    null, 
+                                    null,
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                                    \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
 
-                            $varData['entities']['documentDateTimeTZ'],
-                            $varData['entities']['log_FileUpload_Pointer_RefID'],
-                            $varData['entities']['requesterWorkerJobsPosition_RefID'],
-                            $varData['entities']['beneficiaryWorkerJobsPosition_RefID'],
-                            $varData['entities']['beneficiaryBankAccount_RefID'],
-                            $varData['entities']['internalNotes'],
-                            $varData['entities']['remarks'],
+                                    $varData['entities']['documentDateTimeTZ'],
+                                    $varData['entities']['log_FileUpload_Pointer_RefID'],
+                                    $varData['entities']['requesterWorkerJobsPosition_RefID'],
+                                    $varData['entities']['beneficiaryWorkerJobsPosition_RefID'],
+                                    $varData['entities']['beneficiaryBankAccount_RefID'],
+                                    $varData['entities']['internalNotes'],
+                                    $varData['entities']['remarks'],
 
-                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'additionalData', $varData['entities']) ? ((!is_null($varData['entities']['additionalData'])) ? $varData['entities']['additionalData'] : []) : [])
-                            ))))
+                                    (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'additionalData', $varData['entities']) ? ((!is_null($varData['entities']['additionalData'])) ? $varData['entities']['additionalData'] : []) : [])
+                                    )
+                                )
+                            ))
                             {
                             throw new \Exception();
                             }
+
                         //---> Set Business Document Data Into varDataSend
                         $varDataSend['businessDocument'] = 
                             (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentByRecordID(
                                 $varUserSession, 
                                 $varDataSend['recordID']
                                 );
+
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {

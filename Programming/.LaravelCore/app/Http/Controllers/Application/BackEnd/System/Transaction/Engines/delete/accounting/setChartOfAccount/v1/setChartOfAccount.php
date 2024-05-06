@@ -62,10 +62,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataDelete($varUserSession, (new \App\Models\Database\SchData_OLTP_Accounting\TblChartOfAccount())->setDataDelete(
-                            $varUserSession,
-                            $varData['recordID']
-                            ))))
+                        if (!($varDataSend = 
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataDelete(
+                                $varUserSession, 
+                                (new \App\Models\Database\SchData_OLTP_Accounting\TblChartOfAccount())->setDataDelete(
+                                    $varUserSession,
+                                    $varData['recordID']
+                                    )
+                                )
+                            ))
                             {
                             throw new \Exception();
                             }
