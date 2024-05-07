@@ -3,29 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\accounting                          |
-|                \setChartOfAccountLinkage\v1                                                                                      |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\accounting\setJournal\v1              |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\accounting\setChartOfAccountLinkage\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\accounting\setJournal\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setChartOfAccountLinkage                                                                                     |
-    | ▪ Description : Menangani API transaction.undelete.accounting.setChartOfAccountLinkage Version 1                             |
+    | ▪ Class Name  : setJournal                                                                                                   |
+    | ▪ Description : Menangani API transaction.create.accounting.setJournal Version 1                                             |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setChartOfAccountLinkage extends \App\Http\Controllers\Controller
+    class setJournal extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-05-03                                                                                           |
-        | ▪ Creation Date   : 2024-05-03                                                                                           |
+        | ▪ Last Update     : 2023-10-27                                                                                           |
+        | ▪ Creation Date   : 2023-10-27                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +43,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-05-03                                                                                           |
-        | ▪ Creation Date   : 2024-05-03                                                                                           |
+        | ▪ Last Update     : 2023-10-27                                                                                           |
+        | ▪ Creation Date   : 2023-10-27                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -59,22 +58,39 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Undelete Chart Of Account Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Chart Of Account Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if (!($varDataSend =
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUndelete(
+                        if (!($varDataSend = 
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_Accounting\TblChartOfAccountLinkage())->unsetDataDelete(
-                                    $varUserSession,
-                                    $varData['recordID']
+                                (new \App\Models\Database\SchData_OLTP_Accounting\TblJournal())->setDataInsert(
+                                    $varUserSession, 
+                                    null, 
+                                    null,
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                                    \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
+
+                                    $varData['entities']['journalCode'],
+                                    $varData['entities']['journalDateTimeTZ'],
+                                    $varData['entities']['posterWorkerJobsPosition_RefID'],
+                                    $varData['entities']['postingDateTimeTZ'],
+                                    $varData['entities']['annotation'],
+
+                                    (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'additionalData', $varData['entities']) ? ((!is_null($varData['entities']['additionalData'])) ? $varData['entities']['additionalData'] : []) : [])
                                     )
                                 )
                             ))
                             {
                             throw new \Exception();
                             }
+                        //---> Set Business Document Data Into varDataSend
+                        $varDataSend['businessDocument'] = 
+                            (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentByRecordID(
+                                $varUserSession, 
+                                $varDataSend['recordID']
+                                );
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
@@ -96,5 +112,3 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
             }
         }
     }
-
-?>

@@ -73,7 +73,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         */
         public function setDataInsert(
             $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,
+            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
             int $varJournal_RefID = null, string $varJournalDetailDateTimeTZ = null, int $varChartOfAccountLinkage_RefID = null, int $varUnderlying_RefID = null, int $varAccountingEntryRecordType_RefID = null, int $varAmountCurrency_RefID = null, float $varAmountCurrencyValue = null, float $varAmountCurrencyExchangeRate = null, int $varQuantityUnit_RefID = null, float $varQuantity = null, string $varAnnotation = null, int $varCodeOfBudgeting_RefID = null)
             {
             $varReturn = 
@@ -88,6 +88,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                             [$varSysDataAnnotation, 'varchar'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
                             [$varJournal_RefID, 'bigint'],
                             [$varJournalDetailDateTimeTZ, 'timestamptz'],
@@ -143,7 +144,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         */
         public function setDataUpdate(
             $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,
+            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
             int $varJournal_RefID = null, string $varJournalDetailDateTimeTZ = null, int $varChartOfAccountLinkage_RefID = null, int $varUnderlying_RefID = null, int $varAccountingEntryRecordType_RefID = null, int $varAmountCurrency_RefID = null, float $varAmountCurrencyValue = null, float $varAmountCurrencyExchangeRate = null, int $varQuantityUnit_RefID = null, float $varQuantity = null, string $varAnnotation = null, int $varCodeOfBudgeting_RefID = null)
             {
             $varReturn = 
@@ -158,6 +159,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                             [$varSysDataAnnotation, 'varchar'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
                             [$varJournal_RefID, 'bigint'],
                             [$varJournalDetailDateTimeTZ, 'timestamptz'],
