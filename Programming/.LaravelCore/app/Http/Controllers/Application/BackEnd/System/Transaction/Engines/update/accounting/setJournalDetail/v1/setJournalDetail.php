@@ -3,29 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\accounting                          |
-|                \setChartOfAccountLinkage\v1                                                                                      |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\accounting\setJournalDetail\v1        |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\accounting\setChartOfAccountLinkage\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\accounting\setJournalDetail\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setChartOfAccountLinkage                                                                                     |
-    | ▪ Description : Menangani API transaction.undelete.accounting.setChartOfAccountLinkage Version 1                             |
+    | ▪ Class Name  : setJournalDetail                                                                                             |
+    | ▪ Description : Menangani API transaction.update.accounting.setJournalDetail Version 1                                       |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setChartOfAccountLinkage extends \App\Http\Controllers\Controller
+    class setJournalDetail extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-05-03                                                                                           |
-        | ▪ Creation Date   : 2024-05-03                                                                                           |
+        | ▪ Last Update     : 2024-05-07                                                                                           |
+        | ▪ Creation Date   : 2024-05-07                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +43,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-05-03                                                                                           |
-        | ▪ Creation Date   : 2024-05-03                                                                                           |
+        | ▪ Last Update     : 2024-05-07                                                                                           |
+        | ▪ Creation Date   : 2024-05-07                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -59,27 +58,51 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Undelete Chart Of Account Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Update Chart Of Account Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
                         if (!($varDataSend =
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUndelete(
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_Accounting\TblChartOfAccountLinkage())->unsetDataDelete(
+                                (new \App\Models\Database\SchData_OLTP_Accounting\TblJournalDetail())->setDataUpdate(
                                     $varUserSession,
-                                    $varData['recordID']
+                                    $varData['recordID'],
+                                    null,
+                                    null,
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                                    \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
+
+                                    $varData['entities']['journal_RefID'],
+                                    $varData['entities']['journalDetailDateTimeTZ'],
+                                    $varData['entities']['chartOfAccountLinkage_RefID'],
+                                    $varData['entities']['underlying_RefID'],
+                                    $varData['entities']['accountingEntryRecordType_RefID'],
+                                    $varData['entities']['amountCurrency_RefID'],
+                                    $varData['entities']['amountCurrencyValue'],
+                                    $varData['entities']['amountCurrencyExchangeRate'],
+                                    $varData['entities']['quantityUnit_RefID'],
+                                    $varData['entities']['quantity'],
+                                    $varData['entities']['annotation'],
+                                    $varData['entities']['codeOfBudgeting_RefID']
                                     )
                                 )
                             ))
                             {
                             throw new \Exception();
                             }
+
+                        //---> Set Business Document Data Into varDataSend
+                        $varDataSend['businessDocument'] = 
+                            (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentByRecordID(
+                                $varUserSession, 
+                                $varDataSend['recordID']
+                                );
+
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
-                        $varErrorMessage = $ex->getMessage();
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
+                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdateException($varUserSession, $ex);
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
@@ -96,5 +119,3 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
             }
         }
     }
-
-?>

@@ -6,7 +6,7 @@
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\accounting                          |
 |                \setChartOfAccountLinkageSchema\v1                                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\accounting\setChartOfAccountLinkageSchema\v1
@@ -24,8 +24,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-10-30                                                                                           |
-        | ▪ Creation Date   : 2023-10-30                                                                                           |
+        | ▪ Last Update     : 2024-05-03                                                                                           |
+        | ▪ Creation Date   : 2024-05-03                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-10-30                                                                                           |
-        | ▪ Creation Date   : 2023-10-30                                                                                           |
+        | ▪ Last Update     : 2024-05-03                                                                                           |
+        | ▪ Creation Date   : 2024-05-03                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |

@@ -59,14 +59,17 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         |      ▪ (string) varJournalCode ► Journal Code                                                                            |
         |      ▪ (string) varJournalDateTimeTZ ► Journal DateTimeTZ                                                                |
         |      ▪ (string) varAnnotation ► Annotation                                                                               |
+        |        ----------------------------------------                                                                          |
+        |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
             $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,
-            string $varJournalCode = null, string $varJournalDateTimeTZ = null, int $varPosterWorkerJobsPosition_RefID = null, $varvarPostingDateTimeTZ = null, string $varAnnotation = null)
+            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
+            string $varJournalCode = null, string $varJournalDateTimeTZ = null, int $varPosterWorkerJobsPosition_RefID = null, $varvarPostingDateTimeTZ = null, string $varAnnotation = null,
+            array $varAdditionalData = [])
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -80,12 +83,15 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                             [$varSysDataAnnotation, 'varchar'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
                             [$varJournalCode, 'varchar'],
                             [$varJournalDateTimeTZ, 'timestamptz'],
                             [$varPosterWorkerJobsPosition_RefID, 'bigint'],
                             [$varvarPostingDateTimeTZ, 'timestamptz'],
-                            [$varAnnotation, 'varchar']
+                            [$varAnnotation, 'varchar'],
+
+                            [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
                         ]
                         )
                     );
@@ -115,14 +121,17 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         |      ▪ (string) varJournalCode ► Journal Code                                                                            |
         |      ▪ (string) varJournalDateTimeTZ ► Journal DateTimeTZ                                                                |
         |      ▪ (string) varAnnotation ► Annotation                                                                               |
+        |        ----------------------------------------                                                                          |
+        |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
             $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,
-            string $varJournalCode = null, string $varJournalDateTimeTZ = null, int $varPosterWorkerJobsPosition_RefID = null, $varvarPostingDateTimeTZ = null, string $varAnnotation = null)
+            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,  int $varSysBaseCurrency_RefID = null, 
+            string $varJournalCode = null, string $varJournalDateTimeTZ = null, int $varPosterWorkerJobsPosition_RefID = null, $varvarPostingDateTimeTZ = null, string $varAnnotation = null,
+            array $varAdditionalData = [])
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -136,12 +145,15 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                             [$varSysDataAnnotation, 'varchar'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
                             [$varJournalCode, 'varchar'],
                             [$varJournalDateTimeTZ, 'timestamptz'],
                             [$varPosterWorkerJobsPosition_RefID, 'bigint'],
                             [$varvarPostingDateTimeTZ, 'timestamptz'],
-                            [$varAnnotation, 'varchar']
+                            [$varAnnotation, 'varchar'],
+
+                            [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
                         ]
                         )
                     );
