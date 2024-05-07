@@ -58,22 +58,25 @@
                             </div>
                         </td>
                     </tr>
+
                     <tr>
                         <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Bank Account</label></td>
                         <td>
                             <div class="input-group">
-                                <input id="bank_account_id" style="border-radius:0;" class="form-control" name="bank_account_id"  value="{{ $dataHeader['BankAccount_RefID'] }}" hidden>
-                                <input id="bank_account" style="border-radius:0;" name="bank_account" class="col-4 form-control" readonly value="{{ $dataHeader['BankAccountNumber'] }}">
+                                <input id="bank_account_id" style="border-radius:0;" class="form-control" name="bank_account_id" value="{{ $dataHeader['BankAccount_RefID'] }}" hidden>
+                                <input id="bank_account" style="border-radius:0;" name="bank_account" value="{{ $dataHeader['BankAccountNumber'] }}" class="col-4 form-control" readonly>
                                 <div class="input-group-append">
                                     <span style="border-radius:0;" class="input-group-text form-control">
                                         <a href="#" id="bank_account_popup" data-toggle="modal" data-target="#myBankAccount" class="myBankAccount"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                     </span>
                                 </div>
 
-                                <input id="bank_account_detail" style="border-radius:0;" class="col-7 form-control" name="bank_account_detail" readonly value="{{ $dataHeader['BankAccountName'] }}">
+                                <input id="bank_account_detail" style="border-radius:0;" class="col-7 form-control" name="bank_account_detail" value="{{ $dataHeader['BankAccountName'] }}" readonly>
+                                
                             </div>
                         </td>
                     </tr>
+
                 </table>
             </div>
         </div>

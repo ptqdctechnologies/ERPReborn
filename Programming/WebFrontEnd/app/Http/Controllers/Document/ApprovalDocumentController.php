@@ -32,6 +32,7 @@ class ApprovalDocumentController extends Controller
                 ]
             ]
         );
+        
 
         $varDataNextApprover = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -42,23 +43,27 @@ class ApprovalDocumentController extends Controller
                 'parameter' => [
                     'businessDocument_RefID' => (int) $businessDocument_ID
                 ]
-            ]
+            ],
+            false
         );
 
-        $nextApprover = $varDataNextApprover['data'][0]['nextApproverEntity_RefID'];
-        if ($nextApprover == 0) {
-            $status = "Final";
-        } else {
-            $status = $varDataApprovalAcceptation['metadata']['HTTPStatusCode'];
-        }
+        $nextApprover = 0;
+        $status = $varDataApprovalAcceptation['metadata']['HTTPStatusCode'];
 
+        if($varDataNextApprover['metadata']['HTTPStatusCode'] == 200){
+            $nextApprover = $varDataNextApprover['data'][0]['nextApproverEntity_RefID'];
+            if ($nextApprover == 0) {
+                $status = "Final";
+            }
+        }
+        
         $compact = [
             "status" => $status
         ];
 
         //RESET REDIS SHOW DOCUMENT APPROVAL
-        $this->FunctionResetRedisDocumentApproval($SessionWorkerCareerInternal_RefID);
-        $this->FunctionResetRedisDocumentApproval($nextApprover);
+        $this->FunctionResetRedisDocumentApproval($SessionWorkerCareerInternal_RefID, $businessDocument_ID);
+        $this->FunctionResetRedisDocumentApproval($nextApprover, $businessDocument_ID);
 
         return response()->json($compact);
     }
@@ -90,8 +95,8 @@ class ApprovalDocumentController extends Controller
         ];
 
         //RESET REDIS SHOW DOCUMENT APPROVAL
-        $this->FunctionResetRedisDocumentApproval($SessionWorkerCareerInternal_RefID);
-        $this->FunctionResetRedisDocumentApproval($submitter_ID);
+        $this->FunctionResetRedisDocumentApproval($SessionWorkerCareerInternal_RefID, $businessDocument_ID);
+        $this->FunctionResetRedisDocumentApproval($submitter_ID, $businessDocument_ID);
 
         return response()->json($compact);
     }

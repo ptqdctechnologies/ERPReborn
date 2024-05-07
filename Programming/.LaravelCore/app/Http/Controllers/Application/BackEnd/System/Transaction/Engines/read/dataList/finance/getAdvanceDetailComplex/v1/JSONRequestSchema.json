@@ -36,8 +36,7 @@
                 "type": "object",
                 "properties": {
                     "advance_RefID": {
-                        "type": "integer",
-                        "minimum": 1
+                        "type": [ "integer", "string", "null" ]
                         }
                     },
                 "required": [ "advance_RefID" ]

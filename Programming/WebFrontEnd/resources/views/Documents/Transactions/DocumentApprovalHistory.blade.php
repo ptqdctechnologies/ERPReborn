@@ -13,8 +13,8 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-12">
-                    @if($DataWorkflowHistory['metadata']['HTTPStatusCode'] == 200)
-                        @foreach($DataWorkflowHistory['data'] as $DataWorkflowHistorys)
+                    @if(count($DataWorkflowHistory) > 0)
+                        @foreach($DataWorkflowHistory as $DataWorkflowHistorys)
                         <ul>
                             <li>
                                 <span style="text-transform:uppercase;font-weight:bold;">{{ $DataWorkflowHistorys['workFlowPathActionName'] }}</span> {{ date('D, m/d/Y H:m:s', strtotime($DataWorkflowHistorys['approvalDateTimeTZ'])) }} : {{ $DataWorkflowHistorys['approverEntityName'] }} ({{ $DataWorkflowHistorys['approverEntityFullJobPositionTitle'] }}) <br>

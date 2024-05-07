@@ -18,6 +18,7 @@ use App\Http\Controllers\UserController;
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[START]---
 $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
+
 $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxkaS5tdWx5YWRpIiwiaWF0IjoxNzE1MDY3MTc3fQ.NDgwNzE5NzkzZDg3N2I3YmIzNmE3M2FjZTBiOGJmYWM5ZjI1YjFkMDgxNzhjY2UzOTE1MmM3Njg2NTEwNmNiNg';
 
 
@@ -77,6 +78,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     //Document
     Route::post('ShowDocument', 'Document\CheckDocumentController@ShowDocument')->name('CheckDocument.ShowDocument');
     Route::get('ShowDocumentByID', 'Document\CheckDocumentController@ShowDocumentByID')->name('CheckDocument.ShowDocumentByID');
+    Route::get('FileAttachmentCheckDocument', 'Document\CheckDocumentController@FileAttachmentCheckDocument')->name('CheckDocument.FileAttachmentCheckDocument');
     Route::get('ShowDocumentListData', 'Document\CheckDocumentController@ShowDocumentListData')->name('CheckDocument.ShowDocumentListData');
     Route::resource('CheckDocument', 'Document\CheckDocumentController');
 
