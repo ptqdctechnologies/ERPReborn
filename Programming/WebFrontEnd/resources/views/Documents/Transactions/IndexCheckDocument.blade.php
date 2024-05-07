@@ -39,20 +39,20 @@
 
             @include('Documents.Transactions.DocumentWorkflow')
 
-            @if($dataHeader['BusinessDocumentType_Name'] == "Advance Form")
-            <!-- @include('Documents.Transactions.DocumentAdvance') -->
-            @include('Documents.Transactions.DocumentPurchaseOrder')
+            @if($businessDocumentType_Name == "Advance Form")
+            @include('Documents.Transactions.DocumentAdvance')
 
-            @elseif($dataHeader['BusinessDocumentType_Name'] == "Person Business Trip Form")
+            @elseif($businessDocumentType_Name == "Person Business Trip Form")
             @include('Documents.Transactions.DocumentBussinesTripRequest')
 
-            @elseif($dataHeader['BusinessDocumentType_Name'] == "Purchase Requisition Form")
+            @elseif($businessDocumentType_Name == "Purchase Requisition Form")
             @include('Documents.Transactions.DocumentPurchaseRequisition')
 
-            @elseif($dataHeader['BusinessDocumentType_Name'] == "Purchase Order Form")
+            @elseif($businessDocumentType_Name == "Purchase Order Form")
             @include('Documents.Transactions.DocumentPurchaseOrder')
 
             @endif
+          
 
             @include('Documents.Transactions.ButtonApproval')
             
