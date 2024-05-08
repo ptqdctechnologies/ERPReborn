@@ -65,7 +65,7 @@ class CheckDocumentController extends Controller
     // FUNCTION FOR SHOW DOCUMENT BY ID 
     public function GetAllDocumentType($varAPIWebToken, $Document, $filterType, $sourceData, $statusHeader, $businessDocumentType_Name)
     {
-        // try {
+        try {
 
         $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
         $varAPIWebToken = Session::get('SessionLogin');
@@ -98,6 +98,7 @@ class CheckDocumentController extends Controller
             ),
             true
         );
+
 
         $collection = collect($DataAdvanceDetailComplex);
         if ($filterType == "ID") {
@@ -174,6 +175,10 @@ class CheckDocumentController extends Controller
             } else if ($nextApprover == 0 && $cek == 1) {
                 $statusDocument = 2;
             }
+
+            if(is_null($businessDocumentType_Name)){
+                $businessDocumentType_Name = $filteredArray[0]['BusinessDocumentType_Name'];
+            }
         }
 
         $compact = [
@@ -195,16 +200,16 @@ class CheckDocumentController extends Controller
         ];
 
         return $compact;
-        // } catch (\Throwable $th) {
-        //     // Log::error("Error at " . $th->getMessage());
-        //     // return redirect()->route('CheckDocument.index')->with('NotFound', 'Process Error');
+        } catch (\Throwable $th) {
+            // Log::error("Error at " . $th->getMessage());
+            // return redirect()->route('CheckDocument.index')->with('NotFound', 'Process Error');
 
-        //     $compact = [
-        //         'status' => "error"
-        //     ];
+            $compact = [
+                'status' => "error"
+            ];
 
-        //     return $compact;
-        // }
+            return $compact;
+        }
     }
 
     // FUNCTION FOR SHOW DOCUMENT FORM SUBMIT IN CHECK DOCUMENT 
@@ -227,7 +232,7 @@ class CheckDocumentController extends Controller
             } else {
                 // // CALL FUNCTION SHOW DATA BY NUMBER
                 $filterType = "Number";
-                $varDataWorkflow = $this->GetAllDocumentType($varAPIWebToken, $businessDocumentNumber, $filterType, $sourceData, $statusHeader, "");
+                $varDataWorkflow = $this->GetAllDocumentType($varAPIWebToken, $businessDocumentNumber, $filterType, $sourceData, $statusHeader, null);
             }
 
             if ($varDataWorkflow['status'] == "success") {
@@ -245,6 +250,7 @@ class CheckDocumentController extends Controller
     {
         try {
             $businessDocument_RefID = (int) $request->input('businessDocument_RefID');
+            $businessDocumentTypeName = $request->input('businessDocumentTypeName');
 
             $varAPIWebToken = $request->session()->get('SessionLogin');
 
@@ -252,7 +258,7 @@ class CheckDocumentController extends Controller
             $sourceData = 1;
             $statusHeader = "No";
             // CALL FUNCTION SHOW DATA BY ID
-            $varDataWorkflow = $this->GetAllDocumentType($varAPIWebToken, $businessDocument_RefID, $filterType, $sourceData, $statusHeader, "");
+            $varDataWorkflow = $this->GetAllDocumentType($varAPIWebToken, $businessDocument_RefID, $filterType, $sourceData, $statusHeader, $businessDocumentTypeName);
 
             if ($varDataWorkflow['status'] == "success") {
                 return view('Documents.Transactions.IndexCheckDocument', $varDataWorkflow);
@@ -287,7 +293,6 @@ class CheckDocumentController extends Controller
             false
         );
         // }
-
 
         $varData = json_decode(
             \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(

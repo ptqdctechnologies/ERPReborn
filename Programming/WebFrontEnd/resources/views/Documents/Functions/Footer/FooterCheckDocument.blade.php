@@ -60,8 +60,8 @@
 
         var keys = 0;
 
-        // var DocumentTypeID = $('#DocumentType').val();
-        var DocumentTypeID = 77000000000057;
+        // var DocumentTypeID = 77000000000057;
+        var DocumentTypeID = $('#DocumentType').val();
         var e = document.getElementById("DocumentType");
         var DocumentTypeName = e.options[e.selectedIndex].text;
 
@@ -106,7 +106,6 @@
 </script>
 
 <script>
-    $(".ViewWorkflow").hide();
 
     $('.ViewDocument').on('click', function() {
         $(".DocumentWorkflow").hide();
@@ -116,19 +115,8 @@
         $(".ApprovalHistory").show();
 
         $(".ViewDocument").hide();
-        $(".ViewWorkflow").show();
     });
 
-    $('.ViewWorkflow').on('click', function() {
-        $(".DocumentWorkflow").show();
-        $(".ShowDocumentList").hide();
-        $(".InternalNotes").hide();
-        $(".FileAttachment").hide();
-        $(".ApprovalHistory").hide();
-
-        $(".ViewDocument").show();
-        $(".ViewWorkflow").hide();
-    });
 </script>
 
 <!-- VALIDATION IF FORM DOCUMENT NUMBER INPUTED, PURPOSE FOR DELETE DOCUMENT REF ID -->
