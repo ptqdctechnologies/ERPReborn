@@ -556,68 +556,6 @@ class FunctionController extends Controller
         return response()->json($DocumentType);
     }
 
-    //LOG TRANSACTION
-
-    public function ShowRevisionHistory(Request $request)
-    {
-
-        $id = $request->input('id');
-        $docNum = $request->input('docNum');
-        $docName = $request->input('docName');
-
-        $varAPIWebToken = Session::get('SessionLogin');
-
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'dataWarehouse.read.dataList.log.getTransactionHistory',
-            'latest',
-            [
-                'parameter' => [
-                    'source_RefID' => (int) $id
-                ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
-        
-
-        $collection = collect($varData['data']);
-        $collection = $collection->sort();
-
-        // HEADER
-        $header = $collection->where('type', 'Header');
-
-        $dataHeader = [];
-        foreach($header as $headers){
-            $dataHeader [] = $headers;
-        }
-
-        //DETAIL
-        $detail = $collection->where('type', 'Detail');
-        $groupedByDetail = $detail->groupBy('source_RefPID');
-
-        $dataDetail = [];
-        foreach($groupedByDetail as $groupedByDetails){
-            $dataDetail [] = $groupedByDetails;
-        }
-        
-        // dd($dataDetail);
-                
-        $compact = [
-            'data' => $varData['data'],
-            'documentNumber' => $docNum,
-            'documentName' => $docName,
-            'dataHeader' => $dataHeader,
-            'dataDetail' => $dataDetail
-        ];
-        return view('getFunction.ShowRevisionHistory', $compact);
-    }
-
     //DEPARTEMENT
 
     public function getDepartement()

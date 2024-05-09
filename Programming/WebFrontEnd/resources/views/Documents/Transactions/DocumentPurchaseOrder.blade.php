@@ -77,7 +77,7 @@
                 @if(isset($dataHeader['DateUpdate']))
                 <td>
                   <div class="input-group">
-                    <a class="btn btn-default btn-sm" onclick="ShowRevisionHistory({{ $dataHeader['Sys_ID_Advance'] }}, '{{ $dataHeader['DocumentNumber'] }}', '{{$dataHeader['BusinessDocumentType_Name']}}');">
+                    <a class="btn btn-default btn-sm" onclick="LogTransaction({{ $dataHeader['Sys_ID_Advance'] }}, '{{ $dataHeader['DocumentNumber'] }}', '{{$dataHeader['BusinessDocumentType_Name']}}');">
                       Show Revision History
                     </a>
                   </div>
