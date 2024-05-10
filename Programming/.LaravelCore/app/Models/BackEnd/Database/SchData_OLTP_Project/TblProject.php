@@ -55,7 +55,6 @@ namespace App\Models\Database\SchData_OLTP_Project
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varBusinessDocumentVersion_RefID ► Business Document Version Reference ID                                |
         |      ▪ (string) varName ► Project Name                                                                                   |
         |      ▪ (int)    varMaterialProductAssembly_RefID ► Material Product Assembly Reference ID                                |
         |      ▪ (string) varValidStartDateTimeTZ ► Project Start Date Time TZ                                                     |
@@ -68,7 +67,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varBusinessDocumentVersion_RefID = null, string $varName = null, $varMaterialProductAssembly_RefID = null, string $varValidStartDateTimeTZ = null, $varvalidFinishDateTimeTZ = null, string $varCode = null)
+            string $varName = null, $varMaterialProductAssembly_RefID = null, string $varValidStartDateTimeTZ = null, $varvalidFinishDateTimeTZ = null, string $varCode = null)
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -84,7 +83,6 @@ namespace App\Models\Database\SchData_OLTP_Project
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
-                            [$varBusinessDocumentVersion_RefID, 'bigint'],
                             [$varName, 'varchar'],
                             [$varMaterialProductAssembly_RefID, 'bigint'],
                             [$varValidStartDateTimeTZ, 'timestamptz'],
@@ -147,7 +145,6 @@ namespace App\Models\Database\SchData_OLTP_Project
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varBusinessDocumentVersion_RefID ► Business Document Version Reference ID                                |
         |      ▪ (string) varName ► Project Name                                                                                   |
         |      ▪ (int)    varMaterialProductAssembly_RefID ► Material Product Assembly Reference ID                                |
         |      ▪ (string) varValidStartDateTimeTZ ► Project Start Date Time TZ                                                     |
@@ -160,7 +157,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varBusinessDocumentVersion_RefID = null, string $varName = null, $varMaterialProductAssembly_RefID = null, string $varValidStartDateTimeTZ = null, $varvalidFinishDateTimeTZ = null, string $varCode = null)
+            string $varName = null, $varMaterialProductAssembly_RefID = null, string $varValidStartDateTimeTZ = null, $varvalidFinishDateTimeTZ = null, string $varCode = null)
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -176,7 +173,6 @@ namespace App\Models\Database\SchData_OLTP_Project
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
-                            [$varBusinessDocumentVersion_RefID, 'bigint'],
                             [$varName, 'varchar'],
                             [$varMaterialProductAssembly_RefID, 'bigint'],
                             [$varValidStartDateTimeTZ, 'timestamptz'],

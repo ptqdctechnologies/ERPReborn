@@ -55,8 +55,8 @@ namespace App\Models\Database\SchData_OLTP_Project
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varBusinessDocumentVersion_RefID ► Business Document Version Reference ID                                |
         |      ▪ (int)    varProject_RefID ► Project Reference ID                                                                  |
+        |      ▪ (int)    varProjectSectionType_RefID ► Project Section Type Reference ID                                          |
         |      ▪ (string) varName ► Name                                                                                           |
         |      ▪ (string) varCode ► Project Section Code                                                                           |
         | ▪ Output Variable :                                                                                                      |
@@ -66,7 +66,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varBusinessDocumentVersion_RefID = null, int $varProject_RefID = null, string $varName = null, string $varCode = null)
+            int $varProject_RefID = null, int $varProjectSectionType_RefID = null, string $varName = null, string $varCode = null)
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -82,8 +82,8 @@ namespace App\Models\Database\SchData_OLTP_Project
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
-                            [$varBusinessDocumentVersion_RefID, 'bigint'],
                             [$varProject_RefID, 'bigint'],
+                            [$varProjectSectionType_RefID, 'bigint'],
                             [$varName, 'varchar'],
                             [$varCode, 'varchar']
                         ]
@@ -143,8 +143,8 @@ namespace App\Models\Database\SchData_OLTP_Project
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varBusinessDocumentVersion_RefID ► Business Document Version Reference ID                                |
         |      ▪ (int)    varProject_RefID ► Project Reference ID                                                                  |
+        |      ▪ (int)    varProjectSectionType_RefID ► Project Section Type Reference ID                                          |
         |      ▪ (string) varName ► Name                                                                                           |
         |      ▪ (string) varCode ► Project Section Code                                                                           |
         | ▪ Output Variable :                                                                                                      |
@@ -154,7 +154,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varBusinessDocumentVersion_RefID = null, int $varProject_RefID = null, string $varName = null, string $varCode = null)
+            int $varProject_RefID = null, int $varProjectSectionType_RefID = null, string $varName = null, string $varCode = null)
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -170,8 +170,8 @@ namespace App\Models\Database\SchData_OLTP_Project
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
-                            [$varBusinessDocumentVersion_RefID, 'bigint'],
                             [$varProject_RefID, 'bigint'],
+                            [$varProjectSectionType_RefID, 'bigint'],
                             [$varName, 'varchar'],
                             [$varCode, 'varchar']
                         ],
