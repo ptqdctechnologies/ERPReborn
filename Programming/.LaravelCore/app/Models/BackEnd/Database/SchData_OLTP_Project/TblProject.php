@@ -60,6 +60,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         |      ▪ (string) varValidStartDateTimeTZ ► Project Start Date Time TZ                                                     |
         |      ▪ (string) varValidFinishDateTimeTZ ► Project Finish Date Time TZ                                                   |
         |      ▪ (string) varCode ► Project Code                                                                                   |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -150,6 +151,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         |      ▪ (string) varValidStartDateTimeTZ ► Project Start Date Time TZ                                                     |
         |      ▪ (string) varValidFinishDateTimeTZ ► Project Finish Date Time TZ                                                   |
         |      ▪ (string) varCode ► Project Code                                                                                   |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+

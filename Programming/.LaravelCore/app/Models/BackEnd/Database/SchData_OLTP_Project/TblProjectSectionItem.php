@@ -58,6 +58,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         |      ▪ (int)    varProjectSection_RefID ► Project Section Reference ID                                                   |
         |      ▪ (string) varName ► Name                                                                                           |
         |      ▪ (string) varCode ► Code                                                                                           |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -144,6 +145,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         |      ▪ (int)    varProjectSection_RefID ► Project Section Reference ID                                                   |
         |      ▪ (string) varName ► Name                                                                                           |
         |      ▪ (string) varCode ► Code                                                                                           |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -170,7 +172,7 @@ namespace App\Models\Database\SchData_OLTP_Project
                             [$varProjectSection_RefID, 'bigint'],
                             [$varName, 'varchar'], 
                             [$varCode, 'varchar']
-                        ],
+                        ]
                         )
                     );
 
