@@ -24,6 +24,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-09-09                                                                                           |
+        | ▪ Creation Date   : 2020-09-09                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,6 +45,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-11-10                                                                                           |
+        | ▪ Creation Date   : 2020-11-10                                                                                           |
         | ▪ Description     : Data Initialize                                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -72,24 +74,27 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-09-09                                                                                           |
+        | ▪ Creation Date   : 2020-09-09                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                           |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varCountry_RefID ► Country Reference ID                                                                  |
         |      ▪ (string) varName ► Day Off Government Policy Name                                                                 |
         |      ▪ (string) varStartDate ► Start Date                                                                                |
         |      ▪ (string) varFinishDate ► Finish Date                                                                              |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */        
 /*        public function setDataInsert(
             $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
+            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,
             int $varCountry_RefID = null, string $varName = null, string $varStartDate = null, string $varFinishDate = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -102,7 +107,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [null, 'bigint'],
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
+                        [$varSysBranch_RefID, 'bigint'],
                         [$varCountry_RefID, 'bigint'],
                         [$varName, 'varchar'],
                         [$varStartDate, 'date'],
@@ -120,6 +125,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-09-09                                                                                           |
+        | ▪ Creation Date   : 2020-09-09                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -127,18 +133,20 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                           |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varCountry_RefID ► Country Reference ID                                                                  |
         |      ▪ (string) varName ► Day Off Government Policy Name                                                                 |
         |      ▪ (string) varStartDate ► Start Date                                                                                |
         |      ▪ (string) varFinishDate ► Finish Date                                                                              |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
 /*        public function setDataUpdate(
             $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
+            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,
             int $varCountry_RefID = null, string $varName = null, string $varStartDate = null, string $varFinishDate = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -151,12 +159,12 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [$varSysID, 'bigint'],
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
+                        [$varSysBranch_RefID, 'bigint'],
                         [$varCountry_RefID, 'bigint'],
                         [$varName, 'varchar'],
                         [$varStartDate, 'date'],
                         [$varFinishDate, 'date']
-                    ],
+                    ]
                     )
                 );
             return $varReturn['Data'][0];
