@@ -2316,6 +2316,7 @@ return array(
     'App\\Models\\Database\\SchData_OLTP_Project\\TblProjectSection' => $baseDir . '/app/Models/Database/SchData_OLTP_Project/TblProjectSection.php',
     'App\\Models\\Database\\SchData_OLTP_Project\\TblProjectSectionItem' => $baseDir . '/app/Models/Database/SchData_OLTP_Project/TblProjectSectionItem.php',
     'App\\Models\\Database\\SchData_OLTP_Project\\TblProjectSectionItemWork' => $baseDir . '/app/Models/Database/SchData_OLTP_Project/TblProjectSectionItemWork.php',
+    'App\\Models\\Database\\SchData_OLTP_Project\\TblProjectSectionType' => $baseDir . '/app/Models/Database/SchData_OLTP_Project/TblProjectSectionType.php',
     'App\\Models\\Database\\SchData_OLTP_SupplyChain\\General' => $baseDir . '/app/Models/Database/SchData_OLTP_SupplyChain/General.php',
     'App\\Models\\Database\\SchData_OLTP_SupplyChain\\TblDeliveryDestinationType' => $baseDir . '/app/Models/Database/SchData_OLTP_SupplyChain/TblDeliveryDestinationType.php',
     'App\\Models\\Database\\SchData_OLTP_SupplyChain\\TblDeliveryOrder' => $baseDir . '/app/Models/Database/SchData_OLTP_SupplyChain/TblDeliveryOrder.php',

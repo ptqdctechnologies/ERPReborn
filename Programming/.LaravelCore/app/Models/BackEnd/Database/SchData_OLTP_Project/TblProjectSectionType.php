@@ -3,28 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : Laravel Models                                                                                                    |
-| ▪ Name Space : \App\Models\Database\SchData_OLTP_Master                                                                          |
+| ▪ Name Space : \App\Models\Database\SchData_OLTP_Project                                                                         |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Models\Database\SchData_OLTP_Master
+namespace App\Models\Database\SchData_OLTP_Project
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblAccountingEntryRecordType                                                                                 |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblAccountingEntryRecordType                               |
+    | ▪ Class Name  : TblProjectSectionType                                                                                        |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Project ► TblProjectSectionType                                     |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblAccountingEntryRecordType extends \App\Models\Database\DefaultClassPrototype
+    class TblProjectSectionType extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-10-04                                                                                           |
-        | ▪ Creation Date   : 2022-10-04                                                                                           |
+        | ▪ Last Update     : 2024-05-11                                                                                           |
+        | ▪ Creation Date   : 2024-05-11                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Method Name     : setDataInitialize                                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-10-04                                                                                           |
-        | ▪ Creation Date   : 2022-10-04                                                                                           |
+        | ▪ Last Update     : 2024-05-11                                                                                           |
+        | ▪ Creation Date   : 2024-05-11                                                                                           |
         | ▪ Description     : Data Initialize                                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -75,25 +75,30 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-10-04                                                                                           |
-        | ▪ Creation Date   : 2022-10-04                                                                                           |
+        | ▪ Last Update     : 2022-07-19                                                                                           |
+        | ▪ Creation Date   : 2022-07-19                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (string) varName ► AccountingEntryRecordType Name                                                                                      |
-        |      ▪ (string) varAcronym ► AccountingEntryRecordType Acronym                                                                                |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
+        |        ----------------------------------------                                                                          |
+        |      ▪ (int)    varBank_RefID ► Institution Reference ID                                                                 |
+        |      ▪ (string) varName ► Name                                                                                           |
+        |      ▪ (string) varAddress ► Address                                                                                     |
+        |      ▪ (int)    varCountryAdministrativeAreaLevel_RefID ► Country Administrative Area Level Reference ID                 |
+        |      ▪ (string) varPostalCode ► Postal Code                                                                              |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
             $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            string $varName = null, string $varAcronym = null)
+            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
+            int $varBank_RefID = null, string $varName = null, string $varAddress = null, int $varCountryAdministrativeAreaLevel = null, string $varPostalCode = null)
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -106,14 +111,13 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [null, 'bigint'],
                             [$varSysDataAnnotation, 'varchar'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                            [$varSysBranchRefID, 'bigint'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
-                            [$varName, 'varchar'],
-                            [$varAcronym, 'varchar']
+                            [$varName, 'varchar']
                         ]
                         )
                     );
-
             return $varReturn['Data'][0];
             }
 
@@ -123,8 +127,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-10-04                                                                                           |
-        | ▪ Creation Date   : 2022-10-04                                                                                           |
+        | ▪ Last Update     : 2022-07-19                                                                                           |
+        | ▪ Creation Date   : 2022-07-19                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -132,17 +136,22 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (string) varName ► AccountingEntryRecordType Name                                                                                      |
-        |      ▪ (string) varAcronym ► AccountingEntryRecordType Acronym                                                                                |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
+        |        ----------------------------------------                                                                          |
+        |      ▪ (int)    varBank_RefID ► Institution Reference ID                                                                 |
+        |      ▪ (string) varName ► Name                                                                                           |
+        |      ▪ (string) varAddress ► Address                                                                                     |
+        |      ▪ (int)    varCountryAdministrativeAreaLevel_RefID ► Country Administrative Area Level Reference ID                 |
+        |      ▪ (string) varPostalCode ► Postal Code                                                                              |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
             $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            string $varName = null, string $varAcronym = null)
+            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
+            int $varBank_RefID = null, string $varName = null, string $varAddress = null, int $varCountryAdministrativeAreaLevel = null, string $varPostalCode = null)
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -155,14 +164,13 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [$varSysID, 'bigint'],
                             [$varSysDataAnnotation, 'varchar'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                            [$varSysBranchRefID, 'bigint'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
-                            [$varName, 'varchar'],
-                            [$varAcronym, 'varchar']
-                        ],
+                            [$varName, 'varchar']
+                        ]
                         )
                     );
-
             return $varReturn['Data'][0];
             }
         }
