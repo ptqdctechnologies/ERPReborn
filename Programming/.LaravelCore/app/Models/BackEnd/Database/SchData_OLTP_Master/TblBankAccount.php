@@ -88,6 +88,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varAccountNumber ► Account Number                                                                        |
         |      ▪ (string) varName ► Account Name                                                                                   |
         |      ▪ (int)    varPerson_RefID ► Person Reference ID                                                                    |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -141,6 +142,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varAccountNumber ► Account Number                                                                        |
         |      ▪ (string) varName ► Account Name                                                                                   |
         |      ▪ (int)    varPerson_RefID ► Person Reference ID                                                                    |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+

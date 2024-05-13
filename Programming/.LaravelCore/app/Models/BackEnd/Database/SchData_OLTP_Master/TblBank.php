@@ -87,6 +87,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         |        ----------------------------------------                                                                          |
         |      ▪ (string) varName ► Bank Name                                                                                      |
         |      ▪ (string) varAcronym ► Bank Acronym                                                                                |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -138,6 +139,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         |        ----------------------------------------                                                                          |
         |      ▪ (string) varName ► Bank Name                                                                                      |
         |      ▪ (string) varAcronym ► Bank Acronym                                                                                |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -163,7 +165,7 @@ namespace App\Models\Database\SchData_OLTP_Master
 
                             [$varName, 'varchar'],
                             [$varAcronym, 'varchar']
-                        ],
+                        ]
                         )
                     );
             return $varReturn['Data'][0];

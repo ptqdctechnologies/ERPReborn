@@ -5,7 +5,7 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_Master                                                                          |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2020 - 2021 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_Master
@@ -24,6 +24,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-09-08                                                                                           |
+        | ▪ Creation Date   : 2020-09-08                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,46 +45,51 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-09-08                                                                                           |
+        | ▪ Creation Date   : 2020-09-08                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                           |
+        |        ----------------------------------------                                                                          |
 	|      ▪ (int)    varBusinessDocument_RefID ► Business Document Reference ID                                               |
         |      ▪ (int)    varVersion ► Document Version                                                                            |
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
         |      ▪ (string) varAnnotation ► Annotation                                                                               |
 	|      ▪ (int)    varDocumentOwner_RefID ► Document Owner Reference ID                                                     |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
             $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
+            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,
             int $varBusinessDocument_RefID = null, int $varVersion = null, string $varDocumentDateTimeTZ = null, string $varAnnotation = null, int $varDocumentOwner_RefID = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [null, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
-                        [$varBusinessDocument_RefID, 'bigint'],
-                        [$varVersion, 'smallint'],
-                        [$varDocumentDateTimeTZ, 'timestamptz'],
-                        [$varAnnotation, 'varchar'],
-                        [$varDocumentOwner_RefID, 'bigint']
-                    ]
-                    )
-                );
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [null, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+
+                            [$varBusinessDocument_RefID, 'bigint'],
+                            [$varVersion, 'smallint'],
+                            [$varDocumentDateTimeTZ, 'timestamptz'],
+                            [$varAnnotation, 'varchar'],
+                            [$varDocumentOwner_RefID, 'bigint']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0];
             }
 
@@ -94,6 +100,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-02-18                                                                                           |
+        | ▪ Creation Date   : 2021-02-18                                                                                           |
         | ▪ Description     : Data Synchronize                                                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -104,16 +111,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         */
         public function setDataSynchronize($varUserSession)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaTableSynchronizeName($varUserSession), 
-                    [
-                        ['1990-01-01', 'timestamp']
-                    ]
-                    )
-                );
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaTableSynchronizeName($varUserSession), 
+                        [
+                            ['1990-01-01', 'timestamp']
+                        ]
+                        )
+                    );
             $varReturn = [];
             return $varReturn;
             }
@@ -125,6 +133,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-09-08                                                                                           |
+        | ▪ Creation Date   : 2020-09-08                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -132,40 +141,44 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                           |
+        |        ----------------------------------------                                                                          |
 	|      ▪ (int)    varBusinessDocument_RefID ► Business Document Reference ID                                               |
         |      ▪ (int)    varVersion ► Document Version                                                                            |
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
         |      ▪ (string) varAnnotation ► Annotation                                                                               |
 	|      ▪ (int)    varDocumentOwner_RefID ► Document Owner Reference ID                                                     |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
             $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
+            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,
             int $varBusinessDocument_RefID = null, int $varVersion = null, string $varDocumentDateTimeTZ = null, string $varAnnotation = null, int $varDocumentOwner_RefID = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varSysID, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
-                        [$varBusinessDocument_RefID, 'bigint'],
-                        [$varVersion, 'smallint'],
-                        [$varDocumentDateTimeTZ, 'timestamptz'],
-                        [$varAnnotation, 'varchar'],
-                        [$varDocumentOwner_RefID, 'bigint']
-                    ],
-                    )
-                );
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varSysID, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+
+                            [$varBusinessDocument_RefID, 'bigint'],
+                            [$varVersion, 'smallint'],
+                            [$varDocumentDateTimeTZ, 'timestamptz'],
+                            [$varAnnotation, 'varchar'],
+                            [$varDocumentOwner_RefID, 'bigint']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0];
             }
         }
