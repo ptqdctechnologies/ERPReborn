@@ -177,7 +177,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                             [$varCurrency_RefID, 'bigint'],
                             [$varValidStartDateTimeTZ, 'timestamp'],
                             [$varValidFinishDateTimeTZ, 'timestamp']
-                        ],
+                        ]
                         )
                     );
             return $varReturn['Data'][0];

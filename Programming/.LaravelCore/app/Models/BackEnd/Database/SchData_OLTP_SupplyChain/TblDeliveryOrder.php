@@ -148,7 +148,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [$varRemarks, 'varchar'],
 
                             [\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData), 'json']
-                        ],
+                        ]
                         )
                     );
 

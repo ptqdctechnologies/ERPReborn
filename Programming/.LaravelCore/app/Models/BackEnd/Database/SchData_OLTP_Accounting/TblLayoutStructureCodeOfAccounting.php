@@ -5,7 +5,7 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_Accounting                                                                      |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 - 2024 Zheta (teguhpjs@gmail.com)                                                                              |
+| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_Accounting
@@ -52,17 +52,19 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varLayoutStructure_RefID ► Layout Structure Reference ID                                                 |
         |      ▪ (int)    varCodeOfAccounting_RefID ► Code Of Accounting Reference ID                                              |
         |      ▪ (int)    varParentCodeOfAccounting_RefID ► Parent Code Of Accounting Reference ID                                 |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
             $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
+            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,
             int $varLayoutStructure_RefID = null, int $varCodeOfAccounting_RefID = null, int $varParentCodeOfAccounting_RefID = null)
             {
             $varReturn =
@@ -76,7 +78,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                             [null, 'bigint'],
                             [$varSysDataAnnotation, 'varchar'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                            [$varSysBranchRefID, 'bigint'],                        
+                            [$varSysBranch_RefID, 'bigint'],                        
 
                             [$varLayoutStructure_RefID, 'bigint'],
                             [$varCodeOfAccounting_RefID, 'bigint'],
@@ -102,17 +104,19 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varLayoutStructure_RefID ► Layout Structure Reference ID                                                 |
         |      ▪ (int)    varCodeOfAccounting_RefID ► Code Of Accounting Reference ID                                              |
         |      ▪ (int)    varParentCodeOfAccounting_RefID ► Parent Code Of Accounting Reference ID                                 |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
             $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
+            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,
             int $varLayoutStructure_RefID = null, int $varCodeOfAccounting_RefID = null, int $varParentCodeOfAccounting_RefID = null)
             {
             $varReturn =
@@ -126,12 +130,12 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                             [$varSysID, 'bigint'],
                             [$varSysDataAnnotation, 'varchar'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                            [$varSysBranchRefID, 'bigint'],
+                            [$varSysBranch_RefID, 'bigint'],
 
                             [$varLayoutStructure_RefID, 'bigint'],
                             [$varCodeOfAccounting_RefID, 'bigint'],
                             [$varParentCodeOfAccounting_RefID, 'bigint']
-                        ],
+                        ]
                         )
                     );
             return $varReturn['Data'][0];

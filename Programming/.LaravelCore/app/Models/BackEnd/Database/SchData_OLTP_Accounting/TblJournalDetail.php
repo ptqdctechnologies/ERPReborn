@@ -67,6 +67,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
         |      ▪ (string) varAnnotation ► Annotation                                                                               |
         |      ▪ (int)    varCodeOfBudgeting_RefID ► Code Of Budgeting Reference ID                                                |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -138,6 +139,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
         |      ▪ (string) varAnnotation ► Annotation                                                                               |
         |      ▪ (int)    varCodeOfBudgeting_RefID ► Code Of Budgeting Reference ID                                                |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+

@@ -163,7 +163,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
                             [$varName, 'varchar']
-                        ],
+                        ]
                         )
                     );
 

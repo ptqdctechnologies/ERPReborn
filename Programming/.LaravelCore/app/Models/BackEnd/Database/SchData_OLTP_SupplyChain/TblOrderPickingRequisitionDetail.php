@@ -165,7 +165,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [$varProductUnitPriceCurrencyExchangeRate, 'numeric'],
                         [$varFulfillmentDeadlineDateTimeTZ, 'timestamptz'],
                         [$varRemarks, 'varchar']
-                    ],
+                    ]
                     )
                 );
             return $varReturn['Data'][0];

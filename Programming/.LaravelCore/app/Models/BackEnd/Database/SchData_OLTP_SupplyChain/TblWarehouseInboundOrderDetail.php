@@ -24,6 +24,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-03-08                                                                                           |
+        | ▪ Creation Date   : 2022-03-08                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -52,6 +53,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varWarehouseInboundOrder_RefID ► Purchase Requisition Reference ID                                       |
         |      ▪ (int)    varReferenceDocument_RefID ► Reference Document Reference ID                                             |
         |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
@@ -113,6 +115,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varWarehouseInboundOrder_RefID ► Purchase Requisition Reference ID                                       |
         |      ▪ (int)    varReferenceDocument_RefID ► Reference Document Reference ID                                             |
         |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |

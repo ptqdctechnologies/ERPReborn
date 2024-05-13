@@ -5,7 +5,7 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_SupplyChain                                                                     |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2022 - 2023 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_SupplyChain
@@ -23,8 +23,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-11-25                                                                                           |
-        | ▪ Creation Date   : 2020-11-25                                                                                           |
+        | ▪ Last Update     : 2022-03-02                                                                                           |
+        | ▪ Creation Date   : 2022-03-02                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -167,7 +167,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [$varProductUnitPriceCurrencyExchangeRate, 'numeric'],
                             [$varFulfillmentDeadlineDateTimeTZ, 'timestamptz'],
                             [$varRemarks, 'varchar']
-                        ],
+                        ]
                         )
                     );
             return $varReturn['Data'][0];

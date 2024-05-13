@@ -62,10 +62,10 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (int)    varProductUnitPriceValue_Currency_RefID ► Product Unit Price Value Currency Reference ID                 |
         |      ▪ (float)  varProductUnitPriceValue_CurrencyExchangeRate ► Product Unit Price Value Currency Exchange Rate          |
         |      ▪ (float)  varProductUnitPriceValue_CurrencyeValue ► Product Unit Price Value Currencye Value                       |
-        |      ▪ (int)    varProductUnitPriceValueDiscount_Currency_RefID ► Product Unit Price Value Discount Currency Reference   |
-        |                                                                   ID                                                     |
-        |      ▪ (float)  varProductUnitPriceValueDiscount_CurrencyExchangeRate ► Product Unit Price Value Discount Currency       |
-        |                                                                         Exchange Rate                                    |
+        |      ▪ (int)    varProductUnitPriceValueDiscount_Currency_RefID                                                          |
+        |                      ► Product Unit Price Value Discount Currency Reference ID                                           |
+        |      ▪ (float)  varProductUnitPriceValueDiscount_CurrencyExchangeRate                                                    |
+        |                      ► Product Unit Price Value Discount Currency Exchange Rate                                          |
         |      ▪ (float)  varProductUnitPriceValueDiscount_CurrencyeValue ► Product Unit Price Value Discount Currencye Value      |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         | ▪ Output Variable :                                                                                                      |
@@ -133,10 +133,10 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (int)    varProductUnitPriceValue_Currency_RefID ► Product Unit Price Value Currency Reference ID                 |
         |      ▪ (float)  varProductUnitPriceValue_CurrencyExchangeRate ► Product Unit Price Value Currency Exchange Rate          |
         |      ▪ (float)  varProductUnitPriceValue_CurrencyeValue ► Product Unit Price Value Currencye Value                       |
-        |      ▪ (int)    varProductUnitPriceValueDiscount_Currency_RefID ► Product Unit Price Value Discount Currency Reference   |
-        |                                                                   ID                                                     |
-        |      ▪ (float)  varProductUnitPriceValueDiscount_CurrencyExchangeRate ► Product Unit Price Value Discount Currency       |
-        |                                                                         Exchange Rate                                    |
+        |      ▪ (int)    varProductUnitPriceValueDiscount_Currency_RefID                                                          |
+        |                      ► Product Unit Price Value Discount Currency Reference ID                                           |
+        |      ▪ (float)  varProductUnitPriceValueDiscount_CurrencyExchangeRate                                                    |
+        |                      ► Product Unit Price Value Discount Currency Exchange Rate                                          |
         |      ▪ (float)  varProductUnitPriceValueDiscount_CurrencyeValue ► Product Unit Price Value Discount Currencye Value      |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         | ▪ Output Variable :                                                                                                      |
