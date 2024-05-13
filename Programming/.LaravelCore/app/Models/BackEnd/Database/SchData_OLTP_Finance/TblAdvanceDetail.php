@@ -5,7 +5,7 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_Finance                                                                         |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2020- 2022 Zheta (teguhpjs@gmail.com)                                                                               |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_Finance
@@ -163,7 +163,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varProductUnitPriceCurrencyValue, 'numeric'],
                             [$varProductUnitPriceCurrencyExchangeRate, 'numeric'],
                             [$varRemarks, 'varchar']
-                        ],
+                        ]
                         )
                     );
             return $varReturn['Data'][0];

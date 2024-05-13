@@ -67,6 +67,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (float)  varProductUnitPriceDiscountCurrencyValue ► Product Unit Price Discount Currency Value                    |
         |      ▪ (float)  varProductUnitPriceDiscountCurrencyExchangeRate ► Product Unit Price Discount Currency Exchange Rate     |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -138,6 +139,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (float)  varProductUnitPriceDiscountCurrencyValue ► Product Unit Price Discount Currency Value                    |
         |      ▪ (float)  varProductUnitPriceDiscountCurrencyExchangeRate ► Product Unit Price Discount Currency Exchange Rate     |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+

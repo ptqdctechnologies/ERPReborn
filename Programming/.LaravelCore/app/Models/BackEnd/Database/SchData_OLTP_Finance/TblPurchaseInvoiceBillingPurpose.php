@@ -12,11 +12,11 @@ namespace App\Models\Database\SchData_OLTP_Finance
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblInvoiceSupplierBillingPurpose                                                                             |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Finance ► TblInvoiceSupplierBillingPurpose                          |
+    | ▪ Class Name  : TblPurchaseInvoiceBillingPurpose                                                                             |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Finance ► TblPurchaseInvoiceBillingPurpose                          |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblInvoiceSupplierBillingPurpose extends \App\Models\Database\DefaultClassPrototype
+    class TblPurchaseInvoiceBillingPurpose extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -56,14 +56,15 @@ namespace App\Models\Database\SchData_OLTP_Finance
         */
         public function setDataInitialize($varUserSession)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig-Initialize.Func_'.parent::getSchemaName($varUserSession).'_'.parent::getTableName($varUserSession),
-                    []
-                    )
-                );
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig-Initialize.Func_'.parent::getSchemaName($varUserSession).'_'.parent::getTableName($varUserSession),
+                        []
+                        )
+                    );
             return $varReturn['Data'][0];
             }
 
@@ -89,6 +90,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (string) varFaximile ► Faximile                                                                                   |
         |      ▪ (string) varEMail ► E-Mail                                                                                        |
         |      ▪ (string) varAttentionName ► Attention Name                                                                        |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -98,27 +100,28 @@ namespace App\Models\Database\SchData_OLTP_Finance
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
             int $varInstitutionBranch_RefID = null, string $varPhone = null, string $varFaximile = null, string $varEMail = null, string $varAttentionName = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [null, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
-                        
-                        [$varInstitutionBranch_RefID, 'bigint'],
-                        [$varPhone, 'varchar'],
-                        [$varFaximile, 'varchar'],
-                        [$varEMail, 'varchar'],
-                        [$varAttentionName, 'varchar']
-                    ]
-                    )
-                );
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [null, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
+
+                            [$varInstitutionBranch_RefID, 'bigint'],
+                            [$varPhone, 'varchar'],
+                            [$varFaximile, 'varchar'],
+                            [$varEMail, 'varchar'],
+                            [$varAttentionName, 'varchar']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0];
             }
 
@@ -145,6 +148,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (string) varFaximile ► Faximile                                                                                   |
         |      ▪ (string) varEMail ► E-Mail                                                                                        |
         |      ▪ (string) varAttentionName ► Attention Name                                                                        |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -154,27 +158,28 @@ namespace App\Models\Database\SchData_OLTP_Finance
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
             int $varInstitutionBranch_RefID = null, string $varPhone = null, string $varFaximile = null, string $varEMail = null, string $varAttentionName = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varSysID, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
-                        
-                        [$varInstitutionBranch_RefID, 'bigint'],
-                        [$varPhone, 'varchar'],
-                        [$varFaximile, 'varchar'],
-                        [$varEMail, 'varchar'],
-                        [$varAttentionName, 'varchar']
-                    ],
-                    )
-                );
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varSysID, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
+
+                            [$varInstitutionBranch_RefID, 'bigint'],
+                            [$varPhone, 'varchar'],
+                            [$varFaximile, 'varchar'],
+                            [$varEMail, 'varchar'],
+                            [$varAttentionName, 'varchar']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0];
             }
         }

@@ -52,40 +52,42 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varLog_FileUpload_ObjectDetail_RefID ► Log File Upload Object Detail Reference ID                        |
         |      ▪ (int)    varMIME_RefID ► MIME Reference ID                                                                        |
         |      ▪ (int)    varFilesCount ► Files Count                                                                              |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
             $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null, int $varSysBaseCurrency_RefID = null,
+            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
             int $varLog_FileUpload_ObjectDetail_RefID = null, int $varMIME_RefID = null, int $varFilesCount = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [null, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [null, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [$varLog_FileUpload_ObjectDetail_RefID, 'bigint'],
-                        [$varMIME_RefID, 'bigint'],
-                        [$varFilesCount, 'smallint']
-                    ]
-                    )
-                );
+                            [$varLog_FileUpload_ObjectDetail_RefID, 'bigint'],
+                            [$varMIME_RefID, 'bigint'],
+                            [$varFilesCount, 'smallint']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0];
             }
 
@@ -104,41 +106,42 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varLog_FileUpload_ObjectDetail_RefID ► Log File Upload Object Detail Reference ID                        |
         |      ▪ (int)    varMIME_RefID ► MIME Reference ID                                                                        |
         |      ▪ (int)    varFilesCount ► Files Count                                                                              |
-
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
             $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null, int $varSysBaseCurrency_RefID = null,
+            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
             int $varLog_FileUpload_ObjectDetail_RefID = null, int $varMIME_RefID = null, int $varFilesCount = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varSysID, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varSysID, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [$varLog_FileUpload_ObjectDetail_RefID, 'bigint'],
-                        [$varMIME_RefID, 'bigint'],
-                        [$varFilesCount, 'smallint']
-                    ],
-                    )
-                );
+                            [$varLog_FileUpload_ObjectDetail_RefID, 'bigint'],
+                            [$varMIME_RefID, 'bigint'],
+                            [$varFilesCount, 'smallint']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0];
             }
         }
