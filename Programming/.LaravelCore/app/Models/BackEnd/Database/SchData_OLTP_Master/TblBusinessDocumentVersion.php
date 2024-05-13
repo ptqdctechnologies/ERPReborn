@@ -52,7 +52,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |        ----------------------------------------                                                                          |
 	|      ▪ (int)    varBusinessDocument_RefID ► Business Document Reference ID                                               |
         |      ▪ (int)    varVersion ► Document Version                                                                            |
@@ -141,7 +141,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |        ----------------------------------------                                                                          |
 	|      ▪ (int)    varBusinessDocument_RefID ► Business Document Reference ID                                               |
         |      ▪ (int)    varVersion ► Document Version                                                                            |
