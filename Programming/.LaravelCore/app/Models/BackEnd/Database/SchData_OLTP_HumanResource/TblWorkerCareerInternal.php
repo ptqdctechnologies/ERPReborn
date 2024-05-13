@@ -56,14 +56,15 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         */
         public function setDataInitialize($varUserSession)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig-Initialize.Func_'.parent::getSchemaName($varUserSession).'_'.parent::getTableName($varUserSession),
-                    []
-                    )
-                );
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig-Initialize.Func_'.parent::getSchemaName($varUserSession).'_'.parent::getTableName($varUserSession),
+                        []
+                        )
+                    );
             return $varReturn['Data'][0];
             }
 
@@ -81,7 +82,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varWorker_RefID ► Worker Reference ID                                                                    |
         |      ▪ (int)    varWorkerType_RefID ► Worker Type Reference ID                                                           |
         |      ▪ (int)    varOrganizationalDepartment_RefID ► OrganizationalDepartment Reference ID                                |
@@ -89,37 +91,39 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varValidStartDateTimeTZ ► Valid Start DateTimeTZ                                                         |
         |      ▪ (string) varValidFinishDateTimeTZ ► Valid Finish DateTimeTZ                                                       |
         |      ▪ (int)    varDocumentEmploymentRelationship_RefID ► Document Employment Relationship Reference ID                  |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
             $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
+            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,
             int $varWorker_RefID = null, int $varWorkerType_RefID = null, int $varOrganizationalDepartment_RefID = null, int $varOrganizationalJobPosition_RefID = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null, int $varDocumentEmploymentRelationship_RefID = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [null, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
-                        
-                        [$varWorker_RefID, 'bigint'],
-                        [$varWorkerType_RefID, 'bigint'],
-                        [$varOrganizationalDepartment_RefID, 'bigint'],
-                        [$varOrganizationalJobPosition_RefID, 'bigint'],
-                        [$varValidStartDateTimeTZ, 'timestamptz'],
-                        [$varValidFinishDateTimeTZ, 'timestamptz'],
-                        [$varDocumentEmploymentRelationship_RefID, 'bigint']
-                    ]
-                    )
-                );
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [null, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+
+                            [$varWorker_RefID, 'bigint'],
+                            [$varWorkerType_RefID, 'bigint'],
+                            [$varOrganizationalDepartment_RefID, 'bigint'],
+                            [$varOrganizationalJobPosition_RefID, 'bigint'],
+                            [$varValidStartDateTimeTZ, 'timestamptz'],
+                            [$varValidFinishDateTimeTZ, 'timestamptz'],
+                            [$varDocumentEmploymentRelationship_RefID, 'bigint']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0];
             }
 
@@ -138,7 +142,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varWorker_RefID ► Worker Reference ID                                                                    |
         |      ▪ (int)    varWorkerType_RefID ► Worker Type Reference ID                                                           |
         |      ▪ (int)    varOrganizationalDepartment_RefID ► OrganizationalDepartment Reference ID                                |
@@ -146,37 +151,39 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varValidStartDateTimeTZ ► Valid Start DateTimeTZ                                                         |
         |      ▪ (string) varValidFinishDateTimeTZ ► Valid Finish DateTimeTZ                                                       |
         |      ▪ (int)    varDocumentEmploymentRelationship_RefID ► Document Employment Relationship Reference ID                  |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
             $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
+            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,
             int $varWorker_RefID = null, int $varWorkerType_RefID = null, int $varOrganizationalDepartment_RefID = null, int $varOrganizationalJobPosition_RefID = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null, int $varDocumentEmploymentRelationship_RefID = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varSysID, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varSysID, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
 
-                        [$varWorker_RefID, 'bigint'],
-                        [$varWorkerType_RefID, 'bigint'],
-                        [$varOrganizationalDepartment_RefID, 'bigint'],
-                        [$varOrganizationalJobPosition_RefID, 'bigint'],
-                        [$varValidStartDateTimeTZ, 'timestamptz'],
-                        [$varValidFinishDateTimeTZ, 'timestamptz'],
-                        [$varDocumentEmploymentRelationship_RefID, 'bigint']
-                    ],
-                    )
-                );
+                            [$varWorker_RefID, 'bigint'],
+                            [$varWorkerType_RefID, 'bigint'],
+                            [$varOrganizationalDepartment_RefID, 'bigint'],
+                            [$varOrganizationalJobPosition_RefID, 'bigint'],
+                            [$varValidStartDateTimeTZ, 'timestamptz'],
+                            [$varValidFinishDateTimeTZ, 'timestamptz'],
+                            [$varDocumentEmploymentRelationship_RefID, 'bigint']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0];
             }
         }

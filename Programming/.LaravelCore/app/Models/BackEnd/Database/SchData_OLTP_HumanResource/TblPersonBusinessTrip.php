@@ -5,7 +5,7 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_HumanResource                                                                   |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2020 - 2022 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_HumanResource
@@ -70,27 +70,28 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
             string $varDocumentDateTimeTZ = null, int $varCombinedBudgetSectionDetail_RefID = null, int $varPaymentDisbursementMethod_RefID = null,
             array $varAdditionalData = [])
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [null, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [null, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [$varDocumentDateTimeTZ, 'timestamptz'],
-                        [$varCombinedBudgetSectionDetail_RefID, 'bigint'],
-                        [$varPaymentDisbursementMethod_RefID, 'bigint'],
+                            [$varDocumentDateTimeTZ, 'timestamptz'],
+                            [$varCombinedBudgetSectionDetail_RefID, 'bigint'],
+                            [$varPaymentDisbursementMethod_RefID, 'bigint'],
 
-                        [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
-                    ]
-                    )
-                );
+                            [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0];
             }
 
@@ -127,27 +128,28 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
             string $varDocumentDateTimeTZ = null, int $varCombinedBudgetSectionDetail_RefID = null, int $varPaymentDisbursementMethod_RefID = null,
             array $varAdditionalData = [])
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varSysID, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varSysID, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [$varDocumentDateTimeTZ, 'timestamptz'],
-                        [$varCombinedBudgetSectionDetail_RefID, 'bigint'],
-                        [$varPaymentDisbursementMethod_RefID, 'bigint'],
+                            [$varDocumentDateTimeTZ, 'timestamptz'],
+                            [$varCombinedBudgetSectionDetail_RefID, 'bigint'],
+                            [$varPaymentDisbursementMethod_RefID, 'bigint'],
 
-                        [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
-                    ],
-                    )
-                );
+                            [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0];
             }
         }

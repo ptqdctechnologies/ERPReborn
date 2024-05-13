@@ -56,14 +56,15 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         */
         public function setDataInitialize($varUserSession)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig-Initialize.Func_Init_0221',
-                    []
-                    )
-                );
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig-Initialize.Func_Init_0221',
+                        []
+                        )
+                    );
             return $varReturn['Data'][0];
             }
 
@@ -87,6 +88,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (int)    varBusinessTripTransportationType_RefID ► Business Trip Transportation Type Reference ID                 |
         |      ▪ (int)    varBusinessTripTransportationCostTypeComponent_RefID ► Business Trip Transportation Cost Type Component  |
         |                                                                        Reference ID                                      |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -96,24 +98,25 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
             int $varBusinessTripTransportationType_RefID = null, int $varBusinessTripTransportationCostTypeComponent_RefID = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [null, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [null, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [$varBusinessTripTransportationType_RefID, 'bigint'],
-                        [$varBusinessTripTransportationCostTypeComponent_RefID, 'bigint']
-                    ]
-                    )
-                );
+                            [$varBusinessTripTransportationType_RefID, 'bigint'],
+                            [$varBusinessTripTransportationCostTypeComponent_RefID, 'bigint']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0];
             }
 
@@ -138,6 +141,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (int)    varBusinessTripTransportationType_RefID ► Business Trip Transportation Type Reference ID                 |
         |      ▪ (int)    varBusinessTripTransportationCostTypeComponent_RefID ► Business Trip Transportation Cost Type Component  |
         |                                                                        Reference ID                                      |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -147,24 +151,25 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
             int $varBusinessTripTransportationType_RefID = null, int $varBusinessTripTransportationCostTypeComponent_RefID = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varSysID, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varSysID, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [$varBusinessTripTransportationType_RefID, 'bigint'],
-                        [$varBusinessTripTransportationCostTypeComponent_RefID, 'bigint']
-                    ],
-                    )
-                );
+                            [$varBusinessTripTransportationType_RefID, 'bigint'],
+                            [$varBusinessTripTransportationCostTypeComponent_RefID, 'bigint']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0];
             }
         }
