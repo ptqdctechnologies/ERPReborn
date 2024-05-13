@@ -75,8 +75,8 @@ namespace App\Models\Database\SchData_OLTP_Project
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-19                                                                                           |
-        | ▪ Creation Date   : 2022-07-19                                                                                           |
+        | ▪ Last Update     : 2024-05-13                                                                                           |
+        | ▪ Creation Date   : 2024-05-13                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -86,11 +86,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varBank_RefID ► Institution Reference ID                                                                 |
         |      ▪ (string) varName ► Name                                                                                           |
-        |      ▪ (string) varAddress ► Address                                                                                     |
-        |      ▪ (int)    varCountryAdministrativeAreaLevel_RefID ► Country Administrative Area Level Reference ID                 |
-        |      ▪ (string) varPostalCode ► Postal Code                                                                              |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -98,7 +94,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varBank_RefID = null, string $varName = null, string $varAddress = null, int $varCountryAdministrativeAreaLevel = null, string $varPostalCode = null)
+            string $varName = null)
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -127,8 +123,8 @@ namespace App\Models\Database\SchData_OLTP_Project
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-19                                                                                           |
-        | ▪ Creation Date   : 2022-07-19                                                                                           |
+        | ▪ Last Update     : 2024-05-13                                                                                           |
+        | ▪ Creation Date   : 2024-05-13                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -139,11 +135,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varBank_RefID ► Institution Reference ID                                                                 |
         |      ▪ (string) varName ► Name                                                                                           |
-        |      ▪ (string) varAddress ► Address                                                                                     |
-        |      ▪ (int)    varCountryAdministrativeAreaLevel_RefID ► Country Administrative Area Level Reference ID                 |
-        |      ▪ (string) varPostalCode ► Postal Code                                                                              |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -151,7 +143,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varBank_RefID = null, string $varName = null, string $varAddress = null, int $varCountryAdministrativeAreaLevel = null, string $varPostalCode = null)
+            string $varName = null)
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(

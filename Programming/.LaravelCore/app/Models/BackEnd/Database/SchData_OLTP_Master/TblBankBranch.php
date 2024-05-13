@@ -175,7 +175,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [$varAddress, 'varchar'],
                             [$varCountryAdministrativeAreaLevel, 'bigint'],
                             [$varPostalCode, 'varchar']
-                        ],
+                        ]
                         )
                     );
             return $varReturn['Data'][0];
