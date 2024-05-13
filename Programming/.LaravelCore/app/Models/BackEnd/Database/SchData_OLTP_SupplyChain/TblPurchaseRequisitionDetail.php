@@ -102,6 +102,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         ]
                         )
                     );
+
             return $varReturn['Data'][0];
             }
 
@@ -170,6 +171,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         ]
                         )
                     );
+
             return $varReturn['Data'][0];
             }
         }

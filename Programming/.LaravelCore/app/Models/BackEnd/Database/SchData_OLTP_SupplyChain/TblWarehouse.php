@@ -83,7 +83,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varInstitutionBranch_RefID ► Institution Branch_Reference ID                                             |
@@ -101,7 +101,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         */
         public function setDataInsert(
             $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null, int $varSysBaseCurrency_RefID = null, 
+            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null, 
             int $varInstitutionBranch_RefID = null, string $varName = null, int $varWarehouseType_RefID = null, string $varAddress = null, int $varCountryAdministrativeArea_RefID = null, string $varPostalCode = null, string $varGPSPoint = null, string $varCode = null)
             {
             $varReturn = 
@@ -115,7 +115,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [null, 'bigint'],
                             [$varSysDataAnnotation, 'varchar'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                            [$varSysBranchRefID, 'bigint'],
+                            [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
                             [$varInstitutionBranch_RefID, 'bigint'],
@@ -129,6 +129,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         ]
                         )
                     );
+
             return $varReturn['Data'][0];
             }
 
@@ -147,7 +148,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varInstitutionBranch_RefID ► Institution Branch_Reference ID                                             |
@@ -165,7 +166,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         */
         public function setDataUpdate(
             $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null, int $varSysBaseCurrency_RefID = null, 
+            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null, 
             int $varInstitutionBranch_RefID = null, string $varName = null, int $varWarehouseType_RefID = null, string $varAddress = null, int $varCountryAdministrativeArea_RefID = null, string $varPostalCode = null, string $varGPSPoint = null, string $varCode = null)
             {
             $varReturn = 
@@ -179,7 +180,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [$varSysID, 'bigint'],
                             [$varSysDataAnnotation, 'varchar'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                            [$varSysBranchRefID, 'bigint'],
+                            [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
                             [$varInstitutionBranch_RefID, 'bigint'],
@@ -193,6 +194,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         ]
                         )
                     );
+
             return $varReturn['Data'][0];
             }
         }

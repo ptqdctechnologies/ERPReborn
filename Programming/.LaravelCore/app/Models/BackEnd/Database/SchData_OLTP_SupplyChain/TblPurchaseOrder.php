@@ -5,7 +5,7 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_SupplyChain                                                                     |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2020 - 2022 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_SupplyChain
@@ -102,6 +102,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         ]
                         )
                     );
+
             return $varReturn['Data'][0];
             }
 
@@ -170,6 +171,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         ]
                         )
                     );
+
             return $varReturn['Data'][0];
             }
         }

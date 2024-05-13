@@ -92,6 +92,7 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         |      ▪ (float)  varTariffMaximumRate ► Tariff Maximum Rate                                                               |
         |      ▪ (int)    varRoundUnit ► Round Unit                                                                                |
         |      ▪ (bool)   varSignRoundUp ► RoundUp Sign                                                                            |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -152,6 +153,7 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         |      ▪ (float)  varTariffMaximumRate ► Tariff Maximum Rate                                                               |
         |      ▪ (int)    varRoundUnit ► Round Unit                                                                                |
         |      ▪ (bool)   varSignRoundUp ► RoundUp Sign                                                                            |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -181,7 +183,7 @@ namespace App\Models\Database\SchData_OLTP_Taxation
                             [$varTariffMaximumRate, 'numeric'],
                             [$varRoundUnit, 'smallint'],
                             [$varSignRoundUp, 'boolean']
-                        ],
+                        ]
                         )
                     );
 

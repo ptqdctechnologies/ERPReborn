@@ -92,7 +92,7 @@ namespace App\Models\Database\SchData_OLTP_Taxation
 
                             [\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData), 'json']
                         ]
-                       )
+                        )
                     );
 
             return $varReturn['Data'][0];
@@ -152,7 +152,7 @@ namespace App\Models\Database\SchData_OLTP_Taxation
                             [$varRemarks, 'varchar'],
 
                             [\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData), 'json']
-                        ],
+                        ]
                         )
                     );
 
