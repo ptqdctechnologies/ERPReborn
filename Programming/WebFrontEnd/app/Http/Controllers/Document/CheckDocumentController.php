@@ -276,7 +276,10 @@ class CheckDocumentController extends Controller
     {
         $DocumentTypeID = $request->input('DocumentTypeID');
         $DocumentTypeName = $request->input('DocumentTypeName');
-        
+
+        if($DocumentTypeID == 77000000000045){
+            $DocumentTypeID = 77000000000057;
+        }
 
         // if (Redis::get("CheckDocumentTypeID" . $DocumentType) == null) {
         $varAPIWebToken = Session::get('SessionLogin');
@@ -370,12 +373,12 @@ class CheckDocumentController extends Controller
             'dataDetail' => $dataDetail
         ];
 
-        // if($docName == "Advance Form"){
-        //     return view('Documents.Transactions.LogTransaction.LogTransactionAdvance', $compact);
-        // }
-        // else if($docName == "Purchase Order Form"){
+        if($docName == "Advance Form"){
+            return view('Documents.Transactions.LogTransaction.LogTransactionAdvance', $compact);
+        }
+        else if($docName == "Purchase Order Form"){
             return view('Documents.Transactions.LogTransaction.LogTransactionPurchaseOrder', $compact);
-        // }
+        }
         
     }
 }

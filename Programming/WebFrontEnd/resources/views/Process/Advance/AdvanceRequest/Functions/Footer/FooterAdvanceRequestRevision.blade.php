@@ -386,8 +386,6 @@
     }
 </script>
 
-
-
 <script>
     $(function() {
         $("#FormUpdateAdvance").on("submit", function(e) { //id of form 
@@ -601,10 +599,8 @@
                         confirmButtonColor: '#e9ecef',
                         reverseButtons: true
                     }).then((result) => {
-                        if (result.value) {
-                            ShowLoading();
-                            window.location.href = '/AdvanceRequest?var=1';
-                        }
+                        ShowLoading();
+                        window.location.href = '/AdvanceRequest?var=1';
                     })
                 }
                 else{
