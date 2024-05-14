@@ -5,7 +5,7 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_Master                                                                          |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2020 - 2021 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_Master
@@ -24,6 +24,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-09-09                                                                                           |
+        | ▪ Creation Date   : 2020-09-09                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -204,48 +205,53 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
         | ▪ Last Update     : 2021-02-08                                                                                           |
+        | ▪ Creation Date   : 2020-09-09                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varBaseCurrency_RefID ► Base Currency Reference ID                                                       |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
         |      ▪ (float)  varExchangeRateBuy ► Buy Exchange Rate                                                                   |
         |      ▪ (float)  varExchangeRateSell ► Sell Exchange Rate                                                                 |
         |      ▪ (string) varValidStartDateTimeTZ ► Valid Start DateTimeTZ                                                         |
         |      ▪ (string) varValidFinishDateTimeTZ ► Valid Finish DateTimeTZ                                                       |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
             $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
+            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,
             int $varBaseCurrency_RefID = null, int $varCurrency_RefID = null, float $varExchangeRateBuy = null, float $varExchangeRateSell = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [null, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
-                        [$varBaseCurrency_RefID, 'bigint'],
-                        [$varCurrency_RefID, 'bigint'],
-                        [$varExchangeRateBuy, 'numeric'],
-                        [$varExchangeRateSell, 'numeric'],
-                        [$varValidStartDateTimeTZ, 'timestamptz'],
-                        [$varValidFinishDateTimeTZ, 'timestamptz']
-                    ]
-                    )
-                );
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [null, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varBaseCurrency_RefID, 'bigint'],
+
+                            [$varCurrency_RefID, 'bigint'],
+                            [$varExchangeRateBuy, 'numeric'],
+                            [$varExchangeRateSell, 'numeric'],
+                            [$varValidStartDateTimeTZ, 'timestamptz'],
+                            [$varValidFinishDateTimeTZ, 'timestamptz']
+                        ]
+                        )
+                    );
             return $varReturn['Data'][0];
             }
 
@@ -256,6 +262,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
         | ▪ Last Update     : 2021-02-08                                                                                           |
+        | ▪ Creation Date   : 2020-09-09                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -263,42 +270,47 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varBaseCurrency_RefID ► Base Currency Reference ID                                                       |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
         |      ▪ (float)  varExchangeRateBuy ► Buy Exchange Rate                                                                   |
         |      ▪ (float)  varExchangeRateSell ► Sell Exchange Rate                                                                 |
         |      ▪ (string) varValidStartDateTimeTZ ► Valid Start DateTimeTZ                                                         |
         |      ▪ (string) varValidFinishDateTimeTZ ► Valid Finish DateTimeTZ                                                       |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
             $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
+            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,
             int $varBaseCurrency_RefID = null, int $varCurrency_RefID = null, float $varExchangeRateBuy = null, float $varExchangeRateSell = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varSysID, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
-                        [$varBaseCurrency_RefID, 'bigint'],
-                        [$varCurrency_RefID, 'bigint'],
-                        [$varExchangeRateBuy, 'numeric'],
-                        [$varExchangeRateSell, 'numeric'],
-                        [$varValidStartDateTimeTZ, 'timestamptz'],
-                        [$varValidFinishDateTimeTZ, 'timestamptz']
-                    ],
-                    )
-                );
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varSysID, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varBaseCurrency_RefID, 'bigint'],
+
+                            [$varCurrency_RefID, 'bigint'],
+                            [$varExchangeRateBuy, 'numeric'],
+                            [$varExchangeRateSell, 'numeric'],
+                            [$varValidStartDateTimeTZ, 'timestamptz'],
+                            [$varValidFinishDateTimeTZ, 'timestamptz']
+                        ]
+                        )
+                    );
+
             return $varReturn['Data'][0];
             }
         }

@@ -88,6 +88,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                         ]
                         )
                     );
+
             return $varReturn['Data'][0];
             }
 
@@ -125,6 +126,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                         ]
                         )
                     );
+
             $varReturn = [];
             return $varReturn;
             }
@@ -180,6 +182,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                         ]
                         )
                     );
+
             return $varReturn['Data'][0];
             }
         }

@@ -164,7 +164,7 @@ namespace App\Models\Database\SchData_OLTP_Production
 
                             [$varBusinessDocumentVersion_RefID, 'bigint'],
                             [$varLevel, 'smallint']
-                        ],
+                        ]
                         )
                     );
 

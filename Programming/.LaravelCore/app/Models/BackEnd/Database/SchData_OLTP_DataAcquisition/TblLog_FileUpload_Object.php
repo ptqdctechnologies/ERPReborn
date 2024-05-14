@@ -65,6 +65,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                         []
                         )
                     );
+
             return $varReturn['Data'][0];
             }
 
@@ -118,6 +119,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                         ]
                         )
                     );
+
             return $varReturn['Data'][0];
             }
 
@@ -169,9 +171,10 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                             [$varRotateLog_FileUploadStagingArea_RefRPK, 'bigint'],
 
                             [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
-                        ],
+                        ]
                         )
                     );
+
             return $varReturn['Data'][0];
             }
         }
