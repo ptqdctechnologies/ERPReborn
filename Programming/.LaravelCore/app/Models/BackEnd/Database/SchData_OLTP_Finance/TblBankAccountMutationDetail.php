@@ -71,29 +71,31 @@ namespace App\Models\Database\SchData_OLTP_Finance
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
             int $varBankAccountMutation_RefID = null, string $varMutationDateTimeTZ = null, int $varAccountingEntryRecordType_RefID = null, int $varAmountCurrency_RefID = null, float $varAmountCurrencyValue = null, float $varAmountCurrencyExchangeRate = null, string $varDescription = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [null, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
-                        
-                        [$varBankAccountMutation_RefID, 'bigint'],
-                        [$varMutationDateTimeTZ, 'timestamptz'],
-                        [$varAccountingEntryRecordType_RefID, 'bigint'],
-                        [$varAmountCurrency_RefID, 'bigint'],
-                        [$varAmountCurrencyValue, 'numeric'],
-                        [$varAmountCurrencyExchangeRate, 'numeric'],
-                        [$varDescription, 'varchar']
-                    ]
-                    )
-                );
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [null, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
+
+                            [$varBankAccountMutation_RefID, 'bigint'],
+                            [$varMutationDateTimeTZ, 'timestamptz'],
+                            [$varAccountingEntryRecordType_RefID, 'bigint'],
+                            [$varAmountCurrency_RefID, 'bigint'],
+                            [$varAmountCurrencyValue, 'numeric'],
+                            [$varAmountCurrencyExchangeRate, 'numeric'],
+                            [$varDescription, 'varchar']
+                        ]
+                        )
+                    );
+
             return $varReturn['Data'][0];
             }
 
@@ -131,29 +133,31 @@ namespace App\Models\Database\SchData_OLTP_Finance
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
             int $varBankAccountMutation_RefID = null, string $varMutationDateTimeTZ = null, int $varAccountingEntryRecordType_RefID = null, int $varAmountCurrency_RefID = null, float $varAmountCurrencyValue = null, float $varAmountCurrencyExchangeRate = null, string $varDescription = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varSysID, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
-                        
-                        [$varBankAccountMutation_RefID, 'bigint'],
-                        [$varMutationDateTimeTZ, 'timestamptz'],
-                        [$varAccountingEntryRecordType_RefID, 'bigint'],
-                        [$varAmountCurrency_RefID, 'bigint'],
-                        [$varAmountCurrencyValue, 'numeric'],
-                        [$varAmountCurrencyExchangeRate, 'numeric'],
-                        [$varDescription, 'varchar']
-                    ],
-                    )
-                );
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varSysID, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
+
+                            [$varBankAccountMutation_RefID, 'bigint'],
+                            [$varMutationDateTimeTZ, 'timestamptz'],
+                            [$varAccountingEntryRecordType_RefID, 'bigint'],
+                            [$varAmountCurrency_RefID, 'bigint'],
+                            [$varAmountCurrencyValue, 'numeric'],
+                            [$varAmountCurrencyExchangeRate, 'numeric'],
+                            [$varDescription, 'varchar']
+                        ]
+                        )
+                    );
+
             return $varReturn['Data'][0];
             }
         }

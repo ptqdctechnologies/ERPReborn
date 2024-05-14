@@ -65,6 +65,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                         []
                         )
                     );
+
             return $varReturn['Data'][0];
             }
 
@@ -122,6 +123,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                         ]
                         )
                     );
+
             return $varReturn['Data'][0];
             }
 
@@ -180,6 +182,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                         ]
                         )
                     );
+
             return $varReturn['Data'][0];
             }
         }

@@ -133,7 +133,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varCountry_RefID ► Country Reference ID                                                                  |
         |      ▪ (string) varName ► Day Off Government Policy Name                                                                 |

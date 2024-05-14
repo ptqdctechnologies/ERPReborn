@@ -86,6 +86,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         ]
                         )
                     );
+
             return $varReturn['Data'][0];
             }
 
@@ -135,9 +136,10 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             [$varBudget_RefID, 'bigint'],
                             [$varBudgetExpenseGroup_RefID, 'bigint'],
                             [$varBudgetExpenseOwner_RefID, 'bigint']
-                        ],
+                        ]
                         )
                     );
+
             return $varReturn['Data'][0];
             }
         }

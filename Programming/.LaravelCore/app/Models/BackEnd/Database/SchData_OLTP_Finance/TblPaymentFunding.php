@@ -102,6 +102,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         ]
                         )
                     );
+
             return $varReturn['Data'][0];
             }
 
@@ -167,9 +168,10 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varPaidDateTimeTZ, 'timestamptz'],
                             [$varPayerWorkerJobsPosition_RefID, 'bigint'],
                             [$varRemarks, 'varchar']
-                        ],
+                        ]
                         )
                     );
+
             return $varReturn['Data'][0];
             }
         }
