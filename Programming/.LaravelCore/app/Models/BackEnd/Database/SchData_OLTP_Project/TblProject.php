@@ -123,8 +123,8 @@ namespace App\Models\Database\SchData_OLTP_Project
                         []
                         )
                     );
-            $varReturn = [];
 
+            $varReturn = [];
             return $varReturn;
             }
 
