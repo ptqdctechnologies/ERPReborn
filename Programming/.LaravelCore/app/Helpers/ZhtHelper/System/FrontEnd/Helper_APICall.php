@@ -361,6 +361,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
         public static function setCallAPIGateway($varUserSession, string $varAPIWebToken, string $varAPIKey, $varAPIVersion=null, array $varData=null, bool $varSignDisplayErrorPage = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Call Gateway API');
                 try {
@@ -399,7 +400,6 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                         ];
                     //dd($varDataArray);
                     //dd(json_encode($varDataArray));
-                        
 
                     $varResponseData = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse(
                         $varUserSession, 
