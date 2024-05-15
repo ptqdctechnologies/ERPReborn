@@ -580,7 +580,7 @@ class AdvanceRequestController extends Controller
                     'latest',
                     [
                         'parameter' => [
-                            'advance_RefID' => 1,
+                            'advance_RefID' => (int) $id,
                         ],
                         'SQLStatement' => [
                             'pick' => null,

@@ -39,11 +39,6 @@
                 <td>{{ $dataHeader['CombinedBudgetCode'] }} - {{ $dataHeader['CombinedBudgetName'] }}</td>
               </tr>
               <tr>
-                <td style="padding-top: 5px;"><label>Remark PO</label></td>
-                <td>:</td>
-                <td>{{ $dataHeader['BankAcronym'] }}</td>
-              </tr>
-              <tr>
                 <td style="padding-top: 5px;"><label>File Attachment</label></td>
                 <td>:</td>
                 @if($Log_FileUpload_Pointer_RefID != 0)
@@ -77,22 +72,12 @@
                 @if(isset($dataHeader['DateUpdate']))
                 <td>
                   <div class="input-group">
-                    <a class="btn btn-default btn-sm" onclick="LogTransaction({{ $dataHeader['Sys_ID_Advance'] }}, '{{ $dataHeader['DocumentNumber'] }}', '{{$dataHeader['BusinessDocumentType_Name']}}');">
+                    <a class="btn btn-default btn-sm" onclick="LogTransaction({{ $dataHeader['Sys_ID_Advance'] }}, '{{ $dataHeader['DocumentNumber'] }}', '{{$businessDocumentType_Name}}');">
                       Show Revision History
                     </a>
                   </div>
                 </td>
                 @endif
-              </tr>
-              <tr>
-                <td style="padding-top: 5px;"><label>Tax</label></td>
-                <td>:</td>
-                <td>{{ $dataHeader['RequesterWorkerName'] }}</td>
-              </tr>
-              <tr>
-                <td style="padding-top: 5px;"><label>Total Tax</label></td>
-                <td>:</td>
-                <td>{{ $dataHeader['BeneficiaryWorkerName'] }}</td>
               </tr>
               <tr>
                 <td style="padding-top: 5px;"><label>Top</label></td>
@@ -103,6 +88,11 @@
                 <td style="padding-top: 5px;"><label>Payment Note</label></td>
                 <td>:</td>
                 <td>{{ $dataHeader['CombinedBudgetSectionCode'] }} - {{ $dataHeader['CombinedBudgetSectionName'] }}</td>
+              </tr>
+              <tr>
+                <td style="padding-top: 5px;"><label>Remark PO</label></td>
+                <td>:</td>
+                <td>{{ $dataHeader['BankAcronym'] }}</td>
               </tr>
               <tr>
                 <td style="padding-top: 5px;"><label>Internal Note</label></td>
@@ -129,7 +119,7 @@
             <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">QTY</th>
             <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">UOM</th>
             <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">UNIT PRICE</th>
-            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">TOTAL</th>
+            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">SUB TOTAL</th>
           </tr>
         </thead>
         <tbody>
@@ -148,6 +138,14 @@
           @endforeach
         </tbody>
         <tfoot>
+          <tr>
+            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;" colspan="6">TAX</th>
+            <td style="border:1px solid #4B586A;color:#4B586A;"><span id="GrandTotal">{{ number_format($grand_total,2) }}</span></td>
+          </tr>
+          <tr>
+            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;" colspan="6">TOTAL TAX</th>
+            <td style="border:1px solid #4B586A;color:#4B586A;"><span id="GrandTotal">{{ number_format($grand_total,2) }}</span></td>
+          </tr>
           <tr>
             <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;" colspan="6">GRAND TOTAL</th>
             <td style="border:1px solid #4B586A;color:#4B586A;"><span id="GrandTotal">{{ number_format($grand_total,2) }}</span></td>

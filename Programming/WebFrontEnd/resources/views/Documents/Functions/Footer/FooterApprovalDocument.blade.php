@@ -43,7 +43,7 @@
                     confirmButtonColor: '#e9ecef',
                     reverseButtons: true
                 }).then((result) => {
-                    if (result.value) {
+                    // if (result.value) {
 
                         ShowLoading();
 
@@ -106,7 +106,7 @@
                             }
                         });
 
-                    }
+                    // }
                 })
 
             } else if (
@@ -166,7 +166,7 @@
                     confirmButtonColor: '#e9ecef',
                     reverseButtons: true
                 }).then((result) => {
-                    if (result.value) {
+                    // if (result.value) {
 
                         ShowLoading();
 
@@ -195,9 +195,8 @@
                                         confirmButtonColor: '#e9ecef',
                                         reverseButtons: true
                                     }).then((result) => {
-                                        if (result.value) {
-                                            window.location.href = '/MyDocument';
-                                        }
+                                        ShowLoading();
+                                        window.location.href = '/MyDocument';
                                     })
                                 } else {
                                     Swal.fire("Error", "Data Error", "error");
@@ -213,7 +212,7 @@
                             }
                         });
 
-                    }
+                    // }
                 })
 
             } else if (
