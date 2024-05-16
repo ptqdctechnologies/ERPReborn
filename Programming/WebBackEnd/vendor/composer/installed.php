@@ -578,9 +578,9 @@
             'dev_requirement' => false,
         ),
         'mockery/mockery' => array(
-            'pretty_version' => '1.6.11',
-            'version' => '1.6.11.0',
-            'reference' => '81a161d0b135df89951abd52296adf97deb0723d',
+            'pretty_version' => '1.6.12',
+            'version' => '1.6.12.0',
+            'reference' => '1f4efdd7d3beafe9807b08156dfcb176d18f1699',
             'type' => 'library',
             'install_path' => __DIR__ . '/../mockery/mockery',
             'aliases' => array(),
