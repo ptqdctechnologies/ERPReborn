@@ -653,31 +653,37 @@ namespace App\Helpers\ZhtHelper\System
             $varReturn=null;
             
             try {
-                if(is_file(getcwd().'/./../.LaravelCore/config/Application/BackEnd/environment.txt')==true)
-                    {$varPathFile=getcwd().'/./../.LaravelCore/config/Application/BackEnd/environment.txt';}
-                elseif(is_file(getcwd().'/./../../.LaravelCore/config/Application/BackEnd/environment.txt')==true)
-                    {$varPathFile=getcwd().'/./../../.LaravelCore/config/Application/BackEnd/environment.txt';}
-                elseif(is_file(getcwd().'/./../../../.LaravelCore/config/Application/BackEnd/environment.txt')==true)
-                    {$varPathFile=getcwd().'/./../../../.LaravelCore/config/Application/BackEnd/environment.txt';}
-                elseif(is_file(getcwd().'/./../../../../.LaravelCore/config/Application/BackEnd/environment.txt')==true)
-                    {$varPathFile=getcwd().'/./../../../../.LaravelCore/config/Application/BackEnd/environment.txt';}
-                elseif(is_file(getcwd().'/./../../../../../.LaravelCore/config/Application/BackEnd/environment.txt')==true)
-                    {$varPathFile=getcwd().'/./../../../../../.LaravelCore/config/Application/BackEnd/environment.txt';}
+                if(is_file(getcwd().'/./../.LaravelCore/config/Application/BackEnd/environment.txt') == true)
+                    {$varPathFile = getcwd().'/./../.LaravelCore/config/Application/BackEnd/environment.txt';}
+                elseif(is_file(getcwd().'/./../../.LaravelCore/config/Application/BackEnd/environment.txt') == true)
+                    {$varPathFile = getcwd().'/./../../.LaravelCore/config/Application/BackEnd/environment.txt';}
+                elseif(is_file(getcwd().'/./../../../.LaravelCore/config/Application/BackEnd/environment.txt') == true)
+                    {$varPathFile = getcwd().'/./../../../.LaravelCore/config/Application/BackEnd/environment.txt';}
+                elseif(is_file(getcwd().'/./../../../../.LaravelCore/config/Application/BackEnd/environment.txt') == true)
+                    {$varPathFile = getcwd().'/./../../../../.LaravelCore/config/Application/BackEnd/environment.txt';}
+                elseif(is_file(getcwd().'/./../../../../../.LaravelCore/config/Application/BackEnd/environment.txt') == true)
+                    {$varPathFile = getcwd().'/./../../../../../.LaravelCore/config/Application/BackEnd/environment.txt';}
 
                 $varFileContent = file_get_contents($varPathFile);
                 $varArrayTemp=explode("\n", $varFileContent);
-                for($i=0; $i!=count($varArrayTemp); $i++)
+                for($i=0, $iMax=count($varArrayTemp); $i!=$iMax; $i++)
                     {
                     if(strlen($varArrayTemp[$i])>0)
                         {
-                        $varArrayTemp2=explode("=", $varArrayTemp[$i]);
+                        $varArrayTemp2 = explode("=", $varArrayTemp[$i]);
+                        if (strcmp($varArrayTemp2[0], 'USER_SESSION_ID_SYSTEM')==0) {
+                            $varReturn = (int) $varArrayTemp2[1];
+                            break;
+                            }
+                        /*
                         $varValue=$varArrayTemp2;
                         array_shift($varValue);
                         $varValue=implode("=", $varValue);
                         $varData[$varArrayTemp2[0]]=$varValue;
+                        */
                         }
                     }
-                $varReturn=(int) $varData['USER_SESSION_ID_SYSTEM'];                
+                //$varReturn=(int) $varData['USER_SESSION_ID_SYSTEM'];                
                 } 
             catch (\Exception $ex) {
                 }
@@ -704,16 +710,18 @@ namespace App\Helpers\ZhtHelper\System
         public static function getUserSessionID_ByAPIWebToken($varUserSession, string $varAPIWebToken)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysAsset.Func_GetData_UserSession_IDByAPIWebToken',
-                        [
-                            [$varAPIWebToken, 'varchar']
-                        ]
-                        )
-                    );
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysAsset.Func_GetData_UserSession_IDByAPIWebToken',
+                            [
+                                [$varAPIWebToken, 'varchar']
+                            ]
+                            )
+                        );
+
                 return $varReturn['Data'][0]['Func_GetData_UserSession_IDByAPIWebToken'];
                 }
             catch (\Exception $ex) {

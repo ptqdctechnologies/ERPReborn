@@ -30,8 +30,6 @@
     var dataDetail = $.parseJSON('<?= json_encode($dataDetail) ?>');
     dataDetail.forEach((dataDetails, key) => {
 
-        console.log(dataDetails);
-
         TotalBudgetList += +(dataDetails['PriceBaseCurrencyValue']);
 
         // TABLE LIST 

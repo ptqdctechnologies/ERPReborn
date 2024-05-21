@@ -184,57 +184,21 @@
             HideLoading();
         }
     });
-    // }
+    // }z
 </script>
 
-
-<!-- 
-<script>
-    let rowNum = 1;
-    $('#btn-add').on('click', (e) => {
-        // table barang
-        var table = document.getElementById("tableBarang");
-        console.log(table.length);
-
-        // Create a new row and cells
-        var newRow = table.insertRow();
-        var no = newRow.insertCell();
-        var namaBarang = newRow.insertCell();
-        var kondisi = newRow.insertCell();
-        var jumlahBarang = newRow.insertCell();
-        var hargaSatuan = newRow.insertCell();
-        var total = newRow.insertCell();
-        var aksi = newRow.insertCell();
-
-        newRow.classList.add("data-row");
-
-        // Set the cell content
-        no.innerHTML = rowNum++;
-        namaBarang.innerHTML = document.getElementById('namaBarang').value;
-        kondisi.innerHTML = document.getElementById('deskripsi').value;
-        jumlahBarang.innerHTML = document.getElementById('jumlahBarang').value;
-        hargaSatuan.innerHTML = document.getElementById('hargaSatuan').value;
-        total.innerHTML = document.getElementById('jumlahBarang').value * document.getElementById('hargaSatuan').value;
-        aksi.innerHTML = '<td><button onclick="deleteRow(this)" class="btn btn-secondary">-</button></td>';
-
+<!-- <script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
     });
 
-
-    function deleteRow(button) {
-        var row = button.parentNode.parentNode; // Get the parent row
-        row.parentNode.removeChild(row); // Remove the row from the table
-        resetRowNumbers();
-    }
-
-    function resetRowNumbers() {
-        var table = document.getElementById("tableBarang");
-        var rows = table.getElementsByClassName("data-row");
-        // Set ulang nomor baris
-        rowNum = 1;
-        for (var i = 0; i < rows.length; i++) {
-            var cells = rows[i].getElementsByTagName("td");
-            // Update nomor baris di setiap baris
-            cells[0].innerHTML = rowNum++;
+    $.ajax({
+        type: 'GET',
+        url: '{!! route("CheckDocument.FileAttachmentCheckDocument") !!}?businessDocumentForm_RefID=' + id,
+        success: function(data) {
+            console.log("test");
         }
-    }
+    });
 </script> -->
