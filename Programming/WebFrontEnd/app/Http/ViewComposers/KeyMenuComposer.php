@@ -16,6 +16,7 @@ class KeyMenuComposer
         $varDataRole = Session::get("SessionRoleLogin");
         $SessionUser_RefID =  Session::get('SessionUser_RefID');
         $varAPIWebToken = Session::get('SessionLogin');
+        $varTTL = 32400; // 9 Jam
 
         for ($i = 0; $i < count($varDataRole); $i++) {
 
@@ -26,7 +27,8 @@ class KeyMenuComposer
                 \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                     "RedisSetMenu" . $varDataRole[$i],
-                    true
+                    true,
+                    $varTTL
                 );
 
                 //GET REDIS MENU
@@ -52,7 +54,8 @@ class KeyMenuComposer
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 "RedisGetMenu" . $SessionUser_RefID
             ),
-            true
+            true,
+            $varTTL
         );
 
         // dd($privilageMenu);

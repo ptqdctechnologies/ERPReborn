@@ -143,8 +143,7 @@ class LoginController extends Controller
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                     $username,
                     $password
-                );
-        
+                );        
 
                 // dd($dataAwal);
 

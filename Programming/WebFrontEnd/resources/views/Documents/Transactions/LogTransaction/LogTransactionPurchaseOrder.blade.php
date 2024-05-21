@@ -61,6 +61,8 @@
                                                     <td style="padding: 8px;">{{ $dataDetail[$i][0]['content']['quantity'] }}</td>
                                                     <td style="padding: 8px;">{{ $dataDetail[$i][0]['content']['productUnitPriceCurrencyValue'] }}</td>
                                                     <td style="padding: 8px;">{{ $dataDetail[$i][0]['content']['priceCurrencyValue'] }}</td>
+                                                    <td style="padding: 8px;">{{ $dataDetail[$i][0]['content']['productUnitPriceCurrencyValue'] }}</td>
+                                                    <td style="padding: 8px;">{{ $dataDetail[$i][0]['content']['priceCurrencyValue'] }}</td>
                                                     @for($n = 1; $n < count($dataDetail[$i]); $n++) 
                                                         <td style="padding: 8px;">{{ $dataDetail[$i][$n]['content']['quantity'] }}</td>
                                                         <td style="padding: 8px;">{{ $dataDetail[$i][$n]['content']['productUnitPriceCurrencyValue'] }}</td>
