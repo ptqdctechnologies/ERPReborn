@@ -152,6 +152,7 @@ namespace App\Helpers\ZhtHelper\System
                                     ),
                                 'X-Request-ID' => \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession)
                                 ];
+
                             $varData = \App\Helpers\ZhtHelper\General\Helper_Array::setRemoveElementByKey(
                                 \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateDate($varUserSession), 
                                 'header', 

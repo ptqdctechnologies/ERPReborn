@@ -70,9 +70,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                                     null,
                                     null,
                                     (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                                    \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
 
-                                    $varData['entities']['businessDocumentVersion_RefID'],
                                     $varData['entities']['name'],
+                                    $varData['entities']['materialProductAssembly_RefID'],
                                     $varData['entities']['validStartDateTimeTZ'],
                                     $varData['entities']['validFinishDateTimeTZ'],
                                     $varData['entities']['code']
@@ -82,12 +83,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                             {
                             throw new \Exception();
                             }
+
                         //---> Set Business Document Data Into varDataSend
                         $varDataSend['businessDocument'] = 
                             (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentByRecordID(
                                 $varUserSession, 
                                 $varDataSend['recordID']
                                 );
+
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {

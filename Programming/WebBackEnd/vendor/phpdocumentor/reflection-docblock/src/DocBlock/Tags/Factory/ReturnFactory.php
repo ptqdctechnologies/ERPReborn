@@ -13,6 +13,8 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
 use Webmozart\Assert\Assert;
 
+use function is_string;
+
 /**
  * @internal This class is not part of the BC promise of this library.
  */
@@ -32,9 +34,14 @@ final class ReturnFactory implements PHPStanFactory
         $tagValue = $node->value;
         Assert::isInstanceOf($tagValue, ReturnTagValueNode::class);
 
+        $description = $tagValue->getAttribute('description');
+        if (is_string($description) === false) {
+            $description = $tagValue->description;
+        }
+
         return new Return_(
             $this->typeResolver->createType($tagValue->type, $context),
-            $this->descriptionFactory->create($tagValue->description, $context)
+            $this->descriptionFactory->create($description, $context)
         );
     }
 

@@ -150,7 +150,7 @@ namespace App\Models\Database\SchData_OLTP_Taxation
                             [$varTariffCurrencyValue, 'numeric'],
                             [$varTariffCurrencyExchangeRate, 'numeric'],
                             [$varRemarks, 'varchar']
-                        ],
+                        ]
                         )
                     );
 

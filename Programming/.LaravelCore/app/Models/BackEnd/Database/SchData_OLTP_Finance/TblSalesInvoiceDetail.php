@@ -110,6 +110,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         ]
                         )
                     );
+
             return $varReturn['Data'][0];
             }
 
@@ -183,9 +184,10 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varRemarks, 'varchar'],
 
                             [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
-                        ],
+                        ]
                         )
                     );
+
             return $varReturn['Data'][0];
             }
         }

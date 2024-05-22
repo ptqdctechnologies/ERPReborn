@@ -22,7 +22,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2024-03-21                                                                                           |
         | ▪ Creation Date   : 2024-03-21                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
@@ -65,6 +65,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         []
                         )
                 );
+
             return $varReturn['Data'][0];
             }
         }

@@ -13,6 +13,7 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PropertyTagValueNode;
 use Webmozart\Assert\Assert;
 
+use function is_string;
 use function trim;
 
 /**
@@ -34,10 +35,15 @@ final class PropertyFactory implements PHPStanFactory
         $tagValue = $node->value;
         Assert::isInstanceOf($tagValue, PropertyTagValueNode::class);
 
+        $description = $tagValue->getAttribute('description');
+        if (is_string($description) === false) {
+            $description = $tagValue->description;
+        }
+
         return new Property(
             trim($tagValue->propertyName, '$'),
             $this->typeResolver->createType($tagValue->type, $context),
-            $this->descriptionFactory->create($tagValue->description, $context)
+            $this->descriptionFactory->create($description, $context)
         );
     }
 

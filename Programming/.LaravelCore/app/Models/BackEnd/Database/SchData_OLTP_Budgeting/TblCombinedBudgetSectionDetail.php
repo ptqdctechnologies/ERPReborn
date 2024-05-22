@@ -58,16 +58,17 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
             int $varCombinedBudgetSection_RefID = null
             )
             {/*
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaTableSynchronizeName($varUserSession), 
-                    [
-                        [$varCombinedBudgetSection_RefID, 'bigint']
-                    ]
-                    )
-                );
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaTableSynchronizeName($varUserSession), 
+                        [
+                            [$varCombinedBudgetSection_RefID, 'bigint']
+                        ]
+                        )
+                    );
             $varReturn = [];
             return $varReturn;*/
             }

@@ -65,6 +65,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                         []
                         )
                     );
+
             return $varReturn['Data'][0];
             }
 
@@ -94,6 +95,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         |      ▪ (string) varValidStartDateTimeTZ ► Valid Start DateTimeTZ                                                         |
         |      ▪ (string) varValidFinishDateTimeTZ ► Valid Finish DateTimeTZ                                                       |
         |      ▪ (bool)   varSignOtherThing ► Sign Other Thing                                                                     |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -129,6 +131,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                         ]
                         )
                     );
+
             return $varReturn['Data'][0];
             }
 
@@ -159,6 +162,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         |      ▪ (string) varValidStartDateTimeTZ ► Valid Start DateTimeTZ                                                         |
         |      ▪ (string) varValidFinishDateTimeTZ ► Valid Finish DateTimeTZ                                                       |
         |      ▪ (bool)   varSignOtherThing ► Sign Other Thing                                                                     |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -194,6 +198,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                         ]
                         )
                     );
+
             return $varReturn['Data'][0];
             }
         }
