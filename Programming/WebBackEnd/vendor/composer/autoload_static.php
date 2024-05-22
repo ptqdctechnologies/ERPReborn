@@ -221,8 +221,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
         ),
         'ZipStream\\' => 
         array (
@@ -3705,6 +3705,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Aws\\MachineLearning\\MachineLearningClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/MachineLearning/MachineLearningClient.php',
         'Aws\\Macie2\\Exception\\Macie2Exception' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Macie2/Exception/Macie2Exception.php',
         'Aws\\Macie2\\Macie2Client' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Macie2/Macie2Client.php',
+        'Aws\\MailManager\\Exception\\MailManagerException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/MailManager/Exception/MailManagerException.php',
+        'Aws\\MailManager\\MailManagerClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/MailManager/MailManagerClient.php',
         'Aws\\MainframeModernization\\Exception\\MainframeModernizationException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/MainframeModernization/Exception/MainframeModernizationException.php',
         'Aws\\MainframeModernization\\MainframeModernizationClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/MainframeModernization/MainframeModernizationClient.php',
         'Aws\\ManagedBlockchainQuery\\Exception\\ManagedBlockchainQueryException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/ManagedBlockchainQuery/Exception/ManagedBlockchainQueryException.php',
@@ -5534,6 +5536,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Illuminate\\Console\\Events\\ScheduledTaskSkipped' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Console/Events/ScheduledTaskSkipped.php',
         'Illuminate\\Console\\Events\\ScheduledTaskStarting' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Console/Events/ScheduledTaskStarting.php',
         'Illuminate\\Console\\GeneratorCommand' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Console/GeneratorCommand.php',
+        'Illuminate\\Console\\ManuallyFailedException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Console/ManuallyFailedException.php',
         'Illuminate\\Console\\MigrationGeneratorCommand' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Console/MigrationGeneratorCommand.php',
         'Illuminate\\Console\\OutputStyle' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Console/OutputStyle.php',
         'Illuminate\\Console\\Parser' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Console/Parser.php',
@@ -6070,6 +6073,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Illuminate\\Foundation\\Inspiring' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Inspiring.php',
         'Illuminate\\Foundation\\MaintenanceModeManager' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/MaintenanceModeManager.php',
         'Illuminate\\Foundation\\Mix' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Mix.php',
+        'Illuminate\\Foundation\\MixManifestNotFoundException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/MixManifestNotFoundException.php',
         'Illuminate\\Foundation\\PackageManifest' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/PackageManifest.php',
         'Illuminate\\Foundation\\Precognition' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Precognition.php',
         'Illuminate\\Foundation\\ProviderRepository' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/ProviderRepository.php',

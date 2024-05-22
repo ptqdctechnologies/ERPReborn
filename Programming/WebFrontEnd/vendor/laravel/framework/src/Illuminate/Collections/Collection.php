@@ -76,25 +76,6 @@ class Collection implements ArrayAccess, CanBeEscapedWhenCastToString, Enumerabl
     }
 
     /**
-     * Get the average value of a given key.
-     *
-     * @param  (callable(TValue): float|int)|string|null  $callback
-     * @return float|int|null
-     */
-    public function avg($callback = null)
-    {
-        $callback = $this->valueRetriever($callback);
-
-        $items = $this
-            ->map(fn ($value) => $callback($value))
-            ->filter(fn ($value) => ! is_null($value));
-
-        if ($count = $items->count()) {
-            return $items->sum() / $count;
-        }
-    }
-
-    /**
      * Get the median of a given key.
      *
      * @param  string|array<array-key, string>|null  $key
@@ -991,6 +972,19 @@ class Collection implements ArrayAccess, CanBeEscapedWhenCastToString, Enumerabl
         foreach ($values as $value) {
             $this->items[] = $value;
         }
+
+        return $this;
+    }
+
+    /**
+     * Prepend one or more items to the beginning of the collection.
+     *
+     * @param  TValue  ...$values
+     * @return $this
+     */
+    public function unshift(...$values)
+    {
+        array_unshift($this->items, ...$values);
 
         return $this;
     }

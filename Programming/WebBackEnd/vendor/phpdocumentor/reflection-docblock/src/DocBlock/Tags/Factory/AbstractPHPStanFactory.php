@@ -23,6 +23,10 @@ use PHPStan\PhpDocParser\Parser\TokenIterator;
 use PHPStan\PhpDocParser\Parser\TypeParser;
 use RuntimeException;
 
+use function ltrim;
+use function property_exists;
+use function rtrim;
+
 /**
  * Factory class creating tags using phpstan's parser
  *
@@ -40,16 +44,29 @@ class AbstractPHPStanFactory implements Factory
 
     public function __construct(PHPStanFactory ...$factories)
     {
-        $this->lexer = new Lexer();
-        $constParser = new ConstExprParser();
-        $this->parser = new PhpDocParser(new TypeParser($constParser), $constParser);
+        $this->lexer = new Lexer(true);
+        $constParser = new ConstExprParser(true, true, ['lines' => true, 'indexes' => true]);
+        $this->parser = new PhpDocParser(
+            new TypeParser($constParser, true, ['lines' => true, 'indexes' => true]),
+            $constParser,
+            true,
+            true,
+            ['lines' => true, 'indexes' => true],
+            true
+        );
         $this->factories = $factories;
     }
 
     public function create(string $tagLine, ?TypeContext $context = null): Tag
     {
-        $tokens = $this->lexer->tokenize($tagLine);
-        $ast = $this->parser->parseTag(new TokenIterator($tokens));
+        $tokens = $this->tokenizeLine($tagLine);
+        $ast = $this->parser->parseTag($tokens);
+        if (property_exists($ast->value, 'description') === true) {
+            $ast->value->setAttribute(
+                'description',
+                $ast->value->description . $tokens->joinUntil(Lexer::TOKEN_END)
+            );
+        }
 
         if ($context === null) {
             $context = new TypeContext('');
@@ -69,5 +86,37 @@ class AbstractPHPStanFactory implements Factory
             (string) $ast->value,
             $ast->name
         );
+    }
+
+    /**
+     * Solve the issue with the lexer not tokenizing the line correctly
+     *
+     * This method is a workaround for the lexer that includes newline tokens with spaces. For
+     * phpstan this isn't an issue, as it doesn't do a lot of things with the indentation of descriptions.
+     * But for us is important to keep the indentation of the descriptions, so we need to fix the lexer output.
+     */
+    private function tokenizeLine(string $tagLine): TokenIterator
+    {
+        $tokens = $this->lexer->tokenize($tagLine);
+        $fixed = [];
+        foreach ($tokens as $token) {
+            if (($token[1] === Lexer::TOKEN_PHPDOC_EOL) && rtrim($token[0], " \t") !== $token[0]) {
+                $fixed[] = [
+                    rtrim($token[Lexer::VALUE_OFFSET], " \t"),
+                    Lexer::TOKEN_PHPDOC_EOL,
+                    $token[2] ?? null,
+                ];
+                $fixed[] = [
+                    ltrim($token[Lexer::VALUE_OFFSET], "\n\r"),
+                    Lexer::TOKEN_HORIZONTAL_WS,
+                    ($token[2] ?? null) + 1,
+                ];
+                continue;
+            }
+
+            $fixed[] = $token;
+        }
+
+        return new TokenIterator($fixed);
     }
 }
