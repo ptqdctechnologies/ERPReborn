@@ -55,9 +55,10 @@ namespace App\Models\Database\SchData_OLTP_Production
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varBusinessDocumentVersion_RefID ► Business Document Version Reference ID                                |
+        |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
         |      ▪ (int)    varLevel ► Level                                                                                         |
         |        ----------------------------------------                                                                          |
+        |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -65,7 +66,8 @@ namespace App\Models\Database\SchData_OLTP_Production
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varBusinessDocumentVersion_RefID = null, int $varLevel = null)
+            string $varDocumentDateTimeTZ = null, int $varLevel = null,
+            array $varAdditionalData = [])
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -81,12 +83,13 @@ namespace App\Models\Database\SchData_OLTP_Production
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
-                            [$varBusinessDocumentVersion_RefID, 'bigint'],
-                            [$varLevel, 'smallint']
+                            [$varDocumentDateTimeTZ, 'timestamptz'],
+                            [$varLevel, 'smallint'],
+
+                            [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
                         ]
                         )
                     );
-
             return $varReturn['Data'][0];
             }
 
@@ -140,9 +143,10 @@ namespace App\Models\Database\SchData_OLTP_Production
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varBusinessDocumentVersion_RefID ► Business Document Version Reference ID                                |
+        |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
         |      ▪ (int)    varLevel ► Level                                                                                         |
         |        ----------------------------------------                                                                          |
+        |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -150,7 +154,8 @@ namespace App\Models\Database\SchData_OLTP_Production
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varBusinessDocumentVersion_RefID = null, int $varLevel = null)
+            string $varDocumentDateTimeTZ = null, int $varLevel = null,
+            array $varAdditionalData = [])
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -166,8 +171,10 @@ namespace App\Models\Database\SchData_OLTP_Production
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
-                            [$varBusinessDocumentVersion_RefID, 'bigint'],
-                            [$varLevel, 'smallint']
+                            [$varDocumentDateTimeTZ, 'timestamptz'],
+                            [$varLevel, 'smallint'],
+
+                            [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
                         ]
                         )
                     );

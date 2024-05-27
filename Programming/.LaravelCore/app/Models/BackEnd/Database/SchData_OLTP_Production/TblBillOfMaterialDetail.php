@@ -59,9 +59,8 @@ namespace App\Models\Database\SchData_OLTP_Production
         |      ▪ (int)    varMaterialProduct_RefID ► Material Product Reference ID                                                 |
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
         |      ▪ (int)    varUnitPriceCurrency_RefID ► Unit Price Currency Reference ID                                            |
-        |      ▪ (float)  varUnitPriceCurrencyExchangeRate ► Unit Price Currency Exchange Rate                                     |
         |      ▪ (float)  varUnitPriceCurrencyValue ► Unit Price Currency Value                                                    |
-        |      ▪ (int)    varBillOfQuantityGroup_RefID ► Bill Of Quantity Group Reference ID                                       |
+        |      ▪ (float)  varUnitPriceCurrencyExchangeRate ► Unit Price Currency Exchange Rate                                     |
         |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -90,13 +89,11 @@ namespace App\Models\Database\SchData_OLTP_Production
                             [$varMaterialProduct_RefID, 'bigint'],
                             [$varQuantity, 'numeric(20,5)'],
                             [$varUnitPriceCurrency_RefID, 'bigint'],
-                            [$varUnitPriceCurrencyExchangeRate, 'numeric(20,2)'],
                             [$varUnitPriceCurrencyValue, 'numeric(20,2)'],
-                            [$varBillOfQuantityGroup_RefID, 'bigint']
+                            [$varUnitPriceCurrencyExchangeRate, 'numeric(20,2)']
                         ]
                         )
                     );
-
             return $varReturn['Data'][0];
             }
 
@@ -154,9 +151,8 @@ namespace App\Models\Database\SchData_OLTP_Production
         |      ▪ (int)    varMaterialProduct_RefID ► Material Product Reference ID                                                 |
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
         |      ▪ (int)    varUnitPriceCurrency_RefID ► Unit Price Currency Reference ID                                            |
-        |      ▪ (float)  varUnitPriceCurrencyExchangeRate ► Unit Price Currency Exchange Rate                                     |
         |      ▪ (float)  varUnitPriceCurrencyValue ► Unit Price Currency Value                                                    |
-        |      ▪ (int)    varBillOfQuantityGroup_RefID ► Bill Of Quantity Group Reference ID                                       |
+        |      ▪ (float)  varUnitPriceCurrencyExchangeRate ► Unit Price Currency Exchange Rate                                     |
         |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -185,9 +181,8 @@ namespace App\Models\Database\SchData_OLTP_Production
                             [$varMaterialProduct_RefID, 'bigint'],
                             [$varQuantity, 'numeric(20,5)'],
                             [$varUnitPriceCurrency_RefID, 'bigint'],
-                            [$varUnitPriceCurrencyExchangeRate, 'numeric(20,2)'],
                             [$varUnitPriceCurrencyValue, 'numeric(20,2)'],
-                            [$varBillOfQuantityGroup_RefID, 'bigint']
+                            [$varUnitPriceCurrencyExchangeRate, 'numeric(20,2)']
                         ]
                         )
                     );

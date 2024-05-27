@@ -494,6 +494,16 @@ namespace App\Helpers\ZhtHelper\Database
                                     }
                                 case 'smallint':
                                     {
+                                    if((!$varData[$i][0]) OR (is_int($varData[$i][0]) == TRUE) OR (is_int((int) $varData[$i][0]) == TRUE))
+                                        {
+                                        $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForSmallInteger($varUserSession, $varData[$i][0]))."::smallint";
+                                        }
+                                    else
+                                        {
+                                        throw new \Exception('Error');                                        
+                                        }
+                                    break;
+                                    /*
                                     if((!$varData[$i][0]) OR (is_int($varData[$i][0]) == TRUE))
                                         {
                                         $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForBigInteger($varUserSession, $varData[$i][0]))."::smallint";
@@ -501,6 +511,8 @@ namespace App\Helpers\ZhtHelper\Database
                                     else
                                         {throw new \Exception('Error');}
                                     break;
+                                     * 
+                                     */
                                     }
                                 case 'timestamp without time zone':
                                 case 'timestamp':
@@ -1160,6 +1172,7 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-08-25                                                                                           |
+        | ▪ Creation Date   : 2020-08-25                                                                                           |
         | ▪ Description     : Mendapatkan Literasi String konversi untuk Big Integer (varData)                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -1176,13 +1189,20 @@ namespace App\Helpers\ZhtHelper\Database
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get String Literal Convertion for BigInteger');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    if((!$varData) || (strcmp($varData, '')==0) || (strcmp(strtolower($varData), 'null')==0)) 
+                    if ((strcmp($varData, '0')==0))
                         {
-                        $varReturn = 'NULL';
+                        $varReturn = '0';
                         }
                     else
                         {
-                        $varReturn = $varData;
+                        if((!$varData) || (strcmp($varData, '')==0) || (strcmp(strtolower($varData), 'null')==0)) 
+                            {
+                            $varReturn = 'NULL';
+                            }
+                        else
+                            {
+                            $varReturn = $varData;
+                            }
                         }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
@@ -1197,7 +1217,7 @@ namespace App\Helpers\ZhtHelper\Database
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
-            
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getStringLiteralConvertForBytea                                                                      |
@@ -1229,6 +1249,110 @@ namespace App\Helpers\ZhtHelper\Database
                         {
                         $varReturn = '\''.self::getStringLiteralEscapedCharacter_SingleQuote($varUserSession,$varData).'\'';
 //                        $varReturn = '\''.pg_escape_bytea($varUserSession,$varData).'\'';
+                        }
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getStringLiteralConvertForInteger                                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-05-27                                                                                           |
+        | ▪ Creation Date   : 2024-05-27                                                                                           |
+        | ▪ Description     : Mendapatkan Literasi String konversi untuk Integer (varData)                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varData ► Data                                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getStringLiteralConvertForInteger($varUserSession, $varData)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get String Literal Convertion for BigInteger');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    if ((strcmp($varData, '0')==0))
+                        {
+                        $varReturn = '0';
+                        }
+                    else
+                        {
+                        if((!$varData) || (strcmp($varData, '')==0) || (strcmp(strtolower($varData), 'null')==0)) 
+                            {
+                            $varReturn = 'NULL';
+                            }
+                        else
+                            {
+                            $varReturn = $varData;
+                            }                        
+                        }
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getStringLiteralConvertForSmallInteger                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-05-27                                                                                           |
+        | ▪ Creation Date   : 2024-05-27                                                                                           |
+        | ▪ Description     : Mendapatkan Literasi String konversi untuk Big Integer (varData)                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varData ► Data                                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getStringLiteralConvertForSmallInteger($varUserSession, $varData)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get String Literal Convertion for BigInteger');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    if ((strcmp($varData, '0')==0))
+                        {
+                        $varReturn = '0';
+                        }
+                    else
+                        {
+                        if((!$varData) || (strcmp($varData, '')==0) || (strcmp(strtolower($varData), 'null')==0)) 
+                            {
+                            $varReturn = 'NULL';
+                            }
+                        else
+                            {
+                            $varReturn = $varData;
+                            }
                         }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
