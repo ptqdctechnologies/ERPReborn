@@ -6,7 +6,7 @@
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\production                            |
 |                \setMaterialProductAssembly\v1                                                                                    |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\production\setMaterialProductAssembly\v1
@@ -24,8 +24,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-05                                                                                           |
-        | ▪ Creation Date   : 2021-07-05                                                                                           |
+        | ▪ Last Update     : 2024-05-27                                                                                           |
+        | ▪ Creation Date   : 2024-05-27                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-05                                                                                           |
-        | ▪ Creation Date   : 2021-07-05                                                                                           |
+        | ▪ Last Update     : 2024-05-27                                                                                           |
+        | ▪ Creation Date   : 2024-05-27                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -66,19 +66,17 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                         if (!($varDataSend =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_Production\TblMaterialProductAssembly())->setDataInsert(
+                                (new \App\Models\Database\SchData_OLTP_Production\TblMaterialProductAssemblyVersion())->setDataInsert(
                                     $varUserSession, 
                                     null, 
                                     null,
                                     (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                                     \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
 
-                                    $varData['entities']['name'],
-                                    $varData['entities']['businessDocument_RefID'],
-                                    $varData['entities']['quantityUnit_RefID'],
+                                    $varData['entities']['materialProductAssembly_RefID'],
+                                    $varData['entities']['billOfMaterial_RefID'],
                                     $varData['entities']['validStartDateTimeTZ'],
-                                    $varData['entities']['validFinishDateTimeTZ'],
-                                    $varData['entities']['code']
+                                    $varData['entities']['validFinishDateTimeTZ']
                                     )
                                 )
                             ))
