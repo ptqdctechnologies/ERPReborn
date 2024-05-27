@@ -59,16 +59,11 @@
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         },
-                     "unitPriceCurrencyExchangeRate": {
-                        "type": [ "number" ]
-                        },
                      "unitPriceCurrencyValue": {
                         "type": [ "number" ]
                         },
-                     "projectSectionItem_RefID": {
-                        "type": [ "integer", "null" ],
-                        "minimum": 1,
-                        "maximum": 9223372036854775807
+                     "unitPriceCurrencyExchangeRate": {
+                        "type": [ "number" ]
                         }
                     },
                 "required": [
@@ -76,9 +71,8 @@
                     "materialProduct_RefID",
                     "quantity",
                     "unitPriceCurrency_RefID",
-                    "unitPriceCurrencyExchangeRate",
                     "unitPriceCurrencyValue",
-                    "projectSectionItem_RefID"
+                    "unitPriceCurrencyExchangeRate"
                     ]
                 }
             },

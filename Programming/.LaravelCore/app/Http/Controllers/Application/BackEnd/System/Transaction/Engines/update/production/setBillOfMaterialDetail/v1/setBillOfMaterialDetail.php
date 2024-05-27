@@ -23,6 +23,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-07-05                                                                                           |
+        | ▪ Creation Date   : 2021-07-05                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,6 +43,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-07-05                                                                                           |
+        | ▪ Creation Date   : 2021-07-05                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -58,24 +60,31 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Update Bill Of Material Detail Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate($varUserSession, (new \App\Models\Database\SchData_OLTP_Production\TblBillOfMaterialDetail())->setDataUpdate(
-                            $varUserSession,
-                            $varData['recordID'],
-                            null,
-                            null,
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            $varData['entities']['billOfMaterial_RefID'],
-                            $varData['entities']['materialProduct_RefID'],
-                            $varData['entities']['quantity'],
-                            $varData['entities']['unitPriceCurrency_RefID'],
-                            $varData['entities']['unitPriceCurrencyExchangeRate'],
-                            $varData['entities']['unitPriceCurrencyValue'],
-                            $varData['entities']['projectSectionItem_RefID']
-                            ))))
+                    try {
+                        if(!($varDataSend =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate(
+                                $varUserSession,
+                                (new \App\Models\Database\SchData_OLTP_Production\TblBillOfMaterialDetail())->setDataUpdate(
+                                    $varUserSession,
+                                    $varData['recordID'],
+                                    null,
+                                    null,
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                                    \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
+
+                                    $varData['entities']['billOfMaterial_RefID'],
+                                    $varData['entities']['materialProduct_RefID'],
+                                    $varData['entities']['quantity'],
+                                    $varData['entities']['unitPriceCurrency_RefID'],
+                                    $varData['entities']['unitPriceCurrencyValue'],
+                                    $varData['entities']['unitPriceCurrencyExchangeRate']
+                                    )
+                                )
+                            ))
                             {
                             throw new \Exception();
                             }
+
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
