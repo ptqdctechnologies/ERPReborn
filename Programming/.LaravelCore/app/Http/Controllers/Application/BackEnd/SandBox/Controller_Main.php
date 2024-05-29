@@ -20,9 +20,10 @@ class Controller_Main extends \App\Http\Controllers\Controller
     public function testAja3()
         {
         $varData =
-            (new \App\Models\Database\SchData_OLTP_Project\General())->getDataPickList_Project(
+            (new \App\Models\Database\SchData_OLTP_Finance\General())->getReport_Form_DocumentForm_Advance(
                 6000000000001,
-                11000000000004
+                11000000000004,
+                76000000000246
             );
         dd($varData);
         

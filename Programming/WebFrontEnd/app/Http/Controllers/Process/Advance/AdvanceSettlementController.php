@@ -311,14 +311,13 @@ class AdvanceSettlementController extends Controller
             'beneficiary' => $beneficiary,
             'data' => $varDataAdvanceList,
         ];
-
         return response()->json($compact);
     }
 
     public function AdvanceDetailComplexByBeneficiaryID($advance_RefID)
     {
         $varAPIWebToken = Session::get('SessionLogin');
-        if (Redis::get("DataListAdvanceDetailComplex") == null) {
+        // if (Redis::get("DataListAdvanceDetailComplex") == null) {
             \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
@@ -326,7 +325,7 @@ class AdvanceSettlementController extends Controller
                 'latest',
                 [
                     'parameter' => [
-                        'advance_RefID' => 1,
+                        'advance_RefID' => (int) $advance_RefID,
                     ],
                     'SQLStatement' => [
                         'pick' => null,
@@ -337,7 +336,7 @@ class AdvanceSettlementController extends Controller
                 ],
                 false
             );
-        }
+        // }
 
         $DataAdvanceDetailComplex = json_decode(
             \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
@@ -346,7 +345,6 @@ class AdvanceSettlementController extends Controller
             ),
             true
         );
-
         $collection = collect($DataAdvanceDetailComplex);
         $collection = $collection->where('Sys_ID_Advance', $advance_RefID);
 
