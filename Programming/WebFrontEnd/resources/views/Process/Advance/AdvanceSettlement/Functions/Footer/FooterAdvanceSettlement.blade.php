@@ -120,7 +120,6 @@
             type: "POST",
             url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlementBeneficiary") !!}?beneficiary_id=' + beneficiary_id + '&beneficiary=' + beneficiary + '&advance_RefID=' + advance_RefID,
             success: function(data) {
-
                 if (data.status == "200") {
 
                     $("#beneficiary_id").val(data.data[0]['BeneficiaryWorkerJobsPosition_RefID']);
@@ -361,6 +360,7 @@
         } else {
             var total = price_val * qty_expense;
             $("input[name='price_expense[]']").css("border", "1px solid #ced4da");
+            $('#price_expense' + key).val(currency(price_val));
             $('#total_expense' + key).val(currencyTotal(total));
         }
         //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED SETTLEMENT
@@ -395,6 +395,7 @@
         } else {
             var total = price_val * qty_amount;
             $("input[name='price_amount[]']").css("border", "1px solid #ced4da");
+            $('#price_amount' + key).val(currency(price_val));
             $('#total_amount' + key).val(currencyTotal(total));
         }
         //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED SETTLEMENT
