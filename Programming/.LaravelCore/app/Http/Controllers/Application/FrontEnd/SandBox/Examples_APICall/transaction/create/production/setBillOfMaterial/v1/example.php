@@ -39,8 +39,24 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 'latest', 
                 [
                 'entities' => [
-                    "documentDateTimeTZ" => '2024-05-27',
-                    "level" => 0
+                    'documentDateTimeTZ' => '2024-05-27',
+                    'level' => 0,
+                    'additionalData' => [
+                        'itemList' => [
+                            'items' => [
+                                    [
+                                    'entities' => [
+                                        "billOfMaterial_RefID" => 147000000003699,
+                                        "materialProduct_RefID" => 159000000000018,
+                                        "quantity" => 10,
+                                        "unitPriceCurrency_RefID" => 62000000000001,
+                                        "unitPriceCurrencyValue" => 1000,
+                                        "unitPriceCurrencyExchangeRate" => 1
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ]
                     ]
                 ]
                 );
