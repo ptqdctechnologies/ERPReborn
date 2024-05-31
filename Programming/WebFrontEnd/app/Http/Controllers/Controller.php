@@ -37,7 +37,6 @@ class Controller extends BaseController
             $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
 
             $dataInput = $request->all();
-            // dd($dataInput);
             if (isset($dataInput['dataInput_Log_FileUpload_Pointer_RefID_Action'])) {
                 unset($dataInput['dataInput_Log_FileUpload_Pointer_RefID_Action']);
             }
@@ -104,7 +103,6 @@ class Controller extends BaseController
                 } else {
                     $message =  "OnlyOne";
                 }
-
                 $compact = [
                     "data" => $VarSelectWorkFlow,
                     "workFlowPath_RefID" => $VarSelectWorkFlow[0]['Sys_ID'],

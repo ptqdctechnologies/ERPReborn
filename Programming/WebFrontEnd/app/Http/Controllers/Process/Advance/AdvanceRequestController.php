@@ -150,94 +150,45 @@ class AdvanceRequestController extends Controller
     // REVISION FUNCTION FOR SHOW LIST DATA FILTER BY ID 
     public function RevisionAdvanceIndex(Request $request)
     {
-        try {
+        // try {
 
             $advance_RefID = $request->advance_RefID;
             $varAPIWebToken = Session::get('SessionLogin');
 
             // DATA REVISION ADVANCE
             // if (Redis::get("DataListAdvanceDetailComplex") == null) {
-                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken,
-                    'transaction.read.dataList.finance.getAdvanceDetailComplex',
-                    'latest',
-                    [
-                        'parameter' => [
-                            'advance_RefID' => (int) $advance_RefID,
-                        ],
-                        'SQLStatement' => [
-                            'pick' => null,
-                            'sort' => null,
-                            'filter' => null,
-                            'paging' => null
-                        ]
+            $filteredArray = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.finance.getAdvanceReport',
+                'latest',
+                [
+                    'parameter' => [
+                        'advance_RefID' => (int) $advance_RefID,
                     ],
-                    false
-                );
-            // }
-
-            $DataAdvanceDetailComplex = json_decode(
-                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    "DataListAdvanceDetailComplex"
-                ),
-                true
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
             );
-
-            $collection = collect($DataAdvanceDetailComplex);
-            $collection = $collection->where('Sys_ID_Advance', $advance_RefID);
-
-            $num = 0;
-            $filteredArray = [];
-
-            foreach ($collection as $collections) {
-                $filteredArray[$num] = $collections;
-                $num++;
-            }
-
-            if ($filteredArray[0]['Log_FileUpload_Pointer_RefID'] == 0) {
-                $dataDetailFileAttachment = null;
-            } else {
-                $dataDetailFileAttachment = $filteredArray[0]['Log_FileUpload_Pointer_RefID'];
-            }
-
-            for ($i = 0; $i < count($filteredArray); $i++) {
-                unset($filteredArray[$i]['FileAttachment']);
-            }
-
-            //DOCUMENT TYPE ID ADVANCE
-            $DocumentType = json_decode(
-                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    "DocumentType"
-                ),
-                true
-            );
-            $collection = collect($DocumentType);
-            $collection = $collection->where('Name', "Advance Form");
-            foreach ($collection->all() as $collections) {
-                $DocumentTypeID = $collections['Sys_ID'];
-            }
-
-            $remark = $filteredArray[0]['Remarks'];
-            $filteredArray[0]['Remarks'] = "";
-
+            
             $compact = [
-                'dataHeader' => $filteredArray[0],
-                'dataDetail' => $filteredArray,
-                'remark' => $remark,
-                'dataFileAttachment' => $dataDetailFileAttachment,
-                'DocumentTypeID' => $DocumentTypeID,
+                'dataHeader' => $filteredArray['data'][0]['document']['header'],
+                'dataContent' => $filteredArray['data'][0]['document']['content']['general'],
+                'dataDetail' => $filteredArray['data'][0]['document']['content']['details']['itemList'],
                 'varAPIWebToken' => $varAPIWebToken,
                 'statusRevisi' => 1,
                 'statusFinalApprove' => "No",
             ];
             return view('Process.Advance.AdvanceRequest.Transactions.RevisionAdvanceRequest', $compact);
-        } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
+        // } catch (\Throwable $th) {
+        //     Log::error("Error at " . $th->getMessage());
+        //     return redirect()->back()->with('NotFound', 'Process Error');
+        // }
     }
 
     // UPDATE FUNCTION
