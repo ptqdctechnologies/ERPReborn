@@ -47,7 +47,7 @@ class Esi extends AbstractSurrogate
             $alt ? sprintf(' alt="%s"', $alt) : ''
         );
 
-        if (!empty($comment)) {
+        if ($comment) {
             return sprintf("<esi:comment text=\"%s\" />\n%s", $comment, $html);
         }
 
@@ -57,12 +57,12 @@ class Esi extends AbstractSurrogate
     public function process(Request $request, Response $response): Response
     {
         $type = $response->headers->get('Content-Type');
-        if (empty($type)) {
+        if (!$type) {
             $type = 'text/html';
         }
 
         $parts = explode(';', $type);
-        if (!\in_array($parts[0], $this->contentTypes)) {
+        if (!\in_array($parts[0], $this->contentTypes, true)) {
             return $response;
         }
 
