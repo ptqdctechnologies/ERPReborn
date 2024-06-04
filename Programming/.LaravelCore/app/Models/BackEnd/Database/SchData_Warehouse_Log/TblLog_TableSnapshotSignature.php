@@ -5,26 +5,26 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_Warehouse_Log                                                                        |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_Warehouse_Log
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblLog_TransactionHistory                                                                                    |
-    | ▪ Description : Menangani Models Database ► SchData-Warehouse-Log ► TblLog_TransactionHistory                                |
+    | ▪ Class Name  : TblLog_TableSnapshotSignature                                                                                |
+    | ▪ Description : Menangani Models Database ► SchData-Warehouse-Log ► TblLog_TableSnapshotSignature                            |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblLog_TransactionHistory extends \App\Models\Database\DefaultClassPrototype
+    class TblLog_TableSnapshotSignature extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-12-07                                                                                           |
-        | ▪ Creation Date   : 2023-12-07                                                                                           |
+        | ▪ Last Update     : 2024-06-04                                                                                           |
+        | ▪ Creation Date   : 2024-06-04                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -55,13 +55,9 @@ namespace App\Models\Database\SchData_Warehouse_Log
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varSource_RefPID ► Source Reference PID                                                                  |
-        |      ▪ (int)    varSource_RefSID ► Source Reference SID                                                                  |
-        |      ▪ (int)    varSource_RefRPK ► Source Reference RPK                                                                  |
-        |      ▪ (string) varSource_EntryDateTimeTZ ► Source Entry DateTimeTZ                                                      |
-        |      ▪ (string) varContent ► Content                                                                                     |
-        |      ▪ (int)    varSource_RefHeaderID ► Source Reference HeaderID                                                        |
-        |      ▪ (string) varType ► Type                                                                                           |
+        |      ▪ (string) varSchemaName ► Schema Name                                                                              |
+        |      ▪ (string) varTableName ► Table Name                                                                                |
+        |      ▪ (string) varSignatureID ► Signature ID                                                                            |
         |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -70,7 +66,7 @@ namespace App\Models\Database\SchData_Warehouse_Log
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varSource_RefPID = null, int $varSource_RefSID = null, int $varSource_RefRPK = null, string $varSource_EntryDateTimeTZ = null, string $varContent = null, int $varSource_RefHeaderID = null, string $varType = null
+            string $varSchemaName = null, string $varTableName = null, string $varSignatureID = null
             )
             {
             $varReturn =
@@ -87,13 +83,9 @@ namespace App\Models\Database\SchData_Warehouse_Log
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
-                            [$varSource_RefPID, 'bigint'],
-                            [$varSource_RefSID, 'bigint'],
-                            [$varSource_RefRPK, 'bigint'],
-                            [$varSource_EntryDateTimeTZ, 'timestamptz'],
-                            [$varContent, 'json'],
-                            [$varSource_RefHeaderID, 'bigint'],
-                            [$varType, 'varchar']
+                            [$varSchemaName, 'varchar'],
+                            [$varTableName, 'varchar'],
+                            [$varSignatureID, 'varchar']
                         ]
                         )
                     );
@@ -119,13 +111,9 @@ namespace App\Models\Database\SchData_Warehouse_Log
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varSource_RefPID ► Source Reference PID                                                                  |
-        |      ▪ (int)    varSource_RefSID ► Source Reference SID                                                                  |
-        |      ▪ (int)    varSource_RefRPK ► Source Reference RPK                                                                  |
-        |      ▪ (string) varSource_EntryDateTimeTZ ► Source Entry DateTimeTZ                                                      |
-        |      ▪ (string) varContent ► Content                                                                                     |
-        |      ▪ (int)    varSource_RefHeaderID ► Source Reference HeaderID                                                        |
-        |      ▪ (string) varType ► Type                                                                                           |
+        |      ▪ (string) varSchemaName ► Schema Name                                                                              |
+        |      ▪ (string) varTableName ► Table Name                                                                                |
+        |      ▪ (string) varSignatureID ► Signature ID                                                                            |
         |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -134,7 +122,7 @@ namespace App\Models\Database\SchData_Warehouse_Log
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varSource_RefPID = null, int $varSource_RefSID = null, int $varSource_RefRPK = null, string $varSource_EntryDateTimeTZ = null, string $varContent = null, int $varSource_RefHeaderID = null, string $varType = null
+            string $varSchemaName = null, string $varTableName = null, string $varSignatureID = null
             )
             {
             $varReturn =
@@ -151,13 +139,9 @@ namespace App\Models\Database\SchData_Warehouse_Log
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
-                            [$varSource_RefPID, 'bigint'],
-                            [$varSource_RefSID, 'bigint'],
-                            [$varSource_RefRPK, 'bigint'],
-                            [$varSource_EntryDateTimeTZ, 'timestamptz'],
-                            [$varContent, 'json'],
-                            [$varSource_RefHeaderID, 'bigint'],
-                            [$varType, 'varchar']
+                            [$varSchemaName, 'varchar'],
+                            [$varTableName, 'varchar'],
+                            [$varSignatureID, 'varchar']
                         ]
                         )
                     );

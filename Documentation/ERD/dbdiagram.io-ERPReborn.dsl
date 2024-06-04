@@ -915,6 +915,517 @@ Ref: "SchSysConfig"."TblAppObject_WorkFlowPathAction"."Sys_BaseCurrency_RefID" >
 
 
 
+TABLE "SchSysConfig"."TblAppObject_WorkFlowPathSequence"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [not null, unique, pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_BaseCurrency_RefID" bigint
+    "Sys_DataIntegrityShadow" varchar(32)
+	"WorkFlowPath_RefID" bigint
+    "Sequence" smallint
+    "ApproverEntity_RefID" bigint
+    "WorkFlowEdge_RefID" bigint
+    "PreviousWorkFlowNode_RefID" bigint
+    "NextWorkFlowNode_RefID" bigint
+    }
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequence"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequence"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequence"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequence"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequence"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequence"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequence"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequence"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequence"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequence"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequence"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequence"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequence"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequence"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequence"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequence"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequence"."WorkFlowPath_RefID" > "SchSysConfig"."TblAppObject_WorkFlowPath"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequence"."WorkFlowPath_RefID" > "SchSysConfig"."TblAppObject_WorkFlowPath"."Sys_SID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequence"."ApproverEntity_RefID" > "SchData-OLTP-HumanResource"."TblWorkerCareerInternal"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequence"."ApproverEntity_RefID" > "SchData-OLTP-HumanResource"."TblWorkerCareerInternal"."Sys_SID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequence"."WorkFlowEdge_RefID" > "SchSysConfig"."TblAppObject_WorkFlowEdge"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequence"."WorkFlowEdge_RefID" > "SchSysConfig"."TblAppObject_WorkFlowEdge"."Sys_SID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequence"."PreviousWorkFlowNode_RefID" > "SchSysConfig"."TblAppObject_WorkFlowNode"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequence"."PreviousWorkFlowNode_RefID" > "SchSysConfig"."TblAppObject_WorkFlowNode"."Sys_SID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequence"."NextWorkFlowNode_RefID" > "SchSysConfig"."TblAppObject_WorkFlowNode"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequence"."NextWorkFlowNode_RefID" > "SchSysConfig"."TblAppObject_WorkFlowNode"."Sys_SID"
+
+
+
+TABLE "SchSysConfig"."TblAppObject_WorkFlowPathSequenceRemapping"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [not null, unique, pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_BaseCurrency_RefID" bigint
+	"Sys_DataIntegrityShadow" varchar(32)
+	"PreviousWorkFlowPathSequence_RefID" bigint
+	"CurrentWorkFlowPathSequence_RefID" bigint
+    "Remarks" varchar(512)
+    }
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequenceRemapping"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequenceRemapping"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequenceRemapping"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequenceRemapping"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequenceRemapping"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequenceRemapping"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequenceRemapping"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequenceRemapping"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequenceRemapping"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequenceRemapping"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequenceRemapping"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequenceRemapping"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequenceRemapping"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequenceRemapping"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequenceRemapping"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequenceRemapping"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequenceRemapping"."PreviousWorkFlowPathSequence_RefID" > "SchSysConfig"."TblAppObject_WorkFlowPathSequence"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequenceRemapping"."PreviousWorkFlowPathSequence_RefID" > "SchSysConfig"."TblAppObject_WorkFlowPathSequence"."Sys_SID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequenceRemapping"."CurrentWorkFlowPathSequence_RefID" > "SchSysConfig"."TblAppObject_WorkFlowPathSequence"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowPathSequenceRemapping"."CurrentWorkFlowPathSequence_RefID" > "SchSysConfig"."TblAppObject_WorkFlowPathSequence"."Sys_SID"
+
+
+
+TABLE "SchSysConfig"."TblAppObject_WorkFlowVersion"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [not null, unique, pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_BaseCurrency_RefID" bigint
+    "Sys_DataIntegrityShadow" varchar(32)
+	"WorkFlow_RefID" bigint
+    "Version" smallint
+    "DataInitialization" json
+    "Remarks" varchar(512)
+    }
+Ref: "SchSysConfig"."TblAppObject_WorkFlowVersion"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowVersion"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowVersion"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowVersion"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowVersion"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowVersion"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowVersion"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowVersion"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowVersion"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowVersion"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowVersion"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowVersion"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowVersion"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowVersion"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowVersion"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowVersion"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowVersion"."WorkFlow_RefID" > "SchSysConfig"."TblAppObject_WorkFlow"."Sys_PID"
+Ref: "SchSysConfig"."TblAppObject_WorkFlowVersion"."WorkFlow_RefID" > "SchSysConfig"."TblAppObject_WorkFlow"."Sys_SID"
+
+
+
+TABLE "SchSysConfig"."TblDBObject_FieldRelation"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [not null, unique, pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_BaseCurrency_RefID" bigint
+    "Sys_DataIntegrityShadow" varchar(32)
+    "TableID" bigint
+	"FieldName" varchar(256)
+    "Reference_TableID" bigint
+    "Reference_FieldName" varchar
+    }
+Ref: "SchSysConfig"."TblDBObject_FieldRelation"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_FieldRelation"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_FieldRelation"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_FieldRelation"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_FieldRelation"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_FieldRelation"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_FieldRelation"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_FieldRelation"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_FieldRelation"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_FieldRelation"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_FieldRelation"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_FieldRelation"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_FieldRelation"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_FieldRelation"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_FieldRelation"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_FieldRelation"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_FieldRelation"."TableID" > "SchSysConfig"."TblDBObject_Table"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_FieldRelation"."TableID" > "SchSysConfig"."TblDBObject_Table"."Sys_SID"
+
+
+
+TABLE "SchSysConfig"."TblDBObject_ForeignObject"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [not null, unique, pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_BaseCurrency_RefID" bigint
+    "Sys_DataIntegrityShadow" varchar(32)
+    "ForeignDatabaseHost" inet
+    "ForeignDatabasePort" integer
+    "ForeignDatabaseName" varchar(256)
+    "ForeignSchema" varchar(256)
+    "ForeignTable" varchar(256)
+    }
+Ref: "SchSysConfig"."TblDBObject_ForeignObject"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_ForeignObject"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_ForeignObject"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_ForeignObject"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_ForeignObject"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_ForeignObject"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_ForeignObject"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_ForeignObject"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_ForeignObject"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_ForeignObject"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_ForeignObject"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_ForeignObject"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_ForeignObject"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_ForeignObject"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_ForeignObject"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_ForeignObject"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+
+
+
+TABLE "SchSysConfig"."TblDBObject_Index"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [not null, unique, pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_BaseCurrency_RefID" bigint
+    "Sys_DataIntegrityShadow" varchar(32)
+    "Table_RefID" bigint
+    "SpecificTableName" varchar(128)
+    "Name" varchar(128)
+    "Element" varchar[]
+    }
+Ref: "SchSysConfig"."TblDBObject_Index"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Index"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Index"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Index"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Index"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Index"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Index"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Index"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Index"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Index"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Index"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Index"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Index"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Index"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Index"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Index"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Index"."Table_RefID" > "SchSysConfig"."TblDBObject_Table"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Index"."Table_RefID" > "SchSysConfig"."TblDBObject_Table"."Sys_SID"
+
+
+
+TABLE "SchSysConfig"."TblDBObject_LastModified"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [not null, unique, pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_BaseCurrency_RefID" bigint
+    "Sys_DataIntegrityShadow" varchar(32)
+    "Table_RefID" bigint
+    "LastEntryDateTimeTZ" timestamptz
+    "LastEditDateTimeTZ" timestamptz
+    "LastDeleteDateTimeTZ" timestamptz
+    "LastHiddenDateTimeTZ" timestamptz
+    }
+Ref: "SchSysConfig"."TblDBObject_LastModified"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_LastModified"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_LastModified"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_LastModified"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_LastModified"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_LastModified"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_LastModified"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_LastModified"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_LastModified"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_LastModified"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_LastModified"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_LastModified"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_LastModified"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_LastModified"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_LastModified"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_LastModified"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_LastModified"."Table_RefID" > "SchSysConfig"."TblDBObject_Table"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_LastModified"."Table_RefID" > "SchSysConfig"."TblDBObject_Table"."Sys_SID"
+
+
+
+TABLE "SchSysConfig"."TblDBObject_Parameter"
+    {
+    "Key" varchar(256)
+    "Value" varchar(256)
+    }
+
+
+
+TABLE "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [not null, unique, pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_BaseCurrency_RefID" bigint
+    "Sys_DataIntegrityShadow" varchar(32)
+    "Key" varchar(128)
+    }
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+
+
+
+TABLE "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Parameter"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [not null, unique, pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_BaseCurrency_RefID" bigint
+    "Sys_DataIntegrityShadow" varchar(32)
+    "Parameter" varchar(128)
+    }
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Parameter"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Parameter"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Parameter"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Parameter"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Parameter"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Parameter"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Parameter"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Parameter"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Parameter"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Parameter"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Parameter"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Parameter"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Parameter"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Parameter"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Parameter"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Parameter"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+
+
+
+TABLE "SchSysConfig"."TblDBObject_Schema"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [not null, unique, pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_BaseCurrency_RefID" bigint
+    "Sys_DataIntegrityShadow" varchar(32)
+    "Name" varchar(128)
+    }
+Ref: "SchSysConfig"."TblDBObject_Schema"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Schema"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Schema"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Schema"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Schema"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Schema"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Schema"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Schema"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Schema"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Schema"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Schema"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Schema"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Schema"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Schema"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Schema"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Schema"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+
+
+
+TABLE "SchSysConfig"."TblDBObject_Table"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [not null, unique, pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_BaseCurrency_RefID" bigint
+    "Sys_DataIntegrityShadow" varchar(32)
+	"Schema_RefID" bigint
+    "Name" varchar(128)
+    "Partition_RemovableRecord_Parameter_RefID" bigint
+    }
+Ref: "SchSysConfig"."TblDBObject_Table"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Table"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Table"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Table"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Table"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Table"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Table"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Table"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Table"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Table"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Table"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Table"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Table"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Table"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Table"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Table"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Table"."Schema_RefID" > "SchSysConfig"."TblDBObject_Schema"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Table"."Schema_RefID" > "SchSysConfig"."TblDBObject_Schema"."Sys_SID"
+Ref: "SchSysConfig"."TblDBObject_Table"."Partition_RemovableRecord_Parameter_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Parameter"."Sys_PID"
+Ref: "SchSysConfig"."TblDBObject_Table"."Partition_RemovableRecord_Parameter_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Parameter"."Sys_SID"
+
+
+
 TABLE "SchSysConfig"."TblDBObject_User"
     {
     "Sys_PID" bigint
@@ -959,37 +1470,7 @@ Ref: "SchSysConfig"."TblDBObject_User"."Sys_BaseCurrency_RefID" > "SchData-OLTP-
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-TABLE "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"
+TABLE "SchSysConfig"."TblEMailDistribution_Recipient"
     {
     "Sys_PID" bigint
     "Sys_SID" bigint
@@ -1009,24 +1490,500 @@ TABLE "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
-    "Key" varchar(128)
+	"AppObject_ModuleReport_RefID" bigint
+    "EntityEMailAccount_RefID" bigint
+    "ScheduleTimeZone" smallint
     }
-Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
-Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
-Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
-Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
-Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
-Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
-Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
-Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
-Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
-Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
-Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
-Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
-Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
-Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
-Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
-Ref: "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchSysConfig"."TblEMailDistribution_Recipient"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblEMailDistribution_Recipient"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblEMailDistribution_Recipient"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblEMailDistribution_Recipient"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblEMailDistribution_Recipient"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblEMailDistribution_Recipient"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblEMailDistribution_Recipient"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblEMailDistribution_Recipient"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblEMailDistribution_Recipient"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblEMailDistribution_Recipient"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblEMailDistribution_Recipient"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig"."TblEMailDistribution_Recipient"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig"."TblEMailDistribution_Recipient"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig"."TblEMailDistribution_Recipient"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSysConfig"."TblEMailDistribution_Recipient"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
+Ref: "SchSysConfig"."TblEMailDistribution_Recipient"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchSysConfig"."TblEMailDistribution_Recipient"."AppObject_ModuleReport_RefID" > "SchSysConfig"."TblAppObject_ModuleReport"."Sys_PID"
+Ref: "SchSysConfig"."TblEMailDistribution_Recipient"."AppObject_ModuleReport_RefID" > "SchSysConfig"."TblAppObject_ModuleReport"."Sys_SID"
+Ref: "SchSysConfig"."TblEMailDistribution_Recipient"."EntityEMailAccount_RefID" > "SchData-OLTP-Master"."TblEntityEMailAccount"."Sys_PID"
+Ref: "SchSysConfig"."TblEMailDistribution_Recipient"."EntityEMailAccount_RefID" > "SchData-OLTP-Master"."TblEntityEMailAccount"."Sys_SID"
+
+
+
+TABLE "SchSysConfig"."TblEMailDistribution_Schedule"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [not null, unique, pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_BaseCurrency_RefID" bigint
+    "Sys_DataIntegrityShadow" varchar(32)
+	"AppObject_ModuleReport_RefID" bigint
+    "Period_RefID" bigint
+    "PeriodStartDateScheduleOffset" interval 
+    }
+Ref: "SchSysConfig"."TblEMailDistribution_Schedule"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblEMailDistribution_Schedule"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblEMailDistribution_Schedule"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblEMailDistribution_Schedule"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblEMailDistribution_Schedule"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblEMailDistribution_Schedule"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblEMailDistribution_Schedule"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblEMailDistribution_Schedule"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblEMailDistribution_Schedule"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblEMailDistribution_Schedule"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblEMailDistribution_Schedule"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig"."TblEMailDistribution_Schedule"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig"."TblEMailDistribution_Schedule"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig"."TblEMailDistribution_Schedule"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSysConfig"."TblEMailDistribution_Schedule"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
+Ref: "SchSysConfig"."TblEMailDistribution_Schedule"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchSysConfig"."TblEMailDistribution_Schedule"."AppObject_ModuleReport_RefID" > "SchSysConfig"."TblAppObject_ModuleReport"."Sys_PID"
+Ref: "SchSysConfig"."TblEMailDistribution_Schedule"."AppObject_ModuleReport_RefID" > "SchSysConfig"."TblAppObject_ModuleReport"."Sys_SID"
+Ref: "SchSysConfig"."TblEMailDistribution_Schedule"."Period_RefID" > "SchData-OLTP-Master"."TblPeriod"."Sys_PID"
+Ref: "SchSysConfig"."TblEMailDistribution_Schedule"."Period_RefID" > "SchData-OLTP-Master"."TblPeriod"."Sys_SID"
+
+
+
+TABLE "SchSysConfig"."TblEmailDistribution_Recipient"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [not null, unique, pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_BaseCurrency_RefID" bigint
+    "Sys_DataIntegrityShadow" varchar(32)
+	"AppObject_ModuleReport_RefID" bigint
+	"EntityEmailAccount_RefID" bigint
+	"ScheduleTimeZone" smallint 
+    }
+Ref: "SchSysConfig"."TblEmailDistribution_Recipient"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblEmailDistribution_Recipient"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblEmailDistribution_Recipient"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblEmailDistribution_Recipient"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblEmailDistribution_Recipient"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblEmailDistribution_Recipient"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblEmailDistribution_Recipient"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblEmailDistribution_Recipient"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblEmailDistribution_Recipient"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblEmailDistribution_Recipient"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblEmailDistribution_Recipient"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig"."TblEmailDistribution_Recipient"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig"."TblEmailDistribution_Recipient"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig"."TblEmailDistribution_Recipient"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSysConfig"."TblEmailDistribution_Recipient"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
+Ref: "SchSysConfig"."TblEmailDistribution_Recipient"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchSysConfig"."TblEmailDistribution_Recipient"."AppObject_ModuleReport_RefID" > "SchSysConfig"."TblAppObject_ModuleReport"."Sys_PID"
+Ref: "SchSysConfig"."TblEmailDistribution_Recipient"."AppObject_ModuleReport_RefID" > "SchSysConfig"."TblAppObject_ModuleReport"."Sys_SID"
+Ref: "SchSysConfig"."TblEmailDistribution_Recipient"."EntityEmailAccount_RefID" > "SchData-OLTP-Master"."TblEntityEMailAccount"."Sys_PID"
+Ref: "SchSysConfig"."TblEmailDistribution_Recipient"."EntityEmailAccount_RefID" > "SchData-OLTP-Master"."TblEntityEMailAccount"."Sys_SID"
+
+
+
+TABLE "SchSysConfig"."TblEmailDistribution_Schedule"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [not null, unique, pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_BaseCurrency_RefID" bigint
+    "Sys_DataIntegrityShadow" varchar(32)
+	"AppObject_ModuleReport_RefID" bigint
+    "Period_RefID" bigint
+    "PeriodStartDateScheduleOffset" interval
+    }
+Ref: "SchSysConfig"."TblEmailDistribution_Schedule"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblEmailDistribution_Schedule"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblEmailDistribution_Schedule"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblEmailDistribution_Schedule"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblEmailDistribution_Schedule"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblEmailDistribution_Schedule"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblEmailDistribution_Schedule"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblEmailDistribution_Schedule"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblEmailDistribution_Schedule"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblEmailDistribution_Schedule"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblEmailDistribution_Schedule"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig"."TblEmailDistribution_Schedule"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig"."TblEmailDistribution_Schedule"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig"."TblEmailDistribution_Schedule"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSysConfig"."TblEmailDistribution_Schedule"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
+Ref: "SchSysConfig"."TblEmailDistribution_Schedule"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchSysConfig"."TblEmailDistribution_Schedule"."AppObject_ModuleReport_RefID" > "SchSysConfig"."TblAppObject_ModuleReport"."Sys_PID"
+Ref: "SchSysConfig"."TblEmailDistribution_Schedule"."AppObject_ModuleReport_RefID" > "SchSysConfig"."TblAppObject_ModuleReport"."Sys_SID"
+Ref: "SchSysConfig"."TblEmailDistribution_Schedule"."Period_RefID" > "SchData-OLTP-Master"."TblPeriod"."Sys_PID"
+Ref: "SchSysConfig"."TblEmailDistribution_Schedule"."Period_RefID" > "SchData-OLTP-Master"."TblPeriod"."Sys_SID"
+
+
+
+TABLE "SchSysConfig"."TblLDAPObject_User"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [not null, unique, pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_BaseCurrency_RefID" bigint
+    "Sys_DataIntegrityShadow" varchar(32)
+	"UserID" varchar
+    "UserName" varchar
+    }
+Ref: "SchSysConfig"."TblLDAPObject_User"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLDAPObject_User"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLDAPObject_User"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLDAPObject_User"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLDAPObject_User"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLDAPObject_User"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLDAPObject_User"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLDAPObject_User"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLDAPObject_User"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLDAPObject_User"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLDAPObject_User"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig"."TblLDAPObject_User"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig"."TblLDAPObject_User"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig"."TblLDAPObject_User"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSysConfig"."TblLDAPObject_User"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
+Ref: "SchSysConfig"."TblLDAPObject_User"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+
+
+
+TABLE "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPath"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [not null, unique, pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_BaseCurrency_RefID" bigint
+    "Sys_DataIntegrityShadow" varchar(32)
+	"BusinessDocument_RefID" bigint
+    "LastLog_BusinessDocumentWorkFlowPathHistory_RefID" bigint
+    "SignActive" boolean
+    }
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPath"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPath"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPath"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPath"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPath"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPath"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPath"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPath"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPath"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPath"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPath"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPath"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPath"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPath"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPath"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPath"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPath"."BusinessDocument_RefID" > "SchData-OLTP-Master"."TblBusinessDocument"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPath"."BusinessDocument_RefID" > "SchData-OLTP-Master"."TblBusinessDocument"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPath"."LastLog_BusinessDocumentWorkFlowPathHistory_RefID" > "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPathHistory"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPath"."LastLog_BusinessDocumentWorkFlowPathHistory_RefID" > "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPathHistory"."Sys_SID"
+
+
+
+TABLE "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPathHistory"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [not null, unique, pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_BaseCurrency_RefID" bigint
+    "Sys_DataIntegrityShadow" varchar(32)
+	"Log_BusinessDocumentWorkFlowPath_RefID" bigint
+	"BusinessDocumentVersion_RefID" bigint
+	"WorkFlowPath_RefID" bigint
+	"WorkFlowPathAction_RefID" bigint
+	"ApprovalStepSequence" smallint
+	"ApproverEntity_RefID" bigint
+	"Remarks" varchar(256)
+    }
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPathHistory"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPathHistory"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPathHistory"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPathHistory"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPathHistory"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPathHistory"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPathHistory"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPathHistory"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPathHistory"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPathHistory"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPathHistory"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPathHistory"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPathHistory"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPathHistory"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPathHistory"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPathHistory"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPathHistory"."Log_BusinessDocumentWorkFlowPath_RefID" > "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPath"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPathHistory"."Log_BusinessDocumentWorkFlowPath_RefID" > "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPath"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPathHistory"."BusinessDocumentVersion_RefID" > "SchData-OLTP-Master"."TblBusinessDocumentVersion"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPathHistory"."BusinessDocumentVersion_RefID" > "SchData-OLTP-Master"."TblBusinessDocumentVersion"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPathHistory"."WorkFlowPath_RefID" > "SchSysConfig"."TblAppObject_WorkFlowPath"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPathHistory"."WorkFlowPath_RefID" > "SchSysConfig"."TblAppObject_WorkFlowPath"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPathHistory"."WorkFlowPathAction_RefID" > "SchSysConfig"."TblAppObject_WorkFlowPathAction"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPathHistory"."WorkFlowPathAction_RefID" > "SchSysConfig"."TblAppObject_WorkFlowPathAction"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPathHistory"."ApproverEntity_RefID" > "SchData-OLTP-HumanResource"."TblWorkerCareerInternal"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_BusinessDocumentWorkFlowPathHistory"."ApproverEntity_RefID" > "SchData-OLTP-HumanResource"."TblWorkerCareerInternal"."Sys_SID"
+
+
+
+TABLE "SchSysConfig"."TblLog_EMailDistributionSchedule"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [not null, unique, pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_BaseCurrency_RefID" bigint
+    "Sys_DataIntegrityShadow" varchar(32)
+	"EMailDistribution_Schedule_RefID" bigint
+	"SendScheduleDateTime" timestamp
+	"SendExpiredScheduleDateTime" timestamp
+    }
+Ref: "SchSysConfig"."TblLog_EMailDistributionSchedule"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionSchedule"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionSchedule"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionSchedule"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionSchedule"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionSchedule"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionSchedule"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionSchedule"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionSchedule"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionSchedule"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionSchedule"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionSchedule"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionSchedule"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionSchedule"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionSchedule"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionSchedule"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionSchedule"."EMailDistribution_Schedule_RefID" > "SchSysConfig"."TblEMailDistribution_Schedule"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionSchedule"."EMailDistribution_Schedule_RefID" > "SchSysConfig"."TblEMailDistribution_Schedule"."Sys_SID"
+
+
+
+TABLE "SchSysConfig"."TblLog_EMailDistributionScheduleAttachment"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [not null, unique, pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_BaseCurrency_RefID" bigint
+    "Sys_DataIntegrityShadow" varchar(32)
+	"Log_EMailDistributionScheduleRecipient_RefID" bigint
+	"URLParameter" varchar(512)
+    }
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleAttachment"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleAttachment"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleAttachment"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleAttachment"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleAttachment"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleAttachment"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleAttachment"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleAttachment"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleAttachment"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleAttachment"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleAttachment"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleAttachment"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleAttachment"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleAttachment"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleAttachment"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleAttachment"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleAttachment"."Log_EMailDistributionScheduleRecipient_RefID" > "SchSysConfig"."TblLog_EMailDistributionScheduleRecipient"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleAttachment"."Log_EMailDistributionScheduleRecipient_RefID" > "SchSysConfig"."TblLog_EMailDistributionScheduleRecipient"."Sys_SID"
+
+
+
+TABLE "SchSysConfig"."TblLog_EMailDistributionScheduleRecipient"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [not null, unique, pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_BaseCurrency_RefID" bigint
+    "Sys_DataIntegrityShadow" varchar(32)
+	"Log_EMailDistributionSchedule_RefID" bigint
+    "EntityEMailAccount_RefID" bigint
+    "SendScheduleDateTimeTZ" timestamptz
+    "SendExpiredScheduleDateTimeTZ" timestamptz
+    "SendDateTimeTZ" timestamptz
+    }
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleRecipient"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleRecipient"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleRecipient"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleRecipient"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleRecipient"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleRecipient"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleRecipient"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleRecipient"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleRecipient"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleRecipient"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleRecipient"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleRecipient"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleRecipient"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleRecipient"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleRecipient"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleRecipient"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleRecipient"."Log_EMailDistributionSchedule_RefID" > "SchSysConfig"."TblLog_EMailDistributionSchedule"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleRecipient"."Log_EMailDistributionSchedule_RefID" > "SchSysConfig"."TblLog_EMailDistributionSchedule"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleRecipient"."EntityEMailAccount_RefID" > "SchData-OLTP-Master"."TblEntityEMailAccount"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_EMailDistributionScheduleRecipient"."EntityEMailAccount_RefID" > "SchData-OLTP-Master"."TblEntityEMailAccount"."Sys_SID"
+
+
+
+TABLE "SchSysConfig"."TblLog_TableSnapshotSignature"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [not null, unique, pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_BaseCurrency_RefID" bigint
+    "Sys_DataIntegrityShadow" varchar(32)
+	"SchemaName" varchar(128)
+	"TableName" varchar(128)
+	"SignatureID" varchar(32)
+    }
+Ref: "SchSysConfig"."TblLog_TableSnapshotSignature"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_TableSnapshotSignature"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_TableSnapshotSignature"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_TableSnapshotSignature"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_TableSnapshotSignature"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_TableSnapshotSignature"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_TableSnapshotSignature"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_TableSnapshotSignature"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_TableSnapshotSignature"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_TableSnapshotSignature"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_TableSnapshotSignature"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_TableSnapshotSignature"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_TableSnapshotSignature"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_TableSnapshotSignature"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_TableSnapshotSignature"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_TableSnapshotSignature"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+
+
 
 TABLE "SchSysConfig"."TblLog_UserLoginSession"
     {
@@ -1075,19 +2032,202 @@ Ref: "SchSysConfig"."TblLog_UserLoginSession"."Sys_Branch_RefID" > "SchSysConfig
 Ref: "SchSysConfig"."TblLog_UserLoginSession"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
 Ref: "SchSysConfig"."TblLog_UserLoginSession"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
 Ref: "SchSysConfig"."TblLog_UserLoginSession"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_UserLoginSession"."User_RefID" > "SchSysConfig"."TblDBObject_User"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_UserLoginSession"."User_RefID" > "SchSysConfig"."TblDBObject_User"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_UserLoginSession"."Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_UserLoginSession"."Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSysConfig"."TblLog_UserLoginSession"."UserRole_RefID" > "SchSysConfig"."TblAppObject_UserRole"."Sys_PID"
+Ref: "SchSysConfig"."TblLog_UserLoginSession"."UserRole_RefID" > "SchSysConfig"."TblAppObject_UserRole"."Sys_SID"
 
 
 
+TABLE "SchSysConfig"."TblMapper_BusinessDocumentTypeToWorkFlow"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [not null, unique, pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_BaseCurrency_RefID" bigint
+    "Sys_DataIntegrityShadow" varchar(32)
+    "BusinessDocumentType_RefID" bigint
+    "CombinedBudget_RefID" bigint
+    "WorkFlow_RefID" bigint
+    }
+Ref: "SchSysConfig"."TblMapper_BusinessDocumentTypeToWorkFlow"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_BusinessDocumentTypeToWorkFlow"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_BusinessDocumentTypeToWorkFlow"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_BusinessDocumentTypeToWorkFlow"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_BusinessDocumentTypeToWorkFlow"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_BusinessDocumentTypeToWorkFlow"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_BusinessDocumentTypeToWorkFlow"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_BusinessDocumentTypeToWorkFlow"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_BusinessDocumentTypeToWorkFlow"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_BusinessDocumentTypeToWorkFlow"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_BusinessDocumentTypeToWorkFlow"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_BusinessDocumentTypeToWorkFlow"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_BusinessDocumentTypeToWorkFlow"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_BusinessDocumentTypeToWorkFlow"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_BusinessDocumentTypeToWorkFlow"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_BusinessDocumentTypeToWorkFlow"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_BusinessDocumentTypeToWorkFlow"."BusinessDocumentType_RefID" > "SchData-OLTP-Master"."TblBusinessDocumentType"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_BusinessDocumentTypeToWorkFlow"."BusinessDocumentType_RefID" > "SchData-OLTP-Master"."TblBusinessDocumentType"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_BusinessDocumentTypeToWorkFlow"."CombinedBudget_RefID" > "SchData-OLTP-Budgeting"."TblBudget"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_BusinessDocumentTypeToWorkFlow"."CombinedBudget_RefID" > "SchData-OLTP-Budgeting"."TblBudget"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_BusinessDocumentTypeToWorkFlow"."CombinedBudget_RefID" > "SchData-OLTP-Project"."TblProject"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_BusinessDocumentTypeToWorkFlow"."CombinedBudget_RefID" > "SchData-OLTP-Project"."TblProject"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_BusinessDocumentTypeToWorkFlow"."WorkFlow_RefID" > "SchSysConfig"."TblAppObject_WorkFlow"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_BusinessDocumentTypeToWorkFlow"."WorkFlow_RefID" > "SchSysConfig"."TblAppObject_WorkFlow"."Sys_SID"
 
 
 
+TABLE "SchSysConfig"."TblMapper_LDAPUserToPerson"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [not null, unique, pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_BaseCurrency_RefID" bigint
+    "Sys_DataIntegrityShadow" varchar(32)
+    "LDAPUser_RefID" bigint
+    "Person_RefID" bigint
+    }
+Ref: "SchSysConfig"."TblMapper_LDAPUserToPerson"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_LDAPUserToPerson"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_LDAPUserToPerson"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_LDAPUserToPerson"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_LDAPUserToPerson"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_LDAPUserToPerson"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_LDAPUserToPerson"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_LDAPUserToPerson"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_LDAPUserToPerson"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_LDAPUserToPerson"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_LDAPUserToPerson"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_LDAPUserToPerson"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_LDAPUserToPerson"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_LDAPUserToPerson"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_LDAPUserToPerson"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_LDAPUserToPerson"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_LDAPUserToPerson"."LDAPUser_RefID" > "SchSysConfig"."TblLDAPObject_User"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_LDAPUserToPerson"."LDAPUser_RefID" > "SchSysConfig"."TblLDAPObject_User"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_LDAPUserToPerson"."Person_RefID" > "SchData-OLTP-Master"."TblPerson"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_LDAPUserToPerson"."Person_RefID" > "SchData-OLTP-Master"."TblPerson"."Sys_SID"
 
 
 
+TABLE "SchSysConfig"."TblMapper_UserToLDAPUser"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [not null, unique, pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_BaseCurrency_RefID" bigint
+    "User_RefID" bigint
+    "LDAPUserID" varchar(256)
+    "EncryptedPassword" bytea
+    "PasswordShadow" varchar(32)
+    }
+Ref: "SchSysConfig"."TblMapper_UserToLDAPUser"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_UserToLDAPUser"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_UserToLDAPUser"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_UserToLDAPUser"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_UserToLDAPUser"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_UserToLDAPUser"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_UserToLDAPUser"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_UserToLDAPUser"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_UserToLDAPUser"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_UserToLDAPUser"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_UserToLDAPUser"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_UserToLDAPUser"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_UserToLDAPUser"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_UserToLDAPUser"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_UserToLDAPUser"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_UserToLDAPUser"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_UserToLDAPUser"."User_RefID" > "SchSysConfig"."TblDBObject_User"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_UserToLDAPUser"."User_RefID" > "SchSysConfig"."TblDBObject_User"."Sys_SID"
 
 
 
-
+TABLE "SchSysConfig"."TblMapper_UserToUserRole"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [not null, unique, pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_BaseCurrency_RefID" bigint
+    "User_RefID" bigint
+    "UserRole_RefID" bigint
+    "CallProjectSyntax" varchar(256)
+    "ValidStartDateTimeTZ" timestamptz
+    "ValidFinishDateTimeTZ" timestamptz
+    }
+Ref: "SchSysConfig"."TblMapper_UserToUserRole"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_UserToUserRole"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_UserToUserRole"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_UserToUserRole"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_UserToUserRole"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_UserToUserRole"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_UserToUserRole"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_UserToUserRole"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_UserToUserRole"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_UserToUserRole"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_UserToUserRole"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_UserToUserRole"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_UserToUserRole"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_UserToUserRole"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_UserToUserRole"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_UserToUserRole"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_UserToUserRole"."User_RefID" > "SchSysConfig"."TblDBObject_User"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_UserToUserRole"."User_RefID" > "SchSysConfig"."TblDBObject_User"."Sys_SID"
+Ref: "SchSysConfig"."TblMapper_UserToUserRole"."UserRole_RefID" > "SchSysConfig"."TblAppObject_UserRole"."Sys_PID"
+Ref: "SchSysConfig"."TblMapper_UserToUserRole"."UserRole_RefID" > "SchSysConfig"."TblAppObject_UserRole"."Sys_SID"
 
 
 
@@ -1218,6 +2358,10 @@ Ref: "SchData-OLTP-Master"."TblBankAccount"."Sys_BaseCurrency_RefID" > "SchData-
 Ref: "SchData-OLTP-Master"."TblBankAccount"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
 Ref: "SchData-OLTP-Master"."TblBankAccount"."Bank_RefID" > "SchData-OLTP-Master"."TblBank"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblBankAccount"."Bank_RefID" > "SchData-OLTP-Master"."TblBank"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblBankAccount"."Entity_RefID" > "SchData-OLTP-Master"."TblInstitutionBranch"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblBankAccount"."Entity_RefID" > "SchData-OLTP-Master"."TblInstitutionBranch"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblBankAccount"."Entity_RefID" > "SchData-OLTP-Master"."TblPerson"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblBankAccount"."Entity_RefID" > "SchData-OLTP-Master"."TblPerson"."Sys_SID"
 
 
 
@@ -1265,6 +2409,14 @@ Ref: "SchData-OLTP-Master"."TblBankBranch"."Sys_BaseCurrency_RefID" > "SchData-O
 Ref: "SchData-OLTP-Master"."TblBankBranch"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
 Ref: "SchData-OLTP-Master"."TblBankBranch"."Bank_RefID" > "SchData-OLTP-Master"."TblBank"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblBankBranch"."Bank_RefID" > "SchData-OLTP-Master"."TblBank"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblBankBranch"."CountryAdministrativeArea_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel1"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblBankBranch"."CountryAdministrativeArea_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel1"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblBankBranch"."CountryAdministrativeArea_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel2"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblBankBranch"."CountryAdministrativeArea_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel2"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblBankBranch"."CountryAdministrativeArea_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel3"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblBankBranch"."CountryAdministrativeArea_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel3"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblBankBranch"."CountryAdministrativeArea_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel4"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblBankBranch"."CountryAdministrativeArea_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel4"."Sys_SID"
 
 
 
@@ -1440,6 +2592,8 @@ Ref: "SchData-OLTP-Master"."TblBusinessDocumentLinkage"."Sys_Branch_RefID" > "Sc
 Ref: "SchData-OLTP-Master"."TblBusinessDocumentLinkage"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
 Ref: "SchData-OLTP-Master"."TblBusinessDocumentLinkage"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblBusinessDocumentLinkage"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblBusinessDocumentLinkage"."Table_RefID" > "SchSysConfig"."TblDBObject_Table"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblBusinessDocumentLinkage"."Table_RefID" > "SchSysConfig"."TblDBObject_Table"."Sys_SID"
 
 
 
@@ -1710,6 +2864,8 @@ TABLE "SchData-OLTP-Master"."TblCitizenFamilyCardMember"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"CitizenFamilyCard_RefID" bigint
+    "CitizenIdentity_RefID" bigint
     }
 Ref: "SchData-OLTP-Master"."TblCitizenFamilyCardMember"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblCitizenFamilyCardMember"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -1727,6 +2883,10 @@ Ref: "SchData-OLTP-Master"."TblCitizenFamilyCardMember"."Sys_Branch_RefID" > "Sc
 Ref: "SchData-OLTP-Master"."TblCitizenFamilyCardMember"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
 Ref: "SchData-OLTP-Master"."TblCitizenFamilyCardMember"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblCitizenFamilyCardMember"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblCitizenFamilyCardMember"."CitizenFamilyCard_RefID" > "SchData-OLTP-Master"."TblCitizenFamilyCard"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblCitizenFamilyCardMember"."CitizenFamilyCard_RefID" > "SchData-OLTP-Master"."TblCitizenFamilyCard"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblCitizenFamilyCardMember"."CitizenIdentity_RefID" > "SchData-OLTP-Master"."TblCitizenIdentity"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblCitizenFamilyCardMember"."CitizenIdentity_RefID" > "SchData-OLTP-Master"."TblCitizenIdentity"."Sys_SID"
 
 
 
@@ -1750,6 +2910,7 @@ TABLE "SchData-OLTP-Master"."TblCitizenFamilyRelationship"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Name" varchar(256)
     }
 Ref: "SchData-OLTP-Master"."TblCitizenFamilyRelationship"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblCitizenFamilyRelationship"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -1790,6 +2951,7 @@ TABLE "SchData-OLTP-Master"."TblCitizenGender"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Name" varchar(256)
     }
 Ref: "SchData-OLTP-Master"."TblCitizenGender"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblCitizenGender"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -1830,6 +2992,23 @@ TABLE "SchData-OLTP-Master"."TblCitizenIdentity"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Person_RefID" bigint
+	"Name" varchar(256)
+	"IdentityNumber" varchar(64)
+	"CitizenGender_RefID" bigint
+	"BirthPlace_RefID" bigint
+	"BirthDateTime" timestamp
+	"BloodAglutinogenType_RefID" bigint
+	"Religion_RefID" bigint
+	"CitizenProfession_RefID" bigint
+	"CitizenMaritalStatus_RefID" bigint
+	"AddressCountryAdministrativeAreaLevel1_RefID" bigint
+	"AddressCountryAdministrativeAreaLevel2_RefID" bigint
+	"AddressCountryAdministrativeAreaLevel3_RefID" bigint
+	"AddressCountryAdministrativeAreaLevel4_RefID" bigint
+	"Address" varchar(128)
+	"AddressHamletNumber" smallint
+	"AddressNeighbourhoodNumber" smallint
     }
 Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -1847,6 +3026,36 @@ Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."Sys_Branch_RefID" > "SchSysConf
 Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
 Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."Person_RefID" > "SchData-OLTP-Master"."TblPerson"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."Person_RefID" > "SchData-OLTP-Master"."TblPerson"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."CitizenGender_RefID" > "SchData-OLTP-Master"."TblCitizenGender"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."CitizenGender_RefID" > "SchData-OLTP-Master"."TblCitizenGender"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."BirthPlace_RefID" > "SchData-OLTP-Master"."TblCountry"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."BirthPlace_RefID" > "SchData-OLTP-Master"."TblCountry"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."BirthPlace_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel1"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."BirthPlace_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel1"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."BirthPlace_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel2"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."BirthPlace_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel2"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."BirthPlace_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel3"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."BirthPlace_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel3"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."BirthPlace_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel4"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."BirthPlace_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel4"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."BloodAglutinogenType_RefID" > "SchData-OLTP-Master"."TblBloodAglutinogenType"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."BloodAglutinogenType_RefID" > "SchData-OLTP-Master"."TblBloodAglutinogenType"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."Religion_RefID" > "SchData-OLTP-Master"."TblReligion"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."Religion_RefID" > "SchData-OLTP-Master"."TblReligion"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."CitizenProfession_RefID" > "SchData-OLTP-Master"."TblCitizenProfession"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."CitizenProfession_RefID" > "SchData-OLTP-Master"."TblCitizenProfession"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."CitizenMaritalStatus_RefID" > "SchData-OLTP-Master"."TblCitizenMaritalStatus"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."CitizenMaritalStatus_RefID" > "SchData-OLTP-Master"."TblCitizenMaritalStatus"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."AddressCountryAdministrativeAreaLevel1_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel1"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."AddressCountryAdministrativeAreaLevel1_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel1"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."AddressCountryAdministrativeAreaLevel2_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel2"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."AddressCountryAdministrativeAreaLevel2_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel2"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."AddressCountryAdministrativeAreaLevel3_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel3"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."AddressCountryAdministrativeAreaLevel3_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel3"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."AddressCountryAdministrativeAreaLevel4_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel4"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentity"."AddressCountryAdministrativeAreaLevel4_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel4"."Sys_SID"
 
 
 
@@ -1870,6 +3079,10 @@ TABLE "SchData-OLTP-Master"."TblCitizenIdentityCard"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Log_FileUpload_Pointer_RefID" bigint
+    "CitizenIdentity_RefID" bigint
+    "IssuedDate" date
+    "ExpirationDate" date
     }
 Ref: "SchData-OLTP-Master"."TblCitizenIdentityCard"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblCitizenIdentityCard"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -1887,6 +3100,10 @@ Ref: "SchData-OLTP-Master"."TblCitizenIdentityCard"."Sys_Branch_RefID" > "SchSys
 Ref: "SchData-OLTP-Master"."TblCitizenIdentityCard"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
 Ref: "SchData-OLTP-Master"."TblCitizenIdentityCard"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblCitizenIdentityCard"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentityCard"."Log_FileUpload_Pointer_RefID" > "SchData-OLTP-DataAcquisition"."TblLog_FileUpload_Pointer"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentityCard"."Log_FileUpload_Pointer_RefID" > "SchData-OLTP-DataAcquisition"."TblLog_FileUpload_Pointer"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentityCard"."CitizenIdentity_RefID" > "SchData-OLTP-Master"."TblCitizenIdentity"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblCitizenIdentityCard"."CitizenIdentity_RefID" > "SchData-OLTP-Master"."TblCitizenIdentity"."Sys_SID"
 
 
 
@@ -1910,6 +3127,7 @@ TABLE "SchData-OLTP-Master"."TblCitizenMaritalStatus"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Name" varchar(256)
     }
 Ref: "SchData-OLTP-Master"."TblCitizenMaritalStatus"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblCitizenMaritalStatus"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -1950,6 +3168,7 @@ TABLE "SchData-OLTP-Master"."TblCitizenProfession"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Name" varchar(256)
     }
 Ref: "SchData-OLTP-Master"."TblCitizenProfession"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblCitizenProfession"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -1990,6 +3209,7 @@ TABLE "SchData-OLTP-Master"."TblContactNumberType"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Name" varchar(256)
     }
 Ref: "SchData-OLTP-Master"."TblContactNumberType"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblContactNumberType"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -2030,6 +3250,8 @@ TABLE "SchData-OLTP-Master"."TblCountry"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"InternationalName" varchar(256)
+    "IndonesianName" varchar(256)
     }
 Ref: "SchData-OLTP-Master"."TblCountry"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblCountry"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -2070,6 +3292,8 @@ TABLE "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel1"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Country_RefID" bigint
+    "Name" varchar(256)
     }
 Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel1"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel1"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -2087,6 +3311,8 @@ Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel1"."Sys_Branch_RefI
 Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel1"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
 Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel1"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel1"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel1"."Country_RefID" > "SchData-OLTP-Master"."TblCountry"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel1"."Country_RefID" > "SchData-OLTP-Master"."TblCountry"."Sys_SID"
 
 
 
@@ -2110,6 +3336,8 @@ TABLE "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel2"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"CountryAdministrativeAreaLevel1_RefID" bigint
+    "Name" varchar(256)
     }
 Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel2"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel2"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -2127,6 +3355,8 @@ Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel2"."Sys_Branch_RefI
 Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel2"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
 Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel2"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel2"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel2"."CountryAdministrativeAreaLevel1_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel1"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel2"."CountryAdministrativeAreaLevel1_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel1"."Sys_SID"
 
 
 
@@ -2150,6 +3380,8 @@ TABLE "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel3"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"CountryAdministrativeAreaLevel2_RefID" bigint
+    "Name" varchar(256)
     }
 Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel3"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel3"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -2167,6 +3399,8 @@ Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel3"."Sys_Branch_RefI
 Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel3"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
 Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel3"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel3"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel3"."CountryAdministrativeAreaLevel2_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel2"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel3"."CountryAdministrativeAreaLevel2_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel2"."Sys_SID"
 
 
 
@@ -2190,6 +3424,8 @@ TABLE "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel4"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"CountryAdministrativeAreaLevel3_RefID" bigint
+    "Name" varchar(256)
     }
 Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel4"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel4"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -2207,6 +3443,8 @@ Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel4"."Sys_Branch_RefI
 Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel4"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
 Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel4"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel4"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel4"."CountryAdministrativeAreaLevel3_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel3"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel4"."CountryAdministrativeAreaLevel3_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel3"."Sys_SID"
 
 
 
@@ -2273,6 +3511,11 @@ TABLE "SchData-OLTP-Master"."TblCurrencyExchangeRateCentralBank"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Currency_RefID" bigint
+    "ExchangeRateBuy" numeric(20,5)
+    "ExchangeRateSell" numeric(20,5)
+    "ValidStartDateTimeTZ" timestamptz
+    "ValidFinishDateTimeTZ" timestamptz
     }
 Ref: "SchData-OLTP-Master"."TblCurrencyExchangeRateCentralBank"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblCurrencyExchangeRateCentralBank"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -2290,6 +3533,8 @@ Ref: "SchData-OLTP-Master"."TblCurrencyExchangeRateCentralBank"."Sys_Branch_RefI
 Ref: "SchData-OLTP-Master"."TblCurrencyExchangeRateCentralBank"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
 Ref: "SchData-OLTP-Master"."TblCurrencyExchangeRateCentralBank"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblCurrencyExchangeRateCentralBank"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblCurrencyExchangeRateCentralBank"."Currency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblCurrencyExchangeRateCentralBank"."Currency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
 
 
 
@@ -2313,6 +3558,11 @@ TABLE "SchData-OLTP-Master"."TblCurrencyExchangeRateTax"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Currency_RefID" bigint
+    "ExchangeRate" numeric(20,5)
+    "ValidStartDateTimeTZ" timestamptz
+    "ValidFinishDateTimeTZ" timestamptz
+    "RegulatorDocumentNumber" varchar
     }
 Ref: "SchData-OLTP-Master"."TblCurrencyExchangeRateTax"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblCurrencyExchangeRateTax"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -2330,6 +3580,8 @@ Ref: "SchData-OLTP-Master"."TblCurrencyExchangeRateTax"."Sys_Branch_RefID" > "Sc
 Ref: "SchData-OLTP-Master"."TblCurrencyExchangeRateTax"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
 Ref: "SchData-OLTP-Master"."TblCurrencyExchangeRateTax"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblCurrencyExchangeRateTax"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblCurrencyExchangeRateTax"."Currency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblCurrencyExchangeRateTax"."Currency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
 
 
 
@@ -2353,6 +3605,7 @@ TABLE "SchData-OLTP-Master"."TblDataCompression"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Name" varchar(256)
     }
 Ref: "SchData-OLTP-Master"."TblDataCompression"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblDataCompression"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -2393,6 +3646,10 @@ TABLE "SchData-OLTP-Master"."TblDayOffGovernmentPolicy"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Country_RefID" bigint
+    "Name" varchar(256)
+    "ValidStartDate" date
+    "ValidFinishDate" date
     }
 Ref: "SchData-OLTP-Master"."TblDayOffGovernmentPolicy"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblDayOffGovernmentPolicy"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -2410,6 +3667,8 @@ Ref: "SchData-OLTP-Master"."TblDayOffGovernmentPolicy"."Sys_Branch_RefID" > "Sch
 Ref: "SchData-OLTP-Master"."TblDayOffGovernmentPolicy"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
 Ref: "SchData-OLTP-Master"."TblDayOffGovernmentPolicy"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblDayOffGovernmentPolicy"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblDayOffGovernmentPolicy"."Country_RefID" > "SchData-OLTP-Master"."TblCountry"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblDayOffGovernmentPolicy"."Country_RefID" > "SchData-OLTP-Master"."TblCountry"."Sys_SID"
 
 
 
@@ -2433,6 +3692,10 @@ TABLE "SchData-OLTP-Master"."TblDayOffNational"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Country_RefID" bigint
+    "Name" varchar(256)
+    "ValidStartDate" date
+    "ValidFinishDate" date
     }
 Ref: "SchData-OLTP-Master"."TblDayOffNational"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblDayOffNational"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -2450,6 +3713,8 @@ Ref: "SchData-OLTP-Master"."TblDayOffNational"."Sys_Branch_RefID" > "SchSysConfi
 Ref: "SchData-OLTP-Master"."TblDayOffNational"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
 Ref: "SchData-OLTP-Master"."TblDayOffNational"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblDayOffNational"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblDayOffNational"."Country_RefID" > "SchData-OLTP-Master"."TblCountry"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblDayOffNational"."Country_RefID" > "SchData-OLTP-Master"."TblCountry"."Sys_SID"
 
 
 
@@ -2473,6 +3738,10 @@ TABLE "SchData-OLTP-Master"."TblDayOffRegional"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Regional_RefID" bigint
+    "Name" varchar(256)
+    "ValidStartDate" date
+    "ValidFinishDate" date
     }
 Ref: "SchData-OLTP-Master"."TblDayOffRegional"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblDayOffRegional"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -2490,6 +3759,14 @@ Ref: "SchData-OLTP-Master"."TblDayOffRegional"."Sys_Branch_RefID" > "SchSysConfi
 Ref: "SchData-OLTP-Master"."TblDayOffRegional"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
 Ref: "SchData-OLTP-Master"."TblDayOffRegional"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblDayOffRegional"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblDayOffRegional"."Regional_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel1"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblDayOffRegional"."Regional_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel1"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblDayOffRegional"."Regional_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel2"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblDayOffRegional"."Regional_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel2"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblDayOffRegional"."Regional_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel3"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblDayOffRegional"."Regional_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel3"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblDayOffRegional"."Regional_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel4"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblDayOffRegional"."Regional_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel4"."Sys_SID"
 
 
 
@@ -2513,6 +3790,8 @@ TABLE "SchData-OLTP-Master"."TblEntityBankAccount"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Entity_RefID" bigint
+    "BankAccount_RefID" bigint
     }
 Ref: "SchData-OLTP-Master"."TblEntityBankAccount"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblEntityBankAccount"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -2530,6 +3809,12 @@ Ref: "SchData-OLTP-Master"."TblEntityBankAccount"."Sys_Branch_RefID" > "SchSysCo
 Ref: "SchData-OLTP-Master"."TblEntityBankAccount"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
 Ref: "SchData-OLTP-Master"."TblEntityBankAccount"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblEntityBankAccount"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblEntityBankAccount"."Entity_RefID" > "SchData-OLTP-Master"."TblInstitutionBranch"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblEntityBankAccount"."Entity_RefID" > "SchData-OLTP-Master"."TblInstitutionBranch"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblEntityBankAccount"."Entity_RefID" > "SchData-OLTP-Master"."TblPerson"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblEntityBankAccount"."Entity_RefID" > "SchData-OLTP-Master"."TblPerson"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblEntityBankAccount"."BankAccount_RefID" > "SchData-OLTP-Master"."TblBankAccount"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblEntityBankAccount"."BankAccount_RefID" > "SchData-OLTP-Master"."TblBankAccount"."Sys_SID"
 
 
 
@@ -2553,6 +3838,9 @@ TABLE "SchData-OLTP-Master"."TblEntityContactNumber"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Entity_RefID" bigint
+    "ContactNumberType_RefID" bigint
+    "ContactNumber" varchar(32)
     }
 Ref: "SchData-OLTP-Master"."TblEntityContactNumber"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblEntityContactNumber"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -2570,6 +3858,108 @@ Ref: "SchData-OLTP-Master"."TblEntityContactNumber"."Sys_Branch_RefID" > "SchSys
 Ref: "SchData-OLTP-Master"."TblEntityContactNumber"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
 Ref: "SchData-OLTP-Master"."TblEntityContactNumber"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblEntityContactNumber"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblEntityContactNumber"."Entity_RefID" > "SchData-OLTP-Master"."TblInstitutionBranch"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblEntityContactNumber"."Entity_RefID" > "SchData-OLTP-Master"."TblInstitutionBranch"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblEntityContactNumber"."Entity_RefID" > "SchData-OLTP-Master"."TblPerson"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblEntityContactNumber"."Entity_RefID" > "SchData-OLTP-Master"."TblPerson"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblEntityContactNumber"."ContactNumberType_RefID" > "SchData-OLTP-Master"."TblContactNumberType"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblEntityContactNumber"."ContactNumberType_RefID" > "SchData-OLTP-Master"."TblContactNumberType"."Sys_SID"
+
+
+
+TABLE "SchData-OLTP-Master"."TblEntityEMailAccount"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [not null, unique, pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_BaseCurrency_RefID" bigint
+    "Sys_DataIntegrityShadow" varchar(32)
+	"Entity_RefID" bigint
+    "Account" varchara(256)
+    }
+Ref: "SchData-OLTP-Master"."TblEntityEMailAccount"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblEntityEMailAccount"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblEntityEMailAccount"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblEntityEMailAccount"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblEntityEMailAccount"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblEntityEMailAccount"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblEntityEMailAccount"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblEntityEMailAccount"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblEntityEMailAccount"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblEntityEMailAccount"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblEntityEMailAccount"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblEntityEMailAccount"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblEntityEMailAccount"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblEntityEMailAccount"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblEntityEMailAccount"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblEntityEMailAccount"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblEntityEMailAccount"."Entity_RefID" > "SchData-OLTP-Master"."TblInstitutionBranch"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblEntityEMailAccount"."Entity_RefID" > "SchData-OLTP-Master"."TblInstitutionBranch"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblEntityEMailAccount"."Entity_RefID" > "SchData-OLTP-Master"."TblPerson"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblEntityEMailAccount"."Entity_RefID" > "SchData-OLTP-Master"."TblPerson"."Sys_SID"
+
+
+
+
+TABLE "SchData-OLTP-Master"."TblEntitySocialMediaAccount"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [not null, unique, pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_BaseCurrency_RefID" bigint
+    "Sys_DataIntegrityShadow" varchar(32)
+	"Entity_RefID" bigint
+	"SocialMedia_RefID" bigint
+    "Account" varchar(256)
+    }
+Ref: "SchData-OLTP-Master"."TblEntitySocialMediaAccount"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblEntitySocialMediaAccount"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblEntitySocialMediaAccount"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblEntitySocialMediaAccount"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblEntitySocialMediaAccount"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblEntitySocialMediaAccount"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblEntitySocialMediaAccount"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblEntitySocialMediaAccount"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblEntitySocialMediaAccount"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblEntitySocialMediaAccount"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblEntitySocialMediaAccount"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblEntitySocialMediaAccount"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblEntitySocialMediaAccount"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblEntitySocialMediaAccount"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblEntitySocialMediaAccount"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblEntitySocialMediaAccount"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblEntitySocialMediaAccount"."Entity_RefID" > "SchData-OLTP-Master"."TblInstitutionBranch"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblEntitySocialMediaAccount"."Entity_RefID" > "SchData-OLTP-Master"."TblInstitutionBranch"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblEntitySocialMediaAccount"."Entity_RefID" > "SchData-OLTP-Master"."TblPerson"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblEntitySocialMediaAccount"."Entity_RefID" > "SchData-OLTP-Master"."TblPerson"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblEntitySocialMediaAccount"."SocialMedia_RefID" > "SchData-OLTP-Master"."TblSocialMedia"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblEntitySocialMediaAccount"."SocialMedia_RefID" > "SchData-OLTP-Master"."TblSocialMedia"."Sys_SID"
 
 
 
@@ -2593,6 +3983,10 @@ TABLE "SchData-OLTP-Master"."TblGoodsModel"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"TradeMark_RefID" bigint
+    "GoodsType_RefID" bigint
+    "ModelName" varchar(256)
+    "ModelNumber" varchar(256)
     }
 Ref: "SchData-OLTP-Master"."TblGoodsModel"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblGoodsModel"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -2610,6 +4004,10 @@ Ref: "SchData-OLTP-Master"."TblGoodsModel"."Sys_Branch_RefID" > "SchSysConfig"."
 Ref: "SchData-OLTP-Master"."TblGoodsModel"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
 Ref: "SchData-OLTP-Master"."TblGoodsModel"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblGoodsModel"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblGoodsModel"."TradeMark_RefID" > "SchData-OLTP-Master"."TblTradeMark"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblGoodsModel"."TradeMark_RefID" > "SchData-OLTP-Master"."TblTradeMark"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblGoodsModel"."GoodsType_RefID" > "SchData-OLTP-Master"."TblGoodsType"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblGoodsModel"."GoodsType_RefID" > "SchData-OLTP-Master"."TblGoodsType"."Sys_SID"
 
 
 
@@ -2633,6 +4031,7 @@ TABLE "SchData-OLTP-Master"."TblGoodsType"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Name" varchar(256)
     }
 Ref: "SchData-OLTP-Master"."TblGoodsType"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblGoodsType"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -2673,6 +4072,7 @@ TABLE "SchData-OLTP-Master"."TblHashMethod"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Name" varchar(256)
     }
 Ref: "SchData-OLTP-Master"."TblHashMethod"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblHashMethod"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -2713,6 +4113,8 @@ TABLE "SchData-OLTP-Master"."TblInstitution"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Name" varchar(256)
+    "InstitutionType_RefID" bigint
     }
 Ref: "SchData-OLTP-Master"."TblInstitution"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblInstitution"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -2730,6 +4132,8 @@ Ref: "SchData-OLTP-Master"."TblInstitution"."Sys_Branch_RefID" > "SchSysConfig".
 Ref: "SchData-OLTP-Master"."TblInstitution"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
 Ref: "SchData-OLTP-Master"."TblInstitution"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblInstitution"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblInstitution"."InstitutionType_RefID" > "SchData-OLTP-Master"."TblInstitutionType"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblInstitution"."InstitutionType_RefID" > "SchData-OLTP-Master"."TblInstitutionType"."Sys_SID"
 
 
 
@@ -2753,6 +4157,11 @@ TABLE "SchData-OLTP-Master"."TblInstitutionBranch"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Institution_RefID" bigint
+    "Name" varchar(256)
+    "Address" varchar(512)
+    "CountryAdministrativeArea_RefID" bigint
+    "PostalCode" varchar(5)
     }
 Ref: "SchData-OLTP-Master"."TblInstitutionBranch"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblInstitutionBranch"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -2770,6 +4179,16 @@ Ref: "SchData-OLTP-Master"."TblInstitutionBranch"."Sys_Branch_RefID" > "SchSysCo
 Ref: "SchData-OLTP-Master"."TblInstitutionBranch"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
 Ref: "SchData-OLTP-Master"."TblInstitutionBranch"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblInstitutionBranch"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblInstitutionBranch"."Institution_RefID" > "SchData-OLTP-Master"."TblInstitution"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblInstitutionBranch"."Institution_RefID" > "SchData-OLTP-Master"."TblInstitution"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblInstitutionBranch"."CountryAdministrativeArea_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel1"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblInstitutionBranch"."CountryAdministrativeArea_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel1"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblInstitutionBranch"."CountryAdministrativeArea_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel2"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblInstitutionBranch"."CountryAdministrativeArea_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel2"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblInstitutionBranch"."CountryAdministrativeArea_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel3"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblInstitutionBranch"."CountryAdministrativeArea_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel3"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblInstitutionBranch"."CountryAdministrativeArea_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel4"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblInstitutionBranch"."CountryAdministrativeArea_RefID" > "SchData-OLTP-Master"."TblCountryAdministrativeAreaLevel4"."Sys_SID"
 
 
 
@@ -2793,6 +4212,9 @@ TABLE "SchData-OLTP-Master"."TblInstitutionType"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Name" varchar(256)
+    "Prefix" varchar(16)
+    "Suffix" varchar(16)
     }
 Ref: "SchData-OLTP-Master"."TblInstitutionType"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblInstitutionType"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -2833,6 +4255,10 @@ TABLE "SchData-OLTP-Master"."TblMIME"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"MIME" varchar(128)
+    "FileExtension" varchar(16)
+    "Name" varchar(128)
+    "Annotation" varchar(128)
     }
 Ref: "SchData-OLTP-Master"."TblMIME"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblMIME"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -2873,6 +4299,7 @@ TABLE "SchData-OLTP-Master"."TblPaymentDisbursementMethod"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Name" varchar(32)
     }
 Ref: "SchData-OLTP-Master"."TblPaymentDisbursementMethod"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblPaymentDisbursementMethod"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -2913,6 +4340,8 @@ TABLE "SchData-OLTP-Master"."TblPaymentMethod"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Name" varchar(64)
+    "Acronym" varchar(8)
     }
 Ref: "SchData-OLTP-Master"."TblPaymentMethod"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblPaymentMethod"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -2953,6 +4382,8 @@ TABLE "SchData-OLTP-Master"."TblPaymentSource"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Name" varchar(128)
+    "BankAccount_RefID" bigint
     }
 Ref: "SchData-OLTP-Master"."TblPaymentSource"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblPaymentSource"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -2970,6 +4401,8 @@ Ref: "SchData-OLTP-Master"."TblPaymentSource"."Sys_Branch_RefID" > "SchSysConfig
 Ref: "SchData-OLTP-Master"."TblPaymentSource"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
 Ref: "SchData-OLTP-Master"."TblPaymentSource"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblPaymentSource"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblPaymentSource"."BankAccount_RefID" > "SchData-OLTP-Master"."TblBankAccount"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblPaymentSource"."BankAccount_RefID" > "SchData-OLTP-Master"."TblBankAccount"."Sys_SID"
 
 
 
@@ -2993,6 +4426,8 @@ TABLE "SchData-OLTP-Master"."TblPaymentTerm"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Name" varchar(64)
+    "Acronym" varchar(20)
     }
 Ref: "SchData-OLTP-Master"."TblPaymentTerm"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblPaymentTerm"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -3033,6 +4468,7 @@ TABLE "SchData-OLTP-Master"."TblPeriod"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Name" varchar(256)
     }
 Ref: "SchData-OLTP-Master"."TblPeriod"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblPeriod"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -3073,6 +4509,8 @@ TABLE "SchData-OLTP-Master"."TblPerson"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Name" varchar
+    "Photo_RefID" bigint
     }
 Ref: "SchData-OLTP-Master"."TblPerson"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblPerson"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -3090,86 +4528,6 @@ Ref: "SchData-OLTP-Master"."TblPerson"."Sys_Branch_RefID" > "SchSysConfig"."TblA
 Ref: "SchData-OLTP-Master"."TblPerson"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
 Ref: "SchData-OLTP-Master"."TblPerson"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblPerson"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
-
-
-
-TABLE "SchData-OLTP-Master"."TblPersonAccountEMail"
-    {
-    "Sys_PID" bigint
-    "Sys_SID" bigint
-    "Sys_RPK" bigint [not null, unique, pk]
-    "Sys_Data_Annotation" varchar(1024)
-    "Sys_Data_Entry_LoginSession_RefID" bigint
-    "Sys_Data_Entry_DateTimeTZ" timestamptz
-    "Sys_Data_Edit_LoginSession_RefID" bigint
-    "Sys_Data_Edit_DateTimeTZ" timestamptz
-    "Sys_Data_Delete_LoginSession_RefID" bigint
-    "Sys_Data_Delete_DateTimeTZ" timestamptz
-    "Sys_Data_Hidden_LoginSession_RefID" bigint
-    "Sys_Data_Hidden_DateTimeTZ" timestamptz
-    "Sys_Data_Authentication_LoginSession_RefID" bigint
-    "Sys_Data_Authentication_DateTimeTZ" timestamptz
-    "Sys_Partition_RemovableRecord_Key_RefID" bigint
-    "Sys_Branch_RefID" bigint
-    "Sys_BaseCurrency_RefID" bigint
-    "Sys_DataIntegrityShadow" varchar(32)
-    }
-Ref: "SchData-OLTP-Master"."TblPersonAccountEMail"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
-Ref: "SchData-OLTP-Master"."TblPersonAccountEMail"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
-Ref: "SchData-OLTP-Master"."TblPersonAccountEMail"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
-Ref: "SchData-OLTP-Master"."TblPersonAccountEMail"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
-Ref: "SchData-OLTP-Master"."TblPersonAccountEMail"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
-Ref: "SchData-OLTP-Master"."TblPersonAccountEMail"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
-Ref: "SchData-OLTP-Master"."TblPersonAccountEMail"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
-Ref: "SchData-OLTP-Master"."TblPersonAccountEMail"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
-Ref: "SchData-OLTP-Master"."TblPersonAccountEMail"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
-Ref: "SchData-OLTP-Master"."TblPersonAccountEMail"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
-Ref: "SchData-OLTP-Master"."TblPersonAccountEMail"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
-Ref: "SchData-OLTP-Master"."TblPersonAccountEMail"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
-Ref: "SchData-OLTP-Master"."TblPersonAccountEMail"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
-Ref: "SchData-OLTP-Master"."TblPersonAccountEMail"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
-Ref: "SchData-OLTP-Master"."TblPersonAccountEMail"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
-Ref: "SchData-OLTP-Master"."TblPersonAccountEMail"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
-
-
-
-TABLE "SchData-OLTP-Master"."TblPersonAccountSocialMedia"
-    {
-    "Sys_PID" bigint
-    "Sys_SID" bigint
-    "Sys_RPK" bigint [not null, unique, pk]
-    "Sys_Data_Annotation" varchar(1024)
-    "Sys_Data_Entry_LoginSession_RefID" bigint
-    "Sys_Data_Entry_DateTimeTZ" timestamptz
-    "Sys_Data_Edit_LoginSession_RefID" bigint
-    "Sys_Data_Edit_DateTimeTZ" timestamptz
-    "Sys_Data_Delete_LoginSession_RefID" bigint
-    "Sys_Data_Delete_DateTimeTZ" timestamptz
-    "Sys_Data_Hidden_LoginSession_RefID" bigint
-    "Sys_Data_Hidden_DateTimeTZ" timestamptz
-    "Sys_Data_Authentication_LoginSession_RefID" bigint
-    "Sys_Data_Authentication_DateTimeTZ" timestamptz
-    "Sys_Partition_RemovableRecord_Key_RefID" bigint
-    "Sys_Branch_RefID" bigint
-    "Sys_BaseCurrency_RefID" bigint
-    "Sys_DataIntegrityShadow" varchar(32)
-    }
-Ref: "SchData-OLTP-Master"."TblPersonAccountSocialMedia"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
-Ref: "SchData-OLTP-Master"."TblPersonAccountSocialMedia"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
-Ref: "SchData-OLTP-Master"."TblPersonAccountSocialMedia"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
-Ref: "SchData-OLTP-Master"."TblPersonAccountSocialMedia"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
-Ref: "SchData-OLTP-Master"."TblPersonAccountSocialMedia"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
-Ref: "SchData-OLTP-Master"."TblPersonAccountSocialMedia"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
-Ref: "SchData-OLTP-Master"."TblPersonAccountSocialMedia"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
-Ref: "SchData-OLTP-Master"."TblPersonAccountSocialMedia"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
-Ref: "SchData-OLTP-Master"."TblPersonAccountSocialMedia"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
-Ref: "SchData-OLTP-Master"."TblPersonAccountSocialMedia"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
-Ref: "SchData-OLTP-Master"."TblPersonAccountSocialMedia"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
-Ref: "SchData-OLTP-Master"."TblPersonAccountSocialMedia"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig"."TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
-Ref: "SchData-OLTP-Master"."TblPersonAccountSocialMedia"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_PID"
-Ref: "SchData-OLTP-Master"."TblPersonAccountSocialMedia"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
-Ref: "SchData-OLTP-Master"."TblPersonAccountSocialMedia"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
-Ref: "SchData-OLTP-Master"."TblPersonAccountSocialMedia"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
 
 
 
@@ -3193,6 +4551,7 @@ TABLE "SchData-OLTP-Master"."TblPersonGender"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Name" varchar(256)
     }
 Ref: "SchData-OLTP-Master"."TblPersonGender"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblPersonGender"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -3233,6 +4592,12 @@ TABLE "SchData-OLTP-Master"."TblProduct"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Name" varchar(256)
+    "ProductType_RefID" bigint
+    "QuantityUnit_RefID" bigint
+    "ValidStartDateTimeTZ" timestamptz
+    "ValidFinishDateTimeTZ" timestamptz
+    "Code" varchar(32)
     }
 Ref: "SchData-OLTP-Master"."TblProduct"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblProduct"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -3250,6 +4615,10 @@ Ref: "SchData-OLTP-Master"."TblProduct"."Sys_Branch_RefID" > "SchSysConfig"."Tbl
 Ref: "SchData-OLTP-Master"."TblProduct"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
 Ref: "SchData-OLTP-Master"."TblProduct"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblProduct"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblProduct"."ProductType_RefID" > "SchData-OLTP-Master"."TblProductType"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblProduct"."ProductType_RefID" > "SchData-OLTP-Master"."TblProductType"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblProduct"."QuantityUnit_RefID" > "SchData-OLTP-Master"."TblQuantityUnit"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblProduct"."QuantityUnit_RefID" > "SchData-OLTP-Master"."TblQuantityUnit"."Sys_SID"
 
 
 
@@ -3273,6 +4642,7 @@ TABLE "SchData-OLTP-Master"."TblProductType"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Name" varchar(256)
     }
 Ref: "SchData-OLTP-Master"."TblProductType"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblProductType"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -3313,6 +4683,7 @@ TABLE "SchData-OLTP-Master"."TblQuantityUnit"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Name" varchar(256)
     }
 Ref: "SchData-OLTP-Master"."TblQuantityUnit"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblQuantityUnit"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -3353,6 +4724,10 @@ TABLE "SchData-OLTP-Master"."TblQuantityUnitConvertion"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"BaseQuantityUnit_RefID" bigint
+    "ConvertionQuantityUnit_RefID" bigint
+    "ConvertionScale" numeric(20,10)
+    "Product_RefID" bigint
     }
 Ref: "SchData-OLTP-Master"."TblQuantityUnitConvertion"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblQuantityUnitConvertion"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -3370,6 +4745,12 @@ Ref: "SchData-OLTP-Master"."TblQuantityUnitConvertion"."Sys_Branch_RefID" > "Sch
 Ref: "SchData-OLTP-Master"."TblQuantityUnitConvertion"."Sys_Branch_RefID" > "SchSysConfig"."TblAppObject_InstitutionBranch"."Sys_SID"
 Ref: "SchData-OLTP-Master"."TblQuantityUnitConvertion"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblQuantityUnitConvertion"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblQuantityUnitConvertion"."BaseQuantityUnit_RefID" > "SchData-OLTP-Master"."TblQuantityUnit"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblQuantityUnitConvertion"."BaseQuantityUnit_RefID" > "SchData-OLTP-Master"."TblQuantityUnit"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblQuantityUnitConvertion"."ConvertionQuantityUnit_RefID" > "SchData-OLTP-Master"."TblQuantityUnit"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblQuantityUnitConvertion"."ConvertionQuantityUnit_RefID" > "SchData-OLTP-Master"."TblQuantityUnit"."Sys_SID"
+Ref: "SchData-OLTP-Master"."TblQuantityUnitConvertion"."Product_RefID" > "SchData-OLTP-Master"."TblProduct"."Sys_PID"
+Ref: "SchData-OLTP-Master"."TblQuantityUnitConvertion"."Product_RefID" > "SchData-OLTP-Master"."TblProduct"."Sys_SID"
 
 
 
@@ -3393,6 +4774,7 @@ TABLE "SchData-OLTP-Master"."TblReligion"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Name" varchar(64)
     }
 Ref: "SchData-OLTP-Master"."TblReligion"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblReligion"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -3433,6 +4815,8 @@ TABLE "SchData-OLTP-Master"."TblSocialMedia"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Name" varchar(256)
+	"Website" varchar(256)
     }
 Ref: "SchData-OLTP-Master"."TblSocialMedia"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblSocialMedia"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -3473,6 +4857,7 @@ TABLE "SchData-OLTP-Master"."TblTradeMark"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Name" varchar(256)
     }
 Ref: "SchData-OLTP-Master"."TblTradeMark"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblTradeMark"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -3513,6 +4898,7 @@ TABLE "SchData-OLTP-Master"."TblTransactionAdditionalCostType"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Name" varchar(256)
     }
 Ref: "SchData-OLTP-Master"."TblTransactionAdditionalCostType"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblTransactionAdditionalCostType"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -3553,6 +4939,7 @@ TABLE "SchData-OLTP-Master"."TblVehicleType"
     "Sys_Branch_RefID" bigint
     "Sys_BaseCurrency_RefID" bigint
     "Sys_DataIntegrityShadow" varchar(32)
+	"Name" varchar(256)
     }
 Ref: "SchData-OLTP-Master"."TblVehicleType"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchData-OLTP-Master"."TblVehicleType"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig"."TblLog_UserLoginSession"."Sys_SID"
@@ -3676,8 +5063,6 @@ Ref: "SchData-OLTP-Accounting"."TblChartOfAccountLinkage"."Linkage_RefID" > "Sch
 Ref: "SchData-OLTP-Accounting"."TblChartOfAccountLinkage"."Linkage_RefID" > "SchData-OLTP-SupplyChain"."TblSupplier"."Sys_SID"
 Ref: "SchData-OLTP-Accounting"."TblChartOfAccountLinkage"."Linkage_RefID" > "SchData-OLTP-Master"."TblEntityBankAccount"."Sys_PID"
 Ref: "SchData-OLTP-Accounting"."TblChartOfAccountLinkage"."Linkage_RefID" > "SchData-OLTP-Master"."TblEntityBankAccount"."Sys_SID"
-Ref: "SchData-OLTP-Accounting"."TblChartOfAccountLinkage"."Currency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
-Ref: "SchData-OLTP-Accounting"."TblChartOfAccountLinkage"."Currency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
 
 
 
