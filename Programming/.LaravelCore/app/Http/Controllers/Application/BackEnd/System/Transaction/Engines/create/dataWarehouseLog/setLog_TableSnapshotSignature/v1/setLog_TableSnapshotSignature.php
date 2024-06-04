@@ -3,29 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\server\system\internal\database\system       |
-|                \tableSignatureResynchronization\v1                                                                               |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\dataWarehouseLog                      |
+|                \setLog_TableSnapshotSignature\v1                                                                                 |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\server\internal\database\system\tableSignatureResynchronization\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\dataWarehouseLog\setLog_TableSnapshotSignature\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : tableSignatureResynchronization                                                                              |
-    | ▪ Description : Menangani API instruction.server.internal.database.system.tableSignatureResynchronization Version 1          |
+    | ▪ Class Name  : setLog_TableSnapshotSignature                                                                                |
+    | ▪ Description : Menangani API transaction.create.dataWarehouseLog.setLog_TableSnapshotSignature Version 1                    |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class tableSignatureResynchronization extends \App\Http\Controllers\Controller
+    class setLog_TableSnapshotSignature extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-03-28                                                                                           |
-        | ▪ Creation Date   : 2023-03-28                                                                                           |
+        | ▪ Last Update     : 2024-06-04                                                                                           |
+        | ▪ Creation Date   : 2024-06-04                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,9 +43,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-03-28                                                                                           |
-        | ▪ Creation Date   : 2023-03-28                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2024-06-04                                                                                           |
+        | ▪ Creation Date   : 2024-06-04                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -59,16 +59,29 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Reset Table Signature (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Advance Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        $varDataSend = 
-                            \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                                $varUserSession,  
-                                $this->dataProcessing($varUserSession)
-                                );
+                        if (!($varDataSend = 
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate(
+                                $varUserSession, 
+                                (new \App\Models\Database\SchData_Warehouse_Log\TblLog_TableSnapshotSignature())->setDataInsert(
+                                    $varUserSession, 
+                                    null, 
+                                    null,
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                                    \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
 
+                                    $varData['entities']['schemaName'],
+                                    $varData['entities']['tableName'],
+                                    $varData['entities']['signatureID']
+                                    )
+                                )
+                            ))
+                            {
+                            throw new \Exception();
+                            }
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
@@ -88,40 +101,5 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : dataProcessing                                                                                       |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2024-06-04                                                                                           |
-        | ▪ Creation Date   : 2023-03-28                                                                                           |
-        | ▪ Description     : Fungsi Pemrosesan Data                                                                               |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        private function dataProcessing($varUserSession)
-            {           
-            $varReturn = 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-Warehouse-Log.Func_General_SetTableSnapshotSignature',
-                        [
-                        ]
-                        )
-                    );
-
-            return
-                $varReturn['Data'][0]['Func_General_SetTableSnapshotSignature'];
-            }
         }
     }
-
-?>

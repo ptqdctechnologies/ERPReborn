@@ -124,6 +124,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
             //---> Execute only ROLE_SYNCHRONIZE_AGENT is TRUE (config\Application\BackEnd\environment.txt)
             if(strcmp(strtoupper(\App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'ROLE_SYNCHRONIZE_AGENT')), 'TRUE') == 0)
                 {
+                /*
                 //---> API Call : Central Bank Exchange Rate
                 $varFilePath = '/zhtConf/log/lastSession/scheduledTask/'.$this->varSheduleIdentity.'/jobs/transaction.synchronize.master.setCurrencyExchangeRateCentralBank';
                 shell_exec("touch ".$varFilePath);
@@ -147,6 +148,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                     [
                     ]
                     );
+                */
 
                 //---> API Call : Person Access Device Log
                 $varFilePath = '/zhtConf/log/lastSession/scheduledTask/'.$this->varSheduleIdentity.'/jobs/transaction.synchronize.dataAcquisition.setLog_Device_PersonAccess';
