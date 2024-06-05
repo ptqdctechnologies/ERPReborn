@@ -56,6 +56,29 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         */
         function main($varUserSession, $varData)
         {
+            // $userSessionID = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+            // $branchID = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($userSessionID)['branchID'];
+            // $workerCareerInternal_RefID = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($userSessionID)['userIdentity']['workerCareerInternal_RefID'];
+
+            // $varTTL = 86400; // 24 Jam
+            // // GET DATA MASTER BUDGET 
+            // $varDataListAdvanceReport =
+            //     (new \App\Models\Database\SchData_OLTP_Finance\General())->getReport_Form_DocumentForm_Advance(
+            //         $userSessionID,
+            //         $branchID,
+            //         $varData['parameter']['advance_RefID']
+            //     );
+
+            // //SET REDIS BUDGET
+
+            // \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+            //     $userSessionID,
+            //     "DataListAdvanceReport",
+            //     json_encode($varDataListAdvanceReport),
+            //     $varTTL
+            // );
+            // return [];
+
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Advance Detail Data List (version 1)');
