@@ -28,6 +28,7 @@ return array(
     'Symfony\\Contracts\\EventDispatcher\\' => array($vendorDir . '/symfony/event-dispatcher-contracts'),
     'Symfony\\Component\\VarDumper\\' => array($vendorDir . '/symfony/var-dumper'),
     'Symfony\\Component\\Uid\\' => array($vendorDir . '/symfony/uid'),
+    'Symfony\\Component\\TypeInfo\\' => array($vendorDir . '/symfony/type-info'),
     'Symfony\\Component\\Translation\\' => array($vendorDir . '/symfony/translation'),
     'Symfony\\Component\\String\\' => array($vendorDir . '/symfony/string'),
     'Symfony\\Component\\Serializer\\' => array($vendorDir . '/symfony/serializer'),

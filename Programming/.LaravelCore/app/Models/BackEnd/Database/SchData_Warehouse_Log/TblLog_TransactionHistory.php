@@ -37,5 +37,132 @@ namespace App\Models\Database\SchData_Warehouse_Log
             {
             parent::__construct(__CLASS__);
             }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setDataInsert                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-06-04                                                                                           |
+        | ▪ Creation Date   : 2024-06-04                                                                                           |
+        | ▪ Description     : Data Insert                                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
+        |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
+        |        ----------------------------------------                                                                          |
+        |      ▪ (int)    varSource_RefPID ► Source Reference PID                                                                  |
+        |      ▪ (int)    varSource_RefSID ► Source Reference SID                                                                  |
+        |      ▪ (int)    varSource_RefRPK ► Source Reference RPK                                                                  |
+        |      ▪ (string) varSource_EntryDateTimeTZ ► Source Entry DateTimeTZ                                                      |
+        |      ▪ (string) varContent ► Content                                                                                     |
+        |      ▪ (int)    varSource_RefHeaderID ► Source Reference HeaderID                                                        |
+        |      ▪ (string) varType ► Type                                                                                           |
+        |        ----------------------------------------                                                                          |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function setDataInsert(
+            $varUserSession, 
+            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
+            int $varSource_RefPID = null, int $varSource_RefSID = null, int $varSource_RefRPK = null, string $varSource_EntryDateTimeTZ = null, string $varContent = null, int $varSource_RefHeaderID = null, string $varType = null
+            )
+            {
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [null, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
+
+                            [$varSource_RefPID, 'bigint'],
+                            [$varSource_RefSID, 'bigint'],
+                            [$varSource_RefRPK, 'bigint'],
+                            [$varSource_EntryDateTimeTZ, 'timestamptz'],
+                            [$varContent, 'json'],
+                            [$varSource_RefHeaderID, 'bigint'],
+                            [$varType, 'varchar']
+                        ]
+                        )
+                    );
+
+            return $varReturn['Data'][0];
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setDataUpdate                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-06-04                                                                                           |
+        | ▪ Creation Date   : 2024-06-04                                                                                           |
+        | ▪ Description     : Data Update                                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysID ► System Record ID                                                                              |
+        |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
+        |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
+        |        ----------------------------------------                                                                          |
+        |      ▪ (int)    varSource_RefPID ► Source Reference PID                                                                  |
+        |      ▪ (int)    varSource_RefSID ► Source Reference SID                                                                  |
+        |      ▪ (int)    varSource_RefRPK ► Source Reference RPK                                                                  |
+        |      ▪ (string) varSource_EntryDateTimeTZ ► Source Entry DateTimeTZ                                                      |
+        |      ▪ (string) varContent ► Content                                                                                     |
+        |      ▪ (int)    varSource_RefHeaderID ► Source Reference HeaderID                                                        |
+        |      ▪ (string) varType ► Type                                                                                           |
+        |        ----------------------------------------                                                                          |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function setDataUpdate(
+            $varUserSession, 
+            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
+            int $varSource_RefPID = null, int $varSource_RefSID = null, int $varSource_RefRPK = null, string $varSource_EntryDateTimeTZ = null, string $varContent = null, int $varSource_RefHeaderID = null, string $varType = null
+            )
+            {
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession,
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varSysID, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
+
+                            [$varSource_RefPID, 'bigint'],
+                            [$varSource_RefSID, 'bigint'],
+                            [$varSource_RefRPK, 'bigint'],
+                            [$varSource_EntryDateTimeTZ, 'timestamptz'],
+                            [$varContent, 'json'],
+                            [$varSource_RefHeaderID, 'bigint'],
+                            [$varType, 'varchar']
+                        ]
+                        )
+                    );
+
+            return $varReturn['Data'][0];
+            }
         }
     }

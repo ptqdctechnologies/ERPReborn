@@ -18,7 +18,7 @@ use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 /**
  * @author Fabien Bourigault <bourigaultfabien@gmail.com>
  */
-final class MetadataAwareNameConverter implements AdvancedNameConverterInterface
+final class MetadataAwareNameConverter implements NameConverterInterface
 {
     /**
      * @var array<string, array<string, string|null>>
@@ -43,6 +43,10 @@ final class MetadataAwareNameConverter implements AdvancedNameConverterInterface
 
     public function normalize(string $propertyName, ?string $class = null, ?string $format = null, array $context = []): string
     {
+        $class = 1 < \func_num_args() ? func_get_arg(1) : null;
+        $format = 2 < \func_num_args() ? func_get_arg(2) : null;
+        $context = 3 < \func_num_args() ? func_get_arg(3) : [];
+
         if (null === $class) {
             return $this->normalizeFallback($propertyName, $class, $format, $context);
         }
@@ -56,6 +60,10 @@ final class MetadataAwareNameConverter implements AdvancedNameConverterInterface
 
     public function denormalize(string $propertyName, ?string $class = null, ?string $format = null, array $context = []): string
     {
+        $class = 1 < \func_num_args() ? func_get_arg(1) : null;
+        $format = 2 < \func_num_args() ? func_get_arg(2) : null;
+        $context = 3 < \func_num_args() ? func_get_arg(3) : [];
+
         if (null === $class) {
             return $this->denormalizeFallback($propertyName, $class, $format, $context);
         }
@@ -128,13 +136,16 @@ final class MetadataAwareNameConverter implements AdvancedNameConverterInterface
             }
 
             $metadataGroups = $metadata->getGroups();
-            $contextGroups = (array) ($context[AbstractNormalizer::GROUPS] ?? []);
 
-            if ($contextGroups && !$metadataGroups) {
+            $contextGroups = (array) ($context[AbstractNormalizer::GROUPS] ?? []);
+            $contextGroupsHasBeenDefined = [] !== $contextGroups;
+            $contextGroups = array_merge($contextGroups, ['Default', (false !== $nsSep = strrpos($class, '\\')) ? substr($class, $nsSep + 1) : $class]);
+
+            if ($contextGroupsHasBeenDefined && !$metadataGroups) {
                 continue;
             }
 
-            if ($metadataGroups && !array_intersect($metadataGroups, $contextGroups) && !\in_array('*', $contextGroups, true)) {
+            if ($metadataGroups && !array_intersect(array_merge($metadataGroups, ['*']), $contextGroups)) {
                 continue;
             }
 

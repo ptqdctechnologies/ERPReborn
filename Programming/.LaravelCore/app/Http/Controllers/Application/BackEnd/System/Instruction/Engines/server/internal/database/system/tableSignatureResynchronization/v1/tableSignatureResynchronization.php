@@ -94,8 +94,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : dataProcessing                                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-03-28                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2024-06-04                                                                                           |
         | ▪ Creation Date   : 2023-03-28                                                                                           |
         | ▪ Description     : Fungsi Pemrosesan Data                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -108,17 +108,18 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
         private function dataProcessing($varUserSession)
             {           
             $varReturn = 
-                App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        'SchSysConfig.FuncSys_General_SetTableSnapshotSignature',
+                        'SchData-Warehouse-Log.Func_General_SetTableSnapshotSignature',
                         [
                         ]
                         )
                     );
 
-            return $varReturn['Data'][0]['FuncSys_General_SetTableSnapshotSignature'];
+            return
+                $varReturn['Data'][0]['Func_General_SetTableSnapshotSignature'];
             }
         }
     }

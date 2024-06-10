@@ -119,6 +119,16 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
     public const REQUIRE_ALL_PROPERTIES = 'require_all_properties';
 
     /**
+     * Flag to control whether a non-boolean value should be filtered using the
+     * filter_var function with the {@see https://www.php.net/manual/fr/filter.filters.validate.php}
+     * \FILTER_VALIDATE_BOOL filter before casting it to a boolean.
+     *
+     * "0", "false", "off", "no" and "" will be cast to false.
+     * "1", "true", "on" and "yes" will be cast to true.
+     */
+    public const FILTER_BOOL = 'filter_bool';
+
+    /**
      * @internal
      */
     protected const CIRCULAR_REFERENCE_LIMIT_COUNTERS = 'circular_reference_limit_counters';
@@ -213,11 +223,17 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
             return false;
         }
 
+        $classMetadata = $this->classMetadataFactory->getMetadataFor($classOrObject);
+        $class = $classMetadata->getName();
+
         $groups = $this->getGroups($context);
+        $groupsHasBeenDefined = [] !== $groups;
+        $groups = array_merge($groups, ['Default', (false !== $nsSep = strrpos($class, '\\')) ? substr($class, $nsSep + 1) : $class]);
 
         $allowedAttributes = [];
         $ignoreUsed = false;
-        foreach ($this->classMetadataFactory->getMetadataFor($classOrObject)->getAttributesMetadata() as $attributeMetadata) {
+
+        foreach ($classMetadata->getAttributesMetadata() as $attributeMetadata) {
             if ($ignore = $attributeMetadata->isIgnored()) {
                 $ignoreUsed = true;
             }
@@ -225,14 +241,14 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
             // If you update this check, update accordingly the one in Symfony\Component\PropertyInfo\Extractor\SerializerExtractor::getProperties()
             if (
                 !$ignore
-                && ([] === $groups || array_intersect(array_merge($attributeMetadata->getGroups(), ['*']), $groups))
+                && (!$groupsHasBeenDefined || array_intersect(array_merge($attributeMetadata->getGroups(), ['*']), $groups))
                 && $this->isAllowedAttribute($classOrObject, $name = $attributeMetadata->getName(), null, $context)
             ) {
                 $allowedAttributes[] = $attributesAsString ? $name : $attributeMetadata;
             }
         }
 
-        if (!$ignoreUsed && [] === $groups && $allowExtraAttributes) {
+        if (!$ignoreUsed && !$groupsHasBeenDefined && $allowExtraAttributes) {
             // Backward Compatibility with the code using this method written before the introduction of @Ignore
             return false;
         }
@@ -253,7 +269,7 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
     protected function isAllowedAttribute(object|string $classOrObject, string $attribute, ?string $format = null, array $context = []): bool
     {
         $ignoredAttributes = $context[self::IGNORED_ATTRIBUTES] ?? $this->defaultContext[self::IGNORED_ATTRIBUTES];
-        if (\in_array($attribute, $ignoredAttributes)) {
+        if (\in_array($attribute, $ignoredAttributes, true)) {
             return false;
         }
 
@@ -326,7 +342,7 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
                 $attributeContext = $this->getAttributeDenormalizationContext($class, $paramName, $context);
                 $key = $this->nameConverter ? $this->nameConverter->normalize($paramName, $class, $format, $context) : $paramName;
 
-                $allowed = false === $allowedAttributes || \in_array($paramName, $allowedAttributes);
+                $allowed = false === $allowedAttributes || \in_array($paramName, $allowedAttributes, true);
                 $ignored = !$this->isAllowedAttribute($class, $paramName, $format, $context);
                 if ($constructorParameter->isVariadic()) {
                     if ($allowed && !$ignored && (isset($data[$key]) || \array_key_exists($key, $data))) {
@@ -385,7 +401,7 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
 
                     $exception = NotNormalizableValueException::createForUnexpectedDataType(
                         sprintf('Failed to create object because the class misses the "%s" property.', $constructorParameter->name),
-                        $data,
+                        null,
                         [$constructorParameterType],
                         $attributeContext['deserialization_path'] ?? null,
                         true
@@ -430,12 +446,7 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
         unset($context['has_constructor']);
 
         if (!$reflectionClass->isInstantiable()) {
-            throw NotNormalizableValueException::createForUnexpectedDataType(
-                sprintf('Failed to create object because the class "%s" is not instantiable.', $class),
-                $data,
-                ['unknown'],
-                $context['deserialization_path'] ?? null
-            );
+            throw NotNormalizableValueException::createForUnexpectedDataType(sprintf('Failed to create object because the class "%s" is not instantiable.', $class), $data, ['unknown'], $context['deserialization_path'] ?? null);
         }
 
         return new $class();
@@ -467,7 +478,9 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
             return null;
         }
 
-        return $this->applyCallbacks($parameterData, $class->getName(), $parameterName, $format, $context);
+        $parameterData = $this->applyCallbacks($parameterData, $class->getName(), $parameterName, $format, $context);
+
+        return $this->applyFilterBool($parameter, $parameterData, $context);
     }
 
     /**
@@ -516,6 +529,19 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
         $callback = $context[self::CALLBACKS][$attribute] ?? $this->defaultContext[self::CALLBACKS][$attribute] ?? null;
 
         return $callback ? $callback($value, $object, $attribute, $format, $context) : $value;
+    }
+
+    final protected function applyFilterBool(\ReflectionParameter $parameter, mixed $value, array $context): mixed
+    {
+        if (!($context[self::FILTER_BOOL] ?? false)) {
+            return $value;
+        }
+
+        if (!($parameterType = $parameter->getType()) instanceof \ReflectionNamedType || 'bool' !== $parameterType->getName()) {
+            return $value;
+        }
+
+        return filter_var($value, \FILTER_VALIDATE_BOOL, \FILTER_NULL_ON_FAILURE) ?? $value;
     }
 
     /**

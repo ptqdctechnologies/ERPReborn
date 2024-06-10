@@ -254,7 +254,7 @@ class Request
         $request = self::createRequestFromFactory($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
 
         if (str_starts_with($request->headers->get('CONTENT_TYPE', ''), 'application/x-www-form-urlencoded')
-            && \in_array(strtoupper($request->server->get('REQUEST_METHOD', 'GET')), ['PUT', 'DELETE', 'PATCH'])
+            && \in_array(strtoupper($request->server->get('REQUEST_METHOD', 'GET')), ['PUT', 'DELETE', 'PATCH'], true)
         ) {
             parse_str($request->getContent(), $data);
             $request->request = new InputBag($data);
@@ -1048,7 +1048,7 @@ class Request
 
         $https = $this->server->get('HTTPS');
 
-        return !empty($https) && 'off' !== strtolower($https);
+        return $https && 'off' !== strtolower($https);
     }
 
     /**
@@ -1090,7 +1090,7 @@ class Request
         if (\count(self::$trustedHostPatterns) > 0) {
             // to avoid host header injection attacks, you should provide a list of trusted host patterns
 
-            if (\in_array($host, self::$trustedHosts)) {
+            if (\in_array($host, self::$trustedHosts, true)) {
                 return $host;
             }
 
@@ -1221,10 +1221,10 @@ class Request
         }
 
         foreach (static::$formats as $format => $mimeTypes) {
-            if (\in_array($mimeType, (array) $mimeTypes)) {
+            if (\in_array($mimeType, (array) $mimeTypes, true)) {
                 return $format;
             }
-            if (null !== $canonicalMimeType && \in_array($canonicalMimeType, (array) $mimeTypes)) {
+            if (null !== $canonicalMimeType && \in_array($canonicalMimeType, (array) $mimeTypes, true)) {
                 return $format;
             }
         }
@@ -1528,28 +1528,29 @@ class Request
     {
         $preferredLanguages = $this->getLanguages();
 
-        if (empty($locales)) {
+        if (!$locales) {
             return $preferredLanguages[0] ?? null;
         }
 
+        $locales = array_map($this->formatLocale(...), $locales ?? []);
         if (!$preferredLanguages) {
             return $locales[0];
         }
 
-        $extendedPreferredLanguages = [];
-        foreach ($preferredLanguages as $language) {
-            $extendedPreferredLanguages[] = $language;
-            if (false !== $position = strpos($language, '_')) {
-                $superLanguage = substr($language, 0, $position);
-                if (!\in_array($superLanguage, $preferredLanguages)) {
-                    $extendedPreferredLanguages[] = $superLanguage;
+        if ($matches = array_intersect($preferredLanguages, $locales)) {
+            return current($matches);
+        }
+
+        $combinations = array_merge(...array_map($this->getLanguageCombinations(...), $preferredLanguages));
+        foreach ($combinations as $combination) {
+            foreach ($locales as $locale) {
+                if (str_starts_with($locale, $combination)) {
+                    return $locale;
                 }
             }
         }
 
-        $preferredLanguages = array_values(array_intersect($extendedPreferredLanguages, $locales));
-
-        return $preferredLanguages[0] ?? $locales[0];
+        return $locales[0];
     }
 
     /**
@@ -1567,30 +1568,89 @@ class Request
         $this->languages = [];
         foreach ($languages as $acceptHeaderItem) {
             $lang = $acceptHeaderItem->getValue();
-            if (str_contains($lang, '-')) {
-                $codes = explode('-', $lang);
-                if ('i' === $codes[0]) {
-                    // Language not listed in ISO 639 that are not variants
-                    // of any listed language, which can be registered with the
-                    // i-prefix, such as i-cherokee
-                    if (\count($codes) > 1) {
-                        $lang = $codes[1];
-                    }
-                } else {
-                    for ($i = 0, $max = \count($codes); $i < $max; ++$i) {
-                        if (0 === $i) {
-                            $lang = strtolower($codes[0]);
-                        } else {
-                            $lang .= '_'.strtoupper($codes[$i]);
-                        }
-                    }
-                }
-            }
-
-            $this->languages[] = $lang;
+            $this->languages[] = $this->formatLocale($lang);
         }
+        $this->languages = array_unique($this->languages);
 
         return $this->languages;
+    }
+
+    /**
+     * Strips the locale to only keep the canonicalized language value.
+     *
+     * Depending on the $locale value, this method can return values like :
+     * - language_Script_REGION: "fr_Latn_FR", "zh_Hans_TW"
+     * - language_Script: "fr_Latn", "zh_Hans"
+     * - language_REGION: "fr_FR", "zh_TW"
+     * - language: "fr", "zh"
+     *
+     * Invalid locale values are returned as is.
+     *
+     * @see https://wikipedia.org/wiki/IETF_language_tag
+     * @see https://datatracker.ietf.org/doc/html/rfc5646
+     */
+    private static function formatLocale(string $locale): string
+    {
+        [$language, $script, $region] = self::getLanguageComponents($locale);
+
+        return implode('_', array_filter([$language, $script, $region]));
+    }
+
+    /**
+     * Returns an array of all possible combinations of the language components.
+     *
+     * For instance, if the locale is "fr_Latn_FR", this method will return:
+     * - "fr_Latn_FR"
+     * - "fr_Latn"
+     * - "fr_FR"
+     * - "fr"
+     *
+     * @return string[]
+     */
+    private static function getLanguageCombinations(string $locale): array
+    {
+        [$language, $script, $region] = self::getLanguageComponents($locale);
+
+        return array_unique([
+            implode('_', array_filter([$language, $script, $region])),
+            implode('_', array_filter([$language, $script])),
+            implode('_', array_filter([$language, $region])),
+            $language,
+        ]);
+    }
+
+    /**
+     * Returns an array with the language components of the locale.
+     *
+     * For example:
+     * - If the locale is "fr_Latn_FR", this method will return "fr", "Latn", "FR"
+     * - If the locale is "fr_FR", this method will return "fr", null, "FR"
+     * - If the locale is "zh_Hans", this method will return "zh", "Hans", null
+     *
+     * @see https://wikipedia.org/wiki/IETF_language_tag
+     * @see https://datatracker.ietf.org/doc/html/rfc5646
+     *
+     * @return array{string, string|null, string|null}
+     */
+    private static function getLanguageComponents(string $locale): array
+    {
+        $locale = str_replace('_', '-', strtolower($locale));
+        $pattern = '/^([a-zA-Z]{2,3}|i-[a-zA-Z]{5,})(?:-([a-zA-Z]{4}))?(?:-([a-zA-Z]{2}))?(?:-(.+))?$/';
+        if (!preg_match($pattern, $locale, $matches)) {
+            return [$locale, null, null];
+        }
+        if (str_starts_with($matches[1], 'i-')) {
+            // Language not listed in ISO 639 that are not variants
+            // of any listed language, which can be registered with the
+            // i-prefix, such as i-cherokee
+            $matches[1] = substr($matches[1], 2);
+        }
+
+        return [
+            $matches[1],
+            isset($matches[2]) ? ucfirst(strtolower($matches[2])) : null,
+            isset($matches[3]) ? strtoupper($matches[3]) : null,
+        ];
     }
 
     /**
@@ -1759,7 +1819,7 @@ class Request
         }
 
         $basename = basename($baseUrl ?? '');
-        if (empty($basename) || !strpos(rawurldecode($truncatedRequestUri), $basename)) {
+        if (!$basename || !strpos(rawurldecode($truncatedRequestUri), $basename)) {
             // no match whatsoever; set it blank
             return '';
         }
@@ -1780,7 +1840,7 @@ class Request
     protected function prepareBasePath(): string
     {
         $baseUrl = $this->getBaseUrl();
-        if (empty($baseUrl)) {
+        if (!$baseUrl) {
             return '';
         }
 

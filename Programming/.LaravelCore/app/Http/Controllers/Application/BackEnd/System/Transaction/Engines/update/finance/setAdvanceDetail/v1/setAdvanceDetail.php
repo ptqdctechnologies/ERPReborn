@@ -61,25 +61,30 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Update Advance Detail Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\TblAdvanceDetail())->setDataUpdate(
-                            $varUserSession,
-                            $varData['recordID'],
-                            null,
-                            null,
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
+                    try {
+                        if (!($varDataSend = 
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate(
+                                $varUserSession, 
+                                (new \App\Models\Database\SchData_OLTP_Finance\TblAdvanceDetail())->setDataUpdate(
+                                    $varUserSession,
+                                    $varData['recordID'],
+                                    null,
+                                    null,
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                                    \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
 
-                            $varData['entities']['advance_RefID'],
-                            $varData['entities']['combinedBudgetSectionDetail_RefID'],
-                            $varData['entities']['product_RefID'],
-                            $varData['entities']['quantity'],
-                            $varData['entities']['quantityUnit_RefID'],
-                            $varData['entities']['productUnitPriceCurrency_RefID'],
-                            $varData['entities']['productUnitPriceCurrencyValue'],
-                            $varData['entities']['productUnitPriceCurrencyExchangeRate'],
-                            $varData['entities']['remarks']
-                            ))))
+                                    $varData['entities']['advance_RefID'],
+                                    $varData['entities']['combinedBudgetSectionDetail_RefID'],
+                                    $varData['entities']['product_RefID'],
+                                    $varData['entities']['quantity'],
+                                    $varData['entities']['quantityUnit_RefID'],
+                                    $varData['entities']['productUnitPriceCurrency_RefID'],
+                                    $varData['entities']['productUnitPriceCurrencyValue'],
+                                    $varData['entities']['productUnitPriceCurrencyExchangeRate'],
+                                    $varData['entities']['remarks']
+                                    )
+                                )
+                            ))
                             {
                             throw new \Exception();
                             }

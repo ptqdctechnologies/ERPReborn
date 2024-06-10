@@ -18,7 +18,7 @@ use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Cache\Adapter\ApcuAdapter;
 use Symfony\Component\Cache\Adapter\NullAdapter;
 use Symfony\Component\PropertyAccess\Exception\AccessException;
-use Symfony\Component\PropertyAccess\Exception\InvalidArgumentException;
+use Symfony\Component\PropertyAccess\Exception\InvalidTypeException;
 use Symfony\Component\PropertyAccess\Exception\NoSuchIndexException;
 use Symfony\Component\PropertyAccess\Exception\NoSuchPropertyException;
 use Symfony\Component\PropertyAccess\Exception\UnexpectedTypeException;
@@ -59,7 +59,6 @@ class PropertyAccessor implements PropertyAccessorInterface
     private const CACHE_PREFIX_PROPERTY_PATH = 'p';
     private const RESULT_PROTO = [self::VALUE => null];
 
-    private int $magicMethodsFlags;
     private bool $ignoreInvalidIndices;
     private bool $ignoreInvalidProperty;
     private ?CacheItemPoolInterface $cacheItemPool;
@@ -79,9 +78,13 @@ class PropertyAccessor implements PropertyAccessorInterface
      * @param int $throw        A bitwise combination of the THROW_* constants
      *                          to specify when exceptions should be thrown
      */
-    public function __construct(int $magicMethods = self::MAGIC_GET | self::MAGIC_SET, int $throw = self::THROW_ON_INVALID_PROPERTY_PATH, ?CacheItemPoolInterface $cacheItemPool = null, ?PropertyReadInfoExtractorInterface $readInfoExtractor = null, ?PropertyWriteInfoExtractorInterface $writeInfoExtractor = null)
-    {
-        $this->magicMethodsFlags = $magicMethods;
+    public function __construct(
+        private int $magicMethodsFlags = self::MAGIC_GET | self::MAGIC_SET,
+        int $throw = self::THROW_ON_INVALID_PROPERTY_PATH,
+        ?CacheItemPoolInterface $cacheItemPool = null,
+        ?PropertyReadInfoExtractorInterface $readInfoExtractor = null,
+        ?PropertyWriteInfoExtractorInterface $writeInfoExtractor = null,
+    ) {
         $this->ignoreInvalidIndices = 0 === ($throw & self::THROW_ON_INVALID_INDEX);
         $this->cacheItemPool = $cacheItemPool instanceof NullAdapter ? null : $cacheItemPool; // Replace the NullAdapter by the null value
         $this->ignoreInvalidProperty = 0 === ($throw & self::THROW_ON_INVALID_PROPERTY_PATH);
@@ -192,12 +195,12 @@ class PropertyAccessor implements PropertyAccessorInterface
         if (preg_match('/^\S+::\S+\(\): Argument #\d+ \(\$\S+\) must be of type (\S+), (\S+) given/', $message, $matches)) {
             [, $expectedType, $actualType] = $matches;
 
-            throw new InvalidArgumentException(sprintf('Expected argument of type "%s", "%s" given at property path "%s".', $expectedType, 'NULL' === $actualType ? 'null' : $actualType, $propertyPath), 0, $previous);
+            throw new InvalidTypeException($expectedType, $actualType, $propertyPath, $previous);
         }
         if (preg_match('/^Cannot assign (\S+) to property \S+::\$\S+ of type (\S+)$/', $message, $matches)) {
             [, $actualType, $expectedType] = $matches;
 
-            throw new InvalidArgumentException(sprintf('Expected argument of type "%s", "%s" given at property path "%s".', $expectedType, 'NULL' === $actualType ? 'null' : $actualType, $propertyPath), 0, $previous);
+            throw new InvalidTypeException($expectedType, $actualType, $propertyPath, $previous);
         }
     }
 
@@ -214,9 +217,7 @@ class PropertyAccessor implements PropertyAccessorInterface
             $this->readPropertiesUntil($zval, $propertyPath, $propertyPath->getLength(), $this->ignoreInvalidIndices);
 
             return true;
-        } catch (AccessException) {
-            return false;
-        } catch (UnexpectedTypeException) {
+        } catch (AccessException|UnexpectedTypeException) {
             return false;
         }
     }
@@ -249,9 +250,7 @@ class PropertyAccessor implements PropertyAccessorInterface
             }
 
             return true;
-        } catch (AccessException) {
-            return false;
-        } catch (UnexpectedTypeException) {
+        } catch (AccessException|UnexpectedTypeException) {
             return false;
         }
     }

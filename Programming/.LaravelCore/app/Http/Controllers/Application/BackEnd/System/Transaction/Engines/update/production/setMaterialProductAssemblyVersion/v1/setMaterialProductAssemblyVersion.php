@@ -4,20 +4,20 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\production                            |
-|                \setMaterialProductAssembly\v1                                                                                    |
+|                \setMaterialProductAssemblyVersion\v1                                                                             |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\production\setMaterialProductAssembly\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\production\setMaterialProductAssemblyVersion\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setMaterialProductAssembly                                                                                   |
-    | ▪ Description : Menangani API transaction.update.production.setMaterialProductAssembly Version 1                             |
+    | ▪ Class Name  : setMaterialProductAssemblyVersion                                                                            |
+    | ▪ Description : Menangani API transaction.update.production.setMaterialProductAssemblyVersion Version 1                      |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setMaterialProductAssembly extends \App\Http\Controllers\Controller
+    class setMaterialProductAssemblyVersion extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

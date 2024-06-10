@@ -46,6 +46,76 @@
                         "type": [ "integer", "null" ],
                         "minimum": 0,
                         "maximum": 32767
+                        },
+                    "additionalData": {
+                        "anyOf": [
+                                {"type": "null"},
+                                {
+                                "type": "object",
+                                "properties": {
+                                    "itemList": {                                    
+                                        "type": "object",
+                                        "properties": {
+                                            "items": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "entities" :
+                                                            {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "billOfMaterial_RefID": {
+                                                                    "type": [ "integer", "null" ],
+                                                                    "minimum": 1,
+                                                                    "maximum": 9223372036854775807
+                                                                    },
+                                                                 "materialProduct_RefID": {
+                                                                    "type": [ "integer", "null" ],
+                                                                    "minimum": 1,
+                                                                    "maximum": 9223372036854775807
+                                                                    },
+                                                                 "quantity": {
+                                                                    "type": [ "number", "null" ]
+                                                                    },
+                                                                 "unitPriceCurrency_RefID": {
+                                                                    "type": [ "integer", "null" ],
+                                                                    "minimum": 1,
+                                                                    "maximum": 9223372036854775807
+                                                                    },
+                                                                 "unitPriceCurrencyValue": {
+                                                                    "type": [ "number" ]
+                                                                    },
+                                                                 "unitPriceCurrencyExchangeRate": {
+                                                                    "type": [ "number" ]
+                                                                    }
+                                                                },
+                                                            "required": [
+                                                                "billOfMaterial_RefID",
+                                                                "materialProduct_RefID",
+                                                                "quantity",
+                                                                "unitPriceCurrency_RefID",
+                                                                "unitPriceCurrencyValue",
+                                                                "unitPriceCurrencyExchangeRate"
+                                                                ]
+                                                            }
+                                                        },
+                                                    "required": [ 
+                                                        "entities"
+                                                        ]
+                                                    }
+                                                }
+                                            },
+                                        "required": [ 
+                                            "items"
+                                            ]
+                                        }
+                                    },
+                                "required": [ 
+                                    "itemList"
+                                    ]
+                                }
+                            ]
                         }
                     },
                 "required": [
