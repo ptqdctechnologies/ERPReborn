@@ -3183,6 +3183,8 @@ return array(
     'Aws\\PaymentCryptography\\PaymentCryptographyClient' => $vendorDir . '/aws/aws-sdk-php/src/PaymentCryptography/PaymentCryptographyClient.php',
     'Aws\\PcaConnectorAd\\Exception\\PcaConnectorAdException' => $vendorDir . '/aws/aws-sdk-php/src/PcaConnectorAd/Exception/PcaConnectorAdException.php',
     'Aws\\PcaConnectorAd\\PcaConnectorAdClient' => $vendorDir . '/aws/aws-sdk-php/src/PcaConnectorAd/PcaConnectorAdClient.php',
+    'Aws\\PcaConnectorScep\\Exception\\PcaConnectorScepException' => $vendorDir . '/aws/aws-sdk-php/src/PcaConnectorScep/Exception/PcaConnectorScepException.php',
+    'Aws\\PcaConnectorScep\\PcaConnectorScepClient' => $vendorDir . '/aws/aws-sdk-php/src/PcaConnectorScep/PcaConnectorScepClient.php',
     'Aws\\PersonalizeEvents\\Exception\\PersonalizeEventsException' => $vendorDir . '/aws/aws-sdk-php/src/PersonalizeEvents/Exception/PersonalizeEventsException.php',
     'Aws\\PersonalizeEvents\\PersonalizeEventsClient' => $vendorDir . '/aws/aws-sdk-php/src/PersonalizeEvents/PersonalizeEventsClient.php',
     'Aws\\PersonalizeRuntime\\Exception\\PersonalizeRuntimeException' => $vendorDir . '/aws/aws-sdk-php/src/PersonalizeRuntime/Exception/PersonalizeRuntimeException.php',

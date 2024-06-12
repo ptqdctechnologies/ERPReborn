@@ -3838,6 +3838,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Aws\\PaymentCryptography\\PaymentCryptographyClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PaymentCryptography/PaymentCryptographyClient.php',
         'Aws\\PcaConnectorAd\\Exception\\PcaConnectorAdException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PcaConnectorAd/Exception/PcaConnectorAdException.php',
         'Aws\\PcaConnectorAd\\PcaConnectorAdClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PcaConnectorAd/PcaConnectorAdClient.php',
+        'Aws\\PcaConnectorScep\\Exception\\PcaConnectorScepException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PcaConnectorScep/Exception/PcaConnectorScepException.php',
+        'Aws\\PcaConnectorScep\\PcaConnectorScepClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PcaConnectorScep/PcaConnectorScepClient.php',
         'Aws\\PersonalizeEvents\\Exception\\PersonalizeEventsException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PersonalizeEvents/Exception/PersonalizeEventsException.php',
         'Aws\\PersonalizeEvents\\PersonalizeEventsClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PersonalizeEvents/PersonalizeEventsClient.php',
         'Aws\\PersonalizeRuntime\\Exception\\PersonalizeRuntimeException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PersonalizeRuntime/Exception/PersonalizeRuntimeException.php',
