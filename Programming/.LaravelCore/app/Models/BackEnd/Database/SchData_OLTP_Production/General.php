@@ -34,11 +34,13 @@ namespace App\Models\Database\SchData_OLTP_Production
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataEntities_MaterialProduct($varUserSession, 
+        public function getDataEntities_MaterialProduct(
+            $varUserSession, 
             string $varIDSet)
             {
             try {
-                $varFunctionName='SchData-OLTP-Production.Func_GetDataEntities_MaterialProduct';
+                $varFunctionName = 'SchData-OLTP-Production.Func_GetDataEntities_MaterialProduct';
+
                 $varTemp =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                         $varUserSession, 
@@ -90,7 +92,8 @@ namespace App\Models\Database\SchData_OLTP_Production
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_BillOfMaterial($varUserSession, int $varBranchID, 
+        public function getDataList_BillOfMaterial(
+            $varUserSession, int $varBranchID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -142,7 +145,8 @@ namespace App\Models\Database\SchData_OLTP_Production
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_BillOfMaterialDetail($varUserSession, int $varBranchID, 
+        public function getDataList_BillOfMaterialDetail(
+            $varUserSession, int $varBranchID, 
             int $varBillOfMaterial_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
@@ -191,7 +195,8 @@ namespace App\Models\Database\SchData_OLTP_Production
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataPickList_BillOfMaterial($varUserSession, int $varBranchID)
+        public function getDataPickList_BillOfMaterial(
+            $varUserSession, int $varBranchID)
             {
             try {
                 $varReturn =
@@ -236,7 +241,8 @@ namespace App\Models\Database\SchData_OLTP_Production
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_MaterialProductAssembly($varUserSession, int $varBranchID, 
+        public function getDataList_MaterialProductAssembly(
+            $varUserSession, int $varBranchID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -287,7 +293,8 @@ namespace App\Models\Database\SchData_OLTP_Production
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_MaterialProductAssemblyVersion($varUserSession, int $varBranchID, 
+        public function getDataList_MaterialProductAssemblyVersion(
+            $varUserSession, int $varBranchID, 
             int $varMaterialProductAssembly_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
@@ -340,7 +347,8 @@ namespace App\Models\Database\SchData_OLTP_Production
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_MaterialProductComponent($varUserSession, int $varBranchID, 
+        public function getDataList_MaterialProductComponent(
+            $varUserSession, int $varBranchID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -366,7 +374,5 @@ namespace App\Models\Database\SchData_OLTP_Production
                 return [];
                 }
             }
-            
-            
         }
     }

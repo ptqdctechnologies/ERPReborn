@@ -33,7 +33,8 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (string) varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getAPIWebToken_SysEngine($varUserSession)
+        public function getAPIWebToken_SysEngine(
+            $varUserSession)
             {
             $varReturn = 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -45,6 +46,7 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
             return $varReturn['Data'][0]['FuncSys_General_GetAPIWebToken_SysEngine'];
             }
             
@@ -89,6 +91,7 @@ namespace App\Models\Database\SchSysConfig
                             ]
                             )
                         );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -133,6 +136,7 @@ namespace App\Models\Database\SchSysConfig
                             ]
                             )
                         );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -280,12 +284,15 @@ namespace App\Models\Database\SchSysConfig
                             ]
                             )
                         );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
                 return [];
                 }
             }
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getWorkFlowPathOfBusinessDocument                                                                    |
@@ -314,6 +321,7 @@ namespace App\Models\Database\SchSysConfig
                         $varBusinessDocument_RefID.'::bigint'.
                         ');'
                     );
+
             return (int) $varReturn['Data'][0]['Func_General_GetWorkFlowPathOfBusinessDocument'];   
             }
 
@@ -346,6 +354,7 @@ namespace App\Models\Database\SchSysConfig
                         $varBranchID.'::bigint'.
                         ');'
                     );
+
             return (int) $varReturn['Data'][0]['FuncSys_General_GetParameterValue_App'];            
             }
 
@@ -390,6 +399,7 @@ namespace App\Models\Database\SchSysConfig
                             ]
                             )
                         );                
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -435,6 +445,7 @@ namespace App\Models\Database\SchSysConfig
                             ]
                             )
                         );                
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -479,6 +490,7 @@ namespace App\Models\Database\SchSysConfig
                             ]
                             )
                         );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -506,6 +518,7 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
             return $varReturn['Data'][0]['Func_Device_PersonAccess_GetLastRecordDateTimeTZ'];
             }
 
@@ -542,6 +555,7 @@ namespace App\Models\Database\SchSysConfig
                 'SELECT (SELECT NOW() AT TIME ZONE \''.$varTimeZoneNames.'\') || \''.$varUTCOffset.'\' AS "Result";'
                 //'SET TIMEZONE=\'Asia/Jakarta\'; SELECT NOW()::timestamptz;'
                 );
+
             return $varReturn['Data'][0]['Result'];
             }
 
@@ -571,6 +585,7 @@ namespace App\Models\Database\SchSysConfig
                     //'SELECT DATE_PART(\'YEAR\', (SELECT NOW() AT TIME ZONE \'Asia/Jakarta\')::timestamptz);'
                     //'SET TIMEZONE=\'Asia/Jakarta\'; SELECT DATE_PART(\'YEAR\', NOW());'
                     );
+
             return (int) $varReturn['Data'][0]['date_part'];
             }
 
@@ -615,6 +630,7 @@ namespace App\Models\Database\SchSysConfig
                         $varUserSession, 
                         $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]);
                     }
+
                 return $varReturn;
                 }
             catch (\Exception $ex) {
@@ -658,6 +674,7 @@ namespace App\Models\Database\SchSysConfig
                             ]
                             )
                         );                
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -702,6 +719,7 @@ namespace App\Models\Database\SchSysConfig
                             ]
                             )
                         );                
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -746,6 +764,7 @@ namespace App\Models\Database\SchSysConfig
                             ]
                             )
                         );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -790,6 +809,7 @@ namespace App\Models\Database\SchSysConfig
                             ]
                             )
                         );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -822,6 +842,7 @@ namespace App\Models\Database\SchSysConfig
                     $varUserSession,
                     'SELECT "SchSysConfig"."FuncSys_General_GetReferenceTEXTByReferenceID"('.$varID.'::bigint);'
                     );
+
             return $varReturn['Data'][0]['FuncSys_General_GetReferenceTEXTByReferenceID'];
             }
 
@@ -891,8 +912,7 @@ namespace App\Models\Database\SchSysConfig
                             '.$varUserID.'::bigint,
                             '.$varBranchID.'::bigint,
                             '.$varUserRoleID.'::bigint
-                            )
-                    '
+                            )                    '
                     );
             
             return
@@ -926,6 +946,7 @@ namespace App\Models\Database\SchSysConfig
                     $varUserSession,
                     'SELECT DATE_PART(\'YEAR\', \''.($varDate ? $varDate : $this->getCurrentDateTimeTZ($varUserSession)).'\'::timestamptz);'
                     );
+
             return (int) $varReturn['Data'][0]['date_part'];
             }
 
@@ -964,10 +985,12 @@ namespace App\Models\Database\SchSysConfig
                             ]
                             )
                         );
+
                 $varReturn = [
                     'workFlowVersion_SysID' => $varReturnTemp['Data'][0]['BaseWorkFlowVersion_SysID'],
                     'version' => $varReturnTemp['Data'][0]['BaseVersion']
                     ];
+
                 return $varReturn;
                 }
             catch (\Exception $ex) {
@@ -1007,6 +1030,7 @@ namespace App\Models\Database\SchSysConfig
                     );
 
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBooleanConvertion($varUserSession, $varData['Data'][0]['FuncSys_General_GetExistantionOnSystem_APIWebToken']);
+
             return $varReturn;
             }
 
@@ -1056,6 +1080,7 @@ namespace App\Models\Database\SchSysConfig
                     );
 
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBooleanConvertion($varUserSession, $varReturn['Data'][0]['Sign']);
+
             return $varReturn;
             }
 
@@ -1104,6 +1129,7 @@ namespace App\Models\Database\SchSysConfig
                             ]
                             )
                         );
+
                 return $varReturn['Data'][0];
                 }
             catch (\Exception $ex) {
@@ -1147,6 +1173,7 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
             return $varReturn['Data'][0]['FuncSys_General_SetUserSessionBranchAndUserRole'];
             }
 
@@ -1196,6 +1223,7 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
             return $varReturn['Data'];
             }
 
@@ -1211,6 +1239,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -1240,6 +1269,7 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
             return $varReturn['Data'];
             }
 
@@ -1289,6 +1319,7 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
             return $varReturn['Data'];
             }
 
@@ -1338,6 +1369,7 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
             return $varReturn['Data'];
             }
 
@@ -1353,6 +1385,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -1382,6 +1415,7 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
             return $varReturn['Data'];
             }
 
@@ -1431,6 +1465,7 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
             return $varReturn['Data'];
             }
 
@@ -1480,6 +1515,7 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
             return $varReturn['Data'];
             }
 
@@ -1495,6 +1531,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -1524,6 +1561,7 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
             return $varReturn['Data'];
             }
 
@@ -1573,6 +1611,7 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
             for($i=0, $iMax=count($varReturn['Data']); $i!=$iMax; $i++)
                 {
                 $varReturn['Data'][$i]['AlternativeItemList'] = 
@@ -1580,12 +1619,14 @@ namespace App\Models\Database\SchSysConfig
                         $varUserSession, 
                         $varReturn['Data'][$i]['AlternativeItemList']
                         );
+
                 $varReturn['Data'][$i]['NextApproverPath'] = 
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
                         $varReturn['Data'][$i]['NextApproverPath']
                         );
                 }
+
             return $varReturn['Data'];
             }
 
@@ -1635,6 +1676,7 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
             return $varReturn['Data'];
             }
 
@@ -1684,6 +1726,7 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
             return $varReturn['Data'];
             }
 
@@ -1735,6 +1778,7 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
             for($i=0, $iMax=count($varReturn['Data']); $i!=$iMax; $i++)
                 {
                 $varReturn['Data'][$i]['AlternativeItemList'] = 
@@ -1764,6 +1808,7 @@ namespace App\Models\Database\SchSysConfig
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ------------------------------                                                                                      |
+        |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -1792,6 +1837,7 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
             return $varReturn['Data'];
             }
 
@@ -1823,6 +1869,7 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
             return $varReturn['Data'];
             }
 
@@ -1873,6 +1920,7 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
             return $varReturn['Data'];
             }
 
@@ -1888,6 +1936,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -1914,6 +1963,7 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
             return $varReturn['Data'];
             }
 
@@ -1952,6 +2002,7 @@ namespace App\Models\Database\SchSysConfig
                         'SchSysConfig.Func_GetDataList_RotateLog_FileUploadStagingAreaDetail',
                         [
                             [$varRotateLog_FileUploadStagingArea_RefRPK, 'bigint' ],
+
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
                             [$varFilterStatement, 'varchar'],
@@ -1959,6 +2010,7 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
             return $varReturn['Data'];
             }
 
@@ -1993,6 +2045,7 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
             return $varReturn['Data'];
             }
 
@@ -2025,6 +2078,7 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
             return $varReturn['Data'][0]['FuncSys_General_GetUserIDByName'];
             }
 
@@ -2059,6 +2113,7 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
             return $varReturn['Data'];
             }
 
@@ -2093,6 +2148,7 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
             return $varReturn['Data'];            
             }
 
@@ -2119,6 +2175,7 @@ namespace App\Models\Database\SchSysConfig
                     $varUserSession, 
                     $varSQL
                     );
+
             return $varReturn;
             }
 
@@ -2152,6 +2209,7 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
             return $varReturn;
             }
 
@@ -2190,6 +2248,7 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
             return $varReturn;
             }
 
@@ -2256,6 +2315,7 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
             return $varReturn['Data'][0]['FuncSys_General_SetUserSessionLogout'];
             }
 
@@ -2289,6 +2349,7 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
             return $varReturn;
             }
 
@@ -2327,6 +2388,7 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
             return $varReturn;
             }
             
@@ -2360,6 +2422,7 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
             return $varReturn;
             }
         }
