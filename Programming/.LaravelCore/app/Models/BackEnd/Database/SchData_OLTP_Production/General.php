@@ -52,7 +52,7 @@ namespace App\Models\Database\SchData_OLTP_Production
                                     [$varIDSet, 'bigint[]']
                                 ]
                             )
-                        ); 
+                        );
 
                 for ($i=0; $i!=count($varTemp['Data']); $i++)
                     {
@@ -179,48 +179,6 @@ namespace App\Models\Database\SchData_OLTP_Production
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataPickList_BillOfMaterial                                                                       |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-10-12                                                                                           |
-        | ▪ Creation Date   : 2021-10-12                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Pilihan Data Bill Of Material                                                     |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
-        |      ------------------------------                                                                                      |
-        |      ------------------------------                                                                                      |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDataPickList_BillOfMaterial(
-            $varUserSession, int $varBranchID)
-            {
-            try {
-                $varReturn =
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                            $varUserSession,
-                            'SchData-OLTP-Production.Func_GetDataPickList_BillOfMaterial',
-                            [
-                                [$varBranchID, 'bigint' ]
-                            ]
-                            )
-                        );
-
-                return $varReturn['Data'];
-                }
-            catch (\Exception $ex) {
-                return [];
-                }
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataList_MaterialProductAssembly                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -254,6 +212,7 @@ namespace App\Models\Database\SchData_OLTP_Production
                             'SchData-OLTP-Production.Func_GetDataList_MaterialProductAssembly',
                             [
                                 [$varBranchID, 'bigint' ],
+
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
                                 [$varFilterStatement, 'varchar'],
@@ -270,7 +229,7 @@ namespace App\Models\Database\SchData_OLTP_Production
             }
 
 
-       /*
+        /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataList_MaterialProductAssemblyVersion                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -374,5 +333,49 @@ namespace App\Models\Database\SchData_OLTP_Production
                 return [];
                 }
             }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_BillOfMaterial                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-10-12                                                                                           |
+        | ▪ Creation Date   : 2021-10-12                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Bill Of Material                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ------------------------------                                                                                      |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_BillOfMaterial(
+            $varUserSession, int $varBranchID)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Production.Func_GetDataPickList_BillOfMaterial',
+                            [
+                                [$varBranchID, 'bigint' ]
+                            ]
+                            )
+                        );
+
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
         }
     }

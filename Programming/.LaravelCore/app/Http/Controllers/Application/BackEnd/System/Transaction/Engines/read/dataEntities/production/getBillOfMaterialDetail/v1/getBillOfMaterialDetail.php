@@ -62,13 +62,18 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Bill Of Material Detail Data Entities (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Production\TblBillOfMaterialDetail())->getDataEntities(
-                            $varUserSession, 
-                            
-                            $varData['parameter']['recordIDSet'],
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID']
-                            ))))
+                    try {
+                        if (!($varDataSend =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
+                                $varUserSession,
+                                (new \App\Models\Database\SchData_OLTP_Production\TblBillOfMaterialDetail())->getDataEntities(
+                                    $varUserSession, 
+
+                                    $varData['parameter']['recordIDSet'],
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID']
+                                    )
+                                )
+                            ))
                             {
                             throw new \Exception();
                             }
