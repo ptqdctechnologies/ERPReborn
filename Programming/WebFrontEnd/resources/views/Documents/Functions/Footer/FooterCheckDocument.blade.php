@@ -186,19 +186,3 @@
     });
     // }z
 </script>
-
-<!-- <script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    $.ajax({
-        type: 'GET',
-        url: '{!! route("CheckDocument.FileAttachmentCheckDocument") !!}?businessDocumentForm_RefID=' + id,
-        success: function(data) {
-            console.log("test");
-        }
-    });
-</script> -->

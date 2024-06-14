@@ -442,7 +442,6 @@
                             data: form_data,
                             type: method,
                             success: function(response) {
-                                console.log(response);
                                 if (response.message == "WorkflowError") {
                                     HideLoading();
                                     $("#submitArf").prop("disabled", false);
@@ -520,7 +519,8 @@
             confirmButtonColor: '#e9ecef',
             reverseButtons: true
         }).then((result) => {
-            if (result.value) {
+            console.log(result.value);
+            // if (result.value) {
 
                 ShowLoading();
 
@@ -547,7 +547,7 @@
                 }
                 
 
-            }
+            // }
         })
 
     }

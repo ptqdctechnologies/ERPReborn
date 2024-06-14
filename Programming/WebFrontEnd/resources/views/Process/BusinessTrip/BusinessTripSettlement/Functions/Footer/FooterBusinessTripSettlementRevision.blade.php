@@ -675,7 +675,7 @@
     }
 </script>
 
-<script>
+<!-- <script>
     $(function() {
         $("#FormStoreBusinessTripSettlementRevision").on("submit", function(e) {
             e.preventDefault();
@@ -773,4 +773,257 @@
         });
 
     });
+</script> -->
+
+
+
+<script>
+    $(function() {
+        $("#FormStoreBusinessTripSettlementRevision").on("submit", function(e) { //id of form 
+            e.preventDefault();
+
+            // MANDATORY VALIDATION
+            var MandatoryListVar = new Object();
+            MandatoryListVar['remark'] = $("#remark").val();
+
+            var MandatoryListCount = MandatoryListFunction(MandatoryListVar);
+            // // END MANDATORY VALIDATION
+
+            if (MandatoryListCount == 0) {
+                $("#SubmitBsfList").prop("disabled", true);
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    confirmButtonClass: 'btn btn-success btn-sm',
+                    cancelButtonClass: 'btn btn-danger btn-sm',
+                    buttonsStyling: true,
+                })
+
+                swalWithBootstrapButtons.fire({
+
+                    title: 'Are you sure?',
+                    text: "Save this data?",
+                    type: 'question',
+
+                    showCancelButton: true,
+                    confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
+                    cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
+                    confirmButtonColor: '#e9ecef',
+                    cancelButtonColor: '#e9ecef',
+                    reverseButtons: true
+                }).then((result) => {
+
+                    if (result.value) {
+
+                        var action = $(this).attr("action"); //get submit action from form
+                        var method = $(this).attr("method"); // get submit method
+                        var form_data = new FormData($(this)[0]); // convert form into formdata 
+                        var form = $(this);
+
+                        ShowLoading();
+
+                        $.ajax({
+                            url: action,
+                            dataType: 'json', // what to expect back from the server
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            data: form_data,
+                            type: method,
+                            success: function(response) {
+                                if (response.message == "WorkflowError") {
+                                    HideLoading();
+                                    $("#SubmitBsfList").prop("disabled", false);
+                                    // CALL FUNCTION DO NOT HAVE ACCESS NOTIF
+                                    CancelNotif("You don't have access", '/BusinessTripSettlement?var=1');
+                                } else if (response.message == "MoreThanOne") {
+
+                                    HideLoading();
+
+                                    $('#getWorkFlow').modal('toggle');
+
+                                    var t = $('#tableGetWorkFlow').DataTable();
+                                    t.clear();
+                                    $.each(response.data, function(key, val) {
+                                        t.row.add([
+                                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                                            '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+                                        ]).draw();
+                                    });
+
+                                } else {
+
+                                    HideLoading();
+
+                                    SelectWorkFlow(response.workFlowPath_RefID, response.nextApprover_RefID, response.approverEntity_RefID, response.documentTypeID);
+
+                                }
+                            },
+
+                            error: function(response) {
+                                HideLoading();
+                                $("#SubmitBsfList").prop("disabled", false);
+                                // CALL FUNCTION DO NOT HAVE ACCESS NOTIF
+                                CancelNotif("You don't have access", '/BusinessTripSettlement?var=1');
+
+                            },
+
+                        })
+
+
+                    } else if (
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                        HideLoading();
+                        // FUNCTION ERROR NOTIFICATION 
+                        CancelNotif("Data Cancel Inputed", '/BusinessTripSettlement?var=1');
+                    }
+                })
+            }
+        });
+    });
+</script>
+
+<script>
+    function SelectWorkFlow(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, documentTypeID) {
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        })
+
+        swalWithBootstrapButtons.fire({
+
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
+            showCancelButton: false,
+            focusConfirm: false,
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            confirmButtonColor: '#4B586A',
+            confirmButtonColor: '#e9ecef',
+            reverseButtons: true
+        }).then((result) => {
+            // if (result.value) {
+
+                ShowLoading();
+                var fileAttachment = null;
+                var file = $("#dataInput_Log_FileUpload_Pointer_RefID_Action").val();
+                if (file) {
+
+                    setTimeout(function() {
+
+                        varFileUpload_UniqueID = "Upload";
+                        window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
+                        fileAttachment = $("#dataInput_Log_FileUpload_Pointer_RefID").val();
+                        if (fileAttachment != null) {
+
+                            BusinessTripSettlementRevision(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, fileAttachment, documentTypeID, result.value);
+
+                        }
+                    }, 20);
+                } else {
+
+                    BusinessTripSettlementRevision(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, fileAttachment, documentTypeID, result.value);
+
+                }
+
+
+            // }
+        })
+
+    }
+</script>
+
+<script type="text/javascript">
+    function BusinessTripSettlementRevision(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, fileAttachment, documentTypeID, comment) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var data = {
+            workFlowPath_RefID: workFlowPath_RefID,
+            nextApprover_RefID: nextApprover_RefID,
+            approverEntity_RefID: approverEntity_RefID,
+            fileAttachment: fileAttachment,
+            documentTypeID: documentTypeID,
+            comment: comment
+
+        };
+
+        $.ajax({
+            type: 'POST',
+            data: data,
+            url: '{!! route("AdvanceRequest.store") !!}',
+            success: function(data) {
+
+                HideLoading();
+                if (data.status == 200) {
+
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    })
+
+                    swalWithBootstrapButtons.fire({
+
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + data.documentNumber + '</span>',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        ShowLoading();
+                        window.location.href = '/BusinessTripSettlement?var=1';
+                    })
+                } else {
+                    ErrorNotif("Data Cancel Inputed");
+                }
+
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                // FUNCTION ERROR NOTIFICATION 
+                ErrorNotif("Data Cancel Inputed");
+            }
+        });
+    }
+</script>
+
+<script>
+    $(function() {
+        $(".idExpense").on('click', function(e) {
+            $("#amountdueto").hide();
+            $("#expense").show();
+            $("#expenseCompanyCart").show();
+            $(".expenseCompanyCart").show();
+        });
+    });
+
+    $(function() {
+        $(".idAmount").on('click', function(e) {
+            $("#expense").hide();
+            $("#amountCompanyCart").show();
+            $(".amountCompanyCart").show();
+            $("#amountdueto").show();
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    function CancelBusinessTripSettlement() {
+        ShowLoading();
+        
+        location.reload();
+    }
 </script>

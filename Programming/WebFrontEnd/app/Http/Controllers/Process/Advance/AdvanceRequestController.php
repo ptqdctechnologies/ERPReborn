@@ -150,13 +150,12 @@ class AdvanceRequestController extends Controller
     // REVISION FUNCTION FOR SHOW LIST DATA FILTER BY ID 
     public function RevisionAdvanceIndex(Request $request)
     {
-        // try {
+        try {
 
-            $advance_RefID = $request->advance_RefID;
+            $advance_RefID = $request->input('advance_RefID');
             $varAPIWebToken = Session::get('SessionLogin');
 
             // DATA REVISION ADVANCE
-            // if (Redis::get("DataListAdvanceDetailComplex") == null) {
             $filteredArray = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
@@ -185,10 +184,10 @@ class AdvanceRequestController extends Controller
                 'statusFinalApprove' => "No",
             ];
             return view('Process.Advance.AdvanceRequest.Transactions.RevisionAdvanceRequest', $compact);
-        // } catch (\Throwable $th) {
-        //     Log::error("Error at " . $th->getMessage());
-        //     return redirect()->back()->with('NotFound', 'Process Error');
-        // }
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 
     // UPDATE FUNCTION

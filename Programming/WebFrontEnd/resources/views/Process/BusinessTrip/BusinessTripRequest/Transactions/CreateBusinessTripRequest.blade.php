@@ -58,8 +58,9 @@
                     <div class="card-body file-attachment">
                       <div class="row">
                         <div class="col-md-12">
-                          <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID">
-                          <input type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" name="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" onchange="javascript: @php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataInput_Log_FileUpload_Pointer_RefID_Action', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord'); @endphp;" />
+                          <!-- 91000000000247 -->
+                          <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID" hidden>
+                          <input type="file" class="dataInput_Log_FileUpload_Pointer_RefID_Action" id="dataInput_Log_FileUpload_Pointer_RefID_Action" name="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" onchange="javascript: @php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataInput_Log_FileUpload_Pointer_RefID_Action', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord'); @endphp;" />
                         </div>
                         <br><br>
                         <div class="col-md-12">
@@ -99,7 +100,7 @@
                         <div class="form-group">
                           <table>
                             <tr>
-                              <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Requester</label></td>
+                              <td style="padding-top: 5px;"><label>Requester</label></td>
                               <td>
                                 <div class="input-group">
                                   <input name="requester" id="requester" style="border-radius:0;" type="text" class="col-4 form-control" readonly>

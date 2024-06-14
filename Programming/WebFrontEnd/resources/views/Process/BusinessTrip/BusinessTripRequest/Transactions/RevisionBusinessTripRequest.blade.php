@@ -18,11 +18,11 @@
       </div>
       @include('Process.BusinessTrip.BusinessTripRequest.Functions.Menu.MenuBusinessTripRequest')
       <div class="card" style="position:relative;bottom:10px;">
-        <form method="post" enctype="multipart/form-data" action="{{ route('BusinessTripRequest.update', $var_recordID) }}" id="FormSubmitBusinessTrip">
+        <form method="post" enctype="multipart/form-data" action="{{ route('BusinessTripRequest.update', $dataHeader['recordID'] ) }}" id="FormSubmitBusinessTrip">
           @csrf
           @method('PUT')
-          <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
-          <input id="trano" style="border-radius:0;" name="trano" class="form-control" type="hidden" value="{{ $trano }}">
+          <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $dataHeader['recordID'] }}" class="form-control" type="hidden">
+          <input id="trano" style="border-radius:0;" name="trano" class="form-control" type="hidden" value="{{ $dataHeader['number'] }}">
 
           <div class="tab-content p-3" id="nav-tabContent">
             <div class="row">
@@ -31,7 +31,7 @@
                 <div class="card">
                   <div class="card-header">
                     <label class="card-title">
-                      Add New Business Request Trip Form
+                      Business Request Trip Form Revision
                     </label>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -62,7 +62,7 @@
                     <div class="card-body file-attachment">
                       <div class="row">
                         <div class="col-md-12">
-                          <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID">
+                          <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="{{ $dataContent['attachmentFiles']['main']['log_FileUpload_Pointer_RefID'] }}" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID" hidden>
                           <input type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" name="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" onchange="javascript: @php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataInput_Log_FileUpload_Pointer_RefID_Action', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord'); @endphp;" />
                         </div>
                         <br><br>
@@ -106,8 +106,8 @@
                               <td><label>Requester</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input name="request_name" id="request_name" style="border-radius:0;" type="text" class="form-control" readonly value="{{ $dataRevisi['involvedPersons'][0]['requesterWorkerJobsPositionName']  }}">
-                                  <input name="request_name_id" id="request_name_id" style="border-radius:0;" type="hidden" class="form-control" readonly value="{{ $dataRevisi['involvedPersons'][0]['requesterWorkerJobsPosition_RefID'] }}">
+                                  <input name="request_name" id="request_name" style="border-radius:0;" type="text" class="form-control" readonly value="{{ $dataContent['involvedPersons'][0]['requesterWorkerName']  }}">
+                                  <input name="request_name_id" id="request_name_id" style="border-radius:0;" type="hidden" class="form-control" readonly value="{{ $dataContent['involvedPersons'][0]['requesterWorkerJobsPosition_RefID'] }}">
                                   <input name="var_combinedBudget" id="combinedBudget" style="border-radius:0;" type="hidden" class="form-control" readonly>
                                   <div class="input-group-append">
                                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -118,7 +118,7 @@
                               </td>
                               <td>
                                 <div class="input-group">
-                                  <input id="request_position" style="border-radius:0;" class="form-control" name="request_position" readonly value="{{ $dataRevisi['involvedPersons'][0]['beneficiaryWorkerJobsPositionName']  }}">
+                                  <input id="request_position" style="border-radius:0;" class="form-control" name="request_position" readonly value="{{ $dataContent['involvedPersons'][0]['beneficiaryWorkerName']  }}">
                                 </div>
                               </td>
                             </tr>
@@ -126,7 +126,7 @@
                               <td><label>Contact Phone</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="contactPhone" name="contactPhone" style="border-radius:0;" type="text" class="form-control" value="{{ $dataRevisi['involvedPersons'][0]['beneficiaryWorkerJobsPosition_RefID'] }}">
+                                  <input id="contactPhone" name="contactPhone" style="border-radius:0;" type="text" class="form-control" value="{{ $dataContent['involvedPersons'][0]['requesterWorkerName'] }}">
                                 </div>
                               </td>
                             </tr>
@@ -134,7 +134,7 @@
                               <td><label>Date Commance Travel</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="dateCommance" name="dateCommance" style="border-radius:0;" type="date" class="form-control">
+                                  <input id="dateCommance" name="dateCommance" style="border-radius:0;" type="date" class="form-control" value="{{ $dataHeader['date'] }}">
                                 </div>
                               </td>
                             </tr>
@@ -142,7 +142,7 @@
                               <td><label>Date End Travel</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="dateEnd" name="dateEnd" style="border-radius:0;" type="date" class="form-control">
+                                  <input id="dateEnd" name="dateEnd" style="border-radius:0;" type="date" class="form-control" value="{{ $dataHeader['date'] }}">
                                 </div>
                               </td>
                             </tr>
@@ -150,7 +150,7 @@
                               <td><label>Head Station Location</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="headStationLocation" name="headStationLocation" style="border-radius:0;" type="text" class="form-control">
+                                  <input id="headStationLocation" name="headStationLocation" style="border-radius:0;" type="text" class="form-control" value="{{ $dataContent['involvedPersons'][0]['beneficiaryWorkerName'] }}">
                                 </div>
                               </td>
                             </tr>
@@ -164,13 +164,13 @@
                           <tr>
                             <td><label>Business Trip Location</label></td>
                             <td>
-                              <textarea id="bussinesLocation" name="bussinesLocation" style="border-radius:0;" cols="30" rows="3" class="form-control"></textarea>
+                              <textarea id="bussinesLocation" name="bussinesLocation" style="border-radius:0;" cols="30" rows="3" class="form-control">{{ $dataContent['involvedPersons'][0]['beneficiaryWorkerName'] }}</textarea>
                             </td>
                           </tr>
                           <tr>
                             <td><label>Reason To Travel</label></td>
                             <td>
-                              <textarea id="reasonTravel" name="reasonTravel" style="border-radius:0;" cols="30" rows="3" class="form-control"></textarea>
+                              <textarea id="reasonTravel" name="reasonTravel" style="border-radius:0;" cols="30" rows="3" class="form-control">{{ $dataContent['involvedPersons'][0]['beneficiaryWorkerName'] }}</textarea>
                             </td>
                           </tr>
                         </table>
@@ -180,7 +180,7 @@
                 </div>
               </div>
             </div>
-            
+
             <nav class="w-100">
               <div class="nav nav-tabs" id="product-tab" role="tablist">
                 <a class="nav-item nav-link active idFollowingCondition" id="product-comments-tab" data-toggle="tab" href="#followingCondition" role="tab" aria-controls="product-comments" aria-selected="true"><span style="font-weight:bold;padding:10px;color:#212529;">The following condition</span></a>&nbsp;&nbsp;&nbsp;
