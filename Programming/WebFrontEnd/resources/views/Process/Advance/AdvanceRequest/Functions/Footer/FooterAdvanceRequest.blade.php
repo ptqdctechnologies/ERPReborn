@@ -593,7 +593,7 @@
             confirmButtonColor: '#e9ecef',
             reverseButtons: true
         }).then((result) => {
-            if (result.value) {
+            // if (result.value) {
 
                 ShowLoading();
                 var fileAttachment = null;
@@ -618,7 +618,7 @@
                 }
 
 
-            }
+            // }
         })
 
     }

@@ -20,12 +20,12 @@ class Controller_Main extends \App\Http\Controllers\Controller
     public function testAja3()
         {
         $varData =
-            (new \App\Models\Database\SchData_OLTP_Finance\General())->getReport_Form_DocumentForm_Advance(
+            (new \App\Models\Database\SchSysConfig\General())->getBusinessDocumentWorkFlowPathApprovementHistory(
                 6000000000001,
                 11000000000004,
-                76000000000246
+                74000000020766
             );
-        dd($varData);
+            dd($varData);
         
         }
         

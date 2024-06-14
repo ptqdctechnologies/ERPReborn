@@ -22,37 +22,37 @@
             <tr>
               <td><label>Advance Number</label></td>
               <td>:</td>
-              <td>{{ $data['dataHeader']['DocumentNumber'] }}</td>
+              <td>{{ $data['dataHeader']['number'] }}</td>
             </tr>
             <tr>
               <td><label>Budget</label></td>
               <td>:</td>
-              <td>{{ $data['dataHeader']['CombinedBudgetCode'] }} - {{ $data['dataHeader']['CombinedBudgetName'] }}</td>
+              <td>{{ $data['dataContent']['budget']['combinedBudgetCodeList'][0] }} - {{ $data['dataContent']['budget']['combinedBudgetNameList'][0] }}</td>
             </tr>
             <tr>
               <td><label>Sub Budget</label></td>
               <td>:</td>
-              <td>{{ $data['dataHeader']['CombinedBudgetSectionCode'] }} - {{ $data['dataHeader']['CombinedBudgetSectionName'] }}</td>
+              <td>{{ $data['dataContent']['budget']['combinedBudgetSectionCodeList'][0] }} - {{ $data['dataContent']['budget']['combinedBudgetSectionNameList'][0] }}</td>
             </tr>
             <tr>
               <td><label>Date</label></td>
               <td>:</td>
-              <td>{{ date("d-m-Y", strtotime($data['dataHeader']['Date'])) }}</td>
+              <td>{{ date("d-m-Y", strtotime($data['dataHeader']['date'])) }}</td>
             </tr>
             <tr>
               <td><label>Currency</label></td>
               <td>:</td>
-              <td>{{ $data['dataHeader']['ProductUnitPriceCurrencyISOCode'] }}</td>
+              <td>{{ $data['dataDetail'][0]['entities']['priceCurrencyISOCode'] }}</td>
             </tr>
             <tr>
               <td><label>Requester</label></td>
               <td>:</td>
-              <td>{{ $data['dataHeader']['RequesterWorkerName'] }}</td>
+              <td>{{ $data['dataContent']['involvedPersons'][0]['requesterWorkerName'] }}</td>
             </tr>
             <tr>
               <td><label>Beneficiary</label></td>
               <td>:</td>
-              <td>{{ $data['dataHeader']['BeneficiaryWorkerName'] }}</td>
+              <td>{{ $data['dataContent']['involvedPersons'][0]['requesterWorkerName'] }}</td>
             </tr>
           </table>
 
@@ -67,12 +67,12 @@
             <tr>
               <td>Bank Name</td>
               <td>:</td>
-              <td>{{ $data['dataHeader']['BankAcronym'] }} - {{ $data['dataHeader']['BankName'] }}</td>
+              <td>{{ $data['dataContent']['bankAccount']['beneficiary']['bankAcronym'] }} - {{ $data['dataContent']['bankAccount']['beneficiary']['bankName'] }}</td>
             </tr>
             <tr>
               <td>Bank Account</td>
               <td>:</td>
-              <td>{{ $data['dataHeader']['BankAccountNumber'] }} - {{ $data['dataHeader']['BankAccountName'] }}</td>
+              <td>{{ $data['dataContent']['bankAccount']['beneficiary']['bankAccountNumber'] }} - {{ $data['dataContent']['bankAccount']['beneficiary']['bankAccountName'] }}</td>
             </tr>
           </table>
 
@@ -99,14 +99,14 @@
                     </thead>
                     @php $no = 1; $total = 0; @endphp
                     @foreach($data['dataDetail'] as $dataDetails)
-                    @php $total += $dataDetails['PriceBaseCurrencyValue'] @endphp
+                    @php $total += $dataDetails['entities']['priceBaseCurrencyValue'] @endphp
                     <tbody>
                       <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $no++ }}</td>
-                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetails['Product_RefID'] }}</td>
-                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetails['ProductName'] }}</td>
-                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ number_format($dataDetails['Quantity'],2) }}</td>
-                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ number_format($dataDetails['ProductUnitPriceBaseCurrencyValue'],2) }}</td>
-                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ number_format($dataDetails['PriceBaseCurrencyValue'],2) }}</td>
+                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetails['entities']['product_RefID'] }}</td>
+                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetails['entities']['productName'] }}</td>
+                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ number_format($dataDetails['entities']['quantity'],2) }}</td>
+                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ number_format($dataDetails['entities']['productUnitPriceBaseCurrencyValue'],2) }}</td>
+                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ number_format($dataDetails['entities']['priceBaseCurrencyValue'],2) }}</td>
                     </tbody>
                     @endforeach
                     <tfoot>

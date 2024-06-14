@@ -89,6 +89,11 @@
           statusForm[key] = "";
         }
 
+        var allowance = value.productUnitPriceBaseCurrencyValue;
+        var accomodation = value.productUnitPriceBaseCurrencyValue;
+        var other = value.productUnitPriceBaseCurrencyValue;
+        var totalReq = +allowance + +accomodation + +other;
+
         var html =
           '<tr>' +
           // '<input name="getWorkId[]" value="' + value.combinedBudgetSubSectionLevel1_RefID + '" type="hidden">' +
@@ -124,20 +129,19 @@
           '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_value2' + key + '">' + currencyTotal(value.quantity * value.productUnitPriceBaseCurrencyValue) + '</span>' + '</td>' +
           '<td style="border:1px solid #e9ecef;">' + '<span id="total_payment' + key + '">' + currencyTotal(TotalPayment) + '</span>' + '</td>' +
 
-          '<td class="sticky-col fifth-col-brf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="allowance_req' + key + '" style="border-radius:0;" name="allowance_req[]" class="form-control allowance_req" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[key] + 'value="' + currencyTotal(value.productUnitPriceBaseCurrencyValue) + '">' + '</td>' +
-          '<td class="sticky-col forth-col-brf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="accomodation_req' + key + '" style="border-radius:0;" name="accomodation_req[]" class="form-control accomodation_req" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[key] + 'value="' + currencyTotal(value.productUnitPriceBaseCurrencyValue) + '">' + '</td>' +
-          '<td class="sticky-col third-col-brf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="other_req' + key + '" style="border-radius:0;" name="other_req[]" class="form-control total_req" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[key] + 'value="' + currencyTotal(value.productUnitPriceBaseCurrencyValue) + '">' + '</td>' +
-          '<td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req' + key + '" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled value="' + currencyTotal(value.productUnitPriceBaseCurrencyValue) + '">' + '</td>' +
+          '<td class="sticky-col fifth-col-brf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="allowance_req' + key + '" style="border-radius:0;" name="allowance_req[]" class="form-control allowance_req" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[key] + 'value="' + currencyTotal(allowance) + '">' + '</td>' +
+          '<td class="sticky-col forth-col-brf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="accomodation_req' + key + '" style="border-radius:0;" name="accomodation_req[]" class="form-control accomodation_req" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[key] + 'value="' + currencyTotal(accomodation) + '">' + '</td>' +
+          '<td class="sticky-col third-col-brf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="other_req' + key + '" style="border-radius:0;" name="other_req[]" class="form-control total_req" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[key] + 'value="' + currencyTotal(other) + '">' + '</td>' +
+          '<td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req' + key + '" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled value="' + currencyTotal(totalReq) + '">' + '</td>' +
           '<td class="sticky-col first-col-brf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_balance_value' + key + '" style="border-radius:0;width:90px;background-color:white;" name="total_balance_value[]" class="form-control total_balance_value" autocomplete="off" disabled value="' + currencyTotal(value.priceBaseCurrencyValue) + '">' + '</td>' +
 
           '</tr>';
         $('table.tableBudgetDetail tbody').append(html);
 
-        $("#TotalBudgetSelected").html(currencyTotal(TotalBudgetList));
+        $("#TotalBudgetSelected").html(currencyTotal(totalReq));
 
         //VALIDASI ALLOWANCE
         $('#allowance_req' + key).keyup(function() {
-          value.quantity
           $(this).val(currency($(this).val()));
           var allowance_req = $(this).val().replace(/,/g, '');
           var budget_total = $("#budget_total" + key).val();
@@ -148,7 +152,7 @@
           var total_payment = $("#total_payment" + key).html().replace(/,/g, '');
 
           if (allowance_req == "") {
-            $('#total_req' + key).val("0.00");
+            $('#total_req' + key).val(currencyTotal(totalWithout));
             $("input[name='allowance_req[]']").css("border", "1px solid #ced4da");
           } else if (parseFloat(totalWith) < parseFloat(total_payment)) {
             swal({
@@ -171,7 +175,7 @@
             });
 
             $('#allowance_req' + key).val("");
-            $('#total_req' + key).val("0.00");
+            $('#total_req' + key).val(currencyTotal(totalWithout));
             $('#allowance_req' + key).css("border", "1px solid red");
             $('#allowance_req' + key).focus();
           } else {
@@ -198,7 +202,7 @@
           var total_payment = $("#total_payment" + key).html().replace(/,/g, '');
 
           if (accomodation_req == "") {
-            $('#total_req' + key).val("0.00");
+            $('#total_req' + key).val(currencyTotal(totalWithout));
             $("input[name='accomodation_req[]']").css("border", "1px solid #ced4da");
           } else if (parseFloat(totalWith) < parseFloat(total_payment)) {
             swal({
@@ -221,7 +225,7 @@
             });
 
             $('#accomodation_req' + key).val("");
-            $('#total_req' + key).val("0.00");
+            $('#total_req' + key).val(currencyTotal(totalWithout));
             $('#accomodation_req' + key).css("border", "1px solid red");
             $('#accomodation_req' + key).focus();
           } else {
@@ -248,7 +252,8 @@
           var total_payment = $("#total_payment" + key).html().replace(/,/g, '');
 
           if (other_req == "") {
-            $('#total_req' + key).val("0.00");
+            
+            $('#total_req' + key).val(currencyTotal(totalWithout));
             $("input[name='other_req[]']").css("border", "1px solid #ced4da");
           } else if (parseFloat(totalWith) < parseFloat(total_payment)) {
             swal({
@@ -271,7 +276,8 @@
             });
 
             $('#other_req' + key).val("");
-            $('#total_req' + key).val("0.00");
+            
+            $('#total_req' + key).val(currencyTotal(totalWithout));
             $('#other_req' + key).css("border", "1px solid red");
             $('#other_req' + key).focus();
           } else {

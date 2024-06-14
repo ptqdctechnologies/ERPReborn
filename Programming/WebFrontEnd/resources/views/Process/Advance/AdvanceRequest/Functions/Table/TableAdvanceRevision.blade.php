@@ -34,18 +34,40 @@
 </div>
 
 <script>
+    $('#TableSearchArfRevision tbody').on('click', 'tr', function() {
 
-    $('#TableSearchArfRevision tbody').on('click', 'tr', function () {
+        $('#advance_number').css("border", "1px solid #ced4da");
+        $('#advance_number_icon').css("border", "1px solid #ced4da");
 
         $("#PopUpTableAdvanceRevision").modal('toggle');
         var row = $(this).closest("tr");
-        var id = row.find("td:nth-child(1)").text();  
+        var id = row.find("td:nth-child(1)").text();
         var advance_RefID = $('#sys_id_advance_revision' + id).val();
         var code = row.find("td:nth-child(2)").text();
-        
+
         $("#advance_RefID").val(advance_RefID);
         $("#advance_number").val(code);
 
     });
-    
+</script>
+
+
+
+<script>
+    $('.btn-edit').on('click', function() {
+
+        var advance_RefID = $('#advance_RefID').val();
+
+        if (advance_RefID) {
+
+            ShowLoading();
+            window.location.href = '/RevisionAdvanceIndex?advance_RefID=' + advance_RefID;
+        } else {
+            console.log("S");
+            $('#advance_number').focus();
+            $('#advance_number').css("border", "1px solid red");
+            $('#advance_number_icon').css("border", "1px solid red");
+        }
+
+    });
 </script>

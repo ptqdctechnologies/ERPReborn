@@ -150,13 +150,12 @@ class AdvanceRequestController extends Controller
     // REVISION FUNCTION FOR SHOW LIST DATA FILTER BY ID 
     public function RevisionAdvanceIndex(Request $request)
     {
-        // try {
+        try {
 
-            $advance_RefID = $request->advance_RefID;
+            $advance_RefID = $request->input('advance_RefID');
             $varAPIWebToken = Session::get('SessionLogin');
 
             // DATA REVISION ADVANCE
-            // if (Redis::get("DataListAdvanceDetailComplex") == null) {
             $filteredArray = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
@@ -185,10 +184,10 @@ class AdvanceRequestController extends Controller
                 'statusFinalApprove' => "No",
             ];
             return view('Process.Advance.AdvanceRequest.Transactions.RevisionAdvanceRequest', $compact);
-        // } catch (\Throwable $th) {
-        //     Log::error("Error at " . $th->getMessage());
-        //     return redirect()->back()->with('NotFound', 'Process Error');
-        // }
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 
     // UPDATE FUNCTION
@@ -519,81 +518,56 @@ class AdvanceRequestController extends Controller
 
     public function ReportAdvanceSummaryDetailData($id, $number, $statusHeader)
     {
+        
         try {
             
             $varAPIWebToken = Session::get('SessionLogin');
 
-            // if (Redis::get("DataListAdvanceDetailComplex") == null) {
-                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken,
-                    'transaction.read.dataList.finance.getAdvanceDetailComplex',
-                    'latest',
-                    [
-                        'parameter' => [
-                            'advance_RefID' => (int) $id,
-                        ],
-                        'SQLStatement' => [
-                            'pick' => null,
-                            'sort' => null,
-                            'filter' => null,
-                            'paging' => null
-                        ]
+
+            $filteredArray = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.finance.getAdvanceReport',
+                'latest',
+                [
+                    'parameter' => [
+                        'advance_RefID' => (int) $id,
                     ],
-                    false
-                );
-            // }
-
-            $DataAdvanceDetailComplex = json_decode(
-                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    "DataListAdvanceDetailComplex"
-                ),
-                true
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
             );
-
-            $collection = collect($DataAdvanceDetailComplex);
-
-            $advance_RefID = $id;
-            $advance_number = $number;
-
-            if ($advance_RefID != "") {
-                $collection = $collection->where('Sys_ID_Advance', $advance_RefID);
-            }
-            if ($advance_number != "") {
-                $collection = $collection->where('DocumentNumber', $advance_number);
-            }
-
-            $dataHeader = [];
-            foreach ($collection as $collections) {
-                $dataHeader = $collections;
-                $advance_number = $collections['DocumentNumber'];
-            }
 
             $varDataExcel = [];
             $i = 0;
             $totalAdvance = 0;
-            foreach ($collection->all() as $collections) {
+            foreach ($filteredArray['data'][0]['document']['content']['details']['itemList'] as $collections) {
 
-                $totalAdvance += $collections['PriceBaseCurrencyValue'];
+                $totalAdvance += $collections['entities']['priceBaseCurrencyValue'];
 
                 $varDataExcel[$i]['no'] = $i + 1;
-                $varDataExcel[$i]['Product_RefID'] = $collections['Product_RefID'];
-                $varDataExcel[$i]['ProductName'] = $collections['ProductName'];
-                $varDataExcel[$i]['Quantity'] = number_format($collections['Quantity'], 2);
-                $varDataExcel[$i]['ProductUnitPriceBaseCurrencyValue'] = number_format($collections['ProductUnitPriceBaseCurrencyValue'], 2);
-                $varDataExcel[$i]['PriceBaseCurrencyValue'] = number_format($collections['PriceBaseCurrencyValue'], 2);
+                $varDataExcel[$i]['product_RefID'] = $collections['entities']['product_RefID'];
+                $varDataExcel[$i]['productName'] = $collections['entities']['productName'];
+                $varDataExcel[$i]['quantity'] = number_format($collections['entities']['quantity'], 2);
+                $varDataExcel[$i]['productUnitPriceBaseCurrencyValue'] = number_format($collections['entities']['productUnitPriceBaseCurrencyValue'], 2);
+                $varDataExcel[$i]['priceBaseCurrencyValue'] = number_format($collections['entities']['priceBaseCurrencyValue'], 2);
 
                 $i++;
             }
-
+            
             $compact = [
-                'dataHeader' => $dataHeader,
-                'dataDetail' => $collection->all(),
+                'dataHeader' => $filteredArray['data'][0]['document']['header'],
+                'dataContent' => $filteredArray['data'][0]['document']['content']['general'],
+                'dataDetail' => $filteredArray['data'][0]['document']['content']['details']['itemList'],
                 'dataExcel' => $varDataExcel,
                 'statusDetail' => 1,
-                'advance_RefID' => $advance_RefID,
-                'advance_number' => $advance_number,
+                'advance_RefID' => $filteredArray['data'][0]['document']['header']['recordID'],
+                'advance_number' => $filteredArray['data'][0]['document']['header']['number'],
                 'statusHeader' => $statusHeader
 
             ];
@@ -650,8 +624,8 @@ class AdvanceRequestController extends Controller
                     $data = [
                         'title' => 'ADVANCE REQUEST',
                         'date' => date('d/m/Y H:m:s'),
-                        'projectCode' => $dataAdvance['dataHeader']['CombinedBudgetCode'],
-                        'projectName' => $dataAdvance['dataHeader']['CombinedBudgetName'],
+                        'projectCode' => $dataAdvance['dataContent']['budget']['combinedBudgetCodeList'][0],
+                        'projectName' => $dataAdvance['dataContent']['budget']['combinedBudgetNameList'][0],
                         'printedBy' => Session::get('SessionLoginName'),
                         'data' => $dataAdvance
                     ];

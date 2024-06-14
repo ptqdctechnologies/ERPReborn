@@ -4,10 +4,10 @@
             <div class="modal-header">
                 <div class="modal-body">
                     <span style="font-size: 15px;position:relative;left:14%;font-weight:bold;">BUSINESS TRIP SETTLEMENT REVISION</span><br><br><br>
-                    <form action="{{ route('BusinessTripSettlement.RevisionBusinessTripSettlement') }}" method="post">
-                    @csrf
+                    <form action="{{ route('BusinessTripSettlement.RevisionBusinessTripSettlementIndex') }}" method="post">
+                        @csrf
                         <div class="card" style="margin-left: 8%;">
-                            <div class="card-body"> 
+                            <div class="card-body">
                                 <div class="form-group">
                                     <table>
                                         <tr>
@@ -17,22 +17,22 @@
                                                     <input id="searchBsfNumberRevisionId" style="border-radius:0;" name="searchBsfNumberRevisionId" type="hidden" class="form-control">
                                                     <input id="searchBsfNumberRevisions" style="border-radius:0;" name="searchBsfNumberRevisions" type="text" class="form-control" required readonly>
                                                     <div class="input-group-append">
-                                                        <span style="border-radius:0;" class="input-group-text form-control">
+                                                        <span style="border-radius:0;" class="input-group-text form-control" id="searchBsfNumberRevisionsIcon">
                                                             <a data-toggle="modal" data-target="#PopUpBusinessTripSettlementRevision"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                                         </span>
                                                     </div>
                                                 </div>
                                             </td>
 
-                                            
+
                                         </tr>
                                     </table>
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-sm" style="margin-left: 38%;background-color:#e9ecef;border:1px solid #ced4da;">
+                        <a class="btn btn-sm btn-edit" style="margin-left: 38%;background-color:#e9ecef;border:1px solid #ced4da;">
                             <img src="{{ asset('AdminLTE-master/dist/img/edit.png') }}" width="13" alt="" title="Edit"> Edit
-                        </button>
+                        </a>
                         <button type="reset" class="btn btn-sm" style="background-color:#e9ecef;border:1px solid #ced4da;">
                             <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Edit"> Cancel
                         </button>
@@ -80,8 +80,45 @@
     </div>
 </div>
 
+<script>
+    $('#TableSearchBusinessTripSettlement tbody').on('click', 'tr', function() {
+
+        $('#searchBsfNumberRevisions').css("border", "1px solid #ced4da");
+        $('#searchBsfNumberRevisionsIcon').css("border", "1px solid #ced4da");
+
+        $("#PopUpBusinessTripSettlementRevision").modal('toggle');
+
+        var row = $(this).closest("tr");
+        var id = row.find("td:nth-child(1)").text();
+        var sys_id = $('#sys_id_bsf_revision' + id).val();
+        var code = row.find("td:nth-child(2)").text();
+        console.log(sys_id);
+
+        $("#searchBsfNumberRevisionId").val(sys_id);
+        $("#searchBsfNumberRevisions").val(code);
+
+    });
+</script>
 
 <script>
+    $('.btn-edit').on('click', function() {
+
+        var searchBsfNumberRevisionId = $('#searchBsfNumberRevisionId').val();
+
+        if (searchBsfNumberRevisionId) {
+
+            // ShowLoading();
+            window.location.href = '/RevisionBusinessTripSettlementIndex?searchBsfNumberRevisionId=' + searchBsfNumberRevisionId;
+        } else {
+            $('#searchBsfNumberRevisions').focus();
+            $('#searchBsfNumberRevisions').css("border", "1px solid red");
+            $('#searchBsfNumberRevisionsIcon').css("border", "1px solid red");
+        }
+
+    });
+</script>
+
+<!-- <script>
 
     $('#TableSearchBusinessTripSettlement tbody').on('click', 'tr', function () {
 
@@ -97,4 +134,4 @@
 
     });
     
-</script>
+</script> -->
