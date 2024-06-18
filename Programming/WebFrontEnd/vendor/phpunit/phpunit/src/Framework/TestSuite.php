@@ -80,6 +80,7 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
      */
     private ?array $providedTests    = null;
     private ?Factory $iteratorFilter = null;
+    private bool $wasRun             = false;
 
     /**
      * @psalm-param non-empty-string $name
@@ -326,6 +327,14 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
      */
     public function run(): void
     {
+        if ($this->wasRun) {
+            // @codeCoverageIgnoreStart
+            throw new Exception('The tests aggregated by this TestSuite were already run');
+            // @codeCoverageIgnoreEnd
+        }
+
+        $this->wasRun = true;
+
         if (count($this) === 0) {
             return;
         }
@@ -347,6 +356,30 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
             }
 
             $test->run();
+
+            foreach (array_keys($this->tests) as $key) {
+                if ($test === $this->tests[$key]) {
+                    unset($this->tests[$key]);
+
+                    break;
+                }
+            }
+
+            if ($test instanceof TestCase || $test instanceof self) {
+                foreach ($test->groups() as $group) {
+                    if (!isset($this->groups[$group])) {
+                        continue;
+                    }
+
+                    foreach (array_keys($this->groups[$group]) as $key) {
+                        if ($test === $this->groups[$group][$key]) {
+                            unset($this->groups[$group][$key]);
+
+                            break;
+                        }
+                    }
+                }
+            }
         }
 
         $this->invokeMethodsAfterLastTest($emitter);
