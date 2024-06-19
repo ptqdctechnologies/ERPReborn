@@ -275,24 +275,35 @@ class FunctionController extends Controller
     // FUNCTION DELIVER TO
     public function getDeliverTo(Request $request)
     {
-        $varAPIWebToken = Session::get('SessionLogin');
-        $varDataDeliverTo = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.supplyChain.getWarehouse',
-            'latest',
-            [
-                'parameter' => null,
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
+        if (Redis::get("Warehouse") == null) {
 
-        return response()->json($varDataDeliverTo['data']);
+            $varAPIWebToken = Session::get('SessionLogin');
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.supplyChain.getWarehouse',
+                'latest',
+                [
+                    'parameter' => null,
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
+            );
+        }
+
+        $varDataDeliverTo = json_decode(
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "Warehouse"
+            ),
+            true
+        );
+        return response()->json($varDataDeliverTo);
     }
 
     // FUNCTION WAREHOUSE 

@@ -4,39 +4,37 @@
             <div class="modal-header">
                 <div class="modal-body">
                     <span style="font-size: 15px;position:relative;left:14%;font-weight:bold;">BUSINESS TRIP SETTLEMENT REVISION</span><br><br><br>
-                    <form action="{{ route('BusinessTripSettlement.RevisionBusinessTripSettlementIndex') }}" method="post">
-                        @csrf
-                        <div class="card" style="margin-left: 8%;">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <table>
-                                        <tr>
-                                            <td><label>Revision Number&nbsp;</label></td>
-                                            <td>
-                                                <div class="input-group">
-                                                    <input id="searchBsfNumberRevisionId" style="border-radius:0;" name="searchBsfNumberRevisionId" type="hidden" class="form-control">
-                                                    <input id="searchBsfNumberRevisions" style="border-radius:0;" name="searchBsfNumberRevisions" type="text" class="form-control" required readonly>
-                                                    <div class="input-group-append">
-                                                        <span style="border-radius:0;" class="input-group-text form-control" id="searchBsfNumberRevisionsIcon">
-                                                            <a data-toggle="modal" data-target="#PopUpBusinessTripSettlementRevision"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                                                        </span>
-                                                    </div>
+
+                    <div class="card" style="margin-left: 8%;">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <table>
+                                    <tr>
+                                        <td><label>Revision Number&nbsp;</label></td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input id="searchBsfNumberRevisionId" style="border-radius:0;" name="searchBsfNumberRevisionId" type="hidden" class="form-control">
+                                                <input id="searchBsfNumberRevisions" style="border-radius:0;" name="searchBsfNumberRevisions" type="text" class="form-control" required readonly>
+                                                <div class="input-group-append">
+                                                    <span style="border-radius:0;" class="input-group-text form-control" id="searchBsfNumberRevisionsIcon">
+                                                        <a data-toggle="modal" data-target="#PopUpBusinessTripSettlementRevision"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                    </span>
                                                 </div>
-                                            </td>
+                                            </div>
+                                        </td>
 
 
-                                        </tr>
-                                    </table>
-                                </div>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
-                        <a class="btn btn-sm btn-edit" style="margin-left: 38%;background-color:#e9ecef;border:1px solid #ced4da;">
-                            <img src="{{ asset('AdminLTE-master/dist/img/edit.png') }}" width="13" alt="" title="Edit"> Edit
-                        </a>
-                        <button type="reset" class="btn btn-sm" style="background-color:#e9ecef;border:1px solid #ced4da;">
-                            <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Edit"> Cancel
-                        </button>
-                    </form>
+                    </div>
+                    <a class="btn btn-sm btn-edit" style="margin-left: 38%;background-color:#e9ecef;border:1px solid #ced4da;">
+                        <img src="{{ asset('AdminLTE-master/dist/img/edit.png') }}" width="13" alt="" title="Edit"> Edit
+                    </a>
+                    <a class="btn btn-sm btn-cancel" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                        <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel"> Cancel
+                    </a>
                 </div>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
@@ -118,20 +116,10 @@
     });
 </script>
 
-<!-- <script>
-
-    $('#TableSearchBusinessTripSettlement tbody').on('click', 'tr', function () {
-
-        $("#PopUpBusinessTripSettlementRevision").modal('toggle');
-
-        var row = $(this).closest("tr");
-        var id = row.find("td:nth-child(1)").text();  
-        var sys_id = $('#sys_id_bsf_revision' + id).val();
-        var code = row.find("td:nth-child(2)").text();
-
-        $("#searchBsfNumberRevisionId").val(sys_id);
-        $("#searchBsfNumberRevisions").val(code);
+<script>
+    $('.btn-cancel').on('click', function() {
+        $('#searchBsfNumberRevisionId').val("");
+        $('#searchBsfNumberRevisions').val("");
 
     });
-    
-</script> -->
+</script>

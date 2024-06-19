@@ -31,9 +31,9 @@
                     <a class="btn btn-sm btn-edit" style="margin-left: 38%;background-color:#e9ecef;border:1px solid #ced4da;">
                         <img src="{{ asset('AdminLTE-master/dist/img/edit.png') }}" width="13" alt="" title="Edit"> Edit
                     </a>
-                    <button type="reset" class="btn btn-sm btn-cancel" style="background-color:#e9ecef;border:1px solid #ced4da;">
-                        <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Edit"> Cancel
-                    </button>
+                    <a class="btn btn-sm btn-cancel" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                        <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel"> Cancel
+                    </a>
                 </div>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
@@ -110,6 +110,14 @@
             $('#searchBrfNumberRevisions').css("border", "1px solid red");
             $('#searchBrfNumberRevisionsIcon').css("border", "1px solid red");
         }
+
+    });
+</script>
+
+<script>
+    $('.btn-cancel').on('click', function() {
+        $('#searchBrfNumberRevisionId').val("");
+        $('#searchBrfNumberRevisions').val("");
 
     });
 </script>

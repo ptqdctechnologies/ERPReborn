@@ -63,11 +63,18 @@
             ShowLoading();
             window.location.href = '/RevisionAdvanceIndex?advance_RefID=' + advance_RefID;
         } else {
-            console.log("S");
             $('#advance_number').focus();
             $('#advance_number').css("border", "1px solid red");
             $('#advance_number_icon').css("border", "1px solid red");
         }
+
+    });
+</script>
+
+<script>
+    $('.btn-cancel').on('click', function() {
+        $('#advance_RefID').val("");
+        $('#advance_number').val("");
 
     });
 </script>
