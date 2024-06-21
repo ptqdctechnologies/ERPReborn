@@ -12,6 +12,8 @@ namespace PHPUnit\Framework;
 use const PHP_EOL;
 use function array_keys;
 use function array_map;
+use function array_pop;
+use function array_reverse;
 use function assert;
 use function call_user_func;
 use function class_exists;
@@ -135,7 +137,7 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
             $testSuite->addTestMethod($class, $method);
         }
 
-        if (count($testSuite) === 0) {
+        if ($testSuite->isEmpty()) {
             Event\Facade::emitter()->testRunnerTriggeredWarning(
                 sprintf(
                     'No tests found in class "%s".',
@@ -288,7 +290,13 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
 
     public function isEmpty(): bool
     {
-        return empty($this->tests);
+        foreach ($this as $test) {
+            if (count($test) !== 0) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -335,7 +343,7 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
 
         $this->wasRun = true;
 
-        if (count($this) === 0) {
+        if ($this->isEmpty()) {
             return;
         }
 
@@ -348,7 +356,19 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
             return;
         }
 
+        /** @psalm-var list<Test> $tests */
+        $tests = [];
+
         foreach ($this as $test) {
+            $tests[] = $test;
+        }
+
+        $tests = array_reverse($tests);
+
+        $this->tests  = [];
+        $this->groups = [];
+
+        while (($test = array_pop($tests)) !== null) {
             if (TestResultFacade::shouldStop()) {
                 $emitter->testRunnerExecutionAborted();
 
@@ -356,30 +376,6 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
             }
 
             $test->run();
-
-            foreach (array_keys($this->tests) as $key) {
-                if ($test === $this->tests[$key]) {
-                    unset($this->tests[$key]);
-
-                    break;
-                }
-            }
-
-            if ($test instanceof TestCase || $test instanceof self) {
-                foreach ($test->groups() as $group) {
-                    if (!isset($this->groups[$group])) {
-                        continue;
-                    }
-
-                    foreach (array_keys($this->groups[$group]) as $key) {
-                        if ($test === $this->groups[$group][$key]) {
-                            unset($this->groups[$group][$key]);
-
-                            break;
-                        }
-                    }
-                }
-            }
         }
 
         $this->invokeMethodsAfterLastTest($emitter);

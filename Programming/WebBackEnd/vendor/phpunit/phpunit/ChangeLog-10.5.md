@@ -2,6 +2,18 @@
 
 All notable changes of the PHPUnit 10.5 release series are documented in this file using the [Keep a CHANGELOG](https://keepachangelog.com/) principles.
 
+## [10.5.24] - 2024-06-20
+
+### Changed
+
+* [#5877](https://github.com/sebastianbergmann/phpunit/pull/5877): Use `array_pop()` instead of `array_shift()` for processing `Test` objects in `TestSuite::run()` and optimize `TestSuite::isEmpty()`
+
+## [10.5.23] - 2024-06-20
+
+### Changed
+
+* [#5875](https://github.com/sebastianbergmann/phpunit/pull/5875): Also destruct `TestCase` objects early that use a data provider
+
 ## [10.5.22] - 2024-06-19
 
 ### Changed
@@ -216,6 +228,8 @@ All notable changes of the PHPUnit 10.5 release series are documented in this fi
 
 * [#5563](https://github.com/sebastianbergmann/phpunit/issues/5563): `createMockForIntersectionOfInterfaces()` does not automatically register mock object for expectation verification
 
+[10.5.24]: https://github.com/sebastianbergmann/phpunit/compare/10.5.23...10.5.24
+[10.5.23]: https://github.com/sebastianbergmann/phpunit/compare/10.5.22...10.5.23
 [10.5.22]: https://github.com/sebastianbergmann/phpunit/compare/10.5.21...10.5.22
 [10.5.21]: https://github.com/sebastianbergmann/phpunit/compare/10.5.20...10.5.21
 [10.5.20]: https://github.com/sebastianbergmann/phpunit/compare/10.5.19...10.5.20

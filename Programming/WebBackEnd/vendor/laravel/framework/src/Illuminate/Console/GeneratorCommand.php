@@ -417,7 +417,7 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
      */
     protected function getNameInput()
     {
-        return trim($this->argument('name'));
+        return (string) Str::of($this->argument('name'))->trim()->beforeLast('.php');
     }
 
     /**
