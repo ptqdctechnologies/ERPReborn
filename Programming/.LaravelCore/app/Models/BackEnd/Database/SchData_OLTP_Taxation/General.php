@@ -31,6 +31,7 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
         |        ----------------------------------------                                                                          |
+        |        ----------------------------------------                                                                          |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |

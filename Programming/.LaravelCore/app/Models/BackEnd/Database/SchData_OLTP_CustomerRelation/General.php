@@ -30,6 +30,8 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -38,23 +40,28 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_Customer($varUserSession, int $varBranchID, string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+        public function getDataList_Customer(
+            $varUserSession, int $varBranchID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-CustomerRelation.Func_GetDataList_Customer',
-                        [
-                            [$varBranchID, 'bigint' ],
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );                
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-CustomerRelation.Func_GetDataList_Customer',
+                            [
+                                [$varBranchID, 'bigint' ],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );                
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -75,6 +82,8 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -83,23 +92,28 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_SalesOrder($varUserSession, int $varBranchID, string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+        public function getDataList_SalesOrder(
+            $varUserSession, int $varBranchID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-CustomerRelation.Func_GetDataList_SalesOrder',
-                        [
-                            [$varBranchID, 'bigint' ],
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );                
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-CustomerRelation.Func_GetDataList_SalesOrder',
+                            [
+                                [$varBranchID, 'bigint' ],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );                
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -128,16 +142,18 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
             $varUserSession, int $varSysBranch_RefID)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-CustomerRelation.Func_GetDataPickList_Customer',
-                        [
-                            [$varSysBranch_RefID, 'bigint' ]
-                        ]
-                        )
-                    );
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-CustomerRelation.Func_GetDataPickList_Customer',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ]
+                            ]
+                            )
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {

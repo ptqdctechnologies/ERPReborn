@@ -67,7 +67,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataList_CodeOfAccounting                                                                         |
+        | ▪ Method Name     : getDataList_ChartOfAccount                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2023-08-22                                                                                           |

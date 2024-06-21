@@ -31,32 +31,38 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                          getC                                                      | 
+        |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataEntities_BudgetOwner($varUserSession, 
+        public function getDataEntities_BudgetOwner(
+            $varUserSession, 
             string $varIDSet)
             {
             try {
-                $varFunctionName='SchData-OLTP-Budgeting.Func_GetDataEntities_BudgetExpenseOwner';
-                $varTemp = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                $varFunctionName = 'SchData-OLTP-Budgeting.Func_GetDataEntities_BudgetExpenseOwner';
+
+                $varTemp =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                         $varUserSession,
-                        $varFunctionName,
-                            [
-                                [$varUserSession, 'bigint'],
-                                [$varIDSet, 'bigint[]']
-                            ]
-                        )
-                    ); 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            $varFunctionName,
+                                [
+                                    [$varUserSession, 'bigint'],
+                                    [$varIDSet, 'bigint[]']
+                                ]
+                            )
+                        ); 
 
                 for ($i=0; $i!=count($varTemp['Data']); $i++)
                     {
-                    $varReturn[$i] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
-                        $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]);
+                    $varReturn[$i] =
+                        \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                            $varUserSession, 
+                            $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]
+                            );
                     }
+
                 return $varReturn;
                 }
             catch (\Exception $ex) {
@@ -81,29 +87,35 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataEntities_CombinedBudget($varUserSession, 
+        public function getDataEntities_CombinedBudget(
+            $varUserSession, 
             string $varIDSet)
             {
             try {
-                $varFunctionName='SchData-OLTP-Budgeting.Func_GetDataEntities_CombinedBudget';
-                $varTemp = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                $varFunctionName = 'SchData-OLTP-Budgeting.Func_GetDataEntities_CombinedBudget';
+
+                $varTemp =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                         $varUserSession,
-                        $varFunctionName,
-                            [
-                                [$varUserSession, 'bigint'],
-                                [$varIDSet, 'bigint[]']
-                            ]
-                        )
-                    ); 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            $varFunctionName,
+                                [
+                                    [$varUserSession, 'bigint'],
+                                    [$varIDSet, 'bigint[]']
+                                ]
+                            )
+                        ); 
 
                 for ($i=0; $i!=count($varTemp['Data']); $i++)
                     {
-                    $varReturn[$i] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
-                        $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]);
+                    $varReturn[$i] =
+                        \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                            $varUserSession, 
+                            $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]
+                            );
                     }
+
                 return $varReturn;
                 }
             catch (\Exception $ex) {
@@ -128,29 +140,35 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataEntities_CombinedBudgetSection($varUserSession, 
+        public function getDataEntities_CombinedBudgetSection(
+            $varUserSession, 
             string $varIDSet)
             {
             try {
-                $varFunctionName='SchData-OLTP-Budgeting.Func_GetDataEntities_CombinedBudgetSection';
-                $varTemp = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        $varFunctionName,
-                            [
-                                [$varUserSession, 'bigint'],
-                                [$varIDSet, 'bigint[]']
-                            ]
-                        )
-                    ); 
+                $varFunctionName = 'SchData-OLTP-Budgeting.Func_GetDataEntities_CombinedBudgetSection';
+
+                $varTemp =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            $varFunctionName,
+                                [
+                                    [$varUserSession, 'bigint'],
+                                    [$varIDSet, 'bigint[]']
+                                ]
+                            )
+                        ); 
 
                 for ($i=0; $i!=count($varTemp['Data']); $i++)
                     {
-                    $varReturn[$i] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
-                        $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]);
+                    $varReturn[$i] =
+                        \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                            $varUserSession, 
+                            $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]
+                            );
                     }
+
                 return $varReturn;
                 }
             catch (\Exception $ex) {
@@ -175,29 +193,35 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataEntities_CombinedBudgetSubSectionLevel1($varUserSession, 
+        public function getDataEntities_CombinedBudgetSubSectionLevel1(
+            $varUserSession, 
             string $varIDSet)
             {
             try {
-                $varFunctionName='SchData-OLTP-Budgeting.Func_GetDataEntities_CombinedBudgetSubSectionLevel1';
-                $varTemp = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        $varFunctionName,
-                            [
-                                [$varUserSession, 'bigint'],
-                                [$varIDSet, 'bigint[]']
-                            ]
-                        )
-                    ); 
+                $varFunctionName = 'SchData-OLTP-Budgeting.Func_GetDataEntities_CombinedBudgetSubSectionLevel1';
+
+                $varTemp =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            $varFunctionName,
+                                [
+                                    [$varUserSession, 'bigint'],
+                                    [$varIDSet, 'bigint[]']
+                                ]
+                            )
+                        ); 
 
                 for ($i=0; $i!=count($varTemp['Data']); $i++)
                     {
-                    $varReturn[$i] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
-                        $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]);
+                    $varReturn[$i] =
+                        \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                            $varUserSession, 
+                            $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]
+                            );
                     }
+
                 return $varReturn;
                 }
             catch (\Exception $ex) {
@@ -222,29 +246,35 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataEntities_CombinedBudgetSubSectionLevel2($varUserSession, 
+        public function getDataEntities_CombinedBudgetSubSectionLevel2(
+            $varUserSession, 
             string $varIDSet)
             {
             try {
-                $varFunctionName='SchData-OLTP-Budgeting.Func_GetDataEntities_CombinedBudgetSubSectionLevel2';
-                $varTemp = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        $varFunctionName,
-                            [
-                                [$varUserSession, 'bigint'],
-                                [$varIDSet, 'bigint[]']
-                            ]
-                        )
-                    ); 
+                $varFunctionName = 'SchData-OLTP-Budgeting.Func_GetDataEntities_CombinedBudgetSubSectionLevel2';
+
+                $varTemp =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            $varFunctionName,
+                                [
+                                    [$varUserSession, 'bigint'],
+                                    [$varIDSet, 'bigint[]']
+                                ]
+                            )
+                        ); 
 
                 for ($i=0; $i!=count($varTemp['Data']); $i++)
                     {
-                    $varReturn[$i] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
-                        $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]);
+                    $varReturn[$i] =
+                        \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                            $varUserSession, 
+                            $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]
+                            );
                     }
+
                 return $varReturn;
                 }
             catch (\Exception $ex) {
@@ -266,6 +296,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
         |      ------------------------------                                                                                      |
+        |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -274,24 +305,28 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_Budget($varUserSession, int $varBranchID, 
+        public function getDataList_Budget(
+            $varUserSession, int $varBranchID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetDataList_Budget',
-                        [
-                            [$varBranchID, 'bigint'],
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Budgeting.Func_GetDataList_Budget',
+                            [
+                                [$varBranchID, 'bigint'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -323,26 +358,31 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_BudgetExpense($varUserSession, int $varBranchID, 
+        public function getDataList_BudgetExpense(
+            $varUserSession, int $varBranchID, 
             int $varBudget_RefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                         $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetDataList_BudgetExpense',
-                        [
-                            [$varBranchID, 'bigint'],
-                            [$varBudget_RefID, 'bigint'],
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );                
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Budgeting.Func_GetDataList_BudgetExpense',
+                            [
+                                [$varBranchID, 'bigint'],
+
+                                [$varBudget_RefID, 'bigint'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );                
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -374,26 +414,31 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_BudgetExpenseLineCeiling($varUserSession, int $varBranchID, 
+        public function getDataList_BudgetExpenseLineCeiling(
+            $varUserSession, int $varBranchID, 
             int $varBudgetExpenseLine_RefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                         $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetDataList_BudgetExpenseLineCeiling',
-                        [
-                            [$varBranchID, 'bigint'],
-                            [$varBudgetExpenseLine_RefID, 'bigint'],
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );                
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Budgeting.Func_GetDataList_BudgetExpenseLineCeiling',
+                            [
+                                [$varBranchID, 'bigint'],
+ 
+                                [$varBudgetExpenseLine_RefID, 'bigint'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );                
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -425,26 +470,31 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_BudgetExpenseCeilingObjects($varUserSession, int $varBranchID, 
+        public function getDataList_BudgetExpenseCeilingObjects(
+            $varUserSession, int $varBranchID, 
             int $varBudgetExpenseLineCeiling_RefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetDataList_BudgetExpenseLineCeilingObjects',
-                        [
-                            [$varBranchID, 'bigint' ],
-                            [$varBudgetExpenseLineCeiling_RefID, 'bigint' ],
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );                
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Budgeting.Func_GetDataList_BudgetExpenseLineCeilingObjects',
+                            [
+                                [$varBranchID, 'bigint'],
+
+                                [$varBudgetExpenseLineCeiling_RefID, 'bigint' ],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );                
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -466,6 +516,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
         |      ------------------------------                                                                                      |
+        |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -474,24 +525,28 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_BudgetExpenseGroup($varUserSession, int $varBranchID, 
+        public function getDataList_BudgetExpenseGroup(
+            $varUserSession, int $varBranchID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetDataList_BudgetExpenseGroup',
-                        [
-                            [$varBranchID, 'bigint' ],
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Budgeting.Func_GetDataList_BudgetExpenseGroup',
+                            [
+                                [$varBranchID, 'bigint'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -528,21 +583,25 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetDataList_BudgetExpenseLine',
-                        [
-                            [$varBranchID, 'bigint' ],
-                            [$varBudgetSection_RefID, 'bigint' ],
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );                
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Budgeting.Func_GetDataList_BudgetExpenseLine',
+                            [
+                                [$varBranchID, 'bigint'],
+
+                                [$varBudgetSection_RefID, 'bigint'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -575,27 +634,32 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_BudgetExpenseOwner($varUserSession, int $varBranchID, 
+        public function getDataList_BudgetExpenseOwner(
+            $varUserSession, int $varBranchID, 
             string $varDateTimeTZ = null, string $varBackwardInterval = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetDataList_BudgetExpenseOwner',
-                        [
-                            [$varBranchID, 'bigint' ],
-                            [$varDateTimeTZ, 'timestamptz' ],
-                            [$varBackwardInterval, 'interval' ],
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );                
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Budgeting.Func_GetDataList_BudgetExpenseOwner',
+                            [
+                                [$varBranchID, 'bigint'],
+
+                                [$varDateTimeTZ, 'timestamptz' ],
+                                [$varBackwardInterval, 'interval' ],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );                
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -625,24 +689,28 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_CombinedBudget($varUserSession, int $varBranchID, 
+        public function getDataList_CombinedBudget(
+            $varUserSession, int $varBranchID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetDataList_CombinedBudget',
-                        [
-                            [$varBranchID, 'bigint' ],
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Budgeting.Func_GetDataList_CombinedBudget',
+                            [
+                                [$varBranchID, 'bigint'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -669,27 +737,31 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_CombinedBudgetSection($varUserSession, int $varBranchID,
+        public function getDataList_CombinedBudgetSection(
+            $varUserSession, int $varBranchID,
             int $varCombinedBudget_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetDataList_CombinedBudgetSection',
-                        [
-                            [$varBranchID, 'bigint'],
-                            [$varCombinedBudget_RefID, 'bigint'],
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Budgeting.Func_GetDataList_CombinedBudgetSection',
+                            [
+                                [$varBranchID, 'bigint'],
 
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );
+                                [$varCombinedBudget_RefID, 'bigint'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -716,7 +788,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_CombinedBudgetSectionDetail($varUserSession, int $varBranchID,
+        public function getDataList_CombinedBudgetSectionDetail(
+            $varUserSession, int $varBranchID,
             int $varCombinedBudgetSection_RefID = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
@@ -729,6 +802,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             'SchData-OLTP-Budgeting.Func_GetDataList_CombinedBudgetSectionDetail',
                             [
                                 [$varBranchID, 'bigint'],
+
                                 [$varCombinedBudgetSection_RefID, 'bigint'],
 
                                 [$varPickStatement, 'varchar'],
@@ -764,28 +838,31 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_CombinedBudgetSubSectionLevel1($varUserSession, int $varBranchID,
+        public function getDataList_CombinedBudgetSubSectionLevel1(
+            $varUserSession, int $varBranchID,
             int $varCombinedBudgetSection_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetDataList_CombinedBudgetSubSectionLevel1',
-                        [
-                            [$varBranchID, 'bigint'],
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Budgeting.Func_GetDataList_CombinedBudgetSubSectionLevel1',
+                            [
+                                [$varBranchID, 'bigint'],
 
-                            [$varCombinedBudgetSection_RefID, 'bigint'],
-                            
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );
+                                [$varCombinedBudgetSection_RefID, 'bigint'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -810,19 +887,22 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataPickList_Budget($varUserSession, int $varBranchID)
+        public function getDataPickList_Budget(
+            $varUserSession, int $varBranchID)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetDataPickList_Budget',
-                        [
-                            [$varBranchID, 'bigint' ]
-                        ]
-                        )
-                    );
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Budgeting.Func_GetDataPickList_Budget',
+                            [
+                                [$varBranchID, 'bigint']
+                            ]
+                            )
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -849,22 +929,25 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataPickList_BudgetExpense($varUserSession, int $varBranchID,
+        public function getDataPickList_BudgetExpense(
+            $varUserSession, int $varBranchID,
             int $varBudget_RefID = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetDataPickList_BudgetExpense',
-                        [
-                            [$varBranchID, 'bigint' ],
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Budgeting.Func_GetDataPickList_BudgetExpense',
+                            [
+                                [$varBranchID, 'bigint'],
 
-                            [$varBudget_RefID, 'bigint' ]
-                        ]
-                        )
-                    );
+                                [$varBudget_RefID, 'bigint']
+                            ]
+                            )
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -889,19 +972,22 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataPickList_BudgetExpenseGroup($varUserSession, int $varBranchID)
+        public function getDataPickList_BudgetExpenseGroup(
+            $varUserSession, int $varBranchID)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetDataPickList_BudgetExpenseGroup',
-                        [
-                            [$varBranchID, 'bigint' ]
-                        ]
-                        )
-                    );
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Budgeting.Func_GetDataPickList_BudgetExpenseGroup',
+                            [
+                                [$varBranchID, 'bigint']
+                            ]
+                            )
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -928,22 +1014,25 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataPickList_BudgetExpenseLine($varUserSession, int $varBranchID,
+        public function getDataPickList_BudgetExpenseLine(
+            $varUserSession, int $varBranchID,
             int $varBudgetExpense_RefID = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetDataPickList_BudgetExpenseLine',
-                        [
-                            [$varBranchID, 'bigint' ],
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Budgeting.Func_GetDataPickList_BudgetExpenseLine',
+                            [
+                                [$varBranchID, 'bigint'],
 
-                            [$varBudgetExpense_RefID, 'bigint' ]
-                        ]
-                        )
-                    );
+                                [$varBudgetExpense_RefID, 'bigint']
+                            ]
+                            )
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -970,22 +1059,25 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataPickList_BudgetExpenseLineCeiling($varUserSession, int $varBranchID,
+        public function getDataPickList_BudgetExpenseLineCeiling(
+            $varUserSession, int $varBranchID,
             int $varBudgetExpenseLine_RefID = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetDataPickList_BudgetExpenseLineCeiling',
-                        [
-                            [$varBranchID, 'bigint' ],
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Budgeting.Func_GetDataPickList_BudgetExpenseLineCeiling',
+                            [
+                                [$varBranchID, 'bigint'],
 
-                            [$varBudgetExpenseLine_RefID, 'bigint' ]
-                        ]
-                        )
-                    );
+                                [$varBudgetExpenseLine_RefID, 'bigint']
+                            ]
+                            )
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -1012,22 +1104,25 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataPickList_BudgetExpenseLineCeilingObjects($varUserSession, int $varBranchID,
+        public function getDataPickList_BudgetExpenseLineCeilingObjects(
+            $varUserSession, int $varBranchID,
             int $varBudgetExpenseLineCeiling_RefID = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetDataPickList_BudgetExpenseLineCeilingObjects',
-                        [
-                            [$varBranchID, 'bigint' ],
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Budgeting.Func_GetDataPickList_BudgetExpenseLineCeilingObjects',
+                            [
+                                [$varBranchID, 'bigint'],
 
-                            [$varBudgetExpenseLineCeiling_RefID, 'bigint' ]
-                        ]
-                        )
-                    );
+                                [$varBudgetExpenseLineCeiling_RefID, 'bigint']
+                            ]
+                            )
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -1052,19 +1147,22 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataPickList_CombinedBudget($varUserSession, int $varBranchID)
+        public function getDataPickList_CombinedBudget(
+            $varUserSession, int $varBranchID)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetDataPickList_CombinedBudget',
-                        [
-                            [$varBranchID, 'bigint' ]
-                        ]
-                        )
-                    );
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Budgeting.Func_GetDataPickList_CombinedBudget',
+                            [
+                                [$varBranchID, 'bigint']
+                            ]
+                            )
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -1091,22 +1189,25 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataPickList_CombinedBudgetSection($varUserSession, int $varBranchID,
+        public function getDataPickList_CombinedBudgetSection(
+            $varUserSession, int $varBranchID,
             int $varCombinedBudget_RefID)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetDataPickList_CombinedBudgetSection',
-                        [
-                            [$varBranchID, 'bigint' ],
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Budgeting.Func_GetDataPickList_CombinedBudgetSection',
+                            [
+                                [$varBranchID, 'bigint'],
 
-                            [$varCombinedBudget_RefID, 'bigint' ]
-                        ]
-                        )
-                    );
+                                [$varCombinedBudget_RefID, 'bigint']
+                            ]
+                            )
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -1133,22 +1234,25 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataPickList_CombinedBudgetSectionDetail($varUserSession, int $varBranchID,
+        public function getDataPickList_CombinedBudgetSectionDetail(
+            $varUserSession, int $varBranchID,
             int $varCombinedBudgetSection_RefID)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetDataPickList_CombinedBudgetSectionDetail',
-                        [
-                            [$varBranchID, 'bigint' ],
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Budgeting.Func_GetDataPickList_CombinedBudgetSectionDetail',
+                            [
+                                [$varBranchID, 'bigint'],
 
-                            [$varCombinedBudgetSection_RefID, 'bigint' ]
-                        ]
-                        )
-                    );
+                                [$varCombinedBudgetSection_RefID, 'bigint']
+                            ]
+                            )
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -1175,22 +1279,25 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataPickList_CombinedBudgetSubSectionLevel1($varUserSession, int $varBranchID,
+        public function getDataPickList_CombinedBudgetSubSectionLevel1(
+            $varUserSession, int $varBranchID,
             int $varCombinedBudgetSection_RefID)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetDataPickList_CombinedBudgetSubSectionLevel1',
-                        [
-                            [$varBranchID, 'bigint' ],
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Budgeting.Func_GetDataPickList_CombinedBudgetSubSectionLevel1',
+                            [
+                                [$varBranchID, 'bigint'],
 
-                            [$varCombinedBudgetSection_RefID, 'bigint' ]
-                        ]
-                        )
-                    );
+                                [$varCombinedBudgetSection_RefID, 'bigint']
+                            ]
+                            )
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -1221,24 +1328,25 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
             int $varSysID)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetReport_DocForm_CombinedBudget',
-                        [
-                            [$varSysBranch_RefID, 'bigint' ],
-                            [$varSysID, 'bigint' ]
-                        ]
-                        )
-                    );
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Budgeting.Func_GetReport_DocForm_CombinedBudget',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varSysID, 'bigint']
+                            ]
+                            )
+                        );
 
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
                         $varReturn['Data'][0]['Func_GetReport_DocForm_CombinedBudget'])
-                    ]
-                    ;
+                    ];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1268,24 +1376,24 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
             int $varSysID)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetReport_DocForm_CombinedBudgetSection',
-                        [
-                            [$varSysBranch_RefID, 'bigint' ],
-                            [$varSysID, 'bigint' ]
-                        ]
-                        )
-                    );
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Budgeting.Func_GetReport_DocForm_CombinedBudgetSection',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
+                                [$varSysID, 'bigint']
+                            ]
+                            )
+                        );
 
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
                         $varReturn['Data'][0]['Func_GetReport_DocForm_CombinedBudgetSection'])
-                    ]
-                    ;
+                    ];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1311,23 +1419,26 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataReportFormResume_CombinedBudgetSectionSegmentedDetail($varUserSession, int $varBranchID,
+        public function getDataReportFormResume_CombinedBudgetSectionSegmentedDetail(
+            $varUserSession, int $varBranchID,
             int $varCombinedBudgetSection_RefID
             )
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetRptFormRsm_CombinedBudgetSectionSegmentedDetail',
-                        [
-                            [$varBranchID, 'bigint'],
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Budgeting.Func_GetRptFormRsm_CombinedBudgetSectionSegmentedDetail',
+                            [
+                                [$varBranchID, 'bigint'],
 
-                            [$varCombinedBudgetSection_RefID, 'bigint']
-                        ]
-                        )
-                    );
+                                [$varCombinedBudgetSection_RefID, 'bigint']
+                            ]
+                            )
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -1354,23 +1465,26 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataReportFormResume_CombinedBudgetSectionUnsegmentedDetail($varUserSession, int $varBranchID,
+        public function getDataReportFormResume_CombinedBudgetSectionUnsegmentedDetail(
+            $varUserSession, int $varBranchID,
             int $varCombinedBudgetSection_RefID
             )
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetRptFormRsm_CombinedBudgetSectionUnsegmentedDetail',
-                        [
-                            [$varBranchID, 'bigint'],
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Budgeting.Func_GetRptFormRsm_CombinedBudgetSectionUnsegmentedDetail',
+                            [
+                                [$varBranchID, 'bigint'],
 
-                            [$varCombinedBudgetSection_RefID, 'bigint']
-                        ]
-                        )
-                    );
+                                [$varCombinedBudgetSection_RefID, 'bigint']
+                            ]
+                            )
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {

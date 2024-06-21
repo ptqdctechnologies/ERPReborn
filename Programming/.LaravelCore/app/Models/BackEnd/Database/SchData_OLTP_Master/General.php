@@ -18,7 +18,6 @@ namespace App\Models\Database\SchData_OLTP_Master
     */
     class General //extends \Illuminate\Database\Eloquent\Model
         {
-
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getBusinessDocumentLastVersionByBusDocType                                                           |
@@ -51,6 +50,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         ]
                         )
                     );
+
             return $varReturn['Data'];
             }
 
@@ -89,6 +89,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         ]
                         )
                     );
+
             return $varReturn['Data'];
             }
 
@@ -125,7 +126,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         ]
                         )
                     );
-            // dd($varReturn['Data'][0]['BusinessDocumentForm_RefID']);
+
             return $varReturn['Data'];
             }
 
@@ -152,7 +153,8 @@ namespace App\Models\Database\SchData_OLTP_Master
             string $varIDSet)
             {
             try {
-                $varFunctionName='SchData-OLTP-Master.Func_GetDataEntities_CountryAdministrativeArea';
+                $varFunctionName = 'SchData-OLTP-Master.Func_GetDataEntities_CountryAdministrativeArea';
+
                 $varTemp = 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                         $varUserSession, 
@@ -174,6 +176,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]
                             );
                     }
+
                 return $varReturn;
                 }
             catch (\Exception $ex) {
@@ -204,7 +207,8 @@ namespace App\Models\Database\SchData_OLTP_Master
             string $varIDSet)
             {
             try {
-                $varFunctionName='SchData-OLTP-Master.Func_GetDataEntities_Entity';
+                $varFunctionName = 'SchData-OLTP-Master.Func_GetDataEntities_Entity';
+
                 $varTemp = 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                         $varUserSession, 
@@ -256,7 +260,8 @@ namespace App\Models\Database\SchData_OLTP_Master
             string $varIDSet)
             {
             try {
-                $varFunctionName='SchData-OLTP-Master.Func_GetDataEntities_EntityContactNumber';
+                $varFunctionName = 'SchData-OLTP-Master.Func_GetDataEntities_EntityContactNumber';
+
                 $varTemp = 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                         $varUserSession, 
@@ -278,6 +283,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]
                             );
                     }
+
                 return $varReturn;
                 }
             catch (\Exception $ex) {
@@ -314,6 +320,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                     {
                     $varBaseCurrencyISOCode = 'IDR';
                     }
+
                 $varReturn = 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                         $varUserSession, 
@@ -326,7 +333,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varCurrencyISOCode, 'varchar']
                             ]
                             )
-                        );                
+                        );
+
                 return $varReturn['Data'][0]['Func_General_GetCurrencyExchangeRateCentralBankByISOCode'];
                 }
             catch (\Exception $ex) {
@@ -347,6 +355,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -376,7 +385,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -397,6 +407,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -426,7 +437,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -481,7 +493,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -537,6 +550,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );                
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -557,6 +571,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -586,7 +601,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -607,6 +623,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -636,7 +653,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -692,6 +710,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -712,6 +731,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -742,6 +762,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );                
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -797,6 +818,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );                
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -817,6 +839,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -847,6 +870,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );                
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -867,6 +891,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -897,6 +922,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );                
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -917,6 +943,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -947,6 +974,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );                
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -997,6 +1025,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );                
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -1052,6 +1081,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );                
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -1106,7 +1136,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -1161,7 +1192,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -1216,7 +1248,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -1266,7 +1299,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -1322,6 +1356,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -1377,6 +1412,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -1431,7 +1467,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -1452,6 +1489,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -1481,7 +1519,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -1502,6 +1541,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -1553,6 +1593,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
         |      ------------------------------                                                                                      |
+        |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -1581,7 +1622,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -1602,6 +1644,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -1631,7 +1674,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -1652,6 +1696,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -1681,7 +1726,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -1702,6 +1748,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -1732,6 +1779,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );                
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -1752,6 +1800,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -1782,6 +1831,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );                
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -1827,6 +1877,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             'SchData-OLTP-Master.Func_GetDataList_PersonAccountEMail',
                             [
                                 [$varBranch_RefID, 'bigint'],
+
                                 [$varPerson_RefID, 'bigint'],
 
                                 [$varPickStatement, 'varchar'],
@@ -1836,6 +1887,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );     
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -1856,6 +1908,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -1886,6 +1939,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );                
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -1907,7 +1961,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
         |      ------------------------------                                                                                      |
-        |      ▪ (string) varvarDateTime ► Date Time                                                                               |
+        |      ▪ (string) varDateTime ► Date Time                                                                                  |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -1931,6 +1985,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             'SchData-OLTP-Master.Func_GetDataList_Product',
                             [
                                 [$varBranch_RefID, 'bigint'],
+
                                 [$varDateTime, 'timestamptz'],
 
                                 [$varPickStatement, 'varchar'],
@@ -1940,6 +1995,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );  
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -1960,6 +2016,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -1990,6 +2047,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );                
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -2010,6 +2068,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -2040,6 +2099,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );                
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -2060,6 +2120,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -2090,6 +2151,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );                
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -2110,6 +2172,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -2140,6 +2203,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );                
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -2160,6 +2224,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -2190,6 +2255,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );                
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -2210,6 +2276,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -2240,6 +2307,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );                
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -2279,6 +2347,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -2318,6 +2387,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -2357,10 +2427,12 @@ namespace App\Models\Database\SchData_OLTP_Master
                             'SchData-OLTP-Master.Func_GetDataPickList_BankAccount',
                             [
                                 [$varBranch_RefID, 'bigint'],
+
                                 [$varBank_RefID, 'bigint']
                             ]
                             )
                         );
+
                 return $varReturn;
                 }
             catch (\Exception $ex) {
@@ -2400,10 +2472,12 @@ namespace App\Models\Database\SchData_OLTP_Master
                             'SchData-OLTP-Master.Func_GetDataPickList_BankBranch',
                             [
                                 [$varBranch_RefID, 'bigint'],
+
                                 [$varBank_RefID, 'bigint']
                             ]
                             )
                         );
+
                 return $varReturn;
                 }
             catch (\Exception $ex) {
@@ -2443,6 +2517,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -2482,6 +2557,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -2521,10 +2597,12 @@ namespace App\Models\Database\SchData_OLTP_Master
                             'SchData-OLTP-Master.Func_GetDataPickList_CountryAdministrativeAreaLevel1',
                             [
                                 [$varBranch_RefID, 'bigint'],
+
                                 [$varCountry_RefID, 'bigint']
                             ]
                             )
                         );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -2564,10 +2642,12 @@ namespace App\Models\Database\SchData_OLTP_Master
                             'SchData-OLTP-Master.Func_GetDataPickList_CountryAdministrativeAreaLevel2',
                             [
                                 [$varBranch_RefID, 'bigint'],
+
                                 [$varCountryAdministrativeAreaLevel1_RefID, 'bigint']
                             ]
                             )
                         );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -2607,10 +2687,12 @@ namespace App\Models\Database\SchData_OLTP_Master
                             'SchData-OLTP-Master.Func_GetDataPickList_CountryAdministrativeAreaLevel3',
                             [
                                 [$varBranch_RefID, 'bigint'],
+
                                 [$varCountryAdministrativeAreaLevel2_RefID, 'bigint']
                             ]
                             )
                         );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -2650,10 +2732,12 @@ namespace App\Models\Database\SchData_OLTP_Master
                             'SchData-OLTP-Master.Func_GetDataPickList_CountryAdministrativeAreaLevel4',
                             [
                                 [$varBranch_RefID, 'bigint'],
+
                                 [$varCountryAdministrativeAreaLevel3_RefID, 'bigint']
                             ]
                             )
                         );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -2693,6 +2777,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );
+
                 return $varReturn;
                 }
             catch (\Exception $ex) {
@@ -2732,10 +2817,12 @@ namespace App\Models\Database\SchData_OLTP_Master
                             'SchData-OLTP-Master.Func_GetDataPickList_EntityBankAccount',
                             [
                                 [$varBranch_RefID, 'bigint'],
+
                                 [$varEntity_RefID, 'bigint']
                             ]
                             )
                         );
+
                 return $varReturn;
                 }
             catch (\Exception $ex) {
@@ -2775,10 +2862,12 @@ namespace App\Models\Database\SchData_OLTP_Master
                             'SchData-OLTP-Master.Func_GetDataPickList_EntityContactNumber',
                             [
                                 [$varBranch_RefID, 'bigint'],
+
                                 [$varEntity_RefID, 'bigint']
                             ]
                             )
                         );
+
                 return $varReturn;
                 }
             catch (\Exception $ex) {
@@ -2818,6 +2907,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );
+
                 return $varReturn;
                 }
             catch (\Exception $ex) {
@@ -2857,6 +2947,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );
+
                 return $varReturn;
                 }
             catch (\Exception $ex) {
@@ -2896,6 +2987,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -2935,6 +3027,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -2974,6 +3067,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -3014,6 +3108,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -3059,6 +3154,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -3098,6 +3194,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -3137,6 +3234,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -3328,7 +3426,9 @@ namespace App\Models\Database\SchData_OLTP_Master
                         ]
                         )
                     );
+
                 $varReturn = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varReturn['Data'][0]['Func_GetReport_Resume_BusinessDocumentDispositionHistory']);
+
                 return $varReturn;
                 }
             catch (\Exception $ex) {
@@ -3373,7 +3473,9 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );
+
                 $varReturn = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varReturn['Data'][0]['Func_GetReport_Resume_BusinessDocumentDispositionHistory']);
+
                 return $varReturn;
                 }
             catch (\Exception $ex) {
@@ -3468,6 +3570,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );
+
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
@@ -3513,7 +3616,6 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );
-                // dd($varReturn['Data']);
 
                 return $varReturn['Data'];
                 }
@@ -3562,8 +3664,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
                         $varReturn['Data'][0]['Func_GetReport_DocForm_AllType'])
-                    ]
-                    ;
+                    ];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -3652,6 +3753,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );
+
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
@@ -3694,6 +3796,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         ]
                         )
                     );
+
             return $varReturn['Data'][0]['Func_General_GetFileExtensionOfMIME'];
             }
 
@@ -3731,6 +3834,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );
+
                 return $varReturn['Data'][0]['Func_General_GetIDOfMIME'];
                 } 
             catch (\Exception $ex) {
@@ -3772,6 +3876,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );
+
                 $varReturn = [
                     'fullDocumentNumber' => 
                         $varData['Data'][0]['DocumentTypeName'].
@@ -3788,6 +3893,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                     'version' => $varData['Data'][0]['Version'],
                     'documentDateTimeTZ' => $varData['Data'][0]['DocumentDateTimeTZ']
                     ];
+
                 return $varReturn;
                 } 
             catch (\Exception $ex) {
@@ -3830,9 +3936,11 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );
+
                 $varReturn = [
                     'status' => $varData['Data'][0]['Func_General_IsBusinessDocumentFinalApproved']
                     ];
+
                 return $varReturn;
                 } 
             catch (\Exception $ex) {

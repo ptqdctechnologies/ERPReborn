@@ -34,29 +34,34 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataEntities_Underlying_PaymentDetail($varUserSession, 
+        public function getDataEntities_Underlying_PaymentDetail(
+            $varUserSession, 
             string $varIDSet)
             {
             try {
-                $varFunctionName='SchData-OLTP-Finance.Func_GetDataEntities_Underlying_PaymentDetail';
-                $varTemp = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        $varFunctionName,
-                            [
-                                [$varUserSession, 'bigint'],
-                                [$varIDSet, 'bigint[]']
-                            ]
-                        )
-                    ); 
+                $varFunctionName = 'SchData-OLTP-Finance.Func_GetDataEntities_Underlying_PaymentDetail';
+
+                $varTemp =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            $varFunctionName,
+                                [
+                                    [$varUserSession, 'bigint'],
+                                    [$varIDSet, 'bigint[]']
+                                ]
+                            )
+                        ); 
 
                 for ($i=0; $i!=count($varTemp['Data']); $i++)
                     {
-                    $varReturn[$i] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
-                        $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]);
+                    $varReturn[$i] =
+                        \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                            $varUserSession, 
+                            $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]);
                     }
+
                 return $varReturn;
                 }
             catch (\Exception $ex) {
@@ -81,29 +86,34 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataEntities_Underlying_PaymentInstructionDetail($varUserSession, 
+        public function getDataEntities_Underlying_PaymentInstructionDetail(
+            $varUserSession, 
             string $varIDSet)
             {
             try {
-                $varFunctionName='SchData-OLTP-Finance.Func_GetDataEntities_Underlying_PaymentInstructionDetail';
-                $varTemp = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        $varFunctionName,
-                            [
-                                [$varUserSession, 'bigint'],
-                                [$varIDSet, 'bigint[]']
-                            ]
-                        )
-                    ); 
+                $varFunctionName = 'SchData-OLTP-Finance.Func_GetDataEntities_Underlying_PaymentInstructionDetail';
+
+                $varTemp =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            $varFunctionName,
+                                [
+                                    [$varUserSession, 'bigint'],
+                                    [$varIDSet, 'bigint[]']
+                                ]
+                            )
+                        ); 
 
                 for ($i=0; $i!=count($varTemp['Data']); $i++)
                     {
-                    $varReturn[$i] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
-                        $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]);
+                    $varReturn[$i] =
+                        \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                            $varUserSession, 
+                            $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]);
                     }
+
                 return $varReturn;
                 }
             catch (\Exception $ex) {
@@ -125,7 +135,6 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
-        |      ▪ (int)    varAdvance_RefID ► Advance Reference ID                                                                  |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -140,21 +149,23 @@ namespace App\Models\Database\SchData_OLTP_Finance
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Finance.Func_GetDataList_Advance',
-                        [
-                            [$varSysBranch_RefID, 'bigint' ],
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetDataList_Advance',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
 
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );                
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );                
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -176,6 +187,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
+        |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -190,23 +202,25 @@ namespace App\Models\Database\SchData_OLTP_Finance
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Finance.Func_GetDataList_AdvanceDetail',
-                        [
-                            [$varSysBranch_RefID, 'bigint' ],
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetDataList_AdvanceDetail',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
 
-                            [$varAdvance_RefID, 'bigint'],
+                                [$varAdvance_RefID, 'bigint'],
 
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -216,7 +230,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataList_AdvanceDetailComplex                                                                            |
+        | ▪ Method Name     : getDataList_AdvanceDetailComplex                                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-06-02                                                                                           |
@@ -226,6 +240,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -241,23 +256,25 @@ namespace App\Models\Database\SchData_OLTP_Finance
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Finance.Func_GetDataList_AdvanceDetailComplex',
-                        [
-                            [$varSysBranch_RefID, 'bigint' ],
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetDataList_AdvanceDetailComplex',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
 
-                            [$varAdvance_RefID, 'bigint'],
+                                [$varAdvance_RefID, 'bigint'],
 
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -278,6 +295,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
+        |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -291,21 +309,24 @@ namespace App\Models\Database\SchData_OLTP_Finance
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Finance.Func_GetDataList_InvoiceSupplierBillingPurpose',
-                        [
-                            [null, 'bigint'],
-                            [$varSysBranch_RefID, 'bigint' ],
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );                
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetDataList_InvoiceSupplierBillingPurpose',
+                            [
+                                [null, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint' ],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );                
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -334,16 +355,18 @@ namespace App\Models\Database\SchData_OLTP_Finance
             $varUserSession, int $varSysBranch_RefID)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Finance.Func_GetDataPickList_Advance',
-                        [
-                            [$varSysBranch_RefID, 'bigint' ]
-                        ]
-                        )
-                    );
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetDataPickList_Advance',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ]
+                            ]
+                            )
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -372,16 +395,18 @@ namespace App\Models\Database\SchData_OLTP_Finance
             $varUserSession, int $varSysBranch_RefID)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Finance.Func_GetDataPickList_InvoiceSupplierBillingPurpose',
-                        [
-                            [$varSysBranch_RefID, 'bigint' ]
-                        ]
-                        )
-                    );
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetDataPickList_InvoiceSupplierBillingPurpose',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ]
+                            ]
+                            )
+                        );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -412,17 +437,19 @@ namespace App\Models\Database\SchData_OLTP_Finance
             int $varSysID)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Finance.Func_GetReport_DocForm_Advance',
-                        [
-                            [$varSysBranch_RefID, 'bigint' ],
-                            [$varSysID, 'bigint' ]
-                        ]
-                        )
-                    );
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetReport_DocForm_Advance',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysID, 'bigint' ]
+                            ]
+                            )
+                        );
+
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
@@ -458,17 +485,19 @@ namespace App\Models\Database\SchData_OLTP_Finance
             int $varSysID)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Finance.Func_GetReport_DocForm_AdvancePayment',
-                        [
-                            [$varSysBranch_RefID, 'bigint' ],
-                            [$varSysID, 'bigint' ]
-                        ]
-                        )
-                    );
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetReport_DocForm_AdvancePayment',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysID, 'bigint' ]
+                            ]
+                            )
+                        );
+
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
@@ -504,17 +533,19 @@ namespace App\Models\Database\SchData_OLTP_Finance
             int $varSysID)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Finance.Func_GetReport_DocForm_AdvanceSettlement',
-                        [
-                            [$varSysBranch_RefID, 'bigint' ],
-                            [$varSysID, 'bigint' ]
-                        ]
-                        )
-                    );
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetReport_DocForm_AdvanceSettlement',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysID, 'bigint' ]
+                            ]
+                            )
+                        );
+
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
@@ -550,17 +581,19 @@ namespace App\Models\Database\SchData_OLTP_Finance
             int $varSysID)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Finance.Func_GetReport_DocForm_DebitNote',
-                        [
-                            [$varSysBranch_RefID, 'bigint' ],
-                            [$varSysID, 'bigint' ]
-                        ]
-                        )
-                    );
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetReport_DocForm_DebitNote',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysID, 'bigint' ]
+                            ]
+                            )
+                        );
+
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
@@ -596,22 +629,23 @@ namespace App\Models\Database\SchData_OLTP_Finance
             int $budgetID = null, int $subBudgetID = null, int $workID = null, int $productID = null, int $beneficiaryID = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Finance.Func_GetReport_AdvanceSummary',
-                        [
-                            [$varSysBranch_RefID, 'bigint' ],
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetReport_AdvanceSummary',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
 
-                            [$budgetID, 'bigint'],
-                            [$subBudgetID, 'bigint'],
-                            [$workID, 'bigint'],
-                            [$productID, 'bigint'],
-                            [$beneficiaryID, 'bigint']
-                        ]
-                        )
-                    );
+                                [$budgetID, 'bigint'],
+                                [$subBudgetID, 'bigint'],
+                                [$workID, 'bigint'],
+                                [$productID, 'bigint'],
+                                [$beneficiaryID, 'bigint']
+                            ]
+                            )
+                        );
 
                     return ($varReturn['Data']);
 
@@ -643,23 +677,23 @@ namespace App\Models\Database\SchData_OLTP_Finance
             int $varSysID)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Finance.Func_GetReport_AdvanceSummary_Detail',
-                        [
-                            [$varSysBranch_RefID, 'bigint' ],
-                            [$varSysID, 'bigint' ]
-                        ]
-                        )
-                    );
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetReport_AdvanceSummary_Detail',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysID, 'bigint' ]
+                            ]
+                            )
+                        );
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
                         $varReturn['Data'][0]['Func_GetReport_AdvanceSummary_Detail'])
-                    ]
-                    ;
+                    ];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -689,23 +723,24 @@ namespace App\Models\Database\SchData_OLTP_Finance
             int $varSysID)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Finance.Func_GetReport_DocForm_Payment',
-                        [
-                            [$varSysBranch_RefID, 'bigint' ],
-                            [$varSysID, 'bigint' ]
-                        ]
-                        )
-                    );
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetReport_DocForm_Payment',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysID, 'bigint' ]
+                            ]
+                            )
+                        );
+
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
                         $varReturn['Data'][0]['Func_GetReport_DocForm_Payment'])
-                    ]
-                    ;
+                    ];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -735,24 +770,24 @@ namespace App\Models\Database\SchData_OLTP_Finance
             int $varSysID)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-Finance.Func_GetReport_DocForm_PaymentInstruction',
-                        [
-                            [$varSysBranch_RefID, 'bigint' ],
-                            [$varSysID, 'bigint' ]
-                        ]
-                        )
-                    );
-                //dd($varReturn['Data'][0]['Func_GetReport_DocForm_Advance']);
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetReport_DocForm_PaymentInstruction',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysID, 'bigint' ]
+                            ]
+                            )
+                        );
+
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
                         $varReturn['Data'][0]['Func_GetReport_DocForm_PaymentInstruction'])
-                    ]
-                    ;
+                    ];
                 }
             catch (\Exception $ex) {
                 return [];

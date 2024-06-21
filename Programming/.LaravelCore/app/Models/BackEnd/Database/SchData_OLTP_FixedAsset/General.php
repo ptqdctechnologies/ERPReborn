@@ -47,23 +47,25 @@ namespace App\Models\Database\SchData_OLTP_FixedAsset
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-FixedAsset.Func_GetDataList_GoodsIdentity',
-                        [
-                            [$varBranchID, 'bigint' ],
-                            
-                            [$varGoodsModel_RefID, 'bigint' ],
-                            
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );                
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-FixedAsset.Func_GetDataList_GoodsIdentity',
+                            [
+                                [$varBranchID, 'bigint' ],
+
+                                [$varGoodsModel_RefID, 'bigint' ],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );                
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -95,17 +97,19 @@ namespace App\Models\Database\SchData_OLTP_FixedAsset
             int $varGoodsModel_RefID = null)
             {
             try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-FixedAsset.Func_GetDataPickList_GoodsIdentity',
-                        [
-                            [$varBranchID, 'bigint' ],
-                            [$varGoodsModel_RefID, 'bigint' ]
-                        ]
-                        )
-                    );
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-FixedAsset.Func_GetDataPickList_GoodsIdentity',
+                            [
+                                [$varBranchID, 'bigint' ],
+                                [$varGoodsModel_RefID, 'bigint' ]
+                            ]
+                            )
+                        );
+
                 return $varReturn;
                 }
             catch (\Exception $ex) {

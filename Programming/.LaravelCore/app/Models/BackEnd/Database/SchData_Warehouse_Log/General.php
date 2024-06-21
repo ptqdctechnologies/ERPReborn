@@ -54,7 +54,8 @@ namespace App\Models\Database\SchData_Warehouse_Log
                             $varUserSession,
                             'SchData-Warehouse-Log.Func_GetDataList_Log_TransactionHistory',
                             [
-                                [$varBranchID, 'bigint' ],                            
+                                [$varBranchID, 'bigint' ],
+
                                 [$varSource_RefID, 'bigint' ],
 
                                 [$varPickStatement, 'varchar'],
