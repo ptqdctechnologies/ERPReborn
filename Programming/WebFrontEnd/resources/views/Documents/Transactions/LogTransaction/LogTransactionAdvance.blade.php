@@ -30,9 +30,11 @@
                                                 <th style="padding-bottom:15px;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2"> Qty</th>
                                                 <th style="padding-bottom:15px;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2">Price</th>
                                                 <th style="padding-bottom:15px;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2">Total</th>
-                                                @if(sizeof($dataDetail))
-                                                    @for($i = 1; $i < count($dataDetail[0]); $i++) 
-                                                        <th colspan="3" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">Rev {{ $i }} - {{ $dataHeader[0]['requesterWorkerName'] }} ( {{ date('Y-m-d', strtotime($dataDetail[0][$i]['content']['sys_Data_Edit_DateTimeTZ'])) }} )</th>
+                                                @if(sizeof($dataHeader))
+                                                    @for($i = 1; $i < count($dataHeader); $i++) 
+                                                        <th colspan="3" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">
+                                                            Rev {{ $i }} - {{ $dataHeader[$i]['submitterWorkerName'] }} - ( {{ date('Y-m-d', strtotime($dataHeader[$i]['content']['sys_Data_Edit_DateTimeTZ'])) }} )
+                                                        </th>
                                                     @endfor
                                                 @endif
                                             </tr>

@@ -227,7 +227,6 @@ class BusinessTripSettlementController extends Controller
                 true
             );
 
-            dd($DataListAdvance);
 
             $collection = collect($DataListAdvance);
 

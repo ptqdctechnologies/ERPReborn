@@ -33,6 +33,46 @@
     </div>
 </div>
 
+
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $(function() {
+        $('.PopUpTableAdvanceRevision').on('click', function(e) {
+            e.preventDefault();
+
+            var keys = 0;
+
+            $.ajax({
+                type: 'GET',
+                url: '{!! route("AdvanceRequest.AdvanceListData") !!}?project_id=' + $('#project_id').val() + '&site_id=' + $('#site_id').val(),
+                
+                success: function(data) {
+                    var no = 1; t = $('#TableSearchArfRevision').DataTable();
+                    t.clear();
+                    $.each(data, function(key, val) {
+                        keys += 1;
+                        t.row.add([
+                            '<tbody><tr><input id="sys_id_advance_revision' + keys + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
+                            '<td>' + val.DocumentNumber + '</td>',
+                            '<td>' + val.CombinedBudgetCode + '</td>',
+                            '<td>' + val.CombinedBudgetName + '</td>',
+                            '<td>' + val.CombinedBudgetSectionCode + '</td>',
+                            '<td>' + val.CombinedBudgetSectionName + '</td></tr></tbody>'
+                        ]).draw();
+
+                    });
+                }
+            });
+        });
+
+    });
+</script>
+
 <script>
     $('#TableSearchArfRevision tbody').on('click', 'tr', function() {
 
@@ -63,11 +103,18 @@
             ShowLoading();
             window.location.href = '/RevisionAdvanceIndex?advance_RefID=' + advance_RefID;
         } else {
-            console.log("S");
             $('#advance_number').focus();
             $('#advance_number').css("border", "1px solid red");
             $('#advance_number_icon').css("border", "1px solid red");
         }
+
+    });
+</script>
+
+<script>
+    $('.btn-cancel').on('click', function() {
+        $('#advance_RefID').val("");
+        $('#advance_number').val("");
 
     });
 </script>
