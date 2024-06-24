@@ -288,8 +288,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Method Name     : getDataList_Budget                                                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2021-05-28                                                                                           |
         | ▪ Last Update     : 2021-05-28                                                                                           |
+        | ▪ Creation Date   : 2021-05-28                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Budget                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -340,8 +340,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Method Name     : getDataList_BudgetExpense                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2021-06-15                                                                                           |
         | ▪ Last Update     : 2021-06-15                                                                                           |
+        | ▪ Creation Date   : 2021-06-15                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Budget Expense                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -396,8 +396,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Method Name     : getDataList_BudgetExpenseLineCeiling                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2021-06-17                                                                                           |
         | ▪ Last Update     : 2021-06-17                                                                                           |
+        | ▪ Creation Date   : 2021-06-17                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Budget Expense Line Ceiling (Pagu Anggaran Mata Anggaran Belanja)                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -452,8 +452,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Method Name     : getDataList_BudgetExpenseLineCeilingObjects                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2021-06-17                                                                                           |
         | ▪ Last Update     : 2021-06-17                                                                                           |
+        | ▪ Creation Date   : 2021-06-17                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Budget Expense Line Ceiling Objects (Objek Pagu Mata Anggaran Belanja)            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -508,8 +508,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Method Name     : getDataList_BudgetExpenseGroup                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2021-06-15                                                                                           |
         | ▪ Last Update     : 2021-06-15                                                                                           |
+        | ▪ Creation Date   : 2021-06-15                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Budget Expense Group                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -560,8 +560,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Method Name     : getDataList_BudgetExpenseLine                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2021-06-15                                                                                           |
         | ▪ Last Update     : 2021-06-15                                                                                           |
+        | ▪ Creation Date   : 2021-06-15                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Budget Expense Line                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -615,8 +615,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Method Name     : getDataList_BudgetExpenseOwner                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2021-08-26                                                                                           |
         | ▪ Last Update     : 2021-08-26                                                                                           |
+        | ▪ Creation Date   : 2021-08-26                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Budget Expense Owner                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -673,8 +673,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Method Name     : getDataList_CombinedBudget                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2021-10-12                                                                                           |
         | ▪ Last Update     : 2021-10-12                                                                                           |
+        | ▪ Creation Date   : 2021-10-12                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Budget                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -724,15 +724,20 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Method Name     : getDataList_CombinedBudgetSection                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2021-10-11                                                                                           |
         | ▪ Last Update     : 2021-10-11                                                                                           |
+        | ▪ Creation Date   : 2021-10-11                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Seksi Anggaran Gabungan                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
         |      ------------------------------                                                                                      |
-        |      ▪ (int)    varCombinedBudgetOwner_RefID ► Combined Budget Owner ID                                                  |
+        |      ▪ (int)    varCombinedBudget_RefID ► Combined Budget Reference ID                                                   |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -775,15 +780,20 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Method Name     : getDataList_CombinedBudgetSectionDetail                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2021-10-11                                                                                           |
         | ▪ Last Update     : 2021-10-11                                                                                           |
+        | ▪ Creation Date   : 2021-10-11                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Perincian Seksi Anggaran Gabungan                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
         |      ------------------------------                                                                                      |
-        |      ▪ (int)    varCombinedBudgetOwner_RefID ► Combined Budget Owner ID                                                  |
+        |      ▪ (int)    varCombinedBudgetSection_RefID ► Combined Budget Section Reference ID                                    |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -812,6 +822,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             ]
                             )
                         );
+
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -825,8 +836,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Method Name     : getDataList_CombinedBudgetSubSectionLevel1                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-10-31                                                                                           |
         | ▪ Last Update     : 2022-10-31                                                                                           |
+        | ▪ Creation Date   : 2022-10-31                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Sub Seksi Anggaran Gabungan Level 1                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -876,8 +887,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Method Name     : getDataPickList_Budget                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2021-12-16                                                                                           |
         | ▪ Last Update     : 2021-12-16                                                                                           |
+        | ▪ Creation Date   : 2021-12-16                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Anggaran                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -916,8 +927,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Method Name     : getDataPickList_BudgetExpense                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2021-12-16                                                                                           |
         | ▪ Last Update     : 2021-12-16                                                                                           |
+        | ▪ Creation Date   : 2021-12-16                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Anggaran Belanja                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -961,8 +972,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Method Name     : getDataPickList_BudgetExpenseGroup                                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2021-12-21                                                                                           |
         | ▪ Last Update     : 2021-12-21                                                                                           |
+        | ▪ Creation Date   : 2021-12-21                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Kelompok Anggaran Belanja                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -1001,8 +1012,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Method Name     : getDataPickList_BudgetExpenseLine                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2021-12-22                                                                                           |
         | ▪ Last Update     : 2021-12-22                                                                                           |
+        | ▪ Creation Date   : 2021-12-22                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Mata Anggaran Belanja                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -1046,8 +1057,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Method Name     : getDataPickList_BudgetExpenseLineCeiling                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2021-12-22                                                                                           |
         | ▪ Last Update     : 2021-12-22                                                                                           |
+        | ▪ Creation Date   : 2021-12-22                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Pagu Mata Anggaran Belanja                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -1091,8 +1102,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Method Name     : getDataPickList_BudgetExpenseLineCeilingObjects                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2021-12-22                                                                                           |
         | ▪ Last Update     : 2021-12-22                                                                                           |
+        | ▪ Creation Date   : 2021-12-22                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Pagu Mata Anggaran Belanja                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -1136,8 +1147,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Method Name     : getDataPickList_CombinedBudget                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2021-08-26                                                                                           |
         | ▪ Last Update     : 2021-08-26                                                                                           |
+        | ▪ Creation Date   : 2021-08-26                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Pemilik Anggaran Gabungan                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -1176,8 +1187,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Method Name     : getDataPickList_CombinedBudgetSection                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2021-10-11                                                                                           |
         | ▪ Last Update     : 2021-10-11                                                                                           |
+        | ▪ Creation Date   : 2021-10-11                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Section Anggaran Gabungan                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -1221,8 +1232,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Method Name     : getDataPickList_CombinedBudgetSectionDetail                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-03-09                                                                                           |
         | ▪ Last Update     : 2022-03-09                                                                                           |
+        | ▪ Creation Date   : 2022-03-09                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Perincian Seksi Anggaran Gabungan                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -1266,8 +1277,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Method Name     : getDataPickList_CombinedBudgetSubSectionLevel1                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-10-31                                                                                           |
         | ▪ Last Update     : 2022-10-31                                                                                           |
+        | ▪ Creation Date   : 2022-10-31                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Sub Section Anggaran Gabungan Level 1                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -1318,6 +1329,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
         |      ▪ (int)    varSysID ► Record ID                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -1366,6 +1378,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
         |      ▪ (int)    varSysID ► Record ID                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -1406,8 +1419,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Method Name     : getDataReportFormResume_CombinedBudgetSectionSegmentedDetail                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2021-10-11                                                                                           |
         | ▪ Last Update     : 2021-10-11                                                                                           |
+        | ▪ Creation Date   : 2021-10-11                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Seksi Anggaran Gabungan Terperinci Tersegmentasi                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -1452,8 +1465,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Method Name     : getDataReportFormResume_CombinedBudgetSectionUnsegmentedDetail                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2021-10-11                                                                                           |
         | ▪ Last Update     : 2021-10-11                                                                                           |
+        | ▪ Creation Date   : 2021-10-11                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Seksi Anggaran Gabungan Terperinci Tanpa Segmentasi                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
