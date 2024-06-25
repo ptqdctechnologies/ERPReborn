@@ -20,10 +20,9 @@ class Controller_Main extends \App\Http\Controllers\Controller
     public function testAja3()
         {
         $varData =
-            (new \App\Models\Database\SchSysConfig\General())->getBusinessDocumentWorkFlowPathApprovementHistory(
+            (new \App\Models\Database\SchData_OLTP_Project\General())->getDataPickList_Project(
                 6000000000001,
-                11000000000004,
-                74000000020766
+                11000000000004
             );
             dd($varData);
         

@@ -41,7 +41,6 @@ class FunctionController extends Controller
             true
         );
 
-
         return response()->json($DataBudget);
     }
 
