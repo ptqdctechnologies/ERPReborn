@@ -3,7 +3,8 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\budgeting\getCombinedBudgetSubSectionLevel1\v1 |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\budgeting                                   |
+|                \getCombinedBudgetSubSectionLevel1\v1                                                                             |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
@@ -12,8 +13,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\b
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getCombinedBudgetSubSectionLevel1                                                                               |
-    | ▪ Description : Menangani API dataPickList.budgeting.getCombinedBudgetSubSectionLevel1 Version 1                                |
+    | ▪ Class Name  : getCombinedBudgetSubSectionLevel1                                                                            |
+    | ▪ Description : Menangani API dataPickList.budgeting.getCombinedBudgetSubSectionLevel1 Version 1                             |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class getCombinedBudgetSubSectionLevel1 extends \App\Http\Controllers\Controller
@@ -24,6 +25,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\b
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-03-09                                                                                           |
+        | ▪ Creation Date   : 2022-03-09                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,6 +45,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\b
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-03-09                                                                                           |
+        | ▪ Creation Date   : 2022-03-09                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -59,13 +62,18 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\b
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Data Pick List Combined Budget Section Detail (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataPickList_CombinedBudgetSubSectionLevel1(
-                            $varUserSession, 
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            
-                            $varData['parameter']['combinedBudgetSection_RefID']
-                            ))))
+                    try {
+                        if (!($varDataSend =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
+                                $varUserSession,
+                                (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataPickList_CombinedBudgetSubSectionLevel1(
+                                    $varUserSession, 
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+
+                                    $varData['parameter']['combinedBudgetSection_RefID']
+                                    )
+                                )
+                            ))
                             {
                             throw new \Exception();
                             }
