@@ -5,26 +5,26 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_CustomerRelation                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2021 - 2024 Zheta (teguhpjs@gmail.com)                                                                              |
+| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_CustomerRelation
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblSalesContract                                                                                             |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-CustomerRelation ► TblSalesContract                                 |
+    | ▪ Class Name  : TblSalesContractDetail                                                                                       |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-CustomerRelation ► TblSalesContractDetail                           |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblSalesContract extends \App\Models\Database\DefaultClassPrototype
+    class TblSalesContractDetail extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-02-23                                                                                           |
-        | ▪ Creation Date   : 2021-02-23                                                                                           |
+        | ▪ Last Update     : 2024-06-26                                                                                           |
+        | ▪ Creation Date   : 2024-06-26                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,9 +42,9 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2024-06-26                                                                                           |
-        | ▪ Creation Date   : 2021-02-23                                                                                           |
+        | ▪ Creation Date   : 2024-06-26                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -54,13 +54,19 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
-        |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► File Attachments Reference ID                                          |
-        |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Worker Jobs Position Reference ID                       |
-        |      ▪ (int)    varSalesOrder_RefID ► Sales Order Reference ID                                                           |
+        |      ▪ (int)    varSalesContract_RefID ► Sales Contract Reference ID                                                     |
+        |      ▪ (int)    varSubTotalCurrency_RefID ► Sub Total Currency Reference ID                                              |
+        |      ▪ (float)  varSubTotalCurrencyValue ► Sub Total Currency Value                                                      |
+        |      ▪ (float)  varSubTotalCurrencyExchangeRate ► Sub Total Currency Exchange Rate                                       |
+        |      ▪ (float)  varDiscountCurrencyValue ► Discoun tCurrency Value                                                       |
+        |      ▪ (float)  varDiscountCurrencyExchangeRate ► Discount Currency Exchange Rate                                        |
+        |      ▪ (float)  varTaxRate ► Tax Rate                                                                                    |
+        |      ▪ (float)  varTaxCurrencyValue ► Tax Currency Value                                                                 |
+        |      ▪ (float)  varTaxCurrencyExchangeRate ► Tax Currency Exchange Rate                                                  |
+        |      ▪ (float)  varTotalAmountCurrencyValue ► Total Amount Currency Value                                                |
+        |      ▪ (float)  varTotalAmountCurrencyExchangeRate ► Total Amount Currency Exchange Rate                                 |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
-        |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -68,8 +74,8 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, int $varSalesOrder_RefID = null, string $varRemarks = null,
-            array $varAdditionalData = [])
+            int $varSalesContract_RefID = null, int $varSubTotalCurrency_RefID = null, float $varSubTotalCurrencyValue = null, float $varSubTotalCurrencyExchangeRate = null, float $varDiscountCurrencyValue = null, float $varDiscountCurrencyExchangeRate = null, float $varTaxRate = null, float $varTaxCurrencyValue = null, float $varTaxCurrencyExchangeRate = null, float $varTotalAmountCurrencyValue = null, float $varTotalAmountCurrencyExchangeRate = null, string $varRemarks = null
+            )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -85,13 +91,18 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
-                            [$varDocumentDateTimeTZ, 'timestamptz'],
-                            [$varLog_FileUpload_Pointer_RefID, 'bigint'],
-                            [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
-                            [$varSalesOrder_RefID, 'bigint'],
-                            [$varRemarks, 'varchar'],
-
-                            [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
+                            [$varSalesContract_RefID, 'bigint'],
+                            [$varSubTotalCurrency_RefID, 'bigint'],
+                            [$varSubTotalCurrencyValue, ' numeric'],
+                            [$varSubTotalCurrencyExchangeRate, 'numeric'],
+                            [$varDiscountCurrencyValue, 'numeric'],
+                            [$varDiscountCurrencyExchangeRate, 'numeric'],
+                            [$varTaxRate, 'numeric'],
+                            [$varTaxCurrencyValue, 'numeric'],
+                            [$varTaxCurrencyExchangeRate, 'numeric'],
+                            [$varTotalAmountCurrencyValue, 'numeric'],
+                            [$varTotalAmountCurrencyExchangeRate, 'numeric'],
+                            [$varRemarks, 'varchar']
                         ]
                         )
                     );
@@ -102,44 +113,11 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : setDataSynchronize                                                                                   |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-03-02                                                                                           |
-        | ▪ Creation Date   : 2021-03-02                                                                                           |
-        | ▪ Description     : Data Synchronize                                                                                     |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function setDataSynchronize($varUserSession)
-            {
-            $varReturn =
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        parent::getSchemaTableSynchronizeName($varUserSession), 
-                        [
-                        ]
-                        )
-                    );
-
-            $varReturn = [];
-            return $varReturn;
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2024-06-26                                                                                           |
-        | ▪ Creation Date   : 2021-02-23                                                                                           |
+        | ▪ Creation Date   : 2024-06-26                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -150,13 +128,19 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
-        |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► File Attachments Reference ID                                          |
-        |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Worker Jobs Position Reference ID                       |
-        |      ▪ (int)    varSalesOrder_RefID ► Sales Order Reference ID                                                           |
+        |      ▪ (int)    varSalesContract_RefID ► Sales Contract Reference ID                                                     |
+        |      ▪ (int)    varSubTotalCurrency_RefID ► Sub Total Currency Reference ID                                              |
+        |      ▪ (float)  varSubTotalCurrencyValue ► Sub Total Currency Value                                                      |
+        |      ▪ (float)  varSubTotalCurrencyExchangeRate ► Sub Total Currency Exchange Rate                                       |
+        |      ▪ (float)  varDiscountCurrencyValue ► Discoun tCurrency Value                                                       |
+        |      ▪ (float)  varDiscountCurrencyExchangeRate ► Discount Currency Exchange Rate                                        |
+        |      ▪ (float)  varTaxRate ► Tax Rate                                                                                    |
+        |      ▪ (float)  varTaxCurrencyValue ► Tax Currency Value                                                                 |
+        |      ▪ (float)  varTaxCurrencyExchangeRate ► Tax Currency Exchange Rate                                                  |
+        |      ▪ (float)  varTotalAmountCurrencyValue ► Total Amount Currency Value                                                |
+        |      ▪ (float)  varTotalAmountCurrencyExchangeRate ► Total Amount Currency Exchange Rate                                 |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
-        |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -164,8 +148,8 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, int $varSalesOrder_RefID = null, string $varRemarks = null,
-            array $varAdditionalData = [])
+            int $varSalesContract_RefID = null, int $varSubTotalCurrency_RefID = null, float $varSubTotalCurrencyValue = null, float $varSubTotalCurrencyExchangeRate = null, float $varDiscountCurrencyValue = null, float $varDiscountCurrencyExchangeRate = null, float $varTaxRate = null, float $varTaxCurrencyValue = null, float $varTaxCurrencyExchangeRate = null, float $varTotalAmountCurrencyValue = null, float $varTotalAmountCurrencyExchangeRate = null, string $varRemarks = null
+            )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -181,13 +165,18 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
-                            [$varDocumentDateTimeTZ, 'timestamptz'],
-                            [$varLog_FileUpload_Pointer_RefID, 'bigint'],
-                            [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
-                            [$varSalesOrder_RefID, 'bigint'],
-                            [$varRemarks, 'varchar'],
-
-                            [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
+                            [$varSalesContract_RefID, 'bigint'],
+                            [$varSubTotalCurrency_RefID, 'bigint'],
+                            [$varSubTotalCurrencyValue, ' numeric'],
+                            [$varSubTotalCurrencyExchangeRate, 'numeric'],
+                            [$varDiscountCurrencyValue, 'numeric'],
+                            [$varDiscountCurrencyExchangeRate, 'numeric'],
+                            [$varTaxRate, 'numeric'],
+                            [$varTaxCurrencyValue, 'numeric'],
+                            [$varTaxCurrencyExchangeRate, 'numeric'],
+                            [$varTotalAmountCurrencyValue, 'numeric'],
+                            [$varTotalAmountCurrencyExchangeRate, 'numeric'],
+                            [$varRemarks, 'varchar']
                         ]
                         )
                     );

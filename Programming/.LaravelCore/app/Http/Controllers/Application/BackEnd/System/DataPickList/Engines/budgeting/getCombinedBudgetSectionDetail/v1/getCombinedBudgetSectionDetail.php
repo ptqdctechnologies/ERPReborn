@@ -24,6 +24,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\b
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-03-09                                                                                           |
+        | ▪ Creation Date   : 2022-03-09                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,6 +44,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\b
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-03-09                                                                                           |
+        | ▪ Creation Date   : 2022-03-09                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -59,12 +61,18 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\b
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Data Pick List Combined Budget Section Detail (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataPickList_CombinedBudgetSectionDetail(
-                            $varUserSession, 
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            $varData['parameter']['combinedBudgetSection_RefID']
-                            ))))
+                    try {
+                        if (!($varDataSend =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
+                                $varUserSession,
+                                (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataPickList_CombinedBudgetSectionDetail(
+                                    $varUserSession, 
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+
+                                    $varData['parameter']['combinedBudgetSection_RefID']
+                                    )
+                                )
+                            ))
                             {
                             throw new \Exception();
                             }

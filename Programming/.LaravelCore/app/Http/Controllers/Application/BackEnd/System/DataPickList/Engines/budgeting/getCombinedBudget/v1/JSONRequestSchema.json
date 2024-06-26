@@ -19,20 +19,30 @@
                         "minLength": 1
                         }
                     },
-                "required": [ "key", "version" ]
+                "required": [
+                    "key",
+                    "version"
+                    ]
                 }
             },
-        "required": [ "API" ]
+        "required": [
+            "API"
+            ]
         },
     "data": {
         "type": "object",
         "properties": {
             "parameter": {
                 "additionalProperties": false
-                }    
+                }
             },
-        "required": [ "parameter" ]
+        "required": [
+            "parameter"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }

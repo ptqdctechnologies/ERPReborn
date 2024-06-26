@@ -8264,6 +8264,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'Spatie\\LaravelIgnition\\Support\\LaravelVersion' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Support/LaravelVersion.php',
         'Spatie\\LaravelIgnition\\Support\\RunnableSolutionsGuard' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Support/RunnableSolutionsGuard.php',
         'Spatie\\LaravelIgnition\\Support\\SentReports' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Support/SentReports.php',
+        'Spatie\\LaravelIgnition\\Support\\StringComparator' => __DIR__ . '/..' . '/spatie/error-solutions/legacy/laravel-ignition/Support/StringComparator.php',
         'Spatie\\LaravelIgnition\\Views\\BladeSourceMapCompiler' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Views/BladeSourceMapCompiler.php',
         'Spatie\\LaravelIgnition\\Views\\ViewExceptionMapper' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Views/ViewExceptionMapper.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
