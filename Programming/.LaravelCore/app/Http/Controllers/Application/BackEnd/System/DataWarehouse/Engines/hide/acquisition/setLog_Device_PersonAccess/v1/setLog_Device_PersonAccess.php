@@ -3,20 +3,21 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\delete\log\setLog_TransactionHistory\v1    |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\hide\acquisition                           |
+|                \setLog_Device_PersonAccess\v1                                                                                    |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\delete\log\setLog_TransactionHistory\v1
+namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\hide\acquisition\setLog_Device_PersonAccess\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setLog_TransactionHistory                                                                                    |
-    | ▪ Description : Menangani API dataWarehouse.delete.log.setLog_TransactionHistory Version 1                                   |
+    | ▪ Class Name  : setLog_Device_PersonAccess                                                                                   |
+    | ▪ Description : Menangani API dataWarehouse.hide.acquisition.setLog_Device_PersonAccess Version 1                            |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setLog_TransactionHistory extends \App\Http\Controllers\Controller
+    class setLog_Device_PersonAccess extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -65,7 +66,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
                         if (!($varDataSend = 
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataDelete(
                                 $varUserSession, 
-                                (new \App\Models\Database\SchData_Warehouse_Log\TblLog_TransactionHistory())->setDataDelete(
+                                (new \App\Models\Database\SchData_Warehouse_Acquisition\TblLog_Device_PersonAccess())->setDataDelete(
                                     $varUserSession,
                                     $varData['recordID']
                                     )
