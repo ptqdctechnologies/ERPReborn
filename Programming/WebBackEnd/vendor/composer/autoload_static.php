@@ -392,13 +392,13 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         ),
         'Spatie\\LaravelIgnition\\' => 
         array (
-            0 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/laravel-ignition',
-            1 => __DIR__ . '/..' . '/spatie/laravel-ignition/src',
+            0 => __DIR__ . '/..' . '/spatie/laravel-ignition/src',
+            1 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/laravel-ignition',
         ),
         'Spatie\\Ignition\\' => 
         array (
-            0 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/ignition',
-            1 => __DIR__ . '/..' . '/spatie/ignition/src',
+            0 => __DIR__ . '/..' . '/spatie/ignition/src',
+            1 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/ignition',
         ),
         'Spatie\\FlareClient\\' => 
         array (
@@ -2861,6 +2861,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Models\\Database\\SchData_OLTP_CustomerRelation\\TblSalesContract' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_CustomerRelation/TblSalesContract.php',
         'App\\Models\\Database\\SchData_OLTP_CustomerRelation\\TblSalesContractAddendum' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_CustomerRelation/TblSalesContractAddendum.php',
         'App\\Models\\Database\\SchData_OLTP_CustomerRelation\\TblSalesContractAddendumDetail' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_CustomerRelation/TblSalesContractAddendumDetail.php',
+        'App\\Models\\Database\\SchData_OLTP_CustomerRelation\\TblSalesContractDetail' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_CustomerRelation/TblSalesContractDetail.php',
         'App\\Models\\Database\\SchData_OLTP_CustomerRelation\\TblSalesOrder' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_CustomerRelation/TblSalesOrder.php',
         'App\\Models\\Database\\SchData_OLTP_CustomerRelation\\TblSalesOrderDetail' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_CustomerRelation/TblSalesOrderDetail.php',
         'App\\Models\\Database\\SchData_OLTP_CustomerRelation\\TblSalesQuotation' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_CustomerRelation/TblSalesQuotation.php',

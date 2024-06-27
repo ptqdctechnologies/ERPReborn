@@ -1089,9 +1089,9 @@
             'dev_requirement' => false,
         ),
         'spatie/error-solutions' => array(
-            'pretty_version' => '1.0.1',
-            'version' => '1.0.1.0',
-            'reference' => 'd60d4d2ef4b7701c86134ded959667cac6215233',
+            'pretty_version' => '1.0.2',
+            'version' => '1.0.2.0',
+            'reference' => '9782ba6e25cb026cc653619e01ca695d428b3f03',
             'type' => 'library',
             'install_path' => __DIR__ . '/../spatie/error-solutions',
             'aliases' => array(),

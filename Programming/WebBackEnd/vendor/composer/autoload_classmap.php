@@ -2199,6 +2199,7 @@ return array(
     'App\\Models\\Database\\SchData_OLTP_CustomerRelation\\TblSalesContract' => $baseDir . '/app/Models/Database/SchData_OLTP_CustomerRelation/TblSalesContract.php',
     'App\\Models\\Database\\SchData_OLTP_CustomerRelation\\TblSalesContractAddendum' => $baseDir . '/app/Models/Database/SchData_OLTP_CustomerRelation/TblSalesContractAddendum.php',
     'App\\Models\\Database\\SchData_OLTP_CustomerRelation\\TblSalesContractAddendumDetail' => $baseDir . '/app/Models/Database/SchData_OLTP_CustomerRelation/TblSalesContractAddendumDetail.php',
+    'App\\Models\\Database\\SchData_OLTP_CustomerRelation\\TblSalesContractDetail' => $baseDir . '/app/Models/Database/SchData_OLTP_CustomerRelation/TblSalesContractDetail.php',
     'App\\Models\\Database\\SchData_OLTP_CustomerRelation\\TblSalesOrder' => $baseDir . '/app/Models/Database/SchData_OLTP_CustomerRelation/TblSalesOrder.php',
     'App\\Models\\Database\\SchData_OLTP_CustomerRelation\\TblSalesOrderDetail' => $baseDir . '/app/Models/Database/SchData_OLTP_CustomerRelation/TblSalesOrderDetail.php',
     'App\\Models\\Database\\SchData_OLTP_CustomerRelation\\TblSalesQuotation' => $baseDir . '/app/Models/Database/SchData_OLTP_CustomerRelation/TblSalesQuotation.php',
