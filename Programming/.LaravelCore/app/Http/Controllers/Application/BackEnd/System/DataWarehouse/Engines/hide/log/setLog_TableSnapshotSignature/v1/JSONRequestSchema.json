@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.undelete.acquisition.setLog_Device_PersonAccess (version 1)",
+"description": "JSON Request Schema of dataWarehouse.hide.log.setLog_TableSnapshotSignature (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.undelete.acquisition.setLog_Device_PersonAccess" ]
+                        "enum": [ "dataWarehouse.hide.log.setLog_TableSnapshotSignature" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],

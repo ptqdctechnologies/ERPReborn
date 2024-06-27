@@ -3,29 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\undelete\acquisition                       |
-|                \setLog_Device_PersonAccess\v1                                                                                    |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\create\log\setLog_TableSnapshotSignature   |
+|                \v1                                                                                                               |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\undelete\acquisition\setLog_Device_PersonAccess\v1
+namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\create\log\setLog_TableSnapshotSignature\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setLog_Device_PersonAccess                                                                                   |
-    | ▪ Description : Menangani API dataWarehouse.undelete.acquisition.setLog_Device_PersonAccess Version 1                        |
+    | ▪ Class Name  : setLog_TableSnapshotSignature                                                                                |
+    | ▪ Description : Menangani API dataWarehouse.create.log.setLog_TableSnapshotSignature Version 1                               |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setLog_Device_PersonAccess extends \App\Http\Controllers\Controller
+    class setLog_TableSnapshotSignature extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-02                                                                                           |
-        | ▪ Creation Date   : 2021-07-02                                                                                           |
+        | ▪ Last Update     : 2024-06-04                                                                                           |
+        | ▪ Creation Date   : 2024-06-04                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,9 +43,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-02                                                                                           |
-        | ▪ Creation Date   : 2021-07-02                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2024-06-04                                                                                           |
+        | ▪ Creation Date   : 2024-06-04                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -59,16 +59,23 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Undelete Log Device Person Access Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Advance Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if (!($varDataSend =
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUndelete(
-                                $varUserSession,
-                                (new \App\Models\Database\SchData_Warehouse_Acquisition\TblLog_Device_PersonAccess())->unsetDataDelete(
-                                    $varUserSession,
-                                    $varData['recordID']
+                        if (!($varDataSend = 
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate(
+                                $varUserSession, 
+                                (new \App\Models\Database\SchData_Warehouse_Log\TblLog_TableSnapshotSignature())->setDataInsert(
+                                    $varUserSession, 
+                                    null, 
+                                    null,
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                                    \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
+
+                                    $varData['entities']['schemaName'],
+                                    $varData['entities']['tableName'],
+                                    $varData['entities']['signatureID']
                                     )
                                 )
                             ))
@@ -96,5 +103,3 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
             }
         }
     }
-
-?>

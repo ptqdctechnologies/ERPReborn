@@ -3,18 +3,18 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\dataWarehouseLog                      |
-|                \setLog_TableSnapshotSignature\v1                                                                                 |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\update\log\setLog_TableSnapshotSignature   |
+|                \v1                                                                                                               |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\dataWarehouseLog\setLog_TableSnapshotSignature\v1
+namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\update\log\setLog_TableSnapshotSignature\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : setLog_TableSnapshotSignature                                                                                |
-    | ▪ Description : Menangani API transaction.create.dataWarehouseLog.setLog_TableSnapshotSignature Version 1                    |
+    | ▪ Description : Menangani API dataWarehouse.update.log.setLog_TableSnapshotSignature Version 1                               |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class setLog_TableSnapshotSignature extends \App\Http\Controllers\Controller
@@ -66,9 +66,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                         if (!($varDataSend = 
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate(
                                 $varUserSession, 
-                                (new \App\Models\Database\SchData_Warehouse_Log\TblLog_TableSnapshotSignature())->setDataInsert(
-                                    $varUserSession, 
-                                    null, 
+                                (new \App\Models\Database\SchData_Warehouse_Log\TblLog_TableSnapshotSignature())->setDataUpdate(
+                                    $varUserSession,
+                                    $varData['recordID'],
+                                    null,
                                     null,
                                     (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                                     \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
