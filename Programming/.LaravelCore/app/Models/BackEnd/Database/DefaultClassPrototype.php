@@ -67,7 +67,14 @@ namespace App\Models\Database
         */
         public function getAllDataRecord($varUserSession, bool $varStatusAuthenticatedDataOnly = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_DataOnly_All($varUserSession, str_replace('"', '', (explode('.', $this->varSchemaTableName))[0]), str_replace('"', '', (explode('.', $this->varSchemaTableName))[1]), $varStatusAuthenticatedDataOnly);
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_DataOnly_All(
+                    $varUserSession,
+                    str_replace('"', '', (explode('.', $this->varSchemaTableName))[0]), 
+                    str_replace('"', '', (explode('.', $this->varSchemaTableName))[1]), 
+                    $varStatusAuthenticatedDataOnly
+                    );
+
             return $varReturn['Data'];
             }
 
@@ -92,7 +99,15 @@ namespace App\Models\Database
         */
         public function getAllFilteredDataRecord($varUserSession, string $varFilter = null, bool $varStatusAuthenticatedDataOnly = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_DataOnly_Filtered($varUserSession, str_replace('"', '', (explode('.', $this->varSchemaTableName))[0]), str_replace('"', '', (explode('.', $this->varSchemaTableName))[1]), $varFilter, $varStatusAuthenticatedDataOnly);
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_DataOnly_Filtered(
+                    $varUserSession,
+                    str_replace('"', '', (explode('.', $this->varSchemaTableName))[0]),
+                    str_replace('"', '', (explode('.', $this->varSchemaTableName))[1]),
+                    $varFilter,
+                    $varStatusAuthenticatedDataOnly
+                    );
+
             return $varReturn['Data'];
             }
 
@@ -125,26 +140,32 @@ namespace App\Models\Database
                 }
             else
                 {
-                $varFunctionName=('Func_GetDataEntities_'.str_replace('_Tbl', '', '_'.self::getTableName($varUserSession)));
+                $varFunctionName = 
+                    ('Func_GetDataEntities_'.str_replace('_Tbl', '', '_'.self::getTableName($varUserSession)));
                 }
-            $varTemp = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    self::getSchemaName($varUserSession).'.'.$varFunctionName,
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varIDSet, 'bigint[]']
-                    ]
-                    )
-                );
+
+            $varTemp =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        self::getSchemaName($varUserSession).'.'.$varFunctionName,
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varIDSet, 'bigint[]']
+                        ]
+                        )
+                    );
 
             for ($i=0; $i!=count($varTemp['Data']); $i++)
                 {
-                $varReturn[$i] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                    $varUserSession, 
-                    $varTemp['Data'][$i][$varFunctionName]);
+                $varReturn[$i] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession, 
+                        $varTemp['Data'][$i][$varFunctionName]
+                        );
                 }
+
             return $varReturn;
             }
 
@@ -259,9 +280,11 @@ namespace App\Models\Database
         */
         public function getSchemaTableSynchronizeName($varUserSession)
             {
-            $varReturn = 'SchSysConfig-Synchronize.Func_'.
+            $varReturn = 
+                'SchSysConfig-Synchronize.Func_'.
                 str_replace('-', '_', str_replace('SchData-', '', $this->getSchemaName($varUserSession))).
                 str_replace('_Tbl', '_', '_'.$this->getTableName($varUserSession));
+
             return $varReturn;
             }
 
@@ -306,17 +329,19 @@ namespace App\Models\Database
         */
         public function setDataAuthentication($varUserSession, int $varRecordID)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.FuncSys_General_SetRecordAuthentication',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varRecordID, 'bigint']
-                    ],
-                    )
-                );
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.FuncSys_General_SetRecordAuthentication',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varRecordID, 'bigint']
+                        ],
+                        )
+                    );
+
             return $varReturn;
             }
 
@@ -339,7 +364,12 @@ namespace App\Models\Database
         */
         public function setDataDelete($varUserSession, int $varRecordID)
             {
-            $varReturn = (new \App\Models\Database\SchSysConfig\General())->setDataDelete($varUserSession, $varRecordID);
+            $varReturn =
+                (new \App\Models\Database\SchSysConfig\General())->setDataDelete(
+                    $varUserSession,
+                    $varRecordID
+                    );
+
             return $varReturn;
             }
 
@@ -371,6 +401,7 @@ namespace App\Models\Database
                     //$this->getTableName($varUserSession),
                     $varRecordPK
                     );
+
             return $varReturn;
             }
 
@@ -393,7 +424,12 @@ namespace App\Models\Database
         */
         public function setDataHide($varUserSession, int $varRecordID)
             {
-            $varReturn = (new \App\Models\Database\SchSysConfig\General())->setDataHide($varUserSession, $varRecordID);
+            $varReturn = 
+                (new \App\Models\Database\SchSysConfig\General())->setDataHide(
+                    $varUserSession,
+                    $varRecordID
+                    );
+
             return $varReturn;
             }
 
@@ -444,17 +480,19 @@ namespace App\Models\Database
         */
         public function unsetDataAuthentication($varUserSession, int $varRecordID)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.FuncSys_General_UnsetRecordAuthentication',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varRecordID, 'bigint']
-                    ],
-                    )
-                );
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.FuncSys_General_UnsetRecordAuthentication',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varRecordID, 'bigint']
+                        ]
+                        )
+                    );
+
             return $varReturn;
             }
 
@@ -477,7 +515,12 @@ namespace App\Models\Database
         */
         public function unsetDataDelete($varUserSession, int $varRecordID)
             {
-            $varReturn = (new \App\Models\Database\SchSysConfig\General())->unsetDataDelete($varUserSession, $varRecordID);
+            $varReturn =
+                (new \App\Models\Database\SchSysConfig\General())->unsetDataDelete(
+                    $varUserSession, 
+                    $varRecordID
+                    );
+
             return $varReturn;
             }
 
@@ -502,7 +545,14 @@ namespace App\Models\Database
         */
         public function unsetDataDeleteByRPK($varUserSession, string $varSchemaName, string $varTableName, int $varRecordPK)
             {
-            $varReturn = (new \App\Models\Database\SchSysConfig\General())->unsetDataDeleteByRPK($varUserSession, $varSchemaName, $varTableName, $varRecordPK);
+            $varReturn =
+                (new \App\Models\Database\SchSysConfig\General())->unsetDataDeleteByRPK(
+                    $varUserSession,
+                    $varSchemaName,
+                    $varTableName,
+                    $varRecordPK
+                    );
+
             return $varReturn;
             }
 
@@ -525,7 +575,12 @@ namespace App\Models\Database
         */
         public function unsetDataHide($varUserSession, int $varRecordID)
             {
-            $varReturn = (new \App\Models\Database\SchSysConfig\General())->unsetDataHide($varUserSession, $varRecordID);
+            $varReturn = 
+                (new \App\Models\Database\SchSysConfig\General())->unsetDataHide(
+                    $varUserSession,
+                    $varRecordID
+                    );
+
             return $varReturn;
             }
         }
