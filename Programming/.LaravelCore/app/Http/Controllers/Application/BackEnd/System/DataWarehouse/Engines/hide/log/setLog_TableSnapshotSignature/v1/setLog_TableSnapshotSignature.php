@@ -8,7 +8,7 @@
 | ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\hide\acquisition\setLog_TableSnapshotSignature\v1
+namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\hide\log\setLog_TableSnapshotSignature\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+

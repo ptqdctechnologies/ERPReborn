@@ -392,13 +392,13 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         ),
         'Spatie\\LaravelIgnition\\' => 
         array (
-            0 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/laravel-ignition',
-            1 => __DIR__ . '/..' . '/spatie/laravel-ignition/src',
+            0 => __DIR__ . '/..' . '/spatie/laravel-ignition/src',
+            1 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/laravel-ignition',
         ),
         'Spatie\\Ignition\\' => 
         array (
-            0 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/ignition',
-            1 => __DIR__ . '/..' . '/spatie/ignition/src',
+            0 => __DIR__ . '/..' . '/spatie/ignition/src',
+            1 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/ignition',
         ),
         'Spatie\\FlareClient\\' => 
         array (
@@ -849,12 +849,19 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\DataWarehouse\\Engines\\create\\log\\setLog_TableSnapshotSignature\\v1\\setLog_TableSnapshotSignature' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/DataWarehouse/Engines/create/log/setLog_TableSnapshotSignature/v1/setLog_TableSnapshotSignature.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\DataWarehouse\\Engines\\create\\log\\setLog_TransactionHistory\\v1\\setLog_TransactionHistory' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/DataWarehouse/Engines/create/log/setLog_TransactionHistory/v1/setLog_TransactionHistory.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\DataWarehouse\\Engines\\delete\\acquisition\\setLog_Device_PersonAccess\\v1\\setLog_Device_PersonAccess' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/DataWarehouse/Engines/delete/acquisition/setLog_Device_PersonAccess/v1/setLog_Device_PersonAccess.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\DataWarehouse\\Engines\\delete\\log\\setLog_TableSnapshotSignature\\v1\\setLog_TableSnapshotSignature' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/DataWarehouse/Engines/delete/log/setLog_TableSnapshotSignature/v1/setLog_TableSnapshotSignature.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\DataWarehouse\\Engines\\delete\\log\\setLog_TransactionHistory\\v1\\setLog_TransactionHistory' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/DataWarehouse/Engines/delete/log/setLog_TransactionHistory/v1/setLog_TransactionHistory.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\DataWarehouse\\Engines\\hide\\acquisition\\setLog_Device_PersonAccess\\v1\\setLog_Device_PersonAccess' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/DataWarehouse/Engines/hide/acquisition/setLog_Device_PersonAccess/v1/setLog_Device_PersonAccess.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\DataWarehouse\\Engines\\hide\\log\\setLog_TableSnapshotSignature\\v1\\setLog_TableSnapshotSignature' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/DataWarehouse/Engines/hide/log/setLog_TableSnapshotSignature/v1/setLog_TableSnapshotSignature.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\DataWarehouse\\Engines\\hide\\log\\setLog_TransactionHistory\\v1\\setLog_TransactionHistory' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/DataWarehouse/Engines/hide/log/setLog_TransactionHistory/v1/setLog_TransactionHistory.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\DataWarehouse\\Engines\\read\\dataList\\log\\getTransactionHistory\\v1\\getTransactionHistory' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/DataWarehouse/Engines/read/dataList/log/getTransactionHistory/v1/getTransactionHistory.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\DataWarehouse\\Engines\\synchronize\\acquisition\\setLog_Device_PersonAccess\\v1\\setLog_Device_PersonAccess' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/DataWarehouse/Engines/synchronize/acquisition/setLog_Device_PersonAccess/v1/setLog_Device_PersonAccess.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\DataWarehouse\\Engines\\undelete\\acquisition\\setLog_Device_PersonAccess\\v1\\setLog_Device_PersonAccess' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/DataWarehouse/Engines/undelete/acquisition/setLog_Device_PersonAccess/v1/setLog_Device_PersonAccess.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\DataWarehouse\\Engines\\undelete\\log\\setLog_TableSnapshotSignature\\v1\\setLog_TableSnapshotSignature' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/DataWarehouse/Engines/undelete/log/setLog_TableSnapshotSignature/v1/setLog_TableSnapshotSignature.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\DataWarehouse\\Engines\\undelete\\log\\setLog_TransactionHistory\\v1\\setLog_TransactionHistory' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/DataWarehouse/Engines/undelete/log/setLog_TransactionHistory/v1/setLog_TransactionHistory.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\DataWarehouse\\Engines\\unhide\\acquisition\\setLog_Device_PersonAccess\\v1\\setLog_Device_PersonAccess' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/DataWarehouse/Engines/unhide/acquisition/setLog_Device_PersonAccess/v1/setLog_Device_PersonAccess.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\DataWarehouse\\Engines\\unhide\\log\\setLog_TableSnapshotSignature\\v1\\setLog_TableSnapshotSignature' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/DataWarehouse/Engines/unhide/log/setLog_TableSnapshotSignature/v1/setLog_TableSnapshotSignature.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\DataWarehouse\\Engines\\unhide\\log\\setLog_TransactionHistory\\v1\\setLog_TransactionHistory' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/DataWarehouse/Engines/unhide/log/setLog_TransactionHistory/v1/setLog_TransactionHistory.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\DataWarehouse\\Engines\\update\\log\\setLog_TableSnapshotSignature\\v1\\setLog_TableSnapshotSignature' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/DataWarehouse/Engines/update/log/setLog_TableSnapshotSignature/v1/setLog_TableSnapshotSignature.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\DataWarehouse\\Engines\\update\\log\\setLog_TransactionHistory\\v1\\setLog_TransactionHistory' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/DataWarehouse/Engines/update/log/setLog_TransactionHistory/v1/setLog_TransactionHistory.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Environment\\Controller_Main' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Environment/Controller_Main.php',
