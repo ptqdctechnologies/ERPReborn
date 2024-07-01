@@ -7479,6 +7479,7 @@ return array(
     'Spatie\\ErrorSolutions\\SolutionProviders\\Laravel\\ViewNotFoundSolutionProvider' => $vendorDir . '/spatie/error-solutions/src/SolutionProviders/Laravel/ViewNotFoundSolutionProvider.php',
     'Spatie\\ErrorSolutions\\SolutionProviders\\MergeConflictSolutionProvider' => $vendorDir . '/spatie/error-solutions/src/SolutionProviders/MergeConflictSolutionProvider.php',
     'Spatie\\ErrorSolutions\\SolutionProviders\\UndefinedPropertySolutionProvider' => $vendorDir . '/spatie/error-solutions/src/SolutionProviders/UndefinedPropertySolutionProvider.php',
+    'Spatie\\ErrorSolutions\\Solutions\\Concerns\\IsProvidedByFlare' => $vendorDir . '/spatie/error-solutions/src/Solutions/Concerns/IsProvidedByFlare.php',
     'Spatie\\ErrorSolutions\\Solutions\\Laravel\\GenerateAppKeySolution' => $vendorDir . '/spatie/error-solutions/src/Solutions/Laravel/GenerateAppKeySolution.php',
     'Spatie\\ErrorSolutions\\Solutions\\Laravel\\LivewireDiscoverSolution' => $vendorDir . '/spatie/error-solutions/src/Solutions/Laravel/LivewireDiscoverSolution.php',
     'Spatie\\ErrorSolutions\\Solutions\\Laravel\\MakeViewVariableOptionalSolution' => $vendorDir . '/spatie/error-solutions/src/Solutions/Laravel/MakeViewVariableOptionalSolution.php',

@@ -15,10 +15,21 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
+## 8.5.2
+
+### Changed
+
+- Mark all class constants as `@internal` (#500)
+
+### Fixed
+
+- Fix undefined local variable in `CalcFunction::parse()` (#593)
+
 ## 8.5.1
 
 ### Fixed
 
+- Fix PHP notice caused by parsing invalid color values having less than 6 characters (#485)
 - Fix (regression) failure to parse at-rules with strict parsing (#456)
 
 ## 8.5.0
