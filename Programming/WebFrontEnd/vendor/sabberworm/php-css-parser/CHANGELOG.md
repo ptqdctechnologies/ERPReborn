@@ -15,6 +15,17 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
+## 8.6.0
+
+### Added
+- Support arithmetic operators in CSS function arguments (#607)
+- Add support for inserting an item in a CSS list (#545)
+- Add support for the `dvh`, `lvh` and `svh` length units (#415)
+
+### Changed
+
+- Improve performance of Value::parseValue with many delimiters by refactoring to remove array_search() (#413)
+
 ## 8.5.2
 
 ### Changed
