@@ -69,7 +69,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varBankAccountMutation_RefID = null, string $varMutationDateTimeTZ = null, int $varAccountingEntryRecordType_RefID = null, int $varAmountCurrency_RefID = null, float $varAmountCurrencyValue = null, float $varAmountCurrencyExchangeRate = null, string $varDescription = null)
+            int $varBankAccountMutation_RefID = null, string $varMutationDateTimeTZ = null, int $varAccountingEntryRecordType_RefID = null, int $varAmountCurrency_RefID = null, float $varAmountCurrencyValue = null, float $varAmountCurrencyExchangeRate = null, string $varDescription = null
+            )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -131,7 +132,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varBankAccountMutation_RefID = null, string $varMutationDateTimeTZ = null, int $varAccountingEntryRecordType_RefID = null, int $varAmountCurrency_RefID = null, float $varAmountCurrencyValue = null, float $varAmountCurrencyExchangeRate = null, string $varDescription = null)
+            int $varBankAccountMutation_RefID = null, string $varMutationDateTimeTZ = null, int $varAccountingEntryRecordType_RefID = null, int $varAmountCurrency_RefID = null, float $varAmountCurrencyValue = null, float $varAmountCurrencyExchangeRate = null, string $varDescription = null
+            )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(

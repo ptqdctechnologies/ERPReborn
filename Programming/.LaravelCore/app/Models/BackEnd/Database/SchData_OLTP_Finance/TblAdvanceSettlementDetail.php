@@ -76,7 +76,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varAdvanceSettlement_RefID = null, int $varAdvanceDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varExpenseClaimProductUnitPriceCurrency_RefID = null, float $varExpenseClaimProductUnitPriceCurrencyValue = null, float $varExpenseClaimProductUnitPriceCurrencyExchangeRate = null, int $varReturnProductUnitPriceCurrency_RefID = null, float $varReturnProductUnitPriceCurrencyValue = null, float $varReturnProductUnitPriceCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varAdvanceSettlement_RefID = null, int $varAdvanceDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varExpenseClaimProductUnitPriceCurrency_RefID = null, float $varExpenseClaimProductUnitPriceCurrencyValue = null, float $varExpenseClaimProductUnitPriceCurrencyExchangeRate = null, int $varReturnProductUnitPriceCurrency_RefID = null, float $varReturnProductUnitPriceCurrencyValue = null, float $varReturnProductUnitPriceCurrencyExchangeRate = null, string $varRemarks = null
+            )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -150,7 +151,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varAdvanceSettlement_RefID = null, int $varAdvanceDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varExpenseClaimProductUnitPriceCurrency_RefID = null, float $varExpenseClaimProductUnitPriceCurrencyValue = null, float $varExpenseClaimProductUnitPriceCurrencyExchangeRate = null, int $varReturnProductUnitPriceCurrency_RefID = null, float $varReturnProductUnitPriceCurrencyValue = null, float $varReturnProductUnitPriceCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varAdvanceSettlement_RefID = null, int $varAdvanceDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varExpenseClaimProductUnitPriceCurrency_RefID = null, float $varExpenseClaimProductUnitPriceCurrencyValue = null, float $varExpenseClaimProductUnitPriceCurrencyExchangeRate = null, int $varReturnProductUnitPriceCurrency_RefID = null, float $varReturnProductUnitPriceCurrencyValue = null, float $varReturnProductUnitPriceCurrencyExchangeRate = null, string $varRemarks = null
+            )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(

@@ -76,7 +76,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if(!$this->loadAllJobs($varUserSession))
+                        if (!$this->loadAllJobs($varUserSession))
                             {
                             throw new \Exception();
                             }

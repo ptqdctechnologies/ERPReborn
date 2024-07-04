@@ -153,14 +153,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                 //---> API Call : Person Access Device Log
                 $varFilePath = '/zhtConf/log/lastSession/scheduledTask/'.$this->varSheduleIdentity.'/jobs/dataWarehouse.synchronize.acquisition.setLog_Device_PersonAccess';
                 shell_exec("touch ".$varFilePath);
-                $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'dataWarehouse.synchronize.acquisition.setLog_Device_PersonAccess', 
-                    'latest', 
-                    [
-                    ]
-                    );                
+                $varData = 
+                    \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'dataWarehouse.synchronize.acquisition.setLog_Device_PersonAccess', 
+                        'latest', 
+                        [
+                        ]
+                        );                
                 }
 
             return $varReturn;

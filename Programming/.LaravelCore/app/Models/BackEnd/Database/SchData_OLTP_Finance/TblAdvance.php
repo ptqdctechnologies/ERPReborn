@@ -72,7 +72,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
             string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, int $varBeneficiaryWorkerJobsPosition_RefID = null, int $varBeneficiaryBankAccount_RefID = null, string $varInternalNotes = null, string $varRemarks = null,
-            array $varAdditionalData = [])
+            array $varAdditionalData = []
+            )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -139,7 +140,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
             string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, int $varBeneficiaryWorkerJobsPosition_RefID = null, int $varBeneficiaryBankAccount_RefID = null, string $varInternalNotes = null, string $varRemarks = null,
-            array $varAdditionalData = [])
+            array $varAdditionalData = []
+            )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(

@@ -3,18 +3,18 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\dataAcquisition                     |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\undelete\acquisition                       |
 |                \setLog_Device_PersonAccess\v1                                                                                    |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\dataAcquisition\setLog_Device_PersonAccess\v1
+namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\undelete\acquisition\setLog_Device_PersonAccess\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : setLog_Device_PersonAccess                                                                                   |
-    | ▪ Description : Menangani API transaction.undelete.dataAcquisition.setLog_Device_PersonAccess Version 1                      |
+    | ▪ Description : Menangani API dataWarehouse.undelete.acquisition.setLog_Device_PersonAccess Version 1                        |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class setLog_Device_PersonAccess extends \App\Http\Controllers\Controller
@@ -75,6 +75,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
                             {
                             throw new \Exception();
                             }
+
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {

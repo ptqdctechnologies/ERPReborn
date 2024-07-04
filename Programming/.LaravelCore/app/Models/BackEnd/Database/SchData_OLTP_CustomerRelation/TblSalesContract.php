@@ -38,6 +38,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
             parent::__construct(__CLASS__);
             }
 
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |

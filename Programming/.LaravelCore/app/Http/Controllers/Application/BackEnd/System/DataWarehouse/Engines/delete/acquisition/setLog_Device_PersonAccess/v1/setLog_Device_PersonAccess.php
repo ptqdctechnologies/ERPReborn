@@ -3,7 +3,7 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\delete\acquisition\                        |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\delete\acquisition                         |
 |                \setLog_Device_PersonAccess\v1                                                                                    |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
@@ -75,6 +75,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
                             {
                             throw new \Exception();
                             }
+
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {

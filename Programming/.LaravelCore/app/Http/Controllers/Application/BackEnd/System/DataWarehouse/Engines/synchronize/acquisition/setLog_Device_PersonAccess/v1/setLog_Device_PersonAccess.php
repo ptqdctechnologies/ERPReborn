@@ -63,7 +63,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if(!$this->setAttendanceDeviceLog($varUserSession))
+                        if (!$this->setAttendanceDeviceLog($varUserSession))
                             {
                             throw new \Exception();
                             }
@@ -73,6 +73,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
                                 "message" => "Data Synchronization Successful"
                                 ];
                             }
+
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
