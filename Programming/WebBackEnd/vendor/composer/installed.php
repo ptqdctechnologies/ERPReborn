@@ -20,9 +20,9 @@
             'dev_requirement' => false,
         ),
         'aws/aws-sdk-php' => array(
-            'pretty_version' => '3.315.4',
-            'version' => '3.315.4.0',
-            'reference' => '8d2cf34e22262b983ce3d7e38d11667c5792b93f',
+            'pretty_version' => '3.315.5',
+            'version' => '3.315.5.0',
+            'reference' => '3e6d619d45d8e1a8681dd58de61ddfe90e8341e6',
             'type' => 'library',
             'install_path' => __DIR__ . '/../aws/aws-sdk-php',
             'aliases' => array(),
@@ -809,9 +809,9 @@
             'dev_requirement' => true,
         ),
         'phpunit/phpunit' => array(
-            'pretty_version' => '10.5.24',
-            'version' => '10.5.24.0',
-            'reference' => '5f124e3e3e561006047b532fd0431bf5bb6b9015',
+            'pretty_version' => '10.5.25',
+            'version' => '10.5.25.0',
+            'reference' => '831bf82312be6037e811833ddbea0b8de60ea314',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpunit/phpunit',
             'aliases' => array(),
@@ -928,8 +928,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '3.0.0',
-                1 => '1.0|2.0|3.0',
+                0 => '1.0|2.0|3.0',
+                1 => '3.0.0',
             ),
         ),
         'psr/simple-cache' => array(

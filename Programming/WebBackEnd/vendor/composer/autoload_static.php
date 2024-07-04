@@ -3057,6 +3057,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Models\\Database\\SchData_Warehouse_Acquisition\\TblLog_Device_PersonAccess' => __DIR__ . '/../..' . '/app/Models/Database/SchData_Warehouse_Acquisition/TblLog_Device_PersonAccess.php',
         'App\\Models\\Database\\SchData_Warehouse_Acquisition\\TblLog_Device_PersonAccessFetch' => __DIR__ . '/../..' . '/app/Models/Database/SchData_Warehouse_Acquisition/TblLog_Device_PersonAccessFetch.php',
         'App\\Models\\Database\\SchData_Warehouse_Log\\General' => __DIR__ . '/../..' . '/app/Models/Database/SchData_Warehouse_Log/General.php',
+        'App\\Models\\Database\\SchData_Warehouse_Log\\TblCache_FunctionResult' => __DIR__ . '/../..' . '/app/Models/Database/SchData_Warehouse_Log/TblCache_FunctionResult.php',
         'App\\Models\\Database\\SchData_Warehouse_Log\\TblLog_TableSnapshotSignature' => __DIR__ . '/../..' . '/app/Models/Database/SchData_Warehouse_Log/TblLog_TableSnapshotSignature.php',
         'App\\Models\\Database\\SchData_Warehouse_Log\\TblLog_TransactionHistory' => __DIR__ . '/../..' . '/app/Models/Database/SchData_Warehouse_Log/TblLog_TransactionHistory.php',
         'App\\Models\\Database\\SchSysAsset\\General' => __DIR__ . '/../..' . '/app/Models/Database/SchSysAsset/General.php',

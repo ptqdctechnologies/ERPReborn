@@ -2395,6 +2395,7 @@ return array(
     'App\\Models\\Database\\SchData_Warehouse_Acquisition\\TblLog_Device_PersonAccess' => $baseDir . '/app/Models/Database/SchData_Warehouse_Acquisition/TblLog_Device_PersonAccess.php',
     'App\\Models\\Database\\SchData_Warehouse_Acquisition\\TblLog_Device_PersonAccessFetch' => $baseDir . '/app/Models/Database/SchData_Warehouse_Acquisition/TblLog_Device_PersonAccessFetch.php',
     'App\\Models\\Database\\SchData_Warehouse_Log\\General' => $baseDir . '/app/Models/Database/SchData_Warehouse_Log/General.php',
+    'App\\Models\\Database\\SchData_Warehouse_Log\\TblCache_FunctionResult' => $baseDir . '/app/Models/Database/SchData_Warehouse_Log/TblCache_FunctionResult.php',
     'App\\Models\\Database\\SchData_Warehouse_Log\\TblLog_TableSnapshotSignature' => $baseDir . '/app/Models/Database/SchData_Warehouse_Log/TblLog_TableSnapshotSignature.php',
     'App\\Models\\Database\\SchData_Warehouse_Log\\TblLog_TransactionHistory' => $baseDir . '/app/Models/Database/SchData_Warehouse_Log/TblLog_TransactionHistory.php',
     'App\\Models\\Database\\SchSysAsset\\General' => $baseDir . '/app/Models/Database/SchSysAsset/General.php',

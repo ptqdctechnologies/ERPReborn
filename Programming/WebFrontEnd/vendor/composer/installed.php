@@ -746,9 +746,9 @@
             'dev_requirement' => true,
         ),
         'phpunit/phpunit' => array(
-            'pretty_version' => '10.5.24',
-            'version' => '10.5.24.0',
-            'reference' => '5f124e3e3e561006047b532fd0431bf5bb6b9015',
+            'pretty_version' => '10.5.25',
+            'version' => '10.5.25.0',
+            'reference' => '831bf82312be6037e811833ddbea0b8de60ea314',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpunit/phpunit',
             'aliases' => array(),
@@ -865,8 +865,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '3.0.0',
-                1 => '1.0|2.0|3.0',
+                0 => '1.0|2.0|3.0',
+                1 => '3.0.0',
             ),
         ),
         'psr/simple-cache' => array(

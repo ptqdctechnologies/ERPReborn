@@ -59,17 +59,17 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.315.4",
-            "version_normalized": "3.315.4.0",
+            "version": "3.315.5",
+            "version_normalized": "3.315.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "8d2cf34e22262b983ce3d7e38d11667c5792b93f"
+                "reference": "3e6d619d45d8e1a8681dd58de61ddfe90e8341e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/8d2cf34e22262b983ce3d7e38d11667c5792b93f",
-                "reference": "8d2cf34e22262b983ce3d7e38d11667c5792b93f",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/3e6d619d45d8e1a8681dd58de61ddfe90e8341e6",
+                "reference": "3e6d619d45d8e1a8681dd58de61ddfe90e8341e6",
                 "shasum": ""
             },
             "require": {
@@ -110,7 +110,7 @@
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
                 "ext-sockets": "To use client-side monitoring"
             },
-            "time": "2024-07-02T18:09:03+00:00",
+            "time": "2024-07-03T18:12:51+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -151,7 +151,7 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.315.4"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.315.5"
             },
             "install-path": "../aws/aws-sdk-php"
         },
@@ -4773,17 +4773,17 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "10.5.24",
-            "version_normalized": "10.5.24.0",
+            "version": "10.5.25",
+            "version_normalized": "10.5.25.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "5f124e3e3e561006047b532fd0431bf5bb6b9015"
+                "reference": "831bf82312be6037e811833ddbea0b8de60ea314"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/5f124e3e3e561006047b532fd0431bf5bb6b9015",
-                "reference": "5f124e3e3e561006047b532fd0431bf5bb6b9015",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/831bf82312be6037e811833ddbea0b8de60ea314",
+                "reference": "831bf82312be6037e811833ddbea0b8de60ea314",
                 "shasum": ""
             },
             "require": {
@@ -4817,7 +4817,7 @@
             "suggest": {
                 "ext-soap": "To be able to generate mocks based on WSDL files"
             },
-            "time": "2024-06-20T13:09:54+00:00",
+            "time": "2024-07-03T05:49:17+00:00",
             "bin": [
                 "phpunit"
             ],
@@ -4857,7 +4857,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.24"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.25"
             },
             "funding": [
                 {
