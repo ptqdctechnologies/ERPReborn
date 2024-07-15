@@ -132,8 +132,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card-body table-responsive p-0">
-                                        <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="TableReportAdvanceSummary">
+                                    <div class="card-body table-responsive">
+                                        <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="TableReportAdvanceSummary" data-advance='@json($dataAdvance)'>
                                             <thead>
                                                 <tr>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
@@ -145,8 +145,8 @@
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Remark</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
+                                            <tbody id="dataBody">
+                                                <!-- <tr>
                                                     <td>1</td>
                                                     <td>DO-230000001</td>
                                                     <td>1001806-Miscellaneous Material</td>
@@ -163,7 +163,7 @@
                                                     <td>77.000</td>
                                                     <td>77.000</td>
                                                     <td>Qwerty</td>
-                                                </tr>
+                                                </tr> -->
                                             </tbody>
                                         </table>
                                     </div>
@@ -177,4 +177,6 @@
     </section>
 </div>
 @include('Partials.footer')
+
+@include('Inventory.DeliveryOrder.Functions.Footer.FooterDODetail')
 @endsection

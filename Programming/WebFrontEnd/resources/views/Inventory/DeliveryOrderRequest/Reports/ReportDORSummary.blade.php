@@ -89,7 +89,7 @@
                             <div class="col-12 ShowTableReportAdvanceSummary">
                                 <div class="card">
                                     <div class="card-body table-responsive p-0">
-                                        <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="TableReportAdvanceSummary">
+                                        <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="TableReportAdvanceSummary" data-advance='@json($dataAdvance)'>
                                             <thead>
                                                 <tr>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
@@ -100,16 +100,7 @@
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total Other Currency</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>DOR-23000001</td>
-                                                    <td>Q000195</td>
-                                                    <td>01/12/2023</td>
-                                                    <td>200,000</td>
-                                                    <td>0</td>
-                                                </tr>
-                                            </tbody>
+                                            <tbody id="dataBody"></tbody>
                                         </table>
                                     </div>
                                 </div>
@@ -121,5 +112,7 @@
         </div>
     </section>
 </div>
+
 @include('Partials.footer')
+@include('Inventory.DeliveryOrderRequest.Functions.Footer.FooterDORSummary')
 @endsection

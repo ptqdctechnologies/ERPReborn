@@ -176,7 +176,7 @@
                                 </div>
                                 <div class="card">
                                     <div class="card-body table-responsive p-0">
-                                        <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="TableReportAdvanceSummary">
+                                        <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="TableReportAdvanceSummary" data-worker='@json($dataWorker)'>
                                             <thead>
                                                 <tr>
                                                     <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
@@ -197,16 +197,16 @@
                                                     <th class="sticky-col first-col-asf-amount-qty" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">Without PPN</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
+                                            <tbody id="dataBody">
+                                                <!-- <tr>
                                                     <td>1</td>
                                                     <td>PO01-23000031</td>
                                                     <td>26/03/2023</td>
                                                     <td>Agape Biomedi Investama</td>
-                                                    <td  class="sticky-col second-col-asf-expense-qty">15,700,000.00</td>
-                                                    <td  class="sticky-col second-col-asf-expense-price">15,700,000.00</td>
-                                                    <td  class="sticky-col first-col-asf-expense-total">0,00</td>
-                                                    <td  class="sticky-col first-col-asf-amount-qty">0,00</td>
+                                                    <td class="sticky-col second-col-asf-expense-qty">15,700,000.00</td>
+                                                    <td class="sticky-col second-col-asf-expense-price">15,700,000.00</td>
+                                                    <td class="sticky-col first-col-asf-expense-total">0,00</td>
+                                                    <td class="sticky-col first-col-asf-amount-qty">0,00</td>
                                                     <td>IDR</td>
                                                     <td>Ferdian</td>
                                                     <td>Final</td>
@@ -236,7 +236,7 @@
                                                     <td>IDR</td>
                                                     <td>Ferdian</td>
                                                     <td>Final</td>
-                                                </tr>
+                                                </tr> -->
                                             </tbody>
                                         </table>
                                     </div>
@@ -250,4 +250,5 @@
     </section>
 </div>
 @include('Partials.footer')
+@include('Purchase.PurchaseOrder.Functions.Footer.FooterPurchaseOrderDetail')
 @endsection

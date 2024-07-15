@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Purchase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redis;
 
 class PurchaseOrderController extends Controller
 {
@@ -51,18 +52,56 @@ class PurchaseOrderController extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionPurchaseOrderPrNumber");
         $request->session()->forget("SessionPurchaseOrder");
-        $var = 0;
+
+        $var = 1;
         if (!empty($_GET['var'])) {
             $var =  $_GET['var'];
         }
+
+        // PERUBAHAN WISNU
+        if (Redis::get("Worker") == null) {
+
+            $varAPIWebToken = Session::get('SessionLogin');
+
+            $varDataWorker = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.humanResource.getWorkerJobsPositionCurrent',
+                'latest',
+                [
+                    'parameter' => [
+                        'worker_RefID' => null
+                    ],
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
+            );
+        }
+
+        // PERUBAHAN WISNU
+        $DataWorker = json_decode(
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "Worker"
+            ),
+            true
+        );
+
         $compact = [
             'varAPIWebToken' => $varAPIWebToken,
             'var' => $var,
             'statusRevisi' => 1,
+            'dataWorker' => !empty($DataWorker) ? $DataWorker : []
         ];
 
         return view('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderDetail', $compact);
     }
+    
     public function StoreValidatePurchaseOrderPrNumber(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
