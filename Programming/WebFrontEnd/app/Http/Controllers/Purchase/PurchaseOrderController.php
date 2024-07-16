@@ -30,23 +30,44 @@ class PurchaseOrderController extends Controller
 
         return view('Purchase.PurchaseOrder.Transactions.CreatePurchaseOrder', $compact);
     }
+
     public function ReportPoSummary(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionPurchaseOrderPrNumber");
         $request->session()->forget("SessionPurchaseOrder");
-        $var = 0;
+        $var = 1;
         if (!empty($_GET['var'])) {
             $var =  $_GET['var'];
         }
+
+        // PERUBAHAN WISNU
+        $DataPurchaseRequisition = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.supplyChain.getPurchaseRequisition',
+                'latest',
+                [
+                    'parameter' => null,
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ]
+        );
+
         $compact = [
             'varAPIWebToken' => $varAPIWebToken,
             'var' => $var,
             'statusRevisi' => 1,
+            'dataListPurchaseRequisition' => $DataPurchaseRequisition['data']
         ];
 
         return view('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderSummary', $compact);
     }
+
     public function ReportPoDetail(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -59,19 +80,15 @@ class PurchaseOrderController extends Controller
         }
 
         // PERUBAHAN WISNU
-        if (Redis::get("Worker") == null) {
-
+        if (Redis::get("DataListAdvance") == null) {
             $varAPIWebToken = Session::get('SessionLogin');
-
-            $varDataWorker = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
-                'transaction.read.dataList.humanResource.getWorkerJobsPositionCurrent',
+                'transaction.read.dataList.finance.getAdvance',
                 'latest',
                 [
-                    'parameter' => [
-                        'worker_RefID' => null
-                    ],
+                    'parameter' => null,
                     'SQLStatement' => [
                         'pick' => null,
                         'sort' => null,
@@ -87,7 +104,7 @@ class PurchaseOrderController extends Controller
         $DataWorker = json_decode(
             \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                "Worker"
+                "DataListAdvance"
             ),
             true
         );
@@ -217,6 +234,7 @@ class PurchaseOrderController extends Controller
         return response()->json($status);
 
     }
+
     public function StoreValidatePurchaseOrder2(Request $request)
     {
         $val = $request->input('putWorkId');
@@ -258,6 +276,7 @@ class PurchaseOrderController extends Controller
             
         return response()->json($compact);
     }
+
     public function PurchaseOrderByPrID(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -285,6 +304,7 @@ class PurchaseOrderController extends Controller
         ];
         return response()->json($compact);
     }
+
     public function RevisionPurchaseOrderIndex(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');

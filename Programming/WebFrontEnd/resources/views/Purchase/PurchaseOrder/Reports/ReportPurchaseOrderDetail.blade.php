@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <div class="row mb-1" style="background-color:#4B586A;">
                 <div class="col-sm-6" style="height:30px;">
-                    <label style="font-size:15px;position:relative;top:7px;color:white;">Purchase Order Summary Report</label>
+                    <label style="font-size:15px;position:relative;top:7px;color:white;">Purchase Order Detail Report</label>
                 </div>
             </div>
             <div class="card">

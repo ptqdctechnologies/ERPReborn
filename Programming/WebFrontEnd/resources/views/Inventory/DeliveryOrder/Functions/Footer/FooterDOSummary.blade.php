@@ -13,8 +13,8 @@
                 <td>${dataAdvances.DocumentNumber}</td>
                 <td>${dataAdvances.CombinedBudgetCode}</td>
                 <td>${dataAdvances.DocumentDateTimeTZ}</td>
-                <td>${dataAdvances.CombinedBudgetSectionName}</td>
                 <td>${dataAdvances.CombinedBudgetSectionCode}</td>
+                <td>${dataAdvances.Sys_RPK}</td>
             `;
 
             tableBody.appendChild(row);

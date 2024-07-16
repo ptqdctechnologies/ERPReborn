@@ -12,9 +12,9 @@
                 <td>${index + 1}</td>
                 <td>${dataAdvances.DocumentNumber}</td>
                 <td>${dataAdvances.CombinedBudgetCode}</td>
-                <td>${dataAdvances.DocumentDateTimeTZ}</td>
-                <td>${dataAdvances.CombinedBudgetSectionName}</td>
                 <td>${dataAdvances.CombinedBudgetSectionCode}</td>
+                <td>Rp 1000</td>
+                <td>${dataAdvances.Sys_RPK}</td>
                 <td>${dataAdvances.BeneficiaryWorkerName}</td>
             `;
 

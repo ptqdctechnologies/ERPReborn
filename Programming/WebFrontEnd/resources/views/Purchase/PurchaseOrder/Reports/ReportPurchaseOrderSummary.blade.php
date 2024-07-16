@@ -110,7 +110,7 @@
                             <div class="col-12 ShowTableReportAdvanceSummary">
                                 <div class="card">
                                     <div class="card-body table-responsive p-0">
-                                        <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="TableReportAdvanceSummary">
+                                        <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="TableReportAdvanceSummary" data-pr='@json($dataListPurchaseRequisition)'>
                                             <thead>
                                                 <tr>
                                                     <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
@@ -131,8 +131,8 @@
                                                     <th class="sticky-col first-col-asf-amount-qty" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">Without PPN</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
+                                            <tbody id="dataBody">
+                                                <!-- <tr>
                                                     <td>1</td>
                                                     <td>PO01-23000031</td>
                                                     <td>26/03/2023</td>
@@ -170,7 +170,7 @@
                                                     <td>IDR</td>
                                                     <td>Ferdian</td>
                                                     <td>Final</td>
-                                                </tr>
+                                                </tr> -->
                                             </tbody>
                                         </table>
                                     </div>
@@ -183,5 +183,7 @@
         </div>
     </section>
 </div>
+
 @include('Partials.footer')
+@include('Purchase.PurchaseOrder.Functions.Footer.FooterPurchaseOrderSummary')
 @endsection

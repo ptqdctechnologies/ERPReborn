@@ -11,15 +11,15 @@
             row.innerHTML = `
                 <td>${index + 1}</td>
                 <td>${dataWorkers.Sys_ID}</td>
-                <td>${dataWorkers.Person_RefID}</td>
-                <td>${dataWorkers.PersonName}</td>
-                <td class="sticky-col second-col-asf-expense-qty">${dataWorkers.OrganizationalJobPositionName}</td>
-                <td class="sticky-col second-col-asf-expense-price">${dataWorkers.Person_RefID}</td>
-                <td class="sticky-col first-col-asf-expense-total">${dataWorkers.PersonName}</td>
-                <td class="sticky-col first-col-asf-amount-qty">${dataWorkers.OrganizationalJobPositionName}</td>
-                <td>${dataWorkers.Sys_ID}</td>
-                <td>${dataWorkers.OrganizationalJobPositionName}</td>
-                <td>${dataWorkers.Person_RefID}</td>
+                <td>${formatDate(dataWorkers.DocumentDateTimeTZ)}</td>
+                <td>${dataWorkers.CombinedBudgetSectionName}</td>
+                <td class="sticky-col second-col-asf-expense-qty">${dataWorkers.CombinedBudgetSectionCode}</td>
+                <td class="sticky-col second-col-asf-expense-price">${dataWorkers.Sys_RPK}</td>
+                <td class="sticky-col first-col-asf-expense-total">${dataWorkers.CombinedBudgetSectionCode}</td>
+                <td class="sticky-col first-col-asf-amount-qty">${dataWorkers.Sys_RPK}</td>
+                <td>IDR</td>
+                <td>${dataWorkers.BeneficiaryWorkerName}</td>
+                <td>Sudah Diproses</td>
             `;
 
             tableBody.appendChild(row);
