@@ -29,29 +29,94 @@ class MaterialReturnController extends Controller
     public function ReportMatReturnSummary(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $var = 0;
+        $var = 1;
         if (!empty($_GET['var'])) {
             $var =  $_GET['var'];
         }
+
+        // PERUBAHAN WISNU
+        if (Redis::get("DataListAdvance") == null) {
+            $varAPIWebToken = Session::get('SessionLogin');
+            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.finance.getAdvance',
+                'latest',
+                [
+                    'parameter' => null,
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
+            );
+        }
+
+        // PERUBAHAN WISNU
+        $DataListAdvance = json_decode(
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "DataListAdvance"
+            ),
+            true
+        );
+
         $compact = [
             'varAPIWebToken' => $varAPIWebToken,
             'var' => $var,
             'statusRevisi' => 1,
+            'dataListAdvance' => !empty($DataListAdvance) ? $DataListAdvance : []
         ];
 
         return view('Inventory.MaterialReturn.Reports.ReportMatReturnSummary', $compact);
     }
+
     public function ReportMatReturnDetail(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $var = 0;
+        $var = 1;
         if (!empty($_GET['var'])) {
             $var =  $_GET['var'];
         }
+
+        // PERUBAHAN WISNU
+        if (Redis::get("DataListAdvance") == null) {
+            $varAPIWebToken = Session::get('SessionLogin');
+            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.finance.getAdvance',
+                'latest',
+                [
+                    'parameter' => null,
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
+            );
+        }
+
+        // PERUBAHAN WISNU
+        $DataListAdvance = json_decode(
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "DataListAdvance"
+            ),
+            true
+        );
+
         $compact = [
             'varAPIWebToken' => $varAPIWebToken,
             'var' => $var,
             'statusRevisi' => 1,
+            'dataListAdvance' => !empty($DataListAdvance) ? $DataListAdvance : []
         ];
 
         return view('Inventory.MaterialReturn.Reports.ReportMatReturnDetail', $compact);

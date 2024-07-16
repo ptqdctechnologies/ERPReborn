@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <div class="row mb-1" style="background-color:#4B586A;">
                 <div class="col-sm-6" style="height:30px;">
-                    <label style="font-size:15px;position:relative;top:7px;color:white;">DOR Summary Report</label>
+                    <label style="font-size:15px;position:relative;top:7px;color:white;">Material Return Summary Report</label>
                 </div>
             </div>
             <div class="card">
@@ -89,7 +89,7 @@
                             <div class="col-12 ShowTableReportAdvanceSummary">
                                 <div class="card">
                                     <div class="card-body table-responsive p-0">
-                                        <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="TableReportAdvanceSummary">
+                                        <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="TableReportAdvanceSummary" data-advance='@json($dataListAdvance)'>
                                             <thead>
                                                 <tr>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
@@ -100,15 +100,15 @@
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total Other Currency</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
+                                            <tbody id="dataBody">
+                                                <!-- <tr>
                                                     <td>1</td>
                                                     <td>DOR-23000001</td>
                                                     <td>Q000195</td>
                                                     <td>01/12/2023</td>
                                                     <td>200,000</td>
                                                     <td>0</td>
-                                                </tr>
+                                                </tr> -->
                                             </tbody>
                                         </table>
                                     </div>
@@ -121,5 +121,7 @@
         </div>
     </section>
 </div>
+
 @include('Partials.footer')
+@include('Inventory.MaterialReturn.Functions.Footer.FooterReportMatReturnSummary')
 @endsection
