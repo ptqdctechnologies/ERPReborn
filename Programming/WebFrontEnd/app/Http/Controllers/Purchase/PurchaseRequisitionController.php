@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redis;
 
 class PurchaseRequisitionController extends Controller
 {
@@ -25,25 +26,58 @@ class PurchaseRequisitionController extends Controller
         ];
         return view('Purchase.PurchaseRequisition.Transactions.CreatePurchaseRequisition', $compact);
     }
+
     public function Reports(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionPurchaseOrderPrNumber");
         $request->session()->forget("SessionPurchaseOrder");
         
-        $var = 0;
+        $var = 1;
         if (!empty($_GET['var'])) {
             $var =  $_GET['var'];
         }
-        
+
+        // PERUBAHAN WISNU
+        if (Redis::get("DataListAdvance") == null) {
+            $varAPIWebToken = Session::get('SessionLogin');
+            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.finance.getAdvance',
+                'latest',
+                [
+                    'parameter' => null,
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
+            );
+        }
+
+        // PERUBAHAN WISNU
+        $DataListAdvance = json_decode(
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "DataListAdvance"
+            ),
+            true
+        );
+
         $compact = [
             'varAPIWebToken' => $varAPIWebToken,
             'var' => $var,
             'statusRevisi' => 1,
+            'dataListAdvance' => $DataListAdvance
         ];
 
         return view('Purchase.PurchaseRequisition.Reports.ReportPurchaseRequisitionSummary', $compact);
     }
+
     public function ReportsPrtoPo(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -61,19 +95,40 @@ class PurchaseRequisitionController extends Controller
 
         return view('Purchase.PurchaseRequisition.Reports.ReportPurchaseRequisitionToPurchaseOrder', $compact);
     }
+
     public function ReportsDetail(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionPurchaseOrderPrNumber");
         $request->session()->forget("SessionPurchaseOrder");
-        $var = 0;
+
+        $var = 1;
         if (!empty($_GET['var'])) {
             $var =  $_GET['var'];
         }
+
+        // PERUBAHAN WISNU
+        $DataPurchaseRequisition = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.supplyChain.getPurchaseRequisition',
+            'latest',
+            [
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ]
+        );
+
         $compact = [
             'varAPIWebToken' => $varAPIWebToken,
             'var' => $var,
             'statusRevisi' => 1,
+            'dataPurchaseRequisition' => !empty($DataPurchaseRequisition['data']) ? $DataPurchaseRequisition['data'] : []
         ];
 
         return view('Purchase.PurchaseRequisition.Reports.ReportPurchaseRequisitionDetail', $compact);

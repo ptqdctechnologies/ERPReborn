@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <div class="row mb-1" style="background-color:#4B586A;">
                 <div class="col-sm-6" style="height:30px;">
-                    <label style="font-size:15px;position:relative;top:7px;color:white;">Purchase Requisition Summary Report</label>
+                    <label style="font-size:15px;position:relative;top:7px;color:white;">Purchase Requisition Detail Report</label>
                 </div>
             </div>
             <div class="card">
@@ -99,7 +99,7 @@
                                 </div>
                                 <div class="card">
                                     <div class="card-body table-responsive p-0">
-                                        <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="TableReportAdvanceSummary">
+                                        <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="TableReportAdvanceSummary" data-pr='@json($dataPurchaseRequisition)'>
                                             <thead>
                                                 <tr>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
@@ -113,8 +113,8 @@
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total Other Currency</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
+                                            <tbody id="dataBody">
+                                                <!-- <tr>
                                                     <td>1</td>
                                                     <td>1007</td>
                                                     <td>Material for Building Structure</td>
@@ -135,7 +135,7 @@
                                                     <td>126,000</td>
                                                     <td>0</td>
                                                     <td>0</td>
-                                                </tr>
+                                                </tr> -->
                                             </tbody>
                                         </table>
                                     </div>
@@ -148,5 +148,7 @@
         </div>
     </section>
 </div>
+
 @include('Partials.footer')
+@include('Purchase.PurchaseRequisition.Functions.Footer.FooterReportPurchaseRequisitionDetail')
 @endsection
