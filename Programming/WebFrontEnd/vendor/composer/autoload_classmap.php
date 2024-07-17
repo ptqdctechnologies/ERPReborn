@@ -2509,6 +2509,7 @@ return array(
     'Illuminate\\Console\\View\\Components\\Mutators\\EnsurePunctuation' => $vendorDir . '/laravel/framework/src/Illuminate/Console/View/Components/Mutators/EnsurePunctuation.php',
     'Illuminate\\Console\\View\\Components\\Mutators\\EnsureRelativePaths' => $vendorDir . '/laravel/framework/src/Illuminate/Console/View/Components/Mutators/EnsureRelativePaths.php',
     'Illuminate\\Console\\View\\Components\\Secret' => $vendorDir . '/laravel/framework/src/Illuminate/Console/View/Components/Secret.php',
+    'Illuminate\\Console\\View\\Components\\Success' => $vendorDir . '/laravel/framework/src/Illuminate/Console/View/Components/Success.php',
     'Illuminate\\Console\\View\\Components\\Task' => $vendorDir . '/laravel/framework/src/Illuminate/Console/View/Components/Task.php',
     'Illuminate\\Console\\View\\Components\\TwoColumnDetail' => $vendorDir . '/laravel/framework/src/Illuminate/Console/View/Components/TwoColumnDetail.php',
     'Illuminate\\Console\\View\\Components\\Warn' => $vendorDir . '/laravel/framework/src/Illuminate/Console/View/Components/Warn.php',
