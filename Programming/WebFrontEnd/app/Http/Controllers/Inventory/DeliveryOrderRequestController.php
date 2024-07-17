@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Inventory;
 
+use App\Http\Controllers\ExportExcel\Inventory\ExportReportDORDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DeliveryOrderRequestController extends Controller
 {
@@ -121,9 +123,30 @@ class DeliveryOrderRequestController extends Controller
                 false
             );
 
+            $getHeaderData = $filteredArray['data'][0]['document']['header'];
+
+
+            $varDataExcel = [];
+            $i = 0;
+
+            foreach ($getHeaderData as $getHeaderDatas) {
+                $varDataExcel[$i]['no'] = $i + 1;
+                $varDataExcel[$i]['prNumber'] = $getHeaderDatas['title'];
+                $varDataExcel[$i]['productId'] = $getHeaderDatas['number'];
+                $varDataExcel[$i]['qty'] = 25;
+                $varDataExcel[$i]['unitPrice'] = 1000;
+                $varDataExcel[$i]['total'] = 25000;
+                $varDataExcel[$i]['remark'] = $getHeaderDatas['date'];;
+                $i++;
+            }
+
             $compact = [
-                'dataHeader' => $filteredArray['data'][0]['document']['header']
+                'dataHeader' => $getHeaderData,
+                'dataExcel'  => $varDataExcel
             ];
+
+            Session::put("dataDetailReportDORDetail", $compact['dataHeader']);
+            Session::put("dataExcelReportDORDetail", $compact['dataExcel']);
 
             return $compact;
         } catch (\Throwable $th) {
@@ -148,9 +171,23 @@ class DeliveryOrderRequestController extends Controller
                 return redirect()->back()->with('NotFound', 'Data Not Found');
             }
 
-            session()->flash('dataDetailReportDORDetail', $compact['dataHeader']);
-
             return redirect()->route('Inventory.ReportDORequestDetail');
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function PrintExportReportDORDetail(Request $request) {
+        try {
+            $dataDetail = Session::get("dataDetailReportDORDetail");
+
+            if ($request->print_type == "PDF") {
+                // COMING SOON           
+            } else {
+                return Excel::download(new ExportReportDORDetail, 'Export Report Delivery Order Request Detail.xlsx');
+            }
+
         } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
