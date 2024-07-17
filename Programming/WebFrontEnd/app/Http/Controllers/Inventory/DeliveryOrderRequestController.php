@@ -79,21 +79,38 @@ class DeliveryOrderRequestController extends Controller
     public function ReportDORDetail(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
+
         $var = 1;
         if (!empty($_GET['var'])) {
             $var =  $_GET['var'];
         }
 
-        // PERUBAHAN WISNU
-        if (Redis::get("DataListAdvance") == null) {
+        $dataDetail = $request->session()->get('dataDetailReportDORDetail', []);
+
+        $compact = [
+            'varAPIWebToken' => $varAPIWebToken,
+            'var' => $var,
+            'statusRevisi' => 1,
+            'dataDetail' => $dataDetail,
+        ];
+
+        return view('Inventory.DeliveryOrderRequest.Reports.ReportDORDetail', $compact);
+    }
+
+    public function ReportDORDetailData($id) 
+    {
+        try {
             $varAPIWebToken = Session::get('SessionLogin');
-            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+
+            $filteredArray = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvance',
+                'transaction.read.dataList.finance.getAdvanceReport',
                 'latest',
                 [
-                    'parameter' => null,
+                    'parameter' => [
+                        'advance_RefID' => (int) $id,
+                    ],
                     'SQLStatement' => [
                         'pick' => null,
                         'sort' => null,
@@ -103,25 +120,41 @@ class DeliveryOrderRequestController extends Controller
                 ],
                 false
             );
+
+            $compact = [
+                'dataHeader' => $filteredArray['data'][0]['document']['header']
+            ];
+
+            return $compact;
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
         }
+    }
 
-        // PERUBAHAN WISNU
-        $DataListAdvance = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                "DataListAdvance"
-            ),
-            true
-        );
+    public function ReportDORDetailStore(Request $request) 
+    {
+        try {
+            $advanceRefID   = $request->advance_RefID;
+            $advanceNumber  = $request->advance_number;
 
-        $compact = [
-            'varAPIWebToken' => $varAPIWebToken,
-            'var' => $var,
-            'statusRevisi' => 1,
-            'dataAdvance' => !empty($DataListAdvance) ? $DataListAdvance : []
-        ];
+            if (!$advanceRefID && !$advanceNumber) {
+                return redirect()->route('Inventory.ReportDORequestDetail')->with('NotFound', 'DOR Number Cannot Empty');
+            }
 
-        return view('Inventory.DeliveryOrderRequest.Reports.ReportDORDetail', $compact);
+            $compact = $this->ReportDORDetailData($advanceRefID);
+
+            if ($compact['dataHeader'] == []) {
+                return redirect()->back()->with('NotFound', 'Data Not Found');
+            }
+
+            session()->flash('dataDetailReportDORDetail', $compact['dataHeader']);
+
+            return redirect()->route('Inventory.ReportDORequestDetail');
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 
     public function ReportDORtoDO(Request $request)
