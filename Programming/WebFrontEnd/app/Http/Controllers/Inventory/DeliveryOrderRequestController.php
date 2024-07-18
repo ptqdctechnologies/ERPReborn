@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class DeliveryOrderRequestController extends Controller
 {
@@ -182,12 +183,21 @@ class DeliveryOrderRequestController extends Controller
         try {
             $dataDetail = Session::get("dataDetailReportDORDetail");
 
-            if ($request->print_type == "PDF") {
-                // COMING SOON           
+            if ($dataDetail) {
+                if ($request->print_type == "PDF") {
+                    $pdf = PDF::loadView('Inventory.DeliveryOrderRequest.Reports.ReportDORDetail_pdf', compact('dataDetail'));
+                    $pdf->setPaper('A4', 'portrait');
+    
+                    // Preview PDF
+                    // return $pdf->stream('Export_Report_Delivery_Order_Request_Detail.pdf');
+    
+                    return $pdf->download('Export Report Delivery Order Request Detail.pdf');
+                } else {
+                    return Excel::download(new ExportReportDORDetail, 'Export Report Delivery Order Request Detail.xlsx');
+                }
             } else {
-                return Excel::download(new ExportReportDORDetail, 'Export Report Delivery Order Request Detail.xlsx');
+                return redirect()->route('Inventory.ReportDORequestDetail')->with('NotFound', 'DOR Number Cannot Empty');
             }
-
         } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
@@ -264,7 +274,6 @@ class DeliveryOrderRequestController extends Controller
 
         return response()->json($compact);
     }
-
 
     public function DeliveryOrderRequestComplexBySupplierID($advance_RefID)
     {
@@ -590,7 +599,6 @@ class DeliveryOrderRequestController extends Controller
         $input = $request->all();
         dd($input);
     }
-
 
     public function SearchPurchaseOrder(Request $request)
     {
