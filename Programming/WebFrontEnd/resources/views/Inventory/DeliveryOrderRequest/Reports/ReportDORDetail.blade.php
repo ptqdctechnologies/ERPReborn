@@ -169,9 +169,9 @@
                                                     <td>1</td>
                                                     <td><?= $dataDetail['title']; ?></td>
                                                     <td><?= $dataDetail['number']; ?></td>
-                                                    <td>25</td>
-                                                    <td>1.000</td>
-                                                    <td>25.000</td>
+                                                    <td><?= $dataDetail['recordID']; ?></td>
+                                                    <td><?= $dataDetail['recordID']; ?></td>
+                                                    <td><?= $dataDetail['businessDocumentType_RefID']; ?></td>
                                                     <td><?= $dataDetail['date'] ?></td>
                                                 </tr>
                                             </tbody>

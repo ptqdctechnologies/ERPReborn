@@ -123,22 +123,23 @@ class DeliveryOrderRequestController extends Controller
                 false
             );
 
+            if (!isset($filteredArray['data'][0]['document']['header'])) {
+                throw new \Exception('Data not found in the API response.');
+            }
+
             $getHeaderData = $filteredArray['data'][0]['document']['header'];
 
-
-            $varDataExcel = [];
-            $i = 0;
-
-            foreach ($getHeaderData as $getHeaderDatas) {
-                $varDataExcel[$i]['no'] = $i + 1;
-                $varDataExcel[$i]['prNumber'] = $getHeaderDatas['title'];
-                $varDataExcel[$i]['productId'] = $getHeaderDatas['number'];
-                $varDataExcel[$i]['qty'] = 25;
-                $varDataExcel[$i]['unitPrice'] = 1000;
-                $varDataExcel[$i]['total'] = 25000;
-                $varDataExcel[$i]['remark'] = $getHeaderDatas['date'];;
-                $i++;
-            }
+            $varDataExcel = [
+                [
+                    'no' => 1,
+                    'prNumber' => $getHeaderData['title'],
+                    'productId' => $getHeaderData['number'],
+                    'qty' => $getHeaderData['recordID'],
+                    'unitPrice' => $getHeaderData['recordID'],
+                    'total' => $getHeaderData['businessDocumentType_RefID'],
+                    'remark' => $getHeaderData['date']
+                ]
+            ];
 
             $compact = [
                 'dataHeader' => $getHeaderData,
@@ -150,7 +151,6 @@ class DeliveryOrderRequestController extends Controller
 
             return $compact;
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
@@ -167,7 +167,7 @@ class DeliveryOrderRequestController extends Controller
 
             $compact = $this->ReportDORDetailData($advanceRefID);
 
-            if ($compact['dataHeader'] == []) {
+            if ($compact === null || empty($compact['dataHeader'])) {
                 return redirect()->back()->with('NotFound', 'Data Not Found');
             }
 

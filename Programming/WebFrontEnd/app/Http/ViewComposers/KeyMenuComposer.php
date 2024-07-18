@@ -18,34 +18,37 @@ class KeyMenuComposer
         $varAPIWebToken = Session::get('SessionLogin');
         $varTTL = 32400; // 9 Jam
 
-        for ($i = 0; $i < count($varDataRole); $i++) {
+        // PERUBAHAN TERBARU MENAMBAHKAN KONDISI IF
+        if (isset($varDataRole) && is_countable($varDataRole)) {
+            for ($i = 0; $i < count($varDataRole); $i++) {
 
-            if (Redis::get("RedisSetMenu" . $varDataRole[$i]) == null) {
+                if (Redis::get("RedisSetMenu" . $varDataRole[$i]) == null) {
 
-                //SET REDIS MENU
+                    //SET REDIS MENU
 
-                \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    "RedisSetMenu" . $varDataRole[$i],
-                    true,
-                    $varTTL
-                );
+                    \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        "RedisSetMenu" . $varDataRole[$i],
+                        true,
+                        $varTTL
+                    );
 
-                //GET REDIS MENU
-                
-                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken,
-                    'transaction.read.dataList.sysConfig.getAppObject_MenuLayout',
-                    'latest',
-                    [
-                        'parameter' => [
-                            'recordID' => $SessionUser_RefID
-                        ]
-                    ],
-                    false
-                );
-                
+                    //GET REDIS MENU
+                    
+                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken,
+                        'transaction.read.dataList.sysConfig.getAppObject_MenuLayout',
+                        'latest',
+                        [
+                            'parameter' => [
+                                'recordID' => $SessionUser_RefID
+                            ]
+                        ],
+                        false
+                    );
+                    
+                }
             }
         }
 
