@@ -209,39 +209,39 @@
                 </td>
                 <td>
                     <div style="margin-top: 4px;">
-                        <?= Session::get("dataDetailReportDORDetail.title"); ?>
+                        <?= Session::get("dataDetailReportDORSummary.title"); ?>
                     </div>
                 </td>
                 <td>
                     <div style="margin-top: 4px;">
-                        <?= Session::get("dataDetailReportDORDetail.number"); ?>
+                        <?= Session::get("dataDetailReportDORSummary.number"); ?>
                     </div>
                 </td>
                 <td>
                     <div style="margin-top: 4px;">
-                        <?= Session::get("dataDetailReportDORDetail.recordID"); ?>
+                        <?= Session::get("dataDetailReportDORSummary.recordID"); ?>
                     </div>
                 </td>
                 <td>
                     <div style="margin-top: 4px;">
-                        <?= Session::get("dataDetailReportDORDetail.recordID"); ?>
+                        <?= Session::get("dataDetailReportDORSummary.recordID"); ?>
                     </div>
                 </td>
                 <td>
                     <div style="margin-top: 4px;">
-                        <?= Session::get("dataDetailReportDORDetail.businessDocumentType_RefID"); ?>
+                        <?= Session::get("dataDetailReportDORSummary.businessDocumentType_RefID"); ?>
                     </div>
                 </td>
                 <td>
                     <div style="margin-top: 4px;">
-                        <?= Session::get("dataDetailReportDORDetail.date"); ?>
+                        <?= Session::get("dataDetailReportDORSummary.date"); ?>
                     </div>
                 </td>
             </tr>
         </table>
         <!-- DISINI -->
          
-        <?php Session::forget("dataDetailReportDORDetail"); ?>
+        <?php Session::forget("dataDetailReportDORSummary"); ?>
     </div>
 </body>
 

@@ -132,6 +132,31 @@ class DeliveryOrderRequestController extends Controller
         }
     }
 
+    public function PrintExportReportDORSummary(Request $request) {
+        try {
+            $dataDetail = Session::get("dataDetailReportDORSummary");
+
+            if ($dataDetail) {
+                if ($request->print_type == "PDF") {
+                    $pdf = PDF::loadView('Inventory.DeliveryOrderRequest.Reports.ReportDORSummary_pdf', compact('dataDetail'));
+                    $pdf->setPaper('A4', 'portrait');
+    
+                    // Preview PDF
+                    // return $pdf->stream('Export_Report_Delivery_Order_Request_Detail.pdf');
+    
+                    return $pdf->download('Export Report Delivery Order Request Summary.pdf');
+                } else {
+                    return Excel::download(new ExportReportDORDetail, 'Export Report Delivery Order Request Detail.xlsx');
+                }
+            } else {
+                return redirect()->route('Inventory.ReportDORequestDetail')->with('NotFound', 'DOR Number Cannot Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
     public function ReportDORDetail(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');

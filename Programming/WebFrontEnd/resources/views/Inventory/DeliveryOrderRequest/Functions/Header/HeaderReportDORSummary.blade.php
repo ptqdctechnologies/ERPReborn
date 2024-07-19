@@ -67,18 +67,21 @@
                             </td>
                             </form>
 
-                            <td>
-                                <select name="" id="" class="form-control">
-                                    <option value="PDF">Export PDF</option>
-                                    <option value="Excel">Export Excel</option>
-                                </select>
-                            </td>
+                            <form method="post" action="{{ route('Inventory.PrintExportReportDORequestSummary') }}" id="FormPrintReportDORSummary">
+                                @csrf
+                                <td>
+                                    <select name="print_type" id="print_type" class="form-control">
+                                        <option value="PDF">Export PDF</option>
+                                        <option value="Excel">Export Excel</option>
+                                    </select>
+                                </td>
 
-                            <td>
-                                <button class="btn btn-default btn-sm" type="submit">
-                                    <span><img src="{{ asset('AdminLTE-master/dist/img/printer.png') }}" width="17" alt=""></span>
-                                </button>
-                            </td>
+                                <td>
+                                    <button class="btn btn-default btn-sm" type="submit">
+                                        <span><img src="{{ asset('AdminLTE-master/dist/img/printer.png') }}" width="17" alt=""></span>
+                                    </button>
+                                </td>
+                            </form>
                         </tr>
                     </table>
                 </div>
