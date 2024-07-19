@@ -37,16 +37,34 @@ class DeliveryOrderController extends Controller
             $var =  $_GET['var'];
         }
 
-        // PERUBAHAN WISNU
-        if (Redis::get("DataListAdvance") == null) {
+        // Session::forget('dataDetailReportDOSummary');
+
+        $dataDetail = $request->session()->get('dataDetailReportDOSummary', []);
+
+        $compact = [
+            'varAPIWebToken' => $varAPIWebToken,
+            'var' => $var,
+            'statusRevisi' => 1,
+            'dataDetail' => $dataDetail
+        ];
+
+        return view('Inventory.DeliveryOrder.Reports.ReportDOSummary', $compact);
+    }
+
+    public function ReportDOSummaryData($id) 
+    {
+        try {
             $varAPIWebToken = Session::get('SessionLogin');
-            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+
+            $filteredArray = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvance',
+                'transaction.read.dataList.finance.getAdvanceReport',
                 'latest',
                 [
-                    'parameter' => null,
+                    'parameter' => [
+                        'advance_RefID' => (int) $id,
+                    ],
                     'SQLStatement' => [
                         'pick' => null,
                         'sort' => null,
@@ -56,25 +74,60 @@ class DeliveryOrderController extends Controller
                 ],
                 false
             );
+
+            if (!isset($filteredArray['data'][0]['document']['header'])) {
+                throw new \Exception('Data not found in the API response.');
+            }
+
+            $getHeaderData = $filteredArray['data'][0]['document']['header'];
+
+            $varDataExcel = [
+                [
+                    'no'        => 1,
+                    'DORNumber' => $getHeaderData['number'],
+                    'productId' => $getHeaderData['recordID'],
+                    'qty'       => $getHeaderData['date'],
+                    'unitPrice' => $getHeaderData['recordID'],
+                    'total'     => $getHeaderData['businessDocumentType_RefID'],
+                ]
+            ];
+
+            $compact = [
+                'dataHeader' => $getHeaderData,
+                'dataExcel'  => $varDataExcel
+            ];
+
+            Session::put("dataDetailReportDOSummary", $compact['dataHeader']);
+            Session::put("dataExcelReportDOSummary", $compact['dataExcel']);
+
+            return $compact;
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('NotFound', 'Process Error');
         }
+    }
 
-        // PERUBAHAN WISNU
-        $DataListAdvance = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                "DataListAdvance"
-            ),
-            true
-        );
+    public function ReportDOSummaryStore(Request $request) 
+    {
+        try {
+            $budgetID       = $request->budget_id;
+            $subBudgetID    = $request->advance_RefID;
+            // $subBudgetID    = $request->sub_budget_id;
 
-        $compact = [
-            'varAPIWebToken' => $varAPIWebToken,
-            'var' => $var,
-            'statusRevisi' => 1,
-            'dataAdvance' => !empty($DataListAdvance) ? $DataListAdvance : []
-        ];
+            if (!$budgetID && !$subBudgetID) {
+                return redirect()->route('Inventory.ReportDOSummary')->with('NotFound', 'Budget & Sub Budget Cannot Empty');
+            }
 
-        return view('Inventory.DeliveryOrder.Reports.ReportDOSummary', $compact);
+            $compact = $this->ReportDOSummaryData($subBudgetID);
+
+            if ($compact === null || empty($compact['dataHeader'])) {
+                return redirect()->back()->with('NotFound', 'Data Not Found');
+            }
+
+            return redirect()->route('Inventory.ReportDOSummary');
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 
     public function ReportDODetail(Request $request)
@@ -130,6 +183,7 @@ class DeliveryOrderController extends Controller
         $input = $request->all();
         dd($input);
     }
+
     public function DeliveryOrderListData(Request $request)
     {
         try {
