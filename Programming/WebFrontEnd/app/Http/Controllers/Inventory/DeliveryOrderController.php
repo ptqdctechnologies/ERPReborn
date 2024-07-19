@@ -166,41 +166,11 @@ class DeliveryOrderController extends Controller
             $var =  $_GET['var'];
         }
 
-        // PERUBAHAN WISNU
-        if (Redis::get("DataListAdvance") == null) {
-            $varAPIWebToken = Session::get('SessionLogin');
-            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvance',
-                'latest',
-                [
-                    'parameter' => null,
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ],
-                false
-            );
-        }
-
-        // PERUBAHAN WISNU
-        $DataListAdvance = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                "DataListAdvance"
-            ),
-            true
-        );
-
         $compact = [
             'varAPIWebToken' => $varAPIWebToken,
             'var' => $var,
             'statusRevisi' => 1,
-            'dataAdvance' => !empty($DataListAdvance) ? $DataListAdvance : []
+            'dataDetail' => []
         ];
 
         return view('Inventory.DeliveryOrder.Reports.ReportDODetail', $compact);
