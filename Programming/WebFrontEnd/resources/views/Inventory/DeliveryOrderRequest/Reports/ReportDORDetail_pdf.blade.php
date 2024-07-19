@@ -17,7 +17,7 @@
         <div style="text-align: right; font-size: 14px;">July 18, 2024</div>
         <div style="text-align: center; font-size: 20px; font-weight: bold;">DO Detail Report</div>
         <div style="text-align: right; font-size: 14px;">11.58 AM</div>
-        <table style=" margin: 30px 0px 15px 1px;">
+        <table style="margin: 30px 0px 15px 1px;">
             <tr>
                 <td style=" width: 350px;">
                     <table>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Inventory;
 
 use App\Http\Controllers\ExportExcel\Inventory\ExportReportDORDetail;
+use App\Http\Controllers\ExportExcel\Inventory\ExportReportDORSummary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
@@ -83,13 +84,12 @@ class DeliveryOrderRequestController extends Controller
 
             $varDataExcel = [
                 [
-                    'no' => 1,
-                    'prNumber' => $getHeaderData['title'],
-                    'productId' => $getHeaderData['number'],
-                    'qty' => $getHeaderData['recordID'],
+                    'no'        => 1,
+                    'DORNumber' => $getHeaderData['number'],
+                    'productId' => $getHeaderData['recordID'],
+                    'qty'       => $getHeaderData['date'],
                     'unitPrice' => $getHeaderData['recordID'],
-                    'total' => $getHeaderData['businessDocumentType_RefID'],
-                    'remark' => $getHeaderData['date']
+                    'total'     => $getHeaderData['businessDocumentType_RefID'],
                 ]
             ];
 
@@ -146,10 +146,10 @@ class DeliveryOrderRequestController extends Controller
     
                     return $pdf->download('Export Report Delivery Order Request Summary.pdf');
                 } else {
-                    return Excel::download(new ExportReportDORDetail, 'Export Report Delivery Order Request Detail.xlsx');
+                    return Excel::download(new ExportReportDORSummary, 'Export Report Delivery Order Request Summary.xlsx');
                 }
             } else {
-                return redirect()->route('Inventory.ReportDORequestDetail')->with('NotFound', 'DOR Number Cannot Empty');
+                return redirect()->route('Inventory.ReportDORequestSummary')->with('NotFound', 'Budget & Sub Budget Cannot Empty');
             }
         } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());
