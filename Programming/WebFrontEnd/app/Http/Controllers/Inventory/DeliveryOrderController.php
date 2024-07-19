@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Inventory;
 
+use App\Http\Controllers\ExportExcel\Inventory\ExportReportDOSummary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class DeliveryOrderController extends Controller
 {
@@ -124,6 +127,31 @@ class DeliveryOrderController extends Controller
             }
 
             return redirect()->route('Inventory.ReportDOSummary');
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function PrintExportReportDOSummary(Request $request) {
+        try {
+            $dataDetail = Session::get("dataDetailReportDOSummary");
+
+            if ($dataDetail) {
+                if ($request->print_type == "PDF") {
+                    $pdf = PDF::loadView('Inventory.DeliveryOrder.Reports.ReportDOSummary_pdf', compact('dataDetail'));
+                    $pdf->setPaper('A4', 'portrait');
+    
+                    // Preview PDF
+                    // return $pdf->stream('Export_Report_Delivery_Order_Request_Detail.pdf');
+    
+                    return $pdf->download('Export Report Delivery Order Summary.pdf');
+                } else {
+                    return Excel::download(new ExportReportDOSummary, 'Export Report Delivery Order Summary.xlsx');
+                }
+            } else {
+                return redirect()->route('Inventory.ReportDOSummary')->with('NotFound', 'Budget & Sub Budget Cannot Empty');
+            }
         } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');

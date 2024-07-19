@@ -67,7 +67,7 @@
                             </td>
                             </form>
 
-                            <form method="post" action="" id="FormSubmitReportDOSummary">
+                            <form method="post" action="{{ route('Inventory.PrintExportReportDOSummary') }}" id="FormSubmitReportDOSummary">
                                 @csrf
                                 <td>
                                     <select name="print_type" id="print_type" class="form-control">
