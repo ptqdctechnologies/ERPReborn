@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Inventory;
 
+use App\Http\Controllers\ExportExcel\Inventory\ExportReportMaterialReturnSummary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
@@ -150,7 +151,7 @@ class MaterialReturnController extends Controller
     
                     return $pdf->download('Export Report Material Return Summary.pdf');
                 } else {
-                    // return Excel::download(new ExportReportDOSummary, 'Export Report Delivery Order Summary.xlsx');
+                    return Excel::download(new ExportReportMaterialReturnSummary, 'Export Report Material Return Summary.xlsx');
                 }
             } else {
                 return redirect()->route('Inventory.ReportMatReturnSummary')->with('NotFound', 'Budget & Sub Budget Cannot Empty');
