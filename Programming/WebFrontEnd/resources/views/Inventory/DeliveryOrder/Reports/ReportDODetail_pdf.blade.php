@@ -240,8 +240,6 @@
             </tr>
         </table>
         <!-- DISINI -->
-         
-        <?php Session::forget("dataDetailReportDORDetail"); ?>
     </div>
 </body>
 

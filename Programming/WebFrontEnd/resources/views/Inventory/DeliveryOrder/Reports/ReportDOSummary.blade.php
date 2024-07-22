@@ -45,7 +45,7 @@
                                         </table>
                                     </div>
                                 </div>
-                            <?php } ?>
+                            <?php }; Session::put("isButtonReportDOSummarySubmit", false); ?>
                         </div>
                     </div>
                 </div>

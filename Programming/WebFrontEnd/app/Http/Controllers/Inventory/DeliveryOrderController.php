@@ -36,19 +36,12 @@ class DeliveryOrderController extends Controller
     public function ReportDOSummary(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $var = 1;
-        if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
-        }
+        $isSubmitButton = $request->session()->get('isButtonReportDOSummarySubmit');
 
-        // Session::forget('dataDetailReportDOSummary');
-
-        $dataDetail = $request->session()->get('dataDetailReportDOSummary', []);
+        $dataDetail = $isSubmitButton ? $request->session()->get('dataDetailReportDOSummary', []): [];
 
         $compact = [
             'varAPIWebToken' => $varAPIWebToken,
-            'var' => $var,
-            'statusRevisi' => 1,
             'dataDetail' => $dataDetail
         ];
 
@@ -101,7 +94,9 @@ class DeliveryOrderController extends Controller
                 'dataExcel'  => $varDataExcel
             ];
 
+            Session::put("isButtonReportDOSummarySubmit", true);
             Session::put("dataDetailReportDOSummary", $compact['dataHeader']);
+            Session::put("dataPDFReportDOSummary", $compact['dataHeader']);
             Session::put("dataExcelReportDOSummary", $compact['dataExcel']);
 
             return $compact;
@@ -118,6 +113,11 @@ class DeliveryOrderController extends Controller
             // $subBudgetID    = $request->sub_budget_id;
 
             if (!$budgetID && !$subBudgetID) {
+                Session::forget("isButtonReportDOSummarySubmit");
+                Session::forget("dataDetailReportDOSummary");
+                Session::forget("dataPDFReportDOSummary");
+                Session::forget("dataExcelReportDOSummary");
+
                 return redirect()->route('Inventory.ReportDOSummary')->with('NotFound', 'Budget & Sub Budget Cannot Empty');
             }
 
@@ -262,7 +262,6 @@ class DeliveryOrderController extends Controller
 
     public function PrintExportReportDODetail(Request $request) {
         try {
-            $isSubmit   = Session::get("isButtonReportDODetailSubmit");
             $dataDetail = Session::get("dataDetailReportDODetail");
 
             if ($dataDetail) {
