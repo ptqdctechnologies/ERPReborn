@@ -129,7 +129,7 @@ class DeliveryOrderController extends Controller
 
             return redirect()->route('Inventory.ReportDOSummary');
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
+            Log::error("Error at ReportDOSummaryStore: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
@@ -154,7 +154,7 @@ class DeliveryOrderController extends Controller
                 return redirect()->route('Inventory.ReportDOSummary')->with('NotFound', 'Budget & Sub Budget Cannot Empty');
             }
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
+            Log::error("Error at PrintExportReportDOSummary: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
