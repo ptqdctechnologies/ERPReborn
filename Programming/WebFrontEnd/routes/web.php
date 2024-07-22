@@ -326,6 +326,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('MaterialReturnByDorID', 'Inventory\MaterialReturnController@MaterialReturnByDorID')->name('MaterialReturn.MaterialReturnByDorID');
     Route::get('ReportMatReturnDetail', 'Inventory\MaterialReturnController@ReportMatReturnDetail')->name('Inventory.ReportMatReturnDetail');
     Route::post('ReportMatReturnDetailStore', 'Inventory\MaterialReturnController@ReportMatReturnDetailStore')->name('Inventory.ReportMatReturnDetailStore');
+    Route::post('PrintExportReportMatReturnDetail', 'Inventory\MaterialReturnController@PrintExportReportMatReturnDetail')->name('Inventory.PrintExportReportMatReturnDetail');
     Route::get('ReportMatReturnSummary', 'Inventory\MaterialReturnController@ReportMatReturnSummary')->name('Inventory.ReportMatReturnSummary');
     Route::post('ReportMatReturnSummaryStore', 'Inventory\MaterialReturnController@ReportMatReturnSummaryStore')->name('Inventory.ReportMatReturnSummaryStore');
     Route::post('PrintExportReportMatReturnSummary', 'Inventory\MaterialReturnController@PrintExportReportMatReturnSummary')->name('Inventory.PrintExportReportMatReturnSummary');

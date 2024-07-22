@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Inventory;
 
 use App\Http\Controllers\ExportExcel\Inventory\ExportReportMaterialReturnSummary;
+use App\Http\Controllers\ExportExcel\Inventory\ExportReportMaterialReturnDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
@@ -215,6 +216,7 @@ class MaterialReturnController extends Controller
                     'qty'       => $getHeaderData['date'],
                     'unitPrice' => $getHeaderData['recordID'],
                     'total'     => $getHeaderData['businessDocumentType_RefID'],
+                    'remark'    => $getHeaderData['date'],
                 ]
             ];
 
@@ -259,6 +261,31 @@ class MaterialReturnController extends Controller
             return redirect()->route('Inventory.ReportMatReturnDetail');
         } catch (\Throwable $th) {
             Log::error("Error at ReportMatReturnDetailStore: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function PrintExportReportMatReturnDetail(Request $request) {
+        try {
+            $dataDetail = Session::get("dataDetailReportMatReturnDetail");
+
+            if ($dataDetail) {
+                if ($request->print_type == "PDF") {
+                    $pdf = PDF::loadView('Inventory.MaterialReturn.Reports.ReportMatReturnDetail_pdf', compact('dataDetail'));
+                    $pdf->setPaper('A4', 'portrait');
+    
+                    // Preview PDF
+                    // return $pdf->stream('Export_Report_Delivery_Order_Request_Detail.pdf');
+    
+                    return $pdf->download('Export Report Material Return Detail.pdf');
+                } else {
+                    return Excel::download(new ExportReportMaterialReturnDetail, 'Export Report Material Return Detail.xlsx');
+                }
+            } else {
+                return redirect()->route('Inventory.ReportMatReturnDetail')->with('NotFound', 'DO Number Cannot Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("Error at PrintExportReportMatReturnSummary: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
