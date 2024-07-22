@@ -38,7 +38,7 @@ class DeliveryOrderController extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $isSubmitButton = $request->session()->get('isButtonReportDOSummarySubmit');
 
-        $dataDetail = $isSubmitButton ? $request->session()->get('dataDetailReportDOSummary', []): [];
+        $dataDetail = $isSubmitButton ? $request->session()->get('dataDetailReportDOSummary', []) : [];
 
         $compact = [
             'varAPIWebToken' => $varAPIWebToken,

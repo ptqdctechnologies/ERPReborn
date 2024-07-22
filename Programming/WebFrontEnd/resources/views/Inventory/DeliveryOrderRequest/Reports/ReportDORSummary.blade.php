@@ -49,7 +49,7 @@
                                     </div>
                                 </div>
                             </div>
-                        <?php } ?>
+                        <?php }; Session::put("isButtonReportDORSummarySubmit", false); ?>
 
                     </div>
                 </div>

@@ -60,34 +60,32 @@
                 </td>
                 <td>
                     <div style="margin-top: 4px;">
-                        <?= Session::get("dataDetailReportDORSummary.number"); ?>
+                        <?= Session::get("dataPDFReportDORSummary.number"); ?>
                     </div>
                 </td>
                 <td>
                     <div style="margin-top: 4px;">
-                        <?= Session::get("dataDetailReportDORSummary.recordID"); ?>
+                        <?= Session::get("dataPDFReportDORSummary.recordID"); ?>
                     </div>
                 </td>
                 <td>
                     <div style="margin-top: 4px;">
-                        <?= Session::get("dataDetailReportDORSummary.date"); ?>
+                        <?= Session::get("dataPDFReportDORSummary.date"); ?>
                     </div>
                 </td>
                 <td>
                     <div style="margin-top: 4px;">
-                        <?= Session::get("dataDetailReportDORSummary.recordID"); ?>
+                        <?= Session::get("dataPDFReportDORSummary.recordID"); ?>
                     </div>
                 </td>
                 <td>
                     <div style="margin-top: 4px;">
-                        <?= Session::get("dataDetailReportDORSummary.businessDocumentType_RefID"); ?>
+                        <?= Session::get("dataPDFReportDORSummary.businessDocumentType_RefID"); ?>
                     </div>
                 </td>
             </tr>
         </table>
         <!-- DISINI -->
-         
-        <?php Session::forget("dataDetailReportDORSummary"); ?>
     </div>
 </body>
 

@@ -35,17 +35,12 @@ class DeliveryOrderRequestController extends Controller
     public function ReportDORSummary(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $var = 1;
-        if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
-        }
+        $isSubmitButton = $request->session()->get('isButtonReportDORSummarySubmit');
 
-        $dataDetail = $request->session()->get('dataDetailReportDORSummary', []);
+        $dataDetail = $isSubmitButton ? $request->session()->get('dataDetailReportDORSummary', []) : [];
 
         $compact = [
             'varAPIWebToken'    => $varAPIWebToken,
-            'var'               => $var,
-            'statusRevisi'      => 1,
             'dataDetail'        => $dataDetail
         ];
 
@@ -98,7 +93,9 @@ class DeliveryOrderRequestController extends Controller
                 'dataExcel'  => $varDataExcel
             ];
 
+            Session::put("isButtonReportDORSummarySubmit", true);
             Session::put("dataDetailReportDORSummary", $compact['dataHeader']);
+            Session::put("dataPDFReportDORSummary", $compact['dataHeader']);
             Session::put("dataExcelReportDORSummary", $compact['dataExcel']);
 
             return $compact;
@@ -114,9 +111,19 @@ class DeliveryOrderRequestController extends Controller
             $subBudgetID    = $request->advance_RefID;
             // $subBudgetID    = $request->sub_budget_id;
 
-
             if (!$budgetID && !$subBudgetID) {
-                return redirect()->route('Inventory.ReportDORequestSummary')->with('NotFound', 'Budget & Sub Budget Cannot Empty');
+                $message = 'Budget & Sub Budget Cannot Empty';
+            } else if ($budgetID && !$subBudgetID) {
+                $message = 'Sub Budget Cannot Empty';
+            }
+
+            if (isset($message)) {
+                Session::forget("isButtonReportDORSummarySubmit");
+                Session::forget("dataDetailReportDORSummary");
+                Session::forget("dataPDFReportDORSummary");
+                Session::forget("dataExcelReportDORSummary");
+        
+                return redirect()->route('Inventory.ReportDORequestSummary')->with('NotFound', $message);
             }
 
             $compact = $this->ReportDORSummaryData($subBudgetID);
@@ -127,7 +134,7 @@ class DeliveryOrderRequestController extends Controller
 
             return redirect()->route('Inventory.ReportDORequestSummary');
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
+            Log::error("Error at ReportDORSummaryStore: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
@@ -152,7 +159,7 @@ class DeliveryOrderRequestController extends Controller
                 return redirect()->route('Inventory.ReportDORequestSummary')->with('NotFound', 'Budget & Sub Budget Cannot Empty');
             }
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
+            Log::error("Error at PrintExportReportDORSummary: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
