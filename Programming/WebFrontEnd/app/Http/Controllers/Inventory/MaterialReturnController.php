@@ -165,21 +165,32 @@ class MaterialReturnController extends Controller
     public function ReportMatReturnDetail(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $var = 1;
-        if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
-        }
+        $isSubmitButton = $request->session()->get('isButtonReportMatReturnDetailSubmit');
 
-        // PERUBAHAN WISNU
-        if (Redis::get("DataListAdvance") == null) {
+        $dataDetail = $isSubmitButton ? $request->session()->get('dataDetailReportMatReturnDetail', []) : [];
+
+        $compact = [
+            'varAPIWebToken' => $varAPIWebToken,
+            'dataDetail'     => $dataDetail
+        ];
+
+        return view('Inventory.MaterialReturn.Reports.ReportMatReturnDetail', $compact);
+    }
+
+    public function ReportMatReturnDetailData($id) 
+    {
+        try {
             $varAPIWebToken = Session::get('SessionLogin');
-            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+
+            $filteredArray = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvance',
+                'transaction.read.dataList.finance.getAdvanceReport',
                 'latest',
                 [
-                    'parameter' => null,
+                    'parameter' => [
+                        'advance_RefID' => (int) $id,
+                    ],
                     'SQLStatement' => [
                         'pick' => null,
                         'sort' => null,
@@ -189,25 +200,67 @@ class MaterialReturnController extends Controller
                 ],
                 false
             );
+
+            if (!isset($filteredArray['data'][0]['document']['header'])) {
+                throw new \Exception('Data not found in the API response.');
+            }
+
+            $getHeaderData = $filteredArray['data'][0]['document']['header'];
+
+            $varDataExcel = [
+                [
+                    'no'        => 1,
+                    'DORNumber' => $getHeaderData['number'],
+                    'productId' => $getHeaderData['recordID'],
+                    'qty'       => $getHeaderData['date'],
+                    'unitPrice' => $getHeaderData['recordID'],
+                    'total'     => $getHeaderData['businessDocumentType_RefID'],
+                ]
+            ];
+
+            $compact = [
+                'dataHeader' => $getHeaderData,
+                'dataExcel'  => $varDataExcel
+            ];
+
+            Session::put("isButtonReportMatReturnDetailSubmit", true);
+            Session::put("dataDetailReportMatReturnDetail", $compact['dataHeader']);
+            Session::put("dataPDFReportMatReturnDetail", $compact['dataHeader']);
+            Session::put("dataExcelReportMatReturnDetail", $compact['dataExcel']);
+
+            return $compact;
+        } catch (\Throwable $th) {
+            Log::error("Error at ReportMatReturnDetailData: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
         }
+    }
 
-        // PERUBAHAN WISNU
-        $DataListAdvance = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                "DataListAdvance"
-            ),
-            true
-        );
+    public function ReportMatReturnDetailStore(Request $request) 
+    {
+        try {
+            $advanceRefID   = $request->advance_RefID;
+            $advanceNumber  = $request->advance_number;
 
-        $compact = [
-            'varAPIWebToken' => $varAPIWebToken,
-            'var' => $var,
-            'statusRevisi' => 1,
-            'dataListAdvance' => !empty($DataListAdvance) ? $DataListAdvance : []
-        ];
+            if (!$advanceRefID && !$advanceNumber) {
+                Session::forget("isButtonReportMatReturnDetailSubmit");
+                Session::forget("dataDetailReportMatReturnDetail");
+                Session::forget("dataPDFReportMatReturnDetail");
+                Session::forget("dataExcelReportMatReturnDetail");
 
-        return view('Inventory.MaterialReturn.Reports.ReportMatReturnDetail', $compact);
+                return redirect()->route('Inventory.ReportMatReturnDetail')->with('NotFound', 'DO Number Cannot Empty');
+            }
+
+            $compact = $this->ReportMatReturnDetailData($advanceRefID);
+
+            if ($compact === null || empty($compact['dataHeader'])) {
+                return redirect()->back()->with('NotFound', 'Data Not Found');
+            }
+
+            return redirect()->route('Inventory.ReportMatReturnDetail');
+        } catch (\Throwable $th) {
+            Log::error("Error at ReportMatReturnDetailStore: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 
     public function StoreValidateiMaterialReturn(Request $request)
@@ -313,6 +366,7 @@ class MaterialReturnController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
+
     public function MaterialReturnByDorID(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -432,6 +486,7 @@ class MaterialReturnController extends Controller
         }
 
     }
+
     public function MaterialReturnListCartRevision(Request $request)
     {
 

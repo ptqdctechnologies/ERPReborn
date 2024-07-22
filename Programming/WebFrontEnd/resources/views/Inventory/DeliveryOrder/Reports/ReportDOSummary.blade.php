@@ -35,12 +35,14 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <td>1</td>
-                                                <td><?= $dataDetail['number']; ?></td>
-                                                <td><?= $dataDetail['recordID']; ?></td>
-                                                <td><?= $dataDetail['date']; ?></td>
-                                                <td><?= $dataDetail['recordID']; ?></td>
-                                                <td><?= $dataDetail['businessDocumentType_RefID']; ?></td>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td><?= $dataDetail['number']; ?></td>
+                                                    <td><?= $dataDetail['recordID']; ?></td>
+                                                    <td><?= $dataDetail['date']; ?></td>
+                                                    <td><?= $dataDetail['recordID']; ?></td>
+                                                    <td><?= $dataDetail['businessDocumentType_RefID']; ?></td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
