@@ -103,7 +103,7 @@
                                         </table>
                                     </div>
                                 </div>
-                            <?php } ?>
+                            <?php }; Session::put("isButtonSubmit", false); ?>
                         </div>
                     </div>
                 </div>

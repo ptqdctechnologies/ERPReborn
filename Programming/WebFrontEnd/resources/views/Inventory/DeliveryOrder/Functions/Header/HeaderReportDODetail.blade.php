@@ -1,5 +1,5 @@
 <div class="card">
-    <form method="post" action="" id="FormSubmitReportDODetail">
+    <form method="post" action="{{ route('Inventory.ReportDODetailStore') }}" id="FormSubmitReportDODetail">
     @csrf
     <div class="card-body">
         <div class="row">

@@ -166,14 +166,105 @@ class DeliveryOrderController extends Controller
             $var =  $_GET['var'];
         }
 
+        $dataDetail = $request->session()->get('isButtonSubmit') ? $request->session()->get('dataDetailReportDODetail', []) : [];
+
+        $testing = [
+            'isButtonSubmit'            => $request->session()->get('isButtonSubmit'),
+            'dataDetailReportDODetail'  => $request->session()->get('dataDetailReportDODetail'),
+            'dataPDFReportDODetail'     => $request->session()->get('dataPDFReportDODetail'),
+            'dataExcelReportDODetail'   => $request->session()->get('dataExcelReportDODetail'),
+        ];
+
+        dump($testing);
+
         $compact = [
             'varAPIWebToken' => $varAPIWebToken,
             'var' => $var,
             'statusRevisi' => 1,
-            'dataDetail' => []
+            'dataDetail' => $dataDetail
         ];
 
         return view('Inventory.DeliveryOrder.Reports.ReportDODetail', $compact);
+    }
+
+    public function ReportDODetailData($id) 
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+
+            $filteredArray = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.finance.getAdvanceReport',
+                'latest',
+                [
+                    'parameter' => [
+                        'advance_RefID' => (int) $id,
+                    ],
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
+            );
+
+            if (!isset($filteredArray['data'][0]['document']['header'])) {
+                throw new \Exception('Data not found in the API response.');
+            }
+
+            $getHeaderData = $filteredArray['data'][0]['document']['header'];
+
+            $varDataExcel = [
+                [
+                    'no'        => 1,
+                    'DORNumber' => $getHeaderData['number'],
+                    'productId' => $getHeaderData['recordID'],
+                    'qty'       => $getHeaderData['date'],
+                    'unitPrice' => $getHeaderData['recordID'],
+                    'total'     => $getHeaderData['businessDocumentType_RefID'],
+                ]
+            ];
+
+            $compact = [
+                'dataHeader' => $getHeaderData,
+                'dataExcel'  => $varDataExcel
+            ];
+
+            Session::put("isButtonSubmit", true);
+            Session::put("dataDetailReportDODetail", $compact['dataHeader']);
+            Session::put("dataPDFReportDODetail", $compact['dataHeader']);
+            Session::put("dataExcelReportDODetail", $compact['dataExcel']);
+
+            return $compact;
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportDODetailStore(Request $request) 
+    {
+        try {
+            $advanceRefID   = $request->advance_RefID;
+            $advanceNumber  = $request->advance_number;
+
+            if (!$advanceRefID && !$advanceNumber) {
+                return redirect()->route('Inventory.ReportDODetail')->with('NotFound', 'DO Number Cannot Empty');
+            }
+
+            $compact = $this->ReportDODetailData($advanceRefID);
+
+            if ($compact === null || empty($compact['dataHeader'])) {
+                return redirect()->back()->with('NotFound', 'Data Not Found');
+            }
+
+            return redirect()->route('Inventory.ReportDODetail');
+        } catch (\Throwable $th) {
+            Log::error("Error at ReportDODetailData: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 
     public function store(Request $request)
