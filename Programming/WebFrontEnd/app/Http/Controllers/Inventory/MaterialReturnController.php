@@ -26,24 +26,36 @@ class MaterialReturnController extends Controller
 
         return view('Inventory.MaterialReturn.Transactions.CreateMaterialReturn', $compact);
     }
+
     public function ReportMatReturnSummary(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $var = 1;
-        if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
-        }
+        $isSubmitButton = $request->session()->get('isButtonReportMaterialReturnSubmit');
 
-        // PERUBAHAN WISNU
-        if (Redis::get("DataListAdvance") == null) {
+        $dataDetail = $isSubmitButton ? $request->session()->get('dataDetailReportMaterialReturn', []) : [];
+
+        $compact = [
+            'varAPIWebToken' => $varAPIWebToken,
+            'dataDetail' => $dataDetail
+        ];
+
+        return view('Inventory.MaterialReturn.Reports.ReportMatReturnSummary', $compact);
+    }
+
+    public function ReportMatReturnSummaryData($id) 
+    {
+        try {
             $varAPIWebToken = Session::get('SessionLogin');
-            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+
+            $filteredArray = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvance',
+                'transaction.read.dataList.finance.getAdvanceReport',
                 'latest',
                 [
-                    'parameter' => null,
+                    'parameter' => [
+                        'advance_RefID' => (int) $id,
+                    ],
                     'SQLStatement' => [
                         'pick' => null,
                         'sort' => null,
@@ -53,25 +65,98 @@ class MaterialReturnController extends Controller
                 ],
                 false
             );
+
+            if (!isset($filteredArray['data'][0]['document']['header'])) {
+                throw new \Exception('Data not found in the API response.');
+            }
+
+            $getHeaderData = $filteredArray['data'][0]['document']['header'];
+
+            $varDataExcel = [
+                [
+                    'no'        => 1,
+                    'DORNumber' => $getHeaderData['number'],
+                    'productId' => $getHeaderData['recordID'],
+                    'qty'       => $getHeaderData['date'],
+                    'unitPrice' => $getHeaderData['recordID'],
+                    'total'     => $getHeaderData['businessDocumentType_RefID'],
+                ]
+            ];
+
+            $compact = [
+                'dataHeader' => $getHeaderData,
+                'dataExcel'  => $varDataExcel
+            ];
+
+            Session::put("isButtonReportMaterialReturnSubmit", true);
+            Session::put("dataDetailReportMaterialReturn", $compact['dataHeader']);
+            Session::put("dataPDFReportMaterialReturn", $compact['dataHeader']);
+            Session::put("dataExcelReportMaterialReturn", $compact['dataExcel']);
+
+            return $compact;
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('NotFound', 'Process Error');
         }
+    }
 
-        // PERUBAHAN WISNU
-        $DataListAdvance = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                "DataListAdvance"
-            ),
-            true
-        );
+    public function ReportMatReturnSummaryStore(Request $request) 
+    {
+        try {
+            $budgetID       = $request->budget_id;
+            $subBudgetID    = $request->advance_RefID;
+            // $subBudgetID    = $request->sub_budget_id;
 
-        $compact = [
-            'varAPIWebToken' => $varAPIWebToken,
-            'var' => $var,
-            'statusRevisi' => 1,
-            'dataListAdvance' => !empty($DataListAdvance) ? $DataListAdvance : []
-        ];
+            if (!$budgetID && !$subBudgetID) {
+                $message = 'Budget & Sub Budget Cannot Empty';
+            } else if ($budgetID && !$subBudgetID) {
+                $message = 'Sub Budget Cannot Empty';
+            } 
 
-        return view('Inventory.MaterialReturn.Reports.ReportMatReturnSummary', $compact);
+            if (isset($message)) {
+                Session::forget("isButtonReportMaterialReturnSubmit");
+                Session::forget("dataDetailReportMaterialReturn");
+                Session::forget("dataPDFReportMaterialReturn");
+                Session::forget("dataExcelReportMaterialReturn");
+        
+                return redirect()->route('Inventory.ReportMatReturnSummary')->with('NotFound', $message);
+            }
+
+            $compact = $this->ReportMatReturnSummaryData($subBudgetID);
+
+            if ($compact === null || empty($compact['dataHeader'])) {
+                return redirect()->back()->with('NotFound', 'Data Not Found');
+            }
+
+            return redirect()->route('Inventory.ReportMatReturnSummary');
+        } catch (\Throwable $th) {
+            Log::error("Error at ReportMatReturnSummaryStore: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function PrintExportReportMatReturnSummary(Request $request) {
+        try {
+            $dataDetail = Session::get("dataDetailReportMaterialReturn");
+
+            if ($dataDetail) {
+                if ($request->print_type == "PDF") {
+                    $pdf = PDF::loadView('Inventory.DeliveryOrder.Reports.ReportDOSummary_pdf', compact('dataDetail'));
+                    $pdf->setPaper('A4', 'portrait');
+    
+                    // Preview PDF
+                    // return $pdf->stream('Export_Report_Delivery_Order_Request_Detail.pdf');
+    
+                    return $pdf->download('Export Report Delivery Order Summary.pdf');
+                } else {
+                    return Excel::download(new ExportReportDOSummary, 'Export Report Delivery Order Summary.xlsx');
+                }
+            } else {
+                return redirect()->route('Inventory.ReportMatReturnSummary')->with('NotFound', 'Budget & Sub Budget Cannot Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("Error at PrintExportReportMatReturnSummary: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 
     public function ReportMatReturnDetail(Request $request)
