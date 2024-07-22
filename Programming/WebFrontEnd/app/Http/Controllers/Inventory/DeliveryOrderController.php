@@ -162,25 +162,13 @@ class DeliveryOrderController extends Controller
     public function ReportDODetail(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $var = 1;
-        if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
-        }
+        $isSubmitButton = $request->session()->get('isButtonSubmit');
 
-        $dataDetail = $request->session()->get('isButtonSubmit') ? $request->session()->get('dataDetailReportDODetail', []) : [];
-
-        $testing = [
-            'isButtonSubmit'            => $request->session()->get('isButtonSubmit'),
-            'dataDetailReportDODetail'  => $request->session()->get('dataDetailReportDODetail'),
-            'dataPDFReportDODetail'     => $request->session()->get('dataPDFReportDODetail'),
-            'dataExcelReportDODetail'   => $request->session()->get('dataExcelReportDODetail'),
-        ];
+        $dataDetail = $isSubmitButton ? $request->session()->get('dataDetailReportDODetail', []) : [];
 
         $compact = [
-            'varAPIWebToken' => $varAPIWebToken,
-            'var' => $var,
-            'statusRevisi' => 1,
-            'dataDetail' => $dataDetail
+            'varAPIWebToken'    => $varAPIWebToken,
+            'dataDetail'        => $dataDetail
         ];
 
         return view('Inventory.DeliveryOrder.Reports.ReportDODetail', $compact);
@@ -239,6 +227,7 @@ class DeliveryOrderController extends Controller
 
             return $compact;
         } catch (\Throwable $th) {
+            Log::error("Error at ReportDODetailData: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
@@ -266,7 +255,7 @@ class DeliveryOrderController extends Controller
 
             return redirect()->route('Inventory.ReportDODetail');
         } catch (\Throwable $th) {
-            Log::error("Error at ReportDODetailData: " . $th->getMessage());
+            Log::error("Error at ReportDODetailStore: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
