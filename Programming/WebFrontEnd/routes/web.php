@@ -224,6 +224,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('PrintExportReportPurchaseRequisitionSummary', 'Purchase\PurchaseRequisitionController@PrintExportReportPurchaseRequisitionSummary')->name('PurchaseRequisition.PrintExportReportPurchaseRequisitionSummary');
     Route::get('ReportPurchaseRequisitionToPurchaseOrder', 'Purchase\PurchaseRequisitionController@ReportsPrtoPo')->name('PurchaseRequisition.ReportPurchaseRequisitionToPurchaseOrder');
     Route::get('ReportPurchaseRequisitionDetail', 'Purchase\PurchaseRequisitionController@ReportsDetail')->name('PurchaseRequisition.ReportPurchaseRequisitionDetail');
+    Route::post('ReportPurchaseRequisitionDetailStore', 'Purchase\PurchaseRequisitionController@ReportPurchaseRequisitionDetailStore')->name('PurchaseRequisition.ReportPurchaseRequisitionDetailStore');
+    Route::post('PrintExportReportPurchaseRequisitionDetail', 'Purchase\PurchaseRequisitionController@PrintExportReportPurchaseRequisitionDetail')->name('PurchaseRequisition.PrintExportReportPurchaseRequisitionDetail');
     Route::get('PurchaseRequisitionListData', 'Purchase\PurchaseRequisitionController@PurchaseRequisitionListData')->name('PurchaseRequisition.PurchaseRequisitionListData');
     Route::post('ProcReqListCartRevision', 'Purchase\PurchaseRequisitionController@ProcReqListCartRevision')->name('PurchaseRequisition.ProcReqListCartRevision');
     Route::resource('PurchaseRequisition', 'Purchase\PurchaseRequisitionController');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Purchase;
 
+use App\Http\Controllers\ExportExcel\Purchase\ExportReportPurchaseRequisitionDetail;
 use App\Http\Controllers\ExportExcel\Purchase\ExportReportPurchaseRequisitionSummary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -187,39 +188,128 @@ class PurchaseRequisitionController extends Controller
     public function ReportsDetail(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionPurchaseOrderPrNumber");
-        $request->session()->forget("SessionPurchaseOrder");
+        $isSubmitButton = $request->session()->get('isButtonReportPurchaseRequisitionDetailSubmit');
 
-        $var = 1;
-        if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
-        }
-
-        // PERUBAHAN WISNU
-        $DataPurchaseRequisition = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.supplyChain.getPurchaseRequisition',
-            'latest',
-            [
-                'parameter' => null,
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
+        $dataDetail = $isSubmitButton ? $request->session()->get('dataDetailReportPurchaseRequisitionDetail', []) : [];
 
         $compact = [
-            'varAPIWebToken' => $varAPIWebToken,
-            'var' => $var,
-            'statusRevisi' => 1,
-            'dataPurchaseRequisition' => !empty($DataPurchaseRequisition['data']) ? $DataPurchaseRequisition['data'] : []
+            'varAPIWebToken'    => $varAPIWebToken,
+            'dataDetail'        => $dataDetail
         ];
 
         return view('Purchase.PurchaseRequisition.Reports.ReportPurchaseRequisitionDetail', $compact);
+    }
+
+    public function ReportPurchaseRequisitionDetailData($id) 
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+
+            $filteredArray = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.finance.getAdvanceReport',
+                'latest',
+                [
+                    'parameter' => [
+                        'advance_RefID' => (int) $id,
+                    ],
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
+            );
+
+            if (!isset($filteredArray['data'][0]['document']['header'])) {
+                throw new \Exception('Data not found in the API response.');
+            }
+
+            $getHeaderData = $filteredArray['data'][0]['document']['header'];
+
+            $varDataExcel = [
+                [
+                    'no'        => 1,
+                    'DORNumber' => $getHeaderData['number'],
+                    'productId' => $getHeaderData['recordID'],
+                    'qty'       => $getHeaderData['date'],
+                    'unitPrice' => $getHeaderData['recordID'],
+                    'total'     => $getHeaderData['businessDocumentType_RefID'],
+                    'qty'       => $getHeaderData['date'],
+                    'unitPrice' => $getHeaderData['recordID'],
+                    'total'     => $getHeaderData['businessDocumentType_RefID'],
+                ]
+            ];
+
+            $compact = [
+                'dataHeader' => $getHeaderData,
+                'dataExcel'  => $varDataExcel
+            ];
+
+            Session::put("isButtonReportPurchaseRequisitionDetailSubmit", true);
+            Session::put("dataDetailReportPurchaseRequisitionDetail", $compact['dataHeader']);
+            Session::put("dataPDFReportPurchaseRequisitionDetail", $compact['dataHeader']);
+            Session::put("dataExcelReportPurchaseRequisitionDetail", $compact['dataExcel']);
+
+            return $compact;
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportPurchaseRequisitionDetailStore(Request $request) {
+        try {
+            $advanceRefID   = $request->advance_RefID;
+            $advanceNumber  = $request->advance_number;
+            
+            if (!$advanceRefID && !$advanceNumber) {
+                Session::forget("isButtonReportPurchaseRequisitionDetailSubmit");
+                Session::forget("dataDetailReportPurchaseRequisitionDetail");
+                Session::forget("dataPDFReportPurchaseRequisitionDetail");
+                Session::forget("dataExcelReportPurchaseRequisitionDetail");
+
+                return redirect()->route('PurchaseRequisition.ReportPurchaseRequisitionDetail')->with('NotFound', 'PR Number Cannot Empty');
+            }
+
+            $compact = $this->ReportPurchaseRequisitionDetailData($advanceRefID);
+
+            if ($compact === null || empty($compact['dataHeader'])) {
+                return redirect()->back()->with('NotFound', 'Data Not Found');
+            }
+
+            return redirect()->route('PurchaseRequisition.ReportPurchaseRequisitionDetail');
+        } catch (\Throwable $th) {
+            Log::error("Error at ReportPurchaseRequisitionDetailStore: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function PrintExportReportPurchaseRequisitionDetail(Request $request) {
+        try {
+            $dataDetail = Session::get("dataDetailReportPurchaseRequisitionDetail");
+
+            if ($dataDetail) {
+                if ($request->print_type == "PDF") {
+                    $pdf = PDF::loadView('Purchase.PurchaseRequisition.Reports.ReportPurchaseRequisitionDetail_pdf', compact('dataDetail'));
+                    $pdf->setPaper('A4', 'portrait');
+    
+                    // Preview PDF
+                    // return $pdf->stream('Export_Report_Delivery_Order_Request_Detail.pdf');
+    
+                    return $pdf->download('Export Report Purchase Requisition Detail.pdf');
+                } else {
+                    return Excel::download(new ExportReportPurchaseRequisitionDetail, 'Export Report Purchase Requisition Detail.xlsx');
+                }
+            } else {
+                return redirect()->route('PurchaseRequisition.ReportPurchaseRequisitionDetail')->with('NotFound', 'PR Number Cannot Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("Error at PrintExportReportPurchaseRequisitionDetail: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 
     public function store(Request $request)
@@ -305,7 +395,6 @@ class PurchaseRequisitionController extends Controller
         // Var Data -> Combined Budget -> Approver Entity -> Submitter Entity
         return $this->SelectWorkFlow($varData, $SessionWorkerCareerInternal_RefID, $VarSelectWorkFlow);
     }
-
 
     public function PurchaseRequisitionListData(Request $request)
     {
