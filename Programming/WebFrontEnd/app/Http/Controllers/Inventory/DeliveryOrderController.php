@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Inventory;
 
 use App\Http\Controllers\ExportExcel\Inventory\ExportReportDOSummary;
+use App\Http\Controllers\ExportExcel\Inventory\ExportReportDODetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
@@ -175,8 +176,6 @@ class DeliveryOrderController extends Controller
             'dataExcelReportDODetail'   => $request->session()->get('dataExcelReportDODetail'),
         ];
 
-        dump($testing);
-
         $compact = [
             'varAPIWebToken' => $varAPIWebToken,
             'var' => $var,
@@ -251,6 +250,11 @@ class DeliveryOrderController extends Controller
             $advanceNumber  = $request->advance_number;
 
             if (!$advanceRefID && !$advanceNumber) {
+                Session::forget("isButtonSubmit");
+                Session::forget("dataDetailReportDODetail");
+                Session::forget("dataPDFReportDODetail");
+                Session::forget("dataExcelReportDODetail");
+
                 return redirect()->route('Inventory.ReportDODetail')->with('NotFound', 'DO Number Cannot Empty');
             }
 
@@ -263,6 +267,32 @@ class DeliveryOrderController extends Controller
             return redirect()->route('Inventory.ReportDODetail');
         } catch (\Throwable $th) {
             Log::error("Error at ReportDODetailData: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function PrintExportReportDODetail(Request $request) {
+        try {
+            $isSubmit   = Session::get("isButtonSubmit");
+            $dataDetail = Session::get("dataDetailReportDODetail");
+
+            if ($dataDetail) {
+                if ($request->print_type == "PDF") {
+                    $pdf = PDF::loadView('Inventory.DeliveryOrder.Reports.ReportDODetail_pdf', compact('dataDetail'));
+                    $pdf->setPaper('A4', 'portrait');
+    
+                    // Preview PDF
+                    // return $pdf->stream('Export_Report_Delivery_Order_Request_Detail.pdf');
+    
+                    return $pdf->download('Export Report Delivery Order Detail.pdf');
+                } else {
+                    return Excel::download(new ExportReportDODetail, 'Export Report Delivery Order Detail.xlsx');
+                }
+            } else {
+                return redirect()->route('Inventory.ReportDODetail')->with('NotFound', 'DOR Number Cannot Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("Error at PrintExportReportDODetail: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
