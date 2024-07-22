@@ -162,7 +162,7 @@ class DeliveryOrderController extends Controller
     public function ReportDODetail(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $isSubmitButton = $request->session()->get('isButtonSubmit');
+        $isSubmitButton = $request->session()->get('isButtonReportDODetailSubmit');
 
         $dataDetail = $isSubmitButton ? $request->session()->get('dataDetailReportDODetail', []) : [];
 
@@ -220,7 +220,7 @@ class DeliveryOrderController extends Controller
                 'dataExcel'  => $varDataExcel
             ];
 
-            Session::put("isButtonSubmit", true);
+            Session::put("isButtonReportDODetailSubmit", true);
             Session::put("dataDetailReportDODetail", $compact['dataHeader']);
             Session::put("dataPDFReportDODetail", $compact['dataHeader']);
             Session::put("dataExcelReportDODetail", $compact['dataExcel']);
@@ -239,7 +239,7 @@ class DeliveryOrderController extends Controller
             $advanceNumber  = $request->advance_number;
 
             if (!$advanceRefID && !$advanceNumber) {
-                Session::forget("isButtonSubmit");
+                Session::forget("isButtonReportDODetailSubmit");
                 Session::forget("dataDetailReportDODetail");
                 Session::forget("dataPDFReportDODetail");
                 Session::forget("dataExcelReportDODetail");
@@ -262,7 +262,7 @@ class DeliveryOrderController extends Controller
 
     public function PrintExportReportDODetail(Request $request) {
         try {
-            $isSubmit   = Session::get("isButtonSubmit");
+            $isSubmit   = Session::get("isButtonReportDODetailSubmit");
             $dataDetail = Session::get("dataDetailReportDODetail");
 
             if ($dataDetail) {

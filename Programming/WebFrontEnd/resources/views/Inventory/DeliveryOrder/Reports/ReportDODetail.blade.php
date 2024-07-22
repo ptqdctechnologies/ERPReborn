@@ -103,7 +103,7 @@
                                         </table>
                                     </div>
                                 </div>
-                            <?php }; Session::put("isButtonSubmit", false); ?>
+                            <?php }; Session::put("isButtonReportDODetailSubmit", false); ?>
                         </div>
                     </div>
                 </div>
