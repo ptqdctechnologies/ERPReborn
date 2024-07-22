@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Purchase;
 
+use App\Http\Controllers\ExportExcel\Purchase\ExportReportPurchaseRequisitionSummary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
@@ -27,27 +28,36 @@ class PurchaseRequisitionController extends Controller
         return view('Purchase.PurchaseRequisition.Transactions.CreatePurchaseRequisition', $compact);
     }
 
+    // REPORT SUMMARY
     public function Reports(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionPurchaseOrderPrNumber");
-        $request->session()->forget("SessionPurchaseOrder");
-        
-        $var = 1;
-        if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
-        }
+        $isSubmitButton = $request->session()->get('isButtonReportPurchaseRequisitionSummarySubmit');
 
-        // PERUBAHAN WISNU
-        if (Redis::get("DataListAdvance") == null) {
+        $dataDetail = $isSubmitButton ? $request->session()->get('dataDetailReportPurchaseRequisitionSummary', []) : [];
+
+        $compact = [
+            'varAPIWebToken'    => $varAPIWebToken,
+            'dataDetail'        => $dataDetail
+        ];
+
+        return view('Purchase.PurchaseRequisition.Reports.ReportPurchaseRequisitionSummary', $compact);
+    }
+
+    public function ReportPurchaseRequisitionSummaryData($id) 
+    {
+        try {
             $varAPIWebToken = Session::get('SessionLogin');
-            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+
+            $filteredArray = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvance',
+                'transaction.read.dataList.finance.getAdvanceReport',
                 'latest',
                 [
-                    'parameter' => null,
+                    'parameter' => [
+                        'advance_RefID' => (int) $id,
+                    ],
                     'SQLStatement' => [
                         'pick' => null,
                         'sort' => null,
@@ -57,25 +67,103 @@ class PurchaseRequisitionController extends Controller
                 ],
                 false
             );
+
+            if (!isset($filteredArray['data'][0]['document']['header'])) {
+                throw new \Exception('Data not found in the API response.');
+            }
+
+            $getHeaderData = $filteredArray['data'][0]['document']['header'];
+
+            $varDataExcel = [
+                [
+                    'no'        => 1,
+                    'DORNumber' => $getHeaderData['number'],
+                    'productId' => $getHeaderData['recordID'],
+                    'qty'       => $getHeaderData['date'],
+                    'unitPrice' => $getHeaderData['recordID'],
+                    'total'     => $getHeaderData['businessDocumentType_RefID'],
+                ]
+            ];
+
+            $compact = [
+                'dataHeader' => $getHeaderData,
+                'dataExcel'  => $varDataExcel
+            ];
+
+            Session::put("isButtonReportPurchaseRequisitionSummarySubmit", true);
+            Session::put("dataDetailReportPurchaseRequisitionSummary", $compact['dataHeader']);
+            Session::put("dataPDFReportPurchaseRequisitionSummary", $compact['dataHeader']);
+            Session::put("dataExcelReportPurchaseRequisitionSummary", $compact['dataExcel']);
+
+            return $compact;
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('NotFound', 'Process Error');
         }
+    }
 
-        // PERUBAHAN WISNU
-        $DataListAdvance = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                "DataListAdvance"
-            ),
-            true
-        );
+    public function ReportPurchaseRequisitionSummaryStore(Request $request) {
+        try {
+            $budgetID       = $request->budget_id;
+            $subBudgetID    = $request->sub_budget_id;
+            $supplierID     = $request->advance_RefID;
+            
+            if (!$budgetID && !$subBudgetID && !$supplierID) {
+                $message = 'Budget, Sub Budget & Supplier Code Cannot Empty';
+            } else if ($budgetID && !$subBudgetID && !$supplierID) {
+                $message = 'Sub Budget & Supplier Code Cannot Empty';
+            } else if ($budgetID && $subBudgetID && !$supplierID) {
+                $message = 'Supplier Code Cannot Empty';
+            } else if (!$budgetID && !$subBudgetID && $supplierID) {
+                $message = 'Budget & Sub Budget Cannot Empty';
+            } else if ($budgetID && !$subBudgetID && $supplierID) {
+                $message = 'Sub Budget Cannot Empty';
+            }
 
-        $compact = [
-            'varAPIWebToken' => $varAPIWebToken,
-            'var' => $var,
-            'statusRevisi' => 1,
-            'dataListAdvance' => $DataListAdvance
-        ];
+            if (isset($message)) {
+                Session::forget("isButtonReportPurchaseRequisitionSummarySubmit");
+                Session::forget("dataDetailReportPurchaseRequisitionSummary");
+                Session::forget("dataPDFReportPurchaseRequisitionSummary");
+                Session::forget("dataExcelReportPurchaseRequisitionSummary");
 
-        return view('Purchase.PurchaseRequisition.Reports.ReportPurchaseRequisitionSummary', $compact);
+                return redirect()->route('PurchaseRequisition.ReportPurchaseRequisitionSummary')->with('NotFound', $message);
+            }
+
+            $compact = $this->ReportPurchaseRequisitionSummaryData($supplierID);
+
+            if ($compact === null || empty($compact['dataHeader'])) {
+                return redirect()->back()->with('NotFound', 'Data Not Found');
+            }
+
+            return redirect()->route('PurchaseRequisition.ReportPurchaseRequisitionSummary');
+        } catch (\Throwable $th) {
+            Log::error("Error at ReportPurchaseRequisitionSummaryStore: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function PrintExportReportPurchaseRequisitionSummary(Request $request) {
+        try {
+            $dataDetail = Session::get("dataDetailReportPurchaseRequisitionSummary");
+
+            if ($dataDetail) {
+                if ($request->print_type == "PDF") {
+                    $pdf = PDF::loadView('Purchase.PurchaseRequisition.Reports.ReportPurchaseRequisitionSummary_pdf', compact('dataDetail'));
+                    $pdf->setPaper('A4', 'portrait');
+    
+                    // Preview PDF
+                    // return $pdf->stream('Export_Report_Delivery_Order_Request_Detail.pdf');
+    
+                    return $pdf->download('Export Report Purchase Requisition Summary.pdf');
+                } else {
+                    return Excel::download(new ExportReportPurchaseRequisitionSummary, 'Export Report Purchase Requisition Summary.xlsx');
+                }
+            } else {
+                return redirect()->route('Inventory.ReportDORequestSummary')->with('NotFound', 'Budget, Sub Budget, & Supplier Cannot Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("Error at PrintExportReportPurchaseRequisitionSummary: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 
     public function ReportsPrtoPo(Request $request)

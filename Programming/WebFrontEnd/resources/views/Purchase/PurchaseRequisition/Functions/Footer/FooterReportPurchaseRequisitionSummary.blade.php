@@ -1,25 +1,67 @@
 <script>
-    const dataWorker = JSON.parse(document.getElementById('TableReportAdvanceSummary').dataset.advance);
+    $("#sub_budget").prop("disabled", true);
+    $("#sub_budget_popup").prop("disabled", true);
+</script>
 
-    function populateTable(data) {
-        const tableBody = document.getElementById('dataBody');
-        tableBody.innerHTML = ''; 
+<script>
+    $('#tableGetProject tbody').on('click', 'tr', function() {
 
-        data.forEach((dataWorkers, index) => {
-            const row = document.createElement('tr');
+        $("#myProject").modal('toggle');
 
-            row.innerHTML = `
-                <td>${index + 1}</td>
-                <td>${dataWorkers.DocumentNumber}</td>
-                <td>${formatDate(dataWorkers.DocumentDateTimeTZ)}</td>
-                <td>${dataWorkers.BusinessDocument_RefID}</td>
-                <td class="sticky-col second-col-asf-expense-qty">${dataWorkers.BusinessDocumentVersion_RefID}</td>
-                <td class="sticky-col second-col-asf-expense-price">${dataWorkers.BeneficiaryWorkerName}</td>
-            `;
+        var row = $(this).closest("tr");
+        var id = row.find("td:nth-child(1)").text();
+        var sys_id = $('#sys_id_budget' + id).val();
+        var code = row.find("td:nth-child(2)").text();
+        var name = row.find("td:nth-child(3)").text();
 
-            tableBody.appendChild(row);
+        $("#budget_id").val(sys_id);
+        $("#budget").val(code);
+
+        $("#sub_budget").prop("disabled", false);
+        $("#sub_budget_popup").prop("disabled", false);
+        $("#sub_budget_id").val("");
+        $("#sub_budget").val("");
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
         });
-    }
 
-    populateTable(dataWorker);
+        var keys = 0;
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getSite") !!}?project_code=' + sys_id,
+            success: function(data) {
+                var no = 1;
+                var t = $('#tableGetSite').DataTable();
+                t.clear();
+                $.each(data, function(key, val) {
+                    keys += 1;
+                    t.row.add([
+                        '<tbody><tr><input id="sys_id_site' + keys + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
+                        '<td>' + val.Code + '</td>',
+                        '<td>' + val.Name + '</td></tr></tbody>'
+                    ]).draw();
+                });
+            }
+        });
+    });
+</script>
+
+<script>
+    $('#tableGetSite tbody').on('click', 'tr', function() {
+
+        $("#mySiteCode").modal('toggle');
+
+        var row = $(this).closest("tr");
+        var id = row.find("td:nth-child(1)").text();
+        var sys_id = $('#sys_id_site' + id).val();
+        var code = row.find("td:nth-child(2)").text();
+        var name = row.find("td:nth-child(3)").text();
+
+        $("#sub_budget_id").val(sys_id);
+        $("#sub_budget").val(code);
+
+    });
 </script>

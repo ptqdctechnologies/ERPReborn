@@ -1,5 +1,5 @@
 <div class="card">
-    <form method="post" action="" id="FormSubmitReportPurchaseRequisitionSummary">
+    <form method="post" action="{{ route('PurchaseRequisition.ReportPurchaseRequisitionSummaryStore') }}" id="FormSubmitReportPurchaseRequisitionSummary">
     @csrf
     <div class="card-body">
         <div class="row">
@@ -31,10 +31,10 @@
                             <td>
                                 <div class="input-group">
                                     <input id="sub_budget_id" style="border-radius:0;" class="form-control" name="sub_budget_id" type="hidden">
-                                    <input id="sub_budget" style="border-radius:0;background-color:white;" class="form-control myProject" name="sub_budget" readonly data-toggle="modal" data-target="#myProject">
+                                    <input id="sub_budget" style="border-radius:0;background-color:white;" class="form-control mySiteCode" name="sub_budget" readonly data-toggle="modal" data-target="#mySiteCode">
                                     <div class="input-group-append">
                                         <span style="border-radius:0;" class="input-group-text form-control">
-                                            <a href="#" id="sub_budget_popup" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                            <a href="#" id="sub_budget_popup" data-toggle="modal" data-target="#mySiteCode" class="mySiteCode"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                         </span>
                                     </div>
                                 </div>
@@ -48,17 +48,30 @@
                     <table>
                         <tr>
                             <th style="padding-top: 7px;"><label>Supplier&nbsp;Code&nbsp;</label></th>
-                            <td>
-                                <div class="input-group">
-                                    <input id="work_id" style="border-radius:0;" class="form-control" name="work_id" type="hidden">
-                                    <input id="work" style="border-radius:0;background-color:white;" class="form-control myProject" name="work_id" readonly data-toggle="modal" data-target="#myProject">
-                                    <div class="input-group-append">
-                                        <span style="border-radius:0;" class="input-group-text form-control">
-                                            <a href="#" id="work_popup" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                                        </span>
+                                <td>
+                                    <div class="input-group">
+                                        <input id="project_id" name="project_id" value="" hidden>
+                                        <input id="site_id" name="site_id" value="" hidden>
+                                        <input id="advance_RefID" name="advance_RefID" hidden>
+                                        <input id="advance_number" style="border-radius:0;background-color:white;" data-toggle="modal" data-target="#PopUpTableAdvanceRevision" class="PopUpTableAdvanceRevision form-control" name="advance_number" value="" readonly>
+                                        <div class="input-group-append">
+                                            <span style="border-radius:0;" class="input-group-text form-control">
+                                            <a href="#" id="advance_popup" data-toggle="modal" data-target="#PopUpTableAdvanceRevision" class="PopUpTableAdvanceRevision"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
+
+                                    <!-- <div class="input-group">
+                                        <input id="supplier_id" style="border-radius:0;margin-left:48px;" name="supplier_id" class="form-control" hidden>
+
+                                        <input id="supplier_code" style="border-radius:0;background-color:white;" name="supplier_code" class="form-control">
+                                        <div class="input-group-append">
+                                            <span style="border-radius:0;" class="input-group-text form-control">
+                                                <a href="#"><i id="supplier_code_2" data-toggle="modal" data-target="#mySupplier" class="fas fa-gift mySupplier" style="color:grey;"></i></a>
+                                            </span>
+                                        </div>
+                                    </div> -->
+                                </td>
                         </tr>
                     </table>
                 </div>
@@ -75,7 +88,7 @@
                             </td>
                             </form>
 
-                            <form method="post" action="" id="FormSubmitReportPurchaseRequisitionSummary">
+                            <form method="post" action="{{ route('PurchaseRequisition.PrintExportReportPurchaseRequisitionSummary') }}" id="FormSubmitReportPurchaseRequisitionSummary">
                             @csrf
                                 <td>
                                     <select name="print_type" id="print_type" class="form-control">

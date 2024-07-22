@@ -3,6 +3,9 @@
 @include('Partials.navbar')
 @include('Partials.sidebar')
 @include('getFunction.getProject')
+@include('getFunction.getSite')
+@include('getFunction.getSupplier')
+@include('Process.Advance.AdvanceRequest.Functions.Table.TableAdvanceRevision')
 
 <div class="content-wrapper">
     <section class="content">
@@ -19,32 +22,34 @@
                             @include('Purchase.PurchaseRequisition.Functions.Header.HeaderReportPurchaseRequisitionSummary')
                         </div>
                         <div class="col-12 ShowTableReportAdvanceSummary">
-                            <div class="card">
-                                <div class="card-body table-responsive p-0">
-                                    <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="TableReportPurchaseRequisitionSummary">
-                                        <thead>
-                                            <tr>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Transaction Number</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Date</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total IDR</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total Other Currency</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Requestor</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>PO01-23000031</td>
-                                                <td>26/03/2023</td>
-                                                <td>200,000</td>
-                                                <td>0</td>
-                                                <td>Ferdian</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                            <?php if ($dataDetail) { ?>
+                                <div class="card">
+                                    <div class="card-body table-responsive p-0">
+                                        <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="TableReportPurchaseRequisitionSummary">
+                                            <thead>
+                                                <tr>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Transaction Number</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Date</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total IDR</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total Other Currency</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Requestor</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td><?= $dataDetail['number']; ?></td>
+                                                    <td><?= $dataDetail['date']; ?></td>
+                                                    <td><?= $dataDetail['recordID']; ?></td>
+                                                    <td><?= $dataDetail['recordID']; ?></td>
+                                                    <td><?= $dataDetail['businessDocumentType_RefID']; ?></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
+                            <?php }; Session::put("isButtonReportPurchaseRequisitionSummarySubmit", false); ?>
                         </div>
                     </div>
                 </div>
