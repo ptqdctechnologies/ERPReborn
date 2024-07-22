@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class MaterialReturnController extends Controller
 {
@@ -140,15 +142,15 @@ class MaterialReturnController extends Controller
 
             if ($dataDetail) {
                 if ($request->print_type == "PDF") {
-                    $pdf = PDF::loadView('Inventory.DeliveryOrder.Reports.ReportDOSummary_pdf', compact('dataDetail'));
+                    $pdf = PDF::loadView('Inventory.MaterialReturn.Reports.ReportMatReturnSummary_pdf', compact('dataDetail'));
                     $pdf->setPaper('A4', 'portrait');
     
                     // Preview PDF
                     // return $pdf->stream('Export_Report_Delivery_Order_Request_Detail.pdf');
     
-                    return $pdf->download('Export Report Delivery Order Summary.pdf');
+                    return $pdf->download('Export Report Material Return Summary.pdf');
                 } else {
-                    return Excel::download(new ExportReportDOSummary, 'Export Report Delivery Order Summary.xlsx');
+                    // return Excel::download(new ExportReportDOSummary, 'Export Report Delivery Order Summary.xlsx');
                 }
             } else {
                 return redirect()->route('Inventory.ReportMatReturnSummary')->with('NotFound', 'Budget & Sub Budget Cannot Empty');
