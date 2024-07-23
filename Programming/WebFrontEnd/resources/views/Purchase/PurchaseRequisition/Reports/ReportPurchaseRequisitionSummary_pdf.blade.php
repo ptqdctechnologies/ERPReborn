@@ -65,11 +65,6 @@
                 </td>
                 <td>
                     <div style="margin-top: 4px;">
-                        <?= Session::get("dataPDFReportPurchaseRequisitionSummary.recordID"); ?>
-                    </div>
-                </td>
-                <td>
-                    <div style="margin-top: 4px;">
                         <?= Session::get("dataPDFReportPurchaseRequisitionSummary.date"); ?>
                     </div>
                 </td>
@@ -81,6 +76,11 @@
                 <td>
                     <div style="margin-top: 4px;">
                         <?= Session::get("dataPDFReportPurchaseRequisitionSummary.businessDocumentType_RefID"); ?>
+                    </div>
+                </td>
+                <td>
+                    <div style="margin-top: 4px;">
+                        Icha Mailinda Syamsoedin
                     </div>
                 </td>
             </tr>

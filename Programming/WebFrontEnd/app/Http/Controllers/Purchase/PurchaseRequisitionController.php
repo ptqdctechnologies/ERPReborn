@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PurchaseRequisitionController extends Controller
 {
@@ -77,12 +80,12 @@ class PurchaseRequisitionController extends Controller
 
             $varDataExcel = [
                 [
-                    'no'        => 1,
-                    'DORNumber' => $getHeaderData['number'],
-                    'productId' => $getHeaderData['recordID'],
-                    'qty'       => $getHeaderData['date'],
-                    'unitPrice' => $getHeaderData['recordID'],
-                    'total'     => $getHeaderData['businessDocumentType_RefID'],
+                    'no'                    => 1,
+                    'transactionNumber'     => $getHeaderData['number'],
+                    'date'                  => $getHeaderData['date'],
+                    'totalIDR'              => $getHeaderData['recordID'],
+                    'totalOtherCurrency'    => $getHeaderData['businessDocumentType_RefID'],
+                    'requestor'             => 'Icha Mailinda Syamsoedin',
                 ]
             ];
 
@@ -159,7 +162,7 @@ class PurchaseRequisitionController extends Controller
                     return Excel::download(new ExportReportPurchaseRequisitionSummary, 'Export Report Purchase Requisition Summary.xlsx');
                 }
             } else {
-                return redirect()->route('Inventory.ReportDORequestSummary')->with('NotFound', 'Budget, Sub Budget, & Supplier Cannot Empty');
+                return redirect()->route('PurchaseRequisition.ReportPurchaseRequisitionSummary')->with('NotFound', 'Budget, Sub Budget, & Supplier Cannot Empty');
             }
         } catch (\Throwable $th) {
             Log::error("Error at PrintExportReportPurchaseRequisitionSummary: " . $th->getMessage());

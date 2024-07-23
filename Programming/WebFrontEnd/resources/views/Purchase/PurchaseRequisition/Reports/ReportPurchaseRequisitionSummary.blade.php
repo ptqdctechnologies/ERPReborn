@@ -42,8 +42,8 @@
                                                     <td><?= $dataDetail['number']; ?></td>
                                                     <td><?= $dataDetail['date']; ?></td>
                                                     <td><?= $dataDetail['recordID']; ?></td>
-                                                    <td><?= $dataDetail['recordID']; ?></td>
                                                     <td><?= $dataDetail['businessDocumentType_RefID']; ?></td>
+                                                    <td>Icha Mailinda Syamsoedin</td>
                                                 </tr>
                                             </tbody>
                                         </table>
