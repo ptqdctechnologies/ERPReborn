@@ -235,15 +235,15 @@ class PurchaseRequisitionController extends Controller
 
             $varDataExcel = [
                 [
-                    'no'        => 1,
-                    'DORNumber' => $getHeaderData['number'],
-                    'productId' => $getHeaderData['recordID'],
-                    'qty'       => $getHeaderData['date'],
-                    'unitPrice' => $getHeaderData['recordID'],
-                    'total'     => $getHeaderData['businessDocumentType_RefID'],
-                    'qty'       => $getHeaderData['date'],
-                    'unitPrice' => $getHeaderData['recordID'],
-                    'total'     => $getHeaderData['businessDocumentType_RefID'],
+                    'no'                    => 1,
+                    'workID'                => $getHeaderData['number'],
+                    'workName'              => $getHeaderData['recordID'],
+                    'productID'             => $getHeaderData['date'],
+                    'materialName'          => $getHeaderData['recordID'],
+                    'qty'                   => $getHeaderData['businessDocumentType_RefID'],
+                    'unitPrice'             => $getHeaderData['date'],
+                    'totalIDR'              => $getHeaderData['recordID'],
+                    'totalOtherCurrency'    => $getHeaderData['businessDocumentType_RefID'],
                 ]
             ];
 

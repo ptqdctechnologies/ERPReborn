@@ -213,48 +213,48 @@
             </tr>
             <tr>
                 <td>
-                    <div style="margin-top: 4px;">
+                    <div style="margin-top: 4px; font-size: 12px; width: max-content;">
                         1
                     </div>
                 </td>
                 <td>
-                    <div style="margin-top: 4px;">
-                        <?= Session::get("dataPDFReportPurchaseRequisitionDetail.title"); ?>
-                    </div>
-                </td>
-                <td>
-                    <div style="margin-top: 4px;">
+                    <div style="margin-top: 4px; font-size: 12px; width: max-content;">
                         <?= Session::get("dataPDFReportPurchaseRequisitionDetail.number"); ?>
                     </div>
                 </td>
                 <td>
-                    <div style="margin-top: 4px;">
+                    <div style="margin-top: 4px; font-size: 12px; width: max-content;">
+                        Icha Mailinda Syamsoedin
+                    </div>
+                </td>
+                <td>
+                    <div style="margin-top: 4px; font-size: 12px; width: max-content;">
                         <?= Session::get("dataPDFReportPurchaseRequisitionDetail.recordID"); ?>
                     </div>
                 </td>
                 <td>
-                    <div style="margin-top: 4px;">
+                    <div style="margin-top: 4px; font-size: 12px; width: max-content;">
+                        XL Microcell 2007
+                    </div>
+                </td>
+                <td>
+                    <div style="margin-top: 4px; font-size: 12px; width: max-content;">
+                        90
+                    </div>
+                </td>
+                <td>
+                    <div style="margin-top: 4px; font-size: 12px; width: max-content;">
+                        50000
+                    </div>
+                </td>
+                <td>
+                    <div style="margin-top: 4px; font-size: 12px; width: max-content;">
                         <?= Session::get("dataPDFReportPurchaseRequisitionDetail.recordID"); ?>
                     </div>
                 </td>
                 <td>
-                    <div style="margin-top: 4px;">
+                    <div style="margin-top: 4px; font-size: 12px; width: max-content;">
                         <?= Session::get("dataPDFReportPurchaseRequisitionDetail.businessDocumentType_RefID"); ?>
-                    </div>
-                </td>
-                <td>
-                    <div style="margin-top: 4px;">
-                        <?= Session::get("dataPDFReportPurchaseRequisitionDetail.date"); ?>
-                    </div>
-                </td>
-                <td>
-                    <div style="margin-top: 4px;">
-                        <?= Session::get("dataPDFReportPurchaseRequisitionDetail.businessDocumentType_RefID"); ?>
-                    </div>
-                </td>
-                <td>
-                    <div style="margin-top: 4px;">
-                        <?= Session::get("dataPDFReportPurchaseRequisitionDetail.date"); ?>
                     </div>
                 </td>
             </tr>

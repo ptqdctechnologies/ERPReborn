@@ -71,11 +71,11 @@
                                                 <tr>
                                                     <td>1</td>
                                                     <td><?= $dataDetail['number']; ?></td>
+                                                    <td>Icha Mailinda Syamsoedin</td>
                                                     <td><?= $dataDetail['recordID']; ?></td>
-                                                    <td><?= $dataDetail['date']; ?></td>
-                                                    <td><?= $dataDetail['recordID']; ?></td>
-                                                    <td><?= $dataDetail['businessDocumentType_RefID']; ?></td>
-                                                    <td><?= $dataDetail['date']; ?></td>
+                                                    <td>XL Microcell 2007</td>
+                                                    <td>90</td>
+                                                    <td>50000</td>
                                                     <td><?= $dataDetail['recordID']; ?></td>
                                                     <td><?= $dataDetail['businessDocumentType_RefID']; ?></td>
                                                 </tr>

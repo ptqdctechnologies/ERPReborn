@@ -43,19 +43,22 @@
                                 <button class="btn btn-default btn-sm" type="submit">
                                     <img src="{{ asset('AdminLTE-master/dist/img/backwards.png') }}" width="12" alt="" title="Show"> Show
                                 </button>
+                                &nbsp;&nbsp;&nbsp;
                             </td>
                             </form>
 
-                            <form method="post" action="{{ route('PurchaseRequisition.PrintExportReportPurchaseRequisitionDetail') " id="FormSubmitReportDORDetail">
+                            <form method="post" action="{{ route('PurchaseRequisition.PrintExportReportPurchaseRequisitionDetail') }}" id="FormSubmitReportDORDetail">
                             @csrf
                                 <td>
                                     <select name="print_type" id="print_type" class="form-control">
-                                        <option value="PDF">PDF</option>
-                                        <option value="Excel">Excel</option>
+                                        <option value="PDF">Export PDF</option>
+                                        <option value="Excel">Export Excel</option>
                                     </select>
                                 </td>
                                 <td>
-                                    &nbsp;&nbsp;<span><img src="{{ asset('AdminLTE-master/dist/img/printer.png') }}" width="17" alt=""></span>
+                                    <button class="btn btn-default btn-sm" type="submit">
+                                        <span><img src="{{ asset('AdminLTE-master/dist/img/printer.png') }}" width="17" alt=""></span>
+                                    </button>
                                 </td>
                             </form>
                         </tr>
