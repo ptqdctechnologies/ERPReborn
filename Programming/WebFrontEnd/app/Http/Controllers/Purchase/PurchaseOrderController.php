@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Purchase;
 
+use App\Http\Controllers\ExportExcel\Purchase\ExportReportPurchaseOrderSummary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
@@ -82,12 +83,17 @@ class PurchaseOrderController extends Controller
 
             $varDataExcel = [
                 [
-                    'no'                    => 1,
-                    'transactionNumber'     => $getHeaderData['number'],
-                    'date'                  => $getHeaderData['date'],
-                    'totalIDR'              => $getHeaderData['recordID'],
-                    'totalOtherCurrency'    => $getHeaderData['businessDocumentType_RefID'],
-                    'requestor'             => 'Icha Mailinda Syamsoedin',
+                    'no'                            => 1,
+                    'transactionNumber'             => $getHeaderData['number'],
+                    'date'                          => $getHeaderData['date'],
+                    'supplier'                      => "Agape Biomedi Investama",
+                    'totalIDRWithPPN'               => $getHeaderData['businessDocumentType_RefID'],
+                    'totalIDRWithoutPPN'            => $getHeaderData['businessDocumentType_RefID'],
+                    'totalOtherCurrencyWithPPN'     => $getHeaderData['businessDocumentType_RefID'],
+                    'totalOtherCurrencyWithoutPPN'  => $getHeaderData['businessDocumentType_RefID'],
+                    'currency'                      => 'IDR',
+                    'PIC'                           => 'Ferdian',
+                    'Status'                        => 'Final',
                 ]
             ];
 
@@ -161,7 +167,7 @@ class PurchaseOrderController extends Controller
     
                     return $pdf->download('Export Report Purchase Order Summary.pdf');
                 } else {
-                    return Excel::download(new ExportReportPurchaseRequisitionSummary, 'Export Report Purchase Order Summary.xlsx');
+                    return Excel::download(new ExportReportPurchaseOrderSummary, 'Export Report Purchase Order Summary.xlsx');
                 }
             } else {
                 return redirect()->route('PurchaseOrder.ReportPurchaseOrderSummary')->with('NotFound', 'Budget, Sub Budget, & Supplier Cannot Empty');
