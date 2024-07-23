@@ -239,6 +239,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('ReportPurchaseOrderSummaryStore', 'Purchase\PurchaseOrderController@ReportPurchaseOrderSummaryStore')->name('PurchaseOrder.ReportPurchaseOrderSummaryStore');
     Route::post('PrintExportReportPurchaseOrderSummary', 'Purchase\PurchaseOrderController@PrintExportReportPurchaseOrderSummary')->name('PurchaseOrder.PrintExportReportPurchaseOrderSummary');
     Route::get('ReportPurchaseOrderDetail', 'Purchase\PurchaseOrderController@ReportPoDetail')->name('PurchaseOrder.ReportPurchaseOrderDetail');
+    Route::post('ReportPurchaseOrderDetailStore', 'Purchase\PurchaseOrderController@ReportPurchaseOrderDetailStore')->name('PurchaseOrder.ReportPurchaseOrderDetailStore');
+    Route::post('PrintExportReportPurchaseOrderDetail', 'Purchase\PurchaseOrderController@PrintExportReportPurchaseOrderDetail')->name('PurchaseOrder.PrintExportReportPurchaseOrderDetail');
     Route::get('PurchaseOrderListData', 'Purchase\PurchaseOrderController@PurchaseOrderListData')->name('PurchaseOrder.PurchaseOrderListData');
     // Route::post('RevisionPurchaseOrder', 'Purchase\PurchaseOrderController@RevisionPurchaseOrder')->name('PurchaseOrder.RevisionPurchaseOrder');
     Route::get('PurchaseOrderByPrID', 'Purchase\PurchaseOrderController@PurchaseOrderByPrID')->name('PurchaseOrder.PurchaseOrderByPrID');
