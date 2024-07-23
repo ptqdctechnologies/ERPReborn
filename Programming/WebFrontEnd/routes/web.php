@@ -236,6 +236,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('StoreValidatePurchaseOrderPrNumber', 'Purchase\PurchaseOrderController@StoreValidatePurchaseOrderPrNumber')->name('PurchaseOrder.StoreValidatePurchaseOrderPrNumber');
     Route::post('RevisionPurchaseOrder', 'Purchase\PurchaseOrderController@RevisionPurchaseOrderIndex')->name('PurchaseOrder.RevisionPurchaseOrder');
     Route::get('ReportPurchaseOrderSummary', 'Purchase\PurchaseOrderController@ReportPoSummary')->name('PurchaseOrder.ReportPurchaseOrderSummary');
+    Route::post('ReportPurchaseOrderSummaryStore', 'Purchase\PurchaseOrderController@ReportPurchaseOrderSummaryStore')->name('PurchaseOrder.ReportPurchaseOrderSummaryStore');
+    Route::post('PrintExportReportPurchaseOrderSummary', 'Purchase\PurchaseOrderController@PrintExportReportPurchaseOrderSummary')->name('PurchaseOrder.PrintExportReportPurchaseOrderSummary');
     Route::get('ReportPurchaseOrderDetail', 'Purchase\PurchaseOrderController@ReportPoDetail')->name('PurchaseOrder.ReportPurchaseOrderDetail');
     Route::get('PurchaseOrderListData', 'Purchase\PurchaseOrderController@PurchaseOrderListData')->name('PurchaseOrder.PurchaseOrderListData');
     // Route::post('RevisionPurchaseOrder', 'Purchase\PurchaseOrderController@RevisionPurchaseOrder')->name('PurchaseOrder.RevisionPurchaseOrder');
