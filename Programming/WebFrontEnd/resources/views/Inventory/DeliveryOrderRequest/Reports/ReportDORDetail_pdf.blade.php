@@ -14,9 +14,9 @@
 
 <body>
     <div class="card-body table-responsive p-0">
-        <div style="text-align: right; font-size: 14px;">July 18, 2024</div>
-        <div style="text-align: center; font-size: 20px; font-weight: bold;">DO Detail Report</div>
-        <div style="text-align: right; font-size: 14px;">11.58 AM</div>
+        <div style="text-align: right; font-size: 14px;"><?= date('F j, Y'); ?></div>
+        <div style="text-align: center; font-size: 20px; font-weight: bold;">DOR Detail Report</div>
+        <div style="text-align: right; font-size: 14px;"><?= date('h:i A'); ?></div>
         <table style="margin: 30px 0px 15px 1px;">
             <tr>
                 <td style=" width: 350px;">
@@ -187,6 +187,11 @@
                 </td>
                 <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
                     <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        Unit of Measure
+                    </div>
+                </td>
+                <!-- <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
                         Unit Price
                     </div>
                 </td>
@@ -194,54 +199,50 @@
                     <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
                         Total
                     </div>
-                </td>
+                </td> -->
                 <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
                     <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
                         Remark
                     </div>
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <div style="margin-top: 4px;">
-                        1
-                    </div>
-                </td>
-                <td>
-                    <div style="margin-top: 4px;">
-                        <?= Session::get("dataDetailReportDORDetail.title"); ?>
-                    </div>
-                </td>
-                <td>
-                    <div style="margin-top: 4px;">
-                        <?= Session::get("dataDetailReportDORDetail.number"); ?>
-                    </div>
-                </td>
-                <td>
-                    <div style="margin-top: 4px;">
-                        <?= Session::get("dataDetailReportDORDetail.recordID"); ?>
-                    </div>
-                </td>
-                <td>
-                    <div style="margin-top: 4px;">
-                        <?= Session::get("dataDetailReportDORDetail.recordID"); ?>
-                    </div>
-                </td>
-                <td>
-                    <div style="margin-top: 4px;">
-                        <?= Session::get("dataDetailReportDORDetail.businessDocumentType_RefID"); ?>
-                    </div>
-                </td>
-                <td>
-                    <div style="margin-top: 4px;">
-                        <?= Session::get("dataDetailReportDORDetail.date"); ?>
-                    </div>
-                </td>
-            </tr>
+            <?php for ($i = 0; $i < 100; $i++) { ?>
+                <tr>
+                    <td>
+                        <div style="margin-top: 4px;">
+                            <?= $i + 1; ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-top: 4px;">
+                            <?= Session::get("dataDetailReportDORDetail.title"); ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-top: 4px;">
+                            <?= Session::get("dataDetailReportDORDetail.number"); ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-top: 4px;">
+                            <?= Session::get("dataDetailReportDORDetail.recordID"); ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-top: 4px;">
+                            <?= Session::get("dataDetailReportDORDetail.recordID"); ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-top: 4px;">
+                            <?= Session::get("dataDetailReportDORDetail.businessDocumentType_RefID"); ?>
+                        </div>
+                    </td>
+                </tr>
+            <?php } ?>
         </table>
+
         <!-- DISINI -->
-         
-        <?php Session::forget("dataDetailReportDORDetail"); ?>
     </div>
 </body>
 

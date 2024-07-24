@@ -167,18 +167,12 @@ class DeliveryOrderRequestController extends Controller
     public function ReportDORDetail(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
+        $isSubmitButton = $request->session()->get('isButtonReportDORDetailSubmit');
 
-        $var = 1;
-        if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
-        }
-
-        $dataDetail = $request->session()->get('dataDetailReportDORDetail', []);
+        $dataDetail = $isSubmitButton ? $request->session()->get('dataDetailReportDORDetail', []) : [];
 
         $compact = [
             'varAPIWebToken' => $varAPIWebToken,
-            'var' => $var,
-            'statusRevisi' => 1,
             'dataDetail' => $dataDetail,
         ];
 
@@ -232,7 +226,9 @@ class DeliveryOrderRequestController extends Controller
                 'dataExcel'  => $varDataExcel
             ];
 
+            Session::put("isButtonReportDORDetailSubmit", true);
             Session::put("dataDetailReportDORDetail", $compact['dataHeader']);
+            Session::put("dataPDFReportDORDetail", $compact['dataHeader']);
             Session::put("dataExcelReportDORDetail", $compact['dataExcel']);
 
             return $compact;
@@ -248,6 +244,11 @@ class DeliveryOrderRequestController extends Controller
             $advanceNumber  = $request->advance_number;
 
             if (!$advanceRefID && !$advanceNumber) {
+                Session::forget("isButtonReportDORDetailSubmit");
+                Session::forget("dataDetailReportDORDetail");
+                Session::forget("dataPDFReportDORDetail");
+                Session::forget("dataExcelReportDORDetail");
+
                 return redirect()->route('Inventory.ReportDORequestDetail')->with('NotFound', 'DOR Number Cannot Empty');
             }
 
@@ -259,7 +260,7 @@ class DeliveryOrderRequestController extends Controller
 
             return redirect()->route('Inventory.ReportDORequestDetail');
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
+            Log::error("Error at ReportDORDetailStore: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
@@ -271,11 +272,12 @@ class DeliveryOrderRequestController extends Controller
             if ($dataDetail) {
                 if ($request->print_type == "PDF") {
                     $pdf = PDF::loadView('Inventory.DeliveryOrderRequest.Reports.ReportDORDetail_pdf', compact('dataDetail'));
-                    $pdf->setPaper('A4', 'portrait');
-    
-                    // Preview PDF
-                    // return $pdf->stream('Export_Report_Delivery_Order_Request_Detail.pdf');
-    
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
+
+                    $canvas = $dom_pdf ->get_canvas();
+                    $canvas->page_text(0, 0, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+
                     return $pdf->download('Export Report Delivery Order Request Detail.pdf');
                 } else {
                     return Excel::download(new ExportReportDORDetail, 'Export Report Delivery Order Request Detail.xlsx');
@@ -284,7 +286,7 @@ class DeliveryOrderRequestController extends Controller
                 return redirect()->route('Inventory.ReportDORequestDetail')->with('NotFound', 'DOR Number Cannot Empty');
             }
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
+            Log::error("Error at PrintExportReportDORDetail: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
