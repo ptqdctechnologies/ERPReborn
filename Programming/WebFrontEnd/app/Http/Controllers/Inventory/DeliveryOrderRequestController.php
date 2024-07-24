@@ -169,11 +169,11 @@ class DeliveryOrderRequestController extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $isSubmitButton = $request->session()->get('isButtonReportDORDetailSubmit');
 
-        $dataDetail = $isSubmitButton ? $request->session()->get('dataDetailReportDORDetail', []) : [];
+        $dataReport = $isSubmitButton ? $request->session()->get('dataReportDORDetail', []) : [];
 
         $compact = [
-            'varAPIWebToken' => $varAPIWebToken,
-            'dataDetail' => $dataDetail,
+            'varAPIWebToken'    => [],
+            'dataReport'        => $dataReport,
         ];
 
         return view('Inventory.DeliveryOrderRequest.Reports.ReportDORDetail', $compact);
@@ -203,33 +203,35 @@ class DeliveryOrderRequestController extends Controller
                 false
             );
 
-            if (!isset($filteredArray['data'][0]['document']['header'])) {
+            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
                 throw new \Exception('Data not found in the API response.');
             }
 
-            $getHeaderData = $filteredArray['data'][0]['document']['header'];
+            $getData = $filteredArray['data'][0]['document'];
 
-            $varDataExcel = [
-                [
-                    'no' => 1,
-                    'prNumber' => $getHeaderData['title'],
-                    'productId' => $getHeaderData['number'],
-                    'qty' => $getHeaderData['recordID'],
-                    'unitPrice' => $getHeaderData['recordID'],
-                    'total' => $getHeaderData['businessDocumentType_RefID'],
-                    'remark' => $getHeaderData['date']
-                ]
-            ];
+            $dataDetails = [];
+            $i = 0;
+            $totalQty = 0;
+            foreach ($getData['content']['details']['itemList'] as $dataReports) {
+                $totalQty += $dataReports['entities']['quantity'];
+            
+                $dataDetails[$i]['no']         = $i + 1;
+                $dataDetails[$i]['prNumber']   = $dataReports['entities']['product_RefID'];
+                $dataDetails[$i]['productId']  = $dataReports['entities']['priceCurrency_RefID'];
+                $dataDetails[$i]['qty']        = $dataReports['entities']['quantity'];
+                $dataDetails[$i]['uom']        = 'Set';
+                $dataDetails[$i]['remark']     = $dataReports['entities']['quantityUnitName'];
+                $i++;
+            }
 
             $compact = [
-                'dataHeader' => $getHeaderData,
-                'dataExcel'  => $varDataExcel
+                'dataHeader'    => $getData['header'],
+                'dataDetail'    => $dataDetails,
+                'totalQty'      => $totalQty
             ];
 
             Session::put("isButtonReportDORDetailSubmit", true);
-            Session::put("dataDetailReportDORDetail", $compact['dataHeader']);
-            Session::put("dataPDFReportDORDetail", $compact['dataHeader']);
-            Session::put("dataExcelReportDORDetail", $compact['dataExcel']);
+            Session::put("dataReportDORDetail", $compact);
 
             return $compact;
         } catch (\Throwable $th) {
@@ -245,16 +247,14 @@ class DeliveryOrderRequestController extends Controller
 
             if (!$advanceRefID && !$advanceNumber) {
                 Session::forget("isButtonReportDORDetailSubmit");
-                Session::forget("dataDetailReportDORDetail");
-                Session::forget("dataPDFReportDORDetail");
-                Session::forget("dataExcelReportDORDetail");
+                Session::forget("dataReportDORDetail");
 
                 return redirect()->route('Inventory.ReportDORequestDetail')->with('NotFound', 'DOR Number Cannot Empty');
             }
 
             $compact = $this->ReportDORDetailData($advanceRefID);
 
-            if ($compact === null || empty($compact['dataHeader'])) {
+            if ($compact === null || empty($compact)) {
                 return redirect()->back()->with('NotFound', 'Data Not Found');
             }
 
@@ -267,16 +267,19 @@ class DeliveryOrderRequestController extends Controller
 
     public function PrintExportReportDORDetail(Request $request) {
         try {
-            $dataDetail = Session::get("dataDetailReportDORDetail");
+            $dataReport = Session::get("dataReportDORDetail");
 
-            if ($dataDetail) {
+            if ($dataReport) {
                 if ($request->print_type == "PDF") {
-                    $pdf = PDF::loadView('Inventory.DeliveryOrderRequest.Reports.ReportDORDetail_pdf', compact('dataDetail'));
+                    $pdf = PDF::loadView('Inventory.DeliveryOrderRequest.Reports.ReportDORDetail_pdf', ['dataReport' => $dataReport]);
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
                     $canvas = $dom_pdf ->get_canvas();
-                    $canvas->page_text(0, 0, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 85, 94, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text($width / 2.5, $height - 20, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
                     return $pdf->download('Export Report Delivery Order Request Detail.pdf');
                 } else {

@@ -89,7 +89,7 @@
                         </div>
 
                         <!-- CONTENT DETAIL DOR -->
-                        <?php if ($dataDetail) : ?>
+                        <?php if ($dataReport) : ?>
                             <div class="col-12 ShowTableReportAdvanceSummary">
                                 <div class="card">
                                     <!-- HEADER -->
@@ -100,27 +100,19 @@
                                                     <table>
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>DOR Number&nbsp;</label></th>
-                                                            <td>
-                                                                PR02-23000210
-                                                            </td>
+                                                            <td><?= $dataReport['dataHeader']['number']; ?></td>
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>Budget&nbsp;</label></th>
-                                                            <td>
-                                                                Q000195 - Civil Work Batch 2 Pembangunan Pabrik Smelter Feronikel Kolaka
-                                                            </td>
+                                                            <td><?= $dataReport['dataHeader']['recordID']; ?></td>
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>Sub Budget&nbsp;</label></th>
-                                                            <td>
-                                                                1000 - Overhead
-                                                            </td>
+                                                            <td><?= $dataReport['dataHeader']['businessDocumentType_RefID']; ?></td>
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>Date&nbsp;</label></th>
-                                                            <td>
-                                                                11/15/2023
-                                                            </td>
+                                                            <td><?= $dataReport['dataHeader']['date']; ?></td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -162,20 +154,20 @@
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Product Id</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Qty</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Unit of Measure</th>
-                                                    <!-- <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Unit Price</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total</th> -->
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Remark</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td><?= $dataDetail['number']; ?></td>
-                                                    <td><?= $dataDetail['number']; ?></td>
-                                                    <td><?= number_format($dataDetail['recordID'], 2, ',', '.'); ?></td>
-                                                    <td><?= number_format(49999.99, 2, ',', '.'); ?></td>
-                                                    <td><?= $dataDetail['title']; ?></td>
-                                                </tr>
+                                                <?php foreach ($dataReport['dataDetail'] as $dataDetail) { ?>
+                                                    <tr>
+                                                        <td style="text-align: center;"><?= $dataDetail['no']; ?></td>
+                                                        <td style="text-align: center;"><?= $dataDetail['prNumber']; ?></td>
+                                                        <td style="text-align: center;"><?= $dataDetail['productId']; ?></td>
+                                                        <td style="text-align: center;"><?= $dataDetail['qty']; ?></td>
+                                                        <td style="text-align: center;"><?= $dataDetail['uom'] ?></td>
+                                                        <td style="text-align: center;"><?= $dataDetail['remark'] ?></td>
+                                                    </tr>
+                                                <?php } ?>
                                             </tbody>
                                         </table>
                                     </div>

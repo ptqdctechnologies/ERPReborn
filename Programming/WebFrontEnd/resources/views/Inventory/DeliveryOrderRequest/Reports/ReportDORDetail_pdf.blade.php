@@ -17,8 +17,11 @@
         <div style="text-align: right; font-size: 14px;"><?= date('F j, Y'); ?></div>
         <div style="text-align: center; font-size: 20px; font-weight: bold;">DOR Detail Report</div>
         <div style="text-align: right; font-size: 14px;"><?= date('h:i A'); ?></div>
+
+        <!-- HEADER -->
         <table style="margin: 30px 0px 15px 1px;">
             <tr>
+                <!-- DOR NUMBER -->
                 <td style=" width: 350px;">
                     <table>
                         <tr>
@@ -32,12 +35,14 @@
                             </td>
                             <td style="height: 20px;">
                                 <div style="line-height: 14px;">
-                                    PR02-23000210
+                                    <?= $dataReport['dataHeader']['number']; ?>
                                 </div>
                             </td>
                         </tr>
                     </table>
                 </td>
+
+                <!-- DELIVERY FROM -->
                 <td style=" width: 350px;">
                     <table>
                         <tr>
@@ -59,6 +64,7 @@
                 </td>
             </tr>
             <tr>
+                <!-- BUDGET -->
                 <td style=" width: 350px;">
                     <table>
                         <tr>
@@ -72,12 +78,14 @@
                             </td>
                             <td style="height: 20px;">
                                 <div style="line-height: 14px;">
-                                    Q000195 - Civil Work Batch 2 Pembangunan Pabrik Smelter Feronikel Kolaka
+                                    <?= $dataReport['dataHeader']['recordID']; ?>
                                 </div>
                             </td>
                         </tr>
                     </table>
                 </td>
+
+                <!-- DELIVERY TO -->
                 <td style=" width: 350px;">
                     <table>
                         <tr>
@@ -99,6 +107,7 @@
                 </td>
             </tr>
             <tr>
+                <!-- SUB BUDGET -->
                 <td style=" width: 350px;">
                     <table>
                         <tr>
@@ -112,12 +121,14 @@
                             </td>
                             <td style="height: 20px;">
                                 <div style="line-height: 14px;">
-                                    1000 - Overhead
+                                    <?= $dataReport['dataHeader']['businessDocumentType_RefID']; ?>
                                 </div>
                             </td>
                         </tr>
                     </table>
                 </td>
+
+                <!-- PIC -->
                 <td style=" width: 350px;">
                     <table>
                         <tr>
@@ -139,6 +150,7 @@
                 </td>
             </tr>
             <tr>
+                <!-- DATE -->
                 <td style=" width: 350px;">
                     <table>
                         <tr>
@@ -152,17 +164,18 @@
                             </td>
                             <td style="height: 20px;">
                                 <div style="line-height: 14px;">
-                                    11/15/2023
+                                    <?= $dataReport['dataHeader']['date']; ?>
                                 </div>
                             </td>
                         </tr>
                     </table>
                 </td>
+
                 <td></td>
             </tr>
         </table>
 
-        <!-- DISINI -->
+        <!-- DETAIL -->
         <table class="TableReportAdvanceSummary" style="margin-left: 1px; width: 100%;" id="TableReportAdvanceSummary">
             <tr style="border-top: 1px solid black; border-bottom: 1px dotted black;">
                 <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
@@ -190,59 +203,48 @@
                         Unit of Measure
                     </div>
                 </td>
-                <!-- <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-                        Unit Price
-                    </div>
-                </td>
-                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-                        Total
-                    </div>
-                </td> -->
                 <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
                     <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
                         Remark
                     </div>
                 </td>
             </tr>
-            <?php for ($i = 0; $i < 100; $i++) { ?>
+
+            <?php foreach ($dataReport['dataDetail'] as $dataDetail) { ?>
                 <tr>
                     <td>
                         <div style="margin-top: 4px;">
-                            <?= $i + 1; ?>
+                            <?= $dataDetail['no']; ?>
                         </div>
                     </td>
                     <td>
                         <div style="margin-top: 4px;">
-                            <?= Session::get("dataDetailReportDORDetail.title"); ?>
+                            <?= $dataDetail['prNumber']; ?>
                         </div>
                     </td>
                     <td>
                         <div style="margin-top: 4px;">
-                            <?= Session::get("dataDetailReportDORDetail.number"); ?>
+                            <?= $dataDetail['productId']; ?>
                         </div>
                     </td>
                     <td>
                         <div style="margin-top: 4px;">
-                            <?= Session::get("dataDetailReportDORDetail.recordID"); ?>
+                            <?= $dataDetail['qty']; ?>
                         </div>
                     </td>
                     <td>
                         <div style="margin-top: 4px;">
-                            <?= Session::get("dataDetailReportDORDetail.recordID"); ?>
+                            <?= $dataDetail['uom']; ?>
                         </div>
                     </td>
                     <td>
                         <div style="margin-top: 4px;">
-                            <?= Session::get("dataDetailReportDORDetail.businessDocumentType_RefID"); ?>
+                            <?= $dataDetail['remark']; ?>
                         </div>
                     </td>
                 </tr>
             <?php } ?>
         </table>
-
-        <!-- DISINI -->
     </div>
 </body>
 
