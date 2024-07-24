@@ -28,7 +28,7 @@
                                                 <div class="form-group">
                                                     <table>
                                                         <tr>
-                                                            <th style="padding-top: 7px;"><label>DO Number&nbsp;</label></th>
+                                                            <th style="padding-top: 7px;"><label>MR Number&nbsp;</label></th>
                                                             <td>
                                                                 PR02-23000210
                                                             </td>

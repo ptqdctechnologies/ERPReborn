@@ -7,7 +7,7 @@
                 <div class="form-group">
                     <table>
                         <tr>
-                            <th style="padding-top: 10px;"><label>DO Number&nbsp;</label></th>
+                            <th style="padding-top: 10px;"><label>MR Number&nbsp;</label></th>
                             <td>
                                 <div class="input-group">
                                     <input id="project_id" name="project_id" value="" hidden>
