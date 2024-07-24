@@ -160,12 +160,12 @@
                                             <tbody>
                                                 <?php foreach ($dataReport['dataDetail'] as $dataDetail) { ?>
                                                     <tr>
-                                                        <td style="text-align: center;"><?= $dataDetail['no']; ?></td>
-                                                        <td style="text-align: center;"><?= $dataDetail['prNumber']; ?></td>
-                                                        <td style="text-align: center;"><?= $dataDetail['productId']; ?></td>
-                                                        <td style="text-align: center;"><?= $dataDetail['qty']; ?></td>
-                                                        <td style="text-align: center;"><?= $dataDetail['uom'] ?></td>
-                                                        <td style="text-align: center;"><?= $dataDetail['remark'] ?></td>
+                                                        <td><?= $dataDetail['no']; ?></td>
+                                                        <td><?= $dataDetail['prNumber']; ?></td>
+                                                        <td><?= $dataDetail['productId']; ?></td>
+                                                        <td><?= $dataDetail['qty']; ?></td>
+                                                        <td><?= $dataDetail['uom'] ?></td>
+                                                        <td><?= $dataDetail['remark'] ?></td>
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>
