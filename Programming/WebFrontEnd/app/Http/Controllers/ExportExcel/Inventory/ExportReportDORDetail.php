@@ -4,87 +4,148 @@ namespace App\Http\Controllers\ExportExcel\Inventory;
 
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Concerns\WithStyles;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Events\BeforeSheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class ExportReportDORDetail implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
+class ExportReportDORDetail implements FromCollection, WithHeadings, ShouldAutoSize, WithEvents
 {
     public function collection()
     {
-        $data = Session::get("dataExcelReportDORDetail");
-        return collect($data);
+        $data = Session::get("dataReportDORDetail");
+        $dataDetail = $data['dataDetail'];
+        
+        $collection = collect();
+        foreach ($dataDetail as $detail) {
+            $collection->push([
+                $detail['no'],
+                $detail['prNumber'],
+                $detail['productId'],
+                $detail['qty'],
+                $detail['uom'],
+                $detail['remark']
+            ]);
+        }
+
+        return $collection;
     }
 
     public function headings(): array
     {
         return [
-            ["DOR Detail Report", " ", " ", " ", " ", " ", " "],
-            ["", "", "", "", "", "", ""],
-            ["No", "PR Number", "Product Id", "Qty", "Unit Price", "Total", "Remark"]
+            ["", "", "", "", "", ""],
+            ["No", "PR Number", "Product Id", "Qty", "Unit of Measure", "Remark"]
         ];
     }
 
-    public function styles(Worksheet $sheet)
+    public function registerEvents(): array
     {
-        $styleArrayHeader1 = [
-            'font' => [
-                'bold' => true,
-                'color' => [
-                    'rgb' => '000000',
-                ],
-            ],
-            'alignment' => [
-                'horizontal' => Alignment::HORIZONTAL_CENTER,
-            ]
+        return [
+            BeforeSheet::class => function (BeforeSheet $event) {
+                $sheet = $event->sheet->getDelegate();
+
+                $data = Session::get("dataReportDORDetail");
+                $dataHeader = $data['dataHeader'];
+
+                $sheet->setCellValue('A1', date('F j, Y'))
+                    ->mergeCells('A1:F1')
+                    ->getStyle('A1:F1')
+                    ->applyFromArray([
+                        'font' => [
+                            'bold' => true,
+                            'color' => ['rgb' => '000000'],
+                        ],
+                        'alignment' => [
+                            'horizontal' => Alignment::HORIZONTAL_RIGHT,
+                        ],
+                ]);
+
+                $sheet->setCellValue('A2', 'DOR Detail Report')
+                    ->mergeCells('A2:F2')
+                    ->getStyle('A2:F2')
+                    ->applyFromArray([
+                        'font' => [
+                            'bold' => true,
+                            'color' => ['rgb' => '000000'],
+                        ],
+                        'alignment' => [
+                            'horizontal' => Alignment::HORIZONTAL_CENTER,
+                        ],
+                ]);
+
+                $sheet->setCellValue('A3', date('h:i A'))
+                    ->mergeCells('A3:F3')
+                    ->getStyle('A3:F3')
+                    ->applyFromArray([
+                        'font' => [
+                            'bold' => true,
+                            'color' => ['rgb' => '000000'],
+                        ],
+                        'alignment' => [
+                            'horizontal' => Alignment::HORIZONTAL_RIGHT,
+                        ],
+                ]);
+
+                $sheet->setCellValue('A4', 'DOR Number')->getStyle('A4')->applyFromArray([
+                    'font'  => [
+                        'bold'  => true,
+                        'color' => ['rgb' => '000000']
+                    ]
+                ]);
+                $sheet->setCellValue('B4', ': ' . $dataHeader['number']);
+
+                $sheet->setCellValue('A5', 'Budget')->getStyle('A5')->applyFromArray([
+                    'font'  => [
+                        'bold'  => true,
+                        'color' => ['rgb' => '000000']
+                    ]
+                ]);
+                $sheet->setCellValue('B5', ': ' . $dataHeader['recordID']);
+
+                $sheet->setCellValue('A6', 'Sub Budget')->getStyle('A6')->applyFromArray([
+                    'font'  => [
+                        'bold'  => true,
+                        'color' => ['rgb' => '000000']
+                    ]
+                ]);
+                $sheet->setCellValue('B6', ': ' . $dataHeader['businessDocumentType_RefID']);
+
+                $sheet->setCellValue('A7', 'Date')->getStyle('A7')->applyFromArray([
+                    'font'  => [
+                        'bold'  => true,
+                        'color' => ['rgb' => '000000']
+                    ]
+                ]);
+                $sheet->setCellValue('B7', ': ' . $dataHeader['date']);
+
+                $sheet->setCellValue('C4', 'Delivery From')->getStyle('C4')->applyFromArray([
+                    'font'  => [
+                        'bold'  => true,
+                        'color' => ['rgb' => '000000']
+                    ]
+                ]);
+                $sheet->setCellValue('D4', ': ' . 'QDC');
+
+                $sheet->setCellValue('C5', 'Delivery To')->getStyle('C5')->applyFromArray([
+                    'font'  => [
+                        'bold'  => true,
+                        'color' => ['rgb' => '000000']
+                    ]
+                ]);
+                $sheet->setCellValue('D5', ': ' . 'Gudang Tigaraksa');
+
+                $sheet->setCellValue('C6', 'PIC')->getStyle('C6')->applyFromArray([
+                    'font'  => [
+                        'bold'  => true,
+                        'color' => ['rgb' => '000000']
+                    ]
+                ]);
+                $sheet->setCellValue('D6', ': ' . 'PM');
+            },
         ];
-
-        $sheet->getStyle('A1:G1')->applyFromArray($styleArrayHeader1);
-        $sheet->mergeCells('A1:G1');
-
-
-        $styleArrayHeader2 = [
-            'font' => [
-                'bold' => true,
-                'color' => [
-                    'rgb' => '000000',
-                ],
-            ],
-            'alignment' => [
-                'horizontal' => Alignment::HORIZONTAL_CENTER,
-            ],
-            'borders' => [
-                'allBorders' => [
-                    'borderStyle' => Border::BORDER_THIN,
-                ],
-            ],
-            'fill' => [
-                'fillType' => 'solid',
-                'rotation' => 0,
-                'color' => [
-                    'rgb' => 'E9ECEF',
-                ],
-            ],
-        ];
-
-        $sheet->getStyle('A3:G3')->applyFromArray($styleArrayHeader2);
-
-        $styleArrayContent = [
-            'borders' => [
-                'allBorders' => [
-                    'borderStyle' => Border::BORDER_THIN,
-                ],
-            ],
-            'alignment' => [
-                'horizontal' => Alignment::HORIZONTAL_LEFT,
-            ],
-        ];
-
-        $totalCell = count(Session::get("dataExcelReportDORDetail"));
-        $lastCell = 'A4:G' . ($totalCell + 3);
-        $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
     }
 }
