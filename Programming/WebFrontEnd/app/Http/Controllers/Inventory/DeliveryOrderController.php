@@ -250,7 +250,7 @@ class DeliveryOrderController extends Controller
 
             $compact = $this->ReportDODetailData($advanceRefID);
 
-            if ($compact === null || empty($compact['dataHeader'])) {
+            if ($compact === null || empty($compact)) {
                 return redirect()->back()->with('NotFound', 'Data Not Found');
             }
 

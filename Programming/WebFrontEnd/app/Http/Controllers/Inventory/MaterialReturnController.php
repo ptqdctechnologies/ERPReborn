@@ -168,11 +168,11 @@ class MaterialReturnController extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $isSubmitButton = $request->session()->get('isButtonReportMatReturnDetailSubmit');
 
-        $dataDetail = $isSubmitButton ? $request->session()->get('dataDetailReportMatReturnDetail', []) : [];
+        $dataReport = $isSubmitButton ? $request->session()->get('dataReportMatReturnDetail', []) : [];
 
         $compact = [
-            'varAPIWebToken' => $varAPIWebToken,
-            'dataDetail'     => $dataDetail
+            'varAPIWebToken' => [],
+            'dataReport'     => $dataReport
         ];
 
         return view('Inventory.MaterialReturn.Reports.ReportMatReturnDetail', $compact);
@@ -202,33 +202,35 @@ class MaterialReturnController extends Controller
                 false
             );
 
-            if (!isset($filteredArray['data'][0]['document']['header'])) {
+            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
                 throw new \Exception('Data not found in the API response.');
             }
 
-            $getHeaderData = $filteredArray['data'][0]['document']['header'];
+            $getData = $filteredArray['data'][0]['document'];
 
-            $varDataExcel = [
-                [
-                    'no'        => 1,
-                    'DORNumber' => $getHeaderData['number'],
-                    'productId' => $getHeaderData['recordID'],
-                    'qty'       => $getHeaderData['date'],
-                    'unitPrice' => $getHeaderData['recordID'],
-                    'total'     => $getHeaderData['businessDocumentType_RefID'],
-                    'remark'    => $getHeaderData['date'],
-                ]
-            ];
+            $dataDetails = [];
+            $i = 0;
+            $totalQty = 0;
+            foreach ($getData['content']['details']['itemList'] as $dataReports) {
+                $totalQty += $dataReports['entities']['quantity'];
+            
+                $dataDetails[$i]['no']         = $i + 1;
+                $dataDetails[$i]['doNumber']   = $dataReports['entities']['product_RefID'];
+                $dataDetails[$i]['productId']  = $dataReports['entities']['priceCurrency_RefID'];
+                $dataDetails[$i]['qty']        = $dataReports['entities']['quantity'];
+                $dataDetails[$i]['uom']        = 'Set';
+                $dataDetails[$i]['remark']     = $dataReports['entities']['quantityUnitName'];
+                $i++;
+            }
 
             $compact = [
-                'dataHeader' => $getHeaderData,
-                'dataExcel'  => $varDataExcel
+                'dataHeader'    => $getData['header'],
+                'dataDetail'    => $dataDetails,
+                'totalQty'      => $totalQty
             ];
 
             Session::put("isButtonReportMatReturnDetailSubmit", true);
-            Session::put("dataDetailReportMatReturnDetail", $compact['dataHeader']);
-            Session::put("dataPDFReportMatReturnDetail", $compact['dataHeader']);
-            Session::put("dataExcelReportMatReturnDetail", $compact['dataExcel']);
+            Session::put("dataReportMatReturnDetail", $compact);
 
             return $compact;
         } catch (\Throwable $th) {
@@ -245,16 +247,14 @@ class MaterialReturnController extends Controller
 
             if (!$advanceRefID && !$advanceNumber) {
                 Session::forget("isButtonReportMatReturnDetailSubmit");
-                Session::forget("dataDetailReportMatReturnDetail");
-                Session::forget("dataPDFReportMatReturnDetail");
-                Session::forget("dataExcelReportMatReturnDetail");
+                Session::forget("dataReportMatReturnDetail");
 
-                return redirect()->route('Inventory.ReportMatReturnDetail')->with('NotFound', 'DO Number Cannot Empty');
+                return redirect()->route('Inventory.ReportMatReturnDetail')->with('NotFound', 'MR Number Cannot Empty');
             }
 
             $compact = $this->ReportMatReturnDetailData($advanceRefID);
 
-            if ($compact === null || empty($compact['dataHeader'])) {
+            if ($compact === null || empty($compact)) {
                 return redirect()->back()->with('NotFound', 'Data Not Found');
             }
 
@@ -267,25 +267,29 @@ class MaterialReturnController extends Controller
 
     public function PrintExportReportMatReturnDetail(Request $request) {
         try {
-            $dataDetail = Session::get("dataDetailReportMatReturnDetail");
+            $dataReport = Session::get("dataReportMatReturnDetail");
 
-            if ($dataDetail) {
+            if ($dataReport) {
                 if ($request->print_type == "PDF") {
-                    $pdf = PDF::loadView('Inventory.MaterialReturn.Reports.ReportMatReturnDetail_pdf', compact('dataDetail'));
-                    $pdf->setPaper('A4', 'portrait');
-    
-                    // Preview PDF
-                    // return $pdf->stream('Export_Report_Delivery_Order_Request_Detail.pdf');
+                    $pdf = PDF::loadView('Inventory.MaterialReturn.Reports.ReportMatReturnDetail_pdf', ['dataReport' => $dataReport]);
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
+
+                    $canvas = $dom_pdf ->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 85, 94, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text($width / 2.5, $height - 20, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
     
                     return $pdf->download('Export Report Material Return Detail.pdf');
                 } else {
                     return Excel::download(new ExportReportMaterialReturnDetail, 'Export Report Material Return Detail.xlsx');
                 }
             } else {
-                return redirect()->route('Inventory.ReportMatReturnDetail')->with('NotFound', 'DO Number Cannot Empty');
+                return redirect()->route('Inventory.ReportMatReturnDetail')->with('NotFound', 'MR Number Cannot Empty');
             }
         } catch (\Throwable $th) {
-            Log::error("Error at PrintExportReportMatReturnSummary: " . $th->getMessage());
+            Log::error("Error at PrintExportReportMatReturnDetail: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }

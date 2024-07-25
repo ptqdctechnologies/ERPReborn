@@ -20,8 +20,9 @@
                             @include('Inventory.MaterialReturn.Functions.Header.HeaderReportMaterialReturnDetail')
                         </div>
                         <div class="col-12 ShowTableReportAdvanceSummary">
-                            <?php if ($dataDetail) { ?>
+                            <?php if ($dataReport) { ?>
                                 <div class="card">
+                                    <!-- HEADER -->
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-6">
@@ -29,27 +30,19 @@
                                                     <table>
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>MR Number&nbsp;</label></th>
-                                                            <td>
-                                                                PR02-23000210
-                                                            </td>
+                                                            <td><?= $dataReport['dataHeader']['number']; ?></td>
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>Budget&nbsp;</label></th>
-                                                            <td>
-                                                                Q000195 - Civil Work Batch 2 Pembangunan Pabrik Smelter Feronikel Kolaka
-                                                            </td>
+                                                            <td><?= $dataReport['dataHeader']['recordID']; ?></td>
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>Sub Budget&nbsp;</label></th>
-                                                            <td>
-                                                                1000 - Overhead
-                                                            </td>
+                                                            <td><?= $dataReport['dataHeader']['businessDocumentType_RefID']; ?></td>
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>Date&nbsp;</label></th>
-                                                            <td>
-                                                                11/15/2023
-                                                            </td>
+                                                            <td><?= $dataReport['dataHeader']['date']; ?></td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -86,6 +79,8 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <!-- DETAIL -->
                                     <div class="card-body table-responsive p-0">
                                         <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="TableReportAdvanceSummary">
                                             <thead>
@@ -94,26 +89,26 @@
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">DO Number</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Product Id</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Qty</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Unit Price</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Unit of Measure</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Remark</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td><?= $dataDetail['title']; ?></td>
-                                                    <td><?= $dataDetail['number']; ?></td>
-                                                    <td><?= $dataDetail['recordID']; ?></td>
-                                                    <td><?= $dataDetail['recordID']; ?></td>
-                                                    <td><?= $dataDetail['businessDocumentType_RefID']; ?></td>
-                                                    <td><?= $dataDetail['date'] ?></td>
-                                                </tr>
+                                            <?php foreach ($dataReport['dataDetail'] as $dataDetail) { ?>
+                                                    <tr>
+                                                        <td><?= $dataDetail['no']; ?></td>
+                                                        <td><?= $dataDetail['doNumber']; ?></td>
+                                                        <td><?= $dataDetail['productId']; ?></td>
+                                                        <td><?= $dataDetail['qty']; ?></td>
+                                                        <td><?= $dataDetail['uom'] ?></td>
+                                                        <td><?= $dataDetail['remark'] ?></td>
+                                                    </tr>
+                                                <?php } ?>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-                            <?php }; Session::put("isButtonReportMatReturnDetailSubmit", false); ?>
+                            <?php }; Session::forget("isButtonReportMatReturnDetailSubmit"); ?>
                         </div>
                     </div>
                 </div>
