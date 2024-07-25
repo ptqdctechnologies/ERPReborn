@@ -347,13 +347,13 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         ),
         'Spatie\\LaravelIgnition\\' => 
         array (
-            0 => __DIR__ . '/..' . '/spatie/laravel-ignition/src',
-            1 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/laravel-ignition',
+            0 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/laravel-ignition',
+            1 => __DIR__ . '/..' . '/spatie/laravel-ignition/src',
         ),
         'Spatie\\Ignition\\' => 
         array (
-            0 => __DIR__ . '/..' . '/spatie/ignition/src',
-            1 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/ignition',
+            0 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/ignition',
+            1 => __DIR__ . '/..' . '/spatie/ignition/src',
         ),
         'Spatie\\FlareClient\\' => 
         array (
@@ -3348,6 +3348,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'Illuminate\\Database\\Eloquent\\Concerns\\HasUlids' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasUlids.php',
         'Illuminate\\Database\\Eloquent\\Concerns\\HasUniqueIds' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasUniqueIds.php',
         'Illuminate\\Database\\Eloquent\\Concerns\\HasUuids' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasUuids.php',
+        'Illuminate\\Database\\Eloquent\\Concerns\\HasVersion7Uuids' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasVersion7Uuids.php',
         'Illuminate\\Database\\Eloquent\\Concerns\\HidesAttributes' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HidesAttributes.php',
         'Illuminate\\Database\\Eloquent\\Concerns\\QueriesRelationships' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/QueriesRelationships.php',
         'Illuminate\\Database\\Eloquent\\Factories\\BelongsToManyRelationship' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Factories/BelongsToManyRelationship.php',
@@ -3358,6 +3359,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'Illuminate\\Database\\Eloquent\\Factories\\Relationship' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Relationship.php',
         'Illuminate\\Database\\Eloquent\\Factories\\Sequence' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Sequence.php',
         'Illuminate\\Database\\Eloquent\\HasBuilder' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/HasBuilder.php',
+        'Illuminate\\Database\\Eloquent\\HasCollection' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/HasCollection.php',
         'Illuminate\\Database\\Eloquent\\HigherOrderBuilderProxy' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/HigherOrderBuilderProxy.php',
         'Illuminate\\Database\\Eloquent\\InvalidCastException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/InvalidCastException.php',
         'Illuminate\\Database\\Eloquent\\JsonEncodingException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/JsonEncodingException.php',
@@ -3669,6 +3671,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'Illuminate\\Foundation\\Testing\\Wormhole' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Testing/Wormhole.php',
         'Illuminate\\Foundation\\Validation\\ValidatesRequests' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Validation/ValidatesRequests.php',
         'Illuminate\\Foundation\\Vite' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Vite.php',
+        'Illuminate\\Foundation\\ViteException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/ViteException.php',
         'Illuminate\\Foundation\\ViteManifestNotFoundException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/ViteManifestNotFoundException.php',
         'Illuminate\\Hashing\\AbstractHasher' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Hashing/AbstractHasher.php',
         'Illuminate\\Hashing\\Argon2IdHasher' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Hashing/Argon2IdHasher.php',
