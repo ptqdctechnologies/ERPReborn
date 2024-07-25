@@ -244,6 +244,29 @@
                     </td>
                 </tr>
             <?php } ?>
+
+            <div style="height: 16px;"></div>
+
+            <tr style="border-top: 1px solid black;">
+                <td style="height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"></div>
+                </td>
+                <td style="height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"></div>
+                </td>
+                <td style="height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">Total Qty</div>
+                </td>
+                <td style="height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= $dataReport['totalQty']; ?></div>
+                </td>
+                <td style="height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"></div>
+                </td>
+                <td style="height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"></div>
+                </td>
+            </tr>
         </table>
     </div>
 </body>
