@@ -21,15 +21,29 @@ class ExportReportDORDetail implements FromCollection, WithHeadings, ShouldAutoS
         
         $collection = collect();
         foreach ($dataDetail as $detail) {
-            $collection->push([
-                $detail['no'],
-                $detail['prNumber'],
-                $detail['productId'],
-                $detail['qty'],
-                $detail['uom'],
-                $detail['remark']
-            ]);
+            $collection->push(
+                [
+                    $detail['no'],
+                    $detail['prNumber'],
+                    $detail['productId'],
+                    $detail['qty'],
+                    $detail['uom'],
+                    $detail['remark'],
+                ]
+            );
         }
+
+        $collection->push(
+            [
+                '',
+                '',
+                'Total Qty',
+                $data['totalQty'],
+                '',
+                '',
+                ''
+            ]
+        );
 
         return $collection;
     }
