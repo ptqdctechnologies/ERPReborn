@@ -30,10 +30,12 @@ class PurchaseRequisitionController extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionPurchaseOrderPrNumber");
         $request->session()->forget("SessionPurchaseOrder");
+        
         $var = 0;
         if (!empty($_GET['var'])) {
             $var =  $_GET['var'];
         }
+        
         $compact = [
             'varAPIWebToken' => $varAPIWebToken,
             'var' => $var,

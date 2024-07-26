@@ -424,6 +424,7 @@ class AdvanceRequestController extends Controller
                 $varDataExcel[$i]['remark'] = ucfirst(trans($collections['remark']));
                 $i++;
             }
+
             $compact = [
                 'data' => $collection,
                 'varDataExcel' => $varDataExcel,
@@ -523,7 +524,6 @@ class AdvanceRequestController extends Controller
             
             $varAPIWebToken = Session::get('SessionLogin');
 
-
             $filteredArray = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
@@ -569,7 +569,6 @@ class AdvanceRequestController extends Controller
                 'advance_RefID' => $filteredArray['data'][0]['document']['header']['recordID'],
                 'advance_number' => $filteredArray['data'][0]['document']['header']['number'],
                 'statusHeader' => $statusHeader
-
             ];
 
             Session::put("AdvanceSummaryReportDetailIsSubmit", "Yes");

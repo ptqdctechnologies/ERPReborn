@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Inventory;
 
+use App\Http\Controllers\ExportExcel\Inventory\ExportReportDORDetail;
+use App\Http\Controllers\ExportExcel\Inventory\ExportReportDORSummary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class DeliveryOrderRequestController extends Controller
 {
@@ -27,36 +31,281 @@ class DeliveryOrderRequestController extends Controller
 
         return view('Inventory.DeliveryOrderRequest.Transactions.CreateDeliveryOrderRequest', $compact);
     }
+
     public function ReportDORSummary(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $var = 0;
-        if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
-        }
+        $isSubmitButton = $request->session()->get('isButtonReportDORSummarySubmit');
+
+        $dataReport = $isSubmitButton ? $request->session()->get('dataDetailReportDORSummary', []) : [];
+
         $compact = [
-            'varAPIWebToken' => $varAPIWebToken,
-            'var' => $var,
-            'statusRevisi' => 1,
+            'varAPIWebToken'    => [],
+            'dataReport'        => $dataReport
         ];
 
         return view('Inventory.DeliveryOrderRequest.Reports.ReportDORSummary', $compact);
     }
 
+    public function ReportDORSummaryData($id) 
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+
+            $filteredArray = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.finance.getAdvanceReport',
+                'latest',
+                [
+                    'parameter' => [
+                        'advance_RefID' => (int) $id,
+                    ],
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
+            );
+
+            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Data not found in the API response.');
+            }
+
+            $getData = $filteredArray['data'][0]['document'];
+
+            // DATA HEADER
+            $dataHeaders = [
+                'budget'        => $getData['content']['general']['budget']['combinedBudgetCodeList'][0] . " - " .$getData['content']['general']['budget']['combinedBudgetNameList'][0],
+            ];
+
+            // DATA DETAIL
+            $dataDetails = [];
+            $i = 0;
+            $total = 0;
+            $totalOtherCurrency = 0;
+            foreach ($getData['content']['details']['itemList'] as $dataReports) {
+                $total              += $dataReports['entities']['quantity'] * rand(0, 9000);
+                $totalOtherCurrency += $dataReports['entities']['quantity'] * rand(0, 9000);
+            
+                $dataDetails[$i]['no']                  = $i + 1;
+                $dataDetails[$i]['DORNumber']           = $dataReports['entities']['product_RefID'];
+                $dataDetails[$i]['budgetCode']          = $getData['content']['general']['budget']['combinedBudgetCodeList'][0];
+                $dataDetails[$i]['date']                = $getData['header']['date'];
+                $dataDetails[$i]['total']               = number_format($dataReports['entities']['quantity'] * rand(0, 9000), 2, ',', '.');
+                $dataDetails[$i]['totalOtherCurrency']  = number_format($dataReports['entities']['quantity'] * rand(0, 8000), 2, ',', '.');
+                $i++;
+            }
+
+            $compact = [
+                'dataHeader'            => $dataHeaders,
+                'dataDetail'            => $dataDetails,
+                'total'                 => number_format($total, 2, ',', '.'),
+                'totalOtherCurrency'    => number_format($totalOtherCurrency, 2, ',', '.')
+            ];
+
+            Session::put("isButtonReportDORSummarySubmit", true);
+            Session::put("dataDetailReportDORSummary", $compact);
+
+            return $compact;
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportDORSummaryStore(Request $request) 
+    {
+        try {
+            $budgetID       = $request->budget_id;
+            $subBudgetID    = $request->advance_RefID;
+            // $subBudgetID    = $request->sub_budget_id;
+
+            if (!$budgetID && !$subBudgetID) {
+                $message = 'Budget & Sub Budget Cannot Empty';
+            } else if ($budgetID && !$subBudgetID) {
+                $message = 'Sub Budget Cannot Empty';
+            }
+
+            if (isset($message)) {
+                Session::forget("isButtonReportDORSummarySubmit");
+                Session::forget("dataDetailReportDORSummary");
+        
+                return redirect()->route('Inventory.ReportDORequestSummary')->with('NotFound', $message);
+            }
+
+            $compact = $this->ReportDORSummaryData($subBudgetID);
+
+            if ($compact === null || empty($compact)) {
+                return redirect()->back()->with('NotFound', 'Data Not Found');
+            }
+
+            return redirect()->route('Inventory.ReportDORequestSummary');
+        } catch (\Throwable $th) {
+            Log::error("Error at ReportDORSummaryStore: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function PrintExportReportDORSummary(Request $request) {
+        try {
+            $dataReport = Session::get("dataDetailReportDORSummary");
+
+            if ($dataReport) {
+                if ($request->print_type == "PDF") {
+                    $pdf = PDF::loadView('Inventory.DeliveryOrderRequest.Reports.ReportDORSummary_pdf', ['dataReport' => $dataReport]);
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
+
+                    $canvas = $dom_pdf ->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 85, 94, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text($width / 2.5, $height - 20, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+    
+                    return $pdf->download('Export Report Delivery Order Request Summary.pdf');
+                } else {
+                    return Excel::download(new ExportReportDORSummary, 'Export Report Delivery Order Request Summary.xlsx');
+                }
+            } else {
+                return redirect()->route('Inventory.ReportDORequestSummary')->with('NotFound', 'Budget & Sub Budget Cannot Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("Error at PrintExportReportDORSummary: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
     public function ReportDORDetail(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $var = 0;
-        if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
-        }
+        $isSubmitButton = $request->session()->get('isButtonReportDORDetailSubmit');
+
+        $dataReport = $isSubmitButton ? $request->session()->get('dataReportDORDetail', []) : [];
+
         $compact = [
-            'varAPIWebToken' => $varAPIWebToken,
-            'var' => $var,
-            'statusRevisi' => 1,
+            'varAPIWebToken'    => [],
+            'dataReport'        => $dataReport,
         ];
 
         return view('Inventory.DeliveryOrderRequest.Reports.ReportDORDetail', $compact);
+    }
+
+    public function ReportDORDetailData($id) 
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+
+            $filteredArray = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.finance.getAdvanceReport',
+                'latest',
+                [
+                    'parameter' => [
+                        'advance_RefID' => (int) $id,
+                    ],
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
+            );
+
+            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Data not found in the API response.');
+            }
+
+            $getData = $filteredArray['data'][0]['document'];
+
+            $dataDetails = [];
+            $i = 0;
+            $totalQty = 0;
+            foreach ($getData['content']['details']['itemList'] as $dataReports) {
+                $totalQty += $dataReports['entities']['quantity'];
+            
+                $dataDetails[$i]['no']         = $i + 1;
+                $dataDetails[$i]['prNumber']   = $dataReports['entities']['product_RefID'];
+                $dataDetails[$i]['productId']  = $dataReports['entities']['priceCurrency_RefID'];
+                $dataDetails[$i]['qty']        = $dataReports['entities']['quantity'];
+                $dataDetails[$i]['uom']        = 'Set';
+                $dataDetails[$i]['remark']     = $dataReports['entities']['quantityUnitName'];
+                $i++;
+            }
+
+            $compact = [
+                'dataHeader'    => $getData['header'],
+                'dataDetail'    => $dataDetails,
+                'totalQty'      => $totalQty
+            ];
+
+            Session::put("isButtonReportDORDetailSubmit", true);
+            Session::put("dataReportDORDetail", $compact);
+
+            return $compact;
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportDORDetailStore(Request $request) 
+    {
+        try {
+            $advanceRefID   = $request->advance_RefID;
+            $advanceNumber  = $request->advance_number;
+
+            if (!$advanceRefID && !$advanceNumber) {
+                Session::forget("isButtonReportDORDetailSubmit");
+                Session::forget("dataReportDORDetail");
+
+                return redirect()->route('Inventory.ReportDORequestDetail')->with('NotFound', 'DOR Number Cannot Empty');
+            }
+
+            $compact = $this->ReportDORDetailData($advanceRefID);
+
+            if ($compact === null || empty($compact)) {
+                return redirect()->back()->with('NotFound', 'Data Not Found');
+            }
+
+            return redirect()->route('Inventory.ReportDORequestDetail');
+        } catch (\Throwable $th) {
+            Log::error("Error at ReportDORDetailStore: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function PrintExportReportDORDetail(Request $request) {
+        try {
+            $dataReport = Session::get("dataReportDORDetail");
+
+            if ($dataReport) {
+                if ($request->print_type == "PDF") {
+                    $pdf = PDF::loadView('Inventory.DeliveryOrderRequest.Reports.ReportDORDetail_pdf', ['dataReport' => $dataReport]);
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
+
+                    $canvas = $dom_pdf ->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 85, 94, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text($width / 2.5, $height - 20, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    return $pdf->download('Export Report Delivery Order Request Detail.pdf');
+                } else {
+                    return Excel::download(new ExportReportDORDetail, 'Export Report Delivery Order Request Detail.xlsx');
+                }
+            } else {
+                return redirect()->route('Inventory.ReportDORequestDetail')->with('NotFound', 'DOR Number Cannot Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("Error at PrintExportReportDORDetail: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 
     public function ReportDORtoDO(Request $request)
@@ -74,7 +323,6 @@ class DeliveryOrderRequestController extends Controller
 
         return view('Inventory.DeliveryOrderRequest.Reports.ReportDORequestToDO', $compact);
     }
-
 
     public function StoreValidateDeliveryOrderRequestSupplier(Request $request)
     {
@@ -130,7 +378,6 @@ class DeliveryOrderRequestController extends Controller
 
         return response()->json($compact);
     }
-
 
     public function DeliveryOrderRequestComplexBySupplierID($advance_RefID)
     {
@@ -456,7 +703,6 @@ class DeliveryOrderRequestController extends Controller
         $input = $request->all();
         dd($input);
     }
-
 
     public function SearchPurchaseOrder(Request $request)
     {
