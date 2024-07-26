@@ -42,11 +42,11 @@ class PurchaseOrderController extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $isSubmitButton = $request->session()->get('isButtonReportPurchaseOrderSummarySubmit');
 
-        $dataDetail = $isSubmitButton ? $request->session()->get('dataDetailReportPurchaseOrderSummary', []) : [];
+        $dataReport = $isSubmitButton ? $request->session()->get('dataReportPurchaseOrderSummary', []) : [];
 
         $compact = [
-            'varAPIWebToken'    => $varAPIWebToken,
-            'dataDetail'        => $dataDetail
+            'varAPIWebToken'    => [],
+            'dataReport'        => $dataReport
         ];
 
         return view('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderSummary', $compact);
@@ -76,37 +76,60 @@ class PurchaseOrderController extends Controller
                 false
             );
 
-            if (!isset($filteredArray['data'][0]['document']['header'])) {
+            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
                 throw new \Exception('Data not found in the API response.');
             }
 
-            $getHeaderData = $filteredArray['data'][0]['document']['header'];
+            $getData = $filteredArray['data'][0]['document'];
 
-            $varDataExcel = [
-                [
-                    'no'                            => 1,
-                    'transactionNumber'             => $getHeaderData['number'],
-                    'date'                          => $getHeaderData['date'],
-                    'supplier'                      => "Agape Biomedi Investama",
-                    'totalIDRWithPPN'               => $getHeaderData['businessDocumentType_RefID'],
-                    'totalIDRWithoutPPN'            => $getHeaderData['businessDocumentType_RefID'],
-                    'totalOtherCurrencyWithPPN'     => $getHeaderData['businessDocumentType_RefID'],
-                    'totalOtherCurrencyWithoutPPN'  => $getHeaderData['businessDocumentType_RefID'],
-                    'currency'                      => 'IDR',
-                    'PIC'                           => 'Ferdian',
-                    'Status'                        => 'Final',
-                ]
+            // DATA HEADER
+            $dataHeaders = [
+                'budget'        => $getData['content']['general']['budget']['combinedBudgetCodeList'][0] . ' - ' . $getData['content']['general']['budget']['combinedBudgetNameList'][0],
             ];
 
+            // DATA DETAIL
+            $dataDetails = [];
+            $i = 0;
+            $totalQty = 0;
+            $totalPrice = 0;
+            $totalIDRWithPPN = 0;
+            $totalIDRWithoutPPN = 0;
+            $totalOtherCurrencyWithPPN = 0;
+            $totalOtherCurrencyWithoutPPN = 0;
+            foreach ($getData['content']['details']['itemList'] as $dataReports) {
+                $totalQty += $dataReports['entities']['quantity'] * rand(1000, 9000);
+                $totalPrice += $dataReports['entities']['quantity'] * rand(1000, 9000);
+                $totalIDRWithPPN += $dataReports['entities']['quantity'] * rand(1000, 9000);
+                $totalIDRWithoutPPN += $dataReports['entities']['quantity'] * rand(1000, 9000);
+                $totalOtherCurrencyWithPPN += $dataReports['entities']['quantity'] * rand(1000, 9000);
+                $totalOtherCurrencyWithoutPPN += $dataReports['entities']['quantity'] * rand(1000, 9000);
+            
+                $dataDetails[$i]['no']                              = $i + 1;
+                $dataDetails[$i]['transactionNumber']               = $dataReports['entities']['product_RefID'];
+                $dataDetails[$i]['qty']                             = number_format($dataReports['entities']['quantity'] * rand(1, 100), 2, ',', '.');
+                $dataDetails[$i]['price']                           = number_format($dataReports['entities']['quantity'] * rand(100, 1000), 2, ',', '.');
+                $dataDetails[$i]['uom']                             = 'Set';
+                $dataDetails[$i]['totalIDRWithPPN']                 = number_format($dataReports['entities']['quantity'] * rand(1000, 6000), 2, ',', '.');
+                $dataDetails[$i]['totalIDRWithoutPPN']              = number_format($dataReports['entities']['quantity'] * rand(1000, 7000), 2, ',', '.');
+                $dataDetails[$i]['totalOtherCurrencyWithPPN']       = number_format($dataReports['entities']['quantity'] * rand(1000, 8000), 2, ',', '.');
+                $dataDetails[$i]['totalOtherCurrencyWithoutPPN']    = number_format($dataReports['entities']['quantity'] * rand(1000, 9000), 2, ',', '.');
+                $dataDetails[$i]['currency']                        = 'IDR';
+                $i++;
+            }
+
             $compact = [
-                'dataHeader' => $getHeaderData,
-                'dataExcel'  => $varDataExcel
+                'dataHeader'                    => $dataHeaders,
+                'dataDetail'                    => $dataDetails,
+                'totalQty'                      => number_format($totalQty, 2, ',', '.'),
+                'totalPrice'                    => number_format($totalPrice, 2, ',', '.'),
+                'totalIDRWithPPN'               => number_format($totalIDRWithPPN, 2, ',', '.'),
+                'totalIDRWithoutPPN'            => number_format($totalIDRWithoutPPN, 2, ',', '.'),
+                'totalOtherCurrencyWithPPN'     => number_format($totalOtherCurrencyWithPPN, 2, ',', '.'),
+                'totalOtherCurrencyWithoutPPN'  => number_format($totalOtherCurrencyWithoutPPN, 2, ',', '.'),
             ];
 
             Session::put("isButtonReportPurchaseOrderSummarySubmit", true);
-            Session::put("dataDetailReportPurchaseOrderSummary", $compact['dataHeader']);
-            Session::put("dataPDFReportPurchaseOrderSummary", $compact['dataHeader']);
-            Session::put("dataExcelReportPurchaseOrderSummary", $compact['dataExcel']);
+            Session::put("dataReportPurchaseOrderSummary", $compact);
 
             return $compact;
         } catch (\Throwable $th) {
@@ -134,16 +157,14 @@ class PurchaseOrderController extends Controller
 
             if (isset($message)) {
                 Session::forget("isButtonReportPurchaseOrderSummarySubmit");
-                Session::forget("dataDetailReportPurchaseOrderSummary");
-                Session::forget("dataPDFReportPurchaseOrderSummary");
-                Session::forget("dataExcelReportPurchaseOrderSummary");
+                Session::forget("dataReportPurchaseOrderSummary");
 
                 return redirect()->route('PurchaseOrder.ReportPurchaseOrderSummary')->with('NotFound', $message);
             }
 
             $compact = $this->ReportPurchaseOrderSummaryData($supplierID);
 
-            if ($compact === null || empty($compact['dataHeader'])) {
+            if ($compact === null || empty($compact)) {
                 return redirect()->back()->with('NotFound', 'Data Not Found');
             }
 
@@ -156,7 +177,7 @@ class PurchaseOrderController extends Controller
 
     public function PrintExportReportPurchaseOrderSummary(Request $request) {
         try {
-            $dataDetail = Session::get("dataDetailReportPurchaseOrderSummary");
+            $dataDetail = Session::get("dataReportPurchaseOrderSummary");
 
             if ($dataDetail) {
                 if ($request->print_type == "PDF") {
