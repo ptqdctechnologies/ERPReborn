@@ -4,87 +4,113 @@ namespace App\Http\Controllers\ExportExcel\Inventory;
 
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Concerns\WithStyles;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Events\BeforeSheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class ExportReportMaterialReturnSummary implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
+class ExportReportMaterialReturnSummary implements FromCollection, WithHeadings, ShouldAutoSize, WithEvents
 {
     public function collection()
     {
-        $data = Session::get("dataExcelReportMaterialReturn");
-        return collect($data);
+        $data = Session::get("dataReportMaterialReturn");
+        $dataDetail = $data['dataDetail'];
+        
+        $collection = collect();
+        foreach ($dataDetail as $detail) {
+            $collection->push(
+                [
+                    $detail['no'],
+                    $detail['DORNumber'],
+                    $detail['budgetCode'],
+                    $detail['date'],
+                    $detail['total'],
+                    $detail['totalOtherCurrency'],
+                ]
+            );
+        }
+
+        $collection->push(
+            [
+                '',
+                '',
+                '',
+                'Total',
+                $data['total'],
+                $data['totalOtherCurrency'],
+            ]
+        );
+
+        return $collection;
     }
 
     public function headings(): array
     {
         return [
-            ["Material Return Summary Report", " ", " ", " ", " ", " "],
             ["", "", "", "", "", ""],
             ["No", "DOR Number", "Budget Code", "Date", "Total", "Total Other Currency"]
         ];
     }
 
-    public function styles(Worksheet $sheet)
+    public function registerEvents(): array
     {
-        $styleArrayHeader1 = [
-            'font' => [
-                'bold' => true,
-                'color' => [
-                    'rgb' => '000000',
-                ],
-            ],
-            'alignment' => [
-                'horizontal' => Alignment::HORIZONTAL_CENTER,
-            ]
+        return [
+            BeforeSheet::class => function (BeforeSheet $event) {
+                $sheet = $event->sheet->getDelegate();
+
+                $data = Session::get("dataReportMaterialReturn");
+                $dataHeader = $data['dataHeader'];
+
+                $sheet->setCellValue('A1', date('F j, Y'))
+                    ->mergeCells('A1:F1')
+                    ->getStyle('A1:F1')
+                    ->applyFromArray([
+                        'font' => [
+                            'bold' => true,
+                            'color' => ['rgb' => '000000'],
+                        ],
+                        'alignment' => [
+                            'horizontal' => Alignment::HORIZONTAL_RIGHT,
+                        ],
+                ]);
+
+                $sheet->setCellValue('A2', 'Material Return Summary Report')
+                    ->mergeCells('A2:F2')
+                    ->getStyle('A2:F2')
+                    ->applyFromArray([
+                        'font' => [
+                            'bold' => true,
+                            'color' => ['rgb' => '000000'],
+                        ],
+                        'alignment' => [
+                            'horizontal' => Alignment::HORIZONTAL_CENTER,
+                        ],
+                ]);
+
+                $sheet->setCellValue('A3', date('h:i A'))
+                    ->mergeCells('A3:F3')
+                    ->getStyle('A3:F3')
+                    ->applyFromArray([
+                        'font' => [
+                            'bold' => true,
+                            'color' => ['rgb' => '000000'],
+                        ],
+                        'alignment' => [
+                            'horizontal' => Alignment::HORIZONTAL_RIGHT,
+                        ],
+                ]);
+
+                $sheet->setCellValue('A4', 'Budget')->getStyle('A4')->applyFromArray([
+                    'font'  => [
+                        'bold'  => true,
+                        'color' => ['rgb' => '000000']
+                    ]
+                ]);
+                $sheet->setCellValue('B4', ': ' . $dataHeader['budget']);
+            },
         ];
-
-        $sheet->getStyle('A1:F1')->applyFromArray($styleArrayHeader1);
-        $sheet->mergeCells('A1:F1');
-
-
-        $styleArrayHeader2 = [
-            'font' => [
-                'bold' => true,
-                'color' => [
-                    'rgb' => '000000',
-                ],
-            ],
-            'alignment' => [
-                'horizontal' => Alignment::HORIZONTAL_CENTER,
-            ],
-            'borders' => [
-                'allBorders' => [
-                    'borderStyle' => Border::BORDER_THIN,
-                ],
-            ],
-            'fill' => [
-                'fillType' => 'solid',
-                'rotation' => 0,
-                'color' => [
-                    'rgb' => 'E9ECEF',
-                ],
-            ],
-        ];
-
-        $sheet->getStyle('A3:F3')->applyFromArray($styleArrayHeader2);
-
-        $styleArrayContent = [
-            'borders' => [
-                'allBorders' => [
-                    'borderStyle' => Border::BORDER_THIN,
-                ],
-            ],
-            'alignment' => [
-                'horizontal' => Alignment::HORIZONTAL_LEFT,
-            ],
-        ];
-
-        $totalCell = count(Session::get("dataExcelReportMaterialReturn"));
-        $lastCell = 'A4:F' . ($totalCell + 3);
-        $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
     }
 }

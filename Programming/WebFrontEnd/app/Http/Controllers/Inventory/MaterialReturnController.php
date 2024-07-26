@@ -36,11 +36,11 @@ class MaterialReturnController extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $isSubmitButton = $request->session()->get('isButtonReportMaterialReturnSubmit');
 
-        $dataDetail = $isSubmitButton ? $request->session()->get('dataDetailReportMaterialReturn', []) : [];
+        $dataReport = $isSubmitButton ? $request->session()->get('dataReportMaterialReturn', []) : [];
 
         $compact = [
             'varAPIWebToken' => $varAPIWebToken,
-            'dataDetail' => $dataDetail
+            'dataReport' => $dataReport
         ];
 
         return view('Inventory.MaterialReturn.Reports.ReportMatReturnSummary', $compact);
@@ -70,32 +70,44 @@ class MaterialReturnController extends Controller
                 false
             );
 
-            if (!isset($filteredArray['data'][0]['document']['header'])) {
+            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
                 throw new \Exception('Data not found in the API response.');
             }
 
-            $getHeaderData = $filteredArray['data'][0]['document']['header'];
+            $getData = $filteredArray['data'][0]['document'];
 
-            $varDataExcel = [
-                [
-                    'no'        => 1,
-                    'DORNumber' => $getHeaderData['number'],
-                    'productId' => $getHeaderData['recordID'],
-                    'qty'       => $getHeaderData['date'],
-                    'unitPrice' => $getHeaderData['recordID'],
-                    'total'     => $getHeaderData['businessDocumentType_RefID'],
-                ]
+            // DATA HEADER
+            $dataHeaders = [
+                'budget'        => $getData['content']['general']['budget']['combinedBudgetCodeList'][0] . " - " .$getData['content']['general']['budget']['combinedBudgetNameList'][0],
             ];
 
+            // DATA DETAIL
+            $dataDetails = [];
+            $i = 0;
+            $total = 0;
+            $totalOtherCurrency = 0;
+            foreach ($getData['content']['details']['itemList'] as $dataReports) {
+                $total              += $dataReports['entities']['quantity'] * rand(0, 9000);
+                $totalOtherCurrency += $dataReports['entities']['quantity'] * rand(0, 9000);
+            
+                $dataDetails[$i]['no']                  = $i + 1;
+                $dataDetails[$i]['DORNumber']           = $dataReports['entities']['product_RefID'];
+                $dataDetails[$i]['budgetCode']          = $getData['content']['general']['budget']['combinedBudgetCodeList'][0];
+                $dataDetails[$i]['date']                = $getData['header']['date'];
+                $dataDetails[$i]['total']               = number_format($dataReports['entities']['quantity'] * rand(0, 9000), 2, ',', '.');
+                $dataDetails[$i]['totalOtherCurrency']  = number_format($dataReports['entities']['quantity'] * rand(0, 8000), 2, ',', '.');
+                $i++;
+            }
+
             $compact = [
-                'dataHeader' => $getHeaderData,
-                'dataExcel'  => $varDataExcel
+                'dataHeader'            => $dataHeaders,
+                'dataDetail'            => $dataDetails,
+                'total'                 => number_format($total, 2, ',', '.'),
+                'totalOtherCurrency'    => number_format($totalOtherCurrency, 2, ',', '.')
             ];
 
             Session::put("isButtonReportMaterialReturnSubmit", true);
-            Session::put("dataDetailReportMaterialReturn", $compact['dataHeader']);
-            Session::put("dataPDFReportMaterialReturn", $compact['dataHeader']);
-            Session::put("dataExcelReportMaterialReturn", $compact['dataExcel']);
+            Session::put("dataReportMaterialReturn", $compact);
 
             return $compact;
         } catch (\Throwable $th) {
@@ -118,9 +130,7 @@ class MaterialReturnController extends Controller
 
             if (isset($message)) {
                 Session::forget("isButtonReportMaterialReturnSubmit");
-                Session::forget("dataDetailReportMaterialReturn");
-                Session::forget("dataPDFReportMaterialReturn");
-                Session::forget("dataExcelReportMaterialReturn");
+                Session::forget("dataReportMaterialReturn");
         
                 return redirect()->route('Inventory.ReportMatReturnSummary')->with('NotFound', $message);
             }
@@ -140,15 +150,19 @@ class MaterialReturnController extends Controller
 
     public function PrintExportReportMatReturnSummary(Request $request) {
         try {
-            $dataDetail = Session::get("dataDetailReportMaterialReturn");
+            $dataReport = Session::get("dataReportMaterialReturn");
 
-            if ($dataDetail) {
+            if ($dataReport) {
                 if ($request->print_type == "PDF") {
-                    $pdf = PDF::loadView('Inventory.MaterialReturn.Reports.ReportMatReturnSummary_pdf', compact('dataDetail'));
-                    $pdf->setPaper('A4', 'portrait');
-    
-                    // Preview PDF
-                    // return $pdf->stream('Export_Report_Delivery_Order_Request_Detail.pdf');
+                    $pdf = PDF::loadView('Inventory.MaterialReturn.Reports.ReportMatReturnSummary_pdf', ['dataReport' => $dataReport]);
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
+
+                    $canvas = $dom_pdf ->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 85, 94, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text($width / 2.5, $height - 20, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
     
                     return $pdf->download('Export Report Material Return Summary.pdf');
                 } else {
