@@ -38,11 +38,11 @@ class DeliveryOrderController extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $isSubmitButton = $request->session()->get('isButtonReportDOSummarySubmit');
 
-        $dataDetail = $isSubmitButton ? $request->session()->get('dataDetailReportDOSummary', []) : [];
+        $dataReport = $isSubmitButton ? $request->session()->get('dataReportDOSummary', []) : [];
 
         $compact = [
-            'varAPIWebToken' => $varAPIWebToken,
-            'dataDetail' => $dataDetail
+            'varAPIWebToken' => [],
+            'dataReport' => $dataReport
         ];
 
         return view('Inventory.DeliveryOrder.Reports.ReportDOSummary', $compact);
@@ -72,32 +72,49 @@ class DeliveryOrderController extends Controller
                 false
             );
 
-            if (!isset($filteredArray['data'][0]['document']['header'])) {
+            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
                 throw new \Exception('Data not found in the API response.');
             }
 
-            $getHeaderData = $filteredArray['data'][0]['document']['header'];
+            $getData = $filteredArray['data'][0]['document'];
 
-            $varDataExcel = [
-                [
-                    'no'        => 1,
-                    'DORNumber' => $getHeaderData['number'],
-                    'productId' => $getHeaderData['recordID'],
-                    'qty'       => $getHeaderData['date'],
-                    'unitPrice' => $getHeaderData['recordID'],
-                    'total'     => $getHeaderData['businessDocumentType_RefID'],
-                ]
+            // DATA HEADER
+            $dataHeaders = [
+                'budget'        => $getData['content']['general']['budget']['combinedBudgetCodeList'][0] . " - " .$getData['content']['general']['budget']['combinedBudgetNameList'][0],
             ];
+
+            // DATA DETAIL
+            $dataDetails = [];
+            $i = 0;
+            $total = 0;
+            $totalOtherCurrency = 0;
+            // DATA DETAIL
+            $dataDetails = [];
+            $i = 0;
+            $total = 0;
+            $totalOtherCurrency = 0;
+            foreach ($getData['content']['details']['itemList'] as $dataReports) {
+                $total              += $dataReports['entities']['quantity'] * rand(0, 9000);
+                $totalOtherCurrency += $dataReports['entities']['quantity'] * rand(0, 9000);
+            
+                $dataDetails[$i]['no']                  = $i + 1;
+                $dataDetails[$i]['DONumber']           = $dataReports['entities']['product_RefID'];
+                $dataDetails[$i]['budgetCode']          = $getData['content']['general']['budget']['combinedBudgetCodeList'][0];
+                $dataDetails[$i]['date']                = $getData['header']['date'];
+                $dataDetails[$i]['total']               = number_format($dataReports['entities']['quantity'] * rand(0, 9000), 2, ',', '.');
+                $dataDetails[$i]['totalOtherCurrency']  = number_format($dataReports['entities']['quantity'] * rand(0, 8000), 2, ',', '.');
+                $i++;
+            }
 
             $compact = [
-                'dataHeader' => $getHeaderData,
-                'dataExcel'  => $varDataExcel
+                'dataHeader'            => $dataHeaders,
+                'dataDetail'            => $dataDetails,
+                'total'                 => number_format($total, 2, ',', '.'),
+                'totalOtherCurrency'    => number_format($totalOtherCurrency, 2, ',', '.')
             ];
-
+            
             Session::put("isButtonReportDOSummarySubmit", true);
-            Session::put("dataDetailReportDOSummary", $compact['dataHeader']);
-            Session::put("dataPDFReportDOSummary", $compact['dataHeader']);
-            Session::put("dataExcelReportDOSummary", $compact['dataExcel']);
+            Session::put("dataReportDOSummary", $compact);
 
             return $compact;
         } catch (\Throwable $th) {
@@ -113,12 +130,16 @@ class DeliveryOrderController extends Controller
             // $subBudgetID    = $request->sub_budget_id;
 
             if (!$budgetID && !$subBudgetID) {
-                Session::forget("isButtonReportDOSummarySubmit");
-                Session::forget("dataDetailReportDOSummary");
-                Session::forget("dataPDFReportDOSummary");
-                Session::forget("dataExcelReportDOSummary");
+                $message = 'Budget & Sub Budget Cannot Empty';
+            } else if ($budgetID && !$subBudgetID) {
+                $message = 'Sub Budget Cannot Empty';
+            }
 
-                return redirect()->route('Inventory.ReportDOSummary')->with('NotFound', 'Budget & Sub Budget Cannot Empty');
+            if (isset($message)) {
+                Session::forget("isButtonReportDOSummarySubmit");
+                Session::forget("dataReportDOSummary");
+
+                return redirect()->route('Inventory.ReportDOSummary')->with('NotFound', $message);
             }
 
             $compact = $this->ReportDOSummaryData($subBudgetID);
@@ -136,15 +157,19 @@ class DeliveryOrderController extends Controller
 
     public function PrintExportReportDOSummary(Request $request) {
         try {
-            $dataDetail = Session::get("dataDetailReportDOSummary");
+            $dataReport = Session::get("dataReportDOSummary");
 
-            if ($dataDetail) {
+            if ($dataReport) {
                 if ($request->print_type == "PDF") {
-                    $pdf = PDF::loadView('Inventory.DeliveryOrder.Reports.ReportDOSummary_pdf', compact('dataDetail'));
-                    $pdf->setPaper('A4', 'portrait');
-    
-                    // Preview PDF
-                    // return $pdf->stream('Export_Report_Delivery_Order_Request_Detail.pdf');
+                    $pdf = PDF::loadView('Inventory.DeliveryOrder.Reports.ReportDOSummary_pdf', ['dataReport' => $dataReport]);
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
+
+                    $canvas = $dom_pdf ->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 85, 94, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text($width / 2.5, $height - 20, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
     
                     return $pdf->download('Export Report Delivery Order Summary.pdf');
                 } else {
