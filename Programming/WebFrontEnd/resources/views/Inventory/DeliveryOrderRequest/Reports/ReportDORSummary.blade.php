@@ -22,9 +22,24 @@
                             @include("Inventory.DeliveryOrderRequest.Functions.Header.HeaderReportDORSummary")
                         </div>
 
-                        <?php if ($dataDetail) { ?>
+                        <?php if ($dataReport) { ?>
                             <div class="col-12 ShowTableReportAdvanceSummary">
                                 <div class="card">
+                                    <!-- HEADER -->
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <table>
+                                                    <tr>
+                                                        <th style="padding-top: 7px;"><label>Budget&nbsp;</label></th>
+                                                        <td><?= $dataReport['dataHeader']['budget']; ?></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- DETAIL -->
                                     <div class="card-body table-responsive p-0">
                                         <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="TableReportAdvanceSummary">
                                             <thead>
@@ -38,21 +53,33 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td><?= $dataDetail['number']; ?></td>
-                                                    <td><?= $dataDetail['recordID']; ?></td>
-                                                    <td><?= $dataDetail['date']; ?></td>
-                                                    <td><?= $dataDetail['recordID']; ?></td>
-                                                    <td><?= $dataDetail['businessDocumentType_RefID']; ?></td>
-                                                </tr>
+                                                <?php foreach ($dataReport['dataDetail'] as $dataDetail) { ?>
+                                                    <tr>
+                                                        <td><?= $dataDetail['no']; ?></td>
+                                                        <td><?= $dataDetail['DORNumber']; ?></td>
+                                                        <td><?= $dataDetail['budgetCode']; ?></td>
+                                                        <td><?= $dataDetail['date']; ?></td>
+                                                        <td><?= $dataDetail['total']; ?></td>
+                                                        <td><?= $dataDetail['totalOtherCurrency']; ?></td>
+                                                    </tr>
+                                                <?php } ?>
                                             </tbody>
+                                            <tfooter>
+                                                <tr>
+                                                    <th colspan="4" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: right;background-color:#4B586A;color:white;">Total</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                        <?= $dataReport['total']; ?>
+                                                    </th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                        <?= $dataReport['totalOtherCurrency']; ?>
+                                                    </th>
+                                                </tr>
+                                            </tfooter>
                                         </table>
                                     </div>
                                 </div>
                             </div>
-                        <?php }; Session::put("isButtonReportDORSummarySubmit", false); ?>
-
+                        <?php }; Session::forget("isButtonReportDORSummarySubmit"); ?>
                     </div>
                 </div>
             </div>
