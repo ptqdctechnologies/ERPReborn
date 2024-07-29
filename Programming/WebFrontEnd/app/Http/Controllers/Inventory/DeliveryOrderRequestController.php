@@ -222,7 +222,6 @@ class DeliveryOrderRequestController extends Controller
             }
 
             $getData = $filteredArray['data'][0]['document'];
-            // dd($getData);
 
             // DATA HEADER
             $dataHeaders = [
