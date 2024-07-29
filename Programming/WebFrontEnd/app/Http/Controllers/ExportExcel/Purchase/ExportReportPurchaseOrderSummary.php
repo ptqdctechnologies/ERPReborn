@@ -4,96 +4,122 @@ namespace App\Http\Controllers\ExportExcel\Purchase;
 
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Concerns\WithStyles;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Events\BeforeSheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class ExportReportPurchaseOrderSummary implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
+class ExportReportPurchaseOrderSummary implements FromCollection, WithHeadings, ShouldAutoSize, WithEvents
 {
     public function collection()
     {
-        $data = Session::get("dataExcelReportPurchaseOrderSummary");
-        return collect($data);
+        $data = Session::get("dataReportPurchaseOrderSummary");
+        $dataDetail = $data['dataDetail'];
+        
+        $collection = collect();
+        foreach ($dataDetail as $detail) {
+            $collection->push(
+                [
+                    $detail['no'],
+                    $detail['transactionNumber'],
+                    $detail['qty'],
+                    $detail['price'],
+                    $detail['uom'],
+                    $detail['totalIDRWithPPN'],
+                    $detail['totalIDRWithoutPPN'],
+                    $detail['totalOtherCurrencyWithPPN'],
+                    $detail['totalOtherCurrencyWithoutPPN'],
+                    $detail['currency'],
+                ]
+            );
+        }
+
+        $collection->push(
+            [
+                '',
+                'Total',
+                $data['totalQty'],
+                $data['totalPrice'],
+                '',
+                $data['totalIDRWithPPN'],
+                $data['totalIDRWithoutPPN'],
+                $data['totalOtherCurrencyWithPPN'],
+                $data['totalOtherCurrencyWithoutPPN'],
+                '',
+            ]
+        );
+
+        return $collection;
     }
 
     public function headings(): array
     {
         return [
-            ["Purchase Order Summary Report", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
-            ["", "", "", "", "", "", "", "", "", "", ""],
-            ["No", "Transaction Number", "Date", "Supplier", "Total IDR", " ", "Total Other Currency", " ", "Currency", "PIC", "Status"],
-            ["", "", "", "", "With PPN", "Without PPN", "With PPN", "Without PPN", "", "", ""],
+            ["", "", "", "", "", "", "", "", "", ""],
+            ["No", "Transaction Number", "Qty", "Price", "UOM", "Total IDR", " ", "Total Other Currency", " ", "Currency"],
+            ["", "", "", "", "", "With PPN", "Without PPN", "With PPN", "Without PPN", ""],
         ];
     }
 
-    public function styles(Worksheet $sheet)
+    public function registerEvents(): array
     {
-        $styleArrayHeader1 = [
-            'font' => [
-                'bold' => true,
-                'color' => [
-                    'rgb' => '000000',
-                ],
-            ],
-            'alignment' => [
-                'horizontal' => Alignment::HORIZONTAL_CENTER,
-            ]
+        return [
+            BeforeSheet::class => function (BeforeSheet $event) {
+                $sheet = $event->sheet->getDelegate();
+
+                $data = Session::get("dataReportPurchaseOrderSummary");
+                $dataHeader = $data['dataHeader'];
+
+                $sheet->setCellValue('A1', date('F j, Y'))
+                    ->mergeCells('A1:J1')
+                    ->getStyle('A1:J1')
+                    ->applyFromArray([
+                        'font' => [
+                            'bold' => true,
+                            'color' => ['rgb' => '000000'],
+                        ],
+                        'alignment' => [
+                            'horizontal' => Alignment::HORIZONTAL_RIGHT,
+                        ],
+                ]);
+
+                $sheet->setCellValue('A2', 'Purchase Order Summary Report')
+                    ->mergeCells('A2:J2')
+                    ->getStyle('A2:J2')
+                    ->applyFromArray([
+                        'font' => [
+                            'bold' => true,
+                            'color' => ['rgb' => '000000'],
+                        ],
+                        'alignment' => [
+                            'horizontal' => Alignment::HORIZONTAL_CENTER,
+                        ],
+                ]);
+
+                $sheet->setCellValue('A3', date('h:i A'))
+                    ->mergeCells('A3:J3')
+                    ->getStyle('A3:J3')
+                    ->applyFromArray([
+                        'font' => [
+                            'bold' => true,
+                            'color' => ['rgb' => '000000'],
+                        ],
+                        'alignment' => [
+                            'horizontal' => Alignment::HORIZONTAL_RIGHT,
+                        ],
+                ]);
+
+                $sheet->setCellValue('A4', 'Budget')->getStyle('A4')->applyFromArray([
+                    'font'  => [
+                        'bold'  => true,
+                        'color' => ['rgb' => '000000']
+                    ]
+                ]);
+                $sheet->setCellValue('B4', ': ' . $dataHeader['budget']);
+            },
         ];
-
-        $sheet->getStyle('A1:K1')->applyFromArray($styleArrayHeader1);
-        $sheet->mergeCells('A1:K1');
-
-        $styleArrayHeader2 = [
-            'font' => [
-                'bold' => true,
-                'color' => [
-                    'rgb' => '000000',
-                ],
-            ],
-            'alignment' => [
-                'horizontal' => Alignment::HORIZONTAL_CENTER,
-            ],
-            'borders' => [
-                'allBorders' => [
-                    'borderStyle' => Border::BORDER_THIN,
-                ],
-            ],
-            'fill' => [
-                'fillType' => 'solid',
-                'rotation' => 0,
-                'color' => [
-                    'rgb' => 'E9ECEF',
-                ],
-            ],
-        ];
-
-        $sheet->getStyle('A3:K4')->applyFromArray($styleArrayHeader2);
-        $sheet->mergeCells('A3:A4');
-        $sheet->mergeCells('B3:B4');
-        $sheet->mergeCells('C3:C4');
-        $sheet->mergeCells('D3:D4');
-        $sheet->mergeCells('E3:F3');
-        $sheet->mergeCells('G3:H3');
-        $sheet->mergeCells('I3:I4');
-        $sheet->mergeCells('J3:J4');
-        $sheet->mergeCells('K3:K4');
-
-        $styleArrayContent = [
-            'borders' => [
-                'allBorders' => [
-                    'borderStyle' => Border::BORDER_THIN,
-                ],
-            ],
-            'alignment' => [
-                'horizontal' => Alignment::HORIZONTAL_LEFT,
-            ],
-        ];
-
-        $totalCell = count(Session::get("dataExcelReportPurchaseOrderSummary"));
-        $lastCell = 'A5:K' . ($totalCell + 4);
-        $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
     }
 }
