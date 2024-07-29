@@ -24,7 +24,7 @@ class ExportReportMaterialReturnDetail implements FromCollection, WithHeadings, 
             $collection->push(
                 [
                     $detail['no'],
-                    $detail['doNumber'],
+                    $detail['dorNumber'],
                     $detail['productId'],
                     $detail['qty'],
                     $detail['uom'],
@@ -52,7 +52,7 @@ class ExportReportMaterialReturnDetail implements FromCollection, WithHeadings, 
     {
         return [
             ["", "", "", "", "", ""],
-            ["No", "DO Number", "Product Id", "Qty", "Unit of Measure", "Remark"]
+            ["No", "DOR Number", "Product Id", "Qty", "UOM", "Remark"]
         ];
     }
 
@@ -110,7 +110,7 @@ class ExportReportMaterialReturnDetail implements FromCollection, WithHeadings, 
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('B4', ': ' . $dataHeader['number']);
+                $sheet->setCellValue('B4', ': ' . $dataHeader['mrNumber']);
 
                 $sheet->setCellValue('A5', 'Budget')->getStyle('A5')->applyFromArray([
                     'font'  => [
@@ -118,7 +118,7 @@ class ExportReportMaterialReturnDetail implements FromCollection, WithHeadings, 
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('B5', ': ' . $dataHeader['recordID']);
+                $sheet->setCellValue('B5', ': ' . $dataHeader['budget']);
 
                 $sheet->setCellValue('A6', 'Sub Budget')->getStyle('A6')->applyFromArray([
                     'font'  => [
@@ -126,7 +126,7 @@ class ExportReportMaterialReturnDetail implements FromCollection, WithHeadings, 
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('B6', ': ' . $dataHeader['businessDocumentType_RefID']);
+                $sheet->setCellValue('B6', ': ' . $dataHeader['subBudget']);
 
                 $sheet->setCellValue('A7', 'Date')->getStyle('A7')->applyFromArray([
                     'font'  => [
@@ -142,7 +142,7 @@ class ExportReportMaterialReturnDetail implements FromCollection, WithHeadings, 
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('D4', ': ' . 'VDR-2594 - Aman Jaya');
+                $sheet->setCellValue('D4', ': ' . $dataHeader['transporter']);
 
                 $sheet->setCellValue('C5', 'Delivery From')->getStyle('C5')->applyFromArray([
                     'font'  => [
@@ -150,7 +150,7 @@ class ExportReportMaterialReturnDetail implements FromCollection, WithHeadings, 
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('D5', ': ' . 'QDC');
+                $sheet->setCellValue('D5', ': ' . $dataHeader['deliveryFrom']);
 
                 $sheet->setCellValue('C6', 'Delivery To')->getStyle('C6')->applyFromArray([
                     'font'  => [
@@ -158,7 +158,7 @@ class ExportReportMaterialReturnDetail implements FromCollection, WithHeadings, 
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('D6', ': ' . 'Gudang Tigaraksa');
+                $sheet->setCellValue('D6', ': ' . $dataHeader['deliveryTo']);
 
                 $sheet->setCellValue('C7', 'PIC')->getStyle('C7')->applyFromArray([
                     'font'  => [
@@ -166,7 +166,7 @@ class ExportReportMaterialReturnDetail implements FromCollection, WithHeadings, 
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('D7', ': ' . 'PM');
+                $sheet->setCellValue('D7', ': ' . $dataHeader['PIC']);
             },
         ];
     }

@@ -35,7 +35,7 @@
                             </td>
                             <td style="height: 20px;">
                                 <div style="line-height: 14px;">
-                                    PR02-23000210
+                                    <?= $dataReport['dataHeader']['mrNumber']; ?>
                                 </div>
                             </td>
                         </tr>
@@ -56,7 +56,7 @@
                             </td>
                             <td style="height: 20px;">
                                 <div style="line-height: 14px;">
-                                    VDR-2594 - Aman Jaya
+                                    <?= $dataReport['dataHeader']['transporter']; ?>
                                 </div>
                             </td>
                         </tr>
@@ -78,7 +78,7 @@
                             </td>
                             <td style="height: 20px;">
                                 <div style="line-height: 14px;">
-                                    Q000195 - Civil Work Batch 2 Pembangunan Pabrik Smelter Feronikel Kolaka
+                                    <?= $dataReport['dataHeader']['budget']; ?>
                                 </div>
                             </td>
                         </tr>
@@ -99,7 +99,7 @@
                             </td>
                             <td style="height: 20px;">
                                 <div style="line-height: 14px;">
-                                    QDC
+                                    <?= $dataReport['dataHeader']['deliveryFrom']; ?>
                                 </div>
                             </td>
                         </tr>
@@ -121,7 +121,7 @@
                             </td>
                             <td style="height: 20px;">
                                 <div style="line-height: 14px;">
-                                    1000 - Overhead
+                                    <?= $dataReport['dataHeader']['subBudget']; ?>
                                 </div>
                             </td>
                         </tr>
@@ -142,7 +142,7 @@
                             </td>
                             <td style="height: 20px;">
                                 <div style="line-height: 14px;">
-                                    Gudang Tigaraksa
+                                    <?= $dataReport['dataHeader']['deliveryTo']; ?>
                                 </div>
                             </td>
                         </tr>
@@ -164,7 +164,7 @@
                             </td>
                             <td style="height: 20px;">
                                 <div style="line-height: 14px;">
-                                    11/15/2023
+                                    <?= $dataReport['dataHeader']['date']; ?>
                                 </div>
                             </td>
                         </tr>
@@ -185,7 +185,7 @@
                             </td>
                             <td style="height: 20px;">
                                 <div style="line-height: 14px;">
-                                    PM
+                                    <?= $dataReport['dataHeader']['PIC']; ?>
                                 </div>
                             </td>
                         </tr>
@@ -219,7 +219,7 @@
                 </td>
                 <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
                     <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-                        Unit of Measure
+                        UOM
                     </div>
                 </td>
                 <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
@@ -238,7 +238,7 @@
                     </td>
                     <td>
                         <div style="margin-top: 4px;">
-                            <?= $dataDetail['doNumber']; ?>
+                            <?= $dataDetail['dorNumber']; ?>
                         </div>
                     </td>
                     <td>
