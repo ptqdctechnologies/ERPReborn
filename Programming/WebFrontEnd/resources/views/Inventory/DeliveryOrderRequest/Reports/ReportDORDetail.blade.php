@@ -100,15 +100,15 @@
                                                     <table>
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>DOR Number&nbsp;</label></th>
-                                                            <td><?= $dataReport['dataHeader']['number']; ?></td>
+                                                            <td><?= $dataReport['dataHeader']['dorNumber']; ?></td>
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>Budget&nbsp;</label></th>
-                                                            <td><?= $dataReport['dataHeader']['recordID']; ?></td>
+                                                            <td><?= $dataReport['dataHeader']['budget']; ?></td>
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>Sub Budget&nbsp;</label></th>
-                                                            <td><?= $dataReport['dataHeader']['businessDocumentType_RefID']; ?></td>
+                                                            <td><?= $dataReport['dataHeader']['subBudget']; ?></td>
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>Date&nbsp;</label></th>
@@ -123,19 +123,19 @@
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>Delivery From&nbsp;</label></th>
                                                             <td>
-                                                                QDC
+                                                                <?= $dataReport['dataHeader']['deliveryFrom']; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>Delivery To&nbsp;</label></th>
                                                             <td>
-                                                                Gudang Tigaraksa
+                                                                <?= $dataReport['dataHeader']['deliveryTo']; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>PIC&nbsp;</label></th>
                                                             <td>
-                                                                PM
+                                                                <?= $dataReport['dataHeader']['PIC']; ?>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -153,7 +153,7 @@
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PR Number</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Product Id</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Qty</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Unit of Measure</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">UOM</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Remark</th>
                                                 </tr>
                                             </thead>
@@ -169,6 +169,16 @@
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>
+                                            <tfooter>
+                                                <tr>
+                                                    <th colspan="3" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: right;background-color:#4B586A;color:white;">Total</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                        <?= $dataReport['totalQty']; ?>
+                                                    </th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;"></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;"></th>
+                                                </tr>
+                                            </tfooter>
                                         </table>
                                     </div>
                                 </div>

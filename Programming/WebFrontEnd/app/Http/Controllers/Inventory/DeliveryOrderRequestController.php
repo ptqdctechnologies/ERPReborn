@@ -222,26 +222,38 @@ class DeliveryOrderRequestController extends Controller
             }
 
             $getData = $filteredArray['data'][0]['document'];
+            // dd($getData);
+
+            // DATA HEADER
+            $dataHeaders = [
+                'dorNumber'     => 'DOR01-23000004',
+                'budget'        => $getData['content']['general']['budget']['combinedBudgetCodeList'][0] . $getData['content']['general']['budget']['combinedBudgetNameList'][0],
+                'subBudget'     => $getData['content']['general']['budget']['combinedBudgetSectionCodeList'][0],
+                'date'          => $getData['header']['date'],
+                'deliveryFrom'  => "QDC",
+                'deliveryTo'    => 'Gudang Tigaraksa',
+                'PIC'           => 'admin.procurement',
+            ];
 
             $dataDetails = [];
             $i = 0;
             $totalQty = 0;
             foreach ($getData['content']['details']['itemList'] as $dataReports) {
-                $totalQty += $dataReports['entities']['quantity'];
+                $totalQty += $dataReports['entities']['quantity'] * rand(1, 100);
             
                 $dataDetails[$i]['no']         = $i + 1;
-                $dataDetails[$i]['prNumber']   = $dataReports['entities']['product_RefID'];
+                $dataDetails[$i]['prNumber']   = "PR" . $i + 1 . "-23000004";
                 $dataDetails[$i]['productId']  = $dataReports['entities']['priceCurrency_RefID'];
-                $dataDetails[$i]['qty']        = $dataReports['entities']['quantity'];
+                $dataDetails[$i]['qty']        = number_format($dataReports['entities']['quantity'] * rand(1, 100), 2, ',', '.');
                 $dataDetails[$i]['uom']        = 'Set';
                 $dataDetails[$i]['remark']     = $dataReports['entities']['quantityUnitName'];
                 $i++;
             }
 
             $compact = [
-                'dataHeader'    => $getData['header'],
+                'dataHeader'    => $dataHeaders,
                 'dataDetail'    => $dataDetails,
-                'totalQty'      => $totalQty
+                'totalQty'      => number_format($totalQty, 2, ',', '.'),
             ];
 
             Session::put("isButtonReportDORDetailSubmit", true);

@@ -35,7 +35,7 @@
                             </td>
                             <td style="height: 20px;">
                                 <div style="line-height: 14px;">
-                                    <?= $dataReport['dataHeader']['number']; ?>
+                                    <?= $dataReport['dataHeader']['dorNumber']; ?>
                                 </div>
                             </td>
                         </tr>
@@ -56,7 +56,7 @@
                             </td>
                             <td style="height: 20px;">
                                 <div style="line-height: 14px;">
-                                    QDC
+                                    <?= $dataReport['dataHeader']['deliveryFrom']; ?>
                                 </div>
                             </td>
                         </tr>
@@ -78,7 +78,7 @@
                             </td>
                             <td style="height: 20px;">
                                 <div style="line-height: 14px;">
-                                    <?= $dataReport['dataHeader']['recordID']; ?>
+                                    <?= $dataReport['dataHeader']['budget']; ?>
                                 </div>
                             </td>
                         </tr>
@@ -99,7 +99,7 @@
                             </td>
                             <td style="height: 20px;">
                                 <div style="line-height: 14px;">
-                                    Gudang Tigaraksa
+                                    <?= $dataReport['dataHeader']['deliveryTo']; ?>
                                 </div>
                             </td>
                         </tr>
@@ -121,7 +121,7 @@
                             </td>
                             <td style="height: 20px;">
                                 <div style="line-height: 14px;">
-                                    <?= $dataReport['dataHeader']['businessDocumentType_RefID']; ?>
+                                    <?= $dataReport['dataHeader']['subBudget']; ?>
                                 </div>
                             </td>
                         </tr>
@@ -142,7 +142,7 @@
                             </td>
                             <td style="height: 20px;">
                                 <div style="line-height: 14px;">
-                                    PM
+                                    <?= $dataReport['dataHeader']['PIC']; ?>
                                 </div>
                             </td>
                         </tr>
@@ -200,7 +200,7 @@
                 </td>
                 <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
                     <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-                        Unit of Measure
+                        UOM
                     </div>
                 </td>
                 <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
