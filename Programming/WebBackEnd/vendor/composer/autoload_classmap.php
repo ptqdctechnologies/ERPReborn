@@ -5457,6 +5457,7 @@ return array(
     'Illuminate\\Foundation\\Events\\MaintenanceModeDisabled' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Events/MaintenanceModeDisabled.php',
     'Illuminate\\Foundation\\Events\\MaintenanceModeEnabled' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Events/MaintenanceModeEnabled.php',
     'Illuminate\\Foundation\\Events\\PublishingStubs' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Events/PublishingStubs.php',
+    'Illuminate\\Foundation\\Events\\Terminating' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Events/Terminating.php',
     'Illuminate\\Foundation\\Events\\VendorTagPublished' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Events/VendorTagPublished.php',
     'Illuminate\\Foundation\\Exceptions\\Handler' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php',
     'Illuminate\\Foundation\\Exceptions\\RegisterErrorViewPaths' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Exceptions/RegisterErrorViewPaths.php',
