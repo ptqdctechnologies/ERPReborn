@@ -350,11 +350,11 @@ class PurchaseOrderController extends Controller
 
     public function PrintExportReportPurchaseOrderDetail(Request $request) {
         try {
-            $dataDetail = Session::get("dataReportPODetail");
+            $dataReport = Session::get("dataReportPODetail");
 
-            if ($dataDetail) {
+            if ($dataReport) {
                 if ($request->print_type == "PDF") {
-                    $pdf = PDF::loadView('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderDetail_pdf', compact('dataDetail'));
+                    $pdf = PDF::loadView('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderDetail_pdf', ['dataReport' => $dataReport]);
                     $pdf->setPaper('A4', 'portrait');
 
                     // Preview PDF
