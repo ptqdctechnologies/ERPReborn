@@ -5,7 +5,7 @@
 
     <style>
         @page {
-            margin: 100px 30px 100px 30px;
+            margin: 100px 30px 450px 30px;
         }
         header, footer {
             position: fixed;
@@ -26,7 +26,7 @@
         }
         body {
             margin-top: 20px;
-            padding-top: 250px;
+            padding-top: 240px;
         }
         main {
             background-color: lightblue;
@@ -211,7 +211,295 @@
     </header>
 
     <footer>
-        <div class="page-number"></div>
+        <!-- <div class="page-number"></div> -->
+
+        <!-- PAYMENT TERM -->
+        <table style="width: 100%; border: 1px solid black; margin-bottom: 16px;">
+            <td style="width: 60%; border: 1px solid black;">
+                <div style="padding-left: 4px;">
+                    <div style="vertical-align: top; line-height: 10px; font-size: 10px; font-weight: bold;">
+                        Payment Term :
+                    </div>
+                    <div style="vertical-align: top; line-height: 10px; font-size: 10px;">
+                        Cash 100% in advance
+                    </div>
+                </div>
+                <div style="padding-left: 4px; margin: 40px 0px;">
+                    <div style="vertical-align: top; line-height: 10px; font-size: 10px; font-weight: bold;">
+                        Remark :
+                    </div>
+                    <div style="vertical-align: top; line-height: 10px; font-size: 10px;">
+                        Material untuk pembangunan Site Office dan Site Storage
+                    </div>
+                </div>
+            </td>
+            <td style="border: 1px solid black;">
+                <table style="padding: 0px 4px;">
+                    <tr>
+                        <td style="line-height: 20px;width: 95px;">
+                            <div style="vertical-align: top; font-size: 12px; font-weight: bold;">
+                                Sub Total
+                            </div>
+                        </td>
+                        <td style="line-height: 20px; width: 95px;">
+                            <div style="vertical-align: top; font-size: 12px;">
+                                Rp.
+                            </div>
+                        </td>
+                        <td style="line-height: 20px; width: 95px;">
+                            <div style="vertical-align: top; font-size: 12px; text-align: right;">
+                                27,030,500.00
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="line-height: 20px;width: 95px;">
+                            <div style="vertical-align: top; font-size: 12px; font-weight: bold;">
+                                VAT 11 %
+                            </div>
+                        </td>
+                        <td style="line-height: 20px; width: 95px;">
+                            <div style="vertical-align: top; font-size: 12px;">
+                                Rp.
+                            </div>
+                        </td>
+                        <td style="line-height: 20px; width: 95px;">
+                            <div style="vertical-align: top; font-size: 12px; text-align: right;">
+                                0.00
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="line-height: 20px;width: 95px;">
+                            <div style="vertical-align: top; font-size: 12px; font-weight: bold;">
+                                Total
+                            </div>
+                        </td>
+                        <td style="line-height: 20px; width: 95px;">
+                            <div style="vertical-align: top; font-size: 12px;">
+                                Rp.
+                            </div>
+                        </td>
+                        <td style="line-height: 20px; width: 95px;">
+                            <div style="vertical-align: top; font-size: 12px; text-align: right;">
+                                27,030,500.00
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </table>
+
+        <!-- NOTE -->
+        <table>
+            <tr style="line-height: 15px;">
+                <td style="width: 40px;">
+                    <div style="font-size: 10px;">
+                        Note :
+                    </div>
+                </td>
+                <td>
+                    <div style="font-size: 10px;">
+                        - Purchase of hazardous chemicals must be attached MSDS (Material Safety Data Sheet)
+                    </div>
+                </td>
+            </tr>
+            <tr style="line-height: 15px;">
+                <td style="width: 40px;"></td>
+                <td>
+                    <div style="font-size: 10px;">
+                        - Price includes Indonesian withholding taxes and other applicate Indonesian
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <!-- APPROVAL -->
+        <table style="width: 100%; border-collapse: collapse; margin-top: 4px;">
+            <tr>
+                <td style="border: 1px solid black; width: 160px; height: 30px;">
+                    <div style="font-size: 12px; vertical-align: top; line-height: 30px;"> 
+                        Manager/PM Approval
+                    </div>
+                </td>
+                <td style="border: 1px solid black; width: 90px; height: 30px;">
+                    <div style="font-size: 10px; vertical-align: top; line-height: 30px;"> 
+                        marungkil
+                    </div>
+                </td>
+                <td style="border: 1px solid black; width: 190px; height: 30px;">
+                    <div style="font-size: 10px; vertical-align: top; line-height: 15px;"> 
+                        d76f3e28ca516277dd15a9d7c0d5e69d
+                    </div>
+                    <div style="font-size: 10px; vertical-align: top; line-height: 15px;"> 
+                        Date: 18 Jul 2024
+                    </div>
+                </td>
+                <td rowspan="5" style="vertical-align: top;">
+                    <div style="vertical-align: top; padding: 0px 8px;">
+                        <div style="text-align: center; font-weight: bold;">
+                            Approved by Director
+                        </div>
+                        <div style="margin-top: 24px;">
+                            <table style="width: 100%;">
+                                <td style="font-size: 8px; line-height: 15px; width: 40px;">
+                                    Digital Signature :
+                                </td>
+                                <td style="font-size: 8px; line-height: 15px; max-width: 30px; word-wrap: break-word;">
+                                    bb4ab83f16b88a54afd8523d667dba91
+                                </td>
+                            </table>
+                            <hr style="border: 1px solid black; margin: 8px 0px 2px 0px;" />
+                            <div style="text-align: center; line-height: 15px; font-size: 8px;">
+                                Redi
+                            </div>
+                            <div style="font-size: 10px;">
+                                Date: 22 Jul 2024
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td rowspan="5" style="vertical-align: top;">
+                    <div style="vertical-align: top; padding: 0 8px;">
+                        <div style="text-align: center; font-weight: bold;">
+                            Accepted by Vendor
+                        </div>
+                        <div style="margin-top: 24px;">
+                            <table style="width: 100%; visibility: hidden;">
+                                <td style="font-size: 8px; line-height: 15px; width: 40px;">
+                                    Digital Signature :
+                                </td>
+                                <td style="font-size: 8px; line-height: 15px; max-width: 30px; word-wrap: break-word;">
+                                    bb4ab83f16b88a54afd8523d667dba91
+                                </td>
+                            </table>
+                            <hr style="border: 1px solid black; margin: 8px 0px 2px 0px;" />
+                            <div style="text-align: center; line-height: 15px; font-size: 8px; visibility: hidden;">
+                                Redi
+                            </div>
+                            <div style="font-size: 10px;">
+                                Date: 22 Jul 2024
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="border: 1px solid black; width: 160px; height: 30px;">
+                    <div style="font-size: 12px; vertical-align: top; line-height: 30px;"> 
+                        Reviewed by P & C Mgr
+                    </div>
+                </td>
+                <td style="border: 1px solid black; width: 90px; height: 30px;">
+                    <div style="font-size: 10px; vertical-align: top; line-height: 30px;"> 
+                        emir
+                    </div>
+                </td>
+                <td style="border: 1px solid black; width: 190px; height: 30px;">
+                    <div style="font-size: 10px; vertical-align: top; line-height: 15px;"> 
+                        d76f3e28ca516277dd15a9d7c0d5e69d
+                    </div>
+                    <div style="font-size: 10px; vertical-align: top; line-height: 15px;"> 
+                        Date: 18 Jul 2024
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="border: 1px solid black; width: 160px; height: 30px;">
+                    <div style="font-size: 12px; vertical-align: top; line-height: 30px;"> 
+                        Related GM Approval
+                    </div>
+                </td>
+                <td style="border: 1px solid black; width: 90px; height: 30px;">
+                    <div style="font-size: 10px; vertical-align: top; line-height: 30px;"> 
+                        
+                    </div>
+                </td>
+                <td style="border: 1px solid black; width: 190px; height: 30px;">
+                    <div style="font-size: 10px; vertical-align: top; line-height: 15px;"> 
+                        d76f3e28ca516277dd15a9d7c0d5e69d
+                    </div>
+                    <div style="font-size: 10px; vertical-align: top; line-height: 15px;"> 
+                        Date: 18 Jul 2024
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="border: 1px solid black; width: 160px; height: 30px;">
+                    <div style="font-size: 12px; vertical-align: top; line-height: 30px;"> 
+                        Operations Director Approval
+                    </div>
+                </td>
+                <td style="border: 1px solid black; width: 90px; height: 30px;">
+                    <div style="font-size: 10px; vertical-align: top; line-height: 30px;"> 
+                        
+                    </div>
+                </td>
+                <td style="border: 1px solid black; width: 190px; height: 30px;">
+                    <div style="font-size: 10px; vertical-align: top; line-height: 15px;"> 
+                        d76f3e28ca516277dd15a9d7c0d5e69d
+                    </div>
+                    <div style="font-size: 10px; vertical-align: top; line-height: 15px;"> 
+                        Date: 18 Jul 2024
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="border: 1px solid black; width: 160px; height: 30px;">
+                    <div style="font-size: 12px; vertical-align: top; line-height: 30px;"> 
+                        Finance & Acc GM Approval
+                    </div>
+                </td>
+                <td style="border: 1px solid black; width: 90px; height: 30px;">
+                    <div style="font-size: 10px; vertical-align: top; line-height: 30px;"> 
+                        adhe.kurniawan
+                    </div>
+                </td>
+                <td style="border: 1px solid black; width: 190px; height: 30px;">
+                    <div style="font-size: 10px; vertical-align: top; line-height: 15px;"> 
+                        d76f3e28ca516277dd15a9d7c0d5e69d
+                    </div>
+                    <div style="font-size: 10px; vertical-align: top; line-height: 15px;"> 
+                        Date: 18 Jul 2024
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <!-- END -->
+        <table style="margin-top: 4px;">
+            <tr>
+                <div style="font-size: 12px; vertical-align: top; font-weight: bold; line-height: 15px; margin-bottom: 4px;"> 
+                    End of Purchase Order No
+                </div>
+            </tr>
+            <tr>
+                <div style="font-size: 8px; vertical-align: top; line-height: 15px;"> 
+                    - Supplier shall subject to the terms and conditions set forth on this PO General Terms and Conditions or Contract Condition and amendment if any
+                </div>
+            </tr>
+            <tr>
+                <div style="font-size: 8px; vertical-align: top; line-height: 15px;">
+                    - Supplier shall return the confirmation of acceptance by signature and title, this should be facsimile to Qdc at +62 21 79193333
+                </div>
+            </tr>
+            <tr>
+                <div style="font-size: 8px; vertical-align: top; line-height: 15px;">
+                    - Supplier shall PO reference number in every invoice submitted and shall attach the "Faktur Pajak" (Qdc NPWP : 02.194.081.2-058.000)
+                </div>
+            </tr>
+            <tr>
+                <div style="font-size: 8px; vertical-align: top; line-height: 15px;">
+                    - Supplier shall submit copy of PO, Material received report (if any), final BoQ(if any),FAT or BAST(if any) to Qdc otherwise it will be rejected
+                </div>
+            </tr>
+        </table>
     </footer>
 
     <main>
