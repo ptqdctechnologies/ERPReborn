@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    
     <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/adminlte.min.css') }}">
 
     <style>
@@ -21,27 +25,13 @@
         footer {
             bottom: -50px;
         }
-        .page-number:before {
-            content: "Page " counter(page);
-        }
         body {
             margin-top: 20px;
             padding-top: 240px;
         }
-        main {
+        /* main {
             background-color: lightblue;
-        }
-        table {
-            /* width: 100%; */
-            /* border-collapse: collapse; */
-        }
-        table, th, td {
-            /* border: 1px solid black; */
-        }
-        th, td {
-            /* padding: 8px; */
-            /* text-align: left; */
-        }
+        } */
     </style>
 </head>
 <body>
@@ -65,7 +55,7 @@
                 </td>
                 <td style="border: 1px solid black; width: 110px; height: 30px;">
                     <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px; font-weight: bold;">
-                        PO No
+                        Page No
                     </div>
                 </td>
                 <td rowspan="2">
@@ -75,7 +65,7 @@
             <tr>
                 <td style="border: 1px solid black; width: 110px; height: 30px;">
                     <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px;">
-                        PO01-24000006
+                        <?= $dataReport['dataHeader']['poNumber']; ?>
                     </div>
                 </td>
                 <td style="border: 1px solid black; width: 110px; height: 30px;">
@@ -85,12 +75,11 @@
                 </td>
                 <td style="border: 1px solid black; width: 110px; height: 30px;">
                     <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px;">
-                        12 Jan 2024
+                        <?= $dataReport['dataHeader']['date']; ?>
                     </div>
                 </td>
                 <td style="border: 1px solid black; width: 110px; height: 30px;">
                     <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px;">
-                        1 of 1
                     </div>
                 </td>
             </tr>
@@ -107,10 +96,10 @@
                                     Vendor :
                                 </div>
                                 <div style="vertical-align: top; font-size: 10px; height: 20px;">
-                                    M. Nasir
+                                    <?= $dataReport['dataHeader']['vendor']; ?>
                                 </div>
                                 <div style="vertical-align: top; font-size: 10px; line-height: 15px;">
-                                    Dusun Kenteng RT 002 RW 008 , Kenteng Kec Toroh G r o b o g a n T e l p : 0 8 1 2 6 6 5 2 3 4 1 9 F a x : - K A B U P A T E N G R O B O G A N
+                                    Dusun Kenteng RT 002 RW 008, Kenteng Kec Toroh Grobogan Telp: 081266523419 Fax: - KABUPATEN GROBOGAN
                                 </div>
                             </td>
                         </tr>
@@ -193,7 +182,7 @@
                 </td>
                 <td style="border: 1px solid black; height: 30px;">
                     <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px;">
-                        procurement.admin
+                        <?= $dataReport['dataHeader']['PIC']; ?>
                     </div>
                 </td>
                 <td style="border: 1px solid black; height: 30px;">
@@ -203,7 +192,7 @@
                 </td>
                 <td style="border: 1px solid black; height: 30px;">
                     <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px;">
-                        icha
+                        <?= $dataReport['dataHeader']['PIC']; ?>
                     </div>
                 </td>
             </tr>
@@ -211,8 +200,6 @@
     </header>
 
     <footer>
-        <!-- <div class="page-number"></div> -->
-
         <!-- PAYMENT TERM -->
         <table style="width: 100%; border: 1px solid black; margin-bottom: 16px;">
             <td style="width: 60%; border: 1px solid black;">
@@ -221,7 +208,7 @@
                         Payment Term :
                     </div>
                     <div style="vertical-align: top; line-height: 10px; font-size: 10px;">
-                        Cash 100% in advance
+                        <?= $dataReport['dataHeader']['paymentTerm']; ?>
                     </div>
                 </div>
                 <div style="padding-left: 4px; margin: 40px 0px;">
@@ -229,7 +216,7 @@
                         Remark :
                     </div>
                     <div style="vertical-align: top; line-height: 10px; font-size: 10px;">
-                        Material untuk pembangunan Site Office dan Site Storage
+                        <?= $dataReport['dataHeader']['remark']; ?>
                     </div>
                 </div>
             </td>
@@ -503,14 +490,207 @@
     </footer>
 
     <main>
-        <table>
-            @foreach($data['items'] as $item)
+        <table class="TableReportAdvanceSummary" style="width: 100%;" id="TableReportAdvanceSummary">
+            <tr style="border-top: 1px solid black; border-bottom: 1px solid black;">
+                <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 4px 0px;">
+                        No
+                    </div>
+                </td>
+                <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 4px 0px;">
+                        Transaction Number
+                    </div>
+                </td>
+                <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 4px 0px;">
+                        Qty
+                    </div>
+                </td>
+                <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 4px 0px;">
+                        Price
+                    </div>
+                </td>
+                <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 4px 0px;">
+                        UOM
+                    </div>
+                </td>
+                <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
+                    <table>
+                        <tr>
+                            <td colspan="2" style="text-align: center;">
+                                <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 8px 0px;">
+                                    Total IDR
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 4px 8px;">
+                                    With PPN
+                                </div>
+                            </td>
+                            <td>
+                                <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 4px 8px;">
+                                    Without PPN
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
+                    <table>
+                        <tr>
+                            <td colspan="2" style="text-align: center;">
+                                <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 8px 0px;">
+                                    Total Other Currency
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 4px 8px;">
+                                    With PPN
+                                </div>
+                            </td>
+                            <td>
+                                <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 4px 8px;">
+                                    Without PPN
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 4px 0px;">
+                        Currency
+                    </div>
+                </td>
+            </tr>
+
+            <?php foreach ($dataReport['dataDetail'] as $dataDetail) { ?>
                 <tr>
-                    <td>{{ $item['Header1'] }}</td>
-                    <td>{{ $item['Header2'] }}</td>
-                    <td>{{ $item['Header3'] }}</td>
+                    <td>
+                        <div style="margin-top: 4px;">
+                            <?= $dataDetail['no']; ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-top: 4px;">
+                            <?= $dataDetail['transactionNumber']; ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-top: 4px;">
+                            <?= $dataDetail['qty']; ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-top: 4px;">
+                            <?= $dataDetail['price']; ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-top: 4px;">
+                            <?= $dataDetail['uom']; ?>
+                        </div>
+                    </td>
+                    <td>
+                        <table style="width: 100%;">
+                            <tr>
+                                <td>
+                                    <div style="margin-top: 4px;">
+                                        <?= $dataDetail['totalIDRWithPPN']; ?>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="margin-top: 4px;">
+                                        <?= $dataDetail['totalIDRWithoutPPN']; ?>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table style="width: 100%;">
+                            <tr>
+                                <td>
+                                    <div style="margin-top: 4px;">
+                                        <?= $dataDetail['totalOtherCurrencyWithPPN']; ?>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="margin-top: 4px;">
+                                        <?= $dataDetail['totalOtherCurrencyWithPPN']; ?>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <div style="margin-top: 4px;">
+                            <?= $dataDetail['currency']; ?>
+                        </div>
+                    </td>
                 </tr>
-            @endforeach
+            <?php } ?>
+
+            <div style="height: 16px;"></div>
+
+            <tr style="border-top: 1px solid black;">
+                <td style="height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"></div>
+                </td>
+                <td style="height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">Total</div>
+                </td>
+                <td style="height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= $dataReport['totalQty']; ?></div>
+                </td>
+                <td style="height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= $dataReport['totalPrice']; ?></div>
+                </td>
+                <td style="height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"></div>
+                </td>
+                <td style="height: 20px;">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="height: 20px;">
+                                <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                                    <?= $dataReport['totalIDRWithPPN']; ?>
+                                </div>
+                            </td>
+                            <td style="height: 20px;">
+                                <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                                    <?= $dataReport['totalIDRWithoutPPN']; ?>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td style="height: 20px;">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="height: 20px;">
+                                <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                                    <?= $dataReport['totalOtherCurrencyWithPPN']; ?>
+                                </div>
+                            </td>
+                            <td style="height: 20px;">
+                                <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                                    <?= $dataReport['totalOtherCurrencyWithoutPPN']; ?>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td style="height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"></div>
+                </td>
+            </tr>
         </table>
     </main>
 </body>
