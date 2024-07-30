@@ -216,6 +216,8 @@ class MaterialReturnController extends Controller
                 false
             );
 
+            dd($filteredArray);
+
             if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
                 throw new \Exception('Data not found in the API response.');
             }
@@ -242,7 +244,7 @@ class MaterialReturnController extends Controller
             
                 $dataDetails[$i]['no']         = $i + 1;
                 $dataDetails[$i]['dorNumber']  = "DOR" . $i + 1 . "-23000004";
-                $dataDetails[$i]['productId']  = $dataReports['entities']['priceCurrency_RefID'];
+                $dataDetails[$i]['productId']  = $dataReports['entities']['product_RefID'] . " - " . $dataReports['entities']['productName'];
                 $dataDetails[$i]['qty']        = number_format($dataReports['entities']['quantity'] * rand(1, 100), 2, ',', '.');
                 $dataDetails[$i]['uom']        = 'Set';
                 $dataDetails[$i]['remark']     = $dataReports['entities']['quantityUnitName'];
