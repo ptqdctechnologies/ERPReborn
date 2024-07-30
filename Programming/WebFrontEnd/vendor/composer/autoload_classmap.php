@@ -908,8 +908,6 @@ return array(
     'App\\Http\\Controllers\\ExportExcel\\Inventory\\ExportReportMaterialReturnSummary' => $baseDir . '/app/Http/Controllers/ExportExcel/Inventory/ExportReportMaterialReturnSummary.php',
     'App\\Http\\Controllers\\ExportExcel\\Purchase\\ExportReportPurchaseOrderDetail' => $baseDir . '/app/Http/Controllers/ExportExcel/Purchase/ExportReportPurchaseOrderDetail.php',
     'App\\Http\\Controllers\\ExportExcel\\Purchase\\ExportReportPurchaseOrderSummary' => $baseDir . '/app/Http/Controllers/ExportExcel/Purchase/ExportReportPurchaseOrderSummary.php',
-    'App\\Http\\Controllers\\ExportExcel\\Purchase\\ExportReportPurchaseRequisitionDetail' => $baseDir . '/app/Http/Controllers/ExportExcel/Purchase/ExportReportPurchaseRequisitionDetail.php',
-    'App\\Http\\Controllers\\ExportExcel\\Purchase\\ExportReportPurchaseRequisitionSummary' => $baseDir . '/app/Http/Controllers/ExportExcel/Purchase/ExportReportPurchaseRequisitionSummary.php',
     'App\\Http\\Controllers\\Function\\FunctionController' => $baseDir . '/app/Http/Controllers/Function/FunctionController.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\HumanResource\\PieceMealController' => $baseDir . '/app/Http/Controllers/HumanResource/PieceMealController.php',

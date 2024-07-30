@@ -361,15 +361,159 @@ class PurchaseOrderController extends Controller
 
             if ($dataReport) {
                 if ($request->print_type == "PDF") {
-                    $pdf = PDF::loadView('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderDetail_pdf', ['dataReport' => $dataReport]);
-                    $pdf->output();
-                    $dom_pdf = $pdf->getDomPDF();
+                    // Path ke file HTML
+                    $data = [
+                        'items' => [
+                            ['Header1' => 'Data 1', 'Header2' => 'Data 2', 'Header3' => 'Data 3'],
+                            ['Header1' => 'Data 4', 'Header2' => 'Data 5', 'Header3' => 'Data 6'],
+                            ['Header1' => 'Data 7', 'Header2' => 'Data 8', 'Header3' => 'Data 9'],
+                            ['Header1' => 'Data 10', 'Header2' => 'Data 11', 'Header3' => 'Data 12'],
+                            ['Header1' => 'Data 1', 'Header2' => 'Data 2', 'Header3' => 'Data 3'],
+                            ['Header1' => 'Data 4', 'Header2' => 'Data 5', 'Header3' => 'Data 6'],
+                            ['Header1' => 'Data 7', 'Header2' => 'Data 8', 'Header3' => 'Data 9'],
+                            ['Header1' => 'Data 10', 'Header2' => 'Data 11', 'Header3' => 'Data 12'],
+                            ['Header1' => 'Data 1', 'Header2' => 'Data 2', 'Header3' => 'Data 3'],
+                            ['Header1' => 'Data 4', 'Header2' => 'Data 5', 'Header3' => 'Data 6'],
+                            ['Header1' => 'Data 7', 'Header2' => 'Data 8', 'Header3' => 'Data 9'],
+                            ['Header1' => 'Data 10', 'Header2' => 'Data 11', 'Header3' => 'Data 12'],
+                            ['Header1' => 'Data 1', 'Header2' => 'Data 2', 'Header3' => 'Data 3'],
+                            ['Header1' => 'Data 4', 'Header2' => 'Data 5', 'Header3' => 'Data 6'],
+                            ['Header1' => 'Data 7', 'Header2' => 'Data 8', 'Header3' => 'Data 9'],
+                            ['Header1' => 'Data 10', 'Header2' => 'Data 11', 'Header3' => 'Data 12'],
+                            ['Header1' => 'Data 1', 'Header2' => 'Data 2', 'Header3' => 'Data 3'],
+                            ['Header1' => 'Data 4', 'Header2' => 'Data 5', 'Header3' => 'Data 6'],
+                            ['Header1' => 'Data 7', 'Header2' => 'Data 8', 'Header3' => 'Data 9'],
+                            ['Header1' => 'Data 10', 'Header2' => 'Data 11', 'Header3' => 'Data 12'],
+                            ['Header1' => 'Data 1', 'Header2' => 'Data 2', 'Header3' => 'Data 3'],
+                            ['Header1' => 'Data 4', 'Header2' => 'Data 5', 'Header3' => 'Data 6'],
+                            ['Header1' => 'Data 7', 'Header2' => 'Data 8', 'Header3' => 'Data 9'],
+                            ['Header1' => 'Data 10', 'Header2' => 'Data 11', 'Header3' => 'Data 12'],
+                            ['Header1' => 'Data 1', 'Header2' => 'Data 2', 'Header3' => 'Data 3'],
+                            ['Header1' => 'Data 4', 'Header2' => 'Data 5', 'Header3' => 'Data 6'],
+                            ['Header1' => 'Data 7', 'Header2' => 'Data 8', 'Header3' => 'Data 9'],
+                            ['Header1' => 'Data 10', 'Header2' => 'Data 11', 'Header3' => 'Data 12'],
+                            ['Header1' => 'Data 1', 'Header2' => 'Data 2', 'Header3' => 'Data 3'],
+                            ['Header1' => 'Data 4', 'Header2' => 'Data 5', 'Header3' => 'Data 6'],
+                            ['Header1' => 'Data 7', 'Header2' => 'Data 8', 'Header3' => 'Data 9'],
+                            ['Header1' => 'Data 10', 'Header2' => 'Data 11', 'Header3' => 'Data 12'],
+                            ['Header1' => 'Data 1', 'Header2' => 'Data 2', 'Header3' => 'Data 3'],
+                            ['Header1' => 'Data 4', 'Header2' => 'Data 5', 'Header3' => 'Data 6'],
+                            ['Header1' => 'Data 7', 'Header2' => 'Data 8', 'Header3' => 'Data 9'],
+                            ['Header1' => 'Data 10', 'Header2' => 'Data 11', 'Header3' => 'Data 12'],
+                            ['Header1' => 'Data 1', 'Header2' => 'Data 2', 'Header3' => 'Data 3'],
+                            ['Header1' => 'Data 4', 'Header2' => 'Data 5', 'Header3' => 'Data 6'],
+                            ['Header1' => 'Data 7', 'Header2' => 'Data 8', 'Header3' => 'Data 9'],
+                            ['Header1' => 'Data 10', 'Header2' => 'Data 11', 'Header3' => 'Data 12'],
+                            ['Header1' => 'Data 1', 'Header2' => 'Data 2', 'Header3' => 'Data 3'],
+                            ['Header1' => 'Data 4', 'Header2' => 'Data 5', 'Header3' => 'Data 6'],
+                            ['Header1' => 'Data 7', 'Header2' => 'Data 8', 'Header3' => 'Data 9'],
+                            ['Header1' => 'Data 10', 'Header2' => 'Data 11', 'Header3' => 'Data 12'],
+                            ['Header1' => 'Data 1', 'Header2' => 'Data 2', 'Header3' => 'Data 3'],
+                            ['Header1' => 'Data 4', 'Header2' => 'Data 5', 'Header3' => 'Data 6'],
+                            ['Header1' => 'Data 7', 'Header2' => 'Data 8', 'Header3' => 'Data 9'],
+                            ['Header1' => 'Data 10', 'Header2' => 'Data 11', 'Header3' => 'Data 12'],
+                            ['Header1' => 'Data 1', 'Header2' => 'Data 2', 'Header3' => 'Data 3'],
+                            ['Header1' => 'Data 4', 'Header2' => 'Data 5', 'Header3' => 'Data 6'],
+                            ['Header1' => 'Data 7', 'Header2' => 'Data 8', 'Header3' => 'Data 9'],
+                            ['Header1' => 'Data 10', 'Header2' => 'Data 11', 'Header3' => 'Data 12'],
+                            ['Header1' => 'Data 1', 'Header2' => 'Data 2', 'Header3' => 'Data 3'],
+                            ['Header1' => 'Data 4', 'Header2' => 'Data 5', 'Header3' => 'Data 6'],
+                            ['Header1' => 'Data 7', 'Header2' => 'Data 8', 'Header3' => 'Data 9'],
+                            ['Header1' => 'Data 10', 'Header2' => 'Data 11', 'Header3' => 'Data 12'],
+                            ['Header1' => 'Data 1', 'Header2' => 'Data 2', 'Header3' => 'Data 3'],
+                            ['Header1' => 'Data 4', 'Header2' => 'Data 5', 'Header3' => 'Data 6'],
+                            ['Header1' => 'Data 7', 'Header2' => 'Data 8', 'Header3' => 'Data 9'],
+                            ['Header1' => 'Data 10', 'Header2' => 'Data 11', 'Header3' => 'Data 12'],
+                            ['Header1' => 'Data 1', 'Header2' => 'Data 2', 'Header3' => 'Data 3'],
+                            ['Header1' => 'Data 4', 'Header2' => 'Data 5', 'Header3' => 'Data 6'],
+                            ['Header1' => 'Data 7', 'Header2' => 'Data 8', 'Header3' => 'Data 9'],
+                            ['Header1' => 'Data 10', 'Header2' => 'Data 11', 'Header3' => 'Data 12'],
+                            ['Header1' => 'Data 1', 'Header2' => 'Data 2', 'Header3' => 'Data 3'],
+                            ['Header1' => 'Data 4', 'Header2' => 'Data 5', 'Header3' => 'Data 6'],
+                            ['Header1' => 'Data 7', 'Header2' => 'Data 8', 'Header3' => 'Data 9'],
+                            ['Header1' => 'Data 10', 'Header2' => 'Data 11', 'Header3' => 'Data 12'],
+                            ['Header1' => 'Data 1', 'Header2' => 'Data 2', 'Header3' => 'Data 3'],
+                            ['Header1' => 'Data 4', 'Header2' => 'Data 5', 'Header3' => 'Data 6'],
+                            ['Header1' => 'Data 7', 'Header2' => 'Data 8', 'Header3' => 'Data 9'],
+                            ['Header1' => 'Data 10', 'Header2' => 'Data 11', 'Header3' => 'Data 12'],
+                            ['Header1' => 'Data 1', 'Header2' => 'Data 2', 'Header3' => 'Data 3'],
+                            ['Header1' => 'Data 4', 'Header2' => 'Data 5', 'Header3' => 'Data 6'],
+                            ['Header1' => 'Data 7', 'Header2' => 'Data 8', 'Header3' => 'Data 9'],
+                            ['Header1' => 'Data 10', 'Header2' => 'Data 11', 'Header3' => 'Data 12'],
+                            ['Header1' => 'Data 1', 'Header2' => 'Data 2', 'Header3' => 'Data 3'],
+                            ['Header1' => 'Data 4', 'Header2' => 'Data 5', 'Header3' => 'Data 6'],
+                            ['Header1' => 'Data 7', 'Header2' => 'Data 8', 'Header3' => 'Data 9'],
+                            ['Header1' => 'Data 10', 'Header2' => 'Data 11', 'Header3' => 'Data 12'],
+                            ['Header1' => 'Data 1', 'Header2' => 'Data 2', 'Header3' => 'Data 3'],
+                            ['Header1' => 'Data 4', 'Header2' => 'Data 5', 'Header3' => 'Data 6'],
+                            ['Header1' => 'Data 7', 'Header2' => 'Data 8', 'Header3' => 'Data 9'],
+                            ['Header1' => 'Data 10', 'Header2' => 'Data 11', 'Header3' => 'Data 12'],
+                            ['Header1' => 'Data 1', 'Header2' => 'Data 2', 'Header3' => 'Data 3'],
+                            ['Header1' => 'Data 4', 'Header2' => 'Data 5', 'Header3' => 'Data 6'],
+                            ['Header1' => 'Data 7', 'Header2' => 'Data 8', 'Header3' => 'Data 9'],
+                            ['Header1' => 'Data 10', 'Header2' => 'Data 11', 'Header3' => 'Data 12'],
+                            ['Header1' => 'Data 1', 'Header2' => 'Data 2', 'Header3' => 'Data 3'],
+                            ['Header1' => 'Data 4', 'Header2' => 'Data 5', 'Header3' => 'Data 6'],
+                            ['Header1' => 'Data 7', 'Header2' => 'Data 8', 'Header3' => 'Data 9'],
+                            ['Header1' => 'Data 10', 'Header2' => 'Data 11', 'Header3' => 'Data 12'],
+                            ['Header1' => 'Data 1', 'Header2' => 'Data 2', 'Header3' => 'Data 3'],
+                            ['Header1' => 'Data 4', 'Header2' => 'Data 5', 'Header3' => 'Data 6'],
+                            ['Header1' => 'Data 7', 'Header2' => 'Data 8', 'Header3' => 'Data 9'],
+                            ['Header1' => 'Data 10', 'Header2' => 'Data 11', 'Header3' => 'Data 12'],
+                            ['Header1' => 'Data 1', 'Header2' => 'Data 2', 'Header3' => 'Data 3'],
+                            ['Header1' => 'Data 4', 'Header2' => 'Data 5', 'Header3' => 'Data 6'],
+                            ['Header1' => 'Data 7', 'Header2' => 'Data 8', 'Header3' => 'Data 9'],
+                            ['Header1' => 'Data 10', 'Header2' => 'Data 11', 'Header3' => 'Data 12'],
+                            ['Header1' => 'Data 1', 'Header2' => 'Data 2', 'Header3' => 'Data 3'],
+                            ['Header1' => 'Data 4', 'Header2' => 'Data 5', 'Header3' => 'Data 6'],
+                            ['Header1' => 'Data 7', 'Header2' => 'Data 8', 'Header3' => 'Data 9'],
+                            ['Header1' => 'Data 10', 'Header2' => 'Data 11', 'Header3' => 'Data 12'],
+                            ['Header1' => 'Data 1', 'Header2' => 'Data 2', 'Header3' => 'Data 3'],
+                            ['Header1' => 'Data 4', 'Header2' => 'Data 5', 'Header3' => 'Data 6'],
+                            ['Header1' => 'Data 7', 'Header2' => 'Data 8', 'Header3' => 'Data 9'],
+                            ['Header1' => 'Data 10', 'Header2' => 'Data 11', 'Header3' => 'Data 12'],
+                            ['Header1' => 'Data 1', 'Header2' => 'Data 2', 'Header3' => 'Data 3'],
+                            ['Header1' => 'Data 4', 'Header2' => 'Data 5', 'Header3' => 'Data 6'],
+                            ['Header1' => 'Data 7', 'Header2' => 'Data 8', 'Header3' => 'Data 9'],
+                            ['Header1' => 'Data 10', 'Header2' => 'Data 11', 'Header3' => 'Data 12'],
+                            ['Header1' => 'Data 1', 'Header2' => 'Data 2', 'Header3' => 'Data 3'],
+                            ['Header1' => 'Data 4', 'Header2' => 'Data 5', 'Header3' => 'Data 6'],
+                            ['Header1' => 'Data 7', 'Header2' => 'Data 8', 'Header3' => 'Data 9'],
+                            ['Header1' => 'Data 10', 'Header2' => 'Data 11', 'Header3' => 'Data 12'],
+                            ['Header1' => 'Data 1', 'Header2' => 'Data 2', 'Header3' => 'Data 3'],
+                            ['Header1' => 'Data 4', 'Header2' => 'Data 5', 'Header3' => 'Data 6'],
+                            ['Header1' => 'Data 7', 'Header2' => 'Data 8', 'Header3' => 'Data 9'],
+                            ['Header1' => 'Data 10', 'Header2' => 'Data 11', 'Header3' => 'Data 12'],
+                            // Tambahkan data lebih banyak agar terlihat di beberapa halaman
+                        ]
+                    ];
 
-                    $canvas = $dom_pdf ->get_canvas();
-                    $width = $canvas->get_width();
-                    $height = $canvas->get_height();
-                    $canvas->page_text($width - 85, 94, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
-                    $canvas->page_text($width / 2.5, $height - 20, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+                    $pdf = PDF::loadView('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderDetail_pdf', ['dataReport' => $dataReport, 'data' => $data]);
+                    // $pdf = PDF::loadView('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderDetail_pdf', ['data' => $data]);
+
+                    // Menambahkan script untuk header dan footer
+                    $pdf->getDomPDF()->getOptions()->setChroot(public_path());
+                    $pdf->getDomPDF()->set_option("isPhpEnabled", true);
+                    // $pdf->getDomPDF()->get_canvas()->page_script(function ($pageNumber, $pageCount, $canvas, $fontMetrics) {
+                    //     $header = '<header></header>';
+                    //     $footer = '<footer></footer>';
+                    //     $canvas->text(270, 770, $footer, $fontMetrics->getFont('helvetica'), 10);
+                    //     $canvas->text(270, 50, $header, $fontMetrics->getFont('helvetica'), 10);
+                    // });
+
+                    // Baca konten file HTML
+                    // $html = file_get_contents($path);
+                    // $pdf = PDF::loadHTML($html);
+                    // $pdf = PDF::loadView('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderDetail_pdf', ['dataReport' => $dataReport]);
+                    // $pdf->output();
+                    // $dom_pdf = $pdf->getDomPDF();
+
+                    // $canvas = $dom_pdf ->get_canvas();
+                    // $width = $canvas->get_width();
+                    // $height = $canvas->get_height();
+                    // $canvas->page_text()
+                    // $canvas->page_text($width - 85, 94, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    // $canvas->page_text($width / 2.5, $height - 20, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
                     // Preview PDF
                     // return $pdf->stream('Export_Report_Delivery_Order_Request_Detail.pdf');
