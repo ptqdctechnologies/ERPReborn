@@ -24,7 +24,7 @@ class ExportReportPurchaseOrderDetail implements FromCollection, WithHeadings, S
             $collection->push(
                 [
                     $detail['no'],
-                    $detail['transactionNumber'],
+                    $detail['productId'] . " - " . $detail['productName'],
                     $detail['qty'],
                     $detail['price'],
                     $detail['uom'],
@@ -42,7 +42,7 @@ class ExportReportPurchaseOrderDetail implements FromCollection, WithHeadings, S
                 '',
                 'Total',
                 $data['totalQty'],
-                $data['totalPrice'],
+                '',
                 '',
                 $data['totalIDRWithPPN'],
                 $data['totalIDRWithoutPPN'],
@@ -59,7 +59,7 @@ class ExportReportPurchaseOrderDetail implements FromCollection, WithHeadings, S
     {
         return [
             ["", "", "", "", "", "", "", "", "", ""],
-            ["No", "Transaction Number", "Qty", "Price", "UOM", "Total IDR", " ", "Total Other Currency", " ", "Currency"],
+            ["No", "Product Id", "Qty", "Price", "UOM", "Total IDR", " ", "Total Other Currency", " ", "Currency"],
             ["", "", "", "", "", "With PPN", "Without PPN", "With PPN", "Without PPN", ""],
         ];
     }
@@ -118,7 +118,7 @@ class ExportReportPurchaseOrderDetail implements FromCollection, WithHeadings, S
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('B4', ': ' . $dataHeader['budget']);
+                $sheet->setCellValue('B4', ': ' . $dataHeader['budget'] . " - " . $dataHeader['budgetName']);
 
                 $sheet->setCellValue('A5', 'PO Number')->getStyle('A5')->applyFromArray([
                     'font'  => [

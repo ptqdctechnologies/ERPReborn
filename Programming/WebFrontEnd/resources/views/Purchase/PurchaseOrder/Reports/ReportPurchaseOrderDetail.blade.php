@@ -31,7 +31,7 @@
                                                     <table>
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>Budget&nbsp;</label></th>
-                                                            <td><?= $dataReport['dataHeader']['budget']; ?></td>
+                                                            <td><?= $dataReport['dataHeader']['budget'] . " - " . $dataReport['dataHeader']['budgetName']; ?></td>
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>PO Number&nbsp;</label></th>
@@ -68,6 +68,10 @@
                                                             <td><?= $dataReport['dataHeader']['vendor']; ?></td>
                                                         </tr>
                                                         <tr>
+                                                            <th style="padding-top: 7px;"><label>Deliver to&nbsp;</label></th>
+                                                            <td><?= $dataReport['dataHeader']['deliver']; ?></td>
+                                                        </tr>
+                                                        <tr>
                                                             <th style="padding-top: 7px;"><label>Invoice to&nbsp;</label></th>
                                                             <td><?= $dataReport['dataHeader']['invoice']; ?></td>
                                                         </tr>
@@ -95,7 +99,8 @@
                                             <thead>
                                                 <tr>
                                                     <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
-                                                    <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Transaction Number</th>
+                                                    <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PR Number</th>
+                                                    <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Product Name</th>
                                                     <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Qty</th>
                                                     <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Price</th>
                                                     <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">UOM</th>
@@ -115,7 +120,8 @@
                                                 <?php foreach ($dataReport['dataDetail'] as $dataDetail) { ?>
                                                     <tr>
                                                         <td><?= $dataDetail['no']; ?></td>
-                                                        <td><?= $dataDetail['transactionNumber']; ?></td>
+                                                        <td><?= $dataDetail['prNumber']; ?></td>
+                                                        <td><?= $dataDetail['productId'] . " - " . $dataDetail['productName']; ?></td>
                                                         <td><?= $dataDetail['qty']; ?></td>
                                                         <td><?= $dataDetail['price']; ?></td>
                                                         <td><?= $dataDetail['uom']; ?></td>
@@ -129,13 +135,11 @@
                                             </tbody>
                                             <tfooter>
                                                 <tr>
-                                                    <th colspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: right;background-color:#4B586A;color:white;">Total</th>
+                                                    <th colspan="3" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: right;background-color:#4B586A;color:white;">Total</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                         <?= $dataReport['totalQty']; ?>
                                                     </th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                        <?= $dataReport['totalPrice']; ?>
-                                                    </th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;"></th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;"></th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                         <?= $dataReport['totalIDRWithPPN']; ?>
