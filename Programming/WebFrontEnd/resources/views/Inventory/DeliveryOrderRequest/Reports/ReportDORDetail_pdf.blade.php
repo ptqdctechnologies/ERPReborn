@@ -78,7 +78,7 @@
                             </td>
                             <td style="height: 20px;">
                                 <div style="line-height: 14px;">
-                                    <?= $dataReport['dataHeader']['budget']; ?>
+                                    <?= $dataReport['dataHeader']['budget'] . " - " . $dataReport['dataHeader']['budgetName']; ?>
                                 </div>
                             </td>
                         </tr>
@@ -224,7 +224,7 @@
                     </td>
                     <td>
                         <div style="margin-top: 4px;">
-                            <?= $dataDetail['productId']; ?>
+                            <?= $dataDetail['productId'] . " - " . $dataDetail['productName']; ?>
                         </div>
                     </td>
                     <td>

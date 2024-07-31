@@ -59,11 +59,6 @@
                 </td>
                 <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
                     <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-                        Budget Code
-                    </div>
-                </td>
-                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
                         Date
                     </div>
                 </td>
@@ -93,11 +88,6 @@
                     </td>
                     <td>
                         <div style="margin-top: 4px;">
-                            <?= $dataDetail['budgetCode']; ?>
-                        </div>
-                    </td>
-                    <td>
-                        <div style="margin-top: 4px;">
                             <?= $dataDetail['date']; ?>
                         </div>
                     </td>
@@ -117,9 +107,6 @@
             <div style="height: 16px;"></div>
 
             <tr style="border-top: 1px solid black;">
-                <td style="height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"></div>
-                </td>
                 <td style="height: 20px;">
                     <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"></div>
                 </td>
