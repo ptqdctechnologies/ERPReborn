@@ -88,11 +88,6 @@ class DeliveryOrderController extends Controller
             $i = 0;
             $total = 0;
             $totalOtherCurrency = 0;
-            // DATA DETAIL
-            $dataDetails = [];
-            $i = 0;
-            $total = 0;
-            $totalOtherCurrency = 0;
             foreach ($getData['content']['details']['itemList'] as $dataReports) {
                 $total              += $dataReports['entities']['quantity'];
                 $totalOtherCurrency += 0;
@@ -250,7 +245,7 @@ class DeliveryOrderController extends Controller
             
                 $dataDetails[$i]['no']          = $i + 1;
                 $dataDetails[$i]['dorNumber']   = "DOR1-23000004";
-                $dataDetails[$i]['productId']   = $dataReports['entities']['priceCurrency_RefID'];
+                $dataDetails[$i]['productId']   = $dataReports['entities']['product_RefID'];
                 $dataDetails[$i]['productName'] = $dataReports['entities']['productName'];
                 $dataDetails[$i]['qty']         = number_format($dataReports['entities']['quantity'], 2, ',', '.');
                 $dataDetails[$i]['uom']         = 'Set';

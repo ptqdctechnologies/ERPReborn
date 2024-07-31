@@ -25,7 +25,6 @@ class ExportReportMaterialReturnSummary implements FromCollection, WithHeadings,
                 [
                     $detail['no'],
                     $detail['DORNumber'],
-                    $detail['budgetCode'],
                     $detail['date'],
                     $detail['total'],
                     $detail['totalOtherCurrency'],
@@ -35,7 +34,6 @@ class ExportReportMaterialReturnSummary implements FromCollection, WithHeadings,
 
         $collection->push(
             [
-                '',
                 '',
                 '',
                 'Total',
@@ -50,8 +48,8 @@ class ExportReportMaterialReturnSummary implements FromCollection, WithHeadings,
     public function headings(): array
     {
         return [
-            ["", "", "", "", "", ""],
-            ["No", "DOR Number", "Budget Code", "Date", "Total", "Total Other Currency"]
+            ["", "", "", "", ""],
+            ["No", "DOR Number", "Date", "Total IDR", "Total Other Currency"]
         ];
     }
 
