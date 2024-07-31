@@ -3147,8 +3147,6 @@ return array(
     'Aws\\MigrationHubStrategyRecommendations\\MigrationHubStrategyRecommendationsClient' => $vendorDir . '/aws/aws-sdk-php/src/MigrationHubStrategyRecommendations/MigrationHubStrategyRecommendationsClient.php',
     'Aws\\MigrationHub\\Exception\\MigrationHubException' => $vendorDir . '/aws/aws-sdk-php/src/MigrationHub/Exception/MigrationHubException.php',
     'Aws\\MigrationHub\\MigrationHubClient' => $vendorDir . '/aws/aws-sdk-php/src/MigrationHub/MigrationHubClient.php',
-    'Aws\\Mobile\\Exception\\MobileException' => $vendorDir . '/aws/aws-sdk-php/src/Mobile/Exception/MobileException.php',
-    'Aws\\Mobile\\MobileClient' => $vendorDir . '/aws/aws-sdk-php/src/Mobile/MobileClient.php',
     'Aws\\MockHandler' => $vendorDir . '/aws/aws-sdk-php/src/MockHandler.php',
     'Aws\\MonitoringEventsInterface' => $vendorDir . '/aws/aws-sdk-php/src/MonitoringEventsInterface.php',
     'Aws\\MultiRegionClient' => $vendorDir . '/aws/aws-sdk-php/src/MultiRegionClient.php',
