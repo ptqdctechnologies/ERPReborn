@@ -25,7 +25,7 @@ class ExportReportDODetail implements FromCollection, WithHeadings, ShouldAutoSi
                 [
                     $detail['no'],
                     $detail['dorNumber'],
-                    $detail['productId'],
+                    $detail['productId'] . " - " . $detail['productName'],
                     $detail['qty'],
                     $detail['uom'],
                     $detail['remark'],
@@ -37,7 +37,7 @@ class ExportReportDODetail implements FromCollection, WithHeadings, ShouldAutoSi
             [
                 '',
                 '',
-                'Total Qty',
+                'Total',
                 $data['totalQty'],
                 '',
                 '',
@@ -118,7 +118,7 @@ class ExportReportDODetail implements FromCollection, WithHeadings, ShouldAutoSi
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('B5', ': ' . $dataHeader['budget']);
+                $sheet->setCellValue('B5', ': ' . $dataHeader['budget'] . " - " . $dataHeader['budgetName']);
 
                 $sheet->setCellValue('A6', 'Sub Budget')->getStyle('A6')->applyFromArray([
                     'font'  => [

@@ -49,7 +49,7 @@ class ExportReportDORSummary implements FromCollection, WithHeadings, ShouldAuto
     {
         return [
             ["", "", "", "", ""],
-            ["No", "DOR Number", "Date", "Total", "Total Other Currency"]
+            ["No", "DOR Number", "Date", "Total IDR", "Total Other Currency"]
         ];
     }
 

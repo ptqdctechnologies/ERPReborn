@@ -94,15 +94,15 @@ class DeliveryOrderController extends Controller
             $total = 0;
             $totalOtherCurrency = 0;
             foreach ($getData['content']['details']['itemList'] as $dataReports) {
-                $total              += $dataReports['entities']['quantity'] * rand(0, 9000);
-                $totalOtherCurrency += $dataReports['entities']['quantity'] * rand(0, 9000);
+                $total              += $dataReports['entities']['quantity'];
+                $totalOtherCurrency += 0;
             
                 $dataDetails[$i]['no']                  = $i + 1;
-                $dataDetails[$i]['DONumber']           = $dataReports['entities']['product_RefID'];
+                $dataDetails[$i]['DONumber']            = "DO01-23000004";
                 $dataDetails[$i]['budgetCode']          = $getData['content']['general']['budget']['combinedBudgetCodeList'][0];
                 $dataDetails[$i]['date']                = $getData['header']['date'];
-                $dataDetails[$i]['total']               = number_format($dataReports['entities']['quantity'] * rand(0, 9000), 2, ',', '.');
-                $dataDetails[$i]['totalOtherCurrency']  = number_format($dataReports['entities']['quantity'] * rand(0, 8000), 2, ',', '.');
+                $dataDetails[$i]['total']               = number_format($dataReports['entities']['quantity'], 2, ',', '.');
+                $dataDetails[$i]['totalOtherCurrency']  = number_format(0, 2, ',', '.');
                 $i++;
             }
 
@@ -168,8 +168,8 @@ class DeliveryOrderController extends Controller
                     $canvas = $dom_pdf ->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
-                    $canvas->page_text($width - 85, 94, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
-                    $canvas->page_text($width / 2.5, $height - 20, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
     
                     return $pdf->download('Export Report Delivery Order Summary.pdf');
                 } else {
@@ -231,8 +231,9 @@ class DeliveryOrderController extends Controller
 
             // DATA HEADER
             $dataHeaders = [
-                'doNumber'      => 'DO01-23000004',
-                'budget'        => $getData['content']['general']['budget']['combinedBudgetCodeList'][0] . $getData['content']['general']['budget']['combinedBudgetNameList'][0],
+                'doNumber'      => 'DO01-53000004',
+                'budget'        => $getData['content']['general']['budget']['combinedBudgetCodeList'][0],
+                'budgetName'    => $getData['content']['general']['budget']['combinedBudgetNameList'][0],
                 'subBudget'     => $getData['content']['general']['budget']['combinedBudgetSectionCodeList'][0],
                 'date'          => $getData['header']['date'],
                 'transporter'   => "VDR-2594 - Aman Jaya",
@@ -245,14 +246,15 @@ class DeliveryOrderController extends Controller
             $i = 0;
             $totalQty = 0;
             foreach ($getData['content']['details']['itemList'] as $dataReports) {
-                $totalQty += $dataReports['entities']['quantity'] * rand(1, 100);
+                $totalQty += $dataReports['entities']['quantity'];
             
-                $dataDetails[$i]['no']         = $i + 1;
-                $dataDetails[$i]['dorNumber']  = "DOR" . $i + 1 . "-23000004";
-                $dataDetails[$i]['productId']  = $dataReports['entities']['priceCurrency_RefID'];
-                $dataDetails[$i]['qty']        = number_format($dataReports['entities']['quantity'] * rand(1, 100), 2, ',', '.');
-                $dataDetails[$i]['uom']        = 'Set';
-                $dataDetails[$i]['remark']     = $dataReports['entities']['quantityUnitName'];
+                $dataDetails[$i]['no']          = $i + 1;
+                $dataDetails[$i]['dorNumber']   = "DOR1-23000004";
+                $dataDetails[$i]['productId']   = $dataReports['entities']['priceCurrency_RefID'];
+                $dataDetails[$i]['productName'] = $dataReports['entities']['productName'];
+                $dataDetails[$i]['qty']         = number_format($dataReports['entities']['quantity'], 2, ',', '.');
+                $dataDetails[$i]['uom']         = 'Set';
+                $dataDetails[$i]['remark']      = $dataReports['entities']['quantityUnitName'];
                 $i++;
             }
 
@@ -311,8 +313,8 @@ class DeliveryOrderController extends Controller
                     $canvas = $dom_pdf ->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
-                    $canvas->page_text($width - 85, 94, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
-                    $canvas->page_text($width / 2.5, $height - 20, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
     
                     return $pdf->download('Export Report Delivery Order Detail.pdf');
                 } else {

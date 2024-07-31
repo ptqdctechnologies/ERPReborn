@@ -162,8 +162,8 @@ class DeliveryOrderRequestController extends Controller
                     $canvas = $dom_pdf ->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
-                    $canvas->page_text(34, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
-                    $canvas->page_text($width - 198, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
     
                     return $pdf->download('Export Report Delivery Order Request Summary.pdf');
                 } else {
@@ -305,8 +305,8 @@ class DeliveryOrderRequestController extends Controller
                     $canvas = $dom_pdf ->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
-                    $canvas->page_text(34, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
-                    $canvas->page_text($width - 198, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
                     return $pdf->download('Export Report Delivery Order Request Detail.pdf');
                 } else {
