@@ -177,12 +177,19 @@ class PurchaseOrderController extends Controller
 
     public function PrintExportReportPurchaseOrderSummary(Request $request) {
         try {
-            $dataDetail = Session::get("dataReportPurchaseOrderSummary");
+            $dataReport = Session::get("dataReportPurchaseOrderSummary");
 
-            if ($dataDetail) {
+            if ($dataReport) {
                 if ($request->print_type == "PDF") {
-                    $pdf = PDF::loadView('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderSummary_pdf', compact('dataDetail'));
-                    $pdf->setPaper('A4', 'portrait');
+                    $pdf = PDF::loadView('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderSummary_pdf', ['dataReport' => $dataReport]);
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
+
+                    $canvas = $dom_pdf ->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 85, 94, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text($width / 2.5, $height - 20, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
                     // Preview PDF
                     // return $pdf->stream('Export_Report_Delivery_Order_Request_Detail.pdf');
@@ -350,12 +357,25 @@ class PurchaseOrderController extends Controller
 
     public function PrintExportReportPurchaseOrderDetail(Request $request) {
         try {
-            $dataDetail = Session::get("dataReportPODetail");
+            $dataReport = Session::get("dataReportPODetail");
 
-            if ($dataDetail) {
+            if ($dataReport) {
                 if ($request->print_type == "PDF") {
-                    $pdf = PDF::loadView('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderDetail_pdf', compact('dataDetail'));
-                    $pdf->setPaper('A4', 'portrait');
+                    $pdf = PDF::loadView('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderDetail_pdf', ['dataReport' => $dataReport]);
+                    $pdf->output();
+
+                    // Menambahkan script untuk header dan footer
+                    $pdf->getDomPDF()->getOptions()->setChroot(public_path());
+                    $pdf->getDomPDF()->set_option("isPhpEnabled", true);
+
+                    $dom_pdf = $pdf->getDomPDF();
+
+                    $canvas = $dom_pdf->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+
+                    $canvas->page_text($width / 2 + 12, 47, "{PAGE_NUM} of {PAGE_COUNT}", null, 8, array(0, 0, 0));
+                    // $canvas->page_text($width / 2.5, $height - 20, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
                     // Preview PDF
                     // return $pdf->stream('Export_Report_Delivery_Order_Request_Detail.pdf');

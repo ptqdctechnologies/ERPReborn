@@ -28,15 +28,15 @@
                                                     <table>
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>DO Number&nbsp;</label></th>
-                                                            <td><?= $dataReport['dataHeader']['number']; ?></td>
+                                                            <td><?= $dataReport['dataHeader']['doNumber']; ?></td>
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>Budget&nbsp;</label></th>
-                                                            <td><?= $dataReport['dataHeader']['recordID']; ?></td>
+                                                            <td><?= $dataReport['dataHeader']['budget']; ?></td>
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>Sub Budget&nbsp;</label></th>
-                                                            <td><?= $dataReport['dataHeader']['businessDocumentType_RefID']; ?></td>
+                                                            <td><?= $dataReport['dataHeader']['subBudget']; ?></td>
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>Date&nbsp;</label></th>
@@ -51,25 +51,25 @@
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>Transporter&nbsp;</label></th>
                                                             <td>
-                                                                VDR-2594 - Aman Jaya
+                                                                <?= $dataReport['dataHeader']['transporter']; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>Delivery From&nbsp;</label></th>
                                                             <td>
-                                                                Qdc
+                                                                <?= $dataReport['dataHeader']['deliveryFrom']; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>Delivery To&nbsp;</label></th>
                                                             <td>
-                                                                Gudang Tigaraksa
+                                                                <?= $dataReport['dataHeader']['deliveryTo']; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>PIC&nbsp;</label></th>
                                                             <td>
-                                                                PM
+                                                                <?= $dataReport['dataHeader']['PIC']; ?>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -82,10 +82,10 @@
                                             <thead>
                                                 <tr>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">DO Number</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">DOR Number</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Product Id</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Qty</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Unit of Measure</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">UOM</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Remark</th>
                                                 </tr>
                                             </thead>
@@ -93,7 +93,7 @@
                                                 <?php foreach ($dataReport['dataDetail'] as $dataDetail) { ?>
                                                     <tr>
                                                         <td><?= $dataDetail['no']; ?></td>
-                                                        <td><?= $dataDetail['doNumber']; ?></td>
+                                                        <td><?= $dataDetail['dorNumber']; ?></td>
                                                         <td><?= $dataDetail['productId']; ?></td>
                                                         <td><?= $dataDetail['qty']; ?></td>
                                                         <td><?= $dataDetail['uom'] ?></td>
@@ -101,16 +101,14 @@
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>
-                                            <!-- <tfooter>
+                                            <tfooter>
                                                 <tr>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;"></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;"></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total Qty</th>
+                                                    <th colspan="3" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: right;background-color:#4B586A;color:white;">Total</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;"><?= $dataReport['totalQty']; ?></th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;"></th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;"></th>
                                                 </tr>
-                                            </tfooter> -->
+                                            </tfooter>
                                         </table>
                                     </div>
                                 </div>

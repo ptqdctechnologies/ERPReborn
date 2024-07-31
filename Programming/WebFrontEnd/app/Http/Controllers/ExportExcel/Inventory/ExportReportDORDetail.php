@@ -52,7 +52,7 @@ class ExportReportDORDetail implements FromCollection, WithHeadings, ShouldAutoS
     {
         return [
             ["", "", "", "", "", ""],
-            ["No", "PR Number", "Product Id", "Qty", "Unit of Measure", "Remark"]
+            ["No", "PR Number", "Product Id", "Qty", "UOM", "Remark"]
         ];
     }
 
@@ -110,7 +110,7 @@ class ExportReportDORDetail implements FromCollection, WithHeadings, ShouldAutoS
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('B4', ': ' . $dataHeader['number']);
+                $sheet->setCellValue('B4', ': ' . $dataHeader['dorNumber']);
 
                 $sheet->setCellValue('A5', 'Budget')->getStyle('A5')->applyFromArray([
                     'font'  => [
@@ -118,7 +118,7 @@ class ExportReportDORDetail implements FromCollection, WithHeadings, ShouldAutoS
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('B5', ': ' . $dataHeader['recordID']);
+                $sheet->setCellValue('B5', ': ' . $dataHeader['budget']);
 
                 $sheet->setCellValue('A6', 'Sub Budget')->getStyle('A6')->applyFromArray([
                     'font'  => [
@@ -126,7 +126,7 @@ class ExportReportDORDetail implements FromCollection, WithHeadings, ShouldAutoS
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('B6', ': ' . $dataHeader['businessDocumentType_RefID']);
+                $sheet->setCellValue('B6', ': ' . $dataHeader['subBudget']);
 
                 $sheet->setCellValue('A7', 'Date')->getStyle('A7')->applyFromArray([
                     'font'  => [
@@ -142,7 +142,7 @@ class ExportReportDORDetail implements FromCollection, WithHeadings, ShouldAutoS
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('D4', ': ' . 'QDC');
+                $sheet->setCellValue('D4', ': ' . $dataHeader['deliveryFrom']);
 
                 $sheet->setCellValue('C5', 'Delivery To')->getStyle('C5')->applyFromArray([
                     'font'  => [
@@ -150,7 +150,7 @@ class ExportReportDORDetail implements FromCollection, WithHeadings, ShouldAutoS
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('D5', ': ' . 'Gudang Tigaraksa');
+                $sheet->setCellValue('D5', ': ' . $dataHeader['deliveryTo']);
 
                 $sheet->setCellValue('C6', 'PIC')->getStyle('C6')->applyFromArray([
                     'font'  => [
@@ -158,7 +158,7 @@ class ExportReportDORDetail implements FromCollection, WithHeadings, ShouldAutoS
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('D6', ': ' . 'PM');
+                $sheet->setCellValue('D6', ': ' . $dataHeader['PIC']);
             },
         ];
     }
