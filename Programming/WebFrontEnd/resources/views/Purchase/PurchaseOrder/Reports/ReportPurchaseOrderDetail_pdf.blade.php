@@ -62,6 +62,7 @@
                     <img src="{{ url('/image/qdc.png') }}" alt="qdc" height="50" style="margin-left: 10px;" />
                 </td>
             </tr>
+
             <tr>
                 <td style="border: 1px solid black; width: 110px; height: 30px;">
                     <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px;">
@@ -70,7 +71,7 @@
                 </td>
                 <td style="border: 1px solid black; width: 110px; height: 30px;">
                     <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px;">
-                        null
+                        <?= $dataReport['dataHeader']['revision']; ?>
                     </div>
                 </td>
                 <td style="border: 1px solid black; width: 110px; height: 30px;">
@@ -172,12 +173,12 @@
             <tr>
                 <td style="border: 1px solid black; height: 30px;">
                     <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px;">
-                        Q000197
+                        <?= $dataReport['dataHeader']['budget']; ?>
                     </div>
                 </td>
                 <td style="border: 1px solid black; height: 30px;">
                     <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px;">
-                        Project
+                        <?= $dataReport['dataHeader']['budgetName']; ?>
                     </div>
                 </td>
                 <td style="border: 1px solid black; height: 30px;">
@@ -187,7 +188,7 @@
                 </td>
                 <td style="border: 1px solid black; height: 30px;">
                     <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px;">
-                        18 Jul 2024
+                        <?= $dataReport['dataHeader']['date']; ?>
                     </div>
                 </td>
                 <td style="border: 1px solid black; height: 30px;">
@@ -343,7 +344,7 @@
                                 Redi
                             </div>
                             <div style="font-size: 10px;">
-                                Date: 22 Jul 2024
+                                Date: <?= date('j F Y'); ?>
                             </div>
                         </div>
                     </div>
@@ -367,7 +368,7 @@
                                 Redi
                             </div>
                             <div style="font-size: 10px;">
-                                Date: 22 Jul 2024
+                                Date: <?= date('j F Y'); ?>
                             </div>
                         </div>
                     </div>
@@ -499,7 +500,7 @@
                 </td>
                 <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
                     <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 4px 0px;">
-                        Transaction Number
+                        Product Id
                     </div>
                 </td>
                 <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
@@ -578,8 +579,8 @@
                         </div>
                     </td>
                     <td>
-                        <div style="margin-top: 4px;">
-                            <?= $dataDetail['transactionNumber']; ?>
+                        <div style="margin-top: 4px; max-width: 125px;">
+                            <?= $dataDetail['productId'] . " - " . $dataDetail['productName']; ?>
                         </div>
                     </td>
                     <td>
@@ -637,7 +638,7 @@
                 </tr>
             <?php } ?>
 
-            <div style="height: 16px;"></div>
+            <!-- <div style="height: 16px;"></div>
 
             <tr style="border-top: 1px solid black;">
                 <td style="height: 20px;">
@@ -647,10 +648,10 @@
                     <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">Total</div>
                 </td>
                 <td style="height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= $dataReport['totalQty']; ?></div>
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?php $dataReport['totalQty']; ?></div>
                 </td>
                 <td style="height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= $dataReport['totalPrice']; ?></div>
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"></div>
                 </td>
                 <td style="height: 20px;">
                     <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"></div>
@@ -690,7 +691,7 @@
                 <td style="height: 20px;">
                     <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"></div>
                 </td>
-            </tr>
+            </tr> -->
         </table>
     </main>
 </body>

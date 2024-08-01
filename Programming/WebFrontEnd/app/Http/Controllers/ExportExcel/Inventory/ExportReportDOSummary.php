@@ -25,7 +25,6 @@ class ExportReportDOSummary implements FromCollection, WithHeadings, ShouldAutoS
                 [
                     $detail['no'],
                     $detail['DONumber'],
-                    $detail['budgetCode'],
                     $detail['date'],
                     $detail['total'],
                     $detail['totalOtherCurrency'],
@@ -35,7 +34,6 @@ class ExportReportDOSummary implements FromCollection, WithHeadings, ShouldAutoS
 
         $collection->push(
             [
-                '',
                 '',
                 '',
                 'Total',
@@ -51,7 +49,7 @@ class ExportReportDOSummary implements FromCollection, WithHeadings, ShouldAutoS
     {
         return [
             ["", "", "", "", "", ""],
-            ["No", "DO Number", "Budget Code", "Date", "Total", "Total Other Currency"]
+            ["No", "DO Number", "Date", "Total IDR", "Total Other Currency"]
         ];
     }
 

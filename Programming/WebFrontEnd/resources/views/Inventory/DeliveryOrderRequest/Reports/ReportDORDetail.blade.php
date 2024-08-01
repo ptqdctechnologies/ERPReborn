@@ -104,7 +104,7 @@
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>Budget&nbsp;</label></th>
-                                                            <td><?= $dataReport['dataHeader']['budget']; ?></td>
+                                                            <td><?= $dataReport['dataHeader']['budget'] . " - " . $dataReport['dataHeader']['budgetName']; ?></td>
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>Sub Budget&nbsp;</label></th>
@@ -162,7 +162,7 @@
                                                     <tr>
                                                         <td><?= $dataDetail['no']; ?></td>
                                                         <td><?= $dataDetail['prNumber']; ?></td>
-                                                        <td><?= $dataDetail['productId']; ?></td>
+                                                        <td><?= $dataDetail['productId'] . " - " . $dataDetail['productName']; ?></td>
                                                         <td><?= $dataDetail['qty']; ?></td>
                                                         <td><?= $dataDetail['uom'] ?></td>
                                                         <td><?= $dataDetail['remark'] ?></td>

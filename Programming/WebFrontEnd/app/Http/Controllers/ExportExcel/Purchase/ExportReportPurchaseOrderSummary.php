@@ -24,7 +24,7 @@ class ExportReportPurchaseOrderSummary implements FromCollection, WithHeadings, 
             $collection->push(
                 [
                     $detail['no'],
-                    $detail['transactionNumber'],
+                    $detail['productId'] . " - " . $detail['productName'],
                     $detail['qty'],
                     $detail['price'],
                     $detail['uom'],
@@ -42,7 +42,7 @@ class ExportReportPurchaseOrderSummary implements FromCollection, WithHeadings, 
                 '',
                 'Total',
                 $data['totalQty'],
-                $data['totalPrice'],
+                '',
                 '',
                 $data['totalIDRWithPPN'],
                 $data['totalIDRWithoutPPN'],
@@ -59,7 +59,7 @@ class ExportReportPurchaseOrderSummary implements FromCollection, WithHeadings, 
     {
         return [
             ["", "", "", "", "", "", "", "", "", ""],
-            ["No", "Transaction Number", "Qty", "Price", "UOM", "Total IDR", " ", "Total Other Currency", " ", "Currency"],
+            ["No", "Product Id", "Qty", "Price", "UOM", "Total IDR", " ", "Total Other Currency", " ", "Currency"],
             ["", "", "", "", "", "With PPN", "Without PPN", "With PPN", "Without PPN", ""],
         ];
     }
@@ -118,7 +118,7 @@ class ExportReportPurchaseOrderSummary implements FromCollection, WithHeadings, 
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('B4', ': ' . $dataHeader['budget']);
+                $sheet->setCellValue('B4', ': ' . $dataHeader['budget'] . " - " . $dataHeader['budgetName']);
             },
         ];
     }

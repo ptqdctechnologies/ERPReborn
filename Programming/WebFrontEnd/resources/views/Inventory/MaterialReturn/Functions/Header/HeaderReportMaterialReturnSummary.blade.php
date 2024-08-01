@@ -29,7 +29,7 @@
                         <tr>
                             <th style="padding-top: 7px;"><label>Sub&nbsp;Budget&nbsp;</label></th>
                             <td>
-                                <!-- <div class="input-group">
+                                <div class="input-group">
                                     <input id="sub_budget_id" style="border-radius:0;" class="form-control" name="sub_budget_id" type="hidden">
                                     <input id="sub_budget" style="border-radius:0;background-color:white;" class="form-control mySiteCode" name="sub_budget" readonly data-toggle="modal" data-target="#mySiteCode">
                                     <div class="input-group-append">
@@ -37,9 +37,9 @@
                                             <a href="#" id="sub_budget_popup" data-toggle="modal" data-target="#mySiteCode" class="mySiteCode"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                         </span>
                                     </div>
-                                </div> -->
+                                </div>
 
-                                <div class="input-group">
+                                <!-- <div class="input-group">
                                     <input id="project_id" name="project_id" value="" hidden>
                                     <input id="site_id" name="site_id" value="" hidden>
                                     <input id="advance_RefID" name="advance_RefID" hidden>
@@ -49,7 +49,7 @@
                                         <a href="#" id="advance_popup" data-toggle="modal" data-target="#PopUpTableAdvanceRevision" class="PopUpTableAdvanceRevision"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                         </span>
                                     </div>
-                                </div>
+                                </div> -->
                             </td>
                         </tr>
                     </table>

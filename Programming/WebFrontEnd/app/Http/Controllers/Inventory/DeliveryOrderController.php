@@ -48,86 +48,159 @@ class DeliveryOrderController extends Controller
         return view('Inventory.DeliveryOrder.Reports.ReportDOSummary', $compact);
     }
 
-    public function ReportDOSummaryData($id) 
+    public function ReportDOSummaryData($projectId, $siteId) 
     {
         try {
             $varAPIWebToken = Session::get('SessionLogin');
 
-            $filteredArray = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvanceReport',
+                'report.form.documentForm.finance.getReportAdvanceSummary',
                 'latest',
                 [
                     'parameter' => [
-                        'advance_RefID' => (int) $id,
-                    ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
+                        'dataFilter' => [
+                            'budgetID' => 1,
+                            'subBudgetID' => 1,
+                            'workID' => 1,
+                            'productID' => 1,
+                            'beneficiaryID' => 1,
+                        ]
                     ]
                 ],
                 false
             );
 
-            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Data not found in the API response.');
+            $DataReportAdvanceSummary = json_decode(
+                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    "ReportAdvanceSummary"
+                ),
+                true
+            );
+
+            $collection = collect($DataReportAdvanceSummary);
+
+            if ($projectId != "") {
+                $collection = $collection->where('CombinedBudget_RefID', $projectId);
+            }
+            if ($siteId != "") {
+                $collection = $collection->where('CombinedBudgetSection_RefID', $siteId);
             }
 
-            $getData = $filteredArray['data'][0]['document'];
+            $collection = $collection->all();
 
-            // DATA HEADER
             $dataHeaders = [
-                'budget'        => $getData['content']['general']['budget']['combinedBudgetCodeList'][0] . " - " .$getData['content']['general']['budget']['combinedBudgetNameList'][0],
+                'budget'        => $collection[0]['CombinedBudgetCode'] . " - " .$collection[0]['CombinedBudgetName'],
             ];
 
-            // DATA DETAIL
             $dataDetails = [];
             $i = 0;
             $total = 0;
             $totalOtherCurrency = 0;
-            // DATA DETAIL
-            $dataDetails = [];
-            $i = 0;
-            $total = 0;
-            $totalOtherCurrency = 0;
-            foreach ($getData['content']['details']['itemList'] as $dataReports) {
-                $total              += $dataReports['entities']['quantity'] * rand(0, 9000);
-                $totalOtherCurrency += $dataReports['entities']['quantity'] * rand(0, 9000);
-            
+            foreach ($collection as $collections) {
+                $total              += $collections['TotalAdvance'];
+                $totalOtherCurrency += 0;
+
                 $dataDetails[$i]['no']                  = $i + 1;
-                $dataDetails[$i]['DONumber']           = $dataReports['entities']['product_RefID'];
-                $dataDetails[$i]['budgetCode']          = $getData['content']['general']['budget']['combinedBudgetCodeList'][0];
-                $dataDetails[$i]['date']                = $getData['header']['date'];
-                $dataDetails[$i]['total']               = number_format($dataReports['entities']['quantity'] * rand(0, 9000), 2, ',', '.');
-                $dataDetails[$i]['totalOtherCurrency']  = number_format($dataReports['entities']['quantity'] * rand(0, 8000), 2, ',', '.');
+                $dataDetails[$i]['DONumber']            = "DO01-23000004";
+                $dataDetails[$i]['budgetCode']          = $collections['CombinedBudgetCode'];
+                $dataDetails[$i]['date']                = date('d-m-Y', strtotime($collections['DocumentDateTimeTZ']));
+                $dataDetails[$i]['total']               = number_format($collections['TotalAdvance'], 2);
+                $dataDetails[$i]['totalOtherCurrency']  = number_format(0, 2);
                 $i++;
             }
 
             $compact = [
                 'dataHeader'            => $dataHeaders,
                 'dataDetail'            => $dataDetails,
-                'total'                 => number_format($total, 2, ',', '.'),
-                'totalOtherCurrency'    => number_format($totalOtherCurrency, 2, ',', '.')
+                'total'                 => number_format($total, 2),
+                'totalOtherCurrency'    => number_format($totalOtherCurrency, 2)
             ];
-            
+
             Session::put("isButtonReportDOSummarySubmit", true);
             Session::put("dataReportDOSummary", $compact);
 
             return $compact;
         } catch (\Throwable $th) {
+            Log::error("Error at ReportDOSummaryData: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
+
+        // try {
+        //     $varAPIWebToken = Session::get('SessionLogin');
+
+        //     $filteredArray = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //         $varAPIWebToken,
+        //         'transaction.read.dataList.finance.getAdvanceReport',
+        //         'latest',
+        //         [
+        //             'parameter' => [
+        //                 'advance_RefID' => (int) $id,
+        //             ],
+        //             'SQLStatement' => [
+        //                 'pick' => null,
+        //                 'sort' => null,
+        //                 'filter' => null,
+        //                 'paging' => null
+        //             ]
+        //         ],
+        //         false
+        //     );
+
+        //     if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
+        //         throw new \Exception('Data not found in the API response.');
+        //     }
+
+        //     $getData = $filteredArray['data'][0]['document'];
+
+        //     // DATA HEADER
+        //     $dataHeaders = [
+        //         'budget'        => $getData['content']['general']['budget']['combinedBudgetCodeList'][0] . " - " .$getData['content']['general']['budget']['combinedBudgetNameList'][0],
+        //     ];
+
+        //     // DATA DETAIL
+        //     $dataDetails = [];
+        //     $i = 0;
+        //     $total = 0;
+        //     $totalOtherCurrency = 0;
+        //     foreach ($getData['content']['details']['itemList'] as $dataReports) {
+        //         $total              += $dataReports['entities']['quantity'];
+        //         $totalOtherCurrency += 0;
+            
+        //         $dataDetails[$i]['no']                  = $i + 1;
+        //         $dataDetails[$i]['DONumber']            = "DO01-23000004";
+        //         $dataDetails[$i]['budgetCode']          = $getData['content']['general']['budget']['combinedBudgetCodeList'][0];
+        //         $dataDetails[$i]['date']                = $getData['header']['date'];
+        //         $dataDetails[$i]['total']               = number_format($dataReports['entities']['quantity'], 2, ',', '.');
+        //         $dataDetails[$i]['totalOtherCurrency']  = number_format(0, 2, ',', '.');
+        //         $i++;
+        //     }
+
+        //     $compact = [
+        //         'dataHeader'            => $dataHeaders,
+        //         'dataDetail'            => $dataDetails,
+        //         'total'                 => number_format($total, 2, ',', '.'),
+        //         'totalOtherCurrency'    => number_format($totalOtherCurrency, 2, ',', '.')
+        //     ];
+            
+        //     Session::put("isButtonReportDOSummarySubmit", true);
+        //     Session::put("dataReportDOSummary", $compact);
+
+        //     return $compact;
+        // } catch (\Throwable $th) {
+        //     return redirect()->back()->with('NotFound', 'Process Error');
+        // }
     }
 
     public function ReportDOSummaryStore(Request $request) 
     {
         try {
             $budgetID       = $request->budget_id;
-            $subBudgetID    = $request->advance_RefID;
-            // $subBudgetID    = $request->sub_budget_id;
+            // $subBudgetID    = $request->advance_RefID;
+            $subBudgetID    = $request->sub_budget_id;
 
             if (!$budgetID && !$subBudgetID) {
                 $message = 'Budget & Sub Budget Cannot Empty';
@@ -142,7 +215,7 @@ class DeliveryOrderController extends Controller
                 return redirect()->route('Inventory.ReportDOSummary')->with('NotFound', $message);
             }
 
-            $compact = $this->ReportDOSummaryData($subBudgetID);
+            $compact = $this->ReportDOSummaryData($budgetID, $subBudgetID);
 
             if ($compact === null || empty($compact['dataHeader'])) {
                 return redirect()->back()->with('NotFound', 'Data Not Found');
@@ -168,8 +241,8 @@ class DeliveryOrderController extends Controller
                     $canvas = $dom_pdf ->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
-                    $canvas->page_text($width - 85, 94, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
-                    $canvas->page_text($width / 2.5, $height - 20, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
     
                     return $pdf->download('Export Report Delivery Order Summary.pdf');
                 } else {
@@ -231,8 +304,9 @@ class DeliveryOrderController extends Controller
 
             // DATA HEADER
             $dataHeaders = [
-                'doNumber'      => 'DO01-23000004',
-                'budget'        => $getData['content']['general']['budget']['combinedBudgetCodeList'][0] . $getData['content']['general']['budget']['combinedBudgetNameList'][0],
+                'doNumber'      => 'DO01-53000004',
+                'budget'        => $getData['content']['general']['budget']['combinedBudgetCodeList'][0],
+                'budgetName'    => $getData['content']['general']['budget']['combinedBudgetNameList'][0],
                 'subBudget'     => $getData['content']['general']['budget']['combinedBudgetSectionCodeList'][0],
                 'date'          => $getData['header']['date'],
                 'transporter'   => "VDR-2594 - Aman Jaya",
@@ -245,14 +319,15 @@ class DeliveryOrderController extends Controller
             $i = 0;
             $totalQty = 0;
             foreach ($getData['content']['details']['itemList'] as $dataReports) {
-                $totalQty += $dataReports['entities']['quantity'] * rand(1, 100);
+                $totalQty += $dataReports['entities']['quantity'];
             
-                $dataDetails[$i]['no']         = $i + 1;
-                $dataDetails[$i]['dorNumber']  = "DOR" . $i + 1 . "-23000004";
-                $dataDetails[$i]['productId']  = $dataReports['entities']['priceCurrency_RefID'];
-                $dataDetails[$i]['qty']        = number_format($dataReports['entities']['quantity'] * rand(1, 100), 2, ',', '.');
-                $dataDetails[$i]['uom']        = 'Set';
-                $dataDetails[$i]['remark']     = $dataReports['entities']['quantityUnitName'];
+                $dataDetails[$i]['no']          = $i + 1;
+                $dataDetails[$i]['dorNumber']   = "DOR1-23000004";
+                $dataDetails[$i]['productId']   = $dataReports['entities']['product_RefID'];
+                $dataDetails[$i]['productName'] = $dataReports['entities']['productName'];
+                $dataDetails[$i]['qty']         = number_format($dataReports['entities']['quantity'], 2, ',', '.');
+                $dataDetails[$i]['uom']         = 'Set';
+                $dataDetails[$i]['remark']      = $dataReports['entities']['quantityUnitName'];
                 $i++;
             }
 
@@ -311,8 +386,8 @@ class DeliveryOrderController extends Controller
                     $canvas = $dom_pdf ->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
-                    $canvas->page_text($width - 85, 94, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
-                    $canvas->page_text($width / 2.5, $height - 20, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
     
                     return $pdf->download('Export Report Delivery Order Detail.pdf');
                 } else {

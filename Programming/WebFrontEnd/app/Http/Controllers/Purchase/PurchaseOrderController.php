@@ -84,36 +84,42 @@ class PurchaseOrderController extends Controller
 
             // DATA HEADER
             $dataHeaders = [
-                'budget'        => $getData['content']['general']['budget']['combinedBudgetCodeList'][0] . ' - ' . $getData['content']['general']['budget']['combinedBudgetNameList'][0],
+                'budget'        => $getData['content']['general']['budget']['combinedBudgetCodeList'][0],
+                "budgetName"    => $getData['content']['general']['budget']['combinedBudgetNameList'][0]
             ];
 
             // DATA DETAIL
             $dataDetails = [];
             $i = 0;
             $totalQty = 0;
-            $totalPrice = 0;
             $totalIDRWithPPN = 0;
             $totalIDRWithoutPPN = 0;
             $totalOtherCurrencyWithPPN = 0;
             $totalOtherCurrencyWithoutPPN = 0;
             foreach ($getData['content']['details']['itemList'] as $dataReports) {
-                $totalQty += $dataReports['entities']['quantity'] * rand(1000, 9000);
-                $totalPrice += $dataReports['entities']['quantity'] * rand(1000, 9000);
-                $totalIDRWithPPN += $dataReports['entities']['quantity'] * rand(1000, 9000);
-                $totalIDRWithoutPPN += $dataReports['entities']['quantity'] * rand(1000, 9000);
-                $totalOtherCurrencyWithPPN += $dataReports['entities']['quantity'] * rand(1000, 9000);
-                $totalOtherCurrencyWithoutPPN += $dataReports['entities']['quantity'] * rand(1000, 9000);
-            
+                $totalQty += $dataReports['entities']['quantity'];
+
+                $quantity = $dataReports['entities']['quantity'];
+                $price = $quantity * 1000;
+                $totalWithoutPPN = $quantity * $price;
+                $totalWithPPN = ($totalWithoutPPN * 0.11) + $totalWithoutPPN;
+
                 $dataDetails[$i]['no']                              = $i + 1;
-                $dataDetails[$i]['transactionNumber']               = $dataReports['entities']['product_RefID'];
-                $dataDetails[$i]['qty']                             = number_format($dataReports['entities']['quantity'] * rand(1, 100), 2, ',', '.');
-                $dataDetails[$i]['price']                           = number_format($dataReports['entities']['quantity'] * rand(100, 1000), 2, ',', '.');
+                $dataDetails[$i]['prNumber']                        = "PR01-83000004";
+                $dataDetails[$i]['productId']                       = $dataReports['entities']['product_RefID'];
+                $dataDetails[$i]['productName']                     = $dataReports['entities']['productName'];
+                $dataDetails[$i]['qty']                             = number_format($quantity, 2, ',', '.');
+                $dataDetails[$i]['price']                           = number_format($price, 2, ',', '.');
                 $dataDetails[$i]['uom']                             = 'Set';
-                $dataDetails[$i]['totalIDRWithPPN']                 = number_format($dataReports['entities']['quantity'] * rand(1000, 6000), 2, ',', '.');
-                $dataDetails[$i]['totalIDRWithoutPPN']              = number_format($dataReports['entities']['quantity'] * rand(1000, 7000), 2, ',', '.');
-                $dataDetails[$i]['totalOtherCurrencyWithPPN']       = number_format($dataReports['entities']['quantity'] * rand(1000, 8000), 2, ',', '.');
-                $dataDetails[$i]['totalOtherCurrencyWithoutPPN']    = number_format($dataReports['entities']['quantity'] * rand(1000, 9000), 2, ',', '.');
+                $dataDetails[$i]['totalIDRWithoutPPN']              = number_format($totalWithoutPPN, 2, ',', '.');
+                $dataDetails[$i]['totalIDRWithPPN']                 = number_format($totalWithPPN, 2, ',', '.');
+                $dataDetails[$i]['totalOtherCurrencyWithPPN']       = number_format(0, 2, ',', '.');
+                $dataDetails[$i]['totalOtherCurrencyWithoutPPN']    = number_format(0, 2, ',', '.');
                 $dataDetails[$i]['currency']                        = 'IDR';
+
+                $totalIDRWithoutPPN += $totalWithoutPPN;
+                $totalIDRWithPPN += $totalWithPPN;
+
                 $i++;
             }
 
@@ -121,7 +127,6 @@ class PurchaseOrderController extends Controller
                 'dataHeader'                    => $dataHeaders,
                 'dataDetail'                    => $dataDetails,
                 'totalQty'                      => number_format($totalQty, 2, ',', '.'),
-                'totalPrice'                    => number_format($totalPrice, 2, ',', '.'),
                 'totalIDRWithPPN'               => number_format($totalIDRWithPPN, 2, ',', '.'),
                 'totalIDRWithoutPPN'            => number_format($totalIDRWithoutPPN, 2, ',', '.'),
                 'totalOtherCurrencyWithPPN'     => number_format($totalOtherCurrencyWithPPN, 2, ',', '.'),
@@ -188,8 +193,8 @@ class PurchaseOrderController extends Controller
                     $canvas = $dom_pdf ->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
-                    $canvas->page_text($width - 85, 94, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
-                    $canvas->page_text($width / 2.5, $height - 20, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
                     // Preview PDF
                     // return $pdf->stream('Export_Report_Delivery_Order_Request_Detail.pdf');
@@ -249,18 +254,22 @@ class PurchaseOrderController extends Controller
             if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
                 throw new \Exception('Data not found in the API response.');
             }
+
+            // dd($filteredArray);
             
             $getData = $filteredArray['data'][0]['document'];
             
             // DATA HEADER
             $dataHeaders = [
-                'budget'        => $getData['content']['general']['budget']['combinedBudgetCodeList'][0] . $getData['content']['general']['budget']['combinedBudgetNameList'][0],
+                'budget'        => $getData['content']['general']['budget']['combinedBudgetCodeList'][0],
+                'budgetName'    => $getData['content']['general']['budget']['combinedBudgetNameList'][0],
                 'poNumber'      => 'PO01-23000004',
                 'date'          => $getData['header']['date'],
                 'paymentTerm'   => 'Cash 100% sesuai qty yang di Galvanis',
                 'revision'      => 1,
                 'file'          => 'qdc-technologies.png',
                 'vendor'        => 'VDR2693- Lazuardi Rukun Perkasa',
+                'deliver'       => 'PT Qdc Technologies',
                 'invoice'       => 'PT Qdc Technologies',
                 'currency'      => 'IDR',
                 'PIC'           => 'admin.procurement',
@@ -271,29 +280,35 @@ class PurchaseOrderController extends Controller
             $dataDetails = [];
             $i = 0;
             $totalQty = 0;
-            $totalPrice = 0;
             $totalIDRWithPPN = 0;
             $totalIDRWithoutPPN = 0;
             $totalOtherCurrencyWithPPN = 0;
             $totalOtherCurrencyWithoutPPN = 0;
+
             foreach ($getData['content']['details']['itemList'] as $dataReports) {
-                $totalQty += $dataReports['entities']['quantity'] * rand(1000, 9000);
-                $totalPrice += $dataReports['entities']['quantity'] * rand(1000, 9000);
-                $totalIDRWithPPN += $dataReports['entities']['quantity'] * rand(1000, 9000);
-                $totalIDRWithoutPPN += $dataReports['entities']['quantity'] * rand(1000, 9000);
-                $totalOtherCurrencyWithPPN += $dataReports['entities']['quantity'] * rand(1000, 9000);
-                $totalOtherCurrencyWithoutPPN += $dataReports['entities']['quantity'] * rand(1000, 9000);
-            
+                $totalQty += $dataReports['entities']['quantity'];
+
+                $quantity = $dataReports['entities']['quantity'];
+                $price = $quantity * 1000;
+                $totalWithoutPPN = $quantity * $price;
+                $totalWithPPN = ($totalWithoutPPN * 0.11) + $totalWithoutPPN;
+
                 $dataDetails[$i]['no']                              = $i + 1;
-                $dataDetails[$i]['transactionNumber']               = $dataReports['entities']['product_RefID'];
-                $dataDetails[$i]['qty']                             = number_format($dataReports['entities']['quantity'] * rand(1, 100), 2, ',', '.');
-                $dataDetails[$i]['price']                           = number_format($dataReports['entities']['quantity'] * rand(100, 1000), 2, ',', '.');
+                $dataDetails[$i]['prNumber']                        = "PR01-83000004";
+                $dataDetails[$i]['productId']                       = $dataReports['entities']['product_RefID'];
+                $dataDetails[$i]['productName']                     = $dataReports['entities']['productName'];
+                $dataDetails[$i]['qty']                             = number_format($quantity, 2, ',', '.');
+                $dataDetails[$i]['price']                           = number_format($price, 2, ',', '.');
                 $dataDetails[$i]['uom']                             = 'Set';
-                $dataDetails[$i]['totalIDRWithPPN']                 = number_format($dataReports['entities']['quantity'] * rand(1000, 6000), 2, ',', '.');
-                $dataDetails[$i]['totalIDRWithoutPPN']              = number_format($dataReports['entities']['quantity'] * rand(1000, 7000), 2, ',', '.');
-                $dataDetails[$i]['totalOtherCurrencyWithPPN']       = number_format($dataReports['entities']['quantity'] * rand(1000, 8000), 2, ',', '.');
-                $dataDetails[$i]['totalOtherCurrencyWithoutPPN']    = number_format($dataReports['entities']['quantity'] * rand(1000, 9000), 2, ',', '.');
+                $dataDetails[$i]['totalIDRWithoutPPN']              = number_format($totalWithoutPPN, 2, ',', '.');
+                $dataDetails[$i]['totalIDRWithPPN']                 = number_format($totalWithPPN, 2, ',', '.');
+                $dataDetails[$i]['totalOtherCurrencyWithPPN']       = number_format(0, 2, ',', '.');
+                $dataDetails[$i]['totalOtherCurrencyWithoutPPN']    = number_format(0, 2, ',', '.');
                 $dataDetails[$i]['currency']                        = 'IDR';
+
+                $totalIDRWithoutPPN += $totalWithoutPPN;
+                $totalIDRWithPPN += $totalWithPPN;
+
                 $i++;
             }
 
@@ -301,7 +316,6 @@ class PurchaseOrderController extends Controller
                 'dataHeader'                    => $dataHeaders,
                 'dataDetail'                    => $dataDetails,
                 'totalQty'                      => number_format($totalQty, 2, ',', '.'),
-                'totalPrice'                    => number_format($totalPrice, 2, ',', '.'),
                 'totalIDRWithPPN'               => number_format($totalIDRWithPPN, 2, ',', '.'),
                 'totalIDRWithoutPPN'            => number_format($totalIDRWithoutPPN, 2, ',', '.'),
                 'totalOtherCurrencyWithPPN'     => number_format($totalOtherCurrencyWithPPN, 2, ',', '.'),
@@ -313,6 +327,7 @@ class PurchaseOrderController extends Controller
 
             return $compact;
         } catch (\Throwable $th) {
+            Log::error("Error at ReportPurchaseOrderDetailData: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
