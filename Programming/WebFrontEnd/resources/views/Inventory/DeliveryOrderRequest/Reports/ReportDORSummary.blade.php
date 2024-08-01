@@ -5,7 +5,6 @@
 @include('getFunction.getSite')
 @include('getFunction.getProject')
 @include('getFunction.getWarehouse')
-@include('Process.Advance.AdvanceRequest.Functions.Table.TableAdvanceRevision')
 
 <div class="content-wrapper">
     <section class="content">
