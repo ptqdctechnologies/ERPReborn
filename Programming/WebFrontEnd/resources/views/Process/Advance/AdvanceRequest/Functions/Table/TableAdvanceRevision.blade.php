@@ -1,8 +1,25 @@
+<?php
+$current_url = $_SERVER['REQUEST_URI'];
+
+$label_text = "Choose Advance Request";
+
+if (strpos($current_url, 'ReportDORequestDetail') !== false) {
+    $label_text = "Choose DOR Number";
+} elseif (strpos($current_url, 'ReportDODetail') !== false) {
+    $label_text = "Choose DO Number";
+} elseif (strpos($current_url, 'ReportMatReturnDetail') !== false) {
+    $label_text = "Choose MR Number";
+} elseif (strpos($current_url, 'ReportPurchaseOrderDetail') !== false) {
+    $label_text = "Choose Supplier Code";
+}
+
+?>
+
 <div id="PopUpTableAdvanceRevision" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <label class="card-title">Choose Advance Request</label>
+                <label class="card-title"><?= $label_text; ?></label>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">

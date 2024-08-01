@@ -2,6 +2,9 @@
     $("#advance_number").prop("disabled", true);
     $("#advance_popup").prop("disabled", true);
 
+    $("#warehouse_from").prop("disabled", true);
+    $("#warehouse_from_2").prop("disabled", true);
+
     // $("#sub_budget").prop("disabled", true);
     // $("#sub_budget_popup").prop("disabled", true);
 </script>
