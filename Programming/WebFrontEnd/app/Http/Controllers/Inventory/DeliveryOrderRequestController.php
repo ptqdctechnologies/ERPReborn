@@ -47,64 +47,75 @@ class DeliveryOrderRequestController extends Controller
         return view('Inventory.DeliveryOrderRequest.Reports.ReportDORSummary', $compact);
     }
 
-    public function ReportDORSummaryData($id) 
+    public function ReportDORSummaryData($projectId, $siteId) 
     {
         try {
             $varAPIWebToken = Session::get('SessionLogin');
 
-            $filteredArray = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvanceReport',
+                'report.form.documentForm.finance.getReportAdvanceSummary',
                 'latest',
                 [
                     'parameter' => [
-                        'advance_RefID' => (int) $id,
-                    ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
+                        'dataFilter' => [
+                            'budgetID' => 1,
+                            'subBudgetID' => 1,
+                            'workID' => 1,
+                            'productID' => 1,
+                            'beneficiaryID' => 1,
+                        ]
                     ]
                 ],
                 false
             );
 
-            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Data not found in the API response.');
+            $DataReportAdvanceSummary = json_decode(
+                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    "ReportAdvanceSummary"
+                ),
+                true
+            );
+
+            $collection = collect($DataReportAdvanceSummary);
+
+            if ($projectId != "") {
+                $collection = $collection->where('CombinedBudget_RefID', $projectId);
+            }
+            if ($siteId != "") {
+                $collection = $collection->where('CombinedBudgetSection_RefID', $siteId);
             }
 
-            $getData = $filteredArray['data'][0]['document'];
+            $collection = $collection->all();
 
-            // DATA HEADER
             $dataHeaders = [
-                'budget'        => $getData['content']['general']['budget']['combinedBudgetCodeList'][0] . " - " .$getData['content']['general']['budget']['combinedBudgetNameList'][0],
+                'budget'        => $collection[0]['CombinedBudgetCode'] . " - " .$collection[0]['CombinedBudgetName'],
             ];
 
-            // DATA DETAIL
             $dataDetails = [];
             $i = 0;
             $total = 0;
             $totalOtherCurrency = 0;
-            foreach ($getData['content']['details']['itemList'] as $dataReports) {
-                $total              += $dataReports['entities']['quantity'];
+            foreach ($collection as $collections) {
+                $total              += $collections['TotalAdvance'];
                 $totalOtherCurrency += 0;
-            
+
                 $dataDetails[$i]['no']                  = $i + 1;
                 $dataDetails[$i]['DORNumber']           = "DOR01-23000004";
-                $dataDetails[$i]['budgetCode']          = $getData['content']['general']['budget']['combinedBudgetCodeList'][0];
-                $dataDetails[$i]['date']                = $getData['header']['date'];
-                $dataDetails[$i]['total']               = number_format($dataReports['entities']['quantity'], 2, ',', '.');
-                $dataDetails[$i]['totalOtherCurrency']  = number_format(0, 2, ',', '.');
+                $dataDetails[$i]['budgetCode']          = $collections['CombinedBudgetCode'];
+                $dataDetails[$i]['date']                = date('d-m-Y', strtotime($collections['DocumentDateTimeTZ']));
+                $dataDetails[$i]['total']               = number_format($collections['TotalAdvance'], 2);
+                $dataDetails[$i]['totalOtherCurrency']  = number_format(0, 2);
                 $i++;
             }
 
             $compact = [
                 'dataHeader'            => $dataHeaders,
                 'dataDetail'            => $dataDetails,
-                'total'                 => number_format($total, 2, ',', '.'),
-                'totalOtherCurrency'    => number_format($totalOtherCurrency, 2, ',', '.')
+                'total'                 => number_format($total, 2),
+                'totalOtherCurrency'    => number_format($totalOtherCurrency, 2)
             ];
 
             Session::put("isButtonReportDORSummarySubmit", true);
@@ -112,16 +123,85 @@ class DeliveryOrderRequestController extends Controller
 
             return $compact;
         } catch (\Throwable $th) {
+            Log::error("Error at ReportDORSummaryData: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
+
+
+
+        // try {
+        //     $varAPIWebToken = Session::get('SessionLogin');
+
+        //     $filteredArray = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //         $varAPIWebToken,
+        //         'transaction.read.dataList.finance.getAdvanceReport',
+        //         'latest',
+        //         [
+        //             'parameter' => [
+        //                 'advance_RefID' => (int) $id,
+        //             ],
+        //             'SQLStatement' => [
+        //                 'pick' => null,
+        //                 'sort' => null,
+        //                 'filter' => null,
+        //                 'paging' => null
+        //             ]
+        //         ],
+        //         false
+        //     );
+
+        //     if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
+        //         throw new \Exception('Data not found in the API response.');
+        //     }
+
+        //     $getData = $filteredArray['data'][0]['document'];
+
+        //     // DATA HEADER
+            // $dataHeaders = [
+            //     'budget'        => $getData['content']['general']['budget']['combinedBudgetCodeList'][0] . " - " .$getData['content']['general']['budget']['combinedBudgetNameList'][0],
+            // ];
+
+        //     // DATA DETAIL
+        //     $dataDetails = [];
+        //     $i = 0;
+        //     $total = 0;
+        //     $totalOtherCurrency = 0;
+        //     foreach ($getData['content']['details']['itemList'] as $dataReports) {
+        //         $total              += $dataReports['entities']['quantity'];
+        //         $totalOtherCurrency += 0;
+            
+        //         $dataDetails[$i]['no']                  = $i + 1;
+        //         $dataDetails[$i]['DORNumber']           = "DOR01-23000004";
+        //         $dataDetails[$i]['budgetCode']          = $getData['content']['general']['budget']['combinedBudgetCodeList'][0];
+        //         $dataDetails[$i]['date']                = $getData['header']['date'];
+        //         $dataDetails[$i]['total']               = number_format($dataReports['entities']['quantity'], 2, ',', '.');
+        //         $dataDetails[$i]['totalOtherCurrency']  = number_format(0, 2, ',', '.');
+        //         $i++;
+        //     }
+
+        //     $compact = [
+        //         'dataHeader'            => $dataHeaders,
+        //         'dataDetail'            => $dataDetails,
+        //         'total'                 => number_format($total, 2, ',', '.'),
+        //         'totalOtherCurrency'    => number_format($totalOtherCurrency, 2, ',', '.')
+        //     ];
+
+        //     Session::put("isButtonReportDORSummarySubmit", true);
+        //     Session::put("dataDetailReportDORSummary", $compact);
+
+        //     return $compact;
+        // } catch (\Throwable $th) {
+        //     return redirect()->back()->with('NotFound', 'Process Error');
+        // }
     }
 
     public function ReportDORSummaryStore(Request $request) 
     {
         try {
             $budgetID       = $request->budget_id;
-            $subBudgetID    = $request->advance_RefID;
-            // $subBudgetID    = $request->sub_budget_id;
+            // $subBudgetID    = $request->advance_RefID;
+            $subBudgetID    = $request->sub_budget_id;
 
             if (!$budgetID && !$subBudgetID) {
                 $message = 'Budget & Sub Budget Cannot Empty';
@@ -136,7 +216,7 @@ class DeliveryOrderRequestController extends Controller
                 return redirect()->route('Inventory.ReportDORequestSummary')->with('NotFound', $message);
             }
 
-            $compact = $this->ReportDORSummaryData($subBudgetID);
+            $compact = $this->ReportDORSummaryData($budgetID, $subBudgetID);
 
             if ($compact === null || empty($compact)) {
                 return redirect()->back()->with('NotFound', 'Data Not Found');
