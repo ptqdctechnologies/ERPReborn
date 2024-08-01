@@ -35,7 +35,7 @@
                             </td>
                             <td style="height: 20px;">
                                 <div style="line-height: 14px;">
-                                    <?= $dataReport['dataHeader']['budget']; ?>
+                                    <?= $dataReport['dataHeader']['budget'] . " - " . $dataReport['dataHeader']['budgetName']; ?>
                                 </div>
                             </td>
                         </tr>
@@ -52,9 +52,14 @@
                         No
                     </div>
                 </td>
+                <!-- <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        PR Number
+                    </div>
+                </td> -->
                 <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
                     <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-                        Transaction Number
+                        Product Id
                     </div>
                 </td>
                 <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
@@ -133,8 +138,8 @@
                         </div>
                     </td>
                     <td>
-                        <div style="margin-top: 4px;">
-                            <?= $dataDetail['transactionNumber']; ?>
+                        <div style="margin-top: 4px; max-width: 125px;">
+                            <?= $dataDetail['productId'] . " - " . $dataDetail['productName']; ?>
                         </div>
                     </td>
                     <td>
@@ -205,7 +210,7 @@
                     <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= $dataReport['totalQty']; ?></div>
                 </td>
                 <td style="height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= $dataReport['totalPrice']; ?></div>
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"></div>
                 </td>
                 <td style="height: 20px;">
                     <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"></div>

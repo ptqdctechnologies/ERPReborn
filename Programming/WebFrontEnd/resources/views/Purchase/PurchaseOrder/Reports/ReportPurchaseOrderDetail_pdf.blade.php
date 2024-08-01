@@ -638,7 +638,7 @@
                 </tr>
             <?php } ?>
 
-            <div style="height: 16px;"></div>
+            <!-- <div style="height: 16px;"></div>
 
             <tr style="border-top: 1px solid black;">
                 <td style="height: 20px;">
@@ -648,7 +648,7 @@
                     <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">Total</div>
                 </td>
                 <td style="height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= $dataReport['totalQty']; ?></div>
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?php $dataReport['totalQty']; ?></div>
                 </td>
                 <td style="height: 20px;">
                     <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"></div>
@@ -691,7 +691,7 @@
                 <td style="height: 20px;">
                     <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"></div>
                 </td>
-            </tr>
+            </tr> -->
         </table>
     </main>
 </body>
