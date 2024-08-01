@@ -2,6 +2,30 @@
 
 All notable changes of the PHPUnit 10.5 release series are documented in this file using the [Keep a CHANGELOG](https://keepachangelog.com/) principles.
 
+## [10.5.28] - 2024-07-18
+
+### Fixed
+
+* [#5898](https://github.com/sebastianbergmann/phpunit/issues/5898): `Test\Passed` event is not emitted for PHPT tests
+* `--coverage-filter` CLI option could not be used multiple times
+
+## [10.5.27] - 2024-07-10
+
+### Changed
+
+* Updated dependencies (so that users that install using Composer's `--prefer-lowest` CLI option also get recent versions)
+
+### Fixed
+
+* [#5892](https://github.com/sebastianbergmann/phpunit/issues/5892): Errors during write of `phpunit.xml` are not handled correctly when `--generate-configuration` is used
+
+## [10.5.26] - 2024-07-08
+
+### Added
+
+* `--only-summary-for-coverage-text` CLI option to reduce the code coverage report in text format to a summary
+* `--show-uncovered-for-coverage-text` CLI option to expand the code coverage report in text format to include a list of uncovered files
+
 ## [10.5.25] - 2024-07-03
 
 ### Changed
@@ -234,6 +258,9 @@ All notable changes of the PHPUnit 10.5 release series are documented in this fi
 
 * [#5563](https://github.com/sebastianbergmann/phpunit/issues/5563): `createMockForIntersectionOfInterfaces()` does not automatically register mock object for expectation verification
 
+[10.5.28]: https://github.com/sebastianbergmann/phpunit/compare/10.5.27...10.5.28
+[10.5.27]: https://github.com/sebastianbergmann/phpunit/compare/10.5.26...10.5.27
+[10.5.26]: https://github.com/sebastianbergmann/phpunit/compare/10.5.25...10.5.26
 [10.5.25]: https://github.com/sebastianbergmann/phpunit/compare/10.5.24...10.5.25
 [10.5.24]: https://github.com/sebastianbergmann/phpunit/compare/10.5.23...10.5.24
 [10.5.23]: https://github.com/sebastianbergmann/phpunit/compare/10.5.22...10.5.23

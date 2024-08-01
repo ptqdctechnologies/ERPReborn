@@ -142,28 +142,30 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                 //---> API Call : Table Signature Resynchronization
                 $varFilePath = '/zhtConf/log/lastSession/scheduledTask/'.$this->varSheduleIdentity.'/jobs/instruction.server.internal.database.system.tableSignatureResynchronization';
                 shell_exec("touch ".$varFilePath);
-                $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'instruction.server.internal.database.system.tableSignatureResynchronization',
-                    'latest', 
-                    [
-                    'parameter' => null
-                    ]
-                    );
+                $varData =
+                    \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'instruction.server.internal.database.system.tableSignatureResynchronization',
+                        'latest', 
+                        [
+                        'parameter' => null
+                        ]
+                        );
 
                 //---> API Call : Record Last Modified Resynchronization
                 $varFilePath = '/zhtConf/log/lastSession/scheduledTask/'.$this->varSheduleIdentity.'/jobs/instruction.server.internal.database.system.recordLastModifiedResynchronization';
                 shell_exec("touch ".$varFilePath);
-                $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'instruction.server.internal.database.system.recordLastModifiedResynchronization',
-                    'latest', 
-                    [
-                    'parameter' => null
-                    ]
-                    );
+                $varData = 
+                    \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'instruction.server.internal.database.system.recordLastModifiedResynchronization',
+                        'latest', 
+                        [
+                        'parameter' => null
+                        ]
+                        );
                 }
 
             return $varReturn;
