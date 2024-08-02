@@ -3357,6 +3357,8 @@ return array(
     'Aws\\SSMContacts\\SSMContactsClient' => $vendorDir . '/aws/aws-sdk-php/src/SSMContacts/SSMContactsClient.php',
     'Aws\\SSMIncidents\\Exception\\SSMIncidentsException' => $vendorDir . '/aws/aws-sdk-php/src/SSMIncidents/Exception/SSMIncidentsException.php',
     'Aws\\SSMIncidents\\SSMIncidentsClient' => $vendorDir . '/aws/aws-sdk-php/src/SSMIncidents/SSMIncidentsClient.php',
+    'Aws\\SSMQuickSetup\\Exception\\SSMQuickSetupException' => $vendorDir . '/aws/aws-sdk-php/src/SSMQuickSetup/Exception/SSMQuickSetupException.php',
+    'Aws\\SSMQuickSetup\\SSMQuickSetupClient' => $vendorDir . '/aws/aws-sdk-php/src/SSMQuickSetup/SSMQuickSetupClient.php',
     'Aws\\SSOAdmin\\Exception\\SSOAdminException' => $vendorDir . '/aws/aws-sdk-php/src/SSOAdmin/Exception/SSOAdminException.php',
     'Aws\\SSOAdmin\\SSOAdminClient' => $vendorDir . '/aws/aws-sdk-php/src/SSOAdmin/SSOAdminClient.php',
     'Aws\\SSOOIDC\\Exception\\SSOOIDCException' => $vendorDir . '/aws/aws-sdk-php/src/SSOOIDC/Exception/SSOOIDCException.php',

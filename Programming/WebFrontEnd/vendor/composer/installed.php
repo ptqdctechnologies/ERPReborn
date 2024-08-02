@@ -1098,9 +1098,9 @@
             'dev_requirement' => false,
         ),
         'spatie/flare-client-php' => array(
-            'pretty_version' => '1.7.0',
-            'version' => '1.7.0.0',
-            'reference' => '097040ff51e660e0f6fc863684ac4b02c93fa234',
+            'pretty_version' => '1.8.0',
+            'version' => '1.8.0.0',
+            'reference' => '180f8ca4c0d0d6fc51477bd8c53ce37ab5a96122',
             'type' => 'library',
             'install_path' => __DIR__ . '/../spatie/flare-client-php',
             'aliases' => array(),

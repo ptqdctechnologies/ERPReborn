@@ -4019,6 +4019,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Aws\\SSMContacts\\SSMContactsClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/SSMContacts/SSMContactsClient.php',
         'Aws\\SSMIncidents\\Exception\\SSMIncidentsException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/SSMIncidents/Exception/SSMIncidentsException.php',
         'Aws\\SSMIncidents\\SSMIncidentsClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/SSMIncidents/SSMIncidentsClient.php',
+        'Aws\\SSMQuickSetup\\Exception\\SSMQuickSetupException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/SSMQuickSetup/Exception/SSMQuickSetupException.php',
+        'Aws\\SSMQuickSetup\\SSMQuickSetupClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/SSMQuickSetup/SSMQuickSetupClient.php',
         'Aws\\SSOAdmin\\Exception\\SSOAdminException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/SSOAdmin/Exception/SSOAdminException.php',
         'Aws\\SSOAdmin\\SSOAdminClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/SSOAdmin/SSOAdminClient.php',
         'Aws\\SSOOIDC\\Exception\\SSOOIDCException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/SSOOIDC/Exception/SSOOIDCException.php',
