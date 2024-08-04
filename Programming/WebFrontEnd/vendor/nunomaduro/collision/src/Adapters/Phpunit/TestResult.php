@@ -54,22 +54,18 @@ final class TestResult
 
     public float $duration;
 
-    public array $notes;
-
-    public array $issues;
-
-    public array $prs;
-
     public ?Throwable $throwable;
 
     public string $warning = '';
 
     public string $warningSource = '';
 
+    public array $context;
+
     /**
      * Creates a new TestResult instance.
      */
-    private function __construct(string $id, string $testCaseName, string $description, string $type, string $icon, string $compactIcon, string $color, string $compactColor, array $notes, array $issues, array $prs, ?Throwable $throwable = null)
+    private function __construct(string $id, string $testCaseName, string $description, string $type, string $icon, string $compactIcon, string $color, string $compactColor, array $context, ?Throwable $throwable = null)
     {
         $this->id = $id;
         $this->testCaseName = $testCaseName;
@@ -79,10 +75,8 @@ final class TestResult
         $this->compactIcon = $compactIcon;
         $this->color = $color;
         $this->compactColor = $compactColor;
-        $this->notes = $notes;
-        $this->issues = $issues;
-        $this->prs = $prs;
         $this->throwable = $throwable;
+        $this->context = $context;
 
         $this->duration = 0.0;
 
@@ -126,13 +120,15 @@ final class TestResult
     public static function fromTestCase(Test $test, string $type, ?Throwable $throwable = null): self
     {
         if (! $test instanceof TestMethod) {
-            throw new ShouldNotHappen();
+            throw new ShouldNotHappen;
         }
 
         if (is_subclass_of($test->className(), HasPrintableTestCaseName::class)) {
             $testCaseName = $test->className()::getPrintableTestCaseName();
+            $context = method_exists($test->className(), 'getPrintableContext') ? $test->className()::getPrintableContext() : [];
         } else {
             $testCaseName = $test->className();
+            $context = [];
         }
 
         $description = self::makeDescription($test);
@@ -145,11 +141,7 @@ final class TestResult
 
         $compactColor = self::makeCompactColor($type);
 
-        $notes = method_exists($test->className(), 'getPrintableTestCaseMethodNotes') ? $test->className()::getPrintableTestCaseMethodNotes() : [];
-        $issues = method_exists($test->className(), 'getPrintableTestCaseMethodIssues') ? $test->className()::getPrintableTestCaseMethodIssues() : [];
-        $prs = method_exists($test->className(), 'getPrintableTestCaseMethodPrs') ? $test->className()::getPrintableTestCaseMethodPrs() : [];
-
-        return new self($test->id(), $testCaseName, $description, $type, $icon, $compactIcon, $color, $compactColor, $notes, $issues, $prs, $throwable);
+        return new self($test->id(), $testCaseName, $description, $type, $icon, $compactIcon, $color, $compactColor, $context, $throwable);
     }
 
     /**
@@ -158,18 +150,14 @@ final class TestResult
     public static function fromPestParallelTestCase(Test $test, string $type, ?Throwable $throwable = null): self
     {
         if (! $test instanceof TestMethod) {
-            throw new ShouldNotHappen();
+            throw new ShouldNotHappen;
         }
 
         if (is_subclass_of($test->className(), HasPrintableTestCaseName::class)) {
             $testCaseName = $test->className()::getPrintableTestCaseName();
-        } else {
-            $testCaseName = $test->className();
-        }
-
-        if (is_subclass_of($test->className(), HasPrintableTestCaseName::class)) {
             $description = $test->testDox()->prettifiedMethodName();
         } else {
+            $testCaseName = $test->className();
             $description = self::makeDescription($test);
         }
 
@@ -181,7 +169,7 @@ final class TestResult
 
         $compactColor = self::makeCompactColor($type);
 
-        return new self($test->id(), $testCaseName, $description, $type, $icon, $compactIcon, $color, $compactColor, [], [], [], $throwable);
+        return new self($test->id(), $testCaseName, $description, $type, $icon, $compactIcon, $color, $compactColor, [], $throwable);
     }
 
     /**
@@ -205,7 +193,7 @@ final class TestResult
 
         $compactColor = self::makeCompactColor(self::FAIL);
 
-        return new self($testCaseName, $testCaseName, $description, self::FAIL, $icon, $compactIcon, $color, $compactColor, [], [], [], $event->throwable());
+        return new self($testCaseName, $testCaseName, $description, self::FAIL, $icon, $compactIcon, $color, $compactColor, [], $event->throwable());
     }
 
     /**
