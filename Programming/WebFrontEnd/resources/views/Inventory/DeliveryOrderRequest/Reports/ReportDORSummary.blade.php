@@ -17,7 +17,6 @@
             <div class="card">
                 <div class="tab-content p-3" id="nav-tabContent">
                     <div class="row">
-                        
                         <div class="col-12 ShowDocument">
                             @include("Inventory.DeliveryOrderRequest.Functions.Header.HeaderReportDORSummary")
                         </div>
@@ -32,16 +31,20 @@
                                                 <table>
                                                     <tr>
                                                         <th style="padding-top: 7px;"><label>Budget&nbsp;</label></th>
+                                                        <td>:</td>
                                                         <td><?= $dataReport['dataHeader']['budget']; ?></td>
                                                     </tr>
                                                 </table>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
 
-                                    <!-- DETAIL -->
+                            <div class="col-12 ShowTableReportAdvanceSummary">
+                                <div class="card">
                                     <div class="card-body table-responsive p-0">
-                                        <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="TableReportAdvanceSummary">
+                                        <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="DefaultFeatures">
                                             <thead>
                                                 <tr>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>

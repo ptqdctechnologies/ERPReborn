@@ -412,3 +412,14 @@
     return date.toLocaleDateString('id-ID', options);
   }
 </script>
+
+<script>
+  $(function () {
+    $("#DefaultFeatures").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+  });
+</script>
+
+<!-- Perubahan Wisnu -->
