@@ -20,26 +20,29 @@
                         <div class="col-12 ShowDocument">
                             @include("Inventory.DeliveryOrder.Functions.Header.HeaderReportDOSummary")
                         </div>
-                        <div class="col-12 ShowTableReportDOSummary">
-                            <?php if ($dataReport) { ?>
+                        <?php if ($dataReport) { ?>
+                            <div class="col-12 ShowTableReportDOSummary">
                                 <div class="card">
-                                    <!-- HEADER -->
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="form-group">
                                                 <table>
                                                     <tr>
                                                         <th style="padding-top: 7px;"><label>Budget&nbsp;</label></th>
-                                                        <td><?= $dataReport['dataHeader']['budget']; ?></td>
+                                                        <td><b>:</b></td>
+                                                        <td><b><?= $dataReport['dataHeader']['budget']; ?></b></td>
                                                     </tr>
                                                 </table>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
 
-                                    <!-- DETAIL -->
+                            <div class="col-12 ShowTableReportDOSummary">
+                                <div class="card">
                                     <div class="card-body table-responsive p-0">
-                                        <table class="table table-head-fixed text-nowrap TableReportDOSummary" id="TableReportDOSummary">
+                                        <table class="table table-head-fixed text-nowrap TableReportDOSummary" id="DefaultFeatures">
                                             <thead>
                                                 <tr>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
@@ -74,8 +77,8 @@
                                         </table>
                                     </div>
                                 </div>
-                            <?php }; Session::forget("isButtonReportDOSummarySubmit"); ?>
-                        </div>
+                            </div>
+                        <?php }; Session::forget("isButtonReportDOSummarySubmit"); ?>
                     </div>
                 </div>
             </div>

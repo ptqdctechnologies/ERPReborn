@@ -21,6 +21,7 @@
         var name = row.find("td:nth-child(3)").text();
 
         $("#budget_id").val(sys_id);
+        $("#budget_name").val(name);
         $("#budget").val(code);
 
         // $("#advance_number").prop("disabled", false);
