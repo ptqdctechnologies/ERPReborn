@@ -1,9 +1,9 @@
 <script>
-    $("#advance_number").prop("disabled", true);
-    $("#advance_popup").prop("disabled", true);
+    // $("#advance_number").prop("disabled", true);
+    // $("#advance_popup").prop("disabled", true);
 
-    // $("#sub_budget").prop("disabled", true);
-    // $("#sub_budget_popup").prop("disabled", true);
+    $("#sub_budget").prop("disabled", true);
+    $("#sub_budget_popup").prop("disabled", true);
 </script>
 
 <script>
@@ -21,15 +21,15 @@
         $("#budget_name").val(name);
         $("#budget").val(code);
 
-        $("#advance_number").prop("disabled", false);
-        $("#advance_popup").prop("disabled", false);
-        $("#advance_RefID").val("");
-        $("#advance_number").val("");
+        // $("#advance_number").prop("disabled", false);
+        // $("#advance_popup").prop("disabled", false);
+        // $("#advance_RefID").val("");
+        // $("#advance_number").val("");
 
-        // $("#sub_budget").prop("disabled", false);
-        // $("#sub_budget_popup").prop("disabled", false);
-        // $("#sub_budget_id").val("");
-        // $("#sub_budget").val("");
+        $("#sub_budget").prop("disabled", false);
+        $("#sub_budget_popup").prop("disabled", false);
+        $("#sub_budget_id").val("");
+        $("#sub_budget").val("");
 
         $.ajaxSetup({
             headers: {
