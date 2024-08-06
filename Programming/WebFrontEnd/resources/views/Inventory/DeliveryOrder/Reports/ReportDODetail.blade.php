@@ -18,8 +18,8 @@
                         <div class="col-12 ShowDocument">
                             @include("Inventory.DeliveryOrder.Functions.Header.HeaderReportDODetail")
                         </div>
-                        <div class="col-12 ShowTableReportAdvanceSummary">
-                            <?php if ($dataReport) { ?>
+                        <?php if ($dataReport) { ?>
+                            <div class="col-12 ShowTableReportAdvanceSummary">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row">
@@ -77,7 +77,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card-body table-responsive">
+                                </div>
+                            </div>
+
+                            <div class="col-12 ShowTableReportAdvanceSummary">
+                                <div class="card">
+                                    <div class="card-body table-responsive p-0">
                                         <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="TableReportAdvanceSummary">
                                             <thead>
                                                 <tr>
@@ -112,8 +117,8 @@
                                         </table>
                                     </div>
                                 </div>
-                            <?php }; Session::forget("isButtonReportDODetailSubmit"); ?>
-                        </div>
+                            </div>
+                        <?php }; Session::forget("isButtonReportDODetailSubmit"); ?>
                     </div>
                 </div>
             </div>

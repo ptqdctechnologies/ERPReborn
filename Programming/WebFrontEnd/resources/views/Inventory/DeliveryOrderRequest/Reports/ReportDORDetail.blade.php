@@ -143,7 +143,11 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
 
+                            <div class="col-12 ShowTableReportAdvanceSummary">
+                                <div class="card">
                                     <!-- DETAIL -->
                                     <div class="card-body table-responsive p-0">
                                         <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="TableReportAdvanceSummary">

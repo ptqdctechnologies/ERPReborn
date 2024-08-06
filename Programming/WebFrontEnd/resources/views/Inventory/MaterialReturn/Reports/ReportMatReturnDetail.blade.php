@@ -19,8 +19,9 @@
                         <div class="col-12 ShowDocument">
                             @include('Inventory.MaterialReturn.Functions.Header.HeaderReportMaterialReturnDetail')
                         </div>
-                        <div class="col-12 ShowTableReportAdvanceSummary">
-                            <?php if ($dataReport) { ?>
+
+                        <?php if ($dataReport) { ?>
+                            <div class="col-12 ShowTableReportAdvanceSummary">
                                 <div class="card">
                                     <!-- HEADER -->
                                     <div class="card-body">
@@ -79,7 +80,11 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
 
+                            <div class="col-12 ShowTableReportAdvanceSummary">
+                                <div class="card">
                                     <!-- DETAIL -->
                                     <div class="card-body table-responsive p-0">
                                         <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="TableReportAdvanceSummary">
@@ -116,8 +121,8 @@
                                         </table>
                                     </div>
                                 </div>
-                            <?php }; Session::forget("isButtonReportMatReturnDetailSubmit"); ?>
-                        </div>
+                            </div>
+                        <?php }; Session::forget("isButtonReportMatReturnDetailSubmit"); ?>
                     </div>
                 </div>
             </div>

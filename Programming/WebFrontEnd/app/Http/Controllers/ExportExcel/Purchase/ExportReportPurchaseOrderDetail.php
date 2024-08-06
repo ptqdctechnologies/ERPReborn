@@ -144,21 +144,29 @@ class ExportReportPurchaseOrderDetail implements FromCollection, WithHeadings, S
                 ]);
                 $sheet->setCellValue('B7', ': ' . $dataHeader['paymentTerm']);
 
-                $sheet->setCellValue('C4', 'Revision')->getStyle('C4')->applyFromArray([
+                $sheet->setCellValue('A8', 'Revision')->getStyle('A8')->applyFromArray([
                     'font'  => [
                         'bold'  => true,
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('D4', ': ' . $dataHeader['revision']);
+                $sheet->setCellValue('B8', ': ' . $dataHeader['revision']);
 
-                $sheet->setCellValue('C5', 'Vendor')->getStyle('C5')->applyFromArray([
+                $sheet->setCellValue('C4', 'Vendor')->getStyle('C4')->applyFromArray([
                     'font'  => [
                         'bold'  => true,
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('D5', ': ' . $dataHeader['vendor']);
+                $sheet->setCellValue('D4', ': ' . $dataHeader['vendor']);
+
+                $sheet->setCellValue('C5', 'Deliver To')->getStyle('C5')->applyFromArray([
+                    'font'  => [
+                        'bold'  => true,
+                        'color' => ['rgb' => '000000']
+                    ]
+                ]);
+                $sheet->setCellValue('D5', ': ' . $dataHeader['deliver']);
 
                 $sheet->setCellValue('C6', 'Invoice To')->getStyle('C6')->applyFromArray([
                     'font'  => [
@@ -175,6 +183,22 @@ class ExportReportPurchaseOrderDetail implements FromCollection, WithHeadings, S
                     ]
                 ]);
                 $sheet->setCellValue('D7', ': ' . $dataHeader['currency']);
+
+                $sheet->setCellValue('C8', 'PIC Sourching')->getStyle('C8')->applyFromArray([
+                    'font'  => [
+                        'bold'  => true,
+                        'color' => ['rgb' => '000000']
+                    ]
+                ]);
+                $sheet->setCellValue('D8', ': ' . $dataHeader['PIC']);
+
+                $sheet->setCellValue('C9', 'Remark')->getStyle('C9')->applyFromArray([
+                    'font'  => [
+                        'bold'  => true,
+                        'color' => ['rgb' => '000000']
+                    ]
+                ]);
+                $sheet->setCellValue('D9', ': ' . $dataHeader['remark']);
             },
         ];
     }
