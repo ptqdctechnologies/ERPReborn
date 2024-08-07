@@ -217,9 +217,15 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('StoreValidatePurchaseRequisition', 'Purchase\PurchaseRequisitionController@StoreValidatePurchaseRequisition')->name('PurchaseRequisition.StoreValidatePurchaseRequisition');
     Route::post('StoreValidatePurchaseRequisition2', 'Purchase\PurchaseRequisitionController@StoreValidatePurchaseRequisition2')->name('PurchaseRequisition.StoreValidatePurchaseRequisition2');
     Route::post('RevisionPrIndex', 'Purchase\PurchaseRequisitionController@RevisionPrIndex')->name('PurchaseRequisition.RevisionPrIndex');
-    Route::get('ReportPurchaseRequisitionSummary', 'Purchase\PurchaseRequisitionController@Reports')->name('PurchaseRequisition.ReportPurchaseRequisitionSummary');
+    Route::get('ReportPurchaseRequisitionSummary', 'Purchase\PurchaseRequisitionController@ReportPurchaseRequisitionSummary')->name('PurchaseRequisition.ReportPurchaseRequisitionSummary');
+    Route::post('ReportPurchaseRequisitionSummaryStore', 'Purchase\PurchaseRequisitionController@ReportPurchaseRequisitionSummaryStore')->name('PurchaseRequisition.ReportPurchaseRequisitionSummaryStore');
+    Route::get('ReportPurchaseRequisitionDetailID/{id}', 'Purchase\PurchaseRequisitionController@ReportPurchaseRequisitionDetailID')->name('PurchaseRequisition.ReportPurchaseRequisitionDetailID');
+    Route::post('PrintExportReportPurchaseRequisitionSummary', 'Purchase\PurchaseRequisitionController@PrintExportReportPurchaseRequisitionSummary')->name('PurchaseRequisition.PrintExportReportPurchaseRequisitionSummary');
+    Route::post('PrintExportReportPurchaseRequisitionDetail', 'Purchase\PurchaseRequisitionController@PrintExportReportPurchaseRequisitionDetail')->name('PurchaseRequisition.PrintExportReportPurchaseRequisitionDetail');
+    
     Route::get('ReportPurchaseRequisitionToPurchaseOrder', 'Purchase\PurchaseRequisitionController@ReportsPrtoPo')->name('PurchaseRequisition.ReportPurchaseRequisitionToPurchaseOrder');
-    Route::get('ReportPurchaseRequisitionDetail', 'Purchase\PurchaseRequisitionController@ReportsDetail')->name('PurchaseRequisition.ReportPurchaseRequisitionDetail');
+    Route::get('ReportPurchaseRequisitionDetail', 'Purchase\PurchaseRequisitionController@ReportPurchaseRequisitionDetail')->name('PurchaseRequisition.ReportPurchaseRequisitionDetail');
+    Route::post('ReportPurchaseRequisitionDetailStore', 'Purchase\PurchaseRequisitionController@ReportPurchaseRequisitionDetailStore')->name('PurchaseRequisition.ReportPurchaseRequisitionDetailStore');
     Route::get('PurchaseRequisitionListData', 'Purchase\PurchaseRequisitionController@PurchaseRequisitionListData')->name('PurchaseRequisition.PurchaseRequisitionListData');
     Route::post('ProcReqListCartRevision', 'Purchase\PurchaseRequisitionController@ProcReqListCartRevision')->name('PurchaseRequisition.ProcReqListCartRevision');
     Route::resource('PurchaseRequisition', 'Purchase\PurchaseRequisitionController');
@@ -228,9 +234,11 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('StoreValidatePurchaseOrder', 'Purchase\PurchaseOrderController@StoreValidatePurchaseOrder')->name('PurchaseOrder.StoreValidatePurchaseOrder');
     Route::post('StoreValidatePurchaseOrder2', 'Purchase\PurchaseOrderController@StoreValidatePurchaseOrder2')->name('PurchaseOrder.StoreValidatePurchaseOrder2');
     Route::post('StoreValidatePurchaseOrderPrNumber', 'Purchase\PurchaseOrderController@StoreValidatePurchaseOrderPrNumber')->name('PurchaseOrder.StoreValidatePurchaseOrderPrNumber');
-    Route::post('RevisionPurchaseOrder', 'Purchase\PurchaseOrderController@RevisionPurchaseOrderIndex')->name('PurchaseOrder.RevisionPurchaseOrder');
+    Route::get('RevisionPurchaseOrder', 'Purchase\PurchaseOrderController@RevisionPurchaseOrderIndex')->name('PurchaseOrder.RevisionPurchaseOrder');
     Route::get('ReportPurchaseOrderSummary', 'Purchase\PurchaseOrderController@ReportPoSummary')->name('PurchaseOrder.ReportPurchaseOrderSummary');
     Route::get('ReportPurchaseOrderDetail', 'Purchase\PurchaseOrderController@ReportPoDetail')->name('PurchaseOrder.ReportPurchaseOrderDetail');
+    Route::get('ReportPOtoAP', 'Purchase\PurchaseOrderController@ReportPoToAp')->name('PurchaseOrder.ReportPOtoAP');
+    Route::get('ReportCSF', 'Purchase\PurchaseOrderController@ReportCSF')->name('PurchaseOrder.ReportCSF');
     Route::get('PurchaseOrderListData', 'Purchase\PurchaseOrderController@PurchaseOrderListData')->name('PurchaseOrder.PurchaseOrderListData');
     // Route::post('RevisionPurchaseOrder', 'Purchase\PurchaseOrderController@RevisionPurchaseOrder')->name('PurchaseOrder.RevisionPurchaseOrder');
     Route::get('PurchaseOrderByPrID', 'Purchase\PurchaseOrderController@PurchaseOrderByPrID')->name('PurchaseOrder.PurchaseOrderByPrID');
@@ -258,9 +266,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('PieceMealListData', 'HumanResource\PieceMealController@PieceMealListData')->name('PieceMeal.PieceMealListData');
     Route::post('PieceMealListCartRevision', 'HumanResource\PieceMealController@PieceMealListCartRevision')->name('PieceMeal.PieceMealListCartRevision');
     Route::resource('PieceMeal', 'HumanResource\PieceMealController');
-
     //Timesheet
-    Route::post('Timesheet/event', 'HumanResourckae\TimesheetController@event')->name('Timesheet.event');
+    Route::post('Timesheet/event', 'HumanResourckae\TimesheetController@event')->name('Timesheet.event');                                                                                                                                                                                                                                                                                                                                                                   
     Route::post('Timesheet/updates', 'HumanResource\TimesheetController@updates')->name('Timesheet.updates');
     Route::post('Timesheet/storeActivity', 'HumanResource\TimesheetController@storeActivity')->name('Timesheet.storeActivity');
     Route::resource('Timesheet', 'HumanResource\TimesheetController');

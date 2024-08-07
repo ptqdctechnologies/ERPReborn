@@ -8,18 +8,20 @@
 @include('getFunction.getProject')
 @include('getFunction.getWorkFlow')
 @include('getFunction.getSupplier')
+@include('getFunction.getDeliverTo')
+
 
 <div class="content-wrapper">
   <section class="content">
     <div class="container-fluid">
       <div class="row mb-1" style="background-color:#4B586A;">
         <div class="col-sm-6" style="height:30px;">
-          <label style="font-size:15px;position:relative;top:7px;color:white;">Purchase Requisition</label>
+          <label style="font-size:15px;position:relative;top:7px;color:white;">Material Service Request</label>
         </div>
       </div>
       @include('Purchase.PurchaseRequisition.Functions.Menu.MenuProcReq')
       @if($var == 0)
-      <div class="card" style="position:relative;bottom:10px;">
+      <div class="card" style="position:relative;bottom:10px;">  
         <form method="post" enctype="multipart/form-data" action="{{ route('PurchaseRequisition.store') }}" id="FormSubmitProcReq">
           @csrf
           <div class="tab-content p-3" id="nav-tabContent">
@@ -28,7 +30,7 @@
                 <div class="card">
                   <div class="card-header">
                     <label class="card-title">
-                      Add New Purchase Requisition
+                      Add New Material Service Request
                     </label>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -45,7 +47,7 @@
                 <div class="card">
                   <div class="card-header">
                     <label class="card-title">
-                      Purchase Requisition Detail
+                      Material Service Request Detail
                     </label>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -53,7 +55,7 @@
                       </button>
                     </div>
                   </div>
-                  @include('Purchase.PurchaseRequisition.Functions.Header.HeaderProcReq')
+                  @include('Purchase.PurchaseRequisition.Functions.Header.HeaderProcReq2')
                 </div>
               </div>
             </div>
@@ -129,7 +131,7 @@
                   <div class="card">
                     <div class="card-header">
                       <label class="card-title">
-                        Purchase Requisition List (Cart)
+                        Material Service Request List (Cart)
                       </label>
                       <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
