@@ -1,6 +1,9 @@
 @extends('Partials.app')
 @section('main')
 
+<!-- Log Transaction css -->
+<link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/log-transaction.min.css') }}">
+  
 <section class="content">
     <div class="container-fluid">
         <div class="card">
@@ -16,102 +19,101 @@
                         </div>
 
                         <div class="card">
-                            <div class="card-body table-responsive p-0" style="height:200px;">
-                                <table class="table table-head-fixed text-nowrap table-bordered table-sm TableShowRevisionHistory" id="TableShowRevisionHistory" style="width: 100%;">
-                                    <thead>
-                                        <tr>
-                                            <th rowspan="2" style="padding-bottom:15px;border:1px solid #e9ecef;text-align: center;">Product ID</th>
-                                            <th rowspan="2" style="padding-bottom:15px;border:1px solid #e9ecef;text-align: center;">Product Name</th>
-                                            <th rowspan="2" style="padding-bottom:15px;border:1px solid #e9ecef;text-align: center;">UOM</th>
-                                            <th rowspan="2" style="padding-bottom:15px;border:1px solid #e9ecef;text-align: center;">Qty</th>
-                                            <th rowspan="2" style="padding-bottom:15px;border:1px solid #e9ecef;text-align: center;">Price</th>
-                                            <th rowspan="2" style="padding-bottom:15px;border:1px solid #e9ecef;text-align: center;">Total</th>
-                                            @if(isset($dataDetail))
-                                                @for($i = 1; $i < count($dataDetail[0]); $i++) 
-                                                    <th colspan="3" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">Rev {{ $i }} - Aldi Mulyadi ( {{ date('Y-m-d', strtotime($dataDetail[0][$i]['content']['sys_Data_Edit_DateTimeTZ'])) }} )</th>
-                                                @endfor
-                                            @endif
-                                        </tr>
-                                        @if(isset($dataDetail))
-                                        <tr>
-                                            @for($i = 1; $i < count($dataDetail[0]); $i++)
-                                                <th style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;"> Qty</th>
-                                                <th style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;"> Price</th>
-                                                <th style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;"> Total</th>
-                                            @endfor
-                                        </tr>
-                                        @endif
-                                    </thead>
-                                    <tbody>
-                                        @if(isset($dataDetail))
-                                            @for($i = 0; $i < count($dataDetail); $i++)
-                                                <tr>
-                                                    <td>{{ $dataDetail[$i][0]['content']['product_RefID'] }}</td>
-                                                    <td>{{ $dataDetail[$i][0]['content']['product_RefID'] }}</td>
-                                                    <td>{{ $dataDetail[$i][0]['content']['sys_PID'] }}</td>
-                                                    <td>{{ $dataDetail[$i][0]['content']['quantity'] }}</td>
-                                                    <td>{{ $dataDetail[$i][0]['content']['productUnitPriceCurrencyValue'] }}</td>
-                                                    <td>{{ $dataDetail[$i][0]['content']['priceCurrencyValue'] }}</td>
-                                                
-                                                
-                                                    @for($n = 1; $n < count($dataDetail[$i]); $n++)
-                                                        <td>{{ $dataDetail[$i][$n]['content']['quantity'] }}</td>
-                                                        <td>{{ $dataDetail[$i][$n]['content']['productUnitPriceCurrencyValue'] }}</td>
-                                                        <td>{{ $dataDetail[$i][$n]['content']['priceCurrencyValue'] }}</td>
+                            <div id="container">
+                                <div class="table-responsive table-height">
+                                    <table class="table table-bordered table-striped table-hover table-sticky table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th style="padding-bottom:15px;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2"> Product ID</th>
+                                                <th style="padding-bottom:15px;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2"> Product Name</th>
+                                                <th style="padding-bottom:15px;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2"> UOM</th>
+                                                <th style="padding-bottom:15px;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2"> Qty</th>
+                                                <th style="padding-bottom:15px;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2">Price</th>
+                                                <th style="padding-bottom:15px;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2">Total</th>
+                                                @if(sizeof($dataDetail))
+                                                    @for($i = 1; $i < count($dataDetail[0]); $i++) 
+                                                        <th colspan="3" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">Rev {{ $i }} - {{ $dataHeader[0]['requesterWorkerName'] }} ( {{ date('Y-m-d', strtotime($dataDetail[0][$i]['content']['sys_Data_Edit_DateTimeTZ'])) }} )</th>
                                                     @endfor
-                                                </tr>
-                                            @endfor
-                                        @endif
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-body table-responsive p-0">
-                                <table class="table table-head-fixed text-nowrap table-bordered table-sm" style="width: 100%;">
-                                    <thead>
-                                        <tr>
-
-                                            <th rowspan="2" style="padding-bottom:15px;border:1px solid #e9ecef;text-align: center;"> Requester</th>
-                                            <th rowspan="2" style="padding-bottom:15px;border:1px solid #e9ecef;text-align: center;"> Beneficiary</th>
-                                            <th rowspan="2" style="padding-bottom:15px;border:1px solid #e9ecef;text-align: center;"> Note</th>
-                                            @if(count($dataHeader) > 1)
-                                                @for($i = 1; $i < count($dataHeader); $i++) 
-                                                    <th colspan="3" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">Rev {{ $i }}</th>
+                                                @endif
+                                            </tr>
+                                            @if(sizeof($dataDetail))
+                                            <tr>
+                                                @for($i = 1; $i < count($dataDetail[0]); $i++)
+                                                    <th class="text-center" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;top: 23px;"> Qty</th>
+                                                    <th class="text-center" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;top: 23px;"> Price</th>
+                                                    <th class="text-center" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;top: 23px;"> Total</th>
+                                                @endfor
+                                            </tr>
+                                            @endif
+                                        </thead>
+                                            
+                                        <tbody>
+                                            @if(sizeof($dataDetail))
+                                                @for($i = 0; $i < count($dataDetail); $i++)
+                                                    <tr>
+                                                        <td style="padding: 8px;">{{ $dataDetail[$i][0]['content']['product_RefID'] }}</td>
+                                                        <td style="padding: 8px;">{{ $dataDetail[$i][0]['productName'] }}</td>
+                                                        <td style="padding: 8px;">{{ $dataDetail[$i][0]['quantityUnitName'] }}</td>
+                                                        <td style="padding: 8px;">{{ $dataDetail[$i][0]['content']['quantity'] }}</td>
+                                                        <td style="padding: 8px;">{{ $dataDetail[$i][0]['content']['productUnitPriceCurrencyValue'] }}</td>
+                                                        <td style="padding: 8px;">{{ $dataDetail[$i][0]['content']['priceCurrencyValue'] }}</td>
+                                                    
+                                                        @for($n = 1; $n < count($dataDetail[$i]); $n++)
+                                                            <td style="padding: 8px;">{{ $dataDetail[$i][$n]['content']['quantity'] }}</td>
+                                                            <td style="padding: 8px;">{{ $dataDetail[$i][$n]['content']['productUnitPriceCurrencyValue'] }}</td>
+                                                            <td style="padding: 8px;">{{ $dataDetail[$i][$n]['content']['priceCurrencyValue'] }}</td>
+                                                        @endfor
+                                                    </tr>
                                                 @endfor
                                             @endif
-                                        </tr>
-                                        @if(count($dataHeader) > 1)
-                                        <tr>
-
-                                            @for($i = 1; $i < count($dataHeader); $i++) 
-                                                <th style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;"> Requester</th>
-                                                <th style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;"> Beneficiary</th>
-                                                <th style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;"> Note</th>
-                                            @endfor
-                                        </tr>
-                                        @endif
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            @if(count($dataHeader) > 1)
-                                                @foreach($dataHeader as $dataHeaders)
-                                                    <td>{{ $dataHeaders['content']['requesterWorkerJobsPosition_RefID'] }}</td>
-                                                    <td>{{ $dataHeaders['content']['beneficiaryWorkerJobsPosition_RefID'] }}</td>
-                                                    <td>{{ $dataHeaders['content']['remarks'] }}</td>
-                                                @endforeach
-                                            @endif
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-
+                        <br><br>
+                        <div class="card">
+                            <div id="container">
+                                <div class="table-responsive table-height">
+                                    <table class="table table-bordered table-striped table-hover table-sticky table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th rowspan="2" style="padding-bottom:15px;border:1px solid #e9ecef;text-align: center;"> Requester</th>
+                                                <th rowspan="2" style="padding-bottom:15px;border:1px solid #e9ecef;text-align: center;"> Beneficiary</th>
+                                                <th rowspan="2" style="padding-bottom:15px;border:1px solid #e9ecef;text-align: center;"> Note</th>
+                                                @if(sizeof($dataHeader))
+                                                    @for($i = 1; $i < count($dataHeader); $i++) 
+                                                        <th colspan="3" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">Rev {{ $i }}</th>
+                                                    @endfor
+                                                @endif
+                                            </tr>
+                                            @if(sizeof($dataHeader))
+                                            <tr>
+                                                @for($i = 1; $i < count($dataHeader); $i++) 
+                                                    <th class="text-center" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;top: 23px;"> Requester</th>
+                                                    <th class="text-center" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;top: 23px;"> Beneficiary</th>
+                                                    <th class="text-center" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;top: 23px;"> Note</th>
+                                                @endfor
+                                            </tr>
+                                            @endif
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                @if(sizeof($dataHeader))
+                                                    @foreach($dataHeader as $dataHeaders)
+                                                        <td style="padding: 8px;">{{ $dataHeaders['requesterWorkerName'] }}</td>
+                                                        <td style="padding: 8px;">{{ $dataHeaders['beneficiaryWorkerName'] }}</td>
+                                                        <td style="padding: 8px;">{{ $dataHeaders['content']['remarks'] }}</td>
+                                                    @endforeach
+                                                @endif
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    
                 </div>
-
             </div>
         </div>
     </div>

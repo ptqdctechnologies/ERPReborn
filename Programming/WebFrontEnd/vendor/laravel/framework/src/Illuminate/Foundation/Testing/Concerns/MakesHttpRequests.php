@@ -64,13 +64,6 @@ trait MakesHttpRequests
     protected $withCredentials = false;
 
     /**
-     * The latest test response (if any).
-     *
-     * @var \Illuminate\Testing\TestResponse|null
-     */
-    public static $latestResponse;
-
-    /**
      * Define additional headers to be sent with the request.
      *
      * @param  array  $headers
@@ -592,7 +585,7 @@ trait MakesHttpRequests
             $response = $this->followRedirects($response);
         }
 
-        return static::$latestResponse = $this->createTestResponse($response);
+        return $this->createTestResponse($response, $request);
     }
 
     /**
@@ -725,11 +718,12 @@ trait MakesHttpRequests
      * Create the test response instance from the given response.
      *
      * @param  \Illuminate\Http\Response  $response
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Testing\TestResponse
      */
-    protected function createTestResponse($response)
+    protected function createTestResponse($response, $request)
     {
-        return tap(TestResponse::fromBaseResponse($response), function ($response) {
+        return tap(TestResponse::fromBaseResponse($response, $request), function ($response) {
             $response->withExceptions(
                 $this->app->bound(LoggedExceptionCollection::class)
                     ? $this->app->make(LoggedExceptionCollection::class)

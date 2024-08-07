@@ -39,6 +39,7 @@ class MyDocumentController extends Controller
                 $filteredArray[$i]['formDocumentNumber_RefID'] = $ShowMyDocumentListData[$i]['entities']['formDocumentNumber_RefID'];
                 $filteredArray[$i]['businessDocument_RefID'] = $ShowMyDocumentListData[$i]['entities']['businessDocument_RefID'];
                 $filteredArray[$i]['BusinessDocumentType_RefID'] = $ShowMyDocumentListData[$i]['entities']['BusinessDocumentType_RefID'];
+                $filteredArray[$i]['BusinessDocumentTypeName'] = $ShowMyDocumentListData[$i]['entities']['BusinessDocumentTypeName'];
                 if ($ShowMyDocumentListData[$i]['entities']['CombinedBudgetID'] != []) {
                     $filteredArray[$i]['CombinedBudgetID'] = $ShowMyDocumentListData[$i]['entities']['CombinedBudgetID'][0];
                 } else {
@@ -87,7 +88,7 @@ class MyDocumentController extends Controller
     public function ShowMyDocumentListData(Request $request)
     {
         $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
-        $varAPIWebToken = Session::get('SessionLogin');
+        $varAPIWebToken = Session::get('SessionLogin'); 
 
         if (Redis::get("ShowMyDocumentListData" . $SessionWorkerCareerInternal_RefID) == null) {
             \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(

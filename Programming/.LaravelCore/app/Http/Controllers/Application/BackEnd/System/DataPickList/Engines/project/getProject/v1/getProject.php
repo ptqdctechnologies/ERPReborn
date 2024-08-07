@@ -79,10 +79,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\p
                 json_encode($varBudget['Data']),
                 // $varTTL
             );
-
-
             return [];
-
 
             // $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             // try {

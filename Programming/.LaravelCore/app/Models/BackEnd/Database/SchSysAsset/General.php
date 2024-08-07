@@ -36,7 +36,8 @@ namespace App\Models\Database\SchSysAsset
         |      ▪ (boolean) varReturn                                                                                               | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getData_APIWebToken_IsExist($varUserSession, $varAPIWebToken)
+        public function getData_APIWebToken_IsExist(
+            $varUserSession, $varAPIWebToken)
             {
             $varReturn = 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -49,6 +50,7 @@ namespace App\Models\Database\SchSysAsset
                         ]
                         )
                     );
+
             return
                 [
                 'SignExist' => (boolean) $varReturn['Data'][0]['Func_GetData_APIWebToken_IsExist']                
@@ -71,7 +73,8 @@ namespace App\Models\Database\SchSysAsset
         |      ▪ (string)  varReturn                                                                                               | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getData_APIWebToken_ByUserSessionID($varUserSession)
+        public function getData_APIWebToken_ByUserSessionID(
+            $varUserSession)
             {
             $varReturn = 
                 //\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -249,7 +252,6 @@ namespace App\Models\Database\SchSysAsset
                     $varUserSession, 
                     $varData['Data'][0]['ProcessedData_JSON'])
                 ];
-            
 
             return $varReturn[0]['details'];
             }
@@ -309,6 +311,7 @@ namespace App\Models\Database\SchSysAsset
                         ]
                         )
                     );
+
             return $varReturn['Data'][0];
             }
 
@@ -342,6 +345,7 @@ namespace App\Models\Database\SchSysAsset
                         ]
                         )
                     );
+
             return $varReturn['Data'];
             }
 
@@ -374,6 +378,7 @@ namespace App\Models\Database\SchSysAsset
                         ]
                         )
                     );
+
             return  $varReturn['Data'][0]['Func_General_Hash_SHA256'];
             }
 
@@ -406,6 +411,7 @@ namespace App\Models\Database\SchSysAsset
                         ]
                         )
                     );
+
             return $varReturn['Data'];
             }
 
@@ -439,6 +445,7 @@ namespace App\Models\Database\SchSysAsset
                         ]
                         )
                     );
+
             return $varReturn['Data'];
             }
 
@@ -471,6 +478,7 @@ namespace App\Models\Database\SchSysAsset
                         ]
                         )
                     );
+
             return $varReturn['Data'];
             }
         }

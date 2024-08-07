@@ -51,7 +51,6 @@ class AwsS3V3Adapter implements FilesystemAdapter, PublicUrlGenerator, ChecksumP
         'ContentEncoding',
         'ContentLength',
         'ContentType',
-        'ContentMD5',
         'Expires',
         'GrantFullControl',
         'GrantRead',
@@ -69,11 +68,15 @@ class AwsS3V3Adapter implements FilesystemAdapter, PublicUrlGenerator, ChecksumP
         'Tagging',
         'WebsiteRedirectLocation',
         'ChecksumAlgorithm',
+        'CopySourceSSECustomerAlgorithm',
+        'CopySourceSSECustomerKey',
+        'CopySourceSSECustomerKeyMD5',
     ];
     /**
      * @var string[]
      */
     public const MUP_AVAILABLE_OPTIONS = [
+        'add_content_md5',
         'before_upload',
         'concurrency',
         'mup_threshold',
@@ -428,6 +431,9 @@ class AwsS3V3Adapter implements FilesystemAdapter, PublicUrlGenerator, ChecksumP
             );
         }
 
+        $options = $this->createOptionsFromConfig($config);
+        $options['MetadataDirective'] = $config->get('MetadataDirective', 'COPY');
+
         try {
             $this->client->copy(
                 $this->bucket,
@@ -435,7 +441,7 @@ class AwsS3V3Adapter implements FilesystemAdapter, PublicUrlGenerator, ChecksumP
                 $this->bucket,
                 $this->prefixer->prefixPath($destination),
                 $this->visibility->visibilityToAcl($visibility ?: 'private'),
-                $this->createOptionsFromConfig($config)['params']
+                $options,
             );
         } catch (Throwable $exception) {
             throw UnableToCopyFile::fromLocationTo($source, $destination, $exception);

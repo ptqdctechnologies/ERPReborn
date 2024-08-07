@@ -23,12 +23,9 @@ use SebastianBergmann\Comparator\ComparisonFailure;
  */
 final class ExpectationFailedException extends AssertionFailedError
 {
-    /**
-     * @var ComparisonFailure
-     */
-    protected $comparisonFailure;
+    protected ?ComparisonFailure $comparisonFailure = null;
 
-    public function __construct(string $message, ComparisonFailure $comparisonFailure = null, Exception $previous = null)
+    public function __construct(string $message, ?ComparisonFailure $comparisonFailure = null, ?Exception $previous = null)
     {
         $this->comparisonFailure = $comparisonFailure;
 

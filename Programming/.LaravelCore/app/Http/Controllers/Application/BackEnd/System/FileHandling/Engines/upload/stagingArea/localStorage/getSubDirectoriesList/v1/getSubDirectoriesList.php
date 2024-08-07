@@ -63,10 +63,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
-                            $varUserSession,
-                            $this->dataProcessing($varUserSession)
-                            )))
+                        if (!($varDataSend =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
+                                $varUserSession,
+                                $this->dataProcessing($varUserSession)
+                                )
+                            ))
                             {
                             throw new \Exception();
                             }
@@ -126,10 +128,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             $varArrayRPKPhysicalName = '{'.$varArrayRPKPhysicalName.'}';
             
             //--->
-            $varDataReturn = (new \App\Models\Database\SchSysAsset\General())->getLocalStorageSubDirectoriesList(
-                $varUserSession, 
-                $varArrayRPKPhysicalName
-                );
+            $varDataReturn =
+                (new \App\Models\Database\SchSysAsset\General())->getLocalStorageSubDirectoriesList(
+                    $varUserSession, 
+                    $varArrayRPKPhysicalName
+                    );
 
             //--->
              for ($i=0, $iMax=count($varDataReturn); $i!=$iMax; $i++)
@@ -141,6 +144,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                     $varDataReturn[$i]['Path'] = null;
                     }
                 }
+
             return $varDataReturn;
             }
         }

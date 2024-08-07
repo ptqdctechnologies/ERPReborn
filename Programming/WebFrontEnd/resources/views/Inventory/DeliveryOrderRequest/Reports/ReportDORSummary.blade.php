@@ -2,7 +2,9 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
+@include('getFunction.getSite')
 @include('getFunction.getProject')
+@include('getFunction.getWarehouse')
 
 <div class="content-wrapper">
     <section class="content">
@@ -15,111 +17,77 @@
             <div class="card">
                 <div class="tab-content p-3" id="nav-tabContent">
                     <div class="row">
-                        @if($var == 1)
-                            <div class="col-12 ShowDocument">
+                        <div class="col-12 ShowDocument">
+                            @include("Inventory.DeliveryOrderRequest.Functions.Header.HeaderReportDORSummary")
+                        </div>
+
+                        <?php if ($dataReport) { ?>
+                            <div class="col-12 ShowTableReportAdvanceSummary">
                                 <div class="card">
+                                    <!-- HEADER -->
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <table>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;"><label>Budget&nbsp;</label></th>
-                                                            <td>
-                                                                <div class="input-group">
-                                                                    <input id="budget_id" style="border-radius:0;" class="form-control" name="budget_id" type="hidden">
-                                                                    <input id="budget" style="border-radius:0;background-color:white;" class="form-control myProject" name="budget" readonly data-toggle="modal" data-target="#myProject">
-                                                                    <div class="input-group-append">
-                                                                        <span style="border-radius:0;" class="input-group-text form-control">
-                                                                            <a href="#" id="budget_popup" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <table>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;"><label>Sub&nbsp;Budget&nbsp;</label></th>
-                                                            <td>
-                                                                <div class="input-group">
-                                                                    <input id="sub_budget_id" style="border-radius:0;" class="form-control" name="sub_budget_id" type="hidden">
-                                                                    <input id="sub_budget" style="border-radius:0;background-color:white;" class="form-control myProject" name="sub_budget" readonly data-toggle="modal" data-target="#myProject">
-                                                                    <div class="input-group-append">
-                                                                        <span style="border-radius:0;" class="input-group-text form-control">
-                                                                            <a href="#" id="sub_budget_popup" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <table>
-                                                        <tr>
-                                                            <td>
-                                                                <button class="btn btn-default btn-sm" type="submit">
-                                                                    <img src="{{ asset('AdminLTE-master/dist/img/backwards.png') }}" width="12" alt="" title="Show"> Show
-                                                                </button>
-                                                            </td>
-                                                            <td>
-                                                                <select name="" id="" class="form-control">
-                                                                    <option value="PDF">PDF</option>
-                                                                    <option value="Excel">Excel</option>
-                                                                </select>
-                                                            </td>
-                                                            <td>
-                                                                &nbsp;&nbsp;<span><img src="{{ asset('AdminLTE-master/dist/img/printer.png') }}" width="17" alt=""></span>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </div>
+                                            <div class="form-group">
+                                                <table>
+                                                    <tr>
+                                                        <th style="padding-top: 7px;"><label>Budget&nbsp;</label></th>
+                                                        <td><b>:</b></td>
+                                                        <td><b><?= $dataReport['dataHeader']['budget']; ?></b></td>
+                                                    </tr>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-12 ShowTableReportAdvanceSummary">
                                 <div class="card">
                                     <div class="card-body table-responsive p-0">
-                                        <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="TableReportAdvanceSummary">
+                                        <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="DefaultFeatures">
                                             <thead>
                                                 <tr>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">DOR Number</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Budget Code</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Date</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total IDR</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total Other Currency</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>DOR-23000001</td>
-                                                    <td>Q000195</td>
-                                                    <td>01/12/2023</td>
-                                                    <td>200,000</td>
-                                                    <td>0</td>
-                                                </tr>
+                                                <?php foreach ($dataReport['dataDetail'] as $dataDetail) { ?>
+                                                    <tr>
+                                                        <td><?= $dataDetail['no']; ?></td>
+                                                        <td><?= $dataDetail['DORNumber']; ?></td>
+                                                        <td><?= $dataDetail['date']; ?></td>
+                                                        <td><?= $dataDetail['total']; ?></td>
+                                                        <td><?= $dataDetail['totalOtherCurrency']; ?></td>
+                                                    </tr>
+                                                <?php } ?>
                                             </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th colspan="3" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: right;background-color:#4B586A;color:white;">Total</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                        <?= $dataReport['total']; ?>
+                                                    </th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                        <?= $dataReport['totalOtherCurrency']; ?>
+                                                    </th>
+                                                </tr>
+                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>
                             </div>
-                        @endif
+                        <?php }; Session::forget("isButtonReportDORSummarySubmit"); ?>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 </div>
+
 @include('Partials.footer')
+@include('Inventory.DeliveryOrderRequest.Functions.Footer.FooterDORSummary')
 @endsection

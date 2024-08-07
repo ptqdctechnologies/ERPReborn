@@ -69,30 +69,33 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varAdvancePayment_RefID = null, int $varAdvanceDetail_RefID = null, int $varAmountCurrency_RefID = null, float $varAmountCurrencyValue = null, float $varAmountCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varAdvancePayment_RefID = null, int $varAdvanceDetail_RefID = null, int $varAmountCurrency_RefID = null, float $varAmountCurrencyValue = null, float $varAmountCurrencyExchangeRate = null, string $varRemarks = null
+            )
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [null, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
-                        
-                        [$varAdvancePayment_RefID, 'bigint'],
-                        [$varAdvanceDetail_RefID, 'bigint'],
-                        [$varAmountCurrency_RefID, 'bigint'],
-                        [$varAmountCurrencyValue, 'numeric'],
-                        [$varAmountCurrencyExchangeRate, 'numeric'],
-                        [$varRemarks, 'varchar']
-                    ]
-                    )
-                );
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [null, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
+
+                            [$varAdvancePayment_RefID, 'bigint'],
+                            [$varAdvanceDetail_RefID, 'bigint'],
+                            [$varAmountCurrency_RefID, 'bigint'],
+                            [$varAmountCurrencyValue, 'numeric'],
+                            [$varAmountCurrencyExchangeRate, 'numeric'],
+                            [$varRemarks, 'varchar']
+                        ]
+                        )
+                    );
+
             return $varReturn['Data'][0];
             }
 
@@ -128,30 +131,33 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varAdvancePayment_RefID = null, int $varAdvanceDetail_RefID = null, int $varAmountCurrency_RefID = null, float $varAmountCurrencyValue = null, float $varAmountCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varAdvancePayment_RefID = null, int $varAdvanceDetail_RefID = null, int $varAmountCurrency_RefID = null, float $varAmountCurrencyValue = null, float $varAmountCurrencyExchangeRate = null, string $varRemarks = null
+            )
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varSysID, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
-                        
-                        [$varAdvancePayment_RefID, 'bigint'],
-                        [$varAdvanceDetail_RefID, 'bigint'],
-                        [$varAmountCurrency_RefID, 'bigint'],
-                        [$varAmountCurrencyValue, 'numeric'],
-                        [$varAmountCurrencyExchangeRate, 'numeric'],
-                        [$varRemarks, 'varchar']
-                    ],
-                    )
-                );
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varSysID, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
+
+                            [$varAdvancePayment_RefID, 'bigint'],
+                            [$varAdvanceDetail_RefID, 'bigint'],
+                            [$varAmountCurrency_RefID, 'bigint'],
+                            [$varAmountCurrencyValue, 'numeric'],
+                            [$varAmountCurrencyExchangeRate, 'numeric'],
+                            [$varRemarks, 'varchar']
+                        ]
+                        )
+                    );
+
             return $varReturn['Data'][0];
             }
         }

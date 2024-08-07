@@ -5,7 +5,7 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_HumanResource                                                                   |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2020 - 2022 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_HumanResource
@@ -52,7 +52,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varPersonWorkTimeSheet_RefID ► Person Work Time Sheet Reference ID                                       |
         |      ▪ (int)    varProjectSectionItem_RefID ► Project Section Item Reference ID                                          |
         |      ▪ (string) varStartDateTimeTZ ► Start DateTimeTZ                                                                    |
@@ -60,36 +61,40 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varActivity ► Activity                                                                                   |
         |      ▪ (string) varColorText ► Color Text                                                                                |
         |      ▪ (string) varColorBackground ► Color Background                                                                    |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
             $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
+            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,
             int $varPersonWorkTimeSheet_RefID = null, int $varProjectSectionItem_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, string $varActivity = null, string $varColorText = null, string $varColorBackground = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [null, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
-                        [$varPersonWorkTimeSheet_RefID, 'bigint'],
-                        [$varProjectSectionItem_RefID, 'bigint'],
-                        [$varStartDateTimeTZ, 'timestamptz'],
-                        [$varFinishDateTimeTZ, 'timestamptz'],
-                        [$varActivity, 'varchar'],
-                        [$varColorText, 'varchar'],
-                        [$varColorBackground, 'varchar']
-                    ]
-                    )
-                );
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [null, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+
+                            [$varPersonWorkTimeSheet_RefID, 'bigint'],
+                            [$varProjectSectionItem_RefID, 'bigint'],
+                            [$varStartDateTimeTZ, 'timestamptz'],
+                            [$varFinishDateTimeTZ, 'timestamptz'],
+                            [$varActivity, 'varchar'],
+                            [$varColorText, 'varchar'],
+                            [$varColorBackground, 'varchar']
+                        ]
+                        )
+                    );
+
             return $varReturn['Data'][0];
             }
 
@@ -108,7 +113,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varPersonWorkTimeSheet_RefID ► Person Work Time Sheet Reference ID                                       |
         |      ▪ (int)    varProjectSectionItem_RefID ► Project Section Item Reference ID                                          |
         |      ▪ (string) varStartDateTimeTZ ► Start DateTimeTZ                                                                    |
@@ -116,36 +122,40 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varActivity ► Activity                                                                                   |
         |      ▪ (string) varColorText ► Color Text                                                                                |
         |      ▪ (string) varColorBackground ► Color Background                                                                    |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
             $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
+            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,
             int $varPersonWorkTimeSheet_RefID = null, int $varProjectSectionItem_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, string $varActivity = null, string $varColorText = null, string $varColorBackground = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varSysID, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
-                        [$varPersonWorkTimeSheet_RefID, 'bigint'],
-                        [$varProjectSectionItem_RefID, 'bigint'],
-                        [$varStartDateTimeTZ, 'timestamptz'],
-                        [$varFinishDateTimeTZ, 'timestamptz'],
-                        [$varActivity, 'varchar'],
-                        [$varColorText, 'varchar'],
-                        [$varColorBackground, 'varchar']
-                    ]
-                    )
-                );
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varSysID, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+
+                            [$varPersonWorkTimeSheet_RefID, 'bigint'],
+                            [$varProjectSectionItem_RefID, 'bigint'],
+                            [$varStartDateTimeTZ, 'timestamptz'],
+                            [$varFinishDateTimeTZ, 'timestamptz'],
+                            [$varActivity, 'varchar'],
+                            [$varColorText, 'varchar'],
+                            [$varColorBackground, 'varchar']
+                        ]
+                        )
+                    );
+
             return $varReturn['Data'][0];
             }
         }

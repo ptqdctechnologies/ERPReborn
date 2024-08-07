@@ -90,6 +90,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         ]
                         )
                     );
+
             return $varReturn['Data'][0];
             }
 
@@ -143,11 +144,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [$varQuantity, 'numeric'],
                             [$varQuantityUnit_RefID, 'bigint'],
                             [$varRemarks, 'varchar']
-                        ],
+                        ]
                         )
                     );
-                return $varReturn['Data'][0];
-                //return $varReturn;
+
+            return $varReturn['Data'][0];
             }
         }
     }

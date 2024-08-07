@@ -57,7 +57,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |        ----------------------------------------                                                                          |
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
         |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► File Attachments Reference ID                                          |
-        |      ▪ (int)    varRequesitionerWorkerJobsPosition_RefID ► Requesitioner Worker Jobs Position Reference ID                       |
+        |      ▪ (int)    varRequesitionerWorkerJobsPosition_RefID ► Requesitioner Worker Jobs Position Reference ID               |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
@@ -94,6 +94,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         ]
                         )
                     );
+
             return $varReturn['Data'][0];
             }
 
@@ -117,7 +118,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |        ----------------------------------------                                                                          |
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
         |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► File Attachments Reference ID                                          |
-        |      ▪ (int)    varRequesitionerWorkerJobsPosition_RefID ► Requesitioner Worker Jobs Position Reference ID                       |
+        |      ▪ (int)    varRequesitionerWorkerJobsPosition_RefID ► Requesitioner Worker Jobs Position Reference ID               |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
@@ -131,28 +132,30 @@ namespace App\Models\Database\SchData_OLTP_Finance
             string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesitionerWorkerJobsPosition_RefID = null, string $varRemarks = null,
             array $varAdditionalData = [])
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varSysID, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varSysID, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [$varDocumentDateTimeTZ, 'timestamptz'],
-                        [$varLog_FileUpload_Pointer_RefID, 'bigint'],
-                        [$varRequesitionerWorkerJobsPosition_RefID, 'bigint'],
-                        [$varRemarks, 'varchar'],
+                            [$varDocumentDateTimeTZ, 'timestamptz'],
+                            [$varLog_FileUpload_Pointer_RefID, 'bigint'],
+                            [$varRequesitionerWorkerJobsPosition_RefID, 'bigint'],
+                            [$varRemarks, 'varchar'],
 
-                        [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
-                    ]
-                    )
-                );
+                            [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
+                        ]
+                        )
+                    );
+
             return $varReturn['Data'][0];
             }
         }

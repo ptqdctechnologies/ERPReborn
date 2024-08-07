@@ -63,12 +63,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
                         if (!($varDataSend = 
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchSysConfig\General())->getUserPrivilege_MenuLayout(
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession,
+                                (new \App\Models\Database\SchSysConfig\General())->getUserPrivilege_MenuLayout(
+                                    $varUserSession,
 
-                                $varData['parameter']['branch_RefID'],
-                                $varData['parameter']['user_RefID']
-                                ))
+                                    $varData['parameter']['branch_RefID'],
+                                    $varData['parameter']['user_RefID']
+                                    )
+                                )
                             ))
                             {
                             throw new \Exception();

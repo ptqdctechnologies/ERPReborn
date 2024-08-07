@@ -60,19 +60,24 @@
 
         var keys = 0;
 
+        // var DocumentTypeID = 77000000000057;
+        var DocumentTypeID = $('#DocumentType').val();
+        var e = document.getElementById("DocumentType");
+        var DocumentTypeName = e.options[e.selectedIndex].text;
+
         $.ajax({
             type: 'GET',
-            url: '{!! route("CheckDocument.ShowDocumentListData") !!}?DocumentType=' + $('#DocumentType').val(),
+            url: '{!! route("CheckDocument.ShowDocumentListData") !!}?DocumentTypeID=' + DocumentTypeID + '&DocumentTypeName=' + DocumentTypeName,
             success: function(data) {
                 var no = 1;
                 t = $('#TableCheckDocument').DataTable();
                 t.clear().draw();
-                $.each(data, function(key, val) {
+                $.each(data.data, function(key, val) {
                     keys += 1;
                     t.row.add([
-                        '<tbody><tr><td><input id="businessDocument_RefID' + keys + '" value="' + val.Sys_ID + '" type="hidden">' + no++ + '</span></td>',
+                        '<tbody><tr><td><input id="businessDocument_RefID' + keys + '" value="' + val.Sys_ID + '" type="hidden"><input id="DocumentTypeName" value="' + data.DocumentTypeName + '" type="hidden">' + no++ + '</span></td>',
                         '<td><span style="position:relative;left:10px;">' + val.DocumentNumber + '</span></td>',
-                        '<td><span style="position:relative;left:10px;">' + val.CombinedBudgetCode + '-' + val.CombinedBudgetSectionCode + '</span></td>',
+                        '<td><span style="position:relative;left:10px;">' + val.CombinedBudgetCode + '-' + val.CombinedBudgetName + '</span></td>',
                         '<td><span style="position:relative;left:10px;">' + val.CombinedBudgetSectionCode + '-' + val.CombinedBudgetSectionName + '</span></td></tr></tbody>',
                     ]).draw();
                 });
@@ -92,14 +97,15 @@
         var documentNumber = row.find("td:nth-child(2)").text();
         var id = row.find("td:nth-child(1)").text();
         var businessDocument_RefID = $('#businessDocument_RefID' + id).val();
+        var DocumentTypeName = $('#DocumentTypeName').val();
 
         $("#businessDocument_RefID").val(businessDocument_RefID);
         $("#businessDocumentNumber").val(documentNumber);
+        $("#businessDocumentType_Name").val(DocumentTypeName);
     });
 </script>
 
 <script>
-    $(".ViewWorkflow").hide();
 
     $('.ViewDocument').on('click', function() {
         $(".DocumentWorkflow").hide();
@@ -109,19 +115,8 @@
         $(".ApprovalHistory").show();
 
         $(".ViewDocument").hide();
-        $(".ViewWorkflow").show();
     });
 
-    $('.ViewWorkflow').on('click', function() {
-        $(".DocumentWorkflow").show();
-        $(".ShowDocumentList").hide();
-        $(".InternalNotes").hide();
-        $(".FileAttachment").hide();
-        $(".ApprovalHistory").hide();
-
-        $(".ViewDocument").show();
-        $(".ViewWorkflow").hide();
-    });
 </script>
 
 <!-- VALIDATION IF FORM DOCUMENT NUMBER INPUTED, PURPOSE FOR DELETE DOCUMENT REF ID -->
@@ -147,9 +142,47 @@
 
 
 <script>
-    function ShowRevisionHistory(id, docNum, docName) {
-        var page = 'http://localhost:20080/ShowRevisionHistory?id=' + id + '&docNum=' + docNum + '&docName=' + docName;
+    function LogTransaction(id, docNum, docName) {
+        var page = 'http://localhost:20080/LogTransaction?id=' + id + '&docNum=' + docNum + '&docName=' + docName;
         var myWindow = window.open(page, "_blank", "scrollbars=yes,width=400,height=500,top=300");
 
     }
+</script>
+
+
+<script>
+    // function ShowFileAttachment(id) {
+
+    //     ShowLoading();
+    var id = $("#Sys_ID_Advance").val();
+
+    $(".ShowFileAttachment").hide();
+
+    $('#TableFileAttachment').find('tbody').empty();
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    var keys = 0;
+
+    $.ajax({
+        type: 'GET',
+        url: '{!! route("CheckDocument.FileAttachmentCheckDocument") !!}?businessDocumentForm_RefID=' + id,
+        success: function(data) {
+            if (data.status == 200) {
+                $.each(data.data, function(key, val) {
+                    var html = '<tr>' +
+                        '<td>' + '<a href="' + val.entities.downloadURL + '">' + val.entities.name + '</td>' +
+                        '</tr>';
+                    $('table.TableFileAttachment tbody').append(html);
+
+                });
+            }
+            HideLoading();
+        }
+    });
+    // }z
 </script>

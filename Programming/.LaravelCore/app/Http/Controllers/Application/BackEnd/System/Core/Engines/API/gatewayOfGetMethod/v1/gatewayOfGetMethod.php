@@ -68,11 +68,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\gatew
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_ByAPIWebToken(
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                         $varAPIWebToken
-                        ))
+                        )
+                    )
                     {
                     throw new \Exception();
                     }
+
                 $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
                 try {
                     $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Gateway (version 1)');
                     try {
@@ -89,14 +92,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\gatew
                                 );
                         //dd($varArrayData);
                         
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
-                            $varUserSession, 
-                            $varAPIWebToken, 
-                            $varArrayData['metadata']['API']['key'], 
-                            $varArrayData['metadata']['API']['version'], 
-                            $varArrayData['data'], 
-                            FALSE
-                            );
+                        $varReturn =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
+                                $varUserSession,
+                                $varAPIWebToken, 
+                                $varArrayData['metadata']['API']['key'], 
+                                $varArrayData['metadata']['API']['version'], 
+                                $varArrayData['data'], 
+                                FALSE
+                                );
                         //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
                         \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                         } 
@@ -113,15 +117,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\gatew
             catch (\Exception $ex) {
                 return $varReturn;
                 }
-            }
-
-        function xxx()
-            {
-
-            
-            
-            
-            
             }
         }
     }

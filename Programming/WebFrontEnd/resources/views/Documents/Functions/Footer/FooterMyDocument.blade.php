@@ -47,6 +47,7 @@
         var t = $('.TableMyDocument').DataTable();
         t.clear().draw();
         $.each(data, function(key, val) {
+
             const date = dateFns.format(
                 dateFns.parse(val.businessDocumentDateTimeTZ, "yyyy-MM-dd hh:mm:ss"),
                 'DD-MM-YYYY HH:mm');
@@ -58,7 +59,7 @@
 
             keys += 1;
             t.row.add([
-                '<tbody><tr><input class="businessDocument_RefID' + keys + '" value="' + val.formDocumentNumber_RefID + '" type="hidden"><td><span style="position:relative;left:10px;">' + no++ + '</span></td>',
+                '<tbody><tr><input class="businessDocument_RefID' + keys + '" value="' + val.formDocumentNumber_RefID + '" type="hidden"><input class="businessDocumentTypeName' + keys + '" value="' + val.BusinessDocumentTypeName + '" type="hidden"><td><span style="position:relative;left:10px;">' + no++ + '</span></td>',
                 '<td><span style="position:relative;left:10px;">' + val.businessDocumentNumber + '</span></td>',
                 '<td><span style="position:relative;left:10px;">' + val.combinedBudgetCode + '</span></td>',
                 '<td><span style="position:relative;left:10px;">' + val.previousWorkFlowPathApproverName + '</span></td>',
@@ -157,9 +158,11 @@
         var row = $(this).closest("tr");
         var id = row.find("td:nth-child(1)").text();
         var businessDocument_RefID = $('.businessDocument_RefID' + id).val();
+        var businessDocumentTypeName = $('.businessDocumentTypeName' + id).val();
+        
         ShowLoading();
 
-        window.location.href = '/ShowDocumentByID?businessDocument_RefID=' + businessDocument_RefID;
+        window.location.href = '/ShowDocumentByID?businessDocument_RefID=' + businessDocument_RefID + '&businessDocumentTypeName=' + businessDocumentTypeName ;
 
     });
 </script>

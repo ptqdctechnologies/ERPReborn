@@ -30,14 +30,16 @@ abstract class AbstractStream
     protected $in;
     /** @var resource|null */
     protected $out;
+    protected $err;
 
     private string $debug = '';
 
     public function write(string $bytes, bool $debug = true): void
     {
         if ($debug) {
+            $timestamp = date('c');
             foreach (explode("\n", trim($bytes)) as $line) {
-                $this->debug .= sprintf("> %s\n", $line);
+                $this->debug .= sprintf("[%s] > %s\n", $timestamp, $line);
             }
         }
 
@@ -68,7 +70,7 @@ abstract class AbstractStream
 
     public function terminate(): void
     {
-        $this->stream = $this->out = $this->in = null;
+        $this->stream = $this->err = $this->out = $this->in = null;
     }
 
     public function readLine(): string
@@ -91,7 +93,7 @@ abstract class AbstractStream
             }
         }
 
-        $this->debug .= sprintf('< %s', $line);
+        $this->debug .= sprintf('[%s] < %s', date('c'), $line);
 
         return $line;
     }

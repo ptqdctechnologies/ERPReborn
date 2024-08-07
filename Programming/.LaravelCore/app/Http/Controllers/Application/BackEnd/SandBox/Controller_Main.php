@@ -19,16 +19,12 @@ class Controller_Main extends \App\Http\Controllers\Controller
 
     public function testAja3()
         {
-        echo "xxxxxxxxxx";
         $varData =
-            (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataList_CombinedBudgetSectionDetail(
-                6000000000001, 
+            (new \App\Models\Database\SchData_OLTP_Project\General())->getDataPickList_Project(
                 6000000000001,
-                null
+                11000000000004
             );
-        dd($varData);
-        
-        
+            dd($varData);
         
         }
         

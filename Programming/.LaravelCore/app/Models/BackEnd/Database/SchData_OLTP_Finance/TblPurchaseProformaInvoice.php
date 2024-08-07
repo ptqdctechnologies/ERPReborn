@@ -78,35 +78,37 @@ namespace App\Models\Database\SchData_OLTP_Finance
             int $varLog_FileUpload_Pointer_RefID = null, int $varSupplier_RefID = null, string $varDocumentNumber = null, string $varDocumentDateTimeTZ = null, string $varSalesOrderNumber = null, string $varPaymentDueDateTimeTZ = null, int $varPreferredPaymentMethod_RefID = null, int $varPreferredBankAccount_RefID = null, string $varReceivedDateTimeTZ = null, float $varAmountRoundOff = null, string $varRemarks = null,
             array $varAdditionalData = [])
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [null, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
-                        
-                        [$varLog_FileUpload_Pointer_RefID, 'bigint'],
-                        [$varSupplier_RefID, 'bigint'],
-                        [$varDocumentNumber, 'varchar'],
-                        [$varDocumentDateTimeTZ, 'timestamptz'],
-                        [$varSalesOrderNumber, 'varchar'],
-                        [$varPaymentDueDateTimeTZ, 'timestamptz'],
-                        [$varPreferredPaymentMethod_RefID, 'bigint'],
-                        [$varPreferredBankAccount_RefID, 'bigint'],
-                        [$varReceivedDateTimeTZ, 'timestamptz'],
-                        [$varAmountRoundOff, 'numeric'],
-                        [$varRemarks, 'varchar'],
-                        
-                        [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
-                    ]
-                    )
-                );
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [null, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
+
+                            [$varLog_FileUpload_Pointer_RefID, 'bigint'],
+                            [$varSupplier_RefID, 'bigint'],
+                            [$varDocumentNumber, 'varchar'],
+                            [$varDocumentDateTimeTZ, 'timestamptz'],
+                            [$varSalesOrderNumber, 'varchar'],
+                            [$varPaymentDueDateTimeTZ, 'timestamptz'],
+                            [$varPreferredPaymentMethod_RefID, 'bigint'],
+                            [$varPreferredBankAccount_RefID, 'bigint'],
+                            [$varReceivedDateTimeTZ, 'timestamptz'],
+                            [$varAmountRoundOff, 'numeric'],
+                            [$varRemarks, 'varchar'],
+
+                            [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
+                        ]
+                        )
+                    );
+
             return $varReturn['Data'][0];
             }
 
@@ -151,35 +153,37 @@ namespace App\Models\Database\SchData_OLTP_Finance
             int $varLog_FileUpload_Pointer_RefID = null, int $varSupplier_RefID = null, string $varDocumentNumber = null, string $varDocumentDateTimeTZ = null, string $varSalesOrderNumber = null, string $varPaymentDueDateTimeTZ = null, int $varPreferredPaymentMethod_RefID = null, int $varPreferredBankAccount_RefID = null, string $varReceivedDateTimeTZ = null, float $varAmountRoundOff = null, string $varRemarks = null,
             array $varAdditionalData = [])
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varSysID, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
-                        
-                        [$varLog_FileUpload_Pointer_RefID, 'bigint'],
-                        [$varSupplier_RefID, 'bigint'],
-                        [$varDocumentNumber, 'varchar'],
-                        [$varDocumentDateTimeTZ, 'timestamptz'],
-                        [$varSalesOrderNumber, 'varchar'],
-                        [$varPaymentDueDateTimeTZ, 'timestamptz'],
-                        [$varPreferredPaymentMethod_RefID, 'bigint'],
-                        [$varPreferredBankAccount_RefID, 'bigint'],
-                        [$varReceivedDateTimeTZ, 'timestamptz'],
-                        [$varAmountRoundOff, 'numeric'],
-                        [$varRemarks, 'varchar'],
-                        
-                        [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
-                    ]
-                    )
-                );
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varSysID, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
+
+                            [$varLog_FileUpload_Pointer_RefID, 'bigint'],
+                            [$varSupplier_RefID, 'bigint'],
+                            [$varDocumentNumber, 'varchar'],
+                            [$varDocumentDateTimeTZ, 'timestamptz'],
+                            [$varSalesOrderNumber, 'varchar'],
+                            [$varPaymentDueDateTimeTZ, 'timestamptz'],
+                            [$varPreferredPaymentMethod_RefID, 'bigint'],
+                            [$varPreferredBankAccount_RefID, 'bigint'],
+                            [$varReceivedDateTimeTZ, 'timestamptz'],
+                            [$varAmountRoundOff, 'numeric'],
+                            [$varRemarks, 'varchar'],
+
+                            [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
+                        ]
+                        )
+                    );
+
             return $varReturn['Data'][0];
             }
         }

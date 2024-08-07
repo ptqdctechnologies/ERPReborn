@@ -63,9 +63,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        $varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
-                            $varUserSession,
-                            $this->dataProcessing($varUserSession, $varData['parameter']['rotateLog_FileUploadStagingArea_RefRPK']));
+                        $varDataSend = 
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
+                                $varUserSession,
+                                $this->dataProcessing($varUserSession, $varData['parameter']['rotateLog_FileUploadStagingArea_RefRPK'])
+                                );
+
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
@@ -123,11 +126,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             $varArrayRPKPhysicalName = '{'.$varArrayRPKPhysicalName.'}';
             
             //--->
-            $varDataReturn = (new \App\Models\Database\SchSysAsset\General())->getCloudStorageFilesList(
-                $varUserSession, 
-                $varRotateLog_FileUploadStagingArea_RefRPK,
-                $varArrayRPKPhysicalName
-                );
+            $varDataReturn =
+                (new \App\Models\Database\SchSysAsset\General())->getCloudStorageFilesList(
+                    $varUserSession, 
+                    $varRotateLog_FileUploadStagingArea_RefRPK,
+                    $varArrayRPKPhysicalName
+                    );
             
             //$varDataReturn = $varDataList;
             //$varDataReturn = ['xxx' => $varArrayRPKPhysicalName];
@@ -135,12 +139,17 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
              for ($i=0, $iMax=count($varDataReturn); $i!=$iMax; $i++)
                 {
                 if(((bool) $varDataReturn[$i]['SignExistOnStorage']) == TRUE) {
-                    $varDataReturn[$i]['Path'] = 'StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varDataReturn[$i]['Sys_RPK'];
+                    $varDataReturn[$i]['Path'] = 
+                        'StagingArea/'.
+                        $varRotateLog_FileUploadStagingArea_RefRPK.
+                        '/'.
+                        $varDataReturn[$i]['Sys_RPK'];
                     }
                 else {
                     $varDataReturn[$i]['Path'] = null;
                     }
                 }
+
             return $varDataReturn;
             }
         }

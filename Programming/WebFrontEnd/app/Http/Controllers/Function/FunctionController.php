@@ -41,7 +41,6 @@ class FunctionController extends Controller
             true
         );
 
-
         return response()->json($DataBudget);
     }
 
@@ -275,24 +274,35 @@ class FunctionController extends Controller
     // FUNCTION DELIVER TO
     public function getDeliverTo(Request $request)
     {
-        $varAPIWebToken = Session::get('SessionLogin');
-        $varDataDeliverTo = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.supplyChain.getWarehouse',
-            'latest',
-            [
-                'parameter' => null,
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
+        if (Redis::get("Warehouse") == null) {
 
-        return response()->json($varDataDeliverTo['data']);
+            $varAPIWebToken = Session::get('SessionLogin');
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.supplyChain.getWarehouse',
+                'latest',
+                [
+                    'parameter' => null,
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
+            );
+        }
+
+        $varDataDeliverTo = json_decode(
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "Warehouse"
+            ),
+            true
+        );
+        return response()->json($varDataDeliverTo);
     }
 
     // FUNCTION WAREHOUSE 
@@ -556,70 +566,6 @@ class FunctionController extends Controller
         return response()->json($DocumentType);
     }
 
-    //LOG TRANSACTION
-
-    public function ShowRevisionHistory(Request $request)
-    {
-
-        $id = $request->input('id');
-        $docNum = $request->input('docNum');
-        $docName = $request->input('docName');
-
-        $varAPIWebToken = Session::get('SessionLogin');
-
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'dataWarehouse.read.dataList.log.getTransactionHistory',
-            'latest',
-            [
-                'parameter' => [
-                    'source_RefID' => (int) $id
-                ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
-        
-
-        $collection = collect($varData['data']);
-        $collection = $collection->sort();
-
-        // HEADER
-        $dataHeader = $collection->where('type', 'Header');
-
-        // dd($dataHeader);
-
-        //DETAIL
-        $detail = $collection->where('type', 'Detail');
-        $groupedByDetail = $detail->groupBy('source_RefPID');
-
-        $dataDetail = [];
-        foreach($groupedByDetail as $groupedByDetails){
-            $dataDetail [] = $groupedByDetails;
-        }
-
-        // dd($dataDetail);
-        // $filterDetail = collect($detail)->unique(function ($item) {
-        //     return $item['content']['sys_PID'];
-        // });
-        
-
-        
-        $compact = [
-            'data' => $varData['data'],
-            'documentNumber' => $docNum,
-            'documentName' => $docName,
-            'dataHeader' => $dataHeader,
-            'dataDetail' => $dataDetail
-        ];
-        return view('getFunction.ShowRevisionHistory', $compact);
-    }
-
     //DEPARTEMENT
 
     public function getDepartement()
@@ -776,9 +722,7 @@ class FunctionController extends Controller
         $collection = collect($SubMenu);
         $collection = $collection->where('MenuGroup_RefID', $menu_group_id);
         
-        if($type != "All"){
-            $collection = $collection->where('Type', $type);
-        }
+        $collection = $collection->where('Type', $type);
 
         return response()->json($collection->all());
     }

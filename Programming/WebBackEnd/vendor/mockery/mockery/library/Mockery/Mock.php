@@ -183,7 +183,7 @@ class Mock implements MockInterface
      */
     public function mockery_init(?Container $container = null, $partialObject = null, $instanceMock = true)
     {
-        if (is_null($container)) {
+        if (null === $container) {
             $container = new Container();
         }
 
@@ -314,7 +314,8 @@ class Mock implements MockInterface
 
     /**
      * Allows additional methods to be mocked that do not explicitly exist on mocked class
-     * @param String $method name of the method to be mocked
+     *
+     * @param string $method name of the method to be mocked
      * @return Mock|MockInterface|LegacyMockInterface
      */
     public function shouldAllowMockingMethod($method)
@@ -908,6 +909,10 @@ class Mock implements MockInterface
                 }
             } catch (\ReflectionException $re) {
                 // noop - there is no hasPrototype method
+            }
+
+            if (null === $this->_mockery_parentClass) {
+                $this->_mockery_parentClass = get_parent_class($this);
             }
 
             return call_user_func_array($this->_mockery_parentClass . '::' . $method, $args);

@@ -62,14 +62,19 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchSysConfig\General())->getUserPrivilege_CombinedBudget(
-                            $varUserSession,
+                        if (!($varDataSend = 
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
+                                $varUserSession,
+                                (new \App\Models\Database\SchSysConfig\General())->getUserPrivilege_CombinedBudget(
+                                    $varUserSession,
 
-                            $varData['parameter']['user_RefID'],
-                            $varData['parameter']['branch_RefID'],
-                            $varData['parameter']['userRole_RefID'],
-                            $varData['parameter']['dateTimeTZ']
-                            ))))
+                                    $varData['parameter']['user_RefID'],
+                                    $varData['parameter']['branch_RefID'],
+                                    $varData['parameter']['userRole_RefID'],
+                                    $varData['parameter']['dateTimeTZ']
+                                    )
+                                )
+                            ))
                             {
                             throw new \Exception();
                             }

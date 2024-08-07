@@ -72,31 +72,32 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
             string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, int $varCustomer_RefID = null, int $varProject_RefID = null, string $varRemarks = null,
             array $varAdditionalData = [])
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [null, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [null, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [$varDocumentDateTimeTZ, 'timestamptz'],
-                        [$varLog_FileUpload_Pointer_RefID, 'bigint'],
-                        [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
-                        [$varCustomer_RefID, 'bigint'],
-                        [$varProject_RefID, 'bigint'],
-                        [$varRemarks, 'varchar'],
+                            [$varDocumentDateTimeTZ, 'timestamptz'],
+                            [$varLog_FileUpload_Pointer_RefID, 'bigint'],
+                            [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
+                            [$varCustomer_RefID, 'bigint'],
+                            [$varProject_RefID, 'bigint'],
+                            [$varRemarks, 'varchar'],
 
-                        [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
+                            [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
+                        ]
+                        )
+                    );
 
-                    ]
-                    )
-                );
             return $varReturn['Data'][0];
             }
 
@@ -118,15 +119,17 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         */
         public function setDataSynchronize($varUserSession)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaTableSynchronizeName($varUserSession), 
-                    [
-                    ]
-                    )
-                );
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaTableSynchronizeName($varUserSession), 
+                        [
+                        ]
+                        )
+                    );
+
             $varReturn = [];
             return $varReturn;
             }
@@ -167,30 +170,32 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
             string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, int $varCustomer_RefID = null, int $varProject_RefID = null, string $varRemarks = null,
             array $varAdditionalData = [])
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varSysID, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varSysID, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [$varDocumentDateTimeTZ, 'timestamptz'],
-                        [$varLog_FileUpload_Pointer_RefID, 'bigint'],
-                        [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
-                        [$varCustomer_RefID, 'bigint'],
-                        [$varProject_RefID, 'bigint'],
-                        [$varRemarks, 'varchar'],
+                            [$varDocumentDateTimeTZ, 'timestamptz'],
+                            [$varLog_FileUpload_Pointer_RefID, 'bigint'],
+                            [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
+                            [$varCustomer_RefID, 'bigint'],
+                            [$varProject_RefID, 'bigint'],
+                            [$varRemarks, 'varchar'],
 
-                        [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
-                    ],
-                    )
-                );
+                            [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
+                        ]
+                        )
+                    );
+
             return $varReturn['Data'][0];
             }
         }

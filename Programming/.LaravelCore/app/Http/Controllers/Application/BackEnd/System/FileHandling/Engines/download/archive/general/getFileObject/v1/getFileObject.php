@@ -110,7 +110,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\d
         */
         private function dataProcessing($varUserSession, string $varEncryptedData)
             {
-            $varFilePath = (new \App\Models\Database\SchSysAsset\General())->getDataDecrypt_HTTPGetParameter($varUserSession, $varEncryptedData);
+            $varFilePath = 
+                (new \App\Models\Database\SchSysAsset\General())->getDataDecrypt_HTTPGetParameter(
+                    $varUserSession,
+                    $varEncryptedData
+                    );
+
             $varID = (int) explode('/', $varFilePath)[2];
             
             $varFileObjectInformation = 
@@ -118,6 +123,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\d
                     $varUserSession, 
                     $varID
                     );
+
             $varFileContentBase64 = 
                 \App\Helpers\ZhtHelper\General\Helper_Encode::getBase64Encode
                     (

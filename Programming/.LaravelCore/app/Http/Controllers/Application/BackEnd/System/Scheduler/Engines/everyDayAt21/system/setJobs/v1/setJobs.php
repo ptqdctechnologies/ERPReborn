@@ -76,7 +76,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if(!$this->loadAllJobs($varUserSession))
+                        if (!$this->loadAllJobs($varUserSession))
                             {
                             throw new \Exception();
                             }
@@ -138,14 +138,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                 //---> API Call : Person Access Device Log
                 $varFilePath = '/zhtConf/log/lastSession/scheduledTask/'.$this->varSheduleIdentity.'/jobs/instruction.server.internal.database.system.tableReindex';
                 shell_exec("touch ".$varFilePath);
-                $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'instruction.server.internal.database.system.tableReindex', 
-                    'latest', 
-                    [
-                    ]
-                    );                
+                $varData =
+                    \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'instruction.server.internal.database.system.tableReindex', 
+                        'latest', 
+                        [
+                        ]
+                        );                
                 }
 
             return $varReturn;

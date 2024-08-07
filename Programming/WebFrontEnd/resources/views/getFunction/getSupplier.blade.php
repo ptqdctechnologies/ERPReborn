@@ -56,7 +56,7 @@
                         keys +=1;
                         t.row.add([
 
-                            '<tbody><tr><input id="sys_id_supplier' + keys + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
+                            '<tbody><tr><input id="sys_id_supplier' + key + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
                             '<td>' + val.Code + '</td>',
                             '<td>' + val.Name + '</td>',
                             '<td>' + val.Address + '</td></tr></tbody>',

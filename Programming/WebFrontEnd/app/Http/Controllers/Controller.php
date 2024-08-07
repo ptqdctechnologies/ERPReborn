@@ -32,12 +32,12 @@ class Controller extends BaseController
     }
     public function SelectWorkFlow(Request $request)
     {
+
         try {
             $varAPIWebToken = Session::get('SessionLogin');
             $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
 
             $dataInput = $request->all();
-            // dd($dataInput);
             if (isset($dataInput['dataInput_Log_FileUpload_Pointer_RefID_Action'])) {
                 unset($dataInput['dataInput_Log_FileUpload_Pointer_RefID_Action']);
             }
@@ -104,7 +104,6 @@ class Controller extends BaseController
                 } else {
                     $message =  "OnlyOne";
                 }
-
                 $compact = [
                     "data" => $VarSelectWorkFlow,
                     "workFlowPath_RefID" => $VarSelectWorkFlow[0]['Sys_ID'],
@@ -152,10 +151,10 @@ class Controller extends BaseController
 
 
                 //RESET REDIS DATA LIST ADVANCE
-                $this->FunctionResetRedisAdvance();
+                // $this->FunctionResetRedisAdvance();
 
                 //RESET REDIS SHOW DOCUMENT APPROVAL
-                $this->FunctionResetRedisDocumentApproval($nextApprover_RefID);
+                $this->FunctionResetRedisDocumentApproval($nextApprover_RefID, $businessDocument_RefID);
             }
 
             return response()->json($compact);
@@ -192,11 +191,11 @@ class Controller extends BaseController
             if ($compact['status'] == 200) {
 
                 //RESET REDIS DATA LIST ADVANCE
-                $this->FunctionResetRedisAdvance();
+                // $this->FunctionResetRedisAdvance();
 
                 //RESET REDIS SHOW DOCUMENT APPROVAL
-                $this->FunctionResetRedisDocumentApproval($approverEntity_RefID);
-                $this->FunctionResetRedisDocumentApproval($nextApprover_RefID);
+                $this->FunctionResetRedisDocumentApproval($approverEntity_RefID, $businessDocument_RefID);
+                $this->FunctionResetRedisDocumentApproval($nextApprover_RefID, $businessDocument_RefID);
             }
 
             return response()->json($compact);
@@ -206,26 +205,27 @@ class Controller extends BaseController
         }
     }
 
-    public function FunctionResetRedisAdvance()
-    {
-        try {
-            Redis::del("DataListAdvance");
-            Redis::del("DataListAdvanceDetailComplex");
-            Redis::del("ReportAdvanceSummary");
+    // public function FunctionResetRedisAdvance()
+    // {
+    //     try {
+    //         Redis::del("DataListAdvance");
+    //         Redis::del("DataListAdvanceDetailComplex");
+    //         Redis::del("ReportAdvanceSummary");
 
-            return true;
-        } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
+    //         return true;
+    //     } catch (\Throwable $th) {
+    //         Log::error("Error at " . $th->getMessage());
+    //         return redirect()->back()->with('NotFound', 'Process Error');
+    //     }
+    // }
 
-    public function FunctionResetRedisDocumentApproval($nextApprover_RefID)
+    public function FunctionResetRedisDocumentApproval($nextApprover_RefID, $businessDocument_RefID)
     {
         try {
 
             Redis::del("RedisGetMyDocument" . $nextApprover_RefID);
             Redis::del("ShowMyDocumentListData" . $nextApprover_RefID);
+            Redis::del("ApprovementHistoryList" . $businessDocument_RefID);
 
             return true;
         } catch (\Throwable $th) {

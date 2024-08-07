@@ -361,6 +361,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
         public static function setCallAPIGateway($varUserSession, string $varAPIWebToken, string $varAPIKey, $varAPIVersion=null, array $varData=null, bool $varSignDisplayErrorPage = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Call Gateway API');
                 try {
@@ -397,9 +398,9 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                             ],
                         'data' => $varData
                         ];
-                        
+                    //dd($varDataArray);
+                    //dd(json_encode($varDataArray));
 
-                    // dd($varDataArray);
                     $varResponseData = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse(
                         $varUserSession, 
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_GATEWAY'),
@@ -470,14 +471,14 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Call Gateway API');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    if(!$varAPIVersion) {
+                    if (!$varAPIVersion) {
                         $varAPIVersion = 'latest';
                         }
                     else {
                         $varAPIVersion = strtolower($varAPIVersion);
                         }
 
-                    if(!$varData) {
+                    if (!$varData) {
                         $varData = '{}';
                         }
                     $varData = htmlspecialchars_decode($varData);
@@ -494,18 +495,19 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                             'varReturn = null; '.
                             'varReturnValue = null; '.
                             'try '.
-                                '{ '.
+                                '{ '.                            
                                 'varJSONData = JSON.parse(JSON.stringify('.$varData.')); '.
-                                //'alert(JSON.stringify(varJSONData)); '.
-                                'varReturn = new zht_JSAPIRequest_Gateway('.
-                                    '"'.$varAPIWebToken.'", '.
-                                    '"'.\App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 'URL_BACKEND_API_GATEWAY').'", '.
-                                    '"'.$varAPIKey.'", '.
-                                    '"'.$varAPIVersion.'", '.
-                                    'varJSONData, '.
-                                    ''.$varTimeOut.''.
-                                    '); '.
-//                                'alert(varJSONData); '.
+
+                                'varReturn = '.
+                                    'new zht_JSAPIRequest_Gateway('.
+                                        '"'.$varAPIWebToken.'", '.
+                                        '"'.\App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 'URL_BACKEND_API_GATEWAY').'", '.
+                                        '"'.$varAPIKey.'", '.
+                                        '"'.$varAPIVersion.'", '.
+                                        'JSON.parse(JSON.stringify(varJSONData)), '.
+                                        ''.$varTimeOut.''.
+                                        '); '.
+    //                                'alert(varJSONData); '.
 //                                'alert("done"); '.
                                 'varReturnValue = varReturn.value; '.
                                 '} '.

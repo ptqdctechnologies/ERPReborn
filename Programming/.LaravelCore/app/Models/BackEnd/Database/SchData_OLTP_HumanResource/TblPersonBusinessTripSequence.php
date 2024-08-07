@@ -76,32 +76,34 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
             int $varPersonBusinessTrip_RefID = null, int $varSequence = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, $varBusinessTripAccommodationArrangementsType_RefID = null, array $varBusinessTripTransportationType_RefIDArray = [], string $varRemarks = null,
             array $varAdditionalData = [])
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [null, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
-                        
-                        [$varPersonBusinessTrip_RefID, 'bigint'],
-                        [$varSequence, 'smallint'],
-                        [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
-                        [$varStartDateTimeTZ, 'timestamptz'],
-                        [$varFinishDateTimeTZ, 'timestamptz'],
-                        [$varBusinessTripAccommodationArrangementsType_RefID, 'bigint'],
-                        [$varBusinessTripTransportationType_RefIDArray, 'bigint[]'],
-                        [$varRemarks, 'varchar'],
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [null, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
-                    ]
-                    )
-                );
+                            [$varPersonBusinessTrip_RefID, 'bigint'],
+                            [$varSequence, 'smallint'],
+                            [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
+                            [$varStartDateTimeTZ, 'timestamptz'],
+                            [$varFinishDateTimeTZ, 'timestamptz'],
+                            [$varBusinessTripAccommodationArrangementsType_RefID, 'bigint'],
+                            [$varBusinessTripTransportationType_RefIDArray, 'bigint[]'],
+                            [$varRemarks, 'varchar'],
+
+                            [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
+                        ]
+                        )
+                    );
+
             return $varReturn['Data'][0];
             }
 
@@ -144,32 +146,34 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
             int $varPersonBusinessTrip_RefID = null, int $varSequence = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, $varBusinessTripAccommodationArrangementsType_RefID = null, array $varBusinessTripTransportationType_RefIDArray = [], string $varRemarks = null,
             array $varAdditionalData = [])
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varSysID, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varSysID, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [$varPersonBusinessTrip_RefID, 'bigint'],
-                        [$varSequence, 'smallint'],
-                        [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
-                        [$varStartDateTimeTZ, 'timestamptz'],
-                        [$varFinishDateTimeTZ, 'timestamptz'],
-                        [$varBusinessTripAccommodationArrangementsType_RefID, 'bigint'],
-                        [$varBusinessTripTransportationType_RefIDArray, 'bigint[]'],
-                        [$varRemarks, 'varchar'],
+                            [$varPersonBusinessTrip_RefID, 'bigint'],
+                            [$varSequence, 'smallint'],
+                            [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
+                            [$varStartDateTimeTZ, 'timestamptz'],
+                            [$varFinishDateTimeTZ, 'timestamptz'],
+                            [$varBusinessTripAccommodationArrangementsType_RefID, 'bigint'],
+                            [$varBusinessTripTransportationType_RefIDArray, 'bigint[]'],
+                            [$varRemarks, 'varchar'],
 
-                        [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
-                    ]
-                    )
-                );
+                            [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
+                        ]
+                        )
+                    );
+
             return $varReturn['Data'][0];
             }
         }

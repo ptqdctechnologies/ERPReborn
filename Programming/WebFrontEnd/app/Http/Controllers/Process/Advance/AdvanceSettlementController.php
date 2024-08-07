@@ -311,14 +311,13 @@ class AdvanceSettlementController extends Controller
             'beneficiary' => $beneficiary,
             'data' => $varDataAdvanceList,
         ];
-
         return response()->json($compact);
     }
 
     public function AdvanceDetailComplexByBeneficiaryID($advance_RefID)
     {
         $varAPIWebToken = Session::get('SessionLogin');
-        if (Redis::get("DataListAdvanceDetailComplex") == null) {
+        // if (Redis::get("DataListAdvanceDetailComplex") == null) {
             \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
@@ -326,7 +325,7 @@ class AdvanceSettlementController extends Controller
                 'latest',
                 [
                     'parameter' => [
-                        'advance_RefID' => 1,
+                        'advance_RefID' => (int) $advance_RefID,
                     ],
                     'SQLStatement' => [
                         'pick' => null,
@@ -337,7 +336,7 @@ class AdvanceSettlementController extends Controller
                 ],
                 false
             );
-        }
+        // }
 
         $DataAdvanceDetailComplex = json_decode(
             \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
@@ -346,7 +345,6 @@ class AdvanceSettlementController extends Controller
             ),
             true
         );
-
         $collection = collect($DataAdvanceDetailComplex);
         $collection = $collection->where('Sys_ID_Advance', $advance_RefID);
 
@@ -536,31 +534,71 @@ class AdvanceSettlementController extends Controller
 
     public function RevisionAdvanceSettlementIndex(Request $request)
     {
-        $varAPIWebToken = Session::get('SessionLogin');
-        Session::forget("SessionAdvanceSetllementBeneficiary");
-        Session::forget("SessionAdvanceSetllementBeneficiaryID");
 
-        $varDataAdvanceSettlementRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'report.form.documentForm.finance.getAdvance',
-            'latest',
-            [
-                'parameter' => [
-                    'recordID' => (int) $request->searchAsfNumberRevisionId,
-                ]
-            ]
-        );
+        try {
+            Session::forget("SessionAdvanceSetllementBeneficiary");
+            Session::forget("SessionAdvanceSetllementBeneficiaryID");
+            
+            $AdvanceSattlement_RefID = $request->input('AdvanceSattlement_RefID');
+            $varAPIWebToken = Session::get('SessionLogin');
 
-        $compact = [
-            'dataRevisi' => $varDataAdvanceSettlementRevision['data'][0]['document']['content']['general'],
-            'trano' => $varDataAdvanceSettlementRevision['data'][0]['document']['header']['number'],
-            'var_recordID' => $request->searchAsfNumberRevisionId,
-            'varAPIWebToken' => $varAPIWebToken,
-            'statusRevisi' => 1,
-        ];
+            // DATA REVISION ADVANCE
+            $filteredArray = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.finance.getAdvanceReport',
+                'latest',
+                [
+                    'parameter' => [
+                        'advance_RefID' => (int) $AdvanceSattlement_RefID,
+                    ],
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
+            );
+            
+            $compact = [
+                'dataHeader' => $filteredArray['data'][0]['document']['header'],
+                'dataContent' => $filteredArray['data'][0]['document']['content']['general'],
+                'dataDetail' => $filteredArray['data'][0]['document']['content']['details']['itemList'],
+                'varAPIWebToken' => $varAPIWebToken,
+                'statusRevisi' => 1,
+                'statusFinalApprove' => "No",
+            ];
+            return view('Process.Advance.AdvanceSettlement.Transactions.RevisionAdvanceSettlement', $compact);
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
 
-        return view('Process.Advance.AdvanceSettlement.Transactions.RevisionAdvanceSettlement', $compact);
+        // $varAPIWebToken = Session::get('SessionLogin');
+        // Session::forget("SessionAdvanceSetllementBeneficiary");
+        // Session::forget("SessionAdvanceSetllementBeneficiaryID");
+
+        // $varDataAdvanceSettlementRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varAPIWebToken,
+        //     'report.form.documentForm.finance.getAdvance',
+        //     'latest',
+        //     [
+        //         'parameter' => [
+        //             'recordID' => (int) $request->searchAsfNumberRevisionId,
+        //         ]
+        //     ]
+        // );
+
+        // $compact = [
+        //     'dataRevisi' => $varDataAdvanceSettlementRevision['data'][0]['document']['content']['general'],
+        //     'trano' => $varDataAdvanceSettlementRevision['data'][0]['document']['header']['number'],
+        //     'var_recordID' => $request->searchAsfNumberRevisionId,
+        //     'varAPIWebToken' => $varAPIWebToken,
+        //     'statusRevisi' => 1,
+        // ];
     }
     public function update(Request $request, $id)
     {

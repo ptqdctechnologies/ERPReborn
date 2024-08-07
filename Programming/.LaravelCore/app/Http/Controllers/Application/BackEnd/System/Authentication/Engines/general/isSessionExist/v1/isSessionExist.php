@@ -62,10 +62,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchSysAsset\General())->getData_APIWebToken_IsExist(
-                            $varUserSession, 
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession)['APIWebToken']
-                            ))))
+                        if (!($varDataSend =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
+                                $varUserSession,
+                                (new \App\Models\Database\SchSysAsset\General())->getData_APIWebToken_IsExist(
+                                    $varUserSession,
+                                    \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession)['APIWebToken']
+                                    )
+                                )
+                            ))
                             {
                             throw new \Exception();
                             }
@@ -106,7 +111,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
         */
         private function isSet($varUserSession, string $varAPIWebToken)
             {
-            $varReturn = (new \App\Models\Database\SchSysConfig\General())->isSet_UserSessionBranchAndUserRole($varUserSession, $varAPIWebToken);
+            $varReturn = 
+                (new \App\Models\Database\SchSysConfig\General())->isSet_UserSessionBranchAndUserRole(
+                    $varUserSession,
+                    $varAPIWebToken
+                    );
             return $varReturn;
             }
         }

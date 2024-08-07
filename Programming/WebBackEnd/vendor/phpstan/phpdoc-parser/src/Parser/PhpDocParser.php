@@ -384,18 +384,37 @@ class PhpDocParser
 				case '@param':
 				case '@phpstan-param':
 				case '@psalm-param':
+				case '@phan-param':
 					$tagValue = $this->parseParamTagValue($tokens);
+					break;
+
+				case '@param-immediately-invoked-callable':
+				case '@phpstan-param-immediately-invoked-callable':
+					$tagValue = $this->parseParamImmediatelyInvokedCallableTagValue($tokens);
+					break;
+
+				case '@param-later-invoked-callable':
+				case '@phpstan-param-later-invoked-callable':
+					$tagValue = $this->parseParamLaterInvokedCallableTagValue($tokens);
+					break;
+
+				case '@param-closure-this':
+				case '@phpstan-param-closure-this':
+					$tagValue = $this->parseParamClosureThisTagValue($tokens);
 					break;
 
 				case '@var':
 				case '@phpstan-var':
 				case '@psalm-var':
+				case '@phan-var':
 					$tagValue = $this->parseVarTagValue($tokens);
 					break;
 
 				case '@return':
 				case '@phpstan-return':
 				case '@psalm-return':
+				case '@phan-return':
+				case '@phan-real-return':
 					$tagValue = $this->parseReturnTagValue($tokens);
 					break;
 
@@ -405,6 +424,7 @@ class PhpDocParser
 					break;
 
 				case '@mixin':
+				case '@phan-mixin':
 					$tagValue = $this->parseMixinTagValue($tokens);
 					break;
 
@@ -431,18 +451,23 @@ class PhpDocParser
 				case '@psalm-property':
 				case '@psalm-property-read':
 				case '@psalm-property-write':
+				case '@phan-property':
+				case '@phan-property-read':
+				case '@phan-property-write':
 					$tagValue = $this->parsePropertyTagValue($tokens);
 					break;
 
 				case '@method':
 				case '@phpstan-method':
 				case '@psalm-method':
+				case '@phan-method':
 					$tagValue = $this->parseMethodTagValue($tokens);
 					break;
 
 				case '@template':
 				case '@phpstan-template':
 				case '@psalm-template':
+				case '@phan-template':
 				case '@template-covariant':
 				case '@phpstan-template-covariant':
 				case '@psalm-template-covariant':
@@ -459,6 +484,8 @@ class PhpDocParser
 
 				case '@extends':
 				case '@phpstan-extends':
+				case '@phan-extends':
+				case '@phan-inherits':
 				case '@template-extends':
 					$tagValue = $this->parseExtendsTagValue('@extends', $tokens);
 					break;
@@ -477,6 +504,7 @@ class PhpDocParser
 
 				case '@phpstan-type':
 				case '@psalm-type':
+				case '@phan-type':
 					$tagValue = $this->parseTypeAliasTagValue($tokens);
 					break;
 
@@ -491,6 +519,9 @@ class PhpDocParser
 				case '@psalm-assert':
 				case '@psalm-assert-if-true':
 				case '@psalm-assert-if-false':
+				case '@phan-assert':
+				case '@phan-assert-if-true':
+				case '@phan-assert-if-false':
 					$tagValue = $this->parseAssertTagValue($tokens);
 					break;
 
@@ -861,6 +892,34 @@ class PhpDocParser
 	}
 
 
+	private function parseParamImmediatelyInvokedCallableTagValue(TokenIterator $tokens): Ast\PhpDoc\ParamImmediatelyInvokedCallableTagValueNode
+	{
+		$parameterName = $this->parseRequiredVariableName($tokens);
+		$description = $this->parseOptionalDescription($tokens);
+
+		return new Ast\PhpDoc\ParamImmediatelyInvokedCallableTagValueNode($parameterName, $description);
+	}
+
+
+	private function parseParamLaterInvokedCallableTagValue(TokenIterator $tokens): Ast\PhpDoc\ParamLaterInvokedCallableTagValueNode
+	{
+		$parameterName = $this->parseRequiredVariableName($tokens);
+		$description = $this->parseOptionalDescription($tokens);
+
+		return new Ast\PhpDoc\ParamLaterInvokedCallableTagValueNode($parameterName, $description);
+	}
+
+
+	private function parseParamClosureThisTagValue(TokenIterator $tokens): Ast\PhpDoc\ParamClosureThisTagValueNode
+	{
+		$type = $this->typeParser->parse($tokens);
+		$parameterName = $this->parseRequiredVariableName($tokens);
+		$description = $this->parseOptionalDescription($tokens);
+
+		return new Ast\PhpDoc\ParamClosureThisTagValueNode($type, $parameterName, $description);
+	}
+
+
 	private function parseVarTagValue(TokenIterator $tokens): Ast\PhpDoc\VarTagValueNode
 	{
 		$type = $this->typeParser->parse($tokens);
@@ -1048,7 +1107,7 @@ class PhpDocParser
 		$alias = $tokens->currentTokenValue();
 		$tokens->consumeTokenType(Lexer::TOKEN_IDENTIFIER);
 
-		// support psalm-type syntax
+		// support phan-type/psalm-type syntax
 		$tokens->tryConsumeTokenType(Lexer::TOKEN_EQUAL);
 
 		if ($this->preserveTypeAliasesWithInvalidTypes) {

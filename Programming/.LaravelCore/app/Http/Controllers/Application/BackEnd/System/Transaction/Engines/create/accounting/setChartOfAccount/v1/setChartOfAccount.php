@@ -62,19 +62,24 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_Accounting\TblChartOfAccount())->setDataInsert(
-                            $varUserSession, 
-                            null, 
-                            null,
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
+                        if (!($varDataSend = 
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate(
+                                $varUserSession,
+                                (new \App\Models\Database\SchData_OLTP_Accounting\TblChartOfAccount())->setDataInsert(
+                                    $varUserSession, 
+                                    null, 
+                                    null,
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                                    \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
 
-                            $varData['entities']['code'],
-                            $varData['entities']['name'],
-                            $varData['entities']['currency_RefID'],
-                            $varData['entities']['validStartDateTimeTZ'],
-                            $varData['entities']['validFinishDateTimeTZ']
-                            ))))
+                                    $varData['entities']['code'],
+                                    $varData['entities']['name'],
+                                    $varData['entities']['currency_RefID'],
+                                    $varData['entities']['validStartDateTimeTZ'],
+                                    $varData['entities']['validFinishDateTimeTZ']
+                                    )
+                                )
+                            ))
                             {
                             throw new \Exception();
                             }

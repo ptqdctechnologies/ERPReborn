@@ -25,6 +25,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\de
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-01-12                                                                                           |
+        | ▪ Creation Date   : 2021-01-12                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,6 +45,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\de
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-01-13                                                                                           |
+        | ▪ Creation Date   : 2021-01-13                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -60,17 +62,19 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\de
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Attendance Data From ALBox FP800 (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try{
-                        $varDataSend = (new \zhtSDK\Device\ALBox\FingerprintAttendance\FP800\zhtSDK(
-                            $varUserSession, 
-                            $varData['entities']['IPAddress'],
-                            $varData['entities']['port'],
-                            $varData['entities']['serialNumber'],
-                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExistOnSubArray($varUserSession, $varData, 'entities::connectionTimeout') ? $varData['entities']['connectionTimeout'] : 30)
-                            ))->getDataAttendance(
-                                $varData['entities']['timeZoneOffset'], 
-                                $varData['entities']['startDateTime']
-                                );
+                    try {
+                        $varDataSend =
+                            (new \zhtSDK\Device\ALBox\FingerprintAttendance\FP800\zhtSDK(
+                                $varUserSession,
+                                $varData['entities']['IPAddress'],
+                                $varData['entities']['port'],
+                                $varData['entities']['serialNumber'],
+                                (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExistOnSubArray($varUserSession, $varData, 'entities::connectionTimeout') ? $varData['entities']['connectionTimeout'] : 30)
+                                ))->getDataAttendance(
+                                    $varData['entities']['timeZoneOffset'], 
+                                    $varData['entities']['startDateTime']
+                                    );
+
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {

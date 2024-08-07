@@ -2,7 +2,9 @@
   <div class="card">
     <div class="card-header">
       <center>
-        <h3><span style="text-transform:uppercase;font-weight:bold;">{{ $dataTransaction['header']['title'] }}</span></h3>
+
+        {{-- <h3><span style="text-transform:uppercase;font-weight:bold;">{{$dataHeader['BusinessDocumentType_Name']}}</span></h3> --}}
+        <h3><span style="text-transform:uppercase;font-weight:bold;">PURCHASE ORDER FORM</span></h3>
       </center>
     </div>
     <div class="card-body">
@@ -11,42 +13,53 @@
           <div class="form-group">
             <table>
               <tr>
-                <td style="padding-top: 5px;"><label>{{ $dataTransaction['header']['title'] }} Number</label></td>
+                {{-- <td style="padding-top: 5px;"><label>{{$dataHeader['BusinessDocumentType_Name']}}</label></td> --}}
+                <td style="padding-top: 5px;"><label>Purchase Order Form</label></td>
                 <td>:</td>
-                <td>{{ $dataTransaction['header']['number'] }}</td>
+                <td>{{ $dataHeader['DocumentNumber'] }}</td>
               </tr>
               <tr>
-                <td style="padding-top: 5px;"><label>Travel Date</label></td>
+                <td style="padding-top: 5px;"><label>Date</label></td>
                 <td>:</td>
-                <td>{{ $dataTransaction['header']['date'] }}</td>
+                <td>{{ date('Y-m-d', strtotime($dataHeader['Date'])) }}</td>
               </tr>
               <tr>
                 <td style="padding-top: 5px;"><label>Budget Code</label></td>
                 <td>:</td>
-                <td>{{ $dataTransaction['content']['general']['budget']['combinedBudgetCodeList'][0] }}</td>
+                <td>{{ $dataHeader['CombinedBudgetCode'] }} - {{ $dataHeader['CombinedBudgetName'] }}</td>
               </tr>
               <tr>
-                <td style="padding-top: 5px;"><label>Origin of Budget</label></td>
+                <td style="padding-top: 5px;"><label>Type</label></td>
                 <td>:</td>
-                <td>{{ $dataTransaction['content']['general']['budget']['combinedBudgetCodeList'][0] }}</td>
+                <td>{{ $dataHeader['ProductUnitPriceCurrencyISOCode'] }}</td>
+              </tr>
+              <tr>
+                <td style="padding-top: 5px;"><label>DP</label></td>
+                <td>:</td>
+                <td>{{ $dataHeader['CombinedBudgetCode'] }} - {{ $dataHeader['CombinedBudgetName'] }}</td>
               </tr>
               <tr>
                 <td style="padding-top: 5px;"><label>File Attachment</label></td>
                 <td>:</td>
-                
-                @if($dataTransaction['content']['general']['attachmentFiles']['main']['itemList'] != "")
+                @if($Log_FileUpload_Pointer_RefID != 0)
                 <td>
-                  @foreach($dataTransaction['content']['general']['attachmentFiles']['main']['itemList'] as $data_file)
-                  <a href="{{ $data_file['entities']['downloadURL'] }}" title="Download Attachment">- {{ $data_file['entities']['name'] }} </a> <br>
-                  @endforeach
+
+                  <div class="input-group ShowFileAttachment">
+                    <input type="hidden" value="{{ $dataHeader['Sys_ID_Advance'] }}" id="Sys_ID_Advance">
+                    <a class="btn btn-default btn-sm" onclick="ShowFileAttachment({{ $dataHeader['Sys_ID_Advance'] }} );">
+                      Show File Attachment
+                    </a>
+                  </div>
+
+                  <table class="TableFileAttachment">
+                    <tbody>
+                    </tbody>
+                  </table>
+
                 </td>
                 @endif
               </tr>
-              <tr>
-                <td style="padding-top: 5px;"><label>Invoice To</label></td>
-                <td>:</td>
-                <td>{{ $dataTransaction['header']['number'] }}</td>
-              </tr>
+
             </table>
           </div>
         </div>
@@ -56,32 +69,35 @@
               <tr>
                 <td style="padding-top: 5px;"><label>Revision</label></td>
                 <td>:</td>
-                <td>{{ $dataTransaction['header']['date'] }}</td>
+                @if(isset($dataHeader['DateUpdate']))
+                <td>
+                  <div class="input-group">
+                    <a class="btn btn-default btn-sm" onclick="LogTransaction({{ $dataHeader['Sys_ID_Advance'] }}, '{{ $dataHeader['DocumentNumber'] }}', '{{$businessDocumentType_Name}}');">
+                      Show Revision History
+                    </a>
+                  </div>
+                </td>
+                @endif
               </tr>
               <tr>
-                <td style="padding-top: 5px;"><label>Vendor</label></td>
+                <td style="padding-top: 5px;"><label>Top</label></td>
                 <td>:</td>
-                <td>{{ $dataTransaction['header']['number'] }}</td>
+                <td>{{ $dataHeader['CombinedBudgetSectionCode'] }} - {{ $dataHeader['CombinedBudgetSectionName'] }}</td>
               </tr>
               <tr>
-                <td style="padding-top: 5px;"><label>Vendor Address</label></td>
+                <td style="padding-top: 5px;"><label>Payment Note</label></td>
                 <td>:</td>
-                <td>{{ $dataTransaction['header']['number'] }}</td>
+                <td>{{ $dataHeader['CombinedBudgetSectionCode'] }} - {{ $dataHeader['CombinedBudgetSectionName'] }}</td>
               </tr>
               <tr>
-                <td style="padding-top: 5px;"><label>Telp.</label></td>
+                <td style="padding-top: 5px;"><label>Remark PO</label></td>
                 <td>:</td>
-                <td>{{ $dataTransaction['header']['number'] }}</td>
+                <td>{{ $dataHeader['BankAcronym'] }}</td>
               </tr>
               <tr>
-                <td style="padding-top: 5px;"><label>Delivery Travel</label></td>
+                <td style="padding-top: 5px;"><label>Internal Note</label></td>
                 <td>:</td>
-                <td>{{ $dataTransaction['header']['date'] }}</td>
-              </tr>
-              <tr>
-                <td style="padding-top: 5px;"><label>Please Delivery To</label></td>
-                <td>:</td>
-                <td>{{ $dataTransaction['header']['number'] }}</td>
+                <td>{{ $dataHeader['BankAccountName'] }}</td>
               </tr>
             </table>
           </div>
@@ -98,40 +114,40 @@
         <thead>
           <tr>
             <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">NO</th>
-            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PERIOD</th>
-            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PR NUMBER</th>
-            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">BUDGET ID</th>
-            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">BUDGET NAME</th>
-            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">NET ACT</th>
-            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">DESCRIPTION</th>
-            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">UOM</th>
+            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PRODUCT ID</th>
+            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PRODUCT NAME</th>
             <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">QTY</th>
+            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">UOM</th>
             <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">UNIT PRICE</th>
-            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">TOTAL</th>
+            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">SUB TOTAL</th>
           </tr>
         </thead>
         <tbody>
           @php $no = 1; $grand_total = 0; @endphp
-          @foreach($dataTransaction['content']['details']['itemList'] as $datas)
-          @php $grand_total += $datas['entities']['priceBaseCurrencyValue']; @endphp
+          @foreach($dataDetail as $dataDetails)
+          @php $grand_total += $dataDetails['PriceBaseCurrencyValue']; @endphp
           <tr>
             <td style="border:1px solid #4B586A;color:#4B586A;">{{ $no++ }}</td>
-            <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['product_RefID'] }}</td>
-            <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['productName'] }}</td>
-            <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['baseCurrencyISOCode'] }}</td>
-            <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['quantityUnitName'] }}</td>
-            <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['quantity'] }}</td>
-            <td style="border:1px solid #4B586A;color:#4B586A;">{{ $datas['entities']['remarks'] }}</td>
-            <td style="border:1px solid #4B586A;color:#4B586A;">{{ number_format($datas['entities']['priceBaseCurrencyValue'],2) }}</td>
-            <td style="border:1px solid #4B586A;color:#4B586A;">{{ number_format($datas['entities']['productUnitPriceBaseCurrencyValue'],2) }}</td>
-            <td style="border:1px solid #4B586A;color:#4B586A;">{{ number_format($datas['entities']['productUnitPriceBaseCurrencyValue'],2) }}</td>
-            <td style="border:1px solid #4B586A;color:#4B586A">{{ number_format($datas['entities']['priceBaseCurrencyValue'],2) }}</td>
+            <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataDetails['Product_RefID'] }}</td>
+            <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataDetails['ProductName'] }}</td>
+            <td style="border:1px solid #4B586A;color:#4B586A;">{{ number_format($dataDetails['Quantity'],2) }}</td>
+            <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataDetails['QuantityUnitName'] }}</td>
+            <td style="border:1px solid #4B586A;color:#4B586A;">{{ number_format($dataDetails['ProductUnitPriceBaseCurrencyValue'],2) }}</td>
+            <td style="border:1px solid #4B586A;color:#4B586A;">{{ number_format($dataDetails['PriceBaseCurrencyValue'],2) }}</td>
           </tr>
           @endforeach
         </tbody>
         <tfoot>
           <tr>
-            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;" colspan="10">GRAND TOTAL</th>
+            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;" colspan="6">VAT</th>
+            <td style="border:1px solid #4B586A;color:#4B586A;"><span id="GrandTotal">{{ number_format($grand_total,2) }}</span></td>
+          </tr>
+          <tr>
+            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;" colspan="6">TOTAL VAT</th>
+            <td style="border:1px solid #4B586A;color:#4B586A;"><span id="GrandTotal">{{ number_format($grand_total,2) }}</span></td>
+          </tr>
+          <tr>
+            <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;" colspan="6">GRAND TOTAL</th>
             <td style="border:1px solid #4B586A;color:#4B586A;"><span id="GrandTotal">{{ number_format($grand_total,2) }}</span></td>
           </tr>
         </tfoot>
@@ -155,7 +171,7 @@
     <div class="card-body">
       <div class="row">
         <div class="col-md-12">
-          <p>{{ $dataTransaction['header']['number'] }}</p>
+          <p>{!! nl2br(e($dataHeader['Remarks'])) !!}</p>
         </div>
       </div>
     </div>

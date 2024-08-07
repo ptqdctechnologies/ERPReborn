@@ -46,9 +46,13 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         function __construct()
-        {
-            $this->varAPIIdentity = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getAPIIdentityFromClassFullName(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), __CLASS__);
-        }
+            {
+            $this->varAPIIdentity = 
+                \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getAPIIdentityFromClassFullName(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    __CLASS__
+                    );
+            }
 
 
         /*
@@ -145,6 +149,7 @@ $varDataSend = [
                         //var_dump(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentYear($varUserSession));
 
                         $varSysID = $varBufferDB['SignRecordID'];
+
                         $varBufferDB =
                             (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord(
                                 $varUserSession,
@@ -199,7 +204,7 @@ $varDataSend = [
 
                             $user_RefID = $varDataSend['userIdentity']['user_RefID'];
 
-                            $varTTL = 86400; // 24 Jam
+                            $varTTL = 32400; // 9 Jam
 
                             // 1
                             //DATA BRANCH

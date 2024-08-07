@@ -69,6 +69,15 @@
             type: 'GET',
             url: '{!! route("getEntityBankAccount") !!}?person_refID=' + person_refID + '&Bank_RefID=' + Bank_RefID,
             success: function(data) {
+
+                if(data.length == 1){
+                    $("#bank_account_id").val(data[0].Sys_ID);
+                    $("#bank_account").val(data[0].AccountNumber);
+                    $("#bank_account_detail").val(data[0].AccountName);
+                    
+                    MandatoryFormFunctionFalse("#bank_account", "#bank_account_detail");
+                }
+                
                 var no = 1;
                 var t = $('#tableGetBankAccount').DataTable();
                 t.clear();

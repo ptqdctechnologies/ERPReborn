@@ -91,20 +91,12 @@ class LoginController extends Controller
 
             if ($checking['metadata']['HTTPStatusCode'] == 200) {
 
-                $privilageMenu = json_decode(
-                    \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                        "RedisGetMenu" . $user_RefID
-                    ),
-                    true
-                );
-
                 Session::put('SessionLogin', $varAPIWebToken);
                 Session::put('SessionOrganizationalDepartmentName', $organizationalDepartmentName);
                 Session::put('SessionLoginName', $personName);
                 Session::put('SessionWorkerCareerInternal_RefID', $workerCareerInternal_RefID);
                 Session::put('SessionUser_RefID', $user_RefID);
-                Session::put('PrivilageMenu', $privilageMenu);
+                Session::push('SessionRoleLogin', $varUserRoleID);
 
                 $compact = [
                     'status_code' => 1,
@@ -151,8 +143,7 @@ class LoginController extends Controller
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                     $username,
                     $password
-                );
-            
+                );        
 
                 // dd($dataAwal);
 
@@ -169,39 +160,45 @@ class LoginController extends Controller
                     $varDataBranch = $this->GetInstitutionBranchFunction($dataAwal['data']['userIdentity']['user_RefID']);
 
                     if (count($varDataBranch) == 1) {
+                        
+                        $varDataRole = $this->GetRoleFunction($varDataBranch[0]['Sys_ID'], $dataAwal['data']['userIdentity']['user_RefID']);
 
-                        $privilageMenu = json_decode(
-                            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                                "RedisGetMenu" . $dataAwal['data']['userIdentity']['user_RefID']
-                            ),
-                            true
-                        );
+                        for ($i = 0; $i < count($varDataRole); $i++) {
+                            Session::push('SessionRoleLogin', $varDataRole[$i]['Sys_ID']);
+                        }
+
+                        // $privilageMenu = json_decode(
+                        //     \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                        //         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        //         "RedisGetMenu" . $dataAwal['data']['userIdentity']['user_RefID']
+                        //     ),
+                        //     true
+                        // );
 
                         // dd($privilageMenu);
-                        $cekLogin = $privilageMenu[0]['entities']['itemList'];
+                        // $cekLogin = $privilageMenu[0]['entities']['itemList'];
 
-                        foreach($cekLogin as $cekLogins){
-                            if($cekLogins['entities']['caption'] == "Login"){
+                        // foreach($cekLogin as $cekLogins){
+                        //     if($cekLogins['entities']['caption'] == "Login"){
                                 Session::put('SessionLogin', $varAPIWebToken);
                                 Session::put('SessionOrganizationalDepartmentName', $dataAwal['data']['userIdentity']['organizationalDepartmentName']);
                                 Session::put('SessionLoginName', $dataAwal['data']['userIdentity']['personName']);
                                 Session::put('SessionWorkerCareerInternal_RefID', $dataAwal['data']['userIdentity']['workerCareerInternal_RefID']);
                                 Session::put('SessionUser_RefID', $dataAwal['data']['userIdentity']['user_RefID']);
-                                Session::put('PrivilageMenu', $privilageMenu);
+                                // Session::put('PrivilageMenu', $privilageMenu);
         
                                 $compact = [
                                     'status_code' => 1,
                                 ];
         
                                 return response()->json($compact);
-                            }
-                        }
+                            // }
+                        // }
 
-                        $compact = [
-                            'status_code' => 3,
-                        ];
-                        return response()->json($compact);
+                        // $compact = [
+                        //     'status_code' => 3,
+                        // ];
+                        // return response()->json($compact);
                         
                     } else {
 

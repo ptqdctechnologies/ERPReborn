@@ -5,7 +5,7 @@
                 Last Status : 
                 @if(isset($DataWorkflowHistory))
                     @if($statusDocument == 0)
-                        Awaiting {{ $DataWorkflowHistory['data'][count($DataWorkflowHistory['data'])-1]['workFlowPathActionName'] }} from {{ $DataWorkflowHistory['data'][count($DataWorkflowHistory['data'])-1]['nextApproverEntityName'] }}
+                        Awaiting {{ $DataWorkflowHistory[count($DataWorkflowHistory)-1]['workFlowPathActionName'] }} from {{ $DataWorkflowHistory[count($DataWorkflowHistory)-1]['nextApproverEntityName'] }}
                     @elseif($statusDocument == 1)
                         Final Approved
                     @elseif($statusDocument == 2)
@@ -28,9 +28,9 @@
                 </thead>
                 <tbody>
 
-                    @if($DataWorkflowHistory['metadata']['HTTPStatusCode'] == 200)
+                    @if(count($DataWorkflowHistory) > 0)
                     @php $no = 1; @endphp
-                    @foreach($DataWorkflowHistory['data'] as $DataWorkflowHistorys)
+                    @foreach($DataWorkflowHistory as $DataWorkflowHistorys)
                     <tr>
                         <td style="border:1px solid #4B586A;color:#4B586A;">{{ $no++ }}</td>
                         <td style="border:1px solid #4B586A;color:#4B586A;">{{ date('D, m/d/Y H:m:s', strtotime($DataWorkflowHistorys['approvalDateTimeTZ'])) }}</td>

@@ -19,10 +19,15 @@
                         "minLength": 1
                         }
                     },
-                "required": [ "key", "version" ]
+                "required": [
+                    "key",
+                    "version"
+                    ]
                 }
             },
-        "required": [ "API" ]
+        "required": [
+            "API"
+            ]
         },
     "data": {
         "type": "object",
@@ -37,11 +42,18 @@
                         "minLength": 2
                         }
                     },
-                "required": [ "recordIDSet" ]
+                "required": [
+                    "recordIDSet"
+                    ]
                 }
             },
-        "required": [ "parameter" ]
+        "required": [
+            "parameter"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }

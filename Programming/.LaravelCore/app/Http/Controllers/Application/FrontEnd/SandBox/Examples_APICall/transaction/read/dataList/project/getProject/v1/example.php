@@ -31,6 +31,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             if (!$varAPIWebToken) {
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
+            // $varAPIWebToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiaWNoYSIsImlhdCI6MTcxNTc1OTIwOH0.OGU0NDA0NjdkZGM5YzliZGY5YmJiODI2ZjIwZTI5ZDc3YjEzMDFiNmI4YTYzNzRjMmQ1MmM2ZDg3MWJhMzI4Mw";
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),

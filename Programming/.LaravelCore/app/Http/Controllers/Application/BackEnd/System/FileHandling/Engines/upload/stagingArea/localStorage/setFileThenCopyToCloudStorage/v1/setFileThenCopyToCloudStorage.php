@@ -63,22 +63,24 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if(!$varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_FileUpload(
-                            $varUserSession, 
-                            $this->dataProcessing(
+                        if (!$varDataSend =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_FileUpload(
                                 $varUserSession, 
-                                $varData['parameter']['log_FileUpload_Pointer_RefID'],
-                                $varData['parameter']['rotateLog_FileUploadStagingArea_RefRPK'],
-                                $varData['parameter']['sequence'],
-                                $varData['parameter']['name'],
-                                $varData['parameter']['size'],
-                                $varData['parameter']['MIME'],
-                                $varData['parameter']['extension'],
-                                $varData['parameter']['lastModifiedDateTimeTZ'],
-                                $varData['parameter']['lastModifiedUnixTimestamp'],                           
-                                $varData['parameter']['contentBase64']
+                                $this->dataProcessing(
+                                    $varUserSession, 
+                                    $varData['parameter']['log_FileUpload_Pointer_RefID'],
+                                    $varData['parameter']['rotateLog_FileUploadStagingArea_RefRPK'],
+                                    $varData['parameter']['sequence'],
+                                    $varData['parameter']['name'],
+                                    $varData['parameter']['size'],
+                                    $varData['parameter']['MIME'],
+                                    $varData['parameter']['extension'],
+                                    $varData['parameter']['lastModifiedDateTimeTZ'],
+                                    $varData['parameter']['lastModifiedUnixTimestamp'],                           
+                                    $varData['parameter']['contentBase64']
+                                    )
                                 )
-                            ))
+                            )
                             {
                             throw new \Exception();
                             }

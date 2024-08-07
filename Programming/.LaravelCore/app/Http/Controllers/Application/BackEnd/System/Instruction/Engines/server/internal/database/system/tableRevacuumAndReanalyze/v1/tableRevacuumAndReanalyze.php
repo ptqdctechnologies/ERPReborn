@@ -89,17 +89,34 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
             }
 
 
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : dataProcessing                                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-10-05                                                                                           |
+        | ▪ Creation Date   : 2022-10-05                                                                                           |
+        | ▪ Description     : Fungsi Pemrosesan Data                                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         private function dataProcessing($varUserSession)
             {           
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.FuncSys_General_SetRevacuumAndReanalyze',
-                    [
-                    ]
-                    )
-                );
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.FuncSys_General_SetRevacuumAndReanalyze',
+                        [
+                        ]
+                        )
+                    );
+
             return $varReturn['Data'][0]['FuncSys_General_SetRevacuumAndReanalyze'];
             }
         }

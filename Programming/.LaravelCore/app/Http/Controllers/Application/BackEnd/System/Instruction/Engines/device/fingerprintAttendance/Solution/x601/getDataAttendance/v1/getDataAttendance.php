@@ -63,16 +63,18 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\de
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        $varDataSend = (new \zhtSDK\Device\Solution\FingerprintAttendance\x601\zhtSDK(
-                            $varUserSession, 
-                            $varData['entities']['IPAddress'],
-                            $varData['entities']['port'],
-                            $varData['entities']['serialNumber'],
-                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExistOnSubArray($varUserSession, $varData, 'entities::connectionTimeout') ? $varData['entities']['connectionTimeout'] : 30)
-                            ))->getDataAttendance(
-                                $varData['entities']['timeZoneOffset'], 
-                                $varData['entities']['startDateTime']
-                                );
+                        $varDataSend =
+                            (new \zhtSDK\Device\Solution\FingerprintAttendance\x601\zhtSDK(
+                                $varUserSession,
+                                $varData['entities']['IPAddress'],
+                                $varData['entities']['port'],
+                                $varData['entities']['serialNumber'],
+                                (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExistOnSubArray($varUserSession, $varData, 'entities::connectionTimeout') ? $varData['entities']['connectionTimeout'] : 30)
+                                ))->getDataAttendance(
+                                    $varData['entities']['timeZoneOffset'], 
+                                    $varData['entities']['startDateTime']
+                                    );
+
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {

@@ -1,6 +1,6 @@
 <script type="text/javascript">
     $("#buttonDetailBsf").prop("disabled", true);
-    $("#SaveBsfList").prop("disabled", true);
+    $("#SubmitBsfList").prop("disabled", true);
     $("#ManagerNameId").prop("disabled", true);
     $("#CurrencyId").prop("disabled", true);
     $("#FinanceId").prop("disabled", true);
@@ -95,7 +95,7 @@
     // $('#TotalQtyAmount').html(0);
     // $('#GrandTotalExpense').html(0);
     // $('#GrandTotalAmount').html(0);
-    // $("#SaveBsfList").prop("disabled", true);
+    // $("#SubmitBsfList").prop("disabled", true);
     //END RESET FORM
 
     
@@ -138,19 +138,20 @@
                     statusForm = [];
                     $.each(data.data, function(key, value) {
 
+                        console.log(value.entities);
                         keys += 1;
 
-                        // if(value.QuantityAbsorption == "0.00" && value.Quantity == "0.00"){
-                        if (value.Quantity == "0.00") {
+                        // if(value.entities.quantityAbsorption == "0.00" && value.entities.quantity == "0.00"){
+                        if (value.entities.quantity == "0.00") {
                             var applied = 0;
                         } else {
-                            // var applied = Math.round(parseFloat(value.QuantityAbsorption) / parseFloat(value.Quantity) * 100);
-                            var applied = Math.round(parseFloat(value.Quantity) * 100);
+                            // var applied = Math.round(parseFloat(value.entities.quantityAbsorption) / parseFloat(value.entities.quantity) * 100);
+                            var applied = Math.round(parseFloat(value.entities.quantity) * 100);
                         }
                         if (applied >= 100) {
                             var status = "disabled";
                         }
-                        if (value.ProductName == "Unspecified Product") {
+                        if (value.entities.productName == "Unspecified Product") {
                             statusDisplay[keys] = "";
                             statusDisplay2[keys] = "none";
                             statusForm[keys] = "disabled";
@@ -162,17 +163,17 @@
                         var html =
                             '<tr>' +
 
-                            '<input name="getWorkId[]" value="' + value.CombinedBudgetSubSectionLevel1_RefID + '" type="hidden">' +
-                            '<input name="getWorkName[]" value="' + value.CombinedBudgetSubSectionLevel1Name + '" type="hidden">' +
-                            '<input name="getProductId[]" value="' + value.Product_RefID + '" type="hidden">' +
-                            '<input name="getProductName[]" value="' + value.ProductName + '" type="hidden">' +
-                            '<input name="getQty[]" id="budget_qty' + keys + '" value="' + value.Quantity + '" type="hidden">' +
-                            '<input name="getPrice[]" id="budget_price' + keys + '" value="' + value.ProductUnitPriceBaseCurrencyValue + '" type="hidden">' +
-                            '<input name="getUom[]" value="' + value.QuantityUnitName + '" type="hidden">' +
-                            '<input name="getCurrency[]" value="' + value.ProductUnitPriceCurrencyISOCode + '" type="hidden">' +
+                            '<input name="getWorkId[]" value="' + value.entities.combinedBudgetSubSectionLevel1_RefID + '" type="hidden">' +
+                            '<input name="getWorkName[]" value="' + value.entities.combinedBudgetSubSectionLevel1Name + '" type="hidden">' +
+                            '<input name="getProductId[]" value="' + value.entities.product_RefID + '" type="hidden">' +
+                            '<input name="getProductName[]" value="' + value.entities.productName + '" type="hidden">' +
+                            '<input name="getQty[]" id="budget_qty' + keys + '" value="' + value.entities.quantity + '" type="hidden">' +
+                            '<input name="getPrice[]" id="budget_price' + keys + '" value="' + value.entities.productUnitPriceBaseCurrencyValue + '" type="hidden">' +
+                            '<input name="getUom[]" value="' + value.entities.quantityUnitName + '" type="hidden">' +
+                            '<input name="getCurrency[]" value="' + value.entities.priceCurrencyISOCode + '" type="hidden">' +
                             '<input name="getAdvanceNumber[]" value="' + bussines_trip_number + '" type="hidden">' +
-                            '<input name="getRemark[]" value="' + value.Remarks + '" type="hidden">' +
-                            '<input name="combinedBudget" value="' + value.Sys_ID + '" type="hidden">' +
+                            '<input name="getRemark[]" value="' + value.entities.remarks + '" type="hidden">' +
+                            '<input name="combinedBudget" value="' + value.entities.sys_ID + '" type="hidden">' +
 
                             '<td style="border:1px solid #e9ecef;">' + bussines_trip_number + '</td>' +
 
@@ -187,26 +188,26 @@
                             '</div>' +
                             '</td>' +
 
-                            '<td style="border:1px solid #e9ecef;display:' + statusDisplay2[keys] + '">' + '<span>' + value.Product_RefID + '</span>' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;max-width:15px;overflow: hidden;" title="' + value.ProductName + '">' + '<span id="putProductName' + keys + '">' + value.ProductName + '</span>' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;display:' + statusDisplay2[keys] + '">' + '<span>' + value.entities.product_RefID + '</span>' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;max-width:15px;overflow: hidden;" title="' + value.entities.productName + '">' + '<span id="putProductName' + keys + '">' + value.entities.productName + '</span>' + '</td>' +
 
 
-                            '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_qty2' + keys + '">' + currencyTotal(value.Quantity) + '</span>' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + value.Quantity + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + value.QuantityUnitName + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.ProductUnitPriceBaseCurrencyValue) + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.PriceBaseCurrencyValue) + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + value.ProductUnitPriceCurrencyISOCode + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_qty2' + keys + '">' + currencyTotal(value.entities.quantity) + '</span>' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + value.entities.quantity + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + value.entities.quantityUnitName + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.entities.productUnitPriceBaseCurrencyValue) + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + currencyTotal(value.entities.priceBaseCurrencyValue) + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + value.entities.priceCurrencyISOCode + '</td>' +
 
                             '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col third-col-asf-expense-qty">' + '<input onkeyup="qty_expense(' + keys + ', this)" id="qty_expense' + keys + '" style="border-radius:0;width:50px;" name="qty_expense[]" class="form-control qty_expense" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[keys] + ' value="0">' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col third-col-asf-expense-price">' + '<input onkeyup="price_expense(' + keys + ', this)" id="price_expense' + keys + '" style="border-radius:0;width:90px;" name="price_expense[]" class="form-control price_expense" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[keys] + ' value="' + currency(value.ProductUnitPriceBaseCurrencyValue) + '">' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col third-col-asf-expense-price">' + '<input onkeyup="price_expense(' + keys + ', this)" id="price_expense' + keys + '" style="border-radius:0;width:90px;" name="price_expense[]" class="form-control price_expense" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[keys] + ' value="' + currency(value.entities.productUnitPriceBaseCurrencyValue) + '">' + '</td>' +
                             '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col third-col-asf-expense-total">' + '<input id="total_expense' + keys + '" style="border-radius:0;width:90px;background-color:white;" name="total_expense[]" class="form-control total_expense" autocomplete="off" disabled value="0">' + '</td>' +
 
                             '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col second-col-asf-amount-qty">' + '<input onkeyup="qty_amount(' + keys + ', this)" id="qty_amount' + keys + '" style="border-radius:0;width:50px;" name="qty_amount[]" class="form-control qty_amount" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[keys] + ' value="0">' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col second-col-asf-amount-price">' + '<input onkeyup="price_amount(' + keys + ', this)" id="price_amount' + keys + '" style="border-radius:0;width:90px;" name="price_amount[]" class="form-control price_amount" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[keys] + ' value="' + currency(value.ProductUnitPriceBaseCurrencyValue) + '">' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col second-col-asf-amount-price">' + '<input onkeyup="price_amount(' + keys + ', this)" id="price_amount' + keys + '" style="border-radius:0;width:90px;" name="price_amount[]" class="form-control price_amount" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[keys] + ' value="' + currency(value.entities.productUnitPriceBaseCurrencyValue) + '">' + '</td>' +
                             '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col second-col-asf-amount-total">' + '<input id="total_amount' + keys + '" style="border-radius:0;width:90px;background-color:white;" name="total_amount[]" class="form-control total_amount" autocomplete="off" disabled value="0">' + '</td>' +
 
-                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col first-col-asf-balance-total">' + '<input id="total_balance_qty' + keys + '" style="border-radius:0;width:90px;background-color:white;" name="total_balance_qty[]" class="form-control total_balance_qty" autocomplete="off" disabled value="' + currencyTotal(value.PriceBaseCurrencyValue) + '">' + '</td>' +
+                            '<td style="border:1px solid #e9ecef;background-color:white;" class="sticky-col first-col-asf-balance-total">' + '<input id="total_balance_qty' + keys + '" style="border-radius:0;width:90px;background-color:white;" name="total_balance_qty[]" class="form-control total_balance_qty" autocomplete="off" disabled value="' + currencyTotal(value.entities.priceBaseCurrencyValue) + '">' + '</td>' +
 
                             '</tr>';
 
@@ -396,7 +397,7 @@
 <script>
     function addFromDetailtoCartJs() {
 
-        $("#SaveBsfList").prop("disabled", false);
+        $("#SubmitBsfList").prop("disabled", false);
 
         $('#TableExpenseClaim').find('tbody').empty();
         $('#TableAmountDueto').find('tbody').empty();
@@ -557,26 +558,21 @@
     }
 </script>
 
+
 <script>
     $(function() {
-        $("#FormStoreBusinessTripSettlement").on("submit", function(e) {
+        $("#FormStoreBusinessTripSettlement").on("submit", function(e) { //id of form 
             e.preventDefault();
-            var valRemark = $("#remark").val();
-            $("#remark").css("border", "1px solid #ced4da");
-            if (valRemark === "") {
-                $("#remark").focus();
-                $("#remark").attr('required', true);
-                $("#remark").css("border", "1px solid red");
-            } else {
 
-                var varFileUpload_UniqueID = "Upload";
-                window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
+            // MANDATORY VALIDATION
+            var MandatoryListVar = new Object();
+            MandatoryListVar['remark'] = $("#remark").val();
 
-                var action = $(this).attr("action");
-                var method = $(this).attr("method");
-                var form_data = new FormData($(this)[0]);
-                var form = $(this);
+            var MandatoryListCount = MandatoryListFunction(MandatoryListVar);
+            // // END MANDATORY VALIDATION
 
+            if (MandatoryListCount == 0) {
+                $("#SubmitBsfList").prop("disabled", true);
 
                 const swalWithBootstrapButtons = Swal.mixin({
                     confirmButtonClass: 'btn btn-success btn-sm',
@@ -597,47 +593,60 @@
                     cancelButtonColor: '#e9ecef',
                     reverseButtons: true
                 }).then((result) => {
+
                     if (result.value) {
 
+                        var action = $(this).attr("action"); //get submit action from form
+                        var method = $(this).attr("method"); // get submit method
+                        var form_data = new FormData($(this)[0]); // convert form into formdata 
+                        var form = $(this);
+
                         ShowLoading();
-                        
 
                         $.ajax({
                             url: action,
-                            dataType: 'json',
+                            dataType: 'json', // what to expect back from the server
                             cache: false,
                             contentType: false,
                             processData: false,
                             data: form_data,
                             type: method,
                             success: function(response) {
+                                if (response.message == "WorkflowError") {
+                                    HideLoading();
+                                    $("#SubmitBsfList").prop("disabled", false);
+                                    // CALL FUNCTION DO NOT HAVE ACCESS NOTIF
+                                    CancelNotif("You don't have access", '/BusinessTripSettlement?var=1');
+                                } else if (response.message == "MoreThanOne") {
 
-                                HideLoading();
+                                    HideLoading();
 
-                                swalWithBootstrapButtons.fire({
+                                    $('#getWorkFlow').modal('toggle');
 
-                                    title: 'Successful !',
-                                    type: 'success',
-                                    html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + response.advnumber + '</span>',
-                                    showCloseButton: false,
-                                    showCancelButton: false,
-                                    focusConfirm: false,
-                                    confirmButtonText: '<span style="color:black;"> Ok </span>',
-                                    confirmButtonColor: '#4B586A',
-                                    confirmButtonColor: '#e9ecef',
-                                    reverseButtons: true
-                                }).then((result) => {
-                                    if (result.value) {
-                                        ShowLoading();
-                                        
+                                    var t = $('#tableGetWorkFlow').DataTable();
+                                    t.clear();
+                                    $.each(response.data, function(key, val) {
+                                        t.row.add([
+                                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                                            '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+                                        ]).draw();
+                                    });
 
-                                        window.location.href = '/BusinessTripSettlement?var=1';
-                                    }
-                                })
+                                } else {
+
+                                    HideLoading();
+
+                                    SelectWorkFlow(response.workFlowPath_RefID, response.nextApprover_RefID, response.approverEntity_RefID, response.documentTypeID);
+
+                                }
                             },
 
                             error: function(response) {
-                                Swal.fire("Cancelled", "Data Cancel Inputed", "error");
+                                HideLoading();
+                                $("#SubmitBsfList").prop("disabled", false);
+                                // CALL FUNCTION DO NOT HAVE ACCESS NOTIF
+                                CancelNotif("You don't have access", '/BusinessTripSettlement?var=1');
+
                             },
 
                         })
@@ -646,30 +655,131 @@
                     } else if (
                         result.dismiss === Swal.DismissReason.cancel
                     ) {
-                        swalWithBootstrapButtons.fire({
-
-                            title: 'Cancelled',
-                            text: "Process Canceled",
-                            type: 'error',
-                            confirmButtonColor: '#e9ecef',
-                            confirmButtonText: '<span style="color:black;"> Ok </span>',
-
-                        }).then((result) => {
-                            if (result.value) {
-                                ShowLoading();
-                                
-
-                                window.location.href = '/BusinessTripSettlement?var=1';
-                            }
-                        })
+                        HideLoading();
+                        // FUNCTION ERROR NOTIFICATION 
+                        CancelNotif("Data Cancel Inputed", '/BusinessTripSettlement?var=1');
                     }
                 })
             }
         });
-
     });
 </script>
 
+<script>
+    function SelectWorkFlow(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, documentTypeID) {
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        })
+
+        swalWithBootstrapButtons.fire({
+
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
+            showCancelButton: false,
+            focusConfirm: false,
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            confirmButtonColor: '#4B586A',
+            confirmButtonColor: '#e9ecef',
+            reverseButtons: true
+        }).then((result) => {
+            // if (result.value) {
+
+                ShowLoading();
+                var fileAttachment = null;
+                var file = $("#dataInput_Log_FileUpload_Pointer_RefID_Action").val();
+                if (file) {
+
+                    setTimeout(function() {
+
+                        varFileUpload_UniqueID = "Upload";
+                        window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
+                        fileAttachment = $("#dataInput_Log_FileUpload_Pointer_RefID").val();
+                        if (fileAttachment != null) {
+
+                            BusinessTripSettlement(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, fileAttachment, documentTypeID, result.value);
+
+                        }
+                    }, 20);
+                } else {
+
+                    BusinessTripSettlement(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, fileAttachment, documentTypeID, result.value);
+
+                }
+
+            // }
+        })
+
+    }
+</script>
+
+<script type="text/javascript">
+    function BusinessTripSettlement(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, fileAttachment, documentTypeID, comment) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var data = {
+            workFlowPath_RefID: workFlowPath_RefID,
+            nextApprover_RefID: nextApprover_RefID,
+            approverEntity_RefID: approverEntity_RefID,
+            fileAttachment: fileAttachment,
+            documentTypeID: documentTypeID,
+            comment: comment
+
+        };
+
+        $.ajax({
+            type: 'POST',
+            data: data,
+            url: '{!! route("AdvanceRequest.store") !!}',
+            success: function(data) {
+
+                HideLoading();
+                if (data.status == 200) {
+
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    })
+
+                    swalWithBootstrapButtons.fire({
+
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + data.documentNumber + '</span>',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        ShowLoading();
+                        window.location.href = '/BusinessTripSettlement?var=1';
+                    })
+                } else {
+                    ErrorNotif("Data Cancel Inputed");
+                }
+
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                // FUNCTION ERROR NOTIFICATION 
+                ErrorNotif("Data Cancel Inputed");
+            }
+        });
+    }
+</script>
 
 <script>
     $(function() {

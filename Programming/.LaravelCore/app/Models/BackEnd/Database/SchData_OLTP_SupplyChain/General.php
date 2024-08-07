@@ -34,11 +34,12 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataEntities_Delivery($varUserSession, 
+        public function getDataEntities_Delivery(
+            $varUserSession, 
             string $varIDSet)
             {
             try {
-                $varFunctionName='SchData-OLTP-SupplyChain.Func_GetDataEntities_Delivery';
+                $varFunctionName = 'SchData-OLTP-SupplyChain.Func_GetDataEntities_Delivery';
                 $varTemp = 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                         $varUserSession, 
@@ -114,7 +115,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                    return $varReturn['Data'];
+                return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -160,7 +161,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [
                                 [null, 'bigint'],
                                 [$varSysBranch_RefID, 'bigint'],
+ 
                                 [$varDeliveryDestinationType_RefID, 'bigint'],
+
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
                                 [$varFilterStatement, 'varchar'],

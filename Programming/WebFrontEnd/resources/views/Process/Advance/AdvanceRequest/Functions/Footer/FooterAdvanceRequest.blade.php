@@ -139,7 +139,6 @@
                 statusDisplay2 = [];
                 statusForm = [];
                 $.each(data, function(key, val2) {
-                    console.log(val2);
                     var used = val2.quantityAbsorptionRatio * 100;
 
                     if (used == "0.00" && val2.quantity == "0.00") {
@@ -594,7 +593,7 @@
             confirmButtonColor: '#e9ecef',
             reverseButtons: true
         }).then((result) => {
-            if (result.value) {
+            // if (result.value) {
 
                 ShowLoading();
                 var fileAttachment = null;
@@ -619,7 +618,7 @@
                 }
 
 
-            }
+            // }
         })
 
     }
@@ -671,10 +670,8 @@
                         confirmButtonColor: '#e9ecef',
                         reverseButtons: true
                     }).then((result) => {
-                        if (result.value) {
-                            ShowLoading();
-                            window.location.href = '/AdvanceRequest?var=1';
-                        }
+                        ShowLoading();
+                        window.location.href = '/AdvanceRequest?var=1';
                     })
                 } else {
                     ErrorNotif("Data Cancel Inputed");

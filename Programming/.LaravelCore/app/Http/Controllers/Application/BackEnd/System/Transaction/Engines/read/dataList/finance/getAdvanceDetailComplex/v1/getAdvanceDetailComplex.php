@@ -52,20 +52,34 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         |      ▪ (array)  varData ► Data                                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
+        +--------------------------------------------------- -----------------------------------------------------------------------+
         */
         function main($varUserSession, $varData)
         {
             $userSessionID = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             $branchID = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($userSessionID)['branchID'];
 
-            $varTTL = 86400; // 24 Jam
+            $varTTL = 60; // 24 Jam
             // GET DATA MASTER AdvanceDetailComplex 
-            $varAdvanceDetailComplex =
+
+            if(is_numeric($varData['parameter']['advance_RefID'])){
+                $varAdvanceDetailComplex =
+                    (new \App\Models\Database\SchData_OLTP_Finance\General())->getDataList_AdvanceDetailComplex(
+                        $userSessionID,
+                        $branchID,
+                        $varData['parameter']['advance_RefID']
+                    );
+            }
+            else{
+                $varAdvanceDetailComplex =
                 (new \App\Models\Database\SchData_OLTP_Finance\General())->getDataList_AdvanceDetailComplex(
                     $userSessionID,
                     $branchID
                 );
+
+                $varAdvanceDetailComplex = collect($varAdvanceDetailComplex);
+                $varAdvanceDetailComplex = $varAdvanceDetailComplex->where('DocumentNumber', $varData['parameter']['advance_RefID']);
+            }
 
             //SET REDIS AdvanceDetailComplex
 
@@ -73,10 +87,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                 $userSessionID,
                 "DataListAdvanceDetailComplex",
                 json_encode($varAdvanceDetailComplex),
-                // $varTTL
+                $varTTL
             );
-
-
             return [];
 
             // $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);

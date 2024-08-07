@@ -19,10 +19,15 @@
                         "minLength": 1
                         }
                     },
-                "required": [ "key", "version" ]
+                "required": [
+                    "key",
+                    "version"
+                    ]
                 }
             },
-        "required": [ "API" ]
+        "required": [
+            "API"
+            ]
         },
     "data": {
         "type": "object",
@@ -30,22 +35,102 @@
             "entities" : {
                 "type": "object",
                 "properties": {
-                    "businessDocumentVersion_RefID": {
-                        "type": [ "integer", "null" ],
-                        "minimum": 1,
-                        "maximum": 9223372036854775807
+                    "documentDateTimeTZ": {
+                        "type": [ "string", "null" ],
+                        "format": "string",
+                        "pattern": "^((([0-9]{1,4})((-){1})(0[1-9]|1[0-2])((-){1})(0[1-9]|1[0-9]|2[0-9]|3[0-1]))(([ ]{1,})(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]))(([.]{1}[0-9]{1,6}){0,1})((([ ]{0,})([+|-]{1})(([0-9]|0[0-9]|1[0-5]){1})){0,1})){0,1})$",
+                        "minLength": 10,
+                        "maxLength": 30
                         },
                      "level": {
                         "type": [ "integer", "null" ],
                         "minimum": 0,
                         "maximum": 32767
+                        },
+                    "additionalData": {
+                        "anyOf": [
+                                {"type": "null"},
+                                {
+                                "type": "object",
+                                "properties": {
+                                    "itemList": {                                    
+                                        "type": "object",
+                                        "properties": {
+                                            "items": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "entities" :
+                                                            {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "billOfMaterial_RefID": {
+                                                                    "type": [ "integer", "null" ],
+                                                                    "minimum": 1,
+                                                                    "maximum": 9223372036854775807
+                                                                    },
+                                                                 "materialProduct_RefID": {
+                                                                    "type": [ "integer", "null" ],
+                                                                    "minimum": 1,
+                                                                    "maximum": 9223372036854775807
+                                                                    },
+                                                                 "quantity": {
+                                                                    "type": [ "number", "null" ]
+                                                                    },
+                                                                 "unitPriceCurrency_RefID": {
+                                                                    "type": [ "integer", "null" ],
+                                                                    "minimum": 1,
+                                                                    "maximum": 9223372036854775807
+                                                                    },
+                                                                 "unitPriceCurrencyValue": {
+                                                                    "type": [ "number" ]
+                                                                    },
+                                                                 "unitPriceCurrencyExchangeRate": {
+                                                                    "type": [ "number" ]
+                                                                    }
+                                                                },
+                                                            "required": [
+                                                                "billOfMaterial_RefID",
+                                                                "materialProduct_RefID",
+                                                                "quantity",
+                                                                "unitPriceCurrency_RefID",
+                                                                "unitPriceCurrencyValue",
+                                                                "unitPriceCurrencyExchangeRate"
+                                                                ]
+                                                            }
+                                                        },
+                                                    "required": [ 
+                                                        "entities"
+                                                        ]
+                                                    }
+                                                }
+                                            },
+                                        "required": [ 
+                                            "items"
+                                            ]
+                                        }
+                                    },
+                                "required": [ 
+                                    "itemList"
+                                    ]
+                                }
+                            ]
                         }
                     },
-                "required": [ "businessDocumentVersion_RefID", "level" ]
+                "required": [
+                    "documentDateTimeTZ",
+                    "level"
+                    ]
                 }
             },
-        "required": [ "entities" ]
+        "required": [
+            "entities"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }

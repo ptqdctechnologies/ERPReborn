@@ -18,7 +18,7 @@
       @include('Process.BusinessTrip.BusinessTripSettlement.Functions.Menu.MenuBusinessTripSettlement')
       @if($var == 0)
       <div class="card" style="position:relative;bottom:10px;">
-        <form method="post" enctype="multipart/form-data" action="{{ route('BusinessTripSettlement.store') }}" id="FormStoreBusinessTripSettlement">
+        <form method="post" enctype="multipart/form-data" action="{{ route('SelectWorkFlow') }}" id="FormStoreBusinessTripSettlement">
           @csrf
           <div class="tab-content p-3" id="nav-tabContent">
             <div class="row">
@@ -53,31 +53,26 @@
                     </div>
                   </div>
                   <div class="card-body file-attachment">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID">
-                        <input type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" name="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" onchange="javascript: @php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataInput_Log_FileUpload_Pointer_RefID_Action', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord'); @endphp;" />
-                      </div>
-                      <br><br>
-                      <div class="col-md-12">
-                        <div class="card-body table-responsive p-0" style="height:125px;">
-
-                          <table class="table table-head-fixed table-sm text-nowrap">
-                            <div class="form-group input_fields_wrap">
-
-                              <div class="input-group control-group">
-                                <div id="dataShow_ActionPanel"></div>
-
+                      <div class="row">
+                        <div class="col-md-12">
+                          <!-- 91000000000247 -->
+                          <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID" hidden>
+                          <input type="file" class="dataInput_Log_FileUpload_Pointer_RefID_Action" id="dataInput_Log_FileUpload_Pointer_RefID_Action" name="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" onchange="javascript: @php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataInput_Log_FileUpload_Pointer_RefID_Action', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord'); @endphp;" />
+                        </div>
+                        <br><br>
+                        <div class="col-md-12">
+                          <div class="card-body table-responsive p-0" style="height:125px;">
+                            <table class="table table-head-fixed table-sm text-nowrap">
+                              <div class="form-group input_fields_wrap">
+                                <div class="input-group control-group">
+                                  <div id="dataShow_ActionPanel"></div>
+                                </div>
                               </div>
-                            </div>
-
-                          </table>
-
+                            </table>
+                          </div>
                         </div>
                       </div>
-
                     </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -232,7 +227,7 @@
                   <a onclick="CancelBusinessTripSettlement();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
                     <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
                   </a>
-                  <button class="btn btn-default btn-sm float-right" type="submit" id="SaveBsfList" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                  <button class="btn btn-default btn-sm float-right" type="submit" id="SubmitBsfList" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                     <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit"> Submit
                   </button>
                 </div>

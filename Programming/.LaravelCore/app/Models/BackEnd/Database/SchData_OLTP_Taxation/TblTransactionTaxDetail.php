@@ -61,6 +61,7 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         |      ▪ (float)  varTariffCurrencyValue ► Tariff Currency Value                                                           |
         |      ▪ (float)  varTariffCurrencyExchangeRate ► Tariff Currency Exchange Rate                                            |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -121,6 +122,7 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         |      ▪ (float)  varTariffCurrencyValue ► Tariff Currency Value                                                           |
         |      ▪ (float)  varTariffCurrencyExchangeRate ► Tariff Currency Exchange Rate                                            |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
+        |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -150,7 +152,7 @@ namespace App\Models\Database\SchData_OLTP_Taxation
                             [$varTariffCurrencyValue, 'numeric'],
                             [$varTariffCurrencyExchangeRate, 'numeric'],
                             [$varRemarks, 'varchar']
-                        ],
+                        ]
                         )
                     );
 

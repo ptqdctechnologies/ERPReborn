@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.12] - 2024-05-15
+
+### Changed
+
+- [1420: Update `psalm-baseline.xml` ](https://github.com/mockery/mockery/pull/1420)
+- [1419: Update e2e-test.sh](https://github.com/mockery/mockery/pull/1419)
+- [1413: Upgrade `phar` tools and `phive.xml` configuration](https://github.com/mockery/mockery/pull/1413)
+
+### Fixed
+
+- [1415: Fix mocking anonymous classes](https://github.com/mockery/mockery/pull/1415)
+- [1411: Mocking final classes reports unresolvable type by PHPStan](https://github.com/mockery/mockery/issues/1411)
+- [1410: Fix PHP Doc Comments](https://github.com/mockery/mockery/pull/1410)
+
+### Security
+
+- [1417: Bump `Jinja2` from `3.1.3` to `3.1.4` fix CVE-2024-34064](https://github.com/mockery/mockery/pull/1417)
+- [1412: Bump `idna` from `3.6` to `3.7` fix CVE-2024-3651](https://github.com/mockery/mockery/pull/1412)
+
+## [1.6.11] - 2024-03-21
+
+### Fixed
+
+- [1407: Fix constants map generics doc comments](https://github.com/mockery/mockery/pull/1407)
+- [1406: Fix reserved words used to name a class, interface or trait](https://github.com/mockery/mockery/pull/1406)
+- [1403: Fix regression - partial construction with trait methods](https://github.com/mockery/mockery/pull/1403)
+- [1401: Improve `Mockery::mock()` parameter type compatibility with array typehints](https://github.com/mockery/mockery/pull/1401)
+
 ## [1.6.10] - 2024-03-19
 
 ### Added

@@ -5,7 +5,7 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_Finance                                                                         |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2020- 2022 Zheta (teguhpjs@gmail.com)                                                                               |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_Finance
@@ -72,33 +72,36 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varAdvance_RefID = null, int $varCombinedBudgetSectionDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varAdvance_RefID = null, int $varCombinedBudgetSectionDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, string $varRemarks = null
+            )
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [null, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
-                        
-                        [$varAdvance_RefID, 'bigint'],
-                        [$varCombinedBudgetSectionDetail_RefID, 'bigint'],
-                        [$varProduct_RefID, 'bigint'],
-                        [$varQuantity, 'numeric'],
-                        [$varQuantityUnit_RefID, 'bigint'],
-                        [$varProductUnitPriceCurrency_RefID, 'bigint'],
-                        [$varProductUnitPriceCurrencyValue, 'numeric'],
-                        [$varProductUnitPriceCurrencyExchangeRate, 'numeric'],
-                        [$varRemarks, 'varchar']
-                    ]
-                    )
-                );
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [null, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
+
+                            [$varAdvance_RefID, 'bigint'],
+                            [$varCombinedBudgetSectionDetail_RefID, 'bigint'],
+                            [$varProduct_RefID, 'bigint'],
+                            [$varQuantity, 'numeric'],
+                            [$varQuantityUnit_RefID, 'bigint'],
+                            [$varProductUnitPriceCurrency_RefID, 'bigint'],
+                            [$varProductUnitPriceCurrencyValue, 'numeric'],
+                            [$varProductUnitPriceCurrencyExchangeRate, 'numeric'],
+                            [$varRemarks, 'varchar']
+                        ]
+                        )
+                    );
+
             return $varReturn['Data'][0];
             }
 
@@ -137,33 +140,36 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varAdvance_RefID = null, int $varCombinedBudgetSectionDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varAdvance_RefID = null, int $varCombinedBudgetSectionDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, string $varRemarks = null
+            )
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varSysID, 'bigint'],
-                        [$varSysDataAnnotation, 'varchar'],
-                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranch_RefID, 'bigint'],
-                        [$varSysBaseCurrency_RefID, 'bigint'],
-                        
-                        [$varAdvance_RefID, 'bigint'],
-                        [$varCombinedBudgetSectionDetail_RefID, 'bigint'],
-                        [$varProduct_RefID, 'bigint'],
-                        [$varQuantity, 'numeric'],
-                        [$varQuantityUnit_RefID, 'bigint'],
-                        [$varProductUnitPriceCurrency_RefID, 'bigint'],
-                        [$varProductUnitPriceCurrencyValue, 'numeric'],
-                        [$varProductUnitPriceCurrencyExchangeRate, 'numeric'],
-                        [$varRemarks, 'varchar']
-                    ],
-                    )
-                );
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varSysID, 'bigint'],
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
+
+                            [$varAdvance_RefID, 'bigint'],
+                            [$varCombinedBudgetSectionDetail_RefID, 'bigint'],
+                            [$varProduct_RefID, 'bigint'],
+                            [$varQuantity, 'numeric'],
+                            [$varQuantityUnit_RefID, 'bigint'],
+                            [$varProductUnitPriceCurrency_RefID, 'bigint'],
+                            [$varProductUnitPriceCurrencyValue, 'numeric'],
+                            [$varProductUnitPriceCurrencyExchangeRate, 'numeric'],
+                            [$varRemarks, 'varchar']
+                        ]
+                        )
+                    );
+
             return $varReturn['Data'][0];
             }
         }
