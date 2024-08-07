@@ -500,7 +500,7 @@
                 </td>
                 <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
                     <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 4px 0px;">
-                        Product Id
+                        Product Name
                     </div>
                 </td>
                 <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
