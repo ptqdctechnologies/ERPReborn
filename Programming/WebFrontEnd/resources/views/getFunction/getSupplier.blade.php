@@ -32,6 +32,7 @@
 </div>
 
 <script>
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -41,15 +42,18 @@
     $(function() {
         $('.mySupplier').on('click', function(e) {
             e.preventDefault();
+            var keys = 0;
 
             $.ajax({
                 type: 'GET',
                 url: '{!! route("getSupplier") !!}',
                 success: function(data) {
+                    console.log(data);
                     var no = 1;
                     t = $('#tableGetSupplier').DataTable();
                     t.clear();
                     $.each(data, function(key, val) {
+                        keys +=1;
                         t.row.add([
 
                             '<tbody><tr><input id="sys_id_supplier' + key + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
@@ -69,7 +73,7 @@
 
 <script>
     $('#tableGetSupplier tbody').on('click', 'tr', function() {
-
+        
         $("#mySupplier").modal('toggle');
 
         var row = $(this).closest("tr");
@@ -78,7 +82,7 @@
         var code = row.find("td:nth-child(2)").text();
         var name = row.find("td:nth-child(3)").text();
         var address = row.find("td:nth-child(4)").text();
-
+        
         $("#supplier_id").val(sys_id_supplier);
         $("#supplier_code").val(code + ' - ' + name);
         $("#address").val(address);

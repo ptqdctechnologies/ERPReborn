@@ -52,9 +52,9 @@
                         t.row.add([
 
                             '<tbody><tr><td>' + no++ + '</td>',
-                            '<td>' + val.sys_ID+ '</td>',
-                            '<td>' + val.name + '</td>',
-                            '<td>' + val.address + '</td></tr></tbody>',
+                            '<td>' + val.Sys_ID+ '</td>',
+                            '<td>' + val.Name + '</td>',
+                            '<td>' + val.Address + '</td></tr></tbody>',
                             // '<span style="display:none;"><td>' + val.sys_ID + '</td></span></tr></tbody>'
 
                         ]).draw();

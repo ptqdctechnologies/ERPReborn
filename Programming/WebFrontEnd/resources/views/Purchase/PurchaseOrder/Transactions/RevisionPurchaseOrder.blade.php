@@ -2,15 +2,16 @@
   @section('main')
     @include('Partials.navbar')
     @include('Partials.sidebar')
+    @include('Purchase.PurchaseOrder.Functions.PopUp.PopUpPORevision')
+    @include('Purchase.PurchaseOrder.Functions.PopUp.searchPO')
     @include('getFunction.getProject')
     @include('getFunction.getSite')
     @include('getFunction.getSupplier')
     @include('getFunction.getDeliverTo')
     @include('getFunction.getProduk')
     @include('Purchase.PurchaseOrder.Functions.PopUp.searchPR')
-
-
-    <div class="content-wrapper" style="position:relative;bottom:12px;">
+    
+    <div class="content-wrapper">
       <section class="content">
         <div class="container-fluid">
           <div class="row mb-1" style="background-color:#4B586A;">
@@ -19,7 +20,7 @@
             </div>
           </div>
           @include('Purchase.PurchaseOrder.Functions.Menu.MenuPurchaseOrder')
-          @if($var == 0)
+          
             <div class="card" style="position:relative;bottom:10px;">
               <form method="post" enctype="multipart/form-data" action="{{ route('PurchaseOrder.store') }}" name="formPO">
                 <div class="tab-content p-3" id="nav-tabContent">
@@ -37,7 +38,7 @@
                             </button>
                           </div>
                         </div>
-                        @include('Purchase.PurchaseOrder.Functions.Header.headerPO2')
+                        @include('Purchase.PurchaseOrder.Functions.Header.headerPO2Revision')
                       </div>
                     </div>
                   </div>
@@ -56,7 +57,7 @@
                               </button>
                             </div>
                           </div>
-                          @include('Purchase.PurchaseOrder.Functions.Header.headerPO')
+                          @include('Purchase.PurchaseOrder.Functions.Header.headerPORevision')
                         </div>
                       </div>
                     </div>
@@ -79,7 +80,7 @@
                           <div class="card-body fileAttachment">
                             <div class="row">
                               <div class="col-md-12">
-                                <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID">
+                                <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="{{ $dataContent['attachmentFiles']['main']['log_FileUpload_Pointer_RefID'] }}" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID">
                                 <input type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" name="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" onchange="javascript: @php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataInput_Log_FileUpload_Pointer_RefID_Action', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord'); @endphp;" />
                               </div>
                               <br><br>
@@ -106,8 +107,8 @@
                         <div class="card">
                           <div class="card-header">
                             <label class="card-title">
-                            Purchase Order Detail &nbsp;&nbsp; || &nbsp;&nbsp; Select PR Number
-                              <a href="#" id="pr_number2" data-toggle="modal" data-target="#mySearchPR"><img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></a>
+                            Purchase Order Detail &nbsp;&nbsp;
+                              <!-- <a href="#" id="pr_number2" data-toggle="modal" data-target="#mySearchPR"><img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></a> -->
                             </label>
                             <div class="card-tools">
                               <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -158,9 +159,22 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-
+                          
                                 </tbody>
                               </table>
+                              <div class="card-body tableShowHidePRDetail" >
+                                <table style="float:right;">
+                                  <tr>
+                                    <th style="position: relative;right:20px;"> Total Request: <span id="TotalBudgetSelected">0.00</span></th>
+                                  </tr>
+                                  <tr>
+                                      <th style="position: relative;right:20px;"> PPN: <span id="TotalPpn">0.00</span></th>
+                                  </tr>
+                                  <tr>
+                                      <th style="position: relative;right:20px;"> Total Request + PPN: <span id="TotalBudgetSelectedPpn">0.00</span></th>
+                                  </tr>
+                                </table>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -216,10 +230,10 @@
                   </div>
                 </form>
               </div>
-          @endif
+
         </div>
       </section>
     </div>
     @include('Partials.footer')
-    @include('Purchase.PurchaseOrder.Functions.Footer.footerPO')
+    @include('Purchase.PurchaseOrder.Functions.Footer.footerPORevision')
   @endsection

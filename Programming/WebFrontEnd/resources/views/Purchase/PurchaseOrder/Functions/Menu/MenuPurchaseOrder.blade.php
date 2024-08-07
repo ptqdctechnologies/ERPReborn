@@ -15,7 +15,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link myPopUpPurchaseOrderRevision" data-toggle="modal" data-target="#myPopUpPurchaseOrderRevision" style="color:white;padding-bottom:10px;">
+                                    <a class="nav-link myPopUpPORevision" data-toggle="modal" data-target="#myPopUpPORevision" style="color:white;padding-bottom:10px;">
                                         <i class="far fa-file nav-icon-sm"> Revision Purchase Order</i>
                                     </a>
                                 </li>
@@ -27,3 +27,41 @@
         </div>
     </div>
 </div>
+<script> 
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $(function() {
+        $('.myPopUpPORevision').on('click', function(e) {
+            e.preventDefault();
+
+            var keys = 0;
+
+            $.ajax({
+                type: 'GET',
+                url: '{!! route("PurchaseOrder.PurchaseOrderListData") !!}',
+                success: function(data) {
+                    console.log(data);
+                    var no = 1; t = $('#TableSearchPORevision').DataTable();
+                    t.clear();
+                    $.each(data.data, function(key, val) {
+                        keys += 1;
+                        t.row.add([
+                            '<tbody><tr><input id="sys_id_purchaseOrder_revision' + keys + '" value="' + val.sys_ID + '" type="hidden"><td>' + no++ + '</td>',
+                            '<td>' + val.documentNumber + '</td>',
+                            '<td>' + val.combinedBudgetCode + '</td>',
+                            '<td>' + val.combinedBudgetName + '</td>',
+                            '<td>' + val.combinedBudgetSectionCode + '</td>',
+                            '<td>' + val.combinedBudgetSectionName + '</td></tr></tbody>'
+                        ]).draw();
+
+                    });
+                }
+            });
+        });
+
+    });
+</script>
