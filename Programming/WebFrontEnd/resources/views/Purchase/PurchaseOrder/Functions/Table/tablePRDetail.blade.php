@@ -2,7 +2,6 @@
     <table class="table table-head-fixed text-nowrap table-striped TablePRDetail">
         <thead>
             <tr>
-                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Applied</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">PR Number</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Id</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Name</th>
@@ -12,6 +11,9 @@
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Unit Price</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Total</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Currency</th>
+                @if($statusRevisi == 1)
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Total Payment</th>
+                @endif
                 
                 <th class="sticky-col fifth-col-pr" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Qty Req</th>
                 <th class="sticky-col forth-col-pr" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Price Req</th>
@@ -64,17 +66,17 @@
 </div>
 <div class="card-body tableShowHidePRDetail" >
     <table style="float:right;">
-        @if($statusRevisi == 1)
+        <!-- @if($statusRevisi == 1)
             <tr>
                 <th style="position: relative;right:20px;"> Total Request: <span id="TotalBudgetSelected">0.00</span></th>
             </tr>
             <tr>
                 <th style="position: relative;right:20px;"> PPN: <span id="TotalPpn">0.00</span></th>
             </tr>
-            <!-- <tr>
+            <tr>
                 <th style="position: relative;right:20px;"> Total Request + PPN: <span id="TotalBudgetSelectedPpn">0.00</span></th>
-            </tr> -->
-        @endif
+            </tr>
+        @endif -->
         <tr>
             <td>
                 <br>

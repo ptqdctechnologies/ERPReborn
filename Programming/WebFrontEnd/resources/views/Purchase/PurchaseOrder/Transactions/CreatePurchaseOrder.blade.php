@@ -8,6 +8,8 @@
     @include('getFunction.getDeliverTo')
     @include('getFunction.getProduk')
     @include('Purchase.PurchaseOrder.Functions.PopUp.searchPR')
+    @include('Purchase.PurchaseOrder.Functions.PopUp.PopUpPORevision')
+    @include('Purchase.PurchaseOrder.Functions.PopUp.searchPO')
 
 
     <div class="content-wrapper">
@@ -163,16 +165,20 @@
 
                                 </tbody>
                               </table>
-                              <div class="card-body tableShowHidePRDetail">
+                              <div class="card-body tableShowHidePRDetail" >
                                 <table style="float:right;">
                                   <tr>
                                     <th style="position: relative;right:20px;"> Total Request: <span id="TotalBudgetSelected">0.00</span></th>
                                   </tr>
                                   <tr>
-                                    <th style="position: relative;right:20px;"> PPN: <span id="TotalPpn">0.00</span></th>
+                                      <th style="position: relative;right:20px;"> PPN: <span id="TotalPpn">0.00</span></th>
+                                  </tr>
+                                  <tr>
+                                      <th style="position: relative;right:20px;"> Total Request + PPN: <span id="TotalBudgetSelectedPpn">0.00</span></th>
                                   </tr>
                                 </table>
                               </div>
+                              
                             </div>
                           </div>
                         </div>

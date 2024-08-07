@@ -9,8 +9,8 @@
                             <td style="padding-top: 5px;"><label>Supplier Code</label></td>
                             <td>
                                 <div class="input-group" style="width: 70%;">
-                                    <input id="supplier_id" style="border-radius:0;" type="hidden" class="form-control" readonly>
-                                    <input id="supplier_code" style="border-radius:0;" class="form-control" readonly>
+                                    <input id="supplier_code" style="border-radius:0;" class="form-control" value="{{ 
+                                    $dataContent['involvedPersons'][0]['requesterWorkerJobsPosition_RefID'] }}" readonly>
                                     <div class="input-group-append">
                                         <span style="border-radius:0;" class="input-group-text form-control">
                                             <!-- <a href="#"><i id="supplier_code2" data-toggle="modal" data-target="#mySupplier" class="fas fa-gift mySupplier"></i></a> -->
@@ -21,7 +21,7 @@
                             </td>
                             <td>
                                 <div class="input-group" style="width: 153%;position:relative;right:38%;">
-                                    <input id="supplier_name" style="border-radius:0;" class="form-control" name="projectname" readonly>
+                                    <input id="supplier_name" style="border-radius:0;" class="form-control" name="projectname" value="{{ $dataContent['involvedPersons'][0]['requesterWorkerFullName'] }}}}" readonly>
                                 </div>
                             </td>
                         </tr>
@@ -65,7 +65,7 @@
                             <td><label>Payment Notes</label></td>
                             <td style="border:1px solid #e9ecef;">
                                 <div class="input-group">
-                                    <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
+                                    <input id="requestcode" style="border-radius:0;" type="text" class="form-control" value="{{ $dataContent['remarks'] }}">
                                 </div>
                             </td>
                         </tr>
@@ -123,7 +123,7 @@
                             <td><label>Remark PO</label></td>
                             <td style="border:1px solid #e9ecef;">
                                 <div class="input-group">
-                                    <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
+                                    <input id="requestcode" style="border-radius:0;" type="text" class="form-control" value="{{ $dataContent['remarks'] }}">
                                 </div>
                             </td>
                         </tr>
@@ -131,7 +131,7 @@
                             <td><label>Internal Note</label></td>
                             <td style="border:1px solid #e9ecef;">
                                 <div class="input-group">
-                                    <textarea name="" id="" cols="30" rows="4" class="form-control"></textarea>
+                                    <textarea name="" id="" cols="30" rows="4" class="form-control">{{ $dataContent['remarks'] }}</textarea>
                                 </div>
                             </td>
                         </tr>

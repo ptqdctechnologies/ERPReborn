@@ -12,7 +12,7 @@
 </script>
 
 <script>
-    $('#tableGetProject tbody').on('click', 'tr', function() {
+    $('#tableGetProject tbody').one('click', 'tr', function() {
 
         $("#myProject").modal('toggle');
 
@@ -56,7 +56,7 @@
 </script>
 
 <script>
-    $('#tableGetSite tbody').on('click', 'tr', function() {
+    $('#tableGetSite tbody').one('click', 'tr', function() {
 
         $("#mySiteCode").modal('toggle');
 
@@ -81,15 +81,17 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("getBudget") !!}?site_code=' + sys_id,
+            // url: '{!! route("getBudget") !!}?sitecode=' + 143000000000305,
             success: function(data) {
                 var no = 1;
-                var price = 0;
                 applied = 0;
                 status = "";
                 statusDisplay = [];
                 statusDisplay2 = [];
                 statusForm = [];
+                console.log(data);
                 $.each(data, function(key, val2) {
+                    
                     if (val2.quantityAbsorption == "0.00" && val2.quantity == "0.00") {
                         var applied = 0;
                     } else {
@@ -107,13 +109,9 @@
                         statusDisplay2[key] = "";
                         statusForm[key] = "";
                     }
-
-                    if (val2.unitPriceBaseCurrencyValue == null) {
-                        price = 0;
-                    } else {
-                        price = val2.unitPriceBaseCurrencyValue;
+                    if(val2.unitPriceBaseCurrencyValue == null){
+                        val2.unitPriceBaseCurrencyValue = 0; 
                     }
-
                     var html = '<tr>' +
                         '<input name="getWorkId[]" value="' + val2.combinedBudgetSubSectionLevel1_RefID + '" type="hidden">' +
                         '<input name="getWorkName[]" value="' + val2.combinedBudgetSubSectionLevel1Name + '" type="hidden">' +
@@ -146,8 +144,8 @@
                         '<td style="position:relative;width:130px; border:1px solid #e9ecef;">' + '<span id="putProductName' + key + '">' + val2.productName + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span">' + currencyTotal(val2.quantity) + '</span>' + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_qty2' + key + '">' + currencyTotal(val2.quantity) + '</span>' + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(price) + '</span>' + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.quantity * price) + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.unitPriceBaseCurrencyValue) + '</span>' + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.quantity * val2.unitPriceBaseCurrencyValue) + '</span>' + '</td>' +
 
                         '<td class="sticky-col fifth-col-pr" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="qty_req' + key + '" style="border-radius:0;" name="qty_req[]" class="form-control qty_req" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[key] + '>' + '</td>' +
                         '<td class="sticky-col forth-col-pr" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="price_req' + key + '" style="border-radius:0;" name="price_req[]" class="form-control price_req" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[key] + '>' + '</td>' +
@@ -565,70 +563,4 @@
 </script>
 
 
-<script>
-    function SelectWorkFlow(workFlowPath_RefID, businessDocument_RefID, documentNumber, approverEntity_RefID) {
-
-        const swalWithBootstrapButtons = Swal.mixin({
-            confirmButtonClass: 'btn btn-success btn-sm',
-            cancelButtonClass: 'btn btn-danger btn-sm',
-            buttonsStyling: true,
-        })
-
-        swalWithBootstrapButtons.fire({
-
-            title: 'Comment',
-            text: "Please write your comment here",
-            type: 'question',
-            input: 'text',
-            showCloseButton: false,
-            showCancelButton: false,
-            focusConfirm: false,
-            confirmButtonText: '<span style="color:black;"> OK </span>',
-            confirmButtonColor: '#4B586A',
-            confirmButtonColor: '#e9ecef',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.value) {
-
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-
-                $.ajax({
-                    type: 'GET',
-                    success: function(data) {
-
-                        HideLoading();
-
-                        swalWithBootstrapButtons.fire({
-
-                            title: 'Successful !',
-                            type: 'success',
-                            html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + data.documentNumber + '</span>',
-                            showCloseButton: false,
-                            showCancelButton: false,
-                            focusConfirm: false,
-                            confirmButtonText: '<span style="color:black;"> OK </span>',
-                            confirmButtonColor: '#4B586A',
-                            confirmButtonColor: '#e9ecef',
-                            reverseButtons: true
-                        }).then((result) => {
-                            if (result.value) {
-                                ShowLoading();
-                                window.location.href = '/PurchaseRequisition?var=1';
-                            }
-                        })
-
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        Swal.fire("Cancelled", "Data Cancel Inputed", "error");
-                    }
-                });
-
-            }
-        })
-
-    }
-</script>
+<!--  -->
