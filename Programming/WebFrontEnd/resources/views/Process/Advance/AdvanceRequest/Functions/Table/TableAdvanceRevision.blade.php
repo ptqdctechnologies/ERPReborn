@@ -9,9 +9,9 @@ if (strpos($current_url, 'ReportDORequestDetail') !== false) {
     $label_text = "Choose DO Number";
 } elseif (strpos($current_url, 'ReportMatReturnDetail') !== false) {
     $label_text = "Choose MR Number";
-} elseif (strpos($current_url, 'ReportPurchaseOrderDetail') !== false) {
+} elseif (strpos($current_url, 'ReportPurchaseOrderDetail') !== false || strpos($current_url, 'ReportPurchaseOrderSummary') !== false) {
     $label_text = "Choose Supplier Code";
-}
+} 
 
 ?>
 

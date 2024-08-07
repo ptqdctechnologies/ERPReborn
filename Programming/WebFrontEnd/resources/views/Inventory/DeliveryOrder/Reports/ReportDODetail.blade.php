@@ -18,8 +18,8 @@
                         <div class="col-12 ShowDocument">
                             @include("Inventory.DeliveryOrder.Functions.Header.HeaderReportDODetail")
                         </div>
-                        <div class="col-12 ShowTableReportAdvanceSummary">
-                            <?php if ($dataReport) { ?>
+                        <?php if ($dataReport) { ?>
+                            <div class="col-12 ShowTableReportAdvanceSummary">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row">
@@ -77,7 +77,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card-body table-responsive">
+                                </div>
+                            </div>
+
+                            <div class="col-12 ShowTableReportAdvanceSummary">
+                                <div class="card">
+                                    <div class="card-body table-responsive p-0">
                                         <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="TableReportAdvanceSummary">
                                             <thead>
                                                 <tr>
@@ -101,19 +106,19 @@
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>
-                                            <tfooter>
+                                            <tfoot>
                                                 <tr>
                                                     <th colspan="3" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: right;background-color:#4B586A;color:white;">Total</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;"><?= $dataReport['totalQty']; ?></th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;"></th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;"></th>
                                                 </tr>
-                                            </tfooter>
+                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>
-                            <?php }; Session::forget("isButtonReportDODetailSubmit"); ?>
-                        </div>
+                            </div>
+                        <?php }; Session::forget("isButtonReportDODetailSubmit"); ?>
                     </div>
                 </div>
             </div>

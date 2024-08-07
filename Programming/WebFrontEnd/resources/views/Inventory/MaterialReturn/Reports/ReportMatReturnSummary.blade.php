@@ -20,8 +20,8 @@
                         <div class="col-12 ShowDocument">
                             @include('Inventory.MaterialReturn.Functions.Header.HeaderReportMaterialReturnSummary')
                         </div>
-                        <div class="col-12 ShowTableReportAdvanceSummary">
-                            <?php if ($dataReport) { ?>
+                        <?php if ($dataReport) { ?>
+                            <div class="col-12 ShowTableReportAdvanceSummary">
                                 <div class="card">
                                     <!-- HEADER -->
                                     <div class="card-body">
@@ -30,16 +30,20 @@
                                                 <table>
                                                     <tr>
                                                         <th style="padding-top: 7px;"><label>Budget&nbsp;</label></th>
-                                                        <td><?= $dataReport['dataHeader']['budget']; ?></td>
+                                                        <td><b>:</b></td>
+                                                        <td><b><?= $dataReport['dataHeader']['budget']; ?></b></td>
                                                     </tr>
                                                 </table>
                                             </div>
                                         </div>
                                     </div>
-
+                                </div>
+                            </div>
+                            <div class="col-12 ShowTableReportAdvanceSummary">
+                                <div class="card">
                                     <!-- DETAIL -->
                                     <div class="card-body table-responsive p-0">
-                                        <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="TableReportAdvanceSummary">
+                                        <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="DefaultFeatures">
                                             <thead>
                                                 <tr>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
@@ -60,7 +64,7 @@
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>
-                                            <tfooter>
+                                            <tfoot>
                                                 <tr>
                                                     <th colspan="3" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: right;background-color:#4B586A;color:white;">Total</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
@@ -70,12 +74,12 @@
                                                         <?= $dataReport['totalOtherCurrency']; ?>
                                                     </th>
                                                 </tr>
-                                            </tfooter>
+                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>
-                            <?php }; Session::forget("isButtonReportMaterialReturnSubmit"); ?>
-                        </div>
+                            </div>
+                        <?php }; Session::forget("isButtonReportMaterialReturnSubmit"); ?>
                     </div>
                 </div>
             </div>
