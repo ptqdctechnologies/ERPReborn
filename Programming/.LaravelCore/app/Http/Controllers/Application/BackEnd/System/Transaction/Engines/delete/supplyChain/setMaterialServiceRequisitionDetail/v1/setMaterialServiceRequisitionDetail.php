@@ -3,28 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\supplyChain\setPurchaseRequisition\v1 |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\supplyChain                           |
+|                \setMaterialServiceRequisitionDetail\v1                                                                           |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\supplyChain\setPurchaseRequisition\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\supplyChain\setMaterialServiceRequisitionDetail\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setPurchaseRequisition                                                                                       |
-    | ▪ Description : Menangani API transaction.delete.supplyChain.setPurchaseRequisition Version 1                                |
+    | ▪ Class Name  : setMaterialServiceRequisitionDetail                                                                                 |
+    | ▪ Description : Menangani API transaction.delete.supplyChain.setMaterialServiceRequisitionDetail Version 1                          |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setPurchaseRequisition extends \App\Http\Controllers\Controller
+    class setMaterialServiceRequisitionDetail extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-11-25                                                                                           |
-        | ▪ Creation Date   : 2020-11-25                                                                                           |
+        | ▪ Last Update     : 2024-08-08                                                                                           |
+        | ▪ Creation Date   : 2024-08-08                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-11-25                                                                                           |
-        | ▪ Creation Date   : 2020-11-25                                                                                           |
+        | ▪ Last Update     : 2024-08-08                                                                                           |
+        | ▪ Creation Date   : 2024-08-08                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -58,14 +59,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Delete Purchase Requisition (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Delete Purchase Requisition Detail (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
                         if (!($varDataSend =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataDelete(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_SupplyChain\TblPurchaseRequisition())->setDataDelete(
+                                (new \App\Models\Database\SchData_OLTP_SupplyChain\TblMaterialServiceRequisitionDetail())->setDataDelete(
                                     $varUserSession,
                                     $varData['recordID']
                                     )

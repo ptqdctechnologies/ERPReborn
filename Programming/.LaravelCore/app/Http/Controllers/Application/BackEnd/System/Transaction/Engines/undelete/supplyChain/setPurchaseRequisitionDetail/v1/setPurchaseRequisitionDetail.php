@@ -61,13 +61,19 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUndelete($varUserSession, (new \App\Models\Database\SchData_OLTP_SupplyChain\TblPurchaseRequisitionDetail())->unsetDataDelete(
-                            $varUserSession,
-                            $varData['recordID']
-                            ))))
+                        if (!($varDataSend =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUndelete(
+                                $varUserSession,
+                                (new \App\Models\Database\SchData_OLTP_SupplyChain\TblPurchaseRequisitionDetail())->unsetDataDelete(
+                                    $varUserSession,
+                                    $varData['recordID']
+                                    )
+                                )
+                            ))
                             {
                             throw new \Exception();
                             }
+
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
