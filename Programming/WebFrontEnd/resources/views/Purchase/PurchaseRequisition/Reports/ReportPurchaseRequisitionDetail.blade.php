@@ -17,7 +17,10 @@
             <div class="card">
                 <div class="tab-content p-3" id="nav-tabContent">
                     <div class="row">
+                        @if($statusHeader == "Yes")
                         @include('Purchase.PurchaseRequisition.Functions.Header.HeaderReportProcReqDetail')
+                        @endif
+                        @if($statusDetail == 1 && $dataHeader != [])
                         <div class="col-12 ShowTableReportPRDetailSummary" style="font-weight: bold;">
                             <div class="card">
                                 <div class="card-header">
@@ -33,10 +36,12 @@
                                                     <tr>
                                                         <td style="padding-top: 5px;"><label>Budget</label></td>
                                                         <td>:</td>
+                                                        <td>{{ $dataGeneral['budget']['combinedBudgetCodeList'][0] }} - {{ $dataGeneral['budget']['combinedBudgetNameList'][0] }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td style="padding-top: 5px;"><label>Sub Budget Code</label></td>
                                                         <td>:</td>
+                                                        <td>{{ $dataGeneral['budget']['combinedBudgetSectionCodeList'][0] }} - {{ $dataGeneral['budget']['combinedBudgetSectionNameList'][0] }}</td>
                                                     </tr>
                                                 </table>
                                             </div>
@@ -47,10 +52,12 @@
                                                     <tr>
                                                         <td style="padding-top: 5px;"><label>MSR Number</label></td>
                                                         <td>:</td>
+                                                        <td>{{ $dataHeader['number'] }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td style="padding-top: 5px;"><label>Date</label></td>
                                                         <td>:</td>
+                                                        <td>{{ $dataHeader['date'] }}</td>
                                                     </tr>   
                                                 </table>
                                             </div>
@@ -72,10 +79,23 @@
                                                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total Other Currency</th>
                                             </tr>
                                         </thead>
-                                        
+                                        @php $no = 1; $total = 0; @endphp
+                                        @foreach($dataDetail as $dataDetails)
+                                        @php $total += $dataDetails['entities']['priceBaseCurrencyValue'] @endphp
+                                        <tbody>
+                                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $no++ }}</td>
+                                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataDetails['entities']['product_RefID'] }}</td>
+                                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataDetails['entities']['productName'] }}</td>
+                                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataDetails['entities']['quantity'] }}</td>
+                                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataDetails['entities']['productUnitPriceCurrencyValue'] }}</td>
+                                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ number_format($dataDetails['entities']['priceBaseCurrencyValue'],2) }}</td>
+                                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ number_format($dataDetails['entities']['priceBaseCurrencyValue'],2) }}</td>
+                                        </tbody>
+                                        @endforeach
                                         <tfoot>
                                         <tr>
                                             <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;" colspan="5">GRAND TOTAL PURCHASE REQUISITION</th>
+                                            <td style="border:1px solid #4B586A;color:#4B586A;"><span id="GrandTotal">{{ number_format($total,2) }}</span></td>
                                             <td style="border:1px solid #4B586A;"></td>
                                         </tr>
                                         </tfoot>
@@ -84,6 +104,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>

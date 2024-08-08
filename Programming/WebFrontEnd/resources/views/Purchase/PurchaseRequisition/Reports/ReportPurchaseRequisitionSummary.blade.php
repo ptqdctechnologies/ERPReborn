@@ -6,6 +6,7 @@
 @include('getFunction.getProject')
 @include('getFunction.getSite')
 @include('getFunction.getSupplier')
+@include('getFunction.getWorker')
 
 <div class="content-wrapper">
     <section class="content">
@@ -19,7 +20,114 @@
                 <div class="tab-content p-3" id="nav-tabContent">
                     <div class="row">
                         <div class="col-12 ShowDocument">
-                            @include('Purchase.PurchaseRequisition.Functions.Header.HeaderReportPRSummary')
+                            <div class="card">
+                                <form method="post" enctype="multipart/form-data" action="{{ route('PurchaseRequisition.ReportPurchaseRequisitionSummaryStore') }}" id="FormSubmitReportPurchaseRequisitionSummary">
+                                @csrf
+                                <div class="card-body">
+                                    <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                        <table>
+                                            <tr>
+                                            <th style="padding-top: 7px;"><label>Budget&nbsp;</label></th>
+                                            <td>
+                                                <div class="input-group">
+                                                <input id="project_id" hidden name="project_id">
+                                                <input id="project_code" style="border-radius:0;background-color:white;" data-toggle="modal" data-target="#myProject" class="form-control myProject" readonly name="project_code">
+                                                <div class="input-group-append">
+                                                    <span style="border-radius:0;" class="input-group-text form-control">
+                                                    <a href="#" id="project_code_popup" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                    </span>
+                                                </div>
+                                                </div>
+                                            </td>
+                                            </tr>
+                                        </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                        <table>
+                                            <tr>
+                                            <th style="padding-top: 7px;"><label>Sub&nbsp;Budget&nbsp;</label></th>
+                                            <td>
+                                                <div class="input-group">
+                                                <input id="site_id" hidden name="site_id">
+                                                <input id="site_code" style="border-radius:0;background-color:white;" data-toggle="modal" data-target="#mySiteCode" class="form-control mySiteCode" readonly name="site_code">
+                                                <div class="input-group-append">
+                                                    <span style="border-radius:0;" class="input-group-text form-control">
+                                                    <a href="#" id="site_code_popup" data-toggle="modal" data-target="#mySiteCode" class="mySiteCode"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                    </span>
+                                                </div>
+                                                </div>
+                                            </td>
+                                            </tr>
+                                        </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                        <table>
+                                            <tr>
+                                            <th style="padding-top: 7px;"><label>Supplier&nbsp;</label></th>
+                                            <td>
+                                                <div class="input-group">
+                                                <input id="requester_id" hidden name="requester_id">
+                                                <input id="requester" style="border-radius:0;background-color:white;" data-toggle="modal" data-target="#mySupplier" class="form-control mySupplier" readonly name="requester">
+                                                <div class="input-group-append">
+                                                    <span style="border-radius:0;" class="input-group-text form-control">
+                                                    <a href="#" id="requester_popup" data-toggle="modal" data-target="#myWorker" class="myWorker"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                    </span>
+                                                </div>
+                                                <!-- <input id="supplier_id" hidden name="supplier_id">
+                                                <input id="supplier_code" style="border-radius:0;background-color:white;" data-toggle="modal" data-target="#mySupplier" class="form-control mySupplier" readonly name="supplier_code"> -->
+                                                <!-- <div class="input-group-append">
+                                                    <span style="border-radius:0;" class="input-group-text form-control">
+                                                    <a href="#" id="supplier_popup" data-toggle="modal" data-target="#mySupplier" class="mySupplier"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                    </span>
+                                                </div> -->
+                                                </div>
+                                            </td>
+                                            </tr>
+                                        </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                        <table>
+                                            <tr>
+                                            <td>
+                                                <button class="btn btn-default btn-sm" type="submit">
+                                                <img src="{{ asset('AdminLTE-master/dist/img/backwards.png') }}" width="12" alt="" title="Show"> Show
+                                                </button>
+                                            </td>
+                                            </form>
+
+                                            <form method="post" enctype="multipart/form-data" action="{{ route('PurchaseRequisition.PrintExportReportPurchaseRequisitionSummary') }}">
+                                                @csrf
+                                                <td>
+                                                <select name="print_type" id="print_type" class="form-control">
+                                                    <option value="PDF">PDF</option>
+                                                    <option value="Excel">Excel</option>
+                                                </select>
+                                                </td>
+                                                <td>
+
+                                                <button class="btn btn-default btn-sm" type="submit">
+                                                    <img src="{{ asset('AdminLTE-master/dist/img/printer.png') }}" width="17" alt="" title="Print">
+                                                </button>
+                                                </td>
+
+                                            </form>
+                                            </tr>
+                                        </table>
+                                        </div>
+                                    </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
                             <div class="col-12 ShowTableReportPurchaseRequisitionSummary">
                                 <div class="card">
                                     <div class="card-header">
@@ -72,14 +180,12 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 </div>
-
 @include('Partials.footer')
 @include('Purchase.PurchaseRequisition.Functions.Footer.FooterReportPurchaseRequisitionSummary')
 @endsection
