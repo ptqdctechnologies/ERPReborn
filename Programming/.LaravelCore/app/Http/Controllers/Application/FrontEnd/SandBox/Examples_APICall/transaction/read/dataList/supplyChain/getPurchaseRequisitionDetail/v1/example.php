@@ -33,24 +33,26 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             if (!$varAPIWebToken) {
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
+                
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail', 
-                'latest', 
-                [
-                'parameter' => [
-                    'purchaseRequisition_RefID' => 83000000000001
-                    ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken, 
+                    'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail', 
+                    'latest', 
+                    [
+                    'parameter' => [
+                        'purchaseRequisition_RefID' => 83000000000001
+                        ],
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                        ]
                     ]
-                ]
-                );
+                    );
             var_dump($varData);
             }
 
@@ -84,23 +86,24 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo '<tr><td>Filter</td><td><input type="text" id="dataInput_SQLStatement_filter" value=""></td></tr>';
             echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
             echo '</table>';
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail', 
-                'latest', 
-                '{'.
-                    '"parameter" : {'.
-                        '"purchaseRequisition_RefID" : parseInt(document.getElementById("dataInput_PurchaseRequisition_RefID").value) '.
-                        '}, '.
-                    '"SQLStatement" : {'.
-                        '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
-                        '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.
-                        '"filter" : document.getElementById("dataInput_SQLStatement_filter").value, '.
-                        '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
-                        '}'.
-                '}'
-                ); 
+            $varJQueryFunction =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                    $varAPIWebToken, 
+                    'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail', 
+                    'latest', 
+                    '{'.
+                        '"parameter" : {'.
+                            '"purchaseRequisition_RefID" : parseInt(document.getElementById("dataInput_PurchaseRequisition_RefID").value) '.
+                            '}, '.
+                        '"SQLStatement" : {'.
+                            '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
+                            '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.
+                            '"filter" : document.getElementById("dataInput_SQLStatement_filter").value, '.
+                            '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
+                            '}'.
+                    '}'
+                    ); 
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);
             }
