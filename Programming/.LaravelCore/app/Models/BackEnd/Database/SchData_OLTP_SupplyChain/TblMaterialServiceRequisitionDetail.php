@@ -5,7 +5,7 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_SupplyChain                                                                     |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2022 - 2023 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_SupplyChain
@@ -55,12 +55,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
-        |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► Log File Upload Pointer Reference ID                                   |
-        |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Worker Jobs Position Reference ID                       |
+        |      ▪ (int)    varMaterialServiceRequisition_RefID ► Purchase Requisition Reference ID                                         |
+        |      ▪ (int)    varCombinedBudgetSectionDetail_RefID ► Combined Budget Section Detail Reference ID                       |
+        |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
+        |      ▪ (float)  varQuantity ► Quantity                                                                                   |
+        |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
+        |      ▪ (int)    varProductUnitPriceCurrency_RefID ► Product Unit Price Currency Reference ID                             |
+        |      ▪ (float)  varProductUnitPriceCurrencyValue ► Product Unit Price Currency Value                                     |
+        |      ▪ (float)  varProductUnitPriceCurrencyExchangeRate ► Product Unit Price Currency Exchange Rate                      |
+        |      ▪ (string) varFulfillmentDeadlineDateTimeTZ ► Fulfillment Deadline DateTimeTZ                                       |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
-        |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -68,8 +73,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varRemarks = null,
-            array $varAdditionalData = [])
+            int $varMaterialServiceRequisition_RefID = null, int $varCombinedBudgetSectionDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, string $varFulfillmentDeadlineDateTimeTZ = null, string $varRemarks = null)
             {
             $varReturn = 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -85,12 +89,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
-                            [$varDocumentDateTimeTZ, 'timestamptz'],
-                            [$varLog_FileUpload_Pointer_RefID, 'bigint'],
-                            [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
-                            [$varRemarks, 'varchar'],
-
-                            [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
+                            [$varMaterialServiceRequisition_RefID, 'bigint'],
+                            [$varCombinedBudgetSectionDetail_RefID, 'bigint'],
+                            [$varProduct_RefID, 'bigint'],
+                            [$varQuantity, 'numeric'],
+                            [$varQuantityUnit_RefID, 'bigint'],
+                            [$varProductUnitPriceCurrency_RefID, 'bigint'],
+                            [$varProductUnitPriceCurrencyValue, 'numeric'],
+                            [$varProductUnitPriceCurrencyExchangeRate, 'numeric'],
+                            [$varFulfillmentDeadlineDateTimeTZ, 'timestamptz'],
+                            [$varRemarks, 'varchar']
                         ]
                         )
                     );
@@ -116,12 +124,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
-        |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► Log File Upload Pointer Reference ID                                   |
-        |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Worker Jobs Position Reference ID                       |
+        |      ▪ (int)    varMaterialServiceRequisition_RefID ► Purchase Requisition Reference ID                                         |
+        |      ▪ (int)    varCombinedBudgetSectionDetail_RefID ► Combined Budget Section Detail Reference ID                       |
+        |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
+        |      ▪ (float)  varQuantity ► Quantity                                                                                   |
+        |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
+        |      ▪ (int)    varProductUnitPriceCurrency_RefID ► Product Unit Price Currency Reference ID                             |
+        |      ▪ (float)  varProductUnitPriceCurrencyValue ► Product Unit Price Currency Value                                     |
+        |      ▪ (float)  varProductUnitPriceCurrencyExchangeRate ► Product Unit Price Currency Exchange Rate                      |
+        |      ▪ (string) varFulfillmentDeadlineDateTimeTZ ► Fulfillment Deadline DateTimeTZ                                       |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
-        |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -129,8 +142,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varRemarks = null, 
-            array $varAdditionalData = [])
+            int $varMaterialServiceRequisition_RefID = null, int $varCombinedBudgetSectionDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, string $varFulfillmentDeadlineDateTimeTZ = null, string $varRemarks = null)
             {
             $varReturn = 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -146,12 +158,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
-                            [$varDocumentDateTimeTZ, 'timestamptz'],
-                            [$varLog_FileUpload_Pointer_RefID, 'bigint'],
-                            [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
-                            [$varRemarks, 'varchar'],
-
-                            [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
+                            [$varMaterialServiceRequisition_RefID, 'bigint'],
+                            [$varCombinedBudgetSectionDetail_RefID, 'bigint'],
+                            [$varProduct_RefID, 'bigint'],
+                            [$varQuantity, 'numeric'],
+                            [$varQuantityUnit_RefID, 'bigint'],
+                            [$varProductUnitPriceCurrency_RefID, 'bigint'],
+                            [$varProductUnitPriceCurrencyValue, 'numeric'],
+                            [$varProductUnitPriceCurrencyExchangeRate, 'numeric'],
+                            [$varFulfillmentDeadlineDateTimeTZ, 'timestamptz'],
+                            [$varRemarks, 'varchar']
                         ]
                         )
                     );

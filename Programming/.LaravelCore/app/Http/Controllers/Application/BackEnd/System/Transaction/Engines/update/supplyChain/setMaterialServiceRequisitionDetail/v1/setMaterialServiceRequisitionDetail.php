@@ -66,7 +66,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                         if (!($varDataSend = 
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate(
                                 $varUserSession, 
-                                (new \App\Models\Database\SchData_OLTP_SupplyChain\TblPurchaseRequisitionDetail())->setDataUpdate(
+                                (new \App\Models\Database\SchData_OLTP_SupplyChain\TblMaterialServiceRequisitionDetail())->setDataUpdate(
                                     $varUserSession,
                                     $varData['recordID'],
                                     null,
