@@ -11,7 +11,7 @@
         // $("#supplier_code2").prop("disabled", true);
         // $("#deliver_code2").prop("disabled", true);
     });
-</slcript>
+</script>
 
 <script>
     $('#pr_number2').one('click', function () {
@@ -74,7 +74,8 @@
             type: "POST",
           url: '{!! route("PurchaseOrder.StoreValidatePurchaseOrderPrNumber") !!}?supplier_id=' + supplier_id + '&supplier_code=' + supplier_code + '&supplier_name=' + supplier_name + '&pr_RefID=' + pr_RefID,
             success: function(data) {
-                console.log(data);
+                console.log('data', data);
+                
                 if(data.status == 200){
                  
                     $("#supplier_id").val(data.supplier_id);

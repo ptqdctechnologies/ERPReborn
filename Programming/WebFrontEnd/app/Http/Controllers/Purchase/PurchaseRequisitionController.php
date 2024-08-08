@@ -25,7 +25,8 @@ class PurchaseRequisitionController extends Controller
         ];
         return view('Purchase.PurchaseRequisition.Transactions.CreatePurchaseRequisition', $compact);
     }
-    public function Reports(Request $request)
+
+    public function ReportPurchaseRequisitionSummary(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionPurchaseOrderPrNumber");
@@ -44,6 +45,43 @@ class PurchaseRequisitionController extends Controller
 
         return view('Purchase.PurchaseRequisition.Reports.ReportPurchaseRequisitionSummary', $compact);
     }
+
+    public function ReportPurchaseRequisitionSummaryData($id) 
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+
+            $filteredArray = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'report.form.documentForm.supplyChain.getPurchaseRequisition', 
+                'latest',
+                [
+                'parameter' => [
+                    'recordID' => (int) $id
+                    ]
+                ]
+            );
+
+            dd($filteredArray);
+
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportPurchaseRequisitionSummaryStore(Request $request) {
+        $budget         = $request->budget;
+        $budgetID       = $request->budget_id;
+        $budgetName     = $request->budget_name;
+        $subBudget      = $request->sub_budget;
+        $subBudgetID    = $request->sub_budget_id;
+        $supplierID     = $request->supplier_id;
+        $supplierCode   = $request->supplier_code;
+
+        $testing = $this->ReportPurchaseRequisitionSummaryData($budgetID);
+    }
+
     public function ReportsPrtoPo(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -61,7 +99,8 @@ class PurchaseRequisitionController extends Controller
 
         return view('Purchase.PurchaseRequisition.Reports.ReportPurchaseRequisitionToPurchaseOrder', $compact);
     }
-    public function ReportsDetail(Request $request)
+
+    public function ReportPurchaseRequisitionDetail(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionPurchaseOrderPrNumber");
@@ -162,7 +201,6 @@ class PurchaseRequisitionController extends Controller
         // Var Data -> Combined Budget -> Approver Entity -> Submitter Entity
         return $this->SelectWorkFlow($varData, $SessionWorkerCareerInternal_RefID, $VarSelectWorkFlow);
     }
-
 
     public function PurchaseRequisitionListData(Request $request)
     {

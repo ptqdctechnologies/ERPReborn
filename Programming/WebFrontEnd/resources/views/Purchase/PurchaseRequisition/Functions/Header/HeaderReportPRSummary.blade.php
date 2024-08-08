@@ -1,5 +1,5 @@
 <div class="card">
-    <form method="post" action="{{ route('PurchaseOrder.ReportPurchaseOrderSummaryStore') }}" id="FormSubmitReportPurchaseOrderSummary">
+    <form method="post" action="{{ route('PurchaseRequisition.ReportPurchaseRequisitionSummaryStore') }}" id="FormSubmitReportPurchaseRequisitionSummary">
     @csrf
     <div class="card-body">
         <div class="row">
@@ -11,6 +11,7 @@
                             <td>
                                 <div class="input-group">
                                     <input id="budget_id" style="border-radius:0;" class="form-control" name="budget_id" type="hidden">
+                                    <input id="budget_name" style="border-radius:0;" class="form-control" name="budget_name" type="hidden">
                                     <input id="budget" style="border-radius:0;background-color:white;" class="form-control myProject" name="budget" readonly data-toggle="modal" data-target="#myProject">
                                     <div class="input-group-append">
                                         <span style="border-radius:0;" class="input-group-text form-control">
@@ -50,26 +51,14 @@
                             <th style="padding-top: 7px;"><label>Supplier&nbsp;</label></th>
                             <td>
                                 <div class="input-group">
-                                    <input id="project_id" name="project_id" value="" hidden>
-                                    <input id="site_id" name="site_id" value="" hidden>
-                                    <input id="advance_RefID" name="advance_RefID" hidden>
-                                    <input id="advance_number" style="border-radius:0;background-color:white;" data-toggle="modal" data-target="#PopUpTableAdvanceRevision" class="PopUpTableAdvanceRevision form-control" name="advance_number" value="" readonly>
+                                    <input id="supplier_id" hidden name="supplier_id">
+                                    <input id="supplier_code" style="border-radius:0;background-color:white;" data-toggle="modal" data-target="#mySupplier" class="form-control mySupplier" readonly name="supplier_code"> 
                                     <div class="input-group-append">
                                         <span style="border-radius:0;" class="input-group-text form-control">
-                                        <a href="#" id="advance_popup" data-toggle="modal" data-target="#PopUpTableAdvanceRevision" class="PopUpTableAdvanceRevision"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                        <a href="#" id="supplier_popup" data-toggle="modal" data-target="#mySupplier" class="mySupplier"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                         </span>
                                     </div>
                                 </div>
-
-                                <!-- <div class="input-group">
-                                    <input id="work_id" style="border-radius:0;" class="form-control" name="work_id" type="hidden">
-                                    <input id="work" style="border-radius:0;background-color:white;" class="form-control myProject" name="work_id" readonly data-toggle="modal" data-target="#myProject">
-                                    <div class="input-group-append">
-                                        <span style="border-radius:0;" class="input-group-text form-control">
-                                            <a href="#" id="work_popup" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                                        </span>
-                                    </div>
-                                </div> -->
                             </td>
                         </tr>
                     </table>
@@ -85,19 +74,19 @@
                                 </button>
                                 &nbsp;&nbsp;&nbsp;
                             </td>
-                            </form>
+                        </form>
 
-                            <form method="post" action="{{ route('PurchaseOrder.PrintExportReportPurchaseOrderSummary') }}" id="FormSubmitReportPurchaseOrderSummary">
-                            @csrf
+                            <form method="post" action="{{ route('PurchaseRequisition.PrintExportReportPurchaseRequisitionSummary') }}">
+                                @csrf
                                 <td>
                                     <select name="print_type" id="print_type" class="form-control">
                                         <option value="PDF">Export PDF</option>
-                                        <option value="Excel">Export Excel</option>
+                                        <option value="Excel">Expot Excel</option>
                                     </select>
                                 </td>
                                 <td>
                                     <button class="btn btn-default btn-sm" type="submit">
-                                        <span><img src="{{ asset('AdminLTE-master/dist/img/printer.png') }}" width="17" alt=""></span>
+                                        <img src="{{ asset('AdminLTE-master/dist/img/printer.png') }}" width="17" alt="" title="Print">
                                     </button>
                                 </td>
                             </form>
