@@ -27,7 +27,6 @@ class ExportReportDOSummary implements FromCollection, WithHeadings, ShouldAutoS
                     $detail['DONumber'],
                     $detail['date'],
                     $detail['total'],
-                    $detail['totalOtherCurrency'],
                 ]
             );
         }
@@ -38,7 +37,6 @@ class ExportReportDOSummary implements FromCollection, WithHeadings, ShouldAutoS
                 '',
                 'Total',
                 $data['total'],
-                $data['totalOtherCurrency'],
             ]
         );
 
@@ -49,7 +47,7 @@ class ExportReportDOSummary implements FromCollection, WithHeadings, ShouldAutoS
     {
         return [
             ["", "", "", "", "", ""],
-            ["No", "DO Number", "Date", "Total IDR", "Total Other Currency"]
+            ["No", "DO Number", "Date", "Qty"]
         ];
     }
 
