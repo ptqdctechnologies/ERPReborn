@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Budget;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use DB;
@@ -36,6 +37,11 @@ class BudgetController extends Controller
         // dd($varData);
         return view('Budget.Budget.Transactions.index', ['data' => $varData['data']]);
     }
+
+    public function ModifyBudget(Request $request) {
+        return view('Budget.Budget.Transactions.ModifyBudget');
+    }
+
     public function create()
     {
         return view('Budget.Budget.Transactions.create');
@@ -137,5 +143,4 @@ class BudgetController extends Controller
         );
         return redirect()->route('Budget.index');
     }
-
 }
