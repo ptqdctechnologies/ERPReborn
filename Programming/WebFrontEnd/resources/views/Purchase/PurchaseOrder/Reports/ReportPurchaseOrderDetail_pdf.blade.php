@@ -9,13 +9,13 @@
 
     <style>
         @page {
-            margin: 100px 30px 450px 30px;
+            margin: 100px 30px 480px 30px;
         }
         header, footer {
             position: fixed;
             left: 0;
             right: 0;
-            height: 50px;
+            height: 20px;
             text-align: center;
             line-height: 35px;
         }
@@ -23,7 +23,7 @@
             top: -80px;
         }
         footer {
-            bottom: -50px;
+            bottom: -15px;
         }
         body {
             margin-top: 20px;
@@ -94,7 +94,7 @@
                         <tr style="border: 1px solid black;">
                             <td style="padding: 4px;">
                                 <div style="vertical-align: top; font-size: 10px; height: 20px; font-weight: bold;">
-                                    Vendor :
+                                    Supplier :
                                 </div>
                                 <div style="vertical-align: top; font-size: 10px; height: 20px;">
                                     <?= $dataReport['dataHeader']['vendor']; ?>
@@ -193,7 +193,7 @@
                 </td>
                 <td style="border: 1px solid black; height: 30px;">
                     <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px;">
-                        <?= $dataReport['dataHeader']['PIC']; ?>
+                        <?= Session::get("SessionLoginName"); ?>
                     </div>
                 </td>
             </tr>
@@ -209,15 +209,15 @@
                         Payment Term :
                     </div>
                     <div style="vertical-align: top; line-height: 10px; font-size: 10px;">
-                        <?= $dataReport['dataHeader']['paymentTerm']; ?>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     </div>
                 </div>
-                <div style="padding-left: 4px; margin: 40px 0px;">
+                <div style="padding-left: 4px; margin: 10px 0px;">
                     <div style="vertical-align: top; line-height: 10px; font-size: 10px; font-weight: bold;">
                         Remark :
                     </div>
                     <div style="vertical-align: top; line-height: 10px; font-size: 10px;">
-                        <?= $dataReport['dataHeader']['remark']; ?>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     </div>
                 </div>
             </td>
@@ -236,7 +236,7 @@
                         </td>
                         <td style="line-height: 20px; width: 95px;">
                             <div style="vertical-align: top; font-size: 12px; text-align: right;">
-                                27,030,500.00
+                                <?= $dataReport['totalIDRWithoutPPN']; ?>
                             </div>
                         </td>
                     </tr>
@@ -254,7 +254,7 @@
                         </td>
                         <td style="line-height: 20px; width: 95px;">
                             <div style="vertical-align: top; font-size: 12px; text-align: right;">
-                                0.00
+                                0
                             </div>
                         </td>
                     </tr>
@@ -272,7 +272,7 @@
                         </td>
                         <td style="line-height: 20px; width: 95px;">
                             <div style="vertical-align: top; font-size: 12px; text-align: right;">
-                                27,030,500.00
+                                <?= $dataReport['totalIDRWithoutPPN']; ?>
                             </div>
                         </td>
                     </tr>
@@ -530,12 +530,12 @@
                         <tr>
                             <td>
                                 <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 4px 8px;">
-                                    With PPN
+                                    With VAT
                                 </div>
                             </td>
                             <td>
                                 <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 4px 8px;">
-                                    Without PPN
+                                    Without VAT
                                 </div>
                             </td>
                         </tr>
@@ -553,12 +553,12 @@
                         <tr>
                             <td>
                                 <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 4px 8px;">
-                                    With PPN
+                                    With VAT
                                 </div>
                             </td>
                             <td>
                                 <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 4px 8px;">
-                                    Without PPN
+                                    Without VAT
                                 </div>
                             </td>
                         </tr>

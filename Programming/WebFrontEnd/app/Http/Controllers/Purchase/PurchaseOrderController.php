@@ -270,9 +270,9 @@ class PurchaseOrderController extends Controller
                 'file'          => 'qdc-technologies.png',
                 'vendor'        => 'VDR2693- Lazuardi Rukun Perkasa',
                 'deliver'       => 'PT Qdc Technologies',
-                'invoice'       => 'PT Qdc Technologies',
+                'invoice'       => 'Warehouse Kolaka',
                 'currency'      => 'IDR',
-                'PIC'           => 'admin.procurement',
+                'PIC'           => $getData['content']['general']['involvedPersons'][0]['requesterWorkerName'],
                 'remark'        => $getData['content']['general']['remarks']
             ];
 

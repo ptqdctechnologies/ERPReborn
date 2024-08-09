@@ -89,12 +89,12 @@
                         <tr>
                             <td>
                                 <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 16px 8px;">
-                                    With PPN
+                                    With VAT
                                 </div>
                             </td>
                             <td>
                                 <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 16px 8px;">
-                                    Without PPN
+                                    Without VAT
                                 </div>
                             </td>
                         </tr>
@@ -112,12 +112,12 @@
                         <tr>
                             <td>
                                 <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 16px 8px;">
-                                    With PPN
+                                    With VAT
                                 </div>
                             </td>
                             <td>
                                 <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 16px 8px;">
-                                    Without PPN
+                                    Without VAT
                                 </div>
                             </td>
                         </tr>

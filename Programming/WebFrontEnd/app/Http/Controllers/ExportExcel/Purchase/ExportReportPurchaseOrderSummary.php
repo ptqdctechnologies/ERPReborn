@@ -60,7 +60,7 @@ class ExportReportPurchaseOrderSummary implements FromCollection, WithHeadings, 
         return [
             ["", "", "", "", "", "", "", "", "", ""],
             ["No", "Product Id", "Qty", "Price", "UOM", "Total IDR", " ", "Total Other Currency", " ", "Currency"],
-            ["", "", "", "", "", "With PPN", "Without PPN", "With PPN", "Without PPN", ""],
+            ["", "", "", "", "", "With VAT", "Without VAT", "With VAT", "Without VAT", ""],
         ];
     }
 
