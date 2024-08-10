@@ -255,11 +255,13 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (array)  varDataSend ► Data Send                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (bool)   varSignConvertPHPArrayToJSONCamelCase ► Sign Comvert PHP Array to JSON CamelCase                         |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (int)    varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getEngineDataSend_DataRead($varUserSession, array $varDataSend)
+        public static function getEngineDataSend_DataRead($varUserSession, array $varDataSend, bool $varSignConvertPHPArrayToJSONCamelCase = TRUE)
             {
             if(is_array($varDataSend) == FALSE)
                 {
@@ -273,7 +275,40 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                     }
                 else
                     {
-                    $varReturn = \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_CamelCase($varUserSession, $varDataSend);
+                    //$varReturn = \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_CamelCase($varUserSession, $varDataSend);
+                    if ($varSignConvertPHPArrayToJSONCamelCase == TRUE)
+                        {
+                        $varReturn = 
+                            \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                                $varUserSession, 
+                                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                                    $varUserSession,
+                                    'SchSysAsset.Func_General_JSONArray_ConvertKeysToCamelCase',
+                                    [
+                                        [
+                                        \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
+                                            $varUserSession,
+                                            $varDataSend
+                                            ),
+                                        'json'
+                                        ]
+                                    ]
+                                    )
+                                );
+                        }
+                    else
+                        {
+                        $varReturn = $varDataSend;
+                        }
+                    
+                    /*
+                    $varReturn = 
+                        \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
+                            $varUserSession,
+                            $varDataSend
+                            );
+                    */
+                    //dd($varReturn);
                     }
                 return $varReturn;
                 

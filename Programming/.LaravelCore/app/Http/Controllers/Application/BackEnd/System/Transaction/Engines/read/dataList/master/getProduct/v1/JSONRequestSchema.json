@@ -19,10 +19,15 @@
                         "minLength": 1
                         }
                     },
-                "required": [ "key", "version" ]
+                "required": [
+                    "key",
+                    "version"
+                    ]
                 }
             },
-        "required": [ "API" ]
+        "required": [
+            "API"
+            ]
         },
     "data": {
         "type": "object",
@@ -38,7 +43,9 @@
                         "maxLength": 30
                         }
                     },
-                "required": [ "dateTime" ]
+                "required": [
+                    "dateTime"
+                    ]
                 },
             "SQLStatement": {
                 "type": "object",
@@ -56,11 +63,22 @@
                         "type": [ "string", "null" ]
                         }
                     },
-                "required": [ "pick", "sort", "filter", "paging" ]
+                "required": [
+                    "pick",
+                    "sort",
+                    "filter",
+                    "paging"
+                    ]
                 }
             },
-        "required": [ "parameter", "SQLStatement" ]
+        "required": [
+            "parameter",
+            "SQLStatement"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }
