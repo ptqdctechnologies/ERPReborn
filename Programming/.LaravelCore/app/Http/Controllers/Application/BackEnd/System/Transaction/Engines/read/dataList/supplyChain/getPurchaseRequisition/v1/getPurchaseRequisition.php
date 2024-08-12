@@ -71,7 +71,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                         if (!($varDataSend =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_SupplyChain\General())->getDataList_PurchaseRequisition(
+                                (new \App\Models\Database\SchData_OLTP_SupplyChain\General())->getDataListJSON_PurchaseRequisition(
                                     $varUserSession,
                                     (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
 
@@ -79,7 +79,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                                     $varData['SQLStatement']['sort'],
                                     $varData['SQLStatement']['filter'],
                                     $varData['SQLStatement']['paging']
-                                    )
+                                    ),
+                                FALSE
                                 )
                             ))
                             {
