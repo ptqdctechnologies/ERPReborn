@@ -1,14 +1,14 @@
 FROM library/postgres
 ENV DEBIAN_FRONTEND=noninteractive
 
-ENV POSTGRES_USER postgres
-ENV POSTGRES_PASSWORD 748159263
-ENV POSTGRES_DB postgres
+ENV POSTGRES_USER=postgres
+ENV POSTGRES_PASSWORD=748159263
+ENV POSTGRES_DB=postgres
 
-ENV MYSQL_USER SysEngine
-ENV MYSQL_PASSWORD 748159263
-ENV MYSQL_ROOT_PASSWORD 748159263
-ENV MYSQL_DATABASE db
+ENV MYSQL_USER=SysEngine
+ENV MYSQL_PASSWORD=748159263
+ENV MYSQL_ROOT_PASSWORD=748159263
+ENV MYSQL_DATABASE=db
 
 RUN printf "deb http://kambing.ui.ac.id/debian/ buster main contrib non-free" >> /etc/apt/sources.list \
     && printf "deb http://repo.ugm.ac.id/debian/ buster main contrib non-free" >> /etc/apt/sources.list

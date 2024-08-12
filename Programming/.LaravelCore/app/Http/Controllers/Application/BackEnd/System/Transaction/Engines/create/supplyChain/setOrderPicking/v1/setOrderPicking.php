@@ -62,32 +62,39 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_SupplyChain\TblOrderPicking())->setDataInsert(
-                            $varUserSession, 
-                            null, 
-                            null,
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
+                        if (!($varDataSend =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate(
+                                $varUserSession,
+                                (new \App\Models\Database\SchData_OLTP_SupplyChain\TblOrderPicking())->setDataInsert(
+                                    $varUserSession, 
+                                    null, 
+                                    null,
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                                    \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
 
-                            $varData['entities']['documentDateTimeTZ'],
-                            null,
-                            $varData['entities']['requesterWorkerJobsPosition_RefID'],
-                            $varData['entities']['warehouse_RefID'],
-                            $varData['entities']['deliveryDateTimeTZ'],
-                            $varData['entities']['deliveryDestination_RefID'],
-                            $varData['entities']['remarks'],
-                            
-                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'additionalData', $varData['entities']) ? ((!is_null($varData['entities']['additionalData'])) ? $varData['entities']['additionalData'] : []) : [])
-                            ))))
+                                    $varData['entities']['documentDateTimeTZ'],
+                                    null,
+                                    $varData['entities']['requesterWorkerJobsPosition_RefID'],
+                                    $varData['entities']['warehouse_RefID'],
+                                    $varData['entities']['deliveryDateTimeTZ'],
+                                    $varData['entities']['deliveryDestination_RefID'],
+                                    $varData['entities']['remarks'],
+
+                                    (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'additionalData', $varData['entities']) ? ((!is_null($varData['entities']['additionalData'])) ? $varData['entities']['additionalData'] : []) : [])
+                                    )
+                                )
+                            ))
                             {
                             throw new \Exception();
                             }
+
                         //---> Set Business Document Data Into varDataSend
                         $varDataSend['businessDocument'] = 
                             (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentByRecordID(
                                 $varUserSession, 
                                 $varDataSend['recordID']
                                 );
+
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {

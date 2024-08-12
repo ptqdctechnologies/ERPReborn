@@ -1950,6 +1950,128 @@ namespace App\Models\Database\SchData_OLTP_Master
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataListJSON_PersonGender                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-08-09                                                                                           |
+        | ▪ Creation Date   : 2024-08-09                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Jenis Kelamin Orang                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ------------------------------                                                                                      |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataListJSON_PersonGender(
+            $varUserSession, int $varBranch_RefID, 
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Master.Func_GetDataListJSON_PersonGender',
+                            [
+                                [$varBranch_RefID, 'bigint'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );                
+                
+                $varReturn['Data'] = 
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['Data'][0]['Func_GetDataListJSON_PersonGender']
+                        );
+                
+                return
+                    $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataListJSON_Product                                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-08-09                                                                                           |
+        | ▪ Creation Date   : 2024-08-09                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Jenis Produk                                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varDateTime ► Date Time                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataListJSON_Product(
+            $varUserSession, int $varBranch_RefID, 
+            string $varDateTime = null,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Master.Func_GetDataListJSON_Product',
+                            [
+                                [$varBranch_RefID, 'bigint'],
+
+                                [$varDateTime, 'timestamptz'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );                
+                
+                $varReturn['Data'] = 
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['Data'][0]['Func_GetDataListJSON_Product']
+                        );
+                
+                return
+                    $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataList_Product                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
