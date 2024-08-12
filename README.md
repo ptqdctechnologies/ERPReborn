@@ -19,6 +19,34 @@ Main Features :
 6. SQL Injection Threat Prevention For Some Implemented APIs
 ```
 
+<h3>Langkah-Langkah Instalasi Docker pada Linux FEDORA</h3>
+
+Referensi (12 Agustus 2024) : https://docs.docker.com/engine/install/fedora/
+
+1. Hapus instalasi docker bawaan fedora :
+   ```diff
+   sudo dnf remove docker \
+      docker-client \
+      docker-client-latest \
+      docker-common \
+      docker-latest \
+      docker-latest-logrotate \
+      docker-logrotate \
+      docker-selinux \
+      docker-engine-selinux \
+      docker-engine;
+   ```
+2. Set up repository :
+   ```diff
+   sudo dnf -y install dnf-plugins-core; sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo;
+   ```
+4. Install Docker Engine, containerd, and Docker Compose :
+   ```diff
+   sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin;
+   ```
+5. Klik Yes (Y) untuk menerima Kunci GPG
+
+
 <h3>Langkah-Langkah Instalasi dan Cloning Repository</h3>
 
 1. Pastikan terlebih dahulu hal-hal sebagai berikut :
@@ -42,7 +70,7 @@ Main Features :
       **Image** | **Tag**
       :--- | :---
       postgres | latest
-      php | 8.2.13-apache
+      php | 8.3.3-apache
       redis | latest
       nowsci/samba-domain | latest
       minio/minio | latest
@@ -53,8 +81,8 @@ Main Features :
       **Customized Image** | **Source Image**
       :--- | :---
       erp-reborn-postgresql | postgres:latest
-      erp-reborn-phpapache-backend | php:8.2.13-apache
-      erp-reborn-phpapache-frontend | php:8.2.13-apache
+      erp-reborn-phpapache-backend | php:8.3.3-apache
+      erp-reborn-phpapache-frontend | php:8.3.3-apache
       erp-reborn-samba | nowsci/samba-domain:latest
       erp-reborn-minio | minio/minio:latest
       erp-reborn-devtools-pgadmin4 | dpage/pgadmin4:latest
@@ -115,13 +143,16 @@ Main Features :
 **Icha Mailinda** | <em>FrontEnd And BackEnd Developer Coordinator</em>
 
 ![Team-FrontEndDeveloper](https://i.ibb.co/RyRHf8f/Team-Suyanto.jpg)
-**Suyanto** | <em>FrontEnd Developer</em>
+**Suyanto** | <em>FrontEnd Developer (26 December 2019 - Now)</em>
+
+![Team-BackEndDeveloper](https://i.ibb.co.com/C8NGZL3/Team-Wisnu-Trenggono-Wirayuda.jpg)
+**Wisnu Trenggono Wirayuda** | <em>FrontEnd Developer (15 June 2024 - Now)</em>
 
 ![Team-BackEndDeveloper](https://i.ibb.co/ZJ6J72b/Team-Aldi-Mulyadi.jpg)
-**Aldi Mulyadi** | <em>BackEnd Developer</em>
+**Aldi Mulyadi** | <em>FrontEnd Developer (14 October 2020 - 14 June 2024)</em>
 
 ![Team-DatabaseEngineer](https://i.ibb.co/LdBfhDH/Teguh-Pratama-Januzir-S.jpg)
-**Teguh Pratama Januzir S** | <em>Database Engineer</em>
+**Teguh Pratama Januzir S** | <em>Database Engineer And BackEnd Developer</em>
 
 ![Team-SystemAdministrator](https://i.ibb.co/zn7vX0K/Team-Zainudin-Anwar.jpg)
-**Zainudin Anwar** | <em>System Administrator</em>
+**Zainudin Anwar** | <em>System Administrator (9 August 2019 - Now)</em>
