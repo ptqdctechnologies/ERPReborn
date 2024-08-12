@@ -72,6 +72,14 @@
   <!-- jQuery -->
   <script src="{{ asset('AdminLTE-master/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
   <script src="{{ asset('AdminLTE-master/plugins/moment/moment.min.js') }}"></script>
+  <!-- BS-CUSTOM-FILE-INPUT ===WISNU=== -->
+  <script src="{{ asset('AdminLTE-master/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+  <!-- ===WISNU=== -->
+  <script>
+    $(function () {
+      bsCustomFileInput.init();
+    });
+  </script>
   <!-- DataTables -->
   <script src="{{ asset('AdminLTE-master/dist/js/jquery.dataTables.min.js') }}"></script>
   <!-- Fullcalender -->
@@ -82,7 +90,6 @@
   <script src="{{ asset('AdminLTE-master/plugins/select2/js/select2.full.min.js') }}"></script>
   <!-- Format Date -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.min.js"></script>
-
 </body>
 
 </html>

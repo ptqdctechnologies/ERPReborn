@@ -361,8 +361,10 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
 
     //SETTING
-
     Route::get('ColorMode', 'Setting\Mode\ColorModeController@ColorMode')->name('ColorMode');
+
+    // Wisnu
+    Route::post('ModifyBudget', 'TestApiController@wisnu')->name('ModifyBudget');
 });
 
 

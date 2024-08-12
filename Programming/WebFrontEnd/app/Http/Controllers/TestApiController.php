@@ -2,7 +2,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Log;
 
 class TestApiController extends Controller
 {
@@ -244,5 +246,38 @@ class TestApiController extends Controller
         echo "#Total "."# ". $jum_debit. "# ". $jum_kredit." ".$balance." <br>";
 
     }
-    
+
+    public function wisnu(Request $request) {
+        try {
+            // BUDGET CODE
+            $budgetID   = $request->project_id;
+            $budgetCode = $request->project_code;
+            $budgetName = $request->project_name;
+
+            // SUB BUDGET CODE
+            $subBudgetID    = $request->site_id;
+            $subBudgetCode  = $request->site_code;
+            $subBudgetName  = $request->site_name;
+
+            // REASON FOR MODIFY
+            $reason = $request->reason_modify;
+
+            // ADDITIONAL CO
+            $additionalCO = $request->additional_co;
+
+            // CURRENCY
+            $currency = $request->currency;
+
+            // VALUE ADDITIONAL CO
+            $valueAdditionalCO = $request->value_co_additional;
+
+            // FILES
+            $files = $request->uploaded_files;
+            
+            dd($budgetID, $budgetCode, $budgetName, $subBudgetID, $subBudgetCode, $subBudgetName, $reason, $additionalCO, $currency, $valueAdditionalCO, $files);
+        } catch (\Throwable $th) {
+            Log::error("Error at PrintExportReportDODetail: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
 }
