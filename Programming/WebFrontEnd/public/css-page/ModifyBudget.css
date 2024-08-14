@@ -49,3 +49,46 @@
     min-height: 1px;
     padding: 0rem 1rem;
 }
+
+/* MODIFY BUDGET */
+.first-col-modify-budget {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+    right: 0px;
+}
+
+.second-col-modify-budget {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+    right: 125px;
+}
+
+.third-col-modify-budget {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+    right: 250px;
+}
+
+.forth-col-modify-budget {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+    right: 375px;
+}
+
+.fifth-col-modify-budget {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+    right: 500px;
+}
+
+.sixth-col-modify-budget {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+    right: 625px;
+}
